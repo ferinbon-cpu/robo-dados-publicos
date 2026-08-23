@@ -3,6 +3,7 @@ name: CI OFFLINE
 run-name: "CI offline 0.5.9 by @${{ github.actor }}"
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
