@@ -1,0 +1,12 @@
+﻿qid,query,expected_status,actual_status,required,pass
+E01,Qual a meta do índice de alunos em Educação Integral para 2029?,ANSWERED,ANSWERED,2029: 59% | meta de planejamento,True
+E02,Qual a carga horária mínima indicada pelo CME?,ANSWERED,ANSWERED,sete horas diárias | cme_ind_02_2021#p5,True
+E03,Qual documento determina a retomada do Comitê e do Fórum?,ANSWERED,ANSWERED,retomar o Comitê | Fórum Municipal,True
+E04,Qual ato instituiu a política em 2024?,ANSWERED,ANSWERED,Decreto Municipal nº 118/2024 | confiança A,True
+E05,Qual lei vigente institui a Política Municipal de EITI?,ANSWERED,ANSWERED,7.366/2026 | EM VIGOR,True
+E06,Qual lei está em vigor e qual a meta do índice para 2026?,ANSWERED,ANSWERED,7.366/2026 | 2026: 53%,True
+E07,Quanto do Programa 2001 é orçamento específico da EITI?,EVIDENCIA_INSUFICIENTE,EVIDENCIA_INSUFICIENTE,não possui ação/dotação | não identidade financeira,True
+E08,Que trajetória de institucionalização documental aparece nas fontes?,ANSWERED,ANSWERED,2021: CME | 2024: Decreto | 2025: PPA | 2026: Lei | não prova causalidade,True
+E09,Qual a meta para 2028?,ANSWERED,ANSWERED,2028: 57%,True
+E10,Qual era o índice recente de alunos em Educação Integral?,ANSWERED,ANSWERED,52%,True
+E11,A Lei 7.366 comprova o valor executado da EITI?,EVIDENCIA_INSUFICIENTE,EVIDENCIA_INSUFICIENTE,não fornece | valor de execução | LDO/LOA,True

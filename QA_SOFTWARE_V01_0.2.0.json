@@ -1,0 +1,13 @@
+{
+  "software": "0.2.0",
+  "method": "V17",
+  "historical_regression": "109/109 PASS",
+  "unittest": "8/8 OK",
+  "compileall": "PASS",
+  "http_connector_local_server": "PASS",
+  "drive_rest_fake_transport": "PASS",
+  "oauth_pkce_contract": "PASS",
+  "live_google_drive_python_oauth": "PENDING_USER_AUTHORIZATION",
+  "method_blocker": "STOP_DATA_DEPENDENCY",
+  "next_action": "M4B_GOOGLE_OAUTH_LIVE_TEST"
+}

@@ -1,0 +1,30 @@
+{
+  "software_version": "0.3.0",
+  "historical_regression": {
+    "tests": 109,
+    "passes": 109,
+    "failures": 0,
+    "status": "PASS"
+  },
+  "unittest_exit": "PASS",
+  "status": {
+    "PROJECT_PHASE": "SOFTWARE_V01_CLOUDSHELL_LIVE_VALIDATED",
+    "LATEST_METHOD_VERSION": "V17",
+    "LATEST_SOFTWARE_VERSION": "0.3.0",
+    "blockers": [
+      {
+        "blocker_id": "FOMENTO_ETI_EXECUTION",
+        "status": "STOP_DATA_DEPENDENCY",
+        "description": "V18 metodológica depende de evidência de execução específica do Fomento ETI/2607004.",
+        "updated_at": "2026-08-21T19:08:14.534156+00:00"
+      }
+    ]
+  },
+  "new_capabilities": [
+    "GcloudTokenProvider",
+    "drive-ls",
+    "drive-roundtrip",
+    "DriveRESTClient.delete",
+    "DriveRESTClient.metadata"
+  ]
+}

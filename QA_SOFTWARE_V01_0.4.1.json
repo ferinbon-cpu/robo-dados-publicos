@@ -1,0 +1,20 @@
+{
+  "software_version": "0.4.1",
+  "status": "CANDIDATE_QA_PASS",
+  "compileall": "PASS",
+  "unit_tests": {
+    "tests": 15,
+    "passes": 15,
+    "failures": 0,
+    "status": "PASS"
+  },
+  "historical_regression": {
+    "tests": 109,
+    "passes": 109,
+    "failures": 0,
+    "status": "PASS"
+  },
+  "secret_material_scan": "PASS_NO_REAL_SECRET_MATERIAL_DETECTED",
+  "github_actions_live_run": "PENDING",
+  "promotion_status": "DO_NOT_PROMOTE_BEFORE_LIVE_RUN"
+}

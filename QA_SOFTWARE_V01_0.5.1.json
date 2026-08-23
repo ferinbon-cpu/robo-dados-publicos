@@ -1,0 +1,21 @@
+{
+  "software_version": "0.5.1",
+  "status": "PASS",
+  "compileall": "PASS",
+  "unit_tests": {
+    "tests": 26,
+    "status": "PASS"
+  },
+  "historical_regression": {
+    "tests": 109,
+    "passes": 109,
+    "failures": 0,
+    "status": "PASS"
+  },
+  "security_guards": [
+    "robots_disallow_stop",
+    "human_challenge_stop_no_bypass",
+    "sensitive_query_redaction"
+  ],
+  "live_tda_probe": "PENDING_EXTERNAL_RUNTIME"
+}

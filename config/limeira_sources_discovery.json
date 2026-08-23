@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "jurisdiction": "Limeira/SP",
+  "purpose": "Discovery registry only; no source in this file is enabled for production collection.",
+  "surfaces": [
+    {
+      "source_id": "LIMEIRA_TDA_PORTAL",
+      "url": "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+      "role": "municipal_financial_transparency_core",
+      "status": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN",
+      "production_collection_enabled": false,
+      "known_capability_evidence": [
+        "receitas",
+        "despesas",
+        "fornecedor",
+        "empenho_liquidacao_pagamento",
+        "restos_a_pagar",
+        "recursos_humanos",
+        "compras_licitacoes_contratos"
+      ],
+      "notes": "Live passive probe preserved the exact ?418 query, observed redirect to logout/root and found no API/download hint. Exact Limeira endpoint contracts must still be proven before collection is enabled."
+    },
+    {
+      "source_id": "LIMEIRA_JORNAL_OFICIAL",
+      "url": "https://www.limeira.sp.gov.br/jornaloficial",
+      "role": "municipal_official_events_and_acts_core",
+      "status": "LIVE_VALIDATED",
+      "production_collection_enabled": false,
+      "known_capability_evidence": [
+        "edicao",
+        "data_publicacao",
+        "busca_por_periodo",
+        "busca_por_edicao",
+        "busca_por_termo",
+        "pdf_textual",
+        "acervo_legado"
+      ],
+      "notes": "Live discovery of August 2026 returned 12 declared editions; edition 7310 was downloaded as application/pdf and processed successfully. The software release is active, but production collection remains explicit opt-in through a separately configured source inventory."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.5.9",
+  "status": "CANDIDATE",
+  "milestone": "M4D_GITHUB_OFFLINE_READINESS",
+  "compileall": "PASS",
+  "unit_tests": "84/84 PASS",
+  "historical_regressions": "109/109 PASS",
+  "offline_github_preflight": "PASS_OFFLINE",
+  "secret_scan": "PASS",
+  "clean_reextraction": "PASS",
+  "github_live_gate": "PENDING_USER_CONNECTION"
+}

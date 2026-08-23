@@ -1,0 +1,19 @@
+{
+  "software": "0.5.0",
+  "status": "CANDIDATE_QA_PASS",
+  "historical_regression": "109/109 PASS",
+  "unittest": "21/21 PASS",
+  "compileall": "PASS",
+  "source_contract_tests": "6/6 PASS",
+  "source_inventory_validation": "PASS",
+  "conditional_get_304": "PASS_LOCAL_FIXTURE",
+  "bronze_hash_immutability": "PASS_LOCAL_FIXTURE",
+  "quarantine_on_content_type_mismatch": "PASS_LOCAL_FIXTURE",
+  "source_dry_run_no_source_network_or_bronze_write": "PASS",
+  "static_secret_scan": "PASS_NO_REAL_SECRET_PATTERN",
+  "method_version": "V17",
+  "method_blocker": "STOP_DATA_DEPENDENCY",
+  "live_github_actions": "PENDING",
+  "live_official_source": "PENDING",
+  "next_action": "M4E_VALIDATE_FIRST_OFFICIAL_SOURCE_CONNECTOR"
+}

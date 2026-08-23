@@ -1,0 +1,23 @@
+﻿test_id,description,result,evidence
+A01,artefatos essenciais consolidados,PASS,"chunks.jsonl,entities.csv,edges.csv,retrieval_rules.py,router_contract.py,answer_contract.py,planning_budget_bridge.csv,eiti_pipeline_reference_v11.sqlite"
+A02,tabela ppa_eiti_indicator presente,PASS,ppa_eiti_indicator
+A03,tabela policy_current_status presente,PASS,policy_current_status
+A04,tabela entities presente,PASS,entities
+A05,tabela edges presente,PASS,edges
+A06,tabela open_questions presente,PASS,open_questions
+A07,tabela planning_budget_bridge presente,PASS,planning_budget_bridge
+A08,tabela loa_action_evidence presente,PASS,loa_action_evidence
+A09,tabela eiti_finance_status presente,PASS,eiti_finance_status
+A10,tabela pipeline_versions presente,PASS,pipeline_versions
+A11,tabela readiness_matrix presente,PASS,readiness_matrix
+A12,tabela blockers presente,PASS,blockers
+A13,meta 2029 permanece 59%,PASS,"(59.0,)"
+A14,meta 2026 permanece 53%,PASS,"(53.0,)"
+A15,Lei 7.366 status oficial preservado,PASS,"('EM VIGOR',)"
+A16,atribuição financeira EITI não é inferida do programa,PASS,"('NOT_VALIDATED',)"
+A17,heterogeneidade do Programa 2001 documentada,PASS,2
+A18,execução específica permanece UNKNOWN,PASS,"('UNKNOWN',)"
+A19,blockers críticos explicitados,PASS,2
+A20,corpus possui chunks,PASS,12
+A21,grafo possui relações,PASS,12
+A22,grafo não inventa identidade financeira A,PASS,0

@@ -1,0 +1,62 @@
+{
+  "contract": "LIMEIRA_RECONCILIATION_TARGETS_V01",
+  "generated_for_software": "0.5.9",
+  "rule": "Targets are search surfaces, not proof of identity. Results must pass V16/V17 gates before linking.",
+  "targets": [
+    {
+      "source_id": "LIMEIRA_CONTRATOS",
+      "url": "https://serv42.limeira.sp.gov.br/ncweb/cns_contratos_web_mestre/",
+      "authority": "Prefeitura Municipal de Limeira",
+      "capabilities_observed": [
+        "year",
+        "contract_number",
+        "document_type",
+        "object_text",
+        "supplier_name"
+      ],
+      "connector_state": "RESOLVER_LIVE_VALIDATED",
+      "resolver_contract": "Discover real HTML form; prove ScriptCase autocomplete pairs and explicit hidden autosubmit relay; preserve cookies; submit only year + contract/supplier; strong outer-grid row signal required."
+    },
+    {
+      "source_id": "TCE_SP_DESPESAS",
+      "url": "https://transparencia.tce.sp.gov.br/municipio/limeira",
+      "authority": "Tribunal de Contas do Estado de São Paulo",
+      "capabilities_observed": [
+        "detailed_expenses",
+        "supplier_crosscheck",
+        "expense_event_history"
+      ],
+      "connector_state": "RESOLVER_LIVE_VALIDATED",
+      "caution": "The public API page documents expense/revenue API coverage for 2014-2019. Do not assume the same documented API contract for later years; current-year reconciliation must use a separately validated current surface or bulk file.",
+      "resolver_contract": "2014-2019 documented JSON API; 2020+ discover Despesa Detalhada resource from municipality-year page before download; current CSV aliases include tp_despesa and identificador_despesa."
+    },
+    {
+      "source_id": "TDA_LIMEIRA",
+      "url": "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+      "authority": "Prefeitura Municipal de Limeira",
+      "capabilities_observed": [
+        "municipal_transparency_portal"
+      ],
+      "connector_state": "BLOCKED_CONNECTOR_DISCOVERY"
+    },
+    {
+      "source_id": "LIMEIRA_LICITACOES",
+      "url": "https://www.limeira.sp.gov.br/licitacoes",
+      "authority": "Prefeitura Municipal de Limeira",
+      "capabilities_observed": [
+        "procurement_documents"
+      ],
+      "connector_state": "DISCOVERY_READY"
+    },
+    {
+      "source_id": "SIAVE_LIMEIRA",
+      "url": "https://siave.limeira.sp.leg.br/",
+      "authority": "Câmara Municipal de Limeira",
+      "capabilities_observed": [
+        "legislative_documents",
+        "tramitation"
+      ],
+      "connector_state": "DISCOVERY_READY"
+    }
+  ]
+}

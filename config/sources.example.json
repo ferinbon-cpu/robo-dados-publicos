@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "source_id": "EXAMPLE_PUBLIC_CSV",
+      "url": "https://example.invalid/dados.csv",
+      "logical_key": "example_public_csv",
+      "file_name": "dados.csv",
+      "enabled": false,
+      "expected_content_types": ["text/csv", "application/csv"],
+      "cadence": "manual",
+      "notes": "Modelo de contrato. Substituir por URL oficial validada antes de habilitar."
+    }
+  ]
+}

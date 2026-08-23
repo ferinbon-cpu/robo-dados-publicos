@@ -1,0 +1,25 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.5.9",
+  "status": "CANDIDATE",
+  "compileall": "PASS",
+  "unit_tests": "84/84 PASS",
+  "historical_regressions": "109/109 PASS",
+  "m4e_live_validation": {
+    "journal_index_discovery": "PASS_12_EDITIONS",
+    "journal_edition_7310_processing": "PASS_76_PAGES_53_EVENTS_68_TASKS",
+    "contracts_scriptcase_form": "PASS_PROVEN_AUTOCOMPLETE_AND_RELAY",
+    "contracts_candidate_match": "PASS_CANDIDATE_ONLY",
+    "tcesp_2026_schema": "PASS_39779_RECORDS",
+    "tcesp_candidate_match": "PASS_CANDIDATE_ONLY",
+    "reconciliation_evidence_ledger": "PASS_CANDIDATE_ONLY",
+    "financial_identity_auto_promotion": "PROHIBITED",
+    "tda_connector": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
+  },
+  "active_runtime_identity": "PRESERVED_0.5.8",
+  "current_candidate": "0.5.9",
+  "github_offline_readiness": "PASS_OFFLINE",
+  "github_live_gate": "PENDING_USER_CONNECTION",
+  "clean_reextraction": "PASS",
+  "secret_scan": "PASS"
+}

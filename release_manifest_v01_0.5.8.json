@@ -1,0 +1,21 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.5.8",
+  "status": "CANDIDATE",
+  "milestone": "M4E_LIVE_VALIDATION_HARDENING",
+  "last_active_validated": "0.4.0",
+  "promotion_gate": "HUMAN_PROMOTION_REVIEW",
+  "qa": {
+    "unit_tests": "74/74 PASS",
+    "historical_regressions": "109/109 PASS",
+    "compileall": "PASS",
+    "secret_scan": "PASS"
+  },
+  "live_validation": {
+    "journal_official": "PASS",
+    "municipal_contracts": "PASS_CANDIDATE_ONLY",
+    "tcesp_current_schema": "PASS_CANDIDATE_ONLY",
+    "reconciliation_evidence_ledger": "PASS_CANDIDATE_ONLY",
+    "tda_limeira": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
+  }
+}

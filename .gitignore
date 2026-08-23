@@ -1,0 +1,16 @@
+.env
+.env.*
+!.env.example
+tokens.json
+client_secret*.json
+oauth*.json
+runtime/
+__pycache__/
+*.py[cod]
+*.sqlite
+*.sqlite3
+.pytest_cache/
+.coverage
+dist/
+build/
+*.egg-info/

@@ -1,0 +1,13 @@
+﻿edge_id,source_id,target_id,relation_type,confidence,evidence_doc,page,evidence,human_validated,interpretation_limit
+E01,cme_ind_02_2021,meta6_pme,implements_toward,A,cme_ind_02_2021,7,Diretrizes para implementação contínua e gradual de modo a atingir minimamente a Meta 6 do PME.,1,Não prova cumprimento da meta.
+E02,cme_ind_02_2021,comite_ei,requires_reactivation,A,cme_ind_02_2021,7,Art. 2º determina retomar o Comitê Municipal de Educação Integral.,1,Não prova que a retomada ocorreu.
+E03,cme_ind_02_2021,forum_educacao,requires_reactivation,A,cme_ind_02_2021,7,Art. 2º determina retomar o Fórum Municipal de Educação.,1,Não prova que a retomada ocorreu.
+E04,decreto_118_2024,cme_ind_02_2021,explicitly_in_consonance_with,A,decreto_118_2024,1,Art. 1º institui a política em consonância com a Deliberação CME nº 02/2021.,1,Relação normativa explícita; não implica identidade integral de conteúdo.
+E05,decreto_118_2024,policy_eiti_limeira,institutes,A,decreto_118_2024,1,Art. 1º institui a Política de Educação Integral em Tempo Integral nas escolas da Rede Municipal.,1,Refere-se ao ato de 2024.
+E06,lei_7366_2026,policy_eiti_limeira,institutes,A,lei_7366_2026,,Ementa oficial: institui a Política Municipal de EITI no âmbito do Sistema Municipal de Ensino.,1,Baseado em metadado oficial; texto integral não indexado nesta versão.
+E07,lei_7366_2026,pl_94_2026,originated_from_project,A,lei_7366_2026,,Portal oficial relaciona a Lei 7.366/2026 ao PL 94/2026.,1,Não descreve alterações ocorridas na tramitação.
+E08,ppa_7213_2025,ppa_program_2001,contains_program,A,ppa_7213_2025,18,Anexo V registra Programa 2001 Educação que Inclui e Transforma Vidas.,1,
+E09,ppa_program_2001,sme_limeira,responsible_agency,A,ppa_7213_2025,18,Órgão responsável principal: 10.00.00 Secretaria de Educação.,1,
+E10,ppa_program_2001,ppa_indicator_eiti,contains_indicator,A,ppa_7213_2025,18,Programa 2001 inclui Índice de Alunos em Educação Integral / Percentual.,1,
+E11,policy_eiti_limeira,ppa_program_2001,thematic_planning_correspondence,B,ppa_7213_2025,18,"Objetivo do Programa 2001 menciona fortalecimento da educação integral, infraestrutura, profissionais e articulação intersetorial.",1,Não prova que todo o Programa 2001 seja a política EITI nem que todo seu orçamento seja EITI.
+E12,policy_eiti_limeira,ppa_indicator_eiti,indicator_correspondence,B,ppa_7213_2025,18,Indicador mede alunos em Educação Integral e projeta 52→59%.,1,"Correspondência temática/operacional; não há, no trecho, referência legal explícita à Lei 7.366 ou Decreto 118."

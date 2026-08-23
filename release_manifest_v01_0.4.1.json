@@ -1,0 +1,15 @@
+{
+  "name": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.4.1",
+  "status": "CANDIDATE",
+  "release_date": "2026-08-21",
+  "milestone": "M4D_GITHUB_ACTIONS_CANDIDATE",
+  "python": ">=3.11",
+  "github_runner_python": "3.12",
+  "historical_regressions": "109/109 PASS",
+  "unit_tests": "15/15 PASS",
+  "compileall": "PASS",
+  "live_github_actions": "PENDING",
+  "next_action": "M4D_GITHUB_ACTIONS_LIVE_VALIDATION",
+  "static_secret_scan": "PASS"
+}

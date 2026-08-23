@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "robo-dados-publicos"
+version = "0.5.9"
+description = "Pipeline auditável para coleta, tratamento, QA, evidências e apoio analítico em dados públicos."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{name = "Projeto ROBO_DADOS_PUBLICOS"}]
+dependencies = ["pypdf==5.9.0"]
+
+[project.scripts]
+robo-dados-publicos = "robo_dados_publicos.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["robo_dados_publicos*"]

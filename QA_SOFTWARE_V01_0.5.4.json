@@ -1,0 +1,33 @@
+{
+  "software_version": "0.5.4",
+  "status": "PASS_LOCAL_CANDIDATE",
+  "compileall": "PASS",
+  "unit_tests": {"tests": 50, "passes": 50, "failures": 0},
+  "historical_regression": {"tests": 109, "passes": 109, "failures": 0, "status": "PASS"},
+  "new_contracts": {
+    "journal_event_to_reconciliation_queue": "PASS",
+    "deterministic_task_ids": "PASS",
+    "queue_idempotency": "PASS",
+    "sqlite_persistent_reconciliation_tasks": "PASS",
+    "target_specific_year_selection": "PASS",
+    "tda_discovery_block_preserved": "PASS",
+    "financial_identity_not_auto_promoted": "PASS",
+    "journal_pipeline_emits_reconciliation_tasks": "PASS",
+    "secret_signature_scan": "PASS"
+  },
+  "reconciliation_targets": {
+    "LIMEIRA_CONTRATOS": "READY_FOR_RESOLVER_IMPLEMENTATION",
+    "TCE_SP_DESPESAS": "READY_FOR_RESOLVER_IMPLEMENTATION_WITH_TEMPORAL_API_CAUTION",
+    "TDA_LIMEIRA": "BLOCKED_CONNECTOR_DISCOVERY",
+    "LIMEIRA_LICITACOES": "READY_FOR_DISCOVERY_ADAPTER",
+    "SIAVE_LIMEIRA": "READY_FOR_DISCOVERY_ADAPTER"
+  },
+  "live_gates": {
+    "journal_index": "PENDING_EXTERNAL_RUNTIME",
+    "journal_document_route_content_type": "PENDING_EXTERNAL_RUNTIME",
+    "journal_document_processing": "PENDING_EXTERNAL_RUNTIME",
+    "tda_portal_probe": "PENDING_EXTERNAL_RUNTIME",
+    "reconciliation_resolver_live": "PENDING",
+    "github_actions": "PENDING"
+  }
+}

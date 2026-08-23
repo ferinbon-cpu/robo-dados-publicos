@@ -1,0 +1,10 @@
+{
+  "name": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.5.5",
+  "status": "CANDIDATE",
+  "active_release": "0.4.0",
+  "milestone": "M4E5_FIRST_REAL_RECONCILIATION_RESOLVERS",
+  "method_version": "V17",
+  "qa_gate": "59/59 unit + 109/109 historical regression PASS",
+  "promotion_gate": "LIVE_TCE_CONTRACTS_JOURNAL_TDA_AND_GITHUB_VALIDATION"
+}
