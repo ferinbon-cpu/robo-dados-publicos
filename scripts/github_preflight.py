@@ -21,6 +21,7 @@ from robo_dados_publicos.release import (
     RELEASE_STATUS,
     SOFTWARE_VERSION,
 )
+from robo_dados_publicos.sources.inventory import load_source_inventory
 
 
 WORKFLOW = ROOT / ".github" / "workflows" / "robo-dados-publicos.yml"
@@ -31,22 +32,38 @@ OAUTH_NAMES = (
     "GOOGLE_DRIVE_CLIENT_SECRET",
     "GOOGLE_DRIVE_REFRESH_TOKEN",
 )
+SOURCE_GATE_CONFIG = ROOT / "config" / "sources.jornal_oficial_7310_gate.json"
+SOURCE_GATE_ID = "LIMEIRA_JORNAL_OFICIAL_EDICAO_7310"
+SOURCE_GATE_SHA256 = "78a23262023f6233cb59fdc78f1fadc196d0a7bbd52c418bbdd9244229f46680"
+SOURCE_GATE_BYTES = 16952899
 
 
 def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
     text = WORKFLOW.read_text(encoding="utf-8")
     active_lines = [line for line in text.splitlines() if not line.lstrip().startswith("#")]
     manifest = json.loads((ROOT / "release_manifest_v01.json").read_text(encoding="utf-8"))
+    inventory = load_source_inventory(SOURCE_GATE_CONFIG)
+    source = inventory.enabled[0] if len(inventory.enabled) == 1 else None
     checks = {
-        "software_version_0_5_9": SOFTWARE_VERSION == "0.5.9",
-        "release_status_active": RELEASE_STATUS == "ACTIVE",
-        "active_version_0_5_9": ACTIVE_VALIDATED_VERSION == "0.5.9",
-        "no_current_candidate": CURRENT_CANDIDATE_VERSION == "NONE",
-        "next_action_first_source_gate": NEXT_ACTION == "M4E_FIRST_SOURCE_COLLECTION_GATE",
-        "manifest_identity": manifest.get("current_active") == "0.5.9" and manifest.get("current_candidate") == "NONE",
+        "software_version_0_6_0": SOFTWARE_VERSION == "0.6.0",
+        "release_status_candidate": RELEASE_STATUS == "CANDIDATE",
+        "active_version_preserved_0_5_9": ACTIVE_VALIDATED_VERSION == "0.5.9",
+        "current_candidate_0_6_0": CURRENT_CANDIDATE_VERSION == "0.6.0",
+        "next_action_source_live_gate": NEXT_ACTION == "M4E_FIRST_SOURCE_COLLECTION_LIVE_GATE_0_6_0",
+        "manifest_identity": manifest.get("current_active") == "0.5.9" and manifest.get("current_candidate") == "0.6.0",
+        "source_inventory_one_enabled": source is not None,
+        "source_inventory_immutable_contract": bool(
+            source
+            and source.source_id == SOURCE_GATE_ID
+            and source.expected_sha256 == SOURCE_GATE_SHA256
+            and source.expected_bytes == SOURCE_GATE_BYTES
+            and source.expected_content_types == ("application/pdf",)
+        ),
         "workflow_manual_dispatch": bool(re.search(r"^  workflow_dispatch:\s*$", text, re.MULTILINE)),
         "workflow_schedule_disabled": not any(line.strip() == "schedule:" for line in active_lines),
         "workflow_confirmation_required": "inputs.confirm_persistence == true" in text,
+        "workflow_source_confirmation_required": "confirm_source_collection:" in text and "inputs.confirm_source_collection == true" in text,
+        "workflow_source_gate_explicit": "--source-config config/sources.jornal_oficial_7310_gate.json" in text,
         "permissions_contents_read": "permissions:\n  contents: read" in text,
         "checkout_immutable_pin": CHECKOUT_PIN in text,
         "setup_python_immutable_pin": SETUP_PYTHON_PIN in text,
