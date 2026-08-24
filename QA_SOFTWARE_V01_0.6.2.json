@@ -1,0 +1,23 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.6.2",
+  "status": "CANDIDATE",
+  "based_on_active": "0.6.1",
+  "compileall": "PASS",
+  "unit_tests": "106/106 PASS",
+  "historical_regressions": "109/109 PASS",
+  "release_identity": "PASS_ACTIVE_0.6.1_CANDIDATE_0.6.2",
+  "reconciliation_gate_contract": "PASS_ONE_LIMEIRA_CONTRATOS_TASK_ONLY",
+  "reconciliation_gate_unit_tests": "4/4 PASS",
+  "reconciliation_dry_run": "PASS_RESOLVER_NOT_CALLED_WRITES_NONE",
+  "reconciliation_failure_atomicity": "PASS_REMOTE_STATE_UNCHANGED_LOG_NOT_CREATED",
+  "reconciliation_evidence": "CANDIDATE_ONLY",
+  "financial_identity_auto_promotion": "PROHIBITED",
+  "protected_targets": "TCE_SP_TDA_LICITACOES_SIAVE_NOT_EXECUTED",
+  "source_collection_rerun": "DISABLED_IN_WORKFLOW",
+  "processing_rerun": "DISABLED_IN_WORKFLOW",
+  "workflow_schedule": "DISABLED",
+  "tda_connector": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN",
+  "live_gate": "PENDING_MANUAL_CONFIRMATION",
+  "secret_scan": "PASS"
+}
