@@ -4,15 +4,15 @@ Consolidação em software das capacidades metodológicas validadas nas versões
 
 ## Estado desta release
 
-**Software ativo:** 0.6.0 ACTIVE  
-**Candidata corrente:** 0.6.1 CANDIDATE  
-**Próximo gate:** M4E primeiro processamento controlado do Bronze  
+**Software ativo:** 0.6.1 ACTIVE  
+**Candidata corrente:** nenhuma  
+**Próximo gate:** M4E primeira execução controlada da fila de reconciliação  
 **Dependências externas:** `pypdf==6.10.0` para processamento textual determinístico de PDFs  
 **Python:** 3.11+
 
-A 0.6.0 está ativa após o gate GitHub ao vivo coletar somente a edição 7310 do Jornal Oficial, declarada pelo índice oficial e travada por tipo MIME, SHA-256 e tamanho. O arquivo foi criado no Bronze com `DOWNLOADED_NEW`, o estado remoto foi substituído e o log append-only foi criado. A opção de repetir essa coleta foi retirada do workflow.
+A 0.6.1 está ativa após o gate GitHub ao vivo processar exclusivamente o PDF imutável da edição 7310 já preservado no Bronze. O gate reconfirmou hash, tamanho e `pypdf==6.10.0`, gerou cinco derivados, persistiu 68 tarefas, substituiu o estado remoto e criou log append-only. A origem pública não foi chamada e nenhum identificador remoto foi publicado. As opções de repetir a coleta e o processamento foram retiradas do workflow.
 
-A 0.6.1 é candidata ao primeiro processamento controlado desse mesmo PDF. O gate localiza o Bronze pela referência privada do estado, baixa somente do Drive, reconfirma hash, tamanho e versão exata do extrator (`pypdf==6.10.0`) e produz derivados Silver, Gold, Documentos e RAG. Ele não chama a origem pública, não recria o Bronze, não executa resolvers e não imprime identificadores remotos. Agendamento, recorrência e novas fontes permanecem desabilitados. O TDA continua bloqueado sem endpoint/export público comprovado e nenhuma correspondência é promovida automaticamente a identidade financeira.
+Agendamento, recorrência, novas fontes e execução da fila de reconciliação permanecem desabilitados até gates próprios. O TDA continua bloqueado sem endpoint/export público comprovado e nenhuma correspondência é promovida automaticamente a identidade financeira.
 
 ## Testes
 
@@ -57,9 +57,9 @@ python3 main.py run --auth oauth-env --source-config config/sources.json --dry-r
 A configuração canônica está em `config/cloud.json`. O preflight exige as camadas `00_DOCUMENTACAO` a `12_SOFTWARE` e `START_HERE_ROBO_DADOS_PUBLICOS`.
 
 ## Deploy
-A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTIONS_DEPLOY.md`). Execute primeiro `python scripts/github_preflight.py`; o resultado esperado sem credenciais é `PASS_OFFLINE`. A primeira coleta M4E foi validada e está documentada em `docs/M4E_SOURCE_COLLECTION.md`. O gate seguinte processa somente o Bronze validado; novas fontes, repetição da coleta, recorrência e agenda continuam desabilitadas até gates próprios.
+A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTIONS_DEPLOY.md`). Execute primeiro `python scripts/github_preflight.py`; o resultado esperado sem credenciais é `PASS_OFFLINE`. A coleta e o processamento M4E da edição 7310 foram validados. Novas fontes, repetição da coleta, repetição do processamento, recorrência e agenda continuam desabilitadas até gates próprios.
 
-O inventário histórico do primeiro gate está preservado em `config/sources.jornal_oficial_7310_gate.json`, mas o workflow ativo não oferece mais `confirm_source_collection`. O contrato do processamento seguinte está em `config/processing.jornal_oficial_7310_gate.json` e só pode ser acionado com as confirmações manuais `confirm_persistence` e `confirm_processing`.
+Os contratos históricos permanecem em `config/sources.jornal_oficial_7310_gate.json` e `config/processing.jornal_oficial_7310_gate.json`, mas o workflow ativo não oferece `confirm_source_collection` nem `confirm_processing`. A única confirmação disponível mantém-se restrita à persistência de infraestrutura.
 
 
 ## M4E.1 — Portal discovery
@@ -99,7 +99,7 @@ python3 main.py journal-process \
 
 O comando gera manifesto, Silver redigida, eventos Gold e chunks RAG. PDF sem camada textual suficiente produz `STOP_OCR_REQUIRED`; nenhum OCR é disparado silenciosamente.
 
-Para o gate remoto da edição 7310, a candidata 0.6.1 usa `journal-process-cloud` por meio de `scripts/github_processing_gate.py`. Esse caminho lê a cópia imutável do Drive e exige, antes e depois do processamento, o contrato exato documentado em `docs/M4E_FIRST_SOURCE_PROCESSING_GATE_0.6.1.md`.
+O gate remoto da edição 7310 foi concluído pela 0.6.1 com `PASS_GITHUB_JOURNAL_PROCESSING_GATE`. Ele usou `journal-process-cloud` por meio de `scripts/github_processing_gate.py`, leu a cópia imutável do Drive e comprovou o contrato exato documentado em `docs/M4E_FIRST_SOURCE_PROCESSING_GATE_0.6.1.md`. Esse caminho não está mais exposto no workflow ativo.
 
 
 ## M4E.4 — Fila de reconciliação
