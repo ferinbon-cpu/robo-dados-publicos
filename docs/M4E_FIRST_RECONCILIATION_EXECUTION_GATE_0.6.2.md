@@ -23,12 +23,24 @@ Executar uma única busca no cadastro municipal de contratos e comprovar que o c
 
 A primeira execução encontrou uma tarefa `LIMEIRA_CONTRATOS` sem número de contrato nem nome de fornecedor. O resolver retornou `STOP_MISSING_CONTRACT_OR_SUPPLIER_KEY`; o gate encerrou com exit code 13 e `remote_writes: NONE`. Nenhum estado remoto ou log foi gravado.
 
-Essa evidência revelou uma divergência entre o seletor do gate e a pré-condição do resolver. A correção mantém a tarefa incompleta em `READY_SEARCH`, filtra a elegibilidade sem rede e vincula o executor ao `task_id` selecionado. A repetição manual do gate permanece necessária.
+Essa evidência revelou uma divergência entre o seletor do gate e a pré-condição do resolver. A correção mantém a tarefa incompleta em `READY_SEARCH`, filtra a elegibilidade sem rede e vincula o executor ao `task_id` selecionado.
+
+## Execução bem-sucedida
+
+A execução manual nº 8, sobre o commit `bca696c`, concluiu em 33 segundos com `PASS_GITHUB_RECONCILIATION_EXECUTION_GATE` e comprovou:
+
+1. cinco tarefas `READY_SEARCH` no alvo permitido e duas elegíveis;
+2. seleção e execução exata de uma tarefa `LIMEIRA_CONTRATOS` com chave mínima;
+3. resultado terminal `MATCH_CANDIDATE`;
+4. uma aresta de evidência `CANDIDATE_ONLY` e zero relações `financial_identity`;
+5. alvos protegidos inalterados;
+6. estado remoto `REPLACED` e log append-only criado;
+7. nenhum secret, identificador remoto, `task_id` ou payload candidato exposto.
 
 ## STOP
 
 Qualquer falha operacional, ausência de tarefa elegível, seleção ampliada, resultado não permitido, alteração de alvo protegido ou tentativa de promoção financeira produz STOP. Nesse caso, o arquivo remoto de estado não é substituído e nenhum log de reconciliação é criado.
 
-## Acionamento
+## Estado após promoção
 
-O workflow permanece somente manual. A execução ao vivo exige marcar `confirm_persistence` e `confirm_reconciliation`. Nenhum PASS habilita recorrência ou agendamento.
+O workflow permanece somente manual, mas `confirm_reconciliation` e a chamada de `scripts/github_reconciliation_gate.py` foram removidos após a promoção. Nenhum PASS habilitou repetição do gate, reconciliação ampla, recorrência ou agendamento.
