@@ -1,3 +1,6 @@
+import json
+import subprocess
+import sys
 import unittest
 from pathlib import Path
 
@@ -50,7 +53,24 @@ class TestProductPublicationWorkflow(unittest.TestCase):
         self.assertIn("product-publication-gate-${{ github.run_id }}", self.text)
         self.assertNotIn("product_bundle", self.text)
         self.assertNotIn("outputs_id", self.text)
-        self.assertNotIn("remote_id", self.text)
+        self.assertNotIn("file_id", self.text)
+        self.assertNotIn('"remote_id"', self.text)
+
+    def test_gate_dry_run_is_local_and_requires_no_credentials(self):
+        proc = subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "github_product_publication_gate.py"), "--dry-run"],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        self.assertEqual(0, proc.returncode, proc.stderr)
+        payload = json.loads(proc.stdout)
+        self.assertEqual("PASS_M6_PRODUCT_OUTPUT_PUBLICATION_DRY_RUN", payload["status"])
+        self.assertEqual("NONE", payload["remote_writes"])
+        self.assertFalse(payload["network_called"])
+        self.assertFalse(payload["remote_identifiers_exposed"])
+        self.assertEqual(3, payload["would_create"])
 
 
 if __name__ == "__main__":
