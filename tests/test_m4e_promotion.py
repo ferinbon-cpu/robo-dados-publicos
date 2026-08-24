@@ -72,6 +72,44 @@ class TestM4EPromotion(unittest.TestCase):
         self.assertNotIn('confirm_processing:', workflow)
         self.assertNotIn('scripts/github_processing_gate.py', workflow)
 
+    def test_0_6_2_candidate_evidence_is_preserved_after_promotion(self):
+        candidate = self.load_json('release_manifest_v01_0.6.2.json')
+        active = self.load_json('release_manifest_v01_0.6.2_active.json')
+        self.assertEqual('CANDIDATE', candidate['status'])
+        self.assertEqual('ACTIVE', active['status'])
+        self.assertEqual('0.6.2', active['promoted_from_candidate'])
+
+    def test_0_6_2_live_reconciliation_gate_is_recorded(self):
+        gate = self.load_json('release_manifest_v01_0.6.2_active.json')['live_gate']
+        self.assertEqual('PASS_GITHUB_RECONCILIATION_EXECUTION_GATE', gate['status'])
+        self.assertEqual(8, gate['workflow_dispatch_sequence'])
+        self.assertEqual('bca696c4792fe8e6a87be716b26855f450c22459', gate['source_commit'])
+        self.assertEqual('33s', gate['total_duration'])
+        self.assertEqual({'MATCH_CANDIDATE': 1}, gate['result_status_counts'])
+        self.assertEqual('REPLACED', gate['state_remote'])
+        self.assertEqual('CREATED', gate['append_only_log'])
+
+    def test_0_6_2_match_remains_candidate_only_and_protected(self):
+        active = self.load_json('release_manifest_v01_0.6.2_active.json')
+        evidence = active['reconciliation_evidence']
+        safety = active['safety']
+        self.assertEqual(1, evidence['candidate_evidence_edges'])
+        self.assertEqual(0, evidence['financial_identity_edges'])
+        self.assertTrue(evidence['protected_targets_unchanged'])
+        self.assertEqual('CANDIDATE_ONLY', safety['reconciliation_matches'])
+        self.assertEqual('PROHIBITED', safety['financial_identity_auto_promotion'])
+
+    def test_0_6_2_reconciliation_rerun_and_schedule_are_disabled(self):
+        active = self.load_json('release_manifest_v01_0.6.2_active.json')
+        workflow = (self.root / '.github/workflows/robo-dados-publicos.yml').read_text(encoding='utf-8')
+        active_lines = [line for line in workflow.splitlines() if not line.lstrip().startswith('#')]
+        self.assertEqual('DISABLED_IN_WORKFLOW', active['safety']['reconciliation_rerun'])
+        self.assertEqual('DISABLED', active['safety']['broad_reconciliation_execution'])
+        self.assertEqual('BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN', active['safety']['tda_limeira'])
+        self.assertNotIn('confirm_reconciliation:', workflow)
+        self.assertNotIn('scripts/github_reconciliation_gate.py', workflow)
+        self.assertFalse(any(line.strip() == 'schedule:' for line in active_lines))
+
 
 if __name__ == '__main__':
     unittest.main()
