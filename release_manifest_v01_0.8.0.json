@@ -36,7 +36,7 @@
     "config": "config/source_expansion.siope_limeira_0_8_0.json",
     "network": "PROHIBITED",
     "remote_writes": "NONE",
-    "expected_status": "PASS_M7_SOURCE_EXPANSION_DESIGN_GATE"
+    "status": "PASS_M7_SOURCE_EXPANSION_DESIGN_GATE"
   },
   "safety": {
     "active_release": "0.7.0",
@@ -55,13 +55,16 @@
     "tda_limeira": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
   },
   "qa": {
-    "source_expansion_tests": "PENDING_CI",
-    "repository_unit_tests": "PENDING_CI",
-    "historical_regressions": "PENDING_CI",
-    "offline_preflight": "PENDING_CI",
-    "design_gate": "PENDING_CI",
-    "compileall": "PENDING_CI"
+    "source_expansion_tests": "12/12 PASS",
+    "repository_unit_tests": "179/179 PASS",
+    "historical_regressions": "109/109 PASS",
+    "offline_preflight": "PASS 56/56 CHECKS",
+    "design_gate": "PASS_M7_SOURCE_EXPANSION_DESIGN_GATE",
+    "compileall": "PASS",
+    "ci_run": 32789574339,
+    "ci_run_number": 89,
+    "validated_commit": "2cc3c59cd18d3253ecfab4a999dcab9024f5a2ba"
   },
-  "promotion_gate": "PENDING_M7_OFFLINE_SOURCE_EXPANSION_DESIGN_VALIDATION",
+  "promotion_gate": "PASS_M7_OFFLINE_SOURCE_EXPANSION_DESIGN_VALIDATION",
   "next_action": "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0"
 }
