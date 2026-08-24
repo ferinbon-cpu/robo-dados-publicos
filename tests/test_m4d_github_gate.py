@@ -31,7 +31,13 @@ class TestM4DGitHubGate(unittest.TestCase):
         payload["software_version"] = "0.5.9"
         out = evaluate_live_payload(payload)
         self.assertEqual("STOP_GITHUB_LIVE_GATE", out["status"])
-        self.assertFalse(out["checks"]["candidate_version_0_6_0"])
+        self.assertFalse(out["checks"]["software_version_match"])
+
+    def test_active_identity_can_be_required_explicitly(self):
+        payload = self.valid_payload()
+        payload["release_status"] = "ACTIVE"
+        out = evaluate_live_payload(payload, expected_version="0.6.0", expected_status="ACTIVE")
+        self.assertEqual("PASS_GITHUB_LIVE_GATE", out["status"])
 
     def test_complete_source_collection_evidence_passes(self):
         payload = self.valid_payload()
