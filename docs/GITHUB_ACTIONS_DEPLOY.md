@@ -2,11 +2,11 @@
 
 ## Identidade preparada
 
-- release ativa preservada: `0.5.8 ACTIVE`;
-- candidata para o gate: `0.5.9 CANDIDATE`;
+- release ativa: `0.5.9 ACTIVE`;
+- candidata corrente: `NONE`;
 - `actions/checkout` fixada no SHA da release pública `v6.0.2`;
 - `actions/setup-python` fixada no SHA da release `v7.0.0`;
-- agendamento desabilitado até o primeiro PASS ao vivo.
+- agendamento desabilitado até decisão explícita sobre cadência e fontes.
 
 ## Objetivo
 Executar `python main.py run --auth oauth-env` em infraestrutura GitHub-hosted, sem depender de PC ligado, Cloud Shell ativo ou sessão `gcloud`.
@@ -31,10 +31,10 @@ python -m unittest discover -s tests -v
 python main.py selftest
 ```
 
-O preflight local esperado é `PASS_OFFLINE`. Ele valida a identidade `0.5.9 CANDIDATE`, preservação da ativa `0.5.8`, ausência de agendamento, confirmação obrigatória e pins imutáveis. Ele não simula credenciais nem declara o gate remoto como concluído.
+O preflight local esperado é `PASS_OFFLINE`. Ele valida a identidade `0.5.9 ACTIVE`, ausência de candidata corrente, ausência de agendamento, confirmação obrigatória e pins imutáveis. Ele não simula credenciais.
 
-## Primeiro gate: execução manual
-O arquivo `.github/workflows/robo-dados-publicos.yml` nasce somente com `workflow_dispatch` ativo. Depois de cadastrar os três secrets, executar manualmente em **Actions → ROBO DADOS PUBLICOS → Run workflow** e marcar `confirm_persistence`.
+## Gate manual concluído
+O arquivo `.github/workflows/robo-dados-publicos.yml` permanece somente com `workflow_dispatch` ativo. O primeiro gate persistente foi executado no run `32678624194`, job `97476648260`.
 
 Critérios de PASS:
 
@@ -43,14 +43,16 @@ Critérios de PASS:
 3. regressão histórica 109/109 PASS;
 4. preflight OAuth retorna `PASS_LIVE_PREFLIGHT` sem revelar valores;
 5. `run --auth oauth-env` retorna `status: PASS`;
-6. `software_version: 0.5.9` e `release_status: CANDIDATE`;
+6. no gate de promoção, `software_version: 0.5.9` e `release_status: CANDIDATE`;
 7. `state_source: REMOTE_EXISTING`;
 8. `state_remote.mode: REPLACED`;
 9. novo `ROBO_RUN_*.json` aparece em `07_LOGS`;
 10. `scripts/github_run_gate.py` retorna `PASS_GITHUB_LIVE_GATE`.
 
-## Segundo gate: agendamento
-Somente depois do primeiro PASS manual, ativar `schedule`. O GitHub Actions aceita cron POSIX e `timezone` IANA. Exemplo para 03:17 em São Paulo:
+Todos os dez critérios passaram. Após a promoção, novos runs exigem `software_version: 0.5.9` e `release_status: ACTIVE`.
+
+## Gate futuro: agendamento
+O primeiro PASS não habilita agendamento automaticamente. Antes de ativar `schedule`, ainda é necessário escolher a cadência e decidir se o run será somente de infraestrutura ou incluirá um inventário de fontes aprovado. O GitHub Actions aceita cron POSIX e `timezone` IANA. Exemplo ainda não ativo para 03:17 em São Paulo:
 
 ```yaml
 on:
@@ -63,8 +65,8 @@ on:
 O horário definitivo deve ser escolhido antes de habilitar esse bloco.
 
 ## Limites desta etapa
-M4D automatiza o runtime de infraestrutura. A coleta de fontes permanece fora do escopo até o runtime agendado estar validado.
+M4D prova o runtime de infraestrutura. A coleta de fontes e o agendamento são gates separados; ambos permanecem desativados.
 
-## Estado de bloqueio em 2026-08-23
+## Evidência em 2026-08-24
 
-A preparação offline está autorizada e não depende do acesso do usuário. A criação/conexão do repositório, o cadastro dos três secrets e o primeiro `workflow_dispatch` permanecem bloqueados até a recuperação do acesso ao GitHub. Nenhum arquivo em `06_BANCOS` ou `07_LOGS` deve ser alterado durante a preparação offline; o primeiro run real substituirá controladamente o estado em `06_BANCOS` e acrescentará um único log em `07_LOGS`, conforme o contrato acima.
+O repositório privado foi conectado, os três secrets foram cadastrados e o gate concluiu com `PASS_GITHUB_LIVE_GATE`. O run substituiu controladamente o estado em `06_BANCOS` e acrescentou um único log em `07_LOGS`. Nenhum valor de secret foi registrado no repositório ou nas evidências.
