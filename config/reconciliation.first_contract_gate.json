@@ -7,7 +7,7 @@
   "limit": 1,
   "required_selected": 1,
   "initial_status": "READY_SEARCH",
-  "selection_policy": "PRIORITY_DESC_TASK_ID_ASC",
+  "selection_policy": "ELIGIBLE_PRIORITY_DESC_TASK_ID_ASC",
   "allowed_result_statuses": [
     "MATCH_CANDIDATE",
     "NO_MATCH"

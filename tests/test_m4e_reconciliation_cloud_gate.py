@@ -80,9 +80,11 @@ class FakeContractsResolver:
     def __init__(self, *, fail=False):
         self.fail = fail
         self.calls = 0
+        self.task_ids = []
 
     def resolve(self, task, work_dir=None):
         self.calls += 1
+        self.task_ids.append(task["task_id"])
         if self.fail:
             raise RuntimeError("simulated operational failure")
         return ResolutionResult(
@@ -124,7 +126,7 @@ def write_gate(path, **overrides):
         "limit": 1,
         "required_selected": 1,
         "initial_status": "READY_SEARCH",
-        "selection_policy": "PRIORITY_DESC_TASK_ID_ASC",
+        "selection_policy": "ELIGIBLE_PRIORITY_DESC_TASK_ID_ASC",
         "allowed_result_statuses": ["MATCH_CANDIDATE", "NO_MATCH"],
         "financial_identity_auto_promotion": "PROHIBITED",
     }
@@ -147,6 +149,25 @@ def prepare_drive(td):
         "application/x-sqlite3",
     )
     return cloud_layout, drive, state_item, {task.target_source: task.task_id for task in tasks}
+
+
+def add_ineligible_contract_task(state_path, *, priority=110):
+    event = {
+        "event_id": "JOEV_gate_ineligible",
+        "source_id": "LIMEIRA_JO_07310",
+        "event_type": "CONTRATO",
+        "publication_date": "2026-08-22",
+        "cnpj": "61086929000170",
+        "object_text": "Objeto sem número de contrato ou fornecedor",
+    }
+    task = next(
+        task for task in ReconciliationPlanner().plan_event(event)
+        if task.target_source == "LIMEIRA_CONTRATOS"
+    ).to_dict()
+    task["priority"] = priority
+    with StateRegistry(state_path) as state:
+        state.upsert_reconciliation_task(task)
+    return task["task_id"]
 
 
 class TestCloudReconciliationGate(unittest.TestCase):
@@ -235,6 +256,73 @@ class TestCloudReconciliationGate(unittest.TestCase):
             )
             result = runner.run_reconciliation(gate_path)
             self.assertEqual("STOP_RECONCILIATION_EXECUTION_CONTRACT", result["status"])
+            self.assertEqual("NONE", result["remote_writes"])
+            self.assertEqual(original, drive.files[state_item["id"]])
+            self.assertFalse(drive.list_children(cloud_layout.logs_id))
+
+    def test_skips_higher_priority_task_without_minimum_key_and_executes_exact_eligible_task(self):
+        with tempfile.TemporaryDirectory() as raw:
+            td = Path(raw)
+            cloud_layout, drive, state_item, task_ids = prepare_drive(td)
+            local_state = td / "state_with_ineligible.sqlite"
+            local_state.write_bytes(drive.files[state_item["id"]])
+            ineligible_id = add_ineligible_contract_task(local_state)
+            drive.files[state_item["id"]] = local_state.read_bytes()
+            gate_path = td / "gate.json"
+            write_gate(gate_path)
+            fake = FakeContractsResolver()
+            runner = CloudReconciliationRunner(
+                drive,
+                cloud_layout,
+                ROOT / "tests" / "fixtures",
+                executor=ReconciliationExecutor(contracts_resolver=fake),
+            )
+
+            result = runner.run_reconciliation(gate_path)
+
+            self.assertEqual("PASS_CLOUD_RECONCILIATION_EXECUTION_GATE", result["status"])
+            self.assertEqual(1, fake.calls)
+            self.assertEqual([task_ids["LIMEIRA_CONTRATOS"]], fake.task_ids)
+            self.assertEqual(2, result["ready_allowlisted"])
+            self.assertEqual(1, result["eligible_ready"])
+            restored = td / "restored_with_ineligible.sqlite"
+            restored.write_bytes(drive.files[state_item["id"]])
+            with StateRegistry(restored) as state:
+                statuses = {task["task_id"]: task["status"] for task in state.list_reconciliation_tasks()}
+            self.assertEqual("READY_SEARCH", statuses[ineligible_id])
+            self.assertEqual("MATCH_CANDIDATE", statuses[task_ids["LIMEIRA_CONTRATOS"]])
+
+    def test_no_eligible_task_stops_without_resolver_or_remote_writes(self):
+        with tempfile.TemporaryDirectory() as raw:
+            td = Path(raw)
+            cloud_layout = layout()
+            drive = MemoryDrive(cloud_layout)
+            state_path = td / "ineligible_only.sqlite"
+            add_ineligible_contract_task(state_path)
+            state_item = drive.put(
+                state_path,
+                "ROBOT_STATE.sqlite",
+                cloud_layout.bancos_id,
+                "application/x-sqlite3",
+            )
+            original = drive.files[state_item["id"]]
+            gate_path = td / "gate.json"
+            write_gate(gate_path)
+            fake = FakeContractsResolver()
+            runner = CloudReconciliationRunner(
+                drive,
+                cloud_layout,
+                ROOT / "tests" / "fixtures",
+                executor=ReconciliationExecutor(contracts_resolver=fake),
+            )
+
+            result = runner.run_reconciliation(gate_path)
+
+            self.assertEqual("STOP_RECONCILIATION_SELECTION_CONTRACT", result["status"])
+            self.assertEqual(0, result["selected"])
+            self.assertEqual(1, result["ready_allowlisted"])
+            self.assertEqual(0, result["eligible_ready"])
+            self.assertEqual(0, fake.calls)
             self.assertEqual("NONE", result["remote_writes"])
             self.assertEqual(original, drive.files[state_item["id"]])
             self.assertFalse(drive.list_children(cloud_layout.logs_id))

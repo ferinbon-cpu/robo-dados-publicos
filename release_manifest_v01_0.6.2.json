@@ -17,16 +17,19 @@
       "MATCH_CANDIDATE",
       "NO_MATCH"
     ],
-    "selection": "PRIORITY_DESC_TASK_ID_ASC",
+    "selection": "ELIGIBLE_PRIORITY_DESC_TASK_ID_ASC",
     "execution": "WORKFLOW_DISPATCH_EXPLICIT_CONFIRMATION_ONLY",
-    "live_result": "PENDING"
+    "first_live_attempt": "STOP_MISSING_CONTRACT_OR_SUPPLIER_KEY_WRITES_NONE",
+    "live_result": "PENDING_MANUAL_RETRY"
   },
   "qa": {
     "compileall": "PASS",
-    "unit_tests": "106/106 PASS",
+    "unit_tests": "108/108 PASS",
     "historical_regressions": "109/109 PASS",
     "offline_preflight": "PASS",
-    "gate_unit_tests": "4/4 PASS",
+    "gate_unit_tests": "6/6 PASS",
+    "eligible_selection": "PASS_SKIP_INCOMPLETE_EXECUTE_EXACT_SELECTED_TASK",
+    "no_eligible_task": "PASS_NO_NETWORK_NO_WRITES",
     "dry_run": "PASS_NO_NETWORK_NO_WRITES",
     "secret_scan": "PASS"
   },

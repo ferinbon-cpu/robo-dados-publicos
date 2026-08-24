@@ -85,7 +85,7 @@ Após a promoção, `confirm_processing` e a chamada de `scripts/github_processi
 
 ## Próximo gate preparado: primeira execução controlada da reconciliação
 
-As tarefas estão persistidas, mas a candidata 0.6.2 permite executar somente uma delas. No formulário manual do workflow:
+As tarefas estão persistidas, mas a candidata 0.6.2 permite executar somente uma tarefa pesquisável. A primeira tentativa parou com `STOP_MISSING_CONTRACT_OR_SUPPLIER_KEY` e `remote_writes: NONE`; a correção preserva e pula a tarefa incompleta antes da rede. Para repetir após a publicação da correção, no formulário manual do workflow:
 
 1. mantenha a branch `main`;
 2. marque `confirm_persistence`;
@@ -93,7 +93,7 @@ As tarefas estão persistidas, mas a candidata 0.6.2 permite executar somente um
 4. clique em `Run workflow` uma única vez;
 5. não marque nem procure opções de coleta ou processamento, pois elas continuam removidas.
 
-O gate seleciona uma tarefa `READY_SEARCH` de `LIMEIRA_CONTRATOS`, aceita somente `MATCH_CANDIDATE` ou `NO_MATCH` e mantém TCE-SP, TDA, licitações e SIAVE intocados. Uma correspondência continua sendo evidência `CANDIDATE_ONLY`, insuficiente para identidade financeira. Detalhes: `docs/M4E_FIRST_RECONCILIATION_EXECUTION_GATE_0.6.2.md`.
+O gate seleciona a primeira tarefa `READY_SEARCH` de `LIMEIRA_CONTRATOS` que tenha número de contrato ou fornecedor, segundo prioridade decrescente e `task_id` crescente. Ele executa exatamente esse `task_id`, aceita somente `MATCH_CANDIDATE` ou `NO_MATCH` e mantém TCE-SP, TDA, licitações e SIAVE intocados. Uma correspondência continua sendo evidência `CANDIDATE_ONLY`, insuficiente para identidade financeira. Detalhes: `docs/M4E_FIRST_RECONCILIATION_EXECUTION_GATE_0.6.2.md`.
 
 ## Gate futuro: agendamento
 Nenhum PASS habilita agendamento automaticamente. Antes de ativar `schedule`, ainda é necessário escolher a cadência e aprovar um inventário recorrente separado. O inventário da edição 7310 é de uso único e não pode ser convertido silenciosamente em rotina. O GitHub Actions aceita cron POSIX e `timezone` IANA. Exemplo ainda não ativo para 03:17 em São Paulo:

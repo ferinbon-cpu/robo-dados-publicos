@@ -47,7 +47,7 @@ def load_reconciliation_execution_gate(path: str | Path) -> ReconciliationExecut
         raise ValueError("RECONCILIATION_GATE_LIMIT_INVALID")
     if gate.initial_status != "READY_SEARCH":
         raise ValueError("RECONCILIATION_GATE_INITIAL_STATUS_INVALID")
-    if gate.selection_policy != "PRIORITY_DESC_TASK_ID_ASC":
+    if gate.selection_policy != "ELIGIBLE_PRIORITY_DESC_TASK_ID_ASC":
         raise ValueError("RECONCILIATION_GATE_SELECTION_POLICY_INVALID")
     if set(gate.allowed_result_statuses) != {"MATCH_CANDIDATE", "NO_MATCH"}:
         raise ValueError("RECONCILIATION_GATE_RESULT_SCOPE_INVALID")

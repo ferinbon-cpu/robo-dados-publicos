@@ -10,7 +10,7 @@ Consolidação em software das capacidades metodológicas validadas nas versões
 **Dependências externas:** `pypdf==6.10.0` para processamento textual determinístico de PDFs  
 **Python:** 3.11+
 
-A 0.6.1 permanece ativa após o primeiro processamento controlado. A candidata 0.6.2 prepara o próximo passo sem executá-lo automaticamente: seleciona deterministicamente uma única tarefa `READY_SEARCH` de `LIMEIRA_CONTRATOS`, aceita apenas `MATCH_CANDIDATE` ou `NO_MATCH` e só substitui o estado remoto após todos os checks passarem.
+A 0.6.1 permanece ativa após o primeiro processamento controlado. A candidata 0.6.2 seleciona deterministicamente uma única tarefa `READY_SEARCH` e pesquisável de `LIMEIRA_CONTRATOS`: é obrigatório haver número de contrato ou nome de fornecedor. Tarefas incompletas são preservadas e puladas; o executor recebe exatamente o `task_id` selecionado. O gate aceita apenas `MATCH_CANDIDATE` ou `NO_MATCH` e só substitui o estado remoto após todos os checks passarem.
 
 Agendamento, recorrência, novas fontes e execução ampla da fila permanecem desabilitados. TCE-SP, TDA, licitações e SIAVE ficam fora deste gate; o TDA continua bloqueado sem endpoint/export público comprovado. Uma eventual correspondência gera somente evidência documental `CANDIDATE_ONLY`, nunca identidade financeira automática.
 
@@ -148,4 +148,4 @@ python3 main.py reconciliation-execute \
 
 Estados como `MATCH_CANDIDATE`, `NO_MATCH`, `STOP_SCHEMA_UNKNOWN` e `STOP_CONTRACT_FORM_UNPROVEN` são persistidos no SQLite. `MATCH_CANDIDATE` significa somente que a fonte-alvo retornou registros compatíveis com as chaves de busca; não significa que o gasto pertença ao contrato/ato publicado.
 
-Na candidata 0.6.2, o workflow manual usa `scripts/github_reconciliation_gate.py` para executar no máximo uma tarefa de `LIMEIRA_CONTRATOS`. O gate falha fechado: qualquer resultado fora de `MATCH_CANDIDATE`/`NO_MATCH`, qualquer alteração em alvos protegidos ou qualquer tentativa de gerar `financial_identity` impede a substituição do estado e a criação do log.
+Na candidata 0.6.2, o workflow manual usa `scripts/github_reconciliation_gate.py` para executar no máximo uma tarefa pesquisável de `LIMEIRA_CONTRATOS`. A primeira tentativa ao vivo encontrou, com segurança, uma tarefa prioritária sem número de contrato nem fornecedor e encerrou com `STOP_MISSING_CONTRACT_OR_SUPPLIER_KEY`, `remote_writes: NONE`. O seletor foi endurecido para pular esse tipo de tarefa sem alterá-la e passar ao executor exatamente o `task_id` elegível escolhido. Qualquer resultado fora de `MATCH_CANDIDATE`/`NO_MATCH`, qualquer alteração em alvos protegidos ou qualquer tentativa de gerar `financial_identity` continua impedindo a substituição do estado e a criação do log.

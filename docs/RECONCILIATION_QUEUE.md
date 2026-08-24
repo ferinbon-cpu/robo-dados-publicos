@@ -93,10 +93,12 @@ A fila persiste o resultado, mas `MATCH_CANDIDATE` não equivale a identidade. O
 
 ## M4E.6 — primeira execução controlada candidata 0.6.2
 
-O primeiro gate ao vivo está preparado, mas ainda não executado. Seu contrato permite somente:
+O primeiro gate ao vivo foi tentado e parou com segurança diante de uma tarefa sem número de contrato nem fornecedor, sem gravar estado ou log. O contrato corrigido permite somente:
 
-- uma tarefa `READY_SEARCH` de `LIMEIRA_CONTRATOS`;
-- seleção determinística por prioridade decrescente e `task_id` crescente;
+- uma tarefa `READY_SEARCH` de `LIMEIRA_CONTRATOS` com número de contrato ou fornecedor;
+- preservação e salto das tarefas incompletas, sem chamada de rede;
+- seleção determinística por prioridade decrescente e `task_id` crescente entre elegíveis;
+- execução exatamente do `task_id` selecionado;
 - resultado `MATCH_CANDIDATE` ou `NO_MATCH`;
 - evidência documental `CANDIDATE_ONLY` quando houver correspondência;
 - substituição do estado e log append-only após PASS integral.
