@@ -51,17 +51,18 @@ class TestM4EPromotion(unittest.TestCase):
         self.assertEqual(148, evidence['rag_chunks'])
         self.assertEqual(68, evidence['reconciliation_tasks'])
 
-    def test_0_6_1_five_derived_hashes_are_publicly_auditable_without_remote_ids(self):
+    def test_0_6_1_five_derived_outputs_are_recorded_without_private_metadata(self):
         evidence = (self.root / 'docs/M4E_FIRST_SOURCE_PROCESSING_EVIDENCE_2026-08-24.md').read_text(encoding='utf-8')
-        expected_hashes = (
-            '687cd8b50d01ac17f06031544392164ed43cedffd0a61eadab50b0ad8b70afc3',
-            'b0f001358813e7cfae8e233dda2097ee29704033efc01c6f938731c5024c11b3',
-            'a4b0cae199f063ee333ed05117ce0785d652ba921990eaa89d9a477b1cd8b224',
-            '6211472565b096bf64c61205d9b4954381cfe476822dbe855ba8c338427ecdfe',
-            '29109cc1777e7abec102b67a780c1943d6500559c5aa91b78ce6dd749b0beac3',
+        expected_outputs = (
+            'edition_manifest.json',
+            'pages_silver.jsonl',
+            'events_gold.jsonl',
+            'reconciliation_tasks.jsonl',
+            'chunks_rag.jsonl',
         )
-        self.assertTrue(all(value in evidence for value in expected_hashes))
+        self.assertTrue(all(value in evidence for value in expected_outputs))
         self.assertIn('identificadores remotos: não publicados', evidence)
+        self.assertIn('Hashes, tamanhos e IDs privados permanecem apenas na auditoria', evidence)
 
     def test_0_6_1_processing_rerun_and_automatic_identity_are_disabled(self):
         active = self.load_json('release_manifest_v01_0.6.1_active.json')
