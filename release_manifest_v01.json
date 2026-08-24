@@ -1,10 +1,11 @@
 {
   "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
   "current_active": "0.6.2",
-  "current_candidate": "NONE",
+  "current_candidate": "0.6.3",
   "last_active_validated": "0.6.2",
   "active_manifest": "release_manifest_v01_0.6.2_active.json",
+  "candidate_manifest": "release_manifest_v01_0.6.3.json",
   "preserved_candidate_manifest": "release_manifest_v01_0.6.2.json",
-  "promotion_gate": "PASS_M4E_FIRST_RECONCILIATION_EXECUTION_LIVE_GATE",
-  "next_action": "M4E_REVIEW_FIRST_RECONCILIATION_RESULT_AND_DEFINE_NEXT_GATE"
+  "promotion_gate": "PENDING_M5_OBSERVABILITY_OFFLINE_VALIDATION",
+  "next_action": "M5_OBSERVABILITY_OFFLINE_VALIDATION_GATE_0_6_3"
 }
