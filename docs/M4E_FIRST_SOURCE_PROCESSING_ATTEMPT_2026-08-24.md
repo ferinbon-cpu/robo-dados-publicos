@@ -30,3 +30,9 @@ O gate interrompeu antes do commit dos cinco derivados, da persistência do esta
 - verificar a versão antes do download e do processamento;
 - manter as métricas originais, agora associadas explicitamente ao extrator que as produziu;
 - exigir novo CI offline antes de repetir o gate ao vivo.
+
+## Segunda tentativa e correção da ordem do workflow
+
+O run `32760805877`, no commit `d18c0c83d07ba50b7c9215558b47a8995afeb81e`, parou no preflight antes da instalação das dependências. O novo preflight verificava a versão instalada de `pypdf`, mas a etapa `Instalar dependências` ainda estava posicionada depois dele. O resultado foi `ModuleNotFoundError` sem acesso ao Drive e sem qualquer processamento ou escrita.
+
+A correção posiciona a instalação determinística de `requirements.txt` antes do preflight de runtime e adiciona um teste de regressão que exige essa ordem. A validação de presença dos secrets permanece antes da instalação e continua sem exibir valores.
