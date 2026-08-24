@@ -56,7 +56,7 @@ class TestProductPublicationWorkflow(unittest.TestCase):
         self.assertNotIn("file_id", self.text)
         self.assertNotIn('"remote_id"', self.text)
 
-    def test_gate_dry_run_is_local_and_requires_no_credentials(self):
+    def test_promoted_release_retires_m6_gate_before_network(self):
         proc = subprocess.run(
             [sys.executable, str(ROOT / "scripts" / "github_product_publication_gate.py"), "--dry-run"],
             cwd=ROOT,
@@ -64,13 +64,13 @@ class TestProductPublicationWorkflow(unittest.TestCase):
             capture_output=True,
             check=False,
         )
-        self.assertEqual(0, proc.returncode, proc.stderr)
+        self.assertEqual(16, proc.returncode, proc.stderr)
         payload = json.loads(proc.stdout)
-        self.assertEqual("PASS_M6_PRODUCT_OUTPUT_PUBLICATION_DRY_RUN", payload["status"])
-        self.assertEqual("NONE", payload["remote_writes"])
-        self.assertFalse(payload["network_called"])
+        self.assertEqual("STOP_PRODUCT_GATE_RELEASE_IDENTITY", payload["status"])
+        self.assertEqual(0, payload["created_count"])
+        self.assertFalse(payload["partial_write_possible"])
         self.assertFalse(payload["remote_identifiers_exposed"])
-        self.assertEqual(3, payload["would_create"])
+        self.assertFalse(payload["secret_values_exposed"])
 
 
 if __name__ == "__main__":
