@@ -4,7 +4,7 @@
   "status": "CANDIDATE",
   "based_on_active": "0.6.0",
   "compileall": "PASS",
-  "unit_tests": "96/96 PASS",
+  "unit_tests": "97/97 PASS",
   "historical_regressions": "109/109 PASS",
   "m4e_live_validation": {
     "journal_index_discovery": "PASS_12_EDITIONS",
@@ -32,9 +32,10 @@
   "drive_append_only_log": "PASS_IDENTIFIERS_RETAINED_IN_PRIVATE_AUDIT",
   "source_recurrence": "DISABLED",
   "processing_gate_contract": "PASS_EXACT_BRONZE_HASH_BYTES_AND_EXPECTED_METRICS",
+  "processing_extractor_contract": "PASS_PYPDF_6.10.0_PINNED_AND_GATED",
   "processing_cloud_runner": "PASS_IDEMPOTENT_DERIVED_OUTPUTS_AND_PRIVATE_IDS",
   "processing_origin_network": "PROHIBITED",
-  "processing_live_gate": "PENDING_USER_CONFIRMATION",
+  "processing_live_gate": "PENDING_RETRY_AFTER_SAFE_STOP_RUN_32758683064",
   "workflow_schedule": "DISABLED",
   "clean_reextraction": "PASS",
   "secret_scan": "PASS"
