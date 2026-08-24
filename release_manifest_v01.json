@@ -7,5 +7,7 @@
   "candidate_manifest": "release_manifest_v01_0.8.0.json",
   "preserved_candidate_manifest": "release_manifest_v01_0.7.0.json",
   "promotion_gate": "PENDING_M7_OFFLINE_SOURCE_EXPANSION_DESIGN_VALIDATION",
+  "design_validation": "PASS_M7_OFFLINE_SOURCE_EXPANSION_DESIGN_VALIDATION",
+  "operational_authorization": "NONE",
   "next_action": "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0"
 }
