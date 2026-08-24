@@ -10,6 +10,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.parse import urlencode, quote
+from urllib.error import HTTPError
 import json, os, time, hashlib, uuid, subprocess
 
 TOKEN_URL = "https://oauth2.googleapis.com/token"
@@ -25,9 +26,9 @@ class OAuthCredentials:
     @classmethod
     def from_env(cls):
         vals={
-            "client_id":os.getenv("GOOGLE_DRIVE_CLIENT_ID",""),
-            "client_secret":os.getenv("GOOGLE_DRIVE_CLIENT_SECRET",""),
-            "refresh_token":os.getenv("GOOGLE_DRIVE_REFRESH_TOKEN",""),
+            "client_id":os.getenv("GOOGLE_DRIVE_CLIENT_ID","").strip(),
+            "client_secret":os.getenv("GOOGLE_DRIVE_CLIENT_SECRET","").strip(),
+            "refresh_token":os.getenv("GOOGLE_DRIVE_REFRESH_TOKEN","").strip(),
         }
         missing=[k for k,v in vals.items() if not v]
         if missing:
@@ -49,8 +50,20 @@ class TokenProvider:
             "grant_type":"refresh_token",
         }).encode()
         req=Request(TOKEN_URL,data=body,headers={"Content-Type":"application/x-www-form-urlencoded"},method="POST")
-        with self.opener(req,timeout=30) as resp:
-            data=json.loads(resp.read().decode("utf-8"))
+        try:
+            with self.opener(req,timeout=30) as resp:
+                data=json.loads(resp.read().decode("utf-8"))
+        except HTTPError as exc:
+            # Expose only Google's public OAuth error code/description. Never
+            # include the request body or any credential value in CI logs.
+            try:
+                payload=json.loads(exc.read().decode("utf-8"))
+            except (ValueError, UnicodeDecodeError):
+                payload={}
+            error=str(payload.get("error") or "oauth_http_error")
+            description=str(payload.get("error_description") or "")
+            detail=f": {description}" if description else ""
+            raise RuntimeError(f"Google OAuth token exchange failed ({error}){detail}") from exc
         self._token=data["access_token"]
         self._expires_at=time.time()+int(data.get("expires_in",3600))
         return self._token
