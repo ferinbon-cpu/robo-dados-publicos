@@ -8,7 +8,7 @@ class TestM4DGitHubGate(unittest.TestCase):
         return {
             "status": "PASS",
             "software_version": "0.5.9",
-            "release_status": "CANDIDATE",
+            "release_status": "ACTIVE",
             "state_source": "REMOTE_EXISTING",
             "state_remote": {"mode": "REPLACED", "id": "state-id"},
             "log_remote": {"id": "log-id", "name": "ROBO_RUN_20260823.json"},
@@ -31,4 +31,4 @@ class TestM4DGitHubGate(unittest.TestCase):
         payload["software_version"] = "0.5.8"
         out = evaluate_live_payload(payload)
         self.assertEqual("STOP_GITHUB_LIVE_GATE", out["status"])
-        self.assertFalse(out["checks"]["candidate_version_0_5_9"])
+        self.assertFalse(out["checks"]["active_version_0_5_9"])
