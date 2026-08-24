@@ -9,7 +9,7 @@ description = "Pipeline auditável para coleta, tratamento, QA, evidências e ap
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [{name = "Projeto ROBO_DADOS_PUBLICOS"}]
-dependencies = ["pypdf==5.9.0"]
+dependencies = ["pypdf==6.10.0"]
 
 [project.scripts]
 robo-dados-publicos = "robo_dados_publicos.cli:main"
