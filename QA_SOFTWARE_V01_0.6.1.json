@@ -4,11 +4,12 @@
   "status": "CANDIDATE",
   "based_on_active": "0.6.0",
   "compileall": "PASS",
-  "unit_tests": "96/96 PASS",
+  "unit_tests": "97/97 PASS",
   "historical_regressions": "109/109 PASS",
   "release_identity": "PASS_ACTIVE_0.6.0_CANDIDATE_0.6.1",
   "candidate_evidence_preserved": "PASS",
   "processing_gate_config": "PASS_IMMUTABLE_SOURCE_AND_EXACT_METRICS",
+  "processing_extractor_contract": "PASS_PYPDF_6.10.0_PINNED_AND_GATED",
   "processing_runner": "PASS_FIXTURE_AND_IDEMPOTENT_RETRY",
   "processing_bronze_mutation": "PROHIBITED",
   "processing_origin_network": "PROHIBITED",
@@ -18,6 +19,6 @@
   "workflow_schedule": "DISABLED",
   "financial_identity_auto_promotion": "PROHIBITED",
   "tda_connector": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN",
-  "processing_live_gate": "PENDING_USER_CONFIRMATION",
+  "processing_live_gate": "PENDING_RETRY_AFTER_SAFE_STOP_RUN_32758683064",
   "secret_scan": "PASS"
 }
