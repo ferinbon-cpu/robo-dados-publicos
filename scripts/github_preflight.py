@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from importlib.metadata import version as package_version
 import json
 import os
 import re
@@ -43,31 +44,57 @@ PROCESSING_GATE_CONFIG = ROOT / "config" / "processing.jornal_oficial_7310_gate.
 RECONCILIATION_GATE_CONFIG = ROOT / "config" / "reconciliation.first_contract_gate.json"
 OBSERVABILITY_CONFIG = ROOT / "config" / "observability.jornal_oficial_7310.json"
 OBSERVABILITY_SCRIPT = ROOT / "scripts" / "github_observability_report.py"
+PRODUCT_BUILDER = ROOT / "scripts" / "build_product_output.py"
+PRODUCT_CONTRACT = ROOT / "robo_dados_publicos" / "product" / "contracts.py"
+PRODUCT_BUNDLE = ROOT / "robo_dados_publicos" / "product" / "bundle.py"
 
 
 def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
     text = WORKFLOW.read_text(encoding="utf-8")
     active_lines = [line for line in text.splitlines() if not line.lstrip().startswith("#")]
     manifest = json.loads((ROOT / "release_manifest_v01.json").read_text(encoding="utf-8"))
+    cloud_config = json.loads((ROOT / "config" / "cloud.json").read_text(encoding="utf-8"))
     inventory = load_source_inventory(SOURCE_GATE_CONFIG)
     source = inventory.enabled[0] if len(inventory.enabled) == 1 else None
     processing_gate = load_journal_processing_gate(PROCESSING_GATE_CONFIG)
     reconciliation_gate = load_reconciliation_execution_gate(RECONCILIATION_GATE_CONFIG)
     observability_payload = json.loads(OBSERVABILITY_CONFIG.read_text(encoding="utf-8"))
     source_card = SourceCard.from_mapping(observability_payload["source_card"])
+    requirements = (ROOT / "requirements.txt").read_text(encoding="utf-8")
+    pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    product_builder_text = PRODUCT_BUILDER.read_text(encoding="utf-8") if PRODUCT_BUILDER.is_file() else ""
 
     checks = {
-        "software_version_0_6_3": SOFTWARE_VERSION == "0.6.3",
-        "release_status_active": RELEASE_STATUS == "ACTIVE",
+        "software_version_0_7_0": SOFTWARE_VERSION == "0.7.0",
+        "release_status_candidate": RELEASE_STATUS == "CANDIDATE",
         "active_version_0_6_3": ACTIVE_VALIDATED_VERSION == "0.6.3",
-        "current_candidate_none": CURRENT_CANDIDATE_VERSION == "NONE",
-        "next_action_product_minimal_output": NEXT_ACTION == "M6_PRODUCT_MINIMAL_OUTPUT_DESIGN_0_7_0",
+        "current_candidate_0_7_0": CURRENT_CANDIDATE_VERSION == "0.7.0",
+        "next_action_controlled_publication_design": NEXT_ACTION == "M6_PRODUCT_OUTPUT_CONTROLLED_PUBLICATION_DESIGN_0_7_0",
         "manifest_identity": (
             manifest.get("current_active") == "0.6.3"
-            and manifest.get("current_candidate") == "NONE"
+            and manifest.get("current_candidate") == "0.7.0"
             and manifest.get("last_active_validated") == "0.6.3"
             and manifest.get("active_manifest") == "release_manifest_v01_0.6.3_active.json"
+            and manifest.get("candidate_manifest") == "release_manifest_v01_0.7.0.json"
             and manifest.get("preserved_candidate_manifest") == "release_manifest_v01_0.6.3.json"
+            and manifest.get("promotion_gate") == "PASS_M6_PRODUCT_MINIMAL_OUTPUT_OFFLINE_VALIDATION"
+            and manifest.get("next_action") == "M6_PRODUCT_OUTPUT_CONTROLLED_PUBLICATION_DESIGN_0_7_0"
+        ),
+        "product_contract_present": PRODUCT_CONTRACT.is_file(),
+        "product_bundle_present": PRODUCT_BUNDLE.is_file(),
+        "product_builder_present": PRODUCT_BUILDER.is_file(),
+        "product_builder_local_only": (
+            "DriveRESTClient" not in product_builder_text
+            and "_drive_client" not in product_builder_text
+            and "drive.put(" not in product_builder_text
+            and "drive.replace_content(" not in product_builder_text
+        ),
+        "product_workflow_not_reachable": "build_product_output.py" not in text,
+        "outputs_drive_target_configured": bool(str(cloud_config.get("outputs_id", "")).strip()),
+        "reportlab_dependency_pinned": (
+            "reportlab==5.0.0" in requirements
+            and "reportlab==5.0.0" in pyproject
+            and package_version("reportlab") == "5.0.0"
         ),
         "source_inventory_one_enabled": source is not None,
         "source_inventory_immutable_contract": bool(
@@ -109,8 +136,8 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
             }
         ),
         "processing_dependency_pinned": (
-            "pypdf==6.10.0" in (ROOT / "requirements.txt").read_text(encoding="utf-8")
-            and "pypdf==6.10.0" in (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+            "pypdf==6.10.0" in requirements
+            and "pypdf==6.10.0" in pyproject
         ),
         "workflow_processing_rerun_disabled": "confirm_processing:" not in text,
         "workflow_processing_gate_not_reachable": "scripts/github_processing_gate.py --processing-config config/processing.jornal_oficial_7310_gate.json" not in text,
@@ -156,6 +183,8 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
         status, code = "STOP_GITHUB_PREFLIGHT", 2
     elif missing:
         status, code = "STOP_MISSING_GITHUB_SECRETS", 3
+    elif require_oauth and RELEASE_STATUS == "CANDIDATE":
+        status, code = "STOP_CANDIDATE_PERSISTENT_RUNTIME_NOT_AUTHORIZED", 14
     else:
         status, code = ("PASS_LIVE_PREFLIGHT" if require_oauth else "PASS_OFFLINE"), 0
     return {

@@ -10,9 +10,11 @@ A 0.6.3 foi promovida após o run manual `32782732233` concluir com `PASS_M5_OBS
 
 ## Candidata corrente
 
-**NONE**
+**0.7.0 CANDIDATE — M6 saída mínima de produto**
 
-A evidência da candidata 0.6.3 permanece preservada em `release_manifest_v01_0.6.3.json`, `QA_SOFTWARE_V01_0.6.3.json` e `docs/RELEASE_NOTES_V01_0.6.3.md`.
+Detalhes: `docs/RELEASE_NOTES_V01_0.7.0.md`.
+
+A candidata cria `REPORT_CARD` e um bundle local com JSON, CSV, Markdown, HTML e PDF, preservando as colunas do contrato de resposta. `table.csv` é a fonte planejada para futura importação como Google Sheets em `08_OUTPUTS`; nenhuma escrita de produto no Drive está habilitada neste gate.
 
 ## Evidência candidata preservada
 
@@ -49,3 +51,4 @@ Detalhes: `docs/RELEASE_NOTES_V01_0.6.2.md`.
 - `RELEASE_NOTES_V01_0.6.2_ACTIVE.md`
 - `RELEASE_NOTES_V01_0.6.3.md`
 - `RELEASE_NOTES_V01_0.6.3_ACTIVE.md`
+- `RELEASE_NOTES_V01_0.7.0.md`
