@@ -14,7 +14,7 @@ A candidata 0.6.1 foi preservada separadamente e promovida após concluir com `P
 
 Detalhes: `docs/RELEASE_NOTES_V01_0.6.2.md`.
 
-A candidata limita a execução a uma tarefa `READY_SEARCH` de `LIMEIRA_CONTRATOS`, mantém todos os demais alvos intocados e impede qualquer promoção automática a identidade financeira. O gate ao vivo permanece pendente de confirmação manual.
+A candidata limita a execução a uma tarefa `READY_SEARCH` pesquisável de `LIMEIRA_CONTRATOS`, mantém todos os demais alvos intocados e impede qualquer promoção automática a identidade financeira. A primeira tentativa parou com segurança em uma tarefa sem chave mínima; o seletor foi endurecido e uma nova execução manual permanece pendente.
 
 ## Evidência candidata preservada
 

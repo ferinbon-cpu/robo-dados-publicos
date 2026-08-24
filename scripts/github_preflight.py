@@ -104,7 +104,7 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
             and reconciliation_gate.limit == 1
             and reconciliation_gate.required_selected == 1
             and reconciliation_gate.initial_status == "READY_SEARCH"
-            and reconciliation_gate.selection_policy == "PRIORITY_DESC_TASK_ID_ASC"
+            and reconciliation_gate.selection_policy == "ELIGIBLE_PRIORITY_DESC_TASK_ID_ASC"
             and set(reconciliation_gate.allowed_result_statuses) == {"MATCH_CANDIDATE", "NO_MATCH"}
             and reconciliation_gate.financial_identity_auto_promotion == "PROHIBITED"
         ),

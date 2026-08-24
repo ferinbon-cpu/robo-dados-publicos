@@ -625,6 +625,17 @@ class LimeiraContractsResolver:
         m = re.search(r"\d+", str(value))
         return m.group(0) if m else _clean(value)
 
+    @classmethod
+    def has_minimum_search_key(cls, task: dict) -> bool:
+        """Return whether the public form can receive a bounded search.
+
+        The live form can be submitted by contract number or supplier name. CNPJ,
+        object and process remain corroborating signals, but are not used alone to
+        broaden the search.
+        """
+        keys = task.get("match_keys") or {}
+        return bool(cls._contract_stem(keys.get("contract_number")) or _clean(keys.get("contractor")))
+
     @staticmethod
     def _candidate_rows(rows: list[list[str]], keys: dict) -> list[dict]:
         contract_raw = _ascii(keys.get("contract_number"))
@@ -762,11 +773,15 @@ class ReconciliationExecutor:
         work_dir: str | Path,
         limit: int = 10,
         targets: list[str] | None = None,
+        task_ids: list[str] | None = None,
         dry_run: bool = False,
     ) -> dict:
         targets_set = set(targets or self.IMPLEMENTED_TARGETS)
+        task_ids_set = set(task_ids) if task_ids is not None else None
         with StateRegistry(state_db) as st:
             ready = [t for t in st.list_reconciliation_tasks(status="READY_SEARCH") if t["target_source"] in targets_set]
+            if task_ids_set is not None:
+                ready = [t for t in ready if t["task_id"] in task_ids_set]
             ready = ready[: max(0, int(limit))]
             if dry_run:
                 return {

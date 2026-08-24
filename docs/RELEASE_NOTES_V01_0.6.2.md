@@ -7,8 +7,10 @@ Preparar a primeira execução controlada da fila de reconciliação sem ampliar
 ## Capacidade adicionada
 
 - contrato fail-closed em `config/reconciliation.first_contract_gate.json`;
-- seleção determinística por prioridade decrescente e `task_id` crescente;
-- exatamente uma tarefa `READY_SEARCH` de `LIMEIRA_CONTRATOS`;
+- elegibilidade fail-closed por número de contrato ou nome de fornecedor;
+- seleção determinística por prioridade decrescente e `task_id` crescente entre tarefas elegíveis;
+- exatamente uma tarefa `READY_SEARCH` pesquisável de `LIMEIRA_CONTRATOS`;
+- execução vinculada ao `task_id` escolhido, sem nova seleção interna;
 - resultados terminais permitidos: `MATCH_CANDIDATE` ou `NO_MATCH`;
 - substituição do estado e log append-only somente após PASS integral;
 - saída pública sanitizada, sem IDs remotos, identificadores de tarefas ou payloads candidatos.
@@ -25,11 +27,11 @@ Preparar a primeira execução controlada da fila de reconciliação sem ampliar
 ## QA offline
 
 - compileall: PASS;
-- testes unitários: 106/106 PASS;
+- testes unitários: 108/108 PASS;
 - regressões históricas: 109/109 PASS;
-- testes específicos do gate: 4/4 PASS;
+- testes específicos do gate: 6/6 PASS;
 - preflight: PASS_OFFLINE.
 
 ## Estado
 
-O gate ao vivo ainda não foi executado. A 0.6.1 continua sendo a release ativa até uma execução manual bem-sucedida e uma promoção separada.
+A primeira tentativa ao vivo parou com segurança em `STOP_MISSING_CONTRACT_OR_SUPPLIER_KEY`, exit code 13 e `remote_writes: NONE`. O seletor foi corrigido para preservar e pular tarefas sem chave mínima antes da rede. A 0.6.1 continua sendo a release ativa; a 0.6.2 permanece candidata até uma nova execução manual bem-sucedida e uma promoção separada.

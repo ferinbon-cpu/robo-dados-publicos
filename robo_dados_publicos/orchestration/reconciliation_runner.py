@@ -8,7 +8,7 @@ import tempfile
 from robo_dados_publicos.orchestration.cloud_runner import CloudProductionRunner
 from robo_dados_publicos.qa.regression import RegressionSuite
 from robo_dados_publicos.reconciliation.gate import load_reconciliation_execution_gate
-from robo_dados_publicos.reconciliation.resolvers import ReconciliationExecutor
+from robo_dados_publicos.reconciliation.resolvers import LimeiraContractsResolver, ReconciliationExecutor
 from robo_dados_publicos.release import (
     ACTIVE_VALIDATED_VERSION,
     CURRENT_CANDIDATE_VERSION,
@@ -75,7 +75,8 @@ class CloudReconciliationRunner(CloudProductionRunner):
                 task for task in all_before
                 if task["status"] == gate.initial_status and task["target_source"] in allowed
             ]
-            selected = ready[: gate.limit]
+            eligible = [task for task in ready if LimeiraContractsResolver.has_minimum_search_key(task)]
+            selected = eligible[: gate.limit]
             selected_task_ids = [task["task_id"] for task in selected]
             protected_before = {
                 task["task_id"]: task["status"] for task in all_before
@@ -88,7 +89,10 @@ class CloudReconciliationRunner(CloudProductionRunner):
                 "selected_initial_status_ready": bool(selected) and all(
                     task["status"] == gate.initial_status for task in selected
                 ),
-                "selection_policy_deterministic": gate.selection_policy == "PRIORITY_DESC_TASK_ID_ASC",
+                "selected_minimum_search_key_present": bool(selected) and all(
+                    LimeiraContractsResolver.has_minimum_search_key(task) for task in selected
+                ),
+                "selection_policy_deterministic": gate.selection_policy == "ELIGIBLE_PRIORITY_DESC_TASK_ID_ASC",
                 "financial_identity_auto_promotion_prohibited": gate.financial_identity_auto_promotion == "PROHIBITED",
             }
             if dry_run:
@@ -99,6 +103,8 @@ class CloudReconciliationRunner(CloudProductionRunner):
                     "state_source": "REMOTE_EXISTING",
                     "selection_checks": selection_checks,
                     "selected": len(selected),
+                    "ready_allowlisted": len(ready),
+                    "eligible_ready": len(eligible),
                     "allowed_targets": list(gate.allowed_targets),
                     "resolver_network_called": False,
                     "remote_writes": "NONE",
@@ -110,6 +116,8 @@ class CloudReconciliationRunner(CloudProductionRunner):
                     "status": "STOP_RECONCILIATION_SELECTION_CONTRACT",
                     "selection_checks": selection_checks,
                     "selected": len(selected),
+                    "ready_allowlisted": len(ready),
+                    "eligible_ready": len(eligible),
                     "remote_writes": "NONE",
                     "task_identifiers_exposed": False,
                     "secret_values_exposed": False,
@@ -120,6 +128,7 @@ class CloudReconciliationRunner(CloudProductionRunner):
                 work_dir=scratch / "reconciliation",
                 limit=gate.limit,
                 targets=list(gate.allowed_targets),
+                task_ids=selected_task_ids,
                 dry_run=False,
             )
             results = execution.get("results") or []
@@ -140,6 +149,10 @@ class CloudReconciliationRunner(CloudProductionRunner):
             execution_checks = {
                 "executor_status_pass": execution.get("status") == "PASS_RECONCILIATION_EXECUTION",
                 "exactly_one_executed": execution.get("selected") == gate.required_selected and len(results) == 1,
+                "selected_task_executed_exactly": (
+                    len(results) == len(selected_task_ids)
+                    and {result.get("task_id") for result in results} == set(selected_task_ids)
+                ),
                 "target_scope_respected": bool(results) and all(
                     result.get("target_source") in allowed for result in results
                 ),
@@ -163,6 +176,8 @@ class CloudReconciliationRunner(CloudProductionRunner):
                 "selection_checks": selection_checks,
                 "execution_checks": execution_checks,
                 "selected": execution.get("selected"),
+                "ready_allowlisted": len(ready),
+                "eligible_ready": len(eligible),
                 "allowed_targets": list(gate.allowed_targets),
                 "result_status_counts": dict(Counter(result_statuses)),
                 "candidate_evidence_edges": len(evidence),
