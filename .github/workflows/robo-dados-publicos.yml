@@ -1,11 +1,16 @@
 name: ROBO DADOS PUBLICOS
-run-name: "M4E active 0.6.0 infrastructure by @${{ github.actor }}"
+run-name: "M4E processing gate 0.6.1 by @${{ github.actor }}"
 
 on:
   workflow_dispatch:
     inputs:
       confirm_persistence:
         description: "Confirmar escrita controlada em 06_BANCOS e log append-only em 07_LOGS"
+        required: true
+        default: false
+        type: boolean
+      confirm_processing:
+        description: "Confirmar processamento único da edição 7310 já existente no Bronze"
         required: true
         default: false
         type: boolean
@@ -82,4 +87,9 @@ jobs:
         run: python main.py selftest
 
       - name: Execução persistente de infraestrutura
+        if: ${{ inputs.confirm_processing != true }}
         run: python scripts/github_run_gate.py
+
+      - name: Processamento controlado do Jornal Oficial já existente no Bronze
+        if: ${{ inputs.confirm_processing == true }}
+        run: python scripts/github_processing_gate.py --processing-config config/processing.jornal_oficial_7310_gate.json
