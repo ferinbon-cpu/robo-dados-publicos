@@ -34,3 +34,5 @@ O bundle contém:
 ## Limites
 
 O relatório não é um dashboard histórico, não consulta o Drive, não substitui os logs de auditoria e não revela IDs remotos. Histórico, tendências e interface interativa pertencem à etapa 0.7.0.
+
+A evidência intermediária usada para montar os cartões permanece somente no diretório temporário do GitHub runner. Ela não é impressa no log nem incluída no artefato.
