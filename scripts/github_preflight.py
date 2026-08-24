@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail-closed repository and OAuth preflight for the active runtime."""
+"""Fail-closed repository and OAuth preflight for the current release identity."""
 
 from __future__ import annotations
 
@@ -25,6 +25,7 @@ from robo_dados_publicos.release import (
 from robo_dados_publicos.sources.inventory import load_source_inventory
 from robo_dados_publicos.journal.gate import load_journal_processing_gate
 from robo_dados_publicos.reconciliation.gate import load_reconciliation_execution_gate
+from robo_dados_publicos.observability import SourceCard
 
 
 WORKFLOW = ROOT / ".github" / "workflows" / "robo-dados-publicos.yml"
@@ -39,6 +40,7 @@ SOURCE_GATE_CONFIG = ROOT / "config" / "sources.jornal_oficial_7310_gate.json"
 SOURCE_GATE_ID = "LIMEIRA_JORNAL_OFICIAL_EDICAO_7310"
 PROCESSING_GATE_CONFIG = ROOT / "config" / "processing.jornal_oficial_7310_gate.json"
 RECONCILIATION_GATE_CONFIG = ROOT / "config" / "reconciliation.first_contract_gate.json"
+OBSERVABILITY_CONFIG = ROOT / "config" / "observability.jornal_oficial_7310.json"
 
 
 def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
@@ -49,16 +51,20 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
     source = inventory.enabled[0] if len(inventory.enabled) == 1 else None
     processing_gate = load_journal_processing_gate(PROCESSING_GATE_CONFIG)
     reconciliation_gate = load_reconciliation_execution_gate(RECONCILIATION_GATE_CONFIG)
+    observability_payload = json.loads(OBSERVABILITY_CONFIG.read_text(encoding="utf-8"))
+    source_card = SourceCard.from_mapping(observability_payload["source_card"])
+
     checks = {
-        "software_version_0_6_2": SOFTWARE_VERSION == "0.6.2",
-        "release_status_active": RELEASE_STATUS == "ACTIVE",
+        "software_version_0_6_3": SOFTWARE_VERSION == "0.6.3",
+        "release_status_candidate": RELEASE_STATUS == "CANDIDATE",
         "active_version_0_6_2": ACTIVE_VALIDATED_VERSION == "0.6.2",
-        "current_candidate_none": CURRENT_CANDIDATE_VERSION == "NONE",
-        "next_action_review_reconciliation_result": NEXT_ACTION == "M4E_REVIEW_FIRST_RECONCILIATION_RESULT_AND_DEFINE_NEXT_GATE",
+        "current_candidate_0_6_3": CURRENT_CANDIDATE_VERSION == "0.6.3",
+        "next_action_observability_offline_gate": NEXT_ACTION == "M5_OBSERVABILITY_OFFLINE_VALIDATION_GATE_0_6_3",
         "manifest_identity": (
             manifest.get("current_active") == "0.6.2"
-            and manifest.get("current_candidate") == "NONE"
+            and manifest.get("current_candidate") == "0.6.3"
             and manifest.get("active_manifest") == "release_manifest_v01_0.6.2_active.json"
+            and manifest.get("candidate_manifest") == "release_manifest_v01_0.6.3.json"
             and manifest.get("preserved_candidate_manifest") == "release_manifest_v01_0.6.2.json"
         ),
         "source_inventory_one_enabled": source is not None,
@@ -68,6 +74,14 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
             and source.expected_sha256 == processing_gate.source_sha256
             and source.expected_bytes == processing_gate.source_bytes
             and source.expected_content_types == ("application/pdf",)
+        ),
+        "observability_source_card_contract": bool(
+            source
+            and source_card.source_id == source.source_id
+            and source_card.source_url == source.url
+            and source_card.formats == source.expected_content_types
+            and source_card.periodicity == source.cadence
+            and source_card.expected_update_interval_hours is None
         ),
         "workflow_manual_dispatch": bool(re.search(r"^  workflow_dispatch:\s*$", text, re.MULTILINE)),
         "workflow_schedule_disabled": not any(line.strip() == "schedule:" for line in active_lines),
@@ -106,9 +120,7 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
             and set(reconciliation_gate.allowed_result_statuses) == {"MATCH_CANDIDATE", "NO_MATCH"}
             and reconciliation_gate.financial_identity_auto_promotion == "PROHIBITED"
         ),
-        "workflow_reconciliation_gate_not_reachable": (
-            "scripts/github_reconciliation_gate.py" not in text
-        ),
+        "workflow_reconciliation_gate_not_reachable": "scripts/github_reconciliation_gate.py" not in text,
         "permissions_contents_read": "permissions:\n  contents: read" in text,
         "checkout_immutable_pin": CHECKOUT_PIN in text,
         "setup_python_immutable_pin": SETUP_PYTHON_PIN in text,
