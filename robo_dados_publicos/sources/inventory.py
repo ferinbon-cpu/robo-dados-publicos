@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import urlparse
 import json
+import re
 
 
 @dataclass(frozen=True)
@@ -14,6 +15,8 @@ class SourceSpec:
     file_name: str
     enabled: bool = True
     expected_content_types: tuple[str, ...] = ()
+    expected_sha256: str | None = None
+    expected_bytes: int | None = None
     cadence: str = "manual"
     notes: str = ""
 
@@ -49,6 +52,18 @@ class SourceSpec:
             for x in raw_cts
             if str(x).strip()
         )
+        expected_sha256 = str(raw.get("expected_sha256", "")).strip().lower() or None
+        if expected_sha256 and not re.fullmatch(r"[0-9a-f]{64}", expected_sha256):
+            raise ValueError(f"SOURCE_CONTRACT_BAD_SHA256: {source_id}")
+
+        expected_bytes = raw.get("expected_bytes")
+        if expected_bytes is not None:
+            try:
+                expected_bytes = int(expected_bytes)
+            except (TypeError, ValueError) as exc:
+                raise ValueError(f"SOURCE_CONTRACT_BAD_EXPECTED_BYTES: {source_id}") from exc
+            if expected_bytes <= 0:
+                raise ValueError(f"SOURCE_CONTRACT_BAD_EXPECTED_BYTES: {source_id}")
         return cls(
             source_id=source_id,
             url=url,
@@ -56,6 +71,8 @@ class SourceSpec:
             file_name=file_name,
             enabled=bool(raw.get("enabled", True)),
             expected_content_types=cts,
+            expected_sha256=expected_sha256,
+            expected_bytes=expected_bytes,
             cadence=str(raw.get("cadence", "manual")).strip() or "manual",
             notes=str(raw.get("notes", "")),
         )

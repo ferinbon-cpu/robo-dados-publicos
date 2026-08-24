@@ -2,8 +2,8 @@
 
 ## Identidade preparada
 
-- release ativa: `0.5.9 ACTIVE`;
-- candidata corrente: `NONE`;
+- release ativa preservada: `0.5.9 ACTIVE`;
+- candidata corrente: `0.6.0 CANDIDATE`;
 - `actions/checkout` fixada no SHA da release pública `v6.0.2`;
 - `actions/setup-python` fixada no SHA da release `v7.0.0`;
 - agendamento desabilitado até decisão explícita sobre cadência e fontes.
@@ -31,7 +31,7 @@ python -m unittest discover -s tests -v
 python main.py selftest
 ```
 
-O preflight local esperado é `PASS_OFFLINE`. Ele valida a identidade `0.5.9 ACTIVE`, ausência de candidata corrente, ausência de agendamento, confirmação obrigatória e pins imutáveis. Ele não simula credenciais.
+O preflight local esperado é `PASS_OFFLINE`. Ele valida a identidade `0.6.0 CANDIDATE`, preservação da ativa 0.5.9, ausência de agendamento, as duas confirmações, o inventário imutável e os pins das actions. Ele não simula credenciais.
 
 ## Gate manual concluído
 O arquivo `.github/workflows/robo-dados-publicos.yml` permanece somente com `workflow_dispatch` ativo. O primeiro gate persistente foi executado no run `32678624194`, job `97476648260`.
@@ -49,10 +49,26 @@ Critérios de PASS:
 9. novo `ROBO_RUN_*.json` aparece em `07_LOGS`;
 10. `scripts/github_run_gate.py` retorna `PASS_GITHUB_LIVE_GATE`.
 
-Todos os dez critérios passaram. Após a promoção, novos runs exigem `software_version: 0.5.9` e `release_status: ACTIVE`.
+Todos os dez critérios passaram e sustentaram a promoção da 0.5.9.
+
+## Gate corrente: primeira coleta controlada
+
+A 0.6.0 adiciona o input `confirm_source_collection`, com padrão `false`. Quando ele permanece desmarcado, o workflow executa apenas infraestrutura. Quando é marcado junto com `confirm_persistence`, o workflow passa explicitamente `config/sources.jornal_oficial_7310_gate.json` ao runtime.
+
+O gate corrente exige:
+
+1. `software_version: 0.6.0` e `release_status: CANDIDATE`;
+2. `mode: SOURCE_COLLECTION_ENABLED`;
+3. exatamente uma fonte habilitada;
+4. PDF da edição 7310 com tipo, tamanho e SHA-256 esperados;
+5. resultado `DOWNLOADED_NEW` com `remote_id` em Bronze;
+6. estado remoto substituído e novo log append-only;
+7. `PASS_GITHUB_SOURCE_COLLECTION_GATE`.
+
+Instruções de tela: `docs/M4E_FIRST_SOURCE_COLLECTION_GATE_0.6.0.md`.
 
 ## Gate futuro: agendamento
-O primeiro PASS não habilita agendamento automaticamente. Antes de ativar `schedule`, ainda é necessário escolher a cadência e decidir se o run será somente de infraestrutura ou incluirá um inventário de fontes aprovado. O GitHub Actions aceita cron POSIX e `timezone` IANA. Exemplo ainda não ativo para 03:17 em São Paulo:
+Nenhum PASS habilita agendamento automaticamente. Antes de ativar `schedule`, ainda é necessário escolher a cadência e aprovar um inventário recorrente separado. O inventário da edição 7310 é de uso único e não pode ser convertido silenciosamente em rotina. O GitHub Actions aceita cron POSIX e `timezone` IANA. Exemplo ainda não ativo para 03:17 em São Paulo:
 
 ```yaml
 on:

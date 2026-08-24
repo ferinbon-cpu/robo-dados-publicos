@@ -1,5 +1,13 @@
 # Release Notes — Software V01
 
+## Candidata corrente
+
+**0.6.0 CANDIDATE — M4E primeira coleta controlada**
+
+Detalhes: `docs/RELEASE_NOTES_V01_0.6.0.md`.
+
+A candidata adiciona contrato imutável para a edição 7310 do Jornal Oficial e uma confirmação manual separada no GitHub. Nenhuma coleta recorrente ou agenda foi habilitada.
+
 ## Release ativa corrente
 **0.5.9 ACTIVE — M4D GitHub live gate promovido**
 
@@ -30,3 +38,4 @@ Detalhes: `docs/RELEASE_NOTES_V01_0.5.9.md`.
 - `RELEASE_NOTES_V01_0.5.8_ACTIVE.md`
 - `RELEASE_NOTES_V01_0.5.9.md`
 - `RELEASE_NOTES_V01_0.5.9_ACTIVE.md`
+- `RELEASE_NOTES_V01_0.6.0.md`

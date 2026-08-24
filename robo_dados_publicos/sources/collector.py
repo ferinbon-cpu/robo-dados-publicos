@@ -160,6 +160,45 @@ class SourceCollector:
                 state.event("SOURCE_QUARANTINED", result)
                 return result
 
+            immutable_mismatches = {}
+            if spec.expected_sha256 and fetched.sha256 != spec.expected_sha256:
+                immutable_mismatches["sha256"] = {
+                    "expected": spec.expected_sha256,
+                    "observed": fetched.sha256,
+                }
+            if spec.expected_bytes is not None and fetched.bytes_written != spec.expected_bytes:
+                immutable_mismatches["bytes"] = {
+                    "expected": spec.expected_bytes,
+                    "observed": fetched.bytes_written,
+                }
+            if immutable_mismatches:
+                qname = self._remote_name(spec, fetched.sha256 or "unknown")
+                uploaded = self.drive.put(
+                    local,
+                    qname,
+                    self.quarantine_id,
+                    self._mime(spec, fetched.content_type),
+                )
+                state.upsert_source_state(
+                    spec.source_id,
+                    spec.url,
+                    etag=fetched.etag,
+                    last_modified=fetched.last_modified,
+                    last_sha256=fetched.sha256,
+                    last_status="STOP_SOURCE_CONTRACT",
+                    remote_file_id=uploaded.get("id"),
+                )
+                result = {
+                    "source_id": spec.source_id,
+                    "status": "STOP_SOURCE_CONTRACT",
+                    "reason": "IMMUTABLE_ARTIFACT_MISMATCH",
+                    "mismatches": immutable_mismatches,
+                    "observed_content_type": observed_type,
+                    "quarantine_remote_id": uploaded.get("id"),
+                }
+                state.event("SOURCE_QUARANTINED", result)
+                return result
+
             digest = fetched.sha256
             if digest and state.has_hash(digest):
                 state.upsert_source_state(

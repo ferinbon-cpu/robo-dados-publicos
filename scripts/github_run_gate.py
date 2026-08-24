@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 import subprocess
 import sys
@@ -13,10 +14,32 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from robo_dados_publicos.qa.github_gate import evaluate_live_payload
+from robo_dados_publicos.sources.inventory import load_source_inventory
 
 def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--source-config")
+    args = parser.parse_args()
+    command = [sys.executable, "main.py", "run", "--auth", "oauth-env"]
+    source_expectation = None
+    if args.source_config:
+        inventory = load_source_inventory(ROOT / args.source_config)
+        if len(inventory.enabled) != 1:
+            print(json.dumps({"status": "STOP_SOURCE_GATE_INVENTORY_COUNT"}, indent=2))
+            return 8
+        source = inventory.enabled[0]
+        if not source.expected_sha256 or source.expected_bytes is None or not source.expected_content_types:
+            print(json.dumps({"status": "STOP_SOURCE_GATE_IMMUTABLE_CONTRACT_REQUIRED"}, indent=2))
+            return 8
+        source_expectation = {
+            "source_id": source.source_id,
+            "expected_sha256": source.expected_sha256,
+            "expected_bytes": source.expected_bytes,
+            "expected_content_types": source.expected_content_types,
+        }
+        command.extend(["--source-config", args.source_config])
     proc = subprocess.run(
-        [sys.executable, "main.py", "run", "--auth", "oauth-env"],
+        command,
         cwd=ROOT,
         text=True,
         capture_output=True,
@@ -31,7 +54,7 @@ def main() -> int:
     except json.JSONDecodeError as exc:
         print(json.dumps({"status": "STOP_INVALID_RUNTIME_JSON", "error": str(exc)}, indent=2))
         return 6
-    gate = evaluate_live_payload(payload)
+    gate = evaluate_live_payload(payload, source_expectation=source_expectation)
     evidence = {
         **gate,
         "software_version": payload.get("software_version"),
@@ -39,10 +62,11 @@ def main() -> int:
         "state_source": payload.get("state_source"),
         "state_remote_mode": (payload.get("state_remote") or {}).get("mode"),
         "log_remote": payload.get("log_remote"),
+        "source_collection": payload.get("source_collection"),
         "secret_values_exposed": False,
     }
     print(json.dumps(evidence, ensure_ascii=False, indent=2, sort_keys=True))
-    return 0 if gate["status"] == "PASS_GITHUB_LIVE_GATE" else 7
+    return 0 if gate["status"].startswith("PASS_GITHUB_") else 7
 
 
 if __name__ == "__main__":

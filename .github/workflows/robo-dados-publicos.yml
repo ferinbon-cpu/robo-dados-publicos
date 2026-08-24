@@ -1,11 +1,16 @@
 name: ROBO DADOS PUBLICOS
-run-name: "Runtime 0.5.9 ACTIVE by @${{ github.actor }}"
+run-name: "M4E source gate 0.6.0 by @${{ github.actor }}"
 
 on:
   workflow_dispatch:
     inputs:
       confirm_persistence:
         description: "Confirmar escrita controlada em 06_BANCOS e log append-only em 07_LOGS"
+        required: true
+        default: false
+        type: boolean
+      confirm_source_collection:
+        description: "Confirmar coleta única e controlada da edição 7310 do Jornal Oficial em 01_BRONZE"
         required: true
         default: false
         type: boolean
@@ -81,5 +86,10 @@ jobs:
       - name: Regressão histórica
         run: python main.py selftest
 
-      - name: Execução persistente e validação do runtime ativo
+      - name: Execução persistente de infraestrutura
+        if: ${{ inputs.confirm_source_collection != true }}
         run: python scripts/github_run_gate.py
+
+      - name: Primeira coleta controlada do Jornal Oficial
+        if: ${{ inputs.confirm_source_collection == true }}
+        run: python scripts/github_run_gate.py --source-config config/sources.jornal_oficial_7310_gate.json

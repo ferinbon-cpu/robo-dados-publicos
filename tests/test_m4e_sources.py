@@ -72,6 +72,20 @@ class TestM4ESources(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "HTTPS_REQUIRED"):
                 load_source_inventory(p)
 
+    def test_inventory_rejects_bad_immutable_contract(self):
+        with tempfile.TemporaryDirectory() as td:
+            p = Path(td) / "sources.json"
+            p.write_text(json.dumps({"version": 1, "sources": [{
+                "source_id": "S1",
+                "url": "https://example.org/a.pdf",
+                "logical_key": "a",
+                "file_name": "a.pdf",
+                "expected_sha256": "not-a-sha",
+                "expected_bytes": 0,
+            }]}), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "BAD_SHA256"):
+                load_source_inventory(p)
+
     def test_dry_run_has_no_network_or_writes(self):
         spec = SourceSpec("S1", "https://example.org/a.csv", "a", "a.csv", True, ("text/csv",))
         from robo_dados_publicos.sources.inventory import SourceInventory
@@ -122,6 +136,30 @@ class TestM4ESources(unittest.TestCase):
                 files = list(st.con.execute("SELECT * FROM files"))
             self.assertEqual("STOP_SOURCE_COLLECTION", out["status"])
             self.assertEqual("STOP_SOURCE_CONTRACT", out["results"][0]["status"])
+            self.assertEqual("Q", drive.items[0]["parent"])
+            self.assertEqual([], files)
+        finally:
+            server.shutdown(); server.server_close()
+
+    def test_immutable_artifact_mismatch_is_quarantined_and_stops(self):
+        server = HTTPServer(("127.0.0.1", 0), CsvHandler)
+        thread = threading.Thread(target=server.serve_forever, daemon=True); thread.start()
+        try:
+            url = f"http://127.0.0.1:{server.server_port}/a.csv"
+            spec = SourceSpec(
+                "S1", url, "a", "a.csv", True, ("text/csv",),
+                expected_sha256="0" * 64,
+                expected_bytes=len(PAYLOAD) + 1,
+            )
+            from robo_dados_publicos.sources.inventory import SourceInventory
+            drive = MemoryDrive()
+            with tempfile.TemporaryDirectory() as td, StateRegistry(Path(td)/"state.sqlite") as st:
+                out = SourceCollector(drive, "BRONZE", "Q").collect_inventory(SourceInventory(1, (spec,)), st)
+                files = list(st.con.execute("SELECT * FROM files"))
+            result = out["results"][0]
+            self.assertEqual("STOP_SOURCE_COLLECTION", out["status"])
+            self.assertEqual("IMMUTABLE_ARTIFACT_MISMATCH", result["reason"])
+            self.assertEqual({"sha256", "bytes"}, set(result["mismatches"]))
             self.assertEqual("Q", drive.items[0]["parent"])
             self.assertEqual([], files)
         finally:

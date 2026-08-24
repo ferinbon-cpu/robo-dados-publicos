@@ -1,0 +1,39 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.6.0",
+  "status": "CANDIDATE",
+  "milestone": "M4E_FIRST_SOURCE_COLLECTION_OFFLINE_READINESS",
+  "based_on_active": "0.5.9",
+  "new_capability": "One-time fail-closed acquisition of a live-validated Jornal Oficial PDF into immutable Bronze.",
+  "source_gate": {
+    "source_id": "LIMEIRA_JORNAL_OFICIAL_EDICAO_7310",
+    "inventory": "config/sources.jornal_oficial_7310_gate.json",
+    "expected_content_type": "application/pdf",
+    "expected_sha256": "78a23262023f6233cb59fdc78f1fadc196d0a7bbd52c418bbdd9244229f46680",
+    "expected_bytes": 16952899,
+    "execution": "WORKFLOW_DISPATCH_EXPLICIT_CONFIRMATION_ONLY",
+    "live_result": "PENDING"
+  },
+  "qa": {
+    "compileall": "PASS",
+    "unit_tests": "92/92 PASS",
+    "historical_regressions": "109/109 PASS",
+    "offline_preflight": "PASS",
+    "source_dry_run": "PASS_NO_NETWORK_NO_WRITES",
+    "secret_scan": "PASS"
+  },
+  "safety": {
+    "active_release_mutated": false,
+    "source_confirmation": "REQUIRED_SEPARATELY",
+    "unexpected_content_type": "QUARANTINE_AND_STOP",
+    "immutable_artifact_mismatch": "QUARANTINE_AND_STOP",
+    "workflow_schedule": "DISABLED",
+    "recurring_collection": "NOT_AUTHORIZED",
+    "financial_identity_auto_promotion": "PROHIBITED"
+  },
+  "open_gates": {
+    "github_source_collection": "PENDING",
+    "tda_limeira": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
+  },
+  "next_action": "M4E_FIRST_SOURCE_COLLECTION_LIVE_GATE_0_6_0"
+}

@@ -1,9 +1,9 @@
 {
   "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
-  "version": "0.5.9",
-  "status": "ACTIVE",
+  "version": "0.6.0",
+  "status": "CANDIDATE",
   "compileall": "PASS",
-  "unit_tests": "88/88 PASS",
+  "unit_tests": "92/92 PASS",
   "historical_regressions": "109/109 PASS",
   "m4e_live_validation": {
     "journal_index_discovery": "PASS_12_EDITIONS",
@@ -16,13 +16,12 @@
     "financial_identity_auto_promotion": "PROHIBITED",
     "tda_connector": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
   },
-  "active_runtime_identity": "0.5.9 ACTIVE",
-  "current_candidate": "NONE",
+  "active_runtime_identity": "PRESERVED_0.5.9",
+  "current_candidate": "0.6.0",
   "github_offline_readiness": "PASS_OFFLINE",
-  "github_live_gate": "PASS_RUN_32678624194_JOB_97476648260",
-  "github_live_gate_commit": "2ec69a5b054d209f6663ab4b8d442cd9bb0dc3d4",
-  "drive_persistence": "PASS_STATE_REPLACED_LOG_APPEND_ONLY",
-  "source_collection": "NOT_CONFIGURED",
+  "source_inventory_validation": "PASS_ONE_ENABLED_IMMUTABLE_PDF",
+  "source_dry_run": "PASS_NETWORK_NOT_CALLED_WRITES_NONE",
+  "source_live_gate": "PENDING_USER_CONFIRMATION",
   "workflow_schedule": "DISABLED",
   "clean_reextraction": "PASS",
   "secret_scan": "PASS"
