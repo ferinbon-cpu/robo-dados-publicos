@@ -10,7 +10,11 @@ A candidata 0.6.1 foi preservada separadamente e promovida após concluir com `P
 
 ## Candidata corrente
 
-Nenhuma.
+**0.6.2 CANDIDATE — M4E primeira reconciliação controlada**
+
+Detalhes: `docs/RELEASE_NOTES_V01_0.6.2.md`.
+
+A candidata limita a execução a uma tarefa `READY_SEARCH` de `LIMEIRA_CONTRATOS`, mantém todos os demais alvos intocados e impede qualquer promoção automática a identidade financeira. O gate ao vivo permanece pendente de confirmação manual.
 
 ## Evidência candidata preservada
 
@@ -39,3 +43,4 @@ Detalhes: `docs/RELEASE_NOTES_V01_0.6.1.md`.
 - `RELEASE_NOTES_V01_0.6.0_ACTIVE.md`
 - `RELEASE_NOTES_V01_0.6.1.md`
 - `RELEASE_NOTES_V01_0.6.1_ACTIVE.md`
+- `RELEASE_NOTES_V01_0.6.2.md`

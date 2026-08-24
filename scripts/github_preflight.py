@@ -24,6 +24,7 @@ from robo_dados_publicos.release import (
 )
 from robo_dados_publicos.sources.inventory import load_source_inventory
 from robo_dados_publicos.journal.gate import load_journal_processing_gate
+from robo_dados_publicos.reconciliation.gate import load_reconciliation_execution_gate
 
 
 WORKFLOW = ROOT / ".github" / "workflows" / "robo-dados-publicos.yml"
@@ -36,9 +37,8 @@ OAUTH_NAMES = (
 )
 SOURCE_GATE_CONFIG = ROOT / "config" / "sources.jornal_oficial_7310_gate.json"
 SOURCE_GATE_ID = "LIMEIRA_JORNAL_OFICIAL_EDICAO_7310"
-SOURCE_GATE_SHA256 = "78a23262023f6233cb59fdc78f1fadc196d0a7bbd52c418bbdd9244229f46680"
-SOURCE_GATE_BYTES = 16952899
 PROCESSING_GATE_CONFIG = ROOT / "config" / "processing.jornal_oficial_7310_gate.json"
+RECONCILIATION_GATE_CONFIG = ROOT / "config" / "reconciliation.first_contract_gate.json"
 
 
 def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
@@ -48,30 +48,40 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
     inventory = load_source_inventory(SOURCE_GATE_CONFIG)
     source = inventory.enabled[0] if len(inventory.enabled) == 1 else None
     processing_gate = load_journal_processing_gate(PROCESSING_GATE_CONFIG)
+    reconciliation_gate = load_reconciliation_execution_gate(RECONCILIATION_GATE_CONFIG)
     checks = {
-        "software_version_0_6_1": SOFTWARE_VERSION == "0.6.1",
-        "release_status_active": RELEASE_STATUS == "ACTIVE",
+        "software_version_0_6_2": SOFTWARE_VERSION == "0.6.2",
+        "release_status_candidate": RELEASE_STATUS == "CANDIDATE",
         "active_version_0_6_1": ACTIVE_VALIDATED_VERSION == "0.6.1",
-        "no_current_candidate": CURRENT_CANDIDATE_VERSION == "NONE",
-        "next_action_reconciliation_execution_gate": NEXT_ACTION == "M4E_FIRST_RECONCILIATION_EXECUTION_GATE",
-        "manifest_identity": manifest.get("current_active") == "0.6.1" and manifest.get("current_candidate") == "NONE",
+        "current_candidate_0_6_2": CURRENT_CANDIDATE_VERSION == "0.6.2",
+        "next_action_reconciliation_execution_live_gate": NEXT_ACTION == "M4E_FIRST_RECONCILIATION_EXECUTION_LIVE_GATE_0_6_2",
+        "manifest_identity": (
+            manifest.get("current_active") == "0.6.1"
+            and manifest.get("current_candidate") == "0.6.2"
+            and manifest.get("candidate_manifest") == "release_manifest_v01_0.6.2.json"
+        ),
         "source_inventory_one_enabled": source is not None,
         "source_inventory_immutable_contract": bool(
             source
             and source.source_id == SOURCE_GATE_ID
-            and source.expected_sha256 == SOURCE_GATE_SHA256
-            and source.expected_bytes == SOURCE_GATE_BYTES
+            and source.expected_sha256 == processing_gate.source_sha256
+            and source.expected_bytes == processing_gate.source_bytes
             and source.expected_content_types == ("application/pdf",)
         ),
         "workflow_manual_dispatch": bool(re.search(r"^  workflow_dispatch:\s*$", text, re.MULTILINE)),
         "workflow_schedule_disabled": not any(line.strip() == "schedule:" for line in active_lines),
         "workflow_confirmation_required": "inputs.confirm_persistence == true" in text,
+        "workflow_reconciliation_confirmation_required": (
+            "confirm_reconciliation:" in text
+            and "inputs.confirm_reconciliation == true" in text
+        ),
         "workflow_source_rerun_disabled": "confirm_source_collection:" not in text,
         "workflow_source_gate_not_reachable": "--source-config config/sources.jornal_oficial_7310_gate.json" not in text,
         "processing_gate_contract": (
             processing_gate.source_id == SOURCE_GATE_ID
-            and processing_gate.source_sha256 == SOURCE_GATE_SHA256
-            and processing_gate.source_bytes == SOURCE_GATE_BYTES
+            and source is not None
+            and processing_gate.source_sha256 == source.expected_sha256
+            and processing_gate.source_bytes == source.expected_bytes
             and processing_gate.extractor == "pypdf"
             and processing_gate.extractor_version == "6.10.0"
             and pypdf.__version__ == processing_gate.extractor_version
@@ -89,6 +99,18 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
         ),
         "workflow_processing_rerun_disabled": "confirm_processing:" not in text,
         "workflow_processing_gate_not_reachable": "scripts/github_processing_gate.py --processing-config config/processing.jornal_oficial_7310_gate.json" not in text,
+        "reconciliation_gate_contract": (
+            reconciliation_gate.allowed_targets == ("LIMEIRA_CONTRATOS",)
+            and reconciliation_gate.limit == 1
+            and reconciliation_gate.required_selected == 1
+            and reconciliation_gate.initial_status == "READY_SEARCH"
+            and reconciliation_gate.selection_policy == "PRIORITY_DESC_TASK_ID_ASC"
+            and set(reconciliation_gate.allowed_result_statuses) == {"MATCH_CANDIDATE", "NO_MATCH"}
+            and reconciliation_gate.financial_identity_auto_promotion == "PROHIBITED"
+        ),
+        "workflow_reconciliation_gate_reachable": (
+            "python scripts/github_reconciliation_gate.py --reconciliation-config config/reconciliation.first_contract_gate.json" in text
+        ),
         "permissions_contents_read": "permissions:\n  contents: read" in text,
         "checkout_immutable_pin": CHECKOUT_PIN in text,
         "setup_python_immutable_pin": SETUP_PYTHON_PIN in text,

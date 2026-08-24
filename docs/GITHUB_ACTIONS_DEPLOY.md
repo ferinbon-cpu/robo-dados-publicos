@@ -3,7 +3,7 @@
 ## Identidade ativa
 
 - release ativa: `0.6.1 ACTIVE`;
-- candidata corrente: nenhuma;
+- candidata corrente: `0.6.2 CANDIDATE`;
 - `actions/checkout` fixada no SHA da release pública `v6.0.2`;
 - `actions/setup-python` fixada no SHA da release `v7.0.0`;
 - agendamento desabilitado até decisão explícita sobre cadência e fontes.
@@ -31,7 +31,7 @@ python -m unittest discover -s tests -v
 python main.py selftest
 ```
 
-O preflight local esperado é `PASS_OFFLINE`. Ele valida a identidade ativa `0.6.1 ACTIVE`, ausência de candidata corrente e agendamento, bloqueio da repetição dos gates de fonte e processamento, o contrato histórico do processamento e os pins das actions. Ele não simula credenciais.
+O preflight local esperado é `PASS_OFFLINE`. Ele valida a identidade `0.6.1 ACTIVE` + `0.6.2 CANDIDATE`, ausência de agendamento, bloqueio da repetição dos gates de fonte e processamento, o contrato estrito da reconciliação e os pins das actions. Ele não simula credenciais.
 
 ## Gate manual concluído
 O arquivo `.github/workflows/robo-dados-publicos.yml` permanece somente com `workflow_dispatch` ativo. O primeiro gate persistente foi executado no run `32678624194`, job `97476648260`.
@@ -83,9 +83,17 @@ O run `32761758504`, job `97541993609`, concluiu com `PASS_GITHUB_JOURNAL_PROCES
 
 Após a promoção, `confirm_processing` e a chamada de `scripts/github_processing_gate.py` foram retirados do workflow ativo. Consulte `docs/M4E_FIRST_SOURCE_PROCESSING_EVIDENCE_2026-08-24.md`.
 
-## Próximo gate: primeira execução controlada da reconciliação
+## Próximo gate preparado: primeira execução controlada da reconciliação
 
-As 68 tarefas estão persistidas, mas os resolvers não são executados pelo workflow ativo. O próximo gate deverá ser fail-closed, com limite explícito, alvos aprovados e preservação de `MATCH_CANDIDATE` como evidência insuficiente para identidade financeira.
+As tarefas estão persistidas, mas a candidata 0.6.2 permite executar somente uma delas. No formulário manual do workflow:
+
+1. mantenha a branch `main`;
+2. marque `confirm_persistence`;
+3. marque `confirm_reconciliation`;
+4. clique em `Run workflow` uma única vez;
+5. não marque nem procure opções de coleta ou processamento, pois elas continuam removidas.
+
+O gate seleciona uma tarefa `READY_SEARCH` de `LIMEIRA_CONTRATOS`, aceita somente `MATCH_CANDIDATE` ou `NO_MATCH` e mantém TCE-SP, TDA, licitações e SIAVE intocados. Uma correspondência continua sendo evidência `CANDIDATE_ONLY`, insuficiente para identidade financeira. Detalhes: `docs/M4E_FIRST_RECONCILIATION_EXECUTION_GATE_0.6.2.md`.
 
 ## Gate futuro: agendamento
 Nenhum PASS habilita agendamento automaticamente. Antes de ativar `schedule`, ainda é necessário escolher a cadência e aprovar um inventário recorrente separado. O inventário da edição 7310 é de uso único e não pode ser convertido silenciosamente em rotina. O GitHub Actions aceita cron POSIX e `timezone` IANA. Exemplo ainda não ativo para 03:17 em São Paulo:
@@ -101,7 +109,7 @@ on:
 O horário definitivo deve ser escolhido antes de habilitar esse bloco.
 
 ## Limites desta etapa
-M4D prova o runtime de infraestrutura; os dois primeiros gates M4E provaram uma única coleta histórica e seu processamento controlado. Novas fontes, repetição da coleta, repetição do processamento, recorrência, reconciliação automática e agendamento permanecem desativados.
+M4D prova o runtime de infraestrutura; os dois primeiros gates M4E provaram uma única coleta histórica e seu processamento controlado. A candidata 0.6.2 prepara apenas uma reconciliação manual e unitária. Novas fontes, repetição da coleta, repetição do processamento, recorrência, reconciliação ampla/automática e agendamento permanecem desativados.
 
 ## Evidência em 2026-08-24
 
