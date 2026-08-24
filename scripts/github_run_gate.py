@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the persistent command once and enforce every active-runtime criterion."""
+"""Run the persistent command once and enforce every current-runtime criterion."""
 
 from __future__ import annotations
 
@@ -16,6 +16,7 @@ if str(ROOT) not in sys.path:
 from robo_dados_publicos.qa.github_gate import evaluate_live_payload
 from robo_dados_publicos.release import RELEASE_STATUS, SOFTWARE_VERSION
 from robo_dados_publicos.sources.inventory import load_source_inventory
+
 
 def main() -> int:
     parser = argparse.ArgumentParser()
@@ -39,6 +40,7 @@ def main() -> int:
             "expected_content_types": source.expected_content_types,
         }
         command.extend(["--source-config", args.source_config])
+
     proc = subprocess.run(
         command,
         cwd=ROOT,
@@ -55,6 +57,7 @@ def main() -> int:
     except json.JSONDecodeError as exc:
         print(json.dumps({"status": "STOP_INVALID_RUNTIME_JSON", "error": str(exc)}, indent=2))
         return 6
+
     gate = evaluate_live_payload(
         payload,
         source_expectation=source_expectation,
@@ -65,6 +68,9 @@ def main() -> int:
         **gate,
         "software_version": payload.get("software_version"),
         "release_status": payload.get("release_status"),
+        "run_id": payload.get("run_id"),
+        "started_at": payload.get("started_at"),
+        "finished_at": payload.get("finished_at"),
         "state_source": payload.get("state_source"),
         "state_remote_mode": (payload.get("state_remote") or {}).get("mode"),
         "append_only_log_created": bool((payload.get("log_remote") or {}).get("id")),

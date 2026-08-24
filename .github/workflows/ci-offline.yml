@@ -1,5 +1,5 @@
 name: CI OFFLINE
-run-name: "CI offline 0.6.2 by @${{ github.actor }}"
+run-name: "CI offline 0.6.3 candidate by @${{ github.actor }}"
 
 on:
   workflow_dispatch:

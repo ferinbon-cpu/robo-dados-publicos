@@ -5,12 +5,12 @@ Consolidação em software das capacidades metodológicas validadas nas versões
 ## Estado desta release
 
 **Software ativo:** 0.6.2 ACTIVE  
-**Candidata corrente:** nenhuma  
-**Próximo gate:** revisar separadamente a primeira evidência candidata e definir o próximo contrato de execução  
+**Candidata corrente:** 0.6.3 CANDIDATE  
+**Próximo gate:** M5 — execução manual do relatório operacional de observabilidade  
 **Dependências externas:** `pypdf==6.10.0` para processamento textual determinístico de PDFs  
 **Python:** 3.11+
 
-A 0.6.2 foi promovida após a primeira reconciliação controlada concluir com `PASS_GITHUB_RECONCILIATION_EXECUTION_GATE`. Uma única tarefa pesquisável de `LIMEIRA_CONTRATOS` produziu `MATCH_CANDIDATE`, uma aresta de evidência `CANDIDATE_ONLY` e zero relações `financial_identity`. O estado remoto foi substituído e um log append-only foi criado; identificadores privados e payloads candidatos permaneceram apenas na auditoria do Drive.
+A 0.6.3 candidata acrescenta contratos para `SOURCE_CARD`, `RUN_CARD` e `METRIC_CARD`, saúde multidimensional de atualidade, completude, consistência, coleta e latência e uma camada operacional sanitizada no GitHub Actions. O gate offline consolidado passou com 130/130 testes unitários, 109/109 regressões, `compileall` e 31/31 checks de preflight. A 0.6.2 permanece a última release ativa validada.
 
 Agendamento, recorrência, novas fontes e execução ampla da fila permanecem desabilitados. TCE-SP, TDA, licitações e SIAVE ficam fora deste gate; o TDA continua bloqueado sem endpoint/export público comprovado. Uma eventual correspondência gera somente evidência documental `CANDIDATE_ONLY`, nunca identidade financeira automática.
 
@@ -59,13 +59,22 @@ A configuração canônica está em `config/cloud.json`. O preflight exige as ca
 ## Deploy
 A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTIONS_DEPLOY.md`). Execute primeiro `python scripts/github_preflight.py`; o resultado esperado sem credenciais é `PASS_OFFLINE`. A coleta, o processamento e a primeira reconciliação controlada já foram validados. Novas fontes, repetição desses gates, reconciliação ampla, recorrência e agenda continuam desabilitadas.
 
-Os contratos históricos permanecem em `config/sources.jornal_oficial_7310_gate.json`, `config/processing.jornal_oficial_7310_gate.json` e `config/reconciliation.first_contract_gate.json`, mas o workflow ativo não oferece `confirm_source_collection`, `confirm_processing` nem `confirm_reconciliation`.
+Os contratos históricos permanecem em `config/sources.jornal_oficial_7310_gate.json`, `config/processing.jornal_oficial_7310_gate.json` e `config/reconciliation.first_contract_gate.json`, mas o workflow não oferece `confirm_source_collection`, `confirm_processing` nem `confirm_reconciliation`.
 
+## M5 — Observabilidade
+
+A candidata 0.6.3 introduz `robo_dados_publicos/observability/` e não acrescenta escrita remota própria. O primeiro cartão de fonte está em `config/observability.jornal_oficial_7310.json`. Fontes `one_time_manual_gate` não recebem limiar artificial de atualização e não implicam recorrência.
+
+Depois do runtime gate, o workflow gera uma projeção sanitizada em dois lugares:
+
+- **GitHub Actions → Summary:** visão humana imediata da saúde, gate, checks, fonte, métricas e privacidade;
+- **GitHub Actions → Artifacts:** pacote `observability-report-<github.run_id>` por 30 dias, contendo `report.md`, `report.json` e cartões separados.
+
+A evidência bruta usada para montar o relatório permanece somente em `$RUNNER_TEMP` e não é enviada ao artifact. Secrets, hashes e identificadores remotos são excluídos por allowlist. Consulte `docs/OBSERVABILITY_RUNBOOK.md` para o caminho operacional completo.
 
 ## M4E.1 — Portal discovery
 
 Use `python main.py portal-probe <URL>` for a single-page, robots-aware passive reconnaissance. It never solves CAPTCHA, submits forms, authenticates, executes JavaScript, or brute-forces endpoints.
-
 
 ## M4E.2 — Jornal Oficial de Limeira
 
@@ -83,7 +92,6 @@ python3 main.py journal-discover --year 2026 --month 8 --emit-inventory runtime/
 
 O software não adivinha URLs de PDF; só aceita rotas declaradas pelo índice oficial.
 
-
 ## M4E.3 — Processamento do Jornal Oficial
 
 Depois de obter um PDF por uma rota oficial já validada:
@@ -100,7 +108,6 @@ python3 main.py journal-process \
 O comando gera manifesto, Silver redigida, eventos Gold e chunks RAG. PDF sem camada textual suficiente produz `STOP_OCR_REQUIRED`; nenhum OCR é disparado silenciosamente.
 
 O gate remoto da edição 7310 foi concluído pela 0.6.1 com `PASS_GITHUB_JOURNAL_PROCESSING_GATE`. Ele usou `journal-process-cloud` por meio de `scripts/github_processing_gate.py`, leu a cópia imutável do Drive e comprovou o contrato exato documentado em `docs/M4E_FIRST_SOURCE_PROCESSING_GATE_0.6.1.md`. Esse caminho não está mais exposto no workflow ativo.
-
 
 ## M4E.4 — Fila de reconciliação
 
@@ -122,7 +129,6 @@ python3 main.py reconciliation-status --state-db runtime/robot_state.sqlite
 ```
 
 O alvo TDA permanece `BLOCKED_CONNECTOR_DISCOVERY` até que endpoint/export público estável seja comprovado. Consulte `docs/RECONCILIATION_QUEUE.md`.
-
 
 ## M4E.5 — Execução da fila de reconciliação
 

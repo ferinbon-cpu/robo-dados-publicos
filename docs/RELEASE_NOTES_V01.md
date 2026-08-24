@@ -10,9 +10,11 @@ A candidata 0.6.2 foi preservada separadamente e promovida após concluir com `P
 
 ## Candidata corrente
 
-**Nenhuma.**
+**0.6.3 CANDIDATE — M5 observabilidade auditável e operacional**
 
-O próximo contrato somente será aberto após revisão explícita da evidência candidata. Reconciliação ampla, repetição do gate e agendamento permanecem desabilitados.
+Detalhes: `docs/RELEASE_NOTES_V01_0.6.3.md`.
+
+A candidata introduz `SOURCE_CARD`, `RUN_CARD`, `METRIC_CARD`, saúde multidimensional e uma projeção allowlist-only no GitHub Actions com Summary e artifact por execução. O gate offline consolidado passou; o próximo gate é uma execução manual controlada do relatório operacional. Não habilita recorrência, agenda, novas fontes ou reconciliação ampla.
 
 ## Evidência candidata preservada
 
@@ -43,3 +45,4 @@ Detalhes: `docs/RELEASE_NOTES_V01_0.6.2.md`.
 - `RELEASE_NOTES_V01_0.6.1_ACTIVE.md`
 - `RELEASE_NOTES_V01_0.6.2.md`
 - `RELEASE_NOTES_V01_0.6.2_ACTIVE.md`
+- `RELEASE_NOTES_V01_0.6.3.md`
