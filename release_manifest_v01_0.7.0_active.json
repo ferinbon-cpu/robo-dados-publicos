@@ -1,0 +1,95 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.7.0",
+  "status": "ACTIVE",
+  "milestone": "M6_PRODUCT_MINIMAL_OUTPUT_AND_CONTROLLED_PUBLICATION_PROMOTED",
+  "promoted_from_candidate": "0.7.0",
+  "candidate_manifest": "release_manifest_v01_0.7.0.json",
+  "promotion_review": "PASS_M6_PRODUCT_OUTPUT_PUBLICATION_LIVE_GATE_USER_TRIGGERED",
+  "live_gate": {
+    "status": "PASS_M6_PRODUCT_OUTPUT_PUBLICATION_GATE",
+    "github_run": 32787729769,
+    "github_job": 97622956591,
+    "source_commit": "a8de99a8fbffc85e8e57b909a80fd701fe28fef7",
+    "preflight": "PASS 49/49 CHECKS",
+    "unit_tests": "163/163 PASS",
+    "historical_regressions": "109/109 PASS",
+    "dry_run": "PASS_NO_NETWORK_NO_REMOTE_WRITES",
+    "report_status": "READY_WITH_CAUTION",
+    "created_count": 3,
+    "overwrite_performed": false,
+    "secret_values_exposed": false,
+    "remote_identifiers_exposed": false
+  },
+  "artifact": {
+    "name": "product-publication-gate-32787729769",
+    "artifact_id": 9542045376,
+    "file_count": 1,
+    "size_bytes": 448,
+    "retention_days": 30,
+    "expires_at": "2026-09-23T23:05:54Z",
+    "digest": "sha256:f30ccbf7fb0433cb1c9087a4a32926ea9e91724fd3d1662d7ff2bfa4b5484935",
+    "contents": ["result.json"],
+    "sanitization_review": "PASS_ONLY_SANITIZED_RESULT_NO_SECRET_OR_REMOTE_ID"
+  },
+  "drive_evidence": {
+    "target": "08_OUTPUTS",
+    "remote_identifiers_recorded": false,
+    "google_sheet": {
+      "name": "ROBO_DADOS_PUBLICOS_M6_GATE_0_7_0_TABELA",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "size_bytes": 1195,
+      "created_at": "2026-08-24T23:05:49.080Z",
+      "content_review": "PASS_7_COLUMNS_1_TECHNICAL_DATA_ROW"
+    },
+    "pdf": {
+      "name": "ROBO_DADOS_PUBLICOS_M6_GATE_0_7_0.pdf",
+      "mime_type": "application/pdf",
+      "size_bytes": 3246,
+      "created_at": "2026-08-24T23:05:51.668Z",
+      "visual_review": "PASS_ONE_PAGE_NO_CLIPPING_OR_EMPTY_CONTENT"
+    },
+    "completion_manifest": {
+      "name": "ROBO_DADOS_PUBLICOS_M6_GATE_0_7_0_publication_manifest.json",
+      "mime_type": "application/json",
+      "size_bytes": 1000,
+      "created_at": "2026-08-24T23:05:53.039Z",
+      "written_last": true,
+      "overwrite_allowed": false,
+      "report_status": "READY_WITH_CAUTION",
+      "software_version": "0.7.0"
+    }
+  },
+  "qa": {
+    "candidate_offline_preflight": "PASS 49/49 CHECKS",
+    "candidate_unit_tests": "163/163 PASS",
+    "candidate_product_tests": "13/13 PASS",
+    "candidate_publication_gate_tests": "8/8 PASS",
+    "candidate_publication_workflow_tests": "6/6 PASS",
+    "candidate_drive_conversion_transport_test": "1/1 PASS",
+    "candidate_historical_regressions": "109/109 PASS",
+    "promotion_ci_run": null,
+    "promotion_ci_preflight": "PENDING",
+    "promotion_ci_compileall": "PENDING",
+    "promotion_ci_unit_tests": "PENDING",
+    "promotion_ci_historical_regressions": "PENDING"
+  },
+  "safety": {
+    "publication_rerun": "BLOCKED_BY_ACTIVE_RELEASE_IDENTITY",
+    "source_collection_rerun": "DISABLED_IN_WORKFLOW",
+    "source_processing_rerun": "DISABLED_IN_WORKFLOW",
+    "reconciliation_rerun": "DISABLED_IN_WORKFLOW",
+    "broad_reconciliation_execution": "DISABLED",
+    "recurring_collection": "DISABLED",
+    "workflow_schedule": "DISABLED",
+    "financial_identity_auto_promotion": "PROHIBITED",
+    "reconciliation_matches": "CANDIDATE_ONLY",
+    "tda_limeira": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
+  },
+  "open_gates": {
+    "controlled_source_expansion_0_8_0": "DESIGN_ONLY_NOT_AUTHORIZED",
+    "recurring_source_inventory": "NOT_CONFIGURED",
+    "additional_reconciliation_targets": "NOT_AUTHORIZED"
+  },
+  "next_action": "M7_CONTROLLED_SOURCE_EXPANSION_DESIGN_0_8_0"
+}
