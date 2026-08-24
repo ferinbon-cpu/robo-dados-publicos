@@ -91,7 +91,7 @@ python3 main.py reconciliation-status \
 
 A fila persiste o resultado, mas `MATCH_CANDIDATE` não equivale a identidade. O vínculo contrato → empenho/liquidação/pagamento permanece submetido aos gates V16/V17.
 
-## M4E.6 — primeira execução controlada candidata 0.6.2
+## M4E.6 — primeira execução controlada promovida na 0.6.2
 
 O primeiro gate ao vivo foi tentado e parou com segurança diante de uma tarefa sem número de contrato nem fornecedor, sem gravar estado ou log. O contrato corrigido permite somente:
 
@@ -104,3 +104,5 @@ O primeiro gate ao vivo foi tentado e parou com segurança diante de uma tarefa 
 - substituição do estado e log append-only após PASS integral.
 
 TCE-SP, TDA, licitações e SIAVE ficam protegidos contra alteração. Qualquer falha operacional ou violação de escopo retorna STOP sem substituir o estado remoto e sem criar log. Não há recorrência, agendamento ou promoção automática de identidade financeira.
+
+Após a correção, a execução manual nº 8 concluiu com `MATCH_CANDIDATE`: uma tarefa executada, uma aresta `CANDIDATE_ONLY`, zero relações `financial_identity`, estado remoto substituído e log append-only criado. O caminho de repetição foi retirado do workflow ativo; a evidência deverá ser revisada em um gate separado antes de qualquer nova autorização.
