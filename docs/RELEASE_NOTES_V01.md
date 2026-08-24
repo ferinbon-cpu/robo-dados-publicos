@@ -2,24 +2,20 @@
 
 ## Candidata corrente
 
-**0.6.0 CANDIDATE — M4E primeira coleta controlada**
-
-Detalhes: `docs/RELEASE_NOTES_V01_0.6.0.md`.
-
-A candidata adiciona contrato imutável para a edição 7310 do Jornal Oficial e uma confirmação manual separada no GitHub. Nenhuma coleta recorrente ou agenda foi habilitada.
+Nenhuma.
 
 ## Release ativa corrente
-**0.5.9 ACTIVE — M4D GitHub live gate promovido**
+**0.6.0 ACTIVE — M4E primeira coleta controlada promovida**
 
-Detalhes: `docs/RELEASE_NOTES_V01_0.5.9_ACTIVE.md`.
+Detalhes: `docs/RELEASE_NOTES_V01_0.6.0_ACTIVE.md`.
 
-A candidata 0.5.9 foi preservada separadamente e promovida após o primeiro run persistente no GitHub concluir com `PASS_GITHUB_LIVE_GATE`. Não há candidata corrente. TDA, coleta de fontes e agendamento permanecem gates independentes e não foram habilitados pela promoção.
+A candidata 0.6.0 foi preservada separadamente e promovida após a primeira coleta controlada concluir com `PASS_GITHUB_SOURCE_COLLECTION_GATE`. O PDF da edição 7310 foi criado no Bronze com contrato imutável confirmado. A opção de repetir essa coleta foi retirada; recorrência e agenda permanecem desabilitadas.
 
 ## Evidência candidata preservada
 
-**0.5.9 CANDIDATE — M4D GitHub offline readiness**
+**0.6.0 CANDIDATE — M4E primeira coleta controlada**
 
-Detalhes: `docs/RELEASE_NOTES_V01_0.5.9.md`.
+Detalhes: `docs/RELEASE_NOTES_V01_0.6.0.md`.
 
 ## Histórico preservado
 - `RELEASE_NOTES_V01_0.2.0.md`
@@ -39,3 +35,4 @@ Detalhes: `docs/RELEASE_NOTES_V01_0.5.9.md`.
 - `RELEASE_NOTES_V01_0.5.9.md`
 - `RELEASE_NOTES_V01_0.5.9_ACTIVE.md`
 - `RELEASE_NOTES_V01_0.6.0.md`
+- `RELEASE_NOTES_V01_0.6.0_ACTIVE.md`
