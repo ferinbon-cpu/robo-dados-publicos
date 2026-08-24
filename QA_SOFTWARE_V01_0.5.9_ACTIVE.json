@@ -1,0 +1,19 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.5.9",
+  "status": "ACTIVE",
+  "promotion_review": "PASS_LIVE_GATE_USER_AUTHORIZED",
+  "compileall": "PASS",
+  "unit_tests": "88/88 PASS",
+  "historical_regressions": "109/109 PASS",
+  "release_identity": "PASS_ACTIVE_0.5.9_NO_CURRENT_CANDIDATE",
+  "candidate_evidence_preserved": "PASS",
+  "github_live_gate": "PASS_RUN_32678624194_JOB_97476648260",
+  "drive_state_replacement": "PASS",
+  "drive_append_only_log": "PASS",
+  "financial_identity_auto_promotion": "PROHIBITED",
+  "tda_connector": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN",
+  "source_collection": "NOT_CONFIGURED",
+  "workflow_schedule": "DISABLED",
+  "secret_scan": "PASS"
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the persistent command once and enforce every M4D live criterion."""
+"""Run the persistent command once and enforce every active-runtime criterion."""
 
 from __future__ import annotations
 

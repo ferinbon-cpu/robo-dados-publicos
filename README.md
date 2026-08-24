@@ -4,13 +4,13 @@ Consolidação em software das capacidades metodológicas validadas nas versões
 
 ## Estado desta release
 
-**Software ativo:** 0.5.8 ACTIVE  
-**Candidata:** 0.5.9 CANDIDATE  
-**Marco da candidata:** M4D GitHub offline readiness  
+**Software ativo:** 0.5.9 ACTIVE  
+**Candidata corrente:** nenhuma  
+**Marco ativo:** M4D GitHub live gate promovido  
 **Dependências externas:** `pypdf==5.9.0` para processamento textual de PDFs  
 **Python:** 3.11+
 
-A 0.5.8 continua sendo a release ativa e permanece imutável. A 0.5.9 é uma candidata de preparação do gate GitHub: fixa as actions por SHA imutável, corrige o Checkout para a release pública v6.0.2, exige confirmação explícita antes da persistência e valida automaticamente todas as evidências do primeiro run. O gate ao vivo ainda depende da conexão GitHub e dos três Repository Secrets; nenhum resultado remoto é presumido. O TDA permanece bloqueado sem endpoint/export público comprovado, nenhuma correspondência é promovida automaticamente a identidade financeira e a coleta de produção continua dependente de inventário de fontes explicitamente habilitado.
+A 0.5.9 foi promovida após o gate GitHub ao vivo concluir com 84/84 testes, 109/109 regressões, estado remoto substituído e novo log append-only no Drive. O manifesto candidato permanece preservado como evidência. O workflow continua somente manual: o agendamento e a coleta de fontes não foram habilitados. O TDA permanece bloqueado sem endpoint/export público comprovado, nenhuma correspondência é promovida automaticamente a identidade financeira e a coleta de produção continua dependente de inventário de fontes explicitamente habilitado.
 
 ## Testes
 
@@ -55,7 +55,7 @@ python3 main.py run --auth oauth-env --source-config config/sources.json --dry-r
 A configuração canônica está em `config/cloud.json`. O preflight exige as camadas `00_DOCUMENTACAO` a `12_SOFTWARE` e `START_HERE_ROBO_DADOS_PUBLICOS`.
 
 ## Deploy
-A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTIONS_DEPLOY.md`). Execute primeiro `python scripts/github_preflight.py`; o resultado esperado sem credenciais é `PASS_OFFLINE`. A coleta M4E está documentada em `docs/M4E_SOURCE_COLLECTION.md`.
+A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTIONS_DEPLOY.md`). Execute primeiro `python scripts/github_preflight.py`; o resultado esperado sem credenciais é `PASS_OFFLINE`. A coleta M4E está documentada em `docs/M4E_SOURCE_COLLECTION.md` e continua desabilitada até um gate próprio.
 
 
 ## M4E.1 — Portal discovery

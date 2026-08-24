@@ -1,5 +1,5 @@
 name: ROBO DADOS PUBLICOS
-run-name: "M4D gate 0.5.9 by @${{ github.actor }}"
+run-name: "Runtime 0.5.9 ACTIVE by @${{ github.actor }}"
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
         default: false
         type: boolean
 
-# O agendamento permanente será ativado somente após a validação manual.
+# O agendamento permanece desativado até decisão explícita sobre cadência e fontes.
 # Exemplo (não ativo):
 #  schedule:
 #    - cron: '17 3 * * *'
@@ -66,7 +66,7 @@ jobs:
           print('OAuth secrets: PRESENTES (valores não exibidos)')
           PY
 
-      - name: Preflight da candidata e do workflow
+      - name: Preflight da release ativa e do workflow
         run: python scripts/github_preflight.py --require-oauth
 
       - name: Instalar dependências
@@ -81,5 +81,5 @@ jobs:
       - name: Regressão histórica
         run: python main.py selftest
 
-      - name: Execução persistente e validação do gate
+      - name: Execução persistente e validação do runtime ativo
         run: python scripts/github_run_gate.py

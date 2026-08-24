@@ -1,18 +1,17 @@
 # Release Notes — Software V01
 
-## Candidata corrente
+## Release ativa corrente
+**0.5.9 ACTIVE — M4D GitHub live gate promovido**
+
+Detalhes: `docs/RELEASE_NOTES_V01_0.5.9_ACTIVE.md`.
+
+A candidata 0.5.9 foi preservada separadamente e promovida após o primeiro run persistente no GitHub concluir com `PASS_GITHUB_LIVE_GATE`. Não há candidata corrente. TDA, coleta de fontes e agendamento permanecem gates independentes e não foram habilitados pela promoção.
+
+## Evidência candidata preservada
+
 **0.5.9 CANDIDATE — M4D GitHub offline readiness**
 
 Detalhes: `docs/RELEASE_NOTES_V01_0.5.9.md`.
-
-A candidata preserva a 0.5.8 ativa e adiciona validação fail-closed do gate GitHub, confirmação explícita de persistência, actions fixadas por SHA e preflight reproduzível. O run GitHub real continua pendente por conexão externa.
-
-## Release ativa corrente
-**0.5.8 ACTIVE — M4E live validation e promoção**
-
-Detalhes: `docs/RELEASE_NOTES_V01_0.5.8_ACTIVE.md`.
-
-A candidata 0.5.8 foi preservada separadamente e promovida após revalidação do pacote, revisão humana e confirmação dos gates M4E. O TDA e o gate GitHub permanecem pendências independentes.
 
 ## Histórico preservado
 - `RELEASE_NOTES_V01_0.2.0.md`
@@ -30,3 +29,4 @@ A candidata 0.5.8 foi preservada separadamente e promovida após revalidação d
 - `RELEASE_NOTES_V01_0.5.8.md`
 - `RELEASE_NOTES_V01_0.5.8_ACTIVE.md`
 - `RELEASE_NOTES_V01_0.5.9.md`
+- `RELEASE_NOTES_V01_0.5.9_ACTIVE.md`
