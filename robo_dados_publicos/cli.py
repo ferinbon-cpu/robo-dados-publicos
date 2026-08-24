@@ -7,6 +7,7 @@ from robo_dados_publicos.state.registry import StateRegistry
 from robo_dados_publicos.storage.drive_rest import OAuthCredentials, TokenProvider, GcloudTokenProvider, EnvironmentAccessTokenProvider, DriveRESTClient
 from robo_dados_publicos.orchestration.cloud_runner import CloudLayout, CloudProductionRunner
 from robo_dados_publicos.orchestration.journal_runner import CloudJournalProcessingRunner
+from robo_dados_publicos.orchestration.reconciliation_runner import CloudReconciliationRunner
 from robo_dados_publicos.sources.inventory import load_source_inventory
 from robo_dados_publicos.discovery.portal_probe import PortalProbe
 from robo_dados_publicos.journal.official import JornalOficialLimeira
@@ -264,6 +265,21 @@ def cmd_reconciliation_execute(args):
     return 0 if out.get("status", "").startswith("PASS_") else 9
 
 
+def cmd_reconciliation_execute_cloud(args):
+    client = _drive_client(args.auth)
+    layout = _load_cloud_layout(args.cloud_config)
+    runner = CloudReconciliationRunner(client, layout, args.fixtures)
+    out = runner.run_reconciliation(
+        args.reconciliation_config,
+        state_name=args.state_name,
+        persist=not args.no_persist,
+        write_log=not args.no_log,
+        dry_run=args.dry_run,
+    )
+    print(json.dumps(out, ensure_ascii=False, indent=2))
+    return 0 if out.get("status") in {"PASS_CLOUD_RECONCILIATION_EXECUTION_GATE", "DRY_RUN"} else 13
+
+
 def build_parser():
     p=argparse.ArgumentParser(prog='robo-dados-publicos')
     sub=p.add_subparsers(dest='cmd',required=True)
@@ -284,6 +300,7 @@ def build_parser():
     s=sub.add_parser('reconciliation-plan'); s.add_argument('--events-jsonl',required=True); s.add_argument('--out'); s.add_argument('--state-db'); s.set_defaults(func=cmd_reconciliation_plan)
     s=sub.add_parser('reconciliation-status'); s.add_argument('--state-db',default=str(DEFAULT_STATE)); s.add_argument('--filter-status'); s.set_defaults(func=cmd_reconciliation_status)
     s=sub.add_parser('reconciliation-execute'); s.add_argument('--state-db',default=str(DEFAULT_STATE)); s.add_argument('--work-dir',default=str(PACKAGE_ROOT / 'runtime' / 'reconciliation')); s.add_argument('--limit',type=int,default=10); s.add_argument('--target',action='append',choices=['LIMEIRA_CONTRATOS','TCE_SP_DESPESAS']); s.add_argument('--dry-run',action='store_true'); s.set_defaults(func=cmd_reconciliation_execute)
+    s=sub.add_parser('reconciliation-execute-cloud'); s.add_argument('--auth',choices=auth_choices,default=os.getenv('ROBO_DRIVE_AUTH','oauth-env')); s.add_argument('--cloud-config',default=str(DEFAULT_CLOUD_CONFIG)); s.add_argument('--fixtures',default=str(DEFAULT_FIXTURES)); s.add_argument('--reconciliation-config',required=True); s.add_argument('--state-name',default='ROBOT_STATE.sqlite'); s.add_argument('--dry-run',action='store_true'); s.add_argument('--no-persist',action='store_true'); s.add_argument('--no-log',action='store_true'); s.set_defaults(func=cmd_reconciliation_execute_cloud)
     s=sub.add_parser('run'); s.add_argument('--auth',choices=auth_choices,default=os.getenv('ROBO_DRIVE_AUTH','oauth-env')); s.add_argument('--cloud-config',default=str(DEFAULT_CLOUD_CONFIG)); s.add_argument('--fixtures',default=str(DEFAULT_FIXTURES)); s.add_argument('--state-name',default='ROBOT_STATE.sqlite'); s.add_argument('--source-config'); s.add_argument('--dry-run-sources',action='store_true'); s.add_argument('--no-persist',action='store_true'); s.add_argument('--no-log',action='store_true'); s.set_defaults(func=cmd_run)
     return p
 
