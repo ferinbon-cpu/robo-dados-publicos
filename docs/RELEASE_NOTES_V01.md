@@ -2,25 +2,23 @@
 
 ## Release ativa corrente
 
-**0.6.1 ACTIVE — M4E primeiro processamento controlado promovido**
+**0.6.2 ACTIVE — M4E primeira reconciliação controlada promovida**
 
-Detalhes: `docs/RELEASE_NOTES_V01_0.6.1_ACTIVE.md`.
+Detalhes: `docs/RELEASE_NOTES_V01_0.6.2_ACTIVE.md`.
 
-A candidata 0.6.1 foi preservada separadamente e promovida após concluir com `PASS_GITHUB_JOURNAL_PROCESSING_GATE`. Foram criados cinco derivados, 68 tarefas foram persistidas, o estado foi substituído e o log append-only foi criado, sem acesso à origem pública e sem publicação de IDs remotos.
+A candidata 0.6.2 foi preservada separadamente e promovida após concluir com `PASS_GITHUB_RECONCILIATION_EXECUTION_GATE`. Uma tarefa elegível de `LIMEIRA_CONTRATOS` produziu `MATCH_CANDIDATE`, uma aresta de evidência candidata e zero relações `financial_identity`; o estado foi substituído e o log append-only foi criado sem publicação de dados privados.
 
 ## Candidata corrente
+
+**Nenhuma.**
+
+O próximo contrato somente será aberto após revisão explícita da evidência candidata. Reconciliação ampla, repetição do gate e agendamento permanecem desabilitados.
+
+## Evidência candidata preservada
 
 **0.6.2 CANDIDATE — M4E primeira reconciliação controlada**
 
 Detalhes: `docs/RELEASE_NOTES_V01_0.6.2.md`.
-
-A candidata limita a execução a uma tarefa `READY_SEARCH` pesquisável de `LIMEIRA_CONTRATOS`, mantém todos os demais alvos intocados e impede qualquer promoção automática a identidade financeira. A primeira tentativa parou com segurança em uma tarefa sem chave mínima; o seletor foi endurecido e uma nova execução manual permanece pendente.
-
-## Evidência candidata preservada
-
-**0.6.1 CANDIDATE — M4E primeiro processamento controlado do Bronze**
-
-Detalhes: `docs/RELEASE_NOTES_V01_0.6.1.md`.
 
 ## Histórico preservado
 - `RELEASE_NOTES_V01_0.2.0.md`
@@ -44,3 +42,4 @@ Detalhes: `docs/RELEASE_NOTES_V01_0.6.1.md`.
 - `RELEASE_NOTES_V01_0.6.1.md`
 - `RELEASE_NOTES_V01_0.6.1_ACTIVE.md`
 - `RELEASE_NOTES_V01_0.6.2.md`
+- `RELEASE_NOTES_V01_0.6.2_ACTIVE.md`
