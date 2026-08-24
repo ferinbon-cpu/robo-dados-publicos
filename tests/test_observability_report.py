@@ -77,7 +77,8 @@ class TestObservabilityReport(unittest.TestCase):
         serialized = json.dumps(build_observability_report(payload, source_card=self.source_card()))
         self.assertNotIn("must-not-propagate", serialized)
         self.assertNotIn("client_secret", serialized)
-        self.assertNotIn("remote_id", serialized)
+        self.assertNotIn('"remote_id":', serialized)
+        self.assertNotIn("remote-must-not-propagate", serialized)
         self.assertNotIn("hash-must-not-propagate", serialized)
         self.assertIn("integrity_verified", serialized)
 
