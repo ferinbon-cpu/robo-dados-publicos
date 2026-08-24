@@ -82,12 +82,13 @@ jobs:
         run: python main.py selftest
 
       - name: Execução persistente de infraestrutura
-        run: python scripts/github_run_gate.py --evidence-output observability-input/run_gate.json
+        shell: bash
+        run: python scripts/github_run_gate.py > "$RUNNER_TEMP/run_gate_raw.json"
 
       - name: Gerar cartões e relatório de observabilidade
         run: >-
           python scripts/github_observability_report.py
-          --input observability-input/run_gate.json
+          --input "$RUNNER_TEMP/run_gate_raw.json"
           --output-dir observability-report
           --github-summary
 
