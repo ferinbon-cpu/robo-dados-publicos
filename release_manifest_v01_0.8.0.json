@@ -42,18 +42,43 @@
     "workflow": "M7 SIOPE ROUTE DISCOVERY GATE",
     "script": "scripts/github_siope_route_discovery_gate.py",
     "config": "config/source_expansion.siope_route_discovery_gate.json",
-    "status": "READY_MANUAL_NOT_EXECUTED",
+    "status": "READY_MANUAL_RETRY_AFTER_TIMEOUT_FIX",
     "network": "MAX_TWO_READ_ONLY_GETS",
     "allowed_hosts": [
       "www.fnde.gov.br",
       "webservice.fnde.gov.br"
     ],
-    "classic_query": "INFORMATIONAL_BLOCK_ON_CAPTCHA_OR_UNAVAILABLE",
+    "classic_query": "INFORMATIONAL_BLOCK_ON_CAPTCHA_TIMEOUT_OR_UNAVAILABLE",
     "preferred_candidate": "ANTONIETA_DADOS_GERAIS_SIOPE",
     "declared_artifact": "exports/SIOPE/SIOPE_DADOS_GERAIS_SIOPE.txt.gz",
     "artifact_download": "PROHIBITED",
     "remote_writes": "NONE",
     "expected_route_status_after_pass": "CANDIDATE_IDENTIFIED_ARTIFACT_NOT_VERIFIED",
+    "attempt_1": {
+      "github_run": 32791368943,
+      "github_job": 97633428705,
+      "head_commit": "5bc54bb444d92be4efc87a5b1a4b43fa4d31ee66",
+      "result": "STOP_M7_SIOPE_ROUTE_DISCOVERY_UNEXPECTED",
+      "artifact_id": 9543243880,
+      "artifact_name": "siope-route-discovery-32791368943",
+      "root_cause": "NATIVE_NETWORK_TIMEOUT_NOT_NORMALIZED_BEFORE_CLASSIC_OPTIONAL_POLICY",
+      "safety_preserved": true,
+      "artifact_downloaded": false,
+      "remote_writes": "NONE",
+      "collection_authorized": false,
+      "recurrence_authorized": false
+    },
+    "timeout_fix": {
+      "native_network_errors_sanitized": true,
+      "classic_timeout_nonfatal_for_antonieta_probe": true,
+      "antonieta_network_error_remains_fail_closed": true,
+      "redirect_host_revalidated": true,
+      "validation_ci_run": 32791631284,
+      "validation_ci_run_number": 101,
+      "repository_unit_tests": "199/199 PASS",
+      "network_error_tests": "3/3 PASS",
+      "historical_regressions": "109/109 PASS"
+    },
     "next_gate": "M7_SIOPE_ANTONIETA_ARTIFACT_VERIFICATION_GATE_0_8_0"
   },
   "safety": {
@@ -78,14 +103,15 @@
     "source_expansion_tests": "12/12 PASS",
     "siope_route_discovery_tests": "11/11 PASS",
     "siope_route_workflow_tests": "6/6 PASS",
-    "repository_unit_tests": "196/196 PASS",
+    "siope_route_network_error_tests": "3/3 PASS",
+    "repository_unit_tests": "199/199 PASS",
     "historical_regressions": "109/109 PASS",
     "offline_preflight": "PASS 56/56 CHECKS",
     "design_gate": "PASS_M7_SOURCE_EXPANSION_DESIGN_GATE",
     "compileall": "PASS",
-    "ci_run": 32790327371,
-    "ci_run_number": 95,
-    "validated_commit": "5349a87c6d8b87d80c089fcf2c152dbe3e9189ed"
+    "ci_run": 32791631284,
+    "ci_run_number": 101,
+    "validated_commit": "10f613b4796603923ed0bc2b4265c056dab36eba"
   },
   "promotion_gate": "PASS_M7_OFFLINE_SOURCE_EXPANSION_DESIGN_VALIDATION",
   "next_action": "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0"
