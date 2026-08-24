@@ -20,7 +20,18 @@
     "selection": "ELIGIBLE_PRIORITY_DESC_TASK_ID_ASC",
     "execution": "WORKFLOW_DISPATCH_EXPLICIT_CONFIRMATION_ONLY",
     "first_live_attempt": "STOP_MISSING_CONTRACT_OR_SUPPLIER_KEY_WRITES_NONE",
-    "live_result": "PENDING_MANUAL_RETRY"
+    "live_result": "PASS_GITHUB_RECONCILIATION_EXECUTION_GATE",
+    "workflow_dispatch_sequence": 8,
+    "source_commit": "bca696c4792fe8e6a87be716b26855f450c22459",
+    "total_duration": "33s",
+    "selected": 1,
+    "result_status_counts": {
+      "MATCH_CANDIDATE": 1
+    },
+    "candidate_evidence_edges": 1,
+    "financial_identity_edges": 0,
+    "state_remote": "REPLACED",
+    "append_only_log": "CREATED"
   },
   "qa": {
     "compileall": "PASS",
@@ -50,6 +61,6 @@
     "LIMEIRA_LICITACOES": "NOT_EXECUTED",
     "SIAVE_LIMEIRA": "NOT_EXECUTED"
   },
-  "promotion_gate": "PENDING_M4E_FIRST_RECONCILIATION_EXECUTION_LIVE_GATE",
-  "next_action": "M4E_FIRST_RECONCILIATION_EXECUTION_LIVE_GATE_0_6_2"
+  "promotion_gate": "PASS_M4E_FIRST_RECONCILIATION_EXECUTION_LIVE_GATE",
+  "next_action": "PROMOTE_TO_ACTIVE_WITH_RECONCILIATION_RERUN_DISABLED"
 }

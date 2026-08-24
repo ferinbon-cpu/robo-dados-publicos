@@ -34,4 +34,6 @@ Preparar a primeira execução controlada da fila de reconciliação sem ampliar
 
 ## Estado
 
-A primeira tentativa ao vivo parou com segurança em `STOP_MISSING_CONTRACT_OR_SUPPLIER_KEY`, exit code 13 e `remote_writes: NONE`. O seletor foi corrigido para preservar e pular tarefas sem chave mínima antes da rede. A 0.6.1 continua sendo a release ativa; a 0.6.2 permanece candidata até uma nova execução manual bem-sucedida e uma promoção separada.
+A primeira tentativa ao vivo parou com segurança em `STOP_MISSING_CONTRACT_OR_SUPPLIER_KEY`, exit code 13 e `remote_writes: NONE`. O seletor foi corrigido para preservar e pular tarefas sem chave mínima antes da rede.
+
+A nova execução manual, na sequência nº 8 e sobre o commit `bca696c`, concluiu em 33 segundos com `PASS_GITHUB_RECONCILIATION_EXECUTION_GATE`. Uma tarefa elegível de `LIMEIRA_CONTRATOS` produziu `MATCH_CANDIDATE`, uma aresta de evidência candidata e zero relações `financial_identity`. Esta nota preserva a identidade `CANDIDATE`; a promoção está registrada separadamente em `docs/RELEASE_NOTES_V01_0.6.2_ACTIVE.md`.

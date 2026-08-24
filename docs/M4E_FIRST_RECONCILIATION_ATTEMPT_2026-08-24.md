@@ -32,4 +32,4 @@ A tentativa revelou que o seletor considerava apenas status, alvo e prioridade, 
 - regressões históricas: 109/109 PASS;
 - preflight offline: PASS.
 
-Uma nova execução manual do mesmo gate permanece necessária. Nenhum agendamento, recorrência, nova coleta ou novo processamento foi habilitado.
+Posteriormente, a execução manual nº 8 concluiu com sucesso; consulte `docs/M4E_FIRST_RECONCILIATION_SUCCESS_2026-08-24.md`. Nenhum agendamento, recorrência, nova coleta ou novo processamento foi habilitado.
