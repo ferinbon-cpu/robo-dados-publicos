@@ -1,5 +1,5 @@
 name: ROBO DADOS PUBLICOS
-run-name: "M5 observability candidate 0.6.3 by @${{ github.actor }}"
+run-name: "M5 active 0.6.3 observability by @${{ github.actor }}"
 
 on:
   workflow_dispatch:
@@ -69,7 +69,7 @@ jobs:
       - name: Instalar dependências
         run: python -m pip install --disable-pip-version-check -r requirements.txt
 
-      - name: Preflight da candidata e do workflow
+      - name: Preflight da release ativa e do workflow
         run: python scripts/github_preflight.py --require-oauth
 
       - name: Compilar
@@ -111,7 +111,7 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
 
-      - name: Propagar resultado do gate
+      - name: Propagar resultado do runtime ativo
         if: ${{ always() }}
         shell: bash
         run: |
@@ -125,4 +125,4 @@ jobs:
             echo "STOP_OBSERVABILITY_REPORT: ${observability_outcome:-indisponível}"
             exit 16
           fi
-          echo "PASS_M5_OBSERVABILITY_RUNTIME_GATE"
+          echo "PASS_ACTIVE_RUNTIME_OBSERVABILITY"
