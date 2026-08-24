@@ -1,0 +1,47 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.6.3",
+  "status": "CANDIDATE",
+  "milestone": "M4F_OPERATOR_OBSERVABILITY",
+  "based_on_active": "0.6.2",
+  "new_capability": "Sanitized source, run and metric cards with a readable GitHub Actions summary and immutable per-run artifact.",
+  "observability_contract": {
+    "input": "SANITIZED_GITHUB_GATE_EVIDENCE_ONLY",
+    "projection": "EXPLICIT_ALLOWLIST",
+    "cards": [
+      "SOURCE",
+      "RUN",
+      "METRICS"
+    ],
+    "formats": [
+      "JSON",
+      "MARKDOWN"
+    ],
+    "github_step_summary": "ENABLED",
+    "github_artifact": "IMMUTABLE_PER_WORKFLOW_RUN_30_DAYS",
+    "drive_outputs_write": "NONE",
+    "production_data_read": "NONE"
+  },
+  "safety": {
+    "active_release_mutated": false,
+    "bronze_silver_gold_mutated": false,
+    "existing_logs_mutated": false,
+    "source_collection_rerun": "DISABLED",
+    "processing_rerun": "DISABLED",
+    "reconciliation_rerun": "DISABLED",
+    "workflow_schedule": "DISABLED",
+    "financial_identity_auto_promotion": "PROHIBITED",
+    "secret_values": "FAIL_CLOSED_NOT_PROPAGATED",
+    "remote_identifiers": "FAIL_CLOSED_NOT_PROPAGATED"
+  },
+  "qa": {
+    "compileall": "PASS",
+    "unit_tests": "119/119 PASS",
+    "historical_regressions": "109/109 PASS",
+    "observability_tests": "7/7 PASS",
+    "offline_preflight": "PASS 26/26 CHECKS",
+    "secret_scan": "PASS"
+  },
+  "promotion_gate": "PENDING_M4F_OBSERVABILITY_LIVE_GATE",
+  "next_action": "RUN_MANUAL_WORKFLOW_AND_REVIEW_SUMMARY_AND_ARTIFACT"
+}
