@@ -21,6 +21,9 @@
   "workflow_schedule": "DISABLED",
   "tda_connector": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN",
   "first_live_attempt": "STOP_MISSING_CONTRACT_OR_SUPPLIER_KEY_WRITES_NONE",
-  "live_gate": "PENDING_MANUAL_RETRY_AFTER_HARDENING",
+  "live_gate": "PASS_GITHUB_RECONCILIATION_EXECUTION_GATE_SEQUENCE_8_COMMIT_BCA696C",
+  "live_result": "MATCH_CANDIDATE_CANDIDATE_ONLY",
+  "candidate_evidence_edges": 1,
+  "financial_identity_edges": 0,
   "secret_scan": "PASS"
 }
