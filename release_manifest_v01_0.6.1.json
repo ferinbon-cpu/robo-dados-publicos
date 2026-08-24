@@ -42,6 +42,26 @@
       "cause": "EXTRACTOR_VERSION_DRIFT_PYPDF_5_9_0",
       "writes": "NONE",
       "remediation": "PIN_AND_GATE_PYPDF_6_10_0"
+    },
+    {
+      "run": 32760805877,
+      "status": "STOP_DEPENDENCY_ORDER",
+      "cause": "PREFLIGHT_BEFORE_DEPENDENCY_INSTALL",
+      "writes": "NONE",
+      "remediation": "INSTALL_DEPENDENCIES_BEFORE_RUNTIME_PREFLIGHT"
+    },
+    {
+      "run": 32761758504,
+      "status": "PASS_GITHUB_JOURNAL_PROCESSING_GATE",
+      "source_commit": "f9bb9afad3d519376157f5acbdc4dc2cd18bec15",
+      "writes": "FIVE_DERIVED_OUTPUTS_STATE_AND_APPEND_ONLY_LOG",
+      "metrics": {
+        "pages": 76,
+        "total_extracted_chars": 195540,
+        "gold_events": 53,
+        "rag_chunks": 148,
+        "reconciliation_tasks": 68
+      }
     }
   ],
   "safety": {
@@ -52,6 +72,6 @@
     "workflow_schedule": "DISABLED",
     "tda_limeira": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
   },
-  "promotion_gate": "M4E_FIRST_SOURCE_PROCESSING_LIVE_GATE",
-  "next_action": "M4E_FIRST_SOURCE_PROCESSING_LIVE_GATE_0_6_1"
+  "promotion_gate": "PASS_M4E_FIRST_SOURCE_PROCESSING_LIVE_GATE",
+  "next_action": "PROMOTE_0_6_1_ACTIVE"
 }
