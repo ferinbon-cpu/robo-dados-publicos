@@ -10,9 +10,11 @@ A candidata 0.6.2 foi preservada separadamente e promovida após concluir com `P
 
 ## Candidata corrente
 
-**Nenhuma.**
+**0.6.3 CANDIDATE — M4F observabilidade operacional**
 
-O próximo contrato somente será aberto após revisão explícita da evidência candidata. Reconciliação ampla, repetição do gate e agendamento permanecem desabilitados.
+Detalhes: `docs/RELEASE_NOTES_V01_0.6.3.md`.
+
+A candidata acrescenta cartões sanitizados de fonte, execução e métricas, resumo na página do GitHub Actions e artefato JSON/Markdown por run. Reconciliação ampla, repetição dos gates e agendamento permanecem desabilitados.
 
 ## Evidência candidata preservada
 
@@ -43,3 +45,4 @@ Detalhes: `docs/RELEASE_NOTES_V01_0.6.2.md`.
 - `RELEASE_NOTES_V01_0.6.1_ACTIVE.md`
 - `RELEASE_NOTES_V01_0.6.2.md`
 - `RELEASE_NOTES_V01_0.6.2_ACTIVE.md`
+- `RELEASE_NOTES_V01_0.6.3.md`
