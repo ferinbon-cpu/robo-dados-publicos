@@ -14,7 +14,6 @@
   "github_artifact": "PINNED_UPLOAD_ARTIFACT_V4.6.2_RETENTION_30_DAYS",
   "drive_outputs_write": "NONE",
   "bronze_silver_gold_mutation": "NONE",
-  "financial_identity_auto_promotion": "PROHIBITED",
   "protected_targets": "TCE_SP_TDA_LICITACOES_SIAVE_NOT_EXECUTED",
   "source_collection_rerun": "DISABLED_IN_WORKFLOW",
   "processing_rerun": "DISABLED_IN_WORKFLOW",
