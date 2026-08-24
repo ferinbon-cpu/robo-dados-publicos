@@ -4,13 +4,13 @@ Consolidação em software das capacidades metodológicas validadas nas versões
 
 ## Estado desta release
 
-**Software ativo:** 0.6.2 ACTIVE  
-**Candidata corrente:** 0.6.3 CANDIDATE  
-**Próximo gate:** M5 — execução manual do relatório operacional de observabilidade  
+**Software ativo:** 0.6.3 ACTIVE  
+**Candidata corrente:** NONE  
+**Próximo gate:** M6 — desenho da saída mínima de produto 0.7.0  
 **Dependências externas:** `pypdf==6.10.0` para processamento textual determinístico de PDFs  
 **Python:** 3.11+
 
-A 0.6.3 candidata acrescenta contratos para `SOURCE_CARD`, `RUN_CARD` e `METRIC_CARD`, saúde multidimensional de atualidade, completude, consistência, coleta e latência e uma camada operacional sanitizada no GitHub Actions. O gate offline consolidado passou com 130/130 testes unitários, 109/109 regressões, `compileall` e 31/31 checks de preflight. A 0.6.2 permanece a última release ativa validada.
+A 0.6.3 está ativa após o gate ao vivo de observabilidade do run `32782732233`: preflight 31/31, 130/130 testes unitários, 109/109 regressões históricas, runtime 7/7, saúde geral `HEALTHY`, privacidade `PASS` e artifact sanitizado publicado. Os contratos `SOURCE_CARD`, `RUN_CARD` e `METRIC_CARD`, a saúde multidimensional e o relatório operacional no GitHub Actions passam a integrar a release ativa.
 
 Agendamento, recorrência, novas fontes e execução ampla da fila permanecem desabilitados. TCE-SP, TDA, licitações e SIAVE ficam fora deste gate; o TDA continua bloqueado sem endpoint/export público comprovado. Uma eventual correspondência gera somente evidência documental `CANDIDATE_ONLY`, nunca identidade financeira automática.
 
@@ -57,20 +57,20 @@ python3 main.py run --auth oauth-env --source-config config/sources.json --dry-r
 A configuração canônica está em `config/cloud.json`. O preflight exige as camadas `00_DOCUMENTACAO` a `12_SOFTWARE` e `START_HERE_ROBO_DADOS_PUBLICOS`.
 
 ## Deploy
-A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTIONS_DEPLOY.md`). Execute primeiro `python scripts/github_preflight.py`; o resultado esperado sem credenciais é `PASS_OFFLINE`. A coleta, o processamento e a primeira reconciliação controlada já foram validados. Novas fontes, repetição desses gates, reconciliação ampla, recorrência e agenda continuam desabilitadas.
+A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTIONS_DEPLOY.md`). Execute primeiro `python scripts/github_preflight.py`; o resultado esperado sem credenciais é `PASS_OFFLINE`. A coleta, o processamento, a primeira reconciliação controlada e a observabilidade operacional já foram validados. Novas fontes, repetição dos gates históricos, reconciliação ampla, recorrência e agenda continuam desabilitadas.
 
 Os contratos históricos permanecem em `config/sources.jornal_oficial_7310_gate.json`, `config/processing.jornal_oficial_7310_gate.json` e `config/reconciliation.first_contract_gate.json`, mas o workflow não oferece `confirm_source_collection`, `confirm_processing` nem `confirm_reconciliation`.
 
 ## M5 — Observabilidade
 
-A candidata 0.6.3 introduz `robo_dados_publicos/observability/` e não acrescenta escrita remota própria. O primeiro cartão de fonte está em `config/observability.jornal_oficial_7310.json`. Fontes `one_time_manual_gate` não recebem limiar artificial de atualização e não implicam recorrência.
+A 0.6.3 ativa inclui `robo_dados_publicos/observability/` e não acrescenta escrita remota própria. O primeiro cartão de fonte está em `config/observability.jornal_oficial_7310.json`. Fontes `one_time_manual_gate` não recebem limiar artificial de atualização e não implicam recorrência.
 
-Depois do runtime gate, o workflow gera uma projeção sanitizada em dois lugares:
+Depois de cada runtime manual autorizado, o workflow gera uma projeção sanitizada em dois lugares:
 
 - **GitHub Actions → Summary:** visão humana imediata da saúde, gate, checks, fonte, métricas e privacidade;
 - **GitHub Actions → Artifacts:** pacote `observability-report-<github.run_id>` por 30 dias, contendo `report.md`, `report.json` e cartões separados.
 
-A evidência bruta usada para montar o relatório permanece somente em `$RUNNER_TEMP` e não é enviada ao artifact. Secrets, hashes e identificadores remotos são excluídos por allowlist. Consulte `docs/OBSERVABILITY_RUNBOOK.md` para o caminho operacional completo.
+O gate de promoção foi concluído no run `32782732233` com `PASS_M5_OBSERVABILITY_RUNTIME_GATE`. A evidência bruta usada para montar o relatório permanece somente em `$RUNNER_TEMP` e não é enviada ao artifact. Secrets, hashes e identificadores remotos são excluídos por allowlist. Consulte `docs/OBSERVABILITY_RUNBOOK.md` para o caminho operacional completo.
 
 ## M4E.1 — Portal discovery
 
