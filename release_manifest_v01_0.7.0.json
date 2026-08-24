@@ -7,7 +7,7 @@
   "academic_basis": "MD_00.1 V02 - product/minimal output, explicit semantics and human-readable evidence boundaries",
   "new_capability": "Deterministic local product bundle for human reading without turning presentation into evidence.",
   "product_output": {
-    "report_card": "IMPLEMENTED",
+    "report_card": "IMPLEMENTED_AND_VALIDATED",
     "answer_contract_columns": [
       "status",
       "DADO",
@@ -33,6 +33,7 @@
       "NO_DATA"
     ],
     "pdf_renderer": "reportlab==5.0.0",
+    "pdf_linux_runner": "PASS",
     "drive_target": "08_OUTPUTS",
     "google_sheets_import_source": "table.csv",
     "drive_publication": "NOT_IMPLEMENTED_NOT_AUTHORIZED",
@@ -40,18 +41,20 @@
     "sensitive_source_query_values": "REDACTED"
   },
   "qa": {
-    "product_output_tests": "PENDING",
-    "repository_unit_tests": "PENDING",
-    "historical_regressions": "PENDING",
-    "offline_preflight": "PENDING",
-    "compileall": "PENDING",
-    "ci_run": null,
-    "validated_commit": null
+    "product_output_tests": "13/13 PASS",
+    "repository_unit_tests": "148/148 PASS",
+    "historical_regressions": "109/109 PASS",
+    "offline_preflight": "PASS 38/38 CHECKS",
+    "compileall": "PASS",
+    "ci_run": 32785752692,
+    "ci_run_number": 65,
+    "validated_commit": "4f663d27416398e20572acb07103cb30089739dd"
   },
   "safety": {
     "active_release_mutated": false,
     "active_release": "0.6.3",
     "product_drive_writes": "NONE",
+    "candidate_persistent_runtime": "BLOCKED_EVEN_WITH_CREDENTIALS",
     "source_collection_rerun": "DISABLED_IN_WORKFLOW",
     "source_processing_rerun": "DISABLED_IN_WORKFLOW",
     "reconciliation_rerun": "DISABLED_IN_WORKFLOW",
@@ -62,6 +65,6 @@
     "reconciliation_matches": "CANDIDATE_ONLY",
     "tda_limeira": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
   },
-  "promotion_gate": "PENDING_M6_PRODUCT_MINIMAL_OUTPUT_OFFLINE_VALIDATION",
-  "next_action": "M6_PRODUCT_MINIMAL_OUTPUT_OFFLINE_GATE_0_7_0"
+  "promotion_gate": "PASS_M6_PRODUCT_MINIMAL_OUTPUT_OFFLINE_VALIDATION",
+  "next_action": "M6_PRODUCT_OUTPUT_CONTROLLED_PUBLICATION_DESIGN_0_7_0"
 }
