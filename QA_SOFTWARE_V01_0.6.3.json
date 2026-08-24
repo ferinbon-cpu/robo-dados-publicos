@@ -3,11 +3,14 @@
   "version": "0.6.3",
   "status": "CANDIDATE",
   "active_version_preserved": "0.6.2",
-  "targeted_observability_tests": "9/9 PASS_LOCAL_PROTOTYPE",
-  "compileall": "PENDING_CI",
-  "unit_tests": "PENDING_CI",
-  "historical_regressions": "PENDING_CI",
-  "offline_preflight": "PENDING_CI",
+  "targeted_observability_tests": "9/9 PASS",
+  "compileall": "PASS",
+  "unit_tests": "121/121 PASS",
+  "historical_regressions": "PASS",
+  "offline_preflight": "PASS",
+  "ci_run": 32781313380,
+  "ci_run_number": 35,
+  "validated_commit": "69daed7f04d1f9a1aafb2a817ff387eeab567c22",
   "observability_contract": "SOURCE_CARD_RUN_CARD_METRIC_CARD_HEALTH_DIMENSIONS",
   "expected_absence_semantics": "DISTINCT_FROM_ZERO_AND_FAILURE",
   "hidden_composite_score": "PROHIBITED",
@@ -20,5 +23,6 @@
   "workflow_schedule": "DISABLED",
   "financial_identity_auto_promotion": "PROHIBITED",
   "tda_connector": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN",
-  "next_gate": "M5_OBSERVABILITY_OFFLINE_VALIDATION_GATE_0_6_3"
+  "promotion_gate": "PASS_M5_OBSERVABILITY_OFFLINE_VALIDATION",
+  "next_gate": "REVIEW_0_6_3_CANDIDATE_FOR_PROMOTION"
 }
