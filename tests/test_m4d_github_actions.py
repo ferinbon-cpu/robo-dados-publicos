@@ -41,6 +41,12 @@ class TestM4DGitHubActions(unittest.TestCase):
         self.assertIn('default: false', text)
         self.assertIn('inputs.confirm_persistence == true', text)
 
+    def test_dependencies_are_installed_before_runtime_preflight(self):
+        text = WORKFLOW.read_text(encoding='utf-8')
+        install = text.index('python -m pip install --disable-pip-version-check -r requirements.txt')
+        preflight = text.index('python scripts/github_preflight.py --require-oauth')
+        self.assertLess(install, preflight)
+
     def test_offline_preflight_passes_without_credentials(self):
         proc = subprocess.run(
             [sys.executable, str(ROOT / 'scripts' / 'github_preflight.py')],
