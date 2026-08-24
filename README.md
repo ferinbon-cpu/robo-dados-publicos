@@ -5,12 +5,14 @@ Consolidação em software das capacidades metodológicas validadas nas versões
 ## Estado desta release
 
 **Software ativo:** 0.6.0 ACTIVE  
-**Candidata corrente:** nenhuma  
-**Marco ativo:** M4E primeira coleta controlada do Jornal Oficial validada ao vivo  
+**Candidata corrente:** 0.6.1 CANDIDATE  
+**Próximo gate:** M4E primeiro processamento controlado do Bronze  
 **Dependências externas:** `pypdf==5.9.0` para processamento textual de PDFs  
 **Python:** 3.11+
 
-A 0.6.0 está ativa após o gate GitHub ao vivo coletar somente a edição 7310 do Jornal Oficial, declarada pelo índice oficial e travada por tipo MIME, SHA-256 e tamanho. O arquivo foi criado no Bronze com `DOWNLOADED_NEW`, o estado remoto foi substituído e o log append-only foi criado. A opção de repetir essa coleta foi retirada do workflow. Agendamento e coleta recorrente permanecem desabilitados. O TDA continua bloqueado sem endpoint/export público comprovado e nenhuma correspondência é promovida automaticamente a identidade financeira.
+A 0.6.0 está ativa após o gate GitHub ao vivo coletar somente a edição 7310 do Jornal Oficial, declarada pelo índice oficial e travada por tipo MIME, SHA-256 e tamanho. O arquivo foi criado no Bronze com `DOWNLOADED_NEW`, o estado remoto foi substituído e o log append-only foi criado. A opção de repetir essa coleta foi retirada do workflow.
+
+A 0.6.1 é candidata ao primeiro processamento controlado desse mesmo PDF. O gate localiza o Bronze pela referência privada do estado, baixa somente do Drive, reconfirma hash e tamanho e produz derivados Silver, Gold, Documentos e RAG. Ele não chama a origem pública, não recria o Bronze, não executa resolvers e não imprime identificadores remotos. Agendamento, recorrência e novas fontes permanecem desabilitados. O TDA continua bloqueado sem endpoint/export público comprovado e nenhuma correspondência é promovida automaticamente a identidade financeira.
 
 ## Testes
 
@@ -55,9 +57,9 @@ python3 main.py run --auth oauth-env --source-config config/sources.json --dry-r
 A configuração canônica está em `config/cloud.json`. O preflight exige as camadas `00_DOCUMENTACAO` a `12_SOFTWARE` e `START_HERE_ROBO_DADOS_PUBLICOS`.
 
 ## Deploy
-A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTIONS_DEPLOY.md`). Execute primeiro `python scripts/github_preflight.py`; o resultado esperado sem credenciais é `PASS_OFFLINE`. A primeira coleta M4E foi validada e está documentada em `docs/M4E_SOURCE_COLLECTION.md`; novas fontes, recorrência e agenda continuam desabilitadas até gates próprios.
+A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTIONS_DEPLOY.md`). Execute primeiro `python scripts/github_preflight.py`; o resultado esperado sem credenciais é `PASS_OFFLINE`. A primeira coleta M4E foi validada e está documentada em `docs/M4E_SOURCE_COLLECTION.md`. O gate seguinte processa somente o Bronze validado; novas fontes, repetição da coleta, recorrência e agenda continuam desabilitadas até gates próprios.
 
-O inventário do primeiro gate está em `config/sources.jornal_oficial_7310_gate.json`. Ele contém uma única fonte habilitada, mas só é utilizado quando o usuário marca `confirm_source_collection` no acionamento manual do workflow.
+O inventário histórico do primeiro gate está preservado em `config/sources.jornal_oficial_7310_gate.json`, mas o workflow ativo não oferece mais `confirm_source_collection`. O contrato do processamento seguinte está em `config/processing.jornal_oficial_7310_gate.json` e só pode ser acionado com as confirmações manuais `confirm_persistence` e `confirm_processing`.
 
 
 ## M4E.1 — Portal discovery
@@ -96,6 +98,8 @@ python3 main.py journal-process \
 ```
 
 O comando gera manifesto, Silver redigida, eventos Gold e chunks RAG. PDF sem camada textual suficiente produz `STOP_OCR_REQUIRED`; nenhum OCR é disparado silenciosamente.
+
+Para o gate remoto da edição 7310, a candidata 0.6.1 usa `journal-process-cloud` por meio de `scripts/github_processing_gate.py`. Esse caminho lê a cópia imutável do Drive e exige, antes e depois do processamento, o contrato exato documentado em `docs/M4E_FIRST_SOURCE_PROCESSING_GATE_0.6.1.md`.
 
 
 ## M4E.4 — Fila de reconciliação
