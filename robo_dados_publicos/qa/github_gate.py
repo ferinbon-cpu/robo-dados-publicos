@@ -3,13 +3,19 @@
 from __future__ import annotations
 
 
-def evaluate_live_payload(payload: dict, source_expectation: dict | None = None) -> dict:
+def evaluate_live_payload(
+    payload: dict,
+    source_expectation: dict | None = None,
+    *,
+    expected_version: str = "0.6.0",
+    expected_status: str = "CANDIDATE",
+) -> dict:
     """Return explicit gate checks without guessing around missing evidence."""
 
     checks = {
         "runtime_status_pass": payload.get("status") == "PASS",
-        "candidate_version_0_6_0": payload.get("software_version") == "0.6.0",
-        "release_status_candidate": payload.get("release_status") == "CANDIDATE",
+        "software_version_match": payload.get("software_version") == expected_version,
+        "release_status_match": payload.get("release_status") == expected_status,
         "state_source_remote_existing": payload.get("state_source") == "REMOTE_EXISTING",
         "state_remote_replaced": (payload.get("state_remote") or {}).get("mode") == "REPLACED",
         "append_only_log_created": bool((payload.get("log_remote") or {}).get("id")),
