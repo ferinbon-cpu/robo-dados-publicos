@@ -5,12 +5,12 @@ Consolidação em software das capacidades metodológicas validadas nas versões
 ## Estado desta release
 
 **Software ativo:** 0.6.3 ACTIVE  
-**Candidata corrente:** NONE  
-**Próximo gate:** M6 — desenho da saída mínima de produto 0.7.0  
-**Dependências externas:** `pypdf==6.10.0` para processamento textual determinístico de PDFs  
+**Candidata corrente:** 0.7.0 CANDIDATE  
+**Próximo gate:** M6 — validação offline da saída mínima de produto  
+**Dependências externas:** `pypdf==6.10.0` e `reportlab==5.0.0`  
 **Python:** 3.11+
 
-A 0.6.3 está ativa após o gate ao vivo de observabilidade do run `32782732233`: preflight 31/31, 130/130 testes unitários, 109/109 regressões históricas, runtime 7/7, saúde geral `HEALTHY`, privacidade `PASS` e artifact sanitizado publicado. Os contratos `SOURCE_CARD`, `RUN_CARD` e `METRIC_CARD`, a saúde multidimensional e o relatório operacional no GitHub Actions passam a integrar a release ativa.
+A 0.6.3 permanece a última release ativa validada. A 0.7.0 candidata acrescenta uma camada de produto local e determinística: `REPORT_CARD`, tabela compatível com o contrato de resposta e bundle com JSON, CSV, Markdown, HTML e PDF. O CSV é a fonte planejada para futura importação como Google Sheets em `08_OUTPUTS`, mas esta candidata ainda não publica nada no Drive.
 
 Agendamento, recorrência, novas fontes e execução ampla da fila permanecem desabilitados. TCE-SP, TDA, licitações e SIAVE ficam fora deste gate; o TDA continua bloqueado sem endpoint/export público comprovado. Uma eventual correspondência gera somente evidência documental `CANDIDATE_ONLY`, nunca identidade financeira automática.
 
@@ -23,6 +23,33 @@ python3 -m unittest discover -s tests -v
 python3 main.py selftest
 python3 main.py sources-validate --source-config config/sources.example.json
 ```
+
+## M6 — Saída mínima de produto
+
+O construtor local recebe respostas estruturadas e gera sete arquivos:
+
+- `report.json` — conteúdo estruturado;
+- `report_card.json` — contrato e estado do relatório;
+- `table.csv` — tabela pronta para futura importação em Google Sheets;
+- `report.md` — leitura rápida;
+- `report.html` — leitura local em navegador;
+- `report.pdf` — relatório portátil;
+- `manifest.json` — inventário, bytes e SHA-256 dos seis artefatos de conteúdo.
+
+As colunas preservam o contrato já existente: `status`, `DADO`, `CÁLCULO`, `CORRESPONDÊNCIA`, `INTERPRETAÇÃO`, `CAUTELA`, `FONTES`. A apresentação nunca é tratada como evidência. `NO_DATA`, `EVIDENCIA_INSUFICIENTE` e cautelas permanecem visíveis.
+
+Exemplo local, sem Drive:
+
+```bash
+python scripts/build_product_output.py \
+  --input answers.json \
+  --output-dir runtime/product_output \
+  --report-id RELATORIO_001 \
+  --title "Relatório do robô" \
+  --scope "Limeira/SP"
+```
+
+O destino futuro está configurado como `08_OUTPUTS`, mas a publicação remota e a conversão de `table.csv` para Google Sheets **não estão implementadas nem autorizadas nesta candidata**. Isso será um gate separado após a validação do formato.
 
 ## Execução persistente
 
@@ -51,21 +78,24 @@ python3 main.py run --auth oauth-env --source-config config/sources.json --dry-r
 - LLM não é motor de verdade numérica;
 - receita ≠ despesa; saldo ≠ gasto; dotação ≠ execução;
 - correspondência temática ≠ identidade jurídica/financeira;
-- evidência insuficiente permanece explicitamente insuficiente.
+- evidência insuficiente permanece explicitamente insuficiente;
+- apresentação ≠ evidência.
 
 ## Drive
-A configuração canônica está em `config/cloud.json`. O preflight exige as camadas `00_DOCUMENTACAO` a `12_SOFTWARE` e `START_HERE_ROBO_DADOS_PUBLICOS`.
+A configuração canônica está em `config/cloud.json`. O preflight exige as camadas `00_DOCUMENTACAO` a `12_SOFTWARE` e `START_HERE_ROBO_DADOS_PUBLICOS`. `08_OUTPUTS` já é o destino reservado para saídas de produto, mas a 0.7.0 candidata ainda não escreve nessa pasta.
 
 ## Deploy
 A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTIONS_DEPLOY.md`). Execute primeiro `python scripts/github_preflight.py`; o resultado esperado sem credenciais é `PASS_OFFLINE`. A coleta, o processamento, a primeira reconciliação controlada e a observabilidade operacional já foram validados. Novas fontes, repetição dos gates históricos, reconciliação ampla, recorrência e agenda continuam desabilitadas.
 
 Os contratos históricos permanecem em `config/sources.jornal_oficial_7310_gate.json`, `config/processing.jornal_oficial_7310_gate.json` e `config/reconciliation.first_contract_gate.json`, mas o workflow não oferece `confirm_source_collection`, `confirm_processing` nem `confirm_reconciliation`.
 
+Na candidata 0.7.0, o runtime persistente com OAuth não é autorizado pelo preflight; o gate corrente é exclusivamente offline e local para a camada de produto.
+
 ## M5 — Observabilidade
 
 A 0.6.3 ativa inclui `robo_dados_publicos/observability/` e não acrescenta escrita remota própria. O primeiro cartão de fonte está em `config/observability.jornal_oficial_7310.json`. Fontes `one_time_manual_gate` não recebem limiar artificial de atualização e não implicam recorrência.
 
-Depois de cada runtime manual autorizado, o workflow gera uma projeção sanitizada em dois lugares:
+Depois de cada runtime manual autorizado da release ativa, o workflow gera uma projeção sanitizada em dois lugares:
 
 - **GitHub Actions → Summary:** visão humana imediata da saúde, gate, checks, fonte, métricas e privacidade;
 - **GitHub Actions → Artifacts:** pacote `observability-report-<github.run_id>` por 30 dias, contendo `report.md`, `report.json` e cartões separados.
