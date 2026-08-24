@@ -37,6 +37,8 @@ O `run` só coleta quando um inventário é explicitamente informado:
 python3 main.py run --auth oauth-env --source-config config/sources.json
 ```
 
+O primeiro gate controlado usa `config/sources.jornal_oficial_7310_gate.json`. Esse inventário contém uma única edição histórica validada e não autoriza coleta recorrente. No GitHub, ele só é passado ao runtime quando `confirm_source_collection` é marcado manualmente.
+
 Para validar planejamento sem rede nem escrita:
 
 ```bash
@@ -45,6 +47,8 @@ python3 main.py run --auth oauth-env --source-config config/sources.json --dry-r
 
 ## Regra de ativação
 Uma fonte oficial só pode ser marcada `enabled: true` depois que URL, formato, comportamento HTTP e tipo MIME forem observados em teste real. Páginas interativas que exigem parâmetros, sessão ou POST devem receber adaptador específico; não devem ser tratadas como arquivo direto por aproximação.
+
+Para artefatos históricos imutáveis, `expected_sha256` e `expected_bytes` fecham adicionalmente o contrato. Divergência envia o arquivo observado à quarentena e interrompe a coleta.
 
 ## Jornal Oficial — separação descoberta/processamento
 A descoberta do índice (`journal-discover`) e o processamento de uma edição (`journal-process`) são etapas distintas. O índice nunca autoriza, sozinho, uma rota de produção: a URL do documento e o tipo MIME precisam ser observados ao vivo. Depois da aquisição oficial, a 0.5.3 processa o PDF sem rede, preserva Bronze por hash e produz apenas derivados minimizados.
