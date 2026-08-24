@@ -50,11 +50,11 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
     processing_gate = load_journal_processing_gate(PROCESSING_GATE_CONFIG)
     checks = {
         "software_version_0_6_1": SOFTWARE_VERSION == "0.6.1",
-        "release_status_candidate": RELEASE_STATUS == "CANDIDATE",
-        "active_version_preserved_0_6_0": ACTIVE_VALIDATED_VERSION == "0.6.0",
-        "current_candidate_0_6_1": CURRENT_CANDIDATE_VERSION == "0.6.1",
-        "next_action_source_processing_live_gate": NEXT_ACTION == "M4E_FIRST_SOURCE_PROCESSING_LIVE_GATE_0_6_1",
-        "manifest_identity": manifest.get("current_active") == "0.6.0" and manifest.get("current_candidate") == "0.6.1",
+        "release_status_active": RELEASE_STATUS == "ACTIVE",
+        "active_version_0_6_1": ACTIVE_VALIDATED_VERSION == "0.6.1",
+        "no_current_candidate": CURRENT_CANDIDATE_VERSION == "NONE",
+        "next_action_reconciliation_execution_gate": NEXT_ACTION == "M4E_FIRST_RECONCILIATION_EXECUTION_GATE",
+        "manifest_identity": manifest.get("current_active") == "0.6.1" and manifest.get("current_candidate") == "NONE",
         "source_inventory_one_enabled": source is not None,
         "source_inventory_immutable_contract": bool(
             source
@@ -87,8 +87,8 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
             "pypdf==6.10.0" in (ROOT / "requirements.txt").read_text(encoding="utf-8")
             and "pypdf==6.10.0" in (ROOT / "pyproject.toml").read_text(encoding="utf-8")
         ),
-        "workflow_processing_confirmation_required": "confirm_processing:" in text and "inputs.confirm_processing == true" in text,
-        "workflow_processing_gate_explicit": "scripts/github_processing_gate.py --processing-config config/processing.jornal_oficial_7310_gate.json" in text,
+        "workflow_processing_rerun_disabled": "confirm_processing:" not in text,
+        "workflow_processing_gate_not_reachable": "scripts/github_processing_gate.py --processing-config config/processing.jornal_oficial_7310_gate.json" not in text,
         "permissions_contents_read": "permissions:\n  contents: read" in text,
         "checkout_immutable_pin": CHECKOUT_PIN in text,
         "setup_python_immutable_pin": SETUP_PYTHON_PIN in text,

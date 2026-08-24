@@ -1,10 +1,10 @@
 {
   "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
   "version": "0.6.1",
-  "status": "CANDIDATE",
+  "status": "ACTIVE",
   "based_on_active": "0.6.0",
   "compileall": "PASS",
-  "unit_tests": "98/98 PASS",
+  "unit_tests": "102/102 PASS",
   "historical_regressions": "109/109 PASS",
   "m4e_live_validation": {
     "journal_index_discovery": "PASS_12_EDITIONS",
@@ -17,10 +17,10 @@
     "financial_identity_auto_promotion": "PROHIBITED",
     "tda_connector": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
   },
-  "release_identity": "PASS_ACTIVE_0.6.0_CANDIDATE_0.6.1",
+  "release_identity": "PASS_ACTIVE_0.6.1_NO_CURRENT_CANDIDATE",
   "candidate_evidence_preserved": "PASS",
-  "active_runtime_identity": "PRESERVED_0.6.0",
-  "current_candidate": "0.6.1",
+  "active_runtime_identity": "0.6.1",
+  "current_candidate": "NONE",
   "github_offline_readiness": "PASS_OFFLINE",
   "source_inventory_validation": "PASS_ONE_ENABLED_IMMUTABLE_PDF",
   "source_dry_run": "PASS_NETWORK_NOT_CALLED_WRITES_NONE",
@@ -35,7 +35,10 @@
   "processing_extractor_contract": "PASS_PYPDF_6.10.0_PINNED_AND_GATED",
   "processing_cloud_runner": "PASS_IDEMPOTENT_DERIVED_OUTPUTS_AND_PRIVATE_IDS",
   "processing_origin_network": "PROHIBITED",
-  "processing_live_gate": "PENDING_RETRY_AFTER_SAFE_STOP_RUN_32758683064",
+  "processing_live_gate": "PASS_RUN_32761758504_JOB_97541993609",
+  "processing_outputs": "PASS_FIVE_DERIVED_OUTPUTS_CREATED",
+  "processing_metrics": "PASS_76_PAGES_195540_CHARS_53_EVENTS_148_CHUNKS_68_TASKS",
+  "processing_rerun": "DISABLED_IN_WORKFLOW",
   "workflow_schedule": "DISABLED",
   "clean_reextraction": "PASS",
   "secret_scan": "PASS"

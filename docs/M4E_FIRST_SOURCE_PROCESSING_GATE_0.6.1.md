@@ -4,18 +4,15 @@
 
 Este gate lê somente a edição 7310 já existente em `01_BRONZE`. Ele não baixa novamente o documento da fonte pública.
 
-## Confirmação manual
+## Gate concluído
 
-No workflow `ROBO DADOS PUBLICOS`:
+O run `32761758504`, job `97541993609`, no commit `f9bb9afad3d519376157f5acbdc4dc2cd18bec15`, concluiu em 46 segundos com `PASS_GITHUB_JOURNAL_PROCESSING_GATE`. Todas as 16 verificações passaram.
 
-1. selecionar a branch `main`;
-2. marcar `confirm_persistence`;
-3. marcar `confirm_processing`;
-4. executar uma única vez.
+O input `confirm_processing` e a chamada do gate foram retirados do workflow ativo após a promoção. Esta execução não deve ser repetida pela interface normal.
 
 ## Critérios de PASS
 
-- versão `0.6.1`, status `CANDIDATE`;
+- versão `0.6.1`, status `CANDIDATE` durante o gate e `ACTIVE` após promoção;
 - referência privada do Bronze presente no estado remoto;
 - hash e tamanho do PDF exatamente iguais ao contrato;
 - extrator `pypdf` na versão exata `6.10.0`;
@@ -40,3 +37,5 @@ No workflow `ROBO DADOS PUBLICOS`:
 ## Tentativa segura registrada
 
 O primeiro acionamento, run `32758683064`, parou em `STOP_PROCESSING_CONTRACT` antes de gravar derivados. A origem do desvio foi o pin legado `pypdf==5.9.0`, não o PDF, o OAuth ou o Drive. O gate agora também trava a versão do extrator.
+
+O segundo acionamento, run `32760805877`, parou antes do acesso ao Drive porque o preflight importava a dependência antes da instalação. A ordem foi corrigida e protegida por teste de regressão. Ambas as tentativas foram fail-closed e não deixaram saídas parciais.

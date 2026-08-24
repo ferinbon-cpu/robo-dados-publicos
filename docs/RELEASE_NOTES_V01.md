@@ -1,25 +1,22 @@
 # Release Notes — Software V01
 
+## Release ativa corrente
+
+**0.6.1 ACTIVE — M4E primeiro processamento controlado promovido**
+
+Detalhes: `docs/RELEASE_NOTES_V01_0.6.1_ACTIVE.md`.
+
+A candidata 0.6.1 foi preservada separadamente e promovida após concluir com `PASS_GITHUB_JOURNAL_PROCESSING_GATE`. Foram criados cinco derivados, 68 tarefas foram persistidas, o estado foi substituído e o log append-only foi criado, sem acesso à origem pública e sem publicação de IDs remotos.
+
 ## Candidata corrente
+
+Nenhuma.
+
+## Evidência candidata preservada
 
 **0.6.1 CANDIDATE — M4E primeiro processamento controlado do Bronze**
 
 Detalhes: `docs/RELEASE_NOTES_V01_0.6.1.md`.
-
-A candidata processa somente a edição 7310 já preservada no Bronze. Ela exige o hash, o tamanho e as métricas exatas do documento, grava derivados minimizados com nomes vinculados ao hash e não acessa novamente a origem pública. O gate ao vivo ainda está pendente.
-
-## Release ativa corrente
-**0.6.0 ACTIVE — M4E primeira coleta controlada promovida**
-
-Detalhes: `docs/RELEASE_NOTES_V01_0.6.0_ACTIVE.md`.
-
-A candidata 0.6.0 foi preservada separadamente e promovida após a primeira coleta controlada concluir com `PASS_GITHUB_SOURCE_COLLECTION_GATE`. O PDF da edição 7310 foi criado no Bronze com contrato imutável confirmado. A opção de repetir essa coleta foi retirada; recorrência e agenda permanecem desabilitadas.
-
-## Evidência candidata preservada
-
-**0.6.0 CANDIDATE — M4E primeira coleta controlada**
-
-Detalhes: `docs/RELEASE_NOTES_V01_0.6.0.md`.
 
 ## Histórico preservado
 - `RELEASE_NOTES_V01_0.2.0.md`
@@ -41,3 +38,4 @@ Detalhes: `docs/RELEASE_NOTES_V01_0.6.0.md`.
 - `RELEASE_NOTES_V01_0.6.0.md`
 - `RELEASE_NOTES_V01_0.6.0_ACTIVE.md`
 - `RELEASE_NOTES_V01_0.6.1.md`
+- `RELEASE_NOTES_V01_0.6.1_ACTIVE.md`

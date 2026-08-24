@@ -36,3 +36,7 @@ O gate interrompeu antes do commit dos cinco derivados, da persistência do esta
 O run `32760805877`, no commit `d18c0c83d07ba50b7c9215558b47a8995afeb81e`, parou no preflight antes da instalação das dependências. O novo preflight verificava a versão instalada de `pypdf`, mas a etapa `Instalar dependências` ainda estava posicionada depois dele. O resultado foi `ModuleNotFoundError` sem acesso ao Drive e sem qualquer processamento ou escrita.
 
 A correção posiciona a instalação determinística de `requirements.txt` antes do preflight de runtime e adiciona um teste de regressão que exige essa ordem. A validação de presença dos secrets permanece antes da instalação e continua sem exibir valores.
+
+## Terceira execução aprovada
+
+O run `32761758504`, job `97541993609`, no commit `f9bb9afad3d519376157f5acbdc4dc2cd18bec15`, concluiu com `PASS_GITHUB_JOURNAL_PROCESSING_GATE`. O gate criou os cinco derivados esperados, persistiu 68 tarefas, substituiu o estado remoto e criou o log append-only. A origem pública não foi chamada e nenhum secret ou identificador remoto foi publicado.

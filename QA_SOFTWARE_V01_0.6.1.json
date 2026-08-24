@@ -19,6 +19,6 @@
   "workflow_schedule": "DISABLED",
   "financial_identity_auto_promotion": "PROHIBITED",
   "tda_connector": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN",
-  "processing_live_gate": "PENDING_RETRY_AFTER_SAFE_STOP_RUN_32758683064",
+  "processing_live_gate": "PASS_RUN_32761758504_JOB_97541993609",
   "secret_scan": "PASS"
 }

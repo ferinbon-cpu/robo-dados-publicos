@@ -7,7 +7,7 @@ Processar a edição 7310 já preservada no Bronze, sem acessar novamente a font
 ## Contrato
 
 - localizar o artefato somente pela referência privada registrada no estado remoto;
-- exigir SHA-256 `78a23262023f6233cb59fdc78f1fadc196d0a7bbd52c418bbdd9244229f46680` e 16.952.899 bytes;
+- exigir hash e tamanho exatos mantidos na auditoria privada do Drive;
 - exigir `pypdf==6.10.0`, a versão usada para produzir as métricas de validação;
 - esperar 76 páginas, 195.540 caracteres extraídos, 53 eventos Gold, 148 chunks RAG e 68 tarefas;
 - parar antes de qualquer derivado se fonte, hash, tamanho ou métricas divergirem;
@@ -27,9 +27,9 @@ Os nomes remotos incorporam o hash de cada derivado. Uma repetição só reutili
 
 O processamento não chama a URL de origem, não copia novamente o Bronze, não executa resolvers externos, não promove `MATCH_CANDIDATE` para identidade financeira e não habilita TDA.
 
-## Promoção pendente
+## Gate ao vivo concluído e candidata preservada
 
-`M4E_FIRST_SOURCE_PROCESSING_LIVE_GATE_0_6_1`: executar uma única vez com confirmação manual específica e exigir `PASS_GITHUB_JOURNAL_PROCESSING_GATE`.
+O run `32761758504` concluiu com `PASS_GITHUB_JOURNAL_PROCESSING_GATE`. Esta nota preserva a identidade `CANDIDATE`; a promoção está registrada separadamente em `docs/RELEASE_NOTES_V01_0.6.1_ACTIVE.md`.
 
 ## Primeira tentativa interrompida com segurança
 

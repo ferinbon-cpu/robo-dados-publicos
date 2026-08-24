@@ -25,9 +25,9 @@ class TestM4DGitHubActions(unittest.TestCase):
         self.assertNotIn('confirm_source_collection:', text)
         self.assertNotIn('inputs.confirm_source_collection == true', text)
         self.assertNotIn('--source-config config/sources.jornal_oficial_7310_gate.json', text)
-        self.assertIn('confirm_processing:', text)
-        self.assertIn('inputs.confirm_processing == true', text)
-        self.assertIn('scripts/github_processing_gate.py --processing-config config/processing.jornal_oficial_7310_gate.json', text)
+        self.assertNotIn('confirm_processing:', text)
+        self.assertNotIn('inputs.confirm_processing == true', text)
+        self.assertNotIn('scripts/github_processing_gate.py --processing-config config/processing.jornal_oficial_7310_gate.json', text)
         self.assertNotIn('ya' + '29.', text)
         self.assertNotIn('1' + '//', text)
 
@@ -37,7 +37,7 @@ class TestM4DGitHubActions(unittest.TestCase):
         self.assertFalse(any(line.strip() == 'schedule:' for line in active_lines))
         self.assertIn('confirm_persistence:', text)
         self.assertNotIn('confirm_source_collection:', text)
-        self.assertIn('confirm_processing:', text)
+        self.assertNotIn('confirm_processing:', text)
         self.assertIn('default: false', text)
         self.assertIn('inputs.confirm_persistence == true', text)
 
