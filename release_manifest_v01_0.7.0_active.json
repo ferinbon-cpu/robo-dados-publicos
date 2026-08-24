@@ -68,11 +68,15 @@
     "candidate_publication_workflow_tests": "6/6 PASS",
     "candidate_drive_conversion_transport_test": "1/1 PASS",
     "candidate_historical_regressions": "109/109 PASS",
-    "promotion_ci_run": null,
-    "promotion_ci_preflight": "PENDING",
-    "promotion_ci_compileall": "PENDING",
-    "promotion_ci_unit_tests": "PENDING",
-    "promotion_ci_historical_regressions": "PENDING"
+    "promotion_ci_initial_run": 32788453778,
+    "promotion_ci_initial_result": "FAIL_ONE_STALE_M5_CURRENT_RELEASE_ASSERTION_NO_PRODUCT_REGRESSION",
+    "promotion_ci_run": 32788516806,
+    "promotion_ci_run_number": 83,
+    "promotion_ci_validated_commit": "d1771af1c2365082ed05cd5f5191094c9f1977e0",
+    "promotion_ci_preflight": "PASS 48/48 CHECKS",
+    "promotion_ci_compileall": "PASS",
+    "promotion_ci_unit_tests": "167/167 PASS",
+    "promotion_ci_historical_regressions": "109/109 PASS"
   },
   "safety": {
     "publication_rerun": "BLOCKED_BY_ACTIVE_RELEASE_IDENTITY",
