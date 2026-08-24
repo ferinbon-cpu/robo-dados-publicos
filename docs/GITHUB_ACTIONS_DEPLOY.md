@@ -1,9 +1,9 @@
 # M4D — GitHub Actions
 
-## Identidade preparada
+## Identidade ativa
 
-- release ativa preservada: `0.5.9 ACTIVE`;
-- candidata corrente: `0.6.0 CANDIDATE`;
+- release ativa: `0.6.0 ACTIVE`;
+- candidata corrente: nenhuma;
 - `actions/checkout` fixada no SHA da release pública `v6.0.2`;
 - `actions/setup-python` fixada no SHA da release `v7.0.0`;
 - agendamento desabilitado até decisão explícita sobre cadência e fontes.
@@ -31,7 +31,7 @@ python -m unittest discover -s tests -v
 python main.py selftest
 ```
 
-O preflight local esperado é `PASS_OFFLINE`. Ele valida a identidade `0.6.0 CANDIDATE`, preservação da ativa 0.5.9, ausência de agendamento, as duas confirmações, o inventário imutável e os pins das actions. Ele não simula credenciais.
+O preflight local esperado é `PASS_OFFLINE`. Ele valida a identidade `0.6.0 ACTIVE`, ausência de candidata corrente, ausência de agendamento, bloqueio da repetição do gate de fonte, preservação do inventário imutável e os pins das actions. Ele não simula credenciais.
 
 ## Gate manual concluído
 O arquivo `.github/workflows/robo-dados-publicos.yml` permanece somente com `workflow_dispatch` ativo. O primeiro gate persistente foi executado no run `32678624194`, job `97476648260`.
@@ -51,11 +51,11 @@ Critérios de PASS:
 
 Todos os dez critérios passaram e sustentaram a promoção da 0.5.9.
 
-## Gate corrente: primeira coleta controlada
+## Gate de primeira coleta controlada concluído
 
-A 0.6.0 adiciona o input `confirm_source_collection`, com padrão `false`. Quando ele permanece desmarcado, o workflow executa apenas infraestrutura. Quando é marcado junto com `confirm_persistence`, o workflow passa explicitamente `config/sources.jornal_oficial_7310_gate.json` ao runtime.
+A candidata 0.6.0 adicionou temporariamente o input `confirm_source_collection`. Ele foi marcado junto com `confirm_persistence` no workflow manual nº 3 e passou explicitamente `config/sources.jornal_oficial_7310_gate.json` ao runtime.
 
-O gate corrente exige:
+O gate comprovou:
 
 1. `software_version: 0.6.0` e `release_status: CANDIDATE`;
 2. `mode: SOURCE_COLLECTION_ENABLED`;
@@ -65,7 +65,7 @@ O gate corrente exige:
 6. estado remoto substituído e novo log append-only;
 7. `PASS_GITHUB_SOURCE_COLLECTION_GATE`.
 
-Instruções de tela: `docs/M4E_FIRST_SOURCE_COLLECTION_GATE_0.6.0.md`.
+O resultado foi `PASS_GITHUB_SOURCE_COLLECTION_GATE`, com 16/16 verificações aprovadas. Após a promoção, `confirm_source_collection` e a passagem do inventário de uso único foram retirados do workflow ativo. Evidência: `docs/M4E_FIRST_SOURCE_COLLECTION_EVIDENCE_2026-08-24.md`.
 
 ## Gate futuro: agendamento
 Nenhum PASS habilita agendamento automaticamente. Antes de ativar `schedule`, ainda é necessário escolher a cadência e aprovar um inventário recorrente separado. O inventário da edição 7310 é de uso único e não pode ser convertido silenciosamente em rotina. O GitHub Actions aceita cron POSIX e `timezone` IANA. Exemplo ainda não ativo para 03:17 em São Paulo:
@@ -81,8 +81,8 @@ on:
 O horário definitivo deve ser escolhido antes de habilitar esse bloco.
 
 ## Limites desta etapa
-M4D prova o runtime de infraestrutura. A coleta de fontes e o agendamento são gates separados; ambos permanecem desativados.
+M4D prova o runtime de infraestrutura e M4E prova uma única coleta histórica. Novas fontes, repetição, recorrência e agendamento permanecem desativados.
 
 ## Evidência em 2026-08-24
 
-O repositório privado foi conectado, os três secrets foram cadastrados e o gate concluiu com `PASS_GITHUB_LIVE_GATE`. O run substituiu controladamente o estado em `06_BANCOS` e acrescentou um único log em `07_LOGS`. Nenhum valor de secret foi registrado no repositório ou nas evidências.
+O repositório privado foi conectado, os três secrets foram cadastrados e o gate de infraestrutura concluiu com `PASS_GITHUB_LIVE_GATE`. Em seguida, o workflow nº 3 coletou a edição 7310 no Bronze e concluiu com `PASS_GITHUB_SOURCE_COLLECTION_GATE`. O estado em `06_BANCOS` foi substituído controladamente e um novo log foi acrescentado em `07_LOGS`. Nenhum valor de secret foi registrado no repositório ou nas evidências.
