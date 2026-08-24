@@ -69,7 +69,6 @@ class TokenProvider:
         return self._token
 
 
-
 class EnvironmentAccessTokenProvider:
     """Short-lived bearer token supplied by the execution environment.
 
@@ -113,6 +112,7 @@ class GcloudTokenProvider:
         self._expires_at=time.time()+self.cache_seconds
         return token
 
+
 class DriveRESTClient:
     def __init__(self, token_provider: TokenProvider, opener=urlopen):
         self.tokens=token_provider; self.opener=opener
@@ -136,6 +136,20 @@ class DriveRESTClient:
     def find_by_name(self,parent_id,name):
         return [x for x in self.list_children(parent_id) if x.get("name")==name]
 
+    def import_formats(self):
+        """Return Drive's live import-format matrix.
+
+        Google documents this matrix as dynamic. The product-publication gate
+        therefore proves CSV -> Google Sheets support before any write.
+        """
+        fields=quote("importFormats")
+        with self._request(f"{DRIVE_API}/about?fields={fields}") as resp:
+            data=json.loads(resp.read().decode("utf-8"))
+        formats=data.get("importFormats") or {}
+        if not isinstance(formats,dict):
+            raise RuntimeError("STOP_DRIVE_IMPORT_FORMATS_INVALID")
+        return formats
+
     def get(self,file_id,destination):
         dest=Path(destination); dest.parent.mkdir(parents=True,exist_ok=True)
         h=hashlib.sha256(); total=0
@@ -146,11 +160,12 @@ class DriveRESTClient:
                 f.write(block); h.update(block); total += len(block)
         return {"file_id":file_id,"path":str(dest),"bytes":total,"sha256":h.hexdigest()}
 
-    def put(self,local_path,remote_name,parent_id=None,mime_type="application/octet-stream"):
+    def _multipart_create(self,local_path,remote_name,parent_id,mime_type,metadata_mime_type=None):
         p=Path(local_path)
         boundary="===============%s==" % uuid.uuid4().hex
         meta={"name":remote_name}
         if parent_id: meta["parents"]=[parent_id]
+        if metadata_mime_type: meta["mimeType"]=metadata_mime_type
         metadata=json.dumps(meta,ensure_ascii=False).encode("utf-8")
         content=p.read_bytes()
         body=(
@@ -159,8 +174,30 @@ class DriveRESTClient:
             f"\r\n--{boundary}--\r\n".encode()
         )
         headers={"Content-Type":f"multipart/related; boundary={boundary}"}
-        with self._request(f"{DRIVE_UPLOAD}/files?uploadType=multipart&fields=id,name,mimeType,size,parents",method="POST",data=body,headers=headers,timeout=120) as resp:
+        fields="id,name,mimeType,size,parents,md5Checksum"
+        with self._request(f"{DRIVE_UPLOAD}/files?uploadType=multipart&fields={fields}",method="POST",data=body,headers=headers,timeout=120) as resp:
             return json.loads(resp.read().decode("utf-8"))
+
+    def put(self,local_path,remote_name,parent_id=None,mime_type="application/octet-stream"):
+        return self._multipart_create(local_path,remote_name,parent_id,mime_type)
+
+    def put_converted(self,local_path,remote_name,parent_id,source_mime_type,target_mime_type):
+        """Create a Google Workspace file by importing local media.
+
+        For the M6 gate this is used only for text/csv -> Google Sheets.
+        Existing files are never updated by this method.
+        """
+        if not parent_id:
+            raise ValueError("PARENT_ID_REQUIRED_FOR_CONVERSION")
+        if not source_mime_type or not target_mime_type:
+            raise ValueError("SOURCE_AND_TARGET_MIME_REQUIRED")
+        return self._multipart_create(
+            local_path,
+            remote_name,
+            parent_id,
+            source_mime_type,
+            metadata_mime_type=target_mime_type,
+        )
 
     def metadata(self,file_id):
         fields="id,name,mimeType,size,modifiedTime,md5Checksum,parents,trashed"
