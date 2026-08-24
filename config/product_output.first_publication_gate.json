@@ -1,0 +1,35 @@
+{
+  "gate_id": "M6_FIRST_PRODUCT_OUTPUT_PUBLICATION_GATE_0_7_0",
+  "software_version": "0.7.0",
+  "release_status": "CANDIDATE",
+  "active_validated_version": "0.6.3",
+  "parent_config_key": "outputs_id",
+  "drive_target": "08_OUTPUTS",
+  "answers_file": "config/product_output.first_publication_answers.json",
+  "report": {
+    "report_id": "M6_PRODUCT_OUTPUT_GATE_0_7_0",
+    "title": "ROBO DADOS PUBLICOS — Gate técnico de saída 0.7.0",
+    "scope": "Validação técnica de publicação controlada em 08_OUTPUTS",
+    "generated_at": "2026-08-24T22:45:00+00:00",
+    "expected_status": "READY_WITH_CAUTION",
+    "limitations": [
+      "Artefato técnico de validação; não representa análise substantiva de dados públicos.",
+      "Não autoriza coleta recorrente, expansão de fontes ou identidade financeira automática."
+    ],
+    "notes": "Primeiro gate controlado de Google Sheets + PDF + manifesto."
+  },
+  "remote_basename": "ROBO_DADOS_PUBLICOS_M6_GATE_0_7_0",
+  "publications": [
+    "GOOGLE_SHEET_FROM_TABLE_CSV",
+    "REPORT_PDF",
+    "COMPLETION_MANIFEST_JSON"
+  ],
+  "required_remote_count": 3,
+  "allow_overwrite": false,
+  "collision_policy": "STOP_BEFORE_WRITES",
+  "completion_manifest_written_last": true,
+  "source_collection": "PROHIBITED",
+  "processing_rerun": "PROHIBITED",
+  "reconciliation_rerun": "PROHIBITED",
+  "schedule": "DISABLED"
+}

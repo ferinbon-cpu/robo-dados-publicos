@@ -8,6 +8,12 @@ from .bundle import (
     render_pdf,
     write_product_bundle,
 )
+from .publication import (
+    ProductPublicationError,
+    PublicationNames,
+    publish_product_bundle,
+    validate_bundle_integrity,
+)
 
 __all__ = [
     "ReportCard",
@@ -18,4 +24,8 @@ __all__ = [
     "render_markdown",
     "render_pdf",
     "write_product_bundle",
+    "ProductPublicationError",
+    "PublicationNames",
+    "publish_product_bundle",
+    "validate_bundle_integrity",
 ]

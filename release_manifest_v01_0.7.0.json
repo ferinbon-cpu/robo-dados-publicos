@@ -2,10 +2,10 @@
   "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
   "version": "0.7.0",
   "status": "CANDIDATE",
-  "milestone": "M6_PRODUCT_MINIMAL_OUTPUT",
+  "milestone": "M6_PRODUCT_MINIMAL_OUTPUT_AND_CONTROLLED_PUBLICATION",
   "based_on_active": "0.6.3",
   "academic_basis": "MD_00.1 V02 - product/minimal output, explicit semantics and human-readable evidence boundaries",
-  "new_capability": "Deterministic local product bundle for human reading without turning presentation into evidence.",
+  "new_capability": "Deterministic human-readable product bundle plus a one-time fail-closed publication gate for Google Sheets, PDF and completion manifest in 08_OUTPUTS.",
   "product_output": {
     "report_card": "IMPLEMENTED_AND_VALIDATED",
     "answer_contract_columns": [
@@ -36,25 +36,41 @@
     "pdf_linux_runner": "PASS",
     "drive_target": "08_OUTPUTS",
     "google_sheets_import_source": "table.csv",
-    "drive_publication": "NOT_IMPLEMENTED_NOT_AUTHORIZED",
+    "drive_publication": "CONTROLLED_ONE_TIME_GATE_READY_NOT_EXECUTED",
+    "publication_scope": [
+      "ONE_GOOGLE_SHEET",
+      "ONE_PDF",
+      "ONE_COMPLETION_MANIFEST_JSON"
+    ],
+    "overwrite": "PROHIBITED",
+    "collision_policy": "STOP_BEFORE_WRITES",
+    "completion_manifest": "WRITTEN_LAST",
+    "csv_to_sheets_support": "CHECKED_DYNAMICALLY_BEFORE_WRITES",
+    "dry_run": "PASS_NO_NETWORK_NO_REMOTE_WRITES",
+    "partial_failure_policy": "REPORT_CREATED_COUNT_NO_AUTOMATIC_DELETE",
     "presentation_is_evidence": false,
     "sensitive_source_query_values": "REDACTED"
   },
   "qa": {
     "product_output_tests": "13/13 PASS",
-    "repository_unit_tests": "148/148 PASS",
+    "publication_gate_tests": "8/8 PASS",
+    "publication_workflow_tests": "6/6 PASS",
+    "drive_conversion_transport_test": "1/1 PASS",
+    "repository_unit_tests": "163/163 PASS",
     "historical_regressions": "109/109 PASS",
-    "offline_preflight": "PASS 38/38 CHECKS",
+    "offline_preflight": "PASS 49/49 CHECKS",
     "compileall": "PASS",
-    "ci_run": 32785752692,
-    "ci_run_number": 65,
-    "validated_commit": "4f663d27416398e20572acb07103cb30089739dd"
+    "ci_run": 32786820165,
+    "ci_run_number": 75,
+    "validated_commit": "ad60d67c4c9e79e7e2c3ebf66551b6cff50c7a3f"
   },
   "safety": {
     "active_release_mutated": false,
     "active_release": "0.6.3",
-    "product_drive_writes": "NONE",
+    "product_drive_writes": "NONE_YET",
     "candidate_persistent_runtime": "BLOCKED_EVEN_WITH_CREDENTIALS",
+    "publication_requires_manual_confirmation": true,
+    "publication_schedule": "DISABLED",
     "source_collection_rerun": "DISABLED_IN_WORKFLOW",
     "source_processing_rerun": "DISABLED_IN_WORKFLOW",
     "reconciliation_rerun": "DISABLED_IN_WORKFLOW",
@@ -66,5 +82,6 @@
     "tda_limeira": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
   },
   "promotion_gate": "PASS_M6_PRODUCT_MINIMAL_OUTPUT_OFFLINE_VALIDATION",
-  "next_action": "M6_PRODUCT_OUTPUT_CONTROLLED_PUBLICATION_DESIGN_0_7_0"
+  "publication_gate": "READY_MANUAL_M6_CONTROLLED_PRODUCT_OUTPUT_PUBLICATION",
+  "next_action": "M6_PRODUCT_OUTPUT_CONTROLLED_PUBLICATION_GATE_0_7_0"
 }
