@@ -10,11 +10,11 @@ A candidata 0.6.2 foi preservada separadamente e promovida após concluir com `P
 
 ## Candidata corrente
 
-**0.6.3 CANDIDATE — M5 observabilidade auditável**
+**0.6.3 CANDIDATE — M5 observabilidade auditável e operacional**
 
 Detalhes: `docs/RELEASE_NOTES_V01_0.6.3.md`.
 
-A candidata introduz `SOURCE_CARD`, `RUN_CARD`, `METRIC_CARD` e saúde multidimensional somente leitura. Não habilita recorrência, agenda, novas fontes ou reconciliação ampla.
+A candidata introduz `SOURCE_CARD`, `RUN_CARD`, `METRIC_CARD`, saúde multidimensional e uma projeção allowlist-only no GitHub Actions com Summary e artifact por execução. O gate offline consolidado passou; o próximo gate é uma execução manual controlada do relatório operacional. Não habilita recorrência, agenda, novas fontes ou reconciliação ampla.
 
 ## Evidência candidata preservada
 
