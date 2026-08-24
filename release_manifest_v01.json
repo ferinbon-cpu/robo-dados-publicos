@@ -6,6 +6,6 @@
   "active_manifest": "release_manifest_v01_0.6.2_active.json",
   "candidate_manifest": "release_manifest_v01_0.6.3.json",
   "preserved_candidate_manifest": "release_manifest_v01_0.6.2.json",
-  "promotion_gate": "PENDING_M5_OBSERVABILITY_OFFLINE_VALIDATION",
-  "next_action": "M5_OBSERVABILITY_OFFLINE_VALIDATION_GATE_0_6_3"
+  "promotion_gate": "PASS_M5_OBSERVABILITY_CONSOLIDATED_OFFLINE_VALIDATION",
+  "next_action": "M5_OBSERVABILITY_RUNTIME_REPORT_GATE_0_6_3"
 }
