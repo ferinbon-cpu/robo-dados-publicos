@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail-closed repository and OAuth preflight for the active M4D runtime."""
+"""Fail-closed repository and OAuth preflight for the active runtime."""
 
 from __future__ import annotations
 
@@ -46,11 +46,11 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
     source = inventory.enabled[0] if len(inventory.enabled) == 1 else None
     checks = {
         "software_version_0_6_0": SOFTWARE_VERSION == "0.6.0",
-        "release_status_candidate": RELEASE_STATUS == "CANDIDATE",
-        "active_version_preserved_0_5_9": ACTIVE_VALIDATED_VERSION == "0.5.9",
-        "current_candidate_0_6_0": CURRENT_CANDIDATE_VERSION == "0.6.0",
-        "next_action_source_live_gate": NEXT_ACTION == "M4E_FIRST_SOURCE_COLLECTION_LIVE_GATE_0_6_0",
-        "manifest_identity": manifest.get("current_active") == "0.5.9" and manifest.get("current_candidate") == "0.6.0",
+        "release_status_active": RELEASE_STATUS == "ACTIVE",
+        "active_version_0_6_0": ACTIVE_VALIDATED_VERSION == "0.6.0",
+        "no_current_candidate": CURRENT_CANDIDATE_VERSION == "NONE",
+        "next_action_source_processing_gate": NEXT_ACTION == "M4E_FIRST_SOURCE_PROCESSING_GATE",
+        "manifest_identity": manifest.get("current_active") == "0.6.0" and manifest.get("current_candidate") == "NONE",
         "source_inventory_one_enabled": source is not None,
         "source_inventory_immutable_contract": bool(
             source
@@ -62,8 +62,8 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
         "workflow_manual_dispatch": bool(re.search(r"^  workflow_dispatch:\s*$", text, re.MULTILINE)),
         "workflow_schedule_disabled": not any(line.strip() == "schedule:" for line in active_lines),
         "workflow_confirmation_required": "inputs.confirm_persistence == true" in text,
-        "workflow_source_confirmation_required": "confirm_source_collection:" in text and "inputs.confirm_source_collection == true" in text,
-        "workflow_source_gate_explicit": "--source-config config/sources.jornal_oficial_7310_gate.json" in text,
+        "workflow_source_rerun_disabled": "confirm_source_collection:" not in text,
+        "workflow_source_gate_not_reachable": "--source-config config/sources.jornal_oficial_7310_gate.json" not in text,
         "permissions_contents_read": "permissions:\n  contents: read" in text,
         "checkout_immutable_pin": CHECKOUT_PIN in text,
         "setup_python_immutable_pin": SETUP_PYTHON_PIN in text,

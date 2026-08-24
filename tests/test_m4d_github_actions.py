@@ -22,9 +22,9 @@ class TestM4DGitHubActions(unittest.TestCase):
         self.assertIn('${{ secrets.GOOGLE_DRIVE_REFRESH_TOKEN }}', text)
         self.assertIn('python scripts/github_preflight.py --require-oauth', text)
         self.assertIn('python scripts/github_run_gate.py', text)
-        self.assertIn('confirm_source_collection:', text)
-        self.assertIn('inputs.confirm_source_collection == true', text)
-        self.assertIn('--source-config config/sources.jornal_oficial_7310_gate.json', text)
+        self.assertNotIn('confirm_source_collection:', text)
+        self.assertNotIn('inputs.confirm_source_collection == true', text)
+        self.assertNotIn('--source-config config/sources.jornal_oficial_7310_gate.json', text)
         self.assertNotIn('ya' + '29.', text)
         self.assertNotIn('1' + '//', text)
 
@@ -33,7 +33,7 @@ class TestM4DGitHubActions(unittest.TestCase):
         active_lines = [line for line in text.splitlines() if not line.lstrip().startswith('#')]
         self.assertFalse(any(line.strip() == 'schedule:' for line in active_lines))
         self.assertIn('confirm_persistence:', text)
-        self.assertIn('confirm_source_collection:', text)
+        self.assertNotIn('confirm_source_collection:', text)
         self.assertIn('default: false', text)
         self.assertIn('inputs.confirm_persistence == true', text)
 
