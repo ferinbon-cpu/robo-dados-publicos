@@ -6,6 +6,7 @@ from robo_dados_publicos.storage.drive_rest import OAuthCredentials, TokenProvid
 
 PAYLOAD=b"dados-publicos-m4-test\n"
 ETAG='"m4-etag-v1"'
+SHEETS_MIME='application/vnd.google-apps.spreadsheet'
 
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -33,6 +34,8 @@ class FakeOpener:
         url=req.full_url
         if 'oauth2.googleapis.com/token' in url:
             return FakeResponse(json.dumps({'access_token':'TOKEN','expires_in':3600}).encode())
+        if '/drive/v3/about?' in url:
+            return FakeResponse(json.dumps({'importFormats':{'text/csv':[SHEETS_MIME]}}).encode())
         if '/drive/v3/files?' in url and 'upload' not in url:
             return FakeResponse(json.dumps({'files':[{'id':'F1','name':'a.csv'}]}).encode())
         if '/upload/drive/v3/files?' in url:
@@ -73,6 +76,20 @@ class TestM4Connectors(unittest.TestCase):
         self.assertEqual('UP1',out['id'])
         req=[r for r in fake.requests if '/upload/drive/v3/files?' in r.full_url][0]
         self.assertIn('multipart/related',req.headers.get('Content-type',''))
+        self.assertIn(b'"parents": ["PARENT"]',req.data)
+
+    def test_drive_csv_to_google_sheets_conversion_contract(self):
+        fake=FakeOpener(); tp=TokenProvider(OAuthCredentials('CID','SECRET','REFRESH'),opener=fake)
+        client=DriveRESTClient(tp,opener=fake)
+        formats=client.import_formats()
+        self.assertIn(SHEETS_MIME,formats['text/csv'])
+        with tempfile.TemporaryDirectory() as td:
+            p=Path(td)/'x.csv'; p.write_text('a,b\n1,2\n')
+            out=client.put_converted(p,'Planilha teste','PARENT','text/csv',SHEETS_MIME)
+        self.assertEqual('UP1',out['id'])
+        req=[r for r in fake.requests if '/upload/drive/v3/files?' in r.full_url][0]
+        self.assertIn(b'"mimeType": "application/vnd.google-apps.spreadsheet"',req.data)
+        self.assertIn(b'Content-Type: text/csv',req.data)
         self.assertIn(b'"parents": ["PARENT"]',req.data)
 
     def test_gcloud_token_provider_contract(self):
