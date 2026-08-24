@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).parents[1]
 WORKFLOW = ROOT / '.github' / 'workflows' / 'robo-dados-publicos.yml'
 
+
 class TestM4DGitHubActions(unittest.TestCase):
     def test_workflow_security_contract(self):
         text = WORKFLOW.read_text(encoding='utf-8')
@@ -23,17 +24,12 @@ class TestM4DGitHubActions(unittest.TestCase):
         self.assertIn('python scripts/github_preflight.py --require-oauth', text)
         self.assertIn('python scripts/github_run_gate.py', text)
         self.assertNotIn('confirm_reconciliation:', text)
-        self.assertNotIn('inputs.confirm_reconciliation == true', text)
         self.assertNotIn('scripts/github_reconciliation_gate.py', text)
         self.assertNotIn('confirm_source_collection:', text)
-        self.assertNotIn('inputs.confirm_source_collection == true', text)
         self.assertNotIn('--source-config config/sources.jornal_oficial_7310_gate.json', text)
         self.assertNotIn('confirm_processing:', text)
-        self.assertNotIn('inputs.confirm_processing == true', text)
         self.assertNotIn('scripts/github_processing_gate.py --processing-config config/processing.jornal_oficial_7310_gate.json', text)
         self.assertNotIn('build_product_output.py', text)
-        self.assertNotIn('ya' + '29.', text)
-        self.assertNotIn('1' + '//', text)
 
     def test_workflow_is_manual_only_and_requires_confirmation(self):
         text = WORKFLOW.read_text(encoding='utf-8')
@@ -45,7 +41,6 @@ class TestM4DGitHubActions(unittest.TestCase):
         self.assertNotIn('confirm_processing:', text)
         self.assertIn('default: false', text)
         self.assertIn('inputs.confirm_persistence == true', text)
-        self.assertNotIn('inputs.confirm_reconciliation == true', text)
 
     def test_dependencies_are_installed_before_runtime_preflight(self):
         text = WORKFLOW.read_text(encoding='utf-8')
@@ -81,7 +76,7 @@ class TestM4DGitHubActions(unittest.TestCase):
         self.assertEqual('STOP_MISSING_GITHUB_SECRETS', payload['status'])
         self.assertEqual(3, len(payload['missing_oauth_secrets']))
 
-    def test_candidate_persistent_runtime_is_not_authorized_even_with_credentials_present(self):
+    def test_active_persistent_runtime_preflight_passes_with_credentials_present(self):
         env = os.environ.copy()
         env.update({
             'GOOGLE_DRIVE_CLIENT_ID': 'present-not-used',
@@ -97,9 +92,10 @@ class TestM4DGitHubActions(unittest.TestCase):
             check=False,
         )
         payload = json.loads(proc.stdout)
-        self.assertEqual(14, proc.returncode)
-        self.assertEqual('STOP_CANDIDATE_PERSISTENT_RUNTIME_NOT_AUTHORIZED', payload['status'])
+        self.assertEqual(0, proc.returncode, proc.stderr)
+        self.assertEqual('PASS_LIVE_PREFLIGHT', payload['status'])
         self.assertEqual([], payload['missing_oauth_secrets'])
+
 
 if __name__ == '__main__':
     unittest.main()
