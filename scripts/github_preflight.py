@@ -51,14 +51,15 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
     reconciliation_gate = load_reconciliation_execution_gate(RECONCILIATION_GATE_CONFIG)
     checks = {
         "software_version_0_6_2": SOFTWARE_VERSION == "0.6.2",
-        "release_status_candidate": RELEASE_STATUS == "CANDIDATE",
-        "active_version_0_6_1": ACTIVE_VALIDATED_VERSION == "0.6.1",
-        "current_candidate_0_6_2": CURRENT_CANDIDATE_VERSION == "0.6.2",
-        "next_action_reconciliation_execution_live_gate": NEXT_ACTION == "M4E_FIRST_RECONCILIATION_EXECUTION_LIVE_GATE_0_6_2",
+        "release_status_active": RELEASE_STATUS == "ACTIVE",
+        "active_version_0_6_2": ACTIVE_VALIDATED_VERSION == "0.6.2",
+        "current_candidate_none": CURRENT_CANDIDATE_VERSION == "NONE",
+        "next_action_review_reconciliation_result": NEXT_ACTION == "M4E_REVIEW_FIRST_RECONCILIATION_RESULT_AND_DEFINE_NEXT_GATE",
         "manifest_identity": (
-            manifest.get("current_active") == "0.6.1"
-            and manifest.get("current_candidate") == "0.6.2"
-            and manifest.get("candidate_manifest") == "release_manifest_v01_0.6.2.json"
+            manifest.get("current_active") == "0.6.2"
+            and manifest.get("current_candidate") == "NONE"
+            and manifest.get("active_manifest") == "release_manifest_v01_0.6.2_active.json"
+            and manifest.get("preserved_candidate_manifest") == "release_manifest_v01_0.6.2.json"
         ),
         "source_inventory_one_enabled": source is not None,
         "source_inventory_immutable_contract": bool(
@@ -71,10 +72,7 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
         "workflow_manual_dispatch": bool(re.search(r"^  workflow_dispatch:\s*$", text, re.MULTILINE)),
         "workflow_schedule_disabled": not any(line.strip() == "schedule:" for line in active_lines),
         "workflow_confirmation_required": "inputs.confirm_persistence == true" in text,
-        "workflow_reconciliation_confirmation_required": (
-            "confirm_reconciliation:" in text
-            and "inputs.confirm_reconciliation == true" in text
-        ),
+        "workflow_reconciliation_rerun_disabled": "confirm_reconciliation:" not in text,
         "workflow_source_rerun_disabled": "confirm_source_collection:" not in text,
         "workflow_source_gate_not_reachable": "--source-config config/sources.jornal_oficial_7310_gate.json" not in text,
         "processing_gate_contract": (
@@ -108,8 +106,8 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
             and set(reconciliation_gate.allowed_result_statuses) == {"MATCH_CANDIDATE", "NO_MATCH"}
             and reconciliation_gate.financial_identity_auto_promotion == "PROHIBITED"
         ),
-        "workflow_reconciliation_gate_reachable": (
-            "python scripts/github_reconciliation_gate.py --reconciliation-config config/reconciliation.first_contract_gate.json" in text
+        "workflow_reconciliation_gate_not_reachable": (
+            "scripts/github_reconciliation_gate.py" not in text
         ),
         "permissions_contents_read": "permissions:\n  contents: read" in text,
         "checkout_immutable_pin": CHECKOUT_PIN in text,
