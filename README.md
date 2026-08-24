@@ -4,15 +4,15 @@ Consolidação em software das capacidades metodológicas validadas nas versões
 
 ## Estado desta release
 
-**Software ativo:** 0.6.3 ACTIVE  
-**Candidata corrente:** 0.7.0 CANDIDATE  
-**Próximo gate:** M6 — desenho da publicação controlada em `08_OUTPUTS`  
+**Software ativo:** 0.7.0 ACTIVE  
+**Candidata corrente:** NONE  
+**Próximo gate:** M7 — desenho da expansão controlada de fontes 0.8.0  
 **Dependências externas:** `pypdf==6.10.0` e `reportlab==5.0.0`  
 **Python:** 3.11+
 
-A 0.6.3 permanece a última release ativa validada. A 0.7.0 candidata acrescenta uma camada de produto local e determinística: `REPORT_CARD`, tabela compatível com o contrato de resposta e bundle com JSON, CSV, Markdown, HTML e PDF. O gate offline passou com 38/38 checks de preflight, 148/148 testes unitários, 13/13 testes específicos de produto e 109/109 regressões históricas. O CSV é a fonte planejada para futura importação como Google Sheets em `08_OUTPUTS`, mas esta candidata ainda não publica nada no Drive.
+A 0.7.0 foi promovida após o gate manual M6 concluir com `PASS_M6_PRODUCT_OUTPUT_PUBLICATION_GATE` no run `32787729769`. A release inclui `REPORT_CARD`, tabela compatível com o contrato de resposta, bundle local com JSON/CSV/Markdown/HTML/PDF e publicação controlada validada em `08_OUTPUTS` como uma Planilha Google, um PDF e um manifesto de conclusão gravado por último. O relatório de validação permaneceu `READY_WITH_CAUTION` por ser técnico, não uma conclusão substantiva sobre dados públicos.
 
-Agendamento, recorrência, novas fontes e execução ampla da fila permanecem desabilitados. TCE-SP, TDA, licitações e SIAVE ficam fora deste gate; o TDA continua bloqueado sem endpoint/export público comprovado. Uma eventual correspondência gera somente evidência documental `CANDIDATE_ONLY`, nunca identidade financeira automática.
+Agendamento, recorrência, novas fontes e execução ampla da fila permanecem desabilitados. TCE-SP, TDA, licitações e SIAVE ficam fora deste marco; o TDA continua bloqueado sem endpoint/export público comprovado. Uma eventual correspondência gera somente evidência documental `CANDIDATE_ONLY`, nunca identidade financeira automática.
 
 ## Testes
 
@@ -26,11 +26,11 @@ python3 main.py sources-validate --source-config config/sources.example.json
 
 ## M6 — Saída mínima de produto
 
-O construtor local recebe respostas estruturadas e gera sete arquivos:
+O construtor recebe respostas estruturadas e gera sete arquivos locais:
 
 - `report.json` — conteúdo estruturado;
 - `report_card.json` — contrato e estado do relatório;
-- `table.csv` — tabela pronta para futura importação em Google Sheets;
+- `table.csv` — tabela compatível com importação em Google Sheets;
 - `report.md` — leitura rápida;
 - `report.html` — leitura local em navegador;
 - `report.pdf` — relatório portátil;
@@ -38,7 +38,7 @@ O construtor local recebe respostas estruturadas e gera sete arquivos:
 
 As colunas preservam o contrato já existente: `status`, `DADO`, `CÁLCULO`, `CORRESPONDÊNCIA`, `INTERPRETAÇÃO`, `CAUTELA`, `FONTES`. A apresentação nunca é tratada como evidência. `NO_DATA`, `EVIDENCIA_INSUFICIENTE` e cautelas permanecem visíveis.
 
-Exemplo local, sem Drive:
+Exemplo local:
 
 ```bash
 python scripts/build_product_output.py \
@@ -49,7 +49,7 @@ python scripts/build_product_output.py \
   --scope "Limeira/SP"
 ```
 
-A geração local foi validada no CI, inclusive PDF real com `reportlab==5.0.0`. O destino futuro está configurado como `08_OUTPUTS`, mas a publicação remota e a conversão de `table.csv` para Google Sheets **não estão implementadas nem autorizadas nesta candidata**. O próximo gate trata especificamente dessa publicação controlada.
+O gate controlado M6 publicou exatamente três itens em `08_OUTPUTS`: `ROBO_DADOS_PUBLICOS_M6_GATE_0_7_0_TABELA`, `ROBO_DADOS_PUBLICOS_M6_GATE_0_7_0.pdf` e `ROBO_DADOS_PUBLICOS_M6_GATE_0_7_0_publication_manifest.json`. A planilha foi verificada com as sete colunas do contrato, o PDF foi renderizado e revisado visualmente, e o manifesto foi confirmado como o último item criado. Não houve overwrite. Após a promoção, a repetição desse gate é bloqueada pela identidade ACTIVE da release.
 
 ## Execução persistente
 
@@ -82,25 +82,23 @@ python3 main.py run --auth oauth-env --source-config config/sources.json --dry-r
 - apresentação ≠ evidência.
 
 ## Drive
-A configuração canônica está em `config/cloud.json`. O preflight exige as camadas `00_DOCUMENTACAO` a `12_SOFTWARE` e `START_HERE_ROBO_DADOS_PUBLICOS`. `08_OUTPUTS` já é o destino reservado para saídas de produto, mas a 0.7.0 candidata ainda não escreve nessa pasta.
+A configuração canônica está em `config/cloud.json`. O preflight exige as camadas `00_DOCUMENTACAO` a `12_SOFTWARE` e `START_HERE_ROBO_DADOS_PUBLICOS`. `08_OUTPUTS` é o destino reservado para saídas de produto. A primeira publicação controlada da 0.7.0 foi validada no run `32787729769`; novos usos de publicação exigirão um gate próprio e não reutilizam silenciosamente o M6.
 
 ## Deploy
-A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTIONS_DEPLOY.md`). Execute primeiro `python scripts/github_preflight.py`; o resultado esperado sem credenciais é `PASS_OFFLINE`. A coleta, o processamento, a primeira reconciliação controlada e a observabilidade operacional já foram validados. Novas fontes, repetição dos gates históricos, reconciliação ampla, recorrência e agenda continuam desabilitadas.
+A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTIONS_DEPLOY.md`). Execute primeiro `python scripts/github_preflight.py`; o resultado esperado sem credenciais é `PASS_OFFLINE`. A release ACTIVE pode passar `--require-oauth` quando as credenciais estão presentes. Coleta, processamento, primeira reconciliação controlada, observabilidade e saída mínima de produto já foram validados. Novas fontes, repetição dos gates históricos, reconciliação ampla, recorrência e agenda continuam desabilitadas.
 
-Os contratos históricos permanecem em `config/sources.jornal_oficial_7310_gate.json`, `config/processing.jornal_oficial_7310_gate.json` e `config/reconciliation.first_contract_gate.json`, mas o workflow não oferece `confirm_source_collection`, `confirm_processing` nem `confirm_reconciliation`.
-
-Na candidata 0.7.0, o runtime persistente com OAuth continua bloqueado pelo preflight, mesmo quando credenciais estão presentes. A futura publicação em `08_OUTPUTS` ainda não está alcançável pelo workflow e será tratada em gate próprio.
+Os contratos históricos permanecem em `config/sources.jornal_oficial_7310_gate.json`, `config/processing.jornal_oficial_7310_gate.json`, `config/reconciliation.first_contract_gate.json` e `config/product_output.first_publication_gate.json`. O workflow principal não oferece `confirm_source_collection`, `confirm_processing`, `confirm_reconciliation` nem publicação de produto.
 
 ## M5 — Observabilidade
 
-A 0.6.3 ativa inclui `robo_dados_publicos/observability/` e não acrescenta escrita remota própria. O primeiro cartão de fonte está em `config/observability.jornal_oficial_7310.json`. Fontes `one_time_manual_gate` não recebem limiar artificial de atualização e não implicam recorrência.
+A observabilidade foi promovida inicialmente na 0.6.3 e permanece integrada à 0.7.0. O primeiro cartão de fonte está em `config/observability.jornal_oficial_7310.json`. Fontes `one_time_manual_gate` não recebem limiar artificial de atualização e não implicam recorrência.
 
 Depois de cada runtime manual autorizado da release ativa, o workflow gera uma projeção sanitizada em dois lugares:
 
 - **GitHub Actions → Summary:** visão humana imediata da saúde, gate, checks, fonte, métricas e privacidade;
 - **GitHub Actions → Artifacts:** pacote `observability-report-<github.run_id>` por 30 dias, contendo `report.md`, `report.json` e cartões separados.
 
-O gate de promoção foi concluído no run `32782732233` com `PASS_M5_OBSERVABILITY_RUNTIME_GATE`. A evidência bruta usada para montar o relatório permanece somente em `$RUNNER_TEMP` e não é enviada ao artifact. Secrets, hashes e identificadores remotos são excluídos por allowlist. Consulte `docs/OBSERVABILITY_RUNBOOK.md` para o caminho operacional completo.
+O gate original de promoção da observabilidade foi concluído no run `32782732233` com `PASS_M5_OBSERVABILITY_RUNTIME_GATE`. A evidência bruta usada para montar o relatório permanece somente em `$RUNNER_TEMP` e não é enviada ao artifact. Secrets, hashes e identificadores remotos são excluídos por allowlist. Consulte `docs/OBSERVABILITY_RUNBOOK.md` para o caminho operacional completo.
 
 ## M4E.1 — Portal discovery
 
@@ -141,7 +139,7 @@ O gate remoto da edição 7310 foi concluído pela 0.6.1 com `PASS_GITHUB_JOURNA
 
 ## M4E.4 — Fila de reconciliação
 
-O processamento do Jornal Oficial agora gera também `reconciliation_tasks.jsonl`. As tarefas são apenas ordens de busca/reconciliação; não representam prova de identidade.
+O processamento do Jornal Oficial gera também `reconciliation_tasks.jsonl`. As tarefas são apenas ordens de busca/reconciliação; não representam prova de identidade.
 
 Persistir a fila no SQLite:
 

@@ -1,5 +1,5 @@
 name: ROBO DADOS PUBLICOS
-run-name: "M5 active 0.6.3 observability by @${{ github.actor }}"
+run-name: "Active 0.7.0 observability by @${{ github.actor }}"
 
 on:
   workflow_dispatch:
@@ -49,7 +49,7 @@ jobs:
           python-version: '3.12'
           check-latest: false
 
-      - name: Validar ausência de segredos obrigatórios
+      - name: Validar presença de segredos obrigatórios
         shell: bash
         run: |
           python - <<'PY'
@@ -69,7 +69,7 @@ jobs:
       - name: Instalar dependências
         run: python -m pip install --disable-pip-version-check -r requirements.txt
 
-      - name: Preflight da release ativa e do workflow
+      - name: Preflight da release ativa 0.7.0 e do workflow
         run: python scripts/github_preflight.py --require-oauth
 
       - name: Compilar

@@ -7,23 +7,19 @@ class TestM5Promotion(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.root = Path(__file__).resolve().parent.parent
-        cls.current = json.loads((cls.root / "release_manifest_v01.json").read_text(encoding="utf-8"))
         cls.active = json.loads((cls.root / "release_manifest_v01_0.6.3_active.json").read_text(encoding="utf-8"))
         cls.candidate = json.loads((cls.root / "release_manifest_v01_0.6.3.json").read_text(encoding="utf-8"))
         cls.qa = json.loads((cls.root / "QA_SOFTWARE_V01_0.6.3_ACTIVE.json").read_text(encoding="utf-8"))
 
     def test_candidate_evidence_is_preserved_after_promotion(self):
         # The immutable 0.6.3 promotion evidence must remain preserved even
-        # after a later candidate is opened. The mutable current manifest may
-        # legitimately point to that newer candidate.
-        self.assertEqual("0.6.3", self.current["current_active"])
-        self.assertEqual("release_manifest_v01_0.6.3_active.json", self.current["active_manifest"])
-        self.assertEqual("release_manifest_v01_0.6.3.json", self.current["preserved_candidate_manifest"])
+        # after later releases advance the mutable current manifest.
         self.assertEqual("0.6.3", self.candidate["version"])
         self.assertEqual("CANDIDATE", self.candidate["status"])
         self.assertEqual("0.6.3", self.active["version"])
         self.assertEqual("ACTIVE", self.active["status"])
         self.assertEqual("0.6.3", self.active["promoted_from_candidate"])
+        self.assertEqual("release_manifest_v01_0.6.3.json", self.active["candidate_manifest"])
 
     def test_live_observability_gate_is_pinned(self):
         gate = self.active["live_gate"]
@@ -50,7 +46,7 @@ class TestM5Promotion(unittest.TestCase):
 
     def test_next_gate_recorded_by_m5_is_product_design_not_automatic_expansion(self):
         # Check the immutable M5 release artifacts, not the mutable current
-        # roadmap pointer, which advances when 0.7.0 work begins.
+        # roadmap pointer, which advances with subsequent releases.
         self.assertEqual("M6_PRODUCT_MINIMAL_OUTPUT_DESIGN_0_7_0", self.active["next_action"])
         self.assertEqual("NOT_IMPLEMENTED", self.active["open_gates"]["minimal_product_output"])
         self.assertEqual("NOT_CONFIGURED", self.active["open_gates"]["recurring_source_inventory"])
