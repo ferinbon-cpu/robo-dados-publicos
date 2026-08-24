@@ -3,7 +3,7 @@
 ## Identidade ativa
 
 - release ativa: `0.6.0 ACTIVE`;
-- candidata corrente: nenhuma;
+- candidata corrente: `0.6.1 CANDIDATE`;
 - `actions/checkout` fixada no SHA da release pública `v6.0.2`;
 - `actions/setup-python` fixada no SHA da release `v7.0.0`;
 - agendamento desabilitado até decisão explícita sobre cadência e fontes.
@@ -31,7 +31,7 @@ python -m unittest discover -s tests -v
 python main.py selftest
 ```
 
-O preflight local esperado é `PASS_OFFLINE`. Ele valida a identidade `0.6.0 ACTIVE`, ausência de candidata corrente, ausência de agendamento, bloqueio da repetição do gate de fonte, preservação do inventário imutável e os pins das actions. Ele não simula credenciais.
+O preflight local esperado é `PASS_OFFLINE`. Ele valida a identidade ativa `0.6.0 ACTIVE`, a candidata `0.6.1 CANDIDATE`, ausência de agendamento, bloqueio da repetição do gate de fonte, o contrato exato do primeiro processamento e os pins das actions. Ele não simula credenciais.
 
 ## Gate manual concluído
 O arquivo `.github/workflows/robo-dados-publicos.yml` permanece somente com `workflow_dispatch` ativo. O primeiro gate persistente foi executado no run `32678624194`, job `97476648260`.
@@ -67,6 +67,21 @@ O gate comprovou:
 
 O resultado foi `PASS_GITHUB_SOURCE_COLLECTION_GATE`, com 16/16 verificações aprovadas. Após a promoção, `confirm_source_collection` e a passagem do inventário de uso único foram retirados do workflow ativo. Evidência: `docs/M4E_FIRST_SOURCE_COLLECTION_EVIDENCE_2026-08-24.md`.
 
+## Próximo gate: primeiro processamento controlado
+
+A candidata 0.6.1 adiciona o input manual `confirm_processing`. Ele não repete a aquisição: o runtime recupera do estado a referência privada do PDF já preservado, baixa apenas do Drive e reconfirma SHA-256 e tamanho antes de gerar qualquer derivado.
+
+Para executar o gate uma única vez:
+
+1. abrir `Actions` no repositório;
+2. selecionar `ROBO DADOS PUBLICOS`;
+3. escolher `Run workflow` na branch `main`;
+4. marcar `confirm_persistence`;
+5. marcar `confirm_processing`;
+6. acionar `Run workflow` uma vez.
+
+O PASS exige 76 páginas, 195.540 caracteres extraídos, 53 eventos Gold, 148 chunks RAG e 68 tarefas, além dos hashes dos cinco derivados, estado remoto substituído e log append-only. O resumo público não contém IDs do Drive. Consulte `docs/M4E_FIRST_SOURCE_PROCESSING_GATE_0.6.1.md`.
+
 ## Gate futuro: agendamento
 Nenhum PASS habilita agendamento automaticamente. Antes de ativar `schedule`, ainda é necessário escolher a cadência e aprovar um inventário recorrente separado. O inventário da edição 7310 é de uso único e não pode ser convertido silenciosamente em rotina. O GitHub Actions aceita cron POSIX e `timezone` IANA. Exemplo ainda não ativo para 03:17 em São Paulo:
 
@@ -81,7 +96,7 @@ on:
 O horário definitivo deve ser escolhido antes de habilitar esse bloco.
 
 ## Limites desta etapa
-M4D prova o runtime de infraestrutura e M4E prova uma única coleta histórica. Novas fontes, repetição, recorrência e agendamento permanecem desativados.
+M4D prova o runtime de infraestrutura; o primeiro M4E provou uma única coleta histórica; a candidata 0.6.1 limita-se ao processamento desse Bronze. Novas fontes, repetição da coleta, recorrência e agendamento permanecem desativados.
 
 ## Evidência em 2026-08-24
 
