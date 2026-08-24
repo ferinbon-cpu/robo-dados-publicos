@@ -5,12 +5,12 @@ Consolidação em software das capacidades metodológicas validadas nas versões
 ## Estado desta release
 
 **Software ativo:** 0.5.9 ACTIVE  
-**Candidata corrente:** nenhuma  
-**Marco ativo:** M4D GitHub live gate promovido  
+**Candidata corrente:** 0.6.0 CANDIDATE  
+**Marco da candidata:** M4E primeira coleta controlada do Jornal Oficial  
 **Dependências externas:** `pypdf==5.9.0` para processamento textual de PDFs  
 **Python:** 3.11+
 
-A 0.5.9 foi promovida após o gate GitHub ao vivo concluir com 84/84 testes, 109/109 regressões, estado remoto substituído e novo log append-only no Drive. O manifesto candidato permanece preservado como evidência. O workflow continua somente manual: o agendamento e a coleta de fontes não foram habilitados. O TDA permanece bloqueado sem endpoint/export público comprovado, nenhuma correspondência é promovida automaticamente a identidade financeira e a coleta de produção continua dependente de inventário de fontes explicitamente habilitado.
+A 0.5.9 permanece ativa após o gate GitHub ao vivo. A 0.6.0 prepara a primeira coleta controlada: somente a edição 7310 do Jornal Oficial, declarada pelo índice oficial e travada por tipo MIME, SHA-256 e tamanho. O workflow continua manual e exige uma confirmação separada para a coleta. Agendamento e coleta recorrente permanecem desabilitados. O TDA continua bloqueado sem endpoint/export público comprovado e nenhuma correspondência é promovida automaticamente a identidade financeira.
 
 ## Testes
 
@@ -56,6 +56,8 @@ A configuração canônica está em `config/cloud.json`. O preflight exige as ca
 
 ## Deploy
 A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTIONS_DEPLOY.md`). Execute primeiro `python scripts/github_preflight.py`; o resultado esperado sem credenciais é `PASS_OFFLINE`. A coleta M4E está documentada em `docs/M4E_SOURCE_COLLECTION.md` e continua desabilitada até um gate próprio.
+
+O inventário do primeiro gate está em `config/sources.jornal_oficial_7310_gate.json`. Ele contém uma única fonte habilitada, mas só é utilizado quando o usuário marca `confirm_source_collection` no acionamento manual do workflow.
 
 
 ## M4E.1 — Portal discovery
