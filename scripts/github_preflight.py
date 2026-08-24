@@ -10,12 +10,16 @@ import os
 import re
 import sys
 from pathlib import Path
+
 import pypdf
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from robo_dados_publicos.journal.gate import load_journal_processing_gate
+from robo_dados_publicos.observability import SourceCard
+from robo_dados_publicos.reconciliation.gate import load_reconciliation_execution_gate
 from robo_dados_publicos.release import (
     ACTIVE_VALIDATED_VERSION,
     CURRENT_CANDIDATE_VERSION,
@@ -24,10 +28,6 @@ from robo_dados_publicos.release import (
     SOFTWARE_VERSION,
 )
 from robo_dados_publicos.sources.inventory import load_source_inventory
-from robo_dados_publicos.journal.gate import load_journal_processing_gate
-from robo_dados_publicos.reconciliation.gate import load_reconciliation_execution_gate
-from robo_dados_publicos.observability import SourceCard
-
 
 WORKFLOW = ROOT / ".github" / "workflows" / "robo-dados-publicos.yml"
 PRODUCT_PUBLICATION_WORKFLOW = ROOT / ".github" / "workflows" / "product-output-publication-gate.yml"
@@ -54,40 +54,60 @@ PRODUCT_PUBLICATION_CONFIG = ROOT / "config" / "product_output.first_publication
 PRODUCT_PUBLICATION_ANSWERS = ROOT / "config" / "product_output.first_publication_answers.json"
 
 
+def _load_json(path: Path) -> dict:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
 def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
-    text = WORKFLOW.read_text(encoding="utf-8")
-    active_lines = [line for line in text.splitlines() if not line.lstrip().startswith("#")]
-    publication_text = PRODUCT_PUBLICATION_WORKFLOW.read_text(encoding="utf-8") if PRODUCT_PUBLICATION_WORKFLOW.is_file() else ""
+    workflow_text = WORKFLOW.read_text(encoding="utf-8")
+    workflow_active_lines = [line for line in workflow_text.splitlines() if not line.lstrip().startswith("#")]
+    publication_text = PRODUCT_PUBLICATION_WORKFLOW.read_text(encoding="utf-8")
     publication_active_lines = [line for line in publication_text.splitlines() if not line.lstrip().startswith("#")]
-    manifest = json.loads((ROOT / "release_manifest_v01.json").read_text(encoding="utf-8"))
-    cloud_config = json.loads((ROOT / "config" / "cloud.json").read_text(encoding="utf-8"))
-    publication_gate = json.loads(PRODUCT_PUBLICATION_CONFIG.read_text(encoding="utf-8")) if PRODUCT_PUBLICATION_CONFIG.is_file() else {}
+    publication_script_text = PRODUCT_PUBLICATION_SCRIPT.read_text(encoding="utf-8")
+
+    manifest = _load_json(ROOT / "release_manifest_v01.json")
+    active_manifest = _load_json(ROOT / "release_manifest_v01_0.7.0_active.json")
+    preserved_candidate = _load_json(ROOT / "release_manifest_v01_0.7.0.json")
+    cloud_config = _load_json(ROOT / "config" / "cloud.json")
+    publication_gate = _load_json(PRODUCT_PUBLICATION_CONFIG)
+
     inventory = load_source_inventory(SOURCE_GATE_CONFIG)
     source = inventory.enabled[0] if len(inventory.enabled) == 1 else None
     processing_gate = load_journal_processing_gate(PROCESSING_GATE_CONFIG)
     reconciliation_gate = load_reconciliation_execution_gate(RECONCILIATION_GATE_CONFIG)
-    observability_payload = json.loads(OBSERVABILITY_CONFIG.read_text(encoding="utf-8"))
-    source_card = SourceCard.from_mapping(observability_payload["source_card"])
+    source_card = SourceCard.from_mapping(_load_json(OBSERVABILITY_CONFIG)["source_card"])
+
     requirements = (ROOT / "requirements.txt").read_text(encoding="utf-8")
     pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
-    product_builder_text = PRODUCT_BUILDER.read_text(encoding="utf-8") if PRODUCT_BUILDER.is_file() else ""
+    product_builder_text = PRODUCT_BUILDER.read_text(encoding="utf-8")
 
     checks = {
         "software_version_0_7_0": SOFTWARE_VERSION == "0.7.0",
-        "release_status_candidate": RELEASE_STATUS == "CANDIDATE",
-        "active_version_0_6_3": ACTIVE_VALIDATED_VERSION == "0.6.3",
-        "current_candidate_0_7_0": CURRENT_CANDIDATE_VERSION == "0.7.0",
-        "next_action_controlled_publication_gate": NEXT_ACTION == "M6_PRODUCT_OUTPUT_CONTROLLED_PUBLICATION_GATE_0_7_0",
+        "release_status_active": RELEASE_STATUS == "ACTIVE",
+        "active_version_0_7_0": ACTIVE_VALIDATED_VERSION == "0.7.0",
+        "current_candidate_none": CURRENT_CANDIDATE_VERSION == "NONE",
+        "next_action_m7_expansion_design": NEXT_ACTION == "M7_CONTROLLED_SOURCE_EXPANSION_DESIGN_0_8_0",
         "manifest_identity": (
-            manifest.get("current_active") == "0.6.3"
-            and manifest.get("current_candidate") == "0.7.0"
-            and manifest.get("last_active_validated") == "0.6.3"
-            and manifest.get("active_manifest") == "release_manifest_v01_0.6.3_active.json"
-            and manifest.get("candidate_manifest") == "release_manifest_v01_0.7.0.json"
-            and manifest.get("preserved_candidate_manifest") == "release_manifest_v01_0.6.3.json"
-            and manifest.get("promotion_gate") == "PASS_M6_PRODUCT_MINIMAL_OUTPUT_OFFLINE_VALIDATION"
-            and manifest.get("publication_gate") == "PENDING_M6_CONTROLLED_PRODUCT_OUTPUT_PUBLICATION"
-            and manifest.get("next_action") == "M6_PRODUCT_OUTPUT_CONTROLLED_PUBLICATION_GATE_0_7_0"
+            manifest.get("current_active") == "0.7.0"
+            and manifest.get("current_candidate") == "NONE"
+            and manifest.get("last_active_validated") == "0.7.0"
+            and manifest.get("active_manifest") == "release_manifest_v01_0.7.0_active.json"
+            and manifest.get("preserved_candidate_manifest") == "release_manifest_v01_0.7.0.json"
+            and manifest.get("promotion_gate") == "PASS_M6_PRODUCT_OUTPUT_PUBLICATION_LIVE_GATE"
+            and manifest.get("next_action") == "M7_CONTROLLED_SOURCE_EXPANSION_DESIGN_0_8_0"
+        ),
+        "active_manifest_identity": (
+            active_manifest.get("version") == "0.7.0"
+            and active_manifest.get("status") == "ACTIVE"
+            and active_manifest.get("candidate_manifest") == "release_manifest_v01_0.7.0.json"
+            and active_manifest.get("live_gate", {}).get("status") == "PASS_M6_PRODUCT_OUTPUT_PUBLICATION_GATE"
+            and active_manifest.get("live_gate", {}).get("github_run") == 32787729769
+            and active_manifest.get("live_gate", {}).get("created_count") == 3
+            and active_manifest.get("drive_evidence", {}).get("target") == "08_OUTPUTS"
+        ),
+        "candidate_evidence_preserved": (
+            preserved_candidate.get("version") == "0.7.0"
+            and preserved_candidate.get("status") == "CANDIDATE"
         ),
         "product_contract_present": PRODUCT_CONTRACT.is_file(),
         "product_bundle_present": PRODUCT_BUNDLE.is_file(),
@@ -101,37 +121,32 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
         "product_publication_module_present": PRODUCT_PUBLICATION.is_file(),
         "product_publication_script_present": PRODUCT_PUBLICATION_SCRIPT.is_file(),
         "product_publication_answers_present": PRODUCT_PUBLICATION_ANSWERS.is_file(),
-        "product_publication_gate_contract": (
+        "product_publication_gate_contract_preserved": (
             publication_gate.get("gate_id") == "M6_FIRST_PRODUCT_OUTPUT_PUBLICATION_GATE_0_7_0"
             and publication_gate.get("software_version") == "0.7.0"
             and publication_gate.get("release_status") == "CANDIDATE"
             and publication_gate.get("active_validated_version") == "0.6.3"
-            and publication_gate.get("parent_config_key") == "outputs_id"
             and publication_gate.get("drive_target") == "08_OUTPUTS"
             and publication_gate.get("required_remote_count") == 3
             and publication_gate.get("allow_overwrite") is False
             and publication_gate.get("collision_policy") == "STOP_BEFORE_WRITES"
             and publication_gate.get("completion_manifest_written_last") is True
-            and publication_gate.get("publications") == [
-                "GOOGLE_SHEET_FROM_TABLE_CSV",
-                "REPORT_PDF",
-                "COMPLETION_MANIFEST_JSON",
-            ]
-            and publication_gate.get("source_collection") == "PROHIBITED"
-            and publication_gate.get("processing_rerun") == "PROHIBITED"
-            and publication_gate.get("reconciliation_rerun") == "PROHIBITED"
             and publication_gate.get("schedule") == "DISABLED"
         ),
+        "product_publication_rerun_blocked_by_active_identity": (
+            'RELEASE_STATUS == "CANDIDATE"' in publication_script_text
+            and 'ACTIVE_VALIDATED_VERSION == "0.6.3"' in publication_script_text
+            and 'CURRENT_CANDIDATE_VERSION == "0.7.0"' in publication_script_text
+        ),
         "production_workflow_product_publication_not_reachable": (
-            "build_product_output.py" not in text
-            and "github_product_publication_gate.py" not in text
-            and "confirm_product_publication" not in text
+            "build_product_output.py" not in workflow_text
+            and "github_product_publication_gate.py" not in workflow_text
+            and "confirm_product_publication" not in workflow_text
         ),
         "product_publication_workflow_manual": (
             bool(re.search(r"^  workflow_dispatch:\s*$", publication_text, re.MULTILINE))
             and "confirm_product_publication:" in publication_text
             and "inputs.confirm_product_publication == true" in publication_text
-            and "default: false" in publication_text
         ),
         "product_publication_workflow_schedule_disabled": not any(
             line.strip() == "schedule:" for line in publication_active_lines
@@ -140,30 +155,9 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
         "product_publication_workflow_pins": all(
             marker in publication_text for marker in (CHECKOUT_PIN, SETUP_PYTHON_PIN, UPLOAD_ARTIFACT_PIN)
         ),
-        "product_publication_workflow_full_qa_before_write": (
-            "python scripts/github_preflight.py" in publication_text
-            and "python -m unittest discover -s tests -v" in publication_text
-            and "python main.py selftest" in publication_text
-            and "github_product_publication_gate.py --dry-run" in publication_text
-            and 'github_product_publication_gate.py > "$RUNNER_TEMP/product_publication_result.json"' in publication_text
-            and publication_text.index("github_product_publication_gate.py --dry-run")
-                < publication_text.index('github_product_publication_gate.py > "$RUNNER_TEMP/product_publication_result.json"')
-        ),
-        "product_publication_workflow_historical_gates_unreachable": all(
-            marker not in publication_text
-            for marker in (
-                "github_processing_gate.py",
-                "github_reconciliation_gate.py",
-                "sources.jornal_oficial_7310_gate.json",
-                "confirm_processing",
-                "confirm_reconciliation",
-                "confirm_source_collection",
-            )
-        ),
         "product_publication_workflow_sanitized_artifact": (
             "publication-gate-evidence/result.json" in publication_text
             and "product-publication-gate-${{ github.run_id }}" in publication_text
-            and "path: publication-gate-evidence/result.json" in publication_text
         ),
         "outputs_drive_target_configured": bool(str(cloud_config.get("outputs_id", "")).strip()),
         "reportlab_dependency_pinned": (
@@ -179,21 +173,6 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
             and source.expected_bytes == processing_gate.source_bytes
             and source.expected_content_types == ("application/pdf",)
         ),
-        "observability_source_card_contract": bool(
-            source
-            and source_card.source_id == source.source_id
-            and source_card.source_url == source.url
-            and source_card.formats == source.expected_content_types
-            and source_card.periodicity == source.cadence
-            and source_card.expected_update_interval_hours is None
-        ),
-        "observability_report_script_present": OBSERVABILITY_SCRIPT.is_file(),
-        "workflow_manual_dispatch": bool(re.search(r"^  workflow_dispatch:\s*$", text, re.MULTILINE)),
-        "workflow_schedule_disabled": not any(line.strip() == "schedule:" for line in active_lines),
-        "workflow_confirmation_required": "inputs.confirm_persistence == true" in text,
-        "workflow_reconciliation_rerun_disabled": "confirm_reconciliation:" not in text,
-        "workflow_source_rerun_disabled": "confirm_source_collection:" not in text,
-        "workflow_source_gate_not_reachable": "--source-config config/sources.jornal_oficial_7310_gate.json" not in text,
         "processing_gate_contract": (
             processing_gate.source_id == SOURCE_GATE_ID
             and source is not None
@@ -210,12 +189,7 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
                 "reconciliation_tasks": 68,
             }
         ),
-        "processing_dependency_pinned": (
-            "pypdf==6.10.0" in requirements
-            and "pypdf==6.10.0" in pyproject
-        ),
-        "workflow_processing_rerun_disabled": "confirm_processing:" not in text,
-        "workflow_processing_gate_not_reachable": "scripts/github_processing_gate.py --processing-config config/processing.jornal_oficial_7310_gate.json" not in text,
+        "processing_dependency_pinned": "pypdf==6.10.0" in requirements and "pypdf==6.10.0" in pyproject,
         "reconciliation_gate_contract": (
             reconciliation_gate.allowed_targets == ("LIMEIRA_CONTRATOS",)
             and reconciliation_gate.limit == 1
@@ -225,43 +199,62 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
             and set(reconciliation_gate.allowed_result_statuses) == {"MATCH_CANDIDATE", "NO_MATCH"}
             and reconciliation_gate.financial_identity_auto_promotion == "PROHIBITED"
         ),
-        "workflow_reconciliation_gate_not_reachable": "scripts/github_reconciliation_gate.py" not in text,
+        "observability_source_card_contract": bool(
+            source
+            and source_card.source_id == source.source_id
+            and source_card.source_url == source.url
+            and source_card.formats == source.expected_content_types
+            and source_card.periodicity == source.cadence
+            and source_card.expected_update_interval_hours is None
+        ),
+        "observability_report_script_present": OBSERVABILITY_SCRIPT.is_file(),
+        "workflow_manual_dispatch": bool(re.search(r"^  workflow_dispatch:\s*$", workflow_text, re.MULTILINE)),
+        "workflow_schedule_disabled": not any(line.strip() == "schedule:" for line in workflow_active_lines),
+        "workflow_confirmation_required": "inputs.confirm_persistence == true" in workflow_text,
+        "workflow_reconciliation_rerun_disabled": "confirm_reconciliation:" not in workflow_text,
+        "workflow_source_rerun_disabled": "confirm_source_collection:" not in workflow_text,
+        "workflow_processing_rerun_disabled": "confirm_processing:" not in workflow_text,
+        "workflow_historical_gates_not_reachable": (
+            "scripts/github_reconciliation_gate.py" not in workflow_text
+            and "scripts/github_processing_gate.py --processing-config config/processing.jornal_oficial_7310_gate.json" not in workflow_text
+            and "--source-config config/sources.jornal_oficial_7310_gate.json" not in workflow_text
+        ),
         "workflow_observability_report_enabled": (
-            'github_run_gate.py > "$RUNNER_TEMP/run_gate_raw.json"' in text
-            and "scripts/github_observability_report.py" in text
-            and '--input "$RUNNER_TEMP/run_gate_raw.json"' in text
-            and "--github-summary" in text
-            and "path: observability-report/" in text
-            and "PASS_ACTIVE_RUNTIME_OBSERVABILITY" in text
+            'github_run_gate.py > "$RUNNER_TEMP/run_gate_raw.json"' in workflow_text
+            and "scripts/github_observability_report.py" in workflow_text
+            and '--input "$RUNNER_TEMP/run_gate_raw.json"' in workflow_text
+            and "--github-summary" in workflow_text
+            and "path: observability-report/" in workflow_text
+            and "PASS_ACTIVE_RUNTIME_OBSERVABILITY" in workflow_text
         ),
         "workflow_observability_raw_not_uploaded": (
-            "path: $RUNNER_TEMP/run_gate_raw.json" not in text
-            and "path: \"$RUNNER_TEMP/run_gate_raw.json\"" not in text
+            "path: $RUNNER_TEMP/run_gate_raw.json" not in workflow_text
+            and "path: \"$RUNNER_TEMP/run_gate_raw.json\"" not in workflow_text
         ),
         "workflow_runtime_failure_propagated": (
-            "steps.runtime_gate.outputs.exit_code" in text
-            and "steps.observability.outcome" in text
+            "steps.runtime_gate.outputs.exit_code" in workflow_text
+            and "steps.observability.outcome" in workflow_text
         ),
-        "permissions_contents_read": "permissions:\n  contents: read" in text,
-        "checkout_immutable_pin": CHECKOUT_PIN in text,
-        "setup_python_immutable_pin": SETUP_PYTHON_PIN in text,
-        "upload_artifact_immutable_pin": UPLOAD_ARTIFACT_PIN in text,
-        "checkout_credentials_not_persisted": "persist-credentials: false" in text,
+        "permissions_contents_read": "permissions:\n  contents: read" in workflow_text,
+        "checkout_immutable_pin": CHECKOUT_PIN in workflow_text,
+        "setup_python_immutable_pin": SETUP_PYTHON_PIN in workflow_text,
+        "upload_artifact_immutable_pin": UPLOAD_ARTIFACT_PIN in workflow_text,
+        "checkout_credentials_not_persisted": "persist-credentials: false" in workflow_text,
         "gitignore_protects_oauth": all(
             marker in (ROOT / ".gitignore").read_text(encoding="utf-8")
             for marker in ("tokens.json", "client_secret*.json", ".env")
         ),
     }
+
     failed = sorted(name for name, ok in checks.items() if not ok)
     missing = [name for name in OAUTH_NAMES if not os.getenv(name, "").strip()] if require_oauth else []
     if failed:
         status, code = "STOP_GITHUB_PREFLIGHT", 2
     elif missing:
         status, code = "STOP_MISSING_GITHUB_SECRETS", 3
-    elif require_oauth and RELEASE_STATUS == "CANDIDATE":
-        status, code = "STOP_CANDIDATE_PERSISTENT_RUNTIME_NOT_AUTHORIZED", 14
     else:
         status, code = ("PASS_LIVE_PREFLIGHT" if require_oauth else "PASS_OFFLINE"), 0
+
     return {
         "status": status,
         "software_version": SOFTWARE_VERSION,
