@@ -69,6 +69,7 @@ def inspect_classic_surface(html: str, expected_parameters: tuple[str, ...]) -> 
     observed_expected = sorted(name for name in expected_parameters if name in observed_names or name in html)
     return {
         "surface": "CLASSIC_QUERY",
+        "status": "OBSERVED",
         "captcha_detected": captcha,
         "expected_parameters_observed": observed_expected,
         "form_submitted": False,
@@ -77,6 +78,18 @@ def inspect_classic_surface(html: str, expected_parameters: tuple[str, ...]) -> 
             if captcha
             else "NOT_SELECTED_FOR_AUTOMATED_ACQUISITION"
         ),
+    }
+
+
+def blocked_classic_surface(reason: str) -> dict:
+    return {
+        "surface": "CLASSIC_QUERY",
+        "status": "UNAVAILABLE_OR_BLOCKED",
+        "reason": reason,
+        "captcha_detected": None,
+        "expected_parameters_observed": [],
+        "form_submitted": False,
+        "acquisition_decision": "BLOCK_AUTOMATED_ACQUISITION_SURFACE_UNAVAILABLE",
     }
 
 
@@ -103,6 +116,7 @@ def inspect_antonieta_surface(html: str, *, expected_name: str, expected_path: s
     explicit_urls = sorted(set(explicit_urls))
     return {
         "surface": "ANTONIETA_PRODUCT",
+        "status": "OBSERVED",
         "product_name_verified": True,
         "artifact_path_declared": expected_path,
         "explicit_download_url_observed": explicit_urls[0] if len(explicit_urls) == 1 else None,
@@ -162,9 +176,15 @@ def discover_siope_routes(config: dict, *, client: PublicSurfaceClient | None = 
         max_response_bytes=int(config["max_response_bytes"]),
     )
 
-    classic = client.get(surfaces["classic_query"])
+    try:
+        classic = client.get(surfaces["classic_query"])
+        classic_result = inspect_classic_surface(classic.body, params)
+    except SiopeRouteDiscoveryError as exc:
+        classic_result = blocked_classic_surface(str(exc))
+
+    # Antonieta is the preferred current automation candidate. Its declared
+    # product and artifact path are required for this gate to pass.
     antonieta = client.get(surfaces["antonieta_product"])
-    classic_result = inspect_classic_surface(classic.body, params)
     antonieta_result = inspect_antonieta_surface(
         antonieta.body,
         expected_name=expected["product_name"],
