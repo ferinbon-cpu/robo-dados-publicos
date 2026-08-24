@@ -21,6 +21,8 @@ class JournalProcessingGate:
     source_url: str
     source_sha256: str
     source_bytes: int
+    extractor: str
+    extractor_version: str
     output_prefix: str
     expected_pages: int
     expected_total_extracted_chars: int
@@ -32,7 +34,8 @@ class JournalProcessingGate:
     def from_mapping(cls, data: dict) -> "JournalProcessingGate":
         required = {
             "version", "gate", "source_id", "edition", "publication_date",
-            "source_url", "source_sha256", "source_bytes", "output_prefix",
+            "source_url", "source_sha256", "source_bytes", "extractor",
+            "extractor_version", "output_prefix",
             "expected_pages", "expected_total_extracted_chars",
             "expected_gold_events", "expected_rag_chunks",
             "expected_reconciliation_tasks",
@@ -64,6 +67,10 @@ class JournalProcessingGate:
             raise ValueError("PROCESSING_SOURCE_SHA256_INVALID")
         if int(self.source_bytes) <= 0:
             raise ValueError("PROCESSING_SOURCE_BYTES_INVALID")
+        if self.extractor != "pypdf":
+            raise ValueError("PROCESSING_EXTRACTOR_INVALID")
+        if not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", self.extractor_version):
+            raise ValueError("PROCESSING_EXTRACTOR_VERSION_INVALID")
         if not re.fullmatch(r"[A-Z0-9_]+", self.output_prefix):
             raise ValueError("PROCESSING_OUTPUT_PREFIX_INVALID")
         metrics = (
