@@ -22,12 +22,9 @@ class TestM4DGitHubActions(unittest.TestCase):
         self.assertIn('${{ secrets.GOOGLE_DRIVE_REFRESH_TOKEN }}', text)
         self.assertIn('python scripts/github_preflight.py --require-oauth', text)
         self.assertIn('python scripts/github_run_gate.py', text)
-        self.assertIn('confirm_reconciliation:', text)
-        self.assertIn('inputs.confirm_reconciliation == true', text)
-        self.assertIn(
-            'python scripts/github_reconciliation_gate.py --reconciliation-config config/reconciliation.first_contract_gate.json',
-            text,
-        )
+        self.assertNotIn('confirm_reconciliation:', text)
+        self.assertNotIn('inputs.confirm_reconciliation == true', text)
+        self.assertNotIn('scripts/github_reconciliation_gate.py', text)
         self.assertNotIn('confirm_source_collection:', text)
         self.assertNotIn('inputs.confirm_source_collection == true', text)
         self.assertNotIn('--source-config config/sources.jornal_oficial_7310_gate.json', text)
@@ -42,12 +39,12 @@ class TestM4DGitHubActions(unittest.TestCase):
         active_lines = [line for line in text.splitlines() if not line.lstrip().startswith('#')]
         self.assertFalse(any(line.strip() == 'schedule:' for line in active_lines))
         self.assertIn('confirm_persistence:', text)
-        self.assertIn('confirm_reconciliation:', text)
+        self.assertNotIn('confirm_reconciliation:', text)
         self.assertNotIn('confirm_source_collection:', text)
         self.assertNotIn('confirm_processing:', text)
         self.assertIn('default: false', text)
         self.assertIn('inputs.confirm_persistence == true', text)
-        self.assertIn('inputs.confirm_reconciliation == true', text)
+        self.assertNotIn('inputs.confirm_reconciliation == true', text)
 
     def test_dependencies_are_installed_before_runtime_preflight(self):
         text = WORKFLOW.read_text(encoding='utf-8')
