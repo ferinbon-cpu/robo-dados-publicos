@@ -4,13 +4,13 @@ Consolidação em software das capacidades metodológicas validadas nas versões
 
 ## Estado desta release
 
-**Software ativo:** 0.5.9 ACTIVE  
-**Candidata corrente:** 0.6.0 CANDIDATE  
-**Marco da candidata:** M4E primeira coleta controlada do Jornal Oficial  
+**Software ativo:** 0.6.0 ACTIVE  
+**Candidata corrente:** nenhuma  
+**Marco ativo:** M4E primeira coleta controlada do Jornal Oficial validada ao vivo  
 **Dependências externas:** `pypdf==5.9.0` para processamento textual de PDFs  
 **Python:** 3.11+
 
-A 0.5.9 permanece ativa após o gate GitHub ao vivo. A 0.6.0 prepara a primeira coleta controlada: somente a edição 7310 do Jornal Oficial, declarada pelo índice oficial e travada por tipo MIME, SHA-256 e tamanho. O workflow continua manual e exige uma confirmação separada para a coleta. Agendamento e coleta recorrente permanecem desabilitados. O TDA continua bloqueado sem endpoint/export público comprovado e nenhuma correspondência é promovida automaticamente a identidade financeira.
+A 0.6.0 está ativa após o gate GitHub ao vivo coletar somente a edição 7310 do Jornal Oficial, declarada pelo índice oficial e travada por tipo MIME, SHA-256 e tamanho. O arquivo foi criado no Bronze com `DOWNLOADED_NEW`, o estado remoto foi substituído e o log append-only foi criado. A opção de repetir essa coleta foi retirada do workflow. Agendamento e coleta recorrente permanecem desabilitados. O TDA continua bloqueado sem endpoint/export público comprovado e nenhuma correspondência é promovida automaticamente a identidade financeira.
 
 ## Testes
 
@@ -55,7 +55,7 @@ python3 main.py run --auth oauth-env --source-config config/sources.json --dry-r
 A configuração canônica está em `config/cloud.json`. O preflight exige as camadas `00_DOCUMENTACAO` a `12_SOFTWARE` e `START_HERE_ROBO_DADOS_PUBLICOS`.
 
 ## Deploy
-A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTIONS_DEPLOY.md`). Execute primeiro `python scripts/github_preflight.py`; o resultado esperado sem credenciais é `PASS_OFFLINE`. A coleta M4E está documentada em `docs/M4E_SOURCE_COLLECTION.md` e continua desabilitada até um gate próprio.
+A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTIONS_DEPLOY.md`). Execute primeiro `python scripts/github_preflight.py`; o resultado esperado sem credenciais é `PASS_OFFLINE`. A primeira coleta M4E foi validada e está documentada em `docs/M4E_SOURCE_COLLECTION.md`; novas fontes, recorrência e agenda continuam desabilitadas até gates próprios.
 
 O inventário do primeiro gate está em `config/sources.jornal_oficial_7310_gate.json`. Ele contém uma única fonte habilitada, mas só é utilizado quando o usuário marca `confirm_source_collection` no acionamento manual do workflow.
 
