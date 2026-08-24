@@ -1,6 +1,6 @@
 {
   "contract": "LIMEIRA_RECONCILIATION_TARGETS_V01",
-  "generated_for_software": "0.6.3",
+  "generated_for_software": "0.7.0",
   "rule": "Targets are search surfaces, not proof of identity. Results must pass V16/V17 gates before linking.",
   "targets": [
     {
