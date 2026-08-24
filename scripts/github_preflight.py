@@ -27,6 +27,7 @@ from robo_dados_publicos.release import (
     RELEASE_STATUS,
     SOFTWARE_VERSION,
 )
+from robo_dados_publicos.sources.expansion import load_source_expansion_gate
 from robo_dados_publicos.sources.inventory import load_source_inventory
 
 WORKFLOW = ROOT / ".github" / "workflows" / "robo-dados-publicos.yml"
@@ -52,6 +53,8 @@ PRODUCT_PUBLICATION = ROOT / "robo_dados_publicos" / "product" / "publication.py
 PRODUCT_PUBLICATION_SCRIPT = ROOT / "scripts" / "github_product_publication_gate.py"
 PRODUCT_PUBLICATION_CONFIG = ROOT / "config" / "product_output.first_publication_gate.json"
 PRODUCT_PUBLICATION_ANSWERS = ROOT / "config" / "product_output.first_publication_answers.json"
+SOURCE_EXPANSION_CONFIG = ROOT / "config" / "source_expansion.siope_limeira_0_8_0.json"
+SOURCE_EXPANSION_SCRIPT = ROOT / "scripts" / "github_source_expansion_design_gate.py"
 
 
 def _load_json(path: Path) -> dict:
@@ -67,9 +70,11 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
 
     manifest = _load_json(ROOT / "release_manifest_v01.json")
     active_manifest = _load_json(ROOT / "release_manifest_v01_0.7.0_active.json")
+    candidate_manifest = _load_json(ROOT / "release_manifest_v01_0.8.0.json")
     preserved_candidate = _load_json(ROOT / "release_manifest_v01_0.7.0.json")
     cloud_config = _load_json(ROOT / "config" / "cloud.json")
     publication_gate = _load_json(PRODUCT_PUBLICATION_CONFIG)
+    expansion_gate = load_source_expansion_gate(SOURCE_EXPANSION_CONFIG)
 
     inventory = load_source_inventory(SOURCE_GATE_CONFIG)
     source = inventory.enabled[0] if len(inventory.enabled) == 1 else None
@@ -82,32 +87,79 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
     product_builder_text = PRODUCT_BUILDER.read_text(encoding="utf-8")
 
     checks = {
-        "software_version_0_7_0": SOFTWARE_VERSION == "0.7.0",
-        "release_status_active": RELEASE_STATUS == "ACTIVE",
+        "software_version_0_8_0": SOFTWARE_VERSION == "0.8.0",
+        "release_status_candidate": RELEASE_STATUS == "CANDIDATE",
         "active_version_0_7_0": ACTIVE_VALIDATED_VERSION == "0.7.0",
-        "current_candidate_none": CURRENT_CANDIDATE_VERSION == "NONE",
-        "next_action_m7_expansion_design": NEXT_ACTION == "M7_CONTROLLED_SOURCE_EXPANSION_DESIGN_0_8_0",
+        "current_candidate_0_8_0": CURRENT_CANDIDATE_VERSION == "0.8.0",
+        "next_action_siope_route_discovery": NEXT_ACTION == "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0",
         "manifest_identity": (
             manifest.get("current_active") == "0.7.0"
-            and manifest.get("current_candidate") == "NONE"
+            and manifest.get("current_candidate") == "0.8.0"
             and manifest.get("last_active_validated") == "0.7.0"
             and manifest.get("active_manifest") == "release_manifest_v01_0.7.0_active.json"
+            and manifest.get("candidate_manifest") == "release_manifest_v01_0.8.0.json"
             and manifest.get("preserved_candidate_manifest") == "release_manifest_v01_0.7.0.json"
-            and manifest.get("promotion_gate") == "PASS_M6_PRODUCT_OUTPUT_PUBLICATION_LIVE_GATE"
-            and manifest.get("next_action") == "M7_CONTROLLED_SOURCE_EXPANSION_DESIGN_0_8_0"
+            and manifest.get("promotion_gate") == "PENDING_M7_OFFLINE_SOURCE_EXPANSION_DESIGN_VALIDATION"
+            and manifest.get("next_action") == "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0"
         ),
         "active_manifest_identity": (
             active_manifest.get("version") == "0.7.0"
             and active_manifest.get("status") == "ACTIVE"
-            and active_manifest.get("candidate_manifest") == "release_manifest_v01_0.7.0.json"
             and active_manifest.get("live_gate", {}).get("status") == "PASS_M6_PRODUCT_OUTPUT_PUBLICATION_GATE"
-            and active_manifest.get("live_gate", {}).get("github_run") == 32787729769
             and active_manifest.get("live_gate", {}).get("created_count") == 3
             and active_manifest.get("drive_evidence", {}).get("target") == "08_OUTPUTS"
         ),
-        "candidate_evidence_preserved": (
+        "candidate_manifest_identity": (
+            candidate_manifest.get("version") == "0.8.0"
+            and candidate_manifest.get("status") == "CANDIDATE"
+            and candidate_manifest.get("based_on_active") == "0.7.0"
+            and candidate_manifest.get("source_expansion", {}).get("system") == "SIOPE"
+            and candidate_manifest.get("source_expansion", {}).get("current_state") == "CONTRACT_VALIDATED"
+            and candidate_manifest.get("source_expansion", {}).get("collection_authorization") == "PROHIBITED"
+        ),
+        "previous_candidate_evidence_preserved": (
             preserved_candidate.get("version") == "0.7.0"
             and preserved_candidate.get("status") == "CANDIDATE"
+        ),
+        "source_expansion_config_present": SOURCE_EXPANSION_CONFIG.is_file(),
+        "source_expansion_script_present": SOURCE_EXPANSION_SCRIPT.is_file(),
+        "source_expansion_design_gate_identity": (
+            expansion_gate.gate_id == "M7_CONTROLLED_SOURCE_EXPANSION_DESIGN_0_8_0"
+            and expansion_gate.software_version == "0.8.0"
+            and expansion_gate.release_status == "CANDIDATE"
+            and expansion_gate.active_validated_version == "0.7.0"
+            and expansion_gate.mode == "DESIGN_ONLY"
+        ),
+        "source_expansion_single_pilot_siope_limeira": (
+            expansion_gate.source.source_id == "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA"
+            and expansion_gate.source.institution == "FNDE"
+            and expansion_gate.source.system == "SIOPE"
+            and expansion_gate.source.pilot.municipality == "Limeira"
+            and expansion_gate.source.pilot.state == "SP"
+            and expansion_gate.source.pilot.municipality_code == "352690"
+            and expansion_gate.source.pilot.year == 2024
+        ),
+        "source_expansion_stops_at_contract_validated": (
+            expansion_gate.source.lifecycle_state == "CONTRACT_VALIDATED"
+            and expansion_gate.source.acquisition_route_status == "UNPROVEN"
+            and expansion_gate.source.schema_status == "UNPROVEN"
+            and expansion_gate.source.content_type_status == "UNPROVEN"
+            and not expansion_gate.source.can_collect
+            and not expansion_gate.source.can_schedule
+        ),
+        "source_expansion_execution_prohibited": (
+            expansion_gate.network == "PROHIBITED"
+            and expansion_gate.remote_writes == "PROHIBITED"
+            and expansion_gate.source_collection == "PROHIBITED"
+            and expansion_gate.source_processing == "PROHIBITED"
+            and expansion_gate.recurrence == "PROHIBITED"
+            and expansion_gate.schedule == "DISABLED"
+        ),
+        "production_workflow_source_expansion_not_reachable": (
+            "source_expansion.siope_limeira_0_8_0.json" not in workflow_text
+            and "github_source_expansion_design_gate.py" not in workflow_text
+            and "confirm_source_expansion" not in workflow_text
+            and "dadosInformadosMunicipio" not in workflow_text
         ),
         "product_contract_present": PRODUCT_CONTRACT.is_file(),
         "product_bundle_present": PRODUCT_BUNDLE.is_file(),
@@ -125,7 +177,6 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
             publication_gate.get("gate_id") == "M6_FIRST_PRODUCT_OUTPUT_PUBLICATION_GATE_0_7_0"
             and publication_gate.get("software_version") == "0.7.0"
             and publication_gate.get("release_status") == "CANDIDATE"
-            and publication_gate.get("active_validated_version") == "0.6.3"
             and publication_gate.get("drive_target") == "08_OUTPUTS"
             and publication_gate.get("required_remote_count") == 3
             and publication_gate.get("allow_overwrite") is False
@@ -133,9 +184,9 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
             and publication_gate.get("completion_manifest_written_last") is True
             and publication_gate.get("schedule") == "DISABLED"
         ),
-        "product_publication_rerun_blocked_by_active_identity": (
-            'RELEASE_STATUS == "CANDIDATE"' in publication_script_text
-            and 'ACTIVE_VALIDATED_VERSION == "0.6.3"' in publication_script_text
+        "product_publication_rerun_blocked_by_identity": (
+            'SOFTWARE_VERSION == "0.7.0"' in publication_script_text
+            and 'RELEASE_STATUS == "CANDIDATE"' in publication_script_text
             and 'CURRENT_CANDIDATE_VERSION == "0.7.0"' in publication_script_text
         ),
         "production_workflow_product_publication_not_reachable": (
@@ -252,6 +303,8 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
         status, code = "STOP_GITHUB_PREFLIGHT", 2
     elif missing:
         status, code = "STOP_MISSING_GITHUB_SECRETS", 3
+    elif require_oauth and RELEASE_STATUS == "CANDIDATE":
+        status, code = "STOP_CANDIDATE_PERSISTENT_RUNTIME_NOT_AUTHORIZED", 14
     else:
         status, code = ("PASS_LIVE_PREFLIGHT" if require_oauth else "PASS_OFFLINE"), 0
 
