@@ -5,14 +5,16 @@ Consolidação em software das capacidades metodológicas validadas nas versões
 ## Estado desta release
 
 **Software ativo:** 0.6.2 ACTIVE  
-**Candidata corrente:** nenhuma  
-**Próximo gate:** revisar separadamente a primeira evidência candidata e definir o próximo contrato de execução  
+**Candidata corrente:** 0.6.3 CANDIDATE  
+**Próximo gate:** executar a observabilidade, revisar o resumo e o artefato do GitHub Actions  
 **Dependências externas:** `pypdf==6.10.0` para processamento textual determinístico de PDFs  
 **Python:** 3.11+
 
 A 0.6.2 foi promovida após a primeira reconciliação controlada concluir com `PASS_GITHUB_RECONCILIATION_EXECUTION_GATE`. Uma única tarefa pesquisável de `LIMEIRA_CONTRATOS` produziu `MATCH_CANDIDATE`, uma aresta de evidência `CANDIDATE_ONLY` e zero relações `financial_identity`. O estado remoto foi substituído e um log append-only foi criado; identificadores privados e payloads candidatos permaneceram apenas na auditoria do Drive.
 
 Agendamento, recorrência, novas fontes e execução ampla da fila permanecem desabilitados. TCE-SP, TDA, licitações e SIAVE ficam fora deste gate; o TDA continua bloqueado sem endpoint/export público comprovado. Uma eventual correspondência gera somente evidência documental `CANDIDATE_ONLY`, nunca identidade financeira automática.
+
+A candidata 0.6.3 não amplia a coleta nem a reconciliação. Ela transforma a evidência sanitizada da execução em cartões de fonte, execução e métricas, publica um resumo legível no GitHub Actions e anexa um bundle JSON/Markdown imutável por run. Consulte `docs/OBSERVABILITY_RUNBOOK.md`.
 
 ## Testes
 
