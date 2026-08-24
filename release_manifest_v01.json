@@ -7,6 +7,7 @@
   "candidate_manifest": "release_manifest_v01_0.7.0.json",
   "preserved_candidate_manifest": "release_manifest_v01_0.6.3.json",
   "promotion_gate": "PASS_M6_PRODUCT_MINIMAL_OUTPUT_OFFLINE_VALIDATION",
-  "publication_gate": "READY_MANUAL_M6_CONTROLLED_PRODUCT_OUTPUT_PUBLICATION",
+  "publication_gate": "PENDING_M6_CONTROLLED_PRODUCT_OUTPUT_PUBLICATION",
+  "publication_readiness": "PASS_OFFLINE_READY_MANUAL_GATE",
   "next_action": "M6_PRODUCT_OUTPUT_CONTROLLED_PUBLICATION_GATE_0_7_0"
 }
