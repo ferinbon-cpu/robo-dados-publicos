@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail-closed repository and OAuth preflight for M4D."""
+"""Fail-closed repository and OAuth preflight for the active M4D runtime."""
 
 from __future__ import annotations
 
@@ -39,11 +39,11 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
     manifest = json.loads((ROOT / "release_manifest_v01.json").read_text(encoding="utf-8"))
     checks = {
         "software_version_0_5_9": SOFTWARE_VERSION == "0.5.9",
-        "release_status_candidate": RELEASE_STATUS == "CANDIDATE",
-        "active_version_preserved_0_5_8": ACTIVE_VALIDATED_VERSION == "0.5.8",
-        "current_candidate_0_5_9": CURRENT_CANDIDATE_VERSION == "0.5.9",
-        "next_action_live_gate": NEXT_ACTION == "M4D_GITHUB_LIVE_GATE_0_5_9",
-        "manifest_identity": manifest.get("current_active") == "0.5.8" and manifest.get("current_candidate") == "0.5.9",
+        "release_status_active": RELEASE_STATUS == "ACTIVE",
+        "active_version_0_5_9": ACTIVE_VALIDATED_VERSION == "0.5.9",
+        "no_current_candidate": CURRENT_CANDIDATE_VERSION == "NONE",
+        "next_action_first_source_gate": NEXT_ACTION == "M4E_FIRST_SOURCE_COLLECTION_GATE",
+        "manifest_identity": manifest.get("current_active") == "0.5.9" and manifest.get("current_candidate") == "NONE",
         "workflow_manual_dispatch": bool(re.search(r"^  workflow_dispatch:\s*$", text, re.MULTILINE)),
         "workflow_schedule_disabled": not any(line.strip() == "schedule:" for line in active_lines),
         "workflow_confirmation_required": "inputs.confirm_persistence == true" in text,
