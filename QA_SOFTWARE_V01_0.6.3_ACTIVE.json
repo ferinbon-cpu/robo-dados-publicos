@@ -32,6 +32,5 @@
   "workflow_schedule": "DISABLED",
   "financial_identity_auto_promotion": "PROHIBITED",
   "tda_connector": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN",
-  "promotion_gate": "PASS_M5_OBSERVABILITY_RUNTIME_REPORT_LIVE_GATE",
   "next_gate": "M6_PRODUCT_MINIMAL_OUTPUT_DESIGN_0_7_0"
 }

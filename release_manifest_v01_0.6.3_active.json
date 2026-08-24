@@ -1,0 +1,73 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.6.3",
+  "status": "ACTIVE",
+  "milestone": "M5_OBSERVABILITY_RUNTIME_REPORT_LIVE_GATE_PROMOTED",
+  "promoted_from_candidate": "0.6.3",
+  "candidate_manifest": "release_manifest_v01_0.6.3.json",
+  "promotion_review": "PASS_OBSERVABILITY_RUNTIME_REPORT_LIVE_GATE_USER_TRIGGERED",
+  "live_gate": {
+    "status": "PASS_M5_OBSERVABILITY_RUNTIME_GATE",
+    "runtime_gate": "PASS_GITHUB_LIVE_GATE",
+    "github_run": 32782732233,
+    "github_job": 97608076406,
+    "source_commit": "72734c5257718b7f879b10d218e7c41da6396df2",
+    "runtime_checks": "7/7 PASS",
+    "overall_health": "HEALTHY",
+    "privacy_status": "PASS",
+    "state_remote": "REPLACED",
+    "append_only_log": "CREATED",
+    "run_latency_seconds": 1.308597,
+    "source_execution": "NOT_CONFIGURED_BY_DESIGN",
+    "secret_values_exposed": false,
+    "remote_identifiers_exposed": false,
+    "raw_gate_evidence": "RUNNER_TEMP_ONLY_NOT_UPLOADED"
+  },
+  "artifact": {
+    "name": "observability-report-32782732233",
+    "artifact_id": 9540336038,
+    "file_count": 6,
+    "size_bytes": 4070,
+    "retention_days": 30,
+    "expires_at": "2026-09-23T22:03:42Z",
+    "contents": [
+      "report.md",
+      "report.json",
+      "cards/run.json",
+      "cards/source_execution.json",
+      "cards/metrics.json",
+      "cards/health.json"
+    ],
+    "sanitization_review": "PASS_NO_SECRET_TOKEN_REMOTE_ID_OR_SHA_KEYS"
+  },
+  "qa": {
+    "live_gate_preflight": "PASS 31/31 CHECKS",
+    "live_gate_unit_tests": "130/130 PASS",
+    "live_gate_historical_regressions": "109/109 PASS",
+    "typed_observability_tests": "9/9 PASS",
+    "operator_report_tests": "9/9 PASS",
+    "promotion_ci_run": 32783203625,
+    "promotion_ci_preflight": "PASS 31/31 CHECKS",
+    "promotion_ci_compileall": "PASS",
+    "promotion_ci_unit_tests": "134/134 PASS",
+    "promotion_ci_historical_regressions": "109/109 PASS"
+  },
+  "safety": {
+    "observability_remote_writes": "NONE",
+    "source_collection_rerun": "DISABLED_IN_WORKFLOW",
+    "source_processing_rerun": "DISABLED_IN_WORKFLOW",
+    "reconciliation_rerun": "DISABLED_IN_WORKFLOW",
+    "broad_reconciliation_execution": "DISABLED",
+    "recurring_collection": "DISABLED",
+    "workflow_schedule": "DISABLED",
+    "financial_identity_auto_promotion": "PROHIBITED",
+    "reconciliation_matches": "CANDIDATE_ONLY",
+    "tda_limeira": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
+  },
+  "open_gates": {
+    "minimal_product_output": "NOT_IMPLEMENTED",
+    "recurring_source_inventory": "NOT_CONFIGURED",
+    "additional_reconciliation_targets": "NOT_AUTHORIZED"
+  },
+  "next_action": "M6_PRODUCT_MINIMAL_OUTPUT_DESIGN_0_7_0"
+}

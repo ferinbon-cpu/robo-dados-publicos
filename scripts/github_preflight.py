@@ -58,16 +58,16 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
 
     checks = {
         "software_version_0_6_3": SOFTWARE_VERSION == "0.6.3",
-        "release_status_candidate": RELEASE_STATUS == "CANDIDATE",
-        "active_version_0_6_2": ACTIVE_VALIDATED_VERSION == "0.6.2",
-        "current_candidate_0_6_3": CURRENT_CANDIDATE_VERSION == "0.6.3",
-        "next_action_observability_runtime_gate": NEXT_ACTION == "M5_OBSERVABILITY_RUNTIME_REPORT_GATE_0_6_3",
+        "release_status_active": RELEASE_STATUS == "ACTIVE",
+        "active_version_0_6_3": ACTIVE_VALIDATED_VERSION == "0.6.3",
+        "current_candidate_none": CURRENT_CANDIDATE_VERSION == "NONE",
+        "next_action_product_minimal_output": NEXT_ACTION == "M6_PRODUCT_MINIMAL_OUTPUT_DESIGN_0_7_0",
         "manifest_identity": (
-            manifest.get("current_active") == "0.6.2"
-            and manifest.get("current_candidate") == "0.6.3"
-            and manifest.get("active_manifest") == "release_manifest_v01_0.6.2_active.json"
-            and manifest.get("candidate_manifest") == "release_manifest_v01_0.6.3.json"
-            and manifest.get("preserved_candidate_manifest") == "release_manifest_v01_0.6.2.json"
+            manifest.get("current_active") == "0.6.3"
+            and manifest.get("current_candidate") == "NONE"
+            and manifest.get("last_active_validated") == "0.6.3"
+            and manifest.get("active_manifest") == "release_manifest_v01_0.6.3_active.json"
+            and manifest.get("preserved_candidate_manifest") == "release_manifest_v01_0.6.3.json"
         ),
         "source_inventory_one_enabled": source is not None,
         "source_inventory_immutable_contract": bool(
@@ -130,7 +130,7 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
             and '--input "$RUNNER_TEMP/run_gate_raw.json"' in text
             and "--github-summary" in text
             and "path: observability-report/" in text
-            and "PASS_M5_OBSERVABILITY_RUNTIME_GATE" in text
+            and "PASS_ACTIVE_RUNTIME_OBSERVABILITY" in text
         ),
         "workflow_observability_raw_not_uploaded": (
             "path: $RUNNER_TEMP/run_gate_raw.json" not in text
