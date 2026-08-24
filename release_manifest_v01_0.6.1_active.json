@@ -1,5 +1,49 @@
 {
   "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
   "version": "0.6.1",
-  "status": "ACTIVE"
+  "status": "ACTIVE",
+  "milestone": "M4E_FIRST_SOURCE_PROCESSING_LIVE_GATE_PROMOTED",
+  "promoted_from_candidate": "0.6.1",
+  "candidate_manifest": "release_manifest_v01_0.6.1.json",
+  "promotion_review": "PASS_JOURNAL_PROCESSING_LIVE_GATE_USER_AUTHORIZED",
+  "live_gate": {
+    "status": "PASS_GITHUB_JOURNAL_PROCESSING_GATE",
+    "workflow_run": 32761758504,
+    "job": 97541993609,
+    "source_commit": "f9bb9afad3d519376157f5acbdc4dc2cd18bec15",
+    "total_duration": "46s",
+    "gate_checks": "16/16 PASS",
+    "state_remote": "REPLACED",
+    "append_only_log": "CREATED",
+    "source_network_called": false,
+    "secret_values_exposed": false,
+    "remote_identifiers_exposed": false
+  },
+  "processing_evidence": {
+    "source_id": "LIMEIRA_JORNAL_OFICIAL_EDICAO_7310",
+    "source_contract": "VERIFIED_AGAINST_PRIVATE_DRIVE_AUDIT",
+    "extractor": "pypdf==6.10.0",
+    "pages": 76,
+    "total_extracted_chars": 195540,
+    "gold_events": 53,
+    "rag_chunks": 148,
+    "reconciliation_tasks": 68,
+    "derived_outputs": 5,
+    "hashes_sizes_and_identifiers": "RETAINED_IN_PRIVATE_DRIVE_AUDIT_ONLY"
+  },
+  "safety": {
+    "financial_identity_auto_promotion": "PROHIBITED",
+    "reconciliation_matches": "CANDIDATE_ONLY",
+    "unknown_schema": "STOP_OR_QUARANTINE",
+    "source_collection_rerun": "DISABLED_IN_WORKFLOW",
+    "source_processing_rerun": "DISABLED_IN_WORKFLOW",
+    "recurring_collection": "DISABLED",
+    "workflow_schedule": "DISABLED",
+    "tda_limeira": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
+  },
+  "open_gates": {
+    "reconciliation_execution": "PENDING_FIRST_CONTROLLED_EXECUTION_GATE",
+    "recurring_source_inventory": "NOT_CONFIGURED"
+  },
+  "next_action": "M4E_FIRST_RECONCILIATION_EXECUTION_GATE"
 }
