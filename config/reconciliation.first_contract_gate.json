@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "gate": "M4E_FIRST_RECONCILIATION_EXECUTION_GATE",
+  "allowed_targets": [
+    "LIMEIRA_CONTRATOS"
+  ],
+  "limit": 1,
+  "required_selected": 1,
+  "initial_status": "READY_SEARCH",
+  "selection_policy": "PRIORITY_DESC_TASK_ID_ASC",
+  "allowed_result_statuses": [
+    "MATCH_CANDIDATE",
+    "NO_MATCH"
+  ],
+  "financial_identity_auto_promotion": "PROHIBITED"
+}
