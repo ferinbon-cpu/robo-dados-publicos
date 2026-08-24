@@ -41,12 +41,16 @@
     "sanitization_review": "PASS_NO_SECRET_TOKEN_REMOTE_ID_OR_SHA_KEYS"
   },
   "qa": {
-    "live_preflight": "PASS 31/31 CHECKS",
-    "compileall": "PASS",
-    "unit_tests": "130/130 PASS",
-    "historical_regressions": "109/109 PASS",
+    "live_gate_preflight": "PASS 31/31 CHECKS",
+    "live_gate_unit_tests": "130/130 PASS",
+    "live_gate_historical_regressions": "109/109 PASS",
     "typed_observability_tests": "9/9 PASS",
-    "operator_report_tests": "9/9 PASS"
+    "operator_report_tests": "9/9 PASS",
+    "promotion_ci_run": 32783203625,
+    "promotion_ci_preflight": "PASS 31/31 CHECKS",
+    "promotion_ci_compileall": "PASS",
+    "promotion_ci_unit_tests": "134/134 PASS",
+    "promotion_ci_historical_regressions": "109/109 PASS"
   },
   "safety": {
     "observability_remote_writes": "NONE",
