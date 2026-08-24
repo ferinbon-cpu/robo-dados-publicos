@@ -31,6 +31,7 @@ class TestM4DGitHubActions(unittest.TestCase):
         self.assertNotIn('confirm_processing:', text)
         self.assertNotIn('inputs.confirm_processing == true', text)
         self.assertNotIn('scripts/github_processing_gate.py --processing-config config/processing.jornal_oficial_7310_gate.json', text)
+        self.assertNotIn('build_product_output.py', text)
         self.assertNotIn('ya' + '29.', text)
         self.assertNotIn('1' + '//', text)
 
@@ -79,6 +80,26 @@ class TestM4DGitHubActions(unittest.TestCase):
         self.assertEqual(3, proc.returncode)
         self.assertEqual('STOP_MISSING_GITHUB_SECRETS', payload['status'])
         self.assertEqual(3, len(payload['missing_oauth_secrets']))
+
+    def test_candidate_persistent_runtime_is_not_authorized_even_with_credentials_present(self):
+        env = os.environ.copy()
+        env.update({
+            'GOOGLE_DRIVE_CLIENT_ID': 'present-not-used',
+            'GOOGLE_DRIVE_CLIENT_SECRET': 'present-not-used',
+            'GOOGLE_DRIVE_REFRESH_TOKEN': 'present-not-used',
+        })
+        proc = subprocess.run(
+            [sys.executable, str(ROOT / 'scripts' / 'github_preflight.py'), '--require-oauth'],
+            cwd=ROOT,
+            env=env,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        payload = json.loads(proc.stdout)
+        self.assertEqual(14, proc.returncode)
+        self.assertEqual('STOP_CANDIDATE_PERSISTENT_RUNTIME_NOT_AUTHORIZED', payload['status'])
+        self.assertEqual([], payload['missing_oauth_secrets'])
 
 if __name__ == '__main__':
     unittest.main()
