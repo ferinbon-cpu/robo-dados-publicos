@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "gate": "M4E_FIRST_SOURCE_COLLECTION_GATE",
+  "sources": [
+    {
+      "source_id": "LIMEIRA_JORNAL_OFICIAL_EDICAO_7310",
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_21082026170515.pdf",
+      "logical_key": "limeira_jornal_oficial_edicao_7310_2026_08_22",
+      "file_name": "jornal_oficial_limeira_edicao_7310.pdf",
+      "enabled": true,
+      "expected_content_types": [
+        "application/pdf"
+      ],
+      "expected_sha256": "78a23262023f6233cb59fdc78f1fadc196d0a7bbd52c418bbdd9244229f46680",
+      "expected_bytes": 16952899,
+      "cadence": "one_time_manual_gate",
+      "notes": "Artefato histórico declarado pelo índice oficial e validado ao vivo. Este inventário só pode ser usado com confirmação manual específica; não autoriza agendamento nem coleta recorrente."
+    }
+  ]
+}
