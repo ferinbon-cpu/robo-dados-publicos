@@ -1,5 +1,5 @@
 name: ROBO DADOS PUBLICOS
-run-name: "M4E active 0.6.2 by @${{ github.actor }}"
+run-name: "M4F observability candidate 0.6.3 by @${{ github.actor }}"
 
 on:
   workflow_dispatch:
@@ -82,4 +82,19 @@ jobs:
         run: python main.py selftest
 
       - name: Execução persistente de infraestrutura
-        run: python scripts/github_run_gate.py
+        run: python scripts/github_run_gate.py --evidence-output observability-input/run_gate.json
+
+      - name: Gerar cartões e relatório de observabilidade
+        run: >-
+          python scripts/github_observability_report.py
+          --input observability-input/run_gate.json
+          --output-dir observability-report
+          --github-summary
+
+      - name: Publicar relatório imutável da execução
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: observability-report-${{ github.run_id }}
+          path: observability-report/
+          if-no-files-found: error
+          retention-days: 30
