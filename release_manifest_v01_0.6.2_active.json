@@ -1,0 +1,60 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.6.2",
+  "status": "ACTIVE",
+  "milestone": "M4E_FIRST_RECONCILIATION_EXECUTION_LIVE_GATE_PROMOTED",
+  "promoted_from_candidate": "0.6.2",
+  "candidate_manifest": "release_manifest_v01_0.6.2.json",
+  "promotion_review": "PASS_RECONCILIATION_LIVE_GATE_USER_CONFIRMED",
+  "live_gate": {
+    "status": "PASS_GITHUB_RECONCILIATION_EXECUTION_GATE",
+    "cloud_status": "PASS_CLOUD_RECONCILIATION_EXECUTION_GATE",
+    "workflow_dispatch_sequence": 8,
+    "source_commit": "bca696c4792fe8e6a87be716b26855f450c22459",
+    "total_duration": "33s",
+    "gate_checks": "15/15 PASS",
+    "selected": 1,
+    "allowed_targets": [
+      "LIMEIRA_CONTRATOS"
+    ],
+    "result_status_counts": {
+      "MATCH_CANDIDATE": 1
+    },
+    "state_remote": "REPLACED",
+    "append_only_log": "CREATED",
+    "source_origin_network_called": false,
+    "task_identifiers_exposed": false,
+    "candidate_payloads_exposed": false,
+    "remote_identifiers_exposed": false,
+    "secret_values_exposed": false
+  },
+  "reconciliation_evidence": {
+    "ready_allowlisted": 5,
+    "eligible_ready": 2,
+    "selected": 1,
+    "terminal_result": "MATCH_CANDIDATE",
+    "candidate_evidence_edges": 1,
+    "financial_identity_edges": 0,
+    "selected_minimum_search_key_present": true,
+    "exact_selected_task_executed": true,
+    "protected_targets_unchanged": true,
+    "private_identifiers_and_payloads": "RETAINED_IN_PRIVATE_DRIVE_AUDIT_ONLY"
+  },
+  "safety": {
+    "financial_identity_auto_promotion": "PROHIBITED",
+    "reconciliation_matches": "CANDIDATE_ONLY",
+    "source_collection_rerun": "DISABLED_IN_WORKFLOW",
+    "source_processing_rerun": "DISABLED_IN_WORKFLOW",
+    "reconciliation_rerun": "DISABLED_IN_WORKFLOW",
+    "broad_reconciliation_execution": "DISABLED",
+    "recurring_collection": "DISABLED",
+    "workflow_schedule": "DISABLED",
+    "tda_limeira": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
+  },
+  "open_gates": {
+    "first_reconciliation_result_review": "PENDING_SEPARATE_DECISION",
+    "recurring_source_inventory": "NOT_CONFIGURED",
+    "additional_reconciliation_targets": "NOT_AUTHORIZED"
+  },
+  "next_action": "M4E_REVIEW_FIRST_RECONCILIATION_RESULT_AND_DEFINE_NEXT_GATE"
+}
