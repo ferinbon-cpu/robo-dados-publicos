@@ -69,7 +69,7 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
         "release_status_candidate": RELEASE_STATUS == "CANDIDATE",
         "active_version_0_6_3": ACTIVE_VALIDATED_VERSION == "0.6.3",
         "current_candidate_0_7_0": CURRENT_CANDIDATE_VERSION == "0.7.0",
-        "next_action_product_offline_gate": NEXT_ACTION == "M6_PRODUCT_MINIMAL_OUTPUT_OFFLINE_GATE_0_7_0",
+        "next_action_controlled_publication_design": NEXT_ACTION == "M6_PRODUCT_OUTPUT_CONTROLLED_PUBLICATION_DESIGN_0_7_0",
         "manifest_identity": (
             manifest.get("current_active") == "0.6.3"
             and manifest.get("current_candidate") == "0.7.0"
@@ -77,6 +77,8 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
             and manifest.get("active_manifest") == "release_manifest_v01_0.6.3_active.json"
             and manifest.get("candidate_manifest") == "release_manifest_v01_0.7.0.json"
             and manifest.get("preserved_candidate_manifest") == "release_manifest_v01_0.6.3.json"
+            and manifest.get("promotion_gate") == "PASS_M6_PRODUCT_MINIMAL_OUTPUT_OFFLINE_VALIDATION"
+            and manifest.get("next_action") == "M6_PRODUCT_OUTPUT_CONTROLLED_PUBLICATION_DESIGN_0_7_0"
         ),
         "product_contract_present": PRODUCT_CONTRACT.is_file(),
         "product_bundle_present": PRODUCT_BUNDLE.is_file(),
