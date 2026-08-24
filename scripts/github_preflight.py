@@ -30,6 +30,7 @@ from robo_dados_publicos.observability import SourceCard
 
 
 WORKFLOW = ROOT / ".github" / "workflows" / "robo-dados-publicos.yml"
+PRODUCT_PUBLICATION_WORKFLOW = ROOT / ".github" / "workflows" / "product-output-publication-gate.yml"
 CHECKOUT_PIN = "actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd"
 SETUP_PYTHON_PIN = "actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97"
 UPLOAD_ARTIFACT_PIN = "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02"
@@ -47,13 +48,20 @@ OBSERVABILITY_SCRIPT = ROOT / "scripts" / "github_observability_report.py"
 PRODUCT_BUILDER = ROOT / "scripts" / "build_product_output.py"
 PRODUCT_CONTRACT = ROOT / "robo_dados_publicos" / "product" / "contracts.py"
 PRODUCT_BUNDLE = ROOT / "robo_dados_publicos" / "product" / "bundle.py"
+PRODUCT_PUBLICATION = ROOT / "robo_dados_publicos" / "product" / "publication.py"
+PRODUCT_PUBLICATION_SCRIPT = ROOT / "scripts" / "github_product_publication_gate.py"
+PRODUCT_PUBLICATION_CONFIG = ROOT / "config" / "product_output.first_publication_gate.json"
+PRODUCT_PUBLICATION_ANSWERS = ROOT / "config" / "product_output.first_publication_answers.json"
 
 
 def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
     text = WORKFLOW.read_text(encoding="utf-8")
     active_lines = [line for line in text.splitlines() if not line.lstrip().startswith("#")]
+    publication_text = PRODUCT_PUBLICATION_WORKFLOW.read_text(encoding="utf-8") if PRODUCT_PUBLICATION_WORKFLOW.is_file() else ""
+    publication_active_lines = [line for line in publication_text.splitlines() if not line.lstrip().startswith("#")]
     manifest = json.loads((ROOT / "release_manifest_v01.json").read_text(encoding="utf-8"))
     cloud_config = json.loads((ROOT / "config" / "cloud.json").read_text(encoding="utf-8"))
+    publication_gate = json.loads(PRODUCT_PUBLICATION_CONFIG.read_text(encoding="utf-8")) if PRODUCT_PUBLICATION_CONFIG.is_file() else {}
     inventory = load_source_inventory(SOURCE_GATE_CONFIG)
     source = inventory.enabled[0] if len(inventory.enabled) == 1 else None
     processing_gate = load_journal_processing_gate(PROCESSING_GATE_CONFIG)
@@ -69,7 +77,7 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
         "release_status_candidate": RELEASE_STATUS == "CANDIDATE",
         "active_version_0_6_3": ACTIVE_VALIDATED_VERSION == "0.6.3",
         "current_candidate_0_7_0": CURRENT_CANDIDATE_VERSION == "0.7.0",
-        "next_action_controlled_publication_design": NEXT_ACTION == "M6_PRODUCT_OUTPUT_CONTROLLED_PUBLICATION_DESIGN_0_7_0",
+        "next_action_controlled_publication_gate": NEXT_ACTION == "M6_PRODUCT_OUTPUT_CONTROLLED_PUBLICATION_GATE_0_7_0",
         "manifest_identity": (
             manifest.get("current_active") == "0.6.3"
             and manifest.get("current_candidate") == "0.7.0"
@@ -78,7 +86,8 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
             and manifest.get("candidate_manifest") == "release_manifest_v01_0.7.0.json"
             and manifest.get("preserved_candidate_manifest") == "release_manifest_v01_0.6.3.json"
             and manifest.get("promotion_gate") == "PASS_M6_PRODUCT_MINIMAL_OUTPUT_OFFLINE_VALIDATION"
-            and manifest.get("next_action") == "M6_PRODUCT_OUTPUT_CONTROLLED_PUBLICATION_DESIGN_0_7_0"
+            and manifest.get("publication_gate") == "PENDING_M6_CONTROLLED_PRODUCT_OUTPUT_PUBLICATION"
+            and manifest.get("next_action") == "M6_PRODUCT_OUTPUT_CONTROLLED_PUBLICATION_GATE_0_7_0"
         ),
         "product_contract_present": PRODUCT_CONTRACT.is_file(),
         "product_bundle_present": PRODUCT_BUNDLE.is_file(),
@@ -89,7 +98,73 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
             and "drive.put(" not in product_builder_text
             and "drive.replace_content(" not in product_builder_text
         ),
-        "product_workflow_not_reachable": "build_product_output.py" not in text,
+        "product_publication_module_present": PRODUCT_PUBLICATION.is_file(),
+        "product_publication_script_present": PRODUCT_PUBLICATION_SCRIPT.is_file(),
+        "product_publication_answers_present": PRODUCT_PUBLICATION_ANSWERS.is_file(),
+        "product_publication_gate_contract": (
+            publication_gate.get("gate_id") == "M6_FIRST_PRODUCT_OUTPUT_PUBLICATION_GATE_0_7_0"
+            and publication_gate.get("software_version") == "0.7.0"
+            and publication_gate.get("release_status") == "CANDIDATE"
+            and publication_gate.get("active_validated_version") == "0.6.3"
+            and publication_gate.get("parent_config_key") == "outputs_id"
+            and publication_gate.get("drive_target") == "08_OUTPUTS"
+            and publication_gate.get("required_remote_count") == 3
+            and publication_gate.get("allow_overwrite") is False
+            and publication_gate.get("collision_policy") == "STOP_BEFORE_WRITES"
+            and publication_gate.get("completion_manifest_written_last") is True
+            and publication_gate.get("publications") == [
+                "GOOGLE_SHEET_FROM_TABLE_CSV",
+                "REPORT_PDF",
+                "COMPLETION_MANIFEST_JSON",
+            ]
+            and publication_gate.get("source_collection") == "PROHIBITED"
+            and publication_gate.get("processing_rerun") == "PROHIBITED"
+            and publication_gate.get("reconciliation_rerun") == "PROHIBITED"
+            and publication_gate.get("schedule") == "DISABLED"
+        ),
+        "production_workflow_product_publication_not_reachable": (
+            "build_product_output.py" not in text
+            and "github_product_publication_gate.py" not in text
+            and "confirm_product_publication" not in text
+        ),
+        "product_publication_workflow_manual": (
+            bool(re.search(r"^  workflow_dispatch:\s*$", publication_text, re.MULTILINE))
+            and "confirm_product_publication:" in publication_text
+            and "inputs.confirm_product_publication == true" in publication_text
+            and "default: false" in publication_text
+        ),
+        "product_publication_workflow_schedule_disabled": not any(
+            line.strip() == "schedule:" for line in publication_active_lines
+        ),
+        "product_publication_workflow_permissions_read": "permissions:\n  contents: read" in publication_text,
+        "product_publication_workflow_pins": all(
+            marker in publication_text for marker in (CHECKOUT_PIN, SETUP_PYTHON_PIN, UPLOAD_ARTIFACT_PIN)
+        ),
+        "product_publication_workflow_full_qa_before_write": (
+            "python scripts/github_preflight.py" in publication_text
+            and "python -m unittest discover -s tests -v" in publication_text
+            and "python main.py selftest" in publication_text
+            and "github_product_publication_gate.py --dry-run" in publication_text
+            and 'github_product_publication_gate.py > "$RUNNER_TEMP/product_publication_result.json"' in publication_text
+            and publication_text.index("github_product_publication_gate.py --dry-run")
+                < publication_text.index('github_product_publication_gate.py > "$RUNNER_TEMP/product_publication_result.json"')
+        ),
+        "product_publication_workflow_historical_gates_unreachable": all(
+            marker not in publication_text
+            for marker in (
+                "github_processing_gate.py",
+                "github_reconciliation_gate.py",
+                "sources.jornal_oficial_7310_gate.json",
+                "confirm_processing",
+                "confirm_reconciliation",
+                "confirm_source_collection",
+            )
+        ),
+        "product_publication_workflow_sanitized_artifact": (
+            "publication-gate-evidence/result.json" in publication_text
+            and "product-publication-gate-${{ github.run_id }}" in publication_text
+            and "path: publication-gate-evidence/result.json" in publication_text
+        ),
         "outputs_drive_target_configured": bool(str(cloud_config.get("outputs_id", "")).strip()),
         "reportlab_dependency_pinned": (
             "reportlab==5.0.0" in requirements
