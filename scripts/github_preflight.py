@@ -30,6 +30,7 @@ from robo_dados_publicos.reconciliation.gate import load_reconciliation_executio
 WORKFLOW = ROOT / ".github" / "workflows" / "robo-dados-publicos.yml"
 CHECKOUT_PIN = "actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd"
 SETUP_PYTHON_PIN = "actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97"
+UPLOAD_ARTIFACT_PIN = "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02"
 OAUTH_NAMES = (
     "GOOGLE_DRIVE_CLIENT_ID",
     "GOOGLE_DRIVE_CLIENT_SECRET",
@@ -50,16 +51,16 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
     processing_gate = load_journal_processing_gate(PROCESSING_GATE_CONFIG)
     reconciliation_gate = load_reconciliation_execution_gate(RECONCILIATION_GATE_CONFIG)
     checks = {
-        "software_version_0_6_2": SOFTWARE_VERSION == "0.6.2",
-        "release_status_active": RELEASE_STATUS == "ACTIVE",
+        "software_version_0_6_3": SOFTWARE_VERSION == "0.6.3",
+        "release_status_candidate": RELEASE_STATUS == "CANDIDATE",
         "active_version_0_6_2": ACTIVE_VALIDATED_VERSION == "0.6.2",
-        "current_candidate_none": CURRENT_CANDIDATE_VERSION == "NONE",
-        "next_action_review_reconciliation_result": NEXT_ACTION == "M4E_REVIEW_FIRST_RECONCILIATION_RESULT_AND_DEFINE_NEXT_GATE",
+        "current_candidate_0_6_3": CURRENT_CANDIDATE_VERSION == "0.6.3",
+        "next_action_observability_gate": NEXT_ACTION == "M4F_RUN_OBSERVABILITY_GATE_AND_REVIEW_OPERATOR_REPORT",
         "manifest_identity": (
             manifest.get("current_active") == "0.6.2"
-            and manifest.get("current_candidate") == "NONE"
+            and manifest.get("current_candidate") == "0.6.3"
             and manifest.get("active_manifest") == "release_manifest_v01_0.6.2_active.json"
-            and manifest.get("preserved_candidate_manifest") == "release_manifest_v01_0.6.2.json"
+            and manifest.get("candidate_manifest") == "release_manifest_v01_0.6.3.json"
         ),
         "source_inventory_one_enabled": source is not None,
         "source_inventory_immutable_contract": bool(
@@ -112,6 +113,12 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
         "permissions_contents_read": "permissions:\n  contents: read" in text,
         "checkout_immutable_pin": CHECKOUT_PIN in text,
         "setup_python_immutable_pin": SETUP_PYTHON_PIN in text,
+        "upload_artifact_immutable_pin": UPLOAD_ARTIFACT_PIN in text,
+        "observability_report_enabled": (
+            "scripts/github_observability_report.py" in text
+            and "--evidence-output observability-input/run_gate.json" in text
+            and "--github-summary" in text
+        ),
         "checkout_credentials_not_persisted": "persist-credentials: false" in text,
         "gitignore_protects_oauth": all(
             marker in (ROOT / ".gitignore").read_text(encoding="utf-8")
