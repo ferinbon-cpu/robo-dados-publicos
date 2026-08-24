@@ -45,7 +45,7 @@
     "overwrite": "PROHIBITED",
     "collision_policy": "STOP_BEFORE_WRITES",
     "completion_manifest": "WRITTEN_LAST",
-    "csv_to_sheets_support": "CHECKED_DYNAMically_BEFORE_WRITES",
+    "csv_to_sheets_support": "CHECKED_DYNAMICALLY_BEFORE_WRITES",
     "presentation_is_evidence": false,
     "sensitive_source_query_values": "REDACTED"
   },
