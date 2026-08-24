@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "gate_id": "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0",
+  "software_version": "0.8.0",
+  "release_status": "CANDIDATE",
+  "active_validated_version": "0.7.0",
+  "mode": "PASSIVE_ROUTE_DISCOVERY_ONLY",
+  "network": "READ_ONLY_GET",
+  "remote_writes": "PROHIBITED",
+  "form_submission": "PROHIBITED",
+  "captcha_bypass": "PROHIBITED",
+  "artifact_download": "PROHIBITED",
+  "source_collection": "PROHIBITED",
+  "source_processing": "PROHIBITED",
+  "recurrence": "PROHIBITED",
+  "schedule": "DISABLED",
+  "max_response_bytes": 2097152,
+  "allowed_hosts": [
+    "www.fnde.gov.br",
+    "webservice.fnde.gov.br"
+  ],
+  "surfaces": {
+    "classic_query": "https://webservice.fnde.gov.br/siope/dadosInformadosMunicipio.do",
+    "antonieta_product": "https://www.fnde.gov.br/plataforma-antonieta-de-barros/dados/produtos-de-dados/visualizar/20"
+  },
+  "expected_antonieta": {
+    "product_name": "Dados Gerais - SIOPE",
+    "artifact_path": "exports/SIOPE/SIOPE_DADOS_GERAIS_SIOPE.txt.gz",
+    "published_product_id": "20"
+  },
+  "classic_query_parameters_observed": [
+    "acao",
+    "pag",
+    "anos",
+    "periodos",
+    "cod_uf",
+    "municipios",
+    "admin",
+    "planilhas",
+    "descricaoItem",
+    "descricaodoItem",
+    "nivel"
+  ],
+  "decision_policy": {
+    "classic_with_captcha": "BLOCK_AUTOMATED_ACQUISITION",
+    "antonieta_declared_artifact_without_explicit_download_url": "CANDIDATE_REQUIRES_ARTIFACT_VERIFICATION_GATE",
+    "antonieta_explicit_download_url": "CANDIDATE_REQUIRES_ARTIFACT_VERIFICATION_GATE",
+    "no_declared_artifact": "STOP_ROUTE_DISCOVERY"
+  },
+  "next_gate": "M7_SIOPE_ANTONIETA_ARTIFACT_VERIFICATION_GATE_0_8_0"
+}
