@@ -7,12 +7,12 @@ Consolidação em software das capacidades metodológicas validadas nas versões
 **Software ativo:** 0.6.0 ACTIVE  
 **Candidata corrente:** 0.6.1 CANDIDATE  
 **Próximo gate:** M4E primeiro processamento controlado do Bronze  
-**Dependências externas:** `pypdf==5.9.0` para processamento textual de PDFs  
+**Dependências externas:** `pypdf==6.10.0` para processamento textual determinístico de PDFs  
 **Python:** 3.11+
 
 A 0.6.0 está ativa após o gate GitHub ao vivo coletar somente a edição 7310 do Jornal Oficial, declarada pelo índice oficial e travada por tipo MIME, SHA-256 e tamanho. O arquivo foi criado no Bronze com `DOWNLOADED_NEW`, o estado remoto foi substituído e o log append-only foi criado. A opção de repetir essa coleta foi retirada do workflow.
 
-A 0.6.1 é candidata ao primeiro processamento controlado desse mesmo PDF. O gate localiza o Bronze pela referência privada do estado, baixa somente do Drive, reconfirma hash e tamanho e produz derivados Silver, Gold, Documentos e RAG. Ele não chama a origem pública, não recria o Bronze, não executa resolvers e não imprime identificadores remotos. Agendamento, recorrência e novas fontes permanecem desabilitados. O TDA continua bloqueado sem endpoint/export público comprovado e nenhuma correspondência é promovida automaticamente a identidade financeira.
+A 0.6.1 é candidata ao primeiro processamento controlado desse mesmo PDF. O gate localiza o Bronze pela referência privada do estado, baixa somente do Drive, reconfirma hash, tamanho e versão exata do extrator (`pypdf==6.10.0`) e produz derivados Silver, Gold, Documentos e RAG. Ele não chama a origem pública, não recria o Bronze, não executa resolvers e não imprime identificadores remotos. Agendamento, recorrência e novas fontes permanecem desabilitados. O TDA continua bloqueado sem endpoint/export público comprovado e nenhuma correspondência é promovida automaticamente a identidade financeira.
 
 ## Testes
 
