@@ -90,3 +90,15 @@ python3 main.py reconciliation-status \
 `TCE_SP_DESPESAS` passa a ter resolução temporalmente bifurcada: 2014–2019 pela API oficial documentada; 2020+ por descoberta do link `Despesa Detalhada` na página do município/ano e validação estrita do ZIP/CSV. `LIMEIRA_CONTRATOS` passa a ter resolver adaptativo de formulário, que não submete quando o contrato de campos não puder ser inferido de forma inequívoca.
 
 A fila persiste o resultado, mas `MATCH_CANDIDATE` não equivale a identidade. O vínculo contrato → empenho/liquidação/pagamento permanece submetido aos gates V16/V17.
+
+## M4E.6 — primeira execução controlada candidata 0.6.2
+
+O primeiro gate ao vivo está preparado, mas ainda não executado. Seu contrato permite somente:
+
+- uma tarefa `READY_SEARCH` de `LIMEIRA_CONTRATOS`;
+- seleção determinística por prioridade decrescente e `task_id` crescente;
+- resultado `MATCH_CANDIDATE` ou `NO_MATCH`;
+- evidência documental `CANDIDATE_ONLY` quando houver correspondência;
+- substituição do estado e log append-only após PASS integral.
+
+TCE-SP, TDA, licitações e SIAVE ficam protegidos contra alteração. Qualquer falha operacional ou violação de escopo retorna STOP sem substituir o estado remoto e sem criar log. Não há recorrência, agendamento ou promoção automática de identidade financeira.
