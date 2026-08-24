@@ -6,13 +6,15 @@
 
 Detalhes: `docs/RELEASE_NOTES_V01_0.7.0_ACTIVE.md`.
 
-A 0.7.0 foi promovida após o run manual `32787729769` concluir com `PASS_M6_PRODUCT_OUTPUT_PUBLICATION_GATE`. O gate passou preflight, suíte unitária e regressões, publicou exatamente uma Planilha Google, um PDF e um manifesto de conclusão em `08_OUTPUTS`, sem overwrite, e preservou o resultado como `READY_WITH_CAUTION` por se tratar de validação técnica.
+A 0.7.0 foi promovida após o run manual `32787729769` concluir com `PASS_M6_PRODUCT_OUTPUT_PUBLICATION_GATE`. O gate publicou exatamente uma Planilha Google, um PDF e um manifesto de conclusão em `08_OUTPUTS`, sem overwrite, e preservou o resultado como `READY_WITH_CAUTION` por se tratar de validação técnica.
 
 ## Candidata corrente
 
-**NONE**
+**0.8.0 CANDIDATE — M7 expansão controlada de fontes**
 
-Não há candidata corrente após a promoção da 0.7.0.
+Detalhes: `docs/RELEASE_NOTES_V01_0.8.0.md`.
+
+A candidata escolhe SIOPE/FNDE–Limeira como única fonte-piloto e introduz o ciclo `DISCOVERED → CONTRACT_VALIDATED → ONE_TIME_AUTHORIZED → LIVE_VALIDATED → RECURRENCE_ELIGIBLE`. O estado atual é `CONTRACT_VALIDATED`; rota de aquisição, content-type e schema permanecem `UNPROVEN`, portanto coleta, processamento, recorrência e agenda continuam proibidos.
 
 ## Evidência candidata preservada
 
@@ -30,7 +32,7 @@ Detalhes: `docs/RELEASE_NOTES_V01_0.6.2.md`.
 
 ## Próximo gate
 
-`M7_CONTROLLED_SOURCE_EXPANSION_DESIGN_0_8_0` — desenho da expansão controlada para 0.8.0. Nenhuma nova fonte, recorrência ou coleta automática é autorizada apenas por esse marco.
+`M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0` — provar rota oficial, content-type e schema de um único exercício fechado sem autorizar recorrência.
 
 ## Histórico preservado
 - `RELEASE_NOTES_V01_0.2.0.md`
@@ -59,3 +61,4 @@ Detalhes: `docs/RELEASE_NOTES_V01_0.6.2.md`.
 - `RELEASE_NOTES_V01_0.6.3_ACTIVE.md`
 - `RELEASE_NOTES_V01_0.7.0.md`
 - `RELEASE_NOTES_V01_0.7.0_ACTIVE.md`
+- `RELEASE_NOTES_V01_0.8.0.md`
