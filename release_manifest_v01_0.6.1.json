@@ -30,7 +30,7 @@
   },
   "offline_qa": {
     "compileall": "PASS",
-    "unit_tests": "97/97 PASS",
+    "unit_tests": "98/98 PASS",
     "historical_regressions": "109/109 PASS",
     "preflight": "PASS",
     "secret_scan": "PASS"
