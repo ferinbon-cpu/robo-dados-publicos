@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "gate_id": "M7_CONTROLLED_SOURCE_EXPANSION_DESIGN_0_8_0",
+  "software_version": "0.8.0",
+  "release_status": "CANDIDATE",
+  "active_validated_version": "0.7.0",
+  "mode": "DESIGN_ONLY",
+  "network": "PROHIBITED",
+  "remote_writes": "PROHIBITED",
+  "source_collection": "PROHIBITED",
+  "source_processing": "PROHIBITED",
+  "recurrence": "PROHIBITED",
+  "schedule": "DISABLED",
+  "source": {
+    "source_id": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
+    "institution": "FNDE",
+    "system": "SIOPE",
+    "public_surface_url": "https://webservice.fnde.gov.br/siope/dadosInformadosMunicipio.do",
+    "official_description_url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope",
+    "public_access": "CITIZEN_NO_PASSWORD",
+    "domain": "PUBLIC_EDUCATION_FINANCE",
+    "themes": [
+      "RECEITAS",
+      "DESPESAS",
+      "MDE",
+      "FUNDEB"
+    ],
+    "lifecycle_state": "CONTRACT_VALIDATED",
+    "acquisition_route_status": "UNPROVEN",
+    "schema_status": "UNPROVEN",
+    "content_type_status": "UNPROVEN",
+    "collection_authorization": "PROHIBITED",
+    "recurrence_authorization": "PROHIBITED",
+    "schedule": "DISABLED",
+    "null_semantics": "MUST_BE_EXPLICIT_BEFORE_PROCESSING",
+    "financial_semantics": "REQUIRE_DOCUMENTED_CROSSWALK_BEFORE_INTERPRETATION",
+    "pilot": {
+      "municipality": "Limeira",
+      "state": "SP",
+      "municipality_code": "352690",
+      "year": 2024,
+      "period": "CLOSED_EXERCISE_PROPOSED"
+    }
+  },
+  "next_gate_requirements": [
+    "PROVE_OFFICIAL_ACQUISITION_ROUTE_WITHOUT_GUESSING_URLS",
+    "PROVE_EXPECTED_CONTENT_TYPE",
+    "PROVE_SCHEMA_AND_FIELD_SEMANTICS",
+    "DECLARE_NULL_AND_ZERO_SEMANTICS",
+    "DECLARE_FINANCIAL_CROSSWALK_AND_UNITS",
+    "PIN_ONE_CLOSED_EXERCISE_PAYLOAD_CONTRACT",
+    "KEEP_COLLECTION_ONE_TIME_AND_MANUALLY_CONFIRMED",
+    "KEEP_RECURRENCE_AND_SCHEDULE_DISABLED"
+  ],
+  "research_evidence": {
+    "verified_on": "2026-08-24",
+    "public_surface_observed": true,
+    "citizen_access_without_password_described_by_fnde": true,
+    "route_or_export_endpoint_proven": false,
+    "notes": "A tela pública de Dados Informados pelos Municípios e a descrição institucional do SIOPE foram verificadas. Este contrato não transforma a tela de consulta em endpoint de aquisição e não autoriza coleta."
+  }
+}

@@ -39,11 +39,11 @@ class TestM6Promotion(unittest.TestCase):
         self.assertTrue(evidence["completion_manifest"]["written_last"])
         self.assertFalse(evidence["completion_manifest"]["overwrite_allowed"])
 
-    def test_publication_rerun_is_blocked_and_next_gate_is_design_only(self):
+    def test_publication_rerun_is_blocked_and_next_gate_recorded_by_m6_is_design_only(self):
         self.assertIn('RELEASE_STATUS == "CANDIDATE"', self.publication_script)
         self.assertEqual("BLOCKED_BY_ACTIVE_RELEASE_IDENTITY", self.active["safety"]["publication_rerun"])
         self.assertEqual("DESIGN_ONLY_NOT_AUTHORIZED", self.active["open_gates"]["controlled_source_expansion_0_8_0"])
-        self.assertEqual("M7_CONTROLLED_SOURCE_EXPANSION_DESIGN_0_8_0", self.current["next_action"])
+        self.assertEqual("M7_CONTROLLED_SOURCE_EXPANSION_DESIGN_0_8_0", self.active["next_action"])
 
 
 if __name__ == "__main__":

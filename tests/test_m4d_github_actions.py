@@ -30,6 +30,9 @@ class TestM4DGitHubActions(unittest.TestCase):
         self.assertNotIn('confirm_processing:', text)
         self.assertNotIn('scripts/github_processing_gate.py --processing-config config/processing.jornal_oficial_7310_gate.json', text)
         self.assertNotIn('build_product_output.py', text)
+        self.assertNotIn('confirm_source_expansion:', text)
+        self.assertNotIn('source_expansion.siope_limeira_0_8_0.json', text)
+        self.assertNotIn('github_source_expansion_design_gate.py', text)
 
     def test_workflow_is_manual_only_and_requires_confirmation(self):
         text = WORKFLOW.read_text(encoding='utf-8')
@@ -39,6 +42,7 @@ class TestM4DGitHubActions(unittest.TestCase):
         self.assertNotIn('confirm_reconciliation:', text)
         self.assertNotIn('confirm_source_collection:', text)
         self.assertNotIn('confirm_processing:', text)
+        self.assertNotIn('confirm_source_expansion:', text)
         self.assertIn('default: false', text)
         self.assertIn('inputs.confirm_persistence == true', text)
 
@@ -76,7 +80,7 @@ class TestM4DGitHubActions(unittest.TestCase):
         self.assertEqual('STOP_MISSING_GITHUB_SECRETS', payload['status'])
         self.assertEqual(3, len(payload['missing_oauth_secrets']))
 
-    def test_active_persistent_runtime_preflight_passes_with_credentials_present(self):
+    def test_candidate_persistent_runtime_is_not_authorized_even_with_credentials_present(self):
         env = os.environ.copy()
         env.update({
             'GOOGLE_DRIVE_CLIENT_ID': 'present-not-used',
@@ -92,8 +96,8 @@ class TestM4DGitHubActions(unittest.TestCase):
             check=False,
         )
         payload = json.loads(proc.stdout)
-        self.assertEqual(0, proc.returncode, proc.stderr)
-        self.assertEqual('PASS_LIVE_PREFLIGHT', payload['status'])
+        self.assertEqual(14, proc.returncode)
+        self.assertEqual('STOP_CANDIDATE_PERSISTENT_RUNTIME_NOT_AUTHORIZED', payload['status'])
         self.assertEqual([], payload['missing_oauth_secrets'])
 
 

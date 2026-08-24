@@ -1,5 +1,5 @@
 name: CI OFFLINE
-run-name: "CI offline 0.7.0 active by @${{ github.actor }}"
+run-name: "CI offline 0.8.0 candidate M7 by @${{ github.actor }}"
 
 on:
   workflow_dispatch:
@@ -40,6 +40,9 @@ jobs:
 
       - name: Preflight offline
         run: python scripts/github_preflight.py
+
+      - name: Gate M7 de desenho da expansão
+        run: python scripts/github_source_expansion_design_gate.py
 
       - name: Compilar
         run: python -m compileall -q .

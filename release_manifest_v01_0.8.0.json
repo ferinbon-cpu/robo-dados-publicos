@@ -1,0 +1,70 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.8.0",
+  "status": "CANDIDATE",
+  "milestone": "M7_CONTROLLED_SOURCE_EXPANSION_DESIGN",
+  "based_on_active": "0.7.0",
+  "academic_basis": "MD_00.1 V02 - provenance, source contracts, explicit uncertainty, fail-closed acquisition and human review boundaries",
+  "new_capability": "Explicit source-expansion lifecycle and an offline-only SIOPE-Limeira pilot contract that separates a proven public surface from an unproven acquisition route.",
+  "source_expansion": {
+    "pilot_source": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
+    "institution": "FNDE",
+    "system": "SIOPE",
+    "public_surface": "VERIFIED_PUBLIC_SURFACE",
+    "public_access": "CITIZEN_NO_PASSWORD",
+    "pilot_scope": "LIMEIRA_SP_2024_CLOSED_EXERCISE_PROPOSED",
+    "lifecycle": [
+      "DISCOVERED",
+      "CONTRACT_VALIDATED",
+      "ONE_TIME_AUTHORIZED",
+      "LIVE_VALIDATED",
+      "RECURRENCE_ELIGIBLE"
+    ],
+    "current_state": "CONTRACT_VALIDATED",
+    "acquisition_route": "UNPROVEN",
+    "schema": "UNPROVEN",
+    "content_type": "UNPROVEN",
+    "collection_authorization": "PROHIBITED",
+    "source_processing": "PROHIBITED",
+    "recurrence": "PROHIBITED",
+    "schedule": "DISABLED",
+    "null_semantics": "MUST_BE_EXPLICIT_BEFORE_PROCESSING",
+    "financial_semantics": "REQUIRE_DOCUMENTED_CROSSWALK_BEFORE_INTERPRETATION"
+  },
+  "design_gate": {
+    "script": "scripts/github_source_expansion_design_gate.py",
+    "config": "config/source_expansion.siope_limeira_0_8_0.json",
+    "network": "PROHIBITED",
+    "remote_writes": "NONE",
+    "status": "PASS_M7_SOURCE_EXPANSION_DESIGN_GATE"
+  },
+  "safety": {
+    "active_release": "0.7.0",
+    "active_release_mutated": false,
+    "candidate_persistent_runtime": "BLOCKED_EVEN_WITH_CREDENTIALS",
+    "siope_collection": "NOT_AUTHORIZED",
+    "siope_processing": "NOT_AUTHORIZED",
+    "siope_recurrence": "NOT_AUTHORIZED",
+    "siope_schedule": "DISABLED",
+    "source_collection_rerun": "DISABLED_IN_PRODUCTION_WORKFLOW",
+    "source_processing_rerun": "DISABLED_IN_PRODUCTION_WORKFLOW",
+    "reconciliation_rerun": "DISABLED_IN_PRODUCTION_WORKFLOW",
+    "broad_reconciliation_execution": "DISABLED",
+    "financial_identity_auto_promotion": "PROHIBITED",
+    "reconciliation_matches": "CANDIDATE_ONLY",
+    "tda_limeira": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
+  },
+  "qa": {
+    "source_expansion_tests": "12/12 PASS",
+    "repository_unit_tests": "179/179 PASS",
+    "historical_regressions": "109/109 PASS",
+    "offline_preflight": "PASS 56/56 CHECKS",
+    "design_gate": "PASS_M7_SOURCE_EXPANSION_DESIGN_GATE",
+    "compileall": "PASS",
+    "ci_run": 32789574339,
+    "ci_run_number": 89,
+    "validated_commit": "2cc3c59cd18d3253ecfab4a999dcab9024f5a2ba"
+  },
+  "promotion_gate": "PASS_M7_OFFLINE_SOURCE_EXPANSION_DESIGN_VALIDATION",
+  "next_action": "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0"
+}

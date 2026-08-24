@@ -1,10 +1,13 @@
 {
   "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
   "current_active": "0.7.0",
-  "current_candidate": "NONE",
+  "current_candidate": "0.8.0",
   "last_active_validated": "0.7.0",
   "active_manifest": "release_manifest_v01_0.7.0_active.json",
+  "candidate_manifest": "release_manifest_v01_0.8.0.json",
   "preserved_candidate_manifest": "release_manifest_v01_0.7.0.json",
-  "promotion_gate": "PASS_M6_PRODUCT_OUTPUT_PUBLICATION_LIVE_GATE",
-  "next_action": "M7_CONTROLLED_SOURCE_EXPANSION_DESIGN_0_8_0"
+  "promotion_gate": "PENDING_M7_OFFLINE_SOURCE_EXPANSION_DESIGN_VALIDATION",
+  "design_validation": "PASS_M7_OFFLINE_SOURCE_EXPANSION_DESIGN_VALIDATION",
+  "operational_authorization": "NONE",
+  "next_action": "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0"
 }
