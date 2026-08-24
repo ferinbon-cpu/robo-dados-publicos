@@ -2,7 +2,11 @@
 
 ## Candidata corrente
 
-Nenhuma.
+**0.6.1 CANDIDATE — M4E primeiro processamento controlado do Bronze**
+
+Detalhes: `docs/RELEASE_NOTES_V01_0.6.1.md`.
+
+A candidata processa somente a edição 7310 já preservada no Bronze. Ela exige o hash, o tamanho e as métricas exatas do documento, grava derivados minimizados com nomes vinculados ao hash e não acessa novamente a origem pública. O gate ao vivo ainda está pendente.
 
 ## Release ativa corrente
 **0.6.0 ACTIVE — M4E primeira coleta controlada promovida**
@@ -36,3 +40,4 @@ Detalhes: `docs/RELEASE_NOTES_V01_0.6.0.md`.
 - `RELEASE_NOTES_V01_0.5.9_ACTIVE.md`
 - `RELEASE_NOTES_V01_0.6.0.md`
 - `RELEASE_NOTES_V01_0.6.0_ACTIVE.md`
+- `RELEASE_NOTES_V01_0.6.1.md`

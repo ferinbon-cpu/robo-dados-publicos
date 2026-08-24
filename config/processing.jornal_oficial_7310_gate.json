@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "gate": "M4E_FIRST_SOURCE_PROCESSING_GATE",
+  "source_id": "LIMEIRA_JORNAL_OFICIAL_EDICAO_7310",
+  "edition": 7310,
+  "publication_date": "2026-08-22",
+  "source_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_21082026170515.pdf",
+  "source_sha256": "78a23262023f6233cb59fdc78f1fadc196d0a7bbd52c418bbdd9244229f46680",
+  "source_bytes": 16952899,
+  "output_prefix": "LIMEIRA_JO_07310_78A23262023F",
+  "expected_pages": 76,
+  "expected_total_extracted_chars": 195540,
+  "expected_gold_events": 53,
+  "expected_rag_chunks": 148,
+  "expected_reconciliation_tasks": 68
+}

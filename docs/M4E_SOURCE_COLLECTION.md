@@ -39,6 +39,8 @@ python3 main.py run --auth oauth-env --source-config config/sources.json
 
 O primeiro gate controlado usou `config/sources.jornal_oficial_7310_gate.json`. Esse inventário contém uma única edição histórica validada e não autoriza coleta recorrente. O gate concluiu em 2026-08-24 com `PASS_GITHUB_SOURCE_COLLECTION_GATE`; a opção `confirm_source_collection` foi então retirada do workflow ativo para impedir repetição acidental. Consulte `docs/M4E_FIRST_SOURCE_COLLECTION_EVIDENCE_2026-08-24.md`.
 
+A candidata 0.6.1 não reabre esse inventário. Seu gate usa `config/processing.jornal_oficial_7310_gate.json` para processar somente a cópia já persistida no Bronze, recuperada pela referência privada do estado e novamente verificada por hash e tamanho. Consulte `docs/M4E_FIRST_SOURCE_PROCESSING_GATE_0.6.1.md`.
+
 Para validar planejamento sem rede nem escrita:
 
 ```bash

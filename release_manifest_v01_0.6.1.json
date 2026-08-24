@@ -1,0 +1,47 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.6.1",
+  "status": "CANDIDATE",
+  "milestone": "M4E_FIRST_SOURCE_PROCESSING_OFFLINE_READINESS",
+  "based_on_active": "0.6.0",
+  "processing_gate": {
+    "config": "config/processing.jornal_oficial_7310_gate.json",
+    "source_id": "LIMEIRA_JORNAL_OFICIAL_EDICAO_7310",
+    "edition": 7310,
+    "source_sha256": "78a23262023f6233cb59fdc78f1fadc196d0a7bbd52c418bbdd9244229f46680",
+    "source_bytes": 16952899,
+    "source_location": "PRIVATE_STATE_REMOTE_REFERENCE",
+    "origin_network": "PROHIBITED",
+    "bronze_recreation": "PROHIBITED"
+  },
+  "expected_processing": {
+    "pages": 76,
+    "total_extracted_chars": 195540,
+    "gold_events": 53,
+    "rag_chunks": 148,
+    "reconciliation_tasks": 68
+  },
+  "derived_layers": {
+    "02_SILVER": "pages_silver.jsonl",
+    "03_GOLD": ["events_gold.jsonl", "reconciliation_tasks.jsonl"],
+    "04_DOCUMENTOS": "edition_manifest.json",
+    "05_RAG": "chunks_rag.jsonl"
+  },
+  "offline_qa": {
+    "compileall": "PASS",
+    "unit_tests": "96/96 PASS",
+    "historical_regressions": "109/109 PASS",
+    "preflight": "PASS",
+    "secret_scan": "PASS"
+  },
+  "safety": {
+    "derived_output_idempotency": "HASH_NAMED_AND_REUSE_ONLY_IF_IDENTICAL",
+    "remote_identifiers_public_output": "PROHIBITED",
+    "financial_identity_auto_promotion": "PROHIBITED",
+    "recurring_collection": "DISABLED",
+    "workflow_schedule": "DISABLED",
+    "tda_limeira": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
+  },
+  "promotion_gate": "M4E_FIRST_SOURCE_PROCESSING_LIVE_GATE",
+  "next_action": "M4E_FIRST_SOURCE_PROCESSING_LIVE_GATE_0_6_1"
+}

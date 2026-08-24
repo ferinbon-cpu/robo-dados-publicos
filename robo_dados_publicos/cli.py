@@ -6,6 +6,7 @@ from robo_dados_publicos.orchestration.engine import Engine
 from robo_dados_publicos.state.registry import StateRegistry
 from robo_dados_publicos.storage.drive_rest import OAuthCredentials, TokenProvider, GcloudTokenProvider, EnvironmentAccessTokenProvider, DriveRESTClient
 from robo_dados_publicos.orchestration.cloud_runner import CloudLayout, CloudProductionRunner
+from robo_dados_publicos.orchestration.journal_runner import CloudJournalProcessingRunner
 from robo_dados_publicos.sources.inventory import load_source_inventory
 from robo_dados_publicos.discovery.portal_probe import PortalProbe
 from robo_dados_publicos.journal.official import JornalOficialLimeira
@@ -203,6 +204,21 @@ def cmd_journal_process(args):
     return 0 if out.get("status") == "PASS_DOCUMENT_PROCESSING" else 8
 
 
+def cmd_journal_process_cloud(args):
+    client = _drive_client(args.auth)
+    layout = _load_cloud_layout(args.cloud_config)
+    runner = CloudJournalProcessingRunner(client, layout, args.fixtures)
+    out = runner.run_processing(
+        args.processing_config,
+        state_name=args.state_name,
+        persist=not args.no_persist,
+        write_log=not args.no_log,
+        dry_run=args.dry_run,
+    )
+    print(json.dumps(out, ensure_ascii=False, indent=2))
+    return 0 if out.get("status") in {"PASS_CLOUD_JOURNAL_PROCESSING_GATE", "DRY_RUN"} else 10
+
+
 def cmd_reconciliation_plan(args):
     planner = ReconciliationPlanner()
     events = planner.read_jsonl(args.events_jsonl)
@@ -264,6 +280,7 @@ def build_parser():
     s=sub.add_parser('portal-probe'); s.add_argument('url'); s.add_argument('--out'); s.add_argument('--timeout',type=float,default=15.0); s.add_argument('--max-bytes',type=int,default=2000000); s.set_defaults(func=cmd_portal_probe)
     s=sub.add_parser('journal-discover'); s.add_argument('--url'); s.add_argument('--year',type=int); s.add_argument('--month',type=int); s.add_argument('--archive-class',choices=['modern','legacy'],default='modern'); s.add_argument('--emit-inventory'); s.add_argument('--timeout',type=float,default=20.0); s.add_argument('--max-pages',type=int,default=8); s.set_defaults(func=cmd_journal_discover)
     s=sub.add_parser('journal-process'); s.add_argument('--pdf',required=True); s.add_argument('--edition',required=True,type=int); s.add_argument('--publication-date'); s.add_argument('--source-url'); s.add_argument('--out-dir',required=True); s.add_argument('--no-stage-bronze',action='store_true'); s.add_argument('--no-plan-reconciliation',action='store_true'); s.add_argument('--min-total-chars',type=int,default=120); s.add_argument('--min-page-chars',type=int,default=20); s.add_argument('--sparse-page-ratio-stop',type=float,default=0.8); s.set_defaults(func=cmd_journal_process)
+    s=sub.add_parser('journal-process-cloud'); s.add_argument('--auth',choices=auth_choices,default=os.getenv('ROBO_DRIVE_AUTH','oauth-env')); s.add_argument('--cloud-config',default=str(DEFAULT_CLOUD_CONFIG)); s.add_argument('--fixtures',default=str(DEFAULT_FIXTURES)); s.add_argument('--processing-config',required=True); s.add_argument('--state-name',default='ROBOT_STATE.sqlite'); s.add_argument('--dry-run',action='store_true'); s.add_argument('--no-persist',action='store_true'); s.add_argument('--no-log',action='store_true'); s.set_defaults(func=cmd_journal_process_cloud)
     s=sub.add_parser('reconciliation-plan'); s.add_argument('--events-jsonl',required=True); s.add_argument('--out'); s.add_argument('--state-db'); s.set_defaults(func=cmd_reconciliation_plan)
     s=sub.add_parser('reconciliation-status'); s.add_argument('--state-db',default=str(DEFAULT_STATE)); s.add_argument('--filter-status'); s.set_defaults(func=cmd_reconciliation_status)
     s=sub.add_parser('reconciliation-execute'); s.add_argument('--state-db',default=str(DEFAULT_STATE)); s.add_argument('--work-dir',default=str(PACKAGE_ROOT / 'runtime' / 'reconciliation')); s.add_argument('--limit',type=int,default=10); s.add_argument('--target',action='append',choices=['LIMEIRA_CONTRATOS','TCE_SP_DESPESAS']); s.add_argument('--dry-run',action='store_true'); s.set_defaults(func=cmd_reconciliation_execute)
