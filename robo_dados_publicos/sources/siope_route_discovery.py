@@ -4,7 +4,9 @@ from dataclasses import dataclass
 from html import unescape
 import json
 import re
+import socket
 from pathlib import Path
+from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 
@@ -19,6 +21,19 @@ class SurfaceResponse:
     status: int
     content_type: str
     body: str
+
+
+def _network_error_code(exc: BaseException) -> str:
+    if isinstance(exc, HTTPError):
+        return f"STOP_SIOPE_ROUTE_HTTP_{int(exc.code)}"
+    if isinstance(exc, (TimeoutError, socket.timeout)):
+        return "STOP_SIOPE_ROUTE_TIMEOUT"
+    if isinstance(exc, URLError):
+        reason = getattr(exc, "reason", None)
+        if isinstance(reason, (TimeoutError, socket.timeout)):
+            return "STOP_SIOPE_ROUTE_TIMEOUT"
+        return "STOP_SIOPE_ROUTE_URL_ERROR"
+    return "STOP_SIOPE_ROUTE_NETWORK_ERROR"
 
 
 class PublicSurfaceClient:
@@ -39,17 +54,26 @@ class PublicSurfaceClient:
             },
             method="GET",
         )
-        with self.opener(req, timeout=20) as response:
-            status = int(getattr(response, "status", response.getcode()))
-            content_type = str(response.headers.get("Content-Type", "")).split(";", 1)[0].strip().lower()
-            raw = response.read(self.max_response_bytes + 1)
+        try:
+            with self.opener(req, timeout=20) as response:
+                final_url = str(getattr(response, "geturl", lambda: url)())
+                final = urlparse(final_url)
+                if final.scheme != "https" or final.hostname not in self.allowed_hosts:
+                    raise SiopeRouteDiscoveryError("STOP_SIOPE_ROUTE_REDIRECT_HOST_NOT_ALLOWED")
+                status = int(getattr(response, "status", response.getcode()))
+                content_type = str(response.headers.get("Content-Type", "")).split(";", 1)[0].strip().lower()
+                raw = response.read(self.max_response_bytes + 1)
+        except SiopeRouteDiscoveryError:
+            raise
+        except (HTTPError, URLError, TimeoutError, socket.timeout, OSError) as exc:
+            raise SiopeRouteDiscoveryError(_network_error_code(exc)) from exc
         if len(raw) > self.max_response_bytes:
             raise SiopeRouteDiscoveryError("STOP_SIOPE_ROUTE_RESPONSE_TOO_LARGE")
         if status != 200:
             raise SiopeRouteDiscoveryError("STOP_SIOPE_ROUTE_HTTP_STATUS")
         if content_type not in {"text/html", "application/xhtml+xml"}:
             raise SiopeRouteDiscoveryError("STOP_SIOPE_ROUTE_CONTENT_TYPE")
-        return SurfaceResponse(url, status, content_type, raw.decode("utf-8", errors="replace"))
+        return SurfaceResponse(final_url, status, content_type, raw.decode("utf-8", errors="replace"))
 
 
 def _normalize_html_text(html: str) -> str:
