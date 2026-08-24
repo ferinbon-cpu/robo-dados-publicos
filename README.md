@@ -6,11 +6,11 @@ Consolidação em software das capacidades metodológicas validadas nas versões
 
 **Software ativo:** 0.6.3 ACTIVE  
 **Candidata corrente:** 0.7.0 CANDIDATE  
-**Próximo gate:** M6 — validação offline da saída mínima de produto  
+**Próximo gate:** M6 — desenho da publicação controlada em `08_OUTPUTS`  
 **Dependências externas:** `pypdf==6.10.0` e `reportlab==5.0.0`  
 **Python:** 3.11+
 
-A 0.6.3 permanece a última release ativa validada. A 0.7.0 candidata acrescenta uma camada de produto local e determinística: `REPORT_CARD`, tabela compatível com o contrato de resposta e bundle com JSON, CSV, Markdown, HTML e PDF. O CSV é a fonte planejada para futura importação como Google Sheets em `08_OUTPUTS`, mas esta candidata ainda não publica nada no Drive.
+A 0.6.3 permanece a última release ativa validada. A 0.7.0 candidata acrescenta uma camada de produto local e determinística: `REPORT_CARD`, tabela compatível com o contrato de resposta e bundle com JSON, CSV, Markdown, HTML e PDF. O gate offline passou com 38/38 checks de preflight, 148/148 testes unitários, 13/13 testes específicos de produto e 109/109 regressões históricas. O CSV é a fonte planejada para futura importação como Google Sheets em `08_OUTPUTS`, mas esta candidata ainda não publica nada no Drive.
 
 Agendamento, recorrência, novas fontes e execução ampla da fila permanecem desabilitados. TCE-SP, TDA, licitações e SIAVE ficam fora deste gate; o TDA continua bloqueado sem endpoint/export público comprovado. Uma eventual correspondência gera somente evidência documental `CANDIDATE_ONLY`, nunca identidade financeira automática.
 
@@ -49,7 +49,7 @@ python scripts/build_product_output.py \
   --scope "Limeira/SP"
 ```
 
-O destino futuro está configurado como `08_OUTPUTS`, mas a publicação remota e a conversão de `table.csv` para Google Sheets **não estão implementadas nem autorizadas nesta candidata**. Isso será um gate separado após a validação do formato.
+A geração local foi validada no CI, inclusive PDF real com `reportlab==5.0.0`. O destino futuro está configurado como `08_OUTPUTS`, mas a publicação remota e a conversão de `table.csv` para Google Sheets **não estão implementadas nem autorizadas nesta candidata**. O próximo gate trata especificamente dessa publicação controlada.
 
 ## Execução persistente
 
@@ -89,7 +89,7 @@ A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTI
 
 Os contratos históricos permanecem em `config/sources.jornal_oficial_7310_gate.json`, `config/processing.jornal_oficial_7310_gate.json` e `config/reconciliation.first_contract_gate.json`, mas o workflow não oferece `confirm_source_collection`, `confirm_processing` nem `confirm_reconciliation`.
 
-Na candidata 0.7.0, o runtime persistente com OAuth não é autorizado pelo preflight; o gate corrente é exclusivamente offline e local para a camada de produto.
+Na candidata 0.7.0, o runtime persistente com OAuth continua bloqueado pelo preflight, mesmo quando credenciais estão presentes. A futura publicação em `08_OUTPUTS` ainda não está alcançável pelo workflow e será tratada em gate próprio.
 
 ## M5 — Observabilidade
 
