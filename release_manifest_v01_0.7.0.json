@@ -1,0 +1,67 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.7.0",
+  "status": "CANDIDATE",
+  "milestone": "M6_PRODUCT_MINIMAL_OUTPUT",
+  "based_on_active": "0.6.3",
+  "academic_basis": "MD_00.1 V02 - product/minimal output, explicit semantics and human-readable evidence boundaries",
+  "new_capability": "Deterministic local product bundle for human reading without turning presentation into evidence.",
+  "product_output": {
+    "report_card": "IMPLEMENTED",
+    "answer_contract_columns": [
+      "status",
+      "DADO",
+      "CÁLCULO",
+      "CORRESPONDÊNCIA",
+      "INTERPRETAÇÃO",
+      "CAUTELA",
+      "FONTES"
+    ],
+    "bundle_files": [
+      "report.json",
+      "report_card.json",
+      "table.csv",
+      "report.md",
+      "report.html",
+      "report.pdf",
+      "manifest.json"
+    ],
+    "report_statuses": [
+      "READY",
+      "READY_WITH_CAUTION",
+      "EVIDENCIA_INSUFICIENTE",
+      "NO_DATA"
+    ],
+    "pdf_renderer": "reportlab==5.0.0",
+    "drive_target": "08_OUTPUTS",
+    "google_sheets_import_source": "table.csv",
+    "drive_publication": "NOT_IMPLEMENTED_NOT_AUTHORIZED",
+    "presentation_is_evidence": false,
+    "sensitive_source_query_values": "REDACTED"
+  },
+  "qa": {
+    "product_output_tests": "PENDING",
+    "repository_unit_tests": "PENDING",
+    "historical_regressions": "PENDING",
+    "offline_preflight": "PENDING",
+    "compileall": "PENDING",
+    "ci_run": null,
+    "validated_commit": null
+  },
+  "safety": {
+    "active_release_mutated": false,
+    "active_release": "0.6.3",
+    "product_drive_writes": "NONE",
+    "source_collection_rerun": "DISABLED_IN_WORKFLOW",
+    "source_processing_rerun": "DISABLED_IN_WORKFLOW",
+    "reconciliation_rerun": "DISABLED_IN_WORKFLOW",
+    "broad_reconciliation_execution": "DISABLED",
+    "recurring_collection": "DISABLED",
+    "workflow_schedule": "DISABLED",
+    "financial_identity_auto_promotion": "PROHIBITED",
+    "reconciliation_matches": "CANDIDATE_ONLY",
+    "tda_limeira": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
+  },
+  "promotion_gate": "PENDING_M6_PRODUCT_MINIMAL_OUTPUT_OFFLINE_VALIDATION",
+  "next_action": "M6_PRODUCT_MINIMAL_OUTPUT_OFFLINE_GATE_0_7_0"
+}
