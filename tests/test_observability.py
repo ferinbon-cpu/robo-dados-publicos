@@ -18,7 +18,7 @@ class TestObservabilityCards(unittest.TestCase):
         data.update(overrides)
         return SourceCard(**data)
 
-    def run(self, **overrides):
+    def make_run(self, **overrides):
         data = {
             "run_id": "run-1",
             "source_id": "SOURCE_A",
@@ -37,7 +37,7 @@ class TestObservabilityCards(unittest.TestCase):
             self.source(expected_update_interval_hours=0)
 
     def test_run_card_exposes_latency_without_remote_identifiers(self):
-        payload = self.run().to_dict()
+        payload = self.make_run().to_dict()
         self.assertEqual(10.0, payload["latency_seconds"])
         self.assertNotIn("remote_id", payload)
 
@@ -56,7 +56,7 @@ class TestObservabilityCards(unittest.TestCase):
     def test_stale_source_is_not_hidden_by_success(self):
         health = evaluate_source_health(
             self.source(expected_update_interval_hours=24),
-            self.run(finished_at="2026-08-22T12:00:00+00:00"),
+            self.make_run(finished_at="2026-08-22T12:00:00+00:00"),
             now=datetime(2026, 8, 24, 12, 0, tzinfo=timezone.utc),
         )
         self.assertEqual("STALE", health["dimensions"]["freshness"]["status"])
@@ -65,7 +65,7 @@ class TestObservabilityCards(unittest.TestCase):
     def test_missing_records_fail_even_if_other_dimensions_pass(self):
         health = evaluate_source_health(
             self.source(),
-            self.run(records_in=10, records_out=9),
+            self.make_run(records_in=10, records_out=9),
             now=datetime(2026, 8, 24, 12, 1, tzinfo=timezone.utc),
         )
         self.assertEqual("INCOMPLETE", health["dimensions"]["completeness"]["status"])
@@ -74,7 +74,7 @@ class TestObservabilityCards(unittest.TestCase):
     def test_expected_absence_is_distinct_from_failure_and_zero(self):
         health = evaluate_source_health(
             self.source(expected_update_interval_hours=None),
-            self.run(
+            self.make_run(
                 status="EXPECTED_ABSENCE",
                 expected_absence=True,
                 records_in=0,
@@ -89,7 +89,7 @@ class TestObservabilityCards(unittest.TestCase):
     def test_validation_error_forces_fail(self):
         health = evaluate_source_health(
             self.source(),
-            self.run(warnings=("VALIDATION_ERROR",)),
+            self.make_run(warnings=("VALIDATION_ERROR",)),
             now=datetime(2026, 8, 24, 12, 1, tzinfo=timezone.utc),
         )
         self.assertEqual("FAIL", health["dimensions"]["consistency"]["status"])
@@ -98,7 +98,7 @@ class TestObservabilityCards(unittest.TestCase):
     def test_health_pass_keeps_dimensions_separate(self):
         health = evaluate_source_health(
             self.source(),
-            self.run(),
+            self.make_run(),
             now=datetime(2026, 8, 24, 12, 1, tzinfo=timezone.utc),
         )
         self.assertEqual("PASS", health["overall_status"])
