@@ -53,6 +53,7 @@ def main() -> int:
         "software_version_match": payload.get("software_version") == SOFTWARE_VERSION,
         "release_status_match": payload.get("release_status") == RELEASE_STATUS,
         "source_checks_pass": bool(payload.get("source_checks")) and all(payload["source_checks"].values()),
+        "extractor_checks_pass": bool(payload.get("extractor_checks")) and all(payload["extractor_checks"].values()),
         "artifact_checks_pass": bool(payload.get("artifact_checks")) and all(payload["artifact_checks"].values()),
         "processing_checks_pass": bool(payload.get("processing_checks")) and all(payload["processing_checks"].values()),
         "metrics_match": payload.get("metrics") == gate.expected_metrics(),
