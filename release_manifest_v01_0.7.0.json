@@ -36,7 +36,7 @@
     "pdf_linux_runner": "PASS",
     "drive_target": "08_OUTPUTS",
     "google_sheets_import_source": "table.csv",
-    "drive_publication": "CONTROLLED_ONE_TIME_GATE_IMPLEMENTED_NOT_EXECUTED",
+    "drive_publication": "CONTROLLED_ONE_TIME_GATE_READY_NOT_EXECUTED",
     "publication_scope": [
       "ONE_GOOGLE_SHEET",
       "ONE_PDF",
@@ -46,26 +46,28 @@
     "collision_policy": "STOP_BEFORE_WRITES",
     "completion_manifest": "WRITTEN_LAST",
     "csv_to_sheets_support": "CHECKED_DYNAMICALLY_BEFORE_WRITES",
+    "dry_run": "PASS_NO_NETWORK_NO_REMOTE_WRITES",
+    "partial_failure_policy": "REPORT_CREATED_COUNT_NO_AUTOMATIC_DELETE",
     "presentation_is_evidence": false,
     "sensitive_source_query_values": "REDACTED"
   },
   "qa": {
     "product_output_tests": "13/13 PASS",
-    "repository_unit_tests": "148/148 PASS_BEFORE_PUBLICATION_GATE_IMPLEMENTATION",
+    "publication_gate_tests": "8/8 PASS",
+    "publication_workflow_tests": "6/6 PASS",
+    "drive_conversion_transport_test": "1/1 PASS",
+    "repository_unit_tests": "163/163 PASS",
     "historical_regressions": "109/109 PASS",
-    "offline_preflight": "PASS 38/38 CHECKS_BEFORE_PUBLICATION_GATE_IMPLEMENTATION",
+    "offline_preflight": "PASS 49/49 CHECKS",
     "compileall": "PASS",
-    "publication_gate_tests": "PENDING",
-    "publication_workflow_tests": "PENDING",
-    "drive_conversion_transport_test": "PENDING",
-    "ci_run": 32785752692,
-    "ci_run_number": 65,
-    "validated_commit": "4f663d27416398e20572acb07103cb30089739dd"
+    "ci_run": 32786820165,
+    "ci_run_number": 75,
+    "validated_commit": "ad60d67c4c9e79e7e2c3ebf66551b6cff50c7a3f"
   },
   "safety": {
     "active_release_mutated": false,
     "active_release": "0.6.3",
-    "product_drive_writes": "GATE_DEFINED_NOT_EXECUTED",
+    "product_drive_writes": "NONE_YET",
     "candidate_persistent_runtime": "BLOCKED_EVEN_WITH_CREDENTIALS",
     "publication_requires_manual_confirmation": true,
     "publication_schedule": "DISABLED",
@@ -80,6 +82,6 @@
     "tda_limeira": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
   },
   "promotion_gate": "PASS_M6_PRODUCT_MINIMAL_OUTPUT_OFFLINE_VALIDATION",
-  "publication_gate": "PENDING_M6_CONTROLLED_PRODUCT_OUTPUT_PUBLICATION",
+  "publication_gate": "READY_MANUAL_M6_CONTROLLED_PRODUCT_OUTPUT_PUBLICATION",
   "next_action": "M6_PRODUCT_OUTPUT_CONTROLLED_PUBLICATION_GATE_0_7_0"
 }
