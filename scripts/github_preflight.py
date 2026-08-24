@@ -116,7 +116,8 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
         "upload_artifact_immutable_pin": UPLOAD_ARTIFACT_PIN in text,
         "observability_report_enabled": (
             "scripts/github_observability_report.py" in text
-            and "--evidence-output observability-input/run_gate.json" in text
+            and 'github_run_gate.py > "$RUNNER_TEMP/run_gate_raw.json"' in text
+            and '--input "$RUNNER_TEMP/run_gate_raw.json"' in text
             and "--github-summary" in text
         ),
         "checkout_credentials_not_persisted": "persist-credentials: false" in text,
