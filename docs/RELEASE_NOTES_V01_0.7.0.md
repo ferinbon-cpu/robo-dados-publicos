@@ -21,9 +21,20 @@ M6 — saída mínima de produto para leitura humana.
 - `table.csv` definido como fonte futura para importação em Google Sheets;
 - `08_OUTPUTS` definido como destino futuro da camada de produto.
 
+## Gate offline concluído
+
+CI `32785752692`, execução nº 65, commit `4f663d27416398e20572acb07103cb30089739dd`:
+
+- preflight: 38/38 PASS;
+- compileall: PASS;
+- unitários: 148/148 PASS;
+- testes específicos de produto: 13/13 PASS;
+- regressões históricas: 109/109 PASS;
+- instalação e geração real de PDF com `reportlab==5.0.0` no runner Linux: PASS.
+
 ## Segurança
 
-A candidata não publica nenhum arquivo no Drive e não adiciona rota de produto ao workflow de produção. O preflight confirma que `build_product_output.py` é local-only e que a camada de produto não está alcançável pelo workflow.
+A candidata não publica nenhum arquivo no Drive e não adiciona rota de produto ao workflow de produção. O preflight confirma que `build_product_output.py` é local-only e que a camada de produto não está alcançável pelo workflow. O runtime persistente da candidata permanece bloqueado mesmo com credenciais presentes.
 
 Coleta, processamento e reconciliação históricos permanecem sem rerun; agenda, recorrência e reconciliação ampla continuam desabilitadas; promoção automática de identidade financeira continua proibida.
 
@@ -33,4 +44,4 @@ A camada de apresentação não é evidência. Zero não é ausência. Evidênci
 
 ## Próximo gate
 
-CI offline completo: preflight, compileall, testes unitários — incluindo a camada de produto — e regressões históricas. Somente depois será decidido o gate de publicação controlada em `08_OUTPUTS` e a conversão do CSV para Google Sheets.
+`M6_PRODUCT_OUTPUT_CONTROLLED_PUBLICATION_DESIGN_0_7_0`: desenhar e validar separadamente a publicação manual em `08_OUTPUTS` e a conversão controlada de `table.csv` para Google Sheets. A candidata não será promovida para ACTIVE antes desse gate.
