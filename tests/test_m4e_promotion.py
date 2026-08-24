@@ -32,6 +32,45 @@ class TestM4EPromotion(unittest.TestCase):
         self.assertFalse(tda['production_collection_enabled'])
         self.assertFalse(journal['production_collection_enabled'])
 
+    def test_0_6_1_candidate_evidence_is_preserved_after_promotion(self):
+        candidate = self.load_json('release_manifest_v01_0.6.1.json')
+        active = self.load_json('release_manifest_v01_0.6.1_active.json')
+        self.assertEqual('CANDIDATE', candidate['status'])
+        self.assertEqual('ACTIVE', active['status'])
+        self.assertEqual('0.6.1', active['promoted_from_candidate'])
+
+    def test_0_6_1_live_processing_gate_and_metrics_are_recorded(self):
+        active = self.load_json('release_manifest_v01_0.6.1_active.json')
+        gate = active['live_gate']
+        evidence = active['processing_evidence']
+        self.assertEqual('PASS_GITHUB_JOURNAL_PROCESSING_GATE', gate['status'])
+        self.assertEqual(32761758504, gate['workflow_run'])
+        self.assertEqual(97541993609, gate['job'])
+        self.assertEqual(76, evidence['pages'])
+        self.assertEqual(53, evidence['gold_events'])
+        self.assertEqual(148, evidence['rag_chunks'])
+        self.assertEqual(68, evidence['reconciliation_tasks'])
+
+    def test_0_6_1_five_derived_hashes_are_publicly_auditable_without_remote_ids(self):
+        evidence = (self.root / 'docs/M4E_FIRST_SOURCE_PROCESSING_EVIDENCE_2026-08-24.md').read_text(encoding='utf-8')
+        expected_hashes = (
+            '687cd8b50d01ac17f06031544392164ed43cedffd0a61eadab50b0ad8b70afc3',
+            'b0f001358813e7cfae8e233dda2097ee29704033efc01c6f938731c5024c11b3',
+            'a4b0cae199f063ee333ed05117ce0785d652ba921990eaa89d9a477b1cd8b224',
+            '6211472565b096bf64c61205d9b4954381cfe476822dbe855ba8c338427ecdfe',
+            '29109cc1777e7abec102b67a780c1943d6500559c5aa91b78ce6dd749b0beac3',
+        )
+        self.assertTrue(all(value in evidence for value in expected_hashes))
+        self.assertIn('identificadores remotos: não publicados', evidence)
+
+    def test_0_6_1_processing_rerun_and_automatic_identity_are_disabled(self):
+        active = self.load_json('release_manifest_v01_0.6.1_active.json')
+        workflow = (self.root / '.github/workflows/robo-dados-publicos.yml').read_text(encoding='utf-8')
+        self.assertEqual('DISABLED_IN_WORKFLOW', active['safety']['source_processing_rerun'])
+        self.assertEqual('PROHIBITED', active['safety']['financial_identity_auto_promotion'])
+        self.assertNotIn('confirm_processing:', workflow)
+        self.assertNotIn('scripts/github_processing_gate.py', workflow)
+
 
 if __name__ == '__main__':
     unittest.main()
