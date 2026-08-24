@@ -9,6 +9,7 @@ import os
 import re
 import sys
 from pathlib import Path
+import pypdf
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -71,6 +72,9 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
             processing_gate.source_id == SOURCE_GATE_ID
             and processing_gate.source_sha256 == SOURCE_GATE_SHA256
             and processing_gate.source_bytes == SOURCE_GATE_BYTES
+            and processing_gate.extractor == "pypdf"
+            and processing_gate.extractor_version == "6.10.0"
+            and pypdf.__version__ == processing_gate.extractor_version
             and processing_gate.expected_metrics() == {
                 "pages": 76,
                 "total_extracted_chars": 195540,
@@ -78,6 +82,10 @@ def run_preflight(require_oauth: bool = False) -> tuple[dict, int]:
                 "rag_chunks": 148,
                 "reconciliation_tasks": 68,
             }
+        ),
+        "processing_dependency_pinned": (
+            "pypdf==6.10.0" in (ROOT / "requirements.txt").read_text(encoding="utf-8")
+            and "pypdf==6.10.0" in (ROOT / "pyproject.toml").read_text(encoding="utf-8")
         ),
         "workflow_processing_confirmation_required": "confirm_processing:" in text and "inputs.confirm_processing == true" in text,
         "workflow_processing_gate_explicit": "scripts/github_processing_gate.py --processing-config config/processing.jornal_oficial_7310_gate.json" in text,
