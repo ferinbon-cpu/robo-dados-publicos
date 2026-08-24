@@ -83,6 +83,8 @@ def write_gate(path: Path, *, source_sha256=None):
         "source_url": SOURCE_URL,
         "source_sha256": digest,
         "source_bytes": FIXTURE.stat().st_size,
+        "extractor": "pypdf",
+        "extractor_version": "6.10.0",
         "output_prefix": "LIMEIRA_JO_07310_TEST",
         "expected_pages": 2,
         "expected_total_extracted_chars": 843,
@@ -117,6 +119,16 @@ class TestCloudJournalProcessing(unittest.TestCase):
             path = Path(raw) / "gate.json"
             write_gate(path, source_sha256="bad")
             with self.assertRaisesRegex(ValueError, "PROCESSING_SOURCE_SHA256_INVALID"):
+                load_journal_processing_gate(path)
+
+    def test_gate_rejects_unapproved_extractor(self):
+        with tempfile.TemporaryDirectory() as raw:
+            path = Path(raw) / "gate.json"
+            write_gate(path)
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            payload["extractor"] = "other"
+            path.write_text(json.dumps(payload), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "PROCESSING_EXTRACTOR_INVALID"):
                 load_journal_processing_gate(path)
 
     def test_processing_passes_and_retry_reuses_identical_outputs(self):

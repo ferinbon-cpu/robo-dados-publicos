@@ -7,6 +7,8 @@
   "source_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_21082026170515.pdf",
   "source_sha256": "78a23262023f6233cb59fdc78f1fadc196d0a7bbd52c418bbdd9244229f46680",
   "source_bytes": 16952899,
+  "extractor": "pypdf",
+  "extractor_version": "6.10.0",
   "output_prefix": "LIMEIRA_JO_07310_78A23262023F",
   "expected_pages": 76,
   "expected_total_extracted_chars": 195540,

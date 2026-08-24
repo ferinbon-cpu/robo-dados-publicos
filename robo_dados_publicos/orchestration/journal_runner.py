@@ -5,6 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 import tempfile
+import pypdf
 
 from robo_dados_publicos.journal.gate import load_journal_processing_gate
 from robo_dados_publicos.journal.processing import JournalPdfProcessor
@@ -78,6 +79,18 @@ class CloudJournalProcessingRunner(CloudProductionRunner):
         if preflight["status"] != "PASS":
             return {"status": preflight["status"], "preflight": preflight, "secret_values_exposed": False}
 
+        extractor_checks = {
+            "extractor_name_match": gate.extractor == "pypdf",
+            "extractor_version_match": pypdf.__version__ == gate.extractor_version,
+        }
+        if not all(extractor_checks.values()):
+            return {
+                "status": "STOP_PROCESSING_EXTRACTOR_CONTRACT",
+                "extractor_checks": extractor_checks,
+                "expected_extractor": {"name": gate.extractor, "version": gate.extractor_version},
+                "secret_values_exposed": False,
+            }
+
         with tempfile.TemporaryDirectory() as td:
             scratch = Path(td)
             local_state = scratch / state_name
@@ -105,6 +118,7 @@ class CloudJournalProcessingRunner(CloudProductionRunner):
                     "status": "DRY_RUN",
                     "mode": "BRONZE_PROCESSING_PLANNED",
                     "source_checks": source_checks,
+                    "extractor_checks": extractor_checks,
                     "expected_metrics": gate.expected_metrics(),
                     "network_origin_called": False,
                     "drive_source_downloaded": False,
@@ -122,6 +136,7 @@ class CloudJournalProcessingRunner(CloudProductionRunner):
                 return {
                     "status": "STOP_PROCESSING_BRONZE_CONTRACT",
                     "source_checks": source_checks,
+                    "extractor_checks": extractor_checks,
                     "artifact_checks": artifact_checks,
                     "secret_values_exposed": False,
                 }
@@ -158,6 +173,7 @@ class CloudJournalProcessingRunner(CloudProductionRunner):
                 return {
                     "status": "STOP_PROCESSING_CONTRACT",
                     "source_checks": source_checks,
+                    "extractor_checks": extractor_checks,
                     "artifact_checks": artifact_checks,
                     "processing_checks": processing_checks,
                     "expected_metrics": gate.expected_metrics(),
@@ -185,6 +201,7 @@ class CloudJournalProcessingRunner(CloudProductionRunner):
                 "finished_at": self.now(),
                 "state_source": state_source,
                 "source_checks": source_checks,
+                "extractor_checks": extractor_checks,
                 "artifact_checks": artifact_checks,
                 "processing_checks": processing_checks,
                 "metrics": observed_metrics,

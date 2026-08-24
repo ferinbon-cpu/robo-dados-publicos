@@ -80,7 +80,7 @@ Para executar o gate uma única vez:
 5. marcar `confirm_processing`;
 6. acionar `Run workflow` uma vez.
 
-O PASS exige 76 páginas, 195.540 caracteres extraídos, 53 eventos Gold, 148 chunks RAG e 68 tarefas, além dos hashes dos cinco derivados, estado remoto substituído e log append-only. O resumo público não contém IDs do Drive. Consulte `docs/M4E_FIRST_SOURCE_PROCESSING_GATE_0.6.1.md`.
+O PASS exige `pypdf==6.10.0`, 76 páginas, 195.540 caracteres extraídos, 53 eventos Gold, 148 chunks RAG e 68 tarefas, além dos hashes dos cinco derivados, estado remoto substituído e log append-only. O resumo público não contém IDs do Drive. A primeira tentativa parou com segurança ao detectar o pin legado `pypdf==5.9.0`; nenhum derivado foi gravado. Consulte `docs/M4E_FIRST_SOURCE_PROCESSING_GATE_0.6.1.md`.
 
 ## Gate futuro: agendamento
 Nenhum PASS habilita agendamento automaticamente. Antes de ativar `schedule`, ainda é necessário escolher a cadência e aprovar um inventário recorrente separado. O inventário da edição 7310 é de uso único e não pode ser convertido silenciosamente em rotina. O GitHub Actions aceita cron POSIX e `timezone` IANA. Exemplo ainda não ativo para 03:17 em São Paulo:

@@ -18,6 +18,7 @@ No workflow `ROBO DADOS PUBLICOS`:
 - versão `0.6.1`, status `CANDIDATE`;
 - referência privada do Bronze presente no estado remoto;
 - hash e tamanho do PDF exatamente iguais ao contrato;
+- extrator `pypdf` na versão exata `6.10.0`;
 - `PASS_DOCUMENT_PROCESSING`;
 - 76 páginas, 195.540 caracteres, 53 eventos, 148 chunks e 68 tarefas;
 - cinco derivados criados ou reutilizados somente após hash idêntico;
@@ -35,3 +36,7 @@ No workflow `ROBO DADOS PUBLICOS`:
 - execução dos resolvers de contratos ou TCE-SP;
 - TDA;
 - promoção automática de identidade financeira.
+
+## Tentativa segura registrada
+
+O primeiro acionamento, run `32758683064`, parou em `STOP_PROCESSING_CONTRACT` antes de gravar derivados. A origem do desvio foi o pin legado `pypdf==5.9.0`, não o PDF, o OAuth ou o Drive. O gate agora também trava a versão do extrator.

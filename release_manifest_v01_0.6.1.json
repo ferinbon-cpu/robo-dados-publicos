@@ -11,6 +11,7 @@
     "source_sha256": "78a23262023f6233cb59fdc78f1fadc196d0a7bbd52c418bbdd9244229f46680",
     "source_bytes": 16952899,
     "source_location": "PRIVATE_STATE_REMOTE_REFERENCE",
+    "extractor": "pypdf==6.10.0",
     "origin_network": "PROHIBITED",
     "bronze_recreation": "PROHIBITED"
   },
@@ -29,11 +30,20 @@
   },
   "offline_qa": {
     "compileall": "PASS",
-    "unit_tests": "96/96 PASS",
+    "unit_tests": "97/97 PASS",
     "historical_regressions": "109/109 PASS",
     "preflight": "PASS",
     "secret_scan": "PASS"
   },
+  "live_attempts": [
+    {
+      "run": 32758683064,
+      "status": "STOP_PROCESSING_CONTRACT",
+      "cause": "EXTRACTOR_VERSION_DRIFT_PYPDF_5_9_0",
+      "writes": "NONE",
+      "remediation": "PIN_AND_GATE_PYPDF_6_10_0"
+    }
+  ],
   "safety": {
     "derived_output_idempotency": "HASH_NAMED_AND_REUSE_ONLY_IF_IDENTICAL",
     "remote_identifiers_public_output": "PROHIBITED",
