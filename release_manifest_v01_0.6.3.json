@@ -2,10 +2,10 @@
   "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
   "version": "0.6.3",
   "status": "CANDIDATE",
-  "milestone": "M5_OBSERVABILITY_OFFLINE_READINESS",
+  "milestone": "M5_OBSERVABILITY_RUNTIME_REPORT_READINESS",
   "based_on_active": "0.6.2",
   "academic_basis": "MD_00.1 V02 - observability, Data Cards, completeness and metadata governance",
-  "new_capability": "Read-only observability contracts for sources, runs and metrics with explicit multidimensional health semantics.",
+  "new_capability": "Read-only typed observability plus sanitized operator-facing GitHub Summary and per-run artifact.",
   "observability": {
     "source_card": "IMPLEMENTED",
     "run_card": "IMPLEMENTED",
@@ -20,17 +20,24 @@
     "hidden_composite_score": "PROHIBITED",
     "expected_absence_distinct_from_zero_and_failure": true,
     "first_source_card": "config/observability.jornal_oficial_7310.json",
-    "one_time_source_freshness_threshold": "NOT_CONFIGURED_BY_DESIGN"
+    "one_time_source_freshness_threshold": "NOT_CONFIGURED_BY_DESIGN",
+    "github_step_summary": "ENABLED_AFTER_RUNTIME_GATE",
+    "github_run_artifact": "observability-report-<github.run_id>",
+    "artifact_retention_days": 30,
+    "raw_gate_evidence": "RUNNER_TEMP_ONLY_NOT_UPLOADED",
+    "operator_projection": "ALLOWLIST_ONLY",
+    "runtime_failure_propagation": "FAIL_CLOSED_AFTER_REPORT_ATTEMPT"
   },
   "qa": {
-    "targeted_observability_tests": "9/9 PASS",
-    "repository_unit_tests": "121/121 PASS",
-    "historical_regressions": "PASS",
-    "offline_preflight": "PASS",
+    "typed_observability_tests": "9/9 PASS",
+    "operator_report_tests": "9/9 PASS",
+    "repository_unit_tests": "130/130 PASS",
+    "historical_regressions": "109/109 PASS",
+    "offline_preflight": "PASS 31/31 CHECKS",
     "compileall": "PASS",
-    "ci_run": 32781313380,
-    "ci_run_number": 35,
-    "validated_commit": "69daed7f04d1f9a1aafb2a817ff387eeab567c22"
+    "ci_run": 32782156537,
+    "ci_run_number": 48,
+    "validated_commit": "9408783ff07ff0c85fd247a84486f2bc76411801"
   },
   "safety": {
     "active_release_mutated": false,
@@ -46,6 +53,7 @@
     "reconciliation_matches": "CANDIDATE_ONLY",
     "tda_limeira": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
   },
-  "promotion_gate": "PASS_M5_OBSERVABILITY_OFFLINE_VALIDATION",
-  "next_action": "REVIEW_0_6_3_CANDIDATE_FOR_PROMOTION"
+  "promotion_gate": "PASS_M5_OBSERVABILITY_CONSOLIDATED_OFFLINE_VALIDATION",
+  "live_gate": "PENDING_M5_OBSERVABILITY_RUNTIME_REPORT_GATE",
+  "next_action": "M5_OBSERVABILITY_RUNTIME_REPORT_GATE_0_6_3"
 }
