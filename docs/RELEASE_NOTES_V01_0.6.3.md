@@ -19,6 +19,7 @@ Transformar a evidência sanitizada de cada execução em uma leitura operaciona
 - nenhuma leitura adicional da origem;
 - nenhuma escrita nova em `01_BRONZE`, `02_SILVER`, `03_GOLD`, `06_BANCOS`, `07_LOGS` ou `08_OUTPUTS`;
 - o relatório deriva somente da evidência já sanitizada do gate;
+- a evidência intermediária fica no diretório temporário do runner, não aparece nos logs e não integra o artefato;
 - presença declarada de segredo ou identificador remoto encerra o relatório em `STOP_UNSAFE_INPUT_CONTRACT`;
 - coleta, processamento, reconciliação, recorrência e agendamento continuam desabilitados;
 - a versão ativa 0.6.2 permanece preservada.
