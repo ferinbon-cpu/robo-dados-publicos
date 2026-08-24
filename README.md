@@ -5,14 +5,14 @@ Consolidação em software das capacidades metodológicas validadas nas versões
 ## Estado desta release
 
 **Software ativo:** 0.6.1 ACTIVE  
-**Candidata corrente:** nenhuma  
-**Próximo gate:** M4E primeira execução controlada da fila de reconciliação  
+**Candidata corrente:** 0.6.2 CANDIDATE  
+**Próximo gate:** M4E primeira execução ao vivo de uma única tarefa `LIMEIRA_CONTRATOS`  
 **Dependências externas:** `pypdf==6.10.0` para processamento textual determinístico de PDFs  
 **Python:** 3.11+
 
-A 0.6.1 está ativa após o gate GitHub ao vivo processar exclusivamente o PDF imutável da edição 7310 já preservado no Bronze. O gate reconfirmou hash, tamanho e `pypdf==6.10.0`, gerou cinco derivados, persistiu 68 tarefas, substituiu o estado remoto e criou log append-only. A origem pública não foi chamada e nenhum identificador remoto foi publicado. As opções de repetir a coleta e o processamento foram retiradas do workflow.
+A 0.6.1 permanece ativa após o primeiro processamento controlado. A candidata 0.6.2 prepara o próximo passo sem executá-lo automaticamente: seleciona deterministicamente uma única tarefa `READY_SEARCH` de `LIMEIRA_CONTRATOS`, aceita apenas `MATCH_CANDIDATE` ou `NO_MATCH` e só substitui o estado remoto após todos os checks passarem.
 
-Agendamento, recorrência, novas fontes e execução da fila de reconciliação permanecem desabilitados até gates próprios. O TDA continua bloqueado sem endpoint/export público comprovado e nenhuma correspondência é promovida automaticamente a identidade financeira.
+Agendamento, recorrência, novas fontes e execução ampla da fila permanecem desabilitados. TCE-SP, TDA, licitações e SIAVE ficam fora deste gate; o TDA continua bloqueado sem endpoint/export público comprovado. Uma eventual correspondência gera somente evidência documental `CANDIDATE_ONLY`, nunca identidade financeira automática.
 
 ## Testes
 
@@ -57,9 +57,9 @@ python3 main.py run --auth oauth-env --source-config config/sources.json --dry-r
 A configuração canônica está em `config/cloud.json`. O preflight exige as camadas `00_DOCUMENTACAO` a `12_SOFTWARE` e `START_HERE_ROBO_DADOS_PUBLICOS`.
 
 ## Deploy
-A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTIONS_DEPLOY.md`). Execute primeiro `python scripts/github_preflight.py`; o resultado esperado sem credenciais é `PASS_OFFLINE`. A coleta e o processamento M4E da edição 7310 foram validados. Novas fontes, repetição da coleta, repetição do processamento, recorrência e agenda continuam desabilitadas até gates próprios.
+A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTIONS_DEPLOY.md`). Execute primeiro `python scripts/github_preflight.py`; o resultado esperado sem credenciais é `PASS_OFFLINE`. A coleta e o processamento M4E da edição 7310 já foram validados. A candidata 0.6.2 expõe apenas um gate manual e limitado de reconciliação; novas fontes, repetição da coleta, repetição do processamento, recorrência e agenda continuam desabilitadas.
 
-Os contratos históricos permanecem em `config/sources.jornal_oficial_7310_gate.json` e `config/processing.jornal_oficial_7310_gate.json`, mas o workflow ativo não oferece `confirm_source_collection` nem `confirm_processing`. A única confirmação disponível mantém-se restrita à persistência de infraestrutura.
+Os contratos históricos permanecem em `config/sources.jornal_oficial_7310_gate.json` e `config/processing.jornal_oficial_7310_gate.json`, mas o workflow não oferece `confirm_source_collection` nem `confirm_processing`. A 0.6.2 acrescenta `confirm_reconciliation`, que somente funciona junto da confirmação de persistência e aplica `config/reconciliation.first_contract_gate.json`.
 
 
 ## M4E.1 — Portal discovery
@@ -147,3 +147,5 @@ python3 main.py reconciliation-execute \
 ```
 
 Estados como `MATCH_CANDIDATE`, `NO_MATCH`, `STOP_SCHEMA_UNKNOWN` e `STOP_CONTRACT_FORM_UNPROVEN` são persistidos no SQLite. `MATCH_CANDIDATE` significa somente que a fonte-alvo retornou registros compatíveis com as chaves de busca; não significa que o gasto pertença ao contrato/ato publicado.
+
+Na candidata 0.6.2, o workflow manual usa `scripts/github_reconciliation_gate.py` para executar no máximo uma tarefa de `LIMEIRA_CONTRATOS`. O gate falha fechado: qualquer resultado fora de `MATCH_CANDIDATE`/`NO_MATCH`, qualquer alteração em alvos protegidos ou qualquer tentativa de gerar `financial_identity` impede a substituição do estado e a criação do log.
