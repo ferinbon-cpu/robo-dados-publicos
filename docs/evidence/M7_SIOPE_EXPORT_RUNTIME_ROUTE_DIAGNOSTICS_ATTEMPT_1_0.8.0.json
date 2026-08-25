@@ -1,0 +1,22 @@
+{
+  "gate_id": "M7_SIOPE_EXPORT_RUNTIME_ROUTE_DIAGNOSTICS_GATE_0_8_0",
+  "run_id": 32799171860,
+  "artifact_id": 9545906689,
+  "head_sha": "4eda2d7a88c6db8b98bbfebff6d663444e82efbd",
+  "status": "PASS_M7_SIOPE_EXPORT_RUNTIME_ROUTE_DIAGNOSTICS_GATE",
+  "diagnostic_status": "POST_CLICK_REQUEST_SHAPES_OBSERVED_NOT_SENT",
+  "post_click_aborted_request_count": 104,
+  "eligible_event_count": 1,
+  "excluded_resource_type_count": 103,
+  "unique_route_shape_count": 1,
+  "observed_eligible_route": "https://www.fnde.gov.br/plataforma-antonieta-de-barros/favicon.ico",
+  "candidate_route_network_sent": false,
+  "artifact_downloaded": false,
+  "head_request_performed": false,
+  "remote_writes": "NONE",
+  "collection_authorized": false,
+  "processing_authorized": false,
+  "recurrence_authorized": false,
+  "schedule_enabled": false,
+  "decision": "RESOURCE_TYPE_FILTER_TOO_NARROW_FOR_RUNTIME_EVIDENCE_REVIEW"
+}
