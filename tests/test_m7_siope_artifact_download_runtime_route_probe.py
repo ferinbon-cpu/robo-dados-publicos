@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import subprocess
+import sys
 import unittest
 
 from robo_dados_publicos.sources.siope_artifact_download_runtime_route_probe import (
@@ -15,6 +17,7 @@ from robo_dados_publicos.sources.siope_export_runtime_route_probe import SiopeRu
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "config" / "source_expansion.siope_artifact_download_runtime_route_probe_gate.json"
 WORKFLOW_PATH = ROOT / ".github" / "workflows" / "siope-artifact-download-runtime-route-probe-gate.yml"
+SCRIPT_PATH = ROOT / "scripts" / "github_siope_artifact_download_runtime_route_probe_gate.py"
 
 
 class FakeRuntime:
@@ -95,6 +98,22 @@ class TestM7SiopeArtifactDownloadRuntimeRouteProbe(unittest.TestCase):
         events = [{"url": "https://www.fnde.gov.br/a", "method": "GET", "resource_type": "XHR"}]
         with self.assertRaises(SiopeRuntimeRouteProbeError):
             probe_artifact_download_runtime_route(self.config, runtime=FakeRuntime(events, metadata_count=1, candidate_sent=True))
+
+    def test_direct_script_dry_run_bootstraps_repo_root_without_network(self):
+        completed = subprocess.run(
+            [sys.executable, str(SCRIPT_PATH), "--dry-run"],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            timeout=10,
+            check=False,
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        payload = json.loads(completed.stdout)
+        self.assertEqual(payload["status"], "PASS_M7_SIOPE_ARTIFACT_DOWNLOAD_RUNTIME_ROUTE_PROBE_DRY_RUN")
+        self.assertFalse(payload["network_called"])
+        self.assertFalse(payload["candidate_route_network_sent"])
+        self.assertFalse(payload["artifact_downloaded"])
 
     def test_workflow_is_manual_read_only_and_full_qa_precedes_live(self):
         text = WORKFLOW_PATH.read_text(encoding="utf-8")
