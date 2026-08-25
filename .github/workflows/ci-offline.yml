@@ -59,6 +59,9 @@ jobs:
       - name: Gate M7 de desenho da consistência de valores SIOPE
         run: python scripts/github_siope_public_runtime_control_value_consistency_diagnostics_design_gate.py
 
+      - name: Gate M7 de consistência booleana SIOPE (dry-run)
+        run: python scripts/github_siope_public_runtime_control_value_consistency_diagnostics_gate.py --dry-run
+
       - name: Compilar
         run: python -m compileall -q .
 
