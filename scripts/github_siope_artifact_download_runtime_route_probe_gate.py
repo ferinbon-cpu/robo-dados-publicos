@@ -39,13 +39,23 @@ def _safety(status: str, reason: str | None = None, diagnostics: dict | None = N
     return out
 
 
+def _emit(result: dict, output: str | None) -> None:
+    text = json.dumps(result, indent=2, sort_keys=True) + "\n"
+    if output:
+        path = Path(output)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding="utf-8")
+    print(text, end="")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--output")
     args = parser.parse_args()
     config = load_artifact_download_runtime_route_probe_config(CONFIG)
     if args.dry_run:
-        print(json.dumps(_safety("PASS_M7_SIOPE_ARTIFACT_DOWNLOAD_RUNTIME_ROUTE_PROBE_DRY_RUN"), indent=2, sort_keys=True))
+        _emit(_safety("PASS_M7_SIOPE_ARTIFACT_DOWNLOAD_RUNTIME_ROUTE_PROBE_DRY_RUN"), args.output)
         return 0
     try:
         result = probe_artifact_download_runtime_route(config)
@@ -55,10 +65,10 @@ def main() -> int:
             reason=str(exc),
             diagnostics=getattr(exc, "diagnostics", None),
         )
-        print(json.dumps(result, indent=2, sort_keys=True))
+        _emit(result, args.output)
         return 29
     result["network_called"] = True
-    print(json.dumps(result, indent=2, sort_keys=True))
+    _emit(result, args.output)
     return 0
 
 
