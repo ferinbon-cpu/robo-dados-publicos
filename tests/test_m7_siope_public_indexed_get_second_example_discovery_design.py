@@ -76,7 +76,19 @@ class TestM7SiopePublicIndexedGetSecondExampleDiscoveryDesign(unittest.TestCase)
         module = (ROOT / "robo_dados_publicos" / "sources" / "siope_public_indexed_get_second_example_discovery_design.py").read_text(encoding="utf-8")
         script = (ROOT / "scripts" / "github_siope_public_indexed_get_second_example_discovery_design_gate.py").read_text(encoding="utf-8")
         combined = module + "\n" + script
-        for forbidden in ("import requests", "from requests", "import urllib", "from urllib", "import websocket", "from websocket", "Page.navigate", "Fetch.enable", "cod_muni=352690"):
+        self.assertIn("from urllib.parse import urlparse", combined)
+        for forbidden in (
+            "import requests",
+            "from requests",
+            "import urllib.request",
+            "from urllib.request",
+            "urlopen(",
+            "import websocket",
+            "from websocket",
+            "Page.navigate",
+            "Fetch.enable",
+            "cod_muni=352690",
+        ):
             self.assertNotIn(forbidden, combined)
 
     def test_future_candidate_requires_review_gate(self):
