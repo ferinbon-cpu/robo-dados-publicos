@@ -1,0 +1,43 @@
+{
+  "gate_id": "M7_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS_0_8_0",
+  "software_version": "0.8.0",
+  "run_id": 32870216895,
+  "run_number": 2,
+  "head_sha": "0decfb9407f7e0ea9dbd94d3ad0564dd7bbedb55",
+  "artifact_id": 9571753395,
+  "artifact_name": "siope-public-get-runtime-route-diagnostics-32870216895",
+  "artifact_sha256": "ccb19549da476ce5b30cabee5c39f4866ea60a71beb772a125e0384ae8cbb3c0",
+  "status": "STOP_M7_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS",
+  "stop_reason": "STOP_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS_PUBLIC_SURFACE_NOT_VERIFIED",
+  "qa": {
+    "unit_tests": 416,
+    "unit_tests_status": "PASS",
+    "historical_regressions": 109,
+    "historical_regressions_status": "PASS",
+    "runtime_dependency_preflight": "PASS_M7_SIOPE_RUNTIME_DEPENDENCY_PREFLIGHT"
+  },
+  "failure_telemetry_limitation": {
+    "present": true,
+    "detail": "The attempt-2 STOP occurred before run_probe returned, so the legacy closed-result fallback did not preserve the initial-document counter, page state, navigation state, or sanitized blocked-request shapes. The false safety defaults in that STOP artifact must not be interpreted as proof that the exact public document was not continued."
+  },
+  "safety": {
+    "pilot_limeira_values_sent": false,
+    "dynamic_candidate_network_sent": false,
+    "form_submission": false,
+    "captcha_bypass": false,
+    "authentication_performed": false,
+    "credentials_captured": false,
+    "cookies_captured": false,
+    "request_body_persisted": false,
+    "response_body_persisted": false,
+    "query_values_persisted": false,
+    "head_request_performed": false,
+    "artifact_downloaded": false,
+    "remote_writes": "NONE",
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false
+  },
+  "next_action": "PATCH_FAILURE_TELEMETRY_WITHOUT_RELAXING_NETWORK_ALLOWLIST"
+}
