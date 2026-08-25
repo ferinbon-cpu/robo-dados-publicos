@@ -12,7 +12,9 @@ from urllib.request import Request, urlopen
 
 
 class SiopeDownloadRouteDiscoveryError(RuntimeError):
-    pass
+    def __init__(self, message: str, *, diagnostics: dict | None = None):
+        super().__init__(message)
+        self.diagnostics = diagnostics or {}
 
 
 @dataclass(frozen=True)
@@ -139,6 +141,50 @@ def extract_declared_script_urls(html: str, *, page_url: str, allowed_hosts: tup
     return tuple(found)
 
 
+def summarize_public_page_markers(html: str) -> dict:
+    lower = html.lower()
+    inline_scripts = re.findall(
+        r"<script\b(?![^>]*\bsrc\s*=)[^>]*>(.*?)</script\s*>",
+        html,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    event_attrs = re.findall(
+        r"\bon[a-z]+\s*=\s*['\"]([^'\"]*)['\"]",
+        html,
+        flags=re.IGNORECASE,
+    )
+    data_attrs = re.findall(
+        r"\bdata-[a-z0-9_-]+\s*=\s*['\"]([^'\"]*)['\"]",
+        html,
+        flags=re.IGNORECASE,
+    )
+    href_action_attrs = re.findall(
+        r"\b(?:href|action)\s*=\s*['\"]([^'\"]*)['\"]",
+        html,
+        flags=re.IGNORECASE,
+    )
+    export_terms = ("download", "export", "artefato", "artifact")
+    return {
+        "export_label_present": "exportar artefato" in lower,
+        "inline_script_count": len(inline_scripts),
+        "inline_script_export_marker_count": sum(
+            1 for value in inline_scripts if any(term in value.lower() for term in export_terms)
+        ),
+        "inline_event_attribute_count": len(event_attrs),
+        "inline_event_export_marker_count": sum(
+            1 for value in event_attrs if any(term in value.lower() for term in export_terms)
+        ),
+        "data_attribute_count": len(data_attrs),
+        "data_attribute_export_marker_count": sum(
+            1 for value in data_attrs if any(term in value.lower() for term in export_terms)
+        ),
+        "href_action_count": len(href_action_attrs),
+        "href_action_export_marker_count": sum(
+            1 for value in href_action_attrs if any(term in value.lower() for term in export_terms)
+        ),
+    }
+
+
 def _sanitize_public_candidate(url: str) -> dict:
     parsed = urlparse(url)
     clean = urlunparse((parsed.scheme, parsed.netloc, parsed.path, "", "", ""))
@@ -206,6 +252,7 @@ def discover_download_route(config: dict, *, client: ReadOnlyDeclaredResourceCli
     if config["required_artifact_path"] not in page.body:
         raise SiopeDownloadRouteDiscoveryError("STOP_SIOPE_DOWNLOAD_ROUTE_ARTIFACT_NOT_DECLARED")
 
+    page_markers = summarize_public_page_markers(page.body)
     script_urls = extract_declared_script_urls(
         page.body,
         page_url=page.url,
@@ -227,7 +274,7 @@ def discover_download_route(config: dict, *, client: ReadOnlyDeclaredResourceCli
     script_failures: list[dict] = []
     fetched_scripts = 0
     total_script_bytes = 0
-    for script_url in script_urls:
+    for script_index, script_url in enumerate(script_urls, start=1):
         if total_script_bytes >= int(config["max_total_script_bytes"]):
             break
         remaining = int(config["max_total_script_bytes"]) - total_script_bytes
@@ -239,7 +286,7 @@ def discover_download_route(config: dict, *, client: ReadOnlyDeclaredResourceCli
                 allowed_content_types=("text/javascript", "application/javascript", "application/x-javascript", "text/plain"),
             )
         except SiopeDownloadRouteDiscoveryError as exc:
-            script_failures.append({"script_index": fetched_scripts + 1, "reason": str(exc)})
+            script_failures.append({"script_index": script_index, "reason": str(exc)})
             continue
         fetched_scripts += 1
         total_script_bytes += script.byte_count
@@ -261,8 +308,24 @@ def discover_download_route(config: dict, *, client: ReadOnlyDeclaredResourceCli
             keys.add(key)
             unique.append(item)
 
+    diagnostics = {
+        "page_verified": True,
+        "artifact_declared": True,
+        "page_bytes": page.byte_count,
+        "declared_script_count": len(script_urls),
+        "fetched_script_count": fetched_scripts,
+        "script_failure_count": len(script_failures),
+        "script_failures": script_failures,
+        "total_fetched_script_bytes": total_script_bytes,
+        "page_markers": page_markers,
+        "route_candidate_count": len(unique),
+    }
+
     if not unique:
-        raise SiopeDownloadRouteDiscoveryError("STOP_SIOPE_DOWNLOAD_ROUTE_NOT_EXPLICITLY_DISCOVERED")
+        raise SiopeDownloadRouteDiscoveryError(
+            "STOP_SIOPE_DOWNLOAD_ROUTE_NOT_EXPLICITLY_DISCOVERED",
+            diagnostics=diagnostics,
+        )
 
     return {
         "status": "PASS_M7_SIOPE_DOWNLOAD_ROUTE_DISCOVERY_GATE",
@@ -270,12 +333,7 @@ def discover_download_route(config: dict, *, client: ReadOnlyDeclaredResourceCli
         "software_version": config["software_version"],
         "network_called": True,
         "network_method": "GET_ONLY",
-        "page_verified": True,
-        "declared_script_count": len(script_urls),
-        "fetched_script_count": fetched_scripts,
-        "script_failure_count": len(script_failures),
-        "script_failures": script_failures,
-        "route_candidate_count": len(unique),
+        **diagnostics,
         "route_candidates": unique[:12],
         "artifact_downloaded": False,
         "head_request_performed": False,
