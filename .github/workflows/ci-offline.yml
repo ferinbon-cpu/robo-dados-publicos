@@ -50,6 +50,9 @@ jobs:
       - name: Gate M7 de desenho da interação controlada SIOPE
         run: python scripts/github_siope_public_runtime_control_interaction_diagnostics_design_gate.py
 
+      - name: Gate M7 de inventário DOM SIOPE (dry-run)
+        run: python scripts/github_siope_public_runtime_control_inventory_gate.py --dry-run
+
       - name: Compilar
         run: python -m compileall -q .
 
