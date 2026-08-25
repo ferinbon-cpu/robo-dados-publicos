@@ -8,6 +8,7 @@ import unittest
 
 from robo_dados_publicos.sources.siope_download_route_discovery import TextResponse
 from robo_dados_publicos.sources.siope_public_indexed_get_contract import (
+    SiopePublicIndexedGetContractError,
     load_public_indexed_get_contract_config,
     verify_public_indexed_get_contract,
 )
@@ -58,12 +59,14 @@ class TestM7SiopePublicIndexedGetContract(unittest.TestCase):
         self.assertTrue(self.cfg["verification_rules"]["send_exact_indexed_example_only"])
         self.assertFalse(self.cfg["verification_rules"]["send_pilot_limeira_values"])
         self.assertEqual(self.cfg["verification_rules"]["methods"], ["GET"])
+        self.assertEqual(self.cfg["human_challenge_required_markers"], ["validar o captcha"])
 
     def test_no_captcha_passes_to_runtime_route_diagnostics_without_query_values_in_evidence(self):
         body = "<h1>Dados Informados pelos Municípios</h1>Buscando planilhas... por favor aguarde! Buscando dados... por favor aguarde!"
         fake = FakeClient(body)
         result = verify_public_indexed_get_contract(self.cfg, client=fake)
         self.assertEqual(result["status"], "PASS_M7_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_GATE")
+        self.assertEqual(result["surface_verified_by"], "EXACT_HEADING")
         self.assertFalse(result["captcha_component_present"])
         self.assertFalse(result["human_challenge_active"])
         self.assertEqual(result["next_gate"], "M7_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS_0_8_0")
@@ -74,6 +77,25 @@ class TestM7SiopePublicIndexedGetContract(unittest.TestCase):
             self.assertNotIn(secret_like_public_value, payload)
         self.assertEqual(fake.calls, [self.cfg["public_indexed_example_url"]])
 
+    def test_legacy_encoding_mojibake_heading_passes_only_with_both_ascii_loading_markers(self):
+        body = "<h1>Dados Informados pelos Munic�pios</h1>Buscando planilhas... por favor aguarde! Buscando dados... por favor aguarde!"
+        result = verify_public_indexed_get_contract(self.cfg, client=FakeClient(body))
+        self.assertFalse(result["expected_heading_present"])
+        self.assertEqual(result["surface_verified_by"], "ASCII_LOADING_MARKERS")
+        self.assertTrue(all(result["loading_markers_present"].values()))
+        self.assertTrue(result["indexed_example_query_sent"])
+
+    def test_mojibake_heading_without_complete_ascii_contract_stops_after_response(self):
+        body = "<h1>Dados Informados pelos Munic�pios</h1>Buscando dados... por favor aguarde!"
+        with self.assertRaises(SiopePublicIndexedGetContractError) as ctx:
+            verify_public_indexed_get_contract(self.cfg, client=FakeClient(body))
+        exc = ctx.exception
+        self.assertEqual(str(exc), "STOP_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_UNEXPECTED_SURFACE")
+        self.assertTrue(exc.network_called)
+        self.assertTrue(exc.indexed_example_query_sent)
+        self.assertFalse(exc.diagnostics["expected_heading_present"])
+        self.assertFalse(all(exc.diagnostics["loading_markers_present"].values()))
+
     def test_captcha_component_without_required_message_does_not_false_stop(self):
         body = "<h1>Dados Informados pelos Municípios</h1><div class='g-recaptcha'></div>Buscando dados..."
         result = verify_public_indexed_get_contract(self.cfg, client=FakeClient(body))
@@ -82,8 +104,8 @@ class TestM7SiopePublicIndexedGetContract(unittest.TestCase):
         self.assertFalse(result["human_challenge_active"])
         self.assertEqual(result["next_gate"], "M7_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS_0_8_0")
 
-    def test_active_human_challenge_is_observed_but_never_bypassed(self):
-        body = "<h1>Dados Informados pelos Municípios</h1>É necessário validar o captcha"
+    def test_active_human_challenge_is_observed_even_when_accented_prefix_is_mojibake(self):
+        body = "<h1>Dados Informados pelos Municípios</h1>� necess�rio validar o captcha"
         result = verify_public_indexed_get_contract(self.cfg, client=FakeClient(body))
         self.assertTrue(result["captcha_component_present"])
         self.assertTrue(result["human_challenge_required_message_present"])
@@ -113,6 +135,7 @@ class TestM7SiopePublicIndexedGetContract(unittest.TestCase):
         self.assertEqual(proc.returncode, 0, proc.stderr)
         result = json.loads(proc.stdout)
         self.assertEqual(result["status"], "PASS_M7_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_DRY_RUN")
+        self.assertFalse(result["network_called"])
         self.assertFalse(result["indexed_example_query_sent"])
         self.assertFalse(result["pilot_limeira_values_sent"])
         self.assertFalse(result["collection_authorized"])
