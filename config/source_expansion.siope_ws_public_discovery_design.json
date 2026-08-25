@@ -17,6 +17,12 @@
     "www.fnde.gov.br",
     "webservice.fnde.gov.br"
   ],
+  "limits": {
+    "max_initial_pages": 2,
+    "max_followed_links": 12,
+    "max_page_bytes": 1048576,
+    "max_total_bytes": 4194304
+  },
   "discovery_rules": {
     "methods": ["GET"],
     "follow_only_explicit_declared_links": true,
