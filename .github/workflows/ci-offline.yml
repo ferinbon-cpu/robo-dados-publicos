@@ -92,6 +92,9 @@ jobs:
       - name: Gate M7 de desenho do contrato de recurso Olinda SIOPE
         run: python scripts/github_siope_official_olinda_api_resource_contract_design_gate.py
 
+      - name: Gate M7 de desenho do diagnóstico passivo da aplicação Olinda
+        run: python scripts/github_siope_official_olinda_api_application_runtime_route_diagnostics_design_gate.py
+
       - name: Compilar
         run: python -m compileall -q .
 
