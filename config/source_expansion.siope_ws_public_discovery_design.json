@@ -34,6 +34,21 @@
     "capture_cookies": false,
     "download_artifacts": false
   },
+  "classification_rules": {
+    "excluded_route_prefixes": [
+      "/webservices/castor/"
+    ],
+    "endpoint_specific_hosts": [
+      "webservice.fnde.gov.br"
+    ],
+    "endpoint_specific_markers": [
+      "ws-siope",
+      "wsdl",
+      "soap"
+    ],
+    "generic_webservices_path_is_not_endpoint": true,
+    "installer_anchor_is_not_endpoint": true
+  },
   "success_condition": "EXPLICIT_PUBLIC_WS_SIOPE_ENDPOINT_OR_OFFICIAL_DOCUMENTATION_OBSERVED",
   "failure_condition": "NO_EXPLICIT_PUBLIC_WS_SIOPE_ENDPOINT_OR_DOCUMENTATION",
   "collection_authorized": false,
