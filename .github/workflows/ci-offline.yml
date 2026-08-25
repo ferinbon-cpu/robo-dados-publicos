@@ -65,6 +65,9 @@ jobs:
       - name: Gate M7 de revisão da consistência booleana SIOPE
         run: python scripts/github_siope_public_runtime_control_value_consistency_review_gate.py
 
+      - name: Gate M7 de desenho semântico passivo de acao
+        run: python scripts/github_siope_public_runtime_action_control_semantics_diagnostics_design_gate.py
+
       - name: Compilar
         run: python -m compileall -q .
 
