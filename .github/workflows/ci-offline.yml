@@ -77,6 +77,9 @@ jobs:
       - name: Gate M7 de partição de equivalência query-control
         run: python scripts/github_siope_public_runtime_query_equivalence_partition_design_gate.py
 
+      - name: Gate M7 de desenho da descoberta do segundo exemplo público
+        run: python scripts/github_siope_public_indexed_get_second_example_discovery_design_gate.py
+
       - name: Compilar
         run: python -m compileall -q .
 
