@@ -80,6 +80,9 @@ jobs:
       - name: Gate M7 de desenho da descoberta do segundo exemplo público
         run: python scripts/github_siope_public_indexed_get_second_example_discovery_design_gate.py
 
+      - name: Gate M7 de desenho da API oficial Olinda SIOPE
+        run: python scripts/github_siope_official_olinda_api_discovery_design_gate.py
+
       - name: Compilar
         run: python -m compileall -q .
 
