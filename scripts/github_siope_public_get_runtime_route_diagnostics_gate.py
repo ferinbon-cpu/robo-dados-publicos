@@ -9,8 +9,8 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from robo_dados_publicos.sources.siope_public_get_runtime_failure_telemetry import (
-    SystemChromeCdpPublicGetRuntimeWithFailureTelemetry,
+from robo_dados_publicos.sources.siope_public_get_runtime_cdp_direct import (
+    SystemChromeCdpPublicGetRuntimeDirect,
 )
 from robo_dados_publicos.sources.siope_public_get_runtime_route_diagnostics import (
     SiopePublicGetRuntimeRouteDiagnosticsError,
@@ -79,7 +79,7 @@ def main() -> int:
     try:
         result = probe_public_get_runtime_routes(
             config,
-            runtime=SystemChromeCdpPublicGetRuntimeWithFailureTelemetry(),
+            runtime=SystemChromeCdpPublicGetRuntimeDirect(),
         )
     except SiopePublicGetRuntimeRouteDiagnosticsError as exc:
         _emit(
