@@ -17,6 +17,7 @@ _SIGNAL_TERMS = ("ws-siope", "webservice", "web service", "wsdl", "soap", "api")
 _DOC_TERMS = ("documentação", "documentacao", "manual", "orientação", "orientacao", "especificação", "especificacao")
 _DOC_EXTENSIONS = (".pdf", ".doc", ".docx", ".html", ".htm", ".txt")
 _BINARY_EXTENSIONS = (".pdf", ".doc", ".docx", ".zip", ".gz", ".rar", ".xlsx", ".xls")
+_INSTALLER_ANCHORS = ("instalador do sistema", "instalador")
 
 
 class SiopeWsPublicDiscoveryError(RuntimeError):
@@ -71,6 +72,15 @@ def _validate_config(config: dict) -> None:
     }
     if rules != expected_rules:
         raise SiopeWsPublicDiscoveryError(f"{ERROR}_CONFIG_RULES")
+    classification = config.get("classification_rules") or {}
+    if classification != {
+        "excluded_route_prefixes": ["/webservices/castor/"],
+        "endpoint_specific_hosts": ["webservice.fnde.gov.br"],
+        "endpoint_specific_markers": ["ws-siope", "wsdl", "soap"],
+        "generic_webservices_path_is_not_endpoint": True,
+        "installer_anchor_is_not_endpoint": True,
+    }:
+        raise SiopeWsPublicDiscoveryError(f"{ERROR}_CONFIG_CLASSIFICATION_RULES")
 
 
 def load_ws_public_discovery_config(path: str | Path) -> dict:
@@ -110,7 +120,36 @@ def _sanitize_url(url: str) -> dict:
     }
 
 
-def extract_declared_ws_links(html: str, *, page_url: str, allowed_hosts: tuple[str, ...]) -> tuple[dict, ...]:
+def _strong_ws_reference(value: str) -> bool:
+    lower = value.lower()
+    if any(marker in lower for marker in ("ws-siope", "wsdl", "soap")):
+        return True
+    return "siope" in lower and ("webservice" in lower or "web service" in lower)
+
+
+def _is_excluded_non_ws_route(*, path_lower: str, anchor_lower: str, config: dict) -> bool:
+    rules = config["classification_rules"]
+    if any(path_lower.startswith(prefix.lower()) for prefix in rules["excluded_route_prefixes"]):
+        return True
+    if rules["installer_anchor_is_not_endpoint"] and anchor_lower in _INSTALLER_ANCHORS:
+        return True
+    return False
+
+
+def extract_declared_ws_links(
+    html: str,
+    *,
+    page_url: str,
+    allowed_hosts: tuple[str, ...],
+    classification_rules: dict | None = None,
+) -> tuple[dict, ...]:
+    rules = classification_rules or {
+        "excluded_route_prefixes": ["/webservices/castor/"],
+        "endpoint_specific_hosts": ["webservice.fnde.gov.br"],
+        "endpoint_specific_markers": ["ws-siope", "wsdl", "soap"],
+        "generic_webservices_path_is_not_endpoint": True,
+        "installer_anchor_is_not_endpoint": True,
+    }
     found: list[dict] = []
     seen: set[tuple[str, tuple[str, ...], str]] = set()
     pattern = re.compile(r"<a\b[^>]*\bhref\s*=\s*['\"]([^'\"]+)['\"][^>]*>(.*?)</a\s*>", re.IGNORECASE | re.DOTALL)
@@ -132,15 +171,29 @@ def extract_declared_ws_links(html: str, *, page_url: str, allowed_hosts: tuple[
         path_lower = parsed.path.lower()
         href_lower = raw_href.lower()
         anchor_lower = anchor.lower()
-        endpoint_explicit = any(term in href_lower for term in ("ws-siope", "webservice", "wsdl", "soap"))
-        endpoint_explicit = endpoint_explicit or any(term in anchor_lower for term in ("ws-siope", "webservice", "web service", "wsdl", "soap"))
-        documentation_explicit = path_lower.endswith(_DOC_EXTENSIONS) and (
-            "ws-siope" in signal_source.lower()
-            or "webservice" in signal_source.lower()
-            or any(term in anchor_lower for term in _DOC_TERMS)
+        excluded = any(path_lower.startswith(prefix.lower()) for prefix in rules["excluded_route_prefixes"])
+        if rules["installer_anchor_is_not_endpoint"] and anchor_lower in _INSTALLER_ANCHORS:
+            excluded = True
+
+        host_specific = parsed.hostname in set(rules["endpoint_specific_hosts"])
+        marker_specific = any(marker in href_lower or marker in anchor_lower for marker in rules["endpoint_specific_markers"])
+        named_webservice_for_siope = (
+            ("webservice" in anchor_lower or "web service" in anchor_lower)
+            and "siope" in signal_source.lower()
         )
+        endpoint_explicit = (not excluded) and (host_specific or marker_specific or named_webservice_for_siope)
+
+        documentation_explicit = (
+            (not excluded)
+            and path_lower.endswith(_DOC_EXTENSIONS)
+            and _strong_ws_reference(signal_source)
+            and any(term in anchor_lower or term in context.lower() for term in _DOC_TERMS)
+        )
+
         classification = "SIGNAL_LINK"
-        if endpoint_explicit:
+        if excluded:
+            classification = "EXCLUDED_GENERIC_FILE_DELIVERY_LINK"
+        elif endpoint_explicit:
             classification = "EXPLICIT_WS_ENDPOINT_LINK"
         elif documentation_explicit:
             classification = "EXPLICIT_WS_DOCUMENTATION_LINK"
@@ -217,7 +270,12 @@ def discover_ws_public_surface(config: dict, *, client: ReadOnlyDeclaredResource
 
         fetched.add(url)
         total_bytes += response.byte_count
-        links = extract_declared_ws_links(response.body, page_url=response.url, allowed_hosts=allowed_hosts)
+        links = extract_declared_ws_links(
+            response.body,
+            page_url=response.url,
+            allowed_hosts=allowed_hosts,
+            classification_rules=config["classification_rules"],
+        )
         markers = _page_markers(response.body)
         pages.append({
             "page": _sanitize_url(response.url),
@@ -247,6 +305,7 @@ def discover_ws_public_surface(config: dict, *, client: ReadOnlyDeclaredResource
         item for item in observed_links
         if item["classification"] in {"EXPLICIT_WS_ENDPOINT_LINK", "EXPLICIT_WS_DOCUMENTATION_LINK"}
     ]
+    excluded = [item for item in observed_links if item["classification"] == "EXCLUDED_GENERIC_FILE_DELIVERY_LINK"]
     diagnostics = {
         "initial_page_count": min(len(config["initial_urls"]), int(config["limits"]["max_initial_pages"])),
         "fetched_page_count": len(pages),
@@ -257,6 +316,7 @@ def discover_ws_public_surface(config: dict, *, client: ReadOnlyDeclaredResource
         "page_summaries": pages[:16],
         "declared_signal_link_count": len(observed_links),
         "explicit_candidate_count": len(candidates),
+        "excluded_generic_file_delivery_count": len(excluded),
     }
 
     common = {
