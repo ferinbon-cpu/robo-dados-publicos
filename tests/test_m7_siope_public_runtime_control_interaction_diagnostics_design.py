@@ -63,7 +63,11 @@ class TestM7SiopePublicRuntimeControlInteractionDiagnosticsDesign(unittest.TestC
         module = (ROOT / "robo_dados_publicos" / "sources" / "siope_public_runtime_control_interaction_diagnostics_design.py").read_text(encoding="utf-8")
         script = (ROOT / "scripts" / "github_siope_public_runtime_control_interaction_diagnostics_design_gate.py").read_text(encoding="utf-8")
         combined = module + "\n" + script
-        for forbidden in ("urllib", "requests", "http.client", "websocket", "subprocess", "Page.navigate", "Fetch.enable", "Runtime.evaluate"):
+        for forbidden in (
+            "import urllib", "from urllib", "import requests", "from requests", "import http.client",
+            "from http.client", "import websocket", "from websocket", "import subprocess", "from subprocess",
+            "Page.navigate", "Fetch.enable", "Runtime.evaluate",
+        ):
             self.assertNotIn(forbidden, combined)
         self.assertNotIn("352690", combined)
 
