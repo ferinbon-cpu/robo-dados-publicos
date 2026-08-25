@@ -136,7 +136,8 @@ class TestM7SiopeOfficialOlindaApiApplicationRuntimeRouteDiagnostics(unittest.Te
         self.assertIn("Fetch.failRequest", source)
         self.assertNotIn("Network.getResponseBody", source)
         self.assertNotIn("Fetch.getResponseBody", source)
-        self.assertNotIn("352690", source)
+        self.assertIn('if "352690" in config["exact_application_url"]', source)
+        self.assertNotIn("352690", self.config["exact_application_url"])
 
 
 if __name__ == "__main__":
