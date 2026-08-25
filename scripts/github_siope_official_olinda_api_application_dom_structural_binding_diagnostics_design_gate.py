@@ -15,7 +15,6 @@ from robo_dados_publicos.sources.siope_official_olinda_api_resource_contract_des
 CONFIG = ROOT / "config" / "source_expansion.siope_official_olinda_api_application_dom_structural_binding_diagnostics_design.json"
 SIGNATURE_REVIEW_CONFIG = ROOT / "config" / "source_expansion.siope_official_olinda_api_application_dom_signature_diagnostics_review.json"
 RESOURCE_CONFIG = ROOT / "config" / "source_expansion.siope_official_olinda_api_resource_contract_design.json"
-SERVICE_REVIEW_CONFIG = ROOT / "config" / "source_expansion.siope_official_olinda_api_service_discovery_review.json"
 
 
 def _signature_review() -> dict:
@@ -26,13 +25,9 @@ def _signature_review() -> dict:
 
 def _resource_design() -> dict:
     config = load_json(RESOURCE_CONFIG)
-    service_review_config = load_json(SERVICE_REVIEW_CONFIG)
-    service_evidence = load_json(ROOT / service_review_config["evidence_path"])
-    from robo_dados_publicos.sources.siope_official_olinda_api_service_discovery_review import run_review as run_service_review  # noqa: E402
-
-    service_review = run_service_review(service_review_config, service_evidence)
+    review = load_json(ROOT / config["review_config_path"])
     research = load_json(ROOT / config["public_research_evidence_path"])
-    return design_resource_contract(config, service_review, research)
+    return design_resource_contract(config, review, research)
 
 
 def run_gate() -> dict:
