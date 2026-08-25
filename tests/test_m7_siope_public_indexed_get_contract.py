@@ -8,6 +8,7 @@ import unittest
 
 from robo_dados_publicos.sources.siope_download_route_discovery import TextResponse
 from robo_dados_publicos.sources.siope_public_indexed_get_contract import (
+    SiopePublicIndexedGetContractError,
     load_public_indexed_get_contract_config,
     verify_public_indexed_get_contract,
 )
@@ -74,6 +75,25 @@ class TestM7SiopePublicIndexedGetContract(unittest.TestCase):
             self.assertNotIn(secret_like_public_value, payload)
         self.assertEqual(fake.calls, [self.cfg["public_indexed_example_url"]])
 
+    def test_legacy_heading_decode_can_use_both_ascii_loading_markers(self):
+        body = "<h1>Dados Informados pelos Munic�pios</h1>Buscando planilhas... Buscando dados..."
+        result = verify_public_indexed_get_contract(self.cfg, client=FakeClient(body))
+        self.assertEqual(result["status"], "PASS_M7_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_GATE")
+        self.assertFalse(result["expected_heading_present"])
+        self.assertEqual(result["surface_identity_basis"], "ASCII_LOADING_MARKERS")
+        self.assertTrue(all(result["loading_markers_present"].values()))
+        self.assertTrue(result["indexed_example_query_sent"])
+
+    def test_missing_heading_and_stable_markers_still_fails_closed_after_get(self):
+        with self.assertRaises(SiopePublicIndexedGetContractError) as ctx:
+            verify_public_indexed_get_contract(self.cfg, client=FakeClient("<html>surface desconhecida</html>"))
+        exc = ctx.exception
+        self.assertEqual(str(exc), "STOP_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_UNEXPECTED_SURFACE")
+        self.assertTrue(exc.diagnostics["network_called"])
+        self.assertEqual(exc.diagnostics["response_status"], 200)
+        self.assertEqual(exc.diagnostics["stable_loading_marker_count"], 0)
+        self.assertNotIn("response_body", exc.diagnostics)
+
     def test_captcha_component_without_required_message_does_not_false_stop(self):
         body = "<h1>Dados Informados pelos Municípios</h1><div class='g-recaptcha'></div>Buscando dados..."
         result = verify_public_indexed_get_contract(self.cfg, client=FakeClient(body))
@@ -90,6 +110,12 @@ class TestM7SiopePublicIndexedGetContract(unittest.TestCase):
         self.assertTrue(result["human_challenge_active"])
         self.assertFalse(result["captcha_bypass"])
         self.assertFalse(result["form_submission"])
+        self.assertEqual(result["next_gate"], "M7_SIOPE_MANUAL_ASSISTED_ACQUISITION_DESIGN_0_8_0")
+
+    def test_garbled_challenge_prefix_still_fails_safe_on_ascii_phrase(self):
+        body = "Buscando planilhas... Buscando dados... � necess�rio validar o captcha"
+        result = verify_public_indexed_get_contract(self.cfg, client=FakeClient(body))
+        self.assertTrue(result["human_challenge_active"])
         self.assertEqual(result["next_gate"], "M7_SIOPE_MANUAL_ASSISTED_ACQUISITION_DESIGN_0_8_0")
 
     def test_result_persists_only_query_key_names(self):
@@ -130,6 +156,11 @@ class TestM7SiopePublicIndexedGetContract(unittest.TestCase):
         self.assertNotIn("curl ", lower)
         self.assertNotIn("wget ", lower)
         self.assertNotIn("--head", lower)
+
+    def test_stop_runner_uses_network_called_to_report_sent_get(self):
+        text = SCRIPT.read_text(encoding="utf-8")
+        self.assertIn('indexed_example_query_sent=bool(exc.diagnostics.get("network_called", False))', text)
+        self.assertIn('safe_diagnostics.pop("network_called", None)', text)
 
 
 if __name__ == "__main__":
