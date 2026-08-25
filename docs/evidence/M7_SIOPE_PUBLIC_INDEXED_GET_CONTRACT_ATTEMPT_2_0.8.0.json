@@ -1,0 +1,62 @@
+{
+  "gate_id": "M7_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_GATE_0_8_0",
+  "software_version": "0.8.0",
+  "run_id": 32868918482,
+  "run_number": 2,
+  "head_sha": "b97f707fa5005f9ec6b95f99effceb92343d88f9",
+  "artifact_id": 9571242011,
+  "artifact_name": "siope-public-indexed-get-contract-32868918482",
+  "artifact_sha256": "4b20daf63f4ea6ab181a960f8a5f9249d540c06109a0bf7a0549d7c5f1ae1edd",
+  "status": "PASS_M7_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_GATE",
+  "contract_status": "EXPECTED_PUBLIC_SIOPE_SURFACE_OBSERVED",
+  "network_method": "GET_ONLY",
+  "indexed_example_query_sent": true,
+  "pilot_limeira_values_sent": false,
+  "response": {
+    "status": 200,
+    "content_type": "text/html",
+    "byte_count": 121566,
+    "surface_verified_by": "ASCII_LOADING_MARKERS",
+    "expected_heading_present": false,
+    "loading_markers_present": {
+      "Buscando planilhas": true,
+      "Buscando dados": true
+    },
+    "captcha_component_present": true,
+    "human_challenge_required_message_present": false,
+    "human_challenge_active": false,
+    "final_surface": {
+      "scheme": "https",
+      "host": "www.fnde.gov.br",
+      "path": "/siope/dadosInformadosMunicipio.do",
+      "query_present": true,
+      "query_keys": [
+        "acao",
+        "admin",
+        "cod_muni",
+        "cod_uf",
+        "num_ano",
+        "num_peri",
+        "pag",
+        "tp_relatorio"
+      ]
+    }
+  },
+  "safety": {
+    "form_submission": false,
+    "captcha_bypass": false,
+    "authentication_performed": false,
+    "credentials_captured": false,
+    "cookies_captured": false,
+    "response_body_persisted": false,
+    "query_values_persisted": false,
+    "artifact_downloaded": false,
+    "head_request_performed": false,
+    "remote_writes": "NONE",
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false
+  },
+  "next_gate": "M7_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS_0_8_0"
+}
