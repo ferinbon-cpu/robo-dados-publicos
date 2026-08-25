@@ -56,6 +56,9 @@ jobs:
       - name: Gate M7 de revisão do inventário DOM SIOPE
         run: python scripts/github_siope_public_runtime_control_inventory_review_gate.py
 
+      - name: Gate M7 de desenho da consistência de valores SIOPE
+        run: python scripts/github_siope_public_runtime_control_value_consistency_diagnostics_design_gate.py
+
       - name: Compilar
         run: python -m compileall -q .
 
