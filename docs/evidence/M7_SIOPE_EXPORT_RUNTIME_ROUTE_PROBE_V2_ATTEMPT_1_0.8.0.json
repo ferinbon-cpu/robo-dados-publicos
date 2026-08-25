@@ -1,0 +1,45 @@
+{
+  "gate": "M7_SIOPE_EXPORT_RUNTIME_ROUTE_PROBE_V2_GATE_0_8_0",
+  "github_run": 32837068191,
+  "github_job": 97768197236,
+  "head_commit": "d6b09c99a0ef6965f53c012c349c16e6b768a78c",
+  "result": "PASS_M7_SIOPE_EXPORT_RUNTIME_ROUTE_PROBE_V2_GATE",
+  "runtime_probe_status": "UNIQUE_NONSTATIC_REQUEST_OBSERVED_NOT_SENT",
+  "artifact_id": 9559032864,
+  "artifact_name": "siope-export-runtime-route-probe-v2-32837068191",
+  "artifact_size_bytes": 896,
+  "artifact_zip_sha256": "e091a66de59d55065f3edac2dc3aa33ebee00e87449a1e563a95805224c1c8e4",
+  "qa": {
+    "preflight": "PASS_OFFLINE",
+    "dry_run": "PASS_M7_SIOPE_EXPORT_RUNTIME_ROUTE_PROBE_V2_DRY_RUN",
+    "unit_tests": "315/315 PASS",
+    "historical_regressions": "109/109 PASS"
+  },
+  "observation": {
+    "candidate_count": 1,
+    "method": "GET",
+    "resource_type": "XHR",
+    "route_without_query": "https://www.fnde.gov.br/plataforma-antonieta-de-barros-api/products/data-products/20/artifact-metadata",
+    "query_present": false,
+    "query_keys": [],
+    "occurrences": 2,
+    "post_click_static_assets_continued_count": 103,
+    "post_click_nonstatic_aborted_count": 3,
+    "cross_origin_initial_aborted_count": 12,
+    "candidate_route_network_sent": false
+  },
+  "safety": {
+    "artifact_downloaded": false,
+    "head_request_performed": false,
+    "request_body_captured": false,
+    "request_headers_captured": false,
+    "response_body_captured": false,
+    "cookies_captured": false,
+    "remote_writes": "NONE",
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false
+  },
+  "interpretation": "The runtime export control issued one unique non-static XHR shape for the exact product 20 artifact-metadata endpoint. The endpoint was observed but not sent. This proves the metadata-route candidate, not the final artifact download route."
+}
