@@ -86,6 +86,9 @@ jobs:
       - name: Gate M7 de catálogo Olinda SIOPE (dry-run)
         run: python scripts/github_siope_official_olinda_api_service_discovery_gate.py --dry-run
 
+      - name: Gate M7 de revisão do catálogo Olinda SIOPE
+        run: python scripts/github_siope_official_olinda_api_service_discovery_review_gate.py
+
       - name: Compilar
         run: python -m compileall -q .
 
