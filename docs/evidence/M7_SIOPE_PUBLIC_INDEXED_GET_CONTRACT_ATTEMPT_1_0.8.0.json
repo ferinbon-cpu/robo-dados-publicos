@@ -1,0 +1,56 @@
+{
+  "gate_id": "M7_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_GATE_0_8_0",
+  "software_version": "0.8.0",
+  "run_id": 32860945165,
+  "run_number": 1,
+  "head_sha": "f19e8f92beda4338f25adc6a15c4d29edd49fa42",
+  "artifact_id": 9568138911,
+  "artifact_name": "siope-public-indexed-get-contract-32860945165",
+  "artifact_sha256": "61cc6f9f054af5585c62cb412eb30579a602f743ee93bf72c085be0bea986927",
+  "status": "STOP_M7_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_GATE",
+  "stop_reason": "STOP_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_UNEXPECTED_SURFACE",
+  "diagnostics": {
+    "response_status": 200,
+    "content_type": "text/html",
+    "response_byte_count": 121566,
+    "final_surface": {
+      "scheme": "https",
+      "host": "www.fnde.gov.br",
+      "path": "/siope/dadosInformadosMunicipio.do",
+      "query_present": true,
+      "query_keys": [
+        "acao",
+        "admin",
+        "cod_muni",
+        "cod_uf",
+        "num_ano",
+        "num_peri",
+        "pag",
+        "tp_relatorio"
+      ]
+    }
+  },
+  "observed_root_cause": "ACCENT_BEARING_HEADING_NOT_STABLE_UNDER_SHARED_UTF8_DECODE_OF_LEGACY_SIOPE_HTML",
+  "public_surface_crosscheck": {
+    "heading_observed_by_public_web_reader": true,
+    "loading_marker_buscando_planilhas_observed": true,
+    "loading_marker_buscando_dados_observed": true
+  },
+  "safety": {
+    "form_submission": false,
+    "captcha_bypass": false,
+    "authentication_performed": false,
+    "credentials_captured": false,
+    "cookies_captured": false,
+    "response_body_persisted": false,
+    "query_values_persisted": false,
+    "artifact_downloaded": false,
+    "head_request_performed": false,
+    "remote_writes": "NONE",
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false
+  },
+  "hotfix_strategy": "KEEP_EXACT_HOST_PATH_QUERY_CONTRACT; ACCEPT_FULL_HEADING_OR_BOTH_STABLE_ASCII_LOADING_MARKERS; USE_ASCII_HUMAN_CHALLENGE_MARKER; FIX_POST_RESPONSE_GET_TELEMETRY"
+}
