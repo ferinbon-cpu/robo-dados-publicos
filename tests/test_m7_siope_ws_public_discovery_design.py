@@ -35,6 +35,14 @@ class TestM7SiopeWsPublicDiscoveryDesign(unittest.TestCase):
         self.assertFalse(self.cfg["recurrence_authorized"])
         self.assertFalse(self.cfg["schedule_enabled"])
 
+    def test_classification_rejects_generic_castor_file_delivery(self):
+        rules = self.cfg["classification_rules"]
+        self.assertEqual(rules["excluded_route_prefixes"], ["/webservices/castor/"])
+        self.assertEqual(rules["endpoint_specific_hosts"], ["webservice.fnde.gov.br"])
+        self.assertEqual(rules["endpoint_specific_markers"], ["ws-siope", "wsdl", "soap"])
+        self.assertTrue(rules["generic_webservices_path_is_not_endpoint"])
+        self.assertTrue(rules["installer_anchor_is_not_endpoint"])
+
     def test_ws_siope_clue_does_not_claim_endpoint_contract(self):
         self.assertIn("WS-SIOPE", self.cfg["official_clues"][0]["observed_text"])
         self.assertEqual(
