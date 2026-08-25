@@ -10,9 +10,11 @@
   "design_validation": "PASS_M7_OFFLINE_SOURCE_EXPANSION_DESIGN_VALIDATION",
   "route_discovery": "PASS_M7_SIOPE_ROUTE_DISCOVERY_GATE",
   "route_discovery_live_run": 32791989543,
-  "acquisition_route": "CANDIDATE_IDENTIFIED_ARTIFACT_NOT_VERIFIED",
-  "download_route_discovery_readiness": "READY_MANUAL_NOT_EXECUTED",
+  "acquisition_route": "CANDIDATE_IDENTIFIED_DYNAMIC_EXPORT_CONTRACT_ROUTE_UNPROVEN",
+  "download_route_discovery": "STOP_STATIC_ROUTE_NOT_EXPLICIT_DYNAMIC_EXPORT_MARKERS_OBSERVED",
+  "download_route_discovery_live_run": 32794666678,
+  "export_contract_discovery_readiness": "READY_MANUAL_NOT_EXECUTED",
   "operational_authorization": "NONE",
   "next_action": "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0",
-  "next_subgate": "M7_SIOPE_ANTONIETA_DOWNLOAD_ROUTE_DISCOVERY_GATE_0_8_0"
+  "next_subgate": "M7_SIOPE_ANTONIETA_EXPORT_CONTRACT_DISCOVERY_GATE_0_8_0"
 }
