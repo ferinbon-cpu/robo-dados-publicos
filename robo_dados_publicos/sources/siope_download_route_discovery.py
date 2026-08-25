@@ -159,7 +159,7 @@ def summarize_public_page_markers(html: str) -> dict:
         flags=re.IGNORECASE,
     )
     href_action_attrs = re.findall(
-        r"\b(?:href|action)\s*=\s*['\"]([^'\"]*)['\"]",
+        r"(?<![A-Za-z0-9_:-])(?:href|action)\s*=\s*['\"]([^'\"]*)['\"]",
         html,
         flags=re.IGNORECASE,
     )
