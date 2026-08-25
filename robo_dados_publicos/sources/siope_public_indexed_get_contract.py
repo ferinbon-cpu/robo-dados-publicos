@@ -113,36 +113,47 @@ def verify_public_indexed_get_contract(config: dict, *, client: ReadOnlyDeclared
         raise SiopePublicIndexedGetContractError(f"{ERROR}_{exc}") from None
 
     final = _surface(response.url)
+    common_diagnostics = {
+        "network_called": True,
+        "response_status": response.status,
+        "content_type": response.content_type,
+        "response_byte_count": response.byte_count,
+        "final_surface": final,
+    }
     if final["path"] != config["expected_path"]:
         raise SiopePublicIndexedGetContractError(
             f"{ERROR}_FINAL_PATH",
-            diagnostics={"response_status": response.status, "final_surface": final},
+            diagnostics=common_diagnostics,
         )
     if final["query_keys"] != config["expected_query_keys"]:
         raise SiopePublicIndexedGetContractError(
             f"{ERROR}_FINAL_QUERY_KEYS",
-            diagnostics={"response_status": response.status, "final_surface": final},
+            diagnostics=common_diagnostics,
         )
 
     body = response.body
-    heading_present = config["expected_page_heading"].casefold() in body.casefold()
-    if not heading_present:
+    lower = body.casefold()
+    heading_present = config["expected_page_heading"].casefold() in lower
+    loading = {
+        marker: marker.casefold() in lower
+        for marker in config["expected_loading_markers"]
+    }
+    stable_surface_markers_present = all(loading.values())
+    if not heading_present and not stable_surface_markers_present:
         raise SiopePublicIndexedGetContractError(
             f"{ERROR}_UNEXPECTED_SURFACE",
             diagnostics={
-                "response_status": response.status,
-                "content_type": response.content_type,
-                "response_byte_count": response.byte_count,
-                "final_surface": final,
+                **common_diagnostics,
+                "expected_heading_present": False,
+                "stable_loading_marker_count": sum(1 for present in loading.values() if present),
+                "stable_loading_marker_total": len(loading),
             },
         )
 
     captcha_component = _marker_present(body, config["captcha_component_markers"])
     challenge_required = _marker_present(body, config["human_challenge_required_markers"])
-    loading = {
-        marker: marker.casefold() in body.casefold()
-        for marker in config["expected_loading_markers"]
-    }
+    if not challenge_required:
+        challenge_required = "validar o captcha" in lower
     next_gate = config["next_gate_if_human_challenge"] if challenge_required else config["next_gate_if_no_human_challenge"]
     return {
         "status": "PASS_M7_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_GATE",
@@ -157,7 +168,8 @@ def verify_public_indexed_get_contract(config: dict, *, client: ReadOnlyDeclared
         "content_type": response.content_type,
         "response_byte_count": response.byte_count,
         "final_surface": final,
-        "expected_heading_present": True,
+        "expected_heading_present": heading_present,
+        "surface_identity_basis": "HEADING" if heading_present else "ASCII_LOADING_MARKERS",
         "loading_markers_present": loading,
         "captcha_component_present": captcha_component,
         "human_challenge_required_message_present": challenge_required,
