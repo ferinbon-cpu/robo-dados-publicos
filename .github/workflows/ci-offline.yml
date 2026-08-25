@@ -125,6 +125,15 @@ jobs:
       - name: Gate M7 de vínculo estrutural DOM Olinda (dry-run)
         run: python scripts/github_siope_official_olinda_api_application_dom_structural_binding_diagnostics_gate.py --dry-run
 
+      - name: Gate M7 de revisão do vínculo estrutural DOM Olinda
+        run: python scripts/github_siope_official_olinda_api_application_dom_structural_binding_diagnostics_review_gate.py
+
+      - name: Gate M7 de desenho do contrato do atributo de navegação DOM Olinda
+        run: python scripts/github_siope_official_olinda_api_application_dom_navigation_attribute_contract_diagnostics_design_gate.py
+
+      - name: Gate M7 do contrato do atributo de navegação DOM Olinda (dry-run)
+        run: python scripts/github_siope_official_olinda_api_application_dom_navigation_attribute_contract_diagnostics_gate.py --dry-run
+
       - name: Compilar
         run: python -m compileall -q .
 
