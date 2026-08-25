@@ -9,6 +9,9 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from robo_dados_publicos.sources.siope_public_get_runtime_failure_telemetry import (
+    SystemChromeCdpPublicGetRuntimeWithFailureTelemetry,
+)
 from robo_dados_publicos.sources.siope_public_get_runtime_route_diagnostics import (
     SiopePublicGetRuntimeRouteDiagnosticsError,
     load_public_get_runtime_route_diagnostics_config,
@@ -53,6 +56,12 @@ def _closed(status: str, *, reason: str | None = None, diagnostics: dict | None 
         result["stop_reason"] = reason
     if diagnostics:
         result["diagnostics"] = diagnostics
+        if isinstance(diagnostics.get("initial_document_network_sent"), bool):
+            result["initial_document_network_sent"] = diagnostics["initial_document_network_sent"]
+        if isinstance(diagnostics.get("dynamic_candidate_network_sent"), bool):
+            result["dynamic_candidate_network_sent"] = diagnostics["dynamic_candidate_network_sent"]
+        if isinstance(diagnostics.get("browser_download_denied"), bool):
+            result["browser_download_denied"] = diagnostics["browser_download_denied"]
     return result
 
 
@@ -68,7 +77,10 @@ def main() -> int:
         return 0
 
     try:
-        result = probe_public_get_runtime_routes(config)
+        result = probe_public_get_runtime_routes(
+            config,
+            runtime=SystemChromeCdpPublicGetRuntimeWithFailureTelemetry(),
+        )
     except SiopePublicGetRuntimeRouteDiagnosticsError as exc:
         _emit(
             _closed(
