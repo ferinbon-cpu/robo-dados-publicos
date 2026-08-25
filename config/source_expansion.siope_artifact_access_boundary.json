@@ -1,0 +1,41 @@
+{
+  "gate_id": "M7_SIOPE_ARTIFACT_ACCESS_BOUNDARY_REVIEW_0_8_0",
+  "source_id": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
+  "product_page_status": "PUBLIC_VERIFIED",
+  "artifact_metadata_status": "PUBLIC_VERIFIED",
+  "anonymous_export_status": "AUTHENTICATION_BOUNDARY_OBSERVED",
+  "authentication_boundary": {
+    "provider_label": "gov.br",
+    "observed_login_host": "www.fnde.gov.br",
+    "observed_login_path": "/plataforma-antonieta-de-barros/login",
+    "observed_query_keys": ["returnUrl"],
+    "credential_capture": "PROHIBITED",
+    "session_cookie_capture": "PROHIBITED",
+    "authenticated_browser_automation": "PROHIBITED",
+    "login_click": "PROHIBITED",
+    "captcha_bypass": "PROHIBITED"
+  },
+  "acquisition_route_status": "UNPROVEN_BEYOND_AUTHENTICATION_BOUNDARY",
+  "artifact_access_status": "NOT_PROVEN_PUBLIC_ANONYMOUS",
+  "allowed_next_actions": [
+    "SEARCH_OFFICIAL_PUBLIC_DOCUMENTED_EXPORT_OR_API",
+    "DESIGN_HUMAN_AUTHORIZED_AUTHENTICATED_FLOW_WITHOUT_CREDENTIAL_CAPTURE"
+  ],
+  "prohibited_next_actions": [
+    "GUESS_DOWNLOAD_URL_FROM_STORAGE_PATH",
+    "AUTOMATE_GOV_BR_LOGIN",
+    "CAPTURE_CREDENTIALS",
+    "CAPTURE_SESSION_COOKIES",
+    "REUSE_PERSONAL_SESSION",
+    "ENABLE_AUTOMATIC_COLLECTION",
+    "ENABLE_PROCESSING",
+    "ENABLE_RECURRENCE",
+    "ENABLE_SCHEDULE"
+  ],
+  "collection_authorized": false,
+  "processing_authorized": false,
+  "recurrence_authorized": false,
+  "schedule_enabled": false,
+  "release_state": "0.8.0_CANDIDATE",
+  "active_validated_version": "0.7.0"
+}
