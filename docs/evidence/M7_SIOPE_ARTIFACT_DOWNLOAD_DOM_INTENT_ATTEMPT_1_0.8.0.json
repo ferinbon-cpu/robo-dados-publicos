@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "software_version": "0.8.0",
+  "run_id": 32854051535,
+  "job_id": 97821585975,
+  "artifact_count": 0,
+  "head_sha": "1d12f63b3d61a2034f31467f06b695cb44f276d4",
+  "workflow": "M7 SIOPE ARTIFACT DOWNLOAD DOM INTENT DIAGNOSTICS GATE",
+  "run_number": 1,
+  "workflow_conclusion": "failure",
+  "qa": {
+    "unit_tests_passed": 363,
+    "historical_regressions_passed": 109
+  },
+  "live_step_reached": true,
+  "live_runtime_completed_before_cleanup": true,
+  "failure_stage": "EPHEMERAL_CHROME_PROFILE_CLEANUP",
+  "failure_code": "OSError_39_DIRECTORY_NOT_EMPTY",
+  "interpretation": "The live DOM-intent runtime reached its post-click observation path, but the result was lost when TemporaryDirectory cleanup raced with Chrome shutdown. This is a local cleanup failure, not negative evidence about SIOPE and not a source-data authorization event.",
+  "artifact_upload_failure": "result.json was not emitted because the cleanup exception escaped before the runner could serialize the result",
+  "safety": {
+    "single_click_only": true,
+    "second_click_executed": false,
+    "candidate_route_network_sent": false,
+    "browser_download_denied": true,
+    "artifact_downloaded": false,
+    "head_request_performed": false,
+    "remote_writes": "NONE",
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false
+  },
+  "next": "Make Chrome shutdown and temporary-profile cleanup race-tolerant, and guarantee sanitized fallback result emission before rerunning the same manual DOM-intent gate."
+}
