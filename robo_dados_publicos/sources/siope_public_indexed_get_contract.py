@@ -44,6 +44,10 @@ def _validate_config(config: dict) -> None:
         raise SiopePublicIndexedGetContractError(f"{ERROR}_CONFIG_QUERY_KEYS")
     if config.get("expected_loading_markers") != ["Buscando planilhas", "Buscando dados"]:
         raise SiopePublicIndexedGetContractError(f"{ERROR}_CONFIG_LOADING_MARKERS")
+    if config.get("captcha_component_markers") != ["captcha", "recaptcha", "g-recaptcha", "hcaptcha"]:
+        raise SiopePublicIndexedGetContractError(f"{ERROR}_CONFIG_CAPTCHA_COMPONENT_MARKERS")
+    if config.get("human_challenge_required_markers") != ["É necessário validar o captcha"]:
+        raise SiopePublicIndexedGetContractError(f"{ERROR}_CONFIG_HUMAN_CHALLENGE_MARKERS")
     if config.get("limits") != {"max_response_bytes": 1048576}:
         raise SiopePublicIndexedGetContractError(f"{ERROR}_CONFIG_LIMITS")
     rules = config.get("verification_rules") or {}
@@ -78,9 +82,9 @@ def load_public_indexed_get_contract_config(path: str | Path) -> dict:
     return config
 
 
-def _captcha_present(body: str) -> bool:
-    lower = body.lower()
-    return any(marker in lower for marker in ("captcha", "recaptcha", "g-recaptcha", "hcaptcha"))
+def _marker_present(body: str, markers: list[str]) -> bool:
+    lower = body.casefold()
+    return any(marker.casefold() in lower for marker in markers)
 
 
 def _surface(url: str) -> dict:
@@ -133,12 +137,13 @@ def verify_public_indexed_get_contract(config: dict, *, client: ReadOnlyDeclared
             },
         )
 
-    captcha = _captcha_present(body)
+    captcha_component = _marker_present(body, config["captcha_component_markers"])
+    challenge_required = _marker_present(body, config["human_challenge_required_markers"])
     loading = {
         marker: marker.casefold() in body.casefold()
         for marker in config["expected_loading_markers"]
     }
-    next_gate = config["next_gate_if_human_challenge"] if captcha else config["next_gate_if_no_human_challenge"]
+    next_gate = config["next_gate_if_human_challenge"] if challenge_required else config["next_gate_if_no_human_challenge"]
     return {
         "status": "PASS_M7_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_GATE",
         "gate_id": config["gate_id"],
@@ -154,7 +159,9 @@ def verify_public_indexed_get_contract(config: dict, *, client: ReadOnlyDeclared
         "final_surface": final,
         "expected_heading_present": True,
         "loading_markers_present": loading,
-        "captcha_present": captcha,
+        "captcha_component_present": captcha_component,
+        "human_challenge_required_message_present": challenge_required,
+        "human_challenge_active": challenge_required,
         "form_submission": False,
         "captcha_bypass": False,
         "authentication_performed": False,
