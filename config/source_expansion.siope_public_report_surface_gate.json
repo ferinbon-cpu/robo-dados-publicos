@@ -1,0 +1,39 @@
+{
+  "gate_id": "M7_SIOPE_PUBLIC_REPORT_SURFACE_GATE_0_8_0",
+  "source_id": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
+  "mode": "PUBLIC_REPORT_SURFACE_DISCOVERY",
+  "index_url": "https://webservice.fnde.gov.br/siope/relatoriosMunicipais.jsp",
+  "data_page_url": "https://webservice.fnde.gov.br/siope/dadosInformadosMunicipio.do",
+  "allowed_hosts": [
+    "webservice.fnde.gov.br"
+  ],
+  "required_index_anchor_text": "Dados Informados pelos Municípios",
+  "limits": {
+    "max_page_bytes": 1048576,
+    "max_total_bytes": 2097152,
+    "max_forms": 8,
+    "max_fields_per_form": 48
+  },
+  "discovery_rules": {
+    "methods": ["GET"],
+    "follow_exact_declared_data_link": true,
+    "parse_form_contract": true,
+    "submit_forms": false,
+    "guess_parameters": false,
+    "bypass_captcha": false,
+    "authenticate": false,
+    "capture_credentials": false,
+    "capture_cookies": false,
+    "capture_field_values": false,
+    "download_artifacts": false
+  },
+  "success_condition": "EXACT_PUBLIC_REPORT_SURFACE_AND_FORM_CONTRACT_OBSERVED",
+  "failure_condition": "PUBLIC_REPORT_SURFACE_OR_FORM_CONTRACT_UNPROVEN",
+  "collection_authorized": false,
+  "processing_authorized": false,
+  "recurrence_authorized": false,
+  "schedule_enabled": false,
+  "next_gate_if_success": "M7_SIOPE_PUBLIC_REPORT_FORM_CONTRACT_VERIFICATION_0_8_0",
+  "next_gate_if_human_challenge": "M7_SIOPE_PUBLIC_REPORT_HUMAN_CHALLENGE_DECISION_0_8_0",
+  "next_gate_if_failure": "M7_SIOPE_AUTHENTICATED_FLOW_DECISION_0_8_0"
+}
