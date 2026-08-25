@@ -42,7 +42,7 @@ class TestM7SiopeOfficialOlindaApiApplicationRuntimeRouteDiagnosticsWorkflow(uni
             self.assertNotIn(forbidden, lowered)
 
     def test_production_workflow_cannot_reach_new_gate(self):
-        production = (ROOT / ".github" / "workflows" / "m4c-cloud.yml").read_text(encoding="utf-8")
+        production = (ROOT / ".github" / "workflows" / "robo-dados-publicos.yml").read_text(encoding="utf-8")
         self.assertNotIn("github_siope_official_olinda_api_application_runtime_route_diagnostics_gate.py", production)
         self.assertNotIn("M7 SIOPE OFFICIAL OLINDA APPLICATION ROUTE DIAGNOSTICS GATE", production)
 
