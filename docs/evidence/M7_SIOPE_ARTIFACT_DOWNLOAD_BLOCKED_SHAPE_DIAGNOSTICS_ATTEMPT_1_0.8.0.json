@@ -1,0 +1,35 @@
+{
+  "software_version": "0.8.0",
+  "run_id": 32848479303,
+  "run_number": 1,
+  "head_sha": "b94b1bc886ec43eb13a0c4af162a5e7524d73a20",
+  "artifact_id": 9563287821,
+  "artifact_sha256": "e905f2506b750a898145dd051c5896cc148a299df7979e4b6c816eb8c253f717",
+  "status": "PASS_M7_SIOPE_ARTIFACT_DOWNLOAD_BLOCKED_SHAPE_DIAGNOSTICS_GATE",
+  "diagnostic_status": "POST_METADATA_BLOCKED_SHAPES_OBSERVED_NOT_SENT",
+  "verified_metadata_request_count": 1,
+  "verified_metadata_network_sent": true,
+  "blocked_request_count": 1,
+  "blocked_request_shapes": [
+    {
+      "classification_reason": "FAVICON",
+      "method": "GET",
+      "resource_type": "Other",
+      "scheme": "https",
+      "host": "www.fnde.gov.br",
+      "route_without_query": "https://www.fnde.gov.br/plataforma-antonieta-de-barros/favicon.ico",
+      "query_keys": [],
+      "query_present": false,
+      "network_sent": false,
+      "intercepted_before_network": true
+    }
+  ],
+  "inventory_truncated": false,
+  "candidate_route_network_sent": false,
+  "artifact_downloaded": false,
+  "collection_authorized": false,
+  "processing_authorized": false,
+  "recurrence_authorized": false,
+  "schedule_enabled": false,
+  "decision": "NO_HTTP_DOWNLOAD_ROUTE_OBSERVED_AFTER_VERIFIED_METADATA; INSPECT_BROWSER_DOWNLOAD_EVENT_WITH_DENY"
+}
