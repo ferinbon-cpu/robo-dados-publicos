@@ -59,8 +59,14 @@ class TestM7SiopePublicRuntimeActionControlSemanticsDiagnosticsDesign(unittest.T
 
     def test_review_must_keep_acao_semantics_unproven(self):
         review = copy.deepcopy(self.review)
-        review["acao_value_semantics_status"] = "PROVEN"
+        review["acao_value_semantics_disposition"] = "PROVEN"
         with self.assertRaisesRegex(SiopePublicRuntimeActionControlSemanticsDesignError, "REVIEW_ACAO_SEMANTICS"):
+            validate_design(self.config, review, self.public)
+
+    def test_review_must_keep_acao_as_hidden_input(self):
+        review = copy.deepcopy(self.review)
+        review["acao_expected_structure"]["type"] = "text"
+        with self.assertRaisesRegex(SiopePublicRuntimeActionControlSemanticsDesignError, "REVIEW_ACAO_STRUCTURE"):
             validate_design(self.config, review, self.public)
 
     def test_public_example_must_stay_non_pilot(self):
