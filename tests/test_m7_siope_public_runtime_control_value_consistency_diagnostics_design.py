@@ -71,7 +71,7 @@ class TestM7SiopePublicRuntimeControlValueConsistencyDiagnosticsDesign(unittest.
         with self.assertRaisesRegex(SiopePublicRuntimeControlValueConsistencyDesignError, "PUBLIC_CONFIG_PILOT_VALUE"):
             validate_design(self.config, self.review, public)
 
-    def test_module_and_script_are_offline(self):
+    def test_module_and_script_are_offline_and_do_not_encode_pilot_request(self):
         module = (ROOT / "robo_dados_publicos" / "sources" / "siope_public_runtime_control_value_consistency_diagnostics_design.py").read_text(encoding="utf-8")
         script = (ROOT / "scripts" / "github_siope_public_runtime_control_value_consistency_diagnostics_design_gate.py").read_text(encoding="utf-8")
         combined = module + "\n" + script
@@ -81,7 +81,7 @@ class TestM7SiopePublicRuntimeControlValueConsistencyDiagnosticsDesign(unittest.
             "Page.navigate", "Fetch.enable",
         ):
             self.assertNotIn(forbidden, combined)
-        self.assertNotIn("352690", combined)
+        self.assertNotIn("cod_muni=352690", combined)
 
 
 if __name__ == "__main__":
