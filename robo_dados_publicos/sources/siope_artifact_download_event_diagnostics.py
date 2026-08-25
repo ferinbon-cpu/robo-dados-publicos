@@ -72,6 +72,51 @@ def _wait_devtools_active_port(profile: Path, process, *, timeout_s: float = 12.
     raise SiopeRuntimeRouteProbeError(f"{ERROR}_DEVTOOLS_ACTIVE_PORT")
 
 
+def _wait_browser_debug_version(port: int, process, *, timeout_s: float = 5.0) -> dict:
+    deadline = time.monotonic() + timeout_s
+    last_error: Exception | None = None
+    url = f"http://127.0.0.1:{port}/json/version"
+    while time.monotonic() < deadline:
+        if process.poll() is not None:
+            raise SiopeRuntimeRouteProbeError(f"{ERROR}_BROWSER_EXITED")
+        try:
+            version = _local_json(url)
+            ws_url = str(version.get("webSocketDebuggerUrl", ""))
+            parsed = urlparse(ws_url)
+            if (
+                parsed.scheme == "ws"
+                and parsed.hostname in {"127.0.0.1", "localhost"}
+                and parsed.port == port
+                and parsed.path.startswith("/devtools/browser/")
+                and not parsed.username
+                and not parsed.password
+                and not parsed.query
+                and not parsed.fragment
+            ):
+                return version
+            last_error = ValueError("invalid browser websocket debugger URL")
+        except Exception as exc:
+            last_error = exc
+        time.sleep(0.1)
+    raise SiopeRuntimeRouteProbeError(f"{ERROR}_BROWSER_VERSION_ENDPOINT") from last_error
+
+
+def _connect_cdp_with_retry(ws_url: str, *, command_timeout_s: float, process, timeout_s: float = 4.0):
+    deadline = time.monotonic() + timeout_s
+    last_error: Exception | None = None
+    while time.monotonic() < deadline:
+        if process.poll() is not None:
+            raise SiopeRuntimeRouteProbeError(f"{ERROR}_BROWSER_EXITED")
+        try:
+            return _CdpSession(ws_url, command_timeout_s=command_timeout_s)
+        except SiopeRuntimeRouteProbeError as exc:
+            if str(exc) != "STOP_SIOPE_RUNTIME_ROUTE_PROBE_CDP_CONNECT":
+                raise
+            last_error = exc
+        time.sleep(0.1)
+    raise SiopeRuntimeRouteProbeError(f"{ERROR}_BROWSER_CDP_CONNECT") from last_error
+
+
 def _create_page_target(port: int, *, timeout_s: float = 3.0) -> dict:
     deadline = time.monotonic() + timeout_s
     last_error: Exception | None = None
@@ -128,11 +173,13 @@ class SystemChromeCdpArtifactDownloadEventRuntime:
             env = {k: v for k, v in os.environ.items() if k != "CHROME_LOG_FILE"}
             try:
                 process = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=env)
-                port, browser_ws_path = _wait_devtools_active_port(profile, process)
+                port, _browser_ws_path = _wait_devtools_active_port(profile, process)
+                version_info = _wait_browser_debug_version(port, process)
                 timeout_s = float(config["cdp_command_timeout_ms"]) / 1000.0
-                browser_session = _CdpSession(
-                    f"ws://127.0.0.1:{port}{browser_ws_path}",
+                browser_session = _connect_cdp_with_retry(
+                    str(version_info["webSocketDebuggerUrl"]),
                     command_timeout_s=timeout_s,
+                    process=process,
                 )
 
                 def handle_browser_event(payload: dict) -> None:
@@ -151,7 +198,11 @@ class SystemChromeCdpArtifactDownloadEventRuntime:
                 browser_session.command("Browser.setDownloadBehavior", {"behavior": "deny", "eventsEnabled": True})
 
                 target = _create_page_target(port)
-                page_session = _CdpSession(target["webSocketDebuggerUrl"], command_timeout_s=timeout_s)
+                page_session = _connect_cdp_with_retry(
+                    str(target["webSocketDebuggerUrl"]),
+                    command_timeout_s=timeout_s,
+                    process=process,
+                )
 
                 phase = {"value": "PRE_CLICK"}
                 allowed_hosts = set(config["initial_allowed_hosts"])
