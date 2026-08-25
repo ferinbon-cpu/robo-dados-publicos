@@ -1,0 +1,39 @@
+{
+  "gate_id": "M7_SIOPE_WS_PUBLIC_DISCOVERY_DESIGN_0_8_0",
+  "source_id": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
+  "rationale": "Official FNDE SIOPE release notes explicitly mention inclusion of indicators in WS-SIOPE.",
+  "official_clues": [
+    {
+      "url": "https://www.fnde.gov.br/siope/download.do",
+      "observed_text": "Inclusão indicadores no WS-SIOPE"
+    }
+  ],
+  "mode": "PUBLIC_READ_ONLY_DISCOVERY",
+  "initial_urls": [
+    "https://www.fnde.gov.br/siope/download.do",
+    "https://www.fnde.gov.br/siope/dadosInformadosMunicipio.do"
+  ],
+  "allowed_hosts": [
+    "www.fnde.gov.br",
+    "webservice.fnde.gov.br"
+  ],
+  "discovery_rules": {
+    "methods": ["GET"],
+    "follow_only_explicit_declared_links": true,
+    "guess_endpoint_paths": false,
+    "submit_forms": false,
+    "bypass_captcha": false,
+    "authenticate": false,
+    "capture_credentials": false,
+    "capture_cookies": false,
+    "download_artifacts": false
+  },
+  "success_condition": "EXPLICIT_PUBLIC_WS_SIOPE_ENDPOINT_OR_OFFICIAL_DOCUMENTATION_OBSERVED",
+  "failure_condition": "NO_EXPLICIT_PUBLIC_WS_SIOPE_ENDPOINT_OR_DOCUMENTATION",
+  "collection_authorized": false,
+  "processing_authorized": false,
+  "recurrence_authorized": false,
+  "schedule_enabled": false,
+  "next_gate_if_success": "M7_SIOPE_WS_PUBLIC_ENDPOINT_CONTRACT_VERIFICATION_0_8_0",
+  "next_gate_if_failure": "M7_SIOPE_AUTHENTICATED_FLOW_DECISION_0_8_0"
+}
