@@ -53,6 +53,9 @@ jobs:
       - name: Gate M7 de inventário DOM SIOPE (dry-run)
         run: python scripts/github_siope_public_runtime_control_inventory_gate.py --dry-run
 
+      - name: Gate M7 de revisão do inventário DOM SIOPE
+        run: python scripts/github_siope_public_runtime_control_inventory_review_gate.py
+
       - name: Compilar
         run: python -m compileall -q .
 
