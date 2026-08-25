@@ -25,7 +25,9 @@ from robo_dados_publicos.sources.siope_download_route_discovery import (
     load_download_route_discovery_config,
 )
 
-EXPECTED_NEXT_ACTION = "M7_SIOPE_ANTONIETA_DOWNLOAD_ROUTE_DISCOVERY_GATE_0_8_0"
+# The canonical release NEXT_ACTION remains the broad M7 route-discovery stage
+# until a concrete acquisition route is proven. This is a subordinate read-only gate.
+EXPECTED_NEXT_ACTION = "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0"
 
 
 def _identity_ok() -> bool:
