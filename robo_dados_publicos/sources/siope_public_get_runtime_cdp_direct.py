@@ -25,6 +25,9 @@ from .siope_public_get_runtime_route_diagnostics import (
 )
 
 
+RUNTIME_STABLE_SURFACE_MARKERS = ("Exibir:", "Ano:", "UF:", "Planilha:")
+
+
 def _browser_ws_url_from_active_port(port: int, ws_path: str) -> str:
     if not isinstance(port, int) or not 1 <= port <= 65535:
         raise SiopeRuntimeRouteProbeError(f"{ERROR}_DEVTOOLS_ACTIVE_PORT_WS")
@@ -132,6 +135,21 @@ def _create_attached_page_session(browser_session) -> _AttachedCdpSession:
     return _AttachedCdpSession(browser_session, session_id)
 
 
+def _stable_surface_contract_matches(page_state: dict, config: dict) -> bool:
+    if page_state.get("ready") != "complete":
+        return False
+    if page_state.get("stableMarkers") != [True] * len(RUNTIME_STABLE_SURFACE_MARKERS):
+        return False
+    route = page_state.get("route") if isinstance(page_state.get("route"), dict) else {}
+    return (
+        route.get("scheme") == "https"
+        and route.get("host") == "www.fnde.gov.br"
+        and route.get("path") == config["expected_path"]
+        and route.get("query_present") is True
+        and route.get("query_keys") == config["expected_query_keys"]
+    )
+
+
 class SystemChromeCdpPublicGetRuntimeDirect(SystemChromeCdpPublicGetRuntimeWithFailureTelemetry):
     """Public GET runtime using DevToolsActivePort + direct CDP target attachment only."""
 
@@ -219,6 +237,7 @@ class SystemChromeCdpPublicGetRuntimeDirect(SystemChromeCdpPublicGetRuntimeWithF
                 navigate_result = page_session.command("Page.navigate", {"url": config["public_indexed_example_url"]})
 
                 loading_literals = [json.dumps(marker, ensure_ascii=False) for marker in config["expected_loading_markers"]]
+                stable_literals = [json.dumps(marker, ensure_ascii=True) for marker in RUNTIME_STABLE_SURFACE_MARKERS]
                 challenge_literal = json.dumps(config["human_challenge_required_markers"][0], ensure_ascii=False)
                 inspect_expr = f"""(() => {{
                   const text = document.body ? (document.body.innerText || '') : '';
@@ -228,6 +247,7 @@ class SystemChromeCdpPublicGetRuntimeDirect(SystemChromeCdpPublicGetRuntimeWithF
                     ready: document.readyState,
                     loadingA: text.includes({loading_literals[0]}),
                     loadingB: text.includes({loading_literals[1]}),
+                    stableMarkers: [{', '.join(f'text.includes({literal})' for literal in stable_literals)}],
                     challenge: lower.includes(({challenge_literal}).toLowerCase()),
                     route: {{
                       scheme: (location.protocol || '').replace(':', ''),
@@ -242,11 +262,11 @@ class SystemChromeCdpPublicGetRuntimeDirect(SystemChromeCdpPublicGetRuntimeWithF
                 while time.monotonic() < deadline:
                     result = page_session.command("Runtime.evaluate", {"expression": inspect_expr, "returnByValue": True})
                     page_state = ((result.get("result") or {}).get("value") or {})
-                    if page_state.get("loadingA") and page_state.get("loadingB"):
+                    if _stable_surface_contract_matches(page_state, config):
                         break
                     page_session.pump(0.15)
 
-                if not page_state or not (page_state.get("loadingA") and page_state.get("loadingB")):
+                if not page_state or not _stable_surface_contract_matches(page_state, config):
                     raise SiopePublicGetRuntimeRouteDiagnosticsError(
                         f"{ERROR}_PUBLIC_SURFACE_NOT_VERIFIED",
                         diagnostics=_failure_diagnostics(
