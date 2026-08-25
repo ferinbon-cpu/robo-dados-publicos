@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "gate_id": "M7_SIOPE_ANTONIETA_EXPORT_CONTRACT_DISCOVERY_GATE_0_8_0",
+  "github_run": 32795676213,
+  "github_job": 97646355414,
+  "head_commit": "6ece23fe3ab52622d5b63aa5c182cff69ebc5ce9",
+  "artifact_id": 9544732974,
+  "artifact_name": "siope-export-contract-discovery-32795676213",
+  "artifact_size_bytes": 1148,
+  "artifact_digest": "sha256:7e4d602851f8e0b78b2fda1122433b1b78e4df92e1640254290a71b75f9dfd31",
+  "status": "PASS_M7_SIOPE_EXPORT_CONTRACT_DISCOVERY_GATE",
+  "export_contract_status": "DYNAMIC_EXPORT_CONTROL_OBSERVED_ROUTE_UNPROVEN",
+  "qa": {
+    "preflight": "PASS",
+    "dry_run": "PASS_M7_SIOPE_EXPORT_CONTRACT_DISCOVERY_DRY_RUN",
+    "compileall": "PASS",
+    "unit_tests": "229/229 PASS",
+    "historical_regressions": "109/109 PASS"
+  },
+  "observations": {
+    "page_verified": true,
+    "page_bytes": 304841,
+    "artifact_declared": true,
+    "declared_script_count": 1,
+    "fetched_script_count": 1,
+    "script_failure_count": 0,
+    "total_fetched_script_bytes": 814209,
+    "export_control_count": 1,
+    "external_export_script_count": 1,
+    "inline_export_script_count": 1,
+    "route_template_count": 0,
+    "export_identifiers_observed": [
+      "Download",
+      "download",
+      "downloadFile",
+      "downloads",
+      "export",
+      "exportKey",
+      "exporting",
+      "exports",
+      "getArtifactByDataProductId",
+      "getArtifactMetadataByDataProductId",
+      "onDownloadProgress"
+    ],
+    "network_mechanisms_observed": {
+      "fetch": 11,
+      "xmlhttprequest": 2,
+      "event_listener": 35,
+      "click_event_literal": 6,
+      "location_navigation": 11,
+      "form_submit": 1,
+      "url_search_params": 16,
+      "window_open": 1
+    }
+  },
+  "safety": {
+    "candidate_route_requested": false,
+    "artifact_downloaded": false,
+    "head_request_performed": false,
+    "form_submission": false,
+    "browser_automation_performed": false,
+    "click_executed": false,
+    "captcha_bypass": false,
+    "remote_writes": "NONE",
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false
+  },
+  "interpretation": "The official Antonieta page and its single declared JavaScript bundle expose a dynamic export control and specific artifact/export identifiers, but no static route template. Static call-site analysis around the observed export identifiers is the next lower-risk discovery step before any runtime/browser probe.",
+  "next_step": "M7_SIOPE_ANTONIETA_EXPORT_CALLSITE_ROUTE_DISCOVERY_GATE_0_8_0"
+}
