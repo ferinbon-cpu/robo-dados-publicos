@@ -12,12 +12,10 @@ from urllib.parse import quote, urlparse
 from .siope_artifact_download_runtime_route_probe import (
     _is_allowed_static_asset,
     _is_allowed_verified_metadata,
-    load_artifact_download_runtime_route_probe_config,
 )
 from .siope_export_runtime_route_probe import (
     SiopeRuntimeRouteProbeError,
     _CdpSession,
-    _free_local_port,
     _local_json,
     sanitize_intercepted_url,
 )
@@ -37,14 +35,56 @@ def _sanitize_download_event(url: str, suggested_filename: str, config: dict) ->
     }
     sanitized = sanitize_intercepted_url(url)
     if sanitized is None:
-        out.update({
-            "route_without_query": None,
-            "query_keys": [],
-            "query_present": bool(parsed.query),
-        })
+        out.update({"route_without_query": None, "query_keys": [], "query_present": bool(parsed.query)})
     else:
         out.update(sanitized)
     return out
+
+
+def _read_devtools_active_port(profile: Path) -> tuple[int, str] | None:
+    marker = profile / "DevToolsActivePort"
+    if not marker.is_file():
+        return None
+    try:
+        lines = marker.read_text(encoding="utf-8").splitlines()
+        if len(lines) < 2:
+            return None
+        port = int(lines[0].strip())
+        ws_path = lines[1].strip()
+    except Exception:
+        return None
+    if not (1 <= port <= 65535):
+        return None
+    if not ws_path.startswith("/devtools/browser/") or any(ch.isspace() for ch in ws_path):
+        return None
+    return port, ws_path
+
+
+def _wait_devtools_active_port(profile: Path, process, *, timeout_s: float = 12.0) -> tuple[int, str]:
+    deadline = time.monotonic() + timeout_s
+    while time.monotonic() < deadline:
+        if process.poll() is not None:
+            raise SiopeRuntimeRouteProbeError(f"{ERROR}_BROWSER_EXITED")
+        resolved = _read_devtools_active_port(profile)
+        if resolved is not None:
+            return resolved
+        time.sleep(0.1)
+    raise SiopeRuntimeRouteProbeError(f"{ERROR}_DEVTOOLS_ACTIVE_PORT")
+
+
+def _create_page_target(port: int, *, timeout_s: float = 3.0) -> dict:
+    deadline = time.monotonic() + timeout_s
+    last_error: Exception | None = None
+    url = f"http://127.0.0.1:{port}/json/new?{quote('about:blank', safe='')}"
+    while time.monotonic() < deadline:
+        try:
+            target = _local_json(url, method="PUT")
+            if target.get("webSocketDebuggerUrl"):
+                return target
+        except Exception as exc:
+            last_error = exc
+        time.sleep(0.1)
+    raise SiopeRuntimeRouteProbeError(f"{ERROR}_PAGE_TARGET") from last_error
 
 
 class SystemChromeCdpArtifactDownloadEventRuntime:
@@ -62,16 +102,14 @@ class SystemChromeCdpArtifactDownloadEventRuntime:
         except Exception:
             browser_version = "SYSTEM_CHROME_VERSION_UNAVAILABLE"
 
-        port = _free_local_port()
-        process = None
-        page_session = None
-        browser_session = None
+        process = page_session = browser_session = None
         download_events: list[dict] = []
-        with tempfile.TemporaryDirectory(prefix="siope-artifact-download-event-") as profile:
+        with tempfile.TemporaryDirectory(prefix="siope-artifact-download-event-") as profile_text:
+            profile = Path(profile_text)
             cmd = [
                 browser,
                 "--headless=new",
-                f"--remote-debugging-port={port}",
+                "--remote-debugging-port=0",
                 "--remote-debugging-address=127.0.0.1",
                 "--remote-allow-origins=*",
                 f"--user-data-dir={profile}",
@@ -90,21 +128,12 @@ class SystemChromeCdpArtifactDownloadEventRuntime:
             env = {k: v for k, v in os.environ.items() if k != "CHROME_LOG_FILE"}
             try:
                 process = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=env)
-                version_info = None
-                deadline = time.monotonic() + 8.0
-                while time.monotonic() < deadline:
-                    if process.poll() is not None:
-                        raise SiopeRuntimeRouteProbeError(f"{ERROR}_BROWSER_EXITED")
-                    try:
-                        version_info = _local_json(f"http://127.0.0.1:{port}/json/version")
-                        break
-                    except Exception:
-                        time.sleep(0.1)
-                if not version_info:
-                    raise SiopeRuntimeRouteProbeError(f"{ERROR}_DEBUG_ENDPOINT")
-
+                port, browser_ws_path = _wait_devtools_active_port(profile, process)
                 timeout_s = float(config["cdp_command_timeout_ms"]) / 1000.0
-                browser_session = _CdpSession(version_info["webSocketDebuggerUrl"], command_timeout_s=timeout_s)
+                browser_session = _CdpSession(
+                    f"ws://127.0.0.1:{port}{browser_ws_path}",
+                    command_timeout_s=timeout_s,
+                )
 
                 def handle_browser_event(payload: dict) -> None:
                     if payload.get("method") != "Browser.downloadWillBegin":
@@ -121,10 +150,7 @@ class SystemChromeCdpArtifactDownloadEventRuntime:
                 browser_session.event_handler = handle_browser_event
                 browser_session.command("Browser.setDownloadBehavior", {"behavior": "deny", "eventsEnabled": True})
 
-                target = _local_json(
-                    f"http://127.0.0.1:{port}/json/new?{quote('about:blank', safe='')}",
-                    method="PUT",
-                )
+                target = _create_page_target(port)
                 page_session = _CdpSession(target["webSocketDebuggerUrl"], command_timeout_s=timeout_s)
 
                 phase = {"value": "PRE_CLICK"}
