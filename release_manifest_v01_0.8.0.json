@@ -5,7 +5,7 @@
   "milestone": "M7_CONTROLLED_SOURCE_EXPANSION_AND_ROUTE_DISCOVERY",
   "based_on_active": "0.7.0",
   "academic_basis": "MD_00.1 V02 - provenance, source contracts, explicit uncertainty, fail-closed acquisition and human review boundaries",
-  "new_capability": "Explicit source-expansion lifecycle plus a manual read-only SIOPE route-discovery gate that identifies an official artifact candidate without downloading it or authorizing collection.",
+  "new_capability": "Controlled SIOPE source expansion with a live-validated public surface and a separate read-only subgate to discover an explicit download route without fetching the artifact.",
   "source_expansion": {
     "pilot_source": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
     "institution": "FNDE",
@@ -21,7 +21,7 @@
       "RECURRENCE_ELIGIBLE"
     ],
     "current_state": "CONTRACT_VALIDATED",
-    "acquisition_route": "UNPROVEN",
+    "acquisition_route": "CANDIDATE_IDENTIFIED_ARTIFACT_NOT_VERIFIED",
     "schema": "UNPROVEN",
     "content_type": "UNPROVEN",
     "collection_authorization": "PROHIBITED",
@@ -42,18 +42,19 @@
     "workflow": "M7 SIOPE ROUTE DISCOVERY GATE",
     "script": "scripts/github_siope_route_discovery_gate.py",
     "config": "config/source_expansion.siope_route_discovery_gate.json",
-    "status": "READY_MANUAL_RETRY_AFTER_TIMEOUT_FIX",
+    "status": "PASS_M7_SIOPE_ROUTE_DISCOVERY_GATE",
     "network": "MAX_TWO_READ_ONLY_GETS",
     "allowed_hosts": [
       "www.fnde.gov.br",
       "webservice.fnde.gov.br"
     ],
-    "classic_query": "INFORMATIONAL_BLOCK_ON_CAPTCHA_TIMEOUT_OR_UNAVAILABLE",
+    "classic_query": "OBSERVED_HUMAN_CHALLENGE_BLOCK_AUTOMATED_ACQUISITION",
     "preferred_candidate": "ANTONIETA_DADOS_GERAIS_SIOPE",
     "declared_artifact": "exports/SIOPE/SIOPE_DADOS_GERAIS_SIOPE.txt.gz",
+    "explicit_download_url_count": 0,
     "artifact_download": "PROHIBITED",
     "remote_writes": "NONE",
-    "expected_route_status_after_pass": "CANDIDATE_IDENTIFIED_ARTIFACT_NOT_VERIFIED",
+    "route_status": "CANDIDATE_IDENTIFIED_ARTIFACT_NOT_VERIFIED",
     "attempt_1": {
       "github_run": 32791368943,
       "github_job": 97633428705,
@@ -68,18 +69,52 @@
       "collection_authorized": false,
       "recurrence_authorized": false
     },
+    "attempt_2": {
+      "github_run": 32791989543,
+      "github_job": 97635207562,
+      "head_commit": "0e3ef17f9613dd0f249a4caeff0a17de9f7c80f8",
+      "result": "PASS_M7_SIOPE_ROUTE_DISCOVERY_GATE",
+      "artifact_id": 9543436448,
+      "artifact_name": "siope-route-discovery-32791989543",
+      "artifact_zip_sha256": "ef3e23cad30d604308163c7c9311105fe31a37812d732a9b017b4514def01158",
+      "classic_captcha_detected": true,
+      "classic_form_submitted": false,
+      "antonieta_product_name_verified": true,
+      "antonieta_artifact_path_declared": true,
+      "antonieta_explicit_download_url_count": 0,
+      "artifact_downloaded": false,
+      "remote_writes": "NONE",
+      "collection_authorized": false,
+      "processing_authorized": false,
+      "recurrence_authorized": false,
+      "schedule_enabled": false
+    },
     "timeout_fix": {
       "native_network_errors_sanitized": true,
       "classic_timeout_nonfatal_for_antonieta_probe": true,
       "antonieta_network_error_remains_fail_closed": true,
-      "redirect_host_revalidated": true,
-      "validation_ci_run": 32791631284,
-      "validation_ci_run_number": 101,
-      "repository_unit_tests": "199/199 PASS",
-      "network_error_tests": "3/3 PASS",
-      "historical_regressions": "109/109 PASS"
-    },
-    "next_gate": "M7_SIOPE_ANTONIETA_ARTIFACT_VERIFICATION_GATE_0_8_0"
+      "redirect_host_revalidated": true
+    }
+  },
+  "download_route_discovery_gate": {
+    "workflow": "M7 SIOPE DOWNLOAD ROUTE DISCOVERY GATE",
+    "script": "scripts/github_siope_download_route_discovery_gate.py",
+    "config": "config/source_expansion.siope_download_route_discovery_gate.json",
+    "status": "READY_MANUAL_NOT_EXECUTED",
+    "network": "READ_ONLY_GET_PAGE_AND_DECLARED_SCRIPTS",
+    "allowed_hosts": [
+      "www.fnde.gov.br"
+    ],
+    "max_page_bytes": 2097152,
+    "max_scripts": 8,
+    "max_script_bytes": 1048576,
+    "max_total_script_bytes": 6291456,
+    "candidate_route_fetch": "PROHIBITED",
+    "head_request": "PROHIBITED",
+    "artifact_download": "PROHIBITED",
+    "remote_writes": "NONE",
+    "expected_status_after_pass": "EXPLICIT_ROUTE_CANDIDATE_NOT_FETCHED",
+    "next_gate_after_pass": "M7_SIOPE_ANTONIETA_ARTIFACT_VERIFICATION_GATE_0_8_0"
   },
   "safety": {
     "active_release": "0.7.0",
@@ -90,7 +125,7 @@
     "siope_recurrence": "NOT_AUTHORIZED",
     "siope_schedule": "DISABLED",
     "captcha_bypass": "PROHIBITED",
-    "form_submission": "PROHIBITED_IN_ROUTE_DISCOVERY",
+    "form_submission": "PROHIBITED_IN_DISCOVERY_GATES",
     "source_collection_rerun": "DISABLED_IN_PRODUCTION_WORKFLOW",
     "source_processing_rerun": "DISABLED_IN_PRODUCTION_WORKFLOW",
     "reconciliation_rerun": "DISABLED_IN_PRODUCTION_WORKFLOW",
@@ -104,15 +139,18 @@
     "siope_route_discovery_tests": "11/11 PASS",
     "siope_route_workflow_tests": "6/6 PASS",
     "siope_route_network_error_tests": "3/3 PASS",
-    "repository_unit_tests": "199/199 PASS",
+    "siope_download_route_discovery_tests": "8/8 PASS",
+    "siope_download_route_workflow_tests": "6/6 PASS",
+    "repository_unit_tests": "213/213 PASS",
     "historical_regressions": "109/109 PASS",
     "offline_preflight": "PASS 56/56 CHECKS",
     "design_gate": "PASS_M7_SOURCE_EXPANSION_DESIGN_GATE",
     "compileall": "PASS",
-    "ci_run": 32791631284,
-    "ci_run_number": 101,
-    "validated_commit": "10f613b4796603923ed0bc2b4265c056dab36eba"
+    "ci_run": 32793058402,
+    "ci_run_number": 106,
+    "validated_commit": "70bb44bf09792816bc1f65b98029424de1e05273"
   },
   "promotion_gate": "PASS_M7_OFFLINE_SOURCE_EXPANSION_DESIGN_VALIDATION",
-  "next_action": "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0"
+  "canonical_stage": "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0",
+  "next_subgate": "M7_SIOPE_ANTONIETA_DOWNLOAD_ROUTE_DISCOVERY_GATE_0_8_0"
 }

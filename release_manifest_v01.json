@@ -8,7 +8,11 @@
   "preserved_candidate_manifest": "release_manifest_v01_0.7.0.json",
   "promotion_gate": "PENDING_M7_OFFLINE_SOURCE_EXPANSION_DESIGN_VALIDATION",
   "design_validation": "PASS_M7_OFFLINE_SOURCE_EXPANSION_DESIGN_VALIDATION",
-  "route_discovery_readiness": "READY_MANUAL_NOT_EXECUTED",
+  "route_discovery": "PASS_M7_SIOPE_ROUTE_DISCOVERY_GATE",
+  "route_discovery_live_run": 32791989543,
+  "acquisition_route": "CANDIDATE_IDENTIFIED_ARTIFACT_NOT_VERIFIED",
+  "download_route_discovery_readiness": "READY_MANUAL_NOT_EXECUTED",
   "operational_authorization": "NONE",
-  "next_action": "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0"
+  "next_action": "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0",
+  "next_subgate": "M7_SIOPE_ANTONIETA_DOWNLOAD_ROUTE_DISCOVERY_GATE_0_8_0"
 }
