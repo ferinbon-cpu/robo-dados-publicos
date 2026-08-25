@@ -42,6 +42,7 @@ class TestM7SiopeWsPublicDiscovery(unittest.TestCase):
             html,
             page_url="https://www.fnde.gov.br/siope/download.do",
             allowed_hosts=("www.fnde.gov.br", "webservice.fnde.gov.br"),
+            classification_rules=self.cfg["classification_rules"],
         )
         self.assertEqual(len(links), 1)
         item = links[0]
@@ -50,6 +51,41 @@ class TestM7SiopeWsPublicDiscovery(unittest.TestCase):
         self.assertNotIn("SECRET", json.dumps(item))
         self.assertNotIn("2024", json.dumps(item))
         self.assertFalse(item["network_sent"])
+
+    def test_castor_installer_link_is_explicitly_excluded_not_endpoint(self):
+        html = (
+            '<div>Inclusão indicadores no WS-SIOPE</div>'
+            '<a href="https://www.fnde.gov.br/webservices/castor/index.php/cas/view/'
+            'nu_seq_arquivo/10696157/sg_aplicacao/SIOPE">Instalador do Sistema</a>'
+        )
+        links = extract_declared_ws_links(
+            html,
+            page_url="https://www.fnde.gov.br/siope/download.do",
+            allowed_hosts=("www.fnde.gov.br", "webservice.fnde.gov.br"),
+            classification_rules=self.cfg["classification_rules"],
+        )
+        self.assertEqual(len(links), 1)
+        self.assertEqual(links[0]["classification"], "EXCLUDED_GENERIC_FILE_DELIVERY_LINK")
+        self.assertFalse(links[0]["network_sent"])
+
+    def test_castor_only_live_shape_stops_fail_closed(self):
+        castor = (
+            '<html><body>Inclusão indicadores no WS-SIOPE '
+            '<a href="https://www.fnde.gov.br/webservices/castor/index.php/cas/view/'
+            'nu_seq_arquivo/10696157/sg_aplicacao/SIOPE">Instalador do Sistema</a>'
+            '</body></html>'
+        )
+        responses = {
+            self.cfg["initial_urls"][0]: castor,
+            self.cfg["initial_urls"][1]: "<html><body>Dados informados</body></html>",
+        }
+        fake = FakeClient(responses)
+        with self.assertRaises(SiopeWsPublicDiscoveryError) as ctx:
+            discover_ws_public_surface(self.cfg, client=fake)
+        self.assertIn("NO_EXPLICIT_ENDPOINT_OR_DOCUMENTATION", str(ctx.exception))
+        self.assertEqual(ctx.exception.diagnostics["explicit_candidate_count"], 0)
+        self.assertEqual(ctx.exception.diagnostics["excluded_generic_file_delivery_count"], 1)
+        self.assertFalse(ctx.exception.diagnostics["endpoint_candidate_network_sent"])
 
     def test_textual_ws_siope_mention_without_explicit_link_stops(self):
         responses = {
