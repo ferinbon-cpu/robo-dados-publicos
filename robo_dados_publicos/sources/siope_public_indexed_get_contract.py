@@ -13,9 +13,18 @@ ERROR = "STOP_SIOPE_PUBLIC_INDEXED_GET_CONTRACT"
 
 
 class SiopePublicIndexedGetContractError(RuntimeError):
-    def __init__(self, message: str, *, diagnostics: dict | None = None):
+    def __init__(
+        self,
+        message: str,
+        *,
+        diagnostics: dict | None = None,
+        network_called: bool = False,
+        indexed_example_query_sent: bool = False,
+    ):
         super().__init__(message)
         self.diagnostics = diagnostics or {}
+        self.network_called = network_called
+        self.indexed_example_query_sent = indexed_example_query_sent
 
 
 def _validate_config(config: dict) -> None:
@@ -46,7 +55,7 @@ def _validate_config(config: dict) -> None:
         raise SiopePublicIndexedGetContractError(f"{ERROR}_CONFIG_LOADING_MARKERS")
     if config.get("captcha_component_markers") != ["captcha", "recaptcha", "g-recaptcha", "hcaptcha"]:
         raise SiopePublicIndexedGetContractError(f"{ERROR}_CONFIG_CAPTCHA_COMPONENT_MARKERS")
-    if config.get("human_challenge_required_markers") != ["É necessário validar o captcha"]:
+    if config.get("human_challenge_required_markers") != ["validar o captcha"]:
         raise SiopePublicIndexedGetContractError(f"{ERROR}_CONFIG_HUMAN_CHALLENGE_MARKERS")
     if config.get("limits") != {"max_response_bytes": 1048576}:
         raise SiopePublicIndexedGetContractError(f"{ERROR}_CONFIG_LIMITS")
@@ -87,6 +96,11 @@ def _marker_present(body: str, markers: list[str]) -> bool:
     return any(marker.casefold() in lower for marker in markers)
 
 
+def _all_markers_present(body: str, markers: list[str]) -> dict[str, bool]:
+    lower = body.casefold()
+    return {marker: marker.casefold() in lower for marker in markers}
+
+
 def _surface(url: str) -> dict:
     parsed = urlparse(url)
     keys = sorted({key[:128] for key, _ in parse_qsl(parsed.query, keep_blank_values=True) if key})
@@ -110,23 +124,42 @@ def verify_public_indexed_get_contract(config: dict, *, client: ReadOnlyDeclared
             allowed_content_types=("text/html", "application/xhtml+xml"),
         )
     except SiopeDownloadRouteDiscoveryError as exc:
-        raise SiopePublicIndexedGetContractError(f"{ERROR}_{exc}") from None
+        raise SiopePublicIndexedGetContractError(
+            f"{ERROR}_{exc}",
+            network_called=True,
+            indexed_example_query_sent=False,
+        ) from None
 
     final = _surface(response.url)
+    post_response = {
+        "network_called": True,
+        "indexed_example_query_sent": True,
+    }
     if final["path"] != config["expected_path"]:
         raise SiopePublicIndexedGetContractError(
             f"{ERROR}_FINAL_PATH",
             diagnostics={"response_status": response.status, "final_surface": final},
+            **post_response,
         )
     if final["query_keys"] != config["expected_query_keys"]:
         raise SiopePublicIndexedGetContractError(
             f"{ERROR}_FINAL_QUERY_KEYS",
             diagnostics={"response_status": response.status, "final_surface": final},
+            **post_response,
         )
 
     body = response.body
     heading_present = config["expected_page_heading"].casefold() in body.casefold()
-    if not heading_present:
+    loading = _all_markers_present(body, config["expected_loading_markers"])
+    loading_contract_present = all(loading.values())
+
+    # The legacy SIOPE surface can arrive in a non-UTF-8 encoding while the
+    # shared read-only client deliberately decodes as UTF-8. Accent-bearing
+    # labels may therefore be mojibake even when the correct page was returned.
+    # Keep the exact host/path/query contract and accept the surface only when
+    # either the full heading survives decoding or both stable ASCII loading
+    # markers are present.
+    if not (heading_present or loading_contract_present):
         raise SiopePublicIndexedGetContractError(
             f"{ERROR}_UNEXPECTED_SURFACE",
             diagnostics={
@@ -134,15 +167,14 @@ def verify_public_indexed_get_contract(config: dict, *, client: ReadOnlyDeclared
                 "content_type": response.content_type,
                 "response_byte_count": response.byte_count,
                 "final_surface": final,
+                "expected_heading_present": heading_present,
+                "loading_markers_present": loading,
             },
+            **post_response,
         )
 
     captcha_component = _marker_present(body, config["captcha_component_markers"])
     challenge_required = _marker_present(body, config["human_challenge_required_markers"])
-    loading = {
-        marker: marker.casefold() in body.casefold()
-        for marker in config["expected_loading_markers"]
-    }
     next_gate = config["next_gate_if_human_challenge"] if challenge_required else config["next_gate_if_no_human_challenge"]
     return {
         "status": "PASS_M7_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_GATE",
@@ -157,7 +189,8 @@ def verify_public_indexed_get_contract(config: dict, *, client: ReadOnlyDeclared
         "content_type": response.content_type,
         "response_byte_count": response.byte_count,
         "final_surface": final,
-        "expected_heading_present": True,
+        "expected_heading_present": heading_present,
+        "surface_verified_by": "EXACT_HEADING" if heading_present else "ASCII_LOADING_MARKERS",
         "loading_markers_present": loading,
         "captcha_component_present": captcha_component,
         "human_challenge_required_message_present": challenge_required,
