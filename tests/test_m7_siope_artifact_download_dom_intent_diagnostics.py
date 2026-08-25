@@ -9,7 +9,6 @@ import unittest
 from robo_dados_publicos.sources.siope_artifact_download_dom_intent_diagnostics import (
     diagnose_artifact_download_dom_intent,
     sanitize_dom_snapshot,
-    summarize_dom_intent,
 )
 from robo_dados_publicos.sources.siope_artifact_download_runtime_route_probe import (
     load_artifact_download_runtime_route_probe_config,
@@ -19,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "config" / "source_expansion.siope_artifact_download_runtime_route_probe_gate.json"
 SOURCE = ROOT / "robo_dados_publicos" / "sources" / "siope_artifact_download_dom_intent_diagnostics.py"
 SCRIPT = ROOT / "scripts" / "github_siope_artifact_download_dom_intent_diagnostics_gate.py"
+WORKFLOW = ROOT / ".github" / "workflows" / "siope-artifact-download-dom-intent-diagnostics-gate.yml"
 
 
 class FakeRuntime:
@@ -99,6 +99,21 @@ class TestM7SiopeArtifactDownloadDomIntentDiagnostics(unittest.TestCase):
         self.assertFalse(payload["second_click_executed"])
         self.assertFalse(payload["candidate_route_network_sent"])
         self.assertFalse(payload["artifact_downloaded"])
+
+    def test_workflow_is_manual_read_only_and_runs_full_qa_before_live(self):
+        wf = WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("workflow_dispatch:", wf)
+        self.assertNotIn("schedule:", wf)
+        self.assertIn("contents: read", wf)
+        self.assertIn("confirm_artifact_download_dom_intent_diagnostics", wf)
+        self.assertIn("persist-credentials: false", wf)
+        self.assertIn("python -m unittest discover -s tests -v", wf)
+        self.assertIn("python main.py selftest", wf)
+        self.assertLess(wf.index("python -m unittest discover -s tests -v"), wf.index("Diagnóstico DOM ao vivo após clique único"))
+        self.assertLess(wf.index("python main.py selftest"), wf.index("Diagnóstico DOM ao vivo após clique único"))
+        self.assertNotIn("curl ", wf)
+        self.assertNotIn("wget ", wf)
+        self.assertNotIn("drive", wf.lower())
 
 
 if __name__ == "__main__":
