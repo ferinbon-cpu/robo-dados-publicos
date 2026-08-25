@@ -23,8 +23,10 @@
   "export_request_refinement_live_run": 32797644562,
   "export_request_refinement_status": "EXPORT_REQUEST_CONTEXT_OBSERVED_ROUTE_UNPROVEN",
   "runtime_route_probe_design": "PASS_M7_SIOPE_EXPORT_RUNTIME_ROUTE_PROBE_DESIGN_GATE",
-  "runtime_route_probe_implementation_readiness": "PENDING_AFTER_DESIGN_MERGE",
+  "runtime_route_probe_workflow": "M7 SIOPE EXPORT RUNTIME ROUTE PROBE GATE",
+  "runtime_route_probe_readiness": "READY_MANUAL_NOT_EXECUTED_AFTER_MERGE",
+  "runtime_route_probe_live_run": null,
   "operational_authorization": "NONE",
   "next_action": "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0",
-  "next_subgate": "M7_SIOPE_EXPORT_RUNTIME_ROUTE_PROBE_IMPLEMENTATION_0_8_0"
+  "next_subgate": "M7_SIOPE_EXPORT_RUNTIME_ROUTE_PROBE_GATE_0_8_0"
 }
