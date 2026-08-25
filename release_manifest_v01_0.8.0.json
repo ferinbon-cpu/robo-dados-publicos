@@ -5,7 +5,7 @@
   "milestone": "M7_CONTROLLED_SOURCE_EXPANSION_AND_ROUTE_DISCOVERY",
   "based_on_active": "0.7.0",
   "academic_basis": "MD_00.1 V02 - provenance, source contracts, explicit uncertainty, fail-closed acquisition and human review boundaries",
-  "new_capability": "Controlled SIOPE source expansion with a live-validated public surface and a separate read-only subgate to discover an explicit download route without fetching the artifact.",
+  "new_capability": "Controlled SIOPE source expansion with live-validated public surface, fail-closed route discovery, and a separate passive export-control contract discovery gate that never clicks or downloads the artifact.",
   "source_expansion": {
     "pilot_source": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
     "institution": "FNDE",
@@ -21,7 +21,7 @@
       "RECURRENCE_ELIGIBLE"
     ],
     "current_state": "CONTRACT_VALIDATED",
-    "acquisition_route": "CANDIDATE_IDENTIFIED_ARTIFACT_NOT_VERIFIED",
+    "acquisition_route": "CANDIDATE_IDENTIFIED_DYNAMIC_EXPORT_CONTRACT_ROUTE_UNPROVEN",
     "schema": "UNPROVEN",
     "content_type": "UNPROVEN",
     "collection_authorization": "PROHIBITED",
@@ -100,7 +100,7 @@
     "workflow": "M7 SIOPE DOWNLOAD ROUTE DISCOVERY GATE",
     "script": "scripts/github_siope_download_route_discovery_gate.py",
     "config": "config/source_expansion.siope_download_route_discovery_gate.json",
-    "status": "READY_MANUAL_NOT_EXECUTED",
+    "status": "STOP_STATIC_ROUTE_NOT_EXPLICIT_DYNAMIC_EXPORT_MARKERS_OBSERVED",
     "network": "READ_ONLY_GET_PAGE_AND_DECLARED_SCRIPTS",
     "allowed_hosts": [
       "www.fnde.gov.br"
@@ -113,8 +113,72 @@
     "head_request": "PROHIBITED",
     "artifact_download": "PROHIBITED",
     "remote_writes": "NONE",
-    "expected_status_after_pass": "EXPLICIT_ROUTE_CANDIDATE_NOT_FETCHED",
-    "next_gate_after_pass": "M7_SIOPE_ANTONIETA_ARTIFACT_VERIFICATION_GATE_0_8_0"
+    "attempt_1": {
+      "github_run": 32793490217,
+      "github_job": 97639851304,
+      "head_commit": "c988af13de3b6f2e98d1ee49fc4c3da6ecc3329a",
+      "result": "STOP_SIOPE_DOWNLOAD_ROUTE_NOT_EXPLICITLY_DISCOVERED",
+      "artifact_id": 9543972733,
+      "artifact_name": "siope-download-route-discovery-32793490217",
+      "diagnostics_available": false,
+      "safety_preserved": true
+    },
+    "attempt_2": {
+      "github_run": 32794666678,
+      "github_job": 97643357905,
+      "head_commit": "f8d7c4aeae86b449d4a24c875655943c95fb363f",
+      "result": "STOP_SIOPE_DOWNLOAD_ROUTE_NOT_EXPLICITLY_DISCOVERED",
+      "artifact_id": 9544387746,
+      "artifact_name": "siope-download-route-discovery-32794666678",
+      "artifact_zip_sha256": "a0f918fb85249689d021bdbf794b8958ae22670d2d2384316e43137361007701",
+      "page_verified": true,
+      "artifact_declared": true,
+      "page_bytes": 304841,
+      "declared_script_count": 1,
+      "fetched_script_count": 1,
+      "script_failure_count": 0,
+      "total_fetched_script_bytes": 814209,
+      "route_candidate_count": 0,
+      "export_label_present": true,
+      "data_attribute_export_marker_count": 1,
+      "inline_script_export_marker_count": 1,
+      "href_action_export_marker_count": 0,
+      "inline_event_export_marker_count": 0,
+      "artifact_downloaded": false,
+      "head_request_performed": false,
+      "form_submission": false,
+      "remote_writes": "NONE",
+      "collection_authorized": false,
+      "processing_authorized": false,
+      "recurrence_authorized": false,
+      "schedule_enabled": false,
+      "interpretation": "DYNAMIC_EXPORT_CONTROL_OBSERVED_ROUTE_UNPROVEN"
+    }
+  },
+  "export_contract_discovery_gate": {
+    "workflow": "M7 SIOPE EXPORT CONTRACT DISCOVERY GATE",
+    "script": "scripts/github_siope_export_contract_discovery_gate.py",
+    "config": "config/source_expansion.siope_export_contract_discovery_gate.json",
+    "status": "READY_MANUAL_NOT_EXECUTED",
+    "network": "READ_ONLY_GET_PAGE_AND_DECLARED_SCRIPTS",
+    "allowed_hosts": [
+      "www.fnde.gov.br"
+    ],
+    "observes": [
+      "EXPORT_RELATED_DATA_ATTRIBUTES",
+      "DATASET_KEYS",
+      "GETATTRIBUTE_DATA_NAMES",
+      "EXPORT_IDENTIFIERS",
+      "FETCH_XHR_AXIOS_AJAX_NAVIGATION_SUBMIT_LISTENER_SIGNALS",
+      "QUOTED_AND_BACKTICK_ROUTE_TEMPLATES"
+    ],
+    "browser_automation": "PROHIBITED",
+    "click_execution": "PROHIBITED",
+    "candidate_route_fetch": "PROHIBITED",
+    "head_request": "PROHIBITED",
+    "artifact_download": "PROHIBITED",
+    "remote_writes": "NONE",
+    "next_gate_after_pass": "M7_SIOPE_EXPORT_RUNTIME_ROUTE_PROBE_DESIGN_0_8_0"
   },
   "safety": {
     "active_release": "0.7.0",
@@ -126,6 +190,8 @@
     "siope_schedule": "DISABLED",
     "captcha_bypass": "PROHIBITED",
     "form_submission": "PROHIBITED_IN_DISCOVERY_GATES",
+    "browser_automation": "PROHIBITED_IN_EXPORT_CONTRACT_DISCOVERY",
+    "click_execution": "PROHIBITED_IN_EXPORT_CONTRACT_DISCOVERY",
     "source_collection_rerun": "DISABLED_IN_PRODUCTION_WORKFLOW",
     "source_processing_rerun": "DISABLED_IN_PRODUCTION_WORKFLOW",
     "reconciliation_rerun": "DISABLED_IN_PRODUCTION_WORKFLOW",
@@ -141,16 +207,19 @@
     "siope_route_network_error_tests": "3/3 PASS",
     "siope_download_route_discovery_tests": "8/8 PASS",
     "siope_download_route_workflow_tests": "6/6 PASS",
-    "repository_unit_tests": "213/213 PASS",
+    "siope_export_contract_discovery_tests": "7/7 PASS",
+    "siope_export_contract_workflow_tests": "5/5 PASS",
+    "repository_unit_tests": "229/229 PASS",
     "historical_regressions": "109/109 PASS",
-    "offline_preflight": "PASS 56/56 CHECKS",
+    "offline_preflight": "PASS",
     "design_gate": "PASS_M7_SOURCE_EXPANSION_DESIGN_GATE",
     "compileall": "PASS",
-    "ci_run": 32793058402,
-    "ci_run_number": 106,
-    "validated_commit": "70bb44bf09792816bc1f65b98029424de1e05273"
+    "premerge_ci_run": 32795166675,
+    "premerge_ci_run_number": 116,
+    "validated_code_commit": "0205ec480c9cde1f5ceb9c0bfa9215c6d170ae90",
+    "final_head_ci": "REQUIRED_BEFORE_MERGE"
   },
   "promotion_gate": "PASS_M7_OFFLINE_SOURCE_EXPANSION_DESIGN_VALIDATION",
   "canonical_stage": "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0",
-  "next_subgate": "M7_SIOPE_ANTONIETA_DOWNLOAD_ROUTE_DISCOVERY_GATE_0_8_0"
+  "next_subgate": "M7_SIOPE_ANTONIETA_EXPORT_CONTRACT_DISCOVERY_GATE_0_8_0"
 }

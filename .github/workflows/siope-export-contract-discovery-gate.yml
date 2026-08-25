@@ -1,0 +1,99 @@
+name: M7 SIOPE EXPORT CONTRACT DISCOVERY GATE
+run-name: "M7 SIOPE export contract discovery 0.8.0 by @${{ github.actor }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_export_contract_discovery:
+        description: "Confirmar descoberta passiva do contrato do botão Exportar artefato, sem clique/download"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: robo-dados-publicos-siope-export-contract-discovery
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    name: Descobrir contrato de exportação SIOPE
+    if: ${{ inputs.confirm_export_contract_discovery == true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Instalar dependências
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Preflight offline da candidata
+        run: python scripts/github_preflight.py
+
+      - name: Dry-run sem rede
+        run: python scripts/github_siope_export_contract_discovery_gate.py --dry-run
+
+      - name: Compilar
+        run: python -m compileall -q .
+
+      - name: Testes unitários
+        run: python -m unittest discover -s tests -v
+
+      - name: Regressão histórica
+        run: python main.py selftest
+
+      - name: Descoberta passiva ao vivo
+        id: export_gate
+        shell: bash
+        run: |
+          set +e
+          python scripts/github_siope_export_contract_discovery_gate.py > "$RUNNER_TEMP/siope_export_contract_result.json"
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Preparar evidência sanitizada
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          mkdir -p siope-export-contract-evidence
+          if [ -s "$RUNNER_TEMP/siope_export_contract_result.json" ]; then
+            cp "$RUNNER_TEMP/siope_export_contract_result.json" siope-export-contract-evidence/result.json
+          else
+            printf '%s\n' '{"status":"STOP_M7_SIOPE_EXPORT_CONTRACT_DISCOVERY_NO_RESULT","remote_writes":"NONE","artifact_downloaded":false,"head_request_performed":false,"form_submission":false,"browser_automation_performed":false,"click_executed":false,"captcha_bypass":false,"collection_authorized":false,"processing_authorized":false,"recurrence_authorized":false,"schedule_enabled":false}' > siope-export-contract-evidence/result.json
+          fi
+
+      - name: Publicar evidência sanitizada
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: siope-export-contract-discovery-${{ github.run_id }}
+          path: siope-export-contract-evidence/result.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Propagar resultado do gate
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          cat siope-export-contract-evidence/result.json
+          code='${{ steps.export_gate.outputs.exit_code }}'
+          if [ "${code:-20}" != "0" ]; then
+            exit "${code:-20}"
+          fi
+          echo "PASS_M7_SIOPE_EXPORT_CONTRACT_DISCOVERY_GATE"
