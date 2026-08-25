@@ -13,13 +13,7 @@
     "public_surface": "VERIFIED_PUBLIC_SURFACE",
     "public_access": "CITIZEN_NO_PASSWORD",
     "pilot_scope": "LIMEIRA_SP_2024_CLOSED_EXERCISE_PROPOSED",
-    "lifecycle": [
-      "DISCOVERED",
-      "CONTRACT_VALIDATED",
-      "ONE_TIME_AUTHORIZED",
-      "LIVE_VALIDATED",
-      "RECURRENCE_ELIGIBLE"
-    ],
+    "lifecycle": ["DISCOVERED", "CONTRACT_VALIDATED", "ONE_TIME_AUTHORIZED", "LIVE_VALIDATED", "RECURRENCE_ELIGIBLE"],
     "current_state": "CONTRACT_VALIDATED",
     "acquisition_route": "CANDIDATE_IDENTIFIED_DYNAMIC_EXPORT_CONTRACT_ROUTE_UNPROVEN",
     "schema": "UNPROVEN",
@@ -44,10 +38,7 @@
     "config": "config/source_expansion.siope_route_discovery_gate.json",
     "status": "PASS_M7_SIOPE_ROUTE_DISCOVERY_GATE",
     "network": "MAX_TWO_READ_ONLY_GETS",
-    "allowed_hosts": [
-      "www.fnde.gov.br",
-      "webservice.fnde.gov.br"
-    ],
+    "allowed_hosts": ["www.fnde.gov.br", "webservice.fnde.gov.br"],
     "classic_query": "OBSERVED_HUMAN_CHALLENGE_BLOCK_AUTOMATED_ACQUISITION",
     "preferred_candidate": "ANTONIETA_DADOS_GERAIS_SIOPE",
     "declared_artifact": "exports/SIOPE/SIOPE_DADOS_GERAIS_SIOPE.txt.gz",
@@ -102,9 +93,7 @@
     "config": "config/source_expansion.siope_download_route_discovery_gate.json",
     "status": "STOP_STATIC_ROUTE_NOT_EXPLICIT_DYNAMIC_EXPORT_MARKERS_OBSERVED",
     "network": "READ_ONLY_GET_PAGE_AND_DECLARED_SCRIPTS",
-    "allowed_hosts": [
-      "www.fnde.gov.br"
-    ],
+    "allowed_hosts": ["www.fnde.gov.br"],
     "max_page_bytes": 2097152,
     "max_scripts": 8,
     "max_script_bytes": 1048576,
@@ -162,9 +151,7 @@
     "status": "PASS_M7_SIOPE_EXPORT_CONTRACT_DISCOVERY_GATE",
     "export_contract_status": "DYNAMIC_EXPORT_CONTROL_OBSERVED_ROUTE_UNPROVEN",
     "network": "READ_ONLY_GET_PAGE_AND_DECLARED_SCRIPTS",
-    "allowed_hosts": [
-      "www.fnde.gov.br"
-    ],
+    "allowed_hosts": ["www.fnde.gov.br"],
     "browser_automation": "PROHIBITED",
     "click_execution": "PROHIBITED",
     "candidate_route_fetch": "PROHIBITED",
@@ -183,12 +170,7 @@
       "page_verified": true,
       "artifact_declared": true,
       "route_template_count": 0,
-      "target_identifiers_observed": [
-        "getArtifactByDataProductId",
-        "getArtifactMetadataByDataProductId",
-        "downloadFile",
-        "exportKey"
-      ],
+      "target_identifiers_observed": ["getArtifactByDataProductId", "getArtifactMetadataByDataProductId", "downloadFile", "exportKey"],
       "artifact_downloaded": false,
       "head_request_performed": false,
       "browser_automation_performed": false,
@@ -206,15 +188,8 @@
     "config": "config/source_expansion.siope_export_callsite_route_gate.json",
     "status": "READY_MANUAL_NOT_EXECUTED",
     "network": "READ_ONLY_GET_PAGE_AND_DECLARED_SCRIPTS",
-    "allowed_hosts": [
-      "www.fnde.gov.br"
-    ],
-    "target_identifiers": [
-      "getArtifactByDataProductId",
-      "getArtifactMetadataByDataProductId",
-      "downloadFile",
-      "exportKey"
-    ],
+    "allowed_hosts": ["www.fnde.gov.br"],
+    "target_identifiers": ["getArtifactByDataProductId", "getArtifactMetadataByDataProductId", "downloadFile", "exportKey"],
     "callsite_window_chars": 2400,
     "max_callsites_per_identifier": 8,
     "max_total_callsites": 24,
@@ -267,7 +242,7 @@
     "callsite_ci_run": 32796385013,
     "callsite_ci_run_number": 122,
     "validated_code_commit": "443656f050ed5cf7f8f8aabff0e80bc8edde63ee",
-    "final_head_ci": "REQUIRED_BEFORE_MERGE"
+    "final_head_ci_policy": "EXACT_PR_HEAD_MUST_PASS_BEFORE_MERGE"
   },
   "promotion_gate": "PASS_M7_OFFLINE_SOURCE_EXPANSION_DESIGN_VALIDATION",
   "canonical_stage": "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0",
