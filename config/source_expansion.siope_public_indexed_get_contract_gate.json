@@ -1,0 +1,49 @@
+{
+  "gate_id": "M7_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_GATE_0_8_0",
+  "source_id": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
+  "mode": "EXACT_PUBLICLY_INDEXED_GET_CONTRACT_VERIFICATION",
+  "public_indexed_example_url": "https://www.fnde.gov.br/siope/dadosInformadosMunicipio.do?acao=atualizar&admin=3&cod_muni=292430&cod_uf=29&num_ano=2024&num_peri=6&pag=result&tp_relatorio=R",
+  "allowed_hosts": [
+    "www.fnde.gov.br"
+  ],
+  "expected_path": "/siope/dadosInformadosMunicipio.do",
+  "expected_query_keys": [
+    "acao",
+    "admin",
+    "cod_muni",
+    "cod_uf",
+    "num_ano",
+    "num_peri",
+    "pag",
+    "tp_relatorio"
+  ],
+  "expected_page_heading": "Dados Informados pelos Municípios",
+  "expected_loading_markers": [
+    "Buscando planilhas",
+    "Buscando dados"
+  ],
+  "limits": {
+    "max_response_bytes": 1048576
+  },
+  "verification_rules": {
+    "methods": ["GET"],
+    "send_exact_indexed_example_only": true,
+    "send_pilot_limeira_values": false,
+    "submit_forms": false,
+    "bypass_captcha": false,
+    "authenticate": false,
+    "capture_credentials": false,
+    "capture_cookies": false,
+    "persist_response_body": false,
+    "persist_query_values": false,
+    "download_artifacts": false,
+    "head_request": false
+  },
+  "success_condition": "INDEXED_GET_ROUTE_RETURNS_EXPECTED_PUBLIC_SIOPE_SURFACE",
+  "next_gate_if_no_human_challenge": "M7_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS_0_8_0",
+  "next_gate_if_human_challenge": "M7_SIOPE_MANUAL_ASSISTED_ACQUISITION_DESIGN_0_8_0",
+  "collection_authorized": false,
+  "processing_authorized": false,
+  "recurrence_authorized": false,
+  "schedule_enabled": false
+}
