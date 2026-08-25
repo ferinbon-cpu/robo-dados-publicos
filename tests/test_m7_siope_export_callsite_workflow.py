@@ -3,7 +3,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW = ROOT / ".github" / "workflows" / "siope-export-callsite-route-gate.yml"
-PRODUCTION = ROOT / ".github" / "workflows" / "cloud-runner.yml"
+PRODUCTION = ROOT / ".github" / "workflows" / "robo-dados-publicos.yml"
 
 
 class TestM7SiopeExportCallsiteWorkflow(unittest.TestCase):
