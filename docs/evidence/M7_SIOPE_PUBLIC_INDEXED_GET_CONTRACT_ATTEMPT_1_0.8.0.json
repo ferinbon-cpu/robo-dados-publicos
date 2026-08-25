@@ -1,0 +1,49 @@
+{
+  "gate_id": "M7_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_GATE_0_8_0",
+  "software_version": "0.8.0",
+  "run_id": 32860945165,
+  "run_number": 1,
+  "head_sha": "f19e8f92beda4338f25adc6a15c4d29edd49fa42",
+  "run_conclusion": "failure",
+  "classification": "EXPECTED_FAIL_CLOSED_STOP_WITH_SURFACE_MATCHER_BUG",
+  "artifact": {
+    "id": 9568138911,
+    "name": "siope-public-indexed-get-contract-32860945165",
+    "sha256": "61cc6f9f054af5585c62cb412eb30579a602f743ee93bf72c085be0bea986927"
+  },
+  "qa": {
+    "unit_tests_passed": 399,
+    "historical_regressions_passed": 109
+  },
+  "observed": {
+    "response_status": 200,
+    "content_type": "text/html",
+    "response_byte_count": 121566,
+    "final_host": "www.fnde.gov.br",
+    "final_path": "/siope/dadosInformadosMunicipio.do",
+    "query_key_count": 8,
+    "query_values_persisted": false,
+    "response_body_persisted": false,
+    "pilot_limeira_values_sent": false,
+    "form_submission": false,
+    "captcha_bypass": false,
+    "authentication_performed": false,
+    "artifact_downloaded": false,
+    "remote_writes": "NONE"
+  },
+  "stop": {
+    "reason": "STOP_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_UNEXPECTED_SURFACE",
+    "root_cause": "LITERAL_ACCENTED_HEADING_MATCH_UNSTABLE_ON_LEGACY_HTML_DECODING",
+    "telemetry_issue": "STOP_WRAPPER_REPORTED_INDEXED_EXAMPLE_QUERY_SENT_FALSE_AFTER_RESPONSE_WAS_OBSERVED"
+  },
+  "decision": {
+    "preserve_exact_host_path_query_contract": true,
+    "surface_fallback": "REQUIRE_BOTH_ASCII_LOADING_MARKERS_WHEN_ACCENTED_HEADING_IS_NOT_DECODABLE",
+    "human_challenge_ascii_fail_safe": "validar o captcha",
+    "post_submission_authorized": false,
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false
+  }
+}
