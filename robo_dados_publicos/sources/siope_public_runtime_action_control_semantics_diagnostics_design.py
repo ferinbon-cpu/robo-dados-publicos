@@ -85,11 +85,15 @@ def validate_design(config: dict, review: dict, public_config: dict) -> dict:
     _require(review.get("gate_id"), config["prerequisite_gate_id"], "REVIEW_GATE")
     _require(review.get("next_gate"), config["gate_id"], "REVIEW_NEXT_GATE")
     _require(review.get("mismatched_control_names"), ["acao"], "REVIEW_MISMATCH_SCOPE")
-    _require(review.get("acao_control_structure"), config["target_control_structure"], "REVIEW_ACAO_STRUCTURE")
-    _require(review.get("acao_value_semantics_status"), config["prerequisite_action_semantics"], "REVIEW_ACAO_SEMANTICS")
-    _require(review.get("post_authorized"), False, "REVIEW_POST_AUTH")
-    _require(review.get("dom_interaction_authorized"), False, "REVIEW_INTERACTION_AUTH")
-    _require(review.get("pilot_limeira_values_sent"), False, "REVIEW_LIMEIRA")
+    _require(
+        review.get("acao_expected_structure"),
+        {"id": "acao", "name": "acao", "tag_name": "input", "type": "hidden", "option_count": 0, "associated_stable_label": ""},
+        "REVIEW_ACAO_STRUCTURE",
+    )
+    _require(review.get("acao_value_semantics_disposition"), config["prerequisite_action_semantics"], "REVIEW_ACAO_SEMANTICS")
+    _require(review.get("post_request"), "PROHIBITED", "REVIEW_POST_AUTH")
+    _require(review.get("dom_interaction"), "PROHIBITED", "REVIEW_INTERACTION_AUTH")
+    _require(review.get("pilot_limeira_values_send"), "PROHIBITED", "REVIEW_LIMEIRA")
 
     _require(public_config.get("gate_id"), "M7_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS_0_8_0", "PUBLIC_GATE")
     _require(public_config.get("pilot_limeira_values_send"), "PROHIBITED", "PUBLIC_LIMEIRA")
