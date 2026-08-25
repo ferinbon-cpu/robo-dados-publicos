@@ -64,7 +64,8 @@ class TestM7SiopePublicIndexedGetContract(unittest.TestCase):
         fake = FakeClient(body)
         result = verify_public_indexed_get_contract(self.cfg, client=fake)
         self.assertEqual(result["status"], "PASS_M7_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_GATE")
-        self.assertFalse(result["captcha_present"])
+        self.assertFalse(result["captcha_component_present"])
+        self.assertFalse(result["human_challenge_active"])
         self.assertEqual(result["next_gate"], "M7_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS_0_8_0")
         self.assertTrue(result["indexed_example_query_sent"])
         self.assertFalse(result["pilot_limeira_values_sent"])
@@ -73,10 +74,20 @@ class TestM7SiopePublicIndexedGetContract(unittest.TestCase):
             self.assertNotIn(secret_like_public_value, payload)
         self.assertEqual(fake.calls, [self.cfg["public_indexed_example_url"]])
 
-    def test_captcha_is_observed_but_never_bypassed(self):
+    def test_captcha_component_without_required_message_does_not_false_stop(self):
+        body = "<h1>Dados Informados pelos Municípios</h1><div class='g-recaptcha'></div>Buscando dados..."
+        result = verify_public_indexed_get_contract(self.cfg, client=FakeClient(body))
+        self.assertTrue(result["captcha_component_present"])
+        self.assertFalse(result["human_challenge_required_message_present"])
+        self.assertFalse(result["human_challenge_active"])
+        self.assertEqual(result["next_gate"], "M7_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS_0_8_0")
+
+    def test_active_human_challenge_is_observed_but_never_bypassed(self):
         body = "<h1>Dados Informados pelos Municípios</h1>É necessário validar o captcha"
         result = verify_public_indexed_get_contract(self.cfg, client=FakeClient(body))
-        self.assertTrue(result["captcha_present"])
+        self.assertTrue(result["captcha_component_present"])
+        self.assertTrue(result["human_challenge_required_message_present"])
+        self.assertTrue(result["human_challenge_active"])
         self.assertFalse(result["captcha_bypass"])
         self.assertFalse(result["form_submission"])
         self.assertEqual(result["next_gate"], "M7_SIOPE_MANUAL_ASSISTED_ACQUISITION_DESIGN_0_8_0")
