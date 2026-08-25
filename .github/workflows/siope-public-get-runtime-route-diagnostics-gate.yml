@@ -27,6 +27,7 @@ jobs:
           python-version: '3.12'
           check-latest: false
       - run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - run: python scripts/github_siope_runtime_dependency_preflight.py
       - run: python scripts/github_preflight.py
       - run: python scripts/github_source_expansion_design_gate.py
       - run: python scripts/github_siope_public_get_runtime_route_diagnostics_gate.py --dry-run
