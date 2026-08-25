@@ -11,6 +11,7 @@ from robo_dados_publicos.sources.siope_download_route_discovery import (
     extract_declared_script_urls,
     extract_explicit_download_route_candidates,
     load_download_route_discovery_config,
+    summarize_public_page_markers,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -66,6 +67,7 @@ class TestM7SiopeDownloadRouteDiscovery(unittest.TestCase):
         <html><body>
           <h1>Dados Gerais - SIOPE</h1>
           <div>exports/SIOPE/SIOPE_DADOS_GERAIS_SIOPE.txt.gz</div>
+          <button data-label="Exportar artefato">Exportar artefato</button>
           <script src="/assets/app.js"></script>
           <script src="https://evil.example/app.js"></script>
         </body></html>
@@ -87,6 +89,21 @@ class TestM7SiopeDownloadRouteDiscovery(unittest.TestCase):
             max_scripts=8,
         )
         self.assertEqual(("https://www.fnde.gov.br/assets/app.js",), scripts)
+
+    def test_page_markers_are_counts_and_booleans_only(self):
+        html = """
+        <button onclick="exportArtifact(20)" data-action="export">Exportar artefato</button>
+        <a href="/dados/listar">Lista</a>
+        <script>const label = 'export';</script>
+        """
+        markers = summarize_public_page_markers(html)
+        self.assertTrue(markers["export_label_present"])
+        self.assertEqual(1, markers["inline_script_count"])
+        self.assertEqual(1, markers["inline_script_export_marker_count"])
+        self.assertEqual(1, markers["inline_event_export_marker_count"])
+        self.assertEqual(1, markers["data_attribute_export_marker_count"])
+        self.assertEqual(0, markers["href_action_export_marker_count"])
+        self.assertNotIn("exportArtifact", json.dumps(markers))
 
     def test_storage_path_alone_is_not_promoted_to_download_url(self):
         candidates = extract_explicit_download_route_candidates(
@@ -126,22 +143,54 @@ class TestM7SiopeDownloadRouteDiscovery(unittest.TestCase):
         self.assertEqual(2, len(opener.calls))
         self.assertEqual([self.page_url, script_url], [url for url, _, _ in opener.calls])
         self.assertNotIn(candidate_url, [url for url, _, _ in opener.calls])
+        self.assertEqual(1, result["declared_script_count"])
+        self.assertEqual(1, result["fetched_script_count"])
+        self.assertEqual(0, result["script_failure_count"])
         self.assertFalse(result["artifact_downloaded"])
         self.assertFalse(result["head_request_performed"])
         self.assertFalse(result["collection_authorized"])
         self.assertEqual("NONE", result["remote_writes"])
 
-    def test_no_explicit_route_fails_closed_without_guessing(self):
+    def test_no_explicit_route_fails_closed_with_sanitized_diagnostics(self):
         script_url = "https://www.fnde.gov.br/assets/app.js"
         opener = _FakeOpener({
             self.page_url: _Response(self.page_url, self.page_html, "text/html"),
             script_url: _Response(script_url, "const label='Exportar artefato';", "application/javascript"),
         })
-        with self.assertRaisesRegex(SiopeDownloadRouteDiscoveryError, "NOT_EXPLICITLY_DISCOVERED"):
+        with self.assertRaises(SiopeDownloadRouteDiscoveryError) as caught:
             discover_download_route(
                 self.config,
                 client=ReadOnlyDeclaredResourceClient(allowed_hosts=("www.fnde.gov.br",), opener=opener),
             )
+        exc = caught.exception
+        self.assertIn("NOT_EXPLICITLY_DISCOVERED", str(exc))
+        self.assertEqual(1, exc.diagnostics["declared_script_count"])
+        self.assertEqual(1, exc.diagnostics["fetched_script_count"])
+        self.assertEqual(0, exc.diagnostics["script_failure_count"])
+        self.assertEqual(0, exc.diagnostics["route_candidate_count"])
+        self.assertTrue(exc.diagnostics["page_markers"]["export_label_present"])
+        serialized = json.dumps(exc.diagnostics)
+        self.assertNotIn("const label", serialized)
+        self.assertNotIn(script_url, serialized)
+
+    def test_script_fetch_failure_is_diagnostic_not_raw_content(self):
+        script_url = "https://www.fnde.gov.br/assets/app.js"
+        opener = _FakeOpener({
+            self.page_url: _Response(self.page_url, self.page_html, "text/html"),
+            script_url: _Response(script_url, "x" * (1048576 + 2), "application/javascript"),
+        })
+        with self.assertRaises(SiopeDownloadRouteDiscoveryError) as caught:
+            discover_download_route(
+                self.config,
+                client=ReadOnlyDeclaredResourceClient(allowed_hosts=("www.fnde.gov.br",), opener=opener),
+            )
+        diagnostics = caught.exception.diagnostics
+        self.assertEqual(1, diagnostics["declared_script_count"])
+        self.assertEqual(0, diagnostics["fetched_script_count"])
+        self.assertEqual(1, diagnostics["script_failure_count"])
+        self.assertEqual("STOP_SIOPE_DOWNLOAD_ROUTE_RESPONSE_TOO_LARGE", diagnostics["script_failures"][0]["reason"])
+        self.assertNotIn(script_url, json.dumps(diagnostics))
+        self.assertNotIn("xxx", json.dumps(diagnostics))
 
     def test_redirect_to_non_allowlisted_host_fails_closed(self):
         opener = _FakeOpener({
