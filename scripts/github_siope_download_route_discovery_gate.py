@@ -71,6 +71,7 @@ def run_gate(config_path: str | Path, *, dry_run: bool = False) -> tuple[dict, i
         return {
             "status": "STOP_M7_SIOPE_DOWNLOAD_ROUTE_DISCOVERY_GATE",
             "reason": str(exc),
+            "diagnostics": exc.diagnostics,
             "remote_writes": "NONE",
             "artifact_downloaded": False,
             "head_request_performed": False,
