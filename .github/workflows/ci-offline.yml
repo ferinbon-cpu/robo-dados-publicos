@@ -107,6 +107,15 @@ jobs:
       - name: Gate M7 de diagnóstico de rotas Olinda tolerante a fragmento (dry-run)
         run: python scripts/github_siope_official_olinda_api_application_fragment_tolerant_route_diagnostics_gate.py --dry-run
 
+      - name: Gate M7 de revisão do diagnóstico de rotas Olinda tolerante a fragmento
+        run: python scripts/github_siope_official_olinda_api_application_fragment_tolerant_route_diagnostics_review_gate.py
+
+      - name: Gate M7 de desenho do diagnóstico de assinaturas DOM Olinda
+        run: python scripts/github_siope_official_olinda_api_application_dom_signature_diagnostics_design_gate.py
+
+      - name: Gate M7 de assinaturas DOM Olinda (dry-run)
+        run: python scripts/github_siope_official_olinda_api_application_dom_signature_diagnostics_gate.py --dry-run
+
       - name: Compilar
         run: python -m compileall -q .
 
