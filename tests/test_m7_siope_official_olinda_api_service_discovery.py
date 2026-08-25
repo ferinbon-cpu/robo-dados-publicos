@@ -127,7 +127,10 @@ class TestM7SiopeOfficialOlindaApiServiceDiscovery(unittest.TestCase):
         self.assertNotIn("websocket", source)
         self.assertNotIn('method="POST"', source)
         self.assertNotIn('method="HEAD"', source)
-        self.assertNotIn("352690", source)
+        self.assertIn('"352690" in config["exact_service_root"]', source)
+        self.assertIn('"Limeira" in config["exact_service_root"]', source)
+        self.assertNotIn("352690", self.config["exact_service_root"])
+        self.assertNotIn("Limeira", self.config["exact_service_root"])
 
 
 if __name__ == "__main__":
