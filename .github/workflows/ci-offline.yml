@@ -47,6 +47,9 @@ jobs:
       - name: Gate M7 de revisão contratual do runtime SIOPE
         run: python scripts/github_siope_public_runtime_route_contract_review_gate.py
 
+      - name: Gate M7 de desenho da interação controlada SIOPE
+        run: python scripts/github_siope_public_runtime_control_interaction_diagnostics_design_gate.py
+
       - name: Compilar
         run: python -m compileall -q .
 
