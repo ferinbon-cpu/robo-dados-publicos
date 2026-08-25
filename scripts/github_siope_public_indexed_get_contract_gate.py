@@ -27,11 +27,17 @@ def _emit(result: dict, output: str | None) -> None:
     print(text, end="")
 
 
-def _closed(status: str, *, reason: str | None = None, diagnostics: dict | None = None) -> dict:
+def _closed(
+    status: str,
+    *,
+    reason: str | None = None,
+    diagnostics: dict | None = None,
+    indexed_example_query_sent: bool = False,
+) -> dict:
     result = {
         "status": status,
         "network_method": "GET_ONLY",
-        "indexed_example_query_sent": False,
+        "indexed_example_query_sent": indexed_example_query_sent,
         "pilot_limeira_values_sent": False,
         "form_submission": False,
         "captcha_bypass": False,
@@ -51,7 +57,9 @@ def _closed(status: str, *, reason: str | None = None, diagnostics: dict | None 
     if reason:
         result["stop_reason"] = reason
     if diagnostics:
-        result["diagnostics"] = diagnostics
+        safe_diagnostics = dict(diagnostics)
+        safe_diagnostics.pop("network_called", None)
+        result["diagnostics"] = safe_diagnostics
     return result
 
 
@@ -72,6 +80,7 @@ def main() -> int:
                 "STOP_M7_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_GATE",
                 reason=str(exc),
                 diagnostics=exc.diagnostics,
+                indexed_example_query_sent=bool(exc.diagnostics.get("network_called", False)),
             ),
             args.output,
         )
