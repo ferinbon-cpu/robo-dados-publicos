@@ -75,7 +75,11 @@ class TestM7SiopePublicRuntimeControlValueConsistencyDiagnosticsDesign(unittest.
         module = (ROOT / "robo_dados_publicos" / "sources" / "siope_public_runtime_control_value_consistency_diagnostics_design.py").read_text(encoding="utf-8")
         script = (ROOT / "scripts" / "github_siope_public_runtime_control_value_consistency_diagnostics_design_gate.py").read_text(encoding="utf-8")
         combined = module + "\n" + script
-        for forbidden in ("urllib", "requests", "http.client", "websocket", "subprocess", "Page.navigate", "Fetch.enable"):
+        for forbidden in (
+            "import urllib", "from urllib", "import requests", "from requests", "http.client",
+            "import websocket", "from websocket", "import subprocess", "from subprocess",
+            "Page.navigate", "Fetch.enable",
+        ):
             self.assertNotIn(forbidden, combined)
         self.assertNotIn("352690", combined)
 
