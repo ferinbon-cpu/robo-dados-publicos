@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from urllib.parse import urlparse
 
 
 ERROR = "STOP_M7_SIOPE_PUBLIC_INDEXED_GET_SECOND_EXAMPLE_DISCOVERY_DESIGN"
@@ -95,13 +96,16 @@ def validate_discovery_design(config: dict, partition: dict, public_config: dict
     _require(partition.get("second_example_must_be_explicitly_proven_not_synthesized"), True, "PARTITION_EXPLICIT_REQUIRED")
 
     _require(public_config.get("gate_id"), "M7_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS_0_8_0", "PUBLIC_GATE")
-    _require(public_config.get("expected_scheme"), config["required_scheme"], "PUBLIC_SCHEME")
-    _require(public_config.get("expected_host"), config["required_host"], "PUBLIC_HOST")
+    _require(public_config.get("allowed_hosts"), [config["required_host"]], "PUBLIC_ALLOWED_HOSTS")
     _require(public_config.get("expected_path"), config["required_path"], "PUBLIC_PATH")
     _require(public_config.get("expected_query_keys"), config["required_query_keys"], "PUBLIC_QUERY_KEYS")
     pinned = str(public_config.get("public_indexed_example_url", ""))
     if not pinned:
         raise SiopePublicIndexedGetSecondExampleDiscoveryDesignError(f"{ERROR}_PINNED_EXAMPLE_REQUIRED")
+    parsed = urlparse(pinned)
+    _require(parsed.scheme, config["required_scheme"], "PUBLIC_SCHEME")
+    _require(parsed.hostname, config["required_host"], "PUBLIC_HOST")
+    _require(parsed.path, config["required_path"], "PUBLIC_PINNED_PATH")
     if "352690" in pinned:
         raise SiopePublicIndexedGetSecondExampleDiscoveryDesignError(f"{ERROR}_PINNED_EXAMPLE_MUST_BE_NON_PILOT")
 
