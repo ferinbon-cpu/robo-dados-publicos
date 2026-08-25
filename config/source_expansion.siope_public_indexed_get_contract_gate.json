@@ -22,6 +22,15 @@
     "Buscando planilhas",
     "Buscando dados"
   ],
+  "captcha_component_markers": [
+    "captcha",
+    "recaptcha",
+    "g-recaptcha",
+    "hcaptcha"
+  ],
+  "human_challenge_required_markers": [
+    "É necessário validar o captcha"
+  ],
   "limits": {
     "max_response_bytes": 1048576
   },
