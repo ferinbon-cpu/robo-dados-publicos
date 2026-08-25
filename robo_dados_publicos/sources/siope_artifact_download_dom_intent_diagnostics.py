@@ -143,7 +143,10 @@ class SystemChromeCdpArtifactDownloadDomIntentRuntime:
     def run_probe(self, config: dict) -> dict:
         browser = self._find_browser(config)
         process = page_session = browser_session = None
-        with tempfile.TemporaryDirectory(prefix="siope-artifact-download-dom-") as profile_text:
+        with tempfile.TemporaryDirectory(
+            prefix="siope-artifact-download-dom-",
+            ignore_cleanup_errors=True,
+        ) as profile_text:
             profile = Path(profile_text)
             cmd = [
                 browser, "--headless=new", "--remote-debugging-port=0",
@@ -265,10 +268,14 @@ class SystemChromeCdpArtifactDownloadDomIntentRuntime:
                     browser_session.close()
                 if process is not None:
                     try:
-                        process.terminate(); process.wait(timeout=2)
+                        process.terminate()
+                        process.wait(timeout=2)
                     except Exception:
-                        try: process.kill()
-                        except Exception: pass
+                        try:
+                            process.kill()
+                            process.wait(timeout=2)
+                        except Exception:
+                            pass
 
 
 def diagnose_artifact_download_dom_intent(config: dict, *, runtime=None) -> dict:

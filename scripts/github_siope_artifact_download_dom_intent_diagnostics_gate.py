@@ -65,6 +65,15 @@ def main() -> int:
     except SiopeRuntimeRouteProbeError as exc:
         _emit(_safety("STOP_M7_SIOPE_ARTIFACT_DOWNLOAD_DOM_INTENT_DIAGNOSTICS_GATE", str(exc)), args.output)
         return 32
+    except Exception:
+        _emit(
+            _safety(
+                "STOP_M7_SIOPE_ARTIFACT_DOWNLOAD_DOM_INTENT_DIAGNOSTICS_GATE",
+                "UNEXPECTED_RUNTIME_ERROR",
+            ),
+            args.output,
+        )
+        return 33
     _emit(result, args.output)
     return 0
 
