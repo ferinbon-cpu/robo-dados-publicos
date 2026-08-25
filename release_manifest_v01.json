@@ -13,8 +13,11 @@
   "acquisition_route": "CANDIDATE_IDENTIFIED_DYNAMIC_EXPORT_CONTRACT_ROUTE_UNPROVEN",
   "download_route_discovery": "STOP_STATIC_ROUTE_NOT_EXPLICIT_DYNAMIC_EXPORT_MARKERS_OBSERVED",
   "download_route_discovery_live_run": 32794666678,
-  "export_contract_discovery_readiness": "READY_MANUAL_NOT_EXECUTED",
+  "export_contract_discovery": "PASS_M7_SIOPE_EXPORT_CONTRACT_DISCOVERY_GATE",
+  "export_contract_discovery_live_run": 32795676213,
+  "export_contract_status": "DYNAMIC_EXPORT_CONTROL_OBSERVED_ROUTE_UNPROVEN",
+  "export_callsite_route_discovery_readiness": "READY_MANUAL_NOT_EXECUTED",
   "operational_authorization": "NONE",
   "next_action": "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0",
-  "next_subgate": "M7_SIOPE_ANTONIETA_EXPORT_CONTRACT_DISCOVERY_GATE_0_8_0"
+  "next_subgate": "M7_SIOPE_ANTONIETA_EXPORT_CALLSITE_ROUTE_DISCOVERY_GATE_0_8_0"
 }
