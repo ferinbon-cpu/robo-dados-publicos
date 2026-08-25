@@ -211,9 +211,12 @@ def discover_export_callsite_routes(config: dict, *, client: ReadOnlyDeclaredRes
         if len(observations) >= int(config["max_total_callsites"]):
             break
 
-    declared_scripts = extract_declared_script_urls(page.body, base_url=config["page_url"], allowed_hosts=allowed_hosts)
-    if len(declared_scripts) > int(config["max_scripts"]):
-        declared_scripts = declared_scripts[: int(config["max_scripts"])]
+    declared_scripts = extract_declared_script_urls(
+        page.body,
+        page_url=page.url,
+        allowed_hosts=allowed_hosts,
+        max_scripts=int(config["max_scripts"]),
+    )
 
     fetched = 0
     total_script_bytes = 0
