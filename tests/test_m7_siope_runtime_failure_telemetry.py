@@ -15,6 +15,7 @@ from robo_dados_publicos.sources.siope_public_get_runtime_route_diagnostics impo
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "config" / "source_expansion.siope_public_get_runtime_route_diagnostics_gate.json"
 SOURCE = ROOT / "robo_dados_publicos" / "sources" / "siope_public_get_runtime_failure_telemetry.py"
+DIRECT_SOURCE = ROOT / "robo_dados_publicos" / "sources" / "siope_public_get_runtime_cdp_direct.py"
 SCRIPT = ROOT / "scripts" / "github_siope_public_get_runtime_route_diagnostics_gate.py"
 
 
@@ -85,10 +86,16 @@ class TestM7SiopeRuntimeFailureTelemetry(unittest.TestCase):
         self.assertNotIn('Fetch.getResponseBody', source)
         self.assertNotIn('request.get("postData"', source)
 
-    def test_live_script_uses_failure_telemetry_runtime(self):
+    def test_live_script_uses_direct_runtime_with_failure_telemetry(self):
         script = SCRIPT.read_text(encoding="utf-8")
-        self.assertIn("SystemChromeCdpPublicGetRuntimeWithFailureTelemetry", script)
-        self.assertIn("runtime=SystemChromeCdpPublicGetRuntimeWithFailureTelemetry()", script)
+        direct_source = DIRECT_SOURCE.read_text(encoding="utf-8")
+        self.assertIn("SystemChromeCdpPublicGetRuntimeDirect", script)
+        self.assertIn("runtime=SystemChromeCdpPublicGetRuntimeDirect()", script)
+        self.assertIn("SystemChromeCdpPublicGetRuntimeWithFailureTelemetry", direct_source)
+        self.assertIn(
+            "class SystemChromeCdpPublicGetRuntimeDirect(SystemChromeCdpPublicGetRuntimeWithFailureTelemetry)",
+            direct_source,
+        )
         self.assertIn('result["initial_document_network_sent"] = diagnostics["initial_document_network_sent"]', script)
 
 
