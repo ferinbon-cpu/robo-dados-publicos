@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "gate_id": "M7_SIOPE_ANTONIETA_DOWNLOAD_ROUTE_DISCOVERY_GATE_0_8_0",
+  "github_run": 32793490217,
+  "github_job": 97639851304,
+  "head_commit": "c988af13de3b6f2e98d1ee49fc4c3da6ecc3329a",
+  "artifact_id": 9543972733,
+  "artifact_name": "siope-download-route-discovery-32793490217",
+  "artifact_size_bytes": 359,
+  "artifact_digest": "sha256:797e1be9c982938a75a5d1f6b81bfe759a08e0ca60cff6e645be4b06758729dc",
+  "status": "STOP_M7_SIOPE_DOWNLOAD_ROUTE_DISCOVERY_GATE",
+  "reason": "STOP_SIOPE_DOWNLOAD_ROUTE_NOT_EXPLICITLY_DISCOVERED",
+  "qa": {
+    "preflight": "PASS",
+    "dry_run": "PASS_M7_SIOPE_DOWNLOAD_ROUTE_DISCOVERY_DRY_RUN",
+    "compileall": "PASS",
+    "unit_tests": "213/213 PASS",
+    "historical_regressions": "109/109 PASS"
+  },
+  "safety": {
+    "artifact_downloaded": false,
+    "head_request_performed": false,
+    "form_submission": false,
+    "captcha_bypass": false,
+    "remote_writes": "NONE",
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false
+  },
+  "interpretation": "The official Antonieta page and explicitly declared JavaScript resources did not expose a static explicit download route under the current fail-closed rules. This is a safe negative discovery result, not a runtime defect.",
+  "next_step": "ADD_SANITIZED_DISCOVERY_DIAGNOSTICS_BEFORE_ANY_ROUTE_SCOPE_EXPANSION"
+}
