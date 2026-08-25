@@ -10,7 +10,7 @@
   "design_validation": "PASS_M7_OFFLINE_SOURCE_EXPANSION_DESIGN_VALIDATION",
   "route_discovery": "PASS_M7_SIOPE_ROUTE_DISCOVERY_GATE",
   "route_discovery_live_run": 32791989543,
-  "acquisition_route": "CALLSITE_CANDIDATES_OBSERVED_REQUEST_EXPRESSION_NOT_YET_REFINED",
+  "acquisition_route": "RUNTIME_ROUTE_REQUIRED_STATIC_REFINEMENT_UNPROVEN",
   "download_route_discovery": "STOP_STATIC_ROUTE_NOT_EXPLICIT_DYNAMIC_EXPORT_MARKERS_OBSERVED",
   "download_route_discovery_live_run": 32794666678,
   "export_contract_discovery": "PASS_M7_SIOPE_EXPORT_CONTRACT_DISCOVERY_GATE",
@@ -19,8 +19,12 @@
   "export_callsite_route_discovery": "PASS_M7_SIOPE_EXPORT_CALLSITE_ROUTE_DISCOVERY_GATE",
   "export_callsite_route_discovery_live_run": 32796782141,
   "export_callsite_route_status": "CALLSITE_ROUTE_CANDIDATE_OBSERVED_NOT_CALLED",
-  "export_request_refinement_readiness": "READY_MANUAL_NOT_EXECUTED_AFTER_MERGE",
+  "export_request_refinement": "PASS_M7_SIOPE_EXPORT_REQUEST_EXPRESSION_REFINEMENT_GATE",
+  "export_request_refinement_live_run": 32797644562,
+  "export_request_refinement_status": "EXPORT_REQUEST_CONTEXT_OBSERVED_ROUTE_UNPROVEN",
+  "runtime_route_probe_design": "PASS_M7_SIOPE_EXPORT_RUNTIME_ROUTE_PROBE_DESIGN_GATE",
+  "runtime_route_probe_implementation_readiness": "PENDING_AFTER_DESIGN_MERGE",
   "operational_authorization": "NONE",
   "next_action": "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0",
-  "next_subgate": "M7_SIOPE_ANTONIETA_EXPORT_REQUEST_EXPRESSION_REFINEMENT_GATE_0_8_0"
+  "next_subgate": "M7_SIOPE_EXPORT_RUNTIME_ROUTE_PROBE_IMPLEMENTATION_0_8_0"
 }
