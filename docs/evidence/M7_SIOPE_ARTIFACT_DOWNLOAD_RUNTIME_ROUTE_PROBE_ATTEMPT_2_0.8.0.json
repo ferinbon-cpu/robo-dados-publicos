@@ -1,0 +1,24 @@
+{
+  "artifact": {
+    "id": 9562938405,
+    "name": "siope-artifact-download-runtime-route-probe-32847575084",
+    "sha256": "00fe5153d7a7d3e65ccb050cf5ff5ece5e6ae0a2da349ea56d9dc3f97f2f3702",
+    "size_bytes": 478
+  },
+  "candidate_route_network_sent": false,
+  "collection_authorized": false,
+  "diagnostics": {
+    "candidate_count": 0,
+    "post_click_nonstatic_aborted_count": 1,
+    "verified_metadata_request_count": 1
+  },
+  "head_request_performed": false,
+  "processing_authorized": false,
+  "recurrence_authorized": false,
+  "remote_writes": "NONE",
+  "run_id": 32847575084,
+  "schedule_enabled": false,
+  "status": "STOP_M7_SIOPE_ARTIFACT_DOWNLOAD_RUNTIME_ROUTE_PROBE_GATE",
+  "stop_reason": "STOP_SIOPE_ARTIFACT_DOWNLOAD_RUNTIME_ROUTE_PROBE_ZERO_CANDIDATES",
+  "workflow_run_number": 2
+}
