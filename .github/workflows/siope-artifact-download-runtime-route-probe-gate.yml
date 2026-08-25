@@ -35,4 +35,17 @@ jobs:
       - run: python -m unittest discover -s tests -v
       - run: python main.py selftest
       - name: Probe ao vivo da rota final
-        run: python scripts/github_siope_artifact_download_runtime_route_probe_gate.py
+        id: live
+        continue-on-error: true
+        run: python scripts/github_siope_artifact_download_runtime_route_probe_gate.py --output siope-artifact-download-runtime-route-probe-evidence/result.json
+      - name: Publicar evidência sanitizada
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: siope-artifact-download-runtime-route-probe-${{ github.run_id }}
+          path: siope-artifact-download-runtime-route-probe-evidence/result.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Propagar STOP do gate
+        if: ${{ steps.live.outcome == 'failure' }}
+        run: exit 1
