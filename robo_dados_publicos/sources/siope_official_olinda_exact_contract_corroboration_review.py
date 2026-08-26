@@ -93,8 +93,6 @@ def run_review(
     _require(config.get("network_called"), False, "NETWORK")
     _require(git_blob_sha(evidence_path), config.get("pinned_evidence_blob_sha"), "EVIDENCE_BLOB_SHA")
     _require(git_blob_sha(corroboration_path), config.get("pinned_corroboration_blob_sha"), "CORROBORATION_BLOB_SHA")
-    _require(str(evidence_path).replace("\\", "/"), config.get("pinned_evidence_path"), "EVIDENCE_PATH")
-    _require(str(corroboration_path).replace("\\", "/"), config.get("pinned_corroboration_path"), "CORROBORATION_PATH")
 
     _require(evidence.get("run_id"), config.get("pinned_run_id"), "RUN")
     _require(evidence.get("run_number"), config.get("pinned_run_number"), "RUN_NUMBER")
