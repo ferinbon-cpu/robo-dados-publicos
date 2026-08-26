@@ -8,6 +8,8 @@ Create a deterministic, offline analytical preview from the exact Silver payload
 
 The pinned Silver readback run `33022961421` verified one remote file, one download, zero writes, exact byte identity, MD5, SHA-256, one record and 52 fields. The Silver payload SHA-256 is `072283e3d9e5f12e6a3a697d32e653b64e618f4665e28f53e553b35506ce68da`.
 
+The offline readback review must pass before the preview executes. The preview reconstructs the deterministic Silver payload locally and requires the same byte length, SHA-256, contract, provenance and Limeira 2024/P6 identity before deriving any metric.
+
 ## Semantic boundary
 
 The Gold preview is `DERIVED_ARITHMETIC_ONLY_FROM_SIOPE_DADOS_GERAIS`. It may calculate ratios and per-capita values from the pinned public SIOPE record. It must not claim or infer:
