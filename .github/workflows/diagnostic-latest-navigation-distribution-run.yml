@@ -1,0 +1,107 @@
+name: DIAGNOSTIC LATEST NAVIGATION DISTRIBUTION RUN
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      EXPECTED_HEAD_SHA: 4e9bade78b93cdbec33c7d19104df35ae49bf66b
+      WORKFLOW_FILE: siope-official-olinda-api-application-dom-navigation-match-distribution-diagnostics-gate.yml
+      ARTIFACT_PREFIX: siope-official-olinda-application-dom-navigation-match-distribution-diagnostics-
+    steps:
+      - name: Inspect latest matching workflow_dispatch and sanitized artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          API="https://api.github.com/repos/${GITHUB_REPOSITORY}"
+          HDR=(-H "Authorization: Bearer ${GH_TOKEN}" -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28")
+
+          curl -fsS "${HDR[@]}" "${API}/actions/workflows/${WORKFLOW_FILE}/runs?branch=main&event=workflow_dispatch&per_page=1" > /tmp/runs.json
+          python - <<'PY'
+          import json, os
+          d=json.load(open('/tmp/runs.json',encoding='utf-8'))
+          runs=d.get('workflow_runs') or []
+          if len(runs)!=1:
+              raise SystemExit(f'expected exactly one latest run, got {len(runs)}')
+          r=runs[0]
+          expected=os.environ['EXPECTED_HEAD_SHA']
+          required={
+              'event':'workflow_dispatch',
+              'head_branch':'main',
+              'head_sha':expected,
+              'status':'completed',
+              'conclusion':'success',
+          }
+          for k,v in required.items():
+              if r.get(k)!=v:
+                  raise SystemExit(f'run mismatch {k}: {r.get(k)!r} != {v!r}')
+          meta={k:r.get(k) for k in ['id','run_number','run_attempt','event','head_branch','head_sha','status','conclusion','created_at','updated_at','name','path']}
+          print('LATEST_RUN_META='+json.dumps(meta,sort_keys=True,separators=(',',':')))
+          open('/tmp/run_id','w',encoding='utf-8').write(str(r['id']))
+          PY
+
+          RUN_ID="$(cat /tmp/run_id)"
+          curl -fsS "${HDR[@]}" "${API}/actions/runs/${RUN_ID}/artifacts?per_page=100" > /tmp/artifacts.json
+          python - <<'PY'
+          import json, os
+          d=json.load(open('/tmp/artifacts.json',encoding='utf-8'))
+          prefix=os.environ['ARTIFACT_PREFIX']
+          arts=[a for a in d.get('artifacts',[]) if a.get('name','').startswith(prefix) and not a.get('expired',False)]
+          if len(arts)!=1:
+              raise SystemExit(f'expected exactly one sanitized artifact, got {len(arts)}')
+          a=arts[0]
+          meta={k:a.get(k) for k in ['id','name','size_in_bytes','expired','created_at','expires_at','digest']}
+          print('ARTIFACT_META='+json.dumps(meta,sort_keys=True,separators=(',',':')))
+          open('/tmp/artifact_id','w',encoding='utf-8').write(str(a['id']))
+          PY
+
+          ARTIFACT_ID="$(cat /tmp/artifact_id)"
+          curl -fsSL "${HDR[@]}" "${API}/actions/artifacts/${ARTIFACT_ID}/zip" -o /tmp/artifact.zip
+          unzip -p /tmp/artifact.zip result.json > /tmp/result.json
+          python - <<'PY'
+          import json
+          d=json.load(open('/tmp/result.json',encoding='utf-8'))
+          forbidden=('navigation_value','href','action_value','raw_dom','html','script_source','response_body','request_body','query_value','fragment_value','path_value','pilot_municipality_code')
+          flat=json.dumps(d,sort_keys=True)
+          for token in forbidden:
+              if token in d or f'"{token}"' in flat:
+                  raise SystemExit(f'forbidden material key observed: {token}')
+          print('SANITIZED_RESULT='+json.dumps(d,sort_keys=True,separators=(',',':')))
+          PY
+
+          curl -fsS "${HDR[@]}" "${API}/actions/runs/${RUN_ID}/jobs?per_page=100" > /tmp/jobs.json
+          python - <<'PY'
+          import json
+          d=json.load(open('/tmp/jobs.json',encoding='utf-8'))
+          jobs=d.get('jobs') or []
+          if len(jobs)!=1:
+              raise SystemExit(f'expected one job, got {len(jobs)}')
+          j=jobs[0]
+          if j.get('conclusion')!='success':
+              raise SystemExit(f'job conclusion is {j.get("conclusion")!r}')
+          print('JOB_META='+json.dumps({k:j.get(k) for k in ['id','name','status','conclusion','started_at','completed_at']},sort_keys=True,separators=(',',':')))
+          open('/tmp/job_id','w',encoding='utf-8').write(str(j['id']))
+          PY
+
+          JOB_ID="$(cat /tmp/job_id)"
+          curl -fsSL "${HDR[@]}" "${API}/actions/jobs/${JOB_ID}/logs" -o /tmp/job.log
+          python - <<'PY'
+          import re
+          s=open('/tmp/job.log',encoding='utf-8',errors='replace').read()
+          units=[int(x) for x in re.findall(r'Ran (\d+) tests? in',s)]
+          hist=[int(x) for x in re.findall(r'"tests":\s*(\d+)',s)]
+          unit=max(units) if units else None
+          historical=hist[-1] if hist else None
+          print(f'QA_COUNTS={{"unit_tests":{unit if unit is not None else "null"},"historical_regressions":{historical if historical is not None else "null"}}}')
+          if unit is None or historical is None:
+              raise SystemExit('could not parse QA counts')
+          PY
