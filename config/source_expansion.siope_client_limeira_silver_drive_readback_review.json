@@ -7,6 +7,7 @@
   "next_gate": "M7_SIOPE_CLIENT_LIMEIRA_GOLD_TRANSFORM_PREVIEW_0_8_0",
   "pinned_artifact_digest": "sha256:db330ac50ce8b29c09bce66425681b246a93f79449a395188c77c47d38d80a3a",
   "pinned_artifact_id": 9627254489,
+  "pinned_evidence_blob_sha": "0e086989189e60129b742a4b4835243b853b209c",
   "pinned_evidence_path": "docs/evidence/M7_SIOPE_CLIENT_LIMEIRA_SILVER_DRIVE_READBACK_VERIFICATION_RUN_1_0.8.0.json",
   "pinned_head_sha": "d9e30d7321bff02a2d897422d06dbae877b272d5",
   "pinned_historical_regressions": 109,
