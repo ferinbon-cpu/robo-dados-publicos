@@ -1,0 +1,80 @@
+{
+  "artifact_digest": "sha256:1a7d66db75042e672ca2c63cca64d5668efdc0a1f58b28f4c796b82cf8104c0a",
+  "artifact_id": 9624488389,
+  "artifact_name": "siope-client-limeira-bronze-single-record-capture-33015912285",
+  "evidence_type": "M7_SIOPE_CLIENT_LIMEIRA_BRONZE_SINGLE_RECORD_CAPTURE_RUN_1_0_8_0",
+  "head_sha": "cb83f82a36eaba6db7dbf58f6ebd03e6faacbc5f",
+  "job_id": 98333960231,
+  "manifest": {
+    "bronze_contract": "SIOPE_DADOS_GERAIS_LIMEIRA_SINGLE_RECORD_V1",
+    "municipality_code": 352690,
+    "nextlink_url_persisted": false,
+    "period": 6,
+    "processing_authorized": false,
+    "record_count": 1,
+    "record_sha256": "20dd61298f9d4603fc7d5e20a373f331137d5bc37f59be687370bd0f289b97c6",
+    "recurrence_authorized": false,
+    "resource": "Dados_Gerais_Siope",
+    "response_byte_count": 2600,
+    "response_envelope_persisted": false,
+    "response_sha256": "0228721c96bbb72b695c1eb39d4e74b5ce180873b800ea3c5495da73f14a2253",
+    "schema_key_count": 52,
+    "software_version": "0.8.0",
+    "source_id": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
+    "state": "SP",
+    "year": 2024
+  },
+  "qa": {
+    "historical_regressions": 109,
+    "unit_tests": 869
+  },
+  "result": {
+    "bronze_manifest_persisted": true,
+    "bronze_record_persisted": true,
+    "content_type": "application/json",
+    "gate_id": "M7_SIOPE_CLIENT_LIMEIRA_BRONZE_SINGLE_RECORD_CAPTURE_0_8_0",
+    "network_called": true,
+    "network_method": "GET_ONLY",
+    "next_gate": "M7_SIOPE_CLIENT_LIMEIRA_BRONZE_SINGLE_RECORD_CAPTURE_REVIEW_0_8_0",
+    "odata_nextlink_present": false,
+    "processing_authorized": false,
+    "record_sha256": "20dd61298f9d4603fc7d5e20a373f331137d5bc37f59be687370bd0f289b97c6",
+    "recurrence_authorized": false,
+    "recurring_collection_authorized": false,
+    "redirect_followed": false,
+    "request_count": 1,
+    "resource": "Dados_Gerais_Siope",
+    "response_byte_count": 2600,
+    "response_envelope_persisted": false,
+    "response_sha256": "0228721c96bbb72b695c1eb39d4e74b5ce180873b800ea3c5495da73f14a2253",
+    "response_status": 200,
+    "retry_performed": false,
+    "schedule_enabled": false,
+    "selected_schema_exact": true,
+    "selected_schema_key_count": 52,
+    "single_collection_authorized": true,
+    "status": "PASS_M7_SIOPE_CLIENT_LIMEIRA_BRONZE_SINGLE_RECORD_CAPTURE",
+    "value_count": 1
+  },
+  "run_id": 33015912285,
+  "run_number": 1,
+  "verification": {
+    "artifact_file_count": 3,
+    "artifact_files": [
+      "manifest.json",
+      "record.json",
+      "result.json"
+    ],
+    "record_canonical_json_sha256": "20dd61298f9d4603fc7d5e20a373f331137d5bc37f59be687370bd0f289b97c6",
+    "record_canonical_json_sha256_verified": true,
+    "record_identity": {
+      "municipality_code": 352690,
+      "municipality_name": "Limeira",
+      "period": 6,
+      "state": "SP",
+      "year": 2024
+    },
+    "record_schema_key_count": 52
+  },
+  "workflow_path": ".github/workflows/siope-client-limeira-bronze-single-record-capture-gate.yml"
+}
