@@ -21,6 +21,7 @@ from robo_dados_publicos.sources.siope_client_limeira_silver_single_record_trans
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW_CONFIG = ROOT / "config/source_expansion.siope_client_limeira_silver_single_record_transform_review.json"
 PERSISTENCE_CONFIG = ROOT / "config/source_expansion.siope_client_limeira_silver_drive_persistence.json"
+CLOUD_CONFIG = ROOT / "config/cloud.json"
 WORKFLOW = ROOT / ".github/workflows/siope-client-limeira-silver-drive-persistence-gate.yml"
 
 
@@ -65,6 +66,12 @@ class SilverDrivePersistenceTests(unittest.TestCase):
         config["pinned_artifact_digest"] = "sha256:" + "0" * 64
         with self.assertRaises(SilverTransformReviewError):
             review(config, root=ROOT)
+
+    def test_silver_folder_matches_cloud_config(self):
+        persistence = load_persistence_json(PERSISTENCE_CONFIG)
+        cloud = json.loads(CLOUD_CONFIG.read_text(encoding="utf-8"))
+        self.assertEqual(persistence["silver_folder_id"], cloud["silver_id"])
+        self.assertEqual(persistence["silver_folder_id"], "1_wl3Y90-RYKSBXUg53My5K6lxCUnIBNo")
 
     def test_persistence_design_rebuilds_exact_preview_payload_without_network(self):
         result = validate_config(load_persistence_json(PERSISTENCE_CONFIG), root=ROOT)
