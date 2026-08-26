@@ -2,7 +2,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from robo_dados_publicos.sources.siope_official_olinda_minimal_readonly_get import (
     SiopeOfficialOlindaMinimalReadonlyGetError,
@@ -11,7 +16,6 @@ from robo_dados_publicos.sources.siope_official_olinda_minimal_readonly_get impo
     validate_design,
 )
 
-ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "config/source_expansion.siope_official_olinda_minimal_readonly_get_design.json"
 
 
