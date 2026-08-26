@@ -1,0 +1,58 @@
+{
+  "gate_id": "M7_SIOPE_OFFICIAL_OLINDA_MINIMAL_READONLY_GET_DESIGN_0_8_0",
+  "live_gate_id": "M7_SIOPE_OFFICIAL_OLINDA_MINIMAL_READONLY_GET_0_8_0",
+  "source_id": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
+  "software_version": "0.8.0",
+  "release_status": "CANDIDATE",
+  "mode": "EXACT_ONE_REQUEST_NON_LIMEIRA_READONLY_ODATA_GET",
+  "allowed_hosts": ["www.fnde.gov.br"],
+  "exact_url": "https://www.fnde.gov.br/olinda-ide/servico/DADOS_ABERTOS_SIOPE/versao/v1/odata/Dados_Gerais_Siope(Ano_Consulta=@Ano_Consulta,Num_Peri=@Num_Peri,Sig_UF=@Sig_UF)?@Ano_Consulta=2023&@Num_Peri=6&@Sig_UF='PE'&$format=json",
+  "expected_path": "/olinda-ide/servico/DADOS_ABERTOS_SIOPE/versao/v1/odata/Dados_Gerais_Siope(Ano_Consulta=@Ano_Consulta,Num_Peri=@Num_Peri,Sig_UF=@Sig_UF)",
+  "expected_query_keys_in_order": ["@Ano_Consulta", "@Num_Peri", "@Sig_UF", "$format"],
+  "fixed_example_semantics": {
+    "Ano_Consulta": 2023,
+    "Num_Peri": 6,
+    "Sig_UF": "PE",
+    "municipality": null,
+    "limeira": false
+  },
+  "limits": {
+    "max_response_bytes": 2097152,
+    "max_schema_fields": 128,
+    "max_schema_field_chars": 128
+  },
+  "verification_rules": {
+    "methods": ["GET"],
+    "request_count": 1,
+    "follow_redirects": false,
+    "follow_odata_nextlink": false,
+    "send_pilot_limeira_values": false,
+    "persist_response_body": false,
+    "persist_record_values": false,
+    "persist_nextlink_url": false,
+    "persist_query_values_in_result": false,
+    "download_artifacts": false,
+    "submit_forms": false,
+    "authenticate": false,
+    "capture_credentials": false,
+    "capture_cookies": false,
+    "post_request": false,
+    "head_request": false
+  },
+  "success_contract": {
+    "http_status": 200,
+    "allowed_content_types": ["application/json", "application/odata+json"],
+    "top_level_json_type": "object",
+    "required_value_type": "list",
+    "minimum_value_count": 1,
+    "first_record_if_present_type": "object"
+  },
+  "resource_get_authorized_by_this_design": false,
+  "collection_authorized": false,
+  "processing_authorized": false,
+  "recurrence_authorized": false,
+  "schedule_enabled": false,
+  "route_synthesis_or_guessing": "PROHIBITED",
+  "automatic_route_promotion": "PROHIBITED",
+  "next_gate_after_manual_success": "M7_SIOPE_OFFICIAL_OLINDA_MINIMAL_READONLY_GET_REVIEW_0_8_0"
+}
