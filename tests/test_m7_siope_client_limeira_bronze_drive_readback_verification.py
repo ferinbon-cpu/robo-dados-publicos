@@ -189,6 +189,8 @@ class BronzeDriveReadbackVerificationTests(unittest.TestCase):
         self.assertIn("github_siope_client_limeira_bronze_drive_persistence_review_gate.py", text)
         self.assertIn("github_siope_client_limeira_bronze_drive_readback_verification_gate.py --dry-run", text)
         self.assertNotIn("github_siope_client_limeira_bronze_drive_persistence_gate.py >", text)
+        self.assertNotIn("https://www.fnde.gov.br", text)
+        self.assertNotIn("Dados_Gerais_Siope(", text)
         self.assertNotIn("replace_content", text)
         self.assertNotIn("drive.delete", text)
         self.assertNotIn("drive.put", text)
