@@ -2,12 +2,15 @@ from __future__ import annotations
 
 import copy
 import json
+import socket
 import subprocess
 import sys
 import unittest
 from pathlib import Path
+from urllib.error import URLError
 
 from robo_dados_publicos.sources.siope_official_olinda_limeira_pilot_readonly_get import (
+    REQUEST_TIMEOUT_SECONDS,
     SiopeOfficialOlindaLimeiraPilotReadonlyGetError,
     load_config as load_pilot_config,
     run_pilot_get,
@@ -104,6 +107,7 @@ class LimeiraPilotReadonlyGetTests(unittest.TestCase):
         self.assertEqual(result["selected_field_count"], 5)
         self.assertTrue(result["server_side_filter_required"])
         self.assertTrue(result["server_side_select_required"])
+        self.assertEqual(REQUEST_TIMEOUT_SECONDS, 60)
 
     def test_mocked_live_success_is_one_get_identity_checked_and_sanitized(self):
         config = load_pilot_config(PILOT_CONFIG)
@@ -126,7 +130,7 @@ class LimeiraPilotReadonlyGetTests(unittest.TestCase):
             return FakeResponse(payload, url=config["exact_url"])
 
         result = run_pilot_get(config, opener=opener)
-        self.assertEqual(calls, [("GET", config["exact_url"], 20)])
+        self.assertEqual(calls, [("GET", config["exact_url"], REQUEST_TIMEOUT_SECONDS)])
         self.assertEqual(result["status"], "PASS_M7_SIOPE_OFFICIAL_OLINDA_LIMEIRA_PILOT_READONLY_GET")
         self.assertEqual(result["request_count"], 1)
         self.assertTrue(result["pilot_limeira_values_sent"])
@@ -141,6 +145,42 @@ class LimeiraPilotReadonlyGetTests(unittest.TestCase):
         self.assertFalse(result["query_values_persisted_in_result"])
         self.assertFalse(result["ongoing_resource_get_authorized"])
         self.assertFalse(result["collection_authorized"])
+
+    def test_wrapped_urlerror_timeout_is_classified_without_retry(self):
+        config = load_pilot_config(PILOT_CONFIG)
+        calls = []
+
+        def opener(req, timeout):
+            calls.append((req.get_method(), timeout))
+            raise URLError(socket.timeout("timed out"))
+
+        with self.assertRaises(SiopeOfficialOlindaLimeiraPilotReadonlyGetError) as ctx:
+            run_pilot_get(config, opener=opener)
+        self.assertEqual(
+            str(ctx.exception),
+            "STOP_M7_SIOPE_OFFICIAL_OLINDA_LIMEIRA_PILOT_READONLY_GET_TIMEOUT",
+        )
+        self.assertTrue(ctx.exception.network_called)
+        self.assertEqual(ctx.exception.request_count, 1)
+        self.assertEqual(calls, [("GET", REQUEST_TIMEOUT_SECONDS)])
+
+    def test_non_timeout_urlerror_stays_network_stop_without_retry(self):
+        config = load_pilot_config(PILOT_CONFIG)
+        calls = []
+
+        def opener(req, timeout):
+            calls.append((req.get_method(), timeout))
+            raise URLError(OSError("temporary network failure"))
+
+        with self.assertRaises(SiopeOfficialOlindaLimeiraPilotReadonlyGetError) as ctx:
+            run_pilot_get(config, opener=opener)
+        self.assertEqual(
+            str(ctx.exception),
+            "STOP_M7_SIOPE_OFFICIAL_OLINDA_LIMEIRA_PILOT_READONLY_GET_NETWORK",
+        )
+        self.assertTrue(ctx.exception.network_called)
+        self.assertEqual(ctx.exception.request_count, 1)
+        self.assertEqual(calls, [("GET", REQUEST_TIMEOUT_SECONDS)])
 
     def test_identity_mismatch_fails_closed(self):
         config = load_pilot_config(PILOT_CONFIG)
