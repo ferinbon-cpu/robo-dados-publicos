@@ -49,7 +49,7 @@ class HashRoutingLocalityDiagnosticsTests(unittest.TestCase):
     def test_analyzer_counts_callable_centered_locality(self):
         cfg = live.load_json(LIVE_CONFIG)
         counts = live._empty_counts()
-        source = "location.hash; " + "x" * 300 + "Dados_Gerais_Siope(Ano_Consulta, Num_Peri, Sig_UF);" + "x" * 300 + "$routeProvider ngRoute hashchange hashPrefix"
+        source = "location.hash; " + "x" * 300 + " " + "Dados_Gerais_Siope(Ano_Consulta, Num_Peri, Sig_UF);" + " " + "x" * 300 + " $routeProvider ngRoute hashchange hashPrefix"
         live._analyze_source_into_counts(source, cfg, counts)
         self.assertEqual(counts["callable_occurrence_count"], 1)
         self.assertEqual(counts["any_routing_signal_window_1024_count"], 1)
