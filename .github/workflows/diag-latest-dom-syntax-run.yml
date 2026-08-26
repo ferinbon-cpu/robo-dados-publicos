@@ -16,7 +16,7 @@ jobs:
           EXPECTED_SHA: 0f51509fdc7c1f3192e10ae638a216055eb3bcad
         run: |
           python - <<'PY'
-          import json, os, pathlib, urllib.request, zipfile, io
+          import json, os, urllib.request
           repo=os.environ['REPO']; token=os.environ['GH_TOKEN']; expected=os.environ['EXPECTED_SHA']
           wf='siope-official-olinda-api-application-dom-syntax-skeleton-diagnostics-gate.yml'
           def get(url):
@@ -25,24 +25,14 @@ jobs:
           runs=get(f'https://api.github.com/repos/{repo}/actions/workflows/{wf}/runs?branch=main&event=workflow_dispatch&per_page=3')['workflow_runs']
           assert runs, 'NO_MANUAL_RUN_FOUND'
           run=runs[0]
-          out={'run_id':run['id'],'run_number':run['run_number'],'event':run['event'],'head_branch':run['head_branch'],'head_sha':run['head_sha'],'status':run['status'],'conclusion':run['conclusion'],'created_at':run['created_at'],'updated_at':run['updated_at']}
           jobs=get(f"https://api.github.com/repos/{repo}/actions/runs/{run['id']}/jobs?filter=latest")['jobs']
-          out['jobs']=[{'job_id':j['id'],'name':j['name'],'status':j['status'],'conclusion':j['conclusion'],'steps':[{'name':s['name'],'status':s['status'],'conclusion':s['conclusion'],'number':s['number']} for s in j.get('steps',[])]} for j in jobs]
           arts=get(f"https://api.github.com/repos/{repo}/actions/runs/{run['id']}/artifacts")['artifacts']
-          out['artifacts']=[{'id':a['id'],'name':a['name'],'size_in_bytes':a['size_in_bytes'],'expired':a['expired'],'digest':a.get('digest')} for a in arts]
-          target=[a for a in arts if a['name'].startswith('siope-official-olinda-application-dom-syntax-skeleton-diagnostics-')]
-          if target:
-              a=target[0]
-              req=urllib.request.Request(f"https://api.github.com/repos/{repo}/actions/artifacts/{a['id']}/zip", headers={'Authorization':f'Bearer {token}','Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'})
-              with urllib.request.urlopen(req) as r: data=r.read()
-              with zipfile.ZipFile(io.BytesIO(data)) as z:
-                  names=z.namelist(); out['artifact_files']=names
-                  if 'result.json' in names:
-                      result=json.loads(z.read('result.json'))
-                  else:
-                      cand=[n for n in names if n.endswith('/result.json') or n.endswith('result.json')]
-                      result=json.loads(z.read(cand[0])) if cand else None
-              out['result']=result
+          out={
+            'run_id':run['id'],'run_number':run['run_number'],'event':run['event'],'head_branch':run['head_branch'],
+            'head_sha':run['head_sha'],'status':run['status'],'conclusion':run['conclusion'],'created_at':run['created_at'],'updated_at':run['updated_at'],
+            'jobs':[{'job_id':j['id'],'name':j['name'],'status':j['status'],'conclusion':j['conclusion'],'steps':[{'name':s['name'],'status':s['status'],'conclusion':s['conclusion'],'number':s['number']} for s in j.get('steps',[])]} for j in jobs],
+            'artifacts':[{'id':a['id'],'name':a['name'],'size_in_bytes':a['size_in_bytes'],'expired':a['expired'],'digest':a.get('digest')} for a in arts]
+          }
           print(json.dumps(out, ensure_ascii=False, sort_keys=True, indent=2))
           assert run['event']=='workflow_dispatch'
           assert run['head_branch']=='main'
