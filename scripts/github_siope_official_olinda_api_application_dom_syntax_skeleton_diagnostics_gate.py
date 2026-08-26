@@ -17,6 +17,9 @@ from robo_dados_publicos.sources.siope_official_olinda_api_application_dom_synta
     load_json,
     run_dom_syntax_skeleton_diagnostics,
 )
+from robo_dados_publicos.sources.siope_official_olinda_api_application_dom_syntax_skeleton_runtime_v2 import (
+    SystemChromeCdpDomSyntaxSkeletonRuntimeV2,
+)
 
 CONFIG = ROOT / "config/source_expansion.siope_official_olinda_api_application_dom_syntax_skeleton_diagnostics.json"
 
@@ -41,7 +44,13 @@ def _design_result(config: dict) -> dict:
 def run_gate(*, dry: bool = False) -> dict:
     config = load_json(CONFIG)
     design = _design_result(config)
-    return dry_run(config, design) if dry else run_dom_syntax_skeleton_diagnostics(config, design)
+    if dry:
+        return dry_run(config, design)
+    return run_dom_syntax_skeleton_diagnostics(
+        config,
+        design,
+        runtime=SystemChromeCdpDomSyntaxSkeletonRuntimeV2(),
+    )
 
 
 def main() -> int:
