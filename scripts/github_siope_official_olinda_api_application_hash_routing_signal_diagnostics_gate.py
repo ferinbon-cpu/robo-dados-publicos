@@ -3,6 +3,11 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from robo_dados_publicos.sources.siope_official_olinda_api_application_fragment_target_structure_diagnostics_review import (
     load_json as load_review_json,
@@ -19,7 +24,6 @@ from robo_dados_publicos.sources.siope_official_olinda_api_application_hash_rout
     run_hash_routing_signal_diagnostics,
 )
 
-ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "config/source_expansion.siope_official_olinda_api_application_hash_routing_signal_diagnostics.json"
 
 
@@ -32,7 +36,7 @@ def _prerequisites(config: dict) -> tuple[dict, dict]:
 
 
 def _write(payload: dict, output: str | None) -> None:
-    text = json.dumps(payload, indent=2, ensure_ascii=False)
+    text = json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=False)
     print(text)
     if output:
         path = Path(output)
