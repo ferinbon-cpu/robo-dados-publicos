@@ -1,0 +1,89 @@
+name: M7 SIOPE CLIENT LIMEIRA GOLD TRANSFORM PREVIEW GATE
+run-name: "M7 SIOPE client Limeira Gold transform preview 0.8.0 by @${{ github.actor }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_siope_client_limeira_gold_transform_preview:
+        description: "Confirmar preview Gold aritmético local do Silver verificado; sem Drive, sem novo GET SIOPE, sem persistência Gold, sem conclusão MDE/Fundeb e sem recorrência"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: siope-client-limeira-gold-transform-preview
+  cancel-in-progress: false
+
+jobs:
+  preview:
+    if: ${{ inputs.confirm_siope_client_limeira_gold_transform_preview == true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          check-latest: false
+      - name: Instalar dependências
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - name: Preflight offline
+        run: python scripts/github_preflight.py
+      - name: Revisar readback Silver pinado
+        run: python scripts/github_siope_client_limeira_silver_drive_readback_review_gate.py
+      - name: Validar desenho Gold sem rede nem writes
+        run: python scripts/github_siope_client_limeira_gold_transform_preview_gate.py --dry-run
+      - name: Compilar
+        run: python -m compileall -q .
+      - name: Testes unitários
+        run: python -m unittest discover -s tests -v
+      - name: Regressão histórica
+        run: python main.py selftest
+      - name: Executar preview Gold aritmético local
+        id: preview
+        shell: bash
+        run: |
+          set +e
+          python scripts/github_siope_client_limeira_gold_transform_preview_gate.py > "$RUNNER_TEMP/siope_gold_preview_result.json"
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Preparar evidência sanitizada
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          mkdir -p siope-client-limeira-gold-transform-preview-evidence
+          if [ -s "$RUNNER_TEMP/siope_gold_preview_result.json" ]; then
+            cp "$RUNNER_TEMP/siope_gold_preview_result.json" siope-client-limeira-gold-transform-preview-evidence/result.json
+          else
+            printf '%s\n' '{"status":"STOP_M7_SIOPE_CLIENT_LIMEIRA_GOLD_TRANSFORM_PREVIEW_NO_RESULT","network_called":false,"drive_write_count":0,"gold_payload_persisted":false,"gold_remote_write_authorized":false,"compliance_claims_authorized":false}' > siope-client-limeira-gold-transform-preview-evidence/result.json
+          fi
+      - name: Publicar evidência sanitizada
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: siope-client-limeira-gold-transform-preview-${{ github.run_id }}
+          path: siope-client-limeira-gold-transform-preview-evidence/result.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Propagar STOP do gate
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          cat siope-client-limeira-gold-transform-preview-evidence/result.json
+          code='${{ steps.preview.outputs.exit_code }}'
+          if [ "${code:-31}" != "0" ]; then
+            exit "${code:-31}"
+          fi
+          echo "PASS_M7_SIOPE_CLIENT_LIMEIRA_GOLD_TRANSFORM_PREVIEW"
