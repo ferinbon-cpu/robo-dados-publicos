@@ -1,0 +1,19 @@
+{
+  "bronze_contract": "SIOPE_DADOS_GERAIS_LIMEIRA_SINGLE_RECORD_V1",
+  "municipality_code": 352690,
+  "nextlink_url_persisted": false,
+  "period": 6,
+  "processing_authorized": false,
+  "record_count": 1,
+  "record_sha256": "20dd61298f9d4603fc7d5e20a373f331137d5bc37f59be687370bd0f289b97c6",
+  "recurrence_authorized": false,
+  "resource": "Dados_Gerais_Siope",
+  "response_byte_count": 2600,
+  "response_envelope_persisted": false,
+  "response_sha256": "0228721c96bbb72b695c1eb39d4e74b5ce180873b800ea3c5495da73f14a2253",
+  "schema_key_count": 52,
+  "software_version": "0.8.0",
+  "source_id": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
+  "state": "SP",
+  "year": 2024
+}
