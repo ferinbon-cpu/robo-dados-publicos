@@ -82,8 +82,8 @@ class BronzeSingleRecordCaptureTests(unittest.TestCase):
         self.assertIn("Revisar evidência pinada dos 52 campos", text)
         self.assertNotIn("schedule:", text)
         self.assertNotIn("--retry", text)
-        self.assertNotIn("silver", text.lower())
-        self.assertNotIn("gold", text.lower())
+        self.assertNotIn("main.py process", text)
+        self.assertNotIn("github_product_publication", text)
 
 
 if __name__ == "__main__":
