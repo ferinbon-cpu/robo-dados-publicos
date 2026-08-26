@@ -1,0 +1,108 @@
+name: M7 SIOPE CLIENT LIMEIRA GOLD DRIVE PERSISTENCE GATE
+run-name: "M7 SIOPE client Limeira first Gold Drive persistence 0.8.0 by @${{ github.actor }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_siope_client_limeira_gold_drive_persistence:
+        description: "Confirmar uma única criação create-only no 03_GOLD do resumo aritmético já validado; sem novo GET SIOPE, overwrite, compliance, processamento ou recorrência"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: siope-client-limeira-gold-drive-persistence
+  cancel-in-progress: false
+
+jobs:
+  persist:
+    if: ${{ inputs.confirm_siope_client_limeira_gold_drive_persistence == true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+      GOOGLE_DRIVE_CLIENT_ID: ${{ secrets.GOOGLE_DRIVE_CLIENT_ID }}
+      GOOGLE_DRIVE_CLIENT_SECRET: ${{ secrets.GOOGLE_DRIVE_CLIENT_SECRET }}
+      GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_REFRESH_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          check-latest: false
+      - name: Instalar dependências
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - name: Preflight offline
+        run: python scripts/github_preflight.py
+      - name: Revisar preview Gold pinado
+        run: python scripts/github_siope_client_limeira_gold_transform_review_gate.py
+      - name: Validar payload e desenho Gold Drive sem rede
+        run: python scripts/github_siope_client_limeira_gold_drive_persistence_gate.py --dry-run
+      - name: Compilar
+        run: python -m compileall -q .
+      - name: Testes unitários
+        run: python -m unittest discover -s tests -v
+      - name: Regressão histórica
+        run: python main.py selftest
+      - name: Validar presença de credenciais OAuth
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os, sys
+          names = (
+              'GOOGLE_DRIVE_CLIENT_ID',
+              'GOOGLE_DRIVE_CLIENT_SECRET',
+              'GOOGLE_DRIVE_REFRESH_TOKEN',
+          )
+          missing = [name for name in names if not os.getenv(name, '').strip()]
+          if missing:
+              print('STOP_MISSING_GITHUB_SECRETS: ' + ', '.join(missing))
+              sys.exit(3)
+          print('OAuth secrets: PRESENTES (valores não exibidos)')
+          PY
+      - name: Persistir exatamente um payload Gold validado no 03_GOLD
+        id: live
+        shell: bash
+        run: |
+          set +e
+          python scripts/github_siope_client_limeira_gold_drive_persistence_gate.py > "$RUNNER_TEMP/siope_gold_drive_persistence_result.json"
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Preparar evidência sanitizada
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          mkdir -p siope-client-limeira-gold-drive-persistence-evidence
+          if [ -s "$RUNNER_TEMP/siope_gold_drive_persistence_result.json" ]; then
+            cp "$RUNNER_TEMP/siope_gold_drive_persistence_result.json" siope-client-limeira-gold-drive-persistence-evidence/result.json
+          else
+            printf '%s\n' '{"status":"STOP_M7_SIOPE_CLIENT_LIMEIRA_GOLD_DRIVE_PERSISTENCE_NO_RESULT","remote_file_id_persisted":false,"drive_write_count":0,"gold_payload_persisted":false,"compliance_claims_authorized":false,"secret_values_exposed":false}' > siope-client-limeira-gold-drive-persistence-evidence/result.json
+          fi
+      - name: Publicar evidência sanitizada
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: siope-client-limeira-gold-drive-persistence-${{ github.run_id }}
+          path: siope-client-limeira-gold-drive-persistence-evidence/result.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Propagar STOP do gate
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          cat siope-client-limeira-gold-drive-persistence-evidence/result.json
+          code='${{ steps.live.outputs.exit_code }}'
+          if [ "${code:-30}" != "0" ]; then
+            exit "${code:-30}"
+          fi
+          echo "PASS_M7_SIOPE_CLIENT_LIMEIRA_GOLD_DRIVE_PERSISTENCE"

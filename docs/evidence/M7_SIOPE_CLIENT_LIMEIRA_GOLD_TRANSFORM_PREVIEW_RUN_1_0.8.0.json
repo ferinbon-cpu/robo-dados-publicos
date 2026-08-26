@@ -1,0 +1,53 @@
+{
+  "artifact_digest": "sha256:535ae1b476c6ddac62c30d315473516fa74b95fa879f0af28b911cf4c68b6fea",
+  "artifact_id": 9627788571,
+  "artifact_name": "siope-client-limeira-gold-transform-preview-33024319543",
+  "head_sha": "5eaa9401739a4965be93258d728e07879e576507",
+  "job_id": 98361967339,
+  "qa": {
+    "historical_failures": 0,
+    "historical_passes": 109,
+    "historical_tests": 109,
+    "unit_passes": 922,
+    "unit_tests": 922
+  },
+  "result": {
+    "compliance_claims_authorized": false,
+    "drive_network_called": false,
+    "drive_write_count": 0,
+    "gate_id": "M7_SIOPE_CLIENT_LIMEIRA_GOLD_TRANSFORM_PREVIEW_0_8_0",
+    "gold_contract": "SIOPE_DADOS_GERAIS_LIMEIRA_ARITHMETIC_SUMMARY_GOLD_V1",
+    "gold_payload_bytes": 1612,
+    "gold_payload_persisted": false,
+    "gold_payload_sha256": "d6a35db7c42129569c73f19de789d871d0d285929d8eb3fe2a04d5ef03fdd6e0",
+    "gold_persistence_authorized": false,
+    "gold_remote_write_authorized": false,
+    "imputation_performed": false,
+    "metric_count": 8,
+    "metrics": {
+      "despesa_educacao_paga_por_habitante": "1432.89",
+      "despesa_educacao_paga_sobre_dotacao_atualizada_educacao_pct": "86.0484",
+      "despesa_paga_sobre_dotacao_atualizada_pct": "78.4741",
+      "despesa_total_paga_por_habitante": "6097.24",
+      "participacao_educacao_na_despesa_empenhada_pct": "22.6713",
+      "participacao_educacao_na_despesa_liquidada_pct": "23.5650",
+      "participacao_educacao_na_despesa_paga_pct": "23.5007",
+      "receita_realizada_sobre_previsao_atualizada_pct": "95.3966"
+    },
+    "network_called": false,
+    "next_gate": "M7_SIOPE_CLIENT_LIMEIRA_GOLD_TRANSFORM_REVIEW_0_8_0",
+    "processing_authorized": false,
+    "record_count": 1,
+    "record_sha256": "20dd61298f9d4603fc7d5e20a373f331137d5bc37f59be687370bd0f289b97c6",
+    "recurrence_authorized": false,
+    "schedule_enabled": false,
+    "schema_key_count": 52,
+    "semantic_scope": "DERIVED_ARITHMETIC_ONLY_FROM_SIOPE_DADOS_GERAIS",
+    "silver_payload_sha256": "072283e3d9e5f12e6a3a697d32e653b64e618f4665e28f53e553b35506ce68da",
+    "source_network_called": false,
+    "status": "PASS_M7_SIOPE_CLIENT_LIMEIRA_GOLD_TRANSFORM_PREVIEW"
+  },
+  "run_id": 33024319543,
+  "status": "PINNED_SUCCESSFUL_MANUAL_GOLD_TRANSFORM_PREVIEW_EVIDENCE",
+  "workflow": "M7 SIOPE CLIENT LIMEIRA GOLD TRANSFORM PREVIEW GATE"
+}
