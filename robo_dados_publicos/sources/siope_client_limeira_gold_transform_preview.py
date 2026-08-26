@@ -6,6 +6,7 @@ from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from pathlib import Path
 
 from robo_dados_publicos.sources.siope_client_limeira_silver_drive_persistence import (
+    SilverDrivePersistenceError,
     _build_silver_payload,
     load_json as load_silver_json,
 )
@@ -120,8 +121,12 @@ def validate_config(config: dict) -> dict:
 def build_preview(config: dict, *, root: str | Path) -> tuple[dict, dict]:
     validate_config(config)
     root_path = Path(root)
-    silver_config = load_silver_json(root_path / config["silver_persistence_config_path"])
-    silver_payload = _build_silver_payload(silver_config, root=root_path)
+    try:
+        silver_config = load_silver_json(root_path / config["silver_persistence_config_path"])
+        silver_payload = _build_silver_payload(silver_config, root=root_path)
+    except (SilverDrivePersistenceError, OSError, json.JSONDecodeError) as exc:
+        raise GoldTransformPreviewError(f"{ERROR}_SILVER_PREREQUISITE") from exc
+
     silver_bytes = _canonical_bytes(silver_payload)
     _require(len(silver_bytes), config["silver_payload_bytes"], "SILVER_BYTES")
     _require(hashlib.sha256(silver_bytes).hexdigest(), config["silver_payload_sha256"], "SILVER_SHA256")
