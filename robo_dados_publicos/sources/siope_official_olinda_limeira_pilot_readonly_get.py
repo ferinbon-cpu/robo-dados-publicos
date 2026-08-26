@@ -11,6 +11,7 @@ from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 ERROR = "STOP_M7_SIOPE_OFFICIAL_OLINDA_LIMEIRA_PILOT_READONLY_GET"
 PASS = "PASS_M7_SIOPE_OFFICIAL_OLINDA_LIMEIRA_PILOT_READONLY_GET"
+REQUEST_TIMEOUT_SECONDS = 60
 
 
 class SiopeOfficialOlindaLimeiraPilotReadonlyGetError(RuntimeError):
@@ -36,6 +37,11 @@ def _require(actual, expected, code: str) -> None:
 
 def _query_pairs(url: str) -> list[tuple[str, str]]:
     return parse_qsl(urlparse(url).query, keep_blank_values=True)
+
+
+def _urlerror_is_timeout(exc: URLError) -> bool:
+    reason = getattr(exc, "reason", None)
+    return isinstance(reason, (TimeoutError, socket.timeout))
 
 
 def load_config(path: str | Path) -> dict:
@@ -202,7 +208,7 @@ def run_pilot_get(config: dict, *, opener=None) -> dict:
     )
     max_bytes = int(config["limits"]["max_response_bytes"])
     try:
-        response = opener(request, timeout=20)
+        response = opener(request, timeout=REQUEST_TIMEOUT_SECONDS)
         with response:
             final_url = str(getattr(response, "url", response.geturl()))
             if final_url != url:
@@ -227,7 +233,12 @@ def run_pilot_get(config: dict, *, opener=None) -> dict:
         raise SiopeOfficialOlindaLimeiraPilotReadonlyGetError(
             f"{ERROR}_TIMEOUT", network_called=True, request_count=1
         ) from None
-    except (URLError, OSError):
+    except URLError as exc:
+        code = "TIMEOUT" if _urlerror_is_timeout(exc) else "NETWORK"
+        raise SiopeOfficialOlindaLimeiraPilotReadonlyGetError(
+            f"{ERROR}_{code}", network_called=True, request_count=1
+        ) from None
+    except OSError:
         raise SiopeOfficialOlindaLimeiraPilotReadonlyGetError(
             f"{ERROR}_NETWORK", network_called=True, request_count=1
         ) from None
