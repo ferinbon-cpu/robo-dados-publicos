@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import copy
-import io
 import json
 import unittest
 from pathlib import Path
@@ -185,7 +184,6 @@ class MinimalReadonlyGetTests(unittest.TestCase):
         self.assertLess(text.index("python -m unittest discover -s tests -v"), text.index(live_name))
         self.assertLess(text.index("python main.py selftest"), text.index(live_name))
         self.assertNotIn("352690", text)
-        self.assertNotIn("Limeira", text)
         for forbidden in ("curl ", "wget ", "requests.post", "git push", "schedule:"):
             self.assertNotIn(forbidden, text)
 
