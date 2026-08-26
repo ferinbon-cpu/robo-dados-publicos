@@ -33,6 +33,9 @@ jobs:
       - run: python scripts/github_siope_official_olinda_api_application_loaded_script_locality_diagnostics_review_gate.py
       - run: python scripts/github_siope_official_olinda_api_application_loaded_script_syntax_skeleton_diagnostics_design_gate.py
       - run: python scripts/github_siope_official_olinda_api_application_loaded_script_syntax_skeleton_diagnostics_gate.py --dry-run
+      - run: python scripts/github_siope_official_olinda_api_application_loaded_script_syntax_skeleton_diagnostics_review_gate.py
+      - run: python scripts/github_siope_official_olinda_api_application_dom_syntax_skeleton_diagnostics_design_gate.py
+      - run: python scripts/github_siope_official_olinda_api_application_dom_syntax_skeleton_diagnostics_gate.py --dry-run
       - run: python -m compileall -q .
-      - run: python -m unittest tests.test_m7_siope_official_olinda_api_application_loaded_script_signature_diagnostics tests.test_m7_siope_official_olinda_api_application_loaded_script_global_relation_diagnostics tests.test_m7_siope_official_olinda_api_application_loaded_script_locality_diagnostics tests.test_m7_siope_official_olinda_api_application_loaded_script_syntax_skeleton_diagnostics -v
+      - run: python -m unittest tests.test_m7_siope_official_olinda_api_application_loaded_script_signature_diagnostics tests.test_m7_siope_official_olinda_api_application_loaded_script_global_relation_diagnostics tests.test_m7_siope_official_olinda_api_application_loaded_script_locality_diagnostics tests.test_m7_siope_official_olinda_api_application_loaded_script_syntax_skeleton_diagnostics tests.test_m7_siope_official_olinda_api_application_dom_syntax_skeleton_diagnostics -v
       - run: python main.py selftest
