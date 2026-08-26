@@ -104,13 +104,15 @@ class LocationHashOdataSideDiagnosticsTests(unittest.TestCase):
             self.assertFalse(result[key])
 
     def test_nearest_side_left_right_and_none(self):
-        match = re.search("CALL", "aaa TOKEN xx CALL yy TOKEN zzz")
+        source = "TOKEN----------CALL-TOKEN"
+        match = re.search("CALL", source)
         self.assertIsNotNone(match)
-        source = "aaa TOKEN xx CALL yy TOKEN zzz"
         self.assertEqual(live._nearest_side(source, match, "TOKEN", 100), "right")
-        match2 = re.search("CALL", "aaa TOKEN x CALL zzz")
-        self.assertEqual(live._nearest_side("aaa TOKEN x CALL zzz", match2, "TOKEN", 100), "left")
-        self.assertEqual(live._nearest_side("aaa x CALL zzz", re.search("CALL", "aaa x CALL zzz"), "TOKEN", 100), "none")
+        source2 = "TOKEN-CALL----------TOKEN"
+        match2 = re.search("CALL", source2)
+        self.assertEqual(live._nearest_side(source2, match2, "TOKEN", 100), "left")
+        source3 = "aaa x CALL zzz"
+        self.assertEqual(live._nearest_side(source3, re.search("CALL", source3), "TOKEN", 100), "none")
 
     def test_nearest_side_tie(self):
         source = "TOKENxxCALLxxTOKEN"
@@ -120,7 +122,7 @@ class LocationHashOdataSideDiagnosticsTests(unittest.TestCase):
     def test_analyzer_counts_all_three_on_left_for_location_hash_family(self):
         cfg = live.load_json(LIVE_CONFIG)
         counts = live._empty_counts()
-        source = "/odata/ " + ("x" * 200) + "$format " + ("x" * 200) + "location.hash " + ("x" * 100) + "Dados_Gerais_Siope Ano_Consulta Num_Peri Sig_UF"
+        source = "/odata/ " + ("x" * 200) + " $format " + ("x" * 200) + " location.hash " + ("x" * 100) + " Dados_Gerais_Siope Ano_Consulta Num_Peri Sig_UF"
         live._analyze_source_into_counts(source, cfg, counts)
         self.assertEqual(counts["callable_occurrence_count"], 1)
         self.assertEqual(counts["location_hash_family_count"], 1)
@@ -134,7 +136,7 @@ class LocationHashOdataSideDiagnosticsTests(unittest.TestCase):
     def test_ngroute_family_is_partitioned_but_not_side_analyzed(self):
         cfg = live.load_json(LIVE_CONFIG)
         counts = live._empty_counts()
-        source = "ngRoute " + ("x" * 100) + "Dados_Gerais_Siope Ano_Consulta Num_Peri Sig_UF"
+        source = "ngRoute " + ("x" * 100) + " Dados_Gerais_Siope Ano_Consulta Num_Peri Sig_UF"
         live._analyze_source_into_counts(source, cfg, counts)
         self.assertEqual(counts["ngroute_family_count"], 1)
         self.assertEqual(counts["location_hash_family_count"], 0)
