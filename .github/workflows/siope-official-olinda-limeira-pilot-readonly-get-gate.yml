@@ -1,0 +1,52 @@
+name: M7 SIOPE OFFICIAL OLINDA LIMEIRA PILOT READONLY GET GATE
+run-name: "M7 SIOPE official Olinda Limeira pilot readonly GET 0.8.0 by @${{ github.actor }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_official_olinda_limeira_pilot_readonly_get:
+        description: "Confirmar exatamente um GET público para o piloto Limeira 2024/6, com filtro e select mínimos; sem redirect, paginação, persistência de linhas ou recorrência"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    if: ${{ inputs.confirm_official_olinda_limeira_pilot_readonly_get == true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          check-latest: false
+      - run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - run: python scripts/github_preflight.py
+      - name: Revisar evidência pinada do GET mínimo não-Limeira
+        run: python scripts/github_siope_official_olinda_minimal_readonly_get_review_gate.py
+      - name: Validar design do piloto Limeira sem rede
+        run: python scripts/github_siope_official_olinda_limeira_pilot_readonly_get_gate.py --dry-run
+      - run: python -m compileall -q .
+      - run: python -m unittest discover -s tests -v
+      - run: python main.py selftest
+      - name: Executar um único GET piloto Limeira SIOPE Olinda
+        id: live
+        continue-on-error: true
+        run: python scripts/github_siope_official_olinda_limeira_pilot_readonly_get_gate.py --output siope-official-olinda-limeira-pilot-readonly-get-evidence/result.json
+      - name: Publicar evidência sanitizada
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: siope-official-olinda-limeira-pilot-readonly-get-${{ github.run_id }}
+          path: siope-official-olinda-limeira-pilot-readonly-get-evidence/result.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Propagar STOP do gate
+        if: ${{ steps.live.outcome == 'failure' }}
+        run: exit 1
