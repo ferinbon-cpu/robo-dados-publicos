@@ -19,8 +19,8 @@ def main() -> int:
     result = run_review(
         config,
         load_json(evidence_path),
-        evidence_path=evidence_path.relative_to(ROOT),
-        corroboration_path=corroboration_path.relative_to(ROOT),
+        evidence_path=evidence_path,
+        corroboration_path=corroboration_path,
     )
     print(json.dumps(result, ensure_ascii=False, sort_keys=True))
     return 0
