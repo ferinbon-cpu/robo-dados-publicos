@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "config/source_expansion.siope_client_limeira_historical_parameterized_pipeline_dry_run.json"
 EVIDENCE = ROOT / "docs/evidence/M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_PARAMETERIZED_GENERALIZATION_RUN_1_0.8.0.json"
 SCRIPT = ROOT / "scripts/github_siope_client_limeira_historical_parameterized_pipeline_dry_run_gate.py"
+MODULE = "robo_dados_publicos.sources.siope_client_limeira_historical_parameterized_pipeline_dry_run"
 
 
 class HistoricalParameterizedPipelineDryRunTests(unittest.TestCase):
@@ -76,7 +77,7 @@ class HistoricalParameterizedPipelineDryRunTests(unittest.TestCase):
             with self.assertRaises(HistoricalParameterizedPipelineDryRunError):
                 review(config, root=tmp_root)
 
-    def test_gate1_evidence_semantic_drift_fails_closed_even_if_blob_is_repointed(self):
+    def test_gate1_evidence_semantic_drift_fails_even_if_hash_check_is_mocked_valid(self):
         config = load_json(CONFIG)
         with tempfile.TemporaryDirectory() as tmp:
             tmp_root = Path(tmp)
@@ -84,15 +85,10 @@ class HistoricalParameterizedPipelineDryRunTests(unittest.TestCase):
             target.parent.mkdir(parents=True, exist_ok=True)
             data = json.loads(EVIDENCE.read_text(encoding="utf-8"))
             data["network_called"] = True
-            raw = (json.dumps(data, indent=2, sort_keys=False) + "\n").encode("utf-8")
-            target.write_bytes(raw)
-            header = f"blob {len(raw)}\0".encode("ascii")
-            import hashlib
-
-            drifted = copy.deepcopy(config)
-            drifted["generalization_evidence"]["blob_sha"] = hashlib.sha1(header + raw).hexdigest()  # noqa: S324
-            with self.assertRaises(HistoricalParameterizedPipelineDryRunError):
-                validate_config(drifted)
+            target.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+            with patch(f"{MODULE}._git_blob_sha", return_value=config["generalization_evidence"]["blob_sha"]):
+                with self.assertRaises(HistoricalParameterizedPipelineDryRunError):
+                    review(config, root=tmp_root)
 
     def test_stage_contract_drift_fails_closed(self):
         config = load_json(CONFIG)
@@ -102,10 +98,7 @@ class HistoricalParameterizedPipelineDryRunTests(unittest.TestCase):
             stages[-1] = "GOLD_UNSAFE"
             return [{"year": year, "period": period, "stages": stages} for year in years]
 
-        with patch(
-            "robo_dados_publicos.sources.siope_client_limeira_historical_parameterized_pipeline_dry_run.build_parameterized_plan",
-            side_effect=bad_plan,
-        ):
+        with patch(f"{MODULE}.build_parameterized_plan", side_effect=bad_plan):
             with self.assertRaises(HistoricalParameterizedPipelineDryRunError):
                 review(config, root=ROOT)
 
