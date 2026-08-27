@@ -158,7 +158,10 @@ def review(config: dict, *, root: str | Path) -> dict:
         _require(item["period"], config["period"], f"PLAN_{year}_PERIOD")
         _require(tuple(item["stages"]), EXPECTED_STAGES, f"PLAN_{year}_STAGES")
 
-    plan_templates = {_normalized_plan(item)["period"]: _normalized_plan(item) for item in plan}
+    plan_templates = {
+        json.dumps(_normalized_plan(item), sort_keys=True, separators=(",", ":"))
+        for item in plan
+    }
     _require(len(plan_templates), 1, "PLAN_TEMPLATE_EQUIVALENCE")
 
     urls = [
@@ -170,7 +173,10 @@ def review(config: dict, *, root: str | Path) -> dict:
         )
         for year in config["dry_run_years"]
     ]
-    url_templates = {_normalized_url_template(url, year) for url, year in zip(urls, config["dry_run_years"], strict=True)}
+    url_templates = {
+        _normalized_url_template(url, year)
+        for url, year in zip(urls, config["dry_run_years"], strict=True)
+    }
     _require(len(url_templates), 1, "SOURCE_URL_TEMPLATE_EQUIVALENCE")
 
     equivalence_plan = build_parameterized_plan(config["equivalence_years"], period=config["period"])
