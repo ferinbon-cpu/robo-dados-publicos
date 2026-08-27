@@ -48,6 +48,16 @@ def validate_config(config: dict) -> dict:
     _require(config.get("expected_record_count"), 1, "RECORD_COUNT")
     _require(config.get("expected_schema_key_count"), 52, "SCHEMA_COUNT")
     _require(
+        config.get("record_payload_path"),
+        "docs/evidence/payloads/M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2023_P6_BRONZE_SINGLE_RECORD_RUN_1_RECORD_0.8.0.json",
+        "RECORD_PATH",
+    )
+    _require(
+        config.get("manifest_payload_path"),
+        "docs/evidence/payloads/M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2023_P6_BRONZE_SINGLE_RECORD_RUN_1_MANIFEST_0.8.0.json",
+        "MANIFEST_PATH",
+    )
+    _require(
         config.get("expected_identity"),
         {
             "municipality_code": 352690,
