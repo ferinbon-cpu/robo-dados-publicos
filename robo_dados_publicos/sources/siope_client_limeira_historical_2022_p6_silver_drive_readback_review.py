@@ -30,7 +30,32 @@ def _git_blob_sha(raw: bytes) -> str:
 
 
 def review(config: dict, *, root: str | Path) -> dict:
-    expected_config = {'gate_id': 'M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2022_P6_SILVER_DRIVE_READBACK_REVIEW_0_8_0', 'gold_authorized': False, 'gold_transform_preview_design_authorized': True, 'mode': 'OFFLINE_PINNED_HISTORICAL_SILVER_DRIVE_READBACK_REVIEW', 'network_called': False, 'next_gate': 'M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2022_P6_GOLD_TRANSFORM_PREVIEW_0_8_0', 'pinned_artifact_digest': 'sha256:2366ca3539bdb978282a0604eceb96ac54057a6398bf8655b01090aa083ed1be', 'pinned_artifact_id': 9650052254, 'pinned_evidence_blob_sha': '8643f7c1ac4f76d61400e707c3a3da6044499c95', 'pinned_evidence_path': 'docs/evidence/M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2022_P6_SILVER_DRIVE_READBACK_VERIFICATION_RUN_1_0.8.0.json', 'pinned_head_sha': 'da270a9ffffe22d771d0951623b745d8adf22b28', 'pinned_historical_regressions': 109, 'pinned_job_id': 98548103332, 'pinned_record_sha256': '79b786f438d29803fe15d513f4ff17d4ab55fde1dd631f503b6752370e21b68a', 'pinned_run_id': 33081063242, 'pinned_schema_key_count': 52, 'pinned_silver_payload_bytes': 1825, 'pinned_silver_payload_sha256': 'd8f14e5fa52cf214c837cb6a3d702f8b5a12310252045695547b289f88a03632', 'pinned_unit_tests': 1098, 'processing_authorized': False, 'recurrence_authorized': False, 'schedule_enabled': False, 'software_version': '0.8.0', 'source_id': 'FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA'}
+    expected_config = {
+        "gate_id": "M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2022_P6_SILVER_DRIVE_READBACK_REVIEW_0_8_0",
+        "gold_authorized": False,
+        "gold_transform_preview_design_authorized": True,
+        "mode": "OFFLINE_PINNED_HISTORICAL_SILVER_DRIVE_READBACK_REVIEW",
+        "network_called": False,
+        "next_gate": "M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2022_P6_GOLD_TRANSFORM_PREVIEW_0_8_0",
+        "pinned_artifact_digest": "sha256:2366ca3539bdb978282a0604eceb96ac54057a6398bf8655b01090aa083ed1be",
+        "pinned_artifact_id": 9650052254,
+        "pinned_evidence_blob_sha": "8643f7c1ac4f76d61400e707c3a3da6044499c95",
+        "pinned_evidence_path": "docs/evidence/M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2022_P6_SILVER_DRIVE_READBACK_VERIFICATION_RUN_1_0.8.0.json",
+        "pinned_head_sha": "da270a9ffffe22d771d0951623b745d8adf22b28",
+        "pinned_historical_regressions": 109,
+        "pinned_job_id": 98548103332,
+        "pinned_record_sha256": "79b786f438d29803fe15d513f4ff17d4ab55fde1dd631f503b6752370e21b68a",
+        "pinned_run_id": 33081063242,
+        "pinned_schema_key_count": 52,
+        "pinned_silver_payload_bytes": 1825,
+        "pinned_silver_payload_sha256": "d8f14e5fa52cf214c837cb6a3d702f8b5a12310252045695547b289f88a03632",
+        "pinned_unit_tests": 1098,
+        "processing_authorized": False,
+        "recurrence_authorized": False,
+        "schedule_enabled": False,
+        "software_version": "0.8.0",
+        "source_id": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
+    }
     _require(config, expected_config, "CONFIG_DRIFT")
 
     evidence_path = Path(root) / config["pinned_evidence_path"]

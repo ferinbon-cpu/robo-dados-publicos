@@ -63,47 +63,7 @@ def _per_capita(amount: Decimal, population: Decimal) -> str:
 
 
 def validate_config(config: dict) -> dict:
-    expected = {
-        "compliance_claims_authorized": False,
-        "drive_network_authorized": False,
-        "drive_write_count": 0,
-        "expected_gold_payload_bytes": 1623,
-        "expected_gold_payload_sha256": "4057aac2b18dc7184db992ee989d64c8732c4ad858cc6e8b7520cd50c4d37f68",
-        "expected_metric_ids": [
-            "receita_realizada_sobre_previsao_atualizada_pct",
-            "despesa_paga_sobre_dotacao_atualizada_pct",
-            "despesa_educacao_paga_sobre_dotacao_atualizada_educacao_pct",
-            "participacao_educacao_na_despesa_empenhada_pct",
-            "participacao_educacao_na_despesa_liquidada_pct",
-            "participacao_educacao_na_despesa_paga_pct",
-            "despesa_total_paga_por_habitante",
-            "despesa_educacao_paga_por_habitante",
-        ],
-        "expected_record_count": 1,
-        "expected_schema_key_count": 52,
-        "gate_id": "M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2022_P6_GOLD_TRANSFORM_PREVIEW_0_8_0",
-        "gold_contract": "SIOPE_DADOS_GERAIS_LIMEIRA_ARITHMETIC_SUMMARY_GOLD_V1",
-        "gold_persistence_authorized": False,
-        "gold_remote_write_authorized": False,
-        "historical_collection_authorized": False,
-        "imputation_authorized": False,
-        "manual_confirmation_required": True,
-        "mode": "OFFLINE_PINNED_VERIFIED_HISTORICAL_SILVER_ARITHMETIC_GOLD_PREVIEW",
-        "next_gate": "M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2022_P6_GOLD_TRANSFORM_REVIEW_0_8_0",
-        "processing_authorized": False,
-        "readback_review_gate": "M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2022_P6_SILVER_DRIVE_READBACK_REVIEW_0_8_0",
-        "record_sha256": "79b786f438d29803fe15d513f4ff17d4ab55fde1dd631f503b6752370e21b68a",
-        "recurrence_authorized": False,
-        "schedule_enabled": False,
-        "semantic_scope": "DERIVED_ARITHMETIC_ONLY_FROM_SIOPE_DADOS_GERAIS",
-        "silver_contract": "SIOPE_DADOS_GERAIS_LIMEIRA_HISTORICAL_VALIDATED_RECORD_SILVER_V1",
-        "silver_payload_bytes": 1825,
-        "silver_payload_sha256": "d8f14e5fa52cf214c837cb6a3d702f8b5a12310252045695547b289f88a03632",
-        "silver_persistence_config_path": "config/source_expansion.siope_client_limeira_historical_2022_p6_silver_drive_persistence.json",
-        "software_version": "0.8.0",
-        "source_id": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
-        "source_network_authorized": False,
-    }
+    expected = {"compliance_claims_authorized": False, "drive_network_authorized": False, "drive_write_count": 0, "expected_gold_payload_bytes": 1623, "expected_gold_payload_sha256": "4057aac2b18dc7184db992ee989d64c8732c4ad858cc6e8b7520cd50c4d37f68", "expected_metric_ids": ["receita_realizada_sobre_previsao_atualizada_pct", "despesa_paga_sobre_dotacao_atualizada_pct", "despesa_educacao_paga_sobre_dotacao_atualizada_educacao_pct", "participacao_educacao_na_despesa_empenhada_pct", "participacao_educacao_na_despesa_liquidada_pct", "participacao_educacao_na_despesa_paga_pct", "despesa_total_paga_por_habitante", "despesa_educacao_paga_por_habitante"], "expected_record_count": 1, "expected_schema_key_count": 52, "gate_id": "M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2022_P6_GOLD_TRANSFORM_PREVIEW_0_8_0", "gold_contract": "SIOPE_DADOS_GERAIS_LIMEIRA_ARITHMETIC_SUMMARY_GOLD_V1", "gold_persistence_authorized": False, "gold_remote_write_authorized": False, "historical_collection_authorized": False, "imputation_authorized": False, "manual_confirmation_required": True, "mode": "OFFLINE_PINNED_VERIFIED_HISTORICAL_SILVER_ARITHMETIC_GOLD_PREVIEW", "next_gate": "M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2022_P6_GOLD_TRANSFORM_REVIEW_0_8_0", "processing_authorized": False, "readback_review_gate": "M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2022_P6_SILVER_DRIVE_READBACK_REVIEW_0_8_0", "record_sha256": "79b786f438d29803fe15d513f4ff17d4ab55fde1dd631f503b6752370e21b68a", "recurrence_authorized": False, "schedule_enabled": False, "semantic_scope": "DERIVED_ARITHMETIC_ONLY_FROM_SIOPE_DADOS_GERAIS", "silver_contract": "SIOPE_DADOS_GERAIS_LIMEIRA_HISTORICAL_VALIDATED_RECORD_SILVER_V1", "silver_payload_bytes": 1825, "silver_payload_sha256": "d8f14e5fa52cf214c837cb6a3d702f8b5a12310252045695547b289f88a03632", "silver_persistence_config_path": "config/source_expansion.siope_client_limeira_historical_2022_p6_silver_drive_persistence.json", "software_version": "0.8.0", "source_id": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA", "source_network_authorized": False}
     _require(config, expected, "CONFIG_DRIFT")
     return {
         "compliance_claims_authorized": False,

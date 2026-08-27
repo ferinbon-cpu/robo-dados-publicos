@@ -42,7 +42,7 @@ jobs:
         run: python scripts/github_preflight.py
       - name: Revisar readback Silver histórico 2022 P6 pinado
         run: python scripts/github_siope_client_limeira_historical_2022_p6_silver_drive_readback_review_gate.py
-      - name: Validar desenho Gold histórico sem rede nem writes
+      - name: Validar desenho Gold histórico 2022 P6 sem rede nem writes
         run: python scripts/github_siope_client_limeira_historical_2022_p6_gold_transform_preview_gate.py --dry-run
       - name: Compilar
         run: python -m compileall -q .
@@ -50,7 +50,7 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Regressão histórica
         run: python main.py selftest
-      - name: Executar preview Gold histórico aritmético local
+      - name: Executar preview Gold histórico 2022 P6 aritmético local
         id: preview
         shell: bash
         run: |

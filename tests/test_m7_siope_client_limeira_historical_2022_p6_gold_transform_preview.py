@@ -43,6 +43,7 @@ class Historical2022GoldTransformPreviewTests(unittest.TestCase):
         self.assertTrue(result["gold_transform_preview_design_authorized"])
         self.assertFalse(result["gold_authorized"])
         self.assertFalse(result["network_called"])
+        self.assertFalse(result["historical_collection_authorized"])
         self.assertEqual(result["record_count"], 1)
         self.assertEqual(result["schema_key_count"], 52)
 
