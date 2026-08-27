@@ -16,6 +16,7 @@ from robo_dados_publicos.sources.siope_client_limeira_historical_parameterized_s
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "config/source_expansion.siope_client_limeira_historical_parameterized_single_year_pilot.json"
+SCRIPT_PATH = ROOT / "scripts/github_siope_client_limeira_historical_parameterized_single_year_pilot_gate.py"
 
 
 def config():
@@ -78,6 +79,15 @@ class TestHistoricalParameterizedSingleYearPilot(unittest.TestCase):
         out = validate_config(config(), root=ROOT)
         self.assertEqual(out["pilot_year"], 2021)
         self.assertEqual(out["stage_count"], 9)
+
+    def test_wrapper_bootstraps_repo_root_before_package_import(self):
+        text = SCRIPT_PATH.read_text(encoding="utf-8")
+        self.assertIn("import sys", text)
+        bootstrap = 'sys.path.insert(0, str(ROOT))'
+        package_import = "from robo_dados_publicos.sources.siope_client_limeira_historical_parameterized_single_year_pilot import"
+        self.assertIn(bootstrap, text)
+        self.assertIn(package_import, text)
+        self.assertLess(text.index(bootstrap), text.index(package_import))
 
     def test_fake_end_to_end_executes_one_orchestrated_nine_stage_pilot(self):
         source, drive = FakeSiope(), FakeDrive()
