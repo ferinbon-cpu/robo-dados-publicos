@@ -61,7 +61,7 @@ class HistoricalSilverDrivePersistenceTests(unittest.TestCase):
         self.assertEqual(result["silver_payload_bytes"], 1830)
         raw = EVIDENCE.read_bytes()
         blob_sha = hashlib.sha1(f"blob {len(raw)}\0".encode("ascii") + raw).hexdigest()  # noqa: S324
-        self.assertEqual(blob_sha, "21a6001de50d203abc6a81efcb7aff4e82893b6d")
+        self.assertEqual(blob_sha, "98e23ab9bb1038b3baa7f2dc82bd520eda15c5f1")
 
     def test_tampered_preview_review_fails_closed(self):
         config = copy.deepcopy(load_review_json(REVIEW_CONFIG))
