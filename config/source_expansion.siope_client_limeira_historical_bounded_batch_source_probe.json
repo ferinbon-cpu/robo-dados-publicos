@@ -1,0 +1,30 @@
+{
+  "batch_live_authorized": false,
+  "batch_years": [2020, 2019, 2018, 2017, 2016],
+  "compliance_claims_authorized": false,
+  "drive_access_authorized": false,
+  "drive_write_count": 0,
+  "gate_id": "M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_BOUNDED_BATCH_SOURCE_PROBE_0_8_0",
+  "imputation_authorized": false,
+  "manual_confirmation_required": true,
+  "max_years_per_probe": 5,
+  "mode": "BOUNDED_LIVE_PARAMETERIZED_HISTORICAL_SOURCE_PROBE",
+  "municipality_code": 352690,
+  "municipality_name": "Limeira",
+  "next_gate": "M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_BOUNDED_BATCH_AUTHORIZATION_0_8_0",
+  "pagination_authorized": false,
+  "period": 6,
+  "prior_failure_evidence": {
+    "blob_sha": "5cd575bd0221eb7bee617edade5860966bdd6a91",
+    "path": "docs/evidence/M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_BOUNDED_BATCH_AUTHORIZATION_RUN_1_STOP_0.8.0.json",
+    "run_id": 33126863037
+  },
+  "recurrence_authorized": false,
+  "retry_authorized": false,
+  "schedule_enabled": false,
+  "schema_key_count": 52,
+  "software_version": "0.8.0",
+  "source_get_count": 5,
+  "source_id": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
+  "uf": "SP"
+}
