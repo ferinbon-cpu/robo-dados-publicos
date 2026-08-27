@@ -39,7 +39,7 @@ def review(config: dict, *, root: str | Path) -> dict:
         "next_gate": "M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2023_P6_SILVER_DRIVE_PERSISTENCE_0_8_0",
         "pinned_artifact_digest": "sha256:86ef8c983332a23996460b372d659ba8ce68f736996158dca19f3bd6f0f9e51a",
         "pinned_artifact_id": 9630464239,
-        "pinned_evidence_blob_sha": "21a6001de50d203abc6a81efcb7aff4e82893b6d",
+        "pinned_evidence_blob_sha": "98e23ab9bb1038b3baa7f2dc82bd520eda15c5f1",
         "pinned_evidence_path": "docs/evidence/M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2023_P6_SILVER_SINGLE_RECORD_TRANSFORM_PREVIEW_RUN_1_0.8.0.json",
         "pinned_head_sha": "dd1ddf804e94034adae58da6843f2010e881f587",
         "pinned_historical_regressions": 109,
