@@ -10,7 +10,9 @@ from robo_dados_publicos.sources.siope_client import (
     SiopeClientPolicy,
 )
 from robo_dados_publicos.sources.siope_client_limeira_historical_parameterized_single_year_pilot import (
+    ERROR as SINGLE_YEAR_PILOT_ERROR,
     EXPECTED_STAGES,
+    HistoricalParameterizedSingleYearPilotError,
     _build_payloads,
     _put_and_readback,
     _record_from_page,
@@ -28,6 +30,13 @@ class HistoricalBoundedBatchAuthorizationError(RuntimeError):
 def _require(actual, expected, code: str) -> None:
     if actual != expected:
         raise HistoricalBoundedBatchAuthorizationError(f"{ERROR}_{code}")
+
+
+def _translate_pilot_validation_error(exc: HistoricalParameterizedSingleYearPilotError) -> None:
+    text = str(exc)
+    prefix = f"{SINGLE_YEAR_PILOT_ERROR}_"
+    code = text[len(prefix) :] if text.startswith(prefix) else "PILOT_HELPER"
+    raise HistoricalBoundedBatchAuthorizationError(f"{ERROR}_{code}") from None
 
 
 def _git_blob_sha(raw: bytes) -> str:
@@ -168,8 +177,11 @@ def run_bounded_batch(config: dict, *, root: str | Path, siope_client=None, driv
             municipality_code=config["municipality_code"],
             select_fields=tuple(sorted(PROVEN_DADOS_GERAIS_FIELDS)),
         )
-        record = _record_from_page(local, page)
-        payloads = _build_payloads(local, record, page)
+        try:
+            record = _record_from_page(local, page)
+            payloads = _build_payloads(local, record, page)
+        except HistoricalParameterizedSingleYearPilotError as exc:
+            _translate_pilot_validation_error(exc)
         _require(payloads["metric_count"], 8, f"METRIC_COUNT_{year}")
         prepared.append({"year": year, "payloads": payloads})
 
