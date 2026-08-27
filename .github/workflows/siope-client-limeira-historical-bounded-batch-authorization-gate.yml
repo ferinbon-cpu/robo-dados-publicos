@@ -1,0 +1,60 @@
+name: M7 SIOPE CLIENT LIMEIRA HISTORICAL BOUNDED BATCH AUTHORIZATION GATE
+run-name: "M7 SIOPE bounded historical batch 2020-2016 0.8.0 by @${{ github.actor }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_siope_client_limeira_historical_bounded_batch_authorization:
+        description: "Confirmar lote histórico final limitado a 5 anos (2020-2016): 5 GETs, 15 creates e 15 readbacks; sem retry/paginação/recorrência/schedule"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: siope-client-limeira-historical-bounded-batch-authorization
+  cancel-in-progress: false
+
+jobs:
+  bounded-batch:
+    if: ${{ inputs.confirm_siope_client_limeira_historical_bounded_batch_authorization == true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+      GOOGLE_DRIVE_CLIENT_ID: ${{ secrets.GOOGLE_DRIVE_CLIENT_ID }}
+      GOOGLE_DRIVE_CLIENT_SECRET: ${{ secrets.GOOGLE_DRIVE_CLIENT_SECRET }}
+      GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_REFRESH_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          check-latest: false
+      - name: Instalar dependências
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - name: Preflight
+        run: python scripts/github_preflight.py
+      - name: Executar lote histórico parametrizado limitado 2020-2016
+        run: python scripts/github_siope_client_limeira_historical_bounded_batch_authorization_gate.py
+      - name: Compilar
+        run: python -m compileall -q .
+      - name: Testes unitários
+        run: python -m unittest discover -s tests -v
+      - name: Regressão histórica
+        run: python main.py selftest
+      - name: Publicar resultado sanitizado do lote
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: siope-client-limeira-historical-bounded-batch-authorization-${{ github.run_id }}
+          path: siope-client-limeira-historical-bounded-batch-authorization-evidence/result.json
+          if-no-files-found: error
+          retention-days: 30
