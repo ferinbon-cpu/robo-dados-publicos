@@ -1,0 +1,51 @@
+{
+  "schema": "SIOPE_2025_METADATA_PACKAGE_ROUTE_PROBE_AUTHORIZATION_V1",
+  "authorized": true,
+  "authorization_id": "SIOPE2025-METADATA-PROBE-20260828-01",
+  "approval_kind": "OWNER_EXPLICIT_SINGLE_BOUNDED_RUN",
+  "approved_by": "ferinbon-cpu",
+  "approved_at_utc": "2026-08-28T21:42:31Z",
+  "expires_at_utc": "2026-08-28T23:42:31Z",
+  "authorized_base_sha": "e2aaffe7cfb1fc3a893f7f2c662e54cd3575543b",
+  "authorized_workflow_run_number": 1,
+  "authorized_workflow_run_attempt": 1,
+  "authorized_workflow_ref": "refs/heads/main",
+  "one_shot": true,
+  "max_live_runs": 1,
+  "source_identity": {
+    "provider": "FNDE",
+    "year": 2025,
+    "scope": "MUNICIPAL_METADATA",
+    "initial_host": "fnde.sharepoint.com",
+    "package_url": "https://fnde.sharepoint.com/:u:/s/SIOPE/EeP0ArdsxWJLuWyg3LQHt2IBKEWEhLDvDk2_7k1vbAx0tQ?download=1&e=UiD081"
+  },
+  "request_contract": {
+    "method": "GET",
+    "range_header": "bytes=0-4095",
+    "maximum_source_get_count": 1,
+    "maximum_response_bytes": 4096,
+    "timeout_seconds": 60,
+    "max_attempts": 1,
+    "retry_authorized": false,
+    "follow_redirects": false,
+    "allowed_redirect_hosts": []
+  },
+  "effects": {
+    "operational_receipt_status_query_count": 0,
+    "siope_fiscal_odata_get_count": 0,
+    "drive_read_count": 0,
+    "drive_write_count": 0,
+    "response_persistence": false,
+    "archive_persistence": false,
+    "bronze_silver_gold_creation": false,
+    "publication": false,
+    "future_batch_execution_authorized": false
+  },
+  "semantic_guards": {
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_metrics_status": "UNKNOWN",
+    "closed_annual_series_last_year": 2024,
+    "include_2026_authorized": false
+  }
+}
