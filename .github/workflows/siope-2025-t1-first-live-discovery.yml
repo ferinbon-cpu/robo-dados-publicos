@@ -55,3 +55,6 @@ jobs:
           python scripts/run_siope_2025_t1_first_live.py
           --mode live
           --authorization-id "${{ inputs.authorization_id }}"
+          --workflow-run-number "${{ github.run_number }}"
+          --workflow-run-attempt "${{ github.run_attempt }}"
+          --workflow-ref "${{ github.ref }}"

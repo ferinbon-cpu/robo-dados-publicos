@@ -7,6 +7,9 @@
   "approved_at_utc": null,
   "expires_at_utc": null,
   "authorized_base_sha": null,
+  "authorized_workflow_run_number": null,
+  "authorized_workflow_run_attempt": 1,
+  "authorized_workflow_ref": "refs/heads/main",
   "one_shot": true,
   "max_live_runs": 1,
   "target": {
