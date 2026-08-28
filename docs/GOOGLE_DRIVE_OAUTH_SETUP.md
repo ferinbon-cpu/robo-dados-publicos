@@ -26,9 +26,9 @@ Use:
 
 Esse escopo é a opção preferida para gates classificados como `T1_REMOTE_READONLY`: eles podem listar metadados e baixar objetos existentes, mas a credencial não deve possuir capacidade de criar, atualizar ou excluir arquivos.
 
-A existência de código que só chama GET **não basta** para autorizar auto-run se o refresh token usado pelo workflow tiver sido emitido com escopo mais amplo. Por isso, o token read-only deve ser gerado separadamente e nunca substituir silenciosamente o token de escrita já usado pelos gates persistentes.
+A existência de código que só chama GET **não basta** para autorizar auto-run se o refresh token usado pelo workflow tiver sido emitido com escopo mais amplo. Por isso, a credencial read-only deve ser gerada separadamente e nunca substituir silenciosamente a credencial de escrita já usada pelos gates persistentes.
 
-## Bootstrap recomendado
+## Bootstrap recomendado em computador local
 
 1. Criar/selecionar projeto no Google Cloud.
 2. Ativar Google Drive API.
@@ -40,49 +40,62 @@ A existência de código que só chama GET **não basta** para autorizar auto-ru
 python scripts/oauth_bootstrap_drive.py --client-id SEU_CLIENT_ID --client-secret SEU_CLIENT_SECRET --scope drive --output fora_do_git/tokens.json
 ```
 
-6. Para um gate estritamente read-only, gerar **outro refresh token**:
+6. Para um gate estritamente read-only, gerar outro refresh token com `--scope drive.readonly`.
+7. Guardar cada refresh token como secret distinto do executor em nuvem.
+8. Nunca enviar token JSON, client secret ou refresh token para Git.
+
+O helper local usa navegador + callback local em `127.0.0.1`, PKCE e `access_type=offline`.
+
+## Bootstrap M8 no Google Cloud Shell
+
+A versão atual do `gcloud` rejeita a combinação `--no-launch-browser` com `--client-id-file`. O fluxo `--no-browser` exige uma segunda máquina com navegador **e** gcloud instalado, portanto não resolve o caso de uso em que o usuário opera somente pelo navegador e pelo Cloud Shell.
+
+Para o M8, o caminho Cloud Shell usa um OAuth client **dedicado do tipo Aplicativo da Web** e o proxy autenticado de Web Preview do próprio Cloud Shell.
+
+Primeiro obtenha o URI exato da sessão:
 
 ```bash
-python scripts/oauth_bootstrap_drive.py --client-id SEU_CLIENT_ID --client-secret SEU_CLIENT_SECRET --scope drive.readonly --output fora_do_git/tokens_readonly.json
+python3 scripts/bootstrap_m8_readonly_secret_cloudshell.py --print-redirect-uri
 ```
 
-7. Guardar cada `refresh_token` como secret distinto do executor em nuvem.
-8. Nunca enviar `tokens.json`, `tokens_readonly.json`, client secret ou refresh token para GitHub/Drive público.
+No Google Cloud, crie um novo OAuth 2.0 Client ID do tipo **Aplicativo da Web** e cadastre exatamente o URI impresso como **URI de redirecionamento autorizado**. Não reutilize o Desktop client histórico para esse fluxo.
 
-O script usa navegador + callback local em `127.0.0.1`, PKCE e `access_type=offline`.
+Depois execute:
 
-## Bootstrap M8 sem clique no GitHub
+```bash
+python3 scripts/bootstrap_m8_readonly_secret_cloudshell.py
+```
 
-Para o M8, o caminho preferido em um PC Windows é usar o wrapper local:
+O helper:
+
+1. exige o ambiente oficial do Cloud Shell por meio de `WEB_HOST` e usa a porta 8080 do Web Preview;
+2. pede o Web Client ID e o Client Secret apenas no terminal; o secret usa entrada oculta;
+3. solicita somente `https://www.googleapis.com/auth/drive.readonly`, `access_type=offline` e `prompt=consent`;
+4. recebe o callback por HTTPS no proxy autenticado do Cloud Shell e valida `state` exatamente;
+5. troca o código por tokens sem gravar arquivo de token;
+6. exige escopo exatamente read-only tanto na resposta OAuth, quando presente, quanto no `tokeninfo` do access token;
+7. cria por stdin três Repository Secrets dedicados:
+   - `GOOGLE_DRIVE_READONLY_CLIENT_ID`
+   - `GOOGLE_DRIVE_READONLY_CLIENT_SECRET`
+   - `GOOGLE_DRIVE_READONLY_REFRESH_TOKEN`
+8. verifica apenas os nomes dos secrets por `gh secret list`;
+9. nunca imprime client secret, refresh token ou access token.
+
+Esse helper **não executa o M8**, **não autoriza no-click**, **não publica dados** e **não autoriza batch futuro**. A existência e a prova da credencial read-only são apenas pré-condições para um PR posterior que fará o wiring do workflow M8.
+
+## Bootstrap M8 em Windows local
+
+Se um dia o repositório estiver disponível localmente, continua existindo o wrapper:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/bootstrap_m8_readonly_secret.ps1
 ```
 
-Pré-requisitos locais:
-
-- Python disponível no `PATH`;
-- GitHub CLI (`gh`) instalado e autenticado;
-- OAuth Desktop Client ID e Client Secret disponíveis ao usuário localmente.
-
-O wrapper:
-
-1. pede o Client ID e o Client Secret localmente, usando entrada protegida para o secret;
-2. abre o fluxo OAuth no navegador com escopo **exatamente** `drive.readonly`;
-3. grava o token apenas em diretório temporário;
-4. exige que o metadata retornado contenha exatamente o escopo read-only, sem escopo adicional;
-5. envia o refresh token diretamente pela entrada padrão para `gh secret set GOOGLE_DRIVE_READONLY_REFRESH_TOKEN --repo ferinbon-cpu/robo-dados-publicos --app actions`;
-6. verifica apenas que o **nome** do secret aparece em `gh secret list`;
-7. remove o arquivo temporário e limpa as variáveis de ambiente usadas pelo wrapper;
-8. nunca imprime o valor do refresh token.
-
-O GitHub CLI documenta que `gh secret set` lê o valor da entrada padrão quando `--body` é omitido e que o secret é criptografado localmente antes do envio ao GitHub.
-
-Esse helper **não executa o M8**, **não autoriza no-click** e **não altera a policy**. Seu único objetivo é eliminar o clique de cadastro do Repository Secret sem expor a credencial ao chat ou ao repositório.
+Esse caminho local usa o Desktop client e permanece separado do fluxo Cloud Shell.
 
 ## Produção — credencial com escrita
 
-O runtime histórico recebe secrets por ambiente/secret manager:
+O runtime histórico recebe:
 
 - `GOOGLE_DRIVE_CLIENT_ID`
 - `GOOGLE_DRIVE_CLIENT_SECRET`
@@ -92,16 +105,18 @@ O módulo `storage/drive_rest.py` renova access tokens automaticamente e usa a A
 
 ## Produção — credencial somente leitura
 
-A política de automação reserva o nome:
+Para isolamento de capacidade, o caminho Cloud Shell reserva o trio dedicado:
 
+- `GOOGLE_DRIVE_READONLY_CLIENT_ID`
+- `GOOGLE_DRIVE_READONLY_CLIENT_SECRET`
 - `GOOGLE_DRIVE_READONLY_REFRESH_TOKEN`
 
-O cliente e o secret podem continuar usando o mesmo OAuth client ID/secret; o que precisa ser separado é o refresh token emitido com `drive.readonly`.
-
-**Estado em 0.8.0:** o bootstrap já suporta `drive.readonly`, mas o workflow M8 ainda usa a credencial histórica e permanece manual. A troca para o secret read-only e a retirada do clique só podem ocorrer em gate/PR posterior, depois que a nova credencial existir e for comprovada.
+**Estado em 0.8.0:** a credencial read-only ainda precisa ser provisionada e comprovada. O workflow M8 permanece manual e não deve ser alterado para auto-run antes da primeira prova live read-only.
 
 ## Fontes oficiais consultadas na especificação
 
-- Google OAuth 2.0 for iOS & Desktop Apps: https://developers.google.com/identity/protocols/oauth2/native-app
+- Google OAuth 2.0 for Web Server Applications: https://developers.google.com/identity/protocols/oauth2/web-server
 - Google Drive API scopes: https://developers.google.com/workspace/drive/api/guides/api-specific-auth
+- Google Cloud Shell Web Preview: https://cloud.google.com/shell/docs/using-web-preview
+- gcloud ADC login: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
 - GitHub CLI `gh secret set`: https://cli.github.com/manual/gh_secret_set
