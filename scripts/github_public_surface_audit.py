@@ -18,11 +18,11 @@ forwarded to the redirected host.
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import io
 import json
 import os
 from pathlib import Path
-import re
 from typing import Any, Iterable
 from urllib.error import HTTPError
 from urllib.request import HTTPRedirectHandler, Request, build_opener, urlopen
@@ -36,6 +36,7 @@ API = "https://api.github.com"
 CURRENT_RUN_ID = os.environ.get("GITHUB_RUN_ID", "").strip()
 MAX_TEXT_ENTRY_BYTES = 5_000_000
 MAX_ARCHIVE_BYTES = 200_000_000
+MAX_DOWNLOAD_WORKERS = 8
 TEXT_SUFFIXES = {
     ".txt", ".log", ".json", ".jsonl", ".md", ".csv", ".tsv", ".html", ".htm",
     ".xml", ".yml", ".yaml", ".py", ".sh", ".ps1", ".ini", ".cfg", ".toml",
@@ -82,13 +83,7 @@ def _read_bounded(resp) -> bytes:  # noqa: ANN001
 
 
 def _request(url: str, *, accept: str = "application/vnd.github+json") -> bytes:
-    """GET a GitHub API resource, safely following one archive redirect.
-
-    Authentication is attached only to api.github.com.  If GitHub returns a
-    redirect for a log/artifact archive, the signed destination is fetched with
-    no Authorization header, preventing repository-token disclosure to the
-    object-store host.
-    """
+    """GET a GitHub API resource, safely following one archive redirect."""
     req = Request(url, headers=_request_headers(include_auth=True, accept=accept))
     opener = build_opener(_NoRedirect())
     try:
@@ -166,6 +161,19 @@ def _redacted_findings(text: str, *, surface: str, resource_id: str, entry: str 
     return out
 
 
+def _sort_findings(items: list[dict]) -> list[dict]:
+    return sorted(
+        items,
+        key=lambda item: (
+            str(item.get("surface", "")),
+            str(item.get("resource_id", "")),
+            str(item.get("detector", "")),
+            str(item.get("entry", "")),
+            int(item.get("line", 0) or 0),
+        ),
+    )
+
+
 def scan_zip_bytes(raw: bytes, *, surface: str, resource_id: str) -> tuple[list[dict], list[dict], dict]:
     blockers: list[dict] = []
     reviews: list[dict] = []
@@ -232,78 +240,94 @@ def _scan_metadata() -> tuple[list[dict], dict]:
             if isinstance(value, str) and value:
                 blockers.extend(_redacted_findings(value, surface=surface, resource_id=str(item.get("id") or "unknown")))
                 scanned += 1
-    return blockers, {"metadata_text_records_scanned": scanned}
+    return _sort_findings(blockers), {"metadata_text_records_scanned": scanned}
+
+
+def _scan_one_log(run_id: str) -> tuple[list[dict], list[dict], bool]:
+    raw = _request(f"{API}/repos/{REPO}/actions/runs/{run_id}/logs", accept="application/zip")
+    if not raw:
+        return [], [], False
+    try:
+        blockers, reviews, _stats = scan_zip_bytes(raw, surface="actions_log", resource_id=run_id)
+    except zipfile.BadZipFile:
+        return [], [{
+            "severity": "REVIEW", "surface": "actions_log", "resource_id": run_id,
+            "detector": "ACTIONS_LOG_ARCHIVE_INVALID",
+        }], True
+    return blockers, reviews, True
 
 
 def _scan_actions_logs() -> tuple[list[dict], list[dict], dict]:
     blockers: list[dict] = []
     reviews: list[dict] = []
+    candidates = [
+        str(run.get("id"))
+        for run in _paginate(f"/repos/{REPO}/actions/runs", key="workflow_runs")
+        if run.get("id") and str(run.get("id")) != CURRENT_RUN_ID and run.get("status") == "completed"
+    ]
     scanned_runs = 0
     unavailable_runs = 0
-    for run in _paginate(f"/repos/{REPO}/actions/runs", key="workflow_runs"):
-        run_id = str(run.get("id") or "")
-        if not run_id or run_id == CURRENT_RUN_ID or run.get("status") != "completed":
-            continue
-        raw = _request(f"{API}/repos/{REPO}/actions/runs/{run_id}/logs", accept="application/zip")
-        if not raw:
-            unavailable_runs += 1
-            continue
-        try:
-            b, r, _stats = scan_zip_bytes(raw, surface="actions_log", resource_id=run_id)
-        except zipfile.BadZipFile:
-            reviews.append({
-                "severity": "REVIEW", "surface": "actions_log", "resource_id": run_id,
-                "detector": "ACTIONS_LOG_ARCHIVE_INVALID",
-            })
-            continue
-        blockers.extend(b)
-        reviews.extend(r)
-        scanned_runs += 1
-    return blockers, reviews, {
+    with ThreadPoolExecutor(max_workers=MAX_DOWNLOAD_WORKERS) as pool:
+        futures = {pool.submit(_scan_one_log, run_id): run_id for run_id in candidates}
+        for future in as_completed(futures):
+            b, r, available = future.result()
+            blockers.extend(b)
+            reviews.extend(r)
+            if available:
+                scanned_runs += 1
+            else:
+                unavailable_runs += 1
+    return _sort_findings(blockers), _sort_findings(reviews), {
+        "completed_actions_runs_considered": len(candidates),
         "completed_actions_runs_scanned": scanned_runs,
         "completed_actions_runs_unavailable_or_expired": unavailable_runs,
+        "download_workers": MAX_DOWNLOAD_WORKERS,
     }
+
+
+def _scan_one_artifact(artifact_id: str) -> tuple[list[dict], list[dict], dict, bool]:
+    raw = _request(f"{API}/repos/{REPO}/actions/artifacts/{artifact_id}/zip", accept="application/zip")
+    if not raw:
+        return [], [{
+            "severity": "REVIEW", "surface": "actions_artifact", "resource_id": artifact_id,
+            "detector": "ARTIFACT_UNAVAILABLE_DURING_AUDIT",
+        }], {"text_entries": 0, "opaque_entries": 0}, False
+    try:
+        blockers, reviews, stats = scan_zip_bytes(raw, surface="actions_artifact", resource_id=artifact_id)
+    except zipfile.BadZipFile:
+        return [], [{
+            "severity": "REVIEW", "surface": "actions_artifact", "resource_id": artifact_id,
+            "detector": "ARTIFACT_ARCHIVE_INVALID",
+        }], {"text_entries": 0, "opaque_entries": 0}, True
+    return blockers, reviews, stats, True
 
 
 def _scan_actions_artifacts() -> tuple[list[dict], list[dict], dict]:
     blockers: list[dict] = []
     reviews: list[dict] = []
+    artifacts = list(_paginate(f"/repos/{REPO}/actions/artifacts", key="artifacts"))
+    expired = sum(1 for item in artifacts if item.get("expired"))
+    candidates = [str(item.get("id")) for item in artifacts if item.get("id") and not item.get("expired")]
     scanned = 0
-    expired = 0
     text_entries = 0
     opaque_entries = 0
-    for artifact in _paginate(f"/repos/{REPO}/actions/artifacts", key="artifacts"):
-        artifact_id = str(artifact.get("id") or "")
-        if not artifact_id:
-            continue
-        if artifact.get("expired"):
-            expired += 1
-            continue
-        raw = _request(f"{API}/repos/{REPO}/actions/artifacts/{artifact_id}/zip", accept="application/zip")
-        if not raw:
-            reviews.append({
-                "severity": "REVIEW", "surface": "actions_artifact", "resource_id": artifact_id,
-                "detector": "ARTIFACT_UNAVAILABLE_DURING_AUDIT",
-            })
-            continue
-        try:
-            b, r, stats = scan_zip_bytes(raw, surface="actions_artifact", resource_id=artifact_id)
-        except zipfile.BadZipFile:
-            reviews.append({
-                "severity": "REVIEW", "surface": "actions_artifact", "resource_id": artifact_id,
-                "detector": "ARTIFACT_ARCHIVE_INVALID",
-            })
-            continue
-        blockers.extend(b)
-        reviews.extend(r)
-        text_entries += stats["text_entries"]
-        opaque_entries += stats["opaque_entries"]
-        scanned += 1
-    return blockers, reviews, {
+    with ThreadPoolExecutor(max_workers=MAX_DOWNLOAD_WORKERS) as pool:
+        futures = {pool.submit(_scan_one_artifact, artifact_id): artifact_id for artifact_id in candidates}
+        for future in as_completed(futures):
+            b, r, stats, available = future.result()
+            blockers.extend(b)
+            reviews.extend(r)
+            text_entries += stats["text_entries"]
+            opaque_entries += stats["opaque_entries"]
+            if available:
+                scanned += 1
+    return _sort_findings(blockers), _sort_findings(reviews), {
+        "nonexpired_artifacts_considered": len(candidates),
         "nonexpired_artifacts_scanned": scanned,
         "expired_artifacts_skipped": expired,
         "artifact_text_entries_scanned": text_entries,
         "artifact_opaque_entries_for_review": opaque_entries,
+        "download_workers": MAX_DOWNLOAD_WORKERS,
     }
 
 
@@ -311,8 +335,8 @@ def run() -> dict[str, Any]:
     metadata_blockers, metadata_stats = _scan_metadata()
     log_blockers, log_reviews, log_stats = _scan_actions_logs()
     artifact_blockers, artifact_reviews, artifact_stats = _scan_actions_artifacts()
-    blockers = metadata_blockers + log_blockers + artifact_blockers
-    reviews = log_reviews + artifact_reviews
+    blockers = _sort_findings(metadata_blockers + log_blockers + artifact_blockers)
+    reviews = _sort_findings(log_reviews + artifact_reviews)
     status = "PASS_PUBLIC_HOSTED_SURFACES" if not blockers and not reviews else (
         "STOP_PUBLIC_HOSTED_SURFACES_BLOCKERS" if blockers else "REVIEW_PUBLIC_HOSTED_SURFACES"
     )
