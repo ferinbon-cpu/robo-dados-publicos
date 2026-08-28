@@ -1,0 +1,91 @@
+{
+  "case_id": "REQUEST_BUDGET_STOP",
+  "contains_financial_values": false,
+  "declared_request_count": 8,
+  "drive_called": false,
+  "expected_outcome": "STOP",
+  "expected_stop_code": "STOP_SIOPE_2025_OFFLINE_FIXTURE_REQUEST_BUDGET",
+  "network_called": false,
+  "phase_a_period_probes": [
+    {
+      "content_type": "application/json",
+      "method": "GET",
+      "nextlink_present": false,
+      "period": 1,
+      "records": [],
+      "redirect_followed": false,
+      "request_count": 1,
+      "response_byte_count": 256,
+      "response_status": 200,
+      "retry_performed": false
+    },
+    {
+      "content_type": "application/json",
+      "method": "GET",
+      "nextlink_present": false,
+      "period": 2,
+      "records": [],
+      "redirect_followed": false,
+      "request_count": 1,
+      "response_byte_count": 256,
+      "response_status": 200,
+      "retry_performed": false
+    },
+    {
+      "content_type": "application/json",
+      "method": "GET",
+      "nextlink_present": false,
+      "period": 3,
+      "records": [],
+      "redirect_followed": false,
+      "request_count": 1,
+      "response_byte_count": 256,
+      "response_status": 200,
+      "retry_performed": false
+    },
+    {
+      "content_type": "application/json",
+      "method": "GET",
+      "nextlink_present": false,
+      "period": 4,
+      "records": [],
+      "redirect_followed": false,
+      "request_count": 1,
+      "response_byte_count": 256,
+      "response_status": 200,
+      "retry_performed": false
+    },
+    {
+      "content_type": "application/json",
+      "method": "GET",
+      "nextlink_present": false,
+      "period": 5,
+      "records": [],
+      "redirect_followed": false,
+      "request_count": 1,
+      "response_byte_count": 256,
+      "response_status": 200,
+      "retry_performed": false
+    },
+    {
+      "content_type": "application/json",
+      "method": "GET",
+      "nextlink_present": false,
+      "period": 6,
+      "records": [],
+      "redirect_followed": false,
+      "request_count": 1,
+      "response_byte_count": 256,
+      "response_status": 200,
+      "retry_performed": false
+    }
+  ],
+  "phase_b_schema_probe": {
+    "field_semantics_status": "NOT_EVALUATED",
+    "performed": false,
+    "period": null,
+    "schema_fields": []
+  },
+  "schema": "SIOPE_2025_READONLY_DISCOVERY_OFFLINE_FIXTURE_V1",
+  "synthetic": true
+}
