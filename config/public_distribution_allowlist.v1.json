@@ -1,0 +1,17 @@
+{
+  "schema": "ROBO_DADOS_PUBLICOS_PUBLIC_DISTRIBUTION_ALLOWLIST_V1",
+  "entries": [
+    {
+      "path": "tests/fixtures/jornal_oficial_fixture_2pages.pdf",
+      "sha256": "53ef031340eccfc0e83cd96af19b916b6a2fdfbedb33a99ae86cf1ea1f840871",
+      "classification": "SYNTHETIC_TEST_FIXTURE",
+      "evidence": [
+        "PDF metadata identifies ReportLab as producer and anonymous creator/author",
+        "document content uses explicit test/example email domains and dummy personal identifiers",
+        "repository tests use it only as a deterministic two-page parsing/redaction fixture",
+        "it is not treated as an official-source corpus object"
+      ],
+      "public_distribution_review": "ACCEPTED_SYNTHETIC_FIXTURE"
+    }
+  ]
+}
