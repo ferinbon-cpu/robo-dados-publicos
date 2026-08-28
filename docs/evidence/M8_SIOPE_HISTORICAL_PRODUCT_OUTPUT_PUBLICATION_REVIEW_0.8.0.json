@@ -1,0 +1,95 @@
+{
+  "schema": "M8_SIOPE_HISTORICAL_PRODUCT_OUTPUT_PUBLICATION_REVIEW_EVIDENCE_V1",
+  "software_candidate": "0.8.0",
+  "status": "PASS_M8_SIOPE_HISTORICAL_PRODUCT_OUTPUT_PUBLICATION_REVIEW_OFFLINE",
+  "review_gate_id": "M8_SIOPE_HISTORICAL_PRODUCT_OUTPUT_PUBLICATION_REVIEW_0_8_0",
+  "source_evidence": {
+    "path": "docs/evidence/M8_T1_NO_CLICK_FIRST_AUTO_RUN_0.8.0.json",
+    "git_blob_sha": "e8788d79ab5a397c5972c7da756944f0d3a1a70b",
+    "run_id": 33167693804,
+    "artifact_id": 9684264254,
+    "artifact_digest": "sha256:213693b37e8a2123d1d4df4b4dec0495a5ca9536cb51b23f0549e94da72d080e"
+  },
+  "offline_review_ci": {
+    "head_sha": "fad0844bcfdc7223e45f3667f682b3b024a501cd",
+    "run_id": 33169055359,
+    "job_id": 98841422085,
+    "workflow": ".github/workflows/ci-offline.yml",
+    "job_name": "Validar sem Drive",
+    "review_step": "Revisão M8 offline de publicação",
+    "review_step_conclusion": "success",
+    "unit_tests_conclusion": "success",
+    "historical_regression_conclusion": "success",
+    "exact_unit_test_count_reobtained": false
+  },
+  "validated_product": {
+    "report_id": "SIOPE_LIMEIRA_HISTORICAL_2016_2024",
+    "report_status": "READY_WITH_CAUTION",
+    "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+    "year_count": 9,
+    "gold_count": 9,
+    "metric_row_count": 8,
+    "gold_metric_observations": 72,
+    "table_csv": {
+      "bytes": 23115,
+      "sha256": "749b8dd8f56b4ced755f634e08c9b4f8d7cd6f75c448e4c55bbfe77f6d7f8a8e"
+    },
+    "report_pdf": {
+      "bytes": 21854,
+      "sha256": "f0e75f41bf1fef333e929b698a2e1e6b404b10f8d0ea2d4916c29063ede3a87b"
+    },
+    "bundle_manifest": {
+      "bytes": 1214,
+      "sha256": "8111dee4dee310a604e0bb9638d3fb3e1c8406c14bc4c7e1a855821329eab5d1"
+    },
+    "compliance_claims_authorized": false
+  },
+  "proposed_publication_plan": {
+    "future_publication_gate_id": "M8_SIOPE_HISTORICAL_PRODUCT_OUTPUT_PUBLICATION_0_8_0",
+    "drive_target": "08_OUTPUTS",
+    "remote_basename": "SIOPE_LIMEIRA_HISTORICAL_2016_2024_V0_8_0",
+    "remote_names": {
+      "google_sheet": "SIOPE_LIMEIRA_HISTORICAL_2016_2024_V0_8_0_TABELA",
+      "pdf": "SIOPE_LIMEIRA_HISTORICAL_2016_2024_V0_8_0.pdf",
+      "completion_manifest": "SIOPE_LIMEIRA_HISTORICAL_2016_2024_V0_8_0_publication_manifest.json"
+    },
+    "required_remote_count": 3,
+    "publications": [
+      "GOOGLE_SHEET_FROM_TABLE_CSV",
+      "REPORT_PDF",
+      "COMPLETION_MANIFEST_JSON"
+    ],
+    "create_only": true,
+    "preflight_all_names_before_first_write": true,
+    "collision_policy": "STOP_BEFORE_WRITES",
+    "completion_manifest_written_last": true,
+    "overwrite_allowed": false,
+    "replace_allowed": false,
+    "delete_allowed": false,
+    "retry": "PROHIBITED",
+    "pagination": "PROHIBITED",
+    "schedule": "DISABLED",
+    "source_collection": "PROHIBITED",
+    "processing_rerun": "PROHIBITED",
+    "reconciliation_rerun": "PROHIBITED"
+  },
+  "effects_of_this_review": {
+    "source_network_called": false,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "publication_performed": false,
+    "secret_values_exposed": false
+  },
+  "policy": {
+    "review_tier": "T0_OFFLINE",
+    "review_auto_allowed": true,
+    "future_publication_tier": "T3_MUTATING_OR_PUBLICATION",
+    "future_publication_auto_allowed": false,
+    "publication_requires_separate_explicit_authorization": true
+  },
+  "decision": "READY_FOR_EXPLICIT_OWNER_PUBLICATION_DECISION",
+  "publication_authorized": false,
+  "future_batch_execution_authorized": false,
+  "years_before_2016_authorized": false,
+  "next_action": "REQUEST_EXPLICIT_OWNER_AUTHORIZATION_BEFORE_ANY_M8_08_OUTPUTS_WRITE"
+}
