@@ -181,9 +181,10 @@ def validate_request_plan(plan: tuple[PlannedRequest, ...]) -> None:
 
 def sanitized_plan_evidence(plan: tuple[PlannedRequest, ...], *, executed_ordinals: list[int]) -> dict:
     validate_request_plan(plan)
-    allowed = ([], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6, 7])
-    _stop(executed_ordinals in allowed, "EXECUTED_ORDINALS")
-    shapes = [item.sanitized_shape() for item in plan if item.ordinal in executed_ordinals]
+    _stop(isinstance(executed_ordinals, list), "EXECUTED_ORDINALS_TYPE")
+    _stop(len(executed_ordinals) <= len(plan), "EXECUTED_ORDINALS_COUNT")
+    _stop(executed_ordinals == list(range(1, len(executed_ordinals) + 1)), "EXECUTED_ORDINALS_PREFIX")
+    shapes = [item.sanitized_shape() for item in plan[: len(executed_ordinals)]]
     raw = json.dumps(shapes, ensure_ascii=True, separators=(",", ":"), sort_keys=True).encode("utf-8")
     return {
         "request_shape_count": len(shapes),

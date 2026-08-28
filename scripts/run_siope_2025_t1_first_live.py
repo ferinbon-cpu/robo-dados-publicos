@@ -30,6 +30,16 @@ DESIGN_PATH = ROOT / "config/siope_2025_readonly_discovery_design.v1.json"
 POLICY_PATH = ROOT / "config/automation_policy.v1.json"
 AUTH_FILE = ROOT / AUTH_PATH
 EXIT_STOP = 13
+POST_AUTH_STOP = "STOP_SIOPE_2025_T1_DISCOVERY"
+CLI_STOP = "STOP_SIOPE_2025_T1_CLI"
+
+
+class Siope2025T1PostAuthorizationError(RuntimeError):
+    """A live execution stop that occurred only after authorization passed."""
+
+    def __init__(self, message: str, *, source_get_count: int = 0):
+        super().__init__(message)
+        self.source_get_count = source_get_count
 
 
 def _load(path: Path) -> dict:
@@ -52,9 +62,9 @@ def _git(*args: str) -> str:
     return result.stdout.strip()
 
 
-def _stop_payload(reason: str, *, source_get_count: int = 0) -> dict:
+def _stop_payload(reason: str, *, status: str, source_get_count: int = 0) -> dict:
     return {
-        "status": STOP,
+        "status": status,
         "reason": reason,
         "source_get_count": source_get_count,
         "drive_read_count": 0,
@@ -123,11 +133,15 @@ def live(
         raise Siope2025T1AuthorizationError(STOP)
 
     # Live-capable imports intentionally happen only after every authorization guard.
-    from robo_dados_publicos.sources.siope_2025_t1_discovery import execute_authorized_discovery
-    from robo_dados_publicos.sources.siope_2025_t1_transport import Siope2025T1HttpTransport
+    try:
+        from robo_dados_publicos.sources.siope_2025_t1_discovery import execute_authorized_discovery
+        from robo_dados_publicos.sources.siope_2025_t1_transport import Siope2025T1HttpTransport
 
-    transport = Siope2025T1HttpTransport.build_live(grant=grant)
-    return execute_authorized_discovery(grant=grant, design=design, transport=transport)
+        transport = Siope2025T1HttpTransport.build_live(grant=grant)
+        return execute_authorized_discovery(grant=grant, design=design, transport=transport)
+    except Exception as exc:
+        source_get_count = int(getattr(exc, "source_get_count", 0) or 0)
+        raise Siope2025T1PostAuthorizationError(str(exc), source_get_count=source_get_count) from None
 
 
 def main() -> int:
@@ -145,9 +159,16 @@ def main() -> int:
             workflow_run_attempt=args.workflow_run_attempt,
             workflow_ref=args.workflow_ref,
         )
+    except Siope2025T1AuthorizationError as exc:
+        source_get_count = int(getattr(exc, "source_get_count", 0) or 0)
+        print(json.dumps(_stop_payload(str(exc), status=STOP, source_get_count=source_get_count), sort_keys=True))
+        return EXIT_STOP
+    except Siope2025T1PostAuthorizationError as exc:
+        print(json.dumps(_stop_payload(str(exc), status=POST_AUTH_STOP, source_get_count=exc.source_get_count), sort_keys=True))
+        return EXIT_STOP
     except Exception as exc:
         source_get_count = int(getattr(exc, "source_get_count", 0) or 0)
-        print(json.dumps(_stop_payload(str(exc), source_get_count=source_get_count), sort_keys=True))
+        print(json.dumps(_stop_payload(str(exc), status=CLI_STOP, source_get_count=source_get_count), sort_keys=True))
         return EXIT_STOP
     print(json.dumps(result, sort_keys=True))
     return 0
