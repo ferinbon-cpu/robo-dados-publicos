@@ -1,26 +1,32 @@
+import csv
 import json
 import tempfile
 import unittest
 from pathlib import Path
+
+from openpyxl import load_workbook
 
 from robo_dados_publicos.core.models import AnswerContract
 from robo_dados_publicos.product import build_product_report, write_product_bundle
 from robo_dados_publicos.product.publication import (
     CSV_MIME,
     GOOGLE_SHEETS_MIME,
+    XLSX_MIME,
     ProductPublicationError,
     publish_product_bundle,
 )
 
 
 class FakeDrive:
-    def __init__(self, *, children=None, import_formats=None, fail_on=None):
+    def __init__(self, *, children=None, import_formats=None, fail_on=None, sheet_export_matrix=None):
         self.children = list(children or [])
-        self.formats = import_formats if import_formats is not None else {CSV_MIME: [GOOGLE_SHEETS_MIME]}
+        self.formats = import_formats if import_formats is not None else {XLSX_MIME: [GOOGLE_SHEETS_MIME]}
         self.fail_on = fail_on
+        self.sheet_export_matrix = sheet_export_matrix
         self.calls = []
         self.meta = {}
         self.uploaded_payloads = {}
+        self.imported_sheet_matrix = None
 
     def import_formats(self):
         self.calls.append(("import_formats",))
@@ -31,9 +37,18 @@ class FakeDrive:
         return list(self.children)
 
     def put_converted(self, local_path, remote_name, parent_id, source_mime_type, target_mime_type):
-        self.calls.append(("put_converted", remote_name))
+        self.calls.append(("put_converted", remote_name, source_mime_type, target_mime_type))
         if self.fail_on == "sheet":
             raise RuntimeError("synthetic sheet failure")
+        if source_mime_type != XLSX_MIME:
+            raise RuntimeError("unexpected non-XLSX source")
+        workbook = load_workbook(local_path, read_only=True, data_only=True)
+        sheet = workbook.active
+        self.imported_sheet_matrix = [
+            ["" if value is None else str(value) for value in row]
+            for row in sheet.iter_rows(values_only=True)
+        ]
+        workbook.close()
         self.meta["S1"] = {
             "id": "S1",
             "name": remote_name,
@@ -41,6 +56,18 @@ class FakeDrive:
             "parents": [parent_id],
         }
         return {"id": "S1", "name": remote_name, "mimeType": target_mime_type, "parents": [parent_id]}
+
+    def export(self, file_id, destination, mime_type):
+        self.calls.append(("export", file_id, mime_type))
+        if self.fail_on == "sheet_export":
+            raise RuntimeError("synthetic export failure")
+        if mime_type != CSV_MIME:
+            raise RuntimeError("unexpected export mime")
+        matrix = self.sheet_export_matrix if self.sheet_export_matrix is not None else self.imported_sheet_matrix
+        with Path(destination).open("w", encoding="utf-8", newline="") as handle:
+            writer = csv.writer(handle, lineterminator="\n")
+            writer.writerows(matrix)
+        return {"file_id": file_id, "path": str(destination), "mime_type": mime_type}
 
     def put(self, local_path, remote_name, parent_id, mime_type):
         kind = "manifest" if remote_name.endswith("_publication_manifest.json") else "pdf"
@@ -105,8 +132,14 @@ class TestProductPublication(unittest.TestCase):
         self.assertEqual(3, result["created_count"])
         writes = [call for call in drive.calls if call[0] in {"put", "put_converted"}]
         self.assertEqual("put_converted", writes[0][0])
+        self.assertEqual(XLSX_MIME, writes[0][2])
         self.assertEqual("pdf", writes[1][1])
         self.assertEqual("manifest", writes[2][1])
+        self.assertTrue(result["sheet_semantic_readback_verified"])
+        self.assertEqual("XLSX_LOCALE_INDEPENDENT", result["sheet_import_transport"])
+        self.assertGreaterEqual(result["sheet_rows"], 2)
+        self.assertEqual(7, result["sheet_columns"])
+        self.assertTrue(any(call[0] == "export" for call in drive.calls))
         self.assertTrue(result["completion_manifest_written_last"])
         self.assertFalse(result["overwrite_performed"])
         self.assertFalse(result["remote_identifiers_exposed"])
@@ -119,10 +152,10 @@ class TestProductPublication(unittest.TestCase):
         writes = [call for call in drive.calls if call[0] in {"put", "put_converted"}]
         self.assertEqual([], writes)
 
-    def test_unsupported_csv_import_stops_before_inventory_and_writes(self):
-        drive = FakeDrive(import_formats={CSV_MIME: []})
+    def test_unsupported_xlsx_import_stops_before_inventory_and_writes(self):
+        drive = FakeDrive(import_formats={XLSX_MIME: []})
         with tempfile.TemporaryDirectory() as raw:
-            with self.assertRaisesRegex(ProductPublicationError, "STOP_PRODUCT_CSV_TO_SHEETS_NOT_SUPPORTED"):
+            with self.assertRaisesRegex(ProductPublicationError, "STOP_PRODUCT_XLSX_TO_SHEETS_NOT_SUPPORTED"):
                 self.publish(drive, self.make_bundle(Path(raw)))
         self.assertEqual([("import_formats",)], drive.calls)
 
@@ -152,7 +185,7 @@ class TestProductPublication(unittest.TestCase):
                 )
         self.assertEqual([], drive.calls)
 
-    def test_completion_manifest_contains_no_remote_ids(self):
+    def test_completion_manifest_contains_no_remote_ids_and_records_hardening(self):
         with tempfile.TemporaryDirectory() as raw:
             drive = FakeDrive()
             self.publish(drive, self.make_bundle(Path(raw)))
@@ -164,6 +197,8 @@ class TestProductPublication(unittest.TestCase):
         self.assertNotIn("M1", text)
         self.assertFalse(payload["remote_identifiers_recorded"])
         self.assertTrue(payload["completion_marker_written_last"])
+        self.assertEqual("XLSX_LOCALE_INDEPENDENT", payload["sheet_import_transport"])
+        self.assertTrue(payload["sheet_semantic_readback_required"])
 
     def test_remote_failure_reports_created_count_without_automatic_cleanup(self):
         drive = FakeDrive(fail_on="pdf")
@@ -173,6 +208,24 @@ class TestProductPublication(unittest.TestCase):
         self.assertEqual("STOP_PRODUCT_PUBLICATION_REMOTE_OPERATION", ctx.exception.code)
         self.assertEqual(1, ctx.exception.created_count)
         self.assertFalse(any(call[0] == "put" and call[1] == "manifest" for call in drive.calls))
+
+    def test_sheet_export_failure_stops_after_sheet_and_before_pdf_manifest(self):
+        drive = FakeDrive(fail_on="sheet_export")
+        with tempfile.TemporaryDirectory() as raw:
+            with self.assertRaises(ProductPublicationError) as ctx:
+                self.publish(drive, self.make_bundle(Path(raw)))
+        self.assertEqual("STOP_PRODUCT_SHEET_READBACK_EXPORT", ctx.exception.code)
+        self.assertEqual(1, ctx.exception.created_count)
+        self.assertFalse(any(call[0] == "put" for call in drive.calls))
+
+    def test_sheet_content_mismatch_stops_after_sheet_and_before_pdf_manifest(self):
+        drive = FakeDrive(sheet_export_matrix=[["status,DADO,CÁLCULO,CORRESPONDÊNCIA,INTERPRETAÇÃO,CAUTELA,FONTES"]])
+        with tempfile.TemporaryDirectory() as raw:
+            with self.assertRaises(ProductPublicationError) as ctx:
+                self.publish(drive, self.make_bundle(Path(raw)))
+        self.assertEqual("STOP_PRODUCT_SHEET_CONTENT_VERIFY", ctx.exception.code)
+        self.assertEqual(1, ctx.exception.created_count)
+        self.assertFalse(any(call[0] == "put" for call in drive.calls))
 
     def test_invalid_basename_stops_before_remote_request(self):
         drive = FakeDrive()
