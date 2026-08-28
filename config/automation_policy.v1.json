@@ -79,7 +79,7 @@
       "reusable_contract_triggers": ["workflow_call"],
       "blockers": [
         "CURRENT_MANUAL_WRAPPER_REQUIRES_EXPLICIT_CONFIRMATION",
-        "MAIN_BRANCH_NOT_PROTECTED_FOR_SECRET_BEARING_AUTOMATION",
+        "GITHUB_PRIVATE_REPO_PROTECTED_TRUST_BOUNDARY_UNAVAILABLE_ON_CURRENT_PLAN",
         "NO_CLICK_REQUIRES_TRUSTED_ORCHESTRATOR_REVIEW"
       ],
       "readonly_secrets": [
@@ -89,7 +89,18 @@
       ],
       "runtime_capability_proof": "PROVEN_BEFORE_FIRST_DRIVE_LOOKUP_IN_LIVE_RUN_33136736495",
       "reusable_worker_status": "PRESENT_EXPLICIT_SECRETS_NO_SECRETS_INHERIT_NO_AUTO_CALLER",
-      "future_decision_after_blockers": "ELIGIBLE_FOR_NO_CLICK_AFTER_PROTECTED_TRUST_BOUNDARY_AND_TRUSTED_ORCHESTRATOR_REVIEW"
+      "trust_boundary_observation": {
+        "repository_visibility": "private",
+        "main_protected": false,
+        "repository_rulesets_api": "HTTP_403_UPGRADE_TO_GITHUB_PRO_OR_MAKE_PUBLIC",
+        "make_repository_public_as_shortcut": false
+      },
+      "safe_current_mode": "MANUAL_WORKFLOW_DISPATCH_OVER_REUSABLE_WORKER",
+      "future_decision_options": [
+        "GITHUB_PRO_THEN_PROTECT_MAIN_AND_REVIEW_TRUSTED_ORCHESTRATOR",
+        "KEEP_M8_MANUAL_ON_GITHUB",
+        "DESIGN_EXTERNAL_GCP_TRUST_BOUNDARY_IN_SEPARATE_GATES"
+      ]
     },
     {
       "id": "ACTIVE_RUNTIME_PERSISTENCE",
