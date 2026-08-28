@@ -25,9 +25,9 @@ jobs:
     env:
       PYTHONDONTWRITEBYTECODE: "1"
       PIP_DISABLE_PIP_VERSION_CHECK: "1"
-      GOOGLE_DRIVE_CLIENT_ID: ${{ secrets.GOOGLE_DRIVE_CLIENT_ID }}
-      GOOGLE_DRIVE_CLIENT_SECRET: ${{ secrets.GOOGLE_DRIVE_CLIENT_SECRET }}
-      GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_REFRESH_TOKEN }}
+      GOOGLE_DRIVE_CLIENT_ID: ${{ secrets.GOOGLE_DRIVE_READONLY_CLIENT_ID }}
+      GOOGLE_DRIVE_CLIENT_SECRET: ${{ secrets.GOOGLE_DRIVE_READONLY_CLIENT_SECRET }}
+      GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_READONLY_REFRESH_TOKEN }}
 
     steps:
       - name: Checkout
@@ -51,7 +51,7 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Regressão histórica
         run: python main.py selftest
-      - name: Validar presença de credenciais OAuth
+      - name: Validar presença das credenciais OAuth read-only dedicadas
         shell: bash
         run: |
           python - <<'PY'
@@ -63,10 +63,12 @@ jobs:
           )
           missing = [name for name in names if not os.getenv(name, '').strip()]
           if missing:
-              print('STOP_MISSING_GITHUB_SECRETS: ' + ', '.join(missing))
+              print('STOP_MISSING_READONLY_GITHUB_SECRETS: ' + ', '.join(missing))
               sys.exit(3)
-          print('OAuth secrets: PRESENTES (valores não exibidos)')
+          print('OAuth read-only secrets: PRESENTES (valores não exibidos)')
           PY
+      - name: Provar capability OAuth estritamente read-only
+        run: python scripts/github_m8_readonly_credential_capability_gate.py
       - name: Reler 9 Gold e gerar bundle local
         id: live
         shell: bash
