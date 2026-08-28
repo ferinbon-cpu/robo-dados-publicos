@@ -41,6 +41,9 @@ jobs:
       - name: Preflight offline
         run: python scripts/github_preflight.py
 
+      - name: Gate de política de automação
+        run: python scripts/github_automation_policy_gate.py
+
       - name: Gate M7 de desenho da expansão
         run: python scripts/github_source_expansion_design_gate.py
 

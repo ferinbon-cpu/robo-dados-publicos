@@ -1,0 +1,66 @@
+{
+  "evidence_contract": "M8_AUTOMATION_ARCHITECTURE_OFFLINE_REVIEW_V1",
+  "software_version": "0.8.0",
+  "status": "PASS_AUTOMATION_ARCHITECTURE_OFFLINE_REVIEW",
+  "audited_main_sha": "ddc811dab17c99d8c32a81862ebc04e2aa5eac11",
+  "scope": {
+    "repository_architecture_review": true,
+    "technical_md_review": true,
+    "automation_policy_review": true,
+    "live_m8_execution": false,
+    "source_network_count": 0,
+    "drive_read_count": 0,
+    "drive_write_count": 0,
+    "publication_authorized": false,
+    "future_batch_execution_authorized": false
+  },
+  "findings": {
+    "agents_contract_preexisting": false,
+    "machine_readable_automation_policy_preexisting": false,
+    "workflow_call_preexisting": false,
+    "m8_code_effects_readonly": true,
+    "m8_current_refresh_token_capability_proven_readonly": false,
+    "main_branch_protected_observed": false,
+    "parameterized_siope_pipeline_exists": true,
+    "technical_md_supports_idempotent_incremental_rebuild": true,
+    "academic_matrix_requires_ai_role_separation": true
+  },
+  "risk_model": {
+    "T0_OFFLINE": "AUTO_ALLOWED",
+    "T1_REMOTE_READONLY": "CONDITIONAL_ON_PROVEN_READONLY_CREDENTIAL",
+    "T2_CREATE_ONLY": "HUMAN_CONFIRMATION_REQUIRED",
+    "T3_MUTATING_OR_PUBLICATION": "HUMAN_CONFIRMATION_REQUIRED"
+  },
+  "m8_no_click": {
+    "current_decision": "BLOCK",
+    "blockers": [
+      "CURRENT_WORKFLOW_REQUIRES_MANUAL_CONFIRMATION",
+      "CURRENT_REFRESH_TOKEN_CAPABILITY_IS_NOT_PROVEN_READONLY",
+      "READONLY_REFRESH_TOKEN_SECRET_NOT_WIRED"
+    ],
+    "planned_readonly_secret": "GOOGLE_DRIVE_READONLY_REFRESH_TOKEN"
+  },
+  "changes_prepared_by_review": [
+    "AGENTS.md",
+    "config/automation_policy.v1.json",
+    "robo_dados_publicos/automation/policy.py",
+    "scripts/github_automation_policy_gate.py",
+    "OAuth bootstrap support for drive.readonly",
+    "offline policy tests",
+    "architecture documentation"
+  ],
+  "next_action": "PROVISION_AND_PROVE_DEDICATED_GOOGLE_DRIVE_READONLY_REFRESH_TOKEN_BEFORE_M8_NO_CLICK",
+  "explicitly_not_authorized": [
+    "M8_AUTO_EXECUTION",
+    "PRODUCT_PUBLICATION",
+    "SIOPE_2015_OR_EARLIER",
+    "RETRY",
+    "PAGINATION",
+    "RECURRENCE",
+    "SCHEDULE",
+    "OVERWRITE",
+    "DELETE",
+    "REPLACE",
+    "MDE_OR_FUNDEB_COMPLIANCE_CONCLUSION"
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "schema": "ROBO_DADOS_PUBLICOS_AUTOMATION_POLICY_V1",
+  "software_candidate": "0.8.0",
+  "default_decision": "BLOCK",
+  "policy_invariants": {
+    "agent_may_authorize_remote_execution": false,
+    "agent_may_lower_risk_tier_in_same_patch_that_enables_auto_execution": false,
+    "bronze_immutable": true,
+    "publication_is_separate_gate": true,
+    "fail_closed_on_missing_duplicate_or_drifted_evidence": true,
+    "future_batch_execution_authorized": false
+  },
+  "tiers": {
+    "T0_OFFLINE": {
+      "description": "Deterministic local validation with no source/Drive network and no remote mutation.",
+      "auto_execution": "ALLOWED",
+      "human_confirmation_required": false
+    },
+    "T1_REMOTE_READONLY": {
+      "description": "Bounded external read-only access. Auto execution requires capability-limited read-only credentials and zero remote writes/publication.",
+      "auto_execution": "CONDITIONAL",
+      "human_confirmation_required": "UNTIL_READONLY_CAPABILITY_PROVEN"
+    },
+    "T2_CREATE_ONLY": {
+      "description": "Bounded create-only persistence after collision preflight.",
+      "auto_execution": "BLOCKED",
+      "human_confirmation_required": true
+    },
+    "T3_MUTATING_OR_PUBLICATION": {
+      "description": "Publication, update, replace, delete, recurrence, schedule or other consequential mutation.",
+      "auto_execution": "BLOCKED",
+      "human_confirmation_required": true
+    }
+  },
+  "gates": [
+    {
+      "id": "CI_OFFLINE",
+      "workflow": ".github/workflows/ci-offline.yml",
+      "tier": "T0_OFFLINE",
+      "auto_allowed": true,
+      "credential_capability": "NONE",
+      "effects": {
+        "source_network": false,
+        "drive_reads": false,
+        "drive_writes": false,
+        "publication": false
+      },
+      "current_triggers": ["push:main", "pull_request:main", "workflow_dispatch"]
+    },
+    {
+      "id": "M8_SIOPE_HISTORICAL_GOLD_PRODUCT_OUTPUT_READONLY",
+      "workflow": ".github/workflows/m8-siope-historical-gold-product-output-readonly-gate.yml",
+      "tier": "T1_REMOTE_READONLY",
+      "auto_allowed": false,
+      "credential_capability": "READONLY_NOT_YET_PROVEN",
+      "effects": {
+        "source_get_count": 0,
+        "drive_lookup_count": 9,
+        "drive_download_count": 9,
+        "drive_write_count": 0,
+        "publication": false
+      },
+      "current_triggers": ["workflow_dispatch"],
+      "blockers": [
+        "CURRENT_WORKFLOW_REQUIRES_MANUAL_CONFIRMATION",
+        "CURRENT_REFRESH_TOKEN_CAPABILITY_IS_NOT_PROVEN_READONLY",
+        "READONLY_REFRESH_TOKEN_SECRET_NOT_WIRED"
+      ],
+      "future_readonly_secret": "GOOGLE_DRIVE_READONLY_REFRESH_TOKEN",
+      "future_decision_after_blockers": "ELIGIBLE_FOR_NO_CLICK_REVIEW"
+    },
+    {
+      "id": "ACTIVE_RUNTIME_PERSISTENCE",
+      "workflow": ".github/workflows/robo-dados-publicos.yml",
+      "tier": "T2_CREATE_ONLY",
+      "auto_allowed": false,
+      "credential_capability": "WRITE_CAPABLE",
+      "effects": {
+        "drive_writes": true,
+        "publication": false
+      },
+      "current_triggers": ["workflow_dispatch"],
+      "blockers": ["REMOTE_PERSISTENCE_REQUIRES_EXPLICIT_CONFIRMATION"]
+    },
+    {
+      "id": "PRODUCT_OUTPUT_PUBLICATION",
+      "workflow": ".github/workflows/product-output-publication-gate.yml",
+      "tier": "T3_MUTATING_OR_PUBLICATION",
+      "auto_allowed": false,
+      "credential_capability": "WRITE_CAPABLE",
+      "effects": {
+        "drive_writes": true,
+        "publication": true
+      },
+      "current_triggers": ["workflow_dispatch"],
+      "blockers": ["PUBLICATION_REQUIRES_SEPARATE_EXPLICIT_AUTHORIZATION"]
+    }
+  ],
+  "agentic_work": {
+    "allowed_without_remote_data_authorization": [
+      "repository_analysis",
+      "documentation",
+      "test_generation",
+      "refactoring",
+      "ci_diagnostics",
+      "pull_request_proposal"
+    ],
+    "never_self_authorizes": [
+      "source_collection",
+      "drive_persistence",
+      "publication",
+      "overwrite",
+      "delete",
+      "schedule",
+      "financial_identity_promotion",
+      "mde_or_fundeb_compliance_conclusion"
+    ]
+  }
+}
