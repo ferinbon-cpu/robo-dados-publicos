@@ -50,6 +50,11 @@ class PublicSurfaceAuditTests(unittest.TestCase):
         self.assertEqual([], reviews)
         self.assertEqual(1, stats["text_entries"])
 
+    def test_redirected_object_store_headers_never_include_repository_token(self) -> None:
+        headers = mod.base._request_headers(include_auth=False, accept="application/vnd.github+json")
+        self.assertNotIn("Authorization", headers)
+        self.assertEqual("robo-dados-publicos-public-readiness-audit", headers["User-Agent"])
+
 
 if __name__ == "__main__":
     unittest.main()
