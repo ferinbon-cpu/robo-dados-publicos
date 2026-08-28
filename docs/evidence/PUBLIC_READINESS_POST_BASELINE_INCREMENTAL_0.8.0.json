@@ -1,0 +1,83 @@
+{
+  "schema": "ROBO_DADOS_PUBLICOS_PUBLIC_READINESS_POST_BASELINE_INCREMENTAL_V1",
+  "repository": "ferinbon-cpu/robo-dados-publicos",
+  "baseline_cutoff_utc": "2026-08-28T10:44:00Z",
+  "snapshot": {
+    "captured_for_pr": 168,
+    "audit_branch": "public-readiness-audit",
+    "actions_runs_created_at_or_after_cutoff": 35,
+    "actions_pull_request_runs_created_at_or_after_cutoff": 35,
+    "actions_audit_branch_runs_created_at_or_after_cutoff": 35,
+    "non_pull_request_runs": 0,
+    "runs_outside_audit_branch": 0,
+    "pr_comments_after_baseline_review": 0
+  },
+  "post_baseline_workflow_set": [
+    {
+      "path": ".github/workflows/public-readiness-audit.yml",
+      "purpose": "offline public-readiness validation against pinned exhaustive hosted baseline",
+      "pull_request_permissions": ["contents: read"],
+      "repository_secrets_used": false,
+      "drive_credentials_used": false,
+      "source_collection_live": false
+    },
+    {
+      "path": ".github/workflows/ci-offline.yml",
+      "purpose": "offline validation",
+      "pull_request_permissions": ["contents: read"],
+      "repository_secrets_used": false,
+      "drive_credentials_used": false,
+      "source_collection_live": false
+    },
+    {
+      "path": ".github/workflows/ci-m7-olinda-hash-routing-signal.yml",
+      "purpose": "offline dry-run validation",
+      "pull_request_permissions": ["contents: read"],
+      "repository_secrets_used": false,
+      "drive_credentials_used": false,
+      "source_collection_live": false
+    },
+    {
+      "path": ".github/workflows/ci-m7-olinda-fragment-target-structure.yml",
+      "purpose": "offline dry-run validation",
+      "pull_request_permissions": ["contents: read"],
+      "repository_secrets_used": false,
+      "drive_credentials_used": false,
+      "source_collection_live": false
+    },
+    {
+      "path": ".github/workflows/ci-m7-olinda-loaded-script-signatures.yml",
+      "purpose": "offline dry-run validation",
+      "pull_request_permissions": ["contents: read"],
+      "repository_secrets_used": false,
+      "drive_credentials_used": false,
+      "source_collection_live": false
+    }
+  ],
+  "closure_evidence": {
+    "all_post_baseline_runs_are_pull_request_runs": true,
+    "all_post_baseline_runs_are_on_public_readiness_audit_branch": true,
+    "pr_168_has_no_conversation_comments": true,
+    "current_workflow_sources_reviewed": true,
+    "pull_request_target_present": false,
+    "secrets_inherit_present": false,
+    "write_all_present": false,
+    "drive_or_source_credentials_present_in_post_baseline_workflow_set": false,
+    "live_drive_or_source_execution_present_in_post_baseline_workflow_set": false,
+    "self_generated_ci_closure_rule": "Subsequent PR #168 CI runs produced by unchanged audited pull_request workflows do not expand the hosted trust surface beyond the reviewed workflow code; any code change is rechecked by the full reachable-history/current-workflow repository scanner before merge."
+  },
+  "network_audit_note": {
+    "latest_network_rescan_status": "STOP_GITHUB_API_HTTP_403",
+    "classification": "AUDIT_INFRASTRUCTURE_LIMIT_NOT_CONTENT_FINDING",
+    "note": "Repeated exhaustive hosted scans consumed the repository-scoped API budget. The 403 produced no content finding and does not override the pinned exhaustive baseline plus PR-only closure evidence. Ordinary PR CI now validates that pinned baseline offline; an explicit hosted rescan remains available for future re-baselining."
+  },
+  "resolution": {
+    "post_baseline_secret_or_credential_finding": false,
+    "post_baseline_live_drive_or_source_run": false,
+    "unresolved_post_baseline_public_surface_review": false,
+    "ready_for_offline_baseline_gate": true
+  },
+  "repository_visibility_change_executed": false,
+  "publication_authorized": false,
+  "future_batch_execution_authorized": false
+}
