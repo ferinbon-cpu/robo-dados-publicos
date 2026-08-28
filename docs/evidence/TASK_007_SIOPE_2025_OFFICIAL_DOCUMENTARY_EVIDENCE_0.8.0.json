@@ -1,0 +1,98 @@
+{
+  "evidence_schema": "TASK_007_SIOPE_2025_OFFICIAL_DOCUMENTARY_EVIDENCE_V1",
+  "software_version": "0.8.0",
+  "captured_on": "2026-08-28",
+  "evidence_kind": "NORMALIZED_OFFICIAL_DOCUMENTARY_CLAIMS",
+  "source_data_get_count": 0,
+  "financial_values_persisted": false,
+  "response_records_persisted": false,
+  "documents": [
+    {
+      "id": "FNDE_SIOPE_DATA_DICTIONARY_2019",
+      "url": "https://www.fnde.gov.br/phocadownload/sistemas/siope/Manuais/DICIONARIO%20DE%20DADOS%20SIOPE%202019.pdf",
+      "authority": "FNDE",
+      "content_type": "application/pdf",
+      "provider_bytes_sha256": null,
+      "provider_bytes_hash_status": "NOT_AVAILABLE_VIA_CURRENT_DOCUMENTARY_CONNECTOR",
+      "normalized_claims": [
+        "For declarations from 2017 onward, period 6 is the annual consolidation.",
+        "The consolidated-data dictionary defines updated revenue forecast, realized revenue, updated expenditure appropriation, committed expenditure, liquidated expenditure and paid expenditure.",
+        "The consolidated-data dictionary separately defines the updated, committed, liquidated and paid education expenditure concepts."
+      ],
+      "limitations": [
+        "The dictionary does not define the current OData aliases used by the 2025 Dados_Gerais_Siope response.",
+        "No NUM_POPU definition was located in this dictionary.",
+        "Annual consolidation is not itself evidence that later rectification is impossible."
+      ]
+    },
+    {
+      "id": "FNDE_GUIDE_NEW_MAYORS_2025",
+      "url": "https://www.gov.br/fnde/pt-br/acesso-a-informacao/acoes-e-programas/guia_prefeitos_2025.pdf",
+      "authority": "FNDE",
+      "content_type": "application/pdf",
+      "provider_bytes_sha256": null,
+      "provider_bytes_hash_status": "NOT_AVAILABLE_VIA_CURRENT_DOCUMENTARY_CONNECTOR",
+      "normalized_claims": [
+        "The official 2025 guide instructs municipalities to check annual transmission receipts and periods not yet sent.",
+        "The guide states a deadline of up to 30 days after the end of each bimester.",
+        "For the 2024 exercise, the guide identifies transmission and validation of sixth-bimester data as the exercise-end delivery due by 30 January 2025."
+      ],
+      "limitations": [
+        "The guide does not state that a sixth-bimester declaration can never be rectified later.",
+        "The guide does not define the 2025 Dados_Gerais_Siope OData field aliases."
+      ]
+    },
+    {
+      "id": "FNDE_SIOPE_TUTORIAL_2024_V2",
+      "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/media/Tutorial_Bsico_Siope_2024_v2.pdf",
+      "authority": "FNDE",
+      "content_type": "application/pdf",
+      "provider_bytes_sha256": null,
+      "provider_bytes_hash_status": "NOT_AVAILABLE_VIA_CURRENT_DOCUMENTARY_CONNECTOR",
+      "normalized_claims": [
+        "The tutorial presents the declaration as potentially rectifying.",
+        "A rectifying sixth-bimester declaration requires authorization from the SIOPE technical team.",
+        "Rectifying declarations for bimesters one through five can be sent without that authorization."
+      ],
+      "limitations": [
+        "This is a 2024 tutorial and does not by itself prove the observed 2025 declaration has reached a final non-rectifiable state."
+      ]
+    },
+    {
+      "id": "FNDE_SIOPE_DOWNLOADS_CURRENT",
+      "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/downloads",
+      "authority": "FNDE",
+      "content_type": "text/html",
+      "provider_bytes_sha256": null,
+      "provider_bytes_hash_status": "NOT_PINNED_DYNAMIC_PAGE",
+      "normalized_claims": [
+        "The current official downloads page lists municipal and state metadata packages for exercise 2025."
+      ],
+      "limitations": [
+        "The linked 2025 metadata package contents were not available for inspection through the current documentary connector.",
+        "Existence of the package is not proof of the 11 alias meanings."
+      ]
+    }
+  ],
+  "field_definition_summary": {
+    "required_gold_input_count": 11,
+    "historical_financial_concepts_with_official_dictionary_counterparts": 10,
+    "official_primary_definition_missing_for": ["NUM_POPU"],
+    "2025_odata_alias_identity_proven_count": 0,
+    "semantic_bridge_result": "PARTIAL_NOT_PROVEN"
+  },
+  "closure_summary": {
+    "period_6_annual_consolidation": "PROVEN_OFFICIAL_REGIME",
+    "observed_2025_p6_final_non_rectifiable_state": "NOT_PROVEN",
+    "annual_closure_status": "UNKNOWN",
+    "reason": "Official documents prove the annual role of period 6 but also document a rectification path for sixth-bimester declarations."
+  },
+  "effects": {
+    "drive_read_count": 0,
+    "drive_write_count": 0,
+    "gold_computation": false,
+    "bronze_silver_gold_creation": false,
+    "publication": false,
+    "year_2026_promotion": false
+  }
+}
