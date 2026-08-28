@@ -43,7 +43,7 @@ QUOTED_ASSIGNMENT_PATTERN = re.compile(
     r"\s*[:=]\s*([\"'])([^\"'\r\n]{16,})\2"
 )
 ENV_ASSIGNMENT_PATTERN = re.compile(
-    r"(?im)^\s*(?:export\s+)?([A-Z][A-Z0-9_]*(?:TOKEN|SECRET|PASSWORD|API_KEY)[A-Z0-9_]*)"
+    r"(?m)^\s*(?:export\s+)?([A-Z][A-Z0-9_]*(?:TOKEN|SECRET|PASSWORD|API_KEY)[A-Z0-9_]*)"
     r"\s*=\s*([^\s#]{16,})\s*$"
 )
 
