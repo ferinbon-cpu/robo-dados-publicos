@@ -88,7 +88,11 @@ def validate(
     _stop(gate_a.get("annual_period_role") == "P6_ANNUAL_CONSOLIDATION", "GATE_A_PERIOD")
     _stop(gate_a.get("finality_status") == "NOT_PROVEN", "GATE_A_FINALITY")
     _stop(gate_a.get("annual_closure_status") == "UNKNOWN", "GATE_A_CLOSURE")
-    _stop("RECTIFICATION" in gate_a.get("rectification_status", ""), "GATE_A_RECTIFICATION")
+    _stop(
+        gate_a.get("rectification_status")
+        == "PROVEN_POSSIBLE_FOR_SIXTH_BIMESTER_WITH_AUTHORIZATION_IN_CURRENT_DOCUMENTED_REGIME",
+        "GATE_A_RECTIFICATION",
+    )
     _stop(gate_a.get("closed_series_promotion_authorized") is False, "GATE_A_PROMOTION")
     _stop(len(gate_a.get("missing_proof", [])) == 2, "GATE_A_MISSING")
 
