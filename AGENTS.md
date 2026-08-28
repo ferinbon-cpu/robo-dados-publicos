@@ -116,3 +116,19 @@ Um patch só está pronto quando:
 - Verificar o head SHA antes do merge e usar proteção por SHA esperado quando a ferramenta permitir.
 - Não misturar autorização operacional de um gate com refatoração ampla sem necessidade.
 - Evidência de run ao vivo deve ser pinada separadamente depois que o run existir; nunca fabricar IDs, hashes ou contagens.
+
+## 12. ROBO_CODEX — modo engenheiro de PR
+
+O modo operacional inicial do Codex está definido em `config/codex_engineer_policy.v1.json`.
+
+Regras adicionais obrigatórias:
+
+1. trabalhar em branch e produzir PR; nunca escrever diretamente em `main`;
+2. nunca fazer self-merge;
+3. nunca pedir, ler ou usar secrets do Google Drive ou de fontes operacionais;
+4. o backend inicial é Codex Cloud autenticado pela conta ChatGPT, sem `OPENAI_API_KEY` no GitHub;
+5. mudanças em workflows, políticas, persistência ou publicação exigem revisão explícita antes de merge;
+6. uma tarefa Codex não autoriza live GET, Drive read/write ou publicação salvo gate e autorização separados;
+7. antes de marcar PR como pronto, executar também `python scripts/github_codex_engineer_policy_gate.py`;
+8. se uma tarefa exigir capacidade bloqueada, não contornar a política: registrar STOP e propor um gate separado;
+9. o primeiro piloto é `docs/tasks/CODEX_TASK_001_SIOPE_REGIME_DISCOVERY.md` e é estritamente T0/offline.
