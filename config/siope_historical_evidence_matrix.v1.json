@@ -3,12 +3,82 @@
   "regime_map": "config/siope_historical_regimes.v1.json",
   "future_batch_execution_authorized": false,
   "rows": [
-    {"years":"2000-2004","official_document":"UNKNOWN","evidence_class":"INDEPENDENT_IMPLEMENTATION","surface":"external Olinda consumer loop only","annual_period":"P1_CANDIDATE","current_fields":"UNKNOWN","gold_if_fields_exist":[],"semantic_break_risk":"ALL_8","adapter_or_corrections":"UNKNOWN"},
-    {"years":"2005-2007","official_document":"FNDE municipal manuals and historical downloads/installers","evidence_class":"OFFICIAL_PRIMARY_LEGACY_DOCUMENTED","surface":"legacy desktop system; current resource UNKNOWN","annual_period":"P1_CANDIDATE","current_fields":"UNKNOWN","gold_if_fields_exist":[],"semantic_break_risk":"ALL_8","adapter_or_corrections":"REQUIRED_BEFORE_PROMOTION"},
-    {"years":"2008-2015","official_document":"FNDE data dictionary 2019; FNDE Arquivos / Dados Analiticos 2008-2016","evidence_class":"OFFICIAL_PRIMARY_DOCUMENTED","surface":"analytical SIOPE families; Dados_Gerais_Siope NOT_PROVEN","annual_period":"P1_DOCUMENTED","current_fields":"UNKNOWN","gold_if_fields_exist":["ALL_8_MATHEMATICALLY_POTENTIAL_ONLY"],"semantic_break_risk":"ALL_8_PENDING_REVIEW","adapter_or_corrections":"YEAR_SPECIFIC_UNKNOWN"},
-    {"years":"2016","official_document":"FNDE data dictionary 2019 plus pinned internal bounded-batch evidence","evidence_class":"INTERNAL_PROVEN","surface":"Dados_Gerais_Siope","annual_period":"P1_PROVEN","current_fields":"52_FIELD_SCHEMA_PROVEN","gold_if_fields_exist":["ALL_8_PROVEN"],"semantic_break_risk":"NONE_KNOWN_WITHIN_CURRENT_CONTRACT","adapter_or_corrections":"BOUNDARY_2016_P1"},
-    {"years":"2017-2024","official_document":"FNDE data dictionary 2019 plus pinned internal generalization evidence","evidence_class":"INTERNAL_PROVEN","surface":"Dados_Gerais_Siope","annual_period":"P6_PROVEN","current_fields":"52_FIELD_SCHEMA_PROVEN","gold_if_fields_exist":["ALL_8_PROVEN"],"semantic_break_risk":"NONE_KNOWN_WITHIN_CURRENT_CONTRACT","adapter_or_corrections":"BOUNDARY_2017_P6"},
-    {"years":"2025","official_document":"UNKNOWN_RUNTIME_EVIDENCE","evidence_class":"UNKNOWN","surface":"UNKNOWN","annual_period":"UNKNOWN","current_fields":"UNKNOWN","gold_if_fields_exist":[],"semantic_break_risk":"ALL_8","adapter_or_corrections":"DISCOVERY_REQUIRED"},
-    {"years":"2026","official_document":"UNKNOWN_RUNTIME_EVIDENCE","evidence_class":"UNKNOWN","surface":"CURRENT_PROVISIONAL_UNKNOWN","annual_period":"NOT_CLOSED_UNKNOWN","current_fields":"UNKNOWN","gold_if_fields_exist":[],"semantic_break_risk":"ALL_8","adapter_or_corrections":"SEPARATE_CURRENT_YEAR_DISCOVERY_REQUIRED"}
+    {
+      "years": "2000-2004",
+      "official_document": "UNKNOWN",
+      "evidence_class": "INDEPENDENT_IMPLEMENTATION",
+      "surface": "external Olinda consumer loop only",
+      "annual_period": "P1_CANDIDATE",
+      "current_fields": "UNKNOWN",
+      "gold_if_fields_exist": [],
+      "semantic_break_risk": "ALL_8",
+      "adapter_or_corrections": "UNKNOWN"
+    },
+    {
+      "years": "2005-2007",
+      "official_document": "FNDE municipal manuals and historical downloads/installers",
+      "evidence_class": "OFFICIAL_PRIMARY_LEGACY_DOCUMENTED",
+      "surface": "legacy desktop system; current resource UNKNOWN",
+      "annual_period": "P1_CANDIDATE",
+      "current_fields": "UNKNOWN",
+      "gold_if_fields_exist": [],
+      "semantic_break_risk": "ALL_8",
+      "adapter_or_corrections": "REQUIRED_BEFORE_PROMOTION"
+    },
+    {
+      "years": "2008-2015",
+      "official_document": "FNDE data dictionary 2019; FNDE Arquivos / Dados Analiticos 2008-2016",
+      "evidence_class": "OFFICIAL_PRIMARY_DOCUMENTED",
+      "surface": "analytical SIOPE families; Dados_Gerais_Siope NOT_PROVEN",
+      "annual_period": "P1_DOCUMENTED",
+      "current_fields": "UNKNOWN",
+      "gold_if_fields_exist": ["ALL_8_MATHEMATICALLY_POTENTIAL_ONLY"],
+      "semantic_break_risk": "ALL_8_PENDING_REVIEW",
+      "adapter_or_corrections": "YEAR_SPECIFIC_UNKNOWN"
+    },
+    {
+      "years": "2016",
+      "official_document": "FNDE data dictionary 2019 plus pinned internal bounded-batch evidence",
+      "evidence_class": "INTERNAL_PROVEN",
+      "surface": "Dados_Gerais_Siope",
+      "annual_period": "P1_PROVEN",
+      "current_fields": "52_FIELD_SCHEMA_PROVEN",
+      "gold_if_fields_exist": ["ALL_8_PROVEN"],
+      "semantic_break_risk": "NONE_KNOWN_WITHIN_CURRENT_CONTRACT",
+      "adapter_or_corrections": "BOUNDARY_2016_P1"
+    },
+    {
+      "years": "2017-2024",
+      "official_document": "FNDE data dictionary 2019 plus pinned internal generalization evidence",
+      "evidence_class": "INTERNAL_PROVEN",
+      "surface": "Dados_Gerais_Siope",
+      "annual_period": "P6_PROVEN",
+      "current_fields": "52_FIELD_SCHEMA_PROVEN",
+      "gold_if_fields_exist": ["ALL_8_PROVEN"],
+      "semantic_break_risk": "NONE_KNOWN_WITHIN_CURRENT_CONTRACT",
+      "adapter_or_corrections": "BOUNDARY_2017_P6"
+    },
+    {
+      "years": "2025",
+      "official_document": "PINNED_INTERNAL_RUNTIME_EVIDENCE_RUN_33204578436",
+      "evidence_class": "INTERNAL_PROVEN_STRUCTURAL",
+      "surface": "Dados_Gerais_Siope",
+      "annual_period": "P6_STRUCTURAL_CANDIDATE_CLOSURE_UNKNOWN",
+      "current_fields": "52_FIELD_SCHEMA_PROVEN_2025_P6",
+      "gold_if_fields_exist": ["ALL_11_INPUT_FIELDS_PRESENT_METRICS_NOT_PROVEN"],
+      "semantic_break_risk": "ALL_8_SEMANTIC_COMPARABILITY_UNKNOWN",
+      "adapter_or_corrections": "CLOSURE_AND_SEMANTIC_REVIEW_REQUIRED"
+    },
+    {
+      "years": "2026",
+      "official_document": "UNKNOWN_RUNTIME_EVIDENCE",
+      "evidence_class": "UNKNOWN",
+      "surface": "CURRENT_PROVISIONAL_UNKNOWN",
+      "annual_period": "NOT_CLOSED_UNKNOWN",
+      "current_fields": "UNKNOWN",
+      "gold_if_fields_exist": [],
+      "semantic_break_risk": "ALL_8",
+      "adapter_or_corrections": "SEPARATE_CURRENT_YEAR_DISCOVERY_REQUIRED"
+    }
   ]
 }
