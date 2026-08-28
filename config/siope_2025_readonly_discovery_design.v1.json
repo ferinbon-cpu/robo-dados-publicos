@@ -1,0 +1,115 @@
+{
+  "schema": "SIOPE_2025_READONLY_DISCOVERY_DESIGN_V1",
+  "design_gate_id": "CODEX_TASK_002_SIOPE_2025_READONLY_DISCOVERY_DESIGN_T0",
+  "design_tier": "T0_OFFLINE",
+  "proposed_runtime_tier": "T1_REMOTE_READONLY",
+  "target": {
+    "year": 2025,
+    "state": "SP",
+    "municipality_code": 352690,
+    "municipality_name": "Limeira",
+    "resource_candidate": "Dados_Gerais_Siope",
+    "resource_status": "UNPROVEN_FOR_2025",
+    "annual_period_candidate": 6,
+    "annual_period_status": "CANDIDATE_NOT_PROVEN",
+    "annual_closure_status": "UNKNOWN",
+    "closed_series_eligibility": "UNKNOWN"
+  },
+  "proposed_runtime": {
+    "human_authorization_required": true,
+    "runtime_execution_authorized_by_this_design": false,
+    "source_get_authorized_by_this_design": false,
+    "allowed_method": "GET",
+    "allowed_host": "www.fnde.gov.br",
+    "allowed_path": "/olinda-ide/servico/DADOS_ABERTOS_SIOPE/versao/v1/odata/Dados_Gerais_Siope(Ano_Consulta=@Ano_Consulta,Num_Peri=@Num_Peri,Sig_UF=@Sig_UF)",
+    "period_probe_values": [1, 2, 3, 4, 5, 6],
+    "period_probe_request_count": 6,
+    "conditional_schema_request_count": 1,
+    "maximum_total_request_count": 7,
+    "maximum_requests_per_period": 1,
+    "timeout_seconds": 60,
+    "max_attempts": 1,
+    "max_response_bytes_per_request": 262144,
+    "follow_redirects": false,
+    "follow_odata_nextlink": false,
+    "retry_authorized": false,
+    "pagination_authorized": false,
+    "authentication_required": false,
+    "secrets_required": [],
+    "drive_access_authorized": false,
+    "persistence_authorized": false,
+    "publication_authorized": false,
+    "bronze_silver_gold_creation_authorized": false,
+    "batch_expansion_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false
+  },
+  "phase_a_period_availability": {
+    "selected_fields": ["COD_MUNI", "NOM_MUNI", "NUM_ANO", "NUM_PERI", "SIG_UF"],
+    "exact_identity_required": true,
+    "zero_records_means": "PERIOD_NOT_OBSERVED",
+    "one_record_means": "PERIOD_OBSERVED_IDENTITY_ONLY",
+    "more_than_one_record_means": "STOP_DUPLICATE",
+    "schema_or_metric_promotion_authorized": false,
+    "annual_closure_inference_authorized": false
+  },
+  "phase_b_conditional_schema": {
+    "precondition": "PHASE_A_PERIOD_6_OBSERVED_EXACT_IDENTITY",
+    "period": 6,
+    "period_semantics": "CANDIDATE_ONLY",
+    "selected_schema_source": "robo_dados_publicos.sources.siope_client.PROVEN_DADOS_GERAIS_FIELDS",
+    "expected_selected_schema_key_count": 52,
+    "exact_schema_required": true,
+    "required_gold_input_fields": [
+      "VAL_RECE_REAL", "VAL_RECE_PREV_ATUA", "VAL_DESP_PAGA", "VAL_DESP_DOTA_ATUA",
+      "VL_DESP_PAGA_EDU", "VL_DESP_DOTA_ATUA_EDU", "VL_DESP_EMPE_EDU", "VAL_DESP_EMPE",
+      "VL_DESP_LIQU_EDU", "VAL_DESP_LIQU", "NUM_POPU"
+    ],
+    "allowed_aliases": {},
+    "record_values_may_be_inspected_transiently": true,
+    "response_body_persistence_authorized": false,
+    "record_value_persistence_authorized": false,
+    "gold_calculation_authorized": false,
+    "semantic_comparability_inference_authorized": false,
+    "annual_closure_inference_authorized": false
+  },
+  "fail_closed_conditions": [
+    "HTTP_OR_CONTENT_TYPE_DRIFT", "REDIRECT", "NEXTLINK", "RETRY_ATTEMPT", "RESPONSE_LIMIT",
+    "IDENTITY_MISMATCH", "DUPLICATE_RECORD", "SCHEMA_MISSING_FIELD", "SCHEMA_EXTRA_FIELD",
+    "SCHEMA_ALIAS", "FIELD_TYPE_OR_SEMANTIC_DRIFT", "REQUEST_BUDGET_EXCEEDED"
+  ],
+  "allowed_outcomes": [
+    "STOP", "2025_NOT_OBSERVED", "2025_PERIODS_OBSERVED_SCHEMA_UNKNOWN",
+    "2025_P6_SCHEMA_EXACT_SEMANTICS_AND_CLOSURE_UNKNOWN"
+  ],
+  "promotion_contract": {
+    "promote_regime_map_by_this_design": false,
+    "promote_2025_to_proven": false,
+    "join_closed_annual_series": false,
+    "automatic_compliance_claims_authorized": false,
+    "requires_separate_pinned_live_evidence_review": true,
+    "requires_separate_annual_closure_decision": true
+  },
+  "offline_validation": {
+    "validator": "robo_dados_publicos/sources/siope_2025_readonly_discovery_offline.py",
+    "gate": "scripts/github_siope_2025_readonly_discovery_offline_fixtures_gate.py",
+    "fixtures_directory": "tests/fixtures/siope_2025_readonly_discovery",
+    "fixture_count": 10,
+    "synthetic_only": true,
+    "financial_values_allowed": false,
+    "live_evidence_claim_allowed": false,
+    "expected_schema_fields": [
+      "COD_DIGIT", "COD_MUNI", "COD_UF", "COD_VERIFIC", "DAT_DECL", "DES_DIFE_METO_CALC",
+      "DES_JUST_PROB_BALA", "DS_JUST_RETIFICACAO", "DS_NOTA_RODAPE_FUNDEB", "DS_NOTA_RODAPE_RREO",
+      "IDN_ASSU_RESP_MTDO_APUR", "IDN_DECL_RETI", "IDN_METO_LIMI_CONS", "IDN_METO_SIOPE_IGUA_TC",
+      "IDN_POSS_CERT_TC", "IDN_POSS_DECI_JUDI", "IDN_TIPO_DECL", "NOM_MUNI", "NUM_ANO", "NUM_CIDE",
+      "NUM_CP_FUNDEF", "NUM_FPE", "NUM_FPM", "NUM_FUNDEF", "NUM_ICMS", "NUM_IPI_EXPO", "NUM_IPVA_FUNDEB",
+      "NUM_ITCMD_FUNDEB", "NUM_ITR", "NUM_LC", "NUM_PERI", "NUM_POPU", "NUM_RECI", "NUM_SOLI", "SIG_UF",
+      "TIPO", "VAL_DESP_DOTA_ATUA", "VAL_DESP_EMPE", "VAL_DESP_LIQU", "VAL_DESP_ORCA", "VAL_DESP_PAGA",
+      "VAL_PIB", "VAL_PIB_PERCAPTO", "VAL_RECE_ORCA", "VAL_RECE_PREV_ATUA", "VAL_RECE_REAL", "VAL_TRANSMISSAO",
+      "VL_DESP_DOTA_ATUA_EDU", "VL_DESP_EMPE_EDU", "VL_DESP_LIQU_EDU", "VL_DESP_ORCA_EDU", "VL_DESP_PAGA_EDU"
+    ]
+  },
+  "future_batch_execution_authorized": false,
+  "next_gate": "SEPARATE_HUMAN_AUTHORIZED_T1_SIOPE_2025_READONLY_DISCOVERY_IMPLEMENTATION"
+}

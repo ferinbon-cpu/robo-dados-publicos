@@ -50,6 +50,12 @@ jobs:
       - name: Gate T0 de regimes históricos SIOPE
         run: python scripts/github_siope_historical_regime_discovery_gate.py
 
+      - name: Gate T0 do desenho read-only SIOPE 2025
+        run: python scripts/github_siope_2025_readonly_discovery_design_gate.py
+
+      - name: Fixtures T0 do discovery read-only SIOPE 2025
+        run: python scripts/github_siope_2025_readonly_discovery_offline_fixtures_gate.py
+
       - name: Revisão M8 offline de publicação
         run: python scripts/review_m8_siope_historical_product_output_publication.py
 
