@@ -1,0 +1,45 @@
+{
+  "schema": "SIOPE_2025_T1_FIRST_LIVE_AUTHORIZATION_V1",
+  "authorized": true,
+  "authorization_id": "SIOPE2025-T1-LIMEIRA-20260828-01",
+  "approval_kind": "OWNER_EXPLICIT_SINGLE_BOUNDED_RUN",
+  "approved_by": "ferinbon-cpu",
+  "approved_at_utc": "2026-08-28T18:45:25Z",
+  "expires_at_utc": "2026-08-28T20:45:25Z",
+  "authorized_base_sha": "cd99f2dcaf99479601c52d362582e8dda5bc1544",
+  "authorized_workflow_run_number": 1,
+  "authorized_workflow_run_attempt": 1,
+  "authorized_workflow_ref": "refs/heads/main",
+  "one_shot": true,
+  "max_live_runs": 1,
+  "target": {
+    "year": 2025,
+    "state": "SP",
+    "municipality_code": 352690,
+    "municipality_name": "Limeira"
+  },
+  "request_contract": {
+    "maximum_source_get_count": 7,
+    "timeout_seconds": 60,
+    "max_response_bytes": 262144,
+    "max_attempts": 1,
+    "retry_authorized": false,
+    "follow_redirects": false,
+    "pagination_authorized": false,
+    "follow_nextlink": false
+  },
+  "effects": {
+    "drive_read_count": 0,
+    "drive_write_count": 0,
+    "response_persistence": false,
+    "bronze_silver_gold_creation": false,
+    "publication": false,
+    "future_batch_execution_authorized": false
+  },
+  "semantic_guards": {
+    "annual_closure_status": "UNKNOWN",
+    "promote_2025_to_proven": false,
+    "metric_status_required": "UNKNOWN",
+    "include_2026_authorized": false
+  }
+}
