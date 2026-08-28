@@ -24,6 +24,7 @@ PREP = ROOT / "config" / "siope_2025_metadata_resolved_path_probe_preparation.v1
 TEMPLATE = ROOT / "config" / "siope_2025_metadata_resolved_path_probe_authorization.template.v1.json"
 POLICY = ROOT / "config" / "automation_policy.v1.json"
 RUNNER = ROOT / "scripts" / "run_siope_2025_metadata_resolved_path_probe.py"
+GATE = ROOT / "scripts" / "github_siope_2025_metadata_resolved_path_probe_preparation_gate.py"
 
 
 class FakeResponse:
@@ -60,6 +61,20 @@ class Task009CResolvedPathProbeTests(unittest.TestCase):
         self.assertFalse(self.prep["live_execution_authorized_by_task_009c"])
         self.assertFalse(self.template["authorized"])
         self.assertEqual(self.prep["effects_task_009c"]["source_get_count"], 0)
+
+    def test_preparation_gate_cli_passes_without_remote_effects(self) -> None:
+        proc = subprocess.run(
+            [sys.executable, str(GATE)],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+        payload = json.loads(proc.stdout.strip().splitlines()[-1])
+        self.assertEqual(payload["status"], "PASS_TASK009C_RESOLVED_PATH_PREPARATION_OFFLINE")
+        self.assertEqual(payload["source_get_count"], 0)
+        self.assertFalse(payload["live_execution_authorized"])
 
     def test_cli_dry_run_matches_workflow_execution_shape(self) -> None:
         proc = subprocess.run(
