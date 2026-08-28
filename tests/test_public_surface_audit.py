@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import importlib.util
 import io
 from pathlib import Path
@@ -54,6 +55,27 @@ class PublicSurfaceAuditTests(unittest.TestCase):
         headers = mod.base._request_headers(include_auth=False, accept="application/vnd.github+json")
         self.assertNotIn("Authorization", headers)
         self.assertEqual("robo-dados-publicos-public-readiness-audit", headers["User-Agent"])
+
+    def test_opaque_allowlist_requires_exact_resource_entry_bytes_and_hash(self) -> None:
+        data = b"%PDF-1.4\x00reviewed-fixture"
+        raw = _zip({"output.pdf": data})
+        review = {
+            "detector": "OPAQUE_ARTIFACT_ENTRY",
+            "surface": "actions_artifact",
+            "resource_id": "123",
+            "entry": "output.pdf",
+        }
+        key = ("actions_artifact", "123", "output.pdf")
+        allowlist = {
+            key: {
+                "bytes": len(data),
+                "sha256": hashlib.sha256(data).hexdigest(),
+            }
+        }
+        with zipfile.ZipFile(io.BytesIO(raw)) as archive:
+            self.assertTrue(mod._review_is_exactly_allowlisted(review, archive, allowlist))
+            bad = {key: {"bytes": len(data), "sha256": "0" * 64}}
+            self.assertFalse(mod._review_is_exactly_allowlisted(review, archive, bad))
 
 
 if __name__ == "__main__":
