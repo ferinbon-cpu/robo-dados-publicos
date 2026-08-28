@@ -51,6 +51,35 @@ python scripts/oauth_bootstrap_drive.py --client-id SEU_CLIENT_ID --client-secre
 
 O script usa navegador + callback local em `127.0.0.1`, PKCE e `access_type=offline`.
 
+## Bootstrap M8 sem clique no GitHub
+
+Para o M8, o caminho preferido em um PC Windows é usar o wrapper local:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/bootstrap_m8_readonly_secret.ps1
+```
+
+Pré-requisitos locais:
+
+- Python disponível no `PATH`;
+- GitHub CLI (`gh`) instalado e autenticado;
+- OAuth Desktop Client ID e Client Secret disponíveis ao usuário localmente.
+
+O wrapper:
+
+1. pede o Client ID e o Client Secret localmente, usando entrada protegida para o secret;
+2. abre o fluxo OAuth no navegador com escopo **exatamente** `drive.readonly`;
+3. grava o token apenas em diretório temporário;
+4. exige que o metadata retornado contenha exatamente o escopo read-only, sem escopo adicional;
+5. envia o refresh token diretamente pela entrada padrão para `gh secret set GOOGLE_DRIVE_READONLY_REFRESH_TOKEN --repo ferinbon-cpu/robo-dados-publicos --app actions`;
+6. verifica apenas que o **nome** do secret aparece em `gh secret list`;
+7. remove o arquivo temporário e limpa as variáveis de ambiente usadas pelo wrapper;
+8. nunca imprime o valor do refresh token.
+
+O GitHub CLI documenta que `gh secret set` lê o valor da entrada padrão quando `--body` é omitido e que o secret é criptografado localmente antes do envio ao GitHub.
+
+Esse helper **não executa o M8**, **não autoriza no-click** e **não altera a policy**. Seu único objetivo é eliminar o clique de cadastro do Repository Secret sem expor a credencial ao chat ou ao repositório.
+
 ## Produção — credencial com escrita
 
 O runtime histórico recebe secrets por ambiente/secret manager:
@@ -75,3 +104,4 @@ O cliente e o secret podem continuar usando o mesmo OAuth client ID/secret; o qu
 
 - Google OAuth 2.0 for iOS & Desktop Apps: https://developers.google.com/identity/protocols/oauth2/native-app
 - Google Drive API scopes: https://developers.google.com/workspace/drive/api/guides/api-specific-auth
+- GitHub CLI `gh secret set`: https://cli.github.com/manual/gh_secret_set
