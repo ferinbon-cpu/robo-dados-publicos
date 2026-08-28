@@ -15,6 +15,7 @@ from robo_dados_publicos.automation.policy import evaluate_gate, load_policy, va
 
 M8_GATE_ID = "M8_SIOPE_HISTORICAL_GOLD_PRODUCT_OUTPUT_READONLY"
 M8_WORKFLOW = ROOT / ".github/workflows/m8-siope-historical-gold-product-output-readonly-gate.yml"
+M8_LIVE_EVIDENCE = ROOT / "docs/evidence/M8_SIOPE_HISTORICAL_GOLD_PRODUCT_OUTPUT_READONLY_RUN_2_0.8.0.json"
 OAUTH_BOOTSTRAP = ROOT / "scripts/oauth_bootstrap_drive.py"
 M8_CAPABILITY_GATE = ROOT / "scripts/github_m8_readonly_credential_capability_gate.py"
 AGENTS = ROOT / "AGENTS.md"
@@ -23,6 +24,11 @@ AGENTS = ROOT / "AGENTS.md"
 def _require(condition: bool, code: str) -> None:
     if not condition:
         raise RuntimeError(code)
+
+
+def _load_live_evidence() -> dict:
+    _require(M8_LIVE_EVIDENCE.is_file(), "STOP_M8_FIRST_LIVE_EVIDENCE_MISSING")
+    return json.loads(M8_LIVE_EVIDENCE.read_text(encoding="utf-8"))
 
 
 def run() -> dict:
@@ -34,6 +40,7 @@ def run() -> dict:
     oauth = OAUTH_BOOTSTRAP.read_text(encoding="utf-8")
     capability = M8_CAPABILITY_GATE.read_text(encoding="utf-8")
     agents = AGENTS.read_text(encoding="utf-8")
+    evidence = _load_live_evidence()
 
     _require("workflow_dispatch:" in workflow, "STOP_M8_MANUAL_TRIGGER_MISSING")
     _require(
@@ -75,7 +82,32 @@ def run() -> dict:
     _require("oauth_refresh_and_tokeninfo_exact" in capability, "STOP_M8_RUNTIME_SCOPE_PROOF_NOT_EXACT")
     _require("www.googleapis.com/drive/" not in capability, "STOP_M8_CAPABILITY_GATE_CALLS_DRIVE_API")
     _require("Na dúvida, a decisão é `BLOCK`" in agents, "STOP_AGENTS_DEFAULT_DENY_MISSING")
+
+    _require(evidence.get("status") == "PASS_M8_SIOPE_HISTORICAL_GOLD_PRODUCT_OUTPUT_READONLY", "STOP_M8_LIVE_EVIDENCE_STATUS")
+    _require(evidence.get("run", {}).get("id") == 33136736495, "STOP_M8_LIVE_EVIDENCE_RUN_ID")
+    _require(evidence.get("run", {}).get("head_sha") == "8f80edcae45a373f85b84c03880842363661d870", "STOP_M8_LIVE_EVIDENCE_HEAD")
+    _require(evidence.get("oauth_capability", {}).get("scope") == "https://www.googleapis.com/auth/drive.readonly", "STOP_M8_LIVE_EVIDENCE_SCOPE")
+    _require(evidence.get("oauth_capability", {}).get("scope_proof") == "oauth_refresh_and_tokeninfo_exact", "STOP_M8_LIVE_EVIDENCE_SCOPE_PROOF")
+    _require(evidence.get("oauth_capability", {}).get("proof_occurs_before_first_drive_lookup") is True, "STOP_M8_LIVE_EVIDENCE_PROOF_ORDER")
+    effects = evidence.get("bounded_effects", {})
+    _require(effects.get("source_get_count") == 0, "STOP_M8_LIVE_EVIDENCE_SOURCE_GET")
+    _require(effects.get("drive_lookup_count") == 9, "STOP_M8_LIVE_EVIDENCE_LOOKUP_COUNT")
+    _require(effects.get("drive_download_count") == 9, "STOP_M8_LIVE_EVIDENCE_DOWNLOAD_COUNT")
+    _require(effects.get("drive_write_count") == 0, "STOP_M8_LIVE_EVIDENCE_WRITE_COUNT")
+    _require(effects.get("publication_authorized") is False, "STOP_M8_LIVE_EVIDENCE_PUBLICATION")
+    _require(effects.get("future_batch_execution_authorized") is False, "STOP_M8_LIVE_EVIDENCE_FUTURE_BATCH")
+    _require(evidence.get("product", {}).get("gold_metric_observations") == 72, "STOP_M8_LIVE_EVIDENCE_OBSERVATIONS")
+    _require(evidence.get("artifact", {}).get("id") == 9672319372, "STOP_M8_LIVE_EVIDENCE_ARTIFACT_ID")
+    _require(
+        evidence.get("artifact", {}).get("digest")
+        == "sha256:a3afeed9c1449ab4806127024d044d177e76e8097894786b0e68bbbfffc60b51",
+        "STOP_M8_LIVE_EVIDENCE_ARTIFACT_DIGEST",
+    )
+
     _require(m8["decision"] == "BLOCK", "STOP_M8_NO_CLICK_PREMATURELY_ALLOWED")
+    blockers = set(m8.get("blockers", []))
+    _require("MAIN_BRANCH_NOT_PROTECTED_FOR_SECRET_BEARING_AUTOMATION" in blockers, "STOP_M8_TRUST_BOUNDARY_BLOCKER_MISSING")
+    _require("FIRST_LIVE_M8_READONLY_PRODUCT_GATE_NOT_YET_PROVEN" not in blockers, "STOP_M8_STALE_FIRST_LIVE_BLOCKER")
 
     return {
         "status": "PASS_AUTOMATION_POLICY_OFFLINE",
@@ -85,7 +117,9 @@ def run() -> dict:
         "m8_no_click_decision": m8["decision"],
         "m8_no_click_reason": m8["reason"],
         "m8_blockers": m8.get("blockers", []),
-        "m8_credential_capability": "READONLY_PROVISIONED_TOKENINFO_PROVEN_AWAITING_FIRST_LIVE_GATE",
+        "m8_credential_capability": "READONLY_EXACT_SCOPE_FIRST_LIVE_GATE_PROVEN",
+        "m8_first_live_proof_pinned": True,
+        "m8_first_live_run_id": 33136736495,
         "oauth_readonly_bootstrap_supported": True,
         "current_m8_readonly_secret_wired": True,
         "readonly_runtime_capability_proof_step_present": True,
