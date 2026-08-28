@@ -14,11 +14,11 @@ import json
 from pathlib import Path
 import re
 import subprocess
-import sys
 from typing import Iterable
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_BLOB_BYTES = 2_000_000
+ALLOWLIST_PATH = ROOT / "config" / "public_distribution_allowlist.v1.json"
 
 SECRET_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     ("GITHUB_TOKEN_PREFIX", re.compile(r"gh[pousr]_[A-Za-z0-9]{30,255}")),
@@ -33,9 +33,18 @@ SECRET_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     ),
 )
 
-ASSIGNMENT_PATTERN = re.compile(
+# Generic secret assignments are intentionally conservative.  The first pattern
+# only treats literal quoted values as possible secrets; the second is limited to
+# upper-case environment variables.  This avoids classifying ordinary Python
+# variable-to-variable assignments (for example credentials.client_secret) as a
+# leak while still catching common .env/JSON/source hardcoding mistakes.
+QUOTED_ASSIGNMENT_PATTERN = re.compile(
     r"(?i)[\"']?\b(refresh_token|client_secret|password|api[_-]?key)\b[\"']?"
-    r"\s*[:=]\s*[\"']?([^\s\"'#,;}]{16,})"
+    r"\s*[:=]\s*([\"'])([^\"'\r\n]{16,})\2"
+)
+ENV_ASSIGNMENT_PATTERN = re.compile(
+    r"(?im)^\s*(?:export\s+)?([A-Z][A-Z0-9_]*(?:TOKEN|SECRET|PASSWORD|API_KEY)[A-Z0-9_]*)"
+    r"\s*=\s*([^\s#]{16,})\s*$"
 )
 
 SUSPICIOUS_BASENAMES = re.compile(
@@ -49,8 +58,8 @@ BINARY_REVIEW_SUFFIXES = {
 }
 THIRD_PARTY_DIR_MARKERS = {"vendor", "third_party", "third-party", "external"}
 PLACEHOLDER_MARKERS = (
-    "example", "placeholder", "changeme", "your_", "your-", "${", "<", ">",
-    "***", "xxxxx", "dummy", "sample", "not-a-secret", "redacted",
+    "example", "fixture", "placeholder", "changeme", "your_", "your-", "${", "<", ">",
+    "***", "xxxxx", "dummy", "sample", "not-a-secret", "redacted", "test-value", "test_value",
 )
 
 
@@ -83,12 +92,18 @@ def scan_text(text: str) -> list[tuple[str, int]]:
     for code, pattern in SECRET_PATTERNS:
         for match in pattern.finditer(text):
             findings.append((code, text.count("\n", 0, match.start()) + 1))
-    for match in ASSIGNMENT_PATTERN.finditer(text):
-        value = match.group(2)
+    for match in QUOTED_ASSIGNMENT_PATTERN.finditer(text):
+        value = match.group(3)
         if not _is_placeholder(value):
             findings.append(
-                ("SENSITIVE_ASSIGNMENT_" + match.group(1).upper().replace("-", "_"),
+                ("SENSITIVE_LITERAL_" + match.group(1).upper().replace("-", "_"),
                  text.count("\n", 0, match.start()) + 1)
+            )
+    for match in ENV_ASSIGNMENT_PATTERN.finditer(text):
+        value = match.group(2).strip("\"'")
+        if not _is_placeholder(value):
+            findings.append(
+                ("SENSITIVE_ENV_ASSIGNMENT", text.count("\n", 0, match.start()) + 1)
             )
     return sorted(set(findings))
 
@@ -158,14 +173,36 @@ def _suspicious_path_findings(paths: Iterable[str]) -> list[dict]:
     return result
 
 
+def _distribution_allowlist() -> dict[str, dict]:
+    if not ALLOWLIST_PATH.exists():
+        return {}
+    payload = json.loads(ALLOWLIST_PATH.read_text(encoding="utf-8"))
+    entries = payload.get("entries") or []
+    out: dict[str, dict] = {}
+    for item in entries:
+        if not isinstance(item, dict):
+            continue
+        path = str(item.get("path") or "").strip()
+        sha256 = str(item.get("sha256") or "").strip().lower()
+        if path and re.fullmatch(r"[0-9a-f]{64}", sha256):
+            out[path] = item
+    return out
+
+
 def _current_binary_review() -> list[dict]:
     result: list[dict] = []
+    allowlist = _distribution_allowlist()
     for path in sorted(_git("ls-files").splitlines()):
-        p = Path(path)
-        lower_parts = {part.lower() for part in p.parts}
+        p = ROOT / path
+        parts = {part.lower() for part in Path(path).parts}
         if p.suffix.lower() in BINARY_REVIEW_SUFFIXES:
+            entry = allowlist.get(path)
+            if entry and p.is_file():
+                digest = hashlib.sha256(p.read_bytes()).hexdigest()
+                if digest == str(entry.get("sha256", "")).lower():
+                    continue
             result.append({"severity": "REVIEW", "detector": "DISTRIBUTION_RIGHTS_BINARY", "path": path})
-        elif lower_parts & THIRD_PARTY_DIR_MARKERS:
+        elif parts & THIRD_PARTY_DIR_MARKERS:
             result.append({"severity": "REVIEW", "detector": "THIRD_PARTY_TREE", "path": path})
     return result
 
@@ -252,6 +289,7 @@ def run() -> dict:
             "current_binary_distribution_candidates": True,
             "commit_identity_metadata": True,
             "github_hosted_pr_issue_database": False,
+            "github_actions_history_logs_artifacts": False,
             "secret_values_emitted": False,
             "drive_access": False,
             "source_data_network": False,
