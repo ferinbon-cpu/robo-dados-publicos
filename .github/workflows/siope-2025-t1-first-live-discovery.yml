@@ -1,0 +1,57 @@
+name: SIOPE 2025 first live bounded T1
+run-name: "SIOPE 2025 first live bounded T1 authorization=${{ inputs.authorization_id }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      authorization_id:
+        description: "Authorization ID from the separately merged TASK 004B artifact"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: siope-2025-t1-first-live-${{ inputs.authorization_id }}
+  cancel-in-progress: false
+
+jobs:
+  first-live-bounded:
+    name: First live bounded read-only
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+    steps:
+      - name: Checkout exact main state
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Policy preflight
+        run: |
+          python scripts/github_preflight.py
+          python scripts/github_automation_policy_gate.py
+          python scripts/github_codex_engineer_policy_gate.py
+
+      - name: Require separately merged authorization artifact
+        run: |
+          test -f config/siope_2025_t1_first_live_authorization.v1.json || {
+            echo 'STOP_LIVE_NOT_AUTHORIZED: authorization artifact absent';
+            exit 13;
+          }
+
+      - name: Execute exactly one bounded discovery
+        run: >-
+          python scripts/run_siope_2025_t1_first_live.py
+          --mode live
+          --authorization-id "${{ inputs.authorization_id }}"
