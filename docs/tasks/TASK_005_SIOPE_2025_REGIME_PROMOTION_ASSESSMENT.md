@@ -21,9 +21,11 @@ Decisão canônica:
 
 ## Evidência reconciliada
 
-A evidência determinística é `docs/evidence/TASK_004C_SIOPE_2025_SECOND_LIVE_SUCCESS_0.8.0.json`, derivada do run `33204578436`, job `98962254951`.
+A origem histórica permanece `docs/evidence/TASK_004C_SIOPE_2025_SECOND_LIVE_SUCCESS_0.8.0.json`, derivada do run `33204578436`, job `98962254951`.
 
-Ela registra:
+Durante a TASK 005 foi detectado que esse JSON já mergeado reutiliza a chave `schema` duas vezes: uma como discriminador do artefato e outra como objeto do schema observado. O arquivo original **não foi alterado**, para preservar sua proveniência. Foi criado o derivado determinístico `docs/evidence/TASK_004C_SIOPE_2025_SECOND_LIVE_SUCCESS_NORMALIZED_0.8.0.json`, que separa `evidence_schema` de `observed_resource_schema` sem adicionar observações, valores ou inferências. Esse derivado normalizado é a referência operacional da TASK 005; o original permanece referenciado como fonte histórica.
+
+A evidência registra:
 
 - P1, P2, P3, P4, P5 e P6 com identidade exata de Limeira/SP, HTTP 200, `application/json` e cardinalidade 1;
 - um 7º GET condicional em P6, executado somente após P6 exato;
@@ -91,9 +93,9 @@ A mera presença dos 11 campos não resolve essas questões.
 
 `config/siope_historical_evidence_matrix.v1.json` passa a registrar a superfície, P6 estrutural e schema 52 como evidência interna estrutural provada, mantendo semântica e fechamento pendentes.
 
-`config/siope_2025_regime_promotion_assessment.v1.json` é a matriz canônica da decisão desta TASK.
+`config/siope_2025_regime_promotion_assessment.v1.json` é a matriz canônica da decisão desta TASK e referencia tanto a evidência normalizada quanto sua origem histórica.
 
-O gate `scripts/github_siope_2025_regime_promotion_gate.py` falha fechado se alguém tentar, dentro desta evidência, promover fechamento, Gold, 2026, future batch ou live execution.
+O gate `scripts/github_siope_2025_regime_promotion_gate.py` falha fechado se alguém tentar, dentro desta evidência, promover fechamento, Gold, 2026, future batch ou live execution. Ele também exige que a normalização declare zero nova observação, zero valor financeiro e zero promoção semântica.
 
 ## O que não muda
 
