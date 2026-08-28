@@ -10,7 +10,6 @@ from robo_dados_publicos.sources.siope_2025_fake_transport import FakeSiope2025T
 from robo_dados_publicos.sources.siope_2025_readonly_discovery_offline import (
     Siope2025OfflineFixtureError,
     validate_fixture,
-    validate_period_observation,
 )
 from robo_dados_publicos.sources.siope_2025_request_plan import (
     PHASE_B_PRECONDITION,
@@ -31,6 +30,36 @@ class Siope2025BoundedRunnerError(RuntimeError):
 def _stop(condition: bool, code: str) -> None:
     if not condition:
         raise Siope2025BoundedRunnerError(code if code == STOP_LIVE_NOT_AUTHORIZED else f"{ERROR}_{code}")
+
+
+def _validate_period_observation(observation: dict, *, period: int) -> None:
+    label = f"P{period}"
+    _stop(isinstance(observation, dict), f"OBSERVATION_{label}")
+    _stop(observation.get("period") == period, f"PERIOD_{label}")
+    _stop(observation.get("request_count") == 1, f"REQUEST_COUNT_{label}")
+    _stop(observation.get("method") == "GET", f"METHOD_{label}")
+    _stop(observation.get("response_status") == 200, f"HTTP_STATUS_{label}")
+    _stop(observation.get("content_type") in {"application/json", "application/odata+json"}, f"CONTENT_TYPE_{label}")
+    byte_count = observation.get("response_byte_count")
+    _stop(isinstance(byte_count, int) and 0 <= byte_count <= 262144, f"RESPONSE_LIMIT_{label}")
+    _stop(observation.get("redirect_followed") is False, f"REDIRECT_{label}")
+    _stop(observation.get("nextlink_present") is False, f"NEXTLINK_{label}")
+    _stop(observation.get("retry_performed") is False, f"RETRY_{label}")
+    records = observation.get("records")
+    _stop(isinstance(records, list), f"RECORDS_{label}")
+    _stop(len(records) <= 1, f"DUPLICATE_{label}")
+    if records:
+        record = records[0]
+        _stop(isinstance(record, dict), f"RECORD_OBJECT_{label}")
+        _stop(
+            set(record) == {"COD_MUNI", "NOM_MUNI", "NUM_ANO", "NUM_PERI", "SIG_UF"},
+            f"IDENTITY_SCHEMA_{label}",
+        )
+        _stop(record.get("COD_MUNI") == 352690, f"IDENTITY_{label}")
+        _stop(record.get("NOM_MUNI") == "Limeira", f"IDENTITY_{label}")
+        _stop(record.get("NUM_ANO") == 2025, f"IDENTITY_{label}")
+        _stop(record.get("SIG_UF") == "SP", f"IDENTITY_{label}")
+        _stop(record.get("NUM_PERI") == period, f"IDENTITY_PERIOD_{label}")
 
 
 def validate_semantic_state(
@@ -73,10 +102,7 @@ def run_bounded(
         ledger.consume(spec)
         observation = transport.request(spec)
         executed_ordinals.append(spec.ordinal)
-        try:
-            validate_period_observation(observation, period=spec.period)
-        except Siope2025OfflineFixtureError as exc:
-            raise Siope2025BoundedRunnerError(str(exc)) from None
+        _validate_period_observation(observation, period=spec.period)
         probes.append(observation)
 
     p6 = probes[5]
