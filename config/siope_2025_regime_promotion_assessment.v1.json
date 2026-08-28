@@ -10,6 +10,7 @@
   "publication": false,
   "new_authorization_created": false,
   "evidence_refs": [
+    "docs/evidence/TASK_004C_SIOPE_2025_SECOND_LIVE_SUCCESS_NORMALIZED_0.8.0.json",
     "docs/evidence/TASK_004C_SIOPE_2025_SECOND_LIVE_SUCCESS_0.8.0.json",
     "config/siope_historical_regimes.v1.json",
     "config/siope_historical_evidence_matrix.v1.json"
