@@ -10,6 +10,10 @@ Scopes covered with the repository-scoped GITHUB_TOKEN:
 
 Matched values are never emitted. Reports contain only detector names and stable
 resource identifiers. The script performs GitHub read-only requests only.
+
+GitHub's log/artifact download endpoints redirect to short-lived object-store URLs.
+The repository token is sent only to api.github.com and is deliberately NOT
+forwarded to the redirected host.
 """
 from __future__ import annotations
 
@@ -19,10 +23,9 @@ import json
 import os
 from pathlib import Path
 import re
-import sys
 from typing import Any, Iterable
 from urllib.error import HTTPError
-from urllib.request import Request, urlopen
+from urllib.request import HTTPRedirectHandler, Request, build_opener, urlopen
 import zipfile
 
 import github_public_readiness_audit as local_audit
@@ -48,6 +51,11 @@ class SurfaceAuditError(RuntimeError):
     pass
 
 
+class _NoRedirect(HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):  # noqa: ANN001
+        return None
+
+
 def _token() -> str:
     value = os.environ.get("GITHUB_TOKEN", "").strip()
     if not value:
@@ -55,26 +63,58 @@ def _token() -> str:
     return value
 
 
-def _request(url: str, *, accept: str = "application/vnd.github+json") -> bytes:
-    req = Request(
-        url,
-        headers={
-            "Accept": accept,
-            "Authorization": f"Bearer {_token()}",
-            "X-GitHub-Api-Version": "2022-11-28",
-            "User-Agent": "robo-dados-publicos-public-readiness-audit",
-        },
-    )
-    try:
-        with urlopen(req, timeout=120) as resp:
-            data = resp.read(MAX_ARCHIVE_BYTES + 1)
-    except HTTPError as exc:
-        if exc.code in {404, 410}:
-            return b""
-        raise SurfaceAuditError(f"STOP_GITHUB_API_HTTP_{exc.code}") from exc
+def _request_headers(*, include_auth: bool, accept: str) -> dict[str, str]:
+    headers = {
+        "Accept": accept,
+        "X-GitHub-Api-Version": "2022-11-28",
+        "User-Agent": "robo-dados-publicos-public-readiness-audit",
+    }
+    if include_auth:
+        headers["Authorization"] = f"Bearer {_token()}"
+    return headers
+
+
+def _read_bounded(resp) -> bytes:  # noqa: ANN001
+    data = resp.read(MAX_ARCHIVE_BYTES + 1)
     if len(data) > MAX_ARCHIVE_BYTES:
         raise SurfaceAuditError("STOP_GITHUB_SURFACE_RESPONSE_TOO_LARGE")
     return data
+
+
+def _request(url: str, *, accept: str = "application/vnd.github+json") -> bytes:
+    """GET a GitHub API resource, safely following one archive redirect.
+
+    Authentication is attached only to api.github.com.  If GitHub returns a
+    redirect for a log/artifact archive, the signed destination is fetched with
+    no Authorization header, preventing repository-token disclosure to the
+    object-store host.
+    """
+    req = Request(url, headers=_request_headers(include_auth=True, accept=accept))
+    opener = build_opener(_NoRedirect())
+    try:
+        with opener.open(req, timeout=120) as resp:
+            return _read_bounded(resp)
+    except HTTPError as exc:
+        if exc.code in {404, 410}:
+            return b""
+        if exc.code in {301, 302, 303, 307, 308}:
+            location = exc.headers.get("Location", "").strip()
+            if not location.startswith("https://"):
+                raise SurfaceAuditError("STOP_GITHUB_REDIRECT_LOCATION_INVALID") from exc
+            redirected = Request(
+                location,
+                headers=_request_headers(include_auth=False, accept=accept),
+            )
+            try:
+                with urlopen(redirected, timeout=120) as resp:
+                    return _read_bounded(resp)
+            except HTTPError as redirect_exc:
+                if redirect_exc.code in {404, 410}:
+                    return b""
+                raise SurfaceAuditError(
+                    f"STOP_GITHUB_REDIRECT_HTTP_{redirect_exc.code}"
+                ) from redirect_exc
+        raise SurfaceAuditError(f"STOP_GITHUB_API_HTTP_{exc.code}") from exc
 
 
 def _json(url: str) -> dict[str, Any] | list[Any]:
