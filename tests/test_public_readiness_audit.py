@@ -31,11 +31,21 @@ class PublicReadinessAuditTests(unittest.TestCase):
         self.assertIn("AWS_ACCESS_KEY_ID", codes)
         self.assertIn("PRIVATE_KEY_HEADER", codes)
 
-    def test_sensitive_assignment_detects_value_but_not_placeholder(self) -> None:
-        realish = "refresh" + "_token=1//" + ("AbCd9_" * 8)
-        placeholder = "client" + "_secret=${GOOGLE_DRIVE_CLIENT_SECRET}"
-        self.assertIn("SENSITIVE_ASSIGNMENT_REFRESH_TOKEN", _codes(realish))
+    def test_sensitive_literal_detects_value_but_not_fixture_placeholder(self) -> None:
+        realish = '"refresh' + '_token": "1//' + ("AbCd9_" * 8) + '"'
+        placeholder = '"client' + '_secret": "fixture-client-secret"'
+        self.assertIn("SENSITIVE_LITERAL_REFRESH_TOKEN", _codes(realish))
         self.assertFalse(_codes(placeholder))
+
+    def test_uppercase_env_assignment_is_detected_but_env_reference_is_not(self) -> None:
+        realish = "GOOGLE_DRIVE_REFRESH_TOKEN=1//" + ("AbCd9_" * 8)
+        placeholder = "GOOGLE_DRIVE_REFRESH_TOKEN=${GOOGLE_DRIVE_REFRESH_TOKEN}"
+        self.assertIn("SENSITIVE_ENV_ASSIGNMENT", _codes(realish))
+        self.assertFalse(_codes(placeholder))
+
+    def test_variable_to_variable_assignment_is_not_a_secret_literal(self) -> None:
+        text = "client_secret=credentials.client_secret\nrefresh_token=payload.refresh_token"
+        self.assertFalse(_codes(text))
 
     def test_env_example_is_not_a_sensitive_filename(self) -> None:
         findings = mod._suspicious_path_findings([".env.example"])
