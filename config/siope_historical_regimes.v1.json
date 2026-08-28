@@ -109,7 +109,10 @@
       "period": {"value": 6, "status": "PROVEN_AVAILABLE_CLOSURE_UNKNOWN"},
       "status": "PROVEN_STRUCTURAL_RECENT",
       "evidence_classes": ["INTERNAL_PROVEN_STRUCTURAL"],
-      "evidence_refs": ["docs/evidence/TASK_004C_SIOPE_2025_SECOND_LIVE_SUCCESS_0.8.0.json"],
+      "evidence_refs": [
+        "docs/evidence/TASK_004C_SIOPE_2025_SECOND_LIVE_SUCCESS_NORMALIZED_0.8.0.json",
+        "docs/evidence/TASK_004C_SIOPE_2025_SECOND_LIVE_SUCCESS_0.8.0.json"
+      ],
       "resource_family": "Dados_Gerais_Siope",
       "schema": {"status": "PROVEN_2025_P6_SCHEMA", "name": "DADOS_GERAIS_SIOPE_52_FIELDS"},
       "required_fields": ["VAL_RECE_REAL", "VAL_RECE_PREV_ATUA", "VAL_DESP_PAGA", "VAL_DESP_DOTA_ATUA", "VL_DESP_PAGA_EDU", "VL_DESP_DOTA_ATUA_EDU", "VL_DESP_EMPE_EDU", "VAL_DESP_EMPE", "VL_DESP_LIQU_EDU", "VAL_DESP_LIQU", "NUM_POPU"],
@@ -128,7 +131,7 @@
         "Presence of Gold inputs does not prove metric semantics, values, comparability, compliance or causality.",
         "2025 remains outside the closed annual series until a separate closure gate succeeds."
       ],
-      "release_notes": ["TASK 004C bounded run 33204578436 observed P1-P6 and exact P6 schema with zero persistence/publication."],
+      "release_notes": ["TASK 004C bounded run 33204578436 observed P1-P6 and exact P6 schema with zero persistence/publication; TASK 005 adds an unambiguous normalized derivative because the original pinned JSON reused the key schema."],
       "promotion_requires": ["annual closure proof", "8-metric semantic comparability review", "closed-series eligibility decision", "separate Gold computation gate"]
     },
     {
