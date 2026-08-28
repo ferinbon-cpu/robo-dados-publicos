@@ -71,7 +71,13 @@ def validate_config(config: dict, *, root: str | Path) -> dict:
         "next_state": "HISTORICAL_PARAMETERIZED_ARCHITECTURE_COMPLETE_AFTER_PASS",
         "overwrite_authorized": False,
         "pagination_authorized": False,
-        "period": 6,
+        "period_by_year": {
+            "2020": 6,
+            "2019": 6,
+            "2018": 6,
+            "2017": 6,
+            "2016": 1,
+        },
         "pilot_evidence": {
             "blob_sha": "7e8d9bada48a1185753cda95ab64a4ac51488eec",
             "path": "docs/evidence/M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_PARAMETERIZED_SINGLE_YEAR_PILOT_RUN_1_0.8.0.json",
@@ -94,11 +100,14 @@ def validate_config(config: dict, *, root: str | Path) -> dict:
     }
     _require(config, expected, "CONFIG_DRIFT")
     years = config["batch_years"]
+    period_by_year = config["period_by_year"]
     _require(len(PROVEN_DADOS_GERAIS_FIELDS), 52, "SCHEMA_ALLOWLIST_COUNT")
     _require(len(years), config["max_years_per_batch"], "BATCH_YEAR_COUNT")
     _require(len(years) <= 5, True, "BATCH_BOUND")
     _require(years, sorted(set(years), reverse=True), "BATCH_YEARS_UNIQUE_DESCENDING")
     _require(all(isinstance(year, int) and year < 2021 for year in years), True, "BATCH_YEAR_RANGE")
+    _require(set(period_by_year), {str(year) for year in years}, "PERIOD_MAP_YEARS")
+    _require([period_by_year[str(year)] for year in years], [6, 6, 6, 6, 1], "PERIOD_MAP_ANNUAL_RULE")
     _require(config["source_get_count"], len(years), "SOURCE_GET_COUNT")
     _require(config["drive_preflight_collision_checks"], len(years) * 3, "COLLISION_CHECK_COUNT")
     _require(config["drive_write_count"], len(years) * 3, "DRIVE_WRITE_COUNT")
@@ -131,6 +140,7 @@ def validate_config(config: dict, *, root: str | Path) -> dict:
     return {
         "status": f"{PASS}_DESIGN",
         "batch_years": years,
+        "period_by_year": period_by_year,
         "max_years_per_batch": config["max_years_per_batch"],
         "total_stage_count": config["total_stage_count"],
     }
@@ -168,11 +178,13 @@ def run_bounded_batch(config: dict, *, root: str | Path, siope_client=None, driv
 
     prepared = []
     for year in config["batch_years"]:
+        period = config["period_by_year"][str(year)]
         local = dict(config)
         local["pilot_year"] = year
+        local["period"] = period
         page = siope_client.get_dados_gerais_page(
             ano=year,
-            periodo=config["period"],
+            periodo=period,
             uf=config["uf"],
             municipality_code=config["municipality_code"],
             select_fields=tuple(sorted(PROVEN_DADOS_GERAIS_FIELDS)),
@@ -183,7 +195,7 @@ def run_bounded_batch(config: dict, *, root: str | Path, siope_client=None, driv
         except HistoricalParameterizedSingleYearPilotError as exc:
             _translate_pilot_validation_error(exc)
         _require(payloads["metric_count"], 8, f"METRIC_COUNT_{year}")
-        prepared.append({"year": year, "payloads": payloads})
+        prepared.append({"year": year, "period": period, "payloads": payloads})
 
     if drive is None:
         drive = DriveRESTClient(TokenProvider(OAuthCredentials.from_env()))
@@ -194,6 +206,7 @@ def run_bounded_batch(config: dict, *, root: str | Path, siope_client=None, driv
     results = []
     for item in prepared:
         year = item["year"]
+        period = item["period"]
         payloads = item["payloads"]
         _put_and_readback(
             drive,
@@ -222,6 +235,7 @@ def run_bounded_batch(config: dict, *, root: str | Path, siope_client=None, driv
         results.append(
             {
                 "year": year,
+                "period": period,
                 "record_sha256": payloads["record_sha256"],
                 "bronze_bytes": len(payloads["bronze_bytes"]),
                 "bronze_sha256": payloads["bronze_sha256"],
@@ -242,7 +256,7 @@ def run_bounded_batch(config: dict, *, root: str | Path, siope_client=None, driv
         "source_get_count": len(prepared),
         "source_record_count": len(prepared),
         "schema_key_count": config["schema_key_count"],
-        "period": config["period"],
+        "period_by_year": config["period_by_year"],
         "stage_count_per_year": len(EXPECTED_STAGES),
         "total_stage_count": len(prepared) * len(EXPECTED_STAGES),
         "drive_preflight_collision_checks": len(prepared) * 3,
