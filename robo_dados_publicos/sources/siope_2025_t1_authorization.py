@@ -13,6 +13,7 @@ AUTH_PATH = "config/siope_2025_t1_first_live_authorization.v1.json"
 _PREP_SCHEMA = "SIOPE_2025_T1_FIRST_LIVE_PREPARATION_V1"
 _SHA40 = re.compile(r"^[0-9a-f]{40}$")
 _AUTH_ID = re.compile(r"^SIOPE2025-T1-[A-Z0-9_-]{8,64}$")
+MAIN_REF = "refs/heads/main"
 
 
 class Siope2025T1AuthorizationError(RuntimeError):
@@ -31,6 +32,7 @@ class AuthorizationGrant:
     approved_at_utc: str
     expires_at_utc: str
     authorized_base_sha: str
+    authorized_workflow_run_number: int
 
 
 def _parse_utc(value: object, code: str) -> datetime:
@@ -52,10 +54,11 @@ def validate_preparation_contract(preparation: dict, design: dict, automation_po
     _stop(preparation.get("live_execution_authorized_by_task_004a") is False, "TASK004A_LIVE_AUTH")
     _stop(preparation.get("source_get_authorized_by_task_004a") is False, "TASK004A_SOURCE_GET")
     _stop(preparation.get("future_batch_execution_authorized") is False, "TASK004A_BATCH")
-    _stop(preparation.get("authorization", {}).get("fixed_artifact_path") == AUTH_PATH, "AUTH_PATH")
-    _stop(preparation.get("authorization", {}).get("artifact_must_be_absent_in_task_004a") is True, "AUTH_ABSENCE_004A")
-    _stop(preparation.get("authorization", {}).get("one_shot_required") is True, "ONE_SHOT")
-    _stop(preparation.get("authorization", {}).get("max_live_runs") == 1, "MAX_LIVE_RUNS")
+    auth_contract = preparation.get("authorization", {})
+    _stop(auth_contract.get("fixed_artifact_path") == AUTH_PATH, "AUTH_PATH")
+    _stop(auth_contract.get("artifact_must_be_absent_in_task_004a") is True, "AUTH_ABSENCE_004A")
+    _stop(auth_contract.get("one_shot_required") is True, "ONE_SHOT")
+    _stop(auth_contract.get("max_live_runs") == 1, "MAX_LIVE_RUNS")
 
     target = preparation.get("target", {})
     _stop(target == {"year": 2025, "state": "SP", "municipality_code": 352690, "municipality_name": "Limeira"}, "TARGET")
@@ -124,6 +127,9 @@ def validate_authorization_document(
     current_head_sha: str,
     current_parent_sha: str,
     changed_paths_since_base: list[str],
+    current_workflow_run_number: int,
+    current_workflow_run_attempt: int,
+    current_workflow_ref: str,
     now_utc: datetime | None = None,
 ) -> AuthorizationGrant:
     if not authorization:
@@ -137,6 +143,14 @@ def validate_authorization_document(
     _stop(authorization.get("approved_by") == "ferinbon-cpu", "APPROVED_BY")
     _stop(authorization.get("one_shot") is True, "ONE_SHOT")
     _stop(authorization.get("max_live_runs") == 1, "MAX_LIVE_RUNS")
+
+    authorized_run_number = authorization.get("authorized_workflow_run_number")
+    _stop(isinstance(authorized_run_number, int) and authorized_run_number >= 1, "WORKFLOW_RUN_NUMBER")
+    _stop(authorization.get("authorized_workflow_run_attempt") == 1, "WORKFLOW_RUN_ATTEMPT_AUTH")
+    _stop(authorization.get("authorized_workflow_ref") == MAIN_REF, "WORKFLOW_REF_AUTH")
+    _stop(current_workflow_run_number == authorized_run_number, "WORKFLOW_RUN_NUMBER_MISMATCH")
+    _stop(current_workflow_run_attempt == 1, "WORKFLOW_RERUN_BLOCKED")
+    _stop(current_workflow_ref == MAIN_REF, "WORKFLOW_REF_MISMATCH")
 
     authorized_base_sha = authorization.get("authorized_base_sha")
     _stop(isinstance(authorized_base_sha, str) and _SHA40.fullmatch(authorized_base_sha) is not None, "BASE_SHA")
@@ -187,4 +201,5 @@ def validate_authorization_document(
         approved_at_utc=authorization["approved_at_utc"],
         expires_at_utc=authorization["expires_at_utc"],
         authorized_base_sha=authorized_base_sha,
+        authorized_workflow_run_number=authorized_run_number,
     )
