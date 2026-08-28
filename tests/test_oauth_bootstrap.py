@@ -16,4 +16,21 @@ class TestOAuthBootstrap(unittest.TestCase):
         self.assertEqual(['S256'],q['code_challenge_method'])
         self.assertEqual([mod.SCOPES['drive']],q['scope'])
 
+    def test_readonly_scope_is_available_for_least_privilege_gates(self):
+        self.assertEqual(
+            'https://www.googleapis.com/auth/drive.readonly',
+            mod.SCOPES['drive.readonly'],
+        )
+        verifier,challenge=mod.pkce_pair()
+        url=mod.build_auth_url(
+            'CID',
+            'http://127.0.0.1:9876',
+            mod.SCOPES['drive.readonly'],
+            'STATE',
+            challenge,
+        )
+        q=parse_qs(urlparse(url).query)
+        self.assertEqual([mod.SCOPES['drive.readonly']],q['scope'])
+        self.assertGreater(len(verifier),40)
+
 if __name__=='__main__': unittest.main()
