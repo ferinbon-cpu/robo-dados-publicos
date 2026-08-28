@@ -1,0 +1,98 @@
+{
+  "schema": "ROBO_DADOS_PUBLICOS_LIVE_GATE_EVIDENCE_V1",
+  "software_candidate": "0.8.0",
+  "gate_id": "M8_SIOPE_HISTORICAL_GOLD_PRODUCT_OUTPUT_READONLY_0_8_0",
+  "status": "PASS_M8_SIOPE_HISTORICAL_GOLD_PRODUCT_OUTPUT_READONLY",
+  "run": {
+    "id": 33136736495,
+    "number": 2,
+    "event": "workflow_dispatch",
+    "branch": "main",
+    "head_sha": "8f80edcae45a373f85b84c03880842363661d870",
+    "workflow_name": "M8 SIOPE HISTORICAL GOLD PRODUCT OUTPUT READONLY GATE",
+    "workflow_path": ".github/workflows/m8-siope-historical-gold-product-output-readonly-gate.yml",
+    "job_id": 98738273929,
+    "job_name": "build-readonly-product",
+    "conclusion": "success"
+  },
+  "qa": {
+    "unit_tests": {"passed": 1229, "total": 1229},
+    "historical_regression": {"passed": 109, "total": 109},
+    "compileall": "PASS"
+  },
+  "oauth_capability": {
+    "status": "PASS_M8_READONLY_CREDENTIAL_CAPABILITY",
+    "scope": "https://www.googleapis.com/auth/drive.readonly",
+    "scope_proof": "oauth_refresh_and_tokeninfo_exact",
+    "proof_occurs_before_first_drive_lookup": true,
+    "oauth_request_count": 2,
+    "drive_api_request_count_during_capability_proof": 0,
+    "drive_write_count": 0,
+    "source_get_count": 0,
+    "secret_values_exposed": false
+  },
+  "bounded_effects": {
+    "source_network_called": false,
+    "source_get_count": 0,
+    "drive_network_called": true,
+    "drive_lookup_count": 9,
+    "drive_download_count": 9,
+    "drive_write_count": 0,
+    "publication_authorized": false,
+    "publication_status": "LOCAL_ONLY_NOT_PUBLISHED",
+    "remote_file_id_persisted": false,
+    "retry_authorized": false,
+    "pagination_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false,
+    "future_batch_execution_authorized": false,
+    "imputation_performed": false,
+    "compliance_claims_authorized": false
+  },
+  "product": {
+    "report_id": "SIOPE_LIMEIRA_HISTORICAL_2016_2024",
+    "report_status": "READY_WITH_CAUTION",
+    "year_count": 9,
+    "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+    "period_by_year": {"2016": 1, "2017": 6, "2018": 6, "2019": 6, "2020": 6, "2021": 6, "2022": 6, "2023": 6, "2024": 6},
+    "gold_count": 9,
+    "metric_row_count": 8,
+    "gold_metric_observations": 72,
+    "next_gate": "M8_SIOPE_HISTORICAL_PRODUCT_OUTPUT_PUBLICATION_REVIEW_0_8_0",
+    "publication_not_authorized_by_this_evidence": true
+  },
+  "artifact": {
+    "id": 9672319372,
+    "name": "m8-siope-historical-gold-product-output-readonly-33136736495",
+    "zip_size_bytes": 28788,
+    "digest": "sha256:a3afeed9c1449ab4806127024d044d177e76e8097894786b0e68bbbfffc60b51",
+    "result_json": {"bytes": 1200, "sha256": "1000c052f05e25073650466034969770deaeb4dabc0fb49e0991931e599409a2"},
+    "product_files": [
+      {"path": "product/report.json", "bytes": 25586, "sha256": "bf9f7d9d1c5b1cb046cb4721e41e24b46b90070d50386060f02166d0fac9a946"},
+      {"path": "product/report_card.json", "bytes": 778, "sha256": "09a55ba600ac99e6cf18f2ddec310aedd5e800bdce7586eaf606b7c5190a451a"},
+      {"path": "product/table.csv", "bytes": 23115, "sha256": "749b8dd8f56b4ced755f634e08c9b4f8d7cd6f75c448e4c55bbfe77f6d7f8a8e"},
+      {"path": "product/report.md", "bytes": 24602, "sha256": "3d89f69c012f71294ccc001542fb4eade0c9d4d5d4de2882c35e4745f9e6938c"},
+      {"path": "product/report.html", "bytes": 25974, "sha256": "d5c124538c02ef25968a89e74069632a2cc23f63822d93d24ee3b8119f9ab4ee"},
+      {"path": "product/report.pdf", "bytes": 21854, "sha256": "31aadfd44448061aefcbc76903e3f910f14b7f8b6e46ae60dbfdc683143225d9"},
+      {"path": "product/manifest.json", "bytes": 1214, "sha256": "382dfa0965a547a09b68ec0d284d8fcc4a16e121dd8295d5ac12b27248aa09c7"}
+    ]
+  },
+  "gold_inputs": [
+    {"year": 2016, "period": 1, "bytes": 1615, "sha256": "7f84500f5915b21210fda36c638a6d1fecdf1fb1ef0a5a4f9431c5273659d2bd"},
+    {"year": 2017, "period": 6, "bytes": 1616, "sha256": "d9a62de4345c42a8c02a8b97e7c5ccb129b203b1c75f3b4074f09ddf96783d0e"},
+    {"year": 2018, "period": 6, "bytes": 1619, "sha256": "b479a4801a83f3d1f3086ea57b10f25ff393b69714b3a00ea7e6b0256e03ce02"},
+    {"year": 2019, "period": 6, "bytes": 1620, "sha256": "d843f61c37f84d978de8488243492cd8fe09c3a9ad3856c856e314e5063ab19c"},
+    {"year": 2020, "period": 6, "bytes": 1621, "sha256": "073e5e823ad9d37431ef4e89876236ff545c2211a4e9167000c01cef96eab7fa"},
+    {"year": 2021, "period": 6, "bytes": 1620, "sha256": "e8b4888b243aee21af0ba4654a481d502150a45bbbecebfcb5239f5d338d5ef5"},
+    {"year": 2022, "period": 6, "bytes": 1623, "sha256": "4057aac2b18dc7184db992ee989d64c8732c4ad858cc6e8b7520cd50c4d37f68"},
+    {"year": 2023, "period": 6, "bytes": 1623, "sha256": "a4da994fd2a04ef0b3133d9a20855e6809922f19366075d48aab3296ca488272"},
+    {"year": 2024, "period": 6, "bytes": 1612, "sha256": "d6a35db7c42129569c73f19de789d871d0d285929d8eb3fe2a04d5ef03fdd6e0"}
+  ],
+  "governance": {
+    "m8_no_click_authorized": false,
+    "reason_no_click_still_blocked": "FIRST_LIVE_READONLY_PROOF_PASSED_BUT_SECRET_BEARING_AUTOMATION_REQUIRES_POST_LIVE_REVIEW_AND_PROTECTED_TRUST_BOUNDARY",
+    "publication_authorized": false,
+    "future_batch_execution_authorized": false,
+    "execute_2015_or_earlier": false
+  }
+}
