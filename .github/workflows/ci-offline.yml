@@ -56,6 +56,9 @@ jobs:
       - name: Fixtures T0 do discovery read-only SIOPE 2025
         run: python scripts/github_siope_2025_readonly_discovery_offline_fixtures_gate.py
 
+      - name: Runner bounded T0 SIOPE 2025 com fake transport
+        run: python scripts/github_siope_2025_bounded_runner_gate.py
+
       - name: Revisão M8 offline de publicação
         run: python scripts/review_m8_siope_historical_product_output_publication.py
 
