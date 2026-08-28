@@ -1,0 +1,148 @@
+{
+  "schema": "M8_T1_NO_CLICK_FIRST_AUTO_RUN_EVIDENCE_V1",
+  "software_candidate": "0.8.0",
+  "status": "PASS_M8_T1_NO_CLICK_FIRST_AUTO_RUN",
+  "repository": {
+    "full_name": "ferinbon-cpu/robo-dados-publicos",
+    "visibility": "public",
+    "default_branch": "main",
+    "main_protected": true,
+    "ruleset_id": 21728151,
+    "ruleset_name": "main-protection-v1"
+  },
+  "activation": {
+    "pr": 169,
+    "merged_main_sha": "23a19c4d70cf5561d3f178d0087444bd29e85d98",
+    "human_click_for_auto_run": false,
+    "trigger": "push",
+    "ref": "refs/heads/main"
+  },
+  "run": {
+    "id": 33167693804,
+    "head_sha": "23a19c4d70cf5561d3f178d0087444bd29e85d98",
+    "event": "push",
+    "branch": "main",
+    "workflow": ".github/workflows/m8-siope-historical-gold-product-output-readonly-auto.yml",
+    "workflow_name": "M8 SIOPE HISTORICAL GOLD PRODUCT OUTPUT READONLY AUTO T1",
+    "run_number": 1,
+    "conclusion": "success"
+  },
+  "trust_boundary": {
+    "job_id": 98836941162,
+    "status": "PASS_M8_T1_TRUST_BOUNDARY",
+    "repository": "ferinbon-cpu/robo-dados-publicos",
+    "repository_private": false,
+    "ref": "refs/heads/main",
+    "ref_protected": true,
+    "event_name": "push",
+    "policy_decision": "AUTO_ALLOWED",
+    "tier": "T1_REMOTE_READONLY",
+    "credential_capability": "READ_ONLY_PROVEN",
+    "ruleset_id": 21728151,
+    "ruleset_name": "main-protection-v1",
+    "source_get_count": 0,
+    "drive_write_count": 0,
+    "publication_authorized": false,
+    "future_batch_execution_authorized": false,
+    "secrets_available_to_this_job": false
+  },
+  "readonly_worker": {
+    "job_id": 98836976575,
+    "conclusion": "success",
+    "oauth_capability": {
+      "status": "PASS_M8_READONLY_CREDENTIAL_CAPABILITY",
+      "scope": "https://www.googleapis.com/auth/drive.readonly",
+      "scope_proof": "oauth_refresh_and_tokeninfo_exact",
+      "oauth_request_count": 2,
+      "drive_api_request_count_during_capability_proof": 0,
+      "secret_values_exposed": false
+    },
+    "bounded_effects": {
+      "source_get_count": 0,
+      "source_network_called": false,
+      "drive_lookup_count": 9,
+      "drive_download_count": 9,
+      "drive_write_count": 0,
+      "publication_authorized": false,
+      "publication_status": "LOCAL_ONLY_NOT_PUBLISHED",
+      "remote_file_id_persisted": false,
+      "pagination_authorized": false,
+      "retry_authorized": false,
+      "recurrence_authorized": false,
+      "schedule_enabled": false,
+      "imputation_performed": false,
+      "future_batch_execution_authorized": false
+    },
+    "product": {
+      "status": "PASS_M8_SIOPE_HISTORICAL_GOLD_PRODUCT_OUTPUT_READONLY",
+      "report_status": "READY_WITH_CAUTION",
+      "year_count": 9,
+      "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+      "gold_count": 9,
+      "metric_row_count": 8,
+      "gold_metric_observations": 72,
+      "bundle_file_count": 7,
+      "next_gate": "M8_SIOPE_HISTORICAL_PRODUCT_OUTPUT_PUBLICATION_REVIEW_0_8_0",
+      "compliance_claims_authorized": false
+    },
+    "qa": {
+      "unit": "1266/1266 PASS",
+      "historical": "109/109 PASS"
+    }
+  },
+  "artifact": {
+    "id": 9684264254,
+    "name": "m8-siope-historical-gold-product-output-readonly-33167693804",
+    "size_in_bytes": 28797,
+    "digest": "sha256:213693b37e8a2123d1d4df4b4dec0495a5ca9536cb51b23f0549e94da72d080e",
+    "expired": false,
+    "file_count": 8,
+    "result": {
+      "path": "result.json",
+      "bytes": 1200,
+      "sha256": "1000c052f05e25073650466034969770deaeb4dabc0fb49e0991931e599409a2"
+    },
+    "product": {
+      "manifest": {
+        "path": "product/manifest.json",
+        "bytes": 1214,
+        "sha256": "8111dee4dee310a604e0bb9638d3fb3e1c8406c14bc4c7e1a855821329eab5d1"
+      },
+      "files_verified_against_manifest": 6,
+      "manifest_hash_and_byte_checks": "6/6 PASS",
+      "files": [
+        {"name": "report.json", "bytes": 25586, "sha256": "a42946e394784d7fdd10d8cecdb611075007cc4902953fa85d3adca47f268c27"},
+        {"name": "report_card.json", "bytes": 778, "sha256": "1cb857d4c10c3937683c823763c1e517cbceb16a39204edc30eac7f61700fa25"},
+        {"name": "table.csv", "bytes": 23115, "sha256": "749b8dd8f56b4ced755f634e08c9b4f8d7cd6f75c448e4c55bbfe77f6d7f8a8e"},
+        {"name": "report.md", "bytes": 24602, "sha256": "488798af3996a2429a77379719931be102c81864d63a4f38fe259acdfa90b43d"},
+        {"name": "report.html", "bytes": 25974, "sha256": "d4cde578a2ed1a544e3c3989bedbf54d602e01102339ede90f42084f27ea01e8"},
+        {"name": "report.pdf", "bytes": 21854, "sha256": "f0e75f41bf1fef333e929b698a2e1e6b404b10f8d0ea2d4916c29063ede3a87b"}
+      ],
+      "pdf": {
+        "pages": 9,
+        "encrypted": false,
+        "javascript": false,
+        "custom_metadata": false,
+        "author": "ROBO_DADOS_PUBLICOS"
+      }
+    },
+    "sensitive_material_scan": {
+      "google_client_id_matches": 0,
+      "google_refresh_token_matches": 0,
+      "github_token_matches": 0,
+      "private_key_matches": 0,
+      "email_matches": 0,
+      "remote_drive_file_id_occurrences": 0,
+      "result_remote_file_id_persisted": false
+    }
+  },
+  "governance": {
+    "t1_no_click_operationally_proven": true,
+    "manual_readonly_backstop_preserved": true,
+    "t2_create_only_auto_authorized": false,
+    "t3_publication_auto_authorized": false,
+    "publication_authorized": false,
+    "future_batch_execution_authorized": false,
+    "years_before_2016_authorized": false
+  }
+}
