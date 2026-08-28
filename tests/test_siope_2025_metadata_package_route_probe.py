@@ -4,6 +4,8 @@ import copy
 from datetime import datetime, timezone
 from email.message import Message
 import json
+import subprocess
+import sys
 import unittest
 from pathlib import Path
 from urllib.error import HTTPError
@@ -21,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PREP = ROOT / "config" / "siope_2025_metadata_package_route_probe_preparation.v1.json"
 TEMPLATE = ROOT / "config" / "siope_2025_metadata_package_route_probe_authorization.template.v1.json"
 POLICY = ROOT / "config" / "automation_policy.v1.json"
+RUNNER = ROOT / "scripts" / "run_siope_2025_metadata_package_route_probe.py"
 
 
 class FakeResponse:
@@ -57,6 +60,20 @@ class Task009MetadataPackageRouteProbeTests(unittest.TestCase):
         self.assertFalse(self.prep["live_execution_authorized_by_task_009a"])
         self.assertFalse(self.template["authorized"])
         self.assertEqual(self.prep["effects_task_009a"]["source_get_count"], 0)
+
+    def test_cli_dry_run_bootstraps_repository_package(self) -> None:
+        proc = subprocess.run(
+            [sys.executable, str(RUNNER), "--mode", "dry-run"],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+        payload = json.loads(proc.stdout.strip().splitlines()[-1])
+        self.assertEqual(payload["status"], "PASS_TASK009_ROUTE_PROBE_DRY_RUN_NO_NETWORK")
+        self.assertEqual(payload["source_get_count"], 0)
+        self.assertFalse(payload["live_execution_authorized"])
 
     def test_missing_authorization_fails_closed(self) -> None:
         with self.assertRaises(MetadataPackageProbeError):
