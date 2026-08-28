@@ -8,7 +8,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSESSMENT = ROOT / "config" / "siope_2025_regime_promotion_assessment.v1.json"
-EVIDENCE = ROOT / "docs" / "evidence" / "TASK_004C_SIOPE_2025_SECOND_LIVE_SUCCESS_0.8.0.json"
+RAW_EVIDENCE = ROOT / "docs" / "evidence" / "TASK_004C_SIOPE_2025_SECOND_LIVE_SUCCESS_0.8.0.json"
+EVIDENCE = ROOT / "docs" / "evidence" / "TASK_004C_SIOPE_2025_SECOND_LIVE_SUCCESS_NORMALIZED_0.8.0.json"
 REGIMES = ROOT / "config" / "siope_historical_regimes.v1.json"
 MATRIX = ROOT / "config" / "siope_historical_evidence_matrix.v1.json"
 POLICY = ROOT / "config" / "automation_policy.v1.json"
@@ -59,19 +60,38 @@ def validate(
     _stop(assessment.get("drive_read_count") == 0 and assessment.get("drive_write_count") == 0, "TASK005_DRIVE")
     _stop(assessment.get("persistence") is False and assessment.get("publication") is False, "TASK005_EFFECTS")
     _stop(assessment.get("new_authorization_created") is False, "TASK005_AUTHORIZATION")
+    refs = assessment.get("evidence_refs", [])
+    _stop("docs/evidence/TASK_004C_SIOPE_2025_SECOND_LIVE_SUCCESS_NORMALIZED_0.8.0.json" in refs, "NORMALIZED_EVIDENCE_REF")
+    _stop("docs/evidence/TASK_004C_SIOPE_2025_SECOND_LIVE_SUCCESS_0.8.0.json" in refs, "RAW_EVIDENCE_REF")
 
-    _stop(evidence.get("schema") == "SIOPE_2025_T1_SECOND_LIVE_SUCCESS_EVIDENCE_V1", "EVIDENCE_SCHEMA")
-    _stop(evidence.get("run_id") == 33204578436, "EVIDENCE_RUN")
-    _stop(evidence.get("source_get_count") == 7, "EVIDENCE_GET_COUNT")
+    # TASK 004C's already-merged evidence is immutable historical provenance.
+    # It accidentally used the JSON key `schema` twice. We do not rewrite it;
+    # TASK 005 consumes an explicit normalized derivative instead.
+    try:
+        raw_text = RAW_EVIDENCE.read_text(encoding="utf-8")
+    except Exception as exc:
+        raise Siope2025RegimePromotionError("STOP_SIOPE_2025_REGIME_PROMOTION_RAW_EVIDENCE_UNREADABLE") from exc
+    _stop(raw_text.count('\n  "schema":') == 2, "RAW_EVIDENCE_DUPLICATE_SCHEMA_EXPECTATION")
+
+    _stop(evidence.get("evidence_schema") == "SIOPE_2025_T1_SECOND_LIVE_SUCCESS_EVIDENCE_NORMALIZED_V1", "EVIDENCE_SCHEMA")
+    _stop(evidence.get("normalization_task") == "TASK_005", "EVIDENCE_NORMALIZATION_TASK")
+    _stop(evidence.get("source_evidence_path") == "docs/evidence/TASK_004C_SIOPE_2025_SECOND_LIVE_SUCCESS_0.8.0.json", "EVIDENCE_SOURCE_PATH")
+    _stop(evidence.get("additional_source_get_count") == 0, "EVIDENCE_NORMALIZATION_GET_COUNT")
+    run = evidence.get("run", {})
+    runner = evidence.get("runner", {})
+    _stop(run.get("run_id") == 33204578436 and run.get("job_id") == 98962254951, "EVIDENCE_RUN")
+    _stop(run.get("workflow_conclusion") == "success", "EVIDENCE_RUN_CONCLUSION")
+    _stop(runner.get("source_get_count") == 7, "EVIDENCE_GET_COUNT")
     _stop(evidence.get("observed_periods") == [1, 2, 3, 4, 5, 6], "EVIDENCE_PERIODS")
-    _stop(evidence.get("outcome") == "2025_P6_SCHEMA_EXACT_SEMANTICS_AND_CLOSURE_UNKNOWN", "EVIDENCE_OUTCOME")
-    _stop(evidence.get("schema", {}).get("schema_exact") is True, "EVIDENCE_SCHEMA_EXACT")
-    _stop(evidence.get("schema", {}).get("observed_field_count") == 52, "EVIDENCE_FIELD_COUNT")
-    _stop(evidence.get("schema", {}).get("observed_fields_sha256") == "cd601ba7ee604df2e157028a2a18eefa226659fcbe0f2288937d3342d00e12a6", "EVIDENCE_FIELD_HASH")
-    required_status = evidence.get("schema", {}).get("required_gold_input_status", {})
+    _stop(runner.get("outcome") == "2025_P6_SCHEMA_EXACT_SEMANTICS_AND_CLOSURE_UNKNOWN", "EVIDENCE_OUTCOME")
+    observed_schema = evidence.get("observed_resource_schema", {})
+    _stop(observed_schema.get("schema_exact") is True, "EVIDENCE_SCHEMA_EXACT")
+    _stop(observed_schema.get("observed_field_count") == 52, "EVIDENCE_FIELD_COUNT")
+    _stop(observed_schema.get("observed_fields_sha256") == "cd601ba7ee604df2e157028a2a18eefa226659fcbe0f2288937d3342d00e12a6", "EVIDENCE_FIELD_HASH")
+    required_status = observed_schema.get("required_gold_input_status", {})
     _stop(set(required_status) == REQUIRED_GOLD_FIELDS, "EVIDENCE_REQUIRED_FIELDS_SET")
     _stop(all(value == "PRESENT" for value in required_status.values()), "EVIDENCE_REQUIRED_FIELDS_PRESENT")
-    semantic = evidence.get("semantic_boundary", {})
+    semantic = evidence.get("semantic_boundary_at_observation", {})
     _stop(semantic.get("annual_closure_status") == "UNKNOWN", "EVIDENCE_CLOSURE")
     _stop(semantic.get("semantic_comparability_status") == "UNKNOWN", "EVIDENCE_COMPARABILITY")
     _stop(semantic.get("any_metric_proven") is False, "EVIDENCE_METRIC_PROMOTION")
@@ -80,6 +100,12 @@ def validate(
     _stop(evidence.get("effects", {}).get("response_body_persisted") is False, "EVIDENCE_RESPONSE_PERSIST")
     _stop(evidence.get("effects", {}).get("record_values_persisted") is False, "EVIDENCE_VALUES_PERSIST")
     _stop(evidence.get("effects", {}).get("publication") is False, "EVIDENCE_PUBLICATION")
+    normalization = evidence.get("normalization_guards", {})
+    for key in (
+        "source_evidence_mutated", "new_live_observation_added", "financial_values_added",
+        "metric_computation_added", "annual_closure_promoted", "semantic_comparability_promoted",
+    ):
+        _stop(normalization.get(key) is False, f"NORMALIZATION_{key.upper()}")
 
     classification = assessment.get("classification_matrix", {})
     _stop(classification.get("resource_family_2025", {}).get("status") == "PROVEN", "RESOURCE_STATUS")
@@ -153,6 +179,7 @@ def validate(
         "drive_read_count": 0,
         "drive_write_count": 0,
         "publication": False,
+        "normalized_evidence": True,
         "year_2025_status": "PROVEN_STRUCTURAL_RECENT",
         "p6_status": "PROVEN_AVAILABLE_CLOSURE_UNKNOWN",
         "annual_closure_status": "UNKNOWN",
