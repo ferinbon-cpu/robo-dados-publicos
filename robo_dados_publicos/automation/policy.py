@@ -16,6 +16,7 @@ SCHEMA = "ROBO_DADOS_PUBLICOS_AUTOMATION_POLICY_V1"
 AUTO_ALLOWED_TIERS = {"T0_OFFLINE", "T1_REMOTE_READONLY"}
 MANUAL_ONLY_TIERS = {"T2_CREATE_ONLY", "T3_MUTATING_OR_PUBLICATION"}
 READONLY_PROVEN = "READ_ONLY_PROVEN"
+T1_HUMAN_AUTHORIZATION = "OWNER_COMPLETED_PUBLIC_REPO_AND_ACTIVE_MAIN_RULESET_FOR_T1_NO_CLICK"
 
 
 class AutomationPolicyError(RuntimeError):
@@ -96,6 +97,15 @@ def validate_policy(policy: dict[str, Any]) -> dict[str, Any]:
                     gate.get("credential_capability") == READONLY_PROVEN,
                     f"STOP_AUTO_READONLY_CREDENTIAL_NOT_PROVEN_{gate_id}",
                 )
+                _require(
+                    gate.get("human_authorization") == T1_HUMAN_AUTHORIZATION,
+                    f"STOP_AUTO_T1_HUMAN_AUTHORIZATION_MISSING_{gate_id}",
+                )
+                trust = gate.get("trust_boundary_observation")
+                _require(isinstance(trust, dict), f"STOP_AUTO_T1_TRUST_BOUNDARY_MISSING_{gate_id}")
+                _require(trust.get("repository_visibility") == "public", f"STOP_AUTO_T1_REPOSITORY_NOT_PUBLIC_{gate_id}")
+                _require(trust.get("main_protected") is True, f"STOP_AUTO_T1_MAIN_NOT_PROTECTED_{gate_id}")
+                _require(trust.get("ruleset_enforcement") == "active", f"STOP_AUTO_T1_RULESET_NOT_ACTIVE_{gate_id}")
 
     return {
         "status": "PASS_AUTOMATION_POLICY_STRUCTURE",
