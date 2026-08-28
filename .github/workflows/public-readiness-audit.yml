@@ -7,6 +7,9 @@ on:
 
 permissions:
   contents: read
+  actions: read
+  issues: read
+  pull-requests: read
 
 jobs:
   audit:
@@ -24,25 +27,34 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Test public-readiness scanner
-        run: python -m unittest -q tests/test_public_readiness_audit.py
+      - name: Test public-readiness scanners
+        run: |
+          python -m unittest -q tests/test_public_readiness_audit.py
+          python -m unittest -q tests/test_public_surface_audit.py
 
-      - name: Scan reachable history and current workflows
+      - name: Scan reachable Git history and current workflows
         id: readiness
         continue-on-error: true
-        run: python scripts/github_public_readiness_audit.py --output runtime/public_readiness/report.json
+        run: python scripts/github_public_readiness_audit.py --output runtime/public_readiness/repository.json
 
-      - name: Upload redacted audit report
+      - name: Scan hosted PR issue Actions logs and artifacts
+        id: hosted
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/github_public_surface_audit.py --output runtime/public_readiness/hosted.json
+
+      - name: Upload redacted audit reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: public-readiness-audit-report
-          path: runtime/public_readiness/report.json
+          path: runtime/public_readiness/*.json
           if-no-files-found: error
           retention-days: 30
 
       - name: Enforce fail-closed readiness result
-        if: steps.readiness.outcome != 'success'
+        if: steps.readiness.outcome != 'success' || steps.hosted.outcome != 'success'
         run: |
           echo "STOP_PUBLIC_READINESS: review the redacted artifact; no visibility change is authorized."
           exit 42
