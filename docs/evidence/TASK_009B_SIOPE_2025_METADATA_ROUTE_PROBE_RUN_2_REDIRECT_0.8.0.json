@@ -1,0 +1,80 @@
+{
+  "evidence_schema": "TASK_009B_SIOPE_2025_METADATA_ROUTE_PROBE_RUN_2_REDIRECT_V1",
+  "task": "TASK_009B",
+  "review_task": "TASK_009B_R",
+  "software_version": "0.8.0",
+  "classification": "SANITIZED_LIVE_EVIDENCE_REVIEWED_OFFLINE",
+  "workflow": {
+    "path": ".github/workflows/siope-2025-metadata-package-route-probe.yml",
+    "run_id": 33217097796,
+    "run_number": 2,
+    "run_attempt": 1,
+    "event": "workflow_dispatch",
+    "head_sha": "ab546a502ec1114ac5e88b05594bee6cbb3e613e",
+    "ref": "refs/heads/main",
+    "authorization_id": "SIOPE2025-METADATA-PROBE-20260828-01"
+  },
+  "request_contract": {
+    "method": "GET",
+    "initial_url": "https://fnde.sharepoint.com/:u:/s/SIOPE/EeP0ArdsxWJLuWyg3LQHt2IBKEWEhLDvDk2_7k1vbAx0tQ?download=1&e=UiD081",
+    "range_header": "bytes=0-4095",
+    "maximum_source_get_count": 1,
+    "maximum_response_bytes": 4096,
+    "timeout_seconds": 60,
+    "max_attempts": 1,
+    "retry_authorized": false,
+    "follow_redirects": false,
+    "allowed_redirect_hosts": []
+  },
+  "observation": {
+    "status": "STOP_METADATA_PACKAGE_ROUTE_REDIRECT_REQUIRES_NEW_AUTHORIZATION",
+    "result_kind": "REDIRECT_STOP_REQUIRES_NEW_AUTHORIZATION",
+    "source_get_count": 1,
+    "http_status": 302,
+    "content_length_header": 185,
+    "content_type": null,
+    "response_byte_count": 0,
+    "content_range_total": null,
+    "zip_magic_present": false,
+    "sample_sha256": null,
+    "redirect_location_kind": "RELATIVE_ABSOLUTE_PATH",
+    "redirect_scheme_observed": null,
+    "redirect_host_observed": null,
+    "redirect_path_observed": "/sites/SIOPE/Documentos%20Compartilhados/Metadados_Mun_2025.zip",
+    "raw_body_persisted": false,
+    "archive_persisted": false
+  },
+  "offline_route_resolution": {
+    "method": "STANDARD_RELATIVE_URI_RESOLUTION",
+    "network_observation_added": false,
+    "base_origin": "https://fnde.sharepoint.com",
+    "resolved_same_origin": true,
+    "resolved_target_url": "https://fnde.sharepoint.com/sites/SIOPE/Documentos%20Compartilhados/Metadados_Mun_2025.zip",
+    "resolved_target_status": "CANDIDATE_NEXT_ROUTE_NOT_YET_OBSERVED",
+    "note": "The observed Location was an absolute-path relative URI-reference. Resolving it against the pinned initial HTTPS SharePoint URL preserves scheme and authority. This does not prove the resolved target serves ZIP bytes."
+  },
+  "authorization_consumption": {
+    "one_shot": true,
+    "consumed": true,
+    "reason": "ONE_SOURCE_GET_WAS_ISSUED",
+    "rerun_authorized": false,
+    "next_remote_request_requires_new_explicit_owner_authorization": true
+  },
+  "effects": {
+    "siope_fiscal_odata_get_count": 0,
+    "operational_receipt_status_query_count": 0,
+    "drive_read_count": 0,
+    "drive_write_count": 0,
+    "response_persistence": false,
+    "archive_persistence": false,
+    "bronze_silver_gold_creation": false,
+    "publication": false
+  },
+  "semantic_guards": {
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_metrics_status": "UNKNOWN",
+    "closed_annual_series_last_year": 2024,
+    "include_2026_authorized": false
+  }
+}
