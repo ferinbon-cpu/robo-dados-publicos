@@ -37,14 +37,25 @@ class Siope2025BoundedRunnerRegressionTests(unittest.TestCase):
             run_bounded(runner_config=self.config, design=self.design, transport=transport)
         self.assertEqual(len(transport.requests), 7)
 
-    def test_historical_boundary_regressions_remain_unchanged(self) -> None:
+    def test_historical_boundary_regressions_and_2025_narrow_promotion(self) -> None:
         payload = json.loads(REGIMES.read_text(encoding="utf-8"))
         regimes = {item["id"]: item for item in payload["regimes"]}
         self.assertEqual(regimes["PROVEN_ANNUAL_2016"]["period"], {"value": 1, "status": "PROVEN"})
         self.assertEqual(regimes["PROVEN_BIMONTHLY_2017_2024"]["period"], {"value": 6, "status": "PROVEN"})
         self.assertEqual(regimes["PROVEN_BIMONTHLY_2017_2024"]["years"], list(range(2017, 2025)))
-        self.assertEqual(regimes["RECENT_2025"]["status"], "UNPROVEN_RECENT")
-        self.assertEqual(regimes["RECENT_2025"]["period"], {"value": None, "status": "UNKNOWN"})
+
+        y2025 = regimes["STRUCTURALLY_PROVEN_2025"]
+        self.assertEqual(y2025["status"], "PROVEN_STRUCTURAL_RECENT")
+        self.assertEqual(y2025["period"], {"value": 6, "status": "PROVEN_AVAILABLE_CLOSURE_UNKNOWN"})
+        self.assertEqual(y2025["resource_family"], "Dados_Gerais_Siope")
+        self.assertEqual(y2025["schema"], {"status": "PROVEN_2025_P6_SCHEMA", "name": "DADOS_GERAIS_SIOPE_52_FIELDS"})
+        self.assertEqual(y2025["observed_periods"], [1, 2, 3, 4, 5, 6])
+        self.assertEqual(y2025["annual_closure_status"], "UNKNOWN")
+        self.assertEqual(y2025["semantic_comparability_status"], "UNKNOWN")
+        self.assertFalse(y2025["closed_series_eligible"])
+        self.assertEqual(y2025["gold_metrics_status"], "UNKNOWN")
+
+        self.assertEqual(payload["closed_annual_series"], {"first_year": 2016, "last_year": 2024})
         self.assertEqual(regimes["CURRENT_2026"]["status"], "UNPROVEN_CURRENT_YEAR")
         self.assertEqual(regimes["CURRENT_2026"]["period"], {"value": None, "status": "UNKNOWN"})
         self.assertFalse(payload["future_batch_execution_authorized"])
