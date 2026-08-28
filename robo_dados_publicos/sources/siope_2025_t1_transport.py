@@ -8,7 +8,6 @@ separate authorization gate.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Callable
 
 from robo_dados_publicos.sources.siope_2025_request_plan import (
     EXPECTED_PATH,
@@ -132,7 +131,7 @@ class Siope2025T1HttpTransport:
                 **common,
                 "performed": True,
                 "schema_fields": fields,
-                "field_semantics_status": "NOT_EVALUATED",
+                "field_semantics_status": "NOT_PROVEN_SCHEMA_ONLY",
             }
         return common
 
