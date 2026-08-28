@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
 import hashlib
 import importlib.util
 import io
@@ -76,6 +77,13 @@ class PublicSurfaceAuditTests(unittest.TestCase):
             self.assertTrue(mod._review_is_exactly_allowlisted(review, archive, allowlist))
             bad = {key: {"bytes": len(data), "sha256": "0" * 64}}
             self.assertFalse(mod._review_is_exactly_allowlisted(review, archive, bad))
+
+    def test_incremental_cutoff_is_inclusive_and_timezone_aware(self) -> None:
+        cutoff = datetime(2026, 8, 28, 10, 44, tzinfo=timezone.utc)
+        self.assertTrue(mod._at_or_after_cutoff("2026-08-28T10:44:00Z", cutoff))
+        self.assertTrue(mod._at_or_after_cutoff("2026-08-28T10:44:01+00:00", cutoff))
+        self.assertFalse(mod._at_or_after_cutoff("2026-08-28T10:43:59Z", cutoff))
+        self.assertFalse(mod._at_or_after_cutoff("not-a-time", cutoff))
 
 
 if __name__ == "__main__":
