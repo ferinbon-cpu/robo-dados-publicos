@@ -49,12 +49,18 @@ def validate_token_payload(payload: dict[str, Any]) -> str:
     return refresh_token
 
 
-def _run(cmd: list[str], *, input_text: str | None = None, env: dict[str, str] | None = None) -> subprocess.CompletedProcess[str]:
+def _run(
+    cmd: list[str],
+    *,
+    input_text: str | None = None,
+    env: dict[str, str] | None = None,
+    capture_output: bool = True,
+) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         cmd,
         input=input_text,
         text=True,
-        capture_output=True,
+        capture_output=capture_output,
         check=False,
         env=env,
         cwd=ROOT,
@@ -89,6 +95,7 @@ def run(*, repo: str = REPO) -> dict[str, Any]:
                 str(token_path),
             ],
             env=env,
+            capture_output=False,
         )
         if oauth.returncode != 0:
             raise ReadonlySecretBootstrapError("STOP_READONLY_OAUTH_BOOTSTRAP_FAILED")
