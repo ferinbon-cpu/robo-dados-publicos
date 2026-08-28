@@ -1,0 +1,85 @@
+{
+  "schema": "SIOPE_HISTORICAL_REGIME_MAP_V1",
+  "tier": "T0_OFFLINE",
+  "future_batch_execution_authorized": false,
+  "live_discovery_authorized": false,
+  "closed_annual_series": {"first_year": 2016, "last_year": 2024},
+  "gold_metric_ids": [
+    "receita_realizada_sobre_previsao_atualizada_pct",
+    "despesa_paga_sobre_dotacao_atualizada_pct",
+    "despesa_educacao_paga_sobre_dotacao_atualizada_educacao_pct",
+    "participacao_educacao_na_despesa_empenhada_pct",
+    "participacao_educacao_na_despesa_liquidada_pct",
+    "participacao_educacao_na_despesa_paga_pct",
+    "despesa_total_paga_por_habitante",
+    "despesa_educacao_paga_por_habitante"
+  ],
+  "regimes": [
+    {
+      "id": "EXTERNAL_CANDIDATE_2000_2004", "years": [2000, 2001, 2002, 2003, 2004],
+      "period": {"value": 1, "status": "CANDIDATE"}, "status": "CANDIDATE_EXTERNAL_ONLY",
+      "evidence_classes": ["INDEPENDENT_IMPLEMENTATION"], "evidence_refs": ["tuffyli/RA_work:00_siope_extract.R"],
+      "resource_family": "UNKNOWN", "schema": {"status": "UNKNOWN", "name": null},
+      "required_fields": [], "allowed_aliases": {}, "potential_gold_metrics": [], "non_comparable_metrics": ["ALL_8_UNPROVEN"],
+      "cautions": ["External loop 2000:2024 is not official or runtime proof."],
+      "release_notes": ["Official corroboration and year-specific corrections remain UNKNOWN."],
+      "promotion_requires": ["Official primary regime evidence", "bounded read-only resource/schema/field proof", "semantic comparison of all 8 metrics"]
+    },
+    {
+      "id": "LEGACY_2005_2007", "years": [2005, 2006, 2007],
+      "period": {"value": 1, "status": "CANDIDATE"}, "status": "LEGACY_DOCUMENTED_CANDIDATE",
+      "evidence_classes": ["OFFICIAL_PRIMARY", "INDEPENDENT_IMPLEMENTATION"], "evidence_refs": ["FNDE SIOPE municipal manuals 2005-2007", "FNDE historical downloads/installers", "tuffyli/RA_work:00_siope_extract.R"],
+      "resource_family": "LEGACY_DESKTOP_SYSTEM", "schema": {"status": "UNKNOWN", "name": null},
+      "required_fields": [], "allowed_aliases": {}, "potential_gold_metrics": [], "non_comparable_metrics": ["ALL_8_UNPROVEN"],
+      "cautions": ["Manuals/downloads document legacy reporting but do not prove Dados_Gerais_Siope."],
+      "release_notes": ["Historical corrections and adapters require reconciliation."],
+      "promotion_requires": ["Pinned manual/download reconciliation", "bounded read-only resource/schema/field proof", "legacy semantic adapter decision"]
+    },
+    {
+      "id": "OFFICIAL_ANNUAL_2008_2015", "years": [2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015],
+      "period": {"value": 1, "status": "DOCUMENTED"}, "status": "OFFICIAL_DOCUMENTED_CANDIDATE_RUNTIME",
+      "evidence_classes": ["OFFICIAL_PRIMARY", "INDEPENDENT_IMPLEMENTATION"], "evidence_refs": ["FNDE SIOPE data dictionary 2019", "FNDE Arquivos / Dados Analiticos 2008-2016", "tuffyli/RA_work:00_siope_extract.R"],
+      "resource_family": "SIOPE_ANALYTICAL_FAMILIES_NOT_CURRENT_RESOURCE_PROOF", "schema": {"status": "UNKNOWN", "name": null},
+      "required_fields": [], "allowed_aliases": {}, "potential_gold_metrics": [], "non_comparable_metrics": ["ALL_8_PENDING_FIELD_AND_SEMANTIC_PROOF"],
+      "cautions": ["P1 is documented; current 52-field Dados_Gerais_Siope schema and Gold comparability are not proven."],
+      "release_notes": ["Year-specific analytical families and corrections may require adapters."],
+      "promotion_requires": ["bounded read-only sample", "Dados_Gerais_Siope availability", "52-field and alias evidence", "semantic comparison of all 8 metrics"]
+    },
+    {
+      "id": "PROVEN_ANNUAL_2016", "years": [2016],
+      "period": {"value": 1, "status": "PROVEN"}, "status": "PROVEN",
+      "evidence_classes": ["INTERNAL_PROVEN", "OFFICIAL_PRIMARY"], "evidence_refs": ["docs/evidence/M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_BOUNDED_BATCH_AUTHORIZATION_RUN_2_0.8.0.json", "docs/evidence/M7_SIOPE_POST_GENERALIZATION_OFFLINE_REVIEW_0.8.0.json"],
+      "resource_family": "Dados_Gerais_Siope", "schema": {"status": "PROVEN_CURRENT_SCHEMA", "name": "DADOS_GERAIS_SIOPE_52_FIELDS"},
+      "required_fields": ["VAL_RECE_REAL", "VAL_RECE_PREV_ATUA", "VAL_DESP_PAGA", "VAL_DESP_DOTA_ATUA", "VL_DESP_PAGA_EDU", "VL_DESP_DOTA_ATUA_EDU", "VL_DESP_EMPE_EDU", "VAL_DESP_EMPE", "VL_DESP_LIQU_EDU", "VAL_DESP_LIQU", "NUM_POPU"],
+      "allowed_aliases": {}, "potential_gold_metrics": ["ALL_8_PROVEN"], "non_comparable_metrics": [],
+      "cautions": ["Arithmetic Gold only; no compliance conclusion."], "release_notes": ["Boundary regression requires 2016=P1, never P6."],
+      "promotion_requires": []
+    },
+    {
+      "id": "PROVEN_BIMONTHLY_2017_2024", "years": [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+      "period": {"value": 6, "status": "PROVEN"}, "status": "PROVEN",
+      "evidence_classes": ["INTERNAL_PROVEN", "OFFICIAL_PRIMARY"], "evidence_refs": ["docs/evidence/M7_SIOPE_POST_GENERALIZATION_OFFLINE_REVIEW_0.8.0.json"],
+      "resource_family": "Dados_Gerais_Siope", "schema": {"status": "PROVEN_CURRENT_SCHEMA", "name": "DADOS_GERAIS_SIOPE_52_FIELDS"},
+      "required_fields": ["VAL_RECE_REAL", "VAL_RECE_PREV_ATUA", "VAL_DESP_PAGA", "VAL_DESP_DOTA_ATUA", "VL_DESP_PAGA_EDU", "VL_DESP_DOTA_ATUA_EDU", "VL_DESP_EMPE_EDU", "VAL_DESP_EMPE", "VL_DESP_LIQU_EDU", "VAL_DESP_LIQU", "NUM_POPU"],
+      "allowed_aliases": {}, "potential_gold_metrics": ["ALL_8_PROVEN"], "non_comparable_metrics": [],
+      "cautions": ["P6 is annual consolidation, not proof of fiscal compliance."], "release_notes": ["Boundary regression requires 2017=P6, never P1."],
+      "promotion_requires": []
+    },
+    {
+      "id": "RECENT_2025", "years": [2025],
+      "period": {"value": null, "status": "UNKNOWN"}, "status": "UNPROVEN_RECENT",
+      "evidence_classes": [], "evidence_refs": [], "resource_family": "UNKNOWN", "schema": {"status": "UNKNOWN", "name": null},
+      "required_fields": [], "allowed_aliases": {}, "potential_gold_metrics": [], "non_comparable_metrics": ["ALL_8_UNPROVEN"],
+      "cautions": ["Do not infer P6, closure, schema or comparability from 2024."], "release_notes": ["Runtime evidence is not pinned."],
+      "promotion_requires": ["separate bounded read-only 2025 discovery", "period and annual closure proof", "schema/field proof", "8-metric semantic review"]
+    },
+    {
+      "id": "CURRENT_2026", "years": [2026],
+      "period": {"value": null, "status": "UNKNOWN"}, "status": "UNPROVEN_CURRENT_YEAR",
+      "evidence_classes": [], "evidence_refs": [], "resource_family": "UNKNOWN", "schema": {"status": "UNKNOWN", "name": null},
+      "required_fields": [], "allowed_aliases": {}, "potential_gold_metrics": [], "non_comparable_metrics": ["ALL_8_UNPROVEN"],
+      "cautions": ["Current/provisional exercise; excluded from the closed annual series."], "release_notes": ["Runtime evidence is not pinned."],
+      "promotion_requires": ["separate bounded read-only current-year discovery", "available-period proof", "explicit provisional semantics", "schema/field proof"]
+    }
+  ]
+}
