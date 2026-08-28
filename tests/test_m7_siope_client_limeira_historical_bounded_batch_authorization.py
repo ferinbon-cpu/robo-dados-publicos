@@ -22,10 +22,10 @@ def config():
     return json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
 
 
-def record(year: int):
+def record(year: int, period: int):
     item = {field: 0 for field in PROVEN_DADOS_GERAIS_FIELDS}
     item.update({
-        "COD_MUNI": 352690, "NOM_MUNI": "Limeira", "SIG_UF": "SP", "NUM_ANO": year, "NUM_PERI": 6,
+        "COD_MUNI": 352690, "NOM_MUNI": "Limeira", "SIG_UF": "SP", "NUM_ANO": year, "NUM_PERI": period,
         "VAL_RECE_PREV_ATUA": "1000", "VAL_RECE_REAL": "900", "VAL_DESP_DOTA_ATUA": "800",
         "VAL_DESP_EMPE": "700", "VAL_DESP_LIQU": "650", "VAL_DESP_PAGA": "600",
         "VL_DESP_DOTA_ATUA_EDU": "300", "VL_DESP_EMPE_EDU": "200", "VL_DESP_LIQU_EDU": "190",
@@ -42,8 +42,9 @@ class FakeSiope:
     def get_dados_gerais_page(self, **kwargs):
         self.calls.append(kwargs)
         year = kwargs["ano"]
+        period = kwargs["periodo"]
         actual_year = 1999 if year == self.bad_year else year
-        item = record(actual_year)
+        item = record(actual_year, period)
         raw = json.dumps({"value": [item]}, sort_keys=True).encode()
         return SimpleNamespace(
             records=[item], status=200, content_type="application/json",
@@ -85,6 +86,7 @@ class TestHistoricalBoundedBatchAuthorization(unittest.TestCase):
     def test_config_and_pinned_pilot_evidence_pass(self):
         out = validate_config(config(), root=ROOT)
         self.assertEqual(out["batch_years"], [2020, 2019, 2018, 2017, 2016])
+        self.assertEqual(out["period_by_year"], {"2020": 6, "2019": 6, "2018": 6, "2017": 6, "2016": 1})
         self.assertEqual(out["max_years_per_batch"], 5)
         self.assertEqual(out["total_stage_count"], 45)
 
@@ -96,6 +98,7 @@ class TestHistoricalBoundedBatchAuthorization(unittest.TestCase):
         self.assertIn(bootstrap, text)
         self.assertIn(package_import, text)
         self.assertLess(text.index(bootstrap), text.index(package_import))
+        self.assertIn('print(result["error"], file=sys.stderr)', text)
 
     def test_fake_five_year_batch_executes_bounded_pipeline(self):
         source, drive = FakeSiope(), FakeDrive()
@@ -104,6 +107,9 @@ class TestHistoricalBoundedBatchAuthorization(unittest.TestCase):
         self.assertEqual(out["batch_year_count"], 5)
         self.assertEqual(out["source_get_count"], 5)
         self.assertEqual(len(source.calls), 5)
+        self.assertEqual([call["periodo"] for call in source.calls], [6, 6, 6, 6, 1])
+        self.assertEqual(out["period_by_year"], {"2020": 6, "2019": 6, "2018": 6, "2017": 6, "2016": 1})
+        self.assertEqual([item["period"] for item in out["years"]], [6, 6, 6, 6, 1])
         self.assertEqual(out["drive_preflight_collision_checks"], 15)
         self.assertEqual(out["drive_write_count"], 15)
         self.assertEqual(out["drive_download_count"], 15)
@@ -114,6 +120,8 @@ class TestHistoricalBoundedBatchAuthorization(unittest.TestCase):
         self.assertTrue(out["bounded_batch_only"])
         self.assertFalse(out["future_batch_execution_authorized"])
         self.assertFalse(out["compliance_claims_authorized"])
+        self.assertTrue(any("2016_P1" in name for _, name in drive.puts))
+        self.assertFalse(any("2016_P6" in name for _, name in drive.puts))
 
     def test_bad_source_year_stops_before_any_drive_write(self):
         source, drive = FakeSiope(bad_year=2019), FakeDrive()
@@ -140,6 +148,13 @@ class TestHistoricalBoundedBatchAuthorization(unittest.TestCase):
         for years in ([2020, 2019, 2019, 2017, 2016], [2019, 2020, 2018, 2017, 2016]):
             cfg = config()
             cfg["batch_years"] = list(years)
+            with self.assertRaises(HistoricalBoundedBatchAuthorizationError):
+                validate_config(cfg, root=ROOT)
+
+    def test_period_boundary_drift_fails_closed(self):
+        for year, wrong_period in (("2016", 6), ("2017", 1)):
+            cfg = config()
+            cfg["period_by_year"][year] = wrong_period
             with self.assertRaises(HistoricalBoundedBatchAuthorizationError):
                 validate_config(cfg, root=ROOT)
 

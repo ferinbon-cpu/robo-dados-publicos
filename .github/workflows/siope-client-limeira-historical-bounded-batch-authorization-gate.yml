@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       confirm_siope_client_limeira_historical_bounded_batch_authorization:
-        description: "Confirmar lote histórico final limitado a 5 anos (2020-2016): 5 GETs, 15 creates e 15 readbacks; sem retry/paginação/recorrência/schedule"
+        description: "Confirmar lote histórico final limitado a 5 anos (2020-2017=P6; 2016=P1): 5 GETs, 15 creates e 15 readbacks; sem retry/paginação/recorrência/schedule"
         required: true
         default: false
         type: boolean
