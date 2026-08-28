@@ -7,9 +7,6 @@ on:
 
 permissions:
   contents: read
-  actions: read
-  issues: read
-  pull-requests: read
 
 concurrency:
   group: public-readiness-${{ github.event.pull_request.number || github.ref }}
@@ -31,30 +28,28 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Test public-readiness scanners
+      - name: Test public-readiness gates
         run: |
           python -m unittest -q tests/test_public_readiness_audit.py
           python -m unittest -q tests/test_public_surface_audit.py
+          python -m unittest -q tests/test_public_hosted_baseline_gate.py
 
       - name: Scan reachable Git history and current workflows
         id: readiness
         continue-on-error: true
         run: python scripts/github_public_readiness_gate.py --output runtime/public_readiness/repository.json
 
-      - name: Scan hosted PR issue Actions logs and artifacts
+      - name: Validate exhaustive hosted baseline and post-baseline closure
         id: hosted
         continue-on-error: true
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          PUBLIC_HOSTED_BASELINE_CUTOFF_UTC: "2026-08-28T10:44:00Z"
-        run: python scripts/github_public_surface_gate.py --output runtime/public_readiness/hosted.json
+        run: python scripts/github_public_hosted_baseline_gate.py | tee runtime/public_readiness/hosted-baseline.txt
 
-      - name: Upload redacted audit reports
+      - name: Upload redacted audit evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: public-readiness-audit-report
-          path: runtime/public_readiness/*.json
+          path: runtime/public_readiness/*
           if-no-files-found: error
           retention-days: 30
 
