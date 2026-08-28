@@ -16,6 +16,7 @@ from robo_dados_publicos.automation.policy import evaluate_gate, load_policy, va
 M8_GATE_ID = "M8_SIOPE_HISTORICAL_GOLD_PRODUCT_OUTPUT_READONLY"
 M8_WORKFLOW = ROOT / ".github/workflows/m8-siope-historical-gold-product-output-readonly-gate.yml"
 OAUTH_BOOTSTRAP = ROOT / "scripts/oauth_bootstrap_drive.py"
+M8_CAPABILITY_GATE = ROOT / "scripts/github_m8_readonly_credential_capability_gate.py"
 AGENTS = ROOT / "AGENTS.md"
 
 
@@ -31,6 +32,7 @@ def run() -> dict:
 
     workflow = M8_WORKFLOW.read_text(encoding="utf-8")
     oauth = OAUTH_BOOTSTRAP.read_text(encoding="utf-8")
+    capability = M8_CAPABILITY_GATE.read_text(encoding="utf-8")
     agents = AGENTS.read_text(encoding="utf-8")
 
     _require("workflow_dispatch:" in workflow, "STOP_M8_MANUAL_TRIGGER_MISSING")
@@ -38,13 +40,40 @@ def run() -> dict:
         "confirm_m8_siope_historical_gold_product_output_readonly" in workflow,
         "STOP_M8_EXPLICIT_CONFIRMATION_MISSING",
     )
+    _require("workflow_call:" not in workflow, "STOP_M8_WORKFLOW_CALL_PREMATURELY_ENABLED")
     _require("permissions:\n  contents: read" in workflow, "STOP_M8_GITHUB_PERMISSION_NOT_READONLY")
-    _require("GOOGLE_DRIVE_REFRESH_TOKEN" in workflow, "STOP_M8_CURRENT_REFRESH_TOKEN_BINDING_MISSING")
     _require(
-        "GOOGLE_DRIVE_READONLY_REFRESH_TOKEN" not in workflow,
-        "STOP_M8_POLICY_STALE_READONLY_SECRET_ALREADY_WIRED",
+        "GOOGLE_DRIVE_CLIENT_ID: ${{ secrets.GOOGLE_DRIVE_READONLY_CLIENT_ID }}" in workflow,
+        "STOP_M8_READONLY_CLIENT_ID_NOT_WIRED",
     )
+    _require(
+        "GOOGLE_DRIVE_CLIENT_SECRET: ${{ secrets.GOOGLE_DRIVE_READONLY_CLIENT_SECRET }}" in workflow,
+        "STOP_M8_READONLY_CLIENT_SECRET_NOT_WIRED",
+    )
+    _require(
+        "GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_READONLY_REFRESH_TOKEN }}" in workflow,
+        "STOP_M8_READONLY_REFRESH_TOKEN_NOT_WIRED",
+    )
+    _require(
+        "${{ secrets.GOOGLE_DRIVE_REFRESH_TOKEN }}" not in workflow,
+        "STOP_M8_BROAD_REFRESH_TOKEN_STILL_BOUND",
+    )
+    _require(
+        "${{ secrets.GOOGLE_DRIVE_CLIENT_ID }}" not in workflow,
+        "STOP_M8_BROAD_CLIENT_ID_STILL_BOUND",
+    )
+    _require(
+        "${{ secrets.GOOGLE_DRIVE_CLIENT_SECRET }}" not in workflow,
+        "STOP_M8_BROAD_CLIENT_SECRET_STILL_BOUND",
+    )
+    proof_call = "python scripts/github_m8_readonly_credential_capability_gate.py"
+    live_step = "- name: Reler 9 Gold e gerar bundle local"
+    _require(proof_call in workflow, "STOP_M8_RUNTIME_CAPABILITY_PROOF_MISSING")
+    _require(live_step in workflow, "STOP_M8_LIVE_STEP_MISSING")
+    _require(workflow.index(proof_call) < workflow.index(live_step), "STOP_M8_CAPABILITY_PROOF_NOT_BEFORE_DRIVE_READ")
     _require("https://www.googleapis.com/auth/drive.readonly" in oauth, "STOP_OAUTH_READONLY_SCOPE_NOT_SUPPORTED")
+    _require("oauth_refresh_and_tokeninfo_exact" in capability, "STOP_M8_RUNTIME_SCOPE_PROOF_NOT_EXACT")
+    _require("www.googleapis.com/drive/" not in capability, "STOP_M8_CAPABILITY_GATE_CALLS_DRIVE_API")
     _require("Na dúvida, a decisão é `BLOCK`" in agents, "STOP_AGENTS_DEFAULT_DENY_MISSING")
     _require(m8["decision"] == "BLOCK", "STOP_M8_NO_CLICK_PREMATURELY_ALLOWED")
 
@@ -56,8 +85,10 @@ def run() -> dict:
         "m8_no_click_decision": m8["decision"],
         "m8_no_click_reason": m8["reason"],
         "m8_blockers": m8.get("blockers", []),
+        "m8_credential_capability": "READONLY_PROVISIONED_TOKENINFO_PROVEN_AWAITING_FIRST_LIVE_GATE",
         "oauth_readonly_bootstrap_supported": True,
-        "current_m8_readonly_secret_wired": False,
+        "current_m8_readonly_secret_wired": True,
+        "readonly_runtime_capability_proof_step_present": True,
         "source_network_count": 0,
         "drive_read_count": 0,
         "drive_write_count": 0,
@@ -69,7 +100,7 @@ def run() -> dict:
 def main() -> int:
     try:
         print(json.dumps(run(), ensure_ascii=False, sort_keys=True))
-    except Exception as exc:  # fail closed with stable single-line output
+    except Exception as exc:
         print(json.dumps({"status": "STOP_AUTOMATION_POLICY_OFFLINE", "error": str(exc)}, ensure_ascii=False, sort_keys=True))
         return 41
     return 0
