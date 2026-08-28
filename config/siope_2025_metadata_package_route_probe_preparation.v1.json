@@ -1,0 +1,77 @@
+{
+  "schema": "SIOPE_2025_METADATA_PACKAGE_ROUTE_PROBE_PREPARATION_V1",
+  "task": "TASK_009A",
+  "task_phase": "OFFLINE_PREPARATION_ONLY",
+  "software_version": "0.8.0",
+  "current_task_execution_tier": "T0_OFFLINE",
+  "tier_design_target": "T1_REMOTE_READONLY",
+  "starting_main_sha": "8b4201fa16812b6fff7ca3dd0bc8da07e7fded96",
+  "live_execution_authorized_by_task_009a": false,
+  "source_get_authorized_by_task_009a": false,
+  "future_batch_execution_authorized": false,
+  "source_identity": {
+    "official_index_url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/downloads",
+    "package_url": "https://fnde.sharepoint.com/:u:/s/SIOPE/EeP0ArdsxWJLuWyg3LQHt2IBKEWEhLDvDk2_7k1vbAx0tQ?download=1&e=UiD081",
+    "provider": "FNDE",
+    "year": 2025,
+    "scope": "MUNICIPAL_METADATA",
+    "initial_host": "fnde.sharepoint.com"
+  },
+  "authorization": {
+    "fixed_artifact_path": "config/siope_2025_metadata_package_route_probe_authorization.v1.json",
+    "artifact_must_be_absent_in_task_009a": true,
+    "one_shot_required": true,
+    "max_live_runs": 1
+  },
+  "probe_contract": {
+    "method": "GET",
+    "range_header": "bytes=0-4095",
+    "maximum_source_get_count": 1,
+    "maximum_response_bytes": 4096,
+    "timeout_seconds": 60,
+    "max_attempts": 1,
+    "retry_authorized": false,
+    "follow_redirects": false,
+    "allowed_redirect_hosts": [],
+    "persist_raw_body": false,
+    "emit_raw_body": false,
+    "purpose": "ROUTE_REDIRECT_SIZE_AND_ZIP_MAGIC_DISCOVERY_ONLY"
+  },
+  "effects_task_009a": {
+    "source_get_count": 0,
+    "operational_receipt_status_query_count": 0,
+    "siope_fiscal_odata_get_count": 0,
+    "drive_read_count": 0,
+    "drive_write_count": 0,
+    "response_persistence": false,
+    "archive_persistence": false,
+    "bronze_silver_gold_creation": false,
+    "publication": false
+  },
+  "semantic_guards": {
+    "year_2025_status": "PROVEN_STRUCTURAL_RECENT",
+    "p6_documentary_role": "P6_ANNUAL_CONSOLIDATION_PROVEN_FINALITY_UNKNOWN",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_metrics_status": "UNKNOWN",
+    "closed_annual_series_last_year": 2024,
+    "include_2026_authorized": false,
+    "compliance_claims_authorized": false
+  },
+  "success_scope": {
+    "may_prove": [
+      "INITIAL_PACKAGE_ROUTE_RESPONSE_CLASS",
+      "SANITIZED_REDIRECT_DESTINATION_IF_ANY",
+      "CONTENT_LENGTH_OR_CONTENT_RANGE_TOTAL_IF_EXPOSED",
+      "ZIP_MAGIC_IN_FIRST_4096_BYTES_IF_DIRECT_PARTIAL_CONTENT"
+    ],
+    "cannot_prove": [
+      "FULL_PACKAGE_INTEGRITY",
+      "ANY_ALIAS_SEMANTICS",
+      "NUM_POPU_DEFINITION_OR_VINTAGE",
+      "ANNUAL_FINALITY_OR_CLOSURE",
+      "GOLD_2025",
+      "MDE_OR_FUNDEB_COMPLIANCE"
+    ]
+  }
+}
