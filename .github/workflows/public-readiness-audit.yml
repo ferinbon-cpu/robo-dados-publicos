@@ -1,0 +1,47 @@
+name: Public readiness audit
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Audit full Git history safely
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Test public-readiness scanner
+        run: python -m pytest -q tests/test_public_readiness_audit.py
+
+      - name: Scan reachable history and current workflows
+        id: readiness
+        continue-on-error: true
+        run: python scripts/github_public_readiness_audit.py --output runtime/public_readiness/report.json
+
+      - name: Upload redacted audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-readiness-audit-report
+          path: runtime/public_readiness/report.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Enforce fail-closed readiness result
+        if: steps.readiness.outcome != 'success'
+        run: |
+          echo "STOP_PUBLIC_READINESS: review the redacted artifact; no visibility change is authorized."
+          exit 42
