@@ -125,9 +125,15 @@ def _validate_payload(payload: dict) -> dict:
         _stop(f"PERIOD_{year}")
 
     metrics = payload.get("metrics")
-    if not isinstance(metrics, dict) or tuple(metrics) != EXPECTED_METRIC_IDS:
+    if (
+        not isinstance(metrics, dict)
+        or len(metrics) != len(EXPECTED_METRIC_IDS)
+        or set(metrics) != set(EXPECTED_METRIC_IDS)
+    ):
         _stop("METRIC_IDS")
-    normalized_metrics = {metric_id: _metric_text(metrics[metric_id], metric_id) for metric_id in EXPECTED_METRIC_IDS}
+    normalized_metrics = {
+        metric_id: _metric_text(metrics[metric_id], metric_id) for metric_id in EXPECTED_METRIC_IDS
+    }
 
     semantic_scope = payload.get("semantic_scope")
     if not isinstance(semantic_scope, dict):
