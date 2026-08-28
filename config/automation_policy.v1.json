@@ -48,6 +48,22 @@
       "current_triggers": ["push:main", "pull_request:main", "workflow_dispatch"]
     },
     {
+      "id": "M8_SIOPE_HISTORICAL_PRODUCT_OUTPUT_PUBLICATION_REVIEW",
+      "workflow": ".github/workflows/ci-offline.yml",
+      "script": "scripts/review_m8_siope_historical_product_output_publication.py",
+      "tier": "T0_OFFLINE",
+      "auto_allowed": true,
+      "credential_capability": "NONE",
+      "effects": {
+        "source_network": false,
+        "drive_reads": false,
+        "drive_writes": false,
+        "publication": false
+      },
+      "current_triggers": ["push:main", "pull_request:main", "workflow_dispatch"],
+      "blockers": []
+    },
+    {
       "id": "M8_SIOPE_HISTORICAL_GOLD_PRODUCT_OUTPUT_READONLY",
       "workflow": ".github/workflows/m8-siope-historical-gold-product-output-readonly-gate.yml",
       "reusable_workflow": ".github/workflows/m8-siope-historical-gold-product-output-readonly-reusable.yml",
