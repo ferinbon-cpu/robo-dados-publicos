@@ -27,6 +27,7 @@ def main() -> int:
         result = {"status": STOP, "error": str(exc)}
         OUT.write_text(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         print(result["status"])
+        print(result["error"], file=sys.stderr)
         return 13
     OUT.write_text(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(result["status"])
