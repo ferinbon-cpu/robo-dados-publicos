@@ -44,6 +44,9 @@ jobs:
       - name: Gate de política de automação
         run: python scripts/github_automation_policy_gate.py
 
+      - name: Gate da política do engenheiro Codex
+        run: python scripts/github_codex_engineer_policy_gate.py
+
       - name: Revisão M8 offline de publicação
         run: python scripts/review_m8_siope_historical_product_output_publication.py
 
