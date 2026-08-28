@@ -11,6 +11,10 @@ permissions:
   issues: read
   pull-requests: read
 
+concurrency:
+  group: public-readiness-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   audit:
     name: Audit full Git history safely
