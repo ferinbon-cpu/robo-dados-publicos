@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Entrypoint for TASK 004A preparation and future TASK 004B first live run."""
+"""Entrypoint for TASK 004A preparation and TASK 004B first live run."""
 
 from __future__ import annotations
 
@@ -70,7 +70,7 @@ def prepare() -> dict:
     policy = _load(POLICY_PATH)
     validate_preparation_contract(preparation, design, policy)
     if AUTH_FILE.exists():
-        raise Siope2025T1AuthorizationError("STOP_SIOPE_2025_T1_AUTHORIZATION_AUTH_FILE_MUST_BE_ABSENT_IN_004A")
+        raise Siope2025T1AuthorizationError("STOP_SIOPE_2025_T1_AUTHORIZATION_AUTH_FILE_PRESENT_POST_004A")
     plan = materialize_request_plan(design)
     return {
         "status": "PASS_SIOPE_2025_T1_PREPARATION_T0",
@@ -85,7 +85,13 @@ def prepare() -> dict:
     }
 
 
-def live(authorization_id_input: str | None) -> dict:
+def live(
+    authorization_id_input: str | None,
+    *,
+    workflow_run_number: int | None,
+    workflow_run_attempt: int | None,
+    workflow_ref: str | None,
+) -> dict:
     preparation = _load(PREP_PATH)
     design = _load(DESIGN_PATH)
     policy = _load(POLICY_PATH)
@@ -93,6 +99,9 @@ def live(authorization_id_input: str | None) -> dict:
 
     if not AUTH_FILE.exists():
         raise Siope2025T1AuthorizationError(STOP)
+    if not isinstance(workflow_run_number, int) or not isinstance(workflow_run_attempt, int) or not isinstance(workflow_ref, str):
+        raise Siope2025T1AuthorizationError(STOP)
+
     authorization = _load(AUTH_FILE)
     current_head = _git("rev-parse", "HEAD")
     current_parent = _git("rev-parse", "HEAD^")
@@ -106,11 +115,14 @@ def live(authorization_id_input: str | None) -> dict:
         current_head_sha=current_head,
         current_parent_sha=current_parent,
         changed_paths_since_base=changed_paths,
+        current_workflow_run_number=workflow_run_number,
+        current_workflow_run_attempt=workflow_run_attempt,
+        current_workflow_ref=workflow_ref,
     )
     if not authorization_id_input or authorization_id_input != grant.authorization_id:
         raise Siope2025T1AuthorizationError(STOP)
 
-    # Live-capable imports intentionally happen only after the authorization gate.
+    # Live-capable imports intentionally happen only after every authorization guard.
     from robo_dados_publicos.sources.siope_2025_t1_discovery import execute_authorized_discovery
     from robo_dados_publicos.sources.siope_2025_t1_transport import Siope2025T1HttpTransport
 
@@ -122,9 +134,17 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode", choices=("prepare", "live"), default="prepare")
     parser.add_argument("--authorization-id", default=None)
+    parser.add_argument("--workflow-run-number", type=int, default=None)
+    parser.add_argument("--workflow-run-attempt", type=int, default=None)
+    parser.add_argument("--workflow-ref", default=None)
     args = parser.parse_args()
     try:
-        result = prepare() if args.mode == "prepare" else live(args.authorization_id)
+        result = prepare() if args.mode == "prepare" else live(
+            args.authorization_id,
+            workflow_run_number=args.workflow_run_number,
+            workflow_run_attempt=args.workflow_run_attempt,
+            workflow_ref=args.workflow_ref,
+        )
     except Exception as exc:
         source_get_count = int(getattr(exc, "source_get_count", 0) or 0)
         print(json.dumps(_stop_payload(str(exc), source_get_count=source_get_count), sort_keys=True))
