@@ -11,7 +11,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "scripts"
 sys.path.insert(0, str(SCRIPTS))
-SPEC = importlib.util.spec_from_file_location("public_surface", SCRIPTS / "github_public_surface_audit.py")
+SPEC = importlib.util.spec_from_file_location("public_surface_gate", SCRIPTS / "github_public_surface_gate.py")
 assert SPEC and SPEC.loader
 mod = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(mod)
