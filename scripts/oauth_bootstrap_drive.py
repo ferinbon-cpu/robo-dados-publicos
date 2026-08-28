@@ -14,6 +14,7 @@ TOKEN_URL="https://oauth2.googleapis.com/token"
 SCOPES={
     "drive":"https://www.googleapis.com/auth/drive",
     "drive.file":"https://www.googleapis.com/auth/drive.file",
+    "drive.readonly":"https://www.googleapis.com/auth/drive.readonly",
 }
 
 def pkce_pair():
