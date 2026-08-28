@@ -17,9 +17,9 @@
       "human_confirmation_required": false
     },
     "T1_REMOTE_READONLY": {
-      "description": "Bounded external read-only access. Auto execution requires capability-limited read-only credentials and zero remote writes/publication.",
+      "description": "Bounded external read-only access. Auto execution requires capability-limited read-only credentials, proven live behavior, zero remote writes/publication and a protected trust boundary for secret-bearing automation.",
       "auto_execution": "CONDITIONAL",
-      "human_confirmation_required": "UNTIL_READONLY_CAPABILITY_PROVEN"
+      "human_confirmation_required": "UNTIL_TRUST_BOUNDARY_AND_REUSABLE_WORKFLOW_REVIEW_COMPLETE"
     },
     "T2_CREATE_ONLY": {
       "description": "Bounded create-only persistence after collision preflight.",
@@ -52,7 +52,21 @@
       "workflow": ".github/workflows/m8-siope-historical-gold-product-output-readonly-gate.yml",
       "tier": "T1_REMOTE_READONLY",
       "auto_allowed": false,
-      "credential_capability": "READONLY_PROVISIONED_TOKENINFO_PROVEN_AWAITING_FIRST_LIVE_GATE",
+      "credential_capability": "READONLY_EXACT_SCOPE_FIRST_LIVE_GATE_PROVEN",
+      "live_proof": {
+        "evidence": "docs/evidence/M8_SIOPE_HISTORICAL_GOLD_PRODUCT_OUTPUT_READONLY_RUN_2_0.8.0.json",
+        "run_id": 33136736495,
+        "job_id": 98738273929,
+        "head_sha": "8f80edcae45a373f85b84c03880842363661d870",
+        "artifact_id": 9672319372,
+        "artifact_digest": "sha256:a3afeed9c1449ab4806127024d044d177e76e8097894786b0e68bbbfffc60b51",
+        "oauth_scope": "https://www.googleapis.com/auth/drive.readonly",
+        "drive_lookup_count": 9,
+        "drive_download_count": 9,
+        "drive_write_count": 0,
+        "source_get_count": 0,
+        "publication": false
+      },
       "effects": {
         "source_get_count": 0,
         "drive_lookup_count": 9,
@@ -63,16 +77,16 @@
       "current_triggers": ["workflow_dispatch"],
       "blockers": [
         "CURRENT_WORKFLOW_REQUIRES_MANUAL_CONFIRMATION",
-        "FIRST_LIVE_M8_READONLY_PRODUCT_GATE_NOT_YET_PROVEN",
-        "NO_CLICK_REQUIRES_POST_LIVE_REVIEW"
+        "MAIN_BRANCH_NOT_PROTECTED_FOR_SECRET_BEARING_AUTOMATION",
+        "NO_CLICK_REQUIRES_REUSABLE_WORKFLOW_AND_TRUSTED_ORCHESTRATOR_REVIEW"
       ],
       "readonly_secrets": [
         "GOOGLE_DRIVE_READONLY_CLIENT_ID",
         "GOOGLE_DRIVE_READONLY_CLIENT_SECRET",
         "GOOGLE_DRIVE_READONLY_REFRESH_TOKEN"
       ],
-      "runtime_capability_proof": "REQUIRED_BEFORE_FIRST_DRIVE_LOOKUP",
-      "future_decision_after_blockers": "ELIGIBLE_FOR_NO_CLICK_REVIEW"
+      "runtime_capability_proof": "PROVEN_BEFORE_FIRST_DRIVE_LOOKUP_IN_LIVE_RUN_33136736495",
+      "future_decision_after_blockers": "ELIGIBLE_FOR_NO_CLICK_AFTER_PROTECTED_TRUST_BOUNDARY_AND_REUSABLE_WORKFLOW_REVIEW"
     },
     {
       "id": "ACTIVE_RUNTIME_PERSISTENCE",
