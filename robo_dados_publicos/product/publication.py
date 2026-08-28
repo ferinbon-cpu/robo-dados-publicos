@@ -1,16 +1,21 @@
 from __future__ import annotations
 
+import csv
 from dataclasses import dataclass
 from datetime import datetime
 import hashlib
 import json
 from pathlib import Path
 import re
+import tempfile
 from typing import Any
+
+from openpyxl import Workbook
 
 
 GOOGLE_SHEETS_MIME = "application/vnd.google-apps.spreadsheet"
 CSV_MIME = "text/csv"
+XLSX_MIME = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 PDF_MIME = "application/pdf"
 JSON_MIME = "application/json"
 
@@ -57,6 +62,42 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _normalize_cell(value: str) -> str:
+    return str(value).replace("\r\n", "\n").replace("\r", "\n")
+
+
+def _csv_matrix(
+    path: Path,
+    *,
+    error_code: str,
+    created_count: int = 0,
+) -> list[list[str]]:
+    try:
+        with path.open("r", encoding="utf-8-sig", newline="") as handle:
+            rows = [[_normalize_cell(cell) for cell in row] for row in csv.reader(handle)]
+    except (OSError, UnicodeDecodeError, csv.Error) as exc:
+        raise ProductPublicationError(error_code, created_count=created_count) from exc
+    if not rows or not rows[0]:
+        raise ProductPublicationError(error_code, created_count=created_count)
+    width = len(rows[0])
+    if width <= 0 or any(len(row) != width for row in rows):
+        raise ProductPublicationError(error_code, created_count=created_count)
+    return rows
+
+
+def _write_xlsx(matrix: list[list[str]], destination: Path) -> None:
+    try:
+        workbook = Workbook()
+        sheet = workbook.active
+        sheet.title = "Tabela"
+        for row in matrix:
+            sheet.append(row)
+        workbook.save(destination)
+        workbook.close()
+    except Exception as exc:
+        raise ProductPublicationError("STOP_PRODUCT_TABLE_XLSX_BUILD") from exc
+
+
 def validate_bundle_integrity(bundle_dir: str | Path, expected_report_status: str) -> dict:
     """Validate the entire local product bundle before any remote request."""
     root = Path(bundle_dir)
@@ -98,7 +139,13 @@ def validate_bundle_integrity(bundle_dir: str | Path, expected_report_status: st
         if _sha256(path) != item.get("sha256"):
             raise ProductPublicationError("STOP_PRODUCT_BUNDLE_HASH_MISMATCH")
 
-    return {"report": report, "card": card, "manifest": manifest}
+    # Parse the canonical table before any remote request. This catches malformed
+    # local CSV and yields the exact matrix later required from Sheet readback.
+    table_matrix = _csv_matrix(
+        root / "table.csv",
+        error_code="STOP_PRODUCT_TABLE_CSV_INVALID",
+    )
+    return {"report": report, "card": card, "manifest": manifest, "table_matrix": table_matrix}
 
 
 def _verify_parent(meta: dict, parent_id: str) -> bool:
@@ -155,6 +202,8 @@ def _publication_manifest_payload(
             "report_pdf_sha256": _sha256(bundle_dir / "report.pdf"),
             "bundle_manifest_sha256": _sha256(bundle_dir / "manifest.json"),
         },
+        "sheet_import_transport": "XLSX_LOCALE_INDEPENDENT",
+        "sheet_semantic_readback_required": True,
         "completion_marker_written_last": True,
         "remote_identifiers_recorded": False,
         "overwrite_allowed": False,
@@ -173,9 +222,13 @@ def publish_product_bundle(
 ) -> dict:
     """Publish exactly one Sheet, one PDF and one completion manifest.
 
-    All local integrity and remote read checks happen before the first write.
-    Exact-name collisions stop the gate. Existing files are never updated or
-    deleted. The publication manifest is intentionally created last.
+    All local integrity and remote inventory checks happen before the first
+    write. The canonical CSV is parsed locally, converted to XLSX to avoid
+    locale-dependent delimiter inference, imported as a Google Sheet, then
+    exported back to CSV and compared cell-for-cell with the canonical matrix.
+    PDF and completion manifest are created only after that semantic readback
+    passes. Exact-name collisions stop the gate. Existing files are never
+    updated or deleted. The publication manifest is intentionally created last.
     """
     if not str(output_parent_id).strip():
         raise ProductPublicationError("STOP_PRODUCT_OUTPUT_PARENT_REQUIRED")
@@ -183,14 +236,15 @@ def publish_product_bundle(
     root = Path(bundle_dir)
     validated = validate_bundle_integrity(root, expected_report_status)
     card = validated["card"]
+    canonical_matrix = validated["table_matrix"]
 
     try:
         import_formats = drive.import_formats()
     except Exception as exc:
         raise ProductPublicationError("STOP_PRODUCT_IMPORT_FORMAT_DISCOVERY") from exc
-    supported = import_formats.get(CSV_MIME) or []
+    supported = import_formats.get(XLSX_MIME) or []
     if GOOGLE_SHEETS_MIME not in supported:
-        raise ProductPublicationError("STOP_PRODUCT_CSV_TO_SHEETS_NOT_SUPPORTED")
+        raise ProductPublicationError("STOP_PRODUCT_XLSX_TO_SHEETS_NOT_SUPPORTED")
 
     try:
         children = drive.list_children(output_parent_id)
@@ -218,24 +272,48 @@ def publish_product_bundle(
 
     created = 0
     try:
-        sheet = drive.put_converted(
-            root / "table.csv",
-            names.sheet,
-            output_parent_id,
-            CSV_MIME,
-            GOOGLE_SHEETS_MIME,
-        )
-        created += 1
-        sheet_id = str(sheet.get("id") or "")
-        if not sheet_id:
-            raise ProductPublicationError("STOP_PRODUCT_SHEET_ID_MISSING", created_count=created)
-        sheet_meta = _remote_meta(drive, sheet_id, created_count=created)
-        if (
-            sheet_meta.get("name") != names.sheet
-            or sheet_meta.get("mimeType") != GOOGLE_SHEETS_MIME
-            or not _verify_parent(sheet_meta, output_parent_id)
-        ):
-            raise ProductPublicationError("STOP_PRODUCT_SHEET_VERIFY", created_count=created)
+        with tempfile.TemporaryDirectory(prefix="product-sheet-import-") as raw_temp:
+            temp_root = Path(raw_temp)
+            xlsx_path = temp_root / "table.xlsx"
+            readback_csv_path = temp_root / "sheet_readback.csv"
+            _write_xlsx(canonical_matrix, xlsx_path)
+
+            sheet = drive.put_converted(
+                xlsx_path,
+                names.sheet,
+                output_parent_id,
+                XLSX_MIME,
+                GOOGLE_SHEETS_MIME,
+            )
+            created += 1
+            sheet_id = str(sheet.get("id") or "")
+            if not sheet_id:
+                raise ProductPublicationError("STOP_PRODUCT_SHEET_ID_MISSING", created_count=created)
+            sheet_meta = _remote_meta(drive, sheet_id, created_count=created)
+            if (
+                sheet_meta.get("name") != names.sheet
+                or sheet_meta.get("mimeType") != GOOGLE_SHEETS_MIME
+                or not _verify_parent(sheet_meta, output_parent_id)
+            ):
+                raise ProductPublicationError("STOP_PRODUCT_SHEET_VERIFY", created_count=created)
+
+            try:
+                drive.export(sheet_id, readback_csv_path, CSV_MIME)
+            except Exception as exc:
+                raise ProductPublicationError(
+                    "STOP_PRODUCT_SHEET_READBACK_EXPORT",
+                    created_count=created,
+                ) from exc
+            observed_matrix = _csv_matrix(
+                readback_csv_path,
+                error_code="STOP_PRODUCT_SHEET_READBACK_INVALID",
+                created_count=created,
+            )
+            if observed_matrix != canonical_matrix:
+                raise ProductPublicationError(
+                    "STOP_PRODUCT_SHEET_CONTENT_VERIFY",
+                    created_count=created,
+                )
 
         pdf_path = root / "report.pdf"
         pdf = drive.put(pdf_path, names.pdf, output_parent_id, PDF_MIME)
@@ -282,6 +360,10 @@ def publish_product_bundle(
         "drive_target": "08_OUTPUTS",
         "created_count": created,
         "google_sheet_created": True,
+        "sheet_import_transport": "XLSX_LOCALE_INDEPENDENT",
+        "sheet_semantic_readback_verified": True,
+        "sheet_rows": len(canonical_matrix),
+        "sheet_columns": len(canonical_matrix[0]),
         "pdf_created": True,
         "completion_manifest_created": True,
         "completion_manifest_written_last": True,

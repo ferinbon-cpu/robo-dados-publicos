@@ -36,6 +36,8 @@ class FakeOpener:
             return FakeResponse(json.dumps({'access_token':'TOKEN','expires_in':3600}).encode())
         if '/drive/v3/about?' in url:
             return FakeResponse(json.dumps({'importFormats':{'text/csv':[SHEETS_MIME]}}).encode())
+        if '/drive/v3/files/F1/export?' in url:
+            return FakeResponse(b'a,b\n1,2\n')
         if '/drive/v3/files?' in url and 'upload' not in url:
             return FakeResponse(json.dumps({'files':[{'id':'F1','name':'a.csv'}]}).encode())
         if '/upload/drive/v3/files?' in url:
@@ -91,6 +93,18 @@ class TestM4Connectors(unittest.TestCase):
         self.assertIn(b'"mimeType": "application/vnd.google-apps.spreadsheet"',req.data)
         self.assertIn(b'Content-Type: text/csv',req.data)
         self.assertIn(b'"parents": ["PARENT"]',req.data)
+
+    def test_drive_workspace_export_contract(self):
+        fake=FakeOpener(); tp=TokenProvider(OAuthCredentials('CID','SECRET','REFRESH'),opener=fake)
+        client=DriveRESTClient(tp,opener=fake)
+        with tempfile.TemporaryDirectory() as td:
+            destination=Path(td)/'readback.csv'
+            out=client.export('F1',destination,'text/csv')
+            self.assertEqual(b'a,b\n1,2\n',destination.read_bytes())
+        self.assertEqual(hashlib.sha256(b'a,b\n1,2\n').hexdigest(),out['sha256'])
+        req=[r for r in fake.requests if '/drive/v3/files/F1/export?' in r.full_url][0]
+        self.assertEqual('GET',req.get_method())
+        self.assertIn('mimeType=text%2Fcsv',req.full_url)
 
     def test_gcloud_token_provider_contract(self):
         class CP:
