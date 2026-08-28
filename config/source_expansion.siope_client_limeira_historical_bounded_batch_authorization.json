@@ -31,7 +31,13 @@
   "next_state": "HISTORICAL_PARAMETERIZED_ARCHITECTURE_COMPLETE_AFTER_PASS",
   "overwrite_authorized": false,
   "pagination_authorized": false,
-  "period": 6,
+  "period_by_year": {
+    "2020": 6,
+    "2019": 6,
+    "2018": 6,
+    "2017": 6,
+    "2016": 1
+  },
   "pilot_evidence": {
     "blob_sha": "7e8d9bada48a1185753cda95ab64a4ac51488eec",
     "path": "docs/evidence/M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_PARAMETERIZED_SINGLE_YEAR_PILOT_RUN_1_0.8.0.json",
