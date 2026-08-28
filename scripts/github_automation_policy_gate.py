@@ -98,7 +98,7 @@ def run() -> dict:
     _require("https://www.googleapis.com/auth/drive.readonly" in oauth, "STOP_OAUTH_READONLY_SCOPE_NOT_SUPPORTED")
     _require("oauth_refresh_and_tokeninfo_exact" in capability, "STOP_M8_RUNTIME_SCOPE_PROOF_NOT_EXACT")
     _require("www.googleapis.com/drive/" not in capability, "STOP_M8_CAPABILITY_GATE_CALLS_DRIVE_API")
-    _require("STOP_M8_T1_MAIN_NOT_PROTECTED" in trust_gate, "STOP_M8_TRUST_GATE_MAIN_PROTECTION_CHECK_MISSING")
+    _require("evaluate_m8_t1_trust_boundary" in trust_gate, "STOP_M8_TRUST_GATE_EVALUATOR_MISSING")
     _require("Na dúvida, a decisão é `BLOCK`" in agents, "STOP_AGENTS_DEFAULT_DENY_MISSING")
 
     # First live manual proof is still immutable prerequisite evidence.
