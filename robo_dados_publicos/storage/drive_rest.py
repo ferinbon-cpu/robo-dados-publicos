@@ -140,7 +140,7 @@ class DriveRESTClient:
         """Return Drive's live import-format matrix.
 
         Google documents this matrix as dynamic. The product-publication gate
-        therefore proves CSV -> Google Sheets support before any write.
+        therefore proves the requested import conversion before any write.
         """
         fields=quote("importFormats")
         with self._request(f"{DRIVE_API}/about?fields={fields}") as resp:
@@ -159,6 +159,21 @@ class DriveRESTClient:
                 if not block: break
                 f.write(block); h.update(block); total += len(block)
         return {"file_id":file_id,"path":str(dest),"bytes":total,"sha256":h.hexdigest()}
+
+    def export(self,file_id,destination,mime_type):
+        """Export one Google Workspace file through Drive's read-only export API."""
+        if not str(mime_type).strip():
+            raise ValueError("EXPORT_MIME_TYPE_REQUIRED")
+        dest=Path(destination); dest.parent.mkdir(parents=True,exist_ok=True)
+        h=hashlib.sha256(); total=0
+        params=urlencode({"mimeType":mime_type})
+        url=f"{DRIVE_API}/files/{quote(file_id)}/export?{params}"
+        with self._request(url) as resp, dest.open("wb") as f:
+            while True:
+                block=resp.read(1024*1024)
+                if not block: break
+                f.write(block); h.update(block); total += len(block)
+        return {"file_id":file_id,"path":str(dest),"bytes":total,"sha256":h.hexdigest(),"mime_type":mime_type}
 
     def _multipart_create(self,local_path,remote_name,parent_id,mime_type,metadata_mime_type=None):
         p=Path(local_path)
@@ -184,8 +199,8 @@ class DriveRESTClient:
     def put_converted(self,local_path,remote_name,parent_id,source_mime_type,target_mime_type):
         """Create a Google Workspace file by importing local media.
 
-        For the M6 gate this is used only for text/csv -> Google Sheets.
-        Existing files are never updated by this method.
+        Existing files are never updated by this method. Callers are expected
+        to validate the provider's live importFormats matrix first.
         """
         if not parent_id:
             raise ValueError("PARENT_ID_REQUIRED_FOR_CONVERSION")
