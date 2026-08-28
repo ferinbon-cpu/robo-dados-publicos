@@ -1,0 +1,84 @@
+{
+  "schema": "ROBO_DADOS_PUBLICOS_PUBLIC_READINESS_HOSTED_BASELINE_V1",
+  "repository": "ferinbon-cpu/robo-dados-publicos",
+  "baseline": {
+    "workflow_run_id": 33164350655,
+    "workflow_job_id": 98826093420,
+    "audit_artifact_id": 9682995025,
+    "audit_artifact_digest": "sha256:5960b6292ef385e0c54410a9e7491f625d27ff132e758eab9193da56fe1cd28f",
+    "audit_head_sha": "7a00af42e20437388d76520a38e6547a0a7a0dac",
+    "incremental_overlap_cutoff_utc": "2026-08-28T10:44:00Z",
+    "hosted_scan": {
+      "metadata_text_records_scanned": 336,
+      "completed_actions_runs_considered": 1146,
+      "completed_actions_runs_scanned": 1146,
+      "completed_actions_runs_unavailable_or_expired": 0,
+      "nonexpired_artifacts_considered": 104,
+      "nonexpired_artifacts_scanned": 104,
+      "expired_artifacts_skipped": 0,
+      "artifact_text_entries_scanned": 136,
+      "artifact_opaque_entries_for_review": 2,
+      "blocker_count": 0,
+      "review_count_before_manual_binary_review": 2
+    }
+  },
+  "manual_binary_reviews": [
+    {
+      "artifact_id": 9670498410,
+      "entry": "product/report.pdf",
+      "bytes": 21854,
+      "sha256": "1e66378b20b0662f21557ab0b3011ad07b61e89c9879bd8c31a783b4a7221b77",
+      "pages": 9,
+      "encrypted": false,
+      "attachments": 0,
+      "forms": 0,
+      "annotations": 0,
+      "producer": "ReportLab PDF Library",
+      "classification": "PUBLIC_DERIVED_SIOPE_REPORT",
+      "review_methods": [
+        "PDF structural inspection",
+        "text extraction with pypdf",
+        "credential and internal-identifier pattern review",
+        "render of all 9 pages"
+      ],
+      "finding": "ACCEPTED_PUBLIC_DERIVED_REPORT"
+    },
+    {
+      "artifact_id": 9672319372,
+      "entry": "product/report.pdf",
+      "bytes": 21854,
+      "sha256": "31aadfd44448061aefcbc76903e3f910f14b7f8b6e46ae60dbfdc683143225d9",
+      "pages": 9,
+      "encrypted": false,
+      "attachments": 0,
+      "forms": 0,
+      "annotations": 0,
+      "producer": "ReportLab PDF Library",
+      "classification": "PUBLIC_DERIVED_SIOPE_REPORT",
+      "review_methods": [
+        "PDF structural inspection",
+        "text extraction with pypdf",
+        "credential and internal-identifier pattern review",
+        "render of all 9 pages",
+        "text comparison with artifact 9670498410"
+      ],
+      "comparison_finding": "Report text differs from artifact 9670498410 only in the generated-at timestamp.",
+      "finding": "ACCEPTED_PUBLIC_DERIVED_REPORT"
+    }
+  ],
+  "baseline_resolution": {
+    "credential_or_secret_blockers": 0,
+    "unresolved_binary_reviews": 0,
+    "secret_values_exposed": false,
+    "ready_as_historical_baseline": true
+  },
+  "incremental_rule": {
+    "issue_pr_metadata": "rescan current hosted text metadata",
+    "actions_logs": "scan completed runs whose updated_at is on or after the overlap cutoff",
+    "actions_artifacts": "scan non-expired artifacts whose created_at is on or after the overlap cutoff",
+    "opaque_future_artifacts": "fail closed unless exact resource_id, entry, byte count and SHA-256 are reviewed and allowlisted"
+  },
+  "repository_visibility_change_executed": false,
+  "publication_authorized": false,
+  "future_batch_execution_authorized": false
+}
