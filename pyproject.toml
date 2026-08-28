@@ -9,7 +9,7 @@ description = "Pipeline auditável para coleta, tratamento, QA, evidências e ap
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [{name = "Projeto ROBO_DADOS_PUBLICOS"}]
-dependencies = ["pypdf==6.10.0", "reportlab==5.0.0", "websocket-client==1.9.0"]
+dependencies = ["openpyxl==3.1.5", "pypdf==6.10.0", "reportlab==5.0.0", "websocket-client==1.9.0"]
 
 [project.scripts]
 robo-dados-publicos = "robo_dados_publicos.cli:main"
