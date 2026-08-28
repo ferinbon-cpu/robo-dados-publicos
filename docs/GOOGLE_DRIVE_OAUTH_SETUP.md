@@ -81,7 +81,21 @@ O helper:
 8. verifica apenas os nomes dos secrets por `gh secret list`;
 9. nunca imprime client secret, refresh token ou access token.
 
-Esse helper **não executa o M8**, **não autoriza no-click**, **não publica dados** e **não autoriza batch futuro**. A existência e a prova da credencial read-only são apenas pré-condições para um PR posterior que fará o wiring do workflow M8.
+Esse helper **não executa o M8**, **não autoriza no-click**, **não publica dados** e **não autoriza batch futuro**.
+
+### Checkpoint read-only provisionado
+
+O helper Cloud Shell já concluiu com `PASS_M8_READONLY_SECRETS_PROVISIONED`, escopo `drive.readonly` e prova `token_response_and_tokeninfo_exact`, sem expor valores de secrets e sem persistir arquivo de token.
+
+O workflow M8 agora mapeia somente os três secrets dedicados para as variáveis esperadas pelo cliente Drive. Antes de qualquer lookup/download, ele executa:
+
+```bash
+python scripts/github_m8_readonly_credential_capability_gate.py
+```
+
+Esse gate troca o refresh token por um access token, consulta `tokeninfo` e falha se o escopo não for **exatamente** `drive.readonly`. Ele não chama a Drive API e não prova a capacidade por tentativa de escrita.
+
+A primeira execução live do M8 **continua manual**. `workflow_call`, no-click, publicação e batch futuro permanecem bloqueados até a prova live e uma revisão posterior da policy.
 
 ## Bootstrap M8 em Windows local
 
@@ -105,13 +119,13 @@ O módulo `storage/drive_rest.py` renova access tokens automaticamente e usa a A
 
 ## Produção — credencial somente leitura
 
-Para isolamento de capacidade, o caminho Cloud Shell reserva o trio dedicado:
+Para isolamento de capacidade, o caminho M8 usa o trio dedicado:
 
 - `GOOGLE_DRIVE_READONLY_CLIENT_ID`
 - `GOOGLE_DRIVE_READONLY_CLIENT_SECRET`
 - `GOOGLE_DRIVE_READONLY_REFRESH_TOKEN`
 
-**Estado em 0.8.0:** a credencial read-only ainda precisa ser provisionada e comprovada. O workflow M8 permanece manual e não deve ser alterado para auto-run antes da primeira prova live read-only.
+**Estado em 0.8.0:** credencial read-only provisionada e comprovada no bootstrap; wiring dedicado preparado; primeira prova live do produto ainda pendente e obrigatoriamente manual. A retirada do clique só poderá ser considerada em gate/PR posterior após auditoria dessa primeira execução.
 
 ## Fontes oficiais consultadas na especificação
 

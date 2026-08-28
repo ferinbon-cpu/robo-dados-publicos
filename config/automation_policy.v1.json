@@ -52,7 +52,7 @@
       "workflow": ".github/workflows/m8-siope-historical-gold-product-output-readonly-gate.yml",
       "tier": "T1_REMOTE_READONLY",
       "auto_allowed": false,
-      "credential_capability": "READONLY_NOT_YET_PROVEN",
+      "credential_capability": "READONLY_PROVISIONED_TOKENINFO_PROVEN_AWAITING_FIRST_LIVE_GATE",
       "effects": {
         "source_get_count": 0,
         "drive_lookup_count": 9,
@@ -63,10 +63,15 @@
       "current_triggers": ["workflow_dispatch"],
       "blockers": [
         "CURRENT_WORKFLOW_REQUIRES_MANUAL_CONFIRMATION",
-        "CURRENT_REFRESH_TOKEN_CAPABILITY_IS_NOT_PROVEN_READONLY",
-        "READONLY_REFRESH_TOKEN_SECRET_NOT_WIRED"
+        "FIRST_LIVE_M8_READONLY_PRODUCT_GATE_NOT_YET_PROVEN",
+        "NO_CLICK_REQUIRES_POST_LIVE_REVIEW"
       ],
-      "future_readonly_secret": "GOOGLE_DRIVE_READONLY_REFRESH_TOKEN",
+      "readonly_secrets": [
+        "GOOGLE_DRIVE_READONLY_CLIENT_ID",
+        "GOOGLE_DRIVE_READONLY_CLIENT_SECRET",
+        "GOOGLE_DRIVE_READONLY_REFRESH_TOKEN"
+      ],
+      "runtime_capability_proof": "REQUIRED_BEFORE_FIRST_DRIVE_LOOKUP",
       "future_decision_after_blockers": "ELIGIBLE_FOR_NO_CLICK_REVIEW"
     },
     {
