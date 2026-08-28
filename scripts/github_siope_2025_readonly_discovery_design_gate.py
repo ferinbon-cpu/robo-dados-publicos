@@ -40,6 +40,8 @@ def validate(design_path: Path = DESIGN, regimes_path: Path = REGIMES, policy_pa
     _require(policy.get("policy_invariants", {}).get("agent_may_authorize_remote_execution") is False, "POLICY_AGENT_AUTHORITY")
     _require(policy.get("policy_invariants", {}).get("future_batch_execution_authorized") is False, "POLICY_FUTURE_BATCH")
 
+    # TASK 002 is a frozen pre-live design artifact. Its target must continue to
+    # describe the uncertainty that existed before TASK 004C produced evidence.
     target = design.get("target", {})
     _require(target == {
         "year": 2025, "state": "SP", "municipality_code": 352690, "municipality_name": "Limeira",
@@ -77,7 +79,7 @@ def validate(design_path: Path = DESIGN, regimes_path: Path = REGIMES, policy_pa
 
     phase_b = design.get("phase_b_conditional_schema", {})
     _require(phase_b.get("precondition") == "PHASE_A_PERIOD_6_OBSERVED_EXACT_IDENTITY", "SCHEMA_PRECONDITION")
-    _require(phase_b.get("period") == 6 and phase_b.get("period_semantics") == "CANDIDATE_ONLY", "P6_NOT_PROVEN")
+    _require(phase_b.get("period") == 6 and phase_b.get("period_semantics") == "CANDIDATE_ONLY", "P6_NOT_PROVEN_IN_FROZEN_DESIGN")
     _require(phase_b.get("expected_selected_schema_key_count") == 52, "SCHEMA_COUNT")
     _require(len(phase_b.get("required_gold_input_fields", [])) == 11, "GOLD_INPUT_FIELDS")
     _require(phase_b.get("allowed_aliases") == {}, "ALIASES")
@@ -104,12 +106,33 @@ def validate(design_path: Path = DESIGN, regimes_path: Path = REGIMES, policy_pa
     for relative in (offline["validator"], offline["gate"], offline["fixtures_directory"]):
         _require((ROOT / relative).exists(), "OFFLINE_VALIDATION_PATH")
 
+    # The canonical map may now reflect a later, separately reviewed promotion.
+    # That promotion must remain structural only; it cannot rewrite TASK 002 or
+    # silently imply annual closure, Gold comparability or closed-series entry.
     regime_2025 = next((item for item in regime_map.get("regimes", []) if item.get("years") == [2025]), None)
     _require(regime_2025 is not None, "REGIME_2025_MISSING")
-    _require(regime_2025.get("status") == "UNPROVEN_RECENT", "REGIME_2025_PROMOTED")
-    _require(regime_2025.get("period") == {"value": None, "status": "UNKNOWN"}, "REGIME_2025_PERIOD")
-    _require(regime_2025.get("schema") == {"status": "UNKNOWN", "name": None}, "REGIME_2025_SCHEMA")
-    return {"status": PASS, "tier": "T0_OFFLINE", "network_called": False, "drive_called": False, "secrets_used": False, "runtime_execution_authorized": False, "maximum_future_request_count": 7}
+    _require(regime_2025.get("id") == "STRUCTURALLY_PROVEN_2025", "REGIME_2025_ID")
+    _require(regime_2025.get("status") == "PROVEN_STRUCTURAL_RECENT", "REGIME_2025_STATUS")
+    _require(regime_2025.get("period") == {"value": 6, "status": "PROVEN_AVAILABLE_CLOSURE_UNKNOWN"}, "REGIME_2025_PERIOD")
+    _require(regime_2025.get("schema") == {"status": "PROVEN_2025_P6_SCHEMA", "name": "DADOS_GERAIS_SIOPE_52_FIELDS"}, "REGIME_2025_SCHEMA")
+    _require(regime_2025.get("annual_closure_status") == "UNKNOWN", "REGIME_2025_CLOSURE")
+    _require(regime_2025.get("semantic_comparability_status") == "UNKNOWN", "REGIME_2025_COMPARABILITY")
+    _require(regime_2025.get("closed_series_eligible") is False, "REGIME_2025_CLOSED_SERIES")
+    _require(regime_2025.get("gold_metrics_status") == "UNKNOWN", "REGIME_2025_GOLD")
+    _require(regime_map.get("closed_annual_series") == {"first_year": 2016, "last_year": 2024}, "CLOSED_SERIES_BOUNDARY")
+
+    return {
+        "status": PASS,
+        "tier": "T0_OFFLINE",
+        "network_called": False,
+        "drive_called": False,
+        "secrets_used": False,
+        "runtime_execution_authorized": False,
+        "maximum_future_request_count": 7,
+        "frozen_design_target_status": "UNPROVEN_FOR_2025",
+        "canonical_2025_status": "PROVEN_STRUCTURAL_RECENT",
+        "annual_closure_status": "UNKNOWN",
+    }
 
 
 def main() -> int:
