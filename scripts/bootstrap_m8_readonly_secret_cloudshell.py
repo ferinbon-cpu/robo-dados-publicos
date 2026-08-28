@@ -1,40 +1,51 @@
 #!/usr/bin/env python3
-"""Provision the dedicated M8 Google Drive read-only refresh token from Cloud Shell.
+"""Provision dedicated M8 Google Drive read-only OAuth secrets from Cloud Shell.
 
-This helper is intentionally interactive and fail-closed. It uses the official
-`gcloud auth application-default login --no-launch-browser --client-id-file`
-flow so a remote Cloud Shell session can complete OAuth without a localhost
-callback on the user's PC.
+This helper is intentionally interactive and fail-closed. It avoids the current
+`gcloud --no-launch-browser --client-id-file` incompatibility by using a
+standard OAuth 2.0 Web application client with a callback served through the
+authenticated Cloud Shell Web Preview proxy.
 
 Security properties:
 - OAuth client secret is entered with getpass and never printed.
-- gcloud ADC state is isolated under a TemporaryDirectory via CLOUDSDK_CONFIG.
-- the granted access token is checked with Google's tokeninfo endpoint and the
-  scope must be exactly Drive read-only.
-- the refresh token is sent to `gh secret set` through stdin, never a CLI arg.
-- temporary client/ADC files are deleted when the helper exits.
-- this helper does not run M8, authorize no-click execution, or publish data.
+- callback state is random and verified exactly.
+- requested and proven scope is exactly Google Drive read-only.
+- client id, client secret and refresh token are sent to GitHub Actions secrets
+  through stdin, never placed in CLI arguments or committed to Git.
+- no token file is written to disk.
+- this helper does not run M8, authorize no-click execution, publish data, or
+  authorize future batch execution.
 """
 from __future__ import annotations
 
+import argparse
 import getpass
 import json
 import os
-from pathlib import Path
+import secrets
 import shutil
 import subprocess
-import tempfile
+import time
+from http.server import BaseHTTPRequestHandler, HTTPServer
+from pathlib import Path
 from typing import Any
-from urllib.parse import urlencode
+from urllib.parse import parse_qs, urlencode, urlparse
 from urllib.request import Request, urlopen
 
 
 REPO = "ferinbon-cpu/robo-dados-publicos"
-SECRET_NAME = "GOOGLE_DRIVE_READONLY_REFRESH_TOKEN"
 READONLY_SCOPE = "https://www.googleapis.com/auth/drive.readonly"
+AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth"
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 TOKENINFO_URL = "https://oauth2.googleapis.com/tokeninfo"
 ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_PORT = 8080
+CALLBACK_PATH = "/oauth2callback"
+SECRET_NAMES = {
+    "client_id": "GOOGLE_DRIVE_READONLY_CLIENT_ID",
+    "client_secret": "GOOGLE_DRIVE_READONLY_CLIENT_SECRET",
+    "refresh_token": "GOOGLE_DRIVE_READONLY_REFRESH_TOKEN",
+}
 
 
 class CloudShellReadonlyBootstrapError(RuntimeError):
@@ -55,44 +66,42 @@ def _require_tool(name: str) -> str:
 def _run(
     cmd: list[str],
     *,
-    env: dict[str, str] | None = None,
     input_text: str | None = None,
-    capture_output: bool = True,
 ) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         cmd,
         text=True,
         input=input_text,
-        capture_output=capture_output,
+        capture_output=True,
         check=False,
-        env=env,
         cwd=ROOT,
     )
 
 
-def build_desktop_client_payload(client_id: str, client_secret: str, project_id: str) -> dict[str, Any]:
-    _require(bool(client_id.strip()), "STOP_GOOGLE_DRIVE_CLIENT_ID_MISSING")
-    _require(bool(client_secret.strip()), "STOP_GOOGLE_DRIVE_CLIENT_SECRET_MISSING")
-    return {
-        "installed": {
+def cloudshell_redirect_uri(*, port: int = DEFAULT_PORT, web_host: str | None = None) -> str:
+    host = (web_host if web_host is not None else os.environ.get("WEB_HOST", "")).strip()
+    _require(bool(host), "STOP_CLOUDSHELL_WEB_HOST_MISSING")
+    _require("/" not in host and "://" not in host, "STOP_CLOUDSHELL_WEB_HOST_INVALID")
+    _require(host.endswith("cloudshell.dev"), "STOP_CLOUDSHELL_WEB_HOST_UNEXPECTED")
+    _require(2000 <= port <= 65000, "STOP_CLOUDSHELL_PREVIEW_PORT_INVALID")
+    return f"https://{port}-{host}{CALLBACK_PATH}"
+
+
+def build_authorization_url(*, client_id: str, redirect_uri: str, state: str) -> str:
+    _require(bool(client_id.strip()), "STOP_GOOGLE_DRIVE_READONLY_CLIENT_ID_MISSING")
+    _require(client_id.strip().endswith(".apps.googleusercontent.com"), "STOP_GOOGLE_DRIVE_READONLY_CLIENT_ID_INVALID")
+    _require(bool(state), "STOP_OAUTH_STATE_MISSING")
+    return AUTH_URL + "?" + urlencode(
+        {
             "client_id": client_id.strip(),
-            "project_id": project_id.strip() or "robo-dados-publicos-pessoal",
-            "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-            "token_uri": TOKEN_URL,
-            "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-            "client_secret": client_secret,
-            "redirect_uris": ["http://localhost"],
+            "redirect_uri": redirect_uri,
+            "response_type": "code",
+            "scope": READONLY_SCOPE,
+            "access_type": "offline",
+            "prompt": "consent",
+            "state": state,
         }
-    }
-
-
-def validate_adc_payload(payload: dict[str, Any], *, client_id: str) -> str:
-    _require(isinstance(payload, dict), "STOP_READONLY_ADC_PAYLOAD_INVALID")
-    _require(payload.get("type") == "authorized_user", "STOP_READONLY_ADC_TYPE_INVALID")
-    _require(payload.get("client_id") == client_id, "STOP_READONLY_ADC_CLIENT_ID_MISMATCH")
-    refresh_token = payload.get("refresh_token")
-    _require(isinstance(refresh_token, str) and refresh_token.strip(), "STOP_READONLY_REFRESH_TOKEN_MISSING")
-    return refresh_token
+    )
 
 
 def _post_form(url: str, body: dict[str, str]) -> dict[str, Any]:
@@ -111,143 +120,164 @@ def _get_json(url: str) -> dict[str, Any]:
         return json.loads(resp.read().decode("utf-8"))
 
 
-def prove_exact_readonly_scope(*, client_id: str, client_secret: str, refresh_token: str) -> None:
+def validate_token_payload(payload: dict[str, Any]) -> tuple[str, str]:
+    _require(isinstance(payload, dict), "STOP_READONLY_TOKEN_PAYLOAD_INVALID")
+    access_token = payload.get("access_token")
+    refresh_token = payload.get("refresh_token")
+    _require(isinstance(access_token, str) and access_token.strip(), "STOP_READONLY_ACCESS_TOKEN_MISSING")
+    _require(isinstance(refresh_token, str) and refresh_token.strip(), "STOP_READONLY_REFRESH_TOKEN_MISSING")
+    scope = payload.get("scope")
+    if scope is not None:
+        _require(isinstance(scope, str) and scope.strip(), "STOP_READONLY_TOKEN_SCOPE_INVALID")
+        scopes = {item.strip() for item in scope.split() if item.strip()}
+        _require(scopes == {READONLY_SCOPE}, "STOP_READONLY_TOKEN_SCOPE_NOT_EXACT")
+    return access_token, refresh_token
+
+
+def prove_exact_readonly_scope(access_token: str) -> None:
+    tokeninfo = _get_json(TOKENINFO_URL + "?" + urlencode({"access_token": access_token}))
+    scope = tokeninfo.get("scope")
+    _require(isinstance(scope, str) and scope.strip(), "STOP_READONLY_TOKENINFO_SCOPE_MISSING")
+    scopes = {item.strip() for item in scope.split() if item.strip()}
+    _require(scopes == {READONLY_SCOPE}, "STOP_READONLY_TOKENINFO_SCOPE_NOT_EXACT")
+
+
+def _wait_for_callback(*, port: int, expected_state: str, timeout_seconds: int = 600) -> str:
+    result: dict[str, str] = {}
+
+    class Handler(BaseHTTPRequestHandler):
+        def do_GET(self) -> None:  # noqa: N802
+            parsed = urlparse(self.path)
+            if parsed.path != CALLBACK_PATH:
+                self.send_response(404)
+                self.end_headers()
+                return
+            query = parse_qs(parsed.query)
+            for key in ("state", "code", "error"):
+                values = query.get(key)
+                if values:
+                    result[key] = values[0]
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(
+                "<h2>Autorização recebida.</h2><p>Você pode fechar esta aba e voltar ao Cloud Shell.</p>".encode("utf-8")
+            )
+
+        def log_message(self, *_args: Any) -> None:
+            return
+
+    server = HTTPServer(("0.0.0.0", port), Handler)
+    server.timeout = 1
+    deadline = time.monotonic() + timeout_seconds
+    try:
+        while time.monotonic() < deadline and "code" not in result and "error" not in result:
+            server.handle_request()
+    finally:
+        server.server_close()
+
+    _require(result.get("state") == expected_state, "STOP_OAUTH_STATE_MISMATCH")
+    _require("error" not in result, "STOP_OAUTH_USER_DENIED_OR_ERROR")
+    code = result.get("code")
+    _require(isinstance(code, str) and code.strip(), "STOP_OAUTH_AUTHORIZATION_CODE_MISSING")
+    return code
+
+
+def _set_secret(gh: str, *, repo: str, name: str, value: str) -> None:
+    result = _run(
+        [gh, "secret", "set", name, "--repo", repo, "--app", "actions"],
+        input_text=value,
+    )
+    _require(result.returncode == 0, f"STOP_GITHUB_SECRET_SET_FAILED_{name}")
+
+
+def run(*, repo: str = REPO, port: int = DEFAULT_PORT) -> dict[str, Any]:
+    gh = _require_tool("gh")
+    gh_auth = _run([gh, "auth", "status", "--hostname", "github.com"])
+    _require(gh_auth.returncode == 0, "STOP_GH_NOT_AUTHENTICATED")
+
+    redirect_uri = cloudshell_redirect_uri(port=port)
+    print("URI de redirecionamento exigido para o novo OAuth Web client:")
+    print(redirect_uri)
+    print("\nUse exatamente esse URI no Google Cloud, no cliente OAuth do tipo Aplicativo da Web.\n")
+
+    client_id = input("Google OAuth Web Client ID: ").strip()
+    client_secret = getpass.getpass("Google OAuth Web Client Secret (hidden): ")
+    _require(bool(client_secret), "STOP_GOOGLE_DRIVE_READONLY_CLIENT_SECRET_MISSING")
+
+    state = secrets.token_urlsafe(32)
+    authorization_url = build_authorization_url(
+        client_id=client_id,
+        redirect_uri=redirect_uri,
+        state=state,
+    )
+    print("\nAbra esta URL no navegador e autorize SOMENTE leitura do Google Drive:\n")
+    print(authorization_url)
+    print("\nAguardando o retorno seguro pelo Cloud Shell Web Preview...\n")
+
+    code = _wait_for_callback(port=port, expected_state=state)
     token_payload = _post_form(
         TOKEN_URL,
         {
             "client_id": client_id,
             "client_secret": client_secret,
-            "refresh_token": refresh_token,
-            "grant_type": "refresh_token",
+            "code": code,
+            "redirect_uri": redirect_uri,
+            "grant_type": "authorization_code",
         },
     )
-    access_token = token_payload.get("access_token")
-    _require(isinstance(access_token, str) and access_token.strip(), "STOP_READONLY_ACCESS_TOKEN_MISSING")
+    access_token, refresh_token = validate_token_payload(token_payload)
+    prove_exact_readonly_scope(access_token)
 
-    tokeninfo = _get_json(TOKENINFO_URL + "?" + urlencode({"access_token": access_token}))
-    scope = tokeninfo.get("scope")
-    _require(isinstance(scope, str) and scope.strip(), "STOP_READONLY_TOKEN_SCOPE_MISSING")
-    scopes = {item.strip() for item in scope.split() if item.strip()}
-    _require(scopes == {READONLY_SCOPE}, "STOP_READONLY_TOKEN_SCOPE_NOT_EXACT")
+    _set_secret(gh, repo=repo, name=SECRET_NAMES["client_id"], value=client_id)
+    _set_secret(gh, repo=repo, name=SECRET_NAMES["client_secret"], value=client_secret)
+    _set_secret(gh, repo=repo, name=SECRET_NAMES["refresh_token"], value=refresh_token)
 
+    listed = _run(
+        [
+            gh,
+            "secret",
+            "list",
+            "--repo",
+            repo,
+            "--app",
+            "actions",
+            "--json",
+            "name",
+            "--jq",
+            ".[].name",
+        ]
+    )
+    _require(listed.returncode == 0, "STOP_GITHUB_SECRET_LIST_FAILED")
+    names = {line.strip() for line in listed.stdout.splitlines() if line.strip()}
+    _require(set(SECRET_NAMES.values()).issubset(names), "STOP_GITHUB_READONLY_SECRETS_NOT_VISIBLE_BY_NAME")
 
-def _find_adc(config_dir: Path) -> Path:
-    direct = config_dir / "application_default_credentials.json"
-    if direct.is_file():
-        return direct
-    matches = list(config_dir.rglob("application_default_credentials.json"))
-    _require(len(matches) == 1, "STOP_READONLY_ADC_FILE_NOT_FOUND")
-    return matches[0]
-
-
-def run(*, repo: str = REPO) -> dict[str, Any]:
-    gcloud = _require_tool("gcloud")
-    gh = _require_tool("gh")
-
-    gh_auth = _run([gh, "auth", "status", "--hostname", "github.com"])
-    _require(gh_auth.returncode == 0, "STOP_GH_NOT_AUTHENTICATED")
-
-    client_id = input("Google OAuth Desktop Client ID: ").strip()
-    client_secret = getpass.getpass("Google OAuth Desktop Client Secret (hidden): ")
-    _require(bool(client_id), "STOP_GOOGLE_DRIVE_CLIENT_ID_MISSING")
-    _require(bool(client_secret), "STOP_GOOGLE_DRIVE_CLIENT_SECRET_MISSING")
-
-    project_check = _run([gcloud, "config", "get-value", "project"])
-    project_id = project_check.stdout.strip() if project_check.returncode == 0 else ""
-
-    with tempfile.TemporaryDirectory(prefix="robo_m8_cloudshell_readonly_") as tmp:
-        tmp_path = Path(tmp)
-        config_dir = tmp_path / "gcloud"
-        config_dir.mkdir(mode=0o700)
-        client_file = tmp_path / "clientid.json"
-        client_file.write_text(
-            json.dumps(build_desktop_client_payload(client_id, client_secret, project_id), ensure_ascii=False),
-            encoding="utf-8",
-        )
-        try:
-            os.chmod(client_file, 0o600)
-        except OSError:
-            pass
-
-        env = os.environ.copy()
-        env["CLOUDSDK_CONFIG"] = str(config_dir)
-
-        print("\nOAuth read-only: o gcloud exibirá uma URL. Abra-a no navegador, autorize e cole o código SOMENTE neste terminal.\n")
-        oauth = _run(
-            [
-                gcloud,
-                "auth",
-                "application-default",
-                "login",
-                f"--client-id-file={client_file}",
-                f"--scopes={READONLY_SCOPE}",
-                "--no-launch-browser",
-                "--disable-quota-project",
-            ],
-            env=env,
-            capture_output=False,
-        )
-        _require(oauth.returncode == 0, "STOP_READONLY_GCLOUD_OAUTH_FAILED")
-
-        adc_path = _find_adc(config_dir)
-        try:
-            adc_payload = json.loads(adc_path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError) as exc:
-            raise CloudShellReadonlyBootstrapError("STOP_READONLY_ADC_FILE_INVALID") from exc
-
-        refresh_token = validate_adc_payload(adc_payload, client_id=client_id)
-        prove_exact_readonly_scope(
-            client_id=client_id,
-            client_secret=client_secret,
-            refresh_token=refresh_token,
-        )
-
-        # GitHub CLI reads the secret from stdin and encrypts it before sending.
-        set_secret = _run(
-            [gh, "secret", "set", SECRET_NAME, "--repo", repo, "--app", "actions"],
-            input_text=refresh_token,
-        )
-        _require(set_secret.returncode == 0, "STOP_GITHUB_SECRET_SET_FAILED")
-
-        listed = _run(
-            [
-                gh,
-                "secret",
-                "list",
-                "--repo",
-                repo,
-                "--app",
-                "actions",
-                "--json",
-                "name",
-                "--jq",
-                ".[].name",
-            ]
-        )
-        _require(listed.returncode == 0, "STOP_GITHUB_SECRET_LIST_FAILED")
-        names = {line.strip() for line in listed.stdout.splitlines() if line.strip()}
-        _require(SECRET_NAME in names, "STOP_GITHUB_READONLY_SECRET_NOT_VISIBLE_BY_NAME")
-
-        return {
-            "status": "PASS_M8_READONLY_SECRET_PROVISIONED",
-            "environment": "google_cloud_shell",
-            "repository": repo,
-            "secret_name": SECRET_NAME,
-            "scope": READONLY_SCOPE,
-            "scope_proof": "tokeninfo_exact",
-            "secret_value_exposed": False,
-            "temporary_adc_persistent": False,
-            "temporary_client_file_persistent": False,
-            "m8_executed": False,
-            "m8_no_click_authorized": False,
-            "publication_authorized": False,
-            "future_batch_execution_authorized": False,
-        }
+    return {
+        "status": "PASS_M8_READONLY_SECRETS_PROVISIONED",
+        "environment": "google_cloud_shell_web_preview",
+        "repository": repo,
+        "secret_names": sorted(SECRET_NAMES.values()),
+        "scope": READONLY_SCOPE,
+        "scope_proof": "token_response_and_tokeninfo_exact",
+        "secret_values_exposed": False,
+        "token_file_persistent": False,
+        "m8_executed": False,
+        "m8_no_click_authorized": False,
+        "publication_authorized": False,
+        "future_batch_execution_authorized": False,
+    }
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description="Provision M8 Drive read-only OAuth secrets from Google Cloud Shell.")
+    parser.add_argument("--port", type=int, default=DEFAULT_PORT)
+    parser.add_argument("--print-redirect-uri", action="store_true")
+    args = parser.parse_args()
     try:
-        result = run()
+        if args.print_redirect_uri:
+            print(cloudshell_redirect_uri(port=args.port))
+            return 0
+        result = run(port=args.port)
     except Exception as exc:
         print(json.dumps({"status": "STOP_M8_READONLY_SECRET_PROVISIONING", "error": str(exc)}, ensure_ascii=False, sort_keys=True))
         return 43
