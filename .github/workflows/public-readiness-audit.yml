@@ -35,14 +35,14 @@ jobs:
       - name: Scan reachable Git history and current workflows
         id: readiness
         continue-on-error: true
-        run: python scripts/github_public_readiness_audit.py --output runtime/public_readiness/repository.json
+        run: python scripts/github_public_readiness_gate.py --output runtime/public_readiness/repository.json
 
       - name: Scan hosted PR issue Actions logs and artifacts
         id: hosted
         continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python scripts/github_public_surface_audit.py --output runtime/public_readiness/hosted.json
+        run: python scripts/github_public_surface_gate.py --output runtime/public_readiness/hosted.json
 
       - name: Upload redacted audit reports
         if: always()
