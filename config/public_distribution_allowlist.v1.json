@@ -3,7 +3,7 @@
   "entries": [
     {
       "path": "tests/fixtures/jornal_oficial_fixture_2pages.pdf",
-      "sha256": "53ef031340eccfc0e83cd96af19b916b6a2fdfbedb33a99ae86cf1ea1f840871",
+      "git_blob_sha1": "ef0c6833eed44453ef044ecabbed270ed020c822",
       "classification": "SYNTHETIC_TEST_FIXTURE",
       "evidence": [
         "PDF metadata identifies ReportLab as producer and anonymous creator/author",
