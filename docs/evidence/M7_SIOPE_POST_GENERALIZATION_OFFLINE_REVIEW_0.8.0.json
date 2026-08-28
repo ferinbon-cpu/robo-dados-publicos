@@ -1,0 +1,83 @@
+{
+  "review_id": "M7_SIOPE_POST_GENERALIZATION_OFFLINE_REVIEW_0_8_0",
+  "software_version": "0.8.0",
+  "status": "PASS_POST_GENERALIZATION_OFFLINE_REVIEW",
+  "review_mode": "OFFLINE_EXISTING_EVIDENCE_ONLY",
+  "source_network_called": false,
+  "drive_network_called": false,
+  "mutation_count": 0,
+  "historical_generalization_complete": true,
+  "generalization_gates_passed": 4,
+  "generalization_gates_total": 4,
+  "coverage": {
+    "municipality_code": 352690,
+    "municipality_name": "Limeira",
+    "state": "SP",
+    "resource": "Dados_Gerais_Siope",
+    "first_year": 2016,
+    "last_year": 2024,
+    "year_count": 9,
+    "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+    "continuous": true,
+    "period_by_year": {
+      "2016": 1,
+      "2017": 6,
+      "2018": 6,
+      "2019": 6,
+      "2020": 6,
+      "2021": 6,
+      "2022": 6,
+      "2023": 6,
+      "2024": 6
+    },
+    "layers_per_year": ["BRONZE", "SILVER", "GOLD"],
+    "verified_layer_objects": 27,
+    "gold_metric_count_per_year": 8,
+    "gold_metric_observations": 72
+  },
+  "evidence_chain": {
+    "vertical_full_pipeline_years": [2024, 2023, 2022],
+    "parameterized_single_year_pilot": {
+      "year": 2021,
+      "period": 6,
+      "run_id": 33123669920,
+      "drive_write_count": 3,
+      "drive_download_count": 3,
+      "stage_count": 9
+    },
+    "bounded_batch": {
+      "years": [2020, 2019, 2018, 2017, 2016],
+      "run_id": 33129373320,
+      "artifact_id": 9669653242,
+      "head_sha": "dab85cb338dfe39e58d388047c008e8f4f63d4f9",
+      "source_get_count": 5,
+      "source_record_count": 5,
+      "drive_preflight_collision_checks": 15,
+      "drive_write_count": 15,
+      "drive_download_count": 15,
+      "total_stage_count": 45,
+      "unit_tests": 1190,
+      "historical_tests": 109,
+      "status": "PASS_M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_BOUNDED_BATCH_AUTHORIZATION"
+    }
+  },
+  "decision": {
+    "collect_2015_or_earlier_now": false,
+    "reason": "A série anual já é contínua de 2016 a 2024 e o próximo gargalo é tornar os Gold persistidos consumíveis como série histórica e relatório, não ampliar a coleta por inércia.",
+    "future_batch_execution_authorized": false,
+    "retry_authorized": false,
+    "pagination_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false,
+    "imputation_authorized": false,
+    "automatic_compliance_claims_authorized": false
+  },
+  "product_gap": {
+    "existing_output_formats": ["application/json", "text/csv", "text/markdown", "text/html", "application/pdf"],
+    "existing_drive_target": "08_OUTPUTS",
+    "current_generic_product_builder_requires_prebuilt_answers": true,
+    "missing_capability": "Deterministic adapter from validated SIOPE Gold payloads to AnswerContract historical-series rows and the existing product bundle.",
+    "next_milestone": "M8_SIOPE_HISTORICAL_GOLD_PRODUCT_OUTPUT"
+  },
+  "next_action": "PREPARE_M8_SIOPE_HISTORICAL_GOLD_PRODUCT_OUTPUT_OFFLINE_ADAPTER_AND_GATE"
+}
