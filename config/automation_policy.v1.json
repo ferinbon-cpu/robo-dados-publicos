@@ -18,8 +18,8 @@
     },
     "T1_REMOTE_READONLY": {
       "description": "Bounded external read-only access. Auto execution requires capability-limited read-only credentials, proven live behavior, zero remote writes/publication and a protected trust boundary for secret-bearing automation.",
-      "auto_execution": "CONDITIONAL",
-      "human_confirmation_required": "UNTIL_TRUST_BOUNDARY_AND_TRUSTED_ORCHESTRATOR_REVIEW_COMPLETE"
+      "auto_execution": "CONDITIONAL_PER_GATE",
+      "human_confirmation_required": "UNTIL_LIVE_PROOF_AND_TRUST_BOUNDARY_PASS"
     },
     "T2_CREATE_ONLY": {
       "description": "Bounded create-only persistence after collision preflight.",
@@ -51,9 +51,12 @@
       "id": "M8_SIOPE_HISTORICAL_GOLD_PRODUCT_OUTPUT_READONLY",
       "workflow": ".github/workflows/m8-siope-historical-gold-product-output-readonly-gate.yml",
       "reusable_workflow": ".github/workflows/m8-siope-historical-gold-product-output-readonly-reusable.yml",
+      "automatic_orchestrator": ".github/workflows/m8-siope-historical-gold-product-output-readonly-auto.yml",
       "tier": "T1_REMOTE_READONLY",
-      "auto_allowed": false,
-      "credential_capability": "READONLY_EXACT_SCOPE_FIRST_LIVE_GATE_PROVEN",
+      "auto_allowed": true,
+      "human_authorization": "OWNER_COMPLETED_PUBLIC_REPO_AND_ACTIVE_MAIN_RULESET_FOR_T1_NO_CLICK",
+      "credential_capability": "READ_ONLY_PROVEN",
+      "credential_capability_detail": "EXACT_SCOPE_LIVE_RUN_33136736495",
       "live_proof": {
         "evidence": "docs/evidence/M8_SIOPE_HISTORICAL_GOLD_PRODUCT_OUTPUT_READONLY_RUN_2_0.8.0.json",
         "run_id": 33136736495,
@@ -77,31 +80,44 @@
       },
       "current_triggers": ["workflow_dispatch"],
       "reusable_contract_triggers": ["workflow_call"],
-      "blockers": [
-        "CURRENT_MANUAL_WRAPPER_REQUIRES_EXPLICIT_CONFIRMATION",
-        "MAIN_BRANCH_NOT_PROTECTED_FOR_SECRET_BEARING_AUTOMATION",
-        "GITHUB_PRIVATE_REPO_PROTECTED_TRUST_BOUNDARY_UNAVAILABLE_ON_CURRENT_PLAN",
-        "NO_CLICK_REQUIRES_TRUSTED_ORCHESTRATOR_REVIEW"
+      "automatic_triggers": ["push:protected-main:bounded-paths"],
+      "automatic_trigger_paths": [
+        "docs/evidence/M8_T1_NO_CLICK_ACTIVATION_0.8.0.json",
+        "docs/evidence/M7_SIOPE_*.json",
+        "robo_dados_publicos/product/siope_historical.py",
+        "robo_dados_publicos/product/siope_historical_drive_readonly.py",
+        "scripts/build_siope_historical_product_output.py"
       ],
+      "blockers": [],
       "readonly_secrets": [
         "GOOGLE_DRIVE_READONLY_CLIENT_ID",
         "GOOGLE_DRIVE_READONLY_CLIENT_SECRET",
         "GOOGLE_DRIVE_READONLY_REFRESH_TOKEN"
       ],
       "runtime_capability_proof": "PROVEN_BEFORE_FIRST_DRIVE_LOOKUP_IN_LIVE_RUN_33136736495",
-      "reusable_worker_status": "PRESENT_EXPLICIT_SECRETS_NO_SECRETS_INHERIT_NO_AUTO_CALLER",
+      "reusable_worker_status": "PRESENT_EXPLICIT_SECRETS_NO_SECRETS_INHERIT_BOUNDED_AUTO_CALLER",
       "trust_boundary_observation": {
-        "repository_visibility": "private",
-        "main_protected": false,
-        "repository_rulesets_api": "HTTP_403_UPGRADE_TO_GITHUB_PRO_OR_MAKE_PUBLIC",
-        "make_repository_public_as_shortcut": false
+        "repository_visibility": "public",
+        "main_protected": true,
+        "branch_api_protected": true,
+        "ruleset_id": 21728151,
+        "ruleset_name": "main-protection-v1",
+        "ruleset_enforcement": "active",
+        "ruleset_target": "default_branch",
+        "bypass_actors": [],
+        "current_user_can_bypass": "never",
+        "required_pull_request": true,
+        "required_approvals": 0,
+        "required_review_thread_resolution": true,
+        "required_status_checks_strict": true,
+        "required_status_checks": [
+          "Audit full Git history safely",
+          "Validar sem Drive"
+        ],
+        "block_deletions": true,
+        "block_force_pushes": true
       },
-      "safe_current_mode": "MANUAL_WORKFLOW_DISPATCH_OVER_REUSABLE_WORKER",
-      "future_decision_options": [
-        "GITHUB_PRO_THEN_PROTECT_MAIN_AND_REVIEW_TRUSTED_ORCHESTRATOR",
-        "KEEP_M8_MANUAL_ON_GITHUB",
-        "DESIGN_EXTERNAL_GCP_TRUST_BOUNDARY_IN_SEPARATE_GATES"
-      ]
+      "safe_current_mode": "T1_AUTO_PROTECTED_MAIN_BOUNDED_PATHS_PLUS_MANUAL_BACKSTOP"
     },
     {
       "id": "ACTIVE_RUNTIME_PERSISTENCE",
