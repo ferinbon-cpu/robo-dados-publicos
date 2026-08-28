@@ -11,13 +11,23 @@ Opaque artifact entries remain fail-closed unless an exact resource-id + entry-n
 This permits specifically reviewed generated PDFs without weakening review of any
 future or changed binary artifact.
 
+A previously completed exhaustive hosted-surface baseline may be supplied via
+PUBLIC_HOSTED_BASELINE_CUTOFF_UTC. In that mode, issue/PR text metadata is still
+rescanned in full, while Actions logs/artifacts are downloaded only when their
+updated/created timestamps are at or after an intentional overlap cutoff. This
+keeps the audit fail-closed without repeatedly downloading more than a thousand
+already-reviewed workflow logs on every PR amendment.
+
 The underlying scanner remains read-only and never emits matched secret values.
 """
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime, timezone
 import hashlib
 import io
 import json
+import os
 from pathlib import Path
 import zipfile
 
@@ -26,6 +36,7 @@ import github_public_surface_audit as base
 
 ROOT = Path(__file__).resolve().parents[1]
 ALLOWLIST_PATH = ROOT / "config" / "public_hosted_surface_allowlist.v1.json"
+BASELINE_CUTOFF_RAW = os.environ.get("PUBLIC_HOSTED_BASELINE_CUTOFF_UTC", "").strip()
 _original_request = base._request
 _original_scan_zip_bytes = base.scan_zip_bytes
 
@@ -95,8 +106,109 @@ def scan_zip_bytes(raw: bytes, *, surface: str, resource_id: str):
     return blockers, retained, adjusted
 
 
+def _parse_utc(value: str) -> datetime:
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise base.SurfaceAuditError("STOP_PUBLIC_HOSTED_BASELINE_CUTOFF_INVALID") from exc
+    if parsed.tzinfo is None:
+        raise base.SurfaceAuditError("STOP_PUBLIC_HOSTED_BASELINE_CUTOFF_TZ_MISSING")
+    return parsed.astimezone(timezone.utc)
+
+
+def _at_or_after_cutoff(value: object, cutoff: datetime) -> bool:
+    if not isinstance(value, str) or not value.strip():
+        return False
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return False
+    if parsed.tzinfo is None:
+        return False
+    return parsed.astimezone(timezone.utc) >= cutoff
+
+
+def _scan_actions_logs_incremental(cutoff: datetime):
+    blockers: list[dict] = []
+    reviews: list[dict] = []
+    listed = list(base._paginate(f"/repos/{base.REPO}/actions/runs", key="workflow_runs"))
+    candidates = [
+        str(run.get("id"))
+        for run in listed
+        if run.get("id")
+        and str(run.get("id")) != base.CURRENT_RUN_ID
+        and run.get("status") == "completed"
+        and _at_or_after_cutoff(run.get("updated_at"), cutoff)
+    ]
+    scanned_runs = 0
+    unavailable_runs = 0
+    with ThreadPoolExecutor(max_workers=base.MAX_DOWNLOAD_WORKERS) as pool:
+        futures = {pool.submit(base._scan_one_log, run_id): run_id for run_id in candidates}
+        for future in as_completed(futures):
+            b, r, available = future.result()
+            blockers.extend(b)
+            reviews.extend(r)
+            if available:
+                scanned_runs += 1
+            else:
+                unavailable_runs += 1
+    return base._sort_findings(blockers), base._sort_findings(reviews), {
+        "baseline_overlap_cutoff_utc": cutoff.isoformat().replace("+00:00", "Z"),
+        "actions_runs_metadata_listed": len(listed),
+        "completed_actions_runs_considered": len(candidates),
+        "completed_actions_runs_scanned": scanned_runs,
+        "completed_actions_runs_unavailable_or_expired": unavailable_runs,
+        "download_workers": base.MAX_DOWNLOAD_WORKERS,
+        "incremental_from_pinned_exhaustive_baseline": True,
+    }
+
+
+def _scan_actions_artifacts_incremental(cutoff: datetime):
+    blockers: list[dict] = []
+    reviews: list[dict] = []
+    artifacts = list(base._paginate(f"/repos/{base.REPO}/actions/artifacts", key="artifacts"))
+    expired = sum(1 for item in artifacts if item.get("expired"))
+    candidates = [
+        str(item.get("id"))
+        for item in artifacts
+        if item.get("id")
+        and not item.get("expired")
+        and _at_or_after_cutoff(item.get("created_at"), cutoff)
+    ]
+    scanned = 0
+    text_entries = 0
+    opaque_entries = 0
+    with ThreadPoolExecutor(max_workers=base.MAX_DOWNLOAD_WORKERS) as pool:
+        futures = {pool.submit(base._scan_one_artifact, artifact_id): artifact_id for artifact_id in candidates}
+        for future in as_completed(futures):
+            b, r, stats, available = future.result()
+            blockers.extend(b)
+            reviews.extend(r)
+            text_entries += stats["text_entries"]
+            opaque_entries += stats["opaque_entries"]
+            if available:
+                scanned += 1
+    return base._sort_findings(blockers), base._sort_findings(reviews), {
+        "baseline_overlap_cutoff_utc": cutoff.isoformat().replace("+00:00", "Z"),
+        "actions_artifacts_metadata_listed": len(artifacts),
+        "nonexpired_artifacts_considered": len(candidates),
+        "nonexpired_artifacts_scanned": scanned,
+        "expired_artifacts_skipped": expired,
+        "artifact_text_entries_scanned": text_entries,
+        "artifact_opaque_entries_for_review": opaque_entries,
+        "download_workers": base.MAX_DOWNLOAD_WORKERS,
+        "incremental_from_pinned_exhaustive_baseline": True,
+    }
+
+
 base._request = _request
 base.scan_zip_bytes = scan_zip_bytes
+
+if BASELINE_CUTOFF_RAW:
+    _cutoff = _parse_utc(BASELINE_CUTOFF_RAW)
+    base._scan_actions_logs = lambda: _scan_actions_logs_incremental(_cutoff)
+    base._scan_actions_artifacts = lambda: _scan_actions_artifacts_incremental(_cutoff)
+
 run = base.run
 main = base.main
 
