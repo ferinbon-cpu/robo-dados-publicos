@@ -2,15 +2,20 @@ from __future__ import annotations
 
 import importlib.util
 from pathlib import Path
+import sys
 import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "scripts" / "github_public_readiness_audit.py"
-spec = importlib.util.spec_from_file_location("public_readiness", SCRIPT)
+SCRIPTS = ROOT / "scripts"
+sys.path.insert(0, str(SCRIPTS))
+SCRIPT = SCRIPTS / "github_public_readiness_gate.py"
+spec = importlib.util.spec_from_file_location("public_readiness_gate", SCRIPT)
 assert spec and spec.loader
 mod = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(mod)
+base = sys.modules.get("github_public_readiness_audit")
+assert base is not None
 
 
 def _codes(text: str) -> set[str]:
@@ -43,17 +48,33 @@ class PublicReadinessAuditTests(unittest.TestCase):
         self.assertIn("SENSITIVE_ENV_ASSIGNMENT", _codes(realish))
         self.assertFalse(_codes(placeholder))
 
+    def test_blank_env_assignment_does_not_bleed_into_next_line(self) -> None:
+        text = "GOOGLE_DRIVE_CLIENT_SECRET=\nGOOGLE_DRIVE_REFRESH_TOKEN=\nNEXT_VALUE=abcdefghijklmnop"
+        self.assertFalse(_codes(text))
+
+    def test_env_variable_name_literal_is_placeholder(self) -> None:
+        text = '"client_secret": "GOOGLE_DRIVE_READONLY_CLIENT_SECRET"'
+        self.assertFalse(_codes(text))
+
+    def test_non_propagation_test_sentinel_is_placeholder(self) -> None:
+        text = '"client_secret": "must-not-propagate"'
+        self.assertFalse(_codes(text))
+
     def test_variable_to_variable_assignment_is_not_a_secret_literal(self) -> None:
         text = "client_secret=credentials.client_secret\nrefresh_token=payload.refresh_token"
         self.assertFalse(_codes(text))
 
     def test_env_example_is_not_a_sensitive_filename(self) -> None:
-        findings = mod._suspicious_path_findings([".env.example"])
+        findings = base._suspicious_path_findings([".env.example"])
         self.assertEqual([], findings)
 
     def test_real_env_and_private_key_filename_require_review(self) -> None:
-        findings = mod._suspicious_path_findings([".env", "config/service.key"])
+        findings = base._suspicious_path_findings([".env", "config/service.key"])
         self.assertEqual({".env", "config/service.key"}, {item["path"] for item in findings})
+
+    def test_synthetic_fixture_is_pinned_by_git_blob_and_needs_no_binary_review(self) -> None:
+        findings = base._current_binary_review()
+        self.assertFalse(any(item.get("path") == "tests/fixtures/jornal_oficial_fixture_2pages.pdf" for item in findings))
 
     def test_audit_source_never_emits_matched_secret_value(self) -> None:
         token = "gh" + "o_" + ("Xy7" * 12)
