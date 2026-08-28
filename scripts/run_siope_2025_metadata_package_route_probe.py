@@ -9,6 +9,10 @@ from pathlib import Path
 import subprocess
 import sys
 
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 from robo_dados_publicos.sources.siope_2025_metadata_package_route_probe import (
     AUTH_PATH,
     MetadataPackageProbeError,
@@ -16,7 +20,6 @@ from robo_dados_publicos.sources.siope_2025_metadata_package_route_probe import 
     validate_authorization_document,
 )
 
-ROOT = Path(__file__).resolve().parents[1]
 PREPARATION = ROOT / "config" / "siope_2025_metadata_package_route_probe_preparation.v1.json"
 ACTUAL_AUTH = ROOT / AUTH_PATH
 
