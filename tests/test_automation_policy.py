@@ -25,12 +25,30 @@ class TestAutomationPolicy(unittest.TestCase):
         self.assertEqual("AUTO_ALLOWED", decision["decision"])
         self.assertEqual("T0_OFFLINE", decision["tier"])
 
-    def test_m8_no_click_is_still_blocked_until_first_live_readonly_proof(self):
+    def test_m8_no_click_is_blocked_after_live_proof_until_trust_boundary_review(self):
         decision = evaluate_gate(self.policy, "M8_SIOPE_HISTORICAL_GOLD_PRODUCT_OUTPUT_READONLY")
         self.assertEqual("BLOCK", decision["decision"])
         self.assertEqual("T1_REMOTE_READONLY", decision["tier"])
-        self.assertIn("FIRST_LIVE_M8_READONLY_PRODUCT_GATE_NOT_YET_PROVEN", decision["blockers"])
+        self.assertNotIn("FIRST_LIVE_M8_READONLY_PRODUCT_GATE_NOT_YET_PROVEN", decision["blockers"])
         self.assertIn("CURRENT_WORKFLOW_REQUIRES_MANUAL_CONFIRMATION", decision["blockers"])
+        self.assertIn("MAIN_BRANCH_NOT_PROTECTED_FOR_SECRET_BEARING_AUTOMATION", decision["blockers"])
+        self.assertIn("NO_CLICK_REQUIRES_REUSABLE_WORKFLOW_AND_TRUSTED_ORCHESTRATOR_REVIEW", decision["blockers"])
+
+    def test_m8_policy_pins_exact_first_live_proof(self):
+        gate = next(g for g in self.policy["gates"] if g["id"] == "M8_SIOPE_HISTORICAL_GOLD_PRODUCT_OUTPUT_READONLY")
+        proof = gate["live_proof"]
+        self.assertEqual("READONLY_EXACT_SCOPE_FIRST_LIVE_GATE_PROVEN", gate["credential_capability"])
+        self.assertEqual(33136736495, proof["run_id"])
+        self.assertEqual(98738273929, proof["job_id"])
+        self.assertEqual("8f80edcae45a373f85b84c03880842363661d870", proof["head_sha"])
+        self.assertEqual(9672319372, proof["artifact_id"])
+        self.assertEqual("sha256:a3afeed9c1449ab4806127024d044d177e76e8097894786b0e68bbbfffc60b51", proof["artifact_digest"])
+        self.assertEqual("https://www.googleapis.com/auth/drive.readonly", proof["oauth_scope"])
+        self.assertEqual(9, proof["drive_lookup_count"])
+        self.assertEqual(9, proof["drive_download_count"])
+        self.assertEqual(0, proof["drive_write_count"])
+        self.assertEqual(0, proof["source_get_count"])
+        self.assertFalse(proof["publication"])
 
     def test_persistence_and_publication_are_not_auto_allowed(self):
         for gate_id in ("ACTIVE_RUNTIME_PERSISTENCE", "PRODUCT_OUTPUT_PUBLICATION"):
@@ -63,7 +81,7 @@ class TestAutomationPolicy(unittest.TestCase):
         self.assertIn(live, workflow)
         self.assertLess(workflow.index(proof), workflow.index(live))
 
-    def test_policy_gate_runs_offline_and_reports_m8_block(self):
+    def test_policy_gate_runs_offline_and_reports_m8_block_after_live_proof(self):
         cp = subprocess.run(
             [sys.executable, str(ROOT / "scripts/github_automation_policy_gate.py")],
             cwd=ROOT,
@@ -77,6 +95,10 @@ class TestAutomationPolicy(unittest.TestCase):
         self.assertEqual("BLOCK", result["m8_no_click_decision"])
         self.assertTrue(result["current_m8_readonly_secret_wired"])
         self.assertTrue(result["readonly_runtime_capability_proof_step_present"])
+        self.assertTrue(result["m8_first_live_proof_pinned"])
+        self.assertEqual(33136736495, result["m8_first_live_run_id"])
+        self.assertEqual("READONLY_EXACT_SCOPE_FIRST_LIVE_GATE_PROVEN", result["m8_credential_capability"])
+        self.assertIn("MAIN_BRANCH_NOT_PROTECTED_FOR_SECRET_BEARING_AUTOMATION", result["m8_blockers"])
         self.assertEqual(0, result["drive_write_count"])
         self.assertFalse(result["publication_authorized"])
 
