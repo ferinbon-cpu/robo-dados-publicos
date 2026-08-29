@@ -1,0 +1,33 @@
+{
+  "schema": "SIOPE_2025_METADATA_INSPECTOR_010A_V1",
+  "task": "TASK_010A",
+  "tier": "T0_OFFLINE",
+  "target_future_artifact": "Metadados de 2025 — Municipal",
+  "official_acquisition_performed": false,
+  "official_bytes_present": false,
+  "fixtures_are_synthetic_only": true,
+  "network_enabled": false,
+  "source_get_count": 0,
+  "sharepoint_access_count": 0,
+  "drive_read_count": 0,
+  "drive_write_count": 0,
+  "installer_execution_count": 0,
+  "financial_value_queries": 0,
+  "phase_010b_authorized": false,
+  "schedule_or_recurrence_enabled": false,
+  "canonical_state": {
+    "release_0_7_0": "ACTIVE",
+    "release_0_8_0": "CANDIDATE",
+    "year_2025": "PROVEN_STRUCTURAL_RECENT",
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_metrics_status": "UNKNOWN/BLOCKED",
+    "closed_annual_series": "2016-2024",
+    "year_2026": "UNPROVEN_CURRENT_YEAR"
+  },
+  "promotions_authorized": false,
+  "output_is_evidence": false,
+  "next_gate": "PREPARE_AND_REVIEW_010B_BOUNDED_REMOTE_ACQUISITION_NOT_AUTHORIZED"
+}
