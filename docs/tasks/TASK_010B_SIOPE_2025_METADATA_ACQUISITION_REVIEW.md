@@ -38,8 +38,29 @@ A autorização one-shot é considerada consumida. Não houve retry.
 
 O STOP não constitui evidência negativa sobre o conteúdo do pacote; apenas registra que nenhum artefato foi obtido nesta autorização.
 
+## Reconciliação com TASKs 009A–009E
+
+A auditoria posterior do histórico completo mostrou que esta mesma rota SharePoint já estava governada por evidência anterior:
+
+- TASK 009B: share link oficial observado com `HTTP 302` e redirect relativo;
+- TASK 009C: caminho SharePoint resolvido observado com `HTTP 401`;
+- TASK 009D: dead-end consolidado, com proibição explícita de `REPEAT_NEGATIVE_ROUTE_WITHOUT_NEW_OFFICIAL_EVIDENCE`;
+- TASK 009E-L-R: S1/S2 mantidos `NOT_PROVEN`, `future_remote_discovery_authorized=false` e exigência de nova classe de evidência oficial antes de nova descoberta remota.
+
+Assim, a 010B é classificada retrospectivamente como:
+
+`NON_NOVEL_REDUNDANT_STOP_NO_SEMANTIC_EFFECT`
+
+Ela **não** abriu uma rota nova, **não** superou a 009D e **não** deve ser usada para justificar outro retry automatizado.
+
+A capacidade útil adicionada pela TASK 010 é a Fase 010A: o inspector T0/offline permanece disponível para inspecionar bytes legítimos que venham a ser obtidos por uma classe de evidência permitida.
+
 ## Próximo passo
 
-Qualquer nova tentativa remota exige **nova autorização humana explícita** e novo gate. Não existe saldo da autorização 010B consumida. Antes de nova tentativa, deve-se preferir uma rota de aquisição capaz de representar de forma auditável o fluxo oficial FNDE/SharePoint sem login ou credenciais e sem relaxar as fronteiras da TASK 010.
+A política prevalente é a de 009D/009E: **nenhuma nova tentativa SharePoint automatizada está autorizada sem nova evidência oficial que abra uma rota diferente**.
 
-A evidência sanitizada correspondente está em `docs/evidence/TASK_010B_SIOPE_2025_METADATA_ACQUISITION_STOP_0.8.0.json`.
+O caminho prático permitido neste ponto é o handoff humano controlado descrito em `docs/tasks/TASK_010R_SIOPE_2025_RECONCILIATION_AND_HUMAN_HANDOFF.md`: o proprietário pode baixar manualmente `Municipal → Metadados de 2025` a partir da página oficial do FNDE, somente se o navegador entregar o arquivo sem login ou credenciais, preservar os bytes sem abrir/editar/renomear e submetê-los para inspeção 100% offline pela 010A.
+
+Um arquivo recebido por esse caminho começa como `USER_MEDIATED_OFFICIAL_DOWNLOAD_CANDIDATE`; não é promovido automaticamente a `PROVEN_OFFICIAL_BYTES`.
+
+A evidência sanitizada desta 010B permanece em `docs/evidence/TASK_010B_SIOPE_2025_METADATA_ACQUISITION_STOP_0.8.0.json` apenas como trilha histórica do STOP consumido.
