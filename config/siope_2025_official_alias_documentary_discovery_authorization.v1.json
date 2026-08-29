@@ -56,6 +56,13 @@
     "EXPAND_CLOSED_ANNUAL_SERIES_TO_2025",
     "PROMOTE_2026"
   ],
-  "authorization_consumed": false,
+  "authorization_consumed": true,
+  "consumption_result": "COMPLETED_BOUNDED_DOCUMENTARY_DISCOVERY_NO_PROMOTION",
+  "official_document_open_count": 11,
+  "distinct_official_url_count": 11,
+  "unused_url_budget": 1,
+  "rerun_authorized": false,
+  "review_issue": 224,
+  "evidence_path": "docs/evidence/TASK_009E_L_SIOPE_2025_OFFICIAL_ALIAS_DOCUMENTARY_DISCOVERY_RUN_1_0.8.0.json",
   "result_review_required_before_any_promotion": true
 }
