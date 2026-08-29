@@ -1,0 +1,90 @@
+{
+  "schema": "TASK_010N_R_E_L_SIOPE_2025_OFFICIAL_LABELS_REMOTE_STOP_V1",
+  "task": "TASK_010N_R_E_L",
+  "issue": 260,
+  "software_version": "0.8.0",
+  "base_sha": "e70f2d34d14b127b6f30f0615d4e2ade3bb21c03",
+  "authorization_source": "owner_message_prossiga_2026-08-29",
+  "classification": "STOP_REMOTE_ACCESS_NO_LABEL_EVIDENCE",
+  "execution": {
+    "max_gets_authorized": 2,
+    "distinct_get_attempts": 2,
+    "retry_count": 0,
+    "redirect_follow_count": 0,
+    "authentication_attempts": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "gold_computations": 0,
+    "reverse_engineering_actions": 0,
+    "year_2026_queries": 0
+  },
+  "attempts": [
+    {
+      "resource": "Receita_Siope",
+      "scope": "2025/P6/SP/Limeira",
+      "value_field_requested": false,
+      "selected_semantic_fields": [
+        "COD_MUNI",
+        "NOM_MUNI",
+        "COD_EXIB_FORMATADO",
+        "NOM_ITEM",
+        "IDN_CLAS",
+        "NOM_COLU",
+        "NUM_NIVE",
+        "NUM_ORDE"
+      ],
+      "tool_result": "INTERNAL_503_SERVICE_UNAVAILABLE",
+      "http_response_from_fnde_observed": false,
+      "response_body_obtained": false,
+      "network_io_to_fnde_observed": "UNKNOWN"
+    },
+    {
+      "resource": "Despesas_Siope",
+      "scope": "2025/P6/SP/Limeira",
+      "value_field_requested": false,
+      "selected_semantic_fields": [
+        "COD_MUNI",
+        "NOM_MUNI",
+        "NOM_PAST",
+        "TIP_PASTA",
+        "COD_EXIB",
+        "COD_EXIB_FORMATADO",
+        "COD_FONTE",
+        "NOM_ITEM",
+        "IDN_CLAS",
+        "NOM_COLU",
+        "NUM_NIVE",
+        "NUM_ORDE"
+      ],
+      "tool_result": "INTERNAL_503_SERVICE_UNAVAILABLE",
+      "http_response_from_fnde_observed": false,
+      "response_body_obtained": false,
+      "network_io_to_fnde_observed": "UNKNOWN"
+    }
+  ],
+  "interpretation": {
+    "fnde_endpoint_unavailable_proven": false,
+    "resource_nonexistent_proven": false,
+    "official_labels_absent_proven": false,
+    "semantic_alias_bridge_proven": false,
+    "absence_of_label_evidence_is_not_semantic_evidence": true,
+    "edmx_still_establishes_resources_and_label_fields": true,
+    "manual_or_external_runtime_handoff_remains_valid_next_route": true
+  },
+  "semantic_effect": {
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_metrics_status": "UNKNOWN/BLOCKED",
+    "promotion_performed": false
+  },
+  "canonical_state": {
+    "release_0_7_0": "ACTIVE",
+    "release_0_8_0": "CANDIDATE",
+    "year_2025": "PROVEN_STRUCTURAL_RECENT",
+    "closed_annual_series": "2016-2024",
+    "year_2026": "UNPROVEN_CURRENT_YEAR"
+  },
+  "next_gate": "SEPARATE_OWNER_AUTHORIZATION_REQUIRED_FOR_MANUAL_OR_EXTERNAL_RUNTIME_HANDOFF_OF_RECEITA_SIOPE_AND_DESPESAS_SIOPE_LABEL_RESPONSES"
+}
