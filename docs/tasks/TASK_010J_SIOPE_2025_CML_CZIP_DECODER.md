@@ -14,21 +14,25 @@ O arquivo `config/siope_2025_cml_czip_codec_contract.v1.json` continua sendo a f
 
 ## Inspeção segura
 
-O ZIP interno é processado somente em memória e nunca extraído. A inspeção:
+O ZIP interno é processado somente em memória e nunca extraído. Antes de qualquer `read()` ou descompressão, a inspeção faz preflight completo do `infolist()`:
 
 - exige assinatura ZIP;
 - verifica CRC;
 - bloqueia path traversal, caminhos absolutos e symlinks;
 - aplica limites de quantidade, profundidade, tamanho por entrada, tamanho total e taxa de compressão;
-- aceita somente XML no ZIP decodificado;
-- rejeita declarações DTD e entity antes de qualquer análise XML;
+- limita o arquivo a 128 MiB, cada membro a 8 MiB e o total declarado a 32 MiB;
+- rejeita symlinks e qualquer special file que não seja arquivo regular ou diretório;
+- em CML, aceita somente XML e rejeita declarações DTD e entity antes de qualquer análise;
+- em CZIP, aceita somente HTML, CSS, GIF e ICO como bytes estáticos, sem renderização, interpretação ou decodificação;
 - retorna somente nomes, tamanhos e hashes, sem imprimir conteúdo XML.
+
+O tipo do container é passado explicitamente à API: permissões CZIP nunca são inferidas somente pela extensão de um membro interno. O outer ZIP recebe o mesmo preflight completo antes da leitura de qualquer CML/CZIP, e seu SHA-256 é calculado por streaming após o `stat` e a validação do limite de 128 MiB.
 
 A CLI recebe um caminho local explícito. Ela não procura nem baixa artefatos e não persiste bytes decodificados.
 
 ## Testes sintéticos
 
-Os testes constroem ZIPs e containers determinísticos em runtime, incluindo CML e CZIP, limites exatos de chunk, múltiplos chunks, todos os tipos de remainder e casos fail-closed de framing, corrupção, CRC, paths e limites. Nenhum CML, CZIP, XML ou ZIP oficial foi versionado.
+Os testes constroem ZIPs e containers determinísticos em runtime, incluindo CML XML-only e o shape CZIP estático com `images/`, três GIFs, favicon, HTML e CSS. Também cobrem limites exatos de chunk, múltiplos chunks, todos os tipos de remainder, tipos ativos ou inesperados, special files e casos fail-closed de framing, corrupção, CRC, paths e limites. Spies provam que `read()`/`testzip()` não são chamados antes de um preflight rejeitar metadados inválidos. Nenhum CML, CZIP, XML ou ZIP oficial foi versionado.
 
 ## Validação do pacote real
 

@@ -17,7 +17,6 @@ EXPECTED_CONTRACT_SCHEMA = "SIOPE_2025_CML_CZIP_CODEC_CONTRACT_V1"
 CHUNK_SIZE = 1025
 HEADER_SIZE = 32
 BLOCK_SIZE = 8
-XML_SUFFIX = ".xml"
 _FORBIDDEN_XML_MARKERS = (b"<!doctype", b"<!entity")
 
 
@@ -27,14 +26,21 @@ class CodecError(RuntimeError):
 
 @dataclass(frozen=True)
 class ZipInspectionLimits:
+    max_archive_size: int = 128 * 1024 * 1024
     max_entries: int = 256
-    max_entry_size: int = 16 * 1024 * 1024
-    max_total_size: int = 64 * 1024 * 1024
+    max_entry_size: int = 8 * 1024 * 1024
+    max_total_size: int = 32 * 1024 * 1024
     max_depth: int = 8
     max_compression_ratio: float = 100.0
 
     def __post_init__(self) -> None:
-        if min(self.max_entries, self.max_entry_size, self.max_total_size, self.max_depth) <= 0:
+        if min(
+            self.max_archive_size,
+            self.max_entries,
+            self.max_entry_size,
+            self.max_total_size,
+            self.max_depth,
+        ) <= 0:
             raise ValueError("ZIP inspection limits must be positive")
         if self.max_compression_ratio < 1:
             raise ValueError("compression ratio must be at least 1")
@@ -149,38 +155,75 @@ def _safe_zip_path(raw_name: str, limits: ZipInspectionLimits) -> PurePosixPath:
     return path
 
 
-def inspect_decoded_zip(data: bytes, limits: ZipInspectionLimits = ZipInspectionLimits()) -> dict:
+def _validate_member_type(info: zipfile.ZipInfo, *, outer: bool = False) -> None:
+    mode = info.external_attr >> 16
+    if stat.S_ISLNK(mode):
+        _stop("OUTER_ZIP_SYMLINK" if outer else "ZIP_SYMLINK")
+    file_type = stat.S_IFMT(mode)
+    if file_type and not (stat.S_ISREG(mode) or stat.S_ISDIR(mode)):
+        _stop("OUTER_ZIP_SPECIAL_FILE" if outer else "ZIP_SPECIAL_FILE")
+
+
+def _preflight_infos(
+    infos: list[zipfile.ZipInfo],
+    limits: ZipInspectionLimits,
+    *,
+    allowed_suffixes: set[str],
+    outer: bool = False,
+) -> list[tuple[zipfile.ZipInfo, PurePosixPath]]:
+    prefix = "OUTER_ZIP_" if outer else "ZIP_"
+    if len(infos) > limits.max_entries:
+        _stop(prefix + "ENTRY_COUNT_LIMIT")
+    approved: list[tuple[zipfile.ZipInfo, PurePosixPath]] = []
+    total_size = 0
+    for info in infos:
+        path = _safe_zip_path(info.filename, limits)
+        _validate_member_type(info, outer=outer)
+        if info.is_dir():
+            approved.append((info, path))
+            continue
+        if path.suffix.lower() not in allowed_suffixes:
+            _stop(prefix + "TYPE_NOT_ALLOWED")
+        if info.file_size > limits.max_entry_size:
+            _stop(prefix + "ENTRY_SIZE_LIMIT")
+        total_size += info.file_size
+        if total_size > limits.max_total_size:
+            _stop(prefix + "TOTAL_SIZE_LIMIT")
+        if info.file_size / max(info.compress_size, 1) > limits.max_compression_ratio:
+            _stop(prefix + "COMPRESSION_RATIO_LIMIT")
+        approved.append((info, path))
+    return approved
+
+
+def inspect_decoded_zip(
+    data: bytes,
+    container_type: str,
+    limits: ZipInspectionLimits = ZipInspectionLimits(),
+) -> dict:
     """Validate a decoded ZIP, CRCs and inert XML bytes without extracting anything."""
+    normalized_type = container_type.lower().lstrip(".")
+    if normalized_type == "cml":
+        allowed_suffixes = {".xml"}
+    elif normalized_type == "czip":
+        allowed_suffixes = {".html", ".css", ".gif", ".ico"}
+    else:
+        _stop("UNKNOWN_CONTAINER_TYPE")
+    if len(data) > limits.max_archive_size:
+        _stop("ZIP_ARCHIVE_SIZE_LIMIT")
     if not data.startswith((b"PK\x03\x04", b"PK\x05\x06")):
         _stop("DECODED_NOT_ZIP")
     entries: list[dict] = []
-    total_size = 0
     try:
         with zipfile.ZipFile(io.BytesIO(data)) as archive:
             infos = archive.infolist()
-            if len(infos) > limits.max_entries:
-                _stop("ZIP_ENTRY_COUNT_LIMIT")
-            bad_crc = archive.testzip()
-            if bad_crc is not None:
-                _stop("ZIP_CRC_INVALID")
-            for info in infos:
-                path = _safe_zip_path(info.filename, limits)
-                if stat.S_ISLNK(info.external_attr >> 16):
-                    _stop("ZIP_SYMLINK")
+            approved = _preflight_infos(infos, limits, allowed_suffixes=allowed_suffixes)
+            for info, path in approved:
                 if info.is_dir():
                     continue
-                if path.suffix.lower() != XML_SUFFIX:
-                    _stop("ZIP_NON_XML_ENTRY")
-                if info.file_size > limits.max_entry_size:
-                    _stop("ZIP_ENTRY_SIZE_LIMIT")
-                total_size += info.file_size
-                if total_size > limits.max_total_size:
-                    _stop("ZIP_TOTAL_SIZE_LIMIT")
-                if info.file_size / max(info.compress_size, 1) > limits.max_compression_ratio:
-                    _stop("ZIP_COMPRESSION_RATIO_LIMIT")
                 content = archive.read(info)
-                lowered = content.lower()
-                if any(marker in lowered for marker in _FORBIDDEN_XML_MARKERS):
+                if normalized_type == "cml" and any(
+                    marker in content.lower() for marker in _FORBIDDEN_XML_MARKERS
+                ):
                     _stop("XML_DTD_OR_ENTITY_FORBIDDEN")
                 entries.append({
                     "path": path.as_posix(),
@@ -190,32 +233,55 @@ def inspect_decoded_zip(data: bytes, limits: ZipInspectionLimits = ZipInspection
                 })
     except CodecError:
         raise
-    except (OSError, RuntimeError, NotImplementedError, zipfile.BadZipFile, zipfile.LargeZipFile) as exc:
+    except zipfile.BadZipFile as exc:
+        if "CRC" in str(exc).upper():
+            _stop("ZIP_CRC_INVALID", exc)
+        _stop("ZIP_INVALID_OR_CORRUPT", exc)
+    except (OSError, RuntimeError, NotImplementedError, zipfile.LargeZipFile) as exc:
         _stop("ZIP_INVALID_OR_CORRUPT", exc)
     entries.sort(key=lambda item: item["path"])
-    return {"valid_zip": True, "crc_valid": True, "limits": asdict(limits), "entries": entries}
+    return {
+        "container_type": normalized_type.upper(),
+        "valid_zip": True,
+        "crc_valid": True,
+        "limits": asdict(limits),
+        "entries": entries,
+    }
 
 
-def decode_outer_metadata_package(path: Path) -> dict:
+def decode_outer_metadata_package(
+    path: Path,
+    limits: ZipInspectionLimits = ZipInspectionLimits(),
+) -> dict:
     """Read one explicit local outer ZIP and inspect all CML/CZIP entries offline."""
     try:
-        package = path.read_bytes()
+        package_size = path.stat().st_size
+    except OSError as exc:
+        _stop("OUTER_PACKAGE_UNREADABLE", exc)
+    if package_size > limits.max_archive_size:
+        _stop("OUTER_ARCHIVE_SIZE_LIMIT")
+    digest = hashlib.sha256()
+    try:
+        with path.open("rb") as stream:
+            for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+                digest.update(chunk)
     except OSError as exc:
         _stop("OUTER_PACKAGE_UNREADABLE", exc)
     results: list[dict] = []
     try:
-        with zipfile.ZipFile(io.BytesIO(package)) as archive:
-            for info in archive.infolist():
-                safe_path = _safe_zip_path(info.filename, ZipInspectionLimits())
+        with zipfile.ZipFile(path) as archive:
+            approved = _preflight_infos(
+                archive.infolist(),
+                limits,
+                allowed_suffixes={".cml", ".czip"},
+                outer=True,
+            )
+            for info, safe_path in approved:
                 if info.is_dir():
                     continue
-                if stat.S_ISLNK(info.external_attr >> 16):
-                    _stop("OUTER_ZIP_SYMLINK")
-                if safe_path.suffix.lower() not in {".cml", ".czip"}:
-                    _stop("OUTER_ZIP_UNEXPECTED_ENTRY")
                 container = archive.read(info)
                 decoded = decode_container_bytes(container)
-                inspection = inspect_decoded_zip(decoded)
+                inspection = inspect_decoded_zip(decoded, safe_path.suffix)
                 results.append({"container": safe_path.as_posix(), "decoded": inspection})
     except CodecError:
         raise
@@ -225,7 +291,7 @@ def decode_outer_metadata_package(path: Path) -> dict:
     return {
         "schema": "SIOPE_2025_CML_CZIP_OFFLINE_INSPECTION_V1",
         "status": "OFFLINE_INSPECTION_NO_SEMANTIC_PROMOTION",
-        "input": {"name": path.name, "size": len(package), "sha256": hashlib.sha256(package).hexdigest()},
+        "input": {"name": path.name, "size": package_size, "sha256": digest.hexdigest()},
         "container_count": len(results),
         "containers": results,
         "canonical_state_changed": False,
