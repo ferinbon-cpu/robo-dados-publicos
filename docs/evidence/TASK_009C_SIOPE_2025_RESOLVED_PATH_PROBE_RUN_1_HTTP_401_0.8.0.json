@@ -5,7 +5,13 @@
   "software_version": "0.8.0",
   "classification": "SANITIZED_LIVE_EVIDENCE_REVIEWED_OFFLINE",
   "workflow": {
+    "run_id": 33221146589,
+    "workflow_id": 344981895,
     "run_number": 1,
+    "run_attempt": 1,
+    "event": "workflow_dispatch",
+    "head_sha": "0e70495e5ae8ccdf45aff7e2c76fd302d1294b0c",
+    "run_started_at_utc": "2026-08-28T23:39:27Z",
     "authorization_id": "SIOPE2025-METADATA-DIRECT-PROBE-20260828-01"
   },
   "request_contract": {
@@ -24,6 +30,7 @@
     "reason": "STOP_SIOPE_2025_METADATA_RESOLVED_PATH_PROBE_HTTP_401",
     "http_status": 401,
     "source_get_count": 1,
+    "runner_exit_code": 13,
     "response_persisted": false,
     "archive_persisted": false
   },
