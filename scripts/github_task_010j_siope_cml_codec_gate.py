@@ -40,6 +40,20 @@ def _fail(message: str) -> None:
     raise SystemExit(f"TASK_010J_GATE_FAIL: {message}")
 
 
+def _class_default(tree: ast.AST, class_name: str, field_name: str) -> float | None:
+    for node in ast.walk(tree):
+        if isinstance(node, ast.ClassDef) and node.name == class_name:
+            for statement in node.body:
+                if (
+                    isinstance(statement, ast.AnnAssign)
+                    and isinstance(statement.target, ast.Name)
+                    and statement.target.id == field_name
+                    and isinstance(statement.value, ast.Constant)
+                ):
+                    return statement.value.value
+    return None
+
+
 def main() -> int:
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
     if contract.get("schema") != "SIOPE_2025_CML_CZIP_CODEC_CONTRACT_V1":
@@ -53,6 +67,11 @@ def main() -> int:
         _fail("pinned streaming contract drift")
     for path in SURFACES:
         tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+        if path.name == "siope_cml_codec.py" and (
+            _class_default(tree, "OuterZipLimits", "max_compression_ratio") != 100.0
+            or _class_default(tree, "InnerZipLimits", "max_compression_ratio") != 150.0
+        ):
+            _fail("outer/inner compression-ratio policies are not explicitly pinned to 100/150")
         for node in ast.walk(tree):
             if isinstance(node, ast.Import):
                 roots = {alias.name.split(".")[0] for alias in node.names}

@@ -28,11 +28,13 @@ O ZIP interno é processado somente em memória e nunca extraído. Antes de qual
 
 O tipo do container é passado explicitamente à API: permissões CZIP nunca são inferidas somente pela extensão de um membro interno. O outer ZIP recebe o mesmo preflight completo antes da leitura de qualquer CML/CZIP, e seu SHA-256 é calculado por streaming após o `stat` e a validação do limite de 128 MiB.
 
+Os domínios de limites são deliberadamente separados. O outer ZIP mantém `max_compression_ratio = 100`. Os ZIPs internos decodificados usam `max_compression_ratio = 150`: o maior valor observado externamente no pacote oficial de referência foi `140.79133980582524` para `Metadados.xml`, e 150 é o limite conservador pinado acima desse caso legítimo. Essa observação externa não altera o status da validação local registrado abaixo.
+
 A CLI recebe um caminho local explícito. Ela não procura nem baixa artefatos e não persiste bytes decodificados.
 
 ## Testes sintéticos
 
-Os testes constroem ZIPs e containers determinísticos em runtime, incluindo CML XML-only e o shape CZIP estático com `images/`, três GIFs, favicon, HTML e CSS. Também cobrem limites exatos de chunk, múltiplos chunks, todos os tipos de remainder, tipos ativos ou inesperados, special files e casos fail-closed de framing, corrupção, CRC, paths e limites. Spies provam que `read()`/`testzip()` não são chamados antes de um preflight rejeitar metadados inválidos. Nenhum CML, CZIP, XML ou ZIP oficial foi versionado.
+Os testes constroem ZIPs e containers determinísticos em runtime, incluindo CML XML-only e o shape CZIP estático com `images/`, três GIFs, favicon, HTML e CSS. Também cobrem limites exatos de chunk, múltiplos chunks, todos os tipos de remainder, tipos ativos ou inesperados, special files e casos fail-closed de framing, corrupção, CRC, paths e limites. Regressões distintas provam que o outer rejeita ratio acima de 100, enquanto o inner aceita o caso sintético próximo de 140,7913 e rejeita valores acima de 150. Spies provam que `read()`/`testzip()` não são chamados antes de um preflight rejeitar metadados inválidos. Nenhum CML, CZIP, XML ou ZIP oficial foi versionado.
 
 ## Validação do pacote real
 

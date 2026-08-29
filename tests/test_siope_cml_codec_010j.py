@@ -31,6 +31,12 @@ def _czip_bytes() -> bytes:
     return output.getvalue()
 
 
+def _member_ratio(data: bytes) -> float:
+    with zipfile.ZipFile(io.BytesIO(data)) as archive:
+        info = next(info for info in archive.infolist() if not info.is_dir())
+        return info.file_size / max(info.compress_size, 1)
+
+
 def _encrypt_payload(payload: bytes) -> bytes:
     """Test-only inverse of the pinned chunk/CV decoder contract."""
     key = codec.derive_metadata_key()
@@ -141,7 +147,7 @@ class CodecContractTests(unittest.TestCase):
     def test_depth_limit(self):
         deep = _zip_bytes("a/b/c.xml")
         with self.assertRaisesRegex(codec.CodecError, "DEPTH_LIMIT"):
-            codec.inspect_decoded_zip(deep, "cml", codec.ZipInspectionLimits(max_depth=2))
+            codec.inspect_decoded_zip(deep, "cml", codec.InnerZipLimits(max_depth=2))
 
     def test_entry_size_total_count_and_ratio_limits(self):
         two_entries = io.BytesIO()
@@ -149,14 +155,36 @@ class CodecContractTests(unittest.TestCase):
             archive.writestr("a.xml", "a")
             archive.writestr("b.xml", "b")
         with self.assertRaisesRegex(codec.CodecError, "ENTRY_COUNT"):
-            codec.inspect_decoded_zip(two_entries.getvalue(), "cml", codec.ZipInspectionLimits(max_entries=1))
+            codec.inspect_decoded_zip(two_entries.getvalue(), "cml", codec.InnerZipLimits(max_entries=1))
         with self.assertRaisesRegex(codec.CodecError, "ENTRY_SIZE"):
-            codec.inspect_decoded_zip(_zip_bytes(content=b"12"), "cml", codec.ZipInspectionLimits(max_entry_size=1))
+            codec.inspect_decoded_zip(_zip_bytes(content=b"12"), "cml", codec.InnerZipLimits(max_entry_size=1))
         with self.assertRaisesRegex(codec.CodecError, "TOTAL_SIZE"):
-            codec.inspect_decoded_zip(two_entries.getvalue(), "cml", codec.ZipInspectionLimits(max_total_size=1))
+            codec.inspect_decoded_zip(two_entries.getvalue(), "cml", codec.InnerZipLimits(max_total_size=1))
         bomb = _zip_bytes(content=b"0" * 10_000, compression=zipfile.ZIP_DEFLATED)
         with self.assertRaisesRegex(codec.CodecError, "COMPRESSION_RATIO"):
-            codec.inspect_decoded_zip(bomb, "cml", codec.ZipInspectionLimits(max_compression_ratio=2))
+            codec.inspect_decoded_zip(bomb, "cml", codec.InnerZipLimits(max_compression_ratio=2))
+
+    def test_inner_ratio_between_100_and_150_is_allowed(self):
+        near_reference = _zip_bytes(
+            content=bytes(range(256)) * 392,
+            compression=zipfile.ZIP_DEFLATED,
+        )
+        ratio = _member_ratio(near_reference)
+        self.assertAlmostEqual(ratio, 140.7913, delta=0.2)
+        self.assertGreater(ratio, 100)
+        self.assertLessEqual(ratio, 150)
+        self.assertTrue(codec.inspect_decoded_zip(near_reference, "cml")["valid_zip"])
+
+    def test_inner_ratio_above_150_stops_before_read(self):
+        excessive = _zip_bytes(
+            content=bytes(range(256)) * 500,
+            compression=zipfile.ZIP_DEFLATED,
+        )
+        self.assertGreater(_member_ratio(excessive), 150)
+        with mock.patch.object(
+            zipfile.ZipFile, "read", side_effect=AssertionError("read before inner ratio preflight")
+        ), self.assertRaisesRegex(codec.CodecError, "COMPRESSION_RATIO_LIMIT"):
+            codec.inspect_decoded_zip(excessive, "cml")
 
     def test_dtd_and_entity_are_rejected_without_parsing(self):
         for declaration in (b"<!DOCTYPE root>", b"<!ENTITY x 'y'>"):
@@ -171,6 +199,10 @@ class CodecContractTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "synthetic.zip"
             path.write_bytes(outer.getvalue())
+            self.assertLessEqual(max(
+                info.file_size / max(info.compress_size, 1)
+                for info in zipfile.ZipFile(io.BytesIO(outer.getvalue())).infolist()
+            ), 100)
             result = codec.decode_outer_metadata_package(path)
             self.assertEqual(result["container_count"], 2)
             self.assertEqual(result["remote_effects"], 0)
@@ -194,10 +226,10 @@ class CodecContractTests(unittest.TestCase):
             return output.getvalue()
 
         cases = (
-            (["a.cml", "b.cml"], codec.ZipInspectionLimits(max_entries=1), "ENTRY_COUNT"),
-            (["a.cml", "b.cml"], codec.ZipInspectionLimits(max_total_size=1), "TOTAL_SIZE"),
-            (["a/b/c.cml"], codec.ZipInspectionLimits(max_depth=2), "DEPTH_LIMIT"),
-            (["a.cml"], codec.ZipInspectionLimits(max_compression_ratio=2), "COMPRESSION_RATIO"),
+            (["a.cml", "b.cml"], codec.OuterZipLimits(max_entries=1), "ENTRY_COUNT"),
+            (["a.cml", "b.cml"], codec.OuterZipLimits(max_total_size=1), "TOTAL_SIZE"),
+            (["a/b/c.cml"], codec.OuterZipLimits(max_depth=2), "DEPTH_LIMIT"),
+            (["a.cml"], codec.OuterZipLimits(max_compression_ratio=2), "COMPRESSION_RATIO"),
         )
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "outer.zip"
@@ -211,7 +243,20 @@ class CodecContractTests(unittest.TestCase):
                     codec.decode_outer_metadata_package(path, limits)
             path.write_bytes(outer_bytes(["a.cml"]))
             with self.assertRaisesRegex(codec.CodecError, "OUTER_ARCHIVE_SIZE_LIMIT"):
-                codec.decode_outer_metadata_package(path, codec.ZipInspectionLimits(max_archive_size=1))
+                codec.decode_outer_metadata_package(path, codec.OuterZipLimits(max_archive_size=1))
+
+    def test_outer_ratio_above_100_stops_with_default_outer_policy(self):
+        output = io.BytesIO()
+        with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+            archive.writestr("bomb.cml", b"0" * 100_000)
+        self.assertGreater(_member_ratio(output.getvalue()), 100)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "outer.zip"
+            path.write_bytes(output.getvalue())
+            with mock.patch.object(
+                zipfile.ZipFile, "read", side_effect=AssertionError("read before outer ratio preflight")
+            ), self.assertRaisesRegex(codec.CodecError, "OUTER_ZIP_COMPRESSION_RATIO_LIMIT"):
+                codec.decode_outer_metadata_package(path)
 
     def test_contract_drift_fails_closed(self):
         contract = json.loads(codec.CONTRACT_PATH.read_text(encoding="utf-8"))

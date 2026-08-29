@@ -25,7 +25,29 @@ class CodecError(RuntimeError):
 
 
 @dataclass(frozen=True)
-class ZipInspectionLimits:
+class InnerZipLimits:
+    max_archive_size: int = 128 * 1024 * 1024
+    max_entries: int = 256
+    max_entry_size: int = 8 * 1024 * 1024
+    max_total_size: int = 32 * 1024 * 1024
+    max_depth: int = 8
+    max_compression_ratio: float = 150.0
+
+    def __post_init__(self) -> None:
+        if min(
+            self.max_archive_size,
+            self.max_entries,
+            self.max_entry_size,
+            self.max_total_size,
+            self.max_depth,
+        ) <= 0:
+            raise ValueError("ZIP inspection limits must be positive")
+        if self.max_compression_ratio < 1:
+            raise ValueError("compression ratio must be at least 1")
+
+
+@dataclass(frozen=True)
+class OuterZipLimits:
     max_archive_size: int = 128 * 1024 * 1024
     max_entries: int = 256
     max_entry_size: int = 8 * 1024 * 1024
@@ -141,7 +163,7 @@ def decode_container_bytes(data: bytes) -> bytes:
     return bytes(plaintext)
 
 
-def _safe_zip_path(raw_name: str, limits: ZipInspectionLimits) -> PurePosixPath:
+def _safe_zip_path(raw_name: str, limits: InnerZipLimits | OuterZipLimits) -> PurePosixPath:
     path = PurePosixPath(raw_name.replace("\\", "/"))
     windows_path = PureWindowsPath(raw_name)
     if not raw_name or "\x00" in raw_name:
@@ -166,7 +188,7 @@ def _validate_member_type(info: zipfile.ZipInfo, *, outer: bool = False) -> None
 
 def _preflight_infos(
     infos: list[zipfile.ZipInfo],
-    limits: ZipInspectionLimits,
+    limits: InnerZipLimits | OuterZipLimits,
     *,
     allowed_suffixes: set[str],
     outer: bool = False,
@@ -198,7 +220,7 @@ def _preflight_infos(
 def inspect_decoded_zip(
     data: bytes,
     container_type: str,
-    limits: ZipInspectionLimits = ZipInspectionLimits(),
+    limits: InnerZipLimits = InnerZipLimits(),
 ) -> dict:
     """Validate a decoded ZIP, CRCs and inert XML bytes without extracting anything."""
     normalized_type = container_type.lower().lstrip(".")
@@ -251,14 +273,15 @@ def inspect_decoded_zip(
 
 def decode_outer_metadata_package(
     path: Path,
-    limits: ZipInspectionLimits = ZipInspectionLimits(),
+    outer_limits: OuterZipLimits = OuterZipLimits(),
+    inner_limits: InnerZipLimits = InnerZipLimits(),
 ) -> dict:
     """Read one explicit local outer ZIP and inspect all CML/CZIP entries offline."""
     try:
         package_size = path.stat().st_size
     except OSError as exc:
         _stop("OUTER_PACKAGE_UNREADABLE", exc)
-    if package_size > limits.max_archive_size:
+    if package_size > outer_limits.max_archive_size:
         _stop("OUTER_ARCHIVE_SIZE_LIMIT")
     digest = hashlib.sha256()
     try:
@@ -272,7 +295,7 @@ def decode_outer_metadata_package(
         with zipfile.ZipFile(path) as archive:
             approved = _preflight_infos(
                 archive.infolist(),
-                limits,
+                outer_limits,
                 allowed_suffixes={".cml", ".czip"},
                 outer=True,
             )
@@ -281,7 +304,7 @@ def decode_outer_metadata_package(
                     continue
                 container = archive.read(info)
                 decoded = decode_container_bytes(container)
-                inspection = inspect_decoded_zip(decoded, safe_path.suffix)
+                inspection = inspect_decoded_zip(decoded, safe_path.suffix, inner_limits)
                 results.append({"container": safe_path.as_posix(), "decoded": inspection})
     except CodecError:
         raise
