@@ -1,0 +1,82 @@
+{
+  "schema": "TASK_010H_SIOPE_2025_USER_HANDOFF_CODEC_CHARACTERIZATION_V1",
+  "task": "TASK_010H",
+  "issue": 234,
+  "release": "0.8.0 CANDIDATE",
+  "base_main": "cb0adbae2822a7bc4150f6407a28eefd9aa05d01",
+  "classification": "USER_MEDIATED_OFFICIAL_DOWNLOAD_CANDIDATE",
+  "binary_versioned": false,
+  "handoff": {
+    "original_filename": "Metadados_Mun_2025.zip",
+    "reported_source_surface": "FNDE SIOPE Downloads / Municipal / Metadados de 2025",
+    "authentication_status": "NOT_EXPLICITLY_REPORTED",
+    "opened_or_executed_by_analysis": false,
+    "extracted_to_persistent_repo": false
+  },
+  "outer_archive": {
+    "size_bytes": 6586598,
+    "sha256": "41511c141e1af025ae2b565085583d6a3ab7b4577862f8ebdc308605101c1e5b",
+    "detected_type": "ZIP",
+    "valid_zip": true,
+    "entry_count": 146,
+    "total_uncompressed_bytes": 6567382,
+    "total_compressed_bytes": 6569922,
+    "compression_method": "DEFLATE_FOR_ALL_146_MEMBERS",
+    "unsafe_path_count": 0,
+    "absolute_path_count": 0,
+    "symlink_count": 0,
+    "zip_encrypted_member_count": 0,
+    "member_extensions": {
+      ".cml": 144,
+      ".czip": 2
+    },
+    "member_timestamp_min": "2026-08-27T01:33:34_ZIP_LOCAL_TIMEZONE_UNKNOWN",
+    "member_timestamp_max": "2026-08-27T01:43:56_ZIP_LOCAL_TIMEZONE_UNKNOWN"
+  },
+  "codec_characterization": {
+    "cml_common_prefix_length_bytes": 40,
+    "cml_common_prefix_hex": "442d68fb56d3e72adb7e95e0f7b003795a1d3ae15f98ca334c7a557c58277593163a4cf918d59be1",
+    "czip_count": 2,
+    "cml_and_czip_share_first_32_bytes": true,
+    "plaintext_zip_signature_inside_cml_czip": false,
+    "plaintext_utf8_metadata_proven": false,
+    "high_entropy_observed": true,
+    "outer_zip_compression_effective": false,
+    "codec_or_cipher_algorithm": "NOT_PROVEN",
+    "interpretation": "CONTENT_IS_ALREADY_COMPRESSED_CIPHERED_OR_OBFUSCATED_COMPATIBLE_BUT_ALGORITHM_UNKNOWN"
+  },
+  "literal_target_scan": {
+    "NUM_POPU": "NOT_FOUND_IN_RAW_ENCODED_BYTES",
+    "VAL_RECE_REAL": "NOT_FOUND_IN_RAW_ENCODED_BYTES",
+    "VAL_DESP_EMPE": "NOT_FOUND_IN_RAW_ENCODED_BYTES",
+    "Municipal": "NOT_FOUND_IN_RAW_ENCODED_BYTES",
+    "2025": "NOT_FOUND_IN_RAW_ENCODED_BYTES",
+    "absence_interpretation": "NO_SEMANTIC_INFERENCE_ALLOWED_BECAUSE_CODEC_NOT_DECODED"
+  },
+  "promising_member_names": [
+    "Metadados.cml",
+    "ME_Item.cml",
+    "ME_Pasta_Coluna.cml",
+    "ME_Valores_FUNDEB.cml",
+    "ME_Valores_INEP.cml",
+    "ME_Valores_MDE.cml",
+    "Dados_Municipio.cml",
+    "Periodo.cml",
+    "Parametro.cml",
+    "RREO_FUNDEB_Municipal_2025.czip",
+    "RREO_Municipal_2025.czip"
+  ],
+  "canonical_state": {
+    "release_0_7_0": "ACTIVE",
+    "release_0_8_0": "CANDIDATE",
+    "year_2025": "PROVEN_STRUCTURAL_RECENT",
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_metrics_status": "UNKNOWN/BLOCKED",
+    "closed_annual_series": "2016-2024",
+    "year_2026": "UNPROVEN_CURRENT_YEAR"
+  },
+  "next_gate": "OFFLINE_CODEC_IDENTIFICATION_OR_STATIC_READER_DISCOVERY_NO_EXECUTION"
+}
