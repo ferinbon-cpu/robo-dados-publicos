@@ -5,12 +5,27 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.github_task_010a_siope_metadata_inspector_gate import CONTRACT, GateError, validate
+from scripts.github_task_010a_siope_metadata_inspector_gate import CLI, CONTRACT, INSPECTOR, GateError, validate
 
 
 class Task010AGateTest(unittest.TestCase):
     def test_canonical_contract_passes(self) -> None:
         self.assertEqual(validate()["status"], "PASS_TASK_010A_SIOPE_METADATA_INSPECTOR_T0")
+
+    def test_runtime_surfaces_reject_network_and_process_imports(self) -> None:
+        cases = (
+            ("inspector", "requests"), ("cli", "requests"),
+            ("inspector", "subprocess"), ("cli", "subprocess"),
+        )
+        for surface, imported_module in cases:
+            with self.subTest(surface=surface, imported_module=imported_module):
+                with tempfile.TemporaryDirectory() as directory:
+                    synthetic = Path(directory) / f"{surface}.py"
+                    synthetic.write_text(f"import {imported_module}\n", encoding="utf-8")
+                    inspector_path = synthetic if surface == "inspector" else INSPECTOR
+                    cli_path = synthetic if surface == "cli" else CLI
+                    with self.assertRaisesRegex(GateError, f"{surface.upper()}_IMPORT_NOT_ALLOWLISTED"):
+                        validate(inspector_path=inspector_path, cli_path=cli_path)
 
     def test_every_forbidden_promotion_fails_closed(self) -> None:
         mutations = {

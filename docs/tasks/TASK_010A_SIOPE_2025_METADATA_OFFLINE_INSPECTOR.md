@@ -16,7 +16,7 @@ python scripts/inspect_siope_2025_metadata_offline.py /caminho/local/artefato
 
 Ele lê bytes locais, calcula SHA-256, identifica ZIP por assinatura, inventaria entradas e analisa somente texto UTF-8 nos formatos allowlisted `.csv`, `.json`, `.txt` e `.xml`. Não extrai para disco e nunca executa conteúdo. A extensão externa não determina o tipo real.
 
-Antes de ler uma entrada, o inspector rejeita caminho absoluto ou com `..`, profundidade excessiva, symlink, extensão ativa/executável, formato não allowlisted, excesso de entradas, tamanho individual ou total excedido e razão de compressão anormal. Arquivos corrompidos, conteúdo ativo por magic bytes e texto inválido encerram com `STOP_TASK_010A_*`.
+Antes de carregar os bytes, o inspector consulta o tamanho do archive local e aplica o limite conservador padrão de 128 MiB. Antes de ler uma entrada, rejeita caminho absoluto ou com `..`, profundidade excessiva, symlink, extensão ativa/executável, formato não allowlisted, excesso de entradas, tamanho individual ou total excedido e razão de compressão anormal. Arquivos corrompidos, conteúdo ativo por magic bytes e texto inválido encerram com `STOP_TASK_010A_*`.
 
 ## Alvos e matriz futura
 

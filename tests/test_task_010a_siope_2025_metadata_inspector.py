@@ -4,8 +4,8 @@ import hashlib
 import stat
 import tempfile
 import unittest
-from pathlib import Path
 import zipfile
+from pathlib import Path
 
 from robo_dados_publicos.sources.siope_2025_metadata_inspector import (
     InspectionError, InspectionLimits, TARGET_ALIASES, dumps, inspect,
@@ -98,6 +98,9 @@ class MetadataInspectorTest(unittest.TestCase):
         self.assert_stop("too_many_entries.zip", "ENTRY_COUNT_LIMIT", InspectionLimits(max_entries=3))
         self.assert_stop("oversized_entry.zip", "ENTRY_SIZE_LIMIT", InspectionLimits(max_entry_size=32))
         self.assert_stop("oversized_entry.zip", "TOTAL_SIZE_LIMIT", InspectionLimits(max_entry_size=128, max_total_size=32))
+
+    def test_rejects_original_archive_before_reading_bytes(self) -> None:
+        self.assert_stop("safe_aliases.zip", "ARCHIVE_SIZE_LIMIT", InspectionLimits(max_archive_size=8))
 
     def test_rejects_abnormal_compression_ratio(self) -> None:
         self.assert_stop("abnormal_ratio.zip", "COMPRESSION_RATIO_LIMIT", InspectionLimits(max_compression_ratio=10))

@@ -10,8 +10,17 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "config" / "siope_2025_metadata_inspector_010a.v1.json"
 INSPECTOR = ROOT / "robo_dados_publicos" / "sources" / "siope_2025_metadata_inspector.py"
+CLI = ROOT / "scripts" / "inspect_siope_2025_metadata_offline.py"
 PASS = "PASS_TASK_010A_SIOPE_METADATA_INSPECTOR_T0"
-FORBIDDEN_IMPORTS = {"http", "requests", "socket", "urllib", "selenium", "playwright", "googleapiclient"}
+IMPORT_ALLOWLISTS = {
+    "INSPECTOR": {
+        "__future__", "hashlib", "json", "re", "stat", "zipfile", "dataclasses", "pathlib",
+    },
+    "CLI": {
+        "__future__", "argparse", "sys", "pathlib",
+        "robo_dados_publicos.sources.siope_2025_metadata_inspector",
+    },
+}
 
 
 class GateError(RuntimeError):
@@ -23,10 +32,28 @@ def _stop(ok: bool, code: str) -> None:
         raise GateError(f"STOP_TASK_010A_GATE_{code}")
 
 
-def validate(contract_path: Path = CONTRACT, inspector_path: Path = INSPECTOR) -> dict:
+def _validate_import_allowlist(path: Path, surface: str) -> None:
+    try:
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        raise GateError(f"STOP_TASK_010A_GATE_UNREADABLE_{surface}") from exc
+    imported = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            imported.update(alias.name for alias in node.names)
+        elif isinstance(node, ast.ImportFrom):
+            imported.add(node.module or "")
+    unexpected = imported - IMPORT_ALLOWLISTS[surface]
+    _stop(not unexpected, f"{surface}_IMPORT_NOT_ALLOWLISTED")
+
+
+def validate(
+    contract_path: Path = CONTRACT,
+    inspector_path: Path = INSPECTOR,
+    cli_path: Path = CLI,
+) -> dict:
     try:
         contract = json.loads(contract_path.read_text(encoding="utf-8"))
-        tree = ast.parse(inspector_path.read_text(encoding="utf-8"))
     except Exception as exc:
         raise GateError("STOP_TASK_010A_GATE_UNREADABLE") from exc
     _stop(contract.get("schema") == "SIOPE_2025_METADATA_INSPECTOR_010A_V1", "SCHEMA")
@@ -48,13 +75,8 @@ def validate(contract_path: Path = CONTRACT, inspector_path: Path = INSPECTOR) -
     }
     _stop(contract.get("canonical_state") == expected, "CANONICAL_STATE")
     _stop(contract.get("next_gate") == "PREPARE_AND_REVIEW_010B_BOUNDED_REMOTE_ACQUISITION_NOT_AUTHORIZED", "NEXT_GATE")
-    imported = set()
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Import):
-            imported.update(alias.name.split(".")[0] for alias in node.names)
-        elif isinstance(node, ast.ImportFrom) and node.module:
-            imported.add(node.module.split(".")[0])
-    _stop(not (imported & FORBIDDEN_IMPORTS), "NETWORK_IMPORT")
+    _validate_import_allowlist(inspector_path, "INSPECTOR")
+    _validate_import_allowlist(cli_path, "CLI")
     return {"status": PASS, "tier": "T0_OFFLINE", "remote_effects": 0, "phase_010b_authorized": False}
 
 

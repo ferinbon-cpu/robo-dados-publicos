@@ -32,6 +32,7 @@ class InspectionError(RuntimeError):
 
 @dataclass(frozen=True)
 class InspectionLimits:
+    max_archive_size: int = 128 * 1024 * 1024
     max_entries: int = 256
     max_entry_size: int = 8 * 1024 * 1024
     max_total_size: int = 32 * 1024 * 1024
@@ -39,7 +40,13 @@ class InspectionLimits:
     max_compression_ratio: float = 100.0
 
     def __post_init__(self) -> None:
-        if min(self.max_entries, self.max_entry_size, self.max_total_size, self.max_depth) <= 0:
+        if min(
+            self.max_archive_size,
+            self.max_entries,
+            self.max_entry_size,
+            self.max_total_size,
+            self.max_depth,
+        ) <= 0:
             raise ValueError("inspection limits must be positive")
         if self.max_compression_ratio < 1:
             raise ValueError("compression ratio must be at least 1")
@@ -115,7 +122,12 @@ def _semantic_matrix(documents: list[tuple[str, str]]) -> list[dict]:
 def inspect(path: Path, limits: InspectionLimits = InspectionLimits()) -> dict:
     """Inspect one local ZIP without writing or executing its contents."""
     try:
+        archive_size = path.stat().st_size
+        if archive_size > limits.max_archive_size:
+            _stop("ARCHIVE_SIZE_LIMIT")
         original = path.read_bytes()
+    except InspectionError:
+        raise
     except OSError as exc:
         raise InspectionError("STOP_TASK_010A_UNREADABLE_INPUT") from exc
     digest = hashlib.sha256(original).hexdigest()
