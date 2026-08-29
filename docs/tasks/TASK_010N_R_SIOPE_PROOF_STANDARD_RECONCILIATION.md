@@ -1,55 +1,69 @@
 # TASK 010N-R — Reconciliação do padrão de prova SIOPE 2016–2025
 
-## Decisão
+## Decisão revisada
 
-**`INTERNAL_BRIDGE_STANDARD_REQUIRED`.**
+**`STANDARD_NOT_YET_DETERMINABLE`.**
 
-A evidência versionada prova continuidade da identidade estrutural do contrato público — mesmo recurso `Dados_Gerais_Siope`, mesmo contrato parametrizado, 52 campos e os mesmos 11 aliases usados pelo Gold — mas não prova identidade semântica operacional. A ausência, em 2016–2024, de uma bridge versionada entre aliases OData e conceitos internos não pode ser convertida em prova positiva de significado. Por isso, um padrão público longitudinal não é suficiente para a promoção semântica; a reconciliação futura exige bridge interna, sem rebaixar agora os estados históricos.
+Não há evidência repo-resident suficiente para decidir entre:
 
-Esta decisão reconcilia o padrão de **prova**, não os dados nem a série. Ela preserva integralmente os estados fixados pela TASK 010N.
+- **P1 — `UNIFORM_PUBLIC_CONTRACT_STANDARD_JUSTIFIED`:** identidade semântica operacional demonstrada por evidência primária oficial do próprio contrato público; e
+- **P2 — `INTERNAL_BRIDGE_STANDARD_REQUIRED`:** necessidade de identidade com uma estrutura interna CML/XML/Delphi/backend.
 
-## Escopo e base
+A revisão anterior demonstrou uma lacuna semântica, mas não demonstrou que uma bridge interna seja epistemicamente necessária para claims Gold estritamente aritméticos. Em princípio, documentação oficial FNDE/Olinda, EDMX/`$metadata`, descrição oficial dos campos ou outro contrato oficial alias→conceito pode provar `OPERATIONAL_SEMANTIC_IDENTITY` sem provar `SOURCE_INTERNAL_IDENTITY`. Fixar P2 antes de testar essa classe de evidência confundiria identidade semântica do contrato público com identidade da implementação interna.
 
-- base Git exata: `d0e75e1dc47de6157e49864ca97bbcb640ba65df`;
-- execução `T0_OFFLINE`, somente sobre artefatos versionados;
-- zero rede e zero operações de Drive;
-- nenhuma métrica Gold 2025 calculada;
-- nenhuma promoção de 2025, de 0.8.0 ou da série fechada;
-- nenhum rebaixamento automático de 2016–2024;
-- 2026 permanece inalterado;
-- TASK 010O não é aberta nem autorizada.
+## Escopo e estados preservados
 
-## Três camadas de identidade e limite interpretativo
+Base exata: `d0e75e1dc47de6157e49864ca97bbcb640ba65df`. Esta reconciliação é `T0_OFFLINE`: zero rede, zero Drive e nenhum cálculo Gold 2025.
 
-1. **Identidade estrutural:** igualdade observável de recurso, forma do endpoint, contagem de campos e presença dos 11 aliases. Está sustentada longitudinalmente pelo contrato repo-resident.
-2. **Identidade semântica operacional:** prova de que cada alias representa o mesmo conceito, população, unidade, escopo, agregação e estágio contábil no regime relevante. Não está suficientemente versionada para nenhum dos três blocos anuais.
-3. **Bridge interna:** mapeamento determinístico, versionado e campo a campo do alias público para uma estrutura interna autoritativa, com definição, origem e vintage. É o padrão requerido para reconciliar a lacuna; não é criada nem presumida nesta task.
-4. **Interpretação fiscal/legal:** conclusão de compliance, suficiência constitucional, auditoria ou efeito jurídico. Fica fora do contrato, mesmo que uma bridge futura seja provada.
+Permanecem integralmente: 0.7.0 `ACTIVE`; 0.8.0 `CANDIDATE`; 2025 `PROVEN_STRUCTURAL_RECENT`; S1 e S2 `NOT_PROVEN`; fechamento anual e comparabilidade semântica `UNKNOWN`; Gold 2025 `UNKNOWN/BLOCKED`; série fechada 2016–2024; e 2026 `UNPROVEN_CURRENT_YEAR`. Não há promoção, rebaixamento histórico, expansão da série ou abertura da TASK 010O.
 
-Identidade estrutural não implica identidade semântica operacional; bridge interna não implica interpretação fiscal/legal.
+## P1 — padrão público longitudinal
+
+P1 não se reduz a continuidade estrutural. Ele seria justificável se evidência primária oficial do contrato público fixasse, de modo não ambíguo, para os 11 inputs:
+
+1. o alias OData exato;
+2. o conceito operacional correspondente;
+3. definição, unidade, escopo, agregação e estágio contábil;
+4. definição, fonte e vintage de `NUM_POPU`;
+5. aplicabilidade temporal/regime a 2016/P1, 2017–2024/P6 e 2025/P6; e
+6. compatibilidade com as fórmulas Gold estritamente aritméticas, sem conclusão fiscal/legal.
+
+Esses critérios poderiam ser satisfeitos por EDMX/`$metadata` oficial suficientemente descritivo, documentação oficial de campos, documentação oficial alias→conceito ou contrato oficial equivalente. A evidência atual não permite dizer quais anos os satisfazem: **nenhum ano possui, no repositório, o conjunto completo de prova acima**. Isso não rebaixa `ALL_8_PROVEN` de 2016–2024; apenas descreve a lacuna do padrão reconciliado.
+
+## P2 — bridge interna
+
+P2 exigiria demonstração adicional de que a semântica necessária ao claim aritmético não pode ser estabelecida no contrato público, ou de que existe ambiguidade/incompatibilidade que só a estrutura interna autoritativa resolve. Nenhuma evidência repo-resident demonstra essa insuficiência epistemológica da documentação/metadata oficial.
+
+Logo, a ausência atual de alias bridge não prova P2. Engenharia reversa de CML/XML/Delphi/backend não é o próximo passo automático. `SOURCE_INTERNAL_IDENTITY` só se torna requisito se a futura evidência discriminante mostrar que P1 é insuficiente.
+
+## Evidência oficial repo-resident da TASK 007
+
+`docs/evidence/TASK_007_SIOPE_2025_OFFICIAL_DOCUMENTARY_EVIDENCE_0.8.0.json` registra que o dicionário oficial FNDE 2019 define os dez conceitos financeiros usados pelo Gold. Porém, ele não define os aliases OData atuais e não define `NUM_POPU`; por isso, fixa zero identidades de alias OData 2025 e classifica a bridge como `PARTIAL_NOT_PROVEN`.
+
+Essa evidência é primária e semanticamente relevante, mas não fecha P1: conceito financeiro definido sem vínculo oficial alias→conceito não prova a identidade operacional do campo observado. Também não fecha P2: a limitação do documento consultado não prova que todo contrato público oficial seja insuficiente.
 
 ## Comparação obrigatória
 
-| Regime | Identidade estrutural | Identidade semântica operacional | Bridge interna | Estado preservado |
+| Regime | Identidade estrutural | Identidade semântica operacional | Source/internal identity | Estado preservado |
 |---|---|---|---|---|
-| 2016 / P1 | `Dados_Gerais_Siope`, contrato histórico de 52 campos e 11 inputs Gold; execução aritmética observada | nomes e fórmulas são conhecidos, mas definição/vintage de `NUM_POPU` e identidade campo a campo não foram fixadas | não há bridge equivalente versionada | `ALL_8_PROVEN`; não rebaixado |
-| 2017–2024 / P6 | mesmo recurso/endpoint, contrato de 52 campos e mesmos 11 inputs; pipeline histórico validado | fórmulas/aliases não provam por si sós conceito, unidade, escopo e estágio contábil invariantes | não há bridge equivalente versionada para cada ano/regime | `ALL_8_PROVEN`; série 2016–2024 permanece fechada |
-| 2025 / P6 | mesmo recurso/endpoint; 52 nomes e 11 inputs presentes foram fixados | `S1_NUM_POPU=NOT_PROVEN` e `S2_FINANCIAL_ALIAS_BRIDGE=NOT_PROVEN`; fechamento e comparabilidade continuam `UNKNOWN` | requerida, mas não provada | `PROVEN_STRUCTURAL_RECENT`; Gold `UNKNOWN/BLOCKED` |
+| 2016 / P1 | contrato histórico de 52 campos e 11 inputs; execução aritmética observada | critérios P1 completos não versionados | não exigida nem dispensada ainda | `ALL_8_PROVEN` |
+| 2017–2024 / P6 | mesmo recurso/endpoint e mesmos 11 inputs; pipeline histórico validado | dicionário 2019 cobre dez conceitos, mas não vincula aliases atuais nem define `NUM_POPU` | não exigida nem dispensada ainda | `ALL_8_PROVEN`; série fechada preservada |
+| 2025 / P6 | 52 nomes e 11 inputs presentes fixados | S1/S2 continuam `NOT_PROVEN`; evidência oficial é parcial | não provada e ainda não demonstrada necessária | `PROVEN_STRUCTURAL_RECENT`; Gold `UNKNOWN/BLOCKED` |
 
-A assimetria é probatória: 2025 está sujeito a uma exigência explícita que não foi registrada nas promoções históricas. Não foi encontrada ruptura semântica positiva, mas ausência de ruptura positiva também não prova continuidade semântica.
+Identidade estrutural, identidade semântica operacional, source/internal identity e interpretação fiscal/legal são camadas distintas. Nenhuma decisão P1 ou P2 autoriza automaticamente conclusão de compliance, auditoria ou efeito jurídico.
 
-## Estados históricos que exigem futura reconciliação
+## Menor nova classe de evidência discriminante
 
-Exatamente estes estados, sem qualquer alteração nesta task:
+A menor classe capaz de decidir P1 versus P2 é **evidência primária oficial do contrato público alias→conceito**, aplicável aos regimes relevantes e cobrindo os 11 inputs. Prioridade:
 
-1. **2016 — `ALL_8_PROVEN`:** reconciliar a prova dos 11 inputs, incluindo definição, fonte e vintage de `NUM_POPU`, e a identidade operacional dos dez aliases financeiros.
-2. **2017–2024 — `ALL_8_PROVEN`, ano a ano:** reconciliar a mesma prova para cada ano do regime P6; uma inferência agregada para o intervalo não substitui evidência por regime/ano.
-3. **2016–2024 — comparabilidade semântica implícita da série Gold contínua:** reconciliar a alegação de comparabilidade com uma bridge interna versionada; isso não ordena apagar, recalcular ou reclassificar nenhum objeto existente.
+1. EDMX/`$metadata` oficial com descrições semânticas dos campos; ou
+2. documentação oficial FNDE/Olinda de campos/aliases; ou
+3. contrato oficial equivalente que ligue cada alias ao conceito, incluindo `NUM_POPU`.
 
-Nenhum outro estado histórico é incluído. Em particular, 2025 não é histórico promovido, e 2026 permanece `UNPROVEN_CURRENT_YEAR`.
+O próximo gate recomendado é `TASK_010N_R_PUBLIC_CONTRACT_SEMANTIC_EVIDENCE_GATE`, separado, T0 sobre artefato previamente pinado e fail-closed. Ele deve decidir:
 
-## Critério do próximo gate recomendado
+- **P1**, se a fonte oficial satisfizer todos os critérios mínimos sem depender de source/internal identity;
+- **P2**, somente se evidência positiva demonstrar que o contrato público é insuficiente e que a estrutura interna resolve a lacuna; ou
+- **indeterminável**, se faltar cobertura, autoridade, vínculo alias→conceito ou aplicabilidade temporal.
 
-Recomenda-se um gate separado **`TASK_010N_R_INTERNAL_BRIDGE_EVIDENCE_GATE`**, anterior e não equivalente à TASK 010O. Ele deve permanecer fail-closed até existir evidência repo-resident que, para os 11 inputs e para cada regime aplicável, fixe: alias exato; conceito interno autoritativo; definição; unidade; escopo; agregação; estágio contábil; fonte; vintage; período; e regra determinística de correspondência. Divergência, ausência ou ambiguidade deve resultar em `STOP`.
-
-O gate não deve calcular Gold 2025, interpretar compliance fiscal/legal, rebaixar automaticamente 2016–2024, expandir a série, alterar 2026 ou promover a release.
+Esse gate não abre TASK 010O, não executa rede, não inicia engenharia reversa e não altera qualquer estado canônico.

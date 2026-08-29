@@ -1,37 +1,53 @@
 {
-  "schema": "TASK_010N_R_SIOPE_PROOF_STANDARD_RECONCILIATION_V1",
+  "schema": "TASK_010N_R_SIOPE_PROOF_STANDARD_RECONCILIATION_V2",
   "task": "TASK_010N_R",
   "software_version": "0.8.0",
   "base_sha": "d0e75e1dc47de6157e49864ca97bbcb640ba65df",
   "tier": "T0_OFFLINE",
-  "decision": "INTERNAL_BRIDGE_STANDARD_REQUIRED",
-  "alternatives_rejected": {
-    "UNIFORM_PUBLIC_CONTRACT_STANDARD_JUSTIFIED": "Structural continuity does not prove operational semantic identity.",
-    "STANDARD_NOT_YET_DETERMINABLE": "The repository evidence is sufficient to determine that the missing explicit internal bridge is the required reconciliation standard."
+  "decision": "STANDARD_NOT_YET_DETERMINABLE",
+  "propositions": {
+    "P1": "UNIFORM_PUBLIC_CONTRACT_STANDARD_JUSTIFIED",
+    "P2": "INTERNAL_BRIDGE_STANDARD_REQUIRED",
+    "P1_status": "NOT_YET_PROVEN",
+    "P2_status": "NOT_DEMONSTRATED_NECESSARY"
+  },
+  "methodological_finding": "Operational semantic identity may in principle be proven by primary official public-contract evidence without source/internal identity. Repo-resident evidence does not show that such evidence is epistemically insufficient for strictly arithmetic Gold claims.",
+  "task_007_evidence": {
+    "path": "docs/evidence/TASK_007_SIOPE_2025_OFFICIAL_DOCUMENTARY_EVIDENCE_0.8.0.json",
+    "authority": "FNDE",
+    "financial_concepts_defined": 10,
+    "current_odata_aliases_defined": 0,
+    "NUM_POPU_defined": false,
+    "result": "PARTIAL_NOT_PROVEN",
+    "implication": "INSUFFICIENT_TO_PROVE_P1_AND_INSUFFICIENT_TO_REQUIRE_P2"
   },
   "identity_layers": {
-    "structural_identity": "SUPPORTED_LONGITUDINALLY_FOR_RESOURCE_ENDPOINT_52_FIELD_CONTRACT_AND_11_INPUT_ALIASES",
-    "operational_semantic_identity": "NOT_PROVEN_LONGITUDINALLY",
-    "internal_bridge": "REQUIRED_NOT_PROVEN",
+    "structural_identity": "SUPPORTED_LONGITUDINALLY",
+    "operational_semantic_identity": "MAY_BE_PROVEN_BY_PRIMARY_PUBLIC_CONTRACT_EVIDENCE_BUT_IS_CURRENTLY_NOT_PROVEN",
+    "source_internal_identity": "NOT_PROVEN_AND_NOT_YET_DEMONSTRATED_NECESSARY",
     "fiscal_legal_interpretation": "OUT_OF_SCOPE_AND_NOT_AUTHORIZED"
   },
   "comparison": [
-    {"years": "2016", "period": 1, "structural": "SUPPORTED", "operational_semantic": "INSUFFICIENT", "internal_bridge": "NOT_VERSIONED", "preserved_state": "ALL_8_PROVEN"},
-    {"years": "2017-2024", "period": 6, "structural": "SUPPORTED", "operational_semantic": "INSUFFICIENT", "internal_bridge": "NOT_VERSIONED_PER_YEAR_OR_REGIME", "preserved_state": "ALL_8_PROVEN"},
-    {"years": "2025", "period": 6, "structural": "PROVEN_STRUCTURAL_RECENT", "operational_semantic": "NOT_PROVEN", "internal_bridge": "S1_NUM_POPU_AND_S2_FINANCIAL_ALIAS_BRIDGE_NOT_PROVEN", "preserved_state": "UNKNOWN/BLOCKED"}
+    {"years": "2016", "period": 1, "structural": "SUPPORTED", "operational_semantic": "P1_CRITERIA_NOT_FULLY_VERSIONED", "source_internal_identity": "NOT_YET_REQUIRED_OR_WAIVED", "preserved_state": "ALL_8_PROVEN"},
+    {"years": "2017-2024", "period": 6, "structural": "SUPPORTED", "operational_semantic": "TEN_CONCEPTS_DEFINED_BUT_ALIAS_LINK_AND_NUM_POPU_NOT_PROVEN", "source_internal_identity": "NOT_YET_REQUIRED_OR_WAIVED", "preserved_state": "ALL_8_PROVEN"},
+    {"years": "2025", "period": 6, "structural": "PROVEN_STRUCTURAL_RECENT", "operational_semantic": "S1_AND_S2_NOT_PROVEN", "source_internal_identity": "NOT_PROVEN_AND_NOT_DEMONSTRATED_NECESSARY", "preserved_state": "UNKNOWN/BLOCKED"}
   ],
-  "historical_states_requiring_future_reconciliation": [
-    {"years": "2016", "state": "ALL_8_PROVEN", "required": "Bridge for all 11 inputs, including NUM_POPU definition/source/vintage and ten financial aliases."},
-    {"years": "2017-2024", "state": "ALL_8_PROVEN", "required": "The same bridge reconciled per year for the P6 regime."},
-    {"years": "2016-2024", "state": "SEMANTIC_COMPARABILITY_IMPLICIT_IN_CONTINUOUS_GOLD_SERIES", "required": "Versioned internal bridge supporting comparability."}
-  ],
-  "bridge_minimum_fields": ["exact_alias", "authoritative_internal_concept", "definition", "unit", "scope", "aggregation", "accounting_stage", "source", "vintage", "period", "deterministic_mapping_rule"],
+  "p1_minimum_public_contract_evidence": ["exact_odata_alias", "official_operational_concept", "definition", "unit", "scope", "aggregation", "accounting_stage", "NUM_POPU_source_and_vintage", "temporal_regime_applicability", "arithmetic_formula_compatibility"],
+  "years_satisfying_complete_p1_standard_in_repo": [],
+  "smallest_discriminating_evidence_class": {
+    "class": "PRIMARY_OFFICIAL_PUBLIC_CONTRACT_ALIAS_TO_CONCEPT_EVIDENCE",
+    "priority": ["OFFICIAL_EDMX_METADATA_WITH_FIELD_SEMANTICS", "OFFICIAL_FNDE_OLINDA_FIELD_OR_ALIAS_DOCUMENTATION", "EQUIVALENT_OFFICIAL_ALIAS_TO_CONCEPT_CONTRACT"],
+    "reverse_engineering_default": false
+  },
   "canonical_state": {
+    "release_0_7_0": "ACTIVE",
     "release_0_8_0": "CANDIDATE",
     "year_2025": "PROVEN_STRUCTURAL_RECENT",
-    "gold_2025": "UNKNOWN/BLOCKED",
     "S1_NUM_POPU": "NOT_PROVEN",
     "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_2025": "UNKNOWN/BLOCKED",
     "closed_annual_series": "2016-2024",
     "historical_2016_2024": "NO_AUTOMATIC_DOWNGRADE",
     "year_2026": "UNPROVEN_CURRENT_YEAR"
@@ -46,7 +62,8 @@
     "promote_release_authorized": false,
     "open_task_010o_authorized": false,
     "remote_network_authorized": false,
-    "drive_write_authorized": false
+    "drive_write_authorized": false,
+    "internal_reverse_engineering_authorized": false
   },
-  "next_gate_recommended": "TASK_010N_R_INTERNAL_BRIDGE_EVIDENCE_GATE"
+  "next_gate_recommended": "TASK_010N_R_PUBLIC_CONTRACT_SEMANTIC_EVIDENCE_GATE"
 }
