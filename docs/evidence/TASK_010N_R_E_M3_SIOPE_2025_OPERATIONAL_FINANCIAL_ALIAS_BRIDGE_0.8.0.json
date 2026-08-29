@@ -1,0 +1,171 @@
+{
+  "evidence_schema": "TASK_010N_R_E_M3_OPERATIONAL_FINANCIAL_ALIAS_BRIDGE_V1",
+  "software_version": "0.8.0",
+  "task": "TASK_010N-R-E-M3",
+  "base_main_sha": "91337f7ec06edd082887cdb50822e9fc1aad9b57",
+  "tier": "T0_OFFLINE_B2_ONLY",
+  "provenance": {
+    "classification": "USER_MEDIATED_OFFICIAL_OBSERVATION",
+    "sanitized_minimal_fixture": "tests/fixtures/siope_2025_operational_financial_alias_bridge/official_observations.json",
+    "validator_network_requests": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "publication": false,
+    "gold_computation": false
+  },
+  "identity": {
+    "NUM_ANO": 2025,
+    "NUM_PERI": 6,
+    "SIG_UF": "SP",
+    "COD_MUNI": "352690",
+    "NOM_MUNI": "Limeira"
+  },
+  "matrix": [
+    {
+      "alias": "VAL_RECE_PREV_ATUA",
+      "official_concept": "Receita total — Previsão Atualizada",
+      "evidence_sources": [
+        "Receita_Siope: Receitas Correntes/PA + Receitas de Capital/PA"
+      ],
+      "observed_alias_value": "2241993843.27",
+      "reconciled_value": "2241993843.27",
+      "variance": "0.00",
+      "status": "PROVEN_EXACT_OPERATIONAL",
+      "reason": "The two unique official operational revenue rows sum exactly to the alias."
+    },
+    {
+      "alias": "VAL_RECE_REAL",
+      "official_concept": "Receita total — Receitas Realizadas",
+      "evidence_sources": [
+        "Receita_Siope: Receitas Correntes/RR + Receitas de Capital/RR"
+      ],
+      "observed_alias_value": "2127095863.19",
+      "reconciled_value": "2127095863.19",
+      "variance": "0.00",
+      "status": "PROVEN_EXACT_OPERATIONAL",
+      "reason": "The two unique official operational revenue rows sum exactly to the alias."
+    },
+    {
+      "alias": "VAL_DESP_DOTA_ATUA",
+      "official_concept": "Despesa consolidada — Dotação Atualizada including Reserva do RPPS",
+      "evidence_sources": [
+        "Municipal RREO Anexo 1: SUBTOTAL DAS DESPESAS/DA",
+        "Municipal RREO Anexo 1: RESERVA DO RPPS/DA"
+      ],
+      "observed_alias_value": "2405001195.43",
+      "reconciled_value": "2405001195.43",
+      "variance": "0.00",
+      "status": "PROVEN_EXACT_OPERATIONAL",
+      "reason": "The subtotal and RPPS reserve are distinct components and sum exactly to the alias."
+    },
+    {
+      "alias": "VAL_DESP_EMPE",
+      "official_concept": "Despesa consolidada — Despesas Empenhadas até o bimestre",
+      "evidence_sources": [
+        "Municipal RREO Anexo 1: SUBTOTAL DAS DESPESAS/DE"
+      ],
+      "observed_alias_value": "1988819180.58",
+      "reconciled_value": "1988819180.58",
+      "variance": "0.00",
+      "status": "PROVEN_EXACT_OPERATIONAL",
+      "reason": "The unique official RREO subtotal equals the alias exactly."
+    },
+    {
+      "alias": "VAL_DESP_LIQU",
+      "official_concept": "Despesa consolidada — Despesas Liquidadas até o bimestre",
+      "evidence_sources": [
+        "Municipal RREO Anexo 1: SUBTOTAL DAS DESPESAS/DL"
+      ],
+      "observed_alias_value": "1869450172.86",
+      "reconciled_value": "1869450172.86",
+      "variance": "0.00",
+      "status": "PROVEN_EXACT_OPERATIONAL",
+      "reason": "The unique official RREO subtotal equals the alias exactly."
+    },
+    {
+      "alias": "VAL_DESP_PAGA",
+      "official_concept": "Despesa consolidada — Despesas Pagas até o bimestre",
+      "evidence_sources": [
+        "Municipal RREO Anexo 1: SUBTOTAL DAS DESPESAS/DP"
+      ],
+      "observed_alias_value": "1776933065.63",
+      "reconciled_value": "1776933065.63",
+      "variance": "0.00",
+      "status": "PROVEN_EXACT_OPERATIONAL",
+      "reason": "The unique official RREO subtotal equals the alias exactly."
+    },
+    {
+      "alias": "VL_DESP_DOTA_ATUA_EDU",
+      "official_concept": "Despesas com Educação — Dotação Atualizada",
+      "evidence_sources": [
+        "RREO Anexo 8 line 33/DA",
+        "Dados Informados pelos Municípios: Consolidado de Despesa 3.2.00.00.00/DA"
+      ],
+      "observed_alias_value": "520399255.47",
+      "reconciled_value": "520399255.47",
+      "variance": "1000.00",
+      "status": "PROVEN_SEMANTIC_CURRENT_WITH_DOCUMENTED_1000_RREO_VARIANCE",
+      "reason": "The alias equals RREO line 33 plus the official budget-only 1000.00 parent item; child 3.2.91.00.00 is not added."
+    },
+    {
+      "alias": "VL_DESP_EMPE_EDU",
+      "official_concept": "Despesas com Educação — Despesas Empenhadas",
+      "evidence_sources": [
+        "Despesas_Funcao_Educacao_Siope non-double-counted aggregate",
+        "RREO Anexo 8 line 33/DE"
+      ],
+      "observed_alias_value": "463766660.32",
+      "reconciled_value": "463766660.32",
+      "variance": "0.00",
+      "status": "PROVEN_EXACT_OPERATIONAL",
+      "reason": "The aggregate excluding duplicate DES_SUBF=365 and the independent RREO value both equal the alias."
+    },
+    {
+      "alias": "VL_DESP_LIQU_EDU",
+      "official_concept": "Despesas com Educação — Despesas Liquidadas",
+      "evidence_sources": [
+        "Despesas_Funcao_Educacao_Siope non-double-counted aggregate",
+        "RREO Anexo 8 line 33/DL"
+      ],
+      "observed_alias_value": "455867723.30",
+      "reconciled_value": "455867723.30",
+      "variance": "0.00",
+      "status": "PROVEN_EXACT_OPERATIONAL",
+      "reason": "The aggregate excluding duplicate DES_SUBF=365 and the independent RREO value both equal the alias."
+    },
+    {
+      "alias": "VL_DESP_PAGA_EDU",
+      "official_concept": "Despesas com Educação — Despesas Pagas",
+      "evidence_sources": [
+        "Despesas_Funcao_Educacao_Siope non-double-counted aggregate",
+        "RREO Anexo 8 line 33/DP"
+      ],
+      "observed_alias_value": "420264584.22",
+      "reconciled_value": "420264584.22",
+      "variance": "0.00",
+      "status": "PROVEN_EXACT_OPERATIONAL",
+      "reason": "The aggregate excluding duplicate DES_SUBF=365 and the independent RREO value both equal the alias."
+    }
+  ],
+  "summary": {
+    "PROVEN_EXACT_OPERATIONAL": 9,
+    "PROVEN_SEMANTIC_CURRENT_WITH_DOCUMENTED_1000_RREO_VARIANCE": 1,
+    "PARTIAL": 0,
+    "AMBIGUOUS": 0,
+    "NOT_FOUND": 0
+  },
+  "canonical_state": {
+    "release_0_7_0": "ACTIVE",
+    "release_0_8_0": "CANDIDATE",
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "PROVEN_CURRENT_2025_OPERATIONAL_SEMANTICS",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "semantic_comparability_missing_gate": "B1_NUM_POPU_SOURCE_VINTAGE_AND_GLOBAL_COMPARABILITY_GATE",
+    "closed_annual_series": "2016-2024",
+    "gold_2025": "UNKNOWN/BLOCKED",
+    "year_2026": "UNPROVEN_CURRENT_YEAR"
+  },
+  "education_scope_note": "EDU != MDE as a general identity; this proof covers only the current aliases and observed official aggregates.",
+  "decision": "PROMOTE_S2_FINANCIAL_ALIAS_BRIDGE_CURRENT_2025_OPERATIONAL_SEMANTICS"
+}
