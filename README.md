@@ -6,11 +6,16 @@ Consolidação em software das capacidades metodológicas validadas nas versões
 
 **Software ativo:** 0.7.0 ACTIVE  
 **Candidata corrente:** 0.8.0 CANDIDATE  
-**Próximo gate:** M7 — descoberta controlada da rota de aquisição SIOPE–Limeira  
+**Série anual SIOPE fechada:** 2016–2024<br>
+**Próximo gate:** evidência oficial para a semântica atual e a finalidade de 2025<br>
 **Dependências externas:** `pypdf==6.10.0` e `reportlab==5.0.0`  
 **Python:** 3.11+
 
-A 0.7.0 permanece a última release ativa validada. A 0.8.0 candidata introduz um contrato explícito de expansão de fontes e escolhe o SIOPE/FNDE para Limeira/SP como único piloto. Nesta etapa, a superfície pública foi identificada e o contrato foi validado offline, mas a rota efetiva de aquisição, o content-type e o schema permanecem `UNPROVEN`. Por isso, coleta, processamento, recorrência e agenda continuam proibidos.
+A 0.7.0 permanece a última release ativa validada. O motor principal já demonstrou coleta controlada, Bronze/Silver/Gold histórico, reconciliação, observabilidade, persistência create-only, gates e geração de produtos JSON/CSV/MD/HTML/PDF. A 0.8.0 continua candidata porque capacidade de engenharia não equivale a autorização operacional nem a suficiência semântica.
+
+Para 2025, P1–P6, o schema P6 de 52 campos e a presença estrutural dos 11 inputs do pipeline foram observados. O estado é `PROVEN_STRUCTURAL_RECENT`: isso **não** prova a semântica de `NUM_POPU`, o bridge dos dez aliases financeiros, a finalidade anual de P6, comparabilidade histórica ou Gold 2025. Esses pontos permanecem `NOT_PROVEN`, `UNKNOWN` ou `BLOCKED`, e a série anual fechada permanece **2016–2024**.
+
+Consulte **[`STATUS_0.8.0.md`](STATUS_0.8.0.md)** para o estado canônico, a cadeia de evidências, os bloqueios de promoção, a matriz de maturidade e a auditoria de resíduos documentais.
 
 A expansão segue o ciclo `DISCOVERED → CONTRACT_VALIDATED → ONE_TIME_AUTHORIZED → LIVE_VALIDATED → RECURRENCE_ELIGIBLE`. Chegar a `RECURRENCE_ELIGIBLE` não liga agenda por si só; recorrência e schedule exigem autorização separada.
 
@@ -28,24 +33,9 @@ python3 main.py sources-validate --source-config config/sources.example.json
 
 ## M7 — Expansão controlada de fontes
 
-O contrato do piloto está em `config/source_expansion.siope_limeira_0_8_0.json`. Ele registra:
+O SIOPE/FNDE para Limeira/SP permanece o piloto único da 0.8.0. Desde o desenho inicial, gates bounded demonstraram a rota, o pipeline histórico e a estrutura recente de 2025. Cada evidência conserva o limite do contrato que a produziu: não há autorização implícita para rerun, recorrência, schedule, Gold 2025 ou publicação.
 
-- instituição: FNDE;
-- sistema: SIOPE;
-- superfície pública: `Dados Informados pelos Municípios`;
-- recorte piloto proposto: Limeira/SP, código municipal `352690`, exercício fechado de 2024;
-- domínio: financiamento público da educação;
-- temas iniciais: receitas, despesas, MDE e Fundeb;
-- estado atual: `CONTRACT_VALIDATED`;
-- rota de aquisição: `UNPROVEN`;
-- schema: `UNPROVEN`;
-- content-type: `UNPROVEN`;
-- coleta: `PROHIBITED`;
-- processamento: `PROHIBITED`;
-- recorrência: `PROHIBITED`;
-- schedule: `DISABLED`.
-
-O gate `scripts/github_source_expansion_design_gate.py` é estritamente offline: não chama rede, não grava no Drive e não executa coleta. O próximo gate deve provar uma rota oficial de aquisição sem adivinhar URLs, comprovar content-type e schema, declarar semântica de nulos/zeros e documentar o crosswalk financeiro antes de qualquer autorização `ONE_TIME_AUTHORIZED`.
+Os dois gargalos semânticos correntes são a definição/fonte/regra temporal de `NUM_POPU` e o bridge oficial dos dez aliases financeiros atuais. Separadamente, a disponibilidade e o papel de consolidação anual de P6 não provam que o registro 2025 esteja final/fechado. Veja o [`STATUS_0.8.0.md`](STATUS_0.8.0.md); os documentos M7 individuais permanecem como histórico auditável dos gates.
 
 ## M6 — Saída mínima de produto
 
@@ -111,10 +101,10 @@ Enquanto a 0.8.0 estiver como `CANDIDATE`, o preflight com `--require-oauth` enc
 ## Drive
 A configuração canônica está em `config/cloud.json`. O preflight exige as camadas `00_DOCUMENTACAO` a `12_SOFTWARE` e `START_HERE_ROBO_DADOS_PUBLICOS`. `08_OUTPUTS` é o destino reservado para saídas de produto. A primeira publicação controlada da 0.7.0 foi validada no run `32787729769`; novos usos de publicação exigirão um gate próprio e não reutilizam silenciosamente o M6.
 
-A 0.8.0 candidata não acrescenta nenhuma escrita no Drive. O gate de desenho M7 é offline.
+A candidata não autoriza escrita por padrão. Escritas históricas bounded/create-only ocorreram somente em gates próprios já pinados; nova persistência ou publicação exige autorização separada.
 
 ## Deploy
-A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTIONS_DEPLOY.md`). Execute primeiro `python scripts/github_preflight.py`; o resultado esperado sem credenciais é `PASS_OFFLINE`. Como a release corrente é candidata, `--require-oauth` permanece bloqueado. Coleta, processamento, primeira reconciliação controlada, observabilidade e saída mínima de produto já foram validados em releases ativas anteriores. O SIOPE ainda não foi autorizado para coleta. Novas fontes, repetição dos gates históricos, reconciliação ampla, recorrência e agenda continuam desabilitadas.
+A rota corrente de execução remota permanece GitHub Actions (`docs/GITHUB_ACTIONS_DEPLOY.md`). Execute primeiro `python scripts/github_preflight.py`; o resultado esperado sem credenciais é `PASS_OFFLINE`. Como a release corrente é candidata, `--require-oauth` permanece bloqueado. Coleta, processamento, primeira reconciliação controlada, observabilidade e saída mínima de produto já foram validados. No SIOPE, apenas execuções bounded explicitamente autorizadas foram realizadas; repetição dos gates históricos, novas fontes, Gold 2025, reconciliação ampla, recorrência e agenda continuam desabilitados.
 
 Os contratos históricos permanecem em `config/sources.jornal_oficial_7310_gate.json`, `config/processing.jornal_oficial_7310_gate.json`, `config/reconciliation.first_contract_gate.json` e `config/product_output.first_publication_gate.json`. O workflow principal não oferece `confirm_source_collection`, `confirm_processing`, `confirm_reconciliation`, publicação de produto nem `confirm_source_expansion`.
 

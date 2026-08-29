@@ -1,5 +1,10 @@
 # Release Notes — 0.8.0 CANDIDATE
 
+> **Nota histórica:** este arquivo registra o desenho inicial do M7 e antecede as
+> TASKs 004–009E. Para o estado corrente da candidata, inclusive a estrutura
+> recente de 2025 e os gates que permanecem bloqueados, consulte
+> [`STATUS_0.8.0.md`](../STATUS_0.8.0.md).
+
 ## M7 — expansão controlada de fontes
 
 A 0.8.0 candidata introduz um contrato explícito para expansão de fontes sem transformar descoberta em autorização operacional.
