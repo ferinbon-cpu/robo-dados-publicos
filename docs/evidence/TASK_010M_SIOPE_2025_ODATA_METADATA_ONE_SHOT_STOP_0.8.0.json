@@ -1,0 +1,69 @@
+{
+  "schema": "TASK_010M_SIOPE_2025_ODATA_METADATA_ONE_SHOT_STOP_V1",
+  "task": "TASK_010M",
+  "issue": 245,
+  "software_version": "0.8.0",
+  "base_main_sha": "a125ac1f302d4c149c7a3a884eb1f183c0b7d656",
+  "authorization": {
+    "explicit_owner_authorization": true,
+    "authorized_on": "2026-08-29",
+    "one_shot": true,
+    "target": "https://www.fnde.gov.br/olinda-ide/servico/DADOS_ABERTOS_SIOPE/versao/v1/odata/$metadata",
+    "max_http_gets": 1,
+    "retry_authorized": false,
+    "redirect_follow_authorized": false,
+    "municipal_data_query_authorized": false,
+    "financial_values_query_authorized": false,
+    "authorization_consumed_conservatively": true
+  },
+  "preflight_connector_attempt": {
+    "network_request_sent": false,
+    "result": "LOCAL_CONNECTOR_URL_SAFETY_REJECTION",
+    "effect_on_http_budget": "NOT_COUNTED_AS_HTTP_GET"
+  },
+  "outbound_attempt": {
+    "attempt_count": 1,
+    "method_intended": "GET",
+    "retry_count": 0,
+    "max_redirects": 0,
+    "dns_resolution_status": "FAILED",
+    "curl_exit_code": 6,
+    "http_status": null,
+    "curl_http_code": "000",
+    "content_type": null,
+    "response_bytes": 0,
+    "effective_url": "https://www.fnde.gov.br/olinda-ide/servico/DADOS_ABERTOS_SIOPE/versao/v1/odata/$metadata",
+    "error_class": "COULD_NOT_RESOLVE_HOST",
+    "http_request_transmitted": false,
+    "edmx_received": false
+  },
+  "semantic_result": {
+    "metadata_semantics_assessed": false,
+    "odata_alias_descriptions_observed": 0,
+    "odata_alias_bridge_proven_count": 0,
+    "odata_alias_bridge_required_count": 10,
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "decision": "STOP_DNS_RESOLUTION_NO_EDMX_NO_RETRY"
+  },
+  "canonical_state": {
+    "release_0_7_0": "ACTIVE",
+    "release_0_8_0": "CANDIDATE",
+    "year_2025": "PROVEN_STRUCTURAL_RECENT",
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_metrics_status": "UNKNOWN/BLOCKED",
+    "closed_annual_series": "2016-2024",
+    "year_2026": "UNPROVEN_CURRENT_YEAR"
+  },
+  "effects": {
+    "drive_read_count": 0,
+    "drive_write_count": 0,
+    "gold_computation": false,
+    "publication": false,
+    "financial_values_observed": false,
+    "municipal_records_observed": false
+  },
+  "next_gate": "NEW_EXPLICIT_AUTHORIZATION_REQUIRED_FOR_ANY_FURTHER_REMOTE_ODATA_METADATA_ATTEMPT"
+}
