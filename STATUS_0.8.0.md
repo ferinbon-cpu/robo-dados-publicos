@@ -129,8 +129,8 @@ a 0.8.0:
 | `docs/M7_NEXT_GATE_0.8.0.md` e documentos M7 de gates individuais | **parcialmente ou totalmente superados como “próximo gate”** | Continuam úteis como trilha de auditoria. Não devem ser lidos como roadmap corrente; este documento prevalece para estado. |
 | TASKs 004A–004B | **totalmente superadas quanto ao estado recente; ainda válidas como histórico** | O timeout/`UNPROVEN_RECENT` foi sucedido pela observação 004C e pela promoção estrutural da TASK 005. Não apagar. |
 | TASKs 004C–009E | **ainda válidas**, com gates intermediários consumidos/superados | Formam a cadeia de evidência recente; a conclusão 009E mantém S1/S2 `NOT_PROVEN`. |
-| Issue GitHub `#183` | **necessita auditoria; classificação de mérito não observada** | O ambiente não disponibilizou conteúdo autenticado da issue e a tentativa pública foi bloqueada. Ela não foi fechada nem declarada superada. Recomenda-se ler corpo/comentários no GitHub e só então relacioná-la nominalmente às TASKs/commits substitutos. |
+| Issue GitHub `#183` — `[CODEX] TASK 004 — primeiro discovery live SIOPE 2025 bounded T1` | **totalmente superada como task ativa; válida como histórico** | Seus objetivos operacionais foram consumidos pela execução/revisão do primeiro live bounded na TASK 004B e pelo segundo live bounded bem-sucedido na TASK 004C. A TASK 005 formalizou a promoção estritamente estrutural resultante, e os estados posteriores passaram a ser governados pelas TASKs 005–009E. Recomenda-se o fechamento administrativo da issue, preservando seu histórico. |
 
-A impossibilidade de observar a issue #183 é tratada de forma fail-closed: a
-proximidade cronológica com trabalhos posteriores não basta para concluir que seu
-escopo foi cumprido.
+A classificação da issue #183 não altera o estado do SIOPE 2025: estrutura
+recente permanece `PROVEN_STRUCTURAL_RECENT`; semântica, finalidade,
+comparabilidade e Gold permanecem nos estados fail-closed registrados na seção 3.
