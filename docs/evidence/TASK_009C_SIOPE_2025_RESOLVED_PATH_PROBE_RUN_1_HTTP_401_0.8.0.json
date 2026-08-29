@@ -1,0 +1,54 @@
+{
+  "evidence_schema": "TASK_009C_SIOPE_2025_RESOLVED_PATH_PROBE_RUN_1_HTTP_401_V1",
+  "task": "TASK_009C",
+  "review_task": "TASK_009C_R",
+  "software_version": "0.8.0",
+  "classification": "SANITIZED_LIVE_EVIDENCE_REVIEWED_OFFLINE",
+  "workflow": {
+    "run_number": 1,
+    "authorization_id": "SIOPE2025-METADATA-DIRECT-PROBE-20260828-01"
+  },
+  "request_contract": {
+    "method": "GET",
+    "url": "https://fnde.sharepoint.com/sites/SIOPE/Documentos%20Compartilhados/Metadados_Mun_2025.zip",
+    "range_header": "bytes=0-4095",
+    "maximum_source_get_count": 1,
+    "maximum_response_bytes": 4096,
+    "timeout_seconds": 60,
+    "max_attempts": 1,
+    "retry_authorized": false,
+    "follow_redirects": false
+  },
+  "observation": {
+    "status": "STOP_METADATA_RESOLVED_PATH_PROBE",
+    "reason": "STOP_SIOPE_2025_METADATA_RESOLVED_PATH_PROBE_HTTP_401",
+    "http_status": 401,
+    "source_get_count": 1,
+    "response_persisted": false,
+    "archive_persisted": false
+  },
+  "authorization_consumption": {
+    "one_shot": true,
+    "consumed": true,
+    "reason": "ONE_SOURCE_GET_WAS_ISSUED",
+    "rerun_authorized": false,
+    "reuse_authorized": false,
+    "authentication_attempt_authorized": false,
+    "next_remote_request_requires_new_explicit_owner_authorization": true
+  },
+  "effects": {
+    "drive_read_count": 0,
+    "drive_write_count": 0,
+    "response_persistence": false,
+    "archive_persistence": false,
+    "publication": false
+  },
+  "semantic_guards": {
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_metrics_status": "UNKNOWN",
+    "closed_annual_series_first_year": 2016,
+    "closed_annual_series_last_year": 2024,
+    "include_2026_authorized": false
+  }
+}
