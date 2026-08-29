@@ -34,6 +34,58 @@ class Task009CRHttp401OfflineReviewTests(unittest.TestCase):
         self.assertEqual(result["source_get_count"], 0)
         self.assertEqual(result["next_public_package_route"], "UNKNOWN")
 
+    def test_exact_actions_run_identity_is_pinned(self) -> None:
+        workflow = self.evidence["workflow"]
+        self.assertEqual(workflow["run_id"], 33221146589)
+        self.assertEqual(workflow["workflow_id"], 344981895)
+        self.assertEqual(workflow["run_number"], 1)
+        self.assertEqual(workflow["run_attempt"], 1)
+        self.assertEqual(workflow["event"], "workflow_dispatch")
+        self.assertEqual(workflow["head_sha"], "0e70495e5ae8ccdf45aff7e2c76fd302d1294b0c")
+
+    def test_workflow_identity_drift_fails_closed(self) -> None:
+        for key, value in (
+            ("run_id", 1),
+            ("workflow_id", 1),
+            ("run_number", 2),
+            ("run_attempt", 2),
+            ("event", "push"),
+            ("head_sha", "f" * 40),
+            ("authorization_id", "SIOPE2025-METADATA-DIRECT-PROBE-INVENTED"),
+        ):
+            evidence = copy.deepcopy(self.evidence)
+            evidence["workflow"][key] = value
+            with self.assertRaises(OfflineAssessmentError):
+                validate_assessment(self.assessment, evidence)
+
+    def test_observation_or_persistence_drift_fails_closed(self) -> None:
+        mutations = (
+            ("reason", "SOMETHING_ELSE"),
+            ("http_status", 200),
+            ("source_get_count", 0),
+            ("runner_exit_code", 0),
+            ("response_persisted", True),
+            ("archive_persisted", True),
+        )
+        for key, value in mutations:
+            evidence = copy.deepcopy(self.evidence)
+            evidence["observation"][key] = value
+            with self.assertRaises(OfflineAssessmentError):
+                validate_assessment(self.assessment, evidence)
+
+    def test_request_contract_drift_fails_closed(self) -> None:
+        for key, value in (
+            ("url", "https://example.invalid/invented.zip"),
+            ("maximum_source_get_count", 2),
+            ("maximum_response_bytes", 8192),
+            ("retry_authorized", True),
+            ("follow_redirects", True),
+        ):
+            evidence = copy.deepcopy(self.evidence)
+            evidence["request_contract"][key] = value
+            with self.assertRaises(OfflineAssessmentError):
+                validate_assessment(self.assessment, evidence)
+
     def test_rerun_reuse_and_authentication_fail_closed(self) -> None:
         for key in ("rerun_authorized", "reuse_authorized", "authentication_attempt_authorized"):
             evidence = copy.deepcopy(self.evidence)
@@ -56,11 +108,16 @@ class Task009CRHttp401OfflineReviewTests(unittest.TestCase):
         assessment["semantic_guards"]["annual_closure_status"] = "CLOSED"
         with self.assertRaises(OfflineAssessmentError):
             validate_assessment(assessment, self.evidence)
+        evidence = copy.deepcopy(self.evidence)
+        evidence["semantic_guards"]["gold_metrics_status"] = "PROVEN"
+        with self.assertRaises(OfflineAssessmentError):
+            validate_assessment(self.assessment, evidence)
 
     def test_unobserved_route_or_public_classification_drift_fails_closed(self) -> None:
         for field, value in (
             ("route", "https://fnde.sharepoint.com/_layouts/15/download.aspx?invented=true"),
             ("classification", "PUBLIC_ROUTE_CANDIDATE"),
+            ("package_access_status", "PUBLIC"),
         ):
             assessment = copy.deepcopy(self.assessment)
             assessment["route_assessment"][3][field] = value
