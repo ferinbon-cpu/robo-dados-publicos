@@ -1,0 +1,242 @@
+{
+  "schema": "TASK_010N_R_E_SIOPE_PUBLIC_CONTRACT_SEMANTIC_EVIDENCE_GATE_V1",
+  "task": "TASK_010N_R_E",
+  "issue": 250,
+  "software_version": "0.8.0",
+  "base_sha": "0665893b3ce8a6701bbe3c3e6901a7f00ef4fc7a",
+  "tier": "T0_OFFLINE",
+  "decision": "PUBLIC_CONTRACT_EVIDENCE_PARTIAL_OFFLINE",
+  "summary": {
+    "required_input_count": 11,
+    "proven_count": 0,
+    "partial_count": 11,
+    "ambiguous_count": 0,
+    "not_found_count": 0,
+    "official_historical_financial_concepts_defined": 10,
+    "current_2025_odata_alias_to_concept_identity_proven_count": 0,
+    "num_popu_official_definition_proven": false,
+    "num_popu_official_source_proven": false,
+    "num_popu_vintage_rule_proven": false
+  },
+  "primary_repo_resident_evidence": [
+    {
+      "path": "docs/evidence/TASK_007_SIOPE_2025_OFFICIAL_DOCUMENTARY_EVIDENCE_0.8.0.json",
+      "authority": "FNDE",
+      "finding": "Official 2019 SIOPE dictionary defines the ten financial concepts, but not the current 2025 OData aliases and not NUM_POPU."
+    },
+    {
+      "path": "docs/evidence/TASK_009E_L_SIOPE_2025_OFFICIAL_ALIAS_DOCUMENTARY_DISCOVERY_RUN_1_0.8.0.json",
+      "authority": "FNDE",
+      "finding": "Bounded official-document discovery reaffirmed 10/10 historical financial concepts, found 0/10 current alias identities and no NUM_POPU definition/source/vintage applicability."
+    },
+    {
+      "path": "docs/evidence/TASK_010K_SIOPE_2025_OFFLINE_SEMANTIC_REVIEW_0.8.0.json",
+      "authority": "CURRENT_2025_METADATA_PACKAGE_USER_MEDIATED_OFFICIAL_DOWNLOAD_CANDIDATE",
+      "finding": "Current package contains PA/RR/DA/DE/DL/DP concepts and a distinct Despesas com Educacao hierarchy, but no literal current financial aliases; NUM_POPU exact field exists without semantic definition/source/vintage."
+    },
+    {
+      "path": "docs/evidence/TASK_010L_SIOPE_2025_ODATA_ALIAS_STATIC_BRIDGE_0.8.0.json",
+      "authority": "STATIC_OFFICIAL_INSTALLER_ARTIFACT",
+      "finding": "Static installer analysis found no literal OData alias bridge and does not prove absence from the remote public backend."
+    },
+    {
+      "path": "docs/evidence/TASK_010N_R_SIOPE_PROOF_STANDARD_RECONCILIATION_0.8.0.json",
+      "authority": "REPO_GOVERNANCE_DECISION",
+      "finding": "Operational semantic identity may be proven by primary official public-contract evidence without requiring source/internal identity; P1 not yet proven and P2 not demonstrated necessary."
+    }
+  ],
+  "matrix": [
+    {
+      "alias": "NUM_POPU",
+      "official_alias_identity": "STRUCTURAL_FIELD_NAME_OBSERVED_CURRENT_2025",
+      "official_operational_concept": "NOT_DEFINED_IN_PINNED_OFFICIAL_DOCUMENTATION",
+      "definition": "NOT_PROVEN",
+      "unit": "NOT_PROVEN",
+      "scope": "MUNICIPAL_FIELD_STRUCTURE_OBSERVED_BUT_SEMANTIC_SCOPE_NOT_PROVEN",
+      "aggregation": "NOT_PROVEN",
+      "accounting_stage": "NOT_APPLICABLE",
+      "source_or_vintage": "NOT_PROVEN",
+      "temporal_regime_applicability": "NOT_PROVEN",
+      "arithmetic_formula_compatibility": "PARTIAL_DENOMINATOR_FIELD_PRESENT_BUT_MEANING_SOURCE_VINTAGE_NOT_PROVEN",
+      "status": "PARTIAL"
+    },
+    {
+      "alias": "VAL_RECE_PREV_ATUA",
+      "official_alias_identity": "STRUCTURAL_FIELD_NAME_OBSERVED_CURRENT_2025",
+      "official_operational_concept": "PREVISAO_ATUALIZADA_DEFINED_HISTORICALLY_BY_FNDE",
+      "definition": "PARTIAL_HISTORICAL_OFFICIAL_CONCEPT_ONLY",
+      "unit": "NOT_PINNED_FOR_CURRENT_ALIAS",
+      "scope": "REVENUE_CONCEPT_DEFINED_BUT_CURRENT_ALIAS_SCOPE_NOT_OFFICIALLY_BRIDGED",
+      "aggregation": "NOT_PROVEN_FOR_CURRENT_ALIAS",
+      "accounting_stage": "PREVISAO_ATUALIZADA_CONCEPT_DEFINED",
+      "source_or_vintage": "NOT_APPLICABLE",
+      "temporal_regime_applicability": "CURRENT_2025_ALIAS_LINK_NOT_PROVEN",
+      "arithmetic_formula_compatibility": "PARTIAL",
+      "status": "PARTIAL"
+    },
+    {
+      "alias": "VAL_RECE_REAL",
+      "official_alias_identity": "STRUCTURAL_FIELD_NAME_OBSERVED_CURRENT_2025",
+      "official_operational_concept": "RECEITA_REALIZADA_DEFINED_HISTORICALLY_BY_FNDE",
+      "definition": "PARTIAL_HISTORICAL_OFFICIAL_CONCEPT_ONLY",
+      "unit": "NOT_PINNED_FOR_CURRENT_ALIAS",
+      "scope": "REVENUE_CONCEPT_DEFINED_BUT_CURRENT_ALIAS_SCOPE_NOT_OFFICIALLY_BRIDGED",
+      "aggregation": "NOT_PROVEN_FOR_CURRENT_ALIAS",
+      "accounting_stage": "RECEITA_REALIZADA_CONCEPT_DEFINED",
+      "source_or_vintage": "NOT_APPLICABLE",
+      "temporal_regime_applicability": "CURRENT_2025_ALIAS_LINK_NOT_PROVEN",
+      "arithmetic_formula_compatibility": "PARTIAL",
+      "status": "PARTIAL"
+    },
+    {
+      "alias": "VAL_DESP_DOTA_ATUA",
+      "official_alias_identity": "STRUCTURAL_FIELD_NAME_OBSERVED_CURRENT_2025",
+      "official_operational_concept": "DOTACAO_ATUALIZADA_DEFINED_HISTORICALLY_BY_FNDE",
+      "definition": "PARTIAL_HISTORICAL_OFFICIAL_CONCEPT_ONLY",
+      "unit": "NOT_PINNED_FOR_CURRENT_ALIAS",
+      "scope": "EXPENDITURE_CONCEPT_DEFINED_BUT_CURRENT_ALIAS_SCOPE_NOT_OFFICIALLY_BRIDGED",
+      "aggregation": "NOT_PROVEN_FOR_CURRENT_ALIAS",
+      "accounting_stage": "DOTACAO_ATUALIZADA_CONCEPT_DEFINED",
+      "source_or_vintage": "NOT_APPLICABLE",
+      "temporal_regime_applicability": "CURRENT_2025_ALIAS_LINK_NOT_PROVEN",
+      "arithmetic_formula_compatibility": "PARTIAL",
+      "status": "PARTIAL"
+    },
+    {
+      "alias": "VAL_DESP_EMPE",
+      "official_alias_identity": "STRUCTURAL_FIELD_NAME_OBSERVED_CURRENT_2025",
+      "official_operational_concept": "DESPESA_EMPENHADA_DEFINED_HISTORICALLY_BY_FNDE",
+      "definition": "PARTIAL_HISTORICAL_OFFICIAL_CONCEPT_ONLY",
+      "unit": "NOT_PINNED_FOR_CURRENT_ALIAS",
+      "scope": "EXPENDITURE_CONCEPT_DEFINED_BUT_CURRENT_ALIAS_SCOPE_NOT_OFFICIALLY_BRIDGED",
+      "aggregation": "NOT_PROVEN_FOR_CURRENT_ALIAS",
+      "accounting_stage": "EMPENHO_CONCEPT_DEFINED",
+      "source_or_vintage": "NOT_APPLICABLE",
+      "temporal_regime_applicability": "CURRENT_2025_ALIAS_LINK_NOT_PROVEN",
+      "arithmetic_formula_compatibility": "PARTIAL",
+      "status": "PARTIAL"
+    },
+    {
+      "alias": "VAL_DESP_LIQU",
+      "official_alias_identity": "STRUCTURAL_FIELD_NAME_OBSERVED_CURRENT_2025",
+      "official_operational_concept": "DESPESA_LIQUIDADA_DEFINED_HISTORICALLY_BY_FNDE",
+      "definition": "PARTIAL_HISTORICAL_OFFICIAL_CONCEPT_ONLY",
+      "unit": "NOT_PINNED_FOR_CURRENT_ALIAS",
+      "scope": "EXPENDITURE_CONCEPT_DEFINED_BUT_CURRENT_ALIAS_SCOPE_NOT_OFFICIALLY_BRIDGED",
+      "aggregation": "NOT_PROVEN_FOR_CURRENT_ALIAS",
+      "accounting_stage": "LIQUIDACAO_CONCEPT_DEFINED",
+      "source_or_vintage": "NOT_APPLICABLE",
+      "temporal_regime_applicability": "CURRENT_2025_ALIAS_LINK_NOT_PROVEN",
+      "arithmetic_formula_compatibility": "PARTIAL",
+      "status": "PARTIAL"
+    },
+    {
+      "alias": "VAL_DESP_PAGA",
+      "official_alias_identity": "STRUCTURAL_FIELD_NAME_OBSERVED_CURRENT_2025",
+      "official_operational_concept": "DESPESA_PAGA_DEFINED_HISTORICALLY_BY_FNDE",
+      "definition": "PARTIAL_HISTORICAL_OFFICIAL_CONCEPT_ONLY",
+      "unit": "NOT_PINNED_FOR_CURRENT_ALIAS",
+      "scope": "EXPENDITURE_CONCEPT_DEFINED_BUT_CURRENT_ALIAS_SCOPE_NOT_OFFICIALLY_BRIDGED",
+      "aggregation": "NOT_PROVEN_FOR_CURRENT_ALIAS",
+      "accounting_stage": "PAGAMENTO_CONCEPT_DEFINED",
+      "source_or_vintage": "NOT_APPLICABLE",
+      "temporal_regime_applicability": "CURRENT_2025_ALIAS_LINK_NOT_PROVEN",
+      "arithmetic_formula_compatibility": "PARTIAL",
+      "status": "PARTIAL"
+    },
+    {
+      "alias": "VL_DESP_DOTA_ATUA_EDU",
+      "official_alias_identity": "STRUCTURAL_FIELD_NAME_OBSERVED_CURRENT_2025",
+      "official_operational_concept": "EDUCATION_DOTACAO_ATUALIZADA_CONCEPT_DEFINED_HISTORICALLY_BY_FNDE",
+      "definition": "PARTIAL_HISTORICAL_OFFICIAL_CONCEPT_ONLY",
+      "unit": "NOT_PINNED_FOR_CURRENT_ALIAS",
+      "scope": "EDUCATION_SCOPE_EXISTS_CURRENTLY_BUT_EXACT_PUBLIC_ALIAS_AGGREGATE_NOT_OFFICIALLY_BRIDGED",
+      "aggregation": "NOT_PROVEN_FOR_CURRENT_ALIAS",
+      "accounting_stage": "DOTACAO_ATUALIZADA_CONCEPT_DEFINED",
+      "source_or_vintage": "NOT_APPLICABLE",
+      "temporal_regime_applicability": "CURRENT_2025_ALIAS_LINK_NOT_PROVEN",
+      "arithmetic_formula_compatibility": "PARTIAL",
+      "status": "PARTIAL"
+    },
+    {
+      "alias": "VL_DESP_EMPE_EDU",
+      "official_alias_identity": "STRUCTURAL_FIELD_NAME_OBSERVED_CURRENT_2025",
+      "official_operational_concept": "EDUCATION_DESPESA_EMPENHADA_CONCEPT_DEFINED_HISTORICALLY_BY_FNDE",
+      "definition": "PARTIAL_HISTORICAL_OFFICIAL_CONCEPT_ONLY",
+      "unit": "NOT_PINNED_FOR_CURRENT_ALIAS",
+      "scope": "EDUCATION_SCOPE_EXISTS_CURRENTLY_BUT_EXACT_PUBLIC_ALIAS_AGGREGATE_NOT_OFFICIALLY_BRIDGED",
+      "aggregation": "NOT_PROVEN_FOR_CURRENT_ALIAS",
+      "accounting_stage": "EMPENHO_CONCEPT_DEFINED",
+      "source_or_vintage": "NOT_APPLICABLE",
+      "temporal_regime_applicability": "CURRENT_2025_ALIAS_LINK_NOT_PROVEN",
+      "arithmetic_formula_compatibility": "PARTIAL",
+      "status": "PARTIAL"
+    },
+    {
+      "alias": "VL_DESP_LIQU_EDU",
+      "official_alias_identity": "STRUCTURAL_FIELD_NAME_OBSERVED_CURRENT_2025",
+      "official_operational_concept": "EDUCATION_DESPESA_LIQUIDADA_CONCEPT_DEFINED_HISTORICALLY_BY_FNDE",
+      "definition": "PARTIAL_HISTORICAL_OFFICIAL_CONCEPT_ONLY",
+      "unit": "NOT_PINNED_FOR_CURRENT_ALIAS",
+      "scope": "EDUCATION_SCOPE_EXISTS_CURRENTLY_BUT_EXACT_PUBLIC_ALIAS_AGGREGATE_NOT_OFFICIALLY_BRIDGED",
+      "aggregation": "NOT_PROVEN_FOR_CURRENT_ALIAS",
+      "accounting_stage": "LIQUIDACAO_CONCEPT_DEFINED",
+      "source_or_vintage": "NOT_APPLICABLE",
+      "temporal_regime_applicability": "CURRENT_2025_ALIAS_LINK_NOT_PROVEN",
+      "arithmetic_formula_compatibility": "PARTIAL",
+      "status": "PARTIAL"
+    },
+    {
+      "alias": "VL_DESP_PAGA_EDU",
+      "official_alias_identity": "STRUCTURAL_FIELD_NAME_OBSERVED_CURRENT_2025",
+      "official_operational_concept": "EDUCATION_DESPESA_PAGA_CONCEPT_DEFINED_HISTORICALLY_BY_FNDE",
+      "definition": "PARTIAL_HISTORICAL_OFFICIAL_CONCEPT_ONLY",
+      "unit": "NOT_PINNED_FOR_CURRENT_ALIAS",
+      "scope": "EDUCATION_SCOPE_EXISTS_CURRENTLY_BUT_EXACT_PUBLIC_ALIAS_AGGREGATE_NOT_OFFICIALLY_BRIDGED",
+      "aggregation": "NOT_PROVEN_FOR_CURRENT_ALIAS",
+      "accounting_stage": "PAGAMENTO_CONCEPT_DEFINED",
+      "source_or_vintage": "NOT_APPLICABLE",
+      "temporal_regime_applicability": "CURRENT_2025_ALIAS_LINK_NOT_PROVEN",
+      "arithmetic_formula_compatibility": "PARTIAL",
+      "status": "PARTIAL"
+    }
+  ],
+  "edu_guard": {
+    "EDU_equals_MDE_authorized": false,
+    "reason": "Current 2025 metadata distinguishes Despesas com Educacao from MDE-specific structures; no official public alias aggregate bridge is pinned."
+  },
+  "smallest_next_remote_evidence_class": {
+    "class": "PRIMARY_OFFICIAL_PUBLIC_CONTRACT_ALIAS_TO_CONCEPT_EVIDENCE",
+    "priority": [
+      "OFFICIAL_EDMX_METADATA_WITH_FIELD_SEMANTICS",
+      "OFFICIAL_FNDE_OLINDA_FIELD_OR_ALIAS_DOCUMENTATION",
+      "EQUIVALENT_OFFICIAL_ALIAS_TO_CONCEPT_CONTRACT"
+    ],
+    "remote_execution_authorized_here": false,
+    "internal_reverse_engineering_default": false
+  },
+  "canonical_state": {
+    "release_0_7_0": "ACTIVE",
+    "release_0_8_0": "CANDIDATE",
+    "year_2025": "PROVEN_STRUCTURAL_RECENT",
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_metrics_status": "UNKNOWN/BLOCKED",
+    "closed_annual_series": "2016-2024",
+    "year_2026": "UNPROVEN_CURRENT_YEAR"
+  },
+  "guards": {
+    "remote_network_authorized": false,
+    "drive_write_authorized": false,
+    "semantic_promotion_authorized": false,
+    "gold_2025_authorized": false,
+    "annual_series_expansion_authorized": false,
+    "release_promotion_authorized": false,
+    "current_year_2026_authorized": false,
+    "internal_reverse_engineering_authorized": false,
+    "open_task_010o_authorized": false
+  },
+  "next_gate": "SEPARATE_OWNER_AUTHORIZED_PRIMARY_OFFICIAL_PUBLIC_CONTRACT_EVIDENCE_ACQUISITION_ONLY_IF_REVIEW_ACCEPTS_THIS_PARTIAL_RESULT"
+}
