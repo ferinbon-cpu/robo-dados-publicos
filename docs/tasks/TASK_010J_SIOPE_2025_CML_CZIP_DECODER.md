@@ -28,7 +28,7 @@ O ZIP interno é processado somente em memória e nunca extraído. Antes de qual
 
 O tipo do container é passado explicitamente à API: permissões CZIP nunca são inferidas somente pela extensão de um membro interno. O outer ZIP recebe o mesmo preflight completo antes da leitura de qualquer CML/CZIP, e seu SHA-256 é calculado por streaming após o `stat` e a validação do limite de 128 MiB.
 
-Os domínios de limites são deliberadamente separados. O outer ZIP mantém `max_compression_ratio = 100`. Os ZIPs internos decodificados usam `max_compression_ratio = 150`: o maior valor observado externamente no pacote oficial de referência foi `140.79133980582524` para `Metadados.xml`, e 150 é o limite conservador pinado acima desse caso legítimo. Essa observação externa não altera o status da validação local registrado abaixo.
+Os domínios de limites são deliberadamente separados. O outer ZIP mantém `max_compression_ratio = 100`. Os ZIPs internos decodificados usam `max_compression_ratio = 150`: o maior valor observado externamente no pacote oficial de referência foi `140.7946328736489` para `ME_Categoria_Profissional.cml` → `ME_Categoria_Profissional.xml`, e 150 é o limite conservador pinado acima desse caso legítimo. Essa observação externa não altera o status da validação local registrado abaixo.
 
 A CLI recebe um caminho local explícito. Ela não procura nem baixa artefatos e não persiste bytes decodificados.
 
