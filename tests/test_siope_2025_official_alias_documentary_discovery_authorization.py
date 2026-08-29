@@ -27,7 +27,7 @@ def test_authorization_is_exactly_bounded() -> None:
     assert data["maximum_attempts_per_url"] == 1
 
 
-def test_authorization_keeps_high_risk_actions_blocked() -> None:
+def test_authorization_is_consumed_and_high_risk_actions_remain_blocked() -> None:
     data = _load()
     for key in (
         "retry_authorized",
@@ -49,5 +49,10 @@ def test_authorization_keeps_high_risk_actions_blocked() -> None:
         "drive_access_authorized",
     ):
         assert data[key] is False
-    assert data["authorization_consumed"] is False
+    assert data["authorization_consumed"] is True
+    assert data["consumption_result"] == "COMPLETED_BOUNDED_DOCUMENTARY_DISCOVERY_NO_PROMOTION"
+    assert data["official_document_open_count"] == 11
+    assert data["distinct_official_url_count"] == 11
+    assert data["unused_url_budget"] == 1
+    assert data["rerun_authorized"] is False
     assert data["result_review_required_before_any_promotion"] is True

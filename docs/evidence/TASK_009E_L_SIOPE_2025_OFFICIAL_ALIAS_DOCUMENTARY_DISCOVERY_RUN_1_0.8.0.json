@@ -1,0 +1,152 @@
+{
+  "evidence_schema": "TASK_009E_L_SIOPE_2025_OFFICIAL_ALIAS_DOCUMENTARY_DISCOVERY_RUN_1_V1",
+  "task": "TASK_009E_L",
+  "review_task": "TASK_009E_L_R",
+  "software_version": "0.8.0",
+  "authorization_id": "SIOPE2025-ALIAS-DOC-DISCOVERY-20260828-01",
+  "classification": "SANITIZED_BOUNDED_OFFICIAL_DOCUMENTARY_DISCOVERY_EVIDENCE",
+  "execution": {
+    "official_document_open_count": 11,
+    "distinct_official_url_count": 11,
+    "maximum_authorized_official_document_opens": 12,
+    "maximum_authorized_distinct_official_urls": 12,
+    "unused_url_budget": 1,
+    "attempts_per_url_max_observed": 1,
+    "retry_count": 0,
+    "authentication_attempt_count": 0,
+    "sharepoint_401_route_reuse_count": 0,
+    "antonieta_login_attempt_count": 0,
+    "limeira_financial_data_query_count": 0,
+    "municipality_parameter_data_query_count": 0,
+    "year_period_data_query_count": 0,
+    "binary_package_download_count": 0,
+    "drive_read_count": 0,
+    "drive_write_count": 0,
+    "publication_count": 0,
+    "gold_computation_count": 0
+  },
+  "official_url_attempts": [
+    {
+      "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/downloads",
+      "authority": "FNDE",
+      "result": "OPENED_PUBLIC_HTML",
+      "relevant_observation": "Official page lists municipal metadata packages including exercise 2025 and instructs extraction into Metadados_Mun_20xx; package existence/use does not define field aliases."
+    },
+    {
+      "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/manuais-do-siope",
+      "authority": "FNDE",
+      "result": "OPENED_PUBLIC_HTML",
+      "relevant_observation": "Current index exposes historical manuals through 2018; no current/2025 alias bridge, NUM_POPU definition, population source or vintage rule was found on the index page."
+    },
+    {
+      "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/arquivos-dados-analiticos",
+      "authority": "FNDE",
+      "result": "OPENED_PUBLIC_HTML",
+      "relevant_observation": "Official analytical-data index links the 2019 dictionary and historical consolidated revenue/expenditure/education-expenditure datasets; this is historical evidence, not a current 2025 alias bridge."
+    },
+    {
+      "url": "https://www.fnde.gov.br/phocadownload/sistemas/siope/Manuais/DICIONARIO%20DE%20DADOS%20SIOPE%202019.pdf",
+      "authority": "FNDE",
+      "result": "OPENED_PUBLIC_PDF",
+      "relevant_observation": "Dictionary explicitly defines the ten historical financial concepts already normalized in TASK 007. Searches located no NUM_POPU field, no population/vintage rule, and no current 2025 OData alias bridge."
+    },
+    {
+      "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/media/Tutorial_Bsico_Siope_2024_v2.pdf",
+      "authority": "FNDE",
+      "result": "OPENED_PUBLIC_PDF",
+      "relevant_observation": "Tutorial documents current workflow and Dados Gerais UI but did not supply NUM_POPU definition, IBGE/population vintage rule or field-level OData alias mapping."
+    },
+    {
+      "url": "https://www.fnde.gov.br/dadosabertos/",
+      "authority": "FNDE",
+      "result": "REDIRECTED_OUTSIDE_EXACT_ALLOWLIST_NO_FOLLOWUP",
+      "redirect_host_observed": "dados.gov.br",
+      "relevant_observation": "No out-of-scope redirect target was opened or used as evidence."
+    },
+    {
+      "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope",
+      "authority": "FNDE",
+      "result": "OPENED_PUBLIC_HTML",
+      "relevant_observation": "Current SIOPE landing page provides public-system context and links but no NUM_POPU/population definition or current alias bridge."
+    },
+    {
+      "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/perguntas-e-respostas/perguntas-e-respostas_versao-final-revisao-e-ajustes-cosef-07jul2021.pdf",
+      "authority": "FNDE",
+      "result": "AUTHENTICATION_BOUNDARY_NO_AUTH_NO_RETRY",
+      "relevant_observation": "The route resolved to restricted/authentication-required content; no authentication was attempted and the URL was not retried."
+    },
+    {
+      "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/base-legal-e-conceitual-do-siope",
+      "authority": "FNDE",
+      "result": "OPENED_PUBLIC_HTML",
+      "relevant_observation": "Current legal/conceptual page did not provide population, IBGE, per-capita denominator or current alias mapping evidence."
+    },
+    {
+      "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/notas-tecnicas",
+      "authority": "FNDE",
+      "result": "OPENED_PUBLIC_HTML",
+      "relevant_observation": "Technical-notes page concerns historical operational/legal adjustments and did not provide population/per-capita/PIB/alias-definition evidence relevant to S1 or S2."
+    },
+    {
+      "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/mais-sobre-o-siope",
+      "authority": "FNDE",
+      "result": "OPENED_PUBLIC_HTML",
+      "relevant_observation": "General SIOPE page did not provide NUM_POPU/population/vintage or current alias bridge evidence."
+    }
+  ],
+  "positive_evidence_reaffirmed": {
+    "historical_financial_concepts": {
+      "status": "REAFFIRMED_10_OF_10_HISTORICAL_CONCEPTS",
+      "source": "FNDE_SIOPE_DATA_DICTIONARY_2019",
+      "fields": [
+        "VL_RECEITA_PREVISAO_ATUALIZADA",
+        "VL_RECEITA_REALIZADA",
+        "VL_DESPESA_DOTACAO_ATUALIZADA",
+        "VL_DESPESA_EMPENHADA",
+        "VL_DESPESA_LIQUIDADA",
+        "VL_DESPESA_PAGA",
+        "VL_DOTACAO_ATUALIZADA EDUCACAO",
+        "VL_DESPESA_EMPENHADA EDUCACAO",
+        "VL_DESPESA_LIQUIDADA_EDUCACAO",
+        "VL_DESPESA_PAGA_EDUCACAO"
+      ]
+    },
+    "official_2025_metadata_package": "REAFFIRMED_PUBLISHED_AND_REFERENCED_BY_FNDE_DOWNLOADS_PAGE"
+  },
+  "question_results": {
+    "S1_NUM_POPU": {
+      "status": "NOT_PROVEN",
+      "official_primary_field_definition_found": false,
+      "official_primary_population_source_rule_found": false,
+      "official_primary_vintage_rule_found": false,
+      "current_or_2025_applicability_proven": false,
+      "reason": "No opened in-scope official primary source defined NUM_POPU together with population source and temporal/vintage applicability to the current/2025 SIOPE resource."
+    },
+    "S2_FINANCIAL_ALIAS_BRIDGE": {
+      "status": "NOT_PROVEN",
+      "historical_concept_definitions_reaffirmed_count": 10,
+      "current_alias_identity_proven_count": 0,
+      "current_alias_identity_required_count": 10,
+      "current_or_2025_applicability_proven": false,
+      "reason": "Historical concept definitions are official, but no opened in-scope source explicitly bridges the ten current OData aliases to those concepts for the current/2025 regime. Name similarity is not promoted to identity."
+    }
+  },
+  "authorization_consumption": {
+    "one_shot": true,
+    "consumed": true,
+    "unused_url_budget_does_not_preserve_rerun_right": true,
+    "rerun_authorized": false,
+    "future_remote_discovery_requires_new_explicit_owner_authorization": true
+  },
+  "semantic_guards": {
+    "year_2025_status": "PROVEN_STRUCTURAL_RECENT",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_metrics_status": "UNKNOWN",
+    "closed_annual_series_first_year": 2016,
+    "closed_annual_series_last_year": 2024,
+    "year_2026_status": "UNPROVEN_CURRENT_YEAR"
+  },
+  "promotion_performed": false,
+  "next_gate": "TASK_009E_L_R_OFFLINE_REVIEW_KEEP_UNKNOWN_UNLESS_SEPARATE_NEW_EVIDENCE"
+}
