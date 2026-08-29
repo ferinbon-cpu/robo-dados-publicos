@@ -1,0 +1,94 @@
+{
+  "schema": "SIOPE_2025_OFFICIAL_ALIAS_DOCUMENTARY_DISCOVERY_REVIEW_V1",
+  "task": "TASK_009E_L_R",
+  "issue": 224,
+  "tier": "T0_OFFLINE_REVIEW",
+  "software_version": "0.8.0",
+  "starting_main_sha": "47687c9c9cba812c2a7c69cec690729ab009b9db",
+  "evidence_path": "docs/evidence/TASK_009E_L_SIOPE_2025_OFFICIAL_ALIAS_DOCUMENTARY_DISCOVERY_RUN_1_0.8.0.json",
+  "authorization_path": "config/siope_2025_official_alias_documentary_discovery_authorization.v1.json",
+  "remote_effects_in_review": {
+    "source_get_count": 0,
+    "drive_read_count": 0,
+    "drive_write_count": 0,
+    "publication": false,
+    "gold_computation": false
+  },
+  "session_contract_review": {
+    "authorization_id": "SIOPE2025-ALIAS-DOC-DISCOVERY-20260828-01",
+    "one_shot_consumed": true,
+    "official_document_open_count": 11,
+    "maximum_authorized_official_document_opens": 12,
+    "distinct_official_url_count": 11,
+    "maximum_authorized_distinct_official_urls": 12,
+    "retry_count": 0,
+    "authentication_attempt_count": 0,
+    "sharepoint_401_route_reuse_count": 0,
+    "binary_package_download_count": 0,
+    "limeira_financial_data_query_count": 0,
+    "contract_breach_observed": false
+  },
+  "gate_s1_num_popu": {
+    "status": "NOT_PROVEN",
+    "official_primary_field_definition": "NOT_FOUND",
+    "official_primary_population_source_rule": "NOT_FOUND",
+    "official_primary_vintage_rule": "NOT_FOUND",
+    "current_or_2025_applicability": "NOT_PROVEN",
+    "population_denominator_continuity": "UNKNOWN",
+    "promotion_authorized": false,
+    "missing_proof": [
+      "OFFICIAL_PRIMARY_NUM_POPU_FIELD_DEFINITION",
+      "OFFICIAL_PRIMARY_POPULATION_SOURCE_RULE",
+      "OFFICIAL_PRIMARY_POPULATION_VINTAGE_OR_REFERENCE_DATE_RULE",
+      "CURRENT_OR_2025_APPLICABILITY"
+    ]
+  },
+  "gate_s2_financial_alias_bridge": {
+    "status": "NOT_PROVEN",
+    "historical_concept_definition_coverage": "10_OF_10_REAFFIRMED",
+    "current_alias_identity_proven_count": 0,
+    "current_alias_identity_required_count": 10,
+    "current_or_2025_applicability": "NOT_PROVEN",
+    "semantic_comparability_status": "UNKNOWN",
+    "promotion_authorized": false,
+    "missing_proof": [
+      "OFFICIAL_PRIMARY_CURRENT_ALIAS_OR_LAYOUT_REFERENCE",
+      "FIELD_BY_FIELD_MAPPING_FOR_ALL_10_CURRENT_FINANCIAL_ALIASES",
+      "CURRENT_OR_2025_APPLICABILITY"
+    ]
+  },
+  "source_review": {
+    "historical_dictionary": "REAFFIRMS_10_CONCEPTS_BUT_NOT_CURRENT_ALIAS_IDENTITY_AND_NO_NUM_POPU",
+    "downloads_page": "REAFFIRMS_2025_METADATA_PACKAGE_PUBLICATION_NOT_CONTENT",
+    "current_manual_index": "NO_CURRENT_2025_ALIAS_OR_NUM_POPU_EVIDENCE_FOUND",
+    "tutorial_2024": "NO_NUM_POPU_SOURCE_VINTAGE_OR_ALIAS_BRIDGE_FOUND",
+    "current_siope_pages": "NO_S1_OR_S2_PROOF_FOUND",
+    "faq_route": "AUTHENTICATION_BOUNDARY_NO_AUTH_NO_RETRY",
+    "old_data_portal": "OUT_OF_ALLOWLIST_REDIRECT_NO_FOLLOWUP"
+  },
+  "resulting_state": {
+    "year_2025_status": "PROVEN_STRUCTURAL_RECENT",
+    "p6_availability_status": "PROVEN_AVAILABLE_CLOSURE_UNKNOWN",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "closed_series_eligible": false,
+    "closed_annual_series_first_year": 2016,
+    "closed_annual_series_last_year": 2024,
+    "gold_metrics_status": "UNKNOWN",
+    "year_2026_status": "UNPROVEN_CURRENT_YEAR"
+  },
+  "guards": {
+    "alias_identity_promotion_authorized": false,
+    "num_popu_promotion_authorized": false,
+    "semantic_comparability_promotion_authorized": false,
+    "annual_closure_promotion_authorized": false,
+    "closed_series_expansion_authorized": false,
+    "gold_computation_authorized": false,
+    "gold_persistence_authorized": false,
+    "publication_authorized": false,
+    "future_remote_discovery_authorized": false,
+    "year_2026_promotion_authorized": false
+  },
+  "decision": "KEEP_UNKNOWN",
+  "next_gate": "NEW_OFFICIAL_EVIDENCE_REQUIRED_BEFORE_ANY_FURTHER_REMOTE_DISCOVERY_OR_2025_SEMANTIC_PROMOTION"
+}
