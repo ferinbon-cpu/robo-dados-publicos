@@ -1,0 +1,79 @@
+{
+  "schema": "SIOPE_2025_ROUTE_DEAD_END_CONSOLIDATION_V1",
+  "task": "TASK_009D",
+  "issue": 219,
+  "tier": "T0_OFFLINE",
+  "software_version": "0.8.0",
+  "starting_main_sha": "e22aa63cba54c01296cc70efa728c1a44778051e",
+  "network_authorized": false,
+  "source_get_count": 0,
+  "drive_read_count": 0,
+  "drive_write_count": 0,
+  "persistence": false,
+  "publication": false,
+  "workflow_live_added": false,
+  "evidence_inputs": {
+    "antonieta_access_boundary": "config/source_expansion.siope_artifact_access_boundary.json",
+    "task_008_alias_finality": "config/siope_2025_alias_finality_audit.v1.json",
+    "task_009b_redirect": "docs/evidence/TASK_009B_SIOPE_2025_METADATA_ROUTE_PROBE_RUN_2_REDIRECT_0.8.0.json",
+    "task_009c_http_401": "docs/evidence/TASK_009C_SIOPE_2025_RESOLVED_PATH_PROBE_RUN_1_HTTP_401_0.8.0.json"
+  },
+  "route_inventory": [
+    {
+      "id": "ANTONIETA_ARTIFACT_METADATA",
+      "route": "https://www.fnde.gov.br/plataforma-antonieta-de-barros-api/products/data-products/20/artifact-metadata",
+      "status": "PUBLIC_METADATA_VERIFIED_AUTH_BOUNDARY_BEFORE_ARTIFACT_ROUTE",
+      "artifact_route_proven": false,
+      "repeat_probe_authorized": false
+    },
+    {
+      "id": "FNDE_2025_METADATA_SHARE_URL",
+      "route": "https://fnde.sharepoint.com/:u:/s/SIOPE/EeP0ArdsxWJLuWyg3LQHt2IBKEWEhLDvDk2_7k1vbAx0tQ?download=1&e=UiD081",
+      "status": "OBSERVED_HTTP_302_RELATIVE_REDIRECT_ONLY",
+      "artifact_route_proven": false,
+      "repeat_probe_authorized": false
+    },
+    {
+      "id": "FNDE_2025_METADATA_RESOLVED_SHAREPOINT_PATH",
+      "route": "https://fnde.sharepoint.com/sites/SIOPE/Documentos%20Compartilhados/Metadados_Mun_2025.zip",
+      "status": "OBSERVED_HTTP_401_NOT_PUBLIC_ANONYMOUSLY_PROVEN",
+      "artifact_route_proven": false,
+      "repeat_probe_authorized": false
+    }
+  ],
+  "future_evidence_classes_that_may_open_a_new_task": [
+    "OFFICIAL_FNDE_EXPLICIT_PUBLIC_UNAUTHENTICATED_URL_FOR_METADADOS_MUN_2025",
+    "OFFICIAL_REPO_RESIDENT_2025_METADATA_OR_LAYOUT_WITH_VERIFIABLE_PROVENANCE",
+    "OFFICIAL_PRIMARY_2025_DICTIONARY_FOR_ALL_11_ALIASES_INCLUDING_NUM_POPU_DEFINITION_AND_VINTAGE"
+  ],
+  "prohibited_inferences_and_actions": [
+    "SYNTHESIZE_URL_FROM_STORAGE_PATH",
+    "INVENT_SHAREPOINT_LAYOUTS_DOWNLOAD_ROUTE",
+    "APPEND_DOWNLOAD_QUERY_BY_INFERENCE",
+    "AUTOMATE_GOV_BR_LOGIN",
+    "CAPTURE_OR_REUSE_CREDENTIALS_COOKIES_OAUTH_OR_SESSION",
+    "REPEAT_NEGATIVE_ROUTE_WITHOUT_NEW_OFFICIAL_EVIDENCE",
+    "INFER_SEMANTIC_EQUIVALENCE_FROM_FIELD_NAME_SIMILARITY",
+    "PROMOTE_2025_CLOSURE",
+    "PROMOTE_2025_GOLD",
+    "EXPAND_CLOSED_SERIES_BEYOND_2024",
+    "PROMOTE_2026"
+  ],
+  "semantic_guards": {
+    "year_2025_status": "PROVEN_STRUCTURAL_RECENT",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_metrics_status": "UNKNOWN",
+    "closed_annual_series_first_year": 2016,
+    "closed_annual_series_last_year": 2024,
+    "year_2026_status": "UNPROVEN_CURRENT_YEAR"
+  },
+  "authorization_guards": {
+    "remote_execution_authorized": false,
+    "rerun_authorized": false,
+    "authentication_attempt_authorized": false,
+    "future_batch_execution_authorized": false
+  },
+  "decision": "KEEP_BLOCKED_UNTIL_NEW_OFFICIAL_EVIDENCE_CLASS_IS_PINNED",
+  "next_step": "SEARCH_REPO_RESIDENT_OR_OFFICIAL_DOCUMENTARY_EVIDENCE_ONLY_BEFORE_DESIGNING_ANY_NEW_REMOTE_GATE"
+}
