@@ -17,7 +17,7 @@
     "NUM_ANO": 2025,
     "NUM_PERI": 6,
     "SIG_UF": "SP",
-    "COD_MUNI": "352690",
+    "COD_MUNI": 352690,
     "NOM_MUNI": "Limeira"
   },
   "matrix": [
@@ -99,13 +99,14 @@
       "official_concept": "Despesas com Educação — Dotação Atualizada",
       "evidence_sources": [
         "RREO Anexo 8 line 33/DA",
-        "Dados Informados pelos Municípios: Consolidado de Despesa 3.2.00.00.00/DA"
+        "Dados Informados pelos Municípios: Consolidado de Despesa 3.2.00.00.00/DA",
+        "Dados Informados pelos Municípios: consolidated expense total/DA = 526804985.21"
       ],
       "observed_alias_value": "520399255.47",
-      "reconciled_value": "520399255.47",
+      "reconciled_value": "520398255.47",
       "variance": "1000.00",
-      "status": "PROVEN_SEMANTIC_CURRENT_WITH_DOCUMENTED_1000_RREO_VARIANCE",
-      "reason": "The alias equals RREO line 33 plus the official budget-only 1000.00 parent item; child 3.2.91.00.00 is not added."
+      "status": "PARTIAL_CURRENT_EXACT_1000_VARIANCE_NO_SOURCE_DEFINED_INCLUSION_RULE",
+      "reason": "The official 1000.00 budget-only row exactly matches the OData-versus-RREO variance, but no source-defined rule proves that the backend includes specifically that row in RREO line 33."
     },
     {
       "alias": "VL_DESP_EMPE_EDU",
@@ -149,8 +150,7 @@
   ],
   "summary": {
     "PROVEN_EXACT_OPERATIONAL": 9,
-    "PROVEN_SEMANTIC_CURRENT_WITH_DOCUMENTED_1000_RREO_VARIANCE": 1,
-    "PARTIAL": 0,
+    "PARTIAL": 1,
     "AMBIGUOUS": 0,
     "NOT_FOUND": 0
   },
@@ -158,14 +158,17 @@
     "release_0_7_0": "ACTIVE",
     "release_0_8_0": "CANDIDATE",
     "S1_NUM_POPU": "NOT_PROVEN",
-    "S2_FINANCIAL_ALIAS_BRIDGE": "PROVEN_CURRENT_2025_OPERATIONAL_SEMANTICS",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
     "annual_closure_status": "UNKNOWN",
     "semantic_comparability_status": "UNKNOWN",
-    "semantic_comparability_missing_gate": "B1_NUM_POPU_SOURCE_VINTAGE_AND_GLOBAL_COMPARABILITY_GATE",
     "closed_annual_series": "2016-2024",
     "gold_2025": "UNKNOWN/BLOCKED",
-    "year_2026": "UNPROVEN_CURRENT_YEAR"
+    "year_2026": "UNPROVEN_CURRENT_YEAR",
+    "semantic_comparability_missing_gates": [
+      "EXACT_SOURCE_DEFINED_BACKEND_INCLUSION_RULE_FOR_VL_DESP_DOTA_ATUA_EDU",
+      "B1_NUM_POPU_SOURCE_VINTAGE_AND_GLOBAL_COMPARABILITY_GATE"
+    ]
   },
   "education_scope_note": "EDU != MDE as a general identity; this proof covers only the current aliases and observed official aggregates.",
-  "decision": "PROMOTE_S2_FINANCIAL_ALIAS_BRIDGE_CURRENT_2025_OPERATIONAL_SEMANTICS"
+  "decision": "KEEP_S2_NOT_PROVEN_DOTACAO_EDU_SOURCE_DEFINED_BRIDGE_MISSING"
 }
