@@ -1,0 +1,61 @@
+{
+  "schema": "TASK_010N_R_E_D_SIOPE_OFFICIAL_DOC_ALIAS_CONCEPT_SEARCH_V1",
+  "task": "TASK_010N_R_E_D",
+  "issue": 254,
+  "software_version": "0.8.0",
+  "base_sha": "d0788d8d30c9cdb613a81fb8df7ccfa0df2bc59e",
+  "authorization_id": "SIOPE2025-OFFICIAL-DOC-ALIAS-CONCEPT-20260829-01",
+  "classification": "NO_NEW_OFFICIAL_DOC_ALIAS_TO_CONCEPT_EVIDENCE",
+  "search_contract": {
+    "max_queries": 12,
+    "queries_executed": 12,
+    "official_domains_only": true,
+    "domains": ["fnde.gov.br", "gov.br"],
+    "metadata_endpoint_queried": false,
+    "municipality_queries": 0,
+    "financial_value_queries": 0,
+    "authentication_attempts": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "gold_computations": 0,
+    "reverse_engineering_actions": 0
+  },
+  "queries": [
+    {"q": "\"VAL_RECE_REAL\" SIOPE FNDE", "result_count": 0},
+    {"q": "\"VAL_RECE_PREV_ATUA\" SIOPE FNDE", "result_count": 0},
+    {"q": "\"VAL_DESP_DOTA_ATUA\" SIOPE FNDE", "result_count": 0},
+    {"q": "\"VAL_DESP_EMPE\" SIOPE FNDE", "result_count": 0},
+    {"q": "\"VAL_DESP_LIQU\" SIOPE FNDE", "result_count": 0},
+    {"q": "\"VAL_DESP_PAGA\" SIOPE FNDE", "result_count": 0},
+    {"q": "\"VL_DESP_DOTA_ATUA_EDU\" SIOPE FNDE", "result_count": 0},
+    {"q": "\"VL_DESP_EMPE_EDU\" \"VL_DESP_LIQU_EDU\" \"VL_DESP_PAGA_EDU\" SIOPE", "result_count": 0},
+    {"q": "\"NUM_POPU\" SIOPE FNDE", "result_count": 0},
+    {"q": "\"Dados_Gerais_Siope\" FNDE", "result_count": 0},
+    {"q": "\"VAL_RECE_REAL\" \"Receita Realizada\"", "result_count": 0},
+    {"q": "\"NUM_POPU\" população SIOPE", "result_count": 0}
+  ],
+  "interpretation": {
+    "new_primary_official_alias_to_concept_bridge_found": false,
+    "absence_proves_document_does_not_exist": false,
+    "search_index_route_exhausted_for_this_gate": true,
+    "official_financial_concepts_10_of_10_from_prior_repo_evidence": true,
+    "current_alias_to_concept_proven_count": 0,
+    "num_popu_definition_source_vintage_proven": false
+  },
+  "semantic_effect": {
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_metrics_status": "UNKNOWN/BLOCKED",
+    "promotion_performed": false
+  },
+  "canonical_state": {
+    "release_0_7_0": "ACTIVE",
+    "release_0_8_0": "CANDIDATE",
+    "year_2025": "PROVEN_STRUCTURAL_RECENT",
+    "closed_annual_series": "2016-2024",
+    "year_2026": "UNPROVEN_CURRENT_YEAR"
+  },
+  "next_gate": "SEPARATE_OWNER_AUTHORIZATION_REQUIRED_FOR_NEXT_EVIDENCE_CLASS"
+}
