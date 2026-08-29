@@ -1,0 +1,221 @@
+{
+  "fixture_schema": "TASK_010N_R_E_M3_MINIMAL_OFFICIAL_OBSERVATIONS_V1",
+  "provenance": {
+    "classification": "USER_MEDIATED_OFFICIAL_OBSERVATION",
+    "validator_network_requests": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "publication": false,
+    "gold_computation": false
+  },
+  "identity": {
+    "NUM_ANO": 2025,
+    "NUM_PERI": 6,
+    "SIG_UF": "SP",
+    "COD_MUNI": 352690,
+    "NOM_MUNI": "Limeira"
+  },
+  "aliases": [
+    {
+      "alias": "VAL_RECE_PREV_ATUA",
+      "raw_observed_value": "2241993843.27",
+      "canonical_money": "2241993843.27"
+    },
+    {
+      "alias": "VAL_RECE_REAL",
+      "raw_observed_value": "2127095863.19",
+      "canonical_money": "2127095863.19"
+    },
+    {
+      "alias": "VAL_DESP_DOTA_ATUA",
+      "raw_observed_value": "2405001195.43",
+      "canonical_money": "2405001195.43"
+    },
+    {
+      "alias": "VAL_DESP_EMPE",
+      "raw_observed_value": "1988819180.58",
+      "canonical_money": "1988819180.58"
+    },
+    {
+      "alias": "VAL_DESP_LIQU",
+      "raw_observed_value": "1869450172.86",
+      "canonical_money": "1869450172.86"
+    },
+    {
+      "alias": "VAL_DESP_PAGA",
+      "raw_observed_value": "1776933065.63",
+      "canonical_money": "1776933065.63"
+    },
+    {
+      "alias": "VL_DESP_DOTA_ATUA_EDU",
+      "raw_observed_value": "520399255.47",
+      "canonical_money": "520399255.47"
+    },
+    {
+      "alias": "VL_DESP_EMPE_EDU",
+      "raw_observed_value": "463766660.32",
+      "canonical_money": "463766660.32"
+    },
+    {
+      "alias": "VL_DESP_LIQU_EDU",
+      "raw_observed_value": "455867723.3",
+      "canonical_money": "455867723.30"
+    },
+    {
+      "alias": "VL_DESP_PAGA_EDU",
+      "raw_observed_value": "420264584.22",
+      "canonical_money": "420264584.22"
+    }
+  ],
+  "receita_siope": [
+    {
+      "category": "Receitas Correntes",
+      "stage": "PA",
+      "value": "2198860107.12"
+    },
+    {
+      "category": "Receitas de Capital",
+      "stage": "PA",
+      "value": "43133736.15"
+    },
+    {
+      "category": "Receitas Correntes",
+      "stage": "RR",
+      "value": "2087296383.01"
+    },
+    {
+      "category": "Receitas de Capital",
+      "stage": "RR",
+      "value": "39799480.18"
+    }
+  ],
+  "rreo_anexo_1": [
+    {
+      "line": "SUBTOTAL DAS DESPESAS",
+      "stage": "DA",
+      "value": "2352301695.43"
+    },
+    {
+      "line": "RESERVA DO RPPS",
+      "stage": "DA",
+      "value": "52699500.00"
+    },
+    {
+      "line": "SUBTOTAL DAS DESPESAS",
+      "stage": "DE",
+      "value": "1988819180.58"
+    },
+    {
+      "line": "SUBTOTAL DAS DESPESAS",
+      "stage": "DL",
+      "value": "1869450172.86"
+    },
+    {
+      "line": "SUBTOTAL DAS DESPESAS",
+      "stage": "DP",
+      "value": "1776933065.63"
+    }
+  ],
+  "despesas_funcao_educacao_siope": [
+    {
+      "NUM_ORDE": 1,
+      "DES_SUBF": 122,
+      "DE": "58194646.42",
+      "DL": "57157497.29",
+      "DP": "52334270.19"
+    },
+    {
+      "NUM_ORDE": 6,
+      "DES_SUBF": 306,
+      "DE": "25882994.77",
+      "DL": "25667968.46",
+      "DP": "25667968.46"
+    },
+    {
+      "NUM_ORDE": 7,
+      "DES_SUBF": 361,
+      "DE": "209179060.27",
+      "DL": "206490542.31",
+      "DP": "188169219.56"
+    },
+    {
+      "NUM_ORDE": 10,
+      "DES_SUBF": 364,
+      "DE": "359190.71",
+      "DL": "326465.86",
+      "DP": "326465.86"
+    },
+    {
+      "NUM_ORDE": 11,
+      "DES_SUBF": 365,
+      "DE": "104486220.93",
+      "DL": "101168603.39",
+      "DP": "94086355.75"
+    },
+    {
+      "NUM_ORDE": 12,
+      "DES_SUBF": 365,
+      "DE": "50395938.38",
+      "DL": "49788037.15",
+      "DP": "45212100.65"
+    },
+    {
+      "NUM_ORDE": 13,
+      "DES_SUBF": 365,
+      "DE": "154882159.31",
+      "DL": "150956640.54",
+      "DP": "139298456.40"
+    },
+    {
+      "NUM_ORDE": 14,
+      "DES_SUBF": 366,
+      "DE": "427421.75",
+      "DL": "427421.75",
+      "DP": "388089.29"
+    },
+    {
+      "NUM_ORDE": 15,
+      "DES_SUBF": 367,
+      "DE": "14630720.85",
+      "DL": "14630720.85",
+      "DP": "13869648.22"
+    },
+    {
+      "NUM_ORDE": 18,
+      "DES_SUBF": 782,
+      "DE": "210466.24",
+      "DL": "210466.24",
+      "DP": "210466.24"
+    }
+  ],
+  "rreo_anexo_8_line_33": {
+    "line": "TOTAL GERAL DAS DESPESAS COM EDUCAÇÃO (10 + 20 + 32)",
+    "DA": "520398255.47",
+    "DE": "463766660.32",
+    "DL": "455867723.30",
+    "DP": "420264584.22"
+  },
+  "dados_informados_consolidado_despesa": [
+    {
+      "account": "3.2.00.00.00",
+      "hierarchy_role": "PARENT_INCLUDE_ONCE",
+      "DA": "1000.00",
+      "DE": "0.00",
+      "DL": "0.00",
+      "DP": "0.00"
+    },
+    {
+      "account": "3.2.91.00.00",
+      "hierarchy_role": "CHILD_DO_NOT_ADD",
+      "DA": "1000.00",
+      "DE": "0.00",
+      "DL": "0.00",
+      "DP": "0.00"
+    }
+  ],
+  "dados_informados_consolidado_despesa_total": {
+    "stage": "DA",
+    "raw_observed_value": "526804985.21",
+    "canonical_money": "526804985.21"
+  }
+}
