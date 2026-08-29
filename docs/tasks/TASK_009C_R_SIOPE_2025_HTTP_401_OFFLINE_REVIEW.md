@@ -2,9 +2,9 @@
 
 ## Escopo e observação pinada
 
-Esta revisão é estritamente `T0_OFFLINE`: usa somente material já versionado e a observação sanitizada fornecida pelo proprietário. Nenhuma rede, Drive, persistência, publicação, OAuth, cookie, credencial ou tentativa de login foi usada.
+Esta revisão é estritamente `T0_OFFLINE`: usa somente material já versionado e a observação sanitizada fornecida pelo proprietário, posteriormente conferida contra o GitHub Actions. Nenhuma rede de fonte SIOPE/FNDE, Drive, persistência, publicação, OAuth, cookie, credencial ou tentativa de login foi usada nesta revisão.
 
-O run #1 emitiu o único GET permitido ao caminho resolvido, recebeu `HTTP 401` e terminou com `STOP_SIOPE_2025_METADATA_RESOLVED_PATH_PROBE_HTTP_401`. Nenhuma resposta ou arquivo foi persistido. A evidência sanitizada está em `docs/evidence/TASK_009C_SIOPE_2025_RESOLVED_PATH_PROBE_RUN_1_HTTP_401_0.8.0.json`.
+O workflow manual real foi confirmado como run ID `33221146589`, `run_number=1`, `run_attempt=1`, evento `workflow_dispatch`, workflow ID `344981895`, head `0e70495e5ae8ccdf45aff7e2c76fd302d1294b0c`, iniciado em `2026-08-28T23:39:27Z`. O run emitiu o único GET permitido ao caminho resolvido, recebeu `HTTP 401` e terminou com `STOP_SIOPE_2025_METADATA_RESOLVED_PATH_PROBE_HTTP_401` / exit code 13. Nenhuma resposta ou arquivo foi persistido. A evidência sanitizada está em `docs/evidence/TASK_009C_SIOPE_2025_RESOLVED_PATH_PROBE_RUN_1_HTTP_401_0.8.0.json`.
 
 ## Autorização consumida
 
