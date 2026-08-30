@@ -53,6 +53,32 @@ class Task010NREM6AnnualClosureGateTests(unittest.TestCase):
     def test_rejects_future_immutability_assumption(self):
         self.reject(lambda d: d["guards"].update(future_immutability_assumed=True), "guard")
 
+    def test_rejects_receipt_surface_removal_url_authority_or_proposition_drift(self):
+        self.reject(lambda d: d["official_documentary_sources"].pop(), "official source")
+        self.reject(lambda d: d["official_documentary_sources"][-1].update(url="https://example.test"), "URL")
+        self.reject(lambda d: d["official_documentary_sources"][-1].update(authority="UNKNOWN"), "authority")
+        self.reject(lambda d: d["official_documentary_sources"][-1].update(supports="proves finality"), "proposition")
+
+    def test_rejects_receipt_column_drift(self):
+        self.reject(lambda d: d["official_documentary_sources"][-1]["receipt_surface_columns"].remove("MAVS"), "column")
+
+    def test_rejects_receipt_status_as_current_or_immutable_finality(self):
+        self.reject(lambda d: d["guards"].update(non_retifying_used_as_immutable_finality=True), "guard")
+        self.reject(lambda d: d["guards"].update(processing_success_used_as_immutable_finality=True), "guard")
+        self.reject(lambda d: d["guards"].update(receipt_row_claimed_current_latest_without_rule=True), "guard")
+
+    def test_rejects_unsupported_no_or_note_only_semantics(self):
+        self.reject(lambda d: d["candidate_field_inventory"][-1].update(original_vs_rectifying="NO"), "unsupported")
+        self.reject(lambda d: d["candidate_field_inventory"][-2].update(proof_kind="NOTE_ONLY"), "unsupported")
+
+    def test_rejects_documentary_discovery_drift(self):
+        self.reject(lambda d: d["documentary_discovery"].update(selection_or_supersession_rule_result="PROVEN"), "documentary")
+        self.reject(lambda d: d["documentary_discovery"]["search_terms"].pop(), "documentary")
+
+    def test_rejects_fabricated_limeira_annual_status(self):
+        self.reject(lambda d: d["current_observation"].update(performed=True), "fabricated")
+        self.reject(lambda d: d["guards"].update(limeira_annual_status_fabricated=True), "guard")
+
 
 if __name__ == "__main__":
     unittest.main()
