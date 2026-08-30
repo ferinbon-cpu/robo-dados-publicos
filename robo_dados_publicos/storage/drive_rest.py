@@ -258,6 +258,13 @@ class DriveRESTClient:
         with self._request(url) as resp:
             return json.loads(resp.read().decode("utf-8"))
 
+    def spreadsheet_metadata_get(self,spreadsheet_id):
+        """Read only the worksheet properties required for deterministic selection."""
+        fields=quote("sheets(properties(sheetId,title,index,sheetType))")
+        url=f"{SHEETS_API}/{quote(spreadsheet_id)}?fields={fields}"
+        with self._request(url) as resp:
+            return json.loads(resp.read().decode("utf-8"))
+
     def metadata(self,file_id):
         fields="id,name,mimeType,size,modifiedTime,md5Checksum,parents,trashed"
         with self._request(f"{DRIVE_API}/files/{quote(file_id)}?fields={quote(fields)}") as resp:
