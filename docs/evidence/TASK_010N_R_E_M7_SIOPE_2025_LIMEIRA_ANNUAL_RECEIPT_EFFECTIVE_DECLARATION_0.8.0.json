@@ -1,0 +1,89 @@
+{
+  "evidence_schema": "TASK_010N_R_E_M7_SIOPE_2025_LIMEIRA_ANNUAL_RECEIPT_EFFECTIVE_DECLARATION_V1",
+  "software_version": "0.8.0",
+  "task": "TASK_010N-R-E-M7",
+  "base_main_sha": "c7c952ad641629db7acb7d93548f571da0ae79a3",
+  "tier": "T0_OFFLINE_USER_MEDIATED_EVIDENCE_REVIEW",
+  "decision": "KEEP_ANNUAL_CLOSURE_UNKNOWN_VALID_ANNUAL_SUBMISSION_PROVEN_EFFECTIVE_SELECTION_RULE_MISSING",
+  "scope": {"year": 2025, "period": 6, "period_label": "Annual", "uf": "SP", "uf_name": "Sao Paulo", "municipality_code": 352690, "municipality": "Limeira", "boundary": "B3_ONLY"},
+  "proof_status": {
+    "ANNUAL_CONSOLIDATION": "PROVEN",
+    "OFFICIAL_RECEIPT_SURFACE": "PROVEN",
+    "LIMEIRA_2025_ANNUAL_RECEIPT_IDENTITY": "PROVEN_USER_MEDIATED_OFFICIAL",
+    "LIMEIRA_2025_ANNUAL_RECEIPT_NUMBER": "428477-6",
+    "SUCCESSFUL_ANNUAL_DELIVERY": "PROVEN_OFFICIAL_RECEIPT",
+    "VALID_ANNUAL_SUBMISSION": "PROVEN",
+    "CURRENTLY_EFFECTIVE_DECLARATION": "NOT_PROVEN_EFFECTIVE_SELECTION_RULE_MISSING",
+    "immutable_finality": "NOT_PROVEN_NOT_REQUIRED"
+  },
+  "user_mediated_handoff": {
+    "receipt_surface": {
+      "provenance_class": "USER_MEDIATED_OFFICIAL_RECEIPT_STATUS",
+      "source_authority": "FNDE/SIOPE",
+      "url": "https://www.fnde.gov.br/siope/recibosTransmissao.do",
+      "administration": "Municipal", "year": 2025, "period": 6, "period_label": "Annual",
+      "uf": "SP", "uf_name": "São Paulo", "municipality_code": 352690, "municipality": "Limeira",
+      "receipt_number_surface": "428477", "processing_timestamp": "13/02/2026 12:47",
+      "transmission_timestamp": "09/02/2026 14:10", "situation": "Processado com sucesso\nCom manifestação do CACS",
+      "declaration_retificadora": "Não", "mavs_availability": "Histórico", "artifact_sha256": null
+    },
+    "mavs_history": {
+      "provenance_class": "USER_MEDIATED_OFFICIAL_MAVS_HISTORY", "year": 2025, "period": 6,
+      "municipality_code": 352690, "municipality": "Limeira", "ordered_history": [
+        {"protocol": "831423", "transmission_timestamp": "05/02/2026 15:37", "action_timestamp": "05/02/2026 15:37", "status": "Aguardando Validação do RREO pelo Secretário(a) de Educação"},
+        {"protocol": "831423", "transmission_timestamp": "05/02/2026 15:37", "action_timestamp": "06/02/2026 15:53", "status": "Aguardando retransmissão da declaração SIOPE"},
+        {"protocol": "832393", "transmission_timestamp": "09/02/2026 14:10", "action_timestamp": "09/02/2026 14:10", "status": "Aguardando Validação do RREO pelo Secretário(a) de Educação"},
+        {"protocol": "832393", "transmission_timestamp": "09/02/2026 14:10", "action_timestamp": "09/02/2026 14:42", "status": "Aguardando validação do demonstrativo do FUNDEB pelo presidente do CACS"},
+        {"protocol": "832393", "transmission_timestamp": "09/02/2026 14:10", "action_timestamp": "13/02/2026 11:33", "status": "Disponibilizada para Publicação"}
+      ],
+      "workflow_classification": "RETRANSMISSION_WORKFLOW", "formal_retifying_declaration": "NOT_INFERRED"
+    },
+    "official_receipt_pdf": {
+      "provenance_class": "USER_MEDIATED_OFFICIAL_RECEIPT_PDF", "source_authority": "FNDE/SIOPE",
+      "original_filename": "M352690_2025_6_428477.pdf", "artifact_available_in_workspace": false,
+      "sha256": null, "byte_size": null, "magic_file_type": null, "year": 2025, "period": 6,
+      "period_label": "Annual", "uf_name": "Sao Paulo", "municipality_code": 352690, "municipality": "Limeira",
+      "receipt_number": "428477-6", "siope_version": "25.0.4.5", "validation_code": "DA1C61.2776C0.971674.F240C0.",
+      "document_title": "RECIBO DE TRANSMISSÃO",
+      "successful_delivery_proposition": "Formulário SIOPE 2025 Anual entregue com sucesso em 09/02/2026 às 14:10:26."
+    }
+  },
+  "deterministic_reconciliation": {
+    "identity_match": {"year": 2025, "period": "Annual / 6", "uf": "SP / Sao Paulo", "municipality_code": 352690, "municipality": "Limeira"},
+    "receipt_surface_transmission": "09/02/2026 14:10", "mavs_protocol_832393_transmission": "09/02/2026 14:10",
+    "pdf_successful_delivery": "09/02/2026 14:10:26", "receipt_surface_number": "428477", "pdf_receipt_number": "428477-6",
+    "processing_timestamp": "13/02/2026 12:47", "mavs_publication_ready_timestamp": "13/02/2026 11:33",
+    "identifier_rule": "MAVS_PROTOCOL_AND_RECEIPT_NUMBER_ARE_DISTINCT_IDENTIFIERS"
+  },
+  "official_documentary_sources": [
+    {"authority": "FNDE", "url": "https://www.fnde.gov.br/phocadownload/sistemas/siope/Manuais/DICIONARIO%20DE%20DADOS%20SIOPE%202019.pdf", "title": "Dicionário de Dados SIOPE 2019", "version_or_date": "2019", "sha256": null, "supports": "Period 6 is annual consolidation from 2017.", "does_not_support": "A rule selecting the currently effective/latest declaration or superseding earlier transmissions."},
+    {"authority": "FNDE", "url": "https://www.gov.br/fnde/pt-br/acesso-a-informacao/acoes-e-programas/guia_prefeitos_2025.pdf", "title": "Guia para Novos Prefeitos 2025", "version_or_date": "2025", "sha256": null, "supports": "Annual receipt, deadline, transmission and validation of P6.", "does_not_support": "A current/latest receipt display rule or declaration supersession rule."},
+    {"authority": "FNDE", "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/media/Tutorial_Bsico_Siope_2024_v2.pdf", "title": "Tutorial Básico SIOPE 2024 v2", "version_or_date": "2024 v2", "sha256": null, "supports": "P6 may be formally rectified after authorization by the SIOPE technical team.", "does_not_support": "That a later declaration replaces an earlier one or how the currently effective version is selected."},
+    {"authority": "FNDE/SIOPE", "url": "https://www.fnde.gov.br/siope/recibosTransmissao.do", "title": "SIOPE — Recibos de Transmissão", "version_or_date": "USER_OBSERVATION_2026-08-30", "sha256": null, "supports": "The user-observed Limeira row exposes a successfully processed 2025 Annual receipt and a non-retifying indicator.", "does_not_support": "That the surface displays only the current/latest valid receipt or that the row can never be superseded."}
+  ],
+  "documentary_discovery": {
+    "attempted_on": "2026-08-30", "official_only": true,
+    "allowed_hosts": ["gov.br/fnde", "fnde.gov.br", "webservice.fnde.gov.br"],
+    "search_terms": ["declaração retificadora", "retificação", "retransmissão", "substitui a declaração anterior", "substituição", "declaração anterior", "última declaração", "última transmissão", "último recibo", "vigente", "declaração vigente", "nova declaração", "novo recibo", "recibo anterior", "cancelamento", "sobrescreve", "reabre", "reabertura", "sexto bimestre", "6º bimestre", "anual", "recibo de transmissão", "Disponibilizada para Publicação", "MAVS"],
+    "direct_official_access_result": "CONNECT_TUNNEL_HTTP_403", "official_search_connector_result": "HTTP_401_UNAUTHORIZED",
+    "new_source_bytes_acquired": 0, "artifact_hashes_added": 0,
+    "primary_question_result": "NOT_FOUND_OR_PINNED", "secondary_question_result": "NOT_FOUND_OR_PINNED",
+    "supersession_or_effective_selection_rule": "MISSING",
+    "limitation": "Official-only discovery could not acquire new source bytes; the already pinned official documents do not define supersession or current/latest selection."
+  },
+  "resulting_state": {
+    "annual_closure_status": "UNKNOWN", "closed_series_2025_eligibility": "BLOCKED_BY_B3_EFFECTIVE_SELECTION_RULE_PLUS_S1_S2_SEMANTIC_COMPARABILITY",
+    "semantic_comparability_status": "UNKNOWN", "closed_annual_series": "2016-2024", "gold_2025": "UNKNOWN/BLOCKED"
+  },
+  "canonical_state": {
+    "release_0_7_0": "ACTIVE", "release_0_8_0": "CANDIDATE", "year_2025": "PROVEN_STRUCTURAL_RECENT",
+    "S1_NUM_POPU": "NOT_PROVEN", "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN", "VL_DESP_DOTA_ATUA_EDU": "PARTIAL_NOT_PROMOTED",
+    "semantic_comparability_status": "UNKNOWN", "closed_annual_series": "2016-2024", "gold_2025": "UNKNOWN/BLOCKED", "year_2026": "UNPROVEN_CURRENT_YEAR"
+  },
+  "guards": {
+    "protocol_831423_treated_as_successful_final_submission": false, "protocol_and_receipt_conflated": false,
+    "retransmission_treated_as_formal_retification": false, "non_retifying_used_as_immutable_finality": false,
+    "processing_success_used_alone_as_current_effective": false, "publication_ready_used_alone_as_current_effective": false,
+    "pdf_hash_fabricated": false, "financial_indicator_values_in_b3_logic": false, "remote_writes": 0, "publication": false
+  }
+}
