@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 from typing import Any
 from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
@@ -16,10 +17,69 @@ from robo_dados_publicos.storage.drive_rest import DRIVE_API, SHEETS_API
 SCHEMA = "TASK_013_M8_R2_FORENSIC_READONLY_RESULT_V1"
 PASS = "PASS_TASK_013_M8_R2_FORENSIC_READONLY"
 STOP_BOUNDED = "STOP_FORENSIC_INVENTORY_NOT_BOUNDED"
+REMOTE_STAGE_DRIVE_INVENTORY = "REMOTE_STAGE_DRIVE_INVENTORY"
+REMOTE_STAGE_SHEET_METADATA_GET = "REMOTE_STAGE_SHEET_METADATA_GET"
+REMOTE_STAGE_SHEET_VALUES_GET = "REMOTE_STAGE_SHEET_VALUES_GET"
+DRIVE_READONLY = "DRIVE_READONLY"
+SHEETS_READONLY = "SHEETS_READONLY"
 
 
 class ForensicReadonlyError(RuntimeError):
     """A sanitized, non-retryable forensic stop."""
+
+
+class ForensicRemoteReadError(ForensicReadonlyError):
+    """Safe remote-read diagnostics that never retain the underlying exception."""
+
+    def __init__(self, *, stage: str, operation_class: str, error_type: str,
+                 http_status_if_safe: int | None):
+        super().__init__("SANITIZED_REMOTE_READ_FAILED")
+        self.stage = stage
+        self.operation_class = operation_class
+        self.error_type = error_type
+        self.http_status_if_safe = http_status_if_safe
+
+    def diagnostics(self) -> dict[str, Any]:
+        return {
+            "remote_stage": self.stage,
+            "remote_operation_class": self.operation_class,
+            "error_type": self.error_type,
+            "http_status_if_safe": self.http_status_if_safe,
+            "retryable": False,
+        }
+
+
+def _safe_error_type(exc: BaseException) -> str:
+    name = type(exc).__name__
+    return name if re.fullmatch(r"[A-Za-z][A-Za-z0-9_]{0,79}", name) else "RemoteReadError"
+
+
+def _safe_http_status(exc: BaseException) -> int | None:
+    """Extract only a plausible numeric status, never a response body or URL."""
+    candidates = [getattr(exc, "code", None), getattr(exc, "status", None),
+                  getattr(exc, "status_code", None)]
+    response = getattr(exc, "response", None)
+    if response is not None:
+        candidates.extend((getattr(response, "status", None), getattr(response, "status_code", None)))
+    return next((value for value in candidates
+                 if isinstance(value, int) and not isinstance(value, bool) and 100 <= value <= 599), None)
+
+
+def _sanitize_remote_error(exc: BaseException, *, stage: str,
+                           operation_class: str) -> ForensicRemoteReadError:
+    if isinstance(exc, ForensicRemoteReadError):
+        return exc
+    return ForensicRemoteReadError(
+        stage=stage, operation_class=operation_class,
+        error_type=_safe_error_type(exc), http_status_if_safe=_safe_http_status(exc),
+    )
+
+
+def _remote_call(operation, *, stage: str, operation_class: str):  # noqa: ANN001, ANN202
+    try:
+        return operation()
+    except Exception as exc:
+        raise _sanitize_remote_error(exc, stage=stage, operation_class=operation_class) from None
 
 
 class ForensicReadonlyAdapter:
@@ -45,7 +105,10 @@ class ForensicReadonlyAdapter:
             "q": query, "pageSize": str(page_size),
             "fields": "files(id,name,mimeType,size,modifiedTime),nextPageToken",
         })
-        payload = self._get_json(f"{DRIVE_API}/files?{params}")
+        payload = _remote_call(
+            lambda: self._get_json(f"{DRIVE_API}/files?{params}"),
+            stage=REMOTE_STAGE_DRIVE_INVENTORY, operation_class=DRIVE_READONLY,
+        )
         files = payload.get("files")
         if not isinstance(files, list):
             raise ForensicReadonlyError("INVENTORY_FILES_INVALID")
@@ -57,12 +120,18 @@ class ForensicReadonlyAdapter:
             "dateTimeRenderOption": "FORMATTED_STRING",
         })
         encoded_range = quote(range_a1, safe="")
-        return self._get_json(f"{SHEETS_API}/{quote(spreadsheet_id)}/values/{encoded_range}?{params}")
+        return _remote_call(
+            lambda: self._get_json(f"{SHEETS_API}/{quote(spreadsheet_id)}/values/{encoded_range}?{params}"),
+            stage=REMOTE_STAGE_SHEET_VALUES_GET, operation_class=SHEETS_READONLY,
+        )
 
     def spreadsheet_metadata_get(self, spreadsheet_id: str) -> dict[str, Any]:
         """Read only the worksheet properties needed for deterministic selection."""
         fields = quote("sheets(properties(sheetId,title,index,sheetType))")
-        return self._get_json(f"{SHEETS_API}/{quote(spreadsheet_id)}?fields={fields}")
+        return _remote_call(
+            lambda: self._get_json(f"{SHEETS_API}/{quote(spreadsheet_id)}?fields={fields}"),
+            stage=REMOTE_STAGE_SHEET_METADATA_GET, operation_class=SHEETS_READONLY,
+        )
 
 
 def _single_worksheet_title(metadata: Any) -> str:
@@ -97,6 +166,8 @@ def _base_result() -> dict[str, Any]:
         "historical_created_count": 1, "historical_partial_sheet_created": True,
         "historical_pdf_created": False, "historical_manifest_created": False,
         "historically_recorded_failure_stage": "UNKNOWN_REMOTE_OPERATION",
+        "remote_stage": None, "remote_operation_class": None,
+        "error_type": None, "http_status_if_safe": None, "retryable": False,
         "remote_identifiers_exposed": False, "secret_values_exposed": False,
     }
 
@@ -170,6 +241,13 @@ def run_forensic_readonly(adapter, *, parent_id: str, canonical_matrix: list[lis
         result["inventory"] = {"r2_sheet_exact_name_count": 0, "r2_pdf_exact_name_count": 0, "r2_manifest_exact_name_count": 0, "pagination_observed": str(exc) == STOP_BOUNDED}
         result["sheet_forensics"] = {"state": "SHEET_READ_FAILED", "readable": False}
         result["forensic_conclusion"] = "FORENSIC_R2_READ_FAILED"
+        if isinstance(exc, ForensicRemoteReadError):
+            result.update(exc.diagnostics())
+        elif str(exc) != STOP_BOUNDED:
+            result.update(_sanitize_remote_error(
+                exc, stage=REMOTE_STAGE_DRIVE_INVENTORY,
+                operation_class=DRIVE_READONLY,
+            ).diagnostics())
         return result, 20
 
     matches = {name: [item for item in files if isinstance(item, dict) and item.get("name") == name] for name in names.all()}
@@ -191,9 +269,15 @@ def run_forensic_readonly(adapter, *, parent_id: str, canonical_matrix: list[lis
         try:
             if not mime_match or not isinstance(sheet.get("id"), str) or not sheet["id"]:
                 raise ForensicReadonlyError("SHEET_METADATA_INVALID")
-            metadata = adapter.spreadsheet_metadata_get(sheet["id"])
+            metadata = _remote_call(
+                lambda: adapter.spreadsheet_metadata_get(sheet["id"]),
+                stage=REMOTE_STAGE_SHEET_METADATA_GET, operation_class=SHEETS_READONLY,
+            )
             worksheet_title = _single_worksheet_title(metadata)
-            response = adapter.sheets_values_get(sheet["id"], _qualified_range(worksheet_title))
+            response = _remote_call(
+                lambda: adapter.sheets_values_get(sheet["id"], _qualified_range(worksheet_title)),
+                stage=REMOTE_STAGE_SHEET_VALUES_GET, operation_class=SHEETS_READONLY,
+            )
             sheet_forensics = classify_matrix(response.get("values", []), canonical_matrix)
             sheet_forensics["mime_type_match"] = True
             sheet_forensics["worksheet_count"] = 1
@@ -208,6 +292,8 @@ def run_forensic_readonly(adapter, *, parent_id: str, canonical_matrix: list[lis
                 "state": state, "readable": False, "mime_type_match": mime_match,
                 "worksheet_selection": "NOT_PROVEN",
             }
+            if isinstance(exc, ForensicRemoteReadError):
+                result.update(exc.diagnostics())
     result["sheet_forensics"] = sheet_forensics
     result["forensically_proven_remote_state"] = sheet_forensics["state"]
     result["forensic_conclusion"] = _conclusion(inventory, sheet_forensics["state"])
