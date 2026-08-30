@@ -16,6 +16,7 @@ import json, os, time, hashlib, uuid, subprocess
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 DRIVE_API = "https://www.googleapis.com/drive/v3"
 DRIVE_UPLOAD = "https://www.googleapis.com/upload/drive/v3"
+SHEETS_API = "https://sheets.googleapis.com/v4/spreadsheets"
 
 @dataclass(frozen=True)
 class OAuthCredentials:
@@ -213,6 +214,36 @@ class DriveRESTClient:
             source_mime_type,
             metadata_mime_type=target_mime_type,
         )
+
+    def create_google_sheet(self,remote_name,parent_id):
+        """Create an empty Sheet without importing locale-sensitive CSV media."""
+        if not parent_id:
+            raise ValueError("PARENT_ID_REQUIRED_FOR_SHEET")
+        metadata=json.dumps({
+            "name":remote_name,
+            "parents":[parent_id],
+            "mimeType":"application/vnd.google-apps.spreadsheet",
+        },ensure_ascii=False).encode("utf-8")
+        headers={"Content-Type":"application/json; charset=UTF-8"}
+        fields="id,name,mimeType,parents"
+        with self._request(f"{DRIVE_API}/files?fields={fields}",method="POST",data=metadata,headers=headers) as resp:
+            return json.loads(resp.read().decode("utf-8"))
+
+    def sheets_values_update_raw(self,spreadsheet_id,range_a1,values):
+        """Write an explicit matrix with RAW semantics through Sheets API."""
+        params=urlencode({"valueInputOption":"RAW","includeValuesInResponse":"false"})
+        payload=json.dumps({"range":range_a1,"majorDimension":"ROWS","values":values},ensure_ascii=False).encode("utf-8")
+        headers={"Content-Type":"application/json; charset=UTF-8"}
+        url=f"{SHEETS_API}/{quote(spreadsheet_id)}/values/{quote(range_a1,safe='')}?{params}"
+        with self._request(url,method="PUT",data=payload,headers=headers) as resp:
+            return json.loads(resp.read().decode("utf-8"))
+
+    def sheets_values_get(self,spreadsheet_id,range_a1):
+        """Read unformatted values for exact semantic verification."""
+        params=urlencode({"majorDimension":"ROWS","valueRenderOption":"UNFORMATTED_VALUE","dateTimeRenderOption":"FORMATTED_STRING"})
+        url=f"{SHEETS_API}/{quote(spreadsheet_id)}/values/{quote(range_a1,safe='')}?{params}"
+        with self._request(url) as resp:
+            return json.loads(resp.read().decode("utf-8"))
 
     def metadata(self,file_id):
         fields="id,name,mimeType,size,modifiedTime,md5Checksum,parents,trashed"

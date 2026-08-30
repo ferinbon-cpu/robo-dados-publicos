@@ -1,0 +1,86 @@
+name: M8 SIOPE HISTORICAL CORRECTIVE R2 PUBLICATION
+run-name: "M8 one-shot corrective R2 publication by @${{ github.actor }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_corrective_r2_publication:
+        description: "Confirmar execução T3 única dos 3 objetos R2 após autorização explícita do owner"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: m8-siope-historical-corrective-r2-one-shot
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: ${{ inputs.confirm_corrective_r2_publication == true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      SOURCE_ARTIFACT_ID: "9684264254"
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - name: Validar fronteira manual antes de secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REPOSITORY" = "ferinbon-cpu/robo-dados-publicos"
+          test "$GITHUB_EVENT_NAME" = "workflow_dispatch"
+          test "$GITHUB_REF" = "refs/heads/main"
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          check-latest: false
+      - name: Instalar dependências
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - name: Gates offline
+        run: |
+          python scripts/github_preflight.py
+          python scripts/github_automation_policy_gate.py
+          python scripts/github_codex_engineer_policy_gate.py
+          python -m compileall -q .
+          python -m unittest tests.test_m8_siope_historical_corrective_publication -v
+          python -m unittest discover -s tests -v
+          python main.py selftest
+      - name: Baixar somente o artefato de produto pinado
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api "repos/${GITHUB_REPOSITORY}/actions/artifacts/${SOURCE_ARTIFACT_ID}/zip" > "$RUNNER_TEMP/m8-source.zip"
+      - name: Dry-run local com zero Drive writes
+        run: python scripts/publish_m8_siope_historical_corrective_r2.py --artifact-zip "$RUNNER_TEMP/m8-source.zip" --owner-authorized --dry-run
+      - name: Executar sequência corretiva R2
+        id: corrective
+        env:
+          GOOGLE_DRIVE_CLIENT_ID: ${{ secrets.GOOGLE_DRIVE_CLIENT_ID }}
+          GOOGLE_DRIVE_CLIENT_SECRET: ${{ secrets.GOOGLE_DRIVE_CLIENT_SECRET }}
+          GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_REFRESH_TOKEN }}
+        shell: bash
+        run: |
+          set +e
+          python scripts/publish_m8_siope_historical_corrective_r2.py --artifact-zip "$RUNNER_TEMP/m8-source.zip" --owner-authorized > "$RUNNER_TEMP/result.json"
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+      - name: Preservar evidência sanitizada
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: m8-corrective-r2-${{ github.run_id }}
+          path: ${{ runner.temp }}/result.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Propagar resultado
+        if: ${{ always() }}
+        run: |
+          cat "$RUNNER_TEMP/result.json"
+          test '${{ steps.corrective.outputs.exit_code }}' = '0'
