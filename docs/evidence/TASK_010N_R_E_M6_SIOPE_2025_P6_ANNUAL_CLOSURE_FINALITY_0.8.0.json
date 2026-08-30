@@ -1,0 +1,50 @@
+{
+  "evidence_schema": "TASK_010N_R_E_M6_SIOPE_2025_P6_ANNUAL_CLOSURE_FINALITY_V1",
+  "software_version": "0.8.0",
+  "task": "TASK_010N-R-E-M6",
+  "base_main_sha": "bef759cd11f364519f84c822522cac1d028ca604",
+  "tier": "T0_OFFLINE_REVIEW_WITH_BOUNDED_PUBLIC_DOCUMENTARY_DISCOVERY",
+  "scope": {"year": 2025, "period": 6, "municipality": "Limeira", "municipality_code": 352690, "uf": "SP", "resource": "Dados_Gerais_Siope"},
+  "decision": "KEEP_ANNUAL_CLOSURE_UNKNOWN_EFFECTIVE_STATUS_RULE_MISSING",
+  "closure_proof_model": {
+    "ANNUAL_CONSOLIDATION": "PROVEN: P6 is the annual consolidation in the post-2017 regime.",
+    "VALID_ANNUAL_SUBMISSION": "PARTIAL: official material relates transmission and validation of P6 to annual delivery, but the pinned observation did not capture a source-defined acceptance/status value.",
+    "CURRENTLY_EFFECTIVE_DECLARATION": "NOT_PROVEN: no pinned official rule identifies which API field/value selects the declaration currently effective at the observation time.",
+    "RECTIFICATION_POSSIBLE": "PROVEN: an authorized sixth-bimester rectification path exists.",
+    "RECTIFICATION_PENDING": "NOT_OBSERVED_AND_NO_DECISIVE_FIELD_DEFINED",
+    "SUPERSEDED_DECLARATION": "NOT_OBSERVED_AND_NO_DECISIVE_FIELD_DEFINED",
+    "SOURCE_FINAL_LOCKED_STATE": "NO_SOURCE_DEFINED_CONCEPT_LOCATED",
+    "REPOSITORY_CLOSED_SERIES_ELIGIBILITY": "REQUIRES_CURRENTLY_EFFECTIVE_ANNUAL_DECLARATION_PLUS_INDEPENDENT_S1_S2_SEMANTIC_GATES"
+  },
+  "historical_reconciliation": {
+    "2016": "REPOSITORY_CONVENTION: P1 treated as annual/closed without a pinned receipt, deadline, status flag, supersession, or lock proof.",
+    "2017_2020": "REPOSITORY_CONVENTION: P6 period semantics and historical pipeline treatment; no independently pinned finality state.",
+    "2021_2024": "REPOSITORY_CONVENTION: P6 period semantics and successful historical pipeline products; no independently pinned finality state.",
+    "2025": "P6 annual consolidation is proven, but the current proof standard requires an explicit effective-declaration rule and matching observation.",
+    "classification": "F_REPOSITORY_CONVENTION_WITHOUT_EXPLICIT_SOURCE_FINALITY_PROOF",
+    "policy": "Do not retroactively demote 2016-2024, do not inherit their proof gap, and do not equate annual period semantics with current effectiveness."
+  },
+  "candidate_field_inventory": [
+    {"field": "DAT_DECL", "structural_presence": true, "observed_value": null, "official_definition": null, "original_vs_rectifying": "NOT_PROVEN", "currently_effective": "NOT_PROVEN", "proof_kind": "UNKNOWN"},
+    {"field": "IDN_DECL_RETI", "structural_presence": true, "observed_value": null, "official_definition": null, "original_vs_rectifying": "NAME_SUGGESTS_BUT_INFERENCE_FORBIDDEN", "currently_effective": "NOT_PROVEN", "proof_kind": "UNKNOWN"},
+    {"field": "DS_JUST_RETIFICACAO", "structural_presence": true, "observed_value": null, "official_definition": null, "original_vs_rectifying": "NOT_PROVEN", "currently_effective": "NOT_PROVEN", "proof_kind": "UNKNOWN"},
+    {"field": "NUM_RECI", "structural_presence": true, "observed_value": null, "official_definition": null, "original_vs_rectifying": "NOT_PROVEN", "currently_effective": "NOT_PROVEN", "proof_kind": "POSSIBLE_TRANSMISSION_ONLY_NOT_PROVEN"},
+    {"field": "NUM_SOLI", "structural_presence": true, "observed_value": null, "official_definition": null, "original_vs_rectifying": "NOT_PROVEN", "currently_effective": "NOT_PROVEN", "proof_kind": "UNKNOWN"},
+    {"field": "TIPO", "structural_presence": true, "observed_value": null, "official_definition": null, "original_vs_rectifying": "NOT_PROVEN", "currently_effective": "NOT_PROVEN", "proof_kind": "UNKNOWN"},
+    {"field": "IDN_TIPO_DECL", "structural_presence": true, "observed_value": null, "official_definition": null, "original_vs_rectifying": "NAME_SUGGESTS_BUT_INFERENCE_FORBIDDEN", "currently_effective": "NOT_PROVEN", "proof_kind": "UNKNOWN"},
+    {"field": "DS_NOTA_RODAPE_RREO", "structural_presence": true, "observed_value": null, "official_definition": null, "original_vs_rectifying": "NO", "currently_effective": "NOT_PROVEN", "proof_kind": "NOTE_ONLY"},
+    {"field": "DS_NOTA_RODAPE_FUNDEB", "structural_presence": true, "observed_value": null, "official_definition": null, "original_vs_rectifying": "NO", "currently_effective": "NOT_PROVEN", "proof_kind": "NOTE_ONLY"},
+    {"field": "IDN_POSS_CERT_TC", "structural_presence": true, "observed_value": null, "official_definition": null, "original_vs_rectifying": "NO", "currently_effective": "NOT_PROVEN", "proof_kind": "UNKNOWN"},
+    {"field": "IDN_POSS_DECI_JUDI", "structural_presence": true, "observed_value": null, "official_definition": null, "original_vs_rectifying": "NO", "currently_effective": "NOT_PROVEN", "proof_kind": "UNKNOWN"}
+  ],
+  "official_documentary_sources": [
+    {"authority": "FNDE", "url": "https://www.fnde.gov.br/phocadownload/sistemas/siope/Manuais/DICIONARIO%20DE%20DADOS%20SIOPE%202019.pdf", "title": "Dicionário de Dados SIOPE 2019", "publication_or_version_date": "2019", "artifact_sha256": null, "supports": "From 2017, period 6 is annual consolidation.", "does_not_support": "A current-effective, superseded, pending-rectification, final, or locked status rule for Dados_Gerais_Siope."},
+    {"authority": "FNDE", "url": "https://www.gov.br/fnde/pt-br/acesso-a-informacao/acoes-e-programas/guia_prefeitos_2025.pdf", "title": "Guia para Novos Prefeitos 2025", "publication_or_version_date": "2025", "artifact_sha256": null, "supports": "Annual receipts, transmission deadlines, and transmission/validation of P6 as exercise-end delivery.", "does_not_support": "Which API field/value proves that the exposed declaration is currently effective or source-final."},
+    {"authority": "FNDE", "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/media/Tutorial_Bsico_Siope_2024_v2.pdf", "title": "Tutorial Básico SIOPE 2024 v2", "publication_or_version_date": "2024 v2", "artifact_sha256": null, "supports": "P6 can be formally rectified with authorization from the SIOPE technical team.", "does_not_support": "That rectification possibility makes every submitted annual declaration ineffective, or a field/value selecting the current effective declaration."}
+  ],
+  "documentary_discovery": {"attempted_on": "2026-08-30", "official_only": true, "result": "WEB_CONNECTOR_HTTP_401_UNAUTHORIZED", "new_source_bytes_acquired": 0, "artifact_hashes_added": 0, "source_data_get_count": 0, "limitation": "No new official claims were adopted; only repository-pinned official documentary evidence is used."},
+  "current_observation": {"performed": false, "reason": "No official rule establishes decisive status fields/values; observing names or values first would invite inferred semantics, and this task does not authorize a live GET.", "required_after_rule_is_pinned": "$select only NUM_ANO,NUM_PERI,COD_MUNI,NOM_MUNI,SIG_UF plus the exact officially defined effective-status/version fields, one 2025/P6 Limeira record, with no retry, pagination, redirect, persistence, or publication."},
+  "resulting_state": {"annual_closure_status": "UNKNOWN", "immutable_finality": "NOT_PROVEN_NOT_REQUIRED_FOR_MODEL_BUT_EFFECTIVE_STATUS_RULE_MISSING", "semantic_comparability_status": "UNKNOWN", "closed_series_2025_eligibility": "BLOCKED_BY_B3_AND_S1_S2_SEMANTIC_COMPARABILITY", "closed_annual_series": "2016-2024", "gold_2025": "UNKNOWN/BLOCKED"},
+  "canonical_state": {"release_0_7_0": "ACTIVE", "release_0_8_0": "CANDIDATE", "year_2025": "PROVEN_STRUCTURAL_RECENT", "S1_NUM_POPU": "NOT_PROVEN", "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN", "financial_aliases_proven_exact_operational": "9/10", "annual_closure_status": "UNKNOWN", "semantic_comparability_status": "UNKNOWN", "closed_annual_series": "2016-2024", "gold_2025": "UNKNOWN/BLOCKED", "year_2026": "UNPROVEN_CURRENT_YEAR"},
+  "guards": {"annual_consolidation_alone_used_as_finality": false, "field_semantics_inferred": false, "rectification_possible_treated_as_automatic_ineffectiveness": false, "future_immutability_assumed": false, "remote_writes": 0, "publication": false, "gold_computation": false}
+}
