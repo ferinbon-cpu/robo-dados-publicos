@@ -1,0 +1,304 @@
+{
+  "evidence_schema": "TASK_010N_R_E_M6_SIOPE_2025_P6_ANNUAL_CLOSURE_FINALITY_V1",
+  "software_version": "0.8.0",
+  "task": "TASK_010N-R-E-M6",
+  "base_main_sha": "bef759cd11f364519f84c822522cac1d028ca604",
+  "tier": "T0_OFFLINE_REVIEW_WITH_BOUNDED_PUBLIC_DOCUMENTARY_DISCOVERY",
+  "scope": {
+    "year": 2025,
+    "period": 6,
+    "municipality": "Limeira",
+    "municipality_code": 352690,
+    "uf": "SP",
+    "resource": "Dados_Gerais_Siope"
+  },
+  "decision": "KEEP_ANNUAL_CLOSURE_UNKNOWN_RECEIPT_STATUS_SURFACE_FOUND_EFFECTIVE_SELECTION_RULE_AND_LIMEIRA_ANNUAL_STATUS_NOT_PINNED",
+  "closure_proof_model": {
+    "ANNUAL_CONSOLIDATION": "PROVEN: P6 is the annual consolidation in the post-2017 regime.",
+    "VALID_ANNUAL_SUBMISSION": "PARTIAL: the official receipt surface exposes period, Situação, receipt number, processing/transmission timestamps, rectifying-declaration indicator, and MAVS, but pinned evidence does not define which status values constitute a valid submission.",
+    "CURRENTLY_EFFECTIVE_DECLARATION": "NOT_PROVEN: the receipt/status surface exists, but no pinned official rule says that its displayed row is the current/latest effective declaration when retifications or supersessions exist.",
+    "RECTIFICATION_POSSIBLE": "PROVEN: an authorized sixth-bimester rectification path exists.",
+    "RECTIFICATION_PENDING": "NOT_OBSERVED_AND_NO_DECISIVE_FIELD_DEFINED",
+    "SUPERSEDED_DECLARATION": "NOT_OBSERVED_AND_NO_DECISIVE_FIELD_DEFINED",
+    "SOURCE_FINAL_LOCKED_STATE": "NOT_PROVEN_AND_NOT_REQUIRED: no explicit immutable lock concept was located; processing success or Retificadora = Não must not be treated as immutable finality.",
+    "REPOSITORY_CLOSED_SERIES_ELIGIBILITY": "REQUIRES_CURRENTLY_EFFECTIVE_ANNUAL_DECLARATION_PLUS_INDEPENDENT_S1_S2_SEMANTIC_GATES",
+    "OFFICIAL_SIOPE_TRANSMISSION_RECEIPT_SURFACE": "PROVEN_EXISTS_WITH_ANNUAL_2025_STATUS_SCHEMA: operational surface exposes 2025 - Anual rows and transmission/processing/rectification/MAVS columns; Limeira-specific row and effective-version selection semantics are not pinned."
+  },
+  "historical_reconciliation": {
+    "2016": "REPOSITORY_CONVENTION: P1 treated as annual/closed without a pinned receipt, deadline, status flag, supersession, or lock proof.",
+    "2017_2020": "REPOSITORY_CONVENTION: P6 period semantics and historical pipeline treatment; no independently pinned finality state.",
+    "2021_2024": "REPOSITORY_CONVENTION: P6 period semantics and successful historical pipeline products; no independently pinned finality state.",
+    "2025": "P6 annual consolidation is proven, but the current proof standard requires an explicit effective-declaration rule and matching observation.",
+    "classification": "F_REPOSITORY_CONVENTION_WITHOUT_EXPLICIT_SOURCE_FINALITY_PROOF",
+    "policy": "Do not retroactively demote 2016-2024, do not inherit their proof gap, and do not equate annual period semantics with current effectiveness."
+  },
+  "candidate_field_inventory": [
+    {
+      "field": "DAT_DECL",
+      "structural_presence": true,
+      "observed_value": null,
+      "official_definition": null,
+      "original_vs_rectifying": "NOT_PROVEN",
+      "currently_effective": "NOT_PROVEN",
+      "proof_kind": "UNKNOWN"
+    },
+    {
+      "field": "IDN_DECL_RETI",
+      "structural_presence": true,
+      "observed_value": null,
+      "official_definition": null,
+      "original_vs_rectifying": "NOT_PROVEN",
+      "currently_effective": "NOT_PROVEN",
+      "proof_kind": "UNKNOWN"
+    },
+    {
+      "field": "DS_JUST_RETIFICACAO",
+      "structural_presence": true,
+      "observed_value": null,
+      "official_definition": null,
+      "original_vs_rectifying": "NOT_PROVEN",
+      "currently_effective": "NOT_PROVEN",
+      "proof_kind": "UNKNOWN"
+    },
+    {
+      "field": "NUM_RECI",
+      "structural_presence": true,
+      "observed_value": null,
+      "official_definition": null,
+      "original_vs_rectifying": "NOT_PROVEN",
+      "currently_effective": "NOT_PROVEN",
+      "proof_kind": "UNKNOWN"
+    },
+    {
+      "field": "NUM_SOLI",
+      "structural_presence": true,
+      "observed_value": null,
+      "official_definition": null,
+      "original_vs_rectifying": "NOT_PROVEN",
+      "currently_effective": "NOT_PROVEN",
+      "proof_kind": "UNKNOWN"
+    },
+    {
+      "field": "TIPO",
+      "structural_presence": true,
+      "observed_value": null,
+      "official_definition": null,
+      "original_vs_rectifying": "NOT_PROVEN",
+      "currently_effective": "NOT_PROVEN",
+      "proof_kind": "UNKNOWN"
+    },
+    {
+      "field": "IDN_TIPO_DECL",
+      "structural_presence": true,
+      "observed_value": null,
+      "official_definition": null,
+      "original_vs_rectifying": "NOT_PROVEN",
+      "currently_effective": "NOT_PROVEN",
+      "proof_kind": "UNKNOWN"
+    },
+    {
+      "field": "DS_NOTA_RODAPE_RREO",
+      "structural_presence": true,
+      "observed_value": null,
+      "official_definition": null,
+      "original_vs_rectifying": "NOT_PROVEN",
+      "currently_effective": "NOT_PROVEN",
+      "proof_kind": "UNKNOWN"
+    },
+    {
+      "field": "DS_NOTA_RODAPE_FUNDEB",
+      "structural_presence": true,
+      "observed_value": null,
+      "official_definition": null,
+      "original_vs_rectifying": "NOT_PROVEN",
+      "currently_effective": "NOT_PROVEN",
+      "proof_kind": "UNKNOWN"
+    },
+    {
+      "field": "IDN_POSS_CERT_TC",
+      "structural_presence": true,
+      "observed_value": null,
+      "official_definition": null,
+      "original_vs_rectifying": "NOT_PROVEN",
+      "currently_effective": "NOT_PROVEN",
+      "proof_kind": "UNKNOWN"
+    },
+    {
+      "field": "IDN_POSS_DECI_JUDI",
+      "structural_presence": true,
+      "observed_value": null,
+      "official_definition": null,
+      "original_vs_rectifying": "NOT_PROVEN",
+      "currently_effective": "NOT_PROVEN",
+      "proof_kind": "UNKNOWN"
+    }
+  ],
+  "official_documentary_sources": [
+    {
+      "authority": "FNDE",
+      "url": "https://www.fnde.gov.br/phocadownload/sistemas/siope/Manuais/DICIONARIO%20DE%20DADOS%20SIOPE%202019.pdf",
+      "title": "Dicionário de Dados SIOPE 2019",
+      "publication_or_version_date": "2019",
+      "artifact_sha256": null,
+      "supports": "From 2017, period 6 is annual consolidation.",
+      "does_not_support": "A current-effective, superseded, pending-rectification, final, or locked status rule for Dados_Gerais_Siope."
+    },
+    {
+      "authority": "FNDE",
+      "url": "https://www.gov.br/fnde/pt-br/acesso-a-informacao/acoes-e-programas/guia_prefeitos_2025.pdf",
+      "title": "Guia para Novos Prefeitos 2025",
+      "publication_or_version_date": "2025",
+      "artifact_sha256": null,
+      "supports": "Annual receipts, transmission deadlines, and transmission/validation of P6 as exercise-end delivery.",
+      "does_not_support": "Which API field/value proves that the exposed declaration is currently effective or source-final."
+    },
+    {
+      "authority": "FNDE",
+      "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/media/Tutorial_Bsico_Siope_2024_v2.pdf",
+      "title": "Tutorial Básico SIOPE 2024 v2",
+      "publication_or_version_date": "2024 v2",
+      "artifact_sha256": null,
+      "supports": "P6 can be formally rectified with authorization from the SIOPE technical team.",
+      "does_not_support": "That rectification possibility makes every submitted annual declaration ineffective, or a field/value selecting the current effective declaration."
+    },
+    {
+      "authority": "FNDE",
+      "url": "https://www.fnde.gov.br/siope/recibosTransmissao.do",
+      "title": "SIOPE — Recibos de Transmissão",
+      "publication_or_version_date": "CURRENT_PUBLIC_SURFACE_OBSERVED_INDEXED_2026-08-30",
+      "artifact_sha256": null,
+      "supports": "SIOPE exposes receipt/status rows per period, including indexed 2025 - Anual examples, with processing status, receipt number, processing and transmission timestamps, explicit Declaração Retificadora Sim/Não, and MAVS.",
+      "does_not_support": "That a displayed row is Limeira 2025, current/latest/effective, that processing success proves repository closure, or that a non-retifying row cannot later be superseded.",
+      "receipt_surface_columns": [
+        "Período",
+        "Situação",
+        "Nº do Recibo",
+        "Data de Processamento",
+        "Data de Transmissão",
+        "Declaração Retificadora",
+        "MAVS"
+      ]
+    }
+  ],
+  "indexed_official_receipt_examples": [
+    {
+      "provenance_kind": "TASK_HANDOFF_INDEXED_OFFICIAL_EVIDENCE_NOT_DOWNLOADED_BY_CODEX",
+      "authority": "FNDE",
+      "url": "https://www.fnde.gov.br/siope/recibosTransmissao.do?cod_uf=12&cod_uf_mun=24&consultar=Consultar&municipios=240860&tipoDeRecibo=1",
+      "artifact_sha256": null,
+      "propositions": [
+        "Official indexed receipt page exposes 2025 - Anual.",
+        "The official receipt surface supports the Declaração Retificadora Sim/Não distinction."
+      ],
+      "does_not_support": "Current, latest, or effective declaration selection; Limeira 2025 status; immutable finality."
+    },
+    {
+      "provenance_kind": "TASK_HANDOFF_INDEXED_OFFICIAL_EVIDENCE_NOT_DOWNLOADED_BY_CODEX",
+      "authority": "FNDE",
+      "url": "https://www.fnde.gov.br/siope/recibosTransmissao.do?cod_uf=12&cod_uf_mun=31&consultar=Consultar&municipios=313170&tipoDeRecibo=1",
+      "artifact_sha256": null,
+      "propositions": [
+        "Official indexed receipt page exposes 2025 - Anual.",
+        "At least one official indexed example exposes Declaração Retificadora = Sim.",
+        "The official receipt surface supports the Declaração Retificadora Sim/Não distinction."
+      ],
+      "does_not_support": "Current, latest, or effective declaration selection; Limeira 2025 status; immutable finality."
+    }
+  ],
+  "documentary_discovery": {
+    "attempted_on": "2026-08-30",
+    "official_only": true,
+    "search_terms": [
+      "Recibos de Transmissão",
+      "Declaração Retificadora",
+      "Situação",
+      "Processado com sucesso",
+      "recibo anterior",
+      "declaração anterior",
+      "retificação",
+      "substitui",
+      "vigente",
+      "último recibo",
+      "última transmissão",
+      "histórico",
+      "MAVS"
+    ],
+    "allowed_hosts": [
+      "gov.br/fnde",
+      "fnde.gov.br"
+    ],
+    "receipt_surface_direct_attempt_result": "ENVIRONMENT_CONNECT_TUNNEL_HTTP_403",
+    "official_search_connector_result": "HTTP_401_UNAUTHORIZED",
+    "new_source_bytes_acquired": 0,
+    "artifact_hashes_added": 0,
+    "source_data_get_count": 0,
+    "indexed_official_surface_proposition_incorporated_from_task_handoff": true,
+    "selection_or_supersession_rule_result": "NOT_FOUND_OR_PINNED",
+    "limitation": "The environment blocked the direct official page before an FNDE response and the search connector was unauthorized; no source bytes or selection/supersession rule were acquired."
+  },
+  "current_observation": {
+    "performed": false,
+    "reason": "Automated access to the official receipt surface was blocked and no Limeira-specific annual status was pinned.",
+    "next_action": "USER_MEDIATED_OFFICIAL_RECEIPT_STATUS_HANDOFF",
+    "target": {
+      "administration": "Municipal",
+      "uf": "São Paulo",
+      "municipality": "Limeira",
+      "exercise": 2025,
+      "period": "Anual"
+    },
+    "capture_only": [
+      "page identity/header",
+      "municipality identity",
+      "Período",
+      "Situação",
+      "Nº do Recibo",
+      "Data de Processamento",
+      "Data de Transmissão",
+      "Declaração Retificadora",
+      "MAVS"
+    ],
+    "constraints": {
+      "authentication": false,
+      "drive": false,
+      "financial_values": false,
+      "NUM_POPU": false,
+      "publication": false
+    },
+    "promotion_boundary": "Observation alone cannot promote B3 without an official current/latest/effective selection rule for retifications or supersessions."
+  },
+  "resulting_state": {
+    "annual_closure_status": "UNKNOWN",
+    "immutable_finality": "NOT_PROVEN_NOT_REQUIRED_FOR_MODEL_BUT_EFFECTIVE_STATUS_RULE_MISSING",
+    "semantic_comparability_status": "UNKNOWN",
+    "closed_series_2025_eligibility": "BLOCKED_BY_B3_EFFECTIVE_SELECTION_AND_LIMEIRA_STATUS_PLUS_S1_S2_SEMANTIC_COMPARABILITY",
+    "closed_annual_series": "2016-2024",
+    "gold_2025": "UNKNOWN/BLOCKED"
+  },
+  "canonical_state": {
+    "release_0_7_0": "ACTIVE",
+    "release_0_8_0": "CANDIDATE",
+    "year_2025": "PROVEN_STRUCTURAL_RECENT",
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "financial_aliases_proven_exact_operational": "9/10",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "closed_annual_series": "2016-2024",
+    "gold_2025": "UNKNOWN/BLOCKED",
+    "year_2026": "UNPROVEN_CURRENT_YEAR"
+  },
+  "guards": {
+    "annual_consolidation_alone_used_as_finality": false,
+    "field_semantics_inferred": false,
+    "rectification_possible_treated_as_automatic_ineffectiveness": false,
+    "future_immutability_assumed": false,
+    "remote_writes": 0,
+    "publication": false,
+    "gold_computation": false,
+    "receipt_row_claimed_current_latest_without_rule": false,
+    "processing_success_used_as_immutable_finality": false,
+    "non_retifying_used_as_immutable_finality": false,
+    "limeira_annual_status_fabricated": false
+  }
+}
