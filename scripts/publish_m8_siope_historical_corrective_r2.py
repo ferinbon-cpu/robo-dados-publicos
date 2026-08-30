@@ -21,15 +21,21 @@ from robo_dados_publicos.product.siope_historical_corrective_publication import 
 from robo_dados_publicos.storage.drive_rest import DriveRESTClient, OAuthCredentials, TokenProvider
 
 
-def _failure(code: str, created_count: int = 0) -> tuple[dict, int]:
-    return ({
+def _failure(code: str, created_count: int = 0, *, error=None) -> tuple[dict, int]:
+    result = {
         "status": code, "created_count": created_count,
         "partial_sheet_created": created_count == 1,
         "pdf_created": created_count >= 2, "completion_manifest_created": created_count >= 3,
         "retry_performed": False, "automatic_cleanup_performed": False,
         "owner_decision_required": created_count > 0,
         "remote_identifiers_exposed": False, "secret_values_exposed": False,
-    }, 16)
+        "remote_stage": getattr(error, "remote_stage", None),
+        "remote_operation_class": getattr(error, "remote_operation_class", None),
+        "error_type": getattr(error, "error_type", None),
+        "http_status_if_safe": getattr(error, "http_status_if_safe", None),
+        "retryable": False,
+    }
+    return (result, 16)
 
 
 def run_gate(source_zip: str | Path, *, owner_authorized: bool, dry_run: bool, execution_sha: str = "") -> tuple[dict, int]:
@@ -53,7 +59,7 @@ def run_gate(source_zip: str | Path, *, owner_authorized: bool, dry_run: bool, e
             execution_sha=execution_sha,
         ), 0
     except ProductPublicationError as exc:
-        return _failure(str(exc), getattr(exc, "created_count", 0))
+        return _failure(str(exc), getattr(exc, "created_count", 0), error=exc)
     except RuntimeError:
         return _failure(f"{ERROR}_RUNTIME")
     except Exception:
