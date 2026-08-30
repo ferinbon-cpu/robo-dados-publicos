@@ -1,0 +1,27 @@
+{
+  "schema": "SIOPE_2016_2025_SERIES_INCLUSION_PREREQUISITES_V1",
+  "tier": "T0_OFFLINE",
+  "historical_contract": {"years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], "periods": {"2016": 1, "2017": 6, "2018": 6, "2019": 6, "2020": 6, "2021": 6, "2022": 6, "2023": 6, "2024": 6}, "source": "config/siope_historical_regimes.v1.json"},
+  "candidate_2025": null,
+  "candidate_2025_contract": {
+    "identity": {"year": 2025, "period": 6, "period_label": "Annual", "uf": "SP", "municipality": "Limeira", "municipality_code": 352690},
+    "gold_evidence": {
+      "gold_contract": "SIOPE_DADOS_GERAIS_LIMEIRA_ARITHMETIC_SUMMARY_GOLD_V1",
+      "source_id": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
+      "metric_ids": ["receita_realizada_sobre_previsao_atualizada_pct", "despesa_paga_sobre_dotacao_atualizada_pct", "despesa_educacao_paga_sobre_dotacao_atualizada_educacao_pct", "participacao_educacao_na_despesa_empenhada_pct", "participacao_educacao_na_despesa_liquidada_pct", "participacao_educacao_na_despesa_paga_pct", "despesa_total_paga_por_habitante", "despesa_educacao_paga_por_habitante"],
+      "required_hashes": ["record_sha256", "silver_payload_sha256", "gold_payload_sha256"],
+      "hash_format": "LOWERCASE_OR_UPPERCASE_64_HEX_SHA256",
+      "provenance_status": "VALIDATED",
+      "arithmetic_validation_status": "PROVEN"
+    },
+    "required_prerequisites": ["B4_GOLD_2025", "GOLD_2025_DETERMINISTIC_EVIDENCE", "SEMANTIC_COMPARABILITY", "REGRESSION_QA", "EXPLICIT_SERIES_INCLUSION_DECISION"],
+    "financial_values_allowed_in_prerequisite_contract": false
+  },
+  "prerequisites": {"B4_GOLD_2025": "NOT_ELIGIBLE", "GOLD_2025_DETERMINISTIC_EVIDENCE": "ABSENT", "SEMANTIC_COMPARABILITY": "UNKNOWN", "REGRESSION_QA": "NOT_RUN", "EXPLICIT_SERIES_INCLUSION_DECISION": "NOT_AUTHORIZED"},
+  "required_state": {"B4_GOLD_2025": "PROVEN_AUTHORIZED_COMPUTED", "GOLD_2025_DETERMINISTIC_EVIDENCE": "VALIDATED_PROVENANCE_AND_ARITHMETIC", "SEMANTIC_COMPARABILITY": "PROVEN", "REGRESSION_QA": "PROVEN", "EXPLICIT_SERIES_INCLUSION_DECISION": "AUTHORIZED"},
+  "closed_annual_series": "2016-2024",
+  "release_0_8_0": "CANDIDATE",
+  "automatic_append": false,
+  "decision": "STOP_2025_SERIES_INCLUSION_GOLD_NOT_ELIGIBLE",
+  "effects": {"writes": 0, "series_rows_appended": 0, "release_promotion": false}
+}
