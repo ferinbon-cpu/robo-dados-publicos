@@ -1,0 +1,82 @@
+{
+  "schema": "TASK_016_FNDE_AUTHORITATIVE_RESPONSE_INTAKE_V1",
+  "task": "TASK_016",
+  "tier": "T0_OFFLINE",
+  "blocker_id": "B1_NUM_POPU",
+  "protocol": "23546.111503/2026-95",
+  "authority": "FNDE",
+  "response_received": true,
+  "received_date": "2026-09-10",
+  "source_class": "SYNTHETIC_FIXTURE",
+  "raw_artifact_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "raw_artifact_bytes": 1234,
+  "raw_artifact_mime": "application/pdf",
+  "raw_artifact_committed": false,
+  "sanitization_status": "SANITIZED_FOR_PUBLIC_REPOSITORY",
+  "authority_provenance_status": "SYNTHETIC_NOT_AUTHORITATIVE",
+  "provenance_basis": "Synthetic test construction only; no claim of official provenance.",
+  "protocol_identity_match": true,
+  "proposition_assessments": [
+    {
+      "proposition_index": 1,
+      "target_proposition": "exact NUM_POPU semantic definition",
+      "assessment": "PROVEN_EXPLICIT",
+      "support_type": "DIRECT_EXCERPT",
+      "sanitized_support_excerpt": "Synthetic bounded support for proposition 1; not an official statement.",
+      "support_location": "synthetic page 1",
+      "assessment_note": "Human-authored synthetic assessment for structural testing only."
+    },
+    {
+      "proposition_index": 2,
+      "target_proposition": "authoritative source and whether it is IBGE",
+      "assessment": "PROVEN_EXPLICIT",
+      "support_type": "DIRECT_EXCERPT",
+      "sanitized_support_excerpt": "Synthetic bounded support for proposition 2; not an official statement.",
+      "support_location": "synthetic page 2",
+      "assessment_note": "Human-authored synthetic assessment for structural testing only."
+    },
+    {
+      "proposition_index": 3,
+      "target_proposition": "exact reference date/year/version and census/estimate rule",
+      "assessment": "PROVEN_EXPLICIT",
+      "support_type": "DIRECT_EXCERPT",
+      "sanitized_support_excerpt": "Synthetic bounded support for proposition 3; not an official statement.",
+      "support_location": "synthetic page 3",
+      "assessment_note": "Human-authored synthetic assessment for structural testing only."
+    },
+    {
+      "proposition_index": 4,
+      "target_proposition": "official dictionary/layout/import/backend rule",
+      "assessment": "PROVEN_EXPLICIT",
+      "support_type": "DIRECT_EXCERPT",
+      "sanitized_support_excerpt": "Synthetic bounded support for proposition 4; not an official statement.",
+      "support_location": "synthetic page 4",
+      "assessment_note": "Human-authored synthetic assessment for structural testing only."
+    }
+  ],
+  "overall_intake_status": "INTAKE_COMPLETE_FOR_BLOCKER_DECISION_REVIEW",
+  "promotion_performed": false,
+  "canonical_state": {
+    "release_0_7_0": "ACTIVE",
+    "release_0_8_0": "CANDIDATE",
+    "year_2025": "PROVEN_STRUCTURAL_RECENT",
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "financial_aliases_proven_exact_operational": "9/10",
+    "VALID_ANNUAL_SUBMISSION": "PROVEN",
+    "SUCCESSFUL_ANNUAL_DELIVERY": "PROVEN_OFFICIAL_RECEIPT",
+    "CURRENTLY_EFFECTIVE_DECLARATION": "NOT_PROVEN_EFFECTIVE_SELECTION_RULE_MISSING",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "closed_annual_series": "2016-2024",
+    "gold_2025": "UNKNOWN/BLOCKED",
+    "year_2026": "UNPROVEN_CURRENT_YEAR",
+    "future_batch_execution_authorized": false
+  },
+  "fixture_disclaimer": [
+    "SYNTHETIC",
+    "NOT FROM FNDE",
+    "NO REAL PERSONAL DATA",
+    "NO PROMOTION EFFECT"
+  ]
+}
