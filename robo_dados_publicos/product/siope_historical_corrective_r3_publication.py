@@ -138,6 +138,19 @@ def _valid_sha(value: Any) -> bool:
     return isinstance(value, str) and len(value) == 40 and all(char in "0123456789abcdef" for char in value)
 
 
+def _validated_github_run_identity(run_id: Any, run_attempt: Any) -> dict[str, int]:
+    """Accept only canonical positive decimal GitHub run identity values."""
+    values: dict[str, int] = {}
+    for field, raw in (("github_run_id", run_id), ("github_run_attempt", run_attempt)):
+        if not isinstance(raw, str) or not raw.isascii() or not raw.isdecimal():
+            _stop(f"{field.upper()}_INVALID")
+        parsed = int(raw)
+        if parsed < 1 or str(parsed) != raw:
+            _stop(f"{field.upper()}_INVALID")
+        values[field] = parsed
+    return values
+
+
 def validate_owner_authorization(*, root: str | Path) -> dict[str, Any]:
     """Validate owner authorization pinned to the audited implementation SHA."""
     try:
@@ -295,13 +308,17 @@ def _metadata_ok(meta: dict, name: str, mime: str, parent: str) -> bool:
     return meta.get("name") == name and meta.get("mimeType") == mime and parent in (meta.get("parents") or [])
 
 
-def execute_corrective_publication(drive, *, root: str | Path, source_zip: str | Path, published_at: str, execution_sha: str) -> dict[str, Any]:
+def execute_corrective_publication(
+    drive, *, root: str | Path, source_zip: str | Path, published_at: str,
+    execution_sha: str, github_run_id: str, github_run_attempt: str,
+) -> dict[str, Any]:
     """Execute the only permitted Sheet -> validation -> PDF -> manifest path."""
     with tempfile.TemporaryDirectory(prefix="m8-corrective-r3-") as raw:
         # Contract/timestamp policy preflight, then exact-name collision
         # preflight, precede loading the pinned product as required by TASK 014.
         _load_contract(Path(root))
         authorization = validate_live_authorization(root=root, execution_sha=execution_sha)
+        run_identity = _validated_github_run_identity(github_run_id, github_run_attempt)
         try:
             parsed_at = datetime.fromisoformat(published_at.replace("Z", "+00:00"))
         except (AttributeError, ValueError) as exc:
@@ -325,7 +342,11 @@ def execute_corrective_publication(drive, *, root: str | Path, source_zip: str |
         remote_stage = "REMOTE_STAGE_PREMUTATION_SHEETS_CAPABILITY_GET"
         try:
             _single_worksheet_title(drive.spreadsheet_metadata_get(str(r2_sheets[0]["id"])))
-        except CorrectivePublicationError:
+        except CorrectivePublicationError as exc:
+            exc.remote_stage = remote_stage
+            exc.remote_operation_class = "SHEETS_READONLY"
+            exc.error_type = type(exc).__name__
+            exc.http_status_if_safe = None
             raise
         except Exception as exc:
             safe_status = getattr(exc, "code", None)
@@ -349,6 +370,7 @@ def execute_corrective_publication(drive, *, root: str | Path, source_zip: str |
             "report_pdf_sha256": _sha256(bundle / "report.pdf"),
             "bundle_manifest_sha256": _sha256(bundle / "manifest.json"),
             "execution_sha": execution_sha,
+            **run_identity,
             "authorized_implementation_sha": authorization.get("repository_boundary", {}).get("authorized_implementation_sha"),
             "source_artifact_id": 9684264254,
             "source_artifact_zip_sha256": source["source"]["zip_sha256"],

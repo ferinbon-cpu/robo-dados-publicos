@@ -29,7 +29,8 @@ def valid_matrix() -> list[list[str]]:
 
 class FakeDrive:
     def __init__(self, matrix=None, collisions=(), inventory_tokens=(), r2_count=1,
-                 r2_mime="application/vnd.google-apps.spreadsheet", capability_error=None):
+                 r2_mime="application/vnd.google-apps.spreadsheet", capability_error=None,
+                 sentinel_metadata=None):
         self.expected = valid_matrix()
         self.matrix = self.expected if matrix is None else matrix
         self.collisions = set(collisions)
@@ -41,6 +42,7 @@ class FakeDrive:
         self.r2_count = r2_count
         self.r2_mime = r2_mime
         self.capability_error = capability_error
+        self.sentinel_metadata = sentinel_metadata
 
     def list_children_single_page(self, parent, page_size=1000):
         self.inventory_calls += 1
@@ -55,6 +57,8 @@ class FakeDrive:
         self.events.append("r2_capability_get" if file_id.startswith("immutable-r2") else "sheet_metadata_get")
         if file_id.startswith("immutable-r2") and self.capability_error:
             raise self.capability_error
+        if file_id.startswith("immutable-r2") and self.sentinel_metadata is not None:
+            return self.sentinel_metadata
         return {"sheets": [{"properties": {"sheetId": 0, "title": "Página1", "index": 0, "sheetType": "GRID"}}]}
 
     def create_google_sheet(self, name, parent):
@@ -302,7 +306,7 @@ class CorrectivePublicationTests(unittest.TestCase):
             patches = self._execution_patches(bundle, source)
             with patches[0], patches[1], patches[2], patches[3]:
                 with self.assertRaisesRegex(CorrectivePublicationError, "R3_NAME_COLLISION") as caught:
-                    execute_corrective_publication(drive, root=ROOT, source_zip="unused", published_at="2026-08-30T00:00:00+00:00", execution_sha=self.SHA)
+                    execute_corrective_publication(drive, root=ROOT, source_zip="unused", published_at="2026-08-30T00:00:00+00:00", execution_sha=self.SHA, github_run_id="33340000000", github_run_attempt="2")
             self.assertEqual(caught.exception.created_count, 0)
             self.assertEqual(drive.events, ["inventory"])
 
@@ -314,7 +318,7 @@ class CorrectivePublicationTests(unittest.TestCase):
                 bundle = self._bundle(Path(raw)); drive = FakeDrive(r2_count=count, r2_mime=mime)
                 patches = self._execution_patches(bundle, {"source": {"zip_sha256": "pinned"}})
                 with patches[0], patches[1], patches[2], patches[3], self.assertRaises(CorrectivePublicationError):
-                    execute_corrective_publication(drive, root=ROOT, source_zip="unused", published_at="2026-08-30T00:00:00+00:00", execution_sha=self.SHA)
+                    execute_corrective_publication(drive, root=ROOT, source_zip="unused", published_at="2026-08-30T00:00:00+00:00", execution_sha=self.SHA, github_run_id="33340000000", github_run_attempt="2")
                 self.assertNotIn("create_sheet", drive.events)
 
     def test_capability_http_403_and_non_http_failure_have_zero_creates(self):
@@ -325,10 +329,64 @@ class CorrectivePublicationTests(unittest.TestCase):
                 bundle = self._bundle(Path(raw)); drive = FakeDrive(capability_error=error)
                 patches = self._execution_patches(bundle, {"source": {"zip_sha256": "pinned"}})
                 with patches[0], patches[1], patches[2], patches[3], self.assertRaises(CorrectivePublicationError) as caught:
-                    execute_corrective_publication(drive, root=ROOT, source_zip="unused", published_at="2026-08-30T00:00:00+00:00", execution_sha=self.SHA)
+                    execute_corrective_publication(drive, root=ROOT, source_zip="unused", published_at="2026-08-30T00:00:00+00:00", execution_sha=self.SHA, github_run_id="33340000000", github_run_attempt="2")
                 self.assertEqual(caught.exception.remote_stage, "REMOTE_STAGE_PREMUTATION_SHEETS_CAPABILITY_GET")
                 self.assertNotIn("create_sheet", drive.events)
                 self.assertNotIn("opaque", str(caught.exception))
+
+    def test_invalid_sentinel_worksheet_shapes_preserve_capability_stage(self):
+        cases = {
+            "zero": {"sheets": []},
+            "multiple": {"sheets": [
+                {"properties": {"sheetId": 0, "title": "A", "index": 0, "sheetType": "GRID"}},
+                {"properties": {"sheetId": 1, "title": "B", "index": 1, "sheetType": "GRID"}},
+            ]},
+            "non_grid": {"sheets": [
+                {"properties": {"sheetId": 0, "title": "Sentinel", "index": 0, "sheetType": "OBJECT"}},
+            ]},
+            "invalid": {"sheets": [{"properties": {"title": "Sentinel"}}]},
+        }
+        for label, metadata in cases.items():
+            with self.subTest(label=label), tempfile.TemporaryDirectory() as raw:
+                bundle = self._bundle(Path(raw)); drive = FakeDrive(sentinel_metadata=metadata)
+                patches = self._execution_patches(bundle, {"source": {"zip_sha256": "pinned"}})
+                with patches[0], patches[1], patches[2], patches[3], self.assertRaises(CorrectivePublicationError) as caught:
+                    execute_corrective_publication(
+                        drive, root=ROOT, source_zip="unused", published_at="2026-08-30T00:00:00+00:00",
+                        execution_sha=self.SHA, github_run_id="33340000000", github_run_attempt="2",
+                    )
+                self.assertEqual(caught.exception.remote_stage, "REMOTE_STAGE_PREMUTATION_SHEETS_CAPABILITY_GET")
+                self.assertEqual(caught.exception.remote_operation_class, "SHEETS_READONLY")
+                self.assertIsNone(caught.exception.http_status_if_safe)
+                self.assertFalse(caught.exception.retryable)
+                self.assertEqual(drive.events, ["inventory", "r2_capability_get"])
+
+    def test_manifest_records_validated_run_identity_separately_from_execution_sha(self):
+        with tempfile.TemporaryDirectory() as raw:
+            bundle = self._bundle(Path(raw)); drive = FakeDrive()
+            patches = self._execution_patches(bundle, {"source": {"zip_sha256": "pinned"}})
+            with patches[0], patches[1], patches[2], patches[3]:
+                execute_corrective_publication(
+                    drive, root=ROOT, source_zip="unused", published_at="2026-08-30T00:00:00+00:00",
+                    execution_sha=self.SHA, github_run_id="33340000000", github_run_attempt="2",
+                )
+            manifest = json.loads(drive.files["manifest"]["bytes"])
+            self.assertEqual(manifest["execution_sha"], self.SHA)
+            self.assertEqual(manifest["github_run_id"], 33340000000)
+            self.assertEqual(manifest["github_run_attempt"], 2)
+            self.assertNotEqual(str(manifest["github_run_id"]), manifest["execution_sha"])
+
+    def test_noncanonical_run_identity_stops_before_inventory_or_create(self):
+        for run_id, attempt in (("", "1"), ("fabricated", "1"), ("01", "1"), ("1", "0")):
+            with self.subTest(run_id=run_id, attempt=attempt), tempfile.TemporaryDirectory() as raw:
+                bundle = self._bundle(Path(raw)); drive = FakeDrive()
+                patches = self._execution_patches(bundle, {"source": {"zip_sha256": "pinned"}})
+                with patches[0], patches[1], patches[2], patches[3], self.assertRaises(CorrectivePublicationError):
+                    execute_corrective_publication(
+                        drive, root=ROOT, source_zip="unused", published_at="2026-08-30T00:00:00+00:00",
+                        execution_sha=self.SHA, github_run_id=run_id, github_run_attempt=attempt,
+                    )
+                self.assertEqual(drive.events, [])
 
     def test_semantic_failure_stops_after_one_sheet_without_retry_or_cleanup(self):
         with tempfile.TemporaryDirectory() as raw:
@@ -337,7 +395,7 @@ class CorrectivePublicationTests(unittest.TestCase):
             patches = self._execution_patches(bundle, source)
             with patches[0], patches[1], patches[2], patches[3]:
                 with self.assertRaises(CorrectivePublicationError) as caught:
-                    execute_corrective_publication(drive, root=ROOT, source_zip="unused", published_at="2026-08-30T00:00:00+00:00", execution_sha=self.SHA)
+                    execute_corrective_publication(drive, root=ROOT, source_zip="unused", published_at="2026-08-30T00:00:00+00:00", execution_sha=self.SHA, github_run_id="33340000000", github_run_attempt="2")
             self.assertEqual(caught.exception.created_count, 1)
             self.assertEqual(drive.events.count("create_sheet"), 1)
             self.assertNotIn("create_pdf", drive.events); self.assertNotIn("create_manifest", drive.events)
@@ -347,7 +405,7 @@ class CorrectivePublicationTests(unittest.TestCase):
             bundle = self._bundle(Path(raw)); drive = FakeDrive(); source = {"source": {"zip_sha256": "pinned"}}
             patches = self._execution_patches(bundle, source)
             with patches[0], patches[1], patches[2], patches[3]:
-                result = execute_corrective_publication(drive, root=ROOT, source_zip="unused", published_at="2026-08-30T00:00:00+00:00", execution_sha=self.SHA)
+                result = execute_corrective_publication(drive, root=ROOT, source_zip="unused", published_at="2026-08-30T00:00:00+00:00", execution_sha=self.SHA, github_run_id="33340000000", github_run_attempt="2")
             order = [drive.events.index(name) for name in ("create_sheet", "write_raw_matrix", "semantic_readback", "create_pdf", "readback_pdf", "create_manifest", "readback_manifest", "final_readback")]
             self.assertEqual(order, sorted(order)); self.assertTrue(result["completion_manifest_written_last"])
             self.assertEqual(drive.readback_ranges, ["'Página1'!" + SEMANTIC_READBACK_RANGE] * 2)
@@ -363,7 +421,7 @@ class CorrectivePublicationTests(unittest.TestCase):
                 bundle = self._bundle(Path(raw)); drive = FakeDrive(observed); source = {"source": {"zip_sha256": "pinned"}}
                 patches = self._execution_patches(bundle, source)
                 with patches[0], patches[1], patches[2], patches[3], self.assertRaises(CorrectivePublicationError):
-                    execute_corrective_publication(drive, root=ROOT, source_zip="unused", published_at="2026-08-30T00:00:00+00:00", execution_sha=self.SHA)
+                    execute_corrective_publication(drive, root=ROOT, source_zip="unused", published_at="2026-08-30T00:00:00+00:00", execution_sha=self.SHA, github_run_id="33340000000", github_run_attempt="2")
                 self.assertEqual(drive.readback_ranges, ["'Página1'!A:Z"])
                 self.assertNotIn("create_pdf", drive.events)
 
@@ -372,7 +430,7 @@ class CorrectivePublicationTests(unittest.TestCase):
             bundle = self._bundle(Path(raw)); drive = FakeDrive(inventory_tokens=["next"]); source = {"source": {"zip_sha256": "pinned"}}
             patches = self._execution_patches(bundle, source)
             with patches[0], patches[1], patches[2], patches[3], self.assertRaisesRegex(CorrectivePublicationError, "PAGINATION_PROHIBITED") as caught:
-                execute_corrective_publication(drive, root=ROOT, source_zip="unused", published_at="2026-08-30T00:00:00+00:00", execution_sha=self.SHA)
+                execute_corrective_publication(drive, root=ROOT, source_zip="unused", published_at="2026-08-30T00:00:00+00:00", execution_sha=self.SHA, github_run_id="33340000000", github_run_attempt="2")
             self.assertEqual(caught.exception.created_count, 0); self.assertEqual(drive.inventory_calls, 1)
             self.assertNotIn("create_sheet", drive.events)
 
@@ -381,7 +439,7 @@ class CorrectivePublicationTests(unittest.TestCase):
             bundle = self._bundle(Path(raw)); drive = FakeDrive(inventory_tokens=[None, "next"]); source = {"source": {"zip_sha256": "pinned"}}
             patches = self._execution_patches(bundle, source)
             with patches[0], patches[1], patches[2], patches[3], self.assertRaisesRegex(CorrectivePublicationError, "FINAL_INVENTORY_PAGINATION_PROHIBITED") as caught:
-                execute_corrective_publication(drive, root=ROOT, source_zip="unused", published_at="2026-08-30T00:00:00+00:00", execution_sha=self.SHA)
+                execute_corrective_publication(drive, root=ROOT, source_zip="unused", published_at="2026-08-30T00:00:00+00:00", execution_sha=self.SHA, github_run_id="33340000000", github_run_attempt="2")
             self.assertEqual(caught.exception.created_count, 3); self.assertEqual(drive.inventory_calls, 2)
 
     def test_dry_run_ready_path_has_zero_network_and_writes(self):
@@ -398,6 +456,8 @@ class CorrectivePublicationTests(unittest.TestCase):
         self.assertIn("cancel-in-progress: false", text)
         self.assertLess(text.index("Validar autorização separada"), text.index("GOOGLE_DRIVE_CLIENT_ID"))
         self.assertIn('--execution-sha "$GITHUB_SHA"', text)
+        self.assertIn('--github-run-id "$GITHUB_RUN_ID"', text)
+        self.assertIn('--github-run-attempt "$GITHUB_RUN_ATTEMPT"', text)
 
     def test_automation_policy_registers_corrective_t3_as_blocked(self):
         policy = load_policy(ROOT)

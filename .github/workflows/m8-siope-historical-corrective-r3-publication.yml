@@ -77,7 +77,13 @@ jobs:
         shell: bash
         run: |
           set +e
-          python scripts/publish_m8_siope_historical_corrective_r3.py --artifact-zip "$RUNNER_TEMP/m8-source.zip" --owner-authorized --execution-sha "$GITHUB_SHA" > "$RUNNER_TEMP/result.json"
+          python scripts/publish_m8_siope_historical_corrective_r3.py \
+            --artifact-zip "$RUNNER_TEMP/m8-source.zip" \
+            --owner-authorized \
+            --execution-sha "$GITHUB_SHA" \
+            --github-run-id "$GITHUB_RUN_ID" \
+            --github-run-attempt "$GITHUB_RUN_ATTEMPT" \
+            > "$RUNNER_TEMP/result.json"
           echo "exit_code=$?" >> "$GITHUB_OUTPUT"
       - name: Preservar evidência sanitizada
         if: ${{ always() }}

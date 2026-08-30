@@ -38,7 +38,10 @@ def _failure(code: str, created_count: int = 0, *, error=None) -> tuple[dict, in
     return (result, 16)
 
 
-def run_gate(source_zip: str | Path, *, owner_authorized: bool, dry_run: bool, execution_sha: str = "") -> tuple[dict, int]:
+def run_gate(
+    source_zip: str | Path, *, owner_authorized: bool, dry_run: bool,
+    execution_sha: str = "", github_run_id: str = "", github_run_attempt: str = "",
+) -> tuple[dict, int]:
     if not dry_run and owner_authorized is not True:
         return _failure(f"{ERROR}_EXPLICIT_EXECUTION_AUTHORIZATION_REQUIRED")
     try:
@@ -57,6 +60,8 @@ def run_gate(source_zip: str | Path, *, owner_authorized: bool, dry_run: bool, e
             drive, root=ROOT, source_zip=source_zip,
             published_at=datetime.now(timezone.utc).isoformat(),
             execution_sha=execution_sha,
+            github_run_id=github_run_id,
+            github_run_attempt=github_run_attempt,
         ), 0
     except ProductPublicationError as exc:
         return _failure(str(exc), getattr(exc, "created_count", 0), error=exc)
@@ -72,6 +77,8 @@ def main() -> int:
     parser.add_argument("--owner-authorized", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--execution-sha", default="")
+    parser.add_argument("--github-run-id", default="")
+    parser.add_argument("--github-run-attempt", default="")
     parser.add_argument("--validate-live-authorization", action="store_true")
     args = parser.parse_args()
     if args.validate_live_authorization:
@@ -91,6 +98,7 @@ def main() -> int:
     result, code = run_gate(
         args.artifact_zip, owner_authorized=args.owner_authorized, dry_run=args.dry_run,
         execution_sha=args.execution_sha,
+        github_run_id=args.github_run_id, github_run_attempt=args.github_run_attempt,
     )
     print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
     return code
