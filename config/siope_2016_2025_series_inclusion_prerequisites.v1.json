@@ -1,0 +1,13 @@
+{
+  "schema": "SIOPE_2016_2025_SERIES_INCLUSION_PREREQUISITES_V1",
+  "tier": "T0_OFFLINE",
+  "historical_contract": {"years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], "periods": {"2016": 1, "2017": 6, "2018": 6, "2019": 6, "2020": 6, "2021": 6, "2022": 6, "2023": 6, "2024": 6}, "source": "config/siope_historical_regimes.v1.json"},
+  "candidate_2025": null,
+  "prerequisites": {"B4_GOLD_2025": "NOT_ELIGIBLE", "GOLD_2025_DETERMINISTIC_EVIDENCE": "ABSENT", "SEMANTIC_COMPARABILITY": "UNKNOWN", "REGRESSION_QA": "NOT_RUN", "EXPLICIT_SERIES_INCLUSION_DECISION": "NOT_AUTHORIZED"},
+  "required_state": {"B4_GOLD_2025": "PROVEN_AUTHORIZED_COMPUTED", "GOLD_2025_DETERMINISTIC_EVIDENCE": "VALIDATED_PROVENANCE_AND_ARITHMETIC", "SEMANTIC_COMPARABILITY": "PROVEN", "REGRESSION_QA": "PROVEN", "EXPLICIT_SERIES_INCLUSION_DECISION": "AUTHORIZED"},
+  "closed_annual_series": "2016-2024",
+  "release_0_8_0": "CANDIDATE",
+  "automatic_append": false,
+  "decision": "STOP_2025_SERIES_INCLUSION_GOLD_NOT_ELIGIBLE",
+  "effects": {"writes": 0, "series_rows_appended": 0, "release_promotion": false}
+}

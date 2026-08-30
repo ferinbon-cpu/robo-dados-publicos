@@ -7,13 +7,15 @@ Consolidação em software das capacidades metodológicas validadas nas versões
 **Software ativo:** 0.7.0 ACTIVE  
 **Candidata corrente:** 0.8.0 CANDIDATE  
 **Série anual SIOPE fechada:** 2016–2024<br>
-**Próximo gate:** evidência oficial para a semântica atual e a finalidade de 2025<br>
+**Próximo gate:** respostas oficiais FNDE para B1/B2/B3; protocolos pendentes até 2026-09-21<br>
 **Dependências externas:** `pypdf==6.10.0` e `reportlab==5.0.0`  
 **Python:** 3.11+
 
 A 0.7.0 permanece a última release ativa validada. O motor principal já demonstrou coleta controlada, Bronze/Silver/Gold histórico, reconciliação, observabilidade, persistência create-only, gates e geração de produtos JSON/CSV/MD/HTML/PDF. A 0.8.0 continua candidata porque capacidade de engenharia não equivale a autorização operacional nem a suficiência semântica.
 
-Para 2025, P1–P6, o schema P6 de 52 campos e a presença estrutural dos 11 inputs do pipeline foram observados. O estado é `PROVEN_STRUCTURAL_RECENT`: isso **não** prova a semântica de `NUM_POPU`, o bridge dos dez aliases financeiros, a finalidade anual de P6, comparabilidade histórica ou Gold 2025. Esses pontos permanecem `NOT_PROVEN`, `UNKNOWN` ou `BLOCKED`, e a série anual fechada permanece **2016–2024**.
+Para 2025, P1–P6, o schema P6 de 52 campos e a presença estrutural dos 11 inputs do pipeline foram observados. O estado é `PROVEN_STRUCTURAL_RECENT`. Nove dos dez aliases financeiros são `PROVEN_EXACT_OPERATIONAL`; `VL_DESP_DOTA_ATUA_EDU` permanece parcial, sem regra de inclusão/agregação definida pela fonte. `VALID_ANNUAL_SUBMISSION` é `PROVEN`, mas a declaração atualmente efetiva, B1, B2 e a comparabilidade continuam não provadas. Gold 2025 segue `UNKNOWN/BLOCKED`, e a série anual fechada permanece **2016–2024**.
+
+As solicitações FNDE pendentes são B3 `23546.111502/2026-41`, B1 `23546.111503/2026-95` e B2 `23546.111504/2026-30`. A existência desses protocolos não promove qualquer estado. Os gates TASK 011 mantêm B4, B5 e a prontidão da 0.8.0 deterministicamente bloqueados.
 
 Consulte **[`STATUS_0.8.0.md`](STATUS_0.8.0.md)** para o estado canônico, a cadeia de evidências, os bloqueios de promoção, a matriz de maturidade e a auditoria de resíduos documentais.
 
@@ -35,7 +37,7 @@ python3 main.py sources-validate --source-config config/sources.example.json
 
 O SIOPE/FNDE para Limeira/SP permanece o piloto único da 0.8.0. Desde o desenho inicial, gates bounded demonstraram a rota, o pipeline histórico e a estrutura recente de 2025. Cada evidência conserva o limite do contrato que a produziu: não há autorização implícita para rerun, recorrência, schedule, Gold 2025 ou publicação.
 
-Os dois gargalos semânticos correntes são a definição/fonte/regra temporal de `NUM_POPU` e o bridge oficial dos dez aliases financeiros atuais. Separadamente, a disponibilidade e o papel de consolidação anual de P6 não provam que o registro 2025 esteja final/fechado. Veja o [`STATUS_0.8.0.md`](STATUS_0.8.0.md); os documentos M7 individuais permanecem como histórico auditável dos gates.
+Os gargalos correntes são a definição/fonte/vintage de `NUM_POPU`, a regra oficial de inclusão/agregação do alias financeiro restante e a regra que seleciona a declaração anual atualmente efetiva. As três respostas oficiais estão pendentes. Veja o [`STATUS_0.8.0.md`](STATUS_0.8.0.md); os documentos M7 individuais permanecem como histórico auditável dos gates.
 
 ## M6 — Saída mínima de produto
 
