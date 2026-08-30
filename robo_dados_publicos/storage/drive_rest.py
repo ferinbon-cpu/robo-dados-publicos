@@ -16,6 +16,7 @@ import json, os, time, hashlib, uuid, subprocess
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 DRIVE_API = "https://www.googleapis.com/drive/v3"
 DRIVE_UPLOAD = "https://www.googleapis.com/upload/drive/v3"
+SHEETS_API = "https://sheets.googleapis.com/v4/spreadsheets"
 
 @dataclass(frozen=True)
 class OAuthCredentials:
@@ -133,6 +134,19 @@ class DriveRESTClient:
             out.extend(data.get("files",[])); token=data.get("nextPageToken")
             if not token: return out
 
+    def list_children_single_page(self,parent_id,page_size=1000):
+        """Issue exactly one bounded inventory request and expose pagination."""
+        if not isinstance(page_size,int) or not 1 <= page_size <= 1000:
+            raise ValueError("SINGLE_PAGE_SIZE_INVALID")
+        q=f"'{parent_id}' in parents and trashed = false"
+        params=urlencode({"q":q,"pageSize":str(page_size),"fields":"files(id,name,mimeType,size,modifiedTime,md5Checksum,parents),nextPageToken"})
+        with self._request(f"{DRIVE_API}/files?{params}") as resp:
+            data=json.loads(resp.read().decode("utf-8"))
+        files=data.get("files") or []
+        if not isinstance(files,list):
+            raise RuntimeError("STOP_DRIVE_SINGLE_PAGE_FILES_INVALID")
+        return {"files":files,"next_page_token":data.get("nextPageToken")}
+
     def find_by_name(self,parent_id,name):
         return [x for x in self.list_children(parent_id) if x.get("name")==name]
 
@@ -213,6 +227,36 @@ class DriveRESTClient:
             source_mime_type,
             metadata_mime_type=target_mime_type,
         )
+
+    def create_google_sheet(self,remote_name,parent_id):
+        """Create an empty Sheet without importing locale-sensitive CSV media."""
+        if not parent_id:
+            raise ValueError("PARENT_ID_REQUIRED_FOR_SHEET")
+        metadata=json.dumps({
+            "name":remote_name,
+            "parents":[parent_id],
+            "mimeType":"application/vnd.google-apps.spreadsheet",
+        },ensure_ascii=False).encode("utf-8")
+        headers={"Content-Type":"application/json; charset=UTF-8"}
+        fields="id,name,mimeType,parents"
+        with self._request(f"{DRIVE_API}/files?fields={fields}",method="POST",data=metadata,headers=headers) as resp:
+            return json.loads(resp.read().decode("utf-8"))
+
+    def sheets_values_update_raw(self,spreadsheet_id,range_a1,values):
+        """Write an explicit matrix with RAW semantics through Sheets API."""
+        params=urlencode({"valueInputOption":"RAW","includeValuesInResponse":"false"})
+        payload=json.dumps({"range":range_a1,"majorDimension":"ROWS","values":values},ensure_ascii=False).encode("utf-8")
+        headers={"Content-Type":"application/json; charset=UTF-8"}
+        url=f"{SHEETS_API}/{quote(spreadsheet_id)}/values/{quote(range_a1,safe='')}?{params}"
+        with self._request(url,method="PUT",data=payload,headers=headers) as resp:
+            return json.loads(resp.read().decode("utf-8"))
+
+    def sheets_values_get(self,spreadsheet_id,range_a1):
+        """Read unformatted values for exact semantic verification."""
+        params=urlencode({"majorDimension":"ROWS","valueRenderOption":"UNFORMATTED_VALUE","dateTimeRenderOption":"FORMATTED_STRING"})
+        url=f"{SHEETS_API}/{quote(spreadsheet_id)}/values/{quote(range_a1,safe='')}?{params}"
+        with self._request(url) as resp:
+            return json.loads(resp.read().decode("utf-8"))
 
     def metadata(self,file_id):
         fields="id,name,mimeType,size,modifiedTime,md5Checksum,parents,trashed"
