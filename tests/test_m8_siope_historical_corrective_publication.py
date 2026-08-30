@@ -127,12 +127,15 @@ class CorrectivePublicationTests(unittest.TestCase):
             with self.assertRaises(CorrectivePublicationError):
                 _load_contract(root)
 
-    def test_checked_in_owner_authorization_is_pending_and_rejected(self):
+    def test_pending_owner_authorization_is_rejected(self):
         evidence = json.loads((ROOT / OWNER_AUTHORIZATION_PATH).read_text(encoding="utf-8"))
-        self.assertEqual(evidence["status"], "PENDING_POST_MERGE_OWNER_AUTHORIZATION")
-        self.assertIsNone(evidence["authorized_implementation_sha"])
-        with self.assertRaisesRegex(CorrectivePublicationError, "OWNER_AUTHORIZATION_INVALID"):
-            validate_owner_authorization(root=ROOT)
+        evidence["status"] = "PENDING_POST_MERGE_OWNER_AUTHORIZATION"
+        evidence["authorized_implementation_sha"] = None
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw); path = root / OWNER_AUTHORIZATION_PATH; path.parent.mkdir(parents=True)
+            path.write_text(json.dumps(evidence), encoding="utf-8")
+            with self.assertRaisesRegex(CorrectivePublicationError, "OWNER_AUTHORIZATION_INVALID"):
+                validate_owner_authorization(root=root)
 
     def test_owner_authorization_missing_and_every_governance_drift_rejected(self):
         original = json.loads((ROOT / OWNER_AUTHORIZATION_PATH).read_text(encoding="utf-8"))
