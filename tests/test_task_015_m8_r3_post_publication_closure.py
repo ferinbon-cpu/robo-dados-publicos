@@ -49,7 +49,20 @@ class Task015PostPublicationClosureTests(unittest.TestCase):
         self.assertEqual(closure["schema"], "TASK_015_M8_R3_PUBLICATION_CLOSURE_V1")
         self.assertEqual(closure["status"], "CLOSED_SUCCESS_R3_AUTHORIZATION_CONSUMED")
         self.assertEqual(closure["execution"]["run_id"], 33339989250)
+        self.assertEqual(closure["execution"]["github_run_attempt"], 1)
         self.assertEqual(closure["execution"]["conclusion"], "success")
+        self.assertEqual(
+            closure["publication_result"]["status"],
+            "PASS_M8_SIOPE_HISTORICAL_CORRECTIVE_R3_PUBLICATION_GATE",
+        )
+        self.assertEqual(
+            closure["publication_result"]["canonical_matrix_sha256"],
+            "7a847b5aacdfff91d26cfe76da9f973f760f5736fcfe841c7035e744c32960c5",
+        )
+        self.assertEqual(
+            closure["publication_result"]["source_zip_sha256"],
+            "213693b37e8a2123d1d4df4b4dec0495a5ca9536cb51b23f0549e94da72d080e",
+        )
         self.assertEqual(closure["publication_scope"], "SIOPE_HISTORICAL_2016_2024")
         self.assertFalse(closure["include_2025"])
         self.assertEqual(closure["release_status"], "CANDIDATE")
