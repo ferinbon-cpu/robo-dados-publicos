@@ -16,7 +16,7 @@ O manifesto normalizado preserva três classes distintas:
 2. `USER_MEDIATED_OFFICIAL_MAVS_HISTORY`: protocolo `831423` entrou no fluxo de validação e depois exigiu retransmissão; o protocolo distinto `832393` foi transmitido em `09/02/2026 14:10`, percorreu as validações e chegou a `Disponibilizada para Publicação` em `13/02/2026 11:33`.
 3. `USER_MEDIATED_OFFICIAL_RECEIPT_PDF`: arquivo original informado `M352690_2025_6_428477.pdf`, município `352690 - Limeira`, período `2025 Anual`, recibo `428477-6`, versão `25.0.4.5`, código de validação pinado e a proposição literal de entrega bem-sucedida em `09/02/2026 às 14:10:26`.
 
-Os bytes exatos do PDF e da captura não estavam no workspace. Consequentemente, SHA-256, tamanho e magic/file type permanecem `null`; nenhum hash foi fabricado e nenhum binário foi commitado. O conteúdo financeiro do recibo fica expressamente fora do B3.
+Os bytes exatos do PDF oficial foram disponibilizados no handoff endurecido. O manifesto pina SHA-256 `41d5dba704d9de9309819ac1cb58a08bdbd85ae88d5dfdc3d1b936c654790e29`, tamanho `22133` bytes, media type `application/pdf`, versão PDF `1.3` e uma página. O binário não foi commitado; o conteúdo financeiro do recibo fica expressamente fora do B3.
 
 ## Reconciliação determinística
 
@@ -29,6 +29,8 @@ A identidade exigida é ano 2025, período Annual/P6, SP/Sao Paulo, código muni
 O histórico sustenta uma progressão operacional: transmissão anterior → retransmissão exigida → nova transmissão → validações → disponibilidade para publicação. Ele não sustenta que o protocolo 831423 foi uma submissão final bem-sucedida nem que o protocolo 832393 seja uma `Declaração Retificadora = Sim`. Esta última inferência também contrariaria a observação superficial `Retificadora = Não`.
 
 Portanto, `RETRANSMISSION_WORKFLOW` e `FORMAL_RETIFYING_DECLARATION` permanecem conceitos separados. A existência de retransmissão não fornece, por si, regra jurídica ou semântica de supersessão.
+
+O *Tutorial Básico SIOPE 2024 v2*, na seção **4. Abrir Declaração**, exibe na aplicação oficial as colunas `RETIFICADORA`, `RECIBO` e `RECIBO ANTERIOR`. Isso constitui `PARTIAL_STRUCTURAL_RETIFICATION_CHAIN_EVIDENCE`: prova que o modelo da aplicação distingue indicador retificador, recibo corrente e recibo anterior. Não prova que toda retificação supersede a versão anterior em todas as superfícies, que a página pública exponha somente a versão vigente/mais recente, nem que o recibo `428477-6` seja imutável ou permanentemente final.
 
 ## Busca oficial de retificação/supersessão
 
@@ -46,6 +48,7 @@ Nesta execução, o acesso direto aos hosts oficiais falhou no túnel com HTTP 4
 - `closed_series_2025_eligibility = BLOCKED_BY_B3_EFFECTIVE_SELECTION_RULE_PLUS_S1_S2_SEMANTIC_COMPARABILITY`;
 - série anual fechada permanece `2016-2024`;
 - S1 e S2 permanecem `NOT_PROVEN` e comparabilidade semântica permanece `UNKNOWN`;
+- aliases financeiros permanecem `9/10` exatos operacionais; o resultado contextual de `VL_DESP_DOTA_ATUA_EDU` permanece `PARTIAL_CURRENT_EXACT_1000_VARIANCE_NO_SOURCE_DEFINED_INCLUSION_RULE`, fora de `canonical_state`;
 - Gold 2025 continua `UNKNOWN/BLOCKED`, 0.8.0 continua `CANDIDATE` e 2026 continua `UNPROVEN_CURRENT_YEAR`.
 
 M7 avança somente a prova de submissão anual válida. Não revisita S1/S2, não incorpora indicadores financeiros e não autoriza leitura remota operacional, persistência, publicação ou merge automático.

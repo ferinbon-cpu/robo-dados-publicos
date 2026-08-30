@@ -31,8 +31,21 @@ class Task010NREM7GateTests(unittest.TestCase):
         self.reject(lambda d: surface(d).update(processing_timestamp="13/02/2026 12:48"), "timestamp")
         self.reject(lambda d: d["user_mediated_handoff"]["official_receipt_pdf"].update(receipt_number="428477"), "PDF")
 
-    def test_rejects_missing_successful_delivery_statement(self):
-        self.reject(lambda d: d["user_mediated_handoff"]["official_receipt_pdf"].update(successful_delivery_proposition=""), "successful-delivery")
+    def test_rejects_exact_pdf_artifact_metadata_drift(self):
+        pdf = lambda d: d["user_mediated_handoff"]["official_receipt_pdf"]
+        mutations = (
+            ("sha256", "0" * 64),
+            ("byte_size", 22134),
+            ("artifact_available_in_workspace", False),
+            ("receipt_number", "428477"),
+            ("validation_code", "DRIFT"),
+            ("successful_delivery_proposition", "Formulário entregue."),
+            ("pdf_version", "1.4"),
+            ("page_count", 2),
+        )
+        for key, value in mutations:
+            with self.subTest(key=key):
+                self.reject(lambda d, key=key, value=value: pdf(d).update({key: value}), "PDF")
 
     def test_rejects_mavs_protocol_order_and_failed_protocol_promotion(self):
         self.reject(lambda d: d["user_mediated_handoff"]["mavs_history"]["ordered_history"].reverse(), "protocol/order")
@@ -55,8 +68,8 @@ class Task010NREM7GateTests(unittest.TestCase):
 
     def test_rejects_fabricated_pdf_hash_or_byte_metadata(self):
         pdf = lambda d: d["user_mediated_handoff"]["official_receipt_pdf"]
-        self.reject(lambda d: pdf(d).update(sha256="0" * 64), "unavailable-byte")
-        self.reject(lambda d: pdf(d).update(byte_size=123), "unavailable-byte")
+        self.reject(lambda d: pdf(d).update(sha256=None), "byte metadata")
+        self.reject(lambda d: pdf(d).update(byte_size=None), "byte metadata")
         self.reject(lambda d: d["guards"].update(pdf_hash_fabricated=True), "guard")
 
     def test_rejects_financial_values_in_b3_logic(self):
@@ -74,8 +87,38 @@ class Task010NREM7GateTests(unittest.TestCase):
         self.reject(lambda d: d["resulting_state"].update(annual_closure_status="PROVEN_CLOSED_EFFECTIVE_ANNUAL_DECLARATION"), "forbidden")
 
     def test_rejects_unproved_supersession_or_surface_selection_rule(self):
-        self.reject(lambda d: d["documentary_discovery"].update(supersession_or_effective_selection_rule="PROVEN"), "unsupported")
-        self.reject(lambda d: d["documentary_discovery"].update(secondary_question_result="SURFACE_IS_LATEST"), "unsupported")
+        self.reject(lambda d: d["documentary_discovery"].update(supersession_or_effective_selection_rule="PROVEN"), "documentary")
+        self.reject(lambda d: d["documentary_discovery"].update(secondary_question_result="SURFACE_IS_LATEST"), "documentary")
+
+    def test_rejects_every_official_source_signature_drift(self):
+        fields = ("authority", "url", "title", "version_or_date", "supports", "does_not_support")
+        for field in fields:
+            with self.subTest(field=field):
+                self.reject(lambda d, field=field: d["official_documentary_sources"][2].update({field: "DRIFT"}), "source signature")
+        self.reject(lambda d: d["official_documentary_sources"].pop(), "source signature")
+
+    def test_rejects_structural_retification_chain_drift(self):
+        self.reject(lambda d: d["partial_structural_retification_chain_evidence"]["observed_columns"].remove("RECIBO ANTERIOR"), "structural")
+        self.reject(lambda d: d["partial_structural_retification_chain_evidence"].update(supports="proves supersession"), "structural")
+        self.reject(lambda d: d["partial_structural_retification_chain_evidence"]["does_not_support"].pop(), "structural")
+
+    def test_rejects_every_documentary_discovery_field_drift(self):
+        mutations = {
+            "attempted_on": "2026-08-31", "official_only": False,
+            "allowed_hosts": ["example.test"], "search_terms": ["retificação"],
+            "direct_official_access_result": "PASS", "official_search_connector_result": "PASS",
+            "new_source_bytes_acquired": 1, "artifact_hashes_added": 1,
+            "primary_question_result": "PROVEN", "secondary_question_result": "PROVEN",
+            "supersession_or_effective_selection_rule": "PROVEN", "limitation": "DRIFT",
+        }
+        for field, value in mutations.items():
+            with self.subTest(field=field):
+                self.reject(lambda d, field=field, value=value: d["documentary_discovery"].update({field: value}), "documentary")
+
+    def test_rejects_noncanonical_financial_status_or_alias_count_drift(self):
+        self.reject(lambda d: d["canonical_state"].update(VL_DESP_DOTA_ATUA_EDU="PARTIAL_NOT_PROMOTED"), "forbidden")
+        self.reject(lambda d: d["canonical_state"].update(financial_aliases_proven_exact_operational="10/10"), "forbidden")
+        self.reject(lambda d: d["context_only"].update(VL_DESP_DOTA_ATUA_EDU="PARTIAL_NOT_PROMOTED"), "forbidden")
 
 
 if __name__ == "__main__":
