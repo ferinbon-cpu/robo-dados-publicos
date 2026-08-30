@@ -1,0 +1,59 @@
+{
+  "schema": "TASK_015_M8_R3_PUBLICATION_CLOSURE_V1",
+  "status": "CLOSED_SUCCESS_R3_AUTHORIZATION_CONSUMED",
+  "task": "TASK_015",
+  "release": "0.8.0",
+  "release_status": "CANDIDATE",
+  "publication_scope": "SIOPE_HISTORICAL_2016_2024",
+  "include_2025": false,
+  "execution": {
+    "run_id": 33339989250,
+    "workflow_path": ".github/workflows/m8-siope-historical-corrective-r3-publication.yml",
+    "event": "workflow_dispatch",
+    "branch": "main",
+    "head_sha": "8a89eb62f5753e52cb10c33da5c64ebe19e82f48",
+    "conclusion": "success"
+  },
+  "artifact": {
+    "name": "m8-corrective-r3-33339989250",
+    "artifact_id": 9740240114,
+    "digest": "sha256:f58301381c4a18efa76f4bd35d5bb022810b1875671b1c4f5b8c85d32b9c3368"
+  },
+  "publication_result": {
+    "status": "PASS_M8_SIOPE_HISTORICAL_CORRECTIVE_PUBLICATION",
+    "created_object_count": 3,
+    "sheet_semantic_readback_verified": true,
+    "sheet_rows": 9,
+    "sheet_columns": 7,
+    "pdf_readback_hash_verified": true,
+    "completion_manifest_written_last": true,
+    "final_readback_verified": true
+  },
+  "authorization_lifecycle": {
+    "authorization_status": "CONSUMED_SUCCESS",
+    "r3_authorization_remaining": false,
+    "r3_retry_authorized": false,
+    "r3_second_execution_authorized": false,
+    "r3_schedule_authorized": false,
+    "r3_recurrence_authorized": false
+  },
+  "r2_historical_treatment": {
+    "status": "RETAINED_FAILED_PARTIAL_HISTORICAL_EVIDENCE",
+    "successful_publication_product": false,
+    "repaired": false,
+    "deleted": false,
+    "overwritten": false,
+    "retried": false,
+    "relationship": "R3_SUPERSEDES_R2_ONLY_AS_VALID_PUBLICATION_OUTCOME_WITHOUT_ERASING_R2_HISTORY"
+  },
+  "remote_mutations_performed_by_task_015": 0,
+  "live_execution_performed_by_task_015": false,
+  "retry_performed": false,
+  "cleanup_performed": false,
+  "repair_performed": false,
+  "source_recollection_performed": false,
+  "reconciliation_performed": false,
+  "release_promotion_performed": false,
+  "remote_identifiers_recorded": false,
+  "secret_values_recorded": false
+}

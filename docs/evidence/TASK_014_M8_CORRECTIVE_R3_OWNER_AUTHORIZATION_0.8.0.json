@@ -1,6 +1,6 @@
 {
   "schema": "TASK_014_M8_CORRECTIVE_R3_OWNER_AUTHORIZATION_V1",
-  "status": "AUTHORIZED_FOR_SINGLE_CORRECTIVE_R3_T3_PUBLICATION",
+  "status": "CONSUMED_SUCCESS",
   "gate_id": "M8_SIOPE_HISTORICAL_CORRECTIVE_PUBLICATION_0_8_0_R3",
   "authorized_implementation_sha": "8eefa1ae2ebacf3f139b126bab394f9a4b9a95bc",
   "drive_target": "08_OUTPUTS",
@@ -19,5 +19,10 @@
   "schedule_allowed": false,
   "recurrence_allowed": false,
   "future_batch_execution_authorized": false,
+  "consumed": true,
+  "consumed_by_run_id": 33339989250,
+  "consumed_execution_sha": "8a89eb62f5753e52cb10c33da5c64ebe19e82f48",
+  "consumed_result": "SUCCESS",
+  "further_execution_authorized": false,
   "note": "Owner authorization for exactly one manual corrective R3 T3 publication, pinned to the audited TASK 014 implementation merge SHA."
 }
