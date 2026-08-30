@@ -221,11 +221,12 @@
     "year_2025": "PROVEN_STRUCTURAL_RECENT",
     "S1_NUM_POPU": "NOT_PROVEN",
     "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "financial_aliases_proven_exact_operational": "9/10",
+    "annual_closure_status": "UNKNOWN",
     "semantic_comparability_status": "UNKNOWN",
     "closed_annual_series": "2016-2024",
     "gold_2025": "UNKNOWN/BLOCKED",
-    "year_2026": "UNPROVEN_CURRENT_YEAR",
-    "financial_aliases_proven_exact_operational": "9/10"
+    "year_2026": "UNPROVEN_CURRENT_YEAR"
   },
   "guards": {
     "protocol_831423_treated_as_successful_final_submission": false,

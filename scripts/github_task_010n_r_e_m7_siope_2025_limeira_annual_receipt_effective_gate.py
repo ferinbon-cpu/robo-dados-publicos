@@ -16,7 +16,7 @@ HISTORY = [
     ("832393", "09/02/2026 14:10", "09/02/2026 14:42", "Aguardando validação do demonstrativo do FUNDEB pelo presidente do CACS"),
     ("832393", "09/02/2026 14:10", "13/02/2026 11:33", "Disponibilizada para Publicação"),
 ]
-CANONICAL = {"release_0_7_0": "ACTIVE", "release_0_8_0": "CANDIDATE", "year_2025": "PROVEN_STRUCTURAL_RECENT", "S1_NUM_POPU": "NOT_PROVEN", "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN", "financial_aliases_proven_exact_operational": "9/10", "semantic_comparability_status": "UNKNOWN", "closed_annual_series": "2016-2024", "gold_2025": "UNKNOWN/BLOCKED", "year_2026": "UNPROVEN_CURRENT_YEAR"}
+CANONICAL = {"release_0_7_0": "ACTIVE", "release_0_8_0": "CANDIDATE", "year_2025": "PROVEN_STRUCTURAL_RECENT", "S1_NUM_POPU": "NOT_PROVEN", "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN", "financial_aliases_proven_exact_operational": "9/10", "annual_closure_status": "UNKNOWN", "semantic_comparability_status": "UNKNOWN", "closed_annual_series": "2016-2024", "gold_2025": "UNKNOWN/BLOCKED", "year_2026": "UNPROVEN_CURRENT_YEAR"}
 RESULT = {"annual_closure_status": "UNKNOWN", "closed_series_2025_eligibility": "BLOCKED_BY_B3_EFFECTIVE_SELECTION_RULE_PLUS_S1_S2_SEMANTIC_COMPARABILITY", "semantic_comparability_status": "UNKNOWN", "closed_annual_series": "2016-2024", "gold_2025": "UNKNOWN/BLOCKED"}
 CONTEXT = {"VL_DESP_DOTA_ATUA_EDU": "PARTIAL_CURRENT_EXACT_1000_VARIANCE_NO_SOURCE_DEFINED_INCLUSION_RULE"}
 SOURCES = [

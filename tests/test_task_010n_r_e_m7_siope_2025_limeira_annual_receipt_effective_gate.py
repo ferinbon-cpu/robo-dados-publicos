@@ -120,6 +120,10 @@ class Task010NREM7GateTests(unittest.TestCase):
         self.reject(lambda d: d["canonical_state"].update(financial_aliases_proven_exact_operational="10/10"), "forbidden")
         self.reject(lambda d: d["context_only"].update(VL_DESP_DOTA_ATUA_EDU="PARTIAL_NOT_PROMOTED"), "forbidden")
 
+    def test_rejects_canonical_annual_closure_promotion_or_removal(self):
+        self.reject(lambda d: d["canonical_state"].update(annual_closure_status="PROVEN"), "forbidden")
+        self.reject(lambda d: d["canonical_state"].pop("annual_closure_status"), "forbidden")
+
 
 if __name__ == "__main__":
     unittest.main()
