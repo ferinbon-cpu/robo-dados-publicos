@@ -16,7 +16,11 @@ readback ou validação semântica da Sheet original terminaram.
 A Sheet R2 existente é evidência forense imutável até decisão futura explícita
 do owner. A TASK 013 usa exclusivamente a credencial dedicada com escopo OAuth
 exato `drive.readonly`, uma única página limitada do inventário de `08_OUTPUTS`
-e uma leitura Sheets `A:Z` somente quando houver exatamente uma Sheet com o nome
+e uma leitura read-only dos metadados da spreadsheet. Como a TASK 012 não definiu
+um título canônico de aba, a auditoria exige exatamente uma worksheet `GRID` e
+qualifica explicitamente a leitura como `'título da worksheet'!A:Z`. Zero,
+múltiplas ou metadados ambíguos de worksheets terminam fail-closed antes da
+leitura de valores. A leitura ocorre somente quando houver exatamente uma Sheet com o nome
 canônico. Um `nextPageToken`, inventário ambíguo ou erro de leitura termina
 fail-closed. IDs, pasta, URLs, tokens e corpos de exceção não integram o JSON
 sanitizado.

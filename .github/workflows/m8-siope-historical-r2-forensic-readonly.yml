@@ -58,7 +58,7 @@ jobs:
           GOOGLE_DRIVE_CLIENT_SECRET: ${{ secrets.GOOGLE_DRIVE_READONLY_CLIENT_SECRET }}
           GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_READONLY_REFRESH_TOKEN }}
         run: python scripts/github_m8_readonly_credential_capability_gate.py
-      - name: Run one-page inventory and A:Z Sheet forensics
+      - name: Run one-page inventory, worksheet metadata proof, and qualified A:Z forensics
         id: forensic
         shell: bash
         env:

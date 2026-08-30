@@ -25,7 +25,8 @@ def canonical():
 
 class FakeReadonly:
     def __init__(self, *, matrix=None, sheet_count=1, pdf=0, manifest=0, token=None,
-                 inventory_error=False, read_error=False):
+                 inventory_error=False, read_error=False, worksheets=None,
+                 worksheet_metadata=None):
         names = PublicationNames.from_basename(REMOTE_BASENAME)
         self.files = ([{"id": f"sheet-{i}", "name": names.sheet, "mimeType": GOOGLE_SHEETS_MIME}
                        for i in range(sheet_count)]
@@ -35,9 +36,15 @@ class FakeReadonly:
         self.token = token
         self.inventory_error = inventory_error
         self.read_error = read_error
+        self.worksheet_metadata = worksheet_metadata
+        self.worksheets = ([{"properties": {
+            "sheetId": 0, "title": "Sheet 1", "index": 0, "sheetType": "GRID",
+        }}] if worksheets is None else worksheets)
         self.inventory_calls = 0
+        self.metadata_calls = 0
         self.sheet_calls = 0
         self.ranges = []
+        self.events = []
 
     def list_children_single_page(self, parent, page_size=1000):
         self.inventory_calls += 1
@@ -46,11 +53,19 @@ class FakeReadonly:
         return {"files": self.files, "next_page_token": self.token}
 
     def sheets_values_get(self, spreadsheet_id, range_a1):
+        self.events.append("values")
         self.sheet_calls += 1
         self.ranges.append(range_a1)
         if self.read_error:
             raise RuntimeError("opaque sheet failure with possible id")
         return {"values": copy.deepcopy(self.matrix)}
+
+    def spreadsheet_metadata_get(self, spreadsheet_id):
+        self.events.append("metadata")
+        self.metadata_calls += 1
+        if self.worksheet_metadata is not None:
+            return copy.deepcopy(self.worksheet_metadata)
+        return {"sheets": copy.deepcopy(self.worksheets)}
 
 
 class M8R2ForensicReadonlyTests(unittest.TestCase):
@@ -69,7 +84,9 @@ class M8R2ForensicReadonlyTests(unittest.TestCase):
         self.assertEqual("SHEET_EXACT_CANONICAL_9X7", forensic["state"])
         self.assertTrue(forensic["header_match"] and forensic["canonical_matrix_match"])
         self.assertEqual((9, 7), (forensic["observed_row_count"], forensic["observed_max_column_count"]))
-        self.assertEqual([SEMANTIC_READBACK_RANGE], adapter.ranges)
+        self.assertEqual(["'Sheet 1'!" + SEMANTIC_READBACK_RANGE], adapter.ranges)
+        self.assertEqual(["metadata", "values"], adapter.events)
+        self.assertEqual("EXACTLY_ONE_WORKSHEET_EXPLICITLY_QUALIFIED", forensic["worksheet_selection"])
         self.assertEqual("FORENSIC_R2_SHEET_EXACT_CANONICAL_PDF_MANIFEST_ABSENT", result["forensic_conclusion"])
 
     def test_empty_sheet(self):
@@ -131,6 +148,41 @@ class M8R2ForensicReadonlyTests(unittest.TestCase):
         self.assertEqual(1, adapter.sheet_calls); self.assertNotEqual(0, code)
         self.assertEqual("SHEET_READ_FAILED", result["sheet_forensics"]["state"])
         self.assertNotIn("opaque", json.dumps(result))
+
+    def test_zero_worksheets_fails_closed_before_values_read(self):
+        adapter, result, code = self.run_case(worksheets=[])
+        self.assertNotEqual(0, code)
+        self.assertEqual("SHEET_WORKSHEET_NOT_FOUND", result["sheet_forensics"]["state"])
+        self.assertEqual(1, adapter.metadata_calls)
+        self.assertEqual(0, adapter.sheet_calls)
+        self.assertEqual("FORENSIC_R2_READ_FAILED", result["forensic_conclusion"])
+
+    def test_ambiguous_worksheet_metadata_fails_closed_before_values_read(self):
+        adapter, result, code = self.run_case(worksheet_metadata={"sheets": [{"properties": {}}]})
+        self.assertNotEqual(0, code)
+        self.assertEqual("SHEET_WORKSHEET_METADATA_AMBIGUOUS", result["sheet_forensics"]["state"])
+        self.assertEqual(1, adapter.metadata_calls)
+        self.assertEqual(0, adapter.sheet_calls)
+
+    def test_multiple_worksheets_fail_closed_before_values_read(self):
+        worksheets = [
+            {"properties": {"sheetId": 0, "title": "First", "index": 0, "sheetType": "GRID"}},
+            {"properties": {"sheetId": 1, "title": "Second", "index": 1, "sheetType": "GRID"}},
+        ]
+        adapter, result, code = self.run_case(worksheets=worksheets)
+        self.assertNotEqual(0, code)
+        self.assertEqual("SHEET_WORKSHEET_AMBIGUOUS", result["sheet_forensics"]["state"])
+        self.assertEqual(1, adapter.metadata_calls)
+        self.assertEqual(0, adapter.sheet_calls)
+
+    def test_single_worksheet_title_is_a1_escaped_and_explicitly_qualified(self):
+        worksheets = [{"properties": {
+            "sheetId": 7, "title": "Owner's evidence", "index": 0, "sheetType": "GRID",
+        }}]
+        adapter, result, code = self.run_case(worksheets=worksheets)
+        self.assertEqual(0, code)
+        self.assertEqual(["'Owner''s evidence'!A:Z"], adapter.ranges)
+        self.assertEqual(1, result["sheet_forensics"]["worksheet_count"])
 
     def test_result_proves_zero_mutation_retry_cleanup_repair_and_promotions(self):
         _, result, _ = self.run_case()

@@ -59,6 +59,32 @@ class ForensicReadonlyAdapter:
         encoded_range = quote(range_a1, safe="")
         return self._get_json(f"{SHEETS_API}/{quote(spreadsheet_id)}/values/{encoded_range}?{params}")
 
+    def spreadsheet_metadata_get(self, spreadsheet_id: str) -> dict[str, Any]:
+        """Read only the worksheet properties needed for deterministic selection."""
+        fields = quote("sheets(properties(sheetId,title,index,sheetType))")
+        return self._get_json(f"{SHEETS_API}/{quote(spreadsheet_id)}?fields={fields}")
+
+
+def _single_worksheet_title(metadata: Any) -> str:
+    """Select the sole worksheet because TASK 012 defines no canonical title."""
+    if not isinstance(metadata, dict) or not isinstance(metadata.get("sheets"), list):
+        raise ForensicReadonlyError("SHEET_WORKSHEET_METADATA_AMBIGUOUS")
+    sheets = metadata["sheets"]
+    if not sheets:
+        raise ForensicReadonlyError("SHEET_WORKSHEET_NOT_FOUND")
+    if len(sheets) != 1:
+        raise ForensicReadonlyError("SHEET_WORKSHEET_AMBIGUOUS")
+    properties = sheets[0].get("properties") if isinstance(sheets[0], dict) else None
+    title = properties.get("title") if isinstance(properties, dict) else None
+    if not isinstance(title, str) or not title or properties.get("sheetType") != "GRID":
+        raise ForensicReadonlyError("SHEET_WORKSHEET_METADATA_AMBIGUOUS")
+    return title
+
+
+def _qualified_range(worksheet_title: str) -> str:
+    """Quote a provider-returned worksheet title according to A1 notation."""
+    return f"'{worksheet_title.replace(chr(39), chr(39) * 2)}'!{SEMANTIC_READBACK_RANGE}"
+
 
 def _base_result() -> dict[str, Any]:
     return {
@@ -123,6 +149,9 @@ def _conclusion(inventory: dict[str, Any], state: str) -> str:
         "SHEET_PARTIAL": "FORENSIC_R2_SHEET_PARTIAL_PDF_MANIFEST_ABSENT",
         "SHEET_EMPTY": "FORENSIC_R2_SHEET_EMPTY_PDF_MANIFEST_ABSENT",
         "SHEET_READ_FAILED": "FORENSIC_R2_READ_FAILED",
+        "SHEET_WORKSHEET_NOT_FOUND": "FORENSIC_R2_READ_FAILED",
+        "SHEET_WORKSHEET_AMBIGUOUS": "FORENSIC_R2_READ_FAILED",
+        "SHEET_WORKSHEET_METADATA_AMBIGUOUS": "FORENSIC_R2_READ_FAILED",
     }.get(state, "FORENSIC_R2_REMOTE_STATE_UNEXPECTED")
 
 
@@ -162,11 +191,23 @@ def run_forensic_readonly(adapter, *, parent_id: str, canonical_matrix: list[lis
         try:
             if not mime_match or not isinstance(sheet.get("id"), str) or not sheet["id"]:
                 raise ForensicReadonlyError("SHEET_METADATA_INVALID")
-            response = adapter.sheets_values_get(sheet["id"], SEMANTIC_READBACK_RANGE)
+            metadata = adapter.spreadsheet_metadata_get(sheet["id"])
+            worksheet_title = _single_worksheet_title(metadata)
+            response = adapter.sheets_values_get(sheet["id"], _qualified_range(worksheet_title))
             sheet_forensics = classify_matrix(response.get("values", []), canonical_matrix)
             sheet_forensics["mime_type_match"] = True
-        except Exception:
-            sheet_forensics = {"state": "SHEET_READ_FAILED", "readable": False, "mime_type_match": mime_match}
+            sheet_forensics["worksheet_count"] = 1
+            sheet_forensics["worksheet_selection"] = "EXACTLY_ONE_WORKSHEET_EXPLICITLY_QUALIFIED"
+        except Exception as exc:
+            safe_states = {
+                "SHEET_WORKSHEET_NOT_FOUND", "SHEET_WORKSHEET_AMBIGUOUS",
+                "SHEET_WORKSHEET_METADATA_AMBIGUOUS",
+            }
+            state = str(exc) if str(exc) in safe_states else "SHEET_READ_FAILED"
+            sheet_forensics = {
+                "state": state, "readable": False, "mime_type_match": mime_match,
+                "worksheet_selection": "NOT_PROVEN",
+            }
     result["sheet_forensics"] = sheet_forensics
     result["forensically_proven_remote_state"] = sheet_forensics["state"]
     result["forensic_conclusion"] = _conclusion(inventory, sheet_forensics["state"])
