@@ -31,6 +31,8 @@ Os onze candidatos solicitados existem no schema de 52 campos, porém seus valor
 
 As fontes FNDE pinadas são o *Dicionário de Dados SIOPE 2019* (P6 como consolidação anual), o *Guia para Novos Prefeitos 2025* (recibo anual, prazo e transmissão/validação de P6), o *Tutorial Básico SIOPE 2024 v2* (retificação de P6 mediante autorização) e a página atual *SIOPE — Recibos de Transmissão*. Esta última prova a existência da superfície e suas colunas, mas não prova que uma linha seja vigente/mais recente, nem que sucesso de processamento seja fechamento do repositório. URLs, autoridade, versão, proposições e limitações constam no artefato machine-readable.
 
+Os dois exemplos oficiais indexados fornecidos no handoff também são pinados por URL e proposição no JSON: ambos sustentam `2025 - Anual` e a distinção `Declaração Retificadora = Sim/Não`; ao menos um sustenta a ocorrência de `Sim`. São evidência indexada fornecida pela task, não bytes baixados pelo Codex, e não sustentam seleção vigente/mais recente, status de Limeira ou imutabilidade.
+
 Uma busca documental oficial limitada pelos termos de recibo, situação, processamento, retificação, substituição, vigência, último recibo/transmissão, histórico e MAVS foi tentada em 2026-08-30. O acesso direto foi bloqueado pelo túnel com HTTP 403 e o conector de busca retornou HTTP 401. Não foi localizada/pinada uma regra de seleção ou supersessão; nenhum byte foi adquirido e nenhum hash foi fabricado.
 
 ## Observação mínima futura e estado resultante

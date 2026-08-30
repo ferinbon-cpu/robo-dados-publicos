@@ -79,6 +79,21 @@ class Task010NREM6AnnualClosureGateTests(unittest.TestCase):
         self.reject(lambda d: d["current_observation"].update(performed=True), "fabricated")
         self.reject(lambda d: d["guards"].update(limeira_annual_status_fabricated=True), "guard")
 
+    def test_rejects_every_current_observation_constraint_widening(self):
+        for constraint in ("authentication", "drive", "financial_values", "NUM_POPU", "publication"):
+            with self.subTest(constraint=constraint):
+                self.reject(lambda d, constraint=constraint: d["current_observation"]["constraints"].update({constraint: True}), "handoff")
+
+    def test_rejects_promotion_boundary_change_or_removal(self):
+        self.reject(lambda d: d["current_observation"].update(promotion_boundary="Observation proves B3."), "handoff")
+        self.reject(lambda d: d["current_observation"].pop("promotion_boundary"), "handoff")
+
+    def test_rejects_indexed_official_example_removal_or_drift(self):
+        self.reject(lambda d: d["indexed_official_receipt_examples"].pop(), "indexed official")
+        self.reject(lambda d: d["indexed_official_receipt_examples"][0].update(url="https://example.test"), "URL")
+        self.reject(lambda d: d["indexed_official_receipt_examples"][0]["propositions"].clear(), "proposition")
+        self.reject(lambda d: d["indexed_official_receipt_examples"][1].update(provenance_kind="DOWNLOADED_BY_CODEX"), "provenance")
+
 
 if __name__ == "__main__":
     unittest.main()

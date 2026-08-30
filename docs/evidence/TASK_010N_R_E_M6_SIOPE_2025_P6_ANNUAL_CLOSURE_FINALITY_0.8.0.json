@@ -180,6 +180,31 @@
       ]
     }
   ],
+  "indexed_official_receipt_examples": [
+    {
+      "provenance_kind": "TASK_HANDOFF_INDEXED_OFFICIAL_EVIDENCE_NOT_DOWNLOADED_BY_CODEX",
+      "authority": "FNDE",
+      "url": "https://www.fnde.gov.br/siope/recibosTransmissao.do?cod_uf=12&cod_uf_mun=24&consultar=Consultar&municipios=240860&tipoDeRecibo=1",
+      "artifact_sha256": null,
+      "propositions": [
+        "Official indexed receipt page exposes 2025 - Anual.",
+        "The official receipt surface supports the Declaração Retificadora Sim/Não distinction."
+      ],
+      "does_not_support": "Current, latest, or effective declaration selection; Limeira 2025 status; immutable finality."
+    },
+    {
+      "provenance_kind": "TASK_HANDOFF_INDEXED_OFFICIAL_EVIDENCE_NOT_DOWNLOADED_BY_CODEX",
+      "authority": "FNDE",
+      "url": "https://www.fnde.gov.br/siope/recibosTransmissao.do?cod_uf=12&cod_uf_mun=31&consultar=Consultar&municipios=313170&tipoDeRecibo=1",
+      "artifact_sha256": null,
+      "propositions": [
+        "Official indexed receipt page exposes 2025 - Anual.",
+        "At least one official indexed example exposes Declaração Retificadora = Sim.",
+        "The official receipt surface supports the Declaração Retificadora Sim/Não distinction."
+      ],
+      "does_not_support": "Current, latest, or effective declaration selection; Limeira 2025 status; immutable finality."
+    }
+  ],
   "documentary_discovery": {
     "attempted_on": "2026-08-30",
     "official_only": true,
