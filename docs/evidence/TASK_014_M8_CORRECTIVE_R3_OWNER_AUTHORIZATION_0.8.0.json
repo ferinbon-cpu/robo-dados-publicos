@@ -1,0 +1,23 @@
+{
+  "schema": "TASK_014_M8_CORRECTIVE_R3_OWNER_AUTHORIZATION_V1",
+  "status": "PENDING_OWNER_AUTHORIZATION",
+  "gate_id": "M8_SIOPE_HISTORICAL_CORRECTIVE_PUBLICATION_0_8_0_R3",
+  "authorized_implementation_sha": null,
+  "drive_target": "08_OUTPUTS",
+  "remote_names": [
+    "SIOPE_LIMEIRA_HISTORICAL_2016_2024_V0_8_0_R3_TABELA",
+    "SIOPE_LIMEIRA_HISTORICAL_2016_2024_V0_8_0_R3.pdf",
+    "SIOPE_LIMEIRA_HISTORICAL_2016_2024_V0_8_0_R3_publication_manifest.json"
+  ],
+  "create_only": true,
+  "single_execution": true,
+  "manual_execution_required": true,
+  "overwrite_allowed": false,
+  "replace_allowed": false,
+  "delete_allowed": false,
+  "retry_allowed": false,
+  "schedule_allowed": false,
+  "recurrence_allowed": false,
+  "future_batch_execution_authorized": false,
+  "note": "A separate future authorization-only PR must pin the merged TASK 014 implementation SHA."
+}

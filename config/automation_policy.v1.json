@@ -203,6 +203,26 @@
       "current_triggers": ["workflow_dispatch"],
       "future_batch_execution_authorized": false,
       "blockers": ["CORRECTIVE_R2_PUBLICATION_REQUIRES_SEPARATE_EXPLICIT_OWNER_AUTHORIZATION"]
+    },
+    {
+      "id": "M8_SIOPE_HISTORICAL_CORRECTIVE_R3_PUBLICATION",
+      "workflow": ".github/workflows/m8-siope-historical-corrective-r3-publication.yml",
+      "tier": "T3_MUTATING_OR_PUBLICATION",
+      "auto_allowed": false,
+      "credential_capability": "WRITE_CAPABLE",
+      "effects": {
+        "drive_writes": true,
+        "publication": true
+      },
+      "current_triggers": ["workflow_dispatch"],
+      "manual_execution_required": true,
+      "single_execution": true,
+      "schedule": false,
+      "recurrence": false,
+      "retry": false,
+      "cleanup": false,
+      "future_batch_execution_authorized": false,
+      "blockers": ["CORRECTIVE_R3_PUBLICATION_REQUIRES_SEPARATE_EXPLICIT_OWNER_AUTHORIZATION"]
     }
   ],
   "agentic_work": {
