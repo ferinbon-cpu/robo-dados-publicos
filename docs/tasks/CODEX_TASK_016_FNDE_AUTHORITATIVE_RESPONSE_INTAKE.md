@@ -11,6 +11,8 @@ O contrato em `config/fnde_authoritative_response_intake.v1.json` fixa protocolo
 1. **Revisão humana/offline:** depois de um handoff explícito de evidência real, o revisor registra cada proposição, um excerto mínimo sanitizado, localização exata e nota de avaliação. Conteúdo omitido não é inferido.
 2. **Gate determinístico:** valida identidade, metadados do artefato, proveniência declarada, mapeamento integral, allowlists, privacidade, completude e ausência de promoção. Não usa LLM, rede nem mutação remota.
 
+Uma resposta real somente pode declarar `AUTHORITATIVE_PROVEN` quando `provenance_checks` registra deterministicamente o handoff oficial mediado pelo usuário, o rótulo de autoridade observado, o protocolo exato observado, a verificação do hash bruto e a conclusão da revisão humana offline. Essa declaração prova apenas a suficiência estrutural da proveniência do intake, nunca o conteúdo substantivo do blocker. Fixtures usam uma estrutura de proveniência sintética distinta.
+
 `INTAKE_COMPLETE_FOR_BLOCKER_DECISION_REVIEW` significa apenas que a evidência está estruturada para uma **tarefa de decisão posterior e explícita**. Não significa `BLOCKER_PROVEN`: receber um artefato, reconhecer sua autoridade ou encontrar uma frase de apoio não responde automaticamente todas as proposições.
 
 ## Limite de privacidade do repositório público

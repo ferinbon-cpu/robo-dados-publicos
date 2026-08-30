@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Deterministic T0 validator for human-prepared, sanitized FNDE intake evidence."""
 import argparse
+from datetime import date
 import json
 import re
 from pathlib import Path
@@ -8,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_PATH = ROOT / "config/fnde_authoritative_response_intake.v1.json"
 PENDING_PATH = ROOT / "docs/evidence/TASK_011_FNDE_AUTHORITATIVE_REQUESTS_PENDING_0.8.0.json"
-REQUIRED_FIELDS = {"schema","task","tier","blocker_id","protocol","authority","response_received","received_date","source_class","raw_artifact_sha256","raw_artifact_bytes","raw_artifact_mime","raw_artifact_committed","sanitization_status","authority_provenance_status","provenance_basis","protocol_identity_match","proposition_assessments","overall_intake_status","promotion_performed","canonical_state","fixture_disclaimer"}
+REQUIRED_FIELDS = {"schema","task","tier","blocker_id","protocol","authority","response_received","received_date","source_class","raw_artifact_sha256","raw_artifact_bytes","raw_artifact_mime","raw_artifact_committed","sanitization_status","authority_provenance_status","provenance_basis","provenance_checks","protocol_identity_match","proposition_assessments","overall_intake_status","promotion_performed","canonical_state","fixture_disclaimer"}
 ASSESSMENT_FIELDS = {"proposition_index","target_proposition","assessment","support_type","sanitized_support_excerpt","support_location","assessment_note"}
 UNSAFE = [
     re.compile(r"[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}"), re.compile(r"(?<!\d)\d{3}\.?\d{3}\.?\d{3}-?\d{2}(?!\d)"),
@@ -40,7 +41,14 @@ def status_for(data, contract):
     request = requests[data["blocker_id"]]
     if data["protocol"] != request["protocol"] or data["protocol_identity_match"] is not True: return "STOP_PROTOCOL_MISMATCH"
     if data["promotion_performed"] is not False or data["canonical_state"] != contract["canonical_no_promotion_state"]: return "STOP_FORBIDDEN_PROMOTION"
-    if not data["response_received"]: return "STOP_NO_RESPONSE"
+    if type(data["response_received"]) is not bool: return "STOP_INVALID_INTAKE_METADATA"
+    if data["response_received"] is False: return "STOP_NO_RESPONSE"
+    received_date = data["received_date"]
+    if type(received_date) is not str or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", received_date): return "STOP_INVALID_INTAKE_METADATA"
+    try:
+        if date.fromisoformat(received_date).isoformat() != received_date: return "STOP_INVALID_INTAKE_METADATA"
+    except ValueError:
+        return "STOP_INVALID_INTAKE_METADATA"
     if data["raw_artifact_committed"] is not False: return "STOP_UNSAFE_PUBLIC_EVIDENCE"
     public_text = "\n".join(
         str(value)
@@ -51,9 +59,15 @@ def status_for(data, contract):
     if (not re.fullmatch(r"[0-9a-f]{64}", str(data["raw_artifact_sha256"])) or type(data["raw_artifact_bytes"]) is not int or data["raw_artifact_bytes"] <= 0 or not re.fullmatch(r"[\w.+-]+/[\w.+-]+", str(data["raw_artifact_mime"]))): return "STOP_INVALID_ARTIFACT_METADATA"
     if data["authority_provenance_status"] not in contract["allowed_provenance_states"]: return "STOP_PROVENANCE_INCOMPLETE"
     synthetic = data["source_class"] == "SYNTHETIC_FIXTURE"
+    checks = data["provenance_checks"]
+    if type(checks) is not dict or set(checks) != set(contract["provenance_check_fields"]): return "STOP_PROVENANCE_INCOMPLETE"
     if synthetic:
-        if data["authority_provenance_status"] != "SYNTHETIC_NOT_AUTHORITATIVE" or data["fixture_disclaimer"] != ["SYNTHETIC","NOT FROM FNDE","NO REAL PERSONAL DATA","NO PROMOTION EFFECT"]: return "STOP_PROVENANCE_INCOMPLETE"
-    elif data["authority_provenance_status"] != "AUTHORITATIVE_PROVEN" or not data["provenance_basis"].strip(): return "STOP_PROVENANCE_INCOMPLETE"
+        synthetic_checks = {"handoff_mode":"SYNTHETIC_TEST_CONSTRUCTION","authority_label_observed":False,"protocol_observed":data["protocol"],"raw_artifact_hash_verified":False,"human_offline_review_completed":True}
+        if data["authority_provenance_status"] != "SYNTHETIC_NOT_AUTHORITATIVE" or data["fixture_disclaimer"] != ["SYNTHETIC","NOT FROM FNDE","NO REAL PERSONAL DATA","NO PROMOTION EFFECT"] or checks != synthetic_checks: return "STOP_PROVENANCE_INCOMPLETE"
+    else:
+        if data["fixture_disclaimer"] != []: return "STOP_UNSAFE_PUBLIC_EVIDENCE"
+        proven_checks = {"handoff_mode":"USER_MEDIATED_OFFICIAL_RESPONSE","authority_label_observed":True,"protocol_observed":data["protocol"],"raw_artifact_hash_verified":True,"human_offline_review_completed":True}
+        if data["authority_provenance_status"] != "AUTHORITATIVE_PROVEN" or type(data["provenance_basis"]) is not str or not data["provenance_basis"].strip() or checks != proven_checks: return "STOP_PROVENANCE_INCOMPLETE"
     if data["source_class"] not in contract["allowed_source_classes"] or data["sanitization_status"] != "SANITIZED_FOR_PUBLIC_REPOSITORY": return "STOP_PROVENANCE_INCOMPLETE"
     assessments = data["proposition_assessments"]
     if len(assessments) != len(request["target_propositions"]): return "STOP_PROPOSITION_MAPPING_DRIFT"

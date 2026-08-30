@@ -78,5 +78,12 @@
     "NOT FROM FNDE",
     "NO REAL PERSONAL DATA",
     "NO PROMOTION EFFECT"
-  ]
+  ],
+  "provenance_checks": {
+    "handoff_mode": "SYNTHETIC_TEST_CONSTRUCTION",
+    "authority_label_observed": false,
+    "protocol_observed": "23546.111502/2026-41",
+    "raw_artifact_hash_verified": false,
+    "human_offline_review_completed": true
+  }
 }
