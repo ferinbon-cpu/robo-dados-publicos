@@ -23,10 +23,18 @@ def canonical():
     return [[f"r{r}c{c}" for c in range(EXPECTED_COLUMNS)] for r in range(EXPECTED_ROWS)]
 
 
+class SimulatedHTTPError(RuntimeError):
+    def __init__(self, status, secret):
+        super().__init__(f"opaque body spreadsheet-id-123 Authorization: Bearer {secret}")
+        self.code = status
+        self.response_body = f'{{"token":"{secret}","folder":"folder-id-456"}}'
+
+
 class FakeReadonly:
     def __init__(self, *, matrix=None, sheet_count=1, pdf=0, manifest=0, token=None,
                  inventory_error=False, read_error=False, worksheets=None,
-                 worksheet_metadata=None):
+                 worksheet_metadata=None, inventory_exception=None,
+                 metadata_exception=None, values_exception=None):
         names = PublicationNames.from_basename(REMOTE_BASENAME)
         self.files = ([{"id": f"sheet-{i}", "name": names.sheet, "mimeType": GOOGLE_SHEETS_MIME}
                        for i in range(sheet_count)]
@@ -37,6 +45,9 @@ class FakeReadonly:
         self.inventory_error = inventory_error
         self.read_error = read_error
         self.worksheet_metadata = worksheet_metadata
+        self.inventory_exception = inventory_exception
+        self.metadata_exception = metadata_exception
+        self.values_exception = values_exception
         self.worksheets = ([{"properties": {
             "sheetId": 0, "title": "Sheet 1", "index": 0, "sheetType": "GRID",
         }}] if worksheets is None else worksheets)
@@ -48,6 +59,8 @@ class FakeReadonly:
 
     def list_children_single_page(self, parent, page_size=1000):
         self.inventory_calls += 1
+        if self.inventory_exception:
+            raise self.inventory_exception
         if self.inventory_error:
             raise RuntimeError("opaque remote failure with possible id")
         return {"files": self.files, "next_page_token": self.token}
@@ -56,6 +69,8 @@ class FakeReadonly:
         self.events.append("values")
         self.sheet_calls += 1
         self.ranges.append(range_a1)
+        if self.values_exception:
+            raise self.values_exception
         if self.read_error:
             raise RuntimeError("opaque sheet failure with possible id")
         return {"values": copy.deepcopy(self.matrix)}
@@ -63,6 +78,8 @@ class FakeReadonly:
     def spreadsheet_metadata_get(self, spreadsheet_id):
         self.events.append("metadata")
         self.metadata_calls += 1
+        if self.metadata_exception:
+            raise self.metadata_exception
         if self.worksheet_metadata is not None:
             return copy.deepcopy(self.worksheet_metadata)
         return {"sheets": copy.deepcopy(self.worksheets)}
@@ -149,6 +166,44 @@ class M8R2ForensicReadonlyTests(unittest.TestCase):
         self.assertEqual("SHEET_READ_FAILED", result["sheet_forensics"]["state"])
         self.assertNotIn("opaque", json.dumps(result))
 
+    def test_remote_http_failures_report_only_safe_stage_status_and_type(self):
+        cases = (
+            ({"inventory_exception": SimulatedHTTPError(403, "inventory-secret")},
+             "REMOTE_STAGE_DRIVE_INVENTORY", "DRIVE_READONLY", 403),
+            ({"metadata_exception": SimulatedHTTPError(403, "metadata-secret")},
+             "REMOTE_STAGE_SHEET_METADATA_GET", "SHEETS_READONLY", 403),
+            ({"values_exception": SimulatedHTTPError(403, "values-secret")},
+             "REMOTE_STAGE_SHEET_VALUES_GET", "SHEETS_READONLY", 403),
+            ({"metadata_exception": SimulatedHTTPError(404, "not-found-secret")},
+             "REMOTE_STAGE_SHEET_METADATA_GET", "SHEETS_READONLY", 404),
+        )
+        forbidden = ("opaque body", "spreadsheet-id-123", "folder-id-456",
+                     "Authorization", "Bearer", "inventory-secret",
+                     "metadata-secret", "values-secret", "not-found-secret")
+        for kwargs, stage, operation_class, status in cases:
+            with self.subTest(stage=stage, status=status):
+                _, result, code = self.run_case(**kwargs)
+                serialized = json.dumps(result)
+                self.assertNotEqual(0, code)
+                self.assertEqual(stage, result["remote_stage"])
+                self.assertEqual(operation_class, result["remote_operation_class"])
+                self.assertEqual("SimulatedHTTPError", result["error_type"])
+                self.assertEqual(status, result["http_status_if_safe"])
+                self.assertFalse(result["retryable"])
+                for value in forbidden:
+                    self.assertNotIn(value, serialized)
+
+    def test_non_http_failure_has_type_without_guessed_status_or_exception_text(self):
+        _, result, code = self.run_case(metadata_exception=ValueError(
+            "opaque spreadsheet-id-789 Authorization: Bearer token-789"))
+        self.assertNotEqual(0, code)
+        self.assertEqual("REMOTE_STAGE_SHEET_METADATA_GET", result["remote_stage"])
+        self.assertEqual("ValueError", result["error_type"])
+        self.assertIsNone(result["http_status_if_safe"])
+        serialized = json.dumps(result)
+        self.assertNotIn("spreadsheet-id-789", serialized)
+        self.assertNotIn("token-789", serialized)
+
     def test_zero_worksheets_fails_closed_before_values_read(self):
         adapter, result, code = self.run_case(worksheets=[])
         self.assertNotEqual(0, code)
@@ -192,6 +247,7 @@ class M8R2ForensicReadonlyTests(unittest.TestCase):
             "source_recollection_performed": False, "include_2025": False,
             "release_promotion_performed": False,
             "historically_recorded_failure_stage": "UNKNOWN_REMOTE_OPERATION",
+            "retryable": False,
         }
         for key, value in expected.items(): self.assertEqual(value, result[key])
 
