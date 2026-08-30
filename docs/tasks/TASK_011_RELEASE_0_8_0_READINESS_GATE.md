@@ -14,3 +14,7 @@ estado permitido explícito; não há inferência transitiva.
 | B5 | `BLOCKED_BY_B4` |
 
 Decisão atual: `KEEP_0_8_0_CANDIDATE_BLOCKERS_REMAIN`.
+O avaliador aceita resolução parcial usando apenas o vocabulário pinado e lista
+os bloqueios restantes. Todos os predecessores provados produzem hipoteticamente
+`READY_0_8_0_FOR_EXPLICIT_PROMOTION`, mas mantêm a release `CANDIDATE` e exigem
+um gate de promoção separado.

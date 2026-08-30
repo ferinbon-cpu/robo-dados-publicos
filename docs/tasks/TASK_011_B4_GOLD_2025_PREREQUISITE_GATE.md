@@ -8,3 +8,7 @@ aliases não substituem qualquer requisito.
 
 Decisão atual: `STOP_GOLD_2025_PREREQUISITES_NOT_PROVEN`, com os quatro
 pré-requisitos listados como não atendidos e `gold_2025_calculated=false`.
+O avaliador é seguro para transição: progresso parcial apenas reduz a lista de
+bloqueios e, se todos forem futuramente provados, retorna
+`READY_GOLD_2025_PREREQUISITES_PROVEN_REQUIRES_SEPARATE_AUTHORIZATION`. Esse
+READY é somente informativo e continua sem calcular ou autorizar Gold.

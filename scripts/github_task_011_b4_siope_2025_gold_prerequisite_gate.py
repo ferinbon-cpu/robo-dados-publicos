@@ -6,6 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "config/siope_2025_gold_prerequisites.v1.json"
 DECISION = "STOP_GOLD_2025_PREREQUISITES_NOT_PROVEN"
+READY = "READY_GOLD_2025_PREREQUISITES_PROVEN_REQUIRES_SEPARATE_AUTHORIZATION"
 KEYS = ["B1_NUM_POPU", "B2_FINANCIAL_ALIAS_BRIDGE", "B3_EFFECTIVE_ANNUAL_DECLARATION", "SEMANTIC_COMPARABILITY"]
 
 
@@ -19,14 +20,12 @@ def validate(data):
         raise ValueError("B4 required state drift")
     state = data.get("prerequisites", {})
     unmet = [key for key in KEYS if state.get(key) != required[key]]
-    if not unmet:
-        raise ValueError("current TASK 011 must remain stopped")
     context = data.get("context_only", {})
     if context != {"year_2025": "PROVEN_STRUCTURAL_RECENT", "VALID_ANNUAL_SUBMISSION": "PROVEN", "financial_aliases_proven_exact_operational": "9/10", "VL_DESP_DOTA_ATUA_EDU": "PARTIAL_CURRENT_EXACT_1000_VARIANCE_NO_SOURCE_DEFINED_INCLUSION_RULE"}:
         raise ValueError("structural, submission, or 9/10 shortcut attempted")
     if data.get("gold_2025_calculated") is not False or data.get("effects") != {"network_calls": 0, "drive_calls": 0, "writes": 0, "gold_arithmetic": 0}:
         raise ValueError("forbidden B4 effect")
-    return {"decision": DECISION, "unmet": unmet, "gold_2025_calculated": False}
+    return {"decision": DECISION if unmet else READY, "unmet": unmet, "gold_2025_calculated": False, "authorization_effect": "NONE_EVALUATION_ONLY"}
 
 
 def main():

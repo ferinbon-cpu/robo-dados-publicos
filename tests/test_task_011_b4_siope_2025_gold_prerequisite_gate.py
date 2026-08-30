@@ -1,7 +1,7 @@
 import copy
 import json
 import unittest
-from scripts.github_task_011_b4_siope_2025_gold_prerequisite_gate import CONFIG, DECISION, KEYS, validate
+from scripts.github_task_011_b4_siope_2025_gold_prerequisite_gate import CONFIG, DECISION, KEYS, READY, validate
 
 
 class B4GateTests(unittest.TestCase):
@@ -18,6 +18,12 @@ class B4GateTests(unittest.TestCase):
         data = copy.deepcopy(self.data)
         for key in KEYS[:3]: data["prerequisites"][key] = "PROVEN"
         self.assertEqual(validate(data)["unmet"], ["SEMANTIC_COMPARABILITY"])
+    def test_all_proven_is_evaluation_only_ready(self):
+        data = copy.deepcopy(self.data)
+        for key in KEYS: data["prerequisites"][key] = "PROVEN"
+        result = validate(data)
+        self.assertEqual(result["decision"], READY); self.assertEqual(result["unmet"], [])
+        self.assertFalse(result["gold_2025_calculated"]); self.assertEqual(result["authorization_effect"], "NONE_EVALUATION_ONLY")
     def test_rejects_structural_submission_and_nine_of_ten_shortcuts(self):
         for key, value in (("year_2025", "PROVEN"), ("VALID_ANNUAL_SUBMISSION", "CURRENTLY_EFFECTIVE_DECLARATION"), ("financial_aliases_proven_exact_operational", "10/10")):
             data = copy.deepcopy(self.data); data["context_only"][key] = value
