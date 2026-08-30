@@ -1,6 +1,6 @@
 {
   "schema": "TASK_012_M8_CORRECTIVE_R2_OWNER_AUTHORIZATION_V1",
-  "status": "PENDING_POST_MERGE_OWNER_AUTHORIZATION",
+  "status": "AUTHORIZED_FOR_SINGLE_CORRECTIVE_R2_T3_PUBLICATION",
   "gate_id": "M8_SIOPE_HISTORICAL_CORRECTIVE_PUBLICATION_0_8_0_R2",
   "drive_target": "08_OUTPUTS",
   "remote_names": [
@@ -18,5 +18,5 @@
   "schedule_allowed": false,
   "recurrence_allowed": false,
   "future_batch_execution_authorized": false,
-  "authorized_implementation_sha": null
+  "authorized_implementation_sha": "1e22dec9ebdb9cea55dedebb79b5b874879b3309"
 }
