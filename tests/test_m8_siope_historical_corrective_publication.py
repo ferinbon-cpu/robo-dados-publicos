@@ -15,7 +15,8 @@ from robo_dados_publicos.product.siope_historical_corrective_publication import 
     GATE_ID, OLD_REMOTE_BASENAME, OWNER_AUTHORIZATION_PATH, REMOTE_BASENAME,
     SEMANTIC_READBACK_RANGE, WRITE_RANGE, _load_contract,
     dry_run_result, execute_corrective_publication, matrix_sha256,
-    parse_canonical_matrix, validate_matrix, validate_owner_authorization,
+    parse_canonical_matrix, validate_authorization_repository_boundary,
+    validate_matrix, validate_owner_authorization,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -82,7 +83,7 @@ class CorrectivePublicationTests(unittest.TestCase):
         module = "robo_dados_publicos.product.siope_historical_corrective_publication"
         return (
             patch(f"{module}._load_contract", return_value={}),
-            patch(f"{module}.validate_owner_authorization", return_value={}),
+            patch(f"{module}.validate_live_authorization", return_value={}),
             patch(f"{module}.prepare_source", return_value=(bundle, valid_matrix(), source)),
             patch(f"{module}.output_parent_id", return_value="outputs"),
         )
@@ -129,40 +130,93 @@ class CorrectivePublicationTests(unittest.TestCase):
     def test_checked_in_owner_authorization_is_pending_and_rejected(self):
         evidence = json.loads((ROOT / OWNER_AUTHORIZATION_PATH).read_text(encoding="utf-8"))
         self.assertEqual(evidence["status"], "PENDING_POST_MERGE_OWNER_AUTHORIZATION")
-        self.assertIsNone(evidence["authorized_main_sha"])
-        with self.assertRaisesRegex(CorrectivePublicationError, "OWNER_AUTHORIZATION_NOT_VALID"):
-            validate_owner_authorization(root=ROOT, execution_sha=self.SHA)
+        self.assertIsNone(evidence["authorized_implementation_sha"])
+        with self.assertRaisesRegex(CorrectivePublicationError, "OWNER_AUTHORIZATION_INVALID"):
+            validate_owner_authorization(root=ROOT)
 
     def test_owner_authorization_missing_and_every_governance_drift_rejected(self):
         original = json.loads((ROOT / OWNER_AUTHORIZATION_PATH).read_text(encoding="utf-8"))
         original["status"] = "AUTHORIZED_FOR_SINGLE_CORRECTIVE_R2_T3_PUBLICATION"
-        original["authorized_main_sha"] = self.SHA
+        original["authorized_implementation_sha"] = self.SHA
         mutations = {
             "schema": "WRONG", "gate_id": "WRONG", "drive_target": "WRONG",
-            "remote_names": ["WRONG"], "authorized_main_sha": "b" * 40,
+            "remote_names": ["WRONG"], "authorized_implementation_sha": "malformed",
             "overwrite_allowed": True, "replace_allowed": True, "delete_allowed": True,
             "retry_allowed": True,
         }
         with tempfile.TemporaryDirectory() as raw:
             with self.assertRaisesRegex(CorrectivePublicationError, "OWNER_AUTHORIZATION_MISSING"):
-                validate_owner_authorization(root=raw, execution_sha=self.SHA)
+                validate_owner_authorization(root=raw)
         for field, value in mutations.items():
             with self.subTest(field=field), tempfile.TemporaryDirectory() as raw:
                 root = Path(raw); path = root / OWNER_AUTHORIZATION_PATH; path.parent.mkdir(parents=True)
                 evidence = copy.deepcopy(original); evidence[field] = value
                 path.write_text(json.dumps(evidence), encoding="utf-8")
                 with self.assertRaises(CorrectivePublicationError):
-                    validate_owner_authorization(root=root, execution_sha=self.SHA)
+                    validate_owner_authorization(root=root)
         with tempfile.TemporaryDirectory() as raw:
             root = Path(raw); path = root / OWNER_AUTHORIZATION_PATH; path.parent.mkdir(parents=True)
-            missing_sha = copy.deepcopy(original); missing_sha.pop("authorized_main_sha")
+            missing_sha = copy.deepcopy(original); missing_sha.pop("authorized_implementation_sha")
             path.write_text(json.dumps(missing_sha), encoding="utf-8")
             with self.assertRaises(CorrectivePublicationError):
-                validate_owner_authorization(root=root, execution_sha=self.SHA)
+                validate_owner_authorization(root=root)
         with tempfile.TemporaryDirectory() as raw:
             root = Path(raw); path = root / OWNER_AUTHORIZATION_PATH; path.parent.mkdir(parents=True)
             path.write_text(json.dumps(original), encoding="utf-8")
-            self.assertEqual(validate_owner_authorization(root=root, execution_sha=self.SHA)["authorized_main_sha"], self.SHA)
+            self.assertEqual(validate_owner_authorization(root=root)["authorized_implementation_sha"], self.SHA)
+
+    def test_repository_boundary_allows_descendant_with_authorization_only_diff(self):
+        execution_sha = "b" * 40
+        calls = []
+        def runner(command, **kwargs):
+            calls.append(command)
+            if command[1:3] == ["merge-base", "--is-ancestor"]:
+                return type("Result", (), {"returncode": 0, "stdout": "", "stderr": ""})()
+            return type("Result", (), {
+                "returncode": 0,
+                "stdout": OWNER_AUTHORIZATION_PATH.as_posix() + "\n",
+                "stderr": "",
+            })()
+        result = validate_authorization_repository_boundary(
+            root=ROOT, authorized_implementation_sha=self.SHA,
+            execution_sha=execution_sha, runner=runner,
+        )
+        self.assertTrue(result["implementation_is_ancestor"])
+        self.assertEqual(result["execution_sha"], execution_sha)
+        self.assertNotEqual(result["authorized_implementation_sha"], execution_sha)
+        self.assertEqual(len(calls), 2)
+
+    def test_repository_boundary_rejects_nonancestor_and_every_extra_path(self):
+        execution_sha = "b" * 40
+        def result(returncode=0, stdout=""):
+            return type("Result", (), {"returncode": returncode, "stdout": stdout, "stderr": ""})()
+        def nonancestor(command, **kwargs):
+            return result(returncode=1)
+        with self.assertRaisesRegex(CorrectivePublicationError, "NOT_ANCESTOR"):
+            validate_authorization_repository_boundary(
+                root=ROOT, authorized_implementation_sha=self.SHA,
+                execution_sha=execution_sha, runner=nonancestor,
+            )
+        extra_paths = (
+            "robo_dados_publicos/product/x.py",
+            ".github/workflows/x.yml",
+            "config/x.json",
+            "tests/test_x.py",
+        )
+        for extra in extra_paths:
+            with self.subTest(extra=extra):
+                calls = []
+                def changed(command, **kwargs):
+                    calls.append(command)
+                    if command[1] == "merge-base":
+                        return result()
+                    return result(stdout=OWNER_AUTHORIZATION_PATH.as_posix() + "\n" + extra + "\n")
+                with self.assertRaisesRegex(CorrectivePublicationError, "DIFF_NOT_AUTHORIZATION_ONLY"):
+                    validate_authorization_repository_boundary(
+                        root=ROOT, authorized_implementation_sha=self.SHA,
+                        execution_sha=execution_sha, runner=changed,
+                    )
+                self.assertEqual(len(calls), 2)
 
     def test_exact_valid_matrix_and_hash_are_deterministic(self):
         matrix = valid_matrix()
@@ -301,6 +355,7 @@ class CorrectivePublicationTests(unittest.TestCase):
         self.assertIn("workflow_dispatch:", text); self.assertIn("type: boolean", text)
         self.assertNotIn("\n  push:", text); self.assertNotIn("\n  schedule:", text)
         self.assertNotIn("workflow_call:", text); self.assertIn("persist-credentials: false", text)
+        self.assertIn("fetch-depth: 0", text)
         self.assertIn("cancel-in-progress: false", text)
         self.assertLess(text.index("Validar autorização separada"), text.index("GOOGLE_DRIVE_CLIENT_ID"))
         self.assertIn('--execution-sha "$GITHUB_SHA"', text)

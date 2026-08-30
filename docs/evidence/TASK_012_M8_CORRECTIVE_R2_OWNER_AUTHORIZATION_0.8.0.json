@@ -18,5 +18,5 @@
   "schedule_allowed": false,
   "recurrence_allowed": false,
   "future_batch_execution_authorized": false,
-  "authorized_main_sha": null
+  "authorized_implementation_sha": null
 }

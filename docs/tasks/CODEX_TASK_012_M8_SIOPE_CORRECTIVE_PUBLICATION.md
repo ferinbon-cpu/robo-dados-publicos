@@ -7,10 +7,20 @@ manual do produto histórico validado de Limeira (2016–2024). A execução fut
 exige `workflow_dispatch`, confirmação booleana, branch `main` e autorização
 explícita separada do owner em
 `docs/evidence/TASK_012_M8_CORRECTIVE_R2_OWNER_AUTHORIZATION_0.8.0.json`, com
-status autorizado e `authorized_main_sha` idêntico ao SHA executado. O arquivo
+status autorizado e `authorized_implementation_sha` igual ao merge SHA da
+implementação TASK 012 auditada. O arquivo
 permanece `PENDING_POST_MERGE_OWNER_AUTHORIZATION` neste PR, portanto a
 confirmação booleana isolada para antes de OAuth/Drive. O estado de release permanece `0.7.0 = ACTIVE` e
 `0.8.0 = CANDIDATE`.
+
+Depois do merge e da auditoria desta implementação, espera-se uma mudança
+separada e exclusiva no arquivo de autorização. A execução ocorrerá no SHA
+posterior criado por essa autorização, não no próprio SHA auditado. Antes de
+OAuth/Drive, o gate prova com `git merge-base --is-ancestor` que o SHA auditado
+é ancestral do SHA executado e exige que `git diff --name-only
+<authorized_implementation_sha>..<execution_sha>` contenha exatamente o caminho
+do arquivo de autorização. Qualquer drift de código, configuração, workflow,
+dependência, teste ou outra evidência exige nova auditoria e autorização.
 
 Os objetos V0_8_0 existentes são imutáveis. A correção usa somente estes nomes:
 

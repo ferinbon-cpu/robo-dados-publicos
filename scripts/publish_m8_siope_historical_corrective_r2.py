@@ -16,7 +16,7 @@ if str(ROOT) not in sys.path:
 from robo_dados_publicos.product.publication import ProductPublicationError
 from robo_dados_publicos.product.siope_historical_corrective_publication import (
     ERROR, PASS_DRY_RUN, dry_run_result, execute_corrective_publication, prepare_source,
-    validate_owner_authorization,
+    validate_live_authorization,
 )
 from robo_dados_publicos.storage.drive_rest import DriveRESTClient, OAuthCredentials, TokenProvider
 
@@ -45,7 +45,7 @@ def run_gate(source_zip: str | Path, *, owner_authorized: bool, dry_run: bool, e
                 return result, 0
         # Repository-pinned post-merge authorization is checked before even
         # reading OAuth environment values. The execution gate checks it again.
-        validate_owner_authorization(root=ROOT, execution_sha=execution_sha)
+        validate_live_authorization(root=ROOT, execution_sha=execution_sha)
         drive = DriveRESTClient(TokenProvider(OAuthCredentials.from_env()))
         return execute_corrective_publication(
             drive, root=ROOT, source_zip=source_zip,
@@ -70,8 +70,13 @@ def main() -> int:
     args = parser.parse_args()
     if args.validate_live_authorization:
         try:
-            validate_owner_authorization(root=ROOT, execution_sha=args.execution_sha)
-            print(json.dumps({"status": "PASS_TASK_012_OWNER_AUTHORIZATION", "authorized_main_sha": args.execution_sha}))
+            authorization = validate_live_authorization(root=ROOT, execution_sha=args.execution_sha)
+            print(json.dumps({
+                "status": "PASS_TASK_012_OWNER_AUTHORIZATION",
+                "authorized_implementation_sha": authorization["repository_boundary"]["authorized_implementation_sha"],
+                "execution_sha": args.execution_sha,
+                "authorization_only_diff": True,
+            }))
             return 0
         except ProductPublicationError as exc:
             result, code = _failure(str(exc))

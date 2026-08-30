@@ -11,6 +11,7 @@ from datetime import datetime
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 import tempfile
 from typing import Any
 
@@ -124,8 +125,12 @@ def _load_contract(root: Path) -> dict[str, Any]:
     return contract
 
 
-def validate_owner_authorization(*, root: str | Path, execution_sha: str) -> dict[str, Any]:
-    """Require post-merge owner authorization pinned to the executing main SHA."""
+def _valid_sha(value: Any) -> bool:
+    return isinstance(value, str) and len(value) == 40 and all(char in "0123456789abcdef" for char in value)
+
+
+def validate_owner_authorization(*, root: str | Path) -> dict[str, Any]:
+    """Validate owner authorization pinned to the audited implementation SHA."""
     try:
         evidence = json.loads((Path(root) / OWNER_AUTHORIZATION_PATH).read_text(encoding="utf-8"))
     except FileNotFoundError as exc:
@@ -134,7 +139,7 @@ def validate_owner_authorization(*, root: str | Path, execution_sha: str) -> dic
         raise CorrectivePublicationError(f"{ERROR}_OWNER_AUTHORIZATION_READ") from exc
     if not isinstance(evidence, dict):
         _stop("OWNER_AUTHORIZATION_OBJECT_REQUIRED")
-    sha = str(execution_sha or "").strip()
+    implementation_sha = evidence.get("authorized_implementation_sha")
     required_false = (
         "overwrite_allowed", "replace_allowed", "delete_allowed", "retry_allowed",
         "schedule_allowed", "recurrence_allowed", "future_batch_execution_authorized",
@@ -147,12 +152,60 @@ def validate_owner_authorization(*, root: str | Path, execution_sha: str) -> dic
         and evidence.get("remote_names") == list(PublicationNames.from_basename(REMOTE_BASENAME).all())
         and all(evidence.get(key) is True for key in ("create_only", "single_execution", "manual_execution_required"))
         and all(evidence.get(key) is False for key in required_false)
-        and len(sha) == 40 and all(char in "0123456789abcdef" for char in sha)
-        and evidence.get("authorized_main_sha") == sha
+        and _valid_sha(implementation_sha)
     )
     if not valid:
-        _stop("OWNER_AUTHORIZATION_NOT_VALID_FOR_EXECUTION_SHA")
+        _stop("OWNER_AUTHORIZATION_INVALID")
     return evidence
+
+
+def validate_authorization_repository_boundary(
+    *, root: str | Path, authorized_implementation_sha: str, execution_sha: str,
+    runner=subprocess.run,
+) -> dict[str, Any]:
+    """Prove audited SHA ancestry and an authorization-file-only Git diff."""
+    if not _valid_sha(authorized_implementation_sha):
+        _stop("AUTHORIZED_IMPLEMENTATION_SHA_INVALID")
+    if not _valid_sha(execution_sha):
+        _stop("EXECUTION_SHA_INVALID")
+    repo = Path(root)
+    try:
+        ancestor = runner(
+            ["git", "merge-base", "--is-ancestor", authorized_implementation_sha, execution_sha],
+            cwd=repo, capture_output=True, text=True, check=False,
+        )
+    except (OSError, subprocess.SubprocessError) as exc:
+        raise CorrectivePublicationError(f"{ERROR}_AUTHORIZATION_GIT_ANCESTRY") from exc
+    if ancestor.returncode != 0:
+        _stop("AUTHORIZED_IMPLEMENTATION_NOT_ANCESTOR")
+    try:
+        changed = runner(
+            ["git", "diff", "--name-only", f"{authorized_implementation_sha}..{execution_sha}", "--"],
+            cwd=repo, capture_output=True, text=True, check=False,
+        )
+    except (OSError, subprocess.SubprocessError) as exc:
+        raise CorrectivePublicationError(f"{ERROR}_AUTHORIZATION_GIT_DIFF") from exc
+    if changed.returncode != 0:
+        _stop("AUTHORIZATION_GIT_DIFF_FAILED")
+    paths = [line.strip() for line in changed.stdout.splitlines() if line.strip()]
+    if paths != [OWNER_AUTHORIZATION_PATH.as_posix()]:
+        _stop("POST_AUDIT_DIFF_NOT_AUTHORIZATION_ONLY")
+    return {
+        "authorized_implementation_sha": authorized_implementation_sha,
+        "execution_sha": execution_sha,
+        "changed_paths": paths,
+        "implementation_is_ancestor": True,
+    }
+
+
+def validate_live_authorization(*, root: str | Path, execution_sha: str) -> dict[str, Any]:
+    evidence = validate_owner_authorization(root=root)
+    boundary = validate_authorization_repository_boundary(
+        root=root,
+        authorized_implementation_sha=evidence["authorized_implementation_sha"],
+        execution_sha=execution_sha,
+    )
+    return {"evidence": evidence, "repository_boundary": boundary}
 
 
 def _single_page_inventory(drive, parent: str, *, code: str, created_count: int = 0) -> list[dict[str, Any]]:
@@ -223,7 +276,7 @@ def execute_corrective_publication(drive, *, root: str | Path, source_zip: str |
         # Contract/timestamp policy preflight, then exact-name collision
         # preflight, precede loading the pinned product as required by TASK 012.
         _load_contract(Path(root))
-        validate_owner_authorization(root=root, execution_sha=execution_sha)
+        validate_live_authorization(root=root, execution_sha=execution_sha)
         try:
             parsed_at = datetime.fromisoformat(published_at.replace("Z", "+00:00"))
         except (AttributeError, ValueError) as exc:
