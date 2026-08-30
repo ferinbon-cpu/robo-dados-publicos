@@ -1,0 +1,23 @@
+{
+  "schema": "TASK_016_FNDE_AUTHORITATIVE_RESPONSE_INTAKE_CONTRACT_V1",
+  "intake_schema": "TASK_016_FNDE_AUTHORITATIVE_RESPONSE_INTAKE_V1",
+  "task": "TASK_016",
+  "tier": "T0_OFFLINE",
+  "authority": "FNDE",
+  "request_date": "2026-08-30",
+  "deadline": "2026-09-21",
+  "requests": [
+    {"blocker_id":"B3_EFFECTIVE_DECLARATION","protocol":"23546.111502/2026-41","current_blocker_state":"NOT_PROVEN_EFFECTIVE_SELECTION_RULE_MISSING","target_propositions":["later retifying declaration/receipt supersession rule","currently valid/current/effective declaration selection rule","whether Recibos de Transmissão can show a superseded receipt","exact official documentation or system rule"]},
+    {"blocker_id":"B1_NUM_POPU","protocol":"23546.111503/2026-95","current_blocker_state":"NOT_PROVEN_DEFINITION_SOURCE_VINTAGE_MISSING","target_propositions":["exact NUM_POPU semantic definition","authoritative source and whether it is IBGE","exact reference date/year/version and census/estimate rule","official dictionary/layout/import/backend rule"]},
+    {"blocker_id":"B2_DOTACAO_EDU","protocol":"23546.111504/2026-30","current_blocker_state":"NOT_PROVEN_DOTACAO_EDU_SOURCE_DEFINED_BRIDGE_MISSING","target_propositions":["exact VL_DESP_DOTA_ATUA_EDU definition and accounting source","aggregation formula and included/excluded categories","relation to RREO/MDE updated appropriation","treatment of 3.2.00.00.00 and 3.2.91.00.00","official SQL/view/backend/layout/dictionary/report rule"]}
+  ],
+  "allowed_proposition_assessments":["PROVEN_EXPLICIT","PARTIAL","NOT_ANSWERED","AMBIGUOUS","CONTRADICTORY","OUT_OF_SCOPE"],
+  "allowed_provenance_states":["AUTHORITATIVE_PROVEN","AUTHORITATIVE_CANDIDATE_USER_MEDIATED","PROVENANCE_INCOMPLETE","PROVENANCE_MISMATCH","SYNTHETIC_NOT_AUTHORITATIVE"],
+  "allowed_source_classes":["OFFICIAL_RESPONSE_USER_MEDIATED","SANITIZED_OFFICIAL_EXCERPT","SYNTHETIC_FIXTURE"],
+  "allowed_support_types":["DIRECT_EXCERPT","OFFICIAL_ATTACHMENT_REFERENCE","NONE"],
+  "overall_intake_statuses":["STOP_NO_RESPONSE","STOP_PROTOCOL_MISMATCH","STOP_BLOCKER_MISMATCH","STOP_PROVENANCE_INCOMPLETE","STOP_UNSAFE_PUBLIC_EVIDENCE","STOP_PROPOSITION_MAPPING_DRIFT","STOP_INVALID_INTAKE_METADATA","STOP_INVALID_ARTIFACT_METADATA","STOP_FORBIDDEN_PROMOTION","INTAKE_RECEIVED_INCOMPLETE","INTAKE_RECEIVED_AMBIGUOUS","INTAKE_RECEIVED_CONTRADICTORY","INTAKE_COMPLETE_FOR_BLOCKER_DECISION_REVIEW"],
+  "provenance_check_fields":["handoff_mode","authority_label_observed","protocol_observed","raw_artifact_hash_verified","human_offline_review_completed"],
+  "max_support_excerpt_characters":500,
+  "raw_artifact_commit_policy":"REJECT",
+  "canonical_no_promotion_state":{"release_0_7_0":"ACTIVE","release_0_8_0":"CANDIDATE","year_2025":"PROVEN_STRUCTURAL_RECENT","S1_NUM_POPU":"NOT_PROVEN","S2_FINANCIAL_ALIAS_BRIDGE":"NOT_PROVEN","financial_aliases_proven_exact_operational":"9/10","VALID_ANNUAL_SUBMISSION":"PROVEN","SUCCESSFUL_ANNUAL_DELIVERY":"PROVEN_OFFICIAL_RECEIPT","CURRENTLY_EFFECTIVE_DECLARATION":"NOT_PROVEN_EFFECTIVE_SELECTION_RULE_MISSING","annual_closure_status":"UNKNOWN","semantic_comparability_status":"UNKNOWN","closed_annual_series":"2016-2024","gold_2025":"UNKNOWN/BLOCKED","year_2026":"UNPROVEN_CURRENT_YEAR","future_batch_execution_authorized":false}
+}
