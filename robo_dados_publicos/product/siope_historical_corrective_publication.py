@@ -45,7 +45,15 @@ SEMANTIC_READBACK_RANGE = "A:Z"
 
 
 class CorrectivePublicationError(ProductPublicationError):
-    pass
+    def __init__(self, code: str, *, created_count: int = 0, remote_stage: str | None = None,
+                 remote_operation_class: str | None = None, error_type: str | None = None,
+                 http_status_if_safe: int | None = None):
+        super().__init__(code, created_count=created_count)
+        self.remote_stage = remote_stage
+        self.remote_operation_class = remote_operation_class
+        self.error_type = error_type
+        self.http_status_if_safe = http_status_if_safe
+        self.retryable = False
 
 
 def _stop(code: str, *, created_count: int = 0) -> None:
@@ -312,29 +320,37 @@ def execute_corrective_publication(drive, *, root: str | Path, source_zip: str |
         manifest_path.write_text(json.dumps(manifest_payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
         created = 0
+        remote_stage = "REMOTE_STAGE_SHEET_CREATE"
         try:
             sheet = drive.create_google_sheet(names.sheet, parent)
             created = 1
+            remote_stage = "REMOTE_STAGE_SHEET_METADATA"
             sheet_id = str(sheet.get("id") or "")
             if not sheet_id or not _metadata_ok(drive.metadata(sheet_id), names.sheet, GOOGLE_SHEETS_MIME, parent):
                 _stop("SHEET_METADATA", created_count=created)
+            remote_stage = "REMOTE_STAGE_SHEET_WRITE_RAW"
             update = drive.sheets_values_update_raw(sheet_id, WRITE_RANGE, matrix)
             if int(update.get("updatedRows") or -1) != 9 or int(update.get("updatedColumns") or -1) != 7 or int(update.get("updatedCells") or -1) != 63:
                 _stop("SHEET_WRITE_COUNT", created_count=created)
+            remote_stage = "REMOTE_STAGE_SHEET_READBACK"
             readback = drive.sheets_values_get(sheet_id, SEMANTIC_READBACK_RANGE)
             observed = readback.get("values") if isinstance(readback, dict) else None
+            remote_stage = "REMOTE_STAGE_SHEET_SEMANTIC_VALIDATE"
             validate_matrix(observed, expected=matrix)
 
+            remote_stage = "REMOTE_STAGE_PDF_CREATE"
             pdf = drive.put(bundle / "report.pdf", names.pdf, parent, PDF_MIME)
             created = 2
             pdf_id = str(pdf.get("id") or "")
             if not pdf_id or not _metadata_ok(drive.metadata(pdf_id), names.pdf, PDF_MIME, parent):
                 _stop("PDF_METADATA", created_count=created)
+            remote_stage = "REMOTE_STAGE_PDF_READBACK"
             pdf_readback = Path(raw) / "pdf.readback"
             drive.get(pdf_id, pdf_readback)
             if _sha256(pdf_readback) != _sha256(bundle / "report.pdf"):
                 _stop("PDF_READBACK_HASH", created_count=created)
 
+            remote_stage = "REMOTE_STAGE_MANIFEST_CREATE"
             receipt = drive.put(manifest_path, names.manifest, parent, JSON_MIME)
             created = 3
             manifest_id = str(receipt.get("id") or "")
@@ -344,16 +360,28 @@ def execute_corrective_publication(drive, *, root: str | Path, source_zip: str |
             drive.get(manifest_id, manifest_readback)
             if _sha256(manifest_readback) != _sha256(manifest_path):
                 _stop("MANIFEST_READBACK_HASH", created_count=created)
+            remote_stage = "REMOTE_STAGE_FINAL_INVENTORY"
             final_sheet = drive.sheets_values_get(sheet_id, SEMANTIC_READBACK_RANGE)
             validate_matrix(final_sheet.get("values") if isinstance(final_sheet, dict) else None, expected=matrix)
             final = _single_page_inventory(drive, parent, code="FINAL_INVENTORY", created_count=created)
             final_names = {item.get("name") for item in final if isinstance(item, dict)}
             if not set(names.all()).issubset(final_names):
                 _stop("FINAL_READBACK", created_count=created)
-        except ProductPublicationError:
+        except ProductPublicationError as exc:
+            if isinstance(exc, CorrectivePublicationError) and exc.remote_stage is None:
+                exc.remote_stage = remote_stage
+                exc.remote_operation_class = "DRIVE_OR_SHEETS_REMOTE_OPERATION"
+                exc.error_type = type(exc).__name__
             raise
         except Exception as exc:
-            raise CorrectivePublicationError(f"{ERROR}_REMOTE_OPERATION", created_count=created) from exc
+            safe_status = getattr(exc, "code", None)
+            safe_status = safe_status if isinstance(safe_status, int) and 400 <= safe_status <= 599 else None
+            raise CorrectivePublicationError(
+                f"{ERROR}_REMOTE_OPERATION", created_count=created,
+                remote_stage=remote_stage,
+                remote_operation_class="DRIVE_OR_SHEETS_REMOTE_OPERATION",
+                error_type=type(exc).__name__, http_status_if_safe=safe_status,
+            ) from exc
 
     return {
         "status": PASS, "gate_id": GATE_ID, "created_count": 3,

@@ -162,6 +162,35 @@
       "blockers": ["PUBLICATION_REQUIRES_SEPARATE_EXPLICIT_AUTHORIZATION"]
     },
     {
+      "id": "M8_SIOPE_HISTORICAL_R2_FORENSIC_READONLY",
+      "workflow": ".github/workflows/m8-siope-historical-r2-forensic-readonly.yml",
+      "script": "scripts/audit_m8_siope_historical_r2_forensic_readonly.py",
+      "tier": "T1_REMOTE_READONLY",
+      "auto_allowed": false,
+      "credential_capability": "READ_ONLY_PROVEN",
+      "credential_capability_detail": "EXACT_DRIVE_READONLY_SCOPE_PROVED_BEFORE_FORENSIC_READ",
+      "effects": {
+        "source_network": false,
+        "drive_reads": true,
+        "drive_writes": false,
+        "publication": false
+      },
+      "current_triggers": ["workflow_dispatch"],
+      "schedule": false,
+      "recurrence": false,
+      "readonly_secrets": [
+        "GOOGLE_DRIVE_READONLY_CLIENT_ID",
+        "GOOGLE_DRIVE_READONLY_CLIENT_SECRET",
+        "GOOGLE_DRIVE_READONLY_REFRESH_TOKEN"
+      ],
+      "bounded_inventory": {
+        "page_count_max": 1,
+        "page_size": 1000,
+        "pagination_allowed": false
+      },
+      "blockers": ["MANUAL_FORENSIC_OWNER_DISPATCH_REQUIRED", "NO_REPAIR_OR_PUBLICATION_AUTHORIZED"]
+    },
+    {
       "id": "M8_SIOPE_HISTORICAL_CORRECTIVE_R2_PUBLICATION",
       "workflow": ".github/workflows/m8-siope-historical-corrective-r2-publication.yml",
       "tier": "T3_MUTATING_OR_PUBLICATION",
