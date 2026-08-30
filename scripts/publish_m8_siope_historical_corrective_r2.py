@@ -16,6 +16,7 @@ if str(ROOT) not in sys.path:
 from robo_dados_publicos.product.publication import ProductPublicationError
 from robo_dados_publicos.product.siope_historical_corrective_publication import (
     ERROR, PASS_DRY_RUN, dry_run_result, execute_corrective_publication, prepare_source,
+    validate_owner_authorization,
 )
 from robo_dados_publicos.storage.drive_rest import DriveRESTClient, OAuthCredentials, TokenProvider
 
@@ -31,8 +32,8 @@ def _failure(code: str, created_count: int = 0) -> tuple[dict, int]:
     }, 16)
 
 
-def run_gate(source_zip: str | Path, *, owner_authorized: bool, dry_run: bool) -> tuple[dict, int]:
-    if owner_authorized is not True:
+def run_gate(source_zip: str | Path, *, owner_authorized: bool, dry_run: bool, execution_sha: str = "") -> tuple[dict, int]:
+    if not dry_run and owner_authorized is not True:
         return _failure(f"{ERROR}_EXPLICIT_EXECUTION_AUTHORIZATION_REQUIRED")
     try:
         if dry_run:
@@ -42,10 +43,14 @@ def run_gate(source_zip: str | Path, *, owner_authorized: bool, dry_run: bool) -
                 if result["status"] != PASS_DRY_RUN:
                     return _failure(f"{ERROR}_DRY_RUN_STATUS")
                 return result, 0
+        # Repository-pinned post-merge authorization is checked before even
+        # reading OAuth environment values. The execution gate checks it again.
+        validate_owner_authorization(root=ROOT, execution_sha=execution_sha)
         drive = DriveRESTClient(TokenProvider(OAuthCredentials.from_env()))
         return execute_corrective_publication(
             drive, root=ROOT, source_zip=source_zip,
             published_at=datetime.now(timezone.utc).isoformat(),
+            execution_sha=execution_sha,
         ), 0
     except ProductPublicationError as exc:
         return _failure(str(exc), getattr(exc, "created_count", 0))
@@ -60,8 +65,22 @@ def main() -> int:
     parser.add_argument("--artifact-zip", required=True)
     parser.add_argument("--owner-authorized", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--execution-sha", default="")
+    parser.add_argument("--validate-live-authorization", action="store_true")
     args = parser.parse_args()
-    result, code = run_gate(args.artifact_zip, owner_authorized=args.owner_authorized, dry_run=args.dry_run)
+    if args.validate_live_authorization:
+        try:
+            validate_owner_authorization(root=ROOT, execution_sha=args.execution_sha)
+            print(json.dumps({"status": "PASS_TASK_012_OWNER_AUTHORIZATION", "authorized_main_sha": args.execution_sha}))
+            return 0
+        except ProductPublicationError as exc:
+            result, code = _failure(str(exc))
+            print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
+            return code
+    result, code = run_gate(
+        args.artifact_zip, owner_authorized=args.owner_authorized, dry_run=args.dry_run,
+        execution_sha=args.execution_sha,
+    )
     print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
     return code
 

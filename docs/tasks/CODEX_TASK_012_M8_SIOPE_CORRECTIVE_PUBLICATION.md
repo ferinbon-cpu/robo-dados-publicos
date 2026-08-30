@@ -5,7 +5,11 @@
 Esta mudança prepara, mas **não executa**, uma publicação T3 corretiva e
 manual do produto histórico validado de Limeira (2016–2024). A execução futura
 exige `workflow_dispatch`, confirmação booleana, branch `main` e autorização
-explícita separada do owner. O estado de release permanece `0.7.0 = ACTIVE` e
+explícita separada do owner em
+`docs/evidence/TASK_012_M8_CORRECTIVE_R2_OWNER_AUTHORIZATION_0.8.0.json`, com
+status autorizado e `authorized_main_sha` idêntico ao SHA executado. O arquivo
+permanece `PENDING_POST_MERGE_OWNER_AUTHORIZATION` neste PR, portanto a
+confirmação booleana isolada para antes de OAuth/Drive. O estado de release permanece `0.7.0 = ACTIVE` e
 `0.8.0 = CANDIDATE`.
 
 Os objetos V0_8_0 existentes são imutáveis. A correção usa somente estes nomes:
@@ -22,18 +26,23 @@ nem conversão/importação CSV pelo Drive. O gate cria uma planilha vazia e
 envia a matriz explicitamente a `spreadsheets.values.update` no range `A1:G9`,
 com `valueInputOption=RAW` e `majorDimension=ROWS`.
 
-O readback usa `spreadsheets.values.get`, `majorDimension=ROWS` e
+O readback usa `spreadsheets.values.get` no range amplo e limitado `A:Z`,
+`majorDimension=ROWS` e
 `valueRenderOption=UNFORMATTED_VALUE`. A matriz retornada deve conter exatamente
 9 linhas, 7 colunas em cada linha e igualdade célula a célula com a matriz
 canônica. Ambas também recebem SHA-256 da serialização JSON canônica. Assim,
 colapso de delimitador, reordenação, truncamento, células extras/ausentes e
-reinterpretação de fórmulas falham de modo fechado.
+reinterpretação de fórmulas falham de modo fechado. Como toda a matriz usada
+retornada para `A:Z` deve ser exatamente 9x7, valores em `H1`, `A10` ou qualquer
+outra linha/coluna extra também falham.
 
 ## Ordem e falha fechada
 
 Antes da primeira escrita, o gate valida o contrato, o ZIP e todos os membros
 pinados (incluindo `table.csv`, `report.pdf` e `manifest.json`) e faz um único
-inventário para colisão dos três nomes R2. Qualquer colisão ou drift implica
+inventário para colisão dos três nomes R2. Cada inventário usa exatamente uma
+requisição Drive com `pageSize=1000`; qualquer `nextPageToken` é STOP, pois
+paginação não é autorizada. Qualquer colisão ou drift implica
 zero escrita.
 
 A única sequência mutante é:

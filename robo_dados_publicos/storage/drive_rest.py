@@ -134,6 +134,19 @@ class DriveRESTClient:
             out.extend(data.get("files",[])); token=data.get("nextPageToken")
             if not token: return out
 
+    def list_children_single_page(self,parent_id,page_size=1000):
+        """Issue exactly one bounded inventory request and expose pagination."""
+        if not isinstance(page_size,int) or not 1 <= page_size <= 1000:
+            raise ValueError("SINGLE_PAGE_SIZE_INVALID")
+        q=f"'{parent_id}' in parents and trashed = false"
+        params=urlencode({"q":q,"pageSize":str(page_size),"fields":"files(id,name,mimeType,size,modifiedTime,md5Checksum,parents),nextPageToken"})
+        with self._request(f"{DRIVE_API}/files?{params}") as resp:
+            data=json.loads(resp.read().decode("utf-8"))
+        files=data.get("files") or []
+        if not isinstance(files,list):
+            raise RuntimeError("STOP_DRIVE_SINGLE_PAGE_FILES_INVALID")
+        return {"files":files,"next_page_token":data.get("nextPageToken")}
+
     def find_by_name(self,parent_id,name):
         return [x for x in self.list_children(parent_id) if x.get("name")==name]
 

@@ -59,7 +59,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: gh api "repos/${GITHUB_REPOSITORY}/actions/artifacts/${SOURCE_ARTIFACT_ID}/zip" > "$RUNNER_TEMP/m8-source.zip"
       - name: Dry-run local com zero Drive writes
-        run: python scripts/publish_m8_siope_historical_corrective_r2.py --artifact-zip "$RUNNER_TEMP/m8-source.zip" --owner-authorized --dry-run
+        run: python scripts/publish_m8_siope_historical_corrective_r2.py --artifact-zip "$RUNNER_TEMP/m8-source.zip" --dry-run
+      - name: Validar autorização separada pinada ao SHA de main
+        run: >-
+          python scripts/publish_m8_siope_historical_corrective_r2.py
+          --artifact-zip "$RUNNER_TEMP/m8-source.zip"
+          --execution-sha "$GITHUB_SHA"
+          --validate-live-authorization
       - name: Executar sequência corretiva R2
         id: corrective
         env:
@@ -69,7 +75,7 @@ jobs:
         shell: bash
         run: |
           set +e
-          python scripts/publish_m8_siope_historical_corrective_r2.py --artifact-zip "$RUNNER_TEMP/m8-source.zip" --owner-authorized > "$RUNNER_TEMP/result.json"
+          python scripts/publish_m8_siope_historical_corrective_r2.py --artifact-zip "$RUNNER_TEMP/m8-source.zip" --owner-authorized --execution-sha "$GITHUB_SHA" > "$RUNNER_TEMP/result.json"
           echo "exit_code=$?" >> "$GITHUB_OUTPUT"
       - name: Preservar evidência sanitizada
         if: ${{ always() }}

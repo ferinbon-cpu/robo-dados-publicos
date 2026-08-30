@@ -30,6 +30,7 @@ from robo_dados_publicos.product.siope_historical_publication_gate import (
 )
 
 CONFIG_PATH = Path("config/m8_siope_historical_corrective_publication.v1.json")
+OWNER_AUTHORIZATION_PATH = Path("docs/evidence/TASK_012_M8_CORRECTIVE_R2_OWNER_AUTHORIZATION_0.8.0.json")
 REMOTE_BASENAME = "SIOPE_LIMEIRA_HISTORICAL_2016_2024_V0_8_0_R2"
 OLD_REMOTE_BASENAME = "SIOPE_LIMEIRA_HISTORICAL_2016_2024_V0_8_0"
 GATE_ID = "M8_SIOPE_HISTORICAL_CORRECTIVE_PUBLICATION_0_8_0_R2"
@@ -38,7 +39,8 @@ PASS_DRY_RUN = "PASS_M8_SIOPE_HISTORICAL_CORRECTIVE_PUBLICATION_DRY_RUN"
 ERROR = "STOP_M8_SIOPE_HISTORICAL_CORRECTIVE_PUBLICATION"
 EXPECTED_ROWS = 9
 EXPECTED_COLUMNS = 7
-SHEET_RANGE = "A1:G9"
+WRITE_RANGE = "A1:G9"
+SEMANTIC_READBACK_RANGE = "A:Z"
 
 
 class CorrectivePublicationError(ProductPublicationError):
@@ -94,7 +96,7 @@ def _load_contract(root: Path) -> dict[str, Any]:
         raise CorrectivePublicationError(f"{ERROR}_CONTRACT_READ") from exc
     names = PublicationNames.from_basename(REMOTE_BASENAME)
     required_false = (
-        "overwrite_allowed", "replace_allowed", "delete_allowed", "retry_allowed",
+        "overwrite_allowed", "replace_allowed", "delete_allowed", "retry_allowed", "pagination_allowed",
         "schedule_enabled", "recurrence_enabled", "source_collection_allowed",
         "processing_rerun_allowed", "reconciliation_rerun_allowed", "include_2025",
         "release_0_8_0_promotion", "compliance_claim_promotion",
@@ -107,7 +109,9 @@ def _load_contract(root: Path) -> dict[str, Any]:
         contract.get("remote_names") == list(names.all()),
         contract.get("expected_matrix") == {"rows": 9, "columns": 7},
         contract.get("write_mechanism") == "SHEETS_API_VALUES_UPDATE_RAW",
-        contract.get("readback_mechanism") == "SHEETS_API_VALUES_GET_UNFORMATTED",
+        contract.get("readback_mechanism") == "SHEETS_API_VALUES_GET_UNFORMATTED_A_TO_Z_FULL_USED_MATRIX",
+        contract.get("write_range") == WRITE_RANGE,
+        contract.get("semantic_readback_range") == SEMANTIC_READBACK_RANGE,
         all(contract.get(key) is True for key in (
             "create_only", "one_shot", "manual", "preflight_all_names_before_first_write",
             "completion_manifest_written_last",
@@ -118,6 +122,50 @@ def _load_contract(root: Path) -> dict[str, Any]:
     if not all(checks):
         _stop("CONTRACT_POLICY")
     return contract
+
+
+def validate_owner_authorization(*, root: str | Path, execution_sha: str) -> dict[str, Any]:
+    """Require post-merge owner authorization pinned to the executing main SHA."""
+    try:
+        evidence = json.loads((Path(root) / OWNER_AUTHORIZATION_PATH).read_text(encoding="utf-8"))
+    except FileNotFoundError as exc:
+        raise CorrectivePublicationError(f"{ERROR}_OWNER_AUTHORIZATION_MISSING") from exc
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise CorrectivePublicationError(f"{ERROR}_OWNER_AUTHORIZATION_READ") from exc
+    if not isinstance(evidence, dict):
+        _stop("OWNER_AUTHORIZATION_OBJECT_REQUIRED")
+    sha = str(execution_sha or "").strip()
+    required_false = (
+        "overwrite_allowed", "replace_allowed", "delete_allowed", "retry_allowed",
+        "schedule_allowed", "recurrence_allowed", "future_batch_execution_authorized",
+    )
+    valid = (
+        evidence.get("schema") == "TASK_012_M8_CORRECTIVE_R2_OWNER_AUTHORIZATION_V1"
+        and evidence.get("status") == "AUTHORIZED_FOR_SINGLE_CORRECTIVE_R2_T3_PUBLICATION"
+        and evidence.get("gate_id") == GATE_ID
+        and evidence.get("drive_target") == "08_OUTPUTS"
+        and evidence.get("remote_names") == list(PublicationNames.from_basename(REMOTE_BASENAME).all())
+        and all(evidence.get(key) is True for key in ("create_only", "single_execution", "manual_execution_required"))
+        and all(evidence.get(key) is False for key in required_false)
+        and len(sha) == 40 and all(char in "0123456789abcdef" for char in sha)
+        and evidence.get("authorized_main_sha") == sha
+    )
+    if not valid:
+        _stop("OWNER_AUTHORIZATION_NOT_VALID_FOR_EXECUTION_SHA")
+    return evidence
+
+
+def _single_page_inventory(drive, parent: str, *, code: str, created_count: int = 0) -> list[dict[str, Any]]:
+    """Make exactly one bounded list call; any continuation token is fatal."""
+    try:
+        page = drive.list_children_single_page(parent, page_size=1000)
+    except Exception as exc:
+        raise CorrectivePublicationError(f"{ERROR}_{code}", created_count=created_count) from exc
+    if not isinstance(page, dict) or not isinstance(page.get("files"), list):
+        _stop(f"{code}_INVALID", created_count=created_count)
+    if page.get("next_page_token"):
+        _stop(f"{code}_PAGINATION_PROHIBITED", created_count=created_count)
+    return page["files"]
 
 
 def prepare_source(*, root: str | Path, source_zip: str | Path, work_dir: str | Path) -> tuple[Path, list[list[str]], dict[str, Any]]:
@@ -150,7 +198,8 @@ def dry_run_result(matrix: list[list[str]], source: dict[str, Any]) -> dict[str,
         "remote_names": list(PublicationNames.from_basename(REMOTE_BASENAME).all()),
         "canonical_matrix": semantic,
         "sheet_write": "SHEETS_API_VALUES_UPDATE_RAW",
-        "sheet_readback": "SHEETS_API_VALUES_GET_UNFORMATTED",
+        "sheet_readback": "SHEETS_API_VALUES_GET_UNFORMATTED_A_TO_Z_FULL_USED_MATRIX",
+        "semantic_readback_range": SEMANTIC_READBACK_RANGE,
         "would_create": 3,
         "drive_writes": 0,
         "network_called": False,
@@ -168,12 +217,13 @@ def _metadata_ok(meta: dict, name: str, mime: str, parent: str) -> bool:
     return meta.get("name") == name and meta.get("mimeType") == mime and parent in (meta.get("parents") or [])
 
 
-def execute_corrective_publication(drive, *, root: str | Path, source_zip: str | Path, published_at: str) -> dict[str, Any]:
+def execute_corrective_publication(drive, *, root: str | Path, source_zip: str | Path, published_at: str, execution_sha: str) -> dict[str, Any]:
     """Execute the only permitted Sheet -> validation -> PDF -> manifest path."""
     with tempfile.TemporaryDirectory(prefix="m8-corrective-r2-") as raw:
         # Contract/timestamp policy preflight, then exact-name collision
         # preflight, precede loading the pinned product as required by TASK 012.
         _load_contract(Path(root))
+        validate_owner_authorization(root=root, execution_sha=execution_sha)
         try:
             parsed_at = datetime.fromisoformat(published_at.replace("Z", "+00:00"))
         except (AttributeError, ValueError) as exc:
@@ -184,10 +234,7 @@ def execute_corrective_publication(drive, *, root: str | Path, source_zip: str |
         names = PublicationNames.from_basename(REMOTE_BASENAME)
 
         # One inventory request checks all exact names before the first write.
-        try:
-            children = drive.list_children(parent)
-        except Exception as exc:
-            raise CorrectivePublicationError(f"{ERROR}_COLLISION_PREFLIGHT") from exc
+        children = _single_page_inventory(drive, parent, code="COLLISION_PREFLIGHT")
         existing = {item.get("name") for item in children if isinstance(item, dict)}
         if set(names.all()) & existing:
             _stop("R2_NAME_COLLISION")
@@ -218,10 +265,10 @@ def execute_corrective_publication(drive, *, root: str | Path, source_zip: str |
             sheet_id = str(sheet.get("id") or "")
             if not sheet_id or not _metadata_ok(drive.metadata(sheet_id), names.sheet, GOOGLE_SHEETS_MIME, parent):
                 _stop("SHEET_METADATA", created_count=created)
-            update = drive.sheets_values_update_raw(sheet_id, SHEET_RANGE, matrix)
+            update = drive.sheets_values_update_raw(sheet_id, WRITE_RANGE, matrix)
             if int(update.get("updatedRows") or -1) != 9 or int(update.get("updatedColumns") or -1) != 7 or int(update.get("updatedCells") or -1) != 63:
                 _stop("SHEET_WRITE_COUNT", created_count=created)
-            readback = drive.sheets_values_get(sheet_id, SHEET_RANGE)
+            readback = drive.sheets_values_get(sheet_id, SEMANTIC_READBACK_RANGE)
             observed = readback.get("values") if isinstance(readback, dict) else None
             validate_matrix(observed, expected=matrix)
 
@@ -244,9 +291,9 @@ def execute_corrective_publication(drive, *, root: str | Path, source_zip: str |
             drive.get(manifest_id, manifest_readback)
             if _sha256(manifest_readback) != _sha256(manifest_path):
                 _stop("MANIFEST_READBACK_HASH", created_count=created)
-            final_sheet = drive.sheets_values_get(sheet_id, SHEET_RANGE)
+            final_sheet = drive.sheets_values_get(sheet_id, SEMANTIC_READBACK_RANGE)
             validate_matrix(final_sheet.get("values") if isinstance(final_sheet, dict) else None, expected=matrix)
-            final = drive.list_children(parent)
+            final = _single_page_inventory(drive, parent, code="FINAL_INVENTORY", created_count=created)
             final_names = {item.get("name") for item in final if isinstance(item, dict)}
             if not set(names.all()).issubset(final_names):
                 _stop("FINAL_READBACK", created_count=created)
