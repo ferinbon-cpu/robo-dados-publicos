@@ -1,0 +1,66 @@
+{
+  "schema": "OPERATIONAL_CYCLE_PROFILE_V1",
+  "profile_id": "LIMEIRA_OPERATIONAL_PILOT_V1",
+  "tier": "T0_OFFLINE",
+  "source_mode": "PINNED_REUSE",
+  "supported_source_modes": ["PINNED_REUSE", "LIVE_ONE_SHOT_AUTHORIZED"],
+  "live_one_shot_authorized": false,
+  "default_live_authorization_state": "BLOCKED_AUTHORIZATION_REQUIRED",
+  "source": {
+    "source_id": "LIMEIRA_JORNAL_OFICIAL_EDICAO_7310",
+    "authorization_state": "PINNED_REUSE",
+    "sha256": "78a23262023f6233cb59fdc78f1fadc196d0a7bbd52c418bbdd9244229f46680",
+    "edition": 7310
+  },
+  "processing_identity": "LIMEIRA_JO_07310_78A23262023F",
+  "pinned_reference": {
+    "pages": 76,
+    "extracted_characters": 195540,
+    "gold_events": 53,
+    "rag_chunks": 148,
+    "reconciliation_tasks": 68,
+    "classification": "PROVEN_FACT_HISTORICAL_PINNED_REFERENCE_NOT_FRESH_RUN"
+  },
+  "reconciliation": {
+    "allowed_targets": ["LIMEIRA_CONTRATOS"],
+    "limit": 1,
+    "required_selected": 1,
+    "initial_status": "READY_SEARCH",
+    "selection_policy": "ELIGIBLE_PRIORITY_DESC_TASK_ID_ASC",
+    "financial_identity_auto_promotion": "PROHIBITED",
+    "live_execution": "NOT_EXECUTED"
+  },
+  "release_boundary": {
+    "active": "0.7.0",
+    "active_status": "ACTIVE",
+    "candidate": "0.8.0",
+    "candidate_status": "CANDIDATE",
+    "year_2025": "PROVEN_STRUCTURAL_RECENT",
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "closed_annual_series": "2016-2024",
+    "gold_2025": "UNKNOWN/BLOCKED",
+    "year_2026": "UNPROVEN_CURRENT_YEAR",
+    "B1": "PENDING",
+    "B2": "PENDING",
+    "B3": "PENDING"
+  },
+  "effects": {
+    "network_requests": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "source_collection": 0,
+    "live_reconciliation": 0
+  },
+  "persistence_policy": "CREATE_ONLY_LOCAL",
+  "schedule": "DISABLED",
+  "recurrence": "DISABLED",
+  "evidence_references": [
+    "config/sources.jornal_oficial_7310_gate.json",
+    "config/processing.jornal_oficial_7310_gate.json",
+    "config/reconciliation.first_contract_gate.json",
+    "config/observability.jornal_oficial_7310.json"
+  ]
+}

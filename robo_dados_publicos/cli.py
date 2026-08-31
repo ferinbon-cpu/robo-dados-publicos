@@ -22,6 +22,7 @@ from robo_dados_publicos.release import (
     RELEASE_STATUS,
     SOFTWARE_VERSION,
 )
+from robo_dados_publicos.operational import OperationalCycle
 
 PACKAGE_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_FIXTURES = PACKAGE_ROOT / 'tests' / 'fixtures'
@@ -65,6 +66,15 @@ def cmd_init_state(args):
         st.set_meta('NEXT_ACTION', NEXT_ACTION)
         st.set_blocker('FOMENTO_ETI_EXECUTION','STOP_DATA_DEPENDENCY','V18 metodológica depende de evidência de execução específica do Fomento ETI/2607004.')
     print(args.state_db); return 0
+
+
+def cmd_operational_cycle(args):
+    prior = None
+    if args.prior:
+        prior = json.loads(Path(args.prior).read_text(encoding="utf-8"))
+    out = OperationalCycle.from_file(args.config).run(args.out_dir, prior=prior, started_at=args.started_at)
+    print(json.dumps(out, ensure_ascii=False, indent=2))
+    return 0 if out.get("status") == "PASS" else 14
 
 
 
@@ -288,6 +298,7 @@ def build_parser():
     s=sub.add_parser('ingest'); s.add_argument('file'); s.add_argument('--logical-key'); s.add_argument('--state-db',default=str(DEFAULT_STATE)); s.add_argument('--unknown-schema',action='store_true'); s.set_defaults(func=cmd_ingest)
     s=sub.add_parser('status'); s.add_argument('--state-db',default=str(DEFAULT_STATE)); s.set_defaults(func=cmd_status)
     s=sub.add_parser('init-state'); s.add_argument('--state-db',default=str(DEFAULT_STATE)); s.set_defaults(func=cmd_init_state)
+    s=sub.add_parser('operational-cycle'); s.add_argument('--config',required=True); s.add_argument('--out-dir',required=True); s.add_argument('--prior'); s.add_argument('--started-at'); s.set_defaults(func=cmd_operational_cycle)
     auth_choices=['gcloud','oauth-env','access-token-env']
     s=sub.add_parser('drive-ls'); s.add_argument('--parent-id',required=True); s.add_argument('--auth',choices=auth_choices,default=os.getenv('ROBO_DRIVE_AUTH','gcloud')); s.set_defaults(func=cmd_drive_ls)
     s=sub.add_parser('drive-roundtrip'); s.add_argument('--parent-id',required=True); s.add_argument('--name'); s.add_argument('--auth',choices=auth_choices,default=os.getenv('ROBO_DRIVE_AUTH','gcloud')); s.set_defaults(func=cmd_drive_roundtrip)
