@@ -303,11 +303,16 @@ class TestBI002(unittest.TestCase):
             plan_serving,
             snapshot_validated=True,
         )
+        self.assertEqual(
+            plan_serving(snapshot_validated=True, t3_authorized=True),
+            "PASS_BI_MATERIALIZATION_PLAN_OFFLINE",
+        )
         self.stop(
-            "STOP_BI_LOOKER_NOT_AUTHORIZED",
+            "STOP_BI_LOOKER_SEPARATE_AUTHORIZATION_REQUIRED",
             plan_serving,
             snapshot_validated=True,
             t3_authorized=True,
+            looker_authorized=True,
         )
 
     def test_zero_network_transport_publication(self):

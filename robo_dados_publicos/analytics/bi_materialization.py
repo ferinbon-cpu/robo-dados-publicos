@@ -372,6 +372,6 @@ def future_preflight(
 def plan_serving(*, snapshot_validated: bool, t3_authorized=False, looker_authorized=False) -> str:
     if not snapshot_validated or not t3_authorized:
         _stop("SERVING_MUTATION_NOT_AUTHORIZED")
-    if not looker_authorized:
-        _stop("LOOKER_NOT_AUTHORIZED")
+    if looker_authorized:
+        _stop("LOOKER_SEPARATE_AUTHORIZATION_REQUIRED")
     return PASS
