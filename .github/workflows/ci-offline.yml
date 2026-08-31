@@ -47,6 +47,9 @@ jobs:
       - name: Gate da política do engenheiro Codex
         run: python scripts/github_codex_engineer_policy_gate.py
 
+      - name: Gate offline do bootstrap operacional TASK 018
+        run: python scripts/github_task_018_full_operational_bootstrap_design_gate.py
+
       - name: Gate T0 de regimes históricos SIOPE
         run: python scripts/github_siope_historical_regime_discovery_gate.py
 
