@@ -1,0 +1,58 @@
+{
+  "schema": "JORNAL_INCREMENTAL_LIVE_PROOF_GATE_V1",
+  "task": "TASK_021",
+  "tier": "T0_OFFLINE_DESIGN",
+  "source_id": "LIMEIRA_JORNAL_OFICIAL",
+  "future_capability": "BOUNDED_DISCOVERY_READ_ONLY",
+  "flow": ["LOAD_COMPLETED_CHECKPOINT", "VALIDATE_CHECKPOINT_CONTRACT", "BOUNDED_DISCOVERY_READ_ONLY", "REQUIRE_PASS_DISCOVERY", "NORMALIZE_CANONICAL_IDENTITIES", "TASK020_INCREMENTAL_PLANNER", "STOP_BEFORE_DOWNSTREAM"],
+  "checkpoint": {
+    "required_identity_fields": ["edition", "publication_date", "document_url", "source_id", "logical_key"],
+    "task_018_sanitized_closure": "docs/evidence/TASK_018_FULL_OPERATIONAL_BOOTSTRAP_CLOSURE_0.8.0.json",
+    "task_018_closure_contains_all_12_identities": false,
+    "canonical_real_snapshot_status": "BLOCKED_NOT_PINNED",
+    "required_future_snapshot": "A versioned, sanitized, integrity-pinned COMPLETE snapshot containing exactly the 12 TASK 018 canonical identities and provenance to the completed run",
+    "synthetic_fixture_is_operational_authority": false,
+    "missing_or_insufficient_policy": "STOP_REAL_CHECKPOINT_NOT_PINNED"
+  },
+  "network_bounds_for_future_separately_authorized_proof": {
+    "host_allowlist": ["www.limeira.sp.gov.br"],
+    "https_required": true,
+    "max_discovery_pages": 8,
+    "max_http_gets": 8,
+    "timeout_seconds": 20,
+    "max_response_bytes_per_page": 2000000,
+    "automatic_retries": 0,
+    "redirect_to_non_allowlisted_host": false,
+    "dynamic_pagination_beyond_ceiling": false,
+    "required_discovery_status": "PASS_DISCOVERY",
+    "max_new_items": 8,
+    "document_downloads": 0
+  },
+  "decisions": {
+    "NO_CHANGE_IDEMPOTENT": "SUCCESS_WITH_ZERO_DOWNSTREAM_AND_NO_CHECKPOINT_ADVANCE",
+    "NEW_ITEMS_APPEND_ONLY": "NEW_ITEMS_DETECTED_EXECUTION_NOT_AUTHORIZED",
+    "STOP_*": "TERMINATE_WITH_NO_SUBSEQUENT_REMOTE_EFFECT"
+  },
+  "authorizations": {
+    "live_incremental_proof_authorized": false,
+    "source_network_authorized": false,
+    "workflow_dispatch_authorized": false,
+    "future_batch_execution_authorized": false,
+    "document_download_authorized": false,
+    "drive_read_authorized": false,
+    "drive_write_authorized": false,
+    "processing_authorized": false,
+    "reconciliation_authorized": false,
+    "publication_authorized": false,
+    "checkpoint_advance_authorized": false,
+    "schedule_authorized": false,
+    "recurrence_authorized": false,
+    "automatic_retry_authorized": false,
+    "task_018_authorization_reuse_authorized": false,
+    "separate_owner_authorization_pinned_to_exact_implementation_sha_required": true
+  },
+  "task020_invariants": {
+    "planner_output_is_proposal_only": true,
+    "checkpoint_advance": "ONLY_AFTER_ALL_PROPOSED_NEW_ITEMS_COMPLETE_DOWNSTREAM_AND_FINAL_READBACK"
+  }
+}

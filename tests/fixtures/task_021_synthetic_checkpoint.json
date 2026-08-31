@@ -1,0 +1,9 @@
+{
+  "fixture_only": true,
+  "operational_authority": false,
+  "status": "COMPLETE",
+  "items": [
+    {"edition": 7310, "publication_date": "2026-08-10", "document_url": "https://www.limeira.sp.gov.br/jornaloficial/edicao/7310.pdf", "source_id": "LIMEIRA_JO_07310", "logical_key": "limeira/jornal_oficial/edicao/7310"},
+    {"edition": 7311, "publication_date": "2026-08-11", "document_url": "https://www.limeira.sp.gov.br/jornaloficial/edicao/7311.pdf", "source_id": "LIMEIRA_JO_07311", "logical_key": "limeira/jornal_oficial/edicao/7311"}
+  ]
+}
