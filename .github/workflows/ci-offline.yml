@@ -188,6 +188,12 @@ jobs:
       - name: Gate T0 BI-003 da stable serving layer
         run: python scripts/github_bi_003_serving_gate.py
 
+      - name: Gate T0 BI-005 da integração final serving
+        run: python scripts/github_bi_005_generalized_serving_executor_gate.py
+
+      - name: Gate T0 do portal analítico final
+        run: python scripts/github_portal_analitico_final_gate.py
+
       - name: Testes unitários
         run: python -m unittest discover -s tests -v
 
