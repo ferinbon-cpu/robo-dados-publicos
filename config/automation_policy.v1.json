@@ -155,7 +155,7 @@
       "delete": false,
       "authorization_evidence": "docs/evidence/TASK_018_FULL_OPERATIONAL_BOOTSTRAP_OWNER_AUTHORIZATION_0.8.0.json",
       "future_batch_execution_authorized": false,
-      "blockers": ["PENDING_OWNER_AUTHORIZATION", "IMPLEMENTATION_MERGE_SHA_NOT_PINNED"]
+      "blockers": ["OWNER_AUTHORIZATION_EVIDENCE_MUST_VALIDATE_AT_RUNTIME", "ONE_SHOT_AUTHORIZATION_MUST_BE_UNCONSUMED"]
     },
     {
       "id": "ACTIVE_RUNTIME_PERSISTENCE",

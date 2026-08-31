@@ -18,6 +18,11 @@ from robo_dados_publicos.operational.bootstrap_batch import (
     validate_canonical_projection,
 )
 from robo_dados_publicos.state.registry import StateRegistry
+from scripts.github_task_018_full_operational_bootstrap_design_gate import (
+    BOUNDED_CAPABILITIES,
+    FORBIDDEN_CAPABILITIES,
+    authorization_lifecycle_valid,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = json.loads(
@@ -215,6 +220,59 @@ class FakeJournal:
 
 
 class Task018Tests(unittest.TestCase):
+    def pending_authorization(self):
+        return json.loads(
+            (
+                ROOT
+                / "docs/evidence/TASK_018_FULL_OPERATIONAL_BOOTSTRAP_OWNER_AUTHORIZATION_0.8.0.json"
+            ).read_text(encoding="utf-8")
+        )
+
+    def test_design_gate_accepts_pending_authorization_lifecycle(self):
+        self.assertTrue(authorization_lifecycle_valid(self.pending_authorization()))
+
+    def test_design_gate_accepts_authorized_unconsumed_one_shot_lifecycle(self):
+        authorization = auth()
+        authorization["authorization_sha"] = None
+        self.assertTrue(authorization_lifecycle_valid(authorization))
+
+    def test_design_gate_rejects_incoherent_authorized_lifecycle(self):
+        invalid_mutations = (
+            {"single_batch_authorized": False},
+            {"consumed": True},
+            {"retry_authorized": True},
+            {"implementation_merge_sha": None},
+            {"implementation_merge_sha": "A" * 40},
+            {"implementation_merge_sha": "a" * 39},
+            {"status": "PENDING_OWNER_AUTHORIZATION"},
+        )
+        for mutation in invalid_mutations:
+            with self.subTest(mutation=mutation):
+                authorization = auth()
+                authorization.update(mutation)
+                self.assertFalse(authorization_lifecycle_valid(authorization))
+
+    def test_design_gate_rejects_every_forbidden_permission(self):
+        for permission in FORBIDDEN_CAPABILITIES:
+            with self.subTest(permission=permission):
+                authorization = auth()
+                authorization[permission] = True
+                self.assertFalse(authorization_lifecycle_valid(authorization))
+
+    def test_design_gate_rejects_mixed_pending_lifecycle(self):
+        invalid_mutations = (
+            {"authorized": True},
+            {"single_batch_authorized": True},
+            {"implementation_merge_sha": "a" * 40},
+            {BOUNDED_CAPABILITIES[0]: True},
+            {"status": "AUTHORIZED"},
+        )
+        for mutation in invalid_mutations:
+            with self.subTest(mutation=mutation):
+                authorization = self.pending_authorization()
+                authorization.update(mutation)
+                self.assertFalse(authorization_lifecycle_valid(authorization))
+
     def run_batch(self, rows, **kwargs):
         td = tempfile.TemporaryDirectory()
         self.addCleanup(td.cleanup)

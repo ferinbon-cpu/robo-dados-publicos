@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Offline structural gate that rejects an unsafe or non-executable TASK 018."""
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -10,6 +11,63 @@ sys.path.insert(0, str(ROOT))
 from robo_dados_publicos.operational.bootstrap_batch import (  # noqa: E402
     validate_canonical_projection,
 )
+
+BOUNDED_CAPABILITIES = (
+    "source_read_authorized",
+    "drive_read_authorized",
+    "drive_create_only_authorized",
+    "processing_authorized",
+    "reconciliation_read_authorized",
+    "product_generation_authorized",
+    "product_publication_create_only_authorized",
+)
+FORBIDDEN_CAPABILITIES = (
+    "overwrite_authorized",
+    "replace_authorized",
+    "delete_authorized",
+    "automatic_retry_authorized",
+    "schedule_authorized",
+    "recurrence_authorized",
+    "release_promotion_authorized",
+    "gold_2025_authorized",
+    "siope_2025_series_inclusion_authorized",
+)
+AUTHORIZED_SCOPE = "ALL_CURRENTLY_ELIGIBLE_PROVEN_ITEMS_AT_AUTHORIZATION_SHA"
+
+
+def authorization_lifecycle_valid(auth):
+    """Accept only a coherent pending or authorized/unconsumed one-shot state."""
+    try:
+        common_valid = (
+            auth["consumed"] is False
+            and auth["further_execution_authorized"] is False
+            and auth["retry_authorized"] is False
+            and all(auth[key] is False for key in FORBIDDEN_CAPABILITIES)
+        )
+        if not common_valid:
+            return False
+
+        if auth["status"] == "PENDING_OWNER_AUTHORIZATION":
+            return (
+                auth["authorized"] is False
+                and auth["single_batch_authorized"] is False
+                and auth["implementation_merge_sha"] is None
+                and all(auth[key] is False for key in BOUNDED_CAPABILITIES)
+            )
+
+        if auth["status"] == "AUTHORIZED":
+            implementation_sha = auth["implementation_merge_sha"]
+            return (
+                auth["authorized"] is True
+                and auth["single_batch_authorized"] is True
+                and isinstance(implementation_sha, str)
+                and re.fullmatch(r"[0-9a-f]{40}", implementation_sha) is not None
+                and auth["scope"] == AUTHORIZED_SCOPE
+                and all(auth[key] is True for key in BOUNDED_CAPABILITIES)
+            )
+    except (KeyError, TypeError):
+        return False
+    return False
 
 
 def main():
@@ -128,14 +186,7 @@ def main():
             and "verify_reservation" in entry
             and 'github_run_attempt") or "") != "1"' in entry
         ),
-        "pending_one_shot": (
-            auth["authorized"] is False
-            and auth["implementation_merge_sha"] is None
-            and auth["single_batch_authorized"] is False
-            and auth["consumed"] is False
-            and auth["further_execution_authorized"] is False
-            and auth["retry_authorized"] is False
-        ),
+        "authorization_lifecycle_valid": authorization_lifecycle_valid(auth),
         "production_adapters": all(
             x in adapters
             for x in (
