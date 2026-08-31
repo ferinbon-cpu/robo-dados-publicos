@@ -12,6 +12,11 @@
    T1 discovery/collection, T2 create-only persistence/processing, and separately gated
    T3 create-only Outputs publication. Never rerun automatically.
 
+The checked-in runtime is already complete: T1 reuses `JornalOficialLimeira`, T2 reuses
+`JournalPdfProcessor`, the existing Drive REST/OAuth/CloudLayout stack and the bounded
+`LIMEIRA_CONTRATOS` resolver, and T3 uses the existing product bundle plus create-only
+Outputs publication/readback. The authorization-only PR changes evidence, not code.
+
 Before any remote effect, the runner verifies owner evidence, implementation ancestry,
 that the authorization commit changed only the expected evidence path, canonical source
 and release state, credential capability, CloudLayout, create-only policy, and budgets.
@@ -23,6 +28,12 @@ The immutable ceilings are 10,800 seconds, 500 remote GETs, 120 discovery pages,
 documents, 50 MiB/document, 1 GiB aggregate source bytes, 2,500 Drive creates, and 200
 reconciliation requests. Reaching one returns
 `PARTIAL_BATCH_SAFETY_BUDGET_REACHED` and a sorted continuation checkpoint.
+
+The first collection scope is deliberately narrower than parser capability: every
+declared item in the proven August 2026 modern window, with `ecrie.com.br` and separately
+proven municipal hosts fixed before execution. Legacy parser support is not treated as
+live-contract evidence. Robots, index, document and reconciliation requests all consume
+the shared total budget.
 
 Exact logical-key/hash evidence is skipped. A conflicting hash is quarantined and never
 overwritten. OCR-required, unknown-schema, invalid-PDF, oversize, and other item-local

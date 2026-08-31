@@ -10,7 +10,7 @@
   "automatic_retry": false,
   "mutation_policy": {"create_only": true, "overwrite": false, "replace": false, "delete": false},
   "eligibility": [
-    {"source_family": "LIMEIRA_JORNAL_OFICIAL", "classification": "ELIGIBLE_LIVE_COLLECTION", "scope": "DECLARED_LINKS_IN_CANONICALLY_PROVEN_MODERN_AND_LEGACY_DISCOVERY_WINDOWS", "contract": "config/sources.jornal_oficial_7310_gate.json", "allowed_hosts": ["limeira.sp.gov.br", "www.limeira.sp.gov.br"]},
+    {"source_family": "LIMEIRA_JORNAL_OFICIAL", "classification": "ELIGIBLE_LIVE_COLLECTION", "scope": "DECLARED_LINKS_IN_PROVEN_MODERN_WINDOW_2026_08", "year": 2026, "month": 8, "contract": "config/sources.jornal_oficial_7310_gate.json", "allowed_hosts": ["ecrie.com.br", "limeira.sp.gov.br", "www.limeira.sp.gov.br"]},
     {"source_family": "LIMEIRA_TDA_PORTAL", "classification": "BLOCKED_CONTRACT_UNPROVEN", "reason": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"},
     {"source_family": "SIOPE_2016_2024", "classification": "REUSE_ALREADY_PROVEN", "reason": "CLOSED_HISTORICAL_SERIES"},
     {"source_family": "SIOPE_2025", "classification": "BLOCKED_SEMANTIC_UNPROVEN", "reason": "GOLD_2025_UNKNOWN_BLOCKED"},
