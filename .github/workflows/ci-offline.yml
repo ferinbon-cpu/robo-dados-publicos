@@ -50,6 +50,9 @@ jobs:
       - name: Gate offline do bootstrap operacional TASK 018
         run: python scripts/github_task_018_full_operational_bootstrap_design_gate.py
 
+      - name: Gate T0 do desenho da prova incremental Jornal TASK 021
+        run: python scripts/github_task_021_jornal_incremental_live_proof_gate_design.py
+
       - name: Gate T0 de regimes históricos SIOPE
         run: python scripts/github_siope_historical_regime_discovery_gate.py
 
