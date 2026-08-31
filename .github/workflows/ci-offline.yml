@@ -182,6 +182,9 @@ jobs:
       - name: Gate T0 BI-001 da arquitetura analítica Drive-first
         run: python scripts/github_bi_001_analytics_output_architecture_gate.py
 
+      - name: Gate T0 BI-002 da materialização controlada
+        run: python scripts/github_bi_002_materialization_gate.py
+
       - name: Testes unitários
         run: python -m unittest discover -s tests -v
 
