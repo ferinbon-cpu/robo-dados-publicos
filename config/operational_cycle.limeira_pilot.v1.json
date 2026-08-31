@@ -32,9 +32,17 @@
   },
   "release_boundary": {
     "active": "0.7.0",
+    "active_status": "ACTIVE",
     "candidate": "0.8.0",
+    "candidate_status": "CANDIDATE",
+    "year_2025": "PROVEN_STRUCTURAL_RECENT",
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
     "closed_annual_series": "2016-2024",
     "gold_2025": "UNKNOWN/BLOCKED",
+    "year_2026": "UNPROVEN_CURRENT_YEAR",
     "B1": "PENDING",
     "B2": "PENDING",
     "B3": "PENDING"

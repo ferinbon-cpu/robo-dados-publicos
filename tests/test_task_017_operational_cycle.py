@@ -53,6 +53,15 @@ class TestTask017OperationalCycle(unittest.TestCase):
         self.assertEqual("STOP_AUTHORIZATION_REQUIRED", result["status"])
         self.assertIn("LIVE_MODE_REQUIRES_OWNER_AUTHORIZATION", result["stop_reasons"])
 
+    def test_pinned_authorization_must_be_exact(self):
+        for authorization in ("LIVE_READONLY_AUTHORIZED", "LIVE_CREATE_ONLY_AUTHORIZED"):
+            with self.subTest(authorization=authorization):
+                config = json.loads(json.dumps(self.config))
+                config["source"]["authorization_state"] = authorization
+                result = OperationalCycle(config).run("unused")
+                self.assertEqual("STOP_AUTHORIZATION_REQUIRED", result["status"])
+                self.assertIn("PINNED_REUSE_AUTHORIZATION_INCONSISTENT", result["stop_reasons"])
+
     def test_stop_prevents_every_downstream_stage(self):
         self.config["schedule"] = "ENABLED"
         result = OperationalCycle(self.config).run("unused")
@@ -63,8 +72,47 @@ class TestTask017OperationalCycle(unittest.TestCase):
         with tempfile.TemporaryDirectory() as raw:
             out = Path(raw) / "existing"; out.mkdir(); marker = out / "marker"; marker.write_text("keep")
             result = OperationalCycle(self.config).run(out)
-            self.assertEqual("STOP_AUTHORIZATION_REQUIRED", result["status"])
+            self.assertEqual("STOP_CONTRACT_UNPROVEN", result["status"])
             self.assertEqual("keep", marker.read_text())
+
+    def test_every_important_pinned_value_is_checked_against_canonical_contracts(self):
+        mutations = (
+            (("source", "sha256"), "0" * 64),
+            (("source", "source_id"), "OTHER_SOURCE"),
+            (("source", "edition"), 7311),
+            (("processing_identity",), "OTHER_PROCESSING"),
+            (("pinned_reference", "pages"), 75),
+            (("reconciliation", "limit"), 2),
+            (("reconciliation", "allowed_targets"), ["TCE_SP_DESPESAS"]),
+            (("reconciliation", "financial_identity_auto_promotion"), "ALLOWED"),
+        )
+        for path, value in mutations:
+            with self.subTest(path=path):
+                config = json.loads(json.dumps(self.config))
+                target = config
+                for key in path[:-1]:
+                    target = target[key]
+                target[path[-1]] = value
+                result = OperationalCycle(config).run("unused")
+                self.assertEqual("STOP_CONTRACT_UNPROVEN", result["status"])
+                self.assertIn("PINNED_EVIDENCE_CONTRACT_DRIFT", result["stop_reasons"])
+
+    def test_release_and_semantic_state_drift_stops(self):
+        mutations = (
+            ("candidate_status", "ACTIVE"),
+            ("closed_annual_series", "2016-2025"),
+            ("gold_2025", "PROVEN"),
+            ("B1", "RECEIVED/PROVEN"),
+            ("annual_closure_status", "PROVEN"),
+            ("semantic_comparability_status", "PROVEN"),
+        )
+        for key, value in mutations:
+            with self.subTest(key=key):
+                config = json.loads(json.dumps(self.config))
+                config["release_boundary"][key] = value
+                result = OperationalCycle(config).run("unused")
+                self.assertEqual("STOP_CONTRACT_UNPROVEN", result["status"])
+                self.assertIn("CANONICAL_RELEASE_STATE_DRIFT", result["stop_reasons"])
 
     def test_reconciliation_is_bounded_and_never_promotes_identity(self):
         r = self.config["reconciliation"]
@@ -91,6 +139,26 @@ class TestTask017OperationalCycle(unittest.TestCase):
         prior = {"profile_id": "P", "source_hashes": ["a"]}
         current = {"profile_id": "P", "source_hashes": ["b"]}
         self.assertIn("SOURCE_CHANGED", compare_runs(current, prior))
+
+    def test_human_summary_renders_every_simultaneous_change(self):
+        prior = {
+            "profile_id": self.config["profile_id"],
+            "source_identities": [self.config["source"]["source_id"]],
+            "source_hashes": ["different"],
+            "processed_object_counts": {"pages": 1},
+            "gold_event_counts": 1,
+            "reconciliation_task_counts": 68,
+            "reconciliation_result_counts_by_status": {"MATCH_CANDIDATE": 0, "NO_MATCH": 0},
+            "stop_reasons": ["OLD_STOP"],
+        }
+        with tempfile.TemporaryDirectory() as raw:
+            out = Path(raw) / "out"
+            result = OperationalCycle(self.config).run(out, prior=prior, started_at="2026-08-31T00:00:00+00:00")
+            summary = (out / "operational_summary.md").read_text(encoding="utf-8")
+        self.assertEqual(["SOURCE_CHANGED", "PROCESSING_CHANGED", "STOP_STATE_CHANGED"], result["comparison"])
+        for classification in result["comparison"]:
+            self.assertIn(classification, summary)
+        self.assertNotIn("Anything new: no", summary)
 
     def test_no_schedule_recurrence_or_mutating_persistence(self):
         self.assertEqual(("DISABLED", "DISABLED", "CREATE_ONLY_LOCAL"), (self.config["schedule"], self.config["recurrence"], self.config["persistence_policy"]))

@@ -9,6 +9,11 @@ RECONCILIATION, OBSERVABILITY, PRODUCT_BUILD, and OPERATIONAL_SUMMARY. Every sta
 status, execution flag, input/output identities, evidence, warnings/stops, and remote effect
 counts. A STOP makes every downstream stage `STOP_DEPENDENCY`.
 
+`PINNED_REUSE` passes only when its source, processing counts and identity, reconciliation
+policy, observability identity, and frozen release state exactly match their pre-existing
+canonical repository contracts. Drift produces `PINNED_EVIDENCE_CONTRACT_DRIFT` or
+`CANONICAL_RELEASE_STATE_DRIFT` and stops before product construction.
+
 The boundary remains 0.7.0 ACTIVE, 0.8.0 CANDIDATE, closed series 2016–2024, Gold 2025
 UNKNOWN/BLOCKED, and B1/B2/B3 PENDING. TASK 018, under later owner authorization, is the
 place for a first bounded live cycle; TASK 017 executes none of it.
