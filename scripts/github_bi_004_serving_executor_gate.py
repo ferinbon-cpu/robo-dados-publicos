@@ -4,13 +4,16 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 
 from robo_dados_publicos.analytics.bi_serving_executor import (
     PASS,
     load_executor_contract,
 )
 
-ROOT = Path(__file__).resolve().parents[1]
 REFERENCE_PATH = (
     ROOT
     / "docs/evidence/BI_002_T2_MATERIALIZATION_SANITIZED_REFERENCE_0.8.0.json"
