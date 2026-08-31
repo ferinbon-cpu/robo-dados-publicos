@@ -1,0 +1,12 @@
+{
+  "schema": "TASK_023_SYNTHETIC_SCENARIOS_V1",
+  "synthetic_test_only": true,
+  "operational_authority": false,
+  "scenarios": [
+    "exact_no_change", "one_new_append_only", "multiple_new_append_only",
+    "eight_new_allowed", "nine_new_stop", "known_missing", "known_drift",
+    "duplicate_identity", "non_monotonic", "malformed_identity",
+    "incomplete_discovery", "unauthorized_live", "attempted_downstream",
+    "attempted_checkpoint_advance", "attempted_recurrence", "attempted_schedule"
+  ]
+}
