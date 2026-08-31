@@ -221,12 +221,22 @@ class FakeJournal:
 
 class Task018Tests(unittest.TestCase):
     def pending_authorization(self):
-        return json.loads(
-            (
-                ROOT
-                / "docs/evidence/TASK_018_FULL_OPERATIONAL_BOOTSTRAP_OWNER_AUTHORIZATION_0.8.0.json"
-            ).read_text(encoding="utf-8")
+        value = auth()
+        value.update(
+            {
+                "status": "PENDING_OWNER_AUTHORIZATION",
+                "authorized": False,
+                "consumed": False,
+                "single_batch_authorized": False,
+                "further_execution_authorized": False,
+                "retry_authorized": False,
+                "implementation_merge_sha": None,
+                "authorization_sha": None,
+            }
         )
+        for key in (*BOUNDED_CAPABILITIES, *FORBIDDEN_CAPABILITIES):
+            value[key] = False
+        return value
 
     def test_design_gate_accepts_pending_authorization_lifecycle(self):
         self.assertTrue(authorization_lifecycle_valid(self.pending_authorization()))
