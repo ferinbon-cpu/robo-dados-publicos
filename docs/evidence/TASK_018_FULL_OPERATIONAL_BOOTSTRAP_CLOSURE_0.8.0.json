@@ -1,0 +1,146 @@
+{
+  "schema": "TASK_018_FULL_OPERATIONAL_BOOTSTRAP_CLOSURE_V1",
+  "status": "CLOSED_SUCCESS_AUTHORIZATION_CONSUMED",
+  "task": "TASK_018",
+  "release": "0.8.0",
+  "release_status": "CANDIDATE",
+  "scope": "ALL_CURRENTLY_ELIGIBLE_PROVEN_ITEMS_AT_AUTHORIZATION_SHA",
+  "execution": {
+    "run_id": 33392616951,
+    "workflow_path": ".github/workflows/task-018-full-operational-bootstrap.yml",
+    "event": "workflow_dispatch",
+    "branch": "main",
+    "head_sha": "81db1a28c4532bd299d5b21cf38e295f4c49eeec",
+    "github_run_attempt": 1,
+    "created_at": "2026-08-31T12:36:38Z",
+    "completed_at": "2026-08-31T12:49:21Z",
+    "conclusion": "success"
+  },
+  "implementation": {
+    "implementation_merge_sha": "989d3220ea31a466a8d9a8a84f54e5607d3bfabc",
+    "authorization_evidence_identity": "AUTH-4714DF5FF4815FE8"
+  },
+  "artifact": {
+    "name": "task-018-sanitized-operational-evidence",
+    "artifact_id": 9758450652,
+    "digest": "sha256:f4eacabeed66e3b2ca0801140efa3a495e5a9e294cfaa61953cb2dc27e6628cd",
+    "size_bytes": 28813,
+    "expires_at": "2026-09-30T12:49:17Z",
+    "file_count": 10,
+    "internal_product_manifest_hashes_verified": true
+  },
+  "one_shot": {
+    "status": "PASS_BATCH_ONE_SHOT_RESERVED",
+    "batch_id": "BATCH-CBBF70ADCA619C9C",
+    "reservation_created": true,
+    "single_execution_attempt_remaining": false,
+    "retry_authorized": false,
+    "second_execution_authorized": false,
+    "schedule_authorized": false,
+    "recurrence_authorized": false,
+    "consumption_mechanism": "DURABLE_CREATE_ONLY_LOGS_RESERVATION_MARKER",
+    "checked_in_owner_authorization_evidence_modified_after_run": false
+  },
+  "outcome": {
+    "status": "COMPLETE",
+    "snapshot_id": "SNAP-66BAF3F9A2B4AE79",
+    "product_run_id": "RUN-829242AC42E32130",
+    "discovered": 12,
+    "downloaded": 11,
+    "bronze_created": 11,
+    "bronze_reused_identical": 1,
+    "processed": 12,
+    "item_local_failures": 0,
+    "ocr_required": 0,
+    "schema_unknown": 0,
+    "fetch_failures": 0,
+    "document_too_large": 0,
+    "discovery_ambiguities": 0,
+    "checkpoint_remaining": 0,
+    "systemic_stop": false,
+    "derived_created": {
+      "Documentos": 12,
+      "Gold": 24,
+      "RAG": 12,
+      "Silver": 12
+    }
+  },
+  "telemetry": {
+    "robots_get_count": 1,
+    "index_get_count": 1,
+    "document_get_count": 11,
+    "reconciliation_get_count": 108,
+    "total_remote_get_count": 121,
+    "source_bytes": 203114401,
+    "drive_create_operations": 81
+  },
+  "effects": {
+    "source_gets": 13,
+    "drive_reads": 16,
+    "drive_writes_before_final_publication_accounting": 74,
+    "live_reconciliation_requests": 108,
+    "publication_writes": 7
+  },
+  "reconciliation": {
+    "status": "PASS_RECONCILIATION_EXECUTION",
+    "tasks": 458,
+    "blocked": 341,
+    "requests": 108,
+    "result_entries": 58,
+    "match_candidate": 25,
+    "stop_missing_contract_or_supplier_key": 33,
+    "candidate_rows": 75,
+    "financial_identity_auto_promotion": "PROHIBITED"
+  },
+  "state_snapshot": {
+    "schema": "StateRegistry",
+    "name": "BATCH-CBBF70ADCA619C9C__ROBOT_STATE.sqlite",
+    "status": "CREATED"
+  },
+  "publication": {
+    "status": "PUBLISHED_CREATE_ONLY_READBACK_VERIFIED",
+    "batch_status": "COMPLETE",
+    "objects_created_or_verified": 7,
+    "manifest_written_last": true,
+    "final_readback_verified": true,
+    "output_names": [
+      "BATCH-CBBF70ADCA619C9C_report.html",
+      "BATCH-CBBF70ADCA619C9C_report.json",
+      "BATCH-CBBF70ADCA619C9C_report.md",
+      "BATCH-CBBF70ADCA619C9C_report.pdf",
+      "BATCH-CBBF70ADCA619C9C_report_card.json",
+      "BATCH-CBBF70ADCA619C9C_table.csv",
+      "BATCH-CBBF70ADCA619C9C_manifest.json"
+    ],
+    "product_generation_summary_publication_field_is_pre_t3": true,
+    "final_publication_source_of_truth": "operational_result.publication_and_T3_workflow_success"
+  },
+  "release_boundary": {
+    "active": "0.7.0",
+    "active_status": "ACTIVE",
+    "candidate": "0.8.0",
+    "candidate_status": "CANDIDATE",
+    "release_promotion_performed": false,
+    "siope_2025_promotion_performed": false,
+    "gold_2025_inclusion_performed": false,
+    "siope_2025_series_inclusion_performed": false
+  },
+  "safety": {
+    "overwrite_performed": false,
+    "replace_performed": false,
+    "delete_performed": false,
+    "retry_performed": false,
+    "second_dispatch_performed": false,
+    "cleanup_performed": false,
+    "repair_performed": false,
+    "secret_values_recorded": false,
+    "remote_identifiers_recorded": false,
+    "raw_source_pdfs_in_actions_artifact": false
+  },
+  "closure_record": {
+    "live_execution_performed_by_closure_record": false,
+    "remote_mutations_performed_by_closure_record": 0,
+    "drive_mutations_performed_by_closure_record": 0,
+    "workflow_dispatch_performed_by_closure_record": false
+  }
+}
