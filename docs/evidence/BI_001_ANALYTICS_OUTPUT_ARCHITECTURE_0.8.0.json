@@ -1,0 +1,38 @@
+{
+  "task": "BI_001",
+  "base_sha": "2deebab9ef5bcc860517e6736409a0cc0baebb55",
+  "tier": "T0_OFFLINE",
+  "status": "PASS_BI_ANALYTICS_OUTPUT_ARCHITECTURE_OFFLINE",
+  "datasets_required": 6,
+  "schemas": 6,
+  "architecture_recommended": "OPTION_3_CREATE_ONLY_SNAPSHOTS_PLUS_STABLE_SERVING_SHEET",
+  "drive_location_recommended_not_created": "09_BI",
+  "update_strategy_recommended": "CREATE_ONLY_SNAPSHOTS_WITH_DATASET_SPECIFIC_REBUILD_OR_APPEND_PROJECTION; CONTROLLED_SERVING_REBUILD_REQUIRES_SEPARATE_GATE",
+  "governance_status": "GOVERNANCE_DECISION_REQUIRED",
+  "drive_reads": 0,
+  "drive_writes": 0,
+  "source_network": 0,
+  "looker_api_calls": 0,
+  "publication": 0,
+  "schedule": false,
+  "recurrence": false,
+  "release_boundary_unchanged": true,
+  "task_023_intact": true,
+  "task_024_authorized": false,
+  "bi_002_authorized": false,
+  "tests": {
+    "contract_and_projection": "PASS",
+    "fail_closed": "PASS",
+    "zero_remote_effects": "PASS",
+    "unit_suite": "PASS_OBSERVED",
+    "historical_regression": "109_OF_109_PASS"
+  },
+  "limitations": [
+    "SANITIZED_FIXTURES_PROVE_CONTRACT_NOT_FULL_ARCHIVE",
+    "NO_SHEET_OR_LOOKER_CREATED"
+  ],
+  "risks": [
+    "STABLE_SERVING_SHEET_REQUIRES_CONTROLLED_MUTATION",
+    "STATUS_AND_FRESHNESS_REQUIRE_AUTHORITATIVE_FUTURE_SNAPSHOTS"
+  ]
+}
