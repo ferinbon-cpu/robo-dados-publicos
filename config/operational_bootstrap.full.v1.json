@@ -8,26 +8,98 @@
   "schedule": false,
   "recurrence": false,
   "automatic_retry": false,
-  "mutation_policy": {"create_only": true, "overwrite": false, "replace": false, "delete": false},
+  "mutation_policy": {
+    "create_only": true,
+    "overwrite": false,
+    "replace": false,
+    "delete": false
+  },
   "eligibility": [
-    {"source_family": "LIMEIRA_JORNAL_OFICIAL", "classification": "ELIGIBLE_LIVE_COLLECTION", "scope": "DECLARED_LINKS_IN_PROVEN_MODERN_WINDOW_2026_08", "year": 2026, "month": 8, "contract": "config/sources.jornal_oficial_7310_gate.json", "allowed_hosts": ["ecrie.com.br", "limeira.sp.gov.br", "www.limeira.sp.gov.br"]},
-    {"source_family": "LIMEIRA_TDA_PORTAL", "classification": "BLOCKED_CONTRACT_UNPROVEN", "reason": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"},
-    {"source_family": "SIOPE_2016_2024", "classification": "REUSE_ALREADY_PROVEN", "reason": "CLOSED_HISTORICAL_SERIES"},
-    {"source_family": "SIOPE_2025", "classification": "BLOCKED_SEMANTIC_UNPROVEN", "reason": "GOLD_2025_UNKNOWN_BLOCKED"},
-    {"source_family": "SIOPE_2026", "classification": "BLOCKED_CONTRACT_UNPROVEN", "reason": "UNPROVEN_CURRENT_YEAR"}
+    {
+      "source_family": "LIMEIRA_JORNAL_OFICIAL",
+      "classification": "ELIGIBLE_LIVE_COLLECTION",
+      "scope": "DECLARED_LINKS_IN_PROVEN_MODERN_WINDOW_2026_08",
+      "year": 2026,
+      "month": 8,
+      "contract": "config/sources.jornal_oficial_7310_gate.json",
+      "allowed_hosts": [
+        "ecrie.com.br",
+        "limeira.sp.gov.br",
+        "www.limeira.sp.gov.br"
+      ]
+    },
+    {
+      "source_family": "LIMEIRA_TDA_PORTAL",
+      "classification": "BLOCKED_CONTRACT_UNPROVEN",
+      "reason": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
+    },
+    {
+      "source_family": "SIOPE_2016_2024",
+      "classification": "REUSE_ALREADY_PROVEN",
+      "reason": "CLOSED_HISTORICAL_SERIES"
+    },
+    {
+      "source_family": "SIOPE_2025",
+      "classification": "BLOCKED_SEMANTIC_UNPROVEN",
+      "reason": "GOLD_2025_UNKNOWN_BLOCKED"
+    },
+    {
+      "source_family": "SIOPE_2026",
+      "classification": "BLOCKED_CONTRACT_UNPROVEN",
+      "reason": "UNPROVEN_CURRENT_YEAR"
+    }
   ],
   "hard_safety_ceilings": {
     "maximum_runtime_seconds": 10800,
     "maximum_total_remote_get_count": 500,
-    "maximum_index_discovery_pages": 120,
+    "maximum_index_discovery_pages": 50,
     "maximum_documents": 300,
     "maximum_bytes_per_document": 52428800,
     "maximum_aggregate_source_bytes": 1073741824,
     "maximum_drive_create_operations": 2500,
     "maximum_live_reconciliation_requests": 200
   },
-  "reconciliation": {"eligible_targets": ["LIMEIRA_CONTRATOS"], "blocked_targets": ["LIMEIRA_TDA_PORTAL", "TCE_SP_DESPESAS"], "financial_identity_auto_promotion": "PROHIBITED"},
-  "drive_destinations_from_cloud_layout": ["Bronze", "Silver", "Gold", "Documentos", "RAG", "Bancos", "Logs", "Outputs", "Quarantine"],
-  "publication": {"tier": "T3_CREATE_ONLY_PRODUCT_PUBLICATION", "manifest_written_last": true, "final_readback_required": true},
-  "release_boundary": {"active": "0.7.0", "active_status": "ACTIVE", "candidate": "0.8.0", "candidate_status": "CANDIDATE", "closed_annual_series": "2016-2024", "gold_2025": "UNKNOWN/BLOCKED", "B1": "PENDING", "B2": "PENDING", "B3": "PENDING"}
+  "reconciliation": {
+    "eligible_targets": [
+      "LIMEIRA_CONTRATOS"
+    ],
+    "blocked_targets": [
+      "LIMEIRA_TDA_PORTAL",
+      "TCE_SP_DESPESAS"
+    ],
+    "financial_identity_auto_promotion": "PROHIBITED"
+  },
+  "drive_destinations_from_cloud_layout": [
+    "Bronze",
+    "Silver",
+    "Gold",
+    "Documentos",
+    "RAG",
+    "Bancos",
+    "Logs",
+    "Outputs",
+    "Quarantine"
+  ],
+  "publication": {
+    "tier": "T3_CREATE_ONLY_PRODUCT_PUBLICATION",
+    "manifest_written_last": true,
+    "final_readback_required": true
+  },
+  "release_boundary": {
+    "active": "0.7.0",
+    "active_status": "ACTIVE",
+    "candidate": "0.8.0",
+    "candidate_status": "CANDIDATE",
+    "closed_annual_series": "2016-2024",
+    "year_2025": "PROVEN_STRUCTURAL_RECENT",
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_2025": "UNKNOWN/BLOCKED",
+    "year_2026": "UNPROVEN_CURRENT_YEAR",
+    "B1": "PENDING",
+    "B2": "PENDING",
+    "B3": "PENDING"
+  }
 }
