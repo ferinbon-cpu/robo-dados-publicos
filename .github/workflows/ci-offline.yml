@@ -53,6 +53,9 @@ jobs:
       - name: Gate T0 do desenho da prova incremental Jornal TASK 021
         run: python scripts/github_task_021_jornal_incremental_live_proof_gate_design.py
 
+      - name: Gate T0 da revisão do checkpoint real Jornal TASK 022
+        run: python scripts/github_task_022_jornal_real_checkpoint_pinning_review_gate.py
+
       - name: Gate T0 de regimes históricos SIOPE
         run: python scripts/github_siope_historical_regime_discovery_gate.py
 
