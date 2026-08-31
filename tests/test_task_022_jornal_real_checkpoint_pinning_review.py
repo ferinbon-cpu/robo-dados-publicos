@@ -121,18 +121,21 @@ class Task022Tests(unittest.TestCase):
             changed = copy.deepcopy(auth); changed[field] = True
             self.assertEqual(validate_t0_authorizations(changed)["status"], "STOP_T0_OPERATIONAL_AUTHORIZATION")
 
-    def test_repository_result_is_truthful_blocked_and_task021_still_passes(self):
+    def test_repository_real_snapshot_is_pinned_and_task021_design_history_still_passes(self):
         evidence = json.loads((ROOT / "docs/evidence/TASK_022_JORNAL_REAL_CHECKPOINT_PINNING_REVIEW_0.8.0.json").read_text())
-        self.assertEqual(evidence["status"], "STOP_REAL_CHECKPOINT_EVIDENCE_INSUFFICIENT")
-        self.assertEqual(evidence["real_checkpoint_status"], "BLOCKED_NOT_PINNED")
-        self.assertFalse((ROOT / "docs/evidence/TASK_018_JORNAL_COMPLETED_CANONICAL_CHECKPOINT_0.8.0.json").exists())
+        snapshot = json.loads((ROOT / "docs/evidence/TASK_018_JORNAL_COMPLETED_CANONICAL_CHECKPOINT_0.8.0.json").read_text())
+        self.assertEqual(evidence["status"], "PASS_REAL_CHECKPOINT_PINNED_OFFLINE")
+        self.assertEqual(evidence["real_checkpoint_status"], "COMPLETE_PINNED")
+        result = validate_real_checkpoint(snapshot)
+        self.assertEqual(result["status"], "PASS_REAL_CHECKPOINT_PINNED")
+        self.assertEqual(result["canonical_payload_sha256"], "64e78c27a2c233468d76bc94c5719a35ed68ff7455cfac36d958d922c4ece5db")
         proc = subprocess.run([sys.executable, "scripts/github_task_021_jornal_incremental_live_proof_gate_design.py"], cwd=ROOT, capture_output=True, text=True)
         self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
 
-    def test_task022_gate_passes_blocked_review(self):
+    def test_task022_gate_passes_pinned_review(self):
         proc = subprocess.run([sys.executable, "scripts/github_task_022_jornal_real_checkpoint_pinning_review_gate.py"], cwd=ROOT, capture_output=True, text=True)
         self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
-        self.assertEqual(json.loads(proc.stdout)["status"], "PASS_TASK_022_BLOCKED_REVIEW")
+        self.assertEqual(json.loads(proc.stdout)["status"], "PASS_TASK_022_REAL_CHECKPOINT_PINNED_OFFLINE")
 
 
 if __name__ == "__main__":

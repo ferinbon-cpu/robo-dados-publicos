@@ -8,6 +8,10 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from robo_dados_publicos.journal.real_checkpoint import validate_real_checkpoint
 
 
 def load(path: str) -> dict:
@@ -21,6 +25,7 @@ def run_gate(path: str) -> bool:
 def main() -> int:
     contract = load("config/jornal_real_checkpoint_pinning_review.v1.json")
     evidence = load("docs/evidence/TASK_022_JORNAL_REAL_CHECKPOINT_PINNING_REVIEW_0.8.0.json")
+    snapshot = load("docs/evidence/TASK_018_JORNAL_COMPLETED_CANONICAL_CHECKPOINT_0.8.0.json")
     closure = load("docs/evidence/TASK_018_FULL_OPERATIONAL_BOOTSTRAP_CLOSURE_0.8.0.json")
     task020 = load("docs/evidence/TASK_020_JORNAL_INCREMENTAL_RECURRENCE_READINESS_DESIGN_0.8.0.json")
     task021 = load("docs/evidence/TASK_021_JORNAL_INCREMENTAL_LIVE_PROOF_GATE_DESIGN_0.8.0.json")
@@ -39,7 +44,7 @@ def main() -> int:
         "schedule_authorized", "recurrence_authorized", "automatic_retry_authorized",
         "task_018_rerun_authorized", "live_proof_authorized",
     }
-    snapshot = ROOT / "docs/evidence/TASK_018_JORNAL_COMPLETED_CANONICAL_CHECKPOINT_0.8.0.json"
+    snapshot_result = validate_real_checkpoint(snapshot)
     checks = {
         "task018_closure_present_consumed": closure.get("status") == "CLOSED_SUCCESS_AUTHORIZATION_CONSUMED" and closure.get("one_shot", {}).get("single_execution_attempt_remaining") is False,
         "task018_identity_reconciled": reconciliation == {
@@ -59,16 +64,16 @@ def main() -> int:
         "task021_design_pass_unchanged": task021.get("status") == "PASS_INCREMENTAL_LIVE_PROOF_GATE_DESIGN_OFFLINE" and task021.get("checkpoint_assessment", {}).get("real_checkpoint_status") == "BLOCKED_NOT_PINNED" and run_gate("scripts/github_task_021_jornal_incremental_live_proof_gate_design.py"),
         "contract_t0": contract.get("task") == "TASK_022" and contract.get("tier") == "T0_OFFLINE" and contract.get("source_id") == "LIMEIRA_JORNAL_OFICIAL",
         "all_operational_authorizations_false": required_false.issubset(auth) and all(auth.get(key) is False for key in required_false),
-        "explicit_insufficient_stop": contract.get("decision") == evidence.get("status") == "STOP_REAL_CHECKPOINT_EVIDENCE_INSUFFICIENT" and contract.get("real_checkpoint_status") == evidence.get("real_checkpoint_status") == "BLOCKED_NOT_PINNED" and evidence.get("item_count") == 0 and evidence.get("live_proof_authorized") is False,
-        "no_false_snapshot": not snapshot.exists(),
-        "artifact_audit_truthful": audit.get("historical_github_artifact_reads") == 0 and audit.get("historical_artifact", {}).get("artifact_read_attempted") is True and audit.get("historical_artifact", {}).get("artifact_read_completed") is False and audit.get("historical_artifact", {}).get("fallback_to_source_or_drive_performed") is False,
-        "identity_gap_explicit": audit.get("properties_missing_for_each_item") == ["edition", "publication_date", "document_url", "source_id", "logical_key"] and audit.get("reconstruction_by_assumed_sequence_performed") is False and audit.get("synthetic_fixture_used_as_operational_authority") is False,
+        "checkpoint_pass": snapshot_result.get("status") == "PASS_REAL_CHECKPOINT_PINNED" and snapshot_result.get("item_count") == 12 and snapshot_result.get("canonical_payload_sha256") == evidence.get("canonical_payload_sha256"),
+        "explicit_pinned_pass": contract.get("decision") == evidence.get("status") == "PASS_REAL_CHECKPOINT_PINNED_OFFLINE" and contract.get("real_checkpoint_status") == evidence.get("real_checkpoint_status") == "COMPLETE_PINNED" and evidence.get("item_count") == 12 and evidence.get("live_proof_authorized") is False,
+        "artifact_audit_truthful": audit.get("historical_github_artifact_reads") == 1 and audit.get("historical_artifact", {}).get("artifact_read_attempted") is True and audit.get("historical_artifact", {}).get("artifact_read_completed") is True and audit.get("historical_artifact", {}).get("artifact_digest") == "sha256:f4eacabeed66e3b2ca0801140efa3a495e5a9e294cfaa61953cb2dc27e6628cd" and audit.get("historical_artifact", {}).get("artifact_member_sha256") == "aad99f2644b6580b1734ab75e02c969095c24c95c3e393f1f3f096a72e19a5bd" and audit.get("historical_artifact", {}).get("fallback_to_source_or_drive_performed") is False,
+        "identity_evidence_complete": audit.get("properties_available_for_each_item") == ["edition", "publication_date", "document_url", "source_id", "logical_key"] and audit.get("properties_missing_for_each_item") == [] and audit.get("reconstruction_by_assumed_sequence_performed") is False and audit.get("synthetic_fixture_used_as_operational_authority") is False,
         "zero_effects": len(effects) == 12 and all(value == 0 for value in effects.values()),
         "source_and_release_boundaries": journal.get("status") == "LIVE_VALIDATED" and journal.get("production_collection_enabled") is False and release == {"active": "0.7.0", "candidate": "0.8.0", "B1": "PENDING", "B2": "PENDING", "B3": "PENDING", "gold_2025": "UNKNOWN/BLOCKED"},
         "ci_integration": "python scripts/github_task_022_jornal_real_checkpoint_pinning_review_gate.py" in (ROOT / ".github/workflows/ci-offline.yml").read_text(encoding="utf-8"),
     }
     failed = [name for name, passed in checks.items() if not passed]
-    print(json.dumps({"status": "PASS_TASK_022_BLOCKED_REVIEW" if not failed else "STOP", "decision": evidence.get("status"), "checks": checks, "failed_checks": failed}, sort_keys=True))
+    print(json.dumps({"status": "PASS_TASK_022_REAL_CHECKPOINT_PINNED_OFFLINE" if not failed else "STOP", "decision": evidence.get("status"), "checkpoint": snapshot_result, "checks": checks, "failed_checks": failed}, sort_keys=True))
     return 0 if not failed else 1
 
 
