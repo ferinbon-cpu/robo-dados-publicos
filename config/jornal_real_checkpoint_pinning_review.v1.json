@@ -1,0 +1,42 @@
+{
+  "schema": "JORNAL_REAL_CHECKPOINT_PINNING_REVIEW_V1",
+  "task": "TASK_022",
+  "tier": "T0_OFFLINE",
+  "source_id": "LIMEIRA_JORNAL_OFICIAL",
+  "decision": "PASS_REAL_CHECKPOINT_PINNED_OFFLINE",
+  "real_checkpoint_status": "COMPLETE_PINNED",
+  "historical_evidence_access": "HISTORICAL_EVIDENCE_READ_ONLY",
+  "checkpoint_path": "docs/evidence/TASK_018_JORNAL_COMPLETED_CANONICAL_CHECKPOINT_0.8.0.json",
+  "authorizations": {
+    "source_network_authorized": false,
+    "drive_read_authorized": false,
+    "drive_write_authorized": false,
+    "document_download_from_source_authorized": false,
+    "workflow_dispatch_authorized": false,
+    "processing_authorized": false,
+    "downstream_authorized": false,
+    "publication_authorized": false,
+    "checkpoint_advance_authorized": false,
+    "future_batch_execution_authorized": false,
+    "schedule_authorized": false,
+    "recurrence_authorized": false,
+    "automatic_retry_authorized": false,
+    "task_018_rerun_authorized": false,
+    "live_proof_authorized": false
+  },
+  "required_checkpoint": {
+    "item_count": 12,
+    "identity_fields": [
+      "edition",
+      "publication_date",
+      "document_url",
+      "source_id",
+      "logical_key"
+    ],
+    "document_host_allowlist": [
+      "ecrie.com.br"
+    ],
+    "synthetic_fixture_is_operational_authority": false,
+    "assumed_sequence_authorized": false
+  }
+}
