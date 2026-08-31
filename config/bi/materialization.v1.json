@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "task": "BI_002",
+  "tier": "T0_OFFLINE_IMPLEMENTATION_REVIEW",
+  "status": "PASS_BI_002_CONTROLLED_MATERIALIZATION_IMPLEMENTATION_OFFLINE",
+  "source_contract": "config/bi/analytics_output.v1.json",
+  "architecture": "OPTION_3_CREATE_ONLY_SNAPSHOTS_PLUS_STABLE_SERVING_SHEET",
+  "future_drive_root": "13_BI",
+  "reserved_roots": ["00_DOCUMENTACAO", "01_BRONZE", "02_SILVER", "03_GOLD", "04_DOCUMENTOS", "05_RAG", "06_BANCOS", "07_LOGS", "08_OUTPUTS", "09_SCRIPTS", "10_INBOX", "11_QUARENTENA", "12_SOFTWARE"],
+  "directories": ["00_MANIFESTS", "01_SNAPSHOTS", "02_SERVING"],
+  "dataset_allowlist": ["BI_SIOPE_SERIES", "BI_JORNAL_EVENTOS", "BI_RECONCILIACAO", "BI_FONTES_STATUS", "BI_EXECUCOES_ROBO", "BI_DICIONARIO"],
+  "snapshot_tier": "T2_CREATE_ONLY",
+  "serving_tier": "T3_MUTATING_OR_PUBLICATION",
+  "create_only": true,
+  "overwrite": false,
+  "delete": false,
+  "replace": false,
+  "remote_execution_authorized": false,
+  "serving_mutation_authorized": false,
+  "looker_publication_authorized": false
+}
