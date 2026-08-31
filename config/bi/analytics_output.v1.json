@@ -4,7 +4,22 @@
   "tier": "T0_OFFLINE",
   "status": "PASS_BI_ANALYTICS_OUTPUT_ARCHITECTURE_OFFLINE",
   "role": "DERIVED_ANALYTICAL_PROJECTION_NOT_SOURCE_OF_TRUTH",
-  "future_drive_location_recommendation": "09_BI",
+  "future_drive_location_recommendation": "13_BI",
+  "canonical_drive_layers_reserved": [
+    "00_DOCUMENTACAO",
+    "01_BRONZE",
+    "02_SILVER",
+    "03_GOLD",
+    "04_DOCUMENTOS",
+    "05_RAG",
+    "06_BANCOS",
+    "07_LOGS",
+    "08_OUTPUTS",
+    "09_SCRIPTS",
+    "10_INBOX",
+    "11_QUARENTENA",
+    "12_SOFTWARE"
+  ],
   "recommended_architecture": "OPTION_3_CREATE_ONLY_SNAPSHOTS_PLUS_STABLE_SERVING_SHEET",
   "governance_decision": "GOVERNANCE_DECISION_REQUIRED_BEFORE_SERVING_SHEET_MUTATION",
   "common_quality_enum": [

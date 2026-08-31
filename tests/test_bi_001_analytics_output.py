@@ -4,6 +4,7 @@ from pathlib import Path
 import unittest
 
 from robo_dados_publicos.analytics.bi_model import BIModelError, build_dataset, deterministic_key, load_contract
+from robo_dados_publicos.orchestration.cloud_runner import EXPECTED_ROOT_NAMES
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -64,5 +65,11 @@ class BI001Tests(unittest.TestCase):
         self.assertTrue(all(self.contract['remote_effects'][x]==0 for x in self.contract['remote_effects']))
         source=(ROOT/'robo_dados_publicos/analytics/bi_model.py').read_text()
         self.assertNotIn('urlopen',source); self.assertNotIn('googleapiclient',source)
+
+    def test_bi_location_follows_all_canonical_drive_layers(self):
+        canonical=sorted(name for name in EXPECTED_ROOT_NAMES if name[:2].isdigit())
+        self.assertEqual(canonical,self.contract['canonical_drive_layers_reserved'])
+        self.assertEqual('09_SCRIPTS',canonical[9])
+        self.assertEqual('13_BI',self.contract['future_drive_location_recommendation'])
 
 if __name__=='__main__': unittest.main()

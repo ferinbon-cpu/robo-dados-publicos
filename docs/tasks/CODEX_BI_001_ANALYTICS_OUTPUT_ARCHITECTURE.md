@@ -6,7 +6,7 @@ BI-001 define, em `T0_OFFLINE`, uma projeção tabular entre as camadas derivada
 
 ## Local e arquitetura proposta
 
-Recomenda-se **`09_BI`**, irmã de `08_OUTPUTS`: outputs são produtos publicados para pessoas; BI é uma projeção serving com contratos próprios. A pasta remota não é criada aqui. Dentro dela, cada dataset terá snapshots imutáveis e, somente após nova decisão de governança, uma fonte serving estável.
+Recomenda-se **`13_BI`**, após as camadas canônicas `00_DOCUMENTACAO` a `12_SOFTWARE`. Em particular, `09_SCRIPTS` já existe e está reservado; o contrato impede que BI reutilize qualquer prefixo de `00` a `12`. Outputs são produtos publicados para pessoas; BI é uma projeção serving com contratos próprios. A pasta remota não é criada aqui. Dentro dela, cada dataset terá snapshots imutáveis e, somente após nova decisão de governança, uma fonte serving estável.
 
 A decisão é **OPÇÃO 3 — snapshots create-only + serving Sheet estável**:
 
@@ -47,6 +47,6 @@ Recomendações futuras: `BI_ALERTAS` traz valor ao separar STOP/drift/freshness
 
 Fixtures provam estrutura, não materializam todo o acervo. Freshness e estados operacionais dependem de snapshots autoritativos futuros. Uma serving Sheet estável introduz mutação e risco de corrupção; por isso deve ser derivável de snapshot pinado, atualizada somente sob autorização e aceita apenas após readback semântico. Looker não pode editar BI/Gold.
 
-BI-002 deverá: (1) decidir e autorizar T2 para snapshots create-only; (2) decidir separadamente o tier da serving Sheet mutável; (3) criar `09_BI`; (4) materializar somente os seis contratos; (5) gravar manifest por último e verificar valores/tipos/hashes; (6) manter rollback como repoint para snapshot válido, nunca apagar/reparar evidência. BI-003 conecta Looker; BI-004 endurece readback; BI-005 só então avalia automação. TASK 024 permanece independente e não autorizada.
+BI-002 deverá: (1) decidir e autorizar T2 para snapshots create-only; (2) decidir separadamente o tier da serving Sheet mutável; (3) criar `13_BI`, sem colisão com as camadas canônicas `00`–`12`; (4) materializar somente os seis contratos; (5) gravar manifest por último e verificar valores/tipos/hashes; (6) manter rollback como repoint para snapshot válido, nunca apagar/reparar evidência. BI-003 conecta Looker; BI-004 endurece readback; BI-005 só então avalia automação. TASK 024 permanece independente e não autorizada.
 
 Release inalterada: 0.7.0 ACTIVE; 0.8.0 CANDIDATE; B1/B2/B3 PENDING; série fechada 2016–2024; 2025 `PROVEN_STRUCTURAL_RECENT`, S1/S2 `NOT_PROVEN`, closure/comparabilidade `UNKNOWN`, Gold `UNKNOWN/BLOCKED`; 2026 `UNPROVEN_CURRENT_YEAR`.
