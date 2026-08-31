@@ -17,14 +17,8 @@ class TestPortalAnaliticoFinal(unittest.TestCase):
         self.assertEqual(CONTRACT["data_studio_report"]["page_count"], 5)
         expected = {item["dataset_id"] for item in BI["datasets"]}
         self.assertEqual({item["dataset_id"] for item in CONTRACT["datasets"]}, expected)
-        self.assertEqual(
-            {item["serving_name"] for item in CONTRACT["datasets"]},
-            {dataset + "__SERVING" for dataset in expected},
-        )
-        self.assertTrue(
-            all(item["analytical_tab"] == "DATA" and item["audit_tab"] == "META"
-                for item in CONTRACT["datasets"])
-        )
+        self.assertEqual({item["serving_name"] for item in CONTRACT["datasets"]}, {dataset + "__SERVING" for dataset in expected})
+        self.assertTrue(all(item["analytical_tab"] == "DATA" and item["audit_tab"] == "META" for item in CONTRACT["datasets"]))
 
     def test_every_visual_has_complete_design_record(self):
         required = {"question", "source", "dimension", "metric", "aggregation", "filter", "caution"}
@@ -52,17 +46,14 @@ class TestPortalAnaliticoFinal(unittest.TestCase):
         errors = validate_field_references(mutated, BI)
         self.assertTrue(any("unknown_source:BI_UNKNOWN" in error for error in errors))
 
-    def test_reconciliation_table_uses_only_real_schema(self):
-        fields = {
-            item["dataset_id"]: {field["name"] for field in item["fields"]}
-            for item in BI["datasets"]
-        }
+    def test_reconciliation_table_matches_exact_authoritative_schema(self):
+        fields = {item["dataset_id"]: [field["name"] for field in item["fields"]] for item in BI["datasets"]}
         table = next(item for item in CONTRACT["tables"] if item["id"] == "reconciliation_detail")
-        self.assertLessEqual(set(table["columns"]), fields["BI_RECONCILIACAO"])
-        self.assertIn("decision", table["columns"])
-        self.assertIn("reason_code", table["columns"])
-        self.assertNotIn("financial_identity_proven", table["columns"])
-        self.assertNotIn("source_event_id", table["columns"])
+        self.assertEqual(table["columns"], fields["BI_RECONCILIACAO"])
+        for required in ("status", "relation_type", "identity_status", "financial_identity_proven", "reason", "provenance_id"):
+            self.assertIn(required, table["columns"])
+        for forbidden in ("decision", "match_rule", "left_gold_id", "candidate_score"):
+            self.assertNotIn(forbidden, table["columns"])
 
     def test_semantic_boundaries(self):
         cautions = set(CONTRACT["semantic_cautions"])
@@ -92,25 +83,19 @@ class TestPortalAnaliticoFinal(unittest.TestCase):
         self.assertTrue(all(value == 0 for value in CONTRACT["remote_effects"].values()))
         self.assertIsNone(CONTRACT["active_authorization"])
 
-    def test_runbooks_have_exact_step_counts_and_no_invented_reconciliation_field(self):
+    def test_runbooks_have_exact_step_counts_and_authoritative_reconciliation_fields(self):
         data = (ROOT / "docs/bi/DATA_STUDIO_BUILD_RUNBOOK.md").read_text(encoding="utf-8")
         sites = (ROOT / "docs/bi/GOOGLE_SITES_BUILD_RUNBOOK.md").read_text(encoding="utf-8")
         self.assertTrue(all(f"{index}." in data for index in range(1, 23)))
         self.assertTrue(all(f"{index}." in sites for index in range(1, 18)))
-        self.assertNotIn("financial_identity_proven", data)
+        self.assertIn("financial_identity_proven", data)
+        self.assertIn("identity_status", data)
+        self.assertNotIn("match_rule", data)
+        self.assertNotIn("decision`,", data)
 
     def test_qa_covers_required_invariants(self):
         qa = (ROOT / "docs/bi/PORTAL_QA_CHECKLIST.md").read_text(encoding="utf-8")
-        for text in (
-            "Exatamente seis",
-            "2016=P1",
-            "2017–2024=P6",
-            "2025 ausente",
-            "Null do Jornal",
-            "MATCH_CANDIDATE != FINANCIAL_IDENTITY",
-            "Zero efeitos remotos",
-            "Zero Google Cloud, BigQuery e AppSheet",
-        ):
+        for text in ("Exatamente seis", "2016=P1", "2017–2024=P6", "2025 ausente", "Null do Jornal", "MATCH_CANDIDATE != FINANCIAL_IDENTITY", "Zero efeitos remotos", "Zero Google Cloud, BigQuery e AppSheet"):
             self.assertIn(text, qa)
 
 

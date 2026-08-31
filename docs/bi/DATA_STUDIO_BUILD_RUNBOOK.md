@@ -17,7 +17,7 @@ Executar somente sob autorização operacional posterior. Usar exatamente as sei
 9. Construir **Visão Geral** com os componentes do contrato, sem números hardcoded.
 10. Construir **SIOPE** com controle de métrica, série anual, contexto e tabela; exibir unidade e cautela.
 11. Construir **Jornal Oficial** com totais, distribuições, filtros e tabela; preservar null.
-12. Construir **Reconciliação** usando somente `reconciliation_id`, IDs/lados, `logical_key`, `match_rule`, `candidate_score`, `decision`, `status`, `reason_code`, proveniência, valores e nomes de entidade definidos no schema; inserir o texto obrigatório de alto destaque.
+12. Construir **Reconciliação** usando apenas os 18 campos autoritativos atuais: `reconciliation_id`, `source_event_id`, `target_source`, `target_record_id`, `relation_type`, `status`, `confidence_class`, `supplier_name`, `cnpj`, `contract_number`, `process_number`, `candidate_value`, `evidence_count`, `identity_status`, `financial_identity_proven`, `reason`, `created_at` e `provenance_id`. Inserir o texto obrigatório de alto destaque.
 13. Construir **Saúde e Proveniência** com fontes, execuções e dicionário.
 14. Configurar controles exatamente conforme `filters`; não aplicar controles a fontes incompatíveis.
 15. Revisar todas as cautelas por componente e página.
@@ -25,7 +25,7 @@ Executar somente sob autorização operacional posterior. Usar exatamente as sei
 17. Testar que null do Jornal permanece vazio/null e nunca vira zero.
 18. Testar datas, datetimes, booleanos, números e currency contra as Sheets e o contrato.
 19. Validar que SIOPE contém apenas 2016–2024, com 2016=P1, demais anos=P6 e 2025 ausente.
-20. Validar Reconciliação contra `decision`, `status`, `match_rule` e `reason_code`, mantendo visível que `MATCH_CANDIDATE` não representa identidade financeira comprovada.
+20. Validar Reconciliação contra `status`, `relation_type`, `identity_status`, `confidence_class` e `financial_identity_proven`, mantendo visível que `MATCH_CANDIDATE` não representa identidade financeira comprovada e sem promover CANDIDATE para PROVEN.
 21. Validar compartilhamento mínimo necessário, sem tornar snapshots/manifests editáveis ou fontes do relatório.
 22. Obter o embed de cada página somente após QA completo; não publicar o relatório nesta task.
 
