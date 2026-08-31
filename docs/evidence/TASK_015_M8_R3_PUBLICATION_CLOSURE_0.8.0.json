@@ -21,16 +21,22 @@
     "digest": "sha256:f58301381c4a18efa76f4bd35d5bb022810b1875671b1c4f5b8c85d32b9c3368"
   },
   "publication_result": {
-    "status": "PASS_M8_SIOPE_HISTORICAL_CORRECTIVE_R3_PUBLICATION_GATE",
-    "created_object_count": 3,
+    "status": "PASS_M8_SIOPE_HISTORICAL_CORRECTIVE_PUBLICATION_GATE",
+    "created_count": 3,
     "sheet_semantic_readback_verified": true,
     "sheet_rows": 9,
     "sheet_columns": 7,
-    "canonical_matrix_sha256": "7a847b5aacdfff91d26cfe76da9f973f760f5736fcfe841c7035e744c32960c5",
-    "source_zip_sha256": "213693b37e8a2123d1d4df4b4dec0495a5ca9536cb51b23f0549e94da72d080e",
+    "canonical_matrix_sha256": "0247be1b30d1f3ba9ba8064569cd934811a5fc95535417c9b1c70f67f911de55",
+    "source_artifact_zip_sha256": "213693b37e8a2123d1d4df4b4dec0495a5ca9536cb51b23f0549e94da72d080e",
     "pdf_readback_hash_verified": true,
     "completion_manifest_written_last": true,
     "final_readback_verified": true
+  },
+  "evidence_correction": {
+    "reason": "TASK015_INITIAL_CLOSURE_TRANSCRIPTION_ERROR",
+    "supersedes_main_sha": "948af92328bde869c0939bd02a30383e1ee2d973",
+    "source": "run_33339989250_artifact_9740240114_result.json",
+    "remote_mutations": 0
   },
   "authorization_lifecycle": {
     "authorization_status": "CONSUMED_SUCCESS",
