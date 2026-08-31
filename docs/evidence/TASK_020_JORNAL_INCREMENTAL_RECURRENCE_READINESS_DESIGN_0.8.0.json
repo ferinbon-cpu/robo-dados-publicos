@@ -1,0 +1,74 @@
+{
+  "schema": "TASK_020_JORNAL_INCREMENTAL_RECURRENCE_READINESS_DESIGN_V1",
+  "status": "PASS_INCREMENTAL_RECURRENCE_READINESS_DESIGN_OFFLINE",
+  "task": "TASK_020",
+  "tier": "T0_OFFLINE",
+  "reviewed_main_sha": "69d4f2861199bc8d3d5342924756eeeeb4ac534f",
+  "basis": {
+    "task_019_evidence": "docs/evidence/TASK_019_POST_BOOTSTRAP_OPERATIONAL_REVIEW_0.8.0.json",
+    "task_018_closure": "docs/evidence/TASK_018_FULL_OPERATIONAL_BOOTSTRAP_CLOSURE_0.8.0.json",
+    "source_registry": "config/limeira_sources_discovery.json",
+    "automation_policy": "config/automation_policy.v1.json",
+    "contract": "config/jornal_incremental_recurrence_readiness.v1.json"
+  },
+  "design_conclusions": {
+    "canonical_item_identity": "EDITION_WITH_DERIVED_SOURCE_ID_AND_LOGICAL_KEY",
+    "no_change_semantics": "PROVEN_BY_PURE_OFFLINE_PLANNER_CONTRACT",
+    "append_only_delta_semantics": "PROVEN_BY_PURE_OFFLINE_PLANNER_CONTRACT",
+    "known_item_missing": "FAIL_CLOSED",
+    "known_item_identity_drift": "FAIL_CLOSED",
+    "duplicate_edition": "FAIL_CLOSED",
+    "non_monotonic_new_item": "FAIL_CLOSED",
+    "bounded_delta": "MAX_8_PROPOSED_NEW_ITEMS_PER_CYCLE",
+    "checkpoint_advance": "ONLY_AFTER_FULL_DOWNSTREAM_SUCCESS_AND_FINAL_READBACK",
+    "partial_checkpoint_commit": false,
+    "automatic_retry": false,
+    "automatic_cleanup": false,
+    "planner_output_is_proposal_only": true
+  },
+  "operational_state": {
+    "jornal_oficial_source_status": "LIVE_VALIDATED",
+    "recurrence_readiness": "INCREMENTAL_DECISION_SEMANTICS_OFFLINE_PROVEN_ONLY",
+    "recurrence_authorized": false,
+    "schedule_authorized": false,
+    "cadence_selected": false,
+    "future_batch_execution_authorized": false,
+    "automatic_t2_authorized": false,
+    "automatic_t3_authorized": false,
+    "live_incremental_execution_authorized": false
+  },
+  "next_gate_boundary": {
+    "live_or_scheduled_execution_requires_new_task": true,
+    "owner_authorization_required": true,
+    "task_020_does_not_define_or_activate_schedule": true,
+    "task_020_does_not_rerun_task_018": true,
+    "task_020_does_not_dispatch_any_workflow": true
+  },
+  "release_boundary": {
+    "active": "0.7.0",
+    "candidate": "0.8.0",
+    "release_promotion_performed": false,
+    "closed_annual_series": "2016-2024",
+    "year_2025": "PROVEN_STRUCTURAL_RECENT",
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_2025": "UNKNOWN/BLOCKED",
+    "year_2026": "UNPROVEN_CURRENT_YEAR",
+    "B1": "PENDING",
+    "B2": "PENDING",
+    "B3": "PENDING"
+  },
+  "effects_of_task_020": {
+    "source_network": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "publication_writes": 0,
+    "workflow_dispatch": 0,
+    "schedule_changes": 0,
+    "recurrence_changes": 0,
+    "release_promotion": 0,
+    "semantic_promotion_2025": 0
+  }
+}
