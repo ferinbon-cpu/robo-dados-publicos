@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
-from robo_dados_publicos.journal.incremental_readiness import plan_incremental_readiness
-
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from robo_dados_publicos.journal.incremental_readiness import plan_incremental_readiness
 
 
 def load_json(path: str) -> dict:
