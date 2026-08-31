@@ -136,6 +136,28 @@
       "safe_current_mode": "T1_AUTO_PROTECTED_MAIN_BOUNDED_PATHS_PLUS_MANUAL_BACKSTOP"
     },
     {
+      "id": "TASK_018_FULL_OPERATIONAL_BOOTSTRAP",
+      "workflow": ".github/workflows/task-018-full-operational-bootstrap.yml",
+      "tier": "T3_MUTATING_OR_PUBLICATION",
+      "compound_operation": true,
+      "stages": ["T1_DISCOVER_AND_COLLECT", "T2_CREATE_ONLY_PERSIST_AND_PROCESS", "T3_CREATE_ONLY_PRODUCT_PUBLICATION"],
+      "auto_allowed": false,
+      "owner_authorization_required": true,
+      "credential_capability": "STAGE_SEPARATED_SOURCE_PUBLIC_GET_AND_DRIVE_WRITE_CAPABLE",
+      "effects": {"source_network": true, "drive_reads": true, "drive_writes": true, "publication": true},
+      "current_triggers": ["workflow_dispatch"],
+      "schedule": false,
+      "recurrence": false,
+      "automatic_retry": false,
+      "create_only": true,
+      "overwrite": false,
+      "replace": false,
+      "delete": false,
+      "authorization_evidence": "docs/evidence/TASK_018_FULL_OPERATIONAL_BOOTSTRAP_OWNER_AUTHORIZATION_0.8.0.json",
+      "future_batch_execution_authorized": false,
+      "blockers": ["PENDING_OWNER_AUTHORIZATION", "IMPLEMENTATION_MERGE_SHA_NOT_PINNED"]
+    },
+    {
       "id": "ACTIVE_RUNTIME_PERSISTENCE",
       "workflow": ".github/workflows/robo-dados-publicos.yml",
       "tier": "T2_CREATE_ONLY",
