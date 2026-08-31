@@ -194,15 +194,21 @@ class OperationalCycle:
             "gold_event_counts": counts["gold_events"], "reconciliation_task_counts": counts["reconciliation_tasks"],
             "reconciliation_result_counts_by_status": {"MATCH_CANDIDATE": 0, "NO_MATCH": 0}, "stop_reasons": [],
         }
-        run_id = "OPC-" + _canonical_hash(snapshot)[:16].upper()
+        snapshot_id = "OPCS-" + _canonical_hash(snapshot)[:16].upper()
         generated_at = started_at or datetime.now(timezone.utc).isoformat()
+        run_id = "OPC-" + _canonical_hash({"snapshot_id": snapshot_id, "started_at": generated_at})[:16].upper()
         report = build_product_report([
             AnswerContract("ANSWERED", f"Referência histórica examinada: {source['source_id']}", f"{counts['pages']} páginas; {counts['extracted_characters']} caracteres; {counts['gold_events']} eventos; {counts['rag_chunks']} chunks; {counts['reconciliation_tasks']} tarefas", "Nenhuma reconciliação ao vivo tentada; MATCH_CANDIDATE não é identidade financeira.", "Resultados fixados já provados, não uma coleta nova.", "EVIDENCIA_INSUFICIENTE e NOT_EXECUTED permanecem explícitos.", tuple(evidence)),
             AnswerContract("EVIDENCIA_INSUFICIENTE", "0 resultados de reconciliação ao vivo", "", "MATCH_CANDIDATE", "Nenhuma identidade financeira promovida.", "LIVE_ONE_SHOT_AUTHORIZED exige autorização posterior do proprietário.", tuple(evidence)),
-        ], report_id=run_id, title="Resumo do ciclo operacional controlado", scope="Prova offline PINNED_REUSE", generated_at=generated_at, limitations=("PROVEN FACT é referência histórica fixada.", "Apresentação não é evidência."), software_version=c["release_boundary"]["active"])
+        ], report_id=run_id, title="Resumo do ciclo operacional controlado", scope="Prova offline PINNED_REUSE", generated_at=generated_at, limitations=("PROVEN FACT é referência histórica fixada.", "Apresentação não é evidência."), notes="Gerado pelo código 0.8.0 CANDIDATE; 0.7.0 permanece ACTIVE.", software_version=c["release_boundary"]["candidate"])
+        report["software_provenance"] = {
+            "software_version": c["release_boundary"]["candidate"],
+            "release_status": c["release_boundary"]["candidate_status"],
+            "active_version": c["release_boundary"]["active"],
+        }
         manifest = write_product_bundle(report, output_dir / "product")
         product_hashes = {x["name"]: x["sha256"] for x in manifest["files"]}
-        snapshot.update({"run_id": run_id, "started_at": generated_at, "product_artifact_hashes": product_hashes})
+        snapshot.update({"snapshot_id": snapshot_id, "run_id": run_id, "started_at": generated_at, "product_artifact_hashes": product_hashes})
         snapshot["comparison"] = compare_runs(snapshot, prior)
         stages.extend([
             StageResult("PRODUCT_BUILD", "PASS", True, [run_id], list(product_hashes), evidence),

@@ -128,6 +128,33 @@ class TestTask017OperationalCycle(unittest.TestCase):
         self.assertIn("EVIDENCIA_INSUFICIENTE", [row["status"] for row in report["rows"]])
         self.assertFalse(report["semantics"]["presentation_is_evidence"])
 
+    def test_product_provenance_uses_candidate_without_release_promotion(self):
+        result, out = self.run_cycle()
+        report = json.loads((out / "product/report.json").read_text())
+        self.assertEqual("0.7.0", result["software_active"])
+        self.assertEqual("0.8.0", result["candidate_version"])
+        self.assertEqual("0.8.0", report["report_card"]["software_version"])
+        self.assertEqual({"software_version": "0.8.0", "release_status": "CANDIDATE", "active_version": "0.7.0"}, report["software_provenance"])
+        self.assertEqual(("ACTIVE", "CANDIDATE"), (self.config["release_boundary"]["active_status"], self.config["release_boundary"]["candidate_status"]))
+
+    def test_run_and_snapshot_identities_are_separate(self):
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            first = OperationalCycle(self.config).run(root / "first", started_at="2026-08-31T00:00:00+00:00")
+            same_execution = OperationalCycle(self.config).run(root / "same", started_at="2026-08-31T00:00:00+00:00")
+            second = OperationalCycle(self.config).run(root / "second", prior=first, started_at="2026-08-31T01:00:00+00:00")
+            first_report = json.loads((root / "first/product/report.json").read_text(encoding="utf-8"))
+            second_report = json.loads((root / "second/product/report.json").read_text(encoding="utf-8"))
+        self.assertEqual(first["snapshot_id"], same_execution["snapshot_id"])
+        self.assertEqual(first["snapshot_id"], second["snapshot_id"])
+        self.assertEqual(first["run_id"], same_execution["run_id"])
+        self.assertNotEqual(first["run_id"], second["run_id"])
+        self.assertEqual(["NO_CHANGE"], second["comparison"])
+        self.assertEqual(first["run_id"], first_report["report_card"]["report_id"])
+        self.assertEqual(second["run_id"], second_report["report_card"]["report_id"])
+        self.assertIn("snapshot_id", second)
+        self.assertIn("run_id", second)
+
     def test_comparison_first_run(self):
         self.assertEqual(["FIRST_RUN"], compare_runs({"profile_id": "P"}, None))
 

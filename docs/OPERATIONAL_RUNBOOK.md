@@ -26,3 +26,8 @@ Source authorization states are `PINNED_REUSE`, `LIVE_READONLY_AUTHORIZED`,
 Run comparison may report `FIRST_RUN`, `NO_CHANGE`, `SOURCE_CHANGED`,
 `NEW_SOURCE_OBJECT`, `PROCESSING_CHANGED`, `NEW_RECONCILIATION_CANDIDATE`, and
 `STOP_STATE_CHANGED`. These labels describe deterministic differences and never causality.
+
+Each result separates a deterministic content/state `snapshot_id` from its execution
+`run_id`, which is deterministically derived from the snapshot and `started_at`. Product
+provenance identifies the generating code as `0.8.0 CANDIDATE`; this does not promote it,
+and `0.7.0` remains the active release.
