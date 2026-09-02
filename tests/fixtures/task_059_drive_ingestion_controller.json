@@ -1,0 +1,8 @@
+[
+  {"id":"a1","title":"FUNDEB_LIMEIRA_2026_01.pdf","mime_type":"application/pdf","in_authorized_scope":true,"content_hydrated":false,"expected":"AUTO_INGEST"},
+  {"id":"a2","title":"Demonstrativo SIOPE-MAVS - 1º BIMESTRE 2026.pdf","mime_type":"application/pdf","in_authorized_scope":true,"content_hydrated":false,"expected":"REVIEW"},
+  {"id":"a3","title":"arquivo_qualquer.pdf","mime_type":"application/pdf","in_authorized_scope":true,"content_hydrated":false,"expected":"QUARANTINE"},
+  {"id":"a4","title":"RREO_Municipal_2026.pdf","mime_type":"application/pdf","in_authorized_scope":false,"content_hydrated":false,"expected":"QUARANTINE"},
+  {"id":"a5","title":"SARESP_2025.csv","mime_type":"application/zip","in_authorized_scope":true,"content_hydrated":false,"expected":"REVIEW"},
+  {"id":"a6","title":"LOA_2026.pdf","mime_type":"application/pdf","in_authorized_scope":true,"content_hydrated":true,"expected":"QUARANTINE"}
+]
