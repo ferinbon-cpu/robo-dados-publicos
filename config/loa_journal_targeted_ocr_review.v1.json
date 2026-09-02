@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "task": "TASK_037_LOA_JOM_TARGETED_OCR_REVIEW",
+  "mode": "T2_BOUNDED_TARGETED_OCR_EXACT_BYTE_SOURCE",
+  "base_sha": "eb8f370e6957de5788bbfbbe97d8cd77c5fb9632",
+  "authorization": {
+    "owner_authorized": true,
+    "owner_message": "Prossiga",
+    "authorized_against_sha": "eb8f370e6957de5788bbfbbe97d8cd77c5fb9632",
+    "scope": [
+      "DRIVE_READ_EXACT_SOURCE",
+      "RENDER_PAGES_475_481",
+      "TARGETED_OCR_PAGES_475_481",
+      "RECORD_DERIVED_EVIDENCE"
+    ],
+    "forbidden": [
+      "PUBLIC_SOURCE_GET",
+      "DRIVE_WRITE",
+      "BRONZE",
+      "SILVER",
+      "GOLD",
+      "SERVING",
+      "PUBLICATION",
+      "FULL_DOCUMENT_OCR",
+      "LLM_NUMERIC_RECONSTRUCTION",
+      "SILENT_TEXT_CORRECTION"
+    ]
+  },
+  "source": {
+    "filename": "SOURCE_JOM_7127_2025-11-29_LOA_7223_2025.pdf",
+    "drive_file_id": "1bRpmMxacX16P1tJBvam-55OOPTYuQnIA",
+    "sha256": "37ea54d85cc5428622b296881a279a17e1aeefd7574576e7a3414443bbee64c4",
+    "bytes": 66119594,
+    "total_pdf_pages": 631,
+    "target_pages": [475, 476, 477, 478, 479, 480, 481]
+  },
+  "render": {
+    "tool": "PyMuPDF",
+    "version": "1.26.7",
+    "dpi": 300,
+    "alpha": false,
+    "colorspace": "RGB",
+    "config_string": "PyMuPDF 1.26.7|dpi=300|alpha=false|colorspace=RGB|page_numbering=PDF_1_BASED",
+    "config_sha256": "f34141496ad0fffcd7f47809855709a8f777f8be77fe7929fb35b7dd95e3f68d"
+  },
+  "ocr": {
+    "engine": "tesseract",
+    "version": "5.5.0",
+    "language": "eng",
+    "oem": 1,
+    "psm": 6,
+    "preserve_interword_spaces": 1,
+    "config_string": "tesseract 5.5.0|-l eng|--oem 1|--psm 6|-c preserve_interword_spaces=1",
+    "config_sha256": "4b7482b941944c0de111d178cc4ba7f8c02e18033d16c99de2e23aa327ee4252",
+    "repeatability_runs": 2,
+    "repeatability_required": true
+  },
+  "policy": {
+    "ocr_is_derived_not_source": true,
+    "numeric_values_committed": false,
+    "critical_numeric_auto_promotion": false,
+    "visual_or_independent_validation_required": true,
+    "silent_character_repair": false,
+    "llm_numeric_reconstruction": false,
+    "pages_480_481_numeric_tables_review_required": true
+  },
+  "promotion": {
+    "bronze": false,
+    "silver": false,
+    "gold": false,
+    "serving": false,
+    "publication": false,
+    "f01_status": "NOT_SILVER"
+  }
+}
