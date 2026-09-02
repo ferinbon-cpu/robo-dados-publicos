@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "task": "TASK_027_LOA_REPRODUCIBLE_EXTRACTION_READINESS",
+  "mode": "T0_OFFLINE_DESIGN",
+  "source_task": "TASK_026_F01_STAGING_RECONCILIATION",
+  "canonical_source": {
+    "source_id": "F01_LOA_2026",
+    "legal_number": "7.223/2025",
+    "exercise": 2026,
+    "sha256": "bc4c8bf4b2b1e8f59e880318c37ec7f7fbd4357a85a8b46c97750444dbf01d4b",
+    "bytes": 24203962,
+    "pages": 466,
+    "text_layer": "ABSENT",
+    "authority_class": "SOURCE"
+  },
+  "route_priority": [
+    "OFFICIAL_MACHINE_READABLE_EQUIVALENT",
+    "OFFICIAL_COMPLETE_TEXT_EQUIVALENT",
+    "DETERMINISTIC_AUDITED_OCR_OF_CANONICAL_SOURCE"
+  ],
+  "official_route": {
+    "discovery_status": "NOT_PROVEN_BY_T0_DISCOVERY",
+    "absence_must_not_be_inferred": true,
+    "accept_only_if": [
+      "OFFICIAL_ORIGIN_PROVEN",
+      "EXERCISE_2026_PROVEN",
+      "LEGAL_IDENTITY_7_223_2025_PROVEN",
+      "ANNEX_COMPLETENESS_PROVEN",
+      "STRUCTURAL_EQUIVALENCE_TO_CANONICAL_SOURCE_PROVEN",
+      "IMMUTABLE_HASH_AND_SIZE_RECORDED"
+    ]
+  },
+  "ocr_route": {
+    "status": "DESIGN_ONLY_NOT_AUTHORIZED",
+    "input_must_equal_canonical_sha256": true,
+    "page_count_must_equal": 466,
+    "one_manifest_row_per_page": true,
+    "required_page_fields": [
+      "page_number",
+      "page_image_sha256",
+      "ocr_text_sha256",
+      "ocr_text_chars",
+      "blank_page",
+      "engine_name",
+      "engine_version",
+      "engine_config_sha256",
+      "render_dpi",
+      "render_tool",
+      "render_tool_version"
+    ],
+    "determinism_requirements": [
+      "PINNED_ENGINE_VERSION",
+      "PINNED_ENGINE_CONFIG",
+      "PINNED_RENDERER_VERSION",
+      "PINNED_DPI",
+      "STABLE_PAGE_ORDER",
+      "NO_LLM_NUMERIC_RECONSTRUCTION",
+      "NO_SILENT_TEXT_CORRECTION"
+    ],
+    "critical_numeric_policy": {
+      "automatic_numeric_promotion": false,
+      "requires_source_page_locator": true,
+      "requires_visual_or_independent_validation": true,
+      "unresolved_status": "REVIEW_REQUIRED"
+    }
+  },
+  "manifest_acceptance": {
+    "exact_page_set": "1..466",
+    "duplicate_pages_allowed": false,
+    "missing_pages_allowed": false,
+    "empty_text_allowed_only_when_blank_page_true": true,
+    "sha256_format_required": true,
+    "mixed_engine_versions_allowed": false,
+    "mixed_render_configs_allowed": false
+  },
+  "promotion": {
+    "ocr_execution_authorized": false,
+    "official_source_network_authorized": false,
+    "silver_authorized": false,
+    "gold_authorized": false,
+    "serving_authorized": false,
+    "publication_authorized": false
+  }
+}
