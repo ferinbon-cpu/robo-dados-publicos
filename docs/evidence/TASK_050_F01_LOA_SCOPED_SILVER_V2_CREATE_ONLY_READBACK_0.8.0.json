@@ -1,0 +1,63 @@
+{
+  "task": "TASK_050_F01_LOA_SCOPED_SILVER_V2_CREATE_ONLY_READBACK",
+  "mode": "T2_CREATE_ONLY_ONE_SCOPED_SILVER_V2_WITH_READBACK",
+  "base_implementation_sha": "647f432e7a98d61532e56bdd1f61a36748bbc0e0",
+  "authorization": {
+    "owner_authorized": true,
+    "owner_message": "Autorizado prossiga",
+    "authorized_local_time": "2026-09-02T17:44:00-03:00",
+    "authorized_against_sha": "647f432e7a98d61532e56bdd1f61a36748bbc0e0",
+    "scope": "PERSIST_LOA_SCOPED_SILVER_V2_CREATE_ONLY_AND_UPDATE_CONTINUITY_RECORDS",
+    "authorization_consumed_for_silver_write": true
+  },
+  "execution": {
+    "channel": "CHAT_FILES_LIBRARY_GOOGLE_DRIVE_CREATE_ONLY",
+    "target_folder_id": "1_wl3Y90-RYKSBXUg53My5K6lxCUnIBNo",
+    "preflight_inventory_performed": true,
+    "target_name_collision_observed": false
+  },
+  "loa": {
+    "file_name": "F01_LOA_JOM_2026_SCOPED_VALIDATED_STRUCTURE__9f04a7202d03__silver_v2.json",
+    "remote_file_id": "1sY2ysOroWzj-aNCXz2jU8EZQnbiDijPK",
+    "contract": "F01_LOA_JOM_2026_SCOPED_VALIDATED_STRUCTURE_SILVER_V2",
+    "scope": "SCOPED_VALIDATED_STRUCTURE_AND_ENRICHED_ACTION_FIELDS_NOT_COMPLETE_LOA_PARSE",
+    "bytes": 3866,
+    "sha256": "9f04a7202d03a58687d5382565777f15887b056ba28c65d9c01e226af7d3ef25",
+    "readback": {
+      "verified": true,
+      "byte_identity": true,
+      "bytes": 3866,
+      "sha256": "9f04a7202d03a58687d5382565777f15887b056ba28c65d9c01e226af7d3ef25"
+    },
+    "v1_preserved": true,
+    "v1_sha256": "3894ede7c67e60d3e12795dec3964d78baf24ff350355d98f3825dd5f81caf4c"
+  },
+  "effects": {
+    "public_source_get": 0,
+    "drive_inventory_requests": 1,
+    "drive_creates": 1,
+    "drive_readbacks": 1,
+    "overwrite": 0,
+    "replace": 0,
+    "delete": 0,
+    "cleanup": 0,
+    "retry": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "gold": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "promotion": {
+    "loa_silver_v2": true,
+    "loa_silver_v1_preserved": true,
+    "ppa_silver_v2_existing": true,
+    "ldo_silver_v1_existing": true,
+    "f01_status": "SILVER_SCOPED_PARTIAL_VALIDATED",
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+    "gold": false,
+    "serving": false,
+    "publication": false
+  },
+  "result": "PASS_TASK050_LOA_SCOPED_SILVER_V2_CREATE_ONLY_READBACK_VERIFIED"
+}
