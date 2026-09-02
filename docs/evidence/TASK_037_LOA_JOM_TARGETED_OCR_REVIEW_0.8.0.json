@@ -1,0 +1,193 @@
+{
+  "task": "TASK_037_LOA_JOM_TARGETED_OCR_REVIEW",
+  "mode": "T2_BOUNDED_TARGETED_OCR_EXACT_BYTE_SOURCE",
+  "base_sha": "eb8f370e6957de5788bbfbbe97d8cd77c5fb9632",
+  "authorization": {
+    "owner_authorized": true,
+    "owner_message": "Prossiga",
+    "authorized_against_sha": "eb8f370e6957de5788bbfbbe97d8cd77c5fb9632",
+    "scope": [
+      "DRIVE_READ_EXACT_SOURCE",
+      "RENDER_PAGES_475_481",
+      "TARGETED_OCR_PAGES_475_481",
+      "RECORD_DERIVED_EVIDENCE"
+    ],
+    "forbidden": [
+      "PUBLIC_SOURCE_GET",
+      "DRIVE_WRITE",
+      "BRONZE",
+      "SILVER",
+      "GOLD",
+      "SERVING",
+      "PUBLICATION",
+      "FULL_DOCUMENT_OCR",
+      "LLM_NUMERIC_RECONSTRUCTION",
+      "SILENT_TEXT_CORRECTION"
+    ]
+  },
+  "source": {
+    "filename": "SOURCE_JOM_7127_2025-11-29_LOA_7223_2025.pdf",
+    "drive_file_id": "1bRpmMxacX16P1tJBvam-55OOPTYuQnIA",
+    "sha256": "37ea54d85cc5428622b296881a279a17e1aeefd7574576e7a3414443bbee64c4",
+    "bytes": 66119594,
+    "total_pdf_pages": 631,
+    "target_pages": [475, 476, 477, 478, 479, 480, 481],
+    "drive_read_completed": true,
+    "input_transport": "GOOGLE_DRIVE_EXACT_BYTE_DOWNLOAD",
+    "source_sha256_verified": true,
+    "source_bytes_verified": true,
+    "source_page_count_verified": true
+  },
+  "render": {
+    "tool": "PyMuPDF",
+    "version": "1.26.7",
+    "dpi": 300,
+    "alpha": false,
+    "colorspace": "RGB",
+    "config_string": "PyMuPDF 1.26.7|dpi=300|alpha=false|colorspace=RGB|page_numbering=PDF_1_BASED",
+    "config_sha256": "f34141496ad0fffcd7f47809855709a8f777f8be77fe7929fb35b7dd95e3f68d"
+  },
+  "ocr": {
+    "engine": "tesseract",
+    "version": "5.5.0",
+    "language": "eng",
+    "oem": 1,
+    "psm": 6,
+    "preserve_interword_spaces": 1,
+    "config_string": "tesseract 5.5.0|-l eng|--oem 1|--psm 6|-c preserve_interword_spaces=1",
+    "config_sha256": "4b7482b941944c0de111d178cc4ba7f8c02e18033d16c99de2e23aa327ee4252",
+    "repeatability_runs": 2,
+    "repeatability_required": true
+  },
+  "manifest": {
+    "row_count": 7,
+    "pages": [475, 476, 477, 478, 479, 480, 481],
+    "rows": [
+      {
+        "page": 475,
+        "native_text_chars": 138,
+        "page_image_sha256": "713af139e42e49192425e16ec01dc86ccf528db975febf9b84b6d8bc08b7ee71",
+        "page_image_bytes": 169887,
+        "ocr_text_sha256": "056bbde3b7c7113f40576c82164414c72dbf17aa8b8dad2e24e6b11e319c9ab8",
+        "ocr_text_chars": 1427,
+        "status": "OCR_TEXT_RECOVERED_CANDIDATE_ONLY",
+        "critical_numeric_auto_promotion": false,
+        "visual_or_independent_validation_required": true
+      },
+      {
+        "page": 476,
+        "native_text_chars": 138,
+        "page_image_sha256": "9c606fc26600ceb1f3cbb4ef8c6a4d9113468b14088b1b802330de082e1b5a64",
+        "page_image_bytes": 158699,
+        "ocr_text_sha256": "ce37144acd01311a3c546450a28c05f767b41a795df3278f985a17b9dd66e452",
+        "ocr_text_chars": 1413,
+        "status": "OCR_TEXT_RECOVERED_CANDIDATE_ONLY",
+        "critical_numeric_auto_promotion": false,
+        "visual_or_independent_validation_required": true
+      },
+      {
+        "page": 477,
+        "native_text_chars": 138,
+        "page_image_sha256": "7fb4b63c069a4fe370c6eb91691d1466eece23675d728724b98d268204e7ec5e",
+        "page_image_bytes": 177806,
+        "ocr_text_sha256": "c0f3a49a0963cac4d029b8abf57b154a4a1365964491629cbe378d46a870aaf8",
+        "ocr_text_chars": 1503,
+        "status": "OCR_TEXT_RECOVERED_CANDIDATE_ONLY",
+        "critical_numeric_auto_promotion": false,
+        "visual_or_independent_validation_required": true
+      },
+      {
+        "page": 478,
+        "native_text_chars": 138,
+        "page_image_sha256": "8c6c38a2445f8d6c573b119b45844f91e18730e07be0142f8c80dab5c209b721",
+        "page_image_bytes": 174199,
+        "ocr_text_sha256": "c0d764eb3c964965d1ff49f96ca53c05413a042f7d27c6a51333bb7bbdc2906f",
+        "ocr_text_chars": 1431,
+        "status": "OCR_TEXT_RECOVERED_CANDIDATE_ONLY",
+        "critical_numeric_auto_promotion": false,
+        "visual_or_independent_validation_required": true
+      },
+      {
+        "page": 479,
+        "native_text_chars": 138,
+        "page_image_sha256": "bf635f7efeb5783deee830b93fddaa56c5c423c76e3ba13e3de3f3eed5fed4a4",
+        "page_image_bytes": 198626,
+        "ocr_text_sha256": "ab5762858f1e82ad440945cef36b678b555a0848a0c761688c7fcfbde6cd02b8",
+        "ocr_text_chars": 1560,
+        "status": "OCR_TEXT_RECOVERED_CANDIDATE_ONLY",
+        "critical_numeric_auto_promotion": false,
+        "visual_or_independent_validation_required": true
+      },
+      {
+        "page": 480,
+        "native_text_chars": 138,
+        "page_image_sha256": "39be4e0320364441f8e8a18013afe2d44c676c14386ab2082c17ebc615bc5642",
+        "page_image_bytes": 357714,
+        "ocr_text_sha256": "ec6e3dc63c7501bc8269da2e332015cd034d46a18dfdf0ccba42e4dee0add2b6",
+        "ocr_text_chars": 4916,
+        "status": "REVIEW_REQUIRED_NUMERIC_TABLE",
+        "critical_numeric_auto_promotion": false,
+        "visual_or_independent_validation_required": true
+      },
+      {
+        "page": 481,
+        "native_text_chars": 138,
+        "page_image_sha256": "1c15c05e2f430655d2d00fc3e502e509f31459b241b6f478447ea61cee398058",
+        "page_image_bytes": 486141,
+        "ocr_text_sha256": "75f9bb4bc329176a228836449e66ad3bc454ec6f1fefe575f824f5458b79ad2f",
+        "ocr_text_chars": 4482,
+        "status": "REVIEW_REQUIRED_NUMERIC_TABLE",
+        "critical_numeric_auto_promotion": false,
+        "visual_or_independent_validation_required": true
+      }
+    ],
+    "rows_sha256": "528bfaf3bf305d395eb874f9e0d22181a93e4e9b80a9b6c4512c11346ac5f773",
+    "page_image_hash_chain_sha256": "5d6a9f73b1dd28448292c585fad9eb51afe5ee67a205aa57f432096e714fe0f3",
+    "ocr_text_hash_chain_sha256": "d826be350ed7f6de6cc3e4e090197fdb2785bff49c619c8a000ba86f167201ec",
+    "ocr_text_chars_total": 16732,
+    "repeatability": {
+      "runs": 2,
+      "all_page_text_hashes_identical": true
+    }
+  },
+  "page_interpretation": {
+    "475": "ESPECIFICACAO_DA_LEGISLACAO_DA_DESPESA_CANDIDATE_ONLY",
+    "476": "ESPECIFICACAO_DA_LEGISLACAO_DA_DESPESA_CANDIDATE_ONLY",
+    "477": "ESPECIFICACAO_DA_LEGISLACAO_DA_DESPESA_CANDIDATE_ONLY",
+    "478": "ESPECIFICACAO_DA_LEGISLACAO_DA_DESPESA_CANDIDATE_ONLY",
+    "479": "ESPECIFICACAO_DA_LEGISLACAO_DA_DESPESA_CANDIDATE_ONLY",
+    "480": "DEMONSTRATIVO_DAS_TRANSFERENCIAS_FINANCEIRAS_NUMERIC_REVIEW_REQUIRED",
+    "481": "COMPATIBILIDADE_ORCAMENTO_METAS_RESULTADOS_FISCAIS_NUMERIC_REVIEW_REQUIRED"
+  },
+  "policy": {
+    "ocr_is_derived_not_source": true,
+    "numeric_values_committed": false,
+    "critical_numeric_auto_promotion": false,
+    "visual_or_independent_validation_required": true,
+    "silent_character_repair": false,
+    "llm_numeric_reconstruction": false,
+    "pages_480_481_numeric_tables_review_required": true
+  },
+  "effects": {
+    "public_source_get": 0,
+    "drive_read": 1,
+    "drive_write": 0,
+    "pages_rendered": 7,
+    "ocr_pages": 7,
+    "ocr_repeat_runs": 2,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "promotion": {
+    "bronze": false,
+    "silver": false,
+    "gold": false,
+    "serving": false,
+    "publication": false,
+    "f01_status": "NOT_SILVER"
+  },
+  "result": "PASS_TARGETED_OCR_EVIDENCE_ONLY_NOT_PROMOTED"
+}
