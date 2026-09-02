@@ -1,0 +1,12 @@
+{
+  "task":"TASK_062_SOURCE_FAMILY_MATURITY_REGISTRY",
+  "base_main_sha":"23acea8344562709b48b4b69ee7859114ad70498",
+  "authorization":{"token_index":2,"scope":"OFFLINE_SOURCE_FAMILY_MATURITY_REGISTRY"},
+  "family_count":21,
+  "key_correction":"AUTO_INGEST_ROUTING_ELIGIBILITY_IS_NOT_EXECUTION_MATURITY",
+  "execution_ready_bounded":["JORNAL_OFICIAL","SIOPE"],
+  "blocked_pending_contract":["TDA_LIMEIRA"],
+  "all_other_families":"ROUTING_ONLY_SUPERVISED_EXECUTION",
+  "hard_boundaries":{"source_content_reads":0,"public_network_requests":0,"drive_writes":0,"layer_writes":0,"publications":0},
+  "result":"PASS_TASK062_SOURCE_FAMILY_MATURITY_REGISTRY_OFFLINE_READY"
+}
