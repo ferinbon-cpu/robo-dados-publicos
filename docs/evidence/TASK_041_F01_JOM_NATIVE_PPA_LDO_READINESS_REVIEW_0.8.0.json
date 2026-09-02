@@ -1,0 +1,202 @@
+{
+  "task": "TASK_041_F01_JOM_NATIVE_PPA_LDO_READINESS_REVIEW",
+  "mode": "T0_OFFLINE_AND_EXISTING_CUSTODY_READ_ONLY_REVIEW",
+  "base_sha": "ea706547453830cf2df2ed9b1ea0e7fb3276c2ac",
+  "source_policy": {
+    "primary_source": "JORNAL_OFICIAL_LIMEIRA_FULL_EDITION_PDF",
+    "standalone_copy_role": "OFFICIAL_COMPLEMENTARY_COPY",
+    "silent_cross_source_substitution": false
+  },
+  "observed_effects": {
+    "drive_reads": 2,
+    "drive_writes": 0,
+    "source_network": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "ppa_candidate": {
+    "contract": "F01_PPA_JOM_2026_2029_SCOPED_VALIDATED_PROGRAM_2001_SILVER_V1",
+    "scope": "SCOPED_PROGRAM_2001_AND_SELECTED_ACTIONS_NOT_COMPLETE_PPA_PARSE",
+    "source": {
+      "filename": "SOURCE_JOM_7119_2025-11-15_PPA_7213_2025.pdf",
+      "drive_file_id": "1ez1B_mJ428IxTIUht1AHM9-I5SCotKXj",
+      "sha256": "cb65f29c772eb7133c902e827884a4ed19d8c09f64586b8de9d6483023d9133a",
+      "bytes": 16867824,
+      "total_pdf_pages": 107
+    },
+    "legal_instrument": {
+      "law_number": "7.213/2025",
+      "law_date": "2025-11-12",
+      "period": "2026-2029",
+      "journal_edition": 7119,
+      "publication_date": "2025-11-15",
+      "law_page_start": 5,
+      "law_page_end": 64,
+      "law_page_count": 60
+    },
+    "text_layer": {
+      "parser": "pypdf",
+      "parser_version": "5.9.0",
+      "law_pages_with_native_text": 60,
+      "law_pages_without_native_text": 0,
+      "page_text_rows_sha256": "5114a6bac6b8d2accdf245dcea6105917e3fd90b016c80fdcc063f00cd6b3c70",
+      "page_15_text_sha256": "b6d44ee39efeed3b1acc3dccabbf56c73fb6914ef8ce15003d144c44a59e5eb4",
+      "page_16_text_sha256": "ef43c77374ee0e2159e99003ac6d49e5de7ac47611b12781f19c54bedec3e4c8",
+      "table_text_extraction_complete": false
+    },
+    "program_2001": {
+      "program_code": "2001",
+      "program_name": "EDUCACAO QUE INCLUI E TRANSFORMA VIDAS",
+      "responsible_unit_code": "10.00.00",
+      "responsible_unit_name": "SECRETARIA DE EDUCACAO",
+      "indicator": {
+        "name": "INDICE DE ALUNOS EM EDUCACAO INTEGRAL",
+        "unit": "PERCENTUAL",
+        "recent": 52,
+        "2026": 53,
+        "2027": 55,
+        "2028": 57,
+        "2029": 59,
+        "final_ppa": 59,
+        "source_page": 15,
+        "validation": "DIRECT_PRIMARY_JOM_VISUAL_SOURCE_VERIFICATION"
+      },
+      "selected_actions": [
+        {
+          "page": 15,
+          "action_code": "2690",
+          "label": "TRANSPORTE ESCOLAR",
+          "education_level": "EDUCACAO INFANTIL",
+          "function": "12",
+          "subfunction": "365",
+          "units": "R$ milhares medios/2025",
+          "2026": 3694,
+          "2027": 3842,
+          "2028": 4015,
+          "2029": 4256,
+          "total": 15807,
+          "validation": "DIRECT_PRIMARY_JOM_VISUAL_SOURCE_VERIFICATION",
+          "eiti_specific": false
+        },
+        {
+          "page": 15,
+          "action_code": "2690",
+          "label": "TRANSPORTE ESCOLAR",
+          "education_level": "ENSINO FUNDAMENTAL",
+          "function": "12",
+          "subfunction": "361",
+          "units": "R$ milhares medios/2025",
+          "2026": 8720,
+          "2027": 9069,
+          "2028": 9477,
+          "2029": 10046,
+          "total": 37312,
+          "validation": "DIRECT_PRIMARY_JOM_VISUAL_SOURCE_VERIFICATION",
+          "eiti_specific": false
+        },
+        {
+          "page": 16,
+          "action_code": "2720",
+          "label": "ALIMENTACAO ESCOLAR",
+          "education_level": "MULTIETAPA",
+          "function": "12",
+          "subfunction": "306",
+          "units": "R$ milhares medios/2025",
+          "2026": 28000,
+          "2027": 29120,
+          "2028": 30430,
+          "2029": 32256,
+          "total": 119806,
+          "validation": "DIRECT_PRIMARY_JOM_VISUAL_SOURCE_VERIFICATION",
+          "eiti_specific": false
+        }
+      ],
+      "excluded_review_rows": [
+        {
+          "action_code": "2690",
+          "education_level": "ENSINO MEDIO_E_SUPERIOR",
+          "status": "PARSER_REVIEW_REQUIRED",
+          "promoted": false
+        }
+      ]
+    },
+    "guardrails": {
+      "complete_ppa_parse_claim": false,
+      "silent_cross_source_substitution": false,
+      "llm_numeric_reconstruction": false,
+      "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+      "program_2001_total_attribution_to_eiti": false,
+      "compliance_conclusion": false,
+      "gold_authorized": false
+    }
+  },
+  "ppa_candidate_sha256": "0cba09dade1c09224e549e817a859c63edb12a6fb0a5223c5ddb8aa5fe6dc730",
+  "ldo_candidate": {
+    "contract": "F01_LDO_JOM_2026_SCOPED_STRUCTURAL_MARKERS_SILVER_V1",
+    "scope": "SCOPED_LEGAL_IDENTITY_AND_STRUCTURAL_MARKERS_NOT_COMPLETE_LDO_PARSE",
+    "source": {
+      "filename": "SOURCE_JOM_7024_2025-07-08_LDO_7141_2025.pdf",
+      "drive_file_id": "1U_E1I1Lbrq5WvedrDPygFuEfQj-ouOex",
+      "sha256": "44d92a6ac948bbf43dcb3302733faac1a4ed5e592702f66c07f0c6ede4ecb73c",
+      "bytes": 17615179,
+      "total_pdf_pages": 79
+    },
+    "legal_instrument": {
+      "law_number": "7.141/2025",
+      "law_date": "2025-07-02",
+      "exercise": 2026,
+      "journal_edition": 7024,
+      "publication_date": "2025-07-08",
+      "law_page_start": 5,
+      "law_page_end": 38,
+      "law_page_count": 34
+    },
+    "boundary_correction": {
+      "supersedes_old_mapping": "JOM_PAGES_5_41",
+      "correct_mapping": "JOM_PAGES_5_38",
+      "first_non_ldo_page": 39,
+      "first_non_ldo_document": "PORTARIA 1.666/2025",
+      "status": "CORRECTED_FROM_PRIMARY_JOM"
+    },
+    "text_layer": {
+      "parser": "pypdf",
+      "parser_version": "5.9.0",
+      "law_pages_with_native_text": 34,
+      "law_pages_without_native_text": 0,
+      "page_text_rows_sha256": "2f6cae56bc282df75f8decacece8dfac0eaeb4c79a347257ed29fd032d782939"
+    },
+    "structural_markers": [
+      {"section_key": "METAS_FISCAIS", "found": true, "first_jom_page": 5},
+      {"section_key": "RISCOS_FISCAIS", "found": true, "first_jom_page": 6},
+      {"section_key": "RESERVA_CONTINGENCIA", "found": true, "first_jom_page": 7},
+      {"section_key": "EDUCACAO", "found": true, "first_jom_page": 8},
+      {"section_key": "PESSOAL", "found": true, "first_jom_page": 9}
+    ],
+    "guardrails": {
+      "complete_ldo_parse_claim": false,
+      "fiscal_compliance_conclusion": false,
+      "mde_fundeb_compliance_conclusion": false,
+      "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+      "gold_authorized": false
+    }
+  },
+  "ldo_candidate_sha256": "4719631a3dd476efe8c760f2b9ce07eba15d678c85b56e95345af70237f02182",
+  "readiness": {
+    "ppa": "READY_FOR_SCOPED_SILVER_CREATE_ONLY_SEPARATE_AUTH_REQUIRED",
+    "ldo": "READY_FOR_SCOPED_SILVER_CREATE_ONLY_SEPARATE_AUTH_REQUIRED",
+    "loa": "SILVER_SCOPED_PARTIAL_VALIDATED"
+  },
+  "promotion": {
+    "ppa_silver": false,
+    "ldo_silver": false,
+    "loa_silver_existing": true,
+    "gold": false,
+    "serving": false,
+    "publication": false
+  },
+  "result": "PASS_TASK041_JOM_NATIVE_PPA_LDO_SCOPED_SILVER_CANDIDATES_READY_NO_WRITE"
+}
