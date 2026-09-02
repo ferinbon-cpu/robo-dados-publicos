@@ -1,0 +1,84 @@
+{
+  "task": "TASK_052_EXISTING_CUSTODY_GRANULAR_SOURCE_INVENTORY",
+  "mode": "T1_EXISTING_CUSTODY_METADATA_OR_MANIFEST_INVENTORY",
+  "base_sha": "e4c88711fcc88913210def0c3947237e7a1c60cf",
+  "authorization": {
+    "owner_authorized": true,
+    "owner_message": "Prossiga autorizado",
+    "scope": "TASK_052_METADATA_OR_MANIFEST_INVENTORY_ONLY_MAX_25_NO_SOURCE_CONTENT_READ_NO_NETWORK_NO_DRIVE_WRITE",
+    "authorization_consumed": true,
+    "future_blanket_authorizations_accepted": false
+  },
+  "precondition_cleanup": {
+    "duplicate_drive_file_id_deleted": "1l_q_iM8yIf76MjUAFi_ZvyLinLBYMJBv",
+    "canonical_drive_file_id_preserved": "1sY2ysOroWzj-aNCXz2jU8EZQnbiDijPK",
+    "duplicate_cleanup_verified_before_task052": true
+  },
+  "inventory_contract": {
+    "preferred_first_family": "DETAILED_EDUCATION_BUDGET_EXECUTION_OR_BALANCETE_EDUCACAO",
+    "max_candidate_records": 25,
+    "source_content_read_allowed": false,
+    "public_source_network_allowed": false,
+    "drive_write_allowed": false,
+    "promotion_allowed": false
+  },
+  "metadata_searches_performed": [
+    "BALANCETE",
+    "BALANCETE EDUCACAO",
+    "EXECUCAO ORCAMENTARIA EDUCACAO",
+    "EMPENHO EDUCACAO LIMEIRA",
+    "PAGAMENTO LIQUIDACAO DESPESA EDUCACAO LIMEIRA",
+    "NAME_CONTAINS_DESPESA",
+    "NAME_CONTAINS_JANEIRO"
+  ],
+  "candidate_records": [
+    {
+      "rank": 1,
+      "drive_file_id": "1PTAnH-LL_8fvS7TsVuHSci5dBDKFLQTS",
+      "title": "05 - Maio_despesa.pdf",
+      "candidate_family": "POTENTIAL_DETAILED_BUDGET_EXECUTION_OR_BALANCETE",
+      "basis": "METADATA_TITLE_ONLY",
+      "content_used_for_candidate_classification": false,
+      "authorized_for_future_content_read": false
+    }
+  ],
+  "boundary_incident": {
+    "occurred": true,
+    "operation": "DRIVE_FETCH_USED_TO_RESOLVE_METADATA_LOCATION",
+    "effect": "CONNECTOR_HYDRATED_SOURCE_TEXT_UNEXPECTEDLY",
+    "source_file_id": "1PTAnH-LL_8fvS7TsVuHSci5dBDKFLQTS",
+    "source_content_read_count": 1,
+    "content_used_for_task052_finding": false,
+    "drive_write_count": 0,
+    "public_source_network_count": 0,
+    "ocr_count": 0,
+    "response": "FAIL_CLOSED_STOP_NO_PROMOTION"
+  },
+  "effects": {
+    "drive_metadata_or_index_searches": 7,
+    "source_content_reads": 1,
+    "public_source_network": 0,
+    "drive_write": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "promotion": {
+    "candidate_inventory_passed": false,
+    "f01_status": "SILVER_SCOPED_PARTIAL_VALIDATED",
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+    "gold": false,
+    "serving": false,
+    "publication": false
+  },
+  "next_bounded_gate": {
+    "name": "TASK_053_METADATA_SAFE_CANDIDATE_INVENTORY_REDESIGN",
+    "purpose": "REDESIGN_INVENTORY_TO_USE_SEARCH_LIST_METADATA_ONLY_WITHOUT_FETCH_OR_CONTENT_HYDRATION",
+    "candidate_seed_drive_file_id": "1PTAnH-LL_8fvS7TsVuHSci5dBDKFLQTS",
+    "new_authorization_required_before_any_SOURCE_CONTENT_READ": true
+  },
+  "result": "STOP_TASK052_SOURCE_CONTENT_READ_BOUNDARY_BREACHED_NO_PROMOTION"
+}
