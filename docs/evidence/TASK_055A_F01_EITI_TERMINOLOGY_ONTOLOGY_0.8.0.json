@@ -1,0 +1,157 @@
+{
+  "task": "TASK_055A_F01_EITI_TERMINOLOGY_ONTOLOGY",
+  "mode": "T0_TERMINOLOGY_AND_NORMATIVE_ONTOLOGY_DESIGN",
+  "base_sha": "9394e7bc63c5c4128728f416e60d694c85c188db",
+  "authorization": {
+    "owner_authorized": true,
+    "owner_message": "Prossiga",
+    "scope": "BUILD_EITI_TERMINOLOGY_ONTOLOGY_BEFORE_TASK056_NO_F01_SOURCE_CONTENT_READ_NO_DRIVE_WRITE_NO_PROMOTION",
+    "authorization_consumed": true,
+    "future_blanket_authorizations_accepted": false
+  },
+  "source_basis": {
+    "project_reference": "Projeto_Fernando_v13.docx",
+    "project_findings": [
+      "PROJECT_EXPLICITLY_DISTINGUISHES_PROGRAMA_ETI_EITI_AND_EITI_LIMEIRA",
+      "PROJECT_HAS_DOCUMENT_SEARCH_DESCRIPTORS_SECTION",
+      "LOCAL_PLANNING_TERMINOLOGY_CHANGES_OVER_TIME"
+    ],
+    "official_normative_basis": [
+      "LEI_14640_2023_PROGRAMA_ESCOLA_EM_TEMPO_INTEGRAL",
+      "PORTARIA_MEC_2036_2023_AMPLIACAO_JORNADA_EM_TEMPO_INTEGRAL_NA_PERSPECTIVA_DA_EDUCACAO_INTEGRAL",
+      "RESOLUCAO_CNE_CEB_7_2025_EITI",
+      "RESOLUCAO_CNE_CEB_2_2026_ALTERA_DIRETRIZES_EITI",
+      "LEI_15388_2026_PNE_OBJETIVO_6_EITI",
+      "RESOLUCAO_CIF_23_2026_FUNDEB_MATRICULAS_TEMPO_INTEGRAL",
+      "DECRETO_LIMEIRA_118_2024_POLITICA_EITI",
+      "INDICACAO_CME_LIMEIRA_02_2021_EDUCACAO_EM_TEMPO_INTEGRAL_E_POLITICA_PUBLICA_DE_EDUCACAO_INTEGRAL"
+    ]
+  },
+  "ontology": {
+    "A_CANONICAL_POLICY_IDENTIFIERS": [
+      "Politica Municipal de Educacao Integral em Tempo Integral",
+      "Politica de Educacao Integral em Tempo Integral na Rede Municipal de Ensino de Limeira",
+      "Educacao Integral em Tempo Integral",
+      "EITI",
+      "EITI-Limeira",
+      "Programa Escola em Tempo Integral",
+      "Programa ETI",
+      "Educacao em Tempo Integral"
+    ],
+    "B_LOCAL_PLANNING_AND_NORMATIVE_ALIASES": [
+      "escolas com programas em tempo integral",
+      "indice de alunos em Educacao Integral",
+      "Politica Publica de Educacao Integral",
+      "Comite Municipal de Educacao Integral",
+      "Meta 6",
+      "Plano de Expansao"
+    ],
+    "C_OPERATIONAL_OFFER_AND_JOURNEY_SIGNALS": [
+      "matriculas em tempo integral",
+      "novas matriculas em tempo integral",
+      "jornada escolar em tempo integral",
+      "jornada em tempo integral",
+      "jornada integral",
+      "jornada ampliada",
+      "jornada expandida",
+      "ampliacao da jornada escolar",
+      "conversao de jornada parcial para jornada integral",
+      "sete horas",
+      "7 horas",
+      "trinta e cinco horas",
+      "35 horas",
+      "turno unico",
+      "tempo de permanencia"
+    ],
+    "D_FINANCING_AND_INDUCTION_SIGNALS": [
+      "fomento",
+      "assistencia tecnica e financeira",
+      "transferencia de recursos",
+      "conta corrente especifica",
+      "FNDE",
+      "FUNDEB",
+      "MDE",
+      "manutencao e desenvolvimento do ensino",
+      "dotacao especifica",
+      "dotacao orcamentaria",
+      "fonte de recursos",
+      "pactuacao",
+      "regime de colaboracao"
+    ],
+    "E_ACCOUNTING_AND_PLANNING_LINKAGE_KEYS": [
+      "programa",
+      "acao",
+      "subacao",
+      "produto",
+      "indicador",
+      "meta",
+      "unidade orcamentaria",
+      "orgao responsavel",
+      "fonte",
+      "destinacao",
+      "ficha",
+      "centro de custo",
+      "natureza da despesa",
+      "elemento",
+      "subelemento",
+      "empenho",
+      "empenhado",
+      "liquidacao",
+      "liquidado",
+      "pagamento",
+      "pago"
+    ]
+  },
+  "matching_rules": {
+    "normalization": [
+      "CASE_INSENSITIVE",
+      "ACCENT_INSENSITIVE",
+      "HYPHEN_AND_WHITESPACE_TOLERANT",
+      "SINGULAR_PLURAL_VARIANTS_ALLOWED",
+      "ABBREVIATION_AND_FULL_FORM_BOTH_SEARCHED"
+    ],
+    "candidate_policy_signal": "ANY_A_OR_CONTEXTUAL_B_OR_STRONG_C_COMBINATION",
+    "weak_numeric_rule": "7_HOURS_OR_35_HOURS_ALONE_MUST_NOT_CLASSIFY_EITI_WITHOUT_SCHOOL_JOURNEY_OR_MATRICULA_CONTEXT",
+    "finance_signal_rule": "D_TERMS_ALONE_MUST_NOT_ATTRIBUTE_SPENDING_TO_EITI",
+    "accounting_signal_rule": "E_TERMS_ALONE_MUST_NOT_ATTRIBUTE_SPENDING_TO_EITI",
+    "financial_identity_rule": "REQUIRE_POLICY_SIGNAL_PLUS_EXPLICIT_OR_STABLY_PROVEN_ACCOUNTING_LINKAGE_KEY_PLUS_AMOUNT_AND_EXECUTION_STAGE",
+    "full_execution_chain_rule": "PREFER_OR_REQUIRE_WHEN_AVAILABLE_EMPENHADO_TO_LIQUIDADO_TO_PAGO_UNDER_SAME_STABLE_KEY",
+    "no_semantic_overreach": true
+  },
+  "task055_reinterpretation": {
+    "structural_granularity_finding_remains_valid": true,
+    "aggregate_economic_element_report_still_insufficient_for_eiti_attribution": true,
+    "pre_055a_lexical_negative_search_is_exhaustive": false,
+    "future_tasks_must_use_ontology": true,
+    "task055_does_not_prove_absence_of_eiti_spending": true
+  },
+  "future_task056_contract": {
+    "name": "TASK_056_F01_SECONDARY_EDUCATION_SOURCE_BOUNDED_CONTENT_READ",
+    "selected_drive_file_id": "17Fl8opb1pkqdFa485-bkQR3j6LnApnE-",
+    "selected_title": "Demonstrativo SIOPE-MAVS - 1o BIMESTRE 2026.pdf",
+    "ontology_required": true,
+    "search_all_five_term_families": true,
+    "fresh_owner_authorization_required_before_source_read": true,
+    "no_other_source_read": true,
+    "no_drive_write": true,
+    "promotion_allowed": false
+  },
+  "effects": {
+    "f01_source_content_reads": 0,
+    "drive_write": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "promotion": {
+    "terminology_ontology_ready": true,
+    "f01_status": "SILVER_SCOPED_PARTIAL_VALIDATED",
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+    "gold": false,
+    "serving": false,
+    "publication": false
+  },
+  "result": "PASS_TASK055A_EITI_TERMINOLOGY_ONTOLOGY_READY_TASK056_REQUIRES_ONTOLOGY"
+}
