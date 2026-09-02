@@ -35,7 +35,39 @@ def load_controller_contract(path: str | Path) -> dict[str, Any]:
             raise DriveIngestionStop(f"STOP_DRIVE_CONTROLLER_REMOTE_EFFECT_ENABLED:{key}")
     if raw.get("allowed_input_surface") != "DRIVE_METADATA_ONLY":
         raise DriveIngestionStop("STOP_DRIVE_CONTROLLER_NON_METADATA_INPUT")
+
+    families = raw.get("known_document_families")
+    if not isinstance(families, dict) or not families:
+        raise DriveIngestionStop("STOP_DRIVE_CONTROLLER_NO_DOCUMENT_FAMILIES")
+
+    match_order = raw.get("family_match_order")
+    if match_order is not None:
+        if not isinstance(match_order, list) or len(match_order) != len(set(match_order)):
+            raise DriveIngestionStop("STOP_DRIVE_CONTROLLER_BAD_MATCH_ORDER")
+        if set(match_order) != set(families):
+            raise DriveIngestionStop("STOP_DRIVE_CONTROLLER_MATCH_ORDER_FAMILY_DRIFT")
+
+    default_routes = raw.get("family_default_routes")
+    if default_routes is not None:
+        if set(default_routes) != set(families):
+            raise DriveIngestionStop("STOP_DRIVE_CONTROLLER_DEFAULT_ROUTE_FAMILY_DRIFT")
+        invalid = {route for route in default_routes.values() if route not in {"AUTO_INGEST", "REVIEW", "QUARANTINE"}}
+        if invalid:
+            raise DriveIngestionStop("STOP_DRIVE_CONTROLLER_BAD_DEFAULT_ROUTE")
+
     return raw
+
+
+def _family_matches(title: str, contract: dict[str, Any]) -> list[str]:
+    folded = _fold(title)
+    families = contract["known_document_families"]
+    order = contract.get("family_match_order") or list(families)
+    matches: list[str] = []
+    for family in order:
+        terms = families[family]
+        if any(re.search(r"(^|[^A-Z0-9])" + re.escape(_fold(term)) + r"([^A-Z0-9]|$)", folded) for term in terms):
+            matches.append(family)
+    return matches
 
 
 def classify_metadata(record: dict[str, Any], contract: dict[str, Any]) -> RoutingDecision:
@@ -49,21 +81,23 @@ def classify_metadata(record: dict[str, Any], contract: dict[str, Any]) -> Routi
     if record.get("in_authorized_scope") is False:
         return RoutingDecision(file_id, title, None, "QUARANTINE", ("SOURCE_OUTSIDE_AUTHORIZED_FOLDER_SCOPE",))
 
-    folded = _fold(title)
-    matches: list[str] = []
-    for family, terms in contract["known_document_families"].items():
-        if any(re.search(r"(^|[^A-Z0-9])" + re.escape(_fold(term)) + r"([^A-Z0-9]|$)", folded) for term in terms):
-            matches.append(family)
-
+    matches = _family_matches(title, contract)
     if not matches:
         return RoutingDecision(file_id, title, None, "QUARANTINE", ("UNRECOGNIZED_FAMILY",))
     if len(matches) > 1:
         return RoutingDecision(file_id, title, None, "REVIEW", ("MULTIPLE_FAMILY_MATCHES",))
+
     family = matches[0]
     if not file_id:
         return RoutingDecision(None, title, family, "REVIEW", ("MISSING_STABLE_FILE_ID",))
     if mime and mime not in set(contract["supported_mime_types"]):
         return RoutingDecision(file_id, title, family, "REVIEW", ("KNOWN_FAMILY_UNSUPPORTED_MIME",))
+
+    default_route = contract.get("family_default_routes", {}).get(family, "AUTO_INGEST")
+    if default_route == "REVIEW":
+        return RoutingDecision(file_id, title, family, "REVIEW", ("KNOWN_FAMILY_METADATA_MATCH", "KNOWN_FAMILY_REQUIRES_SUPERVISED_REVIEW"))
+    if default_route == "QUARANTINE":
+        return RoutingDecision(file_id, title, family, "QUARANTINE", ("KNOWN_FAMILY_POLICY_QUARANTINE",))
     return RoutingDecision(file_id, title, family, "AUTO_INGEST", ("KNOWN_FAMILY_METADATA_MATCH", "EXECUTION_AUTH_REQUIRED",))
 
 
