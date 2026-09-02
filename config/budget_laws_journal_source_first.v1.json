@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "task": "TASK_031_BUDGET_LAWS_JOURNAL_SOURCE_FIRST",
+  "mode": "T0_OFFLINE_SOURCE_FIRST_DESIGN",
+  "municipality": "Limeira-SP",
+  "decision": {
+    "primary_source": "JORNAL_OFICIAL_LIMEIRA_FULL_EDITION_PDF",
+    "standalone_prefeitura_pdf_role": "OFFICIAL_COMPLEMENTARY_COPY",
+    "full_equivalence_required_before_extraction": false,
+    "journal_full_edition_must_enter_custody_before_extraction": true,
+    "hash_and_readback_required_before_extraction": true,
+    "extract_from_search_engine_index": false,
+    "extract_from_standalone_pdf_by_default": false,
+    "divergence_action": "REVIEW_STOP"
+  },
+  "target_drive": {
+    "root": "10_INBOX/PENDENTES/F01_PPA_LDO_LOA_2026",
+    "write_mode": "CREATE_ONLY",
+    "overwrite": false,
+    "delete": false,
+    "replace": false
+  },
+  "journal_editions": [
+    {
+      "document_family": "LDO",
+      "law_number": "7.141/2025",
+      "law_date": "2025-07-02",
+      "exercise_or_period": "2026",
+      "edition": 7024,
+      "publication_date": "2025-07-08",
+      "source_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_07072025191855.pdf",
+      "expected_total_pages": 79,
+      "known_law_start_page": 5,
+      "target_filename": "SOURCE_JOM_7024_2025-07-08_LDO_7141_2025.pdf",
+      "custody_status": "PENDING_SOURCE_DOWNLOAD",
+      "sha256": null,
+      "textual_representation_observed_publicly": true
+    },
+    {
+      "document_family": "PPA",
+      "law_number": "7.213/2025",
+      "law_date": "2025-11-12",
+      "exercise_or_period": "2026-2029",
+      "edition": 7119,
+      "publication_date": "2025-11-15",
+      "source_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_14112025171148.pdf",
+      "expected_total_pages": 107,
+      "known_law_start_page": 5,
+      "target_filename": "SOURCE_JOM_7119_2025-11-15_PPA_7213_2025.pdf",
+      "custody_status": "PENDING_SOURCE_DOWNLOAD",
+      "sha256": null,
+      "textual_representation_observed_publicly": true
+    },
+    {
+      "document_family": "LOA",
+      "law_number": "7.223/2025",
+      "law_date": "2025-11-28",
+      "exercise_or_period": "2026",
+      "edition": 7127,
+      "publication_date": "2025-11-29",
+      "source_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_28112025211140.pdf",
+      "expected_total_pages": 631,
+      "known_law_start_page": 15,
+      "target_filename": "SOURCE_JOM_7127_2025-11-29_LOA_7223_2025.pdf",
+      "custody_status": "PENDING_SOURCE_DOWNLOAD",
+      "sha256": null,
+      "textual_representation_observed_publicly": true
+    }
+  ],
+  "extraction_policy": {
+    "input": "FULL_JOURNAL_EDITION_UNMODIFIED",
+    "identify_law_by": [
+      "law_number",
+      "law_date",
+      "title_or_ementa"
+    ],
+    "page_boundaries_are_hints_not_identity": true,
+    "standalone_copy_is_validation_or_recovery_source": true,
+    "ocr_only_if_journal_page_has_insufficient_text_layer": true,
+    "silent_cross_source_substitution": false
+  },
+  "promotion": {
+    "source_custody": false,
+    "bronze": false,
+    "silver": false,
+    "gold": false,
+    "serving": false,
+    "publication": false
+  },
+  "next_action": "Implement and review a bounded live acquisition gate for exactly editions 7024, 7119 and 7127; after merge, require owner authorization pinned to the exact implementation SHA before the first source GET or Drive create-only write."
+}
