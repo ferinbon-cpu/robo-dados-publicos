@@ -1,0 +1,170 @@
+{
+  "task": "TASK_048_F01_LOA_SCOPED_SILVER_V2_CANDIDATE_REVIEW",
+  "mode": "T0_OFFLINE_CANDIDATE_REVIEW",
+  "base_sha": "2f21e4b90244ead35503638941a9a6c596374cd0",
+  "candidate_payload": {
+    "contract": "F01_LOA_JOM_2026_SCOPED_VALIDATED_STRUCTURE_SILVER_V2",
+    "scope": "SCOPED_VALIDATED_STRUCTURE_AND_ENRICHED_ACTION_FIELDS_NOT_COMPLETE_LOA_PARSE",
+    "source": {
+      "filename": "SOURCE_JOM_7127_2025-11-29_LOA_7223_2025.pdf",
+      "drive_file_id": "1bRpmMxacX16P1tJBvam-55OOPTYuQnIA",
+      "sha256": "37ea54d85cc5428622b296881a279a17e1aeefd7574576e7a3414443bbee64c4",
+      "bytes": 66119594,
+      "total_pdf_pages": 631
+    },
+    "legal_instrument": {
+      "law_number": "7.223/2025",
+      "law_date": "2025-11-28",
+      "exercise": 2026,
+      "journal_edition": 7127,
+      "publication_date": "2025-11-29",
+      "law_page_start": 15,
+      "law_page_end": 481,
+      "law_page_count": 467
+    },
+    "coverage": {
+      "native_text_candidate_pages": 454,
+      "blank_pages": [375, 386, 413, 415, 421, 426],
+      "targeted_ocr_pages": [475, 476, 477, 478, 479, 480, 481],
+      "ocr_candidate_text_excluded_from_canonical_text": [475, 476, 477, 478, 479],
+      "visually_validated_numeric_table_pages": [480, 481],
+      "source_text_corruption_pages_with_direct_resolution": [174]
+    },
+    "validated_action_records": [
+      {
+        "context_pages": [170, 171],
+        "action_code": "12.362.2001.2690",
+        "label": "TRANSPORTE ESCOLAR",
+        "organ_code": "10.00.00",
+        "organ_name": "SECRETARIA DE EDUCACAO",
+        "unit_code": "10.04.00",
+        "unit_name": "ENSINO MEDIO E SUPERIOR",
+        "sphere": "FISCAL",
+        "program_code": "2001",
+        "function": "12",
+        "subfunction": "362",
+        "appropriation_brl": 6152000,
+        "expense_group_breakdown_brl": {
+          "OUTRAS_DESPESAS_CORRENTES": 6142000,
+          "INVESTIMENTOS": 10000
+        },
+        "funding_sources_brl": {
+          "01_TESOURO": 943000,
+          "02_TRANSFERENCIAS_E_CONVENIOS_ESTADUAIS_VINCULADOS": 5209000
+        },
+        "expense_nature": "UNKNOWN_NOT_EXPLICIT_ON_SELECTED_PAGES",
+        "execution_stage": "NOT_APPLICABLE_TO_LOA_ENACTMENT_READ",
+        "validation": "DIRECT_PRIMARY_JOM_VISUAL_SOURCE_TASK045",
+        "eiti_specific": false
+      },
+      {
+        "context_pages": [173, 174],
+        "action_code": "12.306.2001.2720",
+        "label": "ALIMENTACAO ESCOLAR",
+        "organ_code": "10.00.00",
+        "organ_name": "SECRETARIA DE EDUCACAO",
+        "unit_code": "10.05.00",
+        "unit_name": "ALIMENTACAO ESCOLAR",
+        "sphere": "FISCAL",
+        "program_code": "2001",
+        "function": "12",
+        "subfunction": "306",
+        "appropriation_brl": 28000000,
+        "expense_group_breakdown_brl": {
+          "OUTRAS_DESPESAS_CORRENTES": 27999000,
+          "INVESTIMENTOS": 1000
+        },
+        "funding_sources_brl": {
+          "01_TESOURO": 8680000,
+          "05_TRANSFERENCIAS_E_CONVENIOS_FEDERAIS_VINCULADOS": 19320000
+        },
+        "expense_nature": "UNKNOWN_NOT_EXPLICIT_ON_SELECTED_PAGES",
+        "execution_stage": "NOT_APPLICABLE_TO_LOA_ENACTMENT_READ",
+        "validation": "DIRECT_PRIMARY_JOM_VISUAL_SOURCE_TASK045_TEXT_LAYER_MISMATCH_PRESERVED",
+        "eiti_specific": false
+      }
+    ],
+    "material_text_visual_divergence": {
+      "observed": true,
+      "pages": [173, 174],
+      "field": "ALIMENTACAO_ESCOLAR_APPROPRIATION_OR_UNIT_PROGRAM_TOTAL",
+      "text_layer_amount_brl": 29000000,
+      "visual_source_amount_brl": 28000000,
+      "silent_repair": false,
+      "automatic_promotion": false,
+      "resolution": "REVIEW_STOP_DIRECT_VISUAL_SOURCE_RECORDED"
+    },
+    "validated_table_480": {
+      "title": "DEMONSTRATIVO DAS TRANSFERENCIAS FINANCEIRAS",
+      "units": "R$ 1,00",
+      "rows_sha256": "287ba956b97b6edb1b5e7d53a0f5ce61e21f15ef1c9e1e46cdfe5d4d1bd970e2",
+      "row_count": 10,
+      "total_brl": "128600000.00",
+      "row_sum_matches_printed_total": true
+    },
+    "validated_table_481": {
+      "title": "DEMONSTRATIVO DA COMPATIBILIDADE DA PROGRAMACAO DO ORCAMENTO COM AS METAS DE RESULTADOS FISCAIS",
+      "units": "R$ milhares medios/2025",
+      "rows_sha256": "6354e5f4a2ff34c62fa3e4a7f9f9d6ceda8a1db29fb5cdedf673c0b47d5fe368",
+      "row_count": 11,
+      "rcl_pair_consistency_within_rounding_tolerance": true
+    },
+    "provenance": {
+      "supersedes_silver_v1_sha256": "3894ede7c67e60d3e12795dec3964d78baf24ff350355d98f3825dd5f81caf4c",
+      "task045_result": "STOP_TASK045_EITI_FINANCIAL_IDENTITY_CHAIN_STILL_INCOMPLETE_AFTER_BOUNDED_READONLY_REVIEW",
+      "task045_source_hash_verified": true
+    },
+    "guardrails": {
+      "complete_loa_parse_claim": false,
+      "ocr_numeric_source_truth": false,
+      "silent_character_repair": false,
+      "llm_numeric_reconstruction": false,
+      "program_2001_total_attribution_to_eiti": false,
+      "generic_action_attribution_to_eiti": false,
+      "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+      "compliance_conclusion": false,
+      "gold_authorized": false
+    }
+  },
+  "candidate_payload_sha256": "9f04a7202d03a58687d5382565777f15887b056ba28c65d9c01e226af7d3ef25",
+  "target": {
+    "folder_id": "1_wl3Y90-RYKSBXUg53My5K6lxCUnIBNo",
+    "file_name": "F01_LOA_JOM_2026_SCOPED_VALIDATED_STRUCTURE__9f04a7202d03__silver_v2.json",
+    "create_only": true,
+    "overwrite": false
+  },
+  "readiness": {
+    "decision": "READY_FOR_SCOPED_LOA_SILVER_V2_CREATE_ONLY_SEPARATE_AUTH_REQUIRED",
+    "remote_write_authorized": false,
+    "v1_preserved": true,
+    "candidate_only": true
+  },
+  "eiti_linkage_assessment": {
+    "indicator_to_program": "PROVEN",
+    "program_to_explicit_eiti_action_or_subaction": "NOT_PROVEN",
+    "selected_action_2690_eiti_specific": false,
+    "selected_action_2720_eiti_specific": false,
+    "generic_action_or_program_total_attribution_to_eiti": "FORBIDDEN",
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE"
+  },
+  "effects": {
+    "source_network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "promotion": {
+    "silver_v2": false,
+    "f01_status": "SILVER_SCOPED_PARTIAL_VALIDATED",
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+    "gold": false,
+    "serving": false,
+    "publication": false
+  },
+  "result": "PASS_TASK048_LOA_SCOPED_SILVER_V2_CANDIDATE_READY_NO_WRITE"
+}
