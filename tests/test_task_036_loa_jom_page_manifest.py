@@ -4,7 +4,9 @@ import unittest
 from pathlib import Path
 
 from robo_dados_publicos.manual_ingest.loa_journal_page_manifest import (
+    EXPECTED_ACTION_INDEX_SHA256,
     LoaJournalPageManifestError,
+    action_code_index_sha256,
     build_page_manifest,
     detect_corrupted_action_code_candidate_strict,
     summarize,
@@ -22,6 +24,14 @@ class Task036LoaJomPageManifestTests(unittest.TestCase):
     def setUpClass(cls):
         cls.evidence = json.loads(EVIDENCE.read_text(encoding="utf-8"))
         cls.action_index = json.loads(ACTION_INDEX.read_text(encoding="utf-8"))
+
+    def test_action_index_canonical_digest_is_pinned(self):
+        actual = action_code_index_sha256(self.action_index)
+        self.assertEqual(
+            actual,
+            EXPECTED_ACTION_INDEX_SHA256,
+            f"actual={actual} expected={EXPECTED_ACTION_INDEX_SHA256}",
+        )
 
     def test_pinned_evidence_passes(self):
         result = validate_evidence(copy.deepcopy(self.evidence), copy.deepcopy(self.action_index))
