@@ -23,7 +23,8 @@ class RoutingDecision:
 
 def _fold(value: str) -> str:
     normalized = unicodedata.normalize("NFKD", value or "")
-    return "".join(ch for ch in normalized if not unicodedata.combining(ch)).upper()
+    ascii_like = "".join(ch for ch in normalized if not unicodedata.combining(ch)).upper()
+    return re.sub(r"[^A-Z0-9]+", " ", ascii_like).strip()
 
 
 def load_controller_contract(path: str | Path) -> dict[str, Any]:
