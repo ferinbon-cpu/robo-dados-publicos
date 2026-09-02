@@ -1,0 +1,53 @@
+name: TASK 040 LOA scoped Silver live once
+run-name: "TASK 040 LOA scoped Silver live once by @${{ github.actor }}"
+
+on:
+  push:
+    branches: [task-040-loa-scoped-silver-live-once]
+    paths:
+      - '.github/workflows/task-040-loa-scoped-silver-live-once.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-040-loa-scoped-silver-live-once
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    name: Create exactly one scoped Silver and verify readback
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+      GOOGLE_DRIVE_CLIENT_ID: ${{ secrets.GOOGLE_DRIVE_CLIENT_ID }}
+      GOOGLE_DRIVE_CLIENT_SECRET: ${{ secrets.GOOGLE_DRIVE_CLIENT_SECRET }}
+      GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_REFRESH_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Execute exact one-shot Silver create-only operation
+        run: python scripts/task_040_loa_scoped_silver_live_once.py
+
+      - name: Upload sanitized execution evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: task-040-sanitized-evidence
+          path: task-040-sanitized-evidence/result.json
+          if-no-files-found: error
+          retention-days: 30
