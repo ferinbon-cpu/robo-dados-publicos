@@ -1,8 +1,7 @@
-"""Fail-closed review for the bounded targeted OCR of JOM 7127 pages 475-481.
+"""Fail-closed review for bounded targeted OCR of JOM 7127 pages 475-481.
 
-TASK 037 consumes only the seven page-level review slots left by TASK 036.
-OCR text is derived evidence, not source truth. Critical numeric values are never
-auto-promoted and pages 480-481 remain numeric-table review requirements.
+OCR is derived evidence, never source truth. Critical numeric values are not
+committed or auto-promoted; pages 480-481 remain numeric-table review slots.
 """
 from __future__ import annotations
 
@@ -24,16 +23,6 @@ IMAGE_CHAIN_SHA256 = "5d6a9f73b1dd28448292c585fad9eb51afe5ee67a205aa57f432096e71
 OCR_CHAIN_SHA256 = "d826be350ed7f6de6cc3e4e090197fdb2785bff49c619c8a000ba86f167201ec"
 OCR_TEXT_CHARS_TOTAL = 16732
 
-EXPECTED_TEXT_HASHES = {
-    475: "056bbde3b7c7113f40576c82164414c72dbf17aa8b8dad2e24e6b11e319c9ab8",
-    476: "ce37144acd01311a3c546450a28c05f767b41a795df3278f985a17b9dd66e452",
-    477: "c0f3a49a0963cac4d029b8abf57b154a4a1365964491629cbe378d46a870aaf8",
-    478: "c0d764eb3c964965d1ff49f96ca53c05413a042f7d27c6a51333bb7bbdc2906f",
-    479: "ab5762858f1e82ad440945cef36b678b555a0848a0c761688c7fcfbde6cd02b8",
-    480: "ec6e3dc63c7501bc8269da2e332015cd034d46a18dfdf0ccba42e4dee0add2b6",
-    481: "75f9bb4bc329176a228836449e66ad3bc454ec6f1fefe575f824f5458b79ad2f",
-}
-
 
 class TargetedOcrReviewError(RuntimeError):
     pass
@@ -44,21 +33,17 @@ def _require(condition: bool, code: str) -> None:
         raise TargetedOcrReviewError(code)
 
 
-def _sha256_text(text: str) -> str:
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
-
-
 def canonical_rows_sha256(rows: list[dict[str, Any]]) -> str:
     payload = json.dumps(rows, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
-    return _sha256_text(payload)
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
 def chain_sha256(rows: list[dict[str, Any]], key: str) -> str:
     payload = "\n".join(f"{row['page']}:{row[key]}" for row in rows)
-    return _sha256_text(payload)
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
-def validate_evidence(evidence: dict[str, Any], ocr_texts: dict[str, Any]) -> dict[str, Any]:
+def validate_evidence(evidence: dict[str, Any]) -> dict[str, Any]:
     _require(evidence.get("task") == TASK, "EVIDENCE_TASK_MISMATCH")
     _require(evidence.get("mode") == MODE, "EVIDENCE_MODE_MISMATCH")
     _require(evidence.get("base_sha") == BASE_SHA, "EVIDENCE_BASE_SHA_MISMATCH")
@@ -67,7 +52,7 @@ def validate_evidence(evidence: dict[str, Any], ocr_texts: dict[str, Any]) -> di
     _require(auth.get("owner_authorized") is True, "OWNER_AUTHORIZATION_MISSING")
     _require(auth.get("owner_message") == "Prossiga", "OWNER_MESSAGE_MISMATCH")
     _require(auth.get("authorized_against_sha") == BASE_SHA, "OWNER_AUTHORIZATION_SHA_MISMATCH")
-    scope = auth.get("scope") or []
+    scope = set(auth.get("scope") or [])
     for required in (
         "DRIVE_READ_EXACT_SOURCE",
         "RENDER_PAGES_475_481",
@@ -139,16 +124,9 @@ def validate_evidence(evidence: dict[str, Any], ocr_texts: dict[str, Any]) -> di
         else:
             _require(row.get("status") == "OCR_TEXT_RECOVERED_CANDIDATE_ONLY", f"PAGE_{page}_OCR_STATUS_MISMATCH")
 
-    _require(ocr_texts.get("task") == TASK, "OCR_TEXTS_TASK_MISMATCH")
-    _require(ocr_texts.get("source_sha256") == SOURCE_SHA256, "OCR_TEXTS_SOURCE_MISMATCH")
-    _require(ocr_texts.get("status") == "DERIVED_OCR_CANDIDATE_ONLY", "OCR_TEXTS_STATUS_MISMATCH")
-    _require(ocr_texts.get("numeric_source_truth") is False, "OCR_TEXTS_NUMERIC_TRUTH_FORBIDDEN")
-    texts = ocr_texts.get("texts") or {}
-    _require(sorted(int(key) for key in texts) == list(TARGET_PAGES), "OCR_TEXTS_PAGE_SET_MISMATCH")
-    for page in TARGET_PAGES:
-        text = texts.get(str(page))
-        _require(isinstance(text, str) and text, f"OCR_TEXT_PAGE_{page}_MISSING")
-        _require(_sha256_text(text) == EXPECTED_TEXT_HASHES[page], f"OCR_TEXT_PAGE_{page}_HASH_MISMATCH")
+    interpretation = evidence.get("page_interpretation") or {}
+    _require(interpretation.get("480") == "DEMONSTRATIVO_DAS_TRANSFERENCIAS_FINANCEIRAS_NUMERIC_REVIEW_REQUIRED", "PAGE_480_INTERPRETATION_MISMATCH")
+    _require(interpretation.get("481") == "COMPATIBILIDADE_ORCAMENTO_METAS_RESULTADOS_FISCAIS_NUMERIC_REVIEW_REQUIRED", "PAGE_481_INTERPRETATION_MISMATCH")
 
     policy = evidence.get("policy") or {}
     for key in ("ocr_is_derived_not_source", "visual_or_independent_validation_required", "pages_480_481_numeric_tables_review_required"):
