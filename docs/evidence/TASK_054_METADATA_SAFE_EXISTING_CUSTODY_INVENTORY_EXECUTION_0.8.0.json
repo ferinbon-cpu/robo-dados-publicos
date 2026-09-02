@@ -1,0 +1,120 @@
+{
+  "task": "TASK_054_METADATA_SAFE_EXISTING_CUSTODY_INVENTORY_EXECUTION",
+  "mode": "T1_EXISTING_CUSTODY_METADATA_SAFE_INVENTORY_EXECUTION",
+  "base_sha": "15b2bd9562b126aa3215c37d656bd41c598609d4",
+  "authorization": {
+    "owner_authorized": true,
+    "owner_message": "Prossiga",
+    "scope": "TASK_054_METADATA_SEARCH_ONLY_MAX_25_NO_SOURCE_CONTENT_READ_NO_NETWORK_NO_REMOTE_DATA_WRITE",
+    "authorization_consumed": true,
+    "future_blanket_authorizations_accepted": false
+  },
+  "upstream": {
+    "task": "TASK_053_METADATA_SAFE_CANDIDATE_INVENTORY_REDESIGN",
+    "result": "PASS_TASK053_METADATA_SAFE_INVENTORY_REDESIGN_NO_SOURCE_READ",
+    "max_candidate_records": 25,
+    "allowed_surfaces": [
+      "DRIVE_SEARCH_METADATA_ONLY",
+      "DRIVE_LIST_METADATA_ONLY"
+    ],
+    "candidate_basis_required": "METADATA_ONLY",
+    "stop_on_any_content_hydration": true
+  },
+  "execution": {
+    "metadata_search_calls": 10,
+    "metadata_list_calls": 0,
+    "all_searches_used_explicit_item_type_document": true,
+    "best_effort_fetch": false,
+    "content_hydration_observed": false,
+    "searches": [
+      "KEYWORD_BALANCETE",
+      "KEYWORD_DESPESA",
+      "KEYWORD_EMPENHO",
+      "KEYWORD_LIQUIDACAO",
+      "KEYWORD_PAGAMENTO",
+      "KEYWORD_EXECUCAO_ORCAMENTARIA",
+      "KEYWORD_EDUCACAO_INTEGRAL",
+      "NAME_CONTAINS_DESPESA",
+      "NAME_CONTAINS_FUNDEB",
+      "NAME_CONTAINS_MAVS"
+    ]
+  },
+  "candidate_records": [
+    {
+      "rank": 1,
+      "drive_file_id": "1PTAnH-LL_8fvS7TsVuHSci5dBDKFLQTS",
+      "title": "05 - Maio_despesa.pdf",
+      "mime_type_if_returned_by_metadata_surface": "application/pdf",
+      "candidate_family": "POTENTIAL_DETAILED_BUDGET_EXECUTION_OR_BALANCETE",
+      "basis": "METADATA_ONLY"
+    },
+    {
+      "rank": 2,
+      "drive_file_id": "17Fl8opb1pkqdFa485-bkQR3j6LnApnE-",
+      "title": "Demonstrativo SIOPE-MAVS - 1º BIMESTRE 2026.pdf",
+      "mime_type_if_returned_by_metadata_surface": "application/pdf",
+      "candidate_family": "POTENTIAL_EDUCATION_FINANCE_DEMONSTRATIVE",
+      "basis": "METADATA_ONLY"
+    },
+    {
+      "rank": 3,
+      "drive_file_id": "1zRG-7fXYMTOMjsbWWJzoaSF7kQ54kJMe",
+      "title": "FUNDEB_LIMEIRA_2026_01.pdf",
+      "candidate_family": "POTENTIAL_FUNDEB_EXECUTION_OR_DEMONSTRATIVE",
+      "basis": "METADATA_ONLY"
+    },
+    {
+      "rank": 4,
+      "drive_file_id": "1xmAFcp2pYYeua3vHQQoY4_tfFZzr21-I",
+      "title": "FUNDEB_LIMEIRA_2026_02.pdf",
+      "candidate_family": "POTENTIAL_FUNDEB_EXECUTION_OR_DEMONSTRATIVE",
+      "basis": "METADATA_ONLY"
+    },
+    {
+      "rank": 5,
+      "drive_file_id": "1m1mg8LX-7VOn81Rl4t-zgDoP23JPCTRd",
+      "title": "FUNDEB_LIMEIRA_2026_03.pdf",
+      "candidate_family": "POTENTIAL_FUNDEB_EXECUTION_OR_DEMONSTRATIVE",
+      "basis": "METADATA_ONLY"
+    }
+  ],
+  "selection": {
+    "candidate_count": 5,
+    "candidate_inventory_passed": true,
+    "primary_candidate_drive_file_id": "1PTAnH-LL_8fvS7TsVuHSci5dBDKFLQTS",
+    "primary_candidate_title": "05 - Maio_despesa.pdf",
+    "primary_candidate_family": "POTENTIAL_DETAILED_BUDGET_EXECUTION_OR_BALANCETE",
+    "secondary_candidate_count": 4
+  },
+  "effects": {
+    "drive_metadata_or_index_searches": 10,
+    "drive_list_calls": 0,
+    "source_content_reads": 0,
+    "public_source_network": 0,
+    "drive_write": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "promotion": {
+    "candidate_inventory_passed": true,
+    "f01_status": "SILVER_SCOPED_PARTIAL_VALIDATED",
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+    "gold": false,
+    "serving": false,
+    "publication": false
+  },
+  "next_bounded_gate": {
+    "name": "TASK_055_F01_SELECTED_GRANULAR_SOURCE_BOUNDED_CONTENT_READ",
+    "selected_source_drive_file_id": "1PTAnH-LL_8fvS7TsVuHSci5dBDKFLQTS",
+    "selected_source_title": "05 - Maio_despesa.pdf",
+    "selected_source_basis": "METADATA_ONLY",
+    "fresh_owner_authorization_required": true,
+    "source_content_read_authorized": false,
+    "scope_if_authorized": "SINGLE_SELECTED_SOURCE_READ_ONLY_NO_DRIVE_WRITE_NO_BRONZE_SILVER_GOLD_PROMOTION"
+  },
+  "result": "PASS_TASK054_METADATA_SAFE_INVENTORY_CANDIDATES_SELECTED_NO_SOURCE_READ"
+}
