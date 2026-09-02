@@ -28,7 +28,7 @@ def main() -> int:
     )
     fixture = load("tests/fixtures/task_028_loa_official_equivalence_probe.json")
     evidence = load("docs/evidence/TASK_028_LOA_OFFICIAL_EQUIVALENCE_PROBE_DESIGN_0.8.0.json")
-    ci = (ROOT / ".github/workflows/ci-offline.yml").read_text(encoding="utf-8")
+    gate_entrypoint = ROOT / "tests/test_task_028_gate_entrypoint.py"
 
     plan = build_probe_plan(contract)
     pdf_only = classify_official_observations(contract, fixture["pdf_only_observations"])
@@ -53,7 +53,7 @@ def main() -> int:
         "zero_effects": effects and all(value in (0, False) for value in effects.values()),
         "authorization_boundary": auth.get("offline_design") is True and all(auth.get(key) is False for key in ("live_probe", "candidate_followup", "download", "ocr", "drive", "silver", "gold", "serving", "publication")),
         "release_unchanged": evidence.get("release_boundary", {}).get("0.7.0") == "ACTIVE" and evidence.get("release_boundary", {}).get("0.8.0") == "CANDIDATE" and evidence.get("release_boundary", {}).get("unchanged") is True,
-        "ci_gate_present": "python scripts/github_task_028_loa_official_equivalence_probe_design_gate.py" in ci,
+        "unit_test_gate_entrypoint": gate_entrypoint.exists() and "github_task_028_loa_official_equivalence_probe_design_gate" in gate_entrypoint.read_text(encoding="utf-8"),
     }
 
     failed = [name for name, ok in checks.items() if not ok]
