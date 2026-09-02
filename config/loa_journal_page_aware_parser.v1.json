@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "task": "TASK_035_LOA_JOM_PAGE_AWARE_PARSER_PREVIEW",
+  "mode": "T0_OFFLINE_PARSER_IMPLEMENTATION_AND_PINNED_PREVIEW",
+  "source": {
+    "edition": 7127,
+    "law_number": "7.223/2025",
+    "sha256": "37ea54d85cc5428622b296881a279a17e1aeefd7574576e7a3414443bbee64c4",
+    "total_pdf_pages": 631,
+    "law_start_page": 15,
+    "law_end_page": 481
+  },
+  "page_policy": {
+    "visually_blank_pages": [375, 386, 413, 415, 421, 426],
+    "targeted_review_pages": [475, 476, 477, 478, 479, 480, 481],
+    "blank_page_action": "SKIP_BLANK",
+    "targeted_review_action": "REVIEW_REQUIRED_TARGETED_EXTRACTION",
+    "other_page_action": "PARSE_TEXT_LAYER_CANDIDATES"
+  },
+  "numeric_policy": {
+    "text_layer_kind": "OCR_DERIVED_TEXT_LAYER",
+    "text_layer_numeric_values_are_final": false,
+    "critical_numeric_auto_promotion": false,
+    "visual_or_independent_validation_required": true,
+    "silent_correction": false,
+    "llm_numeric_reconstruction": false
+  },
+  "promotion": {
+    "bronze": false,
+    "silver": false,
+    "gold": false,
+    "serving": false,
+    "publication": false
+  }
+}
