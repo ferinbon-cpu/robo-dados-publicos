@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "task": "TASK_025_MANUAL_SUPERVISED_INGEST_F01",
+  "mode": "MANUAL_SUPERVISED_INGEST",
+  "jurisdiction": "Limeira/SP",
+  "batch": "F01_PPA_LDO_LOA_2026",
+  "source_authority_order": ["SOURCE", "DERIVED", "REFERENCE", "ARCHIVE", "PRODUCT"],
+  "sources": [
+    {
+      "source_id": "F01_PPA_2026_2029",
+      "family": "PPA",
+      "legal_number": "7.213/2025",
+      "reference_period": "2026-2029",
+      "source_type": "SOURCE",
+      "ingestion_method": "MANUAL_SUPERVISED",
+      "expected_sha256": "3e5deb53448c2e5eea56217a4e5d7f20f7fc3859eff7fcb93a7de7eb17011c1a",
+      "expected_bytes": 4856211,
+      "expected_pages": 105
+    },
+    {
+      "source_id": "F01_LDO_2026",
+      "family": "LDO",
+      "legal_number": "7.141/2025",
+      "reference_period": "2026",
+      "source_type": "SOURCE",
+      "ingestion_method": "MANUAL_SUPERVISED",
+      "expected_sha256": "6f28017bb61fe6dbd7db44e2306bd1a48f813d8d40411d87c130fba78fca2406",
+      "expected_bytes": 11534048,
+      "expected_pages": 37
+    },
+    {
+      "source_id": "F01_LOA_2026",
+      "family": "LOA",
+      "legal_number": "7.223/2025",
+      "reference_period": "2026",
+      "source_type": "SOURCE",
+      "ingestion_method": "MANUAL_SUPERVISED",
+      "expected_sha256": "bc4c8bf4b2b1e8f59e880318c37ec7f7fbd4357a85a8b46c97750444dbf01d4b",
+      "expected_bytes": 24203962,
+      "expected_pages": 466
+    }
+  ],
+  "parser_scope": {
+    "ppa": "TARGETED_PROGRAM_2001_AND_EITI_INDICATOR",
+    "ldo": "REQUIRED_STRUCTURAL_MARKERS",
+    "loa": "TEXT_LAYER_PROBE_ONLY_UNTIL_DETERMINISTIC_OCR_OR_MACHINE_READABLE_SOURCE"
+  },
+  "financial_identity_policy": {
+    "same_program_code_is_only_programmatic_continuity": true,
+    "program_2001_total_must_not_be_attributed_to_eiti": true,
+    "insufficient_evidence_status": "EVIDENCIA_INSUFICIENTE"
+  },
+  "promotion": {
+    "bronze_mutation_authorized_by_this_contract": false,
+    "silver_authorized": false,
+    "gold_authorized": false,
+    "serving_authorized": false,
+    "site_mutation_authorized": false
+  }
+}
