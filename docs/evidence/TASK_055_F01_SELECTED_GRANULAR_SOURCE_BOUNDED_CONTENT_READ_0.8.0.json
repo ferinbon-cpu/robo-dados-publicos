@@ -1,0 +1,104 @@
+{
+  "task": "TASK_055_F01_SELECTED_GRANULAR_SOURCE_BOUNDED_CONTENT_READ",
+  "mode": "T1_EXISTING_CUSTODY_SINGLE_SOURCE_CONTENT_READ",
+  "base_sha": "a030150edebe1c9c9d9ef3d67df369b54be1d46f",
+  "authorization": {
+    "owner_authorized": true,
+    "owner_message": "Prossiga",
+    "scope": "READ_ONLY_CONTENT_OF_SELECTED_DRIVE_FILE_1PTAnH-LL_8fvS7TsVuHSci5dBDKFLQTS_ONLY_NO_OTHER_SOURCE_READ_NO_NETWORK_NO_DRIVE_WRITE",
+    "authorization_consumed": true,
+    "future_blanket_authorizations_accepted": false
+  },
+  "upstream": {
+    "task": "TASK_054_METADATA_SAFE_EXISTING_CUSTODY_INVENTORY_EXECUTION",
+    "result": "PASS_TASK054_METADATA_SAFE_INVENTORY_CANDIDATES_SELECTED_NO_SOURCE_READ",
+    "selected_drive_file_id": "1PTAnH-LL_8fvS7TsVuHSci5dBDKFLQTS",
+    "selected_title": "05 - Maio_despesa.pdf"
+  },
+  "read_contract": {
+    "max_source_content_reads": 1,
+    "allowed_drive_file_ids": [
+      "1PTAnH-LL_8fvS7TsVuHSci5dBDKFLQTS"
+    ],
+    "public_source_network_allowed": false,
+    "drive_write_allowed": false,
+    "ocr_allowed": false,
+    "promotion_allowed": false
+  },
+  "observed_source": {
+    "drive_file_id": "1PTAnH-LL_8fvS7TsVuHSci5dBDKFLQTS",
+    "title": "05 - Maio_despesa.pdf",
+    "report_title": "BALANCETE SINTETICO DA DESPESA EMPENHADA POR ELEMENTO",
+    "issuer": "Prefeitura Municipal de Limeira",
+    "system_marker": "CN-SIFPM_CONAM",
+    "period": "05/2026",
+    "scope_marker_initial": "02.01.00 GABINETE E DEPENDENCIAS",
+    "scope_marker_final": "99.99.00 RESERVA DE CONTINGENCIA",
+    "granularity": "ECONOMIC_ELEMENT_AGGREGATE",
+    "value_columns_observed": [
+      "NO_MES",
+      "NO_ANO",
+      "DOTACAO",
+      "SALDO"
+    ],
+    "execution_stage_explicitly_observed": "EMPENHADA"
+  },
+  "eiti_granularity_checks": {
+    "educacao_marker_found": false,
+    "eiti_or_tempo_integral_marker_found": false,
+    "program_marker_found": false,
+    "action_marker_found": false,
+    "liquidado_marker_found": false,
+    "pago_marker_found": false,
+    "stable_policy_to_accounting_key_found": false,
+    "can_attribute_amounts_specifically_to_eiti": false
+  },
+  "interpretation": {
+    "useful_for": [
+      "MUNICIPAL_AGGREGATE_EXPENDITURE_BY_ECONOMIC_ELEMENT",
+      "EMPENHADO_MONTH_AND_YEAR_TOTALS_BY_ELEMENT"
+    ],
+    "not_sufficient_for": [
+      "EDUCATION_SPECIFIC_EXECUTION_ATTRIBUTION",
+      "EITI_SPECIFIC_FINANCIAL_IDENTITY",
+      "PROGRAM_OR_ACTION_LEVEL_ATTRIBUTION",
+      "LIQUIDADO_OR_PAGO_CHAIN"
+    ],
+    "content_read_completed_as_authorized": true,
+    "negative_evidence_is_not_absence_of_eiti_spending": true
+  },
+  "effects": {
+    "drive_metadata_or_index_searches": 0,
+    "source_content_reads": 1,
+    "other_source_content_reads": 0,
+    "public_source_network": 0,
+    "drive_write": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "promotion": {
+    "selected_source_read_passed": true,
+    "selected_source_proves_eiti_financial_identity": false,
+    "f01_status": "SILVER_SCOPED_PARTIAL_VALIDATED",
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+    "gold": false,
+    "serving": false,
+    "publication": false
+  },
+  "next_bounded_gate": {
+    "name": "TASK_056_F01_SECONDARY_EDUCATION_SOURCE_BOUNDED_CONTENT_READ",
+    "selected_drive_file_id": "17Fl8opb1pkqdFa485-bkQR3j6LnApnE-",
+    "selected_title": "Demonstrativo SIOPE-MAVS - 1º BIMESTRE 2026.pdf",
+    "selection_basis": "TASK054_METADATA_RANK_2_EDUCATION_FINANCE_SPECIFIC_TITLE",
+    "max_source_content_reads": 1,
+    "fresh_owner_authorization_required": true,
+    "no_other_source_read": true,
+    "no_network": true,
+    "no_drive_write": true
+  },
+  "result": "PASS_TASK055_SELECTED_SOURCE_READ_NEGATIVE_FOR_EITI_GRANULARITY_NO_PROMOTION"
+}
