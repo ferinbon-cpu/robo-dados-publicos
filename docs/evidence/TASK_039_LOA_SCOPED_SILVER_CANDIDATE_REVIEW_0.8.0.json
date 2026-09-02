@@ -1,0 +1,86 @@
+{
+  "task": "TASK_039_LOA_SCOPED_SILVER_CANDIDATE_REVIEW",
+  "mode": "T0_OFFLINE_SCOPED_SILVER_CANDIDATE_REVIEW",
+  "base_sha": "68d37d9cc50ec062e3d9e514f2a2bfa666b52b22",
+  "candidate_payload": {
+    "contract": "F01_LOA_JOM_2026_SCOPED_VALIDATED_STRUCTURE_SILVER_V1",
+    "scope": "SCOPED_VALIDATED_STRUCTURE_NOT_COMPLETE_LOA_PARSE",
+    "source": {
+      "filename": "SOURCE_JOM_7127_2025-11-29_LOA_7223_2025.pdf",
+      "drive_file_id": "1bRpmMxacX16P1tJBvam-55OOPTYuQnIA",
+      "sha256": "37ea54d85cc5428622b296881a279a17e1aeefd7574576e7a3414443bbee64c4",
+      "bytes": 66119594,
+      "total_pdf_pages": 631
+    },
+    "legal_instrument": {
+      "law_number": "7.223/2025",
+      "law_date": "2025-11-28",
+      "exercise": 2026,
+      "journal_edition": 7127,
+      "publication_date": "2025-11-29",
+      "law_page_start": 15,
+      "law_page_end": 481,
+      "law_page_count": 467
+    },
+    "coverage": {
+      "native_text_candidate_pages": 454,
+      "blank_pages": [375,386,413,415,421,426],
+      "targeted_ocr_pages": [475,476,477,478,479,480,481],
+      "ocr_candidate_text_excluded_from_canonical_text": [475,476,477,478,479],
+      "visually_validated_numeric_table_pages": [480,481],
+      "source_text_corruption_page_with_direct_resolution": [174]
+    },
+    "validated_action_records": [
+      {"page":171,"action_code":"12.362.2001.2690","label":"TRANSPORTE ESCOLAR","amount_brl":"6152000.00","validation":"VISUAL_VERIFIED_TEXT_AGREEMENT","eiti_specific":false},
+      {"page":174,"action_code":"12.306.2001.2720","label":"ALIMENTACAO ESCOLAR","amount_brl":"28000000.00","validation":"VISUAL_SOURCE_VERIFIED_OCR_MISMATCH","eiti_specific":false}
+    ],
+    "validated_table_480": {
+      "title":"DEMONSTRATIVO DAS TRANSFERENCIAS FINANCEIRAS",
+      "units":"R$ 1,00",
+      "rows_sha256":"287ba956b97b6edb1b5e7d53a0f5ce61e21f15ef1c9e1e46cdfe5d4d1bd970e2",
+      "row_count":10,
+      "total_brl":"128600000.00",
+      "row_sum_matches_printed_total":true
+    },
+    "validated_table_481": {
+      "title":"DEMONSTRATIVO DA COMPATIBILIDADE DA PROGRAMACAO DO ORCAMENTO COM AS METAS DE RESULTADOS FISCAIS",
+      "units":"R$ milhares medios/2025",
+      "rows_sha256":"6354e5f4a2ff34c62fa3e4a7f9f9d6ceda8a1db29fb5cdedf673c0b47d5fe368",
+      "row_count":11,
+      "rcl_pair_consistency_within_rounding_tolerance":true
+    },
+    "provenance_pins": {
+      "task036_rows_sha256":"92c1b5ee1ddab8b2269219fd8f82897ab490d7f9513cbc01358386d111ee56af",
+      "task036_text_chain_sha256":"9d3df16b1132d3ecb99405ce67fd07dac3b027b06a7735748adc243f1c3c0b10",
+      "task036_action_index_sha256":"d488c325693320fc2f55e9ddddc744786ee9f876dc072cce1270b9a019bdd908",
+      "task037_rows_sha256":"528bfaf3bf305d395eb874f9e0d22181a93e4e9b80a9b6c4512c11346ac5f773",
+      "task037_image_chain_sha256":"5d6a9f73b1dd28448292c585fad9eb51afe5ee67a205aa57f432096e714fe0f3",
+      "task037_ocr_chain_sha256":"d826be350ed7f6de6cc3e4e090197fdb2785bff49c619c8a000ba86f167201ec"
+    },
+    "guardrails": {
+      "ocr_numeric_source_truth":false,
+      "silent_character_repair":false,
+      "llm_numeric_reconstruction":false,
+      "complete_loa_parse_claim":false,
+      "eiti_financial_identity":"EVIDENCIA_INSUFICIENTE",
+      "compliance_conclusion":false,
+      "gold_authorized":false
+    }
+  },
+  "candidate_payload_sha256": "3894ede7c67e60d3e12795dec3964d78baf24ff350355d98f3825dd5f81caf4c",
+  "upstream_validation": {
+    "task036_required": true,
+    "task037_required": true,
+    "task038_required": true,
+    "all_required_pins_match": true
+  },
+  "readiness": {
+    "decision": "READY_FOR_SCOPED_SILVER_CREATE_ONLY_SEPARATE_AUTH_REQUIRED",
+    "scope_is_partial_and_explicit": true,
+    "complete_loa_silver_claim": false,
+    "remote_write_authorized": false
+  },
+  "effects": {"source_network":0,"drive_read":0,"drive_write":0,"ocr":0,"bronze":0,"silver":0,"gold":0,"serving":0,"publication":0},
+  "promotion": {"silver":false,"gold":false,"serving":false,"publication":false,"f01_status":"NOT_SILVER"},
+  "result": "PASS_SCOPED_SILVER_CANDIDATE_REVIEW_NO_REMOTE_EFFECT"
+}
