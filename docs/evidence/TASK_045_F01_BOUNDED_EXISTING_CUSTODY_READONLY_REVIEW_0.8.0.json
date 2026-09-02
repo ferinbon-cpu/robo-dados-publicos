@@ -1,0 +1,222 @@
+{
+  "task": "TASK_045_F01_BOUNDED_EXISTING_CUSTODY_READONLY_REVIEW",
+  "mode": "T1_EXISTING_CUSTODY_READONLY",
+  "base_sha": "8c9638859fef42527d99181f846f264a545e9af6",
+  "authorization": {
+    "owner_authorized": true,
+    "owner_message": "Autorizado e prossiga",
+    "owner_authorized_local_time": "2026-09-02T16:40:00-03:00",
+    "authorized_against_sha": "8c9638859fef42527d99181f846f264a545e9af6",
+    "scope": "EXACT_TASK044_SELECTED_PAGES_EXISTING_CUSTODY_READONLY",
+    "authorization_consumed": true,
+    "future_blanket_authorizations_accepted": false
+  },
+  "upstream": {
+    "task044": "PASS_TASK044_NEXT_EVIDENCE_READONLY_GATE_DESIGNED_NOT_AUTHORIZED",
+    "task043": "PASS_TASK043_SCOPED_BUDGET_LAW_RECONCILIATION_NO_FINANCIAL_IDENTITY_PROMOTION"
+  },
+  "scope": {
+    "ppa_pages": [15, 16],
+    "loa_pages": [153, 154, 155, 156, 170, 171, 172, 173, 174, 175],
+    "selected_pages_total": 12,
+    "unique_drive_source_files": 2
+  },
+  "source_verification": {
+    "ppa": {
+      "file_id": "1ez1B_mJ428IxTIUht1AHM9-I5SCotKXj",
+      "filename": "SOURCE_JOM_7119_2025-11-15_PPA_7213_2025.pdf",
+      "sha256": "cb65f29c772eb7133c902e827884a4ed19d8c09f64586b8de9d6483023d9133a",
+      "bytes": 16867824,
+      "pdf_pages": 107,
+      "hash_verified": true
+    },
+    "loa": {
+      "file_id": "1bRpmMxacX16P1tJBvam-55OOPTYuQnIA",
+      "filename": "SOURCE_JOM_7127_2025-11-29_LOA_7223_2025.pdf",
+      "sha256": "37ea54d85cc5428622b296881a279a17e1aeefd7574576e7a3414443bbee64c4",
+      "bytes": 66119594,
+      "pdf_pages": 631,
+      "hash_verified": true
+    }
+  },
+  "render_review": {
+    "renderer": "/home/oai/skills/pdfs/scripts/render_pdf.py",
+    "dpi": 220,
+    "selected_pages_rendered": 12,
+    "render_chain_sha256": "eb24c0c0686f25b90d7b9d23fb740e7e09600392122f43dc08557e18a179ce0e",
+    "page_image_sha256": {
+      "PPA_15": "5875d51e0acf2b2e9750f75f441ccbbde22c4f35e1d0c1d5594ba39a16b68ab1",
+      "PPA_16": "456f5ca66ea75216616099634c053cbb31a2e57a192ae5ed5cece4368f6e4932",
+      "LOA_153": "c22de0322a5f1e4d5374f669fb824b44f1947fa6c48b7b2ad0a145cd13345cef",
+      "LOA_154": "30c44e93bd60e386c8d579658974351605b77a5796ac23c36f29c556ff2bf08d",
+      "LOA_155": "859c0abe5c09aeef103a030b7da317ce8474d25e48de176980c82f1d6983028f",
+      "LOA_156": "a8087d93eb8b23525cceb230316826de1840b37cb9c2317cd3ea0265eb84189e",
+      "LOA_170": "7f3975e3ad9596e55ed20d1a2afbfb33d81589d962a38367ecf003e16f94a781",
+      "LOA_171": "64d57f1a86801562f336190a79986075472d5c34b08b95461c5a4de19eafe84a",
+      "LOA_172": "8a7bee72042b24cb637d47d6efcdc418542b80ddabe82e719ee2517f0c25b967",
+      "LOA_173": "7119a5910bbbab182b3efe8a98cc6bb51ad238b8e3820fa63d7e8862f6b14d52",
+      "LOA_174": "50c538ae1baa822b0c353ed48317cd69c9cc6ba85bd5e2f6ed085972d13e8e7d",
+      "LOA_175": "8b04adf9219c3c23bcc0c1283a32f6ef9894204be56d8f293329a035ba4e7c5d"
+    },
+    "ocr_used": false
+  },
+  "ppa_2690_resolution": {
+    "page": 15,
+    "action_code": "2690",
+    "label": "TRANSPORTE ESCOLAR",
+    "education_level": "ENSINO MEDIO E SUPERIOR",
+    "product": "ALUNOS TRANSPORTADOS",
+    "product_unit": "UNIDADES",
+    "function": "12",
+    "subfunction": "362",
+    "financial_units": "R$ milhares medios / 2025",
+    "year_values": {
+      "2026": 16020,
+      "2027": 15520,
+      "2028": 15521,
+      "2029": 15522,
+      "total": 62583
+    },
+    "physical_metas": {
+      "2026": 180,
+      "2027": 190,
+      "2028": 200,
+      "2029": 210
+    },
+    "prior_status": "PARSER_REVIEW_REQUIRED",
+    "review_status": "RESOLVED_DIRECT_PRIMARY_JOM_VISUAL_SOURCE",
+    "promoted_in_task045": false,
+    "eiti_specific": false
+  },
+  "ppa_2720_confirmation": {
+    "page": 16,
+    "action_code": "2720",
+    "label": "ALIMENTACAO ESCOLAR",
+    "function": "12",
+    "subfunction": "306",
+    "financial_units": "R$ milhares medios / 2025",
+    "year_values": {"2026": 28000, "2027": 29120, "2028": 30430, "2029": 32256, "total": 119806},
+    "eiti_specific": false
+  },
+  "loa_explicit_fields": {
+    "12.362.2001.2690": {
+      "context_pages": [170, 171],
+      "organ_code": "10.00.00",
+      "organ_name": "SECRETARIA DE EDUCACAO",
+      "unit_code": "10.04.00",
+      "unit_name": "ENSINO MEDIO E SUPERIOR",
+      "sphere": "FISCAL",
+      "program_code": "2001",
+      "function": "12",
+      "subfunction": "362",
+      "action_code": "2690",
+      "label": "TRANSPORTE ESCOLAR",
+      "appropriation_brl": 6152000,
+      "expense_group_breakdown_brl": {
+        "OUTRAS_DESPESAS_CORRENTES": 6142000,
+        "INVESTIMENTOS": 10000
+      },
+      "funding_sources": {
+        "01_TESOURO": 943000,
+        "02_TRANSFERENCIAS_E_CONVENIOS_ESTADUAIS_VINCULADOS": 5209000
+      },
+      "expense_nature": "UNKNOWN_NOT_EXPLICIT_ON_SELECTED_PAGES",
+      "execution_stage": "NOT_APPLICABLE_TO_LOA_ENACTMENT_READ",
+      "eiti_specific": false
+    },
+    "12.306.2001.2720": {
+      "context_pages": [173, 174],
+      "organ_code": "10.00.00",
+      "organ_name": "SECRETARIA DE EDUCACAO",
+      "unit_code": "10.05.00",
+      "unit_name": "ALIMENTACAO ESCOLAR",
+      "sphere": "FISCAL",
+      "program_code": "2001",
+      "function": "12",
+      "subfunction": "306",
+      "action_code": "2720",
+      "label": "ALIMENTACAO ESCOLAR",
+      "appropriation_brl": 28000000,
+      "expense_group_breakdown_brl": {
+        "OUTRAS_DESPESAS_CORRENTES": 27999000,
+        "INVESTIMENTOS": 1000
+      },
+      "funding_sources": {
+        "01_TESOURO": 8680000,
+        "05_TRANSFERENCIAS_E_CONVENIOS_FEDERAIS_VINCULADOS": 19320000
+      },
+      "expense_nature": "UNKNOWN_NOT_EXPLICIT_ON_SELECTED_PAGES",
+      "execution_stage": "NOT_APPLICABLE_TO_LOA_ENACTMENT_READ",
+      "eiti_specific": false
+    }
+  },
+  "material_text_visual_divergence": {
+    "observed": true,
+    "pages": [173, 174],
+    "field": "ALIMENTACAO_ESCOLAR_APPROPRIATION_OR_UNIT_PROGRAM_TOTAL",
+    "text_layer_amount_brl": 29000000,
+    "visual_source_amount_brl": 28000000,
+    "silent_repair": false,
+    "automatic_promotion": false,
+    "resolution": "REVIEW_STOP_DIRECT_VISUAL_SOURCE_RECORDED"
+  },
+  "reconciliation": {
+    "2690": {
+      "program_code": "2001",
+      "function": "12",
+      "subfunction": "362",
+      "action_code": "2690",
+      "education_level": "ENSINO MEDIO E SUPERIOR",
+      "ppa_2026_brl": 16020000,
+      "loa_2026_brl": 6152000,
+      "delta_loa_minus_ppa_brl": -9868000,
+      "exact_amount_alignment": false,
+      "status": "PROGRAM_ACTION_KEY_CONTINUITY_PROVEN_WITH_PPA_LOA_AMOUNT_DIVERGENCE_NO_FINANCIAL_IDENTITY"
+    },
+    "2720": {
+      "program_code": "2001",
+      "function": "12",
+      "subfunction": "306",
+      "action_code": "2720",
+      "ppa_2026_brl": 28000000,
+      "loa_2026_brl": 28000000,
+      "delta_loa_minus_ppa_brl": 0,
+      "exact_amount_alignment": true,
+      "status": "PROGRAM_ACTION_AND_2026_AMOUNT_ALIGNMENT_PROVEN_NO_FINANCIAL_IDENTITY"
+    }
+  },
+  "remaining_chain_gaps": [
+    "NO_DIRECT_EITI_INDICATOR_TO_EXPLICIT_BUDGET_ACTION_OR_SUBACTION_MAPPING",
+    "NO_EXPLICIT_EITI_TAGGED_BUDGET_ITEM",
+    "COMPLETE_EXPENSE_NATURE_NOT_EXPLICIT_ON_SELECTED_PAGES",
+    "NO_EXECUTION_STAGES_COMMITTED_LIQUIDATED_PAID_FROM_LOA_ENACTMENT",
+    "PROGRAM_2001_TOTAL_ATTRIBUTION_TO_EITI_FORBIDDEN",
+    "NO_CAUSAL_OR_COMPLIANCE_CONCLUSION"
+  ],
+  "promotion": {
+    "ppa_review_row_resolved": true,
+    "f01_status": "SILVER_SCOPED_PARTIAL_VALIDATED",
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+    "drive_write": false,
+    "silver_write": false,
+    "gold": false,
+    "serving": false,
+    "publication": false
+  },
+  "effects": {
+    "unique_drive_source_files_read": 2,
+    "selected_pages_read": 12,
+    "local_full_file_materializations_for_hash_and_render": 2,
+    "source_network": 0,
+    "drive_write": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "silver_write": 0,
+    "gold": 0,
+    "serving": 0,
+    "publication": 0,
+    "retry": 0,
+    "pagination": 0
+  },
+  "result": "STOP_TASK045_EITI_FINANCIAL_IDENTITY_CHAIN_STILL_INCOMPLETE_AFTER_BOUNDED_READONLY_REVIEW"
+}
