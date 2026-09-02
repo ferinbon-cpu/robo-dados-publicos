@@ -1,0 +1,127 @@
+{
+  "task": "TASK_056_F01_SECONDARY_EDUCATION_SOURCE_BOUNDED_CONTENT_READ",
+  "mode": "T1_EXISTING_CUSTODY_SINGLE_SOURCE_CONTENT_READ_WITH_ONTOLOGY",
+  "base_sha": "b8a3b373b31740efeab22deeacccb10e8b331520",
+  "authorization": {
+    "owner_authorized": true,
+    "owner_message": "Prossiga",
+    "scope": "READ_ONLY_CONTENT_OF_DRIVE_FILE_17Fl8opb1pkqdFa485-bkQR3j6LnApnE-_ONLY_APPLY_TASK055A_ONTOLOGY_NO_OTHER_SOURCE_READ_NO_NETWORK_NO_DRIVE_WRITE",
+    "authorization_consumed": true,
+    "future_blanket_authorizations_accepted": false
+  },
+  "upstream": {
+    "task": "TASK_055A_F01_EITI_TERMINOLOGY_ONTOLOGY",
+    "result": "PASS_TASK055A_EITI_TERMINOLOGY_ONTOLOGY_READY_TASK056_REQUIRES_ONTOLOGY",
+    "ontology_required": true,
+    "selected_drive_file_id": "17Fl8opb1pkqdFa485-bkQR3j6LnApnE-"
+  },
+  "read_contract": {
+    "max_source_content_reads": 1,
+    "allowed_drive_file_ids": ["17Fl8opb1pkqdFa485-bkQR3j6LnApnE-"],
+    "search_all_five_ontology_families": true,
+    "public_source_network_allowed": false,
+    "drive_write_allowed": false,
+    "ocr_allowed": false,
+    "promotion_allowed": false
+  },
+  "observed_source": {
+    "drive_file_id": "17Fl8opb1pkqdFa485-bkQR3j6LnApnE-",
+    "title": "Demonstrativo SIOPE-MAVS - 1º BIMESTRE 2026.pdf",
+    "report_title": "QUADRO DEMONSTRATIVO DAS RECEITAS E DESPESAS COM O FUNDEB",
+    "issuer": "PREFEITURA MUNICIPAL DE LIMEIRA - SP",
+    "period": "1º Bimestre/2026",
+    "funding_family": "FUNDEB",
+    "source_system_marker": "SIOPE",
+    "execution_column_marker": "DESPESA LIQUIDADA/EMPENHADA"
+  },
+  "ontology_scan": {
+    "A_CANONICAL_POLICY_IDENTIFIERS": {
+      "exact_full_form_hits": [],
+      "note": "No full canonical EITI or Programa ETI phrase was observed; ETI appears inside the newly observed composite label FOMENTO ETI."
+    },
+    "B_LOCAL_PLANNING_AND_NORMATIVE_ALIASES": {
+      "hits": []
+    },
+    "C_OPERATIONAL_OFFER_AND_JOURNEY_SIGNALS": {
+      "hits": []
+    },
+    "D_FINANCING_AND_INDUCTION_SIGNALS": {
+      "hits": ["FUNDEB", "Transferências de Recursos", "FOMENTO"],
+      "strong_composite_policy_finance_signal": "FOMENTO ETI (4%)"
+    },
+    "E_ACCOUNTING_AND_PLANNING_LINKAGE_KEYS": {
+      "hits": ["DESPESA LIQUIDADA/EMPENHADA", "PAGAMENTOS EFETUADOS"],
+      "program_action_subaction_found": false,
+      "ficha_found": false,
+      "centro_de_custo_found": false,
+      "transaction_level_stable_key_found": false
+    },
+    "new_alias_discovered": {
+      "term": "FOMENTO ETI",
+      "classification": "STRONG_POLICY_FINANCE_REPORTING_ALIAS",
+      "must_be_added_to_future_matching": true
+    }
+  },
+  "fomento_eti_reporting_findings": {
+    "dedicated_reporting_bucket_found": true,
+    "line_10_1_label": "TOTAL DAS DESPESAS APLICADAS EM FOMENTO ETI (4%)",
+    "line_10_1_applied_amount_brl": 0.0,
+    "line_15_label": "Mínimo de 4% - Receitas do Fundeb Aplicadas em FOMENTO ETI (4%)",
+    "line_15_percentage_observed": 0.0,
+    "line_15_1_required_amount_brl": 1315673.39,
+    "line_15_2_applied_after_deductions_brl": 0.0,
+    "period_scope": "FIRST_BIMESTER_2026_ONLY",
+    "funding_scope": "FUNDEB_ONLY",
+    "dedicated_policy_finance_reporting_identity_proven": true,
+    "transaction_level_eiti_financial_identity_proven": false
+  },
+  "interpretation": {
+    "what_is_proven": [
+      "SIOPE_FUNDEB_REPORT_HAS_DEDICATED_FOMENTO_ETI_4_PERCENT_BUCKET",
+      "FIRST_BIMESTER_2026_REQUIRED_AMOUNT_FOR_THIS_BUCKET_IS_1315673_39_BRL",
+      "FIRST_BIMESTER_2026_APPLIED_AMOUNT_REPORTED_IN_THIS_BUCKET_IS_ZERO"
+    ],
+    "what_is_not_proven": [
+      "ZERO_EITI_SPENDING_ACROSS_ALL_MUNICIPAL_FUNDING_SOURCES",
+      "UNDERLYING_TRANSACTION_LEVEL_PROGRAM_ACTION_OR_COST_CENTER_KEY",
+      "INDIVIDUAL_EITI_EMPENHO_LIQUIDACAO_PAGAMENTO_CHAIN"
+    ],
+    "zero_value_must_not_be_generalized_beyond_fundeb_fomento_eti_bucket_and_period": true,
+    "reporting_identity_is_not_transaction_identity": true
+  },
+  "effects": {
+    "source_content_reads": 1,
+    "other_source_content_reads": 0,
+    "public_source_network": 0,
+    "drive_write": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "promotion": {
+    "selected_source_read_passed": true,
+    "eiti_financial_reporting_identity": "PARTIALLY_PROVEN_DEDICATED_FUNDEB_FOMENTO_ETI_BUCKET",
+    "eiti_transaction_level_financial_identity": "EVIDENCIA_INSUFICIENTE",
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+    "f01_status": "SILVER_SCOPED_PARTIAL_VALIDATED",
+    "gold": false,
+    "serving": false,
+    "publication": false
+  },
+  "next_bounded_gate": {
+    "name": "TASK_057_F01_FUNDEB_FOMENTO_ETI_LINKAGE_CANDIDATE_SELECTION",
+    "purpose": "Select, metadata-only, the best existing-custody source for tracing the SIOPE FOMENTO ETI reporting bucket to program/action/ficha/transaction-level accounting keys.",
+    "metadata_only": true,
+    "no_source_content_read": true,
+    "candidate_seed_ids": [
+      "1zRG-7fXYMTOMjsbWWJzoaSF7kQ54kJMe",
+      "1xmAFcp2pYYeua3vHQQoY4_tfFZzr21-I",
+      "1m1mg8LX-7VOn81Rl4t-zgDoP23JPCTRd"
+    ],
+    "future_content_read_requires_fresh_owner_authorization": true
+  },
+  "result": "PASS_TASK056_MAVS_FOMENTO_ETI_REPORTING_IDENTITY_PARTIAL_NO_TRANSACTION_LINKAGE_NO_PROMOTION"
+}
