@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "task": "TASK_043_F01_BUDGET_LAWS_SCOPED_RECONCILIATION",
+  "mode": "T0_OFFLINE_SCOPED_RECONCILIATION_DESIGN_AND_REVIEW",
+  "base_sha": "013ed0fcd92051adfc1b67a0e85fc0792f51eb88",
+  "upstream": {
+    "task039_loa_candidate_sha256": "3894ede7c67e60d3e12795dec3964d78baf24ff350355d98f3825dd5f81caf4c",
+    "task041_ppa_candidate_sha256": "0cba09dade1c09224e549e817a859c63edb12a6fb0a5223c5ddb8aa5fe6dc730",
+    "task041_ldo_candidate_sha256": "4719631a3dd476efe8c760f2b9ce07eba15d678c85b56e95345af70237f02182",
+    "task042_result": "PASS_TASK042_PPA_LDO_SCOPED_SILVER_CREATE_ONLY_READBACK_VERIFIED"
+  },
+  "rules": {
+    "programmatic_continuity_is_financial_identity": false,
+    "same_action_code_is_financial_identity": false,
+    "same_or_scaled_amount_is_financial_identity": false,
+    "same_label_is_financial_identity": false,
+    "review_required_row_may_be_promoted": false,
+    "program_2001_total_may_be_attributed_to_eiti": false,
+    "global_fiscal_table_may_be_attributed_to_eiti": false,
+    "mde_fundeb_compliance_may_be_inferred": false,
+    "causal_inference_authorized": false,
+    "gold_authorized": false,
+    "serving_authorized": false,
+    "publication_authorized": false
+  },
+  "normalized_relation_classes": [
+    "FRAMEWORK_CONTEXT_ONLY_NO_ITEM_LEVEL_LINK",
+    "PROGRAM_ACTION_KEY_CONTINUITY_PROVEN_AMOUNT_SCALE_ALIGNMENT_OBSERVED_NO_FINANCIAL_IDENTITY",
+    "REVIEW_REQUIRED_BLOCKED_RELEVANT_PPA_ROW_UNPROMOTED",
+    "EVIDENCIA_INSUFICIENTE"
+  ]
+}
