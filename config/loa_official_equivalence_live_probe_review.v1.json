@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "task": "TASK_029_LOA_OFFICIAL_EQUIVALENCE_LIVE_PROBE_REVIEW",
+  "mode": "T1_BOUNDED_LIVE_READ_ONLY",
+  "base_sha": "2738741f0134873710f993f1abbc146a0a6b0c0e",
+  "design_task": "TASK_028_LOA_OFFICIAL_EQUIVALENCE_PROBE_DESIGN",
+  "target": {
+    "law": "7.223/2025",
+    "exercise": 2026,
+    "canonical_sha256": "bc4c8bf4b2b1e8f59e880318c37ec7f7fbd4357a85a8b46c97750444dbf01d4b",
+    "canonical_pages": 466
+  },
+  "authorization": {
+    "owner_authorized": true,
+    "owner_message": "Autorizado prodsiga",
+    "authorized_local_time": "2026-09-02T07:51:00-03:00",
+    "authorized_against_sha": "2738741f0134873710f993f1abbc146a0a6b0c0e",
+    "live_initial_probe": true,
+    "candidate_followup": false,
+    "document_download": false,
+    "ocr": false,
+    "drive": false,
+    "silver": false,
+    "gold": false,
+    "serving": false,
+    "publication": false
+  },
+  "limits": {
+    "max_requests": 6,
+    "max_initial_urls": 3,
+    "max_candidate_followups": 3,
+    "automatic_retry": false,
+    "pagination": false,
+    "document_downloads": 0,
+    "drive_effects": 0
+  },
+  "initial_urls": [
+    "https://www.limeira.sp.gov.br/orcamentos",
+    "https://legislacao.limeira.sp.leg.br/",
+    "https://limeira.sp.gov.br/cidadao/portal-da-transparencia"
+  ],
+  "allowed_hosts": [
+    "www.limeira.sp.gov.br",
+    "limeira.sp.gov.br",
+    "legislacao.limeira.sp.leg.br"
+  ],
+  "classification": {
+    "blocked_surface": "INITIAL_SURFACE_ACCESS_BLOCKED",
+    "accessible_no_machine_candidate": "ACCESSIBLE_SURFACE_NO_MACHINE_CANDIDATE_OBSERVED",
+    "final_if_any_initial_surface_blocked": "STOP_INITIAL_SURFACES_INCOMPLETE_ACCESS_BLOCKED"
+  }
+}
