@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "task": "TASK_036_LOA_JOM_PAGE_INDEXED_CANDIDATE_MANIFEST",
+  "mode": "T1_EXACT_BYTE_COPY_OFFLINE_PAGE_INDEXED_CANDIDATE_RUN",
+  "base_sha": "cffd8040540e4a8786a38c6dd9f079d42d7a2134",
+  "source": {
+    "filename": "SOURCE_JOM_7127_2025-11-29_LOA_7223_2025.pdf",
+    "custodied_drive_file_id": "1bRpmMxacX16P1tJBvam-55OOPTYuQnIA",
+    "sha256": "37ea54d85cc5428622b296881a279a17e1aeefd7574576e7a3414443bbee64c4",
+    "bytes": 66119594,
+    "total_pdf_pages": 631,
+    "law_start_page": 15,
+    "law_end_page": 481,
+    "law_page_count": 467
+  },
+  "runtime": {
+    "input_transport": "CONVERSATION_MATERIALIZED_EXACT_BYTE_COPY",
+    "text_extractor": "PyMuPDF",
+    "text_extractor_version": "1.26.7",
+    "text_layer_kind": "OCR_DERIVED_TEXT_LAYER",
+    "source_get": false,
+    "drive_read": false,
+    "drive_write": false,
+    "full_document_ocr": false,
+    "targeted_ocr": false
+  },
+  "page_policy": {
+    "visually_blank_pages": [375, 386, 413, 415, 421, 426],
+    "targeted_review_pages": [475, 476, 477, 478, 479, 480, 481],
+    "parse_text_layer_pages": 454,
+    "strict_code_corruption_review_pages": [174]
+  },
+  "expected_manifest": {
+    "row_count": 467,
+    "parsed_candidates_only_pages": 453,
+    "code_corruption_review_pages": 1,
+    "exact_action_code_pages": 18,
+    "exact_action_code_occurrences": 49,
+    "pages_with_numeric_candidates": 347,
+    "numeric_candidate_occurrences": 6060,
+    "rows_sha256": "92c1b5ee1ddab8b2269219fd8f82897ab490d7f9513cbc01358386d111ee56af",
+    "page_text_hash_chain_sha256": "9d3df16b1132d3ecb99405ce67fd07dac3b027b06a7735748adc243f1c3c0b10",
+    "action_code_index_sha256": "d488c325693320fc2f55e9ddddc744786ee9f876dc072cce1270b9a019bdd908"
+  },
+  "numeric_policy": {
+    "numeric_values_committed_to_manifest": false,
+    "critical_numeric_auto_promotion": false,
+    "visual_or_independent_validation_required": true,
+    "silent_character_repair": false,
+    "llm_numeric_reconstruction": false
+  },
+  "promotion": {
+    "bronze": false,
+    "silver": false,
+    "gold": false,
+    "serving": false,
+    "publication": false,
+    "f01_status": "NOT_SILVER"
+  }
+}
