@@ -1,0 +1,45 @@
+{
+  "records": [
+    {
+      "page": 15,
+      "text": "LEI N.º 7.223 DE 28 DE NOVEMBRO DE 2025. Art. 2º A Receita Orçamentária é estimada em R$ 2.303.934.000,00. I - R$ 1.793.668.816,00 do Orçamento Fiscal; II - R$ 510.265.184,00 do Orçamento da Seguridade Social."
+    },
+    {
+      "page": 171,
+      "text": "PROGRAMA : 2001 EDUCACAO QUE INCLUI E TRANSFORMA VIDAS 6 . 555 . 000,00 | 112.362.2001.2690 TRANSPORTE ESCOLAR 6.152. 000,00 | OUTRAS DESPESAS CORRENTES 6.142.000,00"
+    },
+    {
+      "page": 174,
+      "text": "PROGRAMA : 2001 EDUCACAO QUE INCLUI E TRANSFORMA VIDAS 29 .000 .000,00 | 112. 30 6 . 2001. 2 ~20 | OUTRAS DESPESAS CORRENTES 27 .999 .000,00"
+    },
+    {
+      "page": 375,
+      "text": ""
+    },
+    {
+      "page": 475,
+      "text": "Limeira - Edição nº 7127, 29 de novembro de 2025 475/631"
+    }
+  ],
+  "visual_review": {
+    "page_171": {
+      "code": "12.362.2001.2690",
+      "label": "TRANSPORTE ESCOLAR",
+      "amount_brl": "6152000.00",
+      "text_visual_status": "AGREEMENT"
+    },
+    "page_173": {
+      "unit": "10.05.00 ALIMENTACAO ESCOLAR",
+      "visual_total_brl": "28000000.00",
+      "ocr_text_total_brl": "29000000.00",
+      "text_visual_status": "NUMERIC_DRIFT"
+    },
+    "page_174": {
+      "code": "12.306.2001.2720",
+      "label": "ALIMENTACAO ESCOLAR",
+      "visual_amount_brl": "28000000.00",
+      "ocr_text_amount_brl": "29000000.00",
+      "text_visual_status": "CODE_AND_NUMERIC_DRIFT"
+    }
+  }
+}
