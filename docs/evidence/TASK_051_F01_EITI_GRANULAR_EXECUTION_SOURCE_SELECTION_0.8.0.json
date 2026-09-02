@@ -1,0 +1,80 @@
+{
+  "task": "TASK_051_F01_EITI_GRANULAR_EXECUTION_SOURCE_SELECTION",
+  "mode": "T0_OFFLINE_SOURCE_SELECTION_DESIGN",
+  "base_sha": "b9edc2390ab180828e0cbe2e89a28f0878b793b5",
+  "upstream": {
+    "task049_result": "PASS_TASK049_EITI_ACTION_LINKAGE_CLOSURE_NO_EXPLICIT_ACTION_LABEL",
+    "task050_result": "PASS_TASK050_LOA_SCOPED_SILVER_V2_CREATE_ONLY_READBACK_VERIFIED",
+    "f01_status": "SILVER_SCOPED_PARTIAL_VALIDATED",
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE"
+  },
+  "closed_paths": {
+    "repeat_program_2001_action_label_search": false,
+    "attribute_program_2001_total_to_eiti": false,
+    "attribute_generic_action_2690_to_eiti": false,
+    "attribute_generic_action_2720_to_eiti": false,
+    "infer_identity_from_ppa_loa_amount_alignment": false
+  },
+  "identity_minimum_fields": [
+    "EXPLICIT_EITI_OR_EQUIVALENT_POLICY_MARKER",
+    "BUDGET_UNIT_OR_COST_CENTER",
+    "PROGRAM_ACTION_OR_SUBACTION",
+    "EXPENSE_NATURE_OR_ITEM",
+    "FUNDING_SOURCE_OR_DESTINATION",
+    "EXECUTION_DOCUMENT_OR_EVENT_ID",
+    "COMMITTED_OR_EQUIVALENT",
+    "LIQUIDATED_OR_EQUIVALENT",
+    "PAID_OR_EQUIVALENT"
+  ],
+  "candidate_source_classes": [
+    {
+      "priority": 1,
+      "source_class": "EXPLICIT_EITI_COST_CENTER_SUBACTION_OR_EXECUTION_TAG",
+      "why": "Strongest direct bridge from the policy marker to an accounting object; still requires provenance and execution-stage evidence before financial identity promotion.",
+      "eligible_if": ["EXPLICIT_EITI_ETI_EDUCACAO_INTEGRAL_OR_TEMPO_INTEGRAL_MARKER", "STABLE_ACCOUNTING_IDENTIFIER", "SOURCE_PROVENANCE"],
+      "automatic_identity": false
+    },
+    {
+      "priority": 2,
+      "source_class": "DETAILED_EDUCATION_BUDGET_EXECUTION_OR_BALANCETE_EDUCACAO",
+      "why": "Best existing-corpus family for resolving budget unit, action/subaction, nature, source and execution stages without repeating PPA/LOA label inference.",
+      "eligible_if": ["EDUCATION_SCOPE", "ROW_LEVEL_EXECUTION_DETAIL", "ACTION_OR_ACCOUNTING_KEY", "AT_LEAST_ONE_EXECUTION_STAGE"],
+      "automatic_identity": false
+    },
+    {
+      "priority": 3,
+      "source_class": "EMPENHO_LIQUIDACAO_PAGAMENTO_DETAIL",
+      "why": "Can prove the executed chain if an explicit EITI marker or a separately proven stable accounting key links each event to the policy.",
+      "eligible_if": ["DOCUMENT_LEVEL_EVENT", "AMOUNT", "DATE", "ACCOUNTING_KEY", "DESCRIPTION_OR_POLICY_LINK"],
+      "automatic_identity": false
+    }
+  ],
+  "not_sufficient_alone": [
+    "RREO_MDE_AGGREGATE",
+    "FUNDEB_AGGREGATE",
+    "PPA_PROGRAM_TOTAL",
+    "LOA_GENERIC_ACTION_TOTAL",
+    "DESCRIPTION_SIMILARITY_ONLY",
+    "AMOUNT_EQUALITY_ONLY"
+  ],
+  "next_bounded_gate": {
+    "name": "TASK_052_EXISTING_CUSTODY_GRANULAR_SOURCE_INVENTORY",
+    "scope": "READ_ONLY_EXISTING_CUSTODY_METADATA_OR_MANIFEST_INVENTORY_ONLY",
+    "preferred_first_family": "DETAILED_EDUCATION_BUDGET_EXECUTION_OR_BALANCETE_EDUCACAO",
+    "search_terms": ["BALANCETE EDUCACAO", "EXECUCAO ORCAMENTARIA EDUCACAO", "EMPENHO", "LIQUIDACAO", "PAGAMENTO", "EDUCACAO INTEGRAL", "TEMPO INTEGRAL", "EITI", "ETI"],
+    "max_candidate_records": 25,
+    "no_source_content_read": true,
+    "no_network": true,
+    "no_drive_write": true,
+    "authorization_required_before_live_inventory": true
+  },
+  "stopping_rules": [
+    "NO_EXPLICIT_OR_STABLY_PROVEN_POLICY_TO_ACCOUNTING_KEY_LINK_MEANS_IDENTITY_REMAINS_INSUFFICIENT",
+    "DO_NOT_FALL_BACK_TO_PROGRAM_2001_TOTAL",
+    "DO_NOT_FALL_BACK_TO_2690_OR_2720_GENERIC_ATTRIBUTION",
+    "DO_NOT_USE_DESCRIPTION_SIMILARITY_OR_AMOUNT_EQUALITY_AS_FINANCIAL_IDENTITY"
+  ],
+  "effects": {"source_network":0,"drive_read":0,"drive_write":0,"ocr":0,"bronze":0,"silver":0,"gold":0,"serving":0,"publication":0},
+  "promotion": {"f01_status":"SILVER_SCOPED_PARTIAL_VALIDATED","eiti_financial_identity":"EVIDENCIA_INSUFICIENTE","gold":false,"serving":false,"publication":false},
+  "result": "PASS_TASK051_GRANULAR_EXECUTION_SOURCE_SELECTION_DESIGNED_NO_REMOTE_EFFECT"
+}
