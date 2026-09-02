@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "task": "TASK_030_BUDGET_LAWS_JOURNAL_PUBLICATION_MAP",
+  "mode": "T0_OFFLINE_PUBLICATION_MAPPING",
+  "municipality": "Limeira-SP",
+  "publication_source": "JORNAL_OFICIAL_LIMEIRA",
+  "source_role": "PRIMARY_LEGAL_PUBLICATION",
+  "records": [
+    {
+      "document_type": "PPA",
+      "law_number": "7.213/2025",
+      "law_date": "2025-11-12",
+      "exercise_or_period": "2026-2029",
+      "journal_edition": 7119,
+      "journal_date": "2025-11-15",
+      "journal_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_14112025171148.pdf",
+      "journal_total_pages": 107,
+      "journal_start_page": 5,
+      "journal_verified_end_page": null,
+      "journal_section_end_page": 76,
+      "standalone_pages": 105,
+      "relationship_status": "SAME_LEGAL_INSTRUMENT_PROVEN",
+      "content_equivalence_status": "FULL_CONTENT_EQUIVALENCE_PENDING",
+      "textual_representation": true,
+      "notes": "The law begins at page 5. The Administration section begins at page 77, so the Gabinete block ends at page 76. Do not infer full annex equivalence from the section boundary."
+    },
+    {
+      "document_type": "LDO",
+      "law_number": "7.141/2025",
+      "law_date": "2025-07-02",
+      "exercise_or_period": "2026",
+      "journal_edition": 7024,
+      "journal_date": "2025-07-08",
+      "journal_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_07072025191855.pdf",
+      "journal_total_pages": 79,
+      "journal_start_page": 5,
+      "journal_verified_end_page": 41,
+      "journal_section_end_page": 43,
+      "standalone_pages": 37,
+      "relationship_status": "SAME_LEGAL_INSTRUMENT_PROVEN",
+      "content_equivalence_status": "PAGE_COUNT_ALIGNMENT_PROVEN_BYTE_EQUIVALENCE_NOT_CLAIMED",
+      "textual_representation": true,
+      "notes": "Page 42 already contains Portaria 1.669/2025, therefore the LDO occupies pages 5-41 inclusive, exactly 37 journal pages."
+    },
+    {
+      "document_type": "LOA",
+      "law_number": "7.223/2025",
+      "law_date": "2025-11-28",
+      "exercise_or_period": "2026",
+      "journal_edition": 7127,
+      "journal_date": "2025-11-29",
+      "journal_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_28112025211140.pdf",
+      "journal_total_pages": 631,
+      "journal_start_page": 15,
+      "journal_verified_end_page": null,
+      "journal_candidate_end_page": 480,
+      "journal_section_end_page": 484,
+      "standalone_pages": 466,
+      "relationship_status": "SAME_LEGAL_INSTRUMENT_PROVEN",
+      "content_equivalence_status": "FULL_PAGE_EQUIVALENCE_PENDING",
+      "textual_representation": true,
+      "notes": "The law begins at page 15. Standalone source has 466 pages, yielding candidate end page 480 by arithmetic only. Administration begins at page 485. Candidate end must not be promoted to verified end without deterministic page/content checks."
+    }
+  ],
+  "guardrails": {
+    "journal_replaces_canonical_pdf_without_equivalence_proof": false,
+    "infer_full_equivalence_from_same_law_number": false,
+    "infer_full_equivalence_from_page_count_alignment": false,
+    "infer_verified_end_from_section_boundary": false,
+    "allow_journal_as_official_textual_validation_bridge": true,
+    "divergence_action": "REVIEW_STOP",
+    "silent_correction": false
+  },
+  "promotion": {
+    "silver": false,
+    "gold": false,
+    "serving": false,
+    "publication": false
+  }
+}

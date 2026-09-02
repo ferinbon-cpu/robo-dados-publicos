@@ -1,0 +1,59 @@
+{
+  "task": "TASK_030_BUDGET_LAWS_JOURNAL_PUBLICATION_MAP",
+  "version": "0.8.0",
+  "base_sha": "da0baa21fbee90b7d7b12d95bf92e77f7ff1b485",
+  "mode": "T0_OFFLINE_PUBLICATION_MAPPING",
+  "result": "PASS_PUBLICATION_IDENTITIES_WITH_EQUIVALENCE_GUARDS",
+  "records": {
+    "PPA": {
+      "law": "7.213/2025",
+      "law_date": "2025-11-12",
+      "journal_edition": 7119,
+      "journal_date": "2025-11-15",
+      "journal_start_page": 5,
+      "journal_section_end_page": 76,
+      "full_equivalence": "PENDING"
+    },
+    "LDO": {
+      "law": "7.141/2025",
+      "law_date": "2025-07-02",
+      "journal_edition": 7024,
+      "journal_date": "2025-07-08",
+      "journal_start_page": 5,
+      "journal_verified_end_page": 41,
+      "standalone_pages": 37,
+      "page_count_alignment": true,
+      "byte_equivalence": false
+    },
+    "LOA": {
+      "law": "7.223/2025",
+      "law_date": "2025-11-28",
+      "journal_edition": 7127,
+      "journal_date": "2025-11-29",
+      "journal_start_page": 15,
+      "standalone_pages": 466,
+      "candidate_end_page_by_arithmetic": 480,
+      "journal_section_end_page": 484,
+      "full_page_equivalence": "PENDING",
+      "textual_representation_observed": true
+    }
+  },
+  "architectural_decision": {
+    "journal_role": "PRIMARY_LEGAL_PUBLICATION",
+    "standalone_pdf_role": "CANONICAL_OFFICIAL_COPY_OR_REPRESENTATION",
+    "journal_can_support_text_extraction_and_validation": true,
+    "journal_replaces_canonical_without_equivalence_proof": false,
+    "divergence": "REVIEW_STOP"
+  },
+  "effects": {
+    "network_requests_from_ci": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "next_action": "Build a deterministic sample-based equivalence audit for PPA/LDO/LOA, prioritizing the LOA journal text as a validation bridge before any full OCR authorization."
+}
