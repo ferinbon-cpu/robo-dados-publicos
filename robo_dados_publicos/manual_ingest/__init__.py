@@ -8,6 +8,11 @@ from .planning_budget import (
     validate_financial_identity,
     validate_source_bytes,
 )
+from .reconciliation import (
+    F01ReconciliationStop,
+    load_reconciliation_contract,
+    reconcile_f01_bundle,
+)
 
 __all__ = [
     "ManualSourceContract",
@@ -18,4 +23,7 @@ __all__ = [
     "parse_ldo_structural_markers",
     "validate_financial_identity",
     "validate_source_bytes",
+    "F01ReconciliationStop",
+    "load_reconciliation_contract",
+    "reconcile_f01_bundle",
 ]

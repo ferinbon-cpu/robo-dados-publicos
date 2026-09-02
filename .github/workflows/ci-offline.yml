@@ -197,6 +197,9 @@ jobs:
       - name: Gate T0 TASK 025 da ingestão manual supervisionada F01
         run: python scripts/github_task_025_manual_supervised_ingest_f01_gate.py
 
+      - name: Gate T0 TASK 026 da reconciliação do staging F01
+        run: python scripts/github_task_026_f01_staging_reconciliation_gate.py
+
       - name: Testes unitários
         run: python -m unittest discover -s tests -v
 
