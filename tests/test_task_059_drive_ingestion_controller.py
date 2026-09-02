@@ -15,6 +15,7 @@ from robo_dados_publicos.manual_ingest.drive_ingestion_controller import (
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_PATH = ROOT / "config/drive_ingestion_controller.v1.json"
 FIXTURE_PATH = ROOT / "tests/fixtures/task_059_drive_ingestion_controller.json"
+EVIDENCE_PATH = ROOT / "docs/evidence/TASK_059_DRIVE_INGESTION_CONTROLLER_0.8.0.json"
 
 
 class Task059DriveIngestionControllerTests(unittest.TestCase):
@@ -22,6 +23,7 @@ class Task059DriveIngestionControllerTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.contract = load_controller_contract(CONTRACT_PATH)
         cls.fixtures = json.loads(FIXTURE_PATH.read_text(encoding="utf-8"))
+        cls.evidence = json.loads(EVIDENCE_PATH.read_text(encoding="utf-8"))
 
     def test_fixture_routes(self) -> None:
         for item in self.fixtures:
@@ -72,6 +74,13 @@ class Task059DriveIngestionControllerTests(unittest.TestCase):
         finally:
             if temp.exists():
                 temp.unlink()
+
+    def test_evidence_keeps_all_remote_effects_zero(self) -> None:
+        self.assertEqual(self.evidence["base_sha"], "e5c6658b1e05fc2d824e5d9cbcc116b0e9f40a5c")
+        self.assertTrue(all(value == 0 for value in self.evidence["hard_boundaries"].values()))
+        self.assertEqual(self.evidence["task058_status"], "DEFERRED_NOT_EXECUTED")
+        self.assertEqual(self.evidence["eiti_transaction_level_financial_identity"], "EVIDENCIA_INSUFICIENTE")
+        self.assertEqual(self.evidence["result"], "PASS_TASK059_DRIVE_INGESTION_CONTROLLER_OFFLINE_READY_FOR_METADATA_PILOT")
 
 
 if __name__ == "__main__":
