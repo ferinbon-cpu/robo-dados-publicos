@@ -55,6 +55,16 @@ class Task059DriveIngestionControllerTests(unittest.TestCase):
         self.assertEqual(decisions[1].route, "REVIEW")
         self.assertIn("DUPLICATE_METADATA_FILE_ID", decisions[1].reasons)
 
+    def test_same_title_different_ids_requires_hash_review(self) -> None:
+        records = [
+            {"id":"one","title":"FUNDEB_2026.pdf","mime_type":"application/pdf"},
+            {"id":"two","title":"FUNDEB_2026.pdf","mime_type":"application/pdf"},
+        ]
+        decisions = route_inventory(records, self.contract)
+        self.assertEqual(decisions[0].route, "AUTO_INGEST")
+        self.assertEqual(decisions[1].route, "REVIEW")
+        self.assertIn("POSSIBLE_DUPLICATE_WITHOUT_HASH", decisions[1].reasons)
+
     def test_route_summary(self) -> None:
         decisions = route_inventory(self.fixtures, self.contract)
         summary = summarize_routes(decisions)
