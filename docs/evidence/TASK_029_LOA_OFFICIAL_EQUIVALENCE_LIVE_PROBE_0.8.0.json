@@ -1,0 +1,96 @@
+{
+  "task": "TASK_029_LOA_OFFICIAL_EQUIVALENCE_LIVE_PROBE_REVIEW",
+  "version": "0.8.0",
+  "base_sha": "2738741f0134873710f993f1abbc146a0a6b0c0e",
+  "mode": "T1_BOUNDED_LIVE_READ_ONLY",
+  "design_task": "TASK_028_LOA_OFFICIAL_EQUIVALENCE_PROBE_DESIGN",
+  "execution_date": "2026-09-02",
+  "authorization": {
+    "owner_authorized": true,
+    "authorized_against_sha": "2738741f0134873710f993f1abbc146a0a6b0c0e",
+    "live_initial_probe": true,
+    "candidate_followup": false
+  },
+  "target": {
+    "law": "7.223/2025",
+    "exercise": 2026,
+    "canonical_sha256": "bc4c8bf4b2b1e8f59e880318c37ec7f7fbd4357a85a8b46c97750444dbf01d4b",
+    "canonical_pages": 466
+  },
+  "probe": {
+    "transport": "READ_ONLY_PUBLIC_WEB",
+    "request_count": 3,
+    "retry_count": 0,
+    "pagination_count": 0,
+    "candidate_followup_count": 0,
+    "document_download_count": 0,
+    "observations": [
+      {
+        "order": 1,
+        "url": "https://www.limeira.sp.gov.br/orcamentos",
+        "host": "www.limeira.sp.gov.br",
+        "transport_status": "HTTP_403_FORBIDDEN",
+        "content_observed": false,
+        "machine_readable_candidate_observed": false,
+        "classification": "INITIAL_SURFACE_ACCESS_BLOCKED"
+      },
+      {
+        "order": 2,
+        "url": "https://legislacao.limeira.sp.leg.br/",
+        "host": "legislacao.limeira.sp.leg.br",
+        "transport_status": "HTTP_200_OK",
+        "content_observed": true,
+        "observed_surface": "HTML_LEGISLATION_SEARCH_INTERFACE",
+        "observed_signals": [
+          "Pesquisa simples",
+          "Pesquisa textual",
+          "Pesquisa avançada",
+          "Número",
+          "Ano"
+        ],
+        "machine_readable_candidate_observed": false,
+        "classification": "ACCESSIBLE_SURFACE_NO_MACHINE_CANDIDATE_OBSERVED"
+      },
+      {
+        "order": 3,
+        "url": "https://limeira.sp.gov.br/cidadao/portal-da-transparencia",
+        "host": "limeira.sp.gov.br",
+        "transport_status": "HTTP_403_FORBIDDEN",
+        "content_observed": false,
+        "machine_readable_candidate_observed": false,
+        "classification": "INITIAL_SURFACE_ACCESS_BLOCKED"
+      }
+    ]
+  },
+  "result": "STOP_INITIAL_SURFACES_INCOMPLETE_ACCESS_BLOCKED",
+  "claims": {
+    "all_initial_surfaces_observed": false,
+    "machine_readable_equivalent_candidate_observed": false,
+    "machine_readable_equivalent_proven": false,
+    "textual_equivalent_proven": false,
+    "absence_of_equivalent_source_proven": false,
+    "loa_financial_identity_proven": false
+  },
+  "effects": {
+    "source_network_requests": 3,
+    "candidate_followups": 0,
+    "document_downloads": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "bronze_writes": 0,
+    "silver_writes": 0,
+    "gold_writes": 0,
+    "serving_writes": 0,
+    "site_writes": 0,
+    "publication": 0,
+    "ocr_execution": 0,
+    "schedule": false,
+    "recurrence": false
+  },
+  "release_boundary": {
+    "0.7.0": "ACTIVE",
+    "0.8.0": "CANDIDATE",
+    "unchanged": true
+  },
+  "next_gate": "OWNER_AUTHORIZED_ALTERNATIVE_READ_ONLY_ACCESS_RECOVERY_OR_SEPARATE_CANDIDATE_FOLLOWUP"
+}
