@@ -20,6 +20,13 @@ from .loa_extraction import (
     validate_numeric_candidate,
     validate_ocr_manifest,
 )
+from .official_equivalence import (
+    OfficialEquivalenceStop,
+    build_probe_plan,
+    classify_official_observations,
+    evaluate_candidate_proof,
+    load_official_equivalence_contract,
+)
 
 __all__ = [
     "ManualSourceContract",
@@ -38,4 +45,9 @@ __all__ = [
     "load_loa_extraction_contract",
     "validate_numeric_candidate",
     "validate_ocr_manifest",
+    "OfficialEquivalenceStop",
+    "build_probe_plan",
+    "classify_official_observations",
+    "evaluate_candidate_proof",
+    "load_official_equivalence_contract",
 ]

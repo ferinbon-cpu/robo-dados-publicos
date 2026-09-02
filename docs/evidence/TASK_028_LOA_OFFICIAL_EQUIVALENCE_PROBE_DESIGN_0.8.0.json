@@ -1,0 +1,72 @@
+{
+  "task": "TASK_028_LOA_OFFICIAL_EQUIVALENCE_PROBE_DESIGN",
+  "version": "0.8.0",
+  "base_sha": "b645f1cf69fbf1cead7a7d285e772c06169fd60c",
+  "mode": "T0_OFFLINE_IMPLEMENTATION_BOUNDARY",
+  "source_task": "TASK_027_LOA_REPRODUCIBLE_EXTRACTION_READINESS",
+  "result": "PASS_LOA_OFFICIAL_EQUIVALENCE_PROBE_DESIGN_OFFLINE",
+  "target": {
+    "law": "7.223/2025",
+    "exercise": 2026,
+    "canonical_sha256": "bc4c8bf4b2b1e8f59e880318c37ec7f7fbd4357a85a8b46c97750444dbf01d4b",
+    "canonical_pages": 466
+  },
+  "future_probe_boundary": {
+    "initial_urls": 3,
+    "max_requests": 6,
+    "max_candidate_links": 8,
+    "max_candidate_followups": 3,
+    "automatic_retry": false,
+    "pagination": false,
+    "document_downloads": 0,
+    "drive_effects": 0
+  },
+  "classification_guards": {
+    "machine_readable_candidate_is_equivalence": false,
+    "generic_execution_data_is_enacted_loa_equivalence": false,
+    "pdf_only_proves_machine_readable_absence": false,
+    "no_candidate_observed_proves_nonexistence": false,
+    "candidate_followup_requires_separate_authorization": true,
+    "complete_candidate_proofs_require_separate_authorization": true
+  },
+  "equivalence_proof_required": [
+    "OFFICIAL_ORIGIN_PROVEN",
+    "EXERCISE_2026_PROVEN",
+    "LEGAL_IDENTITY_7_223_2025_PROVEN",
+    "ANNEX_COMPLETENESS_PROVEN",
+    "STRUCTURAL_EQUIVALENCE_TO_CANONICAL_SOURCE_PROVEN",
+    "IMMUTABLE_HASH_AND_SIZE_RECORDED"
+  ],
+  "effects": {
+    "source_network": 0,
+    "candidate_followups": 0,
+    "downloads": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "ocr_execution": 0,
+    "silver_writes": 0,
+    "gold_writes": 0,
+    "serving_writes": 0,
+    "publication": 0,
+    "schedule": false,
+    "recurrence": false
+  },
+  "authorization": {
+    "offline_design": true,
+    "live_probe": false,
+    "candidate_followup": false,
+    "download": false,
+    "ocr": false,
+    "drive": false,
+    "silver": false,
+    "gold": false,
+    "serving": false,
+    "publication": false
+  },
+  "release_boundary": {
+    "0.7.0": "ACTIVE",
+    "0.8.0": "CANDIDATE",
+    "unchanged": true
+  },
+  "next_gate": "FRESH_OWNER_AUTHORIZATION_PINNED_TO_REVIEWED_SHA_FOR_SINGLE_BOUNDED_READ_ONLY_PROBE"
+}
