@@ -1,0 +1,75 @@
+{
+  "task": "TASK_059A_OBSERVATORY_INGESTION_CATALOG",
+  "mode": "T0_OFFLINE_ROUTING_CATALOG_EXPANSION",
+  "software_version": "0.8.0",
+  "base_sha": "ab36f9c4324fda389178c97566f9a8bed485ee80",
+  "authorization": {
+    "owner_message": "Prossiga",
+    "scope": "EXPAND_DRIVE_INGESTION_CONTROLLER_TO_GENERAL_LIMEIRA_PUBLIC_DATA_OBSERVATORY_OFFLINE_ONLY",
+    "authorization_consumed": true
+  },
+  "architecture_reconciliation": {
+    "system_scope": "GENERAL_MUNICIPAL_PUBLIC_DATA_OBSERVATORY",
+    "education_siope_role": "MODULE_NOT_SYSTEM_LIMIT",
+    "eiti_role": "ANALYTIC_USE_CASE_NOT_GLOBAL_INGESTION_FILTER",
+    "journal_role": "MUNICIPAL_EVENT_RADAR_AND_MATURE_RECURRING_SOURCE_FAMILY",
+    "reconciliation_role": "JOURNAL_EVENTS_CAN_FEED_CONTRACT_TCE_TDA_PROCUREMENT_SIAVE_RECONCILIATION_TARGETS",
+    "drive_controller_position": "FRONT_CONTROLLER_BEFORE_SHARED_HASH_PROVENANCE_DEDUPE_SCHEMA_BRONZE_SILVER_GOLD_QA_SERVING_CORE"
+  },
+  "catalog_v2": {
+    "path": "config/drive_ingestion_controller.v2.json",
+    "family_count": 21,
+    "auto_ingest_eligible_family_count": 10,
+    "review_first_family_count": 11,
+    "preserves_v1": true,
+    "families_added_beyond_education_budget_core": [
+      "JORNAL_OFICIAL",
+      "MUNICIPAL_CONTRACTS",
+      "PROCUREMENT",
+      "MUNICIPAL_LEGISLATION",
+      "CME",
+      "TCE_SP_EXPENSES",
+      "TDA_LIMEIRA",
+      "SIAVE_LIMEIRA"
+    ],
+    "maturity_aware_routing": true,
+    "multiple_family_match": "REVIEW",
+    "unknown_family": "QUARANTINE"
+  },
+  "existing_architecture_reused": {
+    "journal_source_contract": "config/sources.jornal_oficial_7310_gate.json",
+    "reconciliation_targets": "config/reconciliation_targets.json",
+    "operational_bootstrap": "config/operational_bootstrap.full.v1.json",
+    "controller_runtime": "robo_dados_publicos/manual_ingest/drive_ingestion_controller.py"
+  },
+  "hard_boundaries": {
+    "source_network_gets": 0,
+    "drive_content_reads": 0,
+    "drive_writes": 0,
+    "ocr_calls": 0,
+    "bronze_writes": 0,
+    "silver_writes": 0,
+    "gold_writes": 0,
+    "serving_writes": 0,
+    "publication_writes": 0,
+    "workflow_dispatch_live_runs": 0
+  },
+  "f01_eiti_state": {
+    "f01_status": "SILVER_SCOPED_PARTIAL_VALIDATED",
+    "eiti_financial_reporting_identity": "PARTIALLY_PROVEN_DEDICATED_FUNDEB_FOMENTO_ETI_BUCKET",
+    "eiti_transaction_level_financial_identity": "EVIDENCIA_INSUFICIENTE",
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+    "changed_by_task_059a": false
+  },
+  "next_gate": {
+    "task": "TASK_060_DRIVE_INGESTION_CONTROLLER_METADATA_PILOT",
+    "contract": "config/drive_ingestion_controller.v2.json",
+    "requires_explicit_folder_scope": true,
+    "metadata_only": true,
+    "content_read_allowed": false,
+    "drive_write_allowed": false,
+    "promotion_allowed": false,
+    "unexpected_content_hydration": "STOP_QUARANTINE"
+  },
+  "result": "PASS_TASK059A_OBSERVATORY_WIDE_INGESTION_CATALOG_OFFLINE_READY"
+}
