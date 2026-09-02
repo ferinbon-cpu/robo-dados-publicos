@@ -2,6 +2,11 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from robo_dados_publicos.manual_ingest.drive_ingestion_controller import (
     classify_metadata,
@@ -10,7 +15,6 @@ from robo_dados_publicos.manual_ingest.drive_ingestion_controller import (
     summarize_routes,
 )
 
-ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "config" / "drive_ingestion_controller.v2.json"
 EVIDENCE = ROOT / "docs" / "evidence" / "TASK_059A_OBSERVATORY_INGESTION_CATALOG_0.8.0.json"
 FIXTURE = ROOT / "tests" / "fixtures" / "task_059a_observatory_ingestion_catalog.json"
