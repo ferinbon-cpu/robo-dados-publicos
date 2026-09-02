@@ -68,16 +68,22 @@ def classify_metadata(record: dict[str, Any], contract: dict[str, Any]) -> Routi
 
 
 def route_inventory(records: list[dict[str, Any]], contract: dict[str, Any]) -> list[RoutingDecision]:
-    seen: set[str] = set()
+    seen_ids: set[str] = set()
+    seen_titles: set[str] = set()
     out: list[RoutingDecision] = []
     for record in records:
         decision = classify_metadata(record, contract)
-        if decision.file_id and decision.file_id in seen:
+        folded_title = _fold(decision.title)
+        if decision.file_id and decision.file_id in seen_ids:
             out.append(RoutingDecision(decision.file_id, decision.title, decision.family, "REVIEW", ("DUPLICATE_METADATA_FILE_ID",)))
+        elif folded_title and folded_title in seen_titles and decision.route == "AUTO_INGEST":
+            out.append(RoutingDecision(decision.file_id, decision.title, decision.family, "REVIEW", ("POSSIBLE_DUPLICATE_WITHOUT_HASH",)))
         else:
             out.append(decision)
-            if decision.file_id:
-                seen.add(decision.file_id)
+        if decision.file_id:
+            seen_ids.add(decision.file_id)
+        if folded_title:
+            seen_titles.add(folded_title)
     return out
 
 
