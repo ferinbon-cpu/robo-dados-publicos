@@ -1,0 +1,109 @@
+{
+  "task": "TASK_025_MANUAL_SUPERVISED_INGEST_F01",
+  "version": "0.8.0",
+  "base_sha": "9e27a3fa8596a756b8d25e04b35df84e9cc018f9",
+  "mode": "T0_OFFLINE_IMPLEMENTATION_BOUNDARY",
+  "result": "PASS_OFFLINE_IMPLEMENTATION_BOUNDARY_READY",
+  "batch": "F01_PPA_LDO_LOA_2026",
+  "external_supervised_custody": {
+    "status": "COMPLETE_READBACK_VERIFIED_OUTSIDE_THIS_PR",
+    "note": "The owner-supervised Drive migration occurred before this PR. This PR only pins sanitized immutable facts and implements pure offline validation/parsing primitives.",
+    "sources": [
+      {
+        "family": "PPA",
+        "legal_number": "7.213/2025",
+        "sha256": "3e5deb53448c2e5eea56217a4e5d7f20f7fc3859eff7fcb93a7de7eb17011c1a",
+        "bytes": 4856211,
+        "pages": 105,
+        "readback_verified": true
+      },
+      {
+        "family": "LDO",
+        "legal_number": "7.141/2025",
+        "sha256": "6f28017bb61fe6dbd7db44e2306bd1a48f813d8d40411d87c130fba78fca2406",
+        "bytes": 11534048,
+        "pages": 37,
+        "readback_verified": true
+      },
+      {
+        "family": "LOA",
+        "legal_number": "7.223/2025",
+        "sha256": "bc4c8bf4b2b1e8f59e880318c37ec7f7fbd4357a85a8b46c97750444dbf01d4b",
+        "bytes": 24203962,
+        "pages": 466,
+        "readback_verified": true,
+        "current_pdf_text_layer": "ABSENT",
+        "historical_ocr_available": true
+      }
+    ]
+  },
+  "offline_parser_boundary": {
+    "ppa": {
+      "program_2001": "EDUCACAO QUE INCLUI E TRANSFORMA VIDAS",
+      "eiti_indicator": "INDICE DE ALUNOS EM EDUCACAO INTEGRAL",
+      "targets": [52, 53, 55, 57, 59, 59],
+      "fail_closed_on_target_drift": true,
+      "known_malformed_action_row_requires_review": true
+    },
+    "ldo": {
+      "required_markers": [
+        "METAS_FISCAIS",
+        "RISCOS_FISCAIS",
+        "RESERVA_CONTINGENCIA",
+        "PESSOAL",
+        "EDUCACAO"
+      ],
+      "fail_closed_on_missing_marker": true
+    },
+    "loa": {
+      "full_structured_parse_authorized": false,
+      "reason": "CURRENT_CANONICAL_PDF_HAS_NO_EXTRACTABLE_TEXT_LAYER",
+      "allowed_now": "TEXT_LAYER_PROBE_ONLY",
+      "next_required_evidence": "DETERMINISTIC_OCR_OR_MACHINE_READABLE_OFFICIAL_SOURCE"
+    }
+  },
+  "financial_identity_policy": {
+    "same_program_code_proves_only_programmatic_continuity": true,
+    "program_2001_total_attribution_to_eiti_forbidden": true,
+    "required_chain": [
+      "indicator_or_target",
+      "program",
+      "explicit_action_or_subaction",
+      "budget_unit",
+      "funding_source_or_destination",
+      "expense_nature",
+      "appropriation",
+      "committed",
+      "liquidated",
+      "paid"
+    ],
+    "current_eiti_financial_identity": "EVIDENCIA_INSUFICIENTE"
+  },
+  "this_pr_effects": {
+    "source_network": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "bronze_writes": 0,
+    "silver_writes": 0,
+    "gold_writes": 0,
+    "serving_writes": 0,
+    "site_writes": 0,
+    "publication": 0,
+    "schedule": false,
+    "recurrence": false
+  },
+  "authorization": {
+    "manual_source_validation_offline": true,
+    "bronze_mutation": false,
+    "silver_promotion": false,
+    "gold_promotion": false,
+    "serving_promotion": false,
+    "site_mutation": false
+  },
+  "release_boundary": {
+    "0.7.0": "ACTIVE",
+    "0.8.0": "CANDIDATE",
+    "unchanged": true
+  },
+  "next_gate": "STRUCTURED_PARSER_OUTPUT_RECONCILIATION_THEN_SEPARATE_PROMOTION_DECISION"
+}

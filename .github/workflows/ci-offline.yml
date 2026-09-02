@@ -194,6 +194,9 @@ jobs:
       - name: Gate T0 do portal analítico final
         run: python scripts/github_portal_analitico_final_gate.py
 
+      - name: Gate T0 TASK 025 da ingestão manual supervisionada F01
+        run: python scripts/github_task_025_manual_supervised_ingest_f01_gate.py
+
       - name: Testes unitários
         run: python -m unittest discover -s tests -v
 
