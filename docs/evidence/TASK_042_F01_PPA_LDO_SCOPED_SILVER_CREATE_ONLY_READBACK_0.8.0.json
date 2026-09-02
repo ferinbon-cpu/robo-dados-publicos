@@ -1,0 +1,80 @@
+{
+  "task": "TASK_042_F01_PPA_LDO_SCOPED_SILVER_CREATE_ONLY_READBACK",
+  "mode": "T2_EXACT_TWO_CREATE_ONLY_SCOPED_SILVER_WITH_READBACK",
+  "base_implementation_sha": "319b4ac04c191f17f19f46ea47ce7da24b4ed50e",
+  "authorization": {
+    "owner_authorized": true,
+    "owner_message": "Prossiga",
+    "authorized_local_time": "2026-09-02T13:21:00-03:00",
+    "authorized_against_sha": "319b4ac04c191f17f19f46ea47ce7da24b4ed50e",
+    "scope": "EXACTLY_TWO_SCOPED_SILVER_CREATE_ONLY_PLUS_TWO_READBACKS",
+    "authorization_consumed": true,
+    "future_blanket_authorizations_accepted": false
+  },
+  "execution": {
+    "channel": "CHAT_FILES_LIBRARY_GOOGLE_DRIVE_CREATE_ONLY",
+    "target_folder_id": "1_wl3Y90-RYKSBXUg53My5K6lxCUnIBNo",
+    "preflight_inventory_performed": true,
+    "target_name_collisions": 0
+  },
+  "ppa": {
+    "file_name": "F01_PPA_JOM_2026_2029_SCOPED_VALIDATED_PROGRAM_2001__0cba09dade1c__silver_v1.json",
+    "contract": "F01_PPA_JOM_2026_2029_SCOPED_VALIDATED_PROGRAM_2001_SILVER_V1",
+    "scope": "SCOPED_PROGRAM_2001_AND_SELECTED_ACTIONS_NOT_COMPLETE_PPA_PARSE",
+    "bytes": 2812,
+    "sha256": "0cba09dade1c09224e549e817a859c63edb12a6fb0a5223c5ddb8aa5fe6dc730",
+    "md5": "0b35160ccaece5c6b7eb29786576a7b7",
+    "readback": {
+      "verified": true,
+      "byte_identity": true,
+      "bytes": 2812,
+      "sha256": "0cba09dade1c09224e549e817a859c63edb12a6fb0a5223c5ddb8aa5fe6dc730",
+      "md5": "0b35160ccaece5c6b7eb29786576a7b7"
+    }
+  },
+  "ldo": {
+    "file_name": "F01_LDO_JOM_2026_SCOPED_STRUCTURAL_MARKERS__4719631a3dd4__silver_v1.json",
+    "contract": "F01_LDO_JOM_2026_SCOPED_STRUCTURAL_MARKERS_SILVER_V1",
+    "scope": "SCOPED_LEGAL_IDENTITY_AND_STRUCTURAL_MARKERS_NOT_COMPLETE_LDO_PARSE",
+    "bytes": 1544,
+    "sha256": "4719631a3dd476efe8c760f2b9ce07eba15d678c85b56e95345af70237f02182",
+    "md5": "1dc39a4ac76aaabdb64e776eb30ac51b",
+    "readback": {
+      "verified": true,
+      "byte_identity": true,
+      "bytes": 1544,
+      "sha256": "4719631a3dd476efe8c760f2b9ce07eba15d678c85b56e95345af70237f02182",
+      "md5": "1dc39a4ac76aaabdb64e776eb30ac51b"
+    }
+  },
+  "effects": {
+    "public_source_get": 0,
+    "drive_inventory_requests": 1,
+    "drive_creates": 2,
+    "drive_readbacks": 2,
+    "overwrite": 0,
+    "replace": 0,
+    "delete": 0,
+    "cleanup": 0,
+    "retry": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "gold": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "promotion": {
+    "ppa_silver": true,
+    "ldo_silver": true,
+    "loa_silver_existing": true,
+    "f01_status": "SILVER_SCOPED_PARTIAL_VALIDATED",
+    "scoped_silver_families": ["LOA", "PPA", "LDO"],
+    "gold": false,
+    "serving": false,
+    "publication": false,
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE"
+  },
+  "remote_file_ids_persisted": false,
+  "owner_decision_required": false,
+  "result": "PASS_TASK042_PPA_LDO_SCOPED_SILVER_CREATE_ONLY_READBACK_VERIFIED"
+}
