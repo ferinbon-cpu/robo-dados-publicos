@@ -13,6 +13,13 @@ from .reconciliation import (
     load_reconciliation_contract,
     reconcile_f01_bundle,
 )
+from .loa_extraction import (
+    LoaExtractionStop,
+    choose_extraction_route,
+    load_loa_extraction_contract,
+    validate_numeric_candidate,
+    validate_ocr_manifest,
+)
 
 __all__ = [
     "ManualSourceContract",
@@ -26,4 +33,9 @@ __all__ = [
     "F01ReconciliationStop",
     "load_reconciliation_contract",
     "reconcile_f01_bundle",
+    "LoaExtractionStop",
+    "choose_extraction_route",
+    "load_loa_extraction_contract",
+    "validate_numeric_candidate",
+    "validate_ocr_manifest",
 ]
