@@ -203,6 +203,12 @@ jobs:
       - name: Gate T0 TASK 027 do desenho de extração reproduzível da LOA
         run: python scripts/github_task_027_loa_reproducible_extraction_readiness_gate.py
 
+      - name: Gate T0 TASK 031 da fonte primária Jornal no F01
+        run: python scripts/github_task_031_budget_laws_journal_source_first_gate.py
+
+      - name: Gate T0 TASK 032 da aquisição bounded dos originais Jornal
+        run: python scripts/github_task_032_budget_journal_bounded_acquisition_gate.py
+
       - name: Testes unitários
         run: python -m unittest discover -s tests -v
 
