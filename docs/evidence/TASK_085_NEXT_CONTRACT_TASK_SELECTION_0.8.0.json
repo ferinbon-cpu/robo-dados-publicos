@@ -1,0 +1,98 @@
+{
+  "schema": "TASK_085_NEXT_CONTRACT_TASK_SELECTION_EVIDENCE_V1",
+  "task": "TASK_085_NEXT_CONTRACT_TASK_SELECTION",
+  "software_version": "0.8.0",
+  "base_main_sha": "a75294f35b91fdd4b8fc4de66b581edcc1ce0802",
+  "authorization": {
+    "source": "OWNER_CHAT_INSTRUCTION_2026-09-03",
+    "instruction": "Prossiga",
+    "interpreted_scope": "ONE_READ_ONLY_DRIVE_OBJECT_PLUS_LOCAL_DETERMINISTIC_SELECTION",
+    "live_municipal_query_authorized": false
+  },
+  "drive_read": {
+    "objects_read": 1,
+    "file_id": "11Yb8zIF5g4sTgAp1yhraWFixVFrLcBXs",
+    "file_name": "LIMEIRA_JO_07024_07119_07127__reconciliation_tasks__faf27576b5b2.jsonl",
+    "mime_type": "application/octet-stream",
+    "expected_bytes": 52843,
+    "actual_bytes": 52843,
+    "expected_sha256": "faf27576b5b2c3b3c542ae41eeac90c415da1d2f50b6ae8021e1c04bf246d7bc",
+    "actual_sha256": "faf27576b5b2c3b3c542ae41eeac90c415da1d2f50b6ae8021e1c04bf246d7bc",
+    "size_match": true,
+    "sha256_match": true,
+    "mode": "READ_ONLY",
+    "drive_writes": 0
+  },
+  "selector": {
+    "module": "robo_dados_publicos/reconciliation/rollout.py",
+    "cli": "scripts/select_next_reconciliation_task.py",
+    "target_source": "LIMEIRA_CONTRATOS",
+    "consumed_task_ids": [
+      "RECTASK_39a82b72abdffa19e0dba705"
+    ],
+    "plan_sha256": "faf27576b5b2c3b3c542ae41eeac90c415da1d2f50b6ae8021e1c04bf246d7bc",
+    "plan_tasks": 65,
+    "eligible_ready_tasks": 5,
+    "remaining_ready_tasks": 4,
+    "selected_task_id": "RECTASK_6600049d5284824e9a0a44a6",
+    "selected_task_sha256": "6b4b77d03458e70cd383d78f90f2501928e1f4b663aa8986c207c15f20312d9c",
+    "selected_task": {
+      "identity_rule": "Não promover identidade por nome/objeto isolado. Preferir número do contrato + ano e, quando disponível, CNPJ/processo.",
+      "match_keys": {
+        "cnpj": "51656458000134",
+        "contract_number": "170/2024",
+        "contractor": "Consil Sistema Prevenção Contra Incêndio Ltda",
+        "year": 2024
+      },
+      "minimum_link_confidence": "A",
+      "origin_event_id": "JOEV_2bcf692890e87257ecad",
+      "origin_source_id": "LIMEIRA_JO_07024",
+      "priority": 100,
+      "rationale": "Confirmar o ato publicado no cadastro municipal de contratos/convênios/atas/locações.",
+      "search_hints": {
+        "object_text": "Contratação de empresa especializada em adequações das instalações elétricas e do sistema de segurança e combate contra incêndio da Emeief Pastor Ismael Pereira do Lago",
+        "process_number": "900.711/2025",
+        "target_capability": "SEARCH_BY_YEAR_CONTRACT_OBJECT_SUPPLIER",
+        "target_url": "https://serv42.limeira.sp.gov.br/ncweb/cns_contratos_web_mestre/"
+      },
+      "status": "READY_SEARCH",
+      "target_source": "LIMEIRA_CONTRATOS",
+      "task_id": "RECTASK_6600049d5284824e9a0a44a6",
+      "task_type": "FIND_CONTRACT_RECORD"
+    },
+    "remote_effects": {
+      "source_network": 0,
+      "drive_reads": 0,
+      "drive_writes": 0,
+      "state_registry_writes": 0,
+      "queue_writes": 0,
+      "serving_writes": 0,
+      "publications": 0
+    }
+  },
+  "hard_boundaries": {
+    "municipal_source_requests": 0,
+    "drive_reads": 1,
+    "drive_writes": 0,
+    "state_registry_writes": 0,
+    "queue_writes": 0,
+    "serving_writes": 0,
+    "publications": 0,
+    "contract_identity_assertions": 0,
+    "financial_identity_assertions": 0
+  },
+  "next_gate_candidate": {
+    "purpose": "ONE_BOUNDED_STATEFUL_LIMEIRA_CONTRATOS_QUERY_FOR_SELECTED_TASK",
+    "selected_task_id": "RECTASK_6600049d5284824e9a0a44a6",
+    "maximum_http_requests": 3,
+    "same_origin_only": true,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "state_registry_writes": 0,
+    "queue_writes": 0,
+    "serving_writes": 0,
+    "publications": 0,
+    "authorized_by_task085": false
+  },
+  "result": "PASS_TASK085_PINNED_PLAN_READ_ONCE_AND_NEXT_CONTRACT_TASK_SELECTED"
+}
