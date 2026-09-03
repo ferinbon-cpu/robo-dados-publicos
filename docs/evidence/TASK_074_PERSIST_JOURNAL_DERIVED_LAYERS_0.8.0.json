@@ -1,0 +1,22 @@
+{
+  "task":"TASK_074_PERSIST_JOURNAL_DERIVED_LAYERS",
+  "software_version":"0.8.0",
+  "base_main_sha":"23134dbe19ca7cb013bafd62f8235f2aaee3e843",
+  "authorization":{"token_index":4,"token_count":7,"owner_message":"Tome mais 7 tokens e rode até onde dá","scope":"PERSIST_EXACT_TASK073_DERIVED_LAYER_FILES_CREATE_ONLY_WITH_READBACK"},
+  "transport":{"library_mount":"external-gdrive:root","drive_root_id":"1az60t-LXDAj4XDcrUh0c5dWiZ3xUfZZj","mount_identity_verified":true,"overwrite":false},
+  "destinations":{"silver":"1_wl3Y90-RYKSBXUg53My5K6lxCUnIBNo","gold":"1hAmQNBnY6MNBtyr14ACfVfRkmWhsoRq4","rag":"1GoxjWCBBH5g5pNQUYujIByPqTuPF4QcL"},
+  "items":[
+    {"edition":7127,"layer":"SILVER","drive_id":"1cdsCQCqdRIQTcmStAW7QO6xKDhC0oiBk","name":"LIMEIRA_JO_07127__pages_silver__f6f318803d5a.jsonl","bytes":1597262,"sha256":"f6f318803d5aede84d1117115849da684df421383962f9b07f5f37ece49745f9","readback_match":true},
+    {"edition":7119,"layer":"SILVER","drive_id":"11NzljxlqOMYyvtBghdNmkdKx140DgnXt","name":"LIMEIRA_JO_07119__pages_silver__1a7e9763b706.jsonl","bytes":277026,"sha256":"1a7e9763b706571fd713dcdeefb9c06f627c752b3522c4c4eaae6aa4f4c04bc2","readback_match":true},
+    {"edition":7024,"layer":"SILVER","drive_id":"1PHJU-yjp-UZ66SLZJQt_MvfApGchyppl","name":"LIMEIRA_JO_07024__pages_silver__446c21f41f1f.jsonl","bytes":186093,"sha256":"446c21f41f1fa005ba963609c1c0130da5b3eba5dfbfb487633d9f3d53279f1a","readback_match":true},
+    {"edition":7127,"layer":"GOLD","drive_id":"1psCzKkCfz2_oHEoJUVlgDmSfmCRCyTdI","name":"LIMEIRA_JO_07127__events_gold__883eb8066734.jsonl","bytes":52158,"sha256":"883eb8066734dbc05992a021b402aece3697de7d1caa542bd598ab9707860b32","readback_match":true},
+    {"edition":7119,"layer":"GOLD","drive_id":"1Ecun5H8lmZSl_j46NOsOU6FaM1D9MP1l","name":"LIMEIRA_JO_07119__events_gold__fbbaea5329ea.jsonl","bytes":19024,"sha256":"fbbaea5329eafcca4a2fca9ce1e363a7a65cef8aa4bc5230eaee8e696bab67ff","readback_match":true},
+    {"edition":7024,"layer":"GOLD","drive_id":"1uNa1CBDBRABpR1rWaaB_Rl63IY7-Yp-I","name":"LIMEIRA_JO_07024__events_gold__4e869604c7a8.jsonl","bytes":26731,"sha256":"4e869604c7a870fb0e296e47682a6c821e6f0037a74d2726e3af3afd1ab79118","readback_match":true},
+    {"edition":7127,"layer":"RAG","drive_id":"1iEhHlfDFx_nwnbBDLWnUAVJ6VlRkF-Et","name":"LIMEIRA_JO_07127__chunks_rag__8a73194499b4.jsonl","bytes":1986511,"sha256":"8a73194499b4d3f67780ca3cb67e98525c1dc88838d411508f6a4641aeca5c23","readback_match":true},
+    {"edition":7119,"layer":"RAG","drive_id":"1y-jftrGvYdp09hjHjN7EHRfmfRuLUxHu","name":"LIMEIRA_JO_07119__chunks_rag__239500ab3bd3.jsonl","bytes":330924,"sha256":"239500ab3bd34c5d89e8711abe6e423cb32e4aa3a4407540508c6eabbdc5791e","readback_match":true},
+    {"edition":7024,"layer":"RAG","drive_id":"1qPgWcSK9LlZwpuwhN7yQTLztYbnB3K3d","name":"LIMEIRA_JO_07024__chunks_rag__41aa4687605d.jsonl","bytes":220831,"sha256":"41aa4687605deaba2068f6ceaa01a1613b087a605669920970962497c2977fa4","readback_match":true}
+  ],
+  "aggregate":{"drive_writes":9,"readbacks":9,"readback_matches":9,"silver_files":3,"gold_files":3,"rag_files":3,"silver_pages":817,"gold_events":52,"rag_chunks":1519,"bytes":4696574},
+  "hard_boundaries":{"overwrites":0,"manifest_drive_writes":0,"reconciliation_writes":0,"serving_writes":0,"publications":0,"source_moves":0,"source_deletes":0},
+  "result":"PASS_TASK074_9_DERIVED_FILES_CREATE_ONLY_9_SHA256_READBACK_VERIFIED"
+}
