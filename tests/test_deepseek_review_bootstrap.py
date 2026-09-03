@@ -110,7 +110,7 @@ class TestDeepSeekReviewBootstrap(unittest.TestCase):
     def test_payload_is_json_and_model_allowlisted(self):
         context = ContextPack("ctx", "a" * 64, 3, False)
         payload = build_review_payload(context, policy=self.policy)
-        self.assertEqual("deepseek-v4-flash", payload["model"])
+        self.assertEqual("deepseek-v4-pro", payload["model"])
         self.assertEqual({"type": "json_object"}, payload["response_format"])
         self.assertEqual({"type": "disabled"}, payload["thinking"])
         with self.assertRaisesRegex(DeepSeekReviewError, "STOP_DEEPSEEK_MODEL_NOT_ALLOWED"):
