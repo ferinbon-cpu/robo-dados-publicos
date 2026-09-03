@@ -1,0 +1,6 @@
+{
+ "version":1,"task":"TASK_068_BATCH_RUN_AUDIT_MANIFEST","required_fields":["batch_id","started_at","software_version","git_sha","controller_version","maturity_registry_version","execution_policy_version","authorization_id","folder_scope","input_metadata_snapshot_sha256","item_decisions","counters","final_status","final_readback_verified"],
+ "counter_fields":["metadata_records","source_content_reads","hash_reads","drive_writes","bronze_writes","silver_writes","gold_writes","serving_writes","publications","stops","warnings"],
+ "item_decision_fields":["file_id","title","family","route","maturity","plan_state","rule_version","provenance_ref"],
+ "invariants":["COUNTERS_NON_NEGATIVE","ITEM_DECISIONS_COUNT_EQUALS_METADATA_RECORDS","FINAL_READBACK_REQUIRED_FOR_ANY_WRITE","GIT_SHA_REQUIRED","AUTHORIZATION_ID_REQUIRED_FOR_ANY_CONTENT_READ_OR_WRITE"]
+}
