@@ -1,0 +1,74 @@
+{
+  "schema": "TASK_081_PRE_RUN_GATE_CHAIN_V1",
+  "task": "TASK_081_BOUNDED_STATEFUL_CONTRACT_RESOLVER",
+  "software_version": "0.8.0",
+  "purpose": "PIN_AUDITABLE_PRE_RUN_CONTRACT_GATE_AND_SINGLE_LIVE_RUN_CHRONOLOGY",
+  "owner_authorization_source": "OWNER_CHAT_INSTRUCTION_2026-09-03_PROSSIGA_COM_O_ROBO_ENTAO",
+  "non_executable_source_snapshot": "docs/evidence/TASK_081_PRE_RUN_GATE_SOURCE_SNAPSHOT_0.8.0.md",
+  "pre_run_task_contract": {
+    "commit_sha": "4502c552593b4e01d7c1c272e6bd1304fe034be1",
+    "commit_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/commit/4502c552593b4e01d7c1c272e6bd1304fe034be1",
+    "commit_timestamp": "2026-09-03T13:23:05Z",
+    "commit_message": "TASK 081: define bounded stateful contracts resolver scope",
+    "path": "docs/tasks/CODEX_TASK_081_BOUNDED_STATEFUL_CONTRACT_RESOLVER.md",
+    "blob_sha": "c7868f94e2c730a687484895b2beff298960d63b",
+    "source_content_copied_into_final_pr": true,
+    "recorded_before_execution": true,
+    "records_owner_instruction": true,
+    "records_exact_task_id": "RECTASK_39a82b72abdffa19e0dba705",
+    "records_maximum_http_requests": 3,
+    "records_no_drive_state_serving_publication_effects": true
+  },
+  "pre_run_branch_local_gate": {
+    "commit_sha": "c1ffc0ca8572308936b643672e03feccd9a3c978",
+    "commit_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/commit/c1ffc0ca8572308936b643672e03feccd9a3c978",
+    "workflow_at_commit_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/blob/c1ffc0ca8572308936b643672e03feccd9a3c978/.github/workflows/task-081-contract-resolver-live-once.yml",
+    "commit_timestamp": "2026-09-03T13:23:45Z",
+    "commit_message": "TASK 081: add temporary one-shot bounded live resolver workflow",
+    "workflow_path_at_commit": ".github/workflows/task-081-contract-resolver-live-once.yml",
+    "workflow_blob_sha": "cacd796e9eef3481ee472fa1aa8d1df272fcaa68",
+    "source_content_copied_into_final_pr_as_non_executable_snapshot": true,
+    "trigger": "push_on_exact_task_branch",
+    "github_permissions": {
+      "contents": "read"
+    },
+    "allowed_host": "serv42.limeira.sp.gov.br",
+    "maximum_http_requests": 3,
+    "fourth_request_fail_closed": true,
+    "same_origin_enforced": true,
+    "drive_writes": 0,
+    "state_registry_writes": 0,
+    "queue_writes": 0,
+    "serving_writes": 0,
+    "publications": 0,
+    "actions_pinned_by_sha": true
+  },
+  "live_run": {
+    "run_id": 33760913444,
+    "run_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/actions/runs/33760913444",
+    "run_number": 1,
+    "event": "push",
+    "created_at": "2026-09-03T13:23:48Z",
+    "conclusion": "success",
+    "head_branch": "task-081-bounded-stateful-contract-resolver",
+    "head_sha": "c1ffc0ca8572308936b643672e03feccd9a3c978",
+    "head_equals_pre_run_gate_commit": true,
+    "workflow_name": "TASK 081 one bounded municipal contract query by @ferinbon-cpu",
+    "workflow_path": ".github/workflows/task-081-contract-resolver-live-once.yml"
+  },
+  "ordering": {
+    "task_contract_precedes_gate_commit": true,
+    "gate_commit_precedes_run_creation": true,
+    "run_head_exactly_matches_gate_commit": true
+  },
+  "post_run_safety": {
+    "temporary_workflow_removed_from_final_pr_head": true,
+    "reason": "PREVENT_ANY_FUTURE_AUTOMATIC_OR_ACCIDENTAL_REEXECUTION",
+    "historical_workflow_remains_auditable_by_commit_sha": true,
+    "historical_source_is_visible_in_final_pr_without_being_executable": true,
+    "authorization_consumed": true,
+    "retry_authorized": false,
+    "future_execution_authorized": false
+  },
+  "interpretation": "The later owner-authorization evidence file is a retrospective normalized record, but the task contract containing the owner instruction and exact remote budget existed in repository history before the bounded workflow and before the live run. The bounded workflow itself also existed at the exact run head SHA before execution. Both historical sources are copied into a non-executable final-PR snapshot and durable public GitHub URLs are recorded for direct audit. No claim is made that the retrospective authorization file itself was a pre-run gate."
+}
