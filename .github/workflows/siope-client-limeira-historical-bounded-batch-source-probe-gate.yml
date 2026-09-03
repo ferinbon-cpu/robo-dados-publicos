@@ -53,7 +53,7 @@ jobs:
         run: python scripts/github_siope_client_limeira_historical_bounded_batch_source_probe_gate.py --output siope-client-limeira-historical-bounded-batch-source-probe-evidence/result.json
       - name: Publicar diagnóstico sanitizado da sonda
         if: ${{ always() }}
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: siope-client-limeira-historical-bounded-batch-source-probe-${{ github.run_id }}
           path: siope-client-limeira-historical-bounded-batch-source-probe-evidence/result.json

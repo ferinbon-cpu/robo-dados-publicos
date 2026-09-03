@@ -40,7 +40,7 @@ jobs:
         run: python scripts/github_siope_artifact_download_runtime_route_probe_gate.py --output siope-artifact-download-runtime-route-probe-evidence/result.json
       - name: Publicar evidência sanitizada
         if: ${{ always() }}
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: siope-artifact-download-runtime-route-probe-${{ github.run_id }}
           path: siope-artifact-download-runtime-route-probe-evidence/result.json

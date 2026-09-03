@@ -55,7 +55,7 @@ jobs:
         run: python scripts/github_siope_client_limeira_historical_2023_p6_bronze_single_record_capture_gate.py
       - name: Publicar Bronze local + manifesto + resultado
         if: ${{ always() }}
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: siope-client-limeira-historical-2023-p6-bronze-single-record-capture-${{ github.run_id }}
           path: siope-client-limeira-historical-2023-p6-bronze-single-record-capture-evidence/

@@ -44,7 +44,7 @@ jobs:
         run: python scripts/github_siope_official_olinda_api_application_loaded_script_global_relation_diagnostics_gate.py --output siope-official-olinda-application-loaded-script-global-relation-diagnostics-evidence/result.json
       - name: Publicar evidência sanitizada
         if: ${{ always() }}
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: siope-official-olinda-application-loaded-script-global-relation-diagnostics-${{ github.run_id }}
           path: siope-official-olinda-application-loaded-script-global-relation-diagnostics-evidence/result.json

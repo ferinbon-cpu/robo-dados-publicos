@@ -39,7 +39,7 @@ jobs:
         run: python scripts/github_siope_ws_public_discovery_gate.py --output siope-ws-public-discovery-evidence/result.json
       - name: Publicar evidência sanitizada
         if: ${{ always() }}
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: siope-ws-public-discovery-${{ github.run_id }}
           path: siope-ws-public-discovery-evidence/result.json
