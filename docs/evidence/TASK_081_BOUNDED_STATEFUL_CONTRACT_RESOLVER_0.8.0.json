@@ -7,7 +7,9 @@
     "source": "owner_chat_instruction_2026-09-03",
     "instruction": "Prossiga com o robo entao",
     "pre_run_task_contract_commit": "4502c552593b4e01d7c1c272e6bd1304fe034be1",
+    "pre_run_task_contract_commit_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/commit/4502c552593b4e01d7c1c272e6bd1304fe034be1",
     "pre_run_bounded_gate_commit": "c1ffc0ca8572308936b643672e03feccd9a3c978",
+    "pre_run_bounded_gate_commit_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/commit/c1ffc0ca8572308936b643672e03feccd9a3c978",
     "historical_gate_chain": "docs/evidence/TASK_081_PRE_RUN_GATE_CHAIN_0.8.0.json",
     "normalized_repository_record": "docs/evidence/TASK_081_BOUNDED_STATEFUL_CONTRACT_RESOLVER_OWNER_AUTHORIZATION_0.8.0.json",
     "normalized_record_materialized_after_execution": true,
@@ -25,8 +27,10 @@
   },
   "live_run": {
     "run_id": 33760913444,
+    "run_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/actions/runs/33760913444",
     "run_created_at": "2026-09-03T13:23:48Z",
     "workflow_head_sha": "c1ffc0ca8572308936b643672e03feccd9a3c978",
+    "workflow_at_head_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/blob/c1ffc0ca8572308936b643672e03feccd9a3c978/.github/workflows/task-081-contract-resolver-live-once.yml",
     "workflow_head_equals_pre_run_gate_commit": true,
     "workflow_path_at_head": ".github/workflows/task-081-contract-resolver-live-once.yml",
     "conclusion": "success",
@@ -68,7 +72,10 @@
   "offline_hardening": {
     "policy_module": "robo_dados_publicos/reconciliation/contract_candidate_policy.py",
     "integration": "EXPLICIT_LIMEIRA_CONTRACTS_RESOLVER_DELEGATION_NO_IMPORT_TIME_MONKEY_PATCH",
+    "semantic_control_registry": "config/automation_policy.v1.json#semantic_controls/TASK_081_CONTRACT_CANDIDATE_POLICY",
     "requires_standalone_normalized_contract_reference": true,
+    "rejects_ambiguous_multiple_references_inside_contract_cell": true,
+    "does_not_infer_separate_cell_role_from_slash_syntax": true,
     "rejects_date_process_filename_fragments": true,
     "allows_surrounding_documentary_text": true,
     "requires_exact_14_digit_cnpj_cell_when_cnpj_key_exists": true,
@@ -79,12 +86,15 @@
     "review_hardening_remote_requests": 0,
     "captured_live_rows_expected_candidate_count_after_policy": 0,
     "end_to_end_synthetic_resolver_test_added": true,
-    "ci_dry_run_flag_support_test_added": true
+    "ci_workflow_dry_run_flag_test_added": true,
+    "ci_live_runtime_isolation_test_added": true
   },
   "ci_dry_run_proof": {
+    "workflow": ".github/workflows/ci-offline.yml",
     "script": "scripts/github_siope_official_olinda_api_application_dom_structural_binding_diagnostics_gate.py",
     "argparse_flag": "--dry-run",
-    "dispatch": "run_gate(dry=args.dry_run)"
+    "dispatch": "run_gate(dry=args.dry_run)",
+    "live_runtime_must_not_be_called_in_test": true
   },
   "hard_boundaries": {
     "drive_reads": 0,
