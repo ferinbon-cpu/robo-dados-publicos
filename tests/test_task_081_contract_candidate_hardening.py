@@ -61,6 +61,18 @@ class TestTask081ContractCandidateHardening(unittest.TestCase):
 
         self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
 
+    def test_date_fragment_does_not_substitute_for_contract_reference(self):
+        rows = [["CONTRATOS", "51/2025", "17/03/2025", "12.226.306/0001-40"]]
+        keys = {"contract_number": "03/2025", "cnpj": "12226306000140"}
+
+        self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
+
+    def test_dotted_process_fragment_does_not_substitute_for_contract_reference(self):
+        rows = [["CONTRATOS", "51/2025", "29.185/2025", "12.226.306/0001-40"]]
+        keys = {"contract_number": "185/2025", "cnpj": "12226306000140"}
+
+        self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
+
     def test_cnpj_is_not_constructed_across_neighboring_cells(self):
         rows = [["9/2025", "12226306", "000140"]]
         keys = {
@@ -68,6 +80,18 @@ class TestTask081ContractCandidateHardening(unittest.TestCase):
             "contract_number": "09/2025.",
             "cnpj": "12226306000140",
         }
+
+        self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
+
+    def test_cnpj_substring_inside_larger_numeric_cell_is_rejected(self):
+        rows = [["9/2025", "ID 77 - CNPJ 12.226.306/0001-40 - lote 8"]]
+        keys = {"contract_number": "09/2025", "cnpj": "12226306000140"}
+
+        self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
+
+    def test_malformed_expected_cnpj_fails_closed(self):
+        rows = [["9/2025", "12.226.306/0001-40"]]
+        keys = {"contract_number": "09/2025", "cnpj": "12226306"}
 
         self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
 
