@@ -1,0 +1,82 @@
+{
+  "schema": "F02_GOLD_DEEPSEEK_REVIEW_EVIDENCE_V1",
+  "reviewed_target": {
+    "pr": 372,
+    "head_sha": "101d2a94eebb6965fad087414a3fbef68604f28f",
+    "main_sha": "952c5b5d77cdca2024f26f2680ff999835c91139"
+  },
+  "deepseek": {
+    "workflow_run_id": 33815558745,
+    "initial_job": {
+      "job_id": 100846820293,
+      "result": "STOP_DEEPSEEK_INVALID_REVIEW_JSON"
+    },
+    "successful_rerun_job_id": 100847143834,
+    "model": "deepseek-v4-flash",
+    "context_sha256": "d43f2860aef39b497ebb55ffe35a6d0c4080df8727c3493bea1d374cbe218076",
+    "context_chars": 57732,
+    "context_truncated": false,
+    "review_sha256": "60071dacd563b6fc990841d19dd24ee975cccc8292256b147fe10d7ba3d7b5d1",
+    "gate_decision": "ADVISORY",
+    "model_verdict": "REVIEW",
+    "effective_verdict": "REVIEW",
+    "counts": {
+      "blocking_findings": 0,
+      "security_findings": 0,
+      "governance_findings": 1,
+      "missing_tests": 1,
+      "non_blocking_findings": 1,
+      "suggested_changes": 1
+    },
+    "effects": {
+      "deepseek_requests_successful_attempt": 1,
+      "github_reads": 2,
+      "github_writes": 0,
+      "drive_reads": 0,
+      "drive_writes": 0,
+      "publication": false
+    }
+  },
+  "sanitized_review": {
+    "blocking_findings": [],
+    "security_findings": [],
+    "governance_findings": [
+      {
+        "severity": "LOW",
+        "finding": "Audit PR operational boundary aligns with repository policy; no governance violation detected."
+      }
+    ],
+    "missing_tests": [
+      {
+        "severity": "LOW",
+        "finding": "Audit document itself adds no tests, but it is documentation-only and no new tests are strictly required."
+      }
+    ],
+    "non_blocking_findings": [
+      {
+        "severity": "LOW",
+        "finding": "Embedding full builder/config/tests in audit documentation may drift from actual implementation."
+      }
+    ],
+    "suggested_changes": [
+      {
+        "severity": "LOW",
+        "suggestion": "Prefer references/hashes over persistent duplicate code; if embedding is temporary, do not merge it."
+      }
+    ]
+  },
+  "adjudication": {
+    "DS-F02-GOLD-001": {
+      "classification": "HARDENING_RISK",
+      "decision": "ACCEPT",
+      "resolution": "PR_372_CLOSED_WITHOUT_MERGE_AND_FUTURE_EVIDENCE_PINS_HASHES"
+    },
+    "DS-F02-GOLD-002": {
+      "classification": "ALREADY_COVERED",
+      "decision": "ACCEPT_NO_CHANGE",
+      "resolution": "UNDERLYING_GOLD_IMPLEMENTATION_HAS_DEDICATED_FAIL_CLOSED_TESTS_AND_FULL_CI"
+    },
+    "gold_preview_blockers_remaining": 0,
+    "gold_persistence_authorized_by_this_evidence": false
+  }
+}
