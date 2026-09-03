@@ -10,10 +10,7 @@
     "host": "serv42.limeira.sp.gov.br",
     "maximum_http_requests": 3,
     "same_origin_only": true,
-    "allowed_methods": [
-      "GET",
-      "POST"
-    ],
+    "allowed_methods": ["GET", "POST"],
     "allowed_effect": "PUBLIC_READ_ONLY_STATEFUL_SEARCH",
     "drive_reads": 0,
     "drive_writes": 0,
@@ -24,9 +21,22 @@
     "contract_identity_assertions": 0,
     "financial_identity_assertions": 0
   },
+  "pre_run_repository_record": {
+    "task_contract_commit_sha": "4502c552593b4e01d7c1c272e6bd1304fe034be1",
+    "task_contract_path": "docs/tasks/CODEX_TASK_081_BOUNDED_STATEFUL_CONTRACT_RESOLVER.md",
+    "task_contract_commit_timestamp": "2026-09-03T13:23:05Z",
+    "task_contract_recorded_owner_instruction": true,
+    "bounded_gate_commit_sha": "c1ffc0ca8572308936b643672e03feccd9a3c978",
+    "bounded_gate_workflow_path": ".github/workflows/task-081-contract-resolver-live-once.yml",
+    "bounded_gate_commit_timestamp": "2026-09-03T13:23:45Z",
+    "historical_chain_evidence": "docs/evidence/TASK_081_PRE_RUN_GATE_CHAIN_0.8.0.json"
+  },
   "authorized_execution_head_sha": "c1ffc0ca8572308936b643672e03feccd9a3c978",
   "consumed_by": {
     "run_id": 33760913444,
+    "run_created_at": "2026-09-03T13:23:48Z",
+    "run_head_sha": "c1ffc0ca8572308936b643672e03feccd9a3c978",
+    "run_head_matches_bounded_gate_commit": true,
     "actual_http_requests": 3,
     "conclusion": "success"
   },
@@ -36,6 +46,6 @@
   "recurrence_authorized": false,
   "future_execution_authorized": false,
   "record_materialized_after_execution": true,
-  "chronology_note": "The owner authorization existed in chat before the bounded live run. This repository record was materialized afterward during TASK 081 offline closure and therefore does not claim to have been a pre-run repository gate.",
+  "chronology_note": "This normalized authorization file was materialized after execution. It does not claim to have been the pre-run repository gate. The owner instruction and exact bounded scope were already recorded before execution in commit 4502c552593b4e01d7c1c272e6bd1304fe034be1; the one-shot bounded workflow gate was then committed at c1ffc0ca8572308936b643672e03feccd9a3c978; run 33760913444 began on that exact gate SHA three seconds later.",
   "authorization_consumed": true
 }
