@@ -29,10 +29,11 @@ def _contract_reference(value) -> tuple[int, int] | None:
 
     Leading zeroes and trailing punctuation are presentation differences only:
     `09/2025.` and `9/2025` normalize to the same reference. The parser is
-    intentionally fail-closed: zero or multiple slash-form references return None.
-    A match embedded in a date (`17/03/2025`), dotted process number
-    (`29.185/2025`) or underscore filename (`contrato_09_2025.pdf`) is rejected.
-    Surrounding documentary text such as `Contrato 09/2025 - objeto` is allowed.
+    intentionally fail-closed inside each cell: zero or multiple slash-form
+    references return None. A match embedded in a date (`17/03/2025`), dotted
+    process number (`29.185/2025`) or underscore filename
+    (`contrato_09_2025.pdf`) is rejected. Surrounding documentary text such as
+    `Contrato 09/2025 - objeto` is allowed.
     """
 
     refs = _contract_references(value)
@@ -54,8 +55,11 @@ def fail_closed_contract_candidate_rows(rows: list[list[str]], keys: dict) -> li
 
     Rules are intentionally asymmetric and fail-closed:
 
-    * when a contract key is present, the row must expose exactly that one normalized
-      standalone number/year reference and no contradictory documentary reference;
+    * when a contract key is present, the same normalized standalone number/year
+      must occur unambiguously in one individual result cell;
+    * multiple slash-form references inside that same cell are ambiguous and fail;
+    * other slash-form references in separate cells are not silently classified as
+      contract numbers without a proven column-role contract;
     * dates, dotted process numbers and underscore filenames never substitute for a
       contract-number cell;
     * `09/2025.`, `09/2025` and `9/2025` are the same documentary reference;
@@ -89,10 +93,7 @@ def fail_closed_contract_candidate_rows(rows: list[list[str]], keys: dict) -> li
 
         contract_match = False
         if expected_contract is not None:
-            row_contract_refs: set[tuple[int, int]] = set()
-            for cell in cells:
-                row_contract_refs.update(_contract_references(cell))
-            contract_match = row_contract_refs == {expected_contract}
+            contract_match = any(_contract_reference(cell) == expected_contract for cell in cells)
             if contract_match:
                 signals.extend(["CONTRACT_FULL", "CONTRACT_NUMBER_YEAR_NORMALIZED"])
         elif contract_key_present:
