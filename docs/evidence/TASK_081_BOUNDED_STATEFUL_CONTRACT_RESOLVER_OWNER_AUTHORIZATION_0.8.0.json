@@ -1,0 +1,41 @@
+{
+  "schema": "TASK_081_BOUNDED_STATEFUL_CONTRACT_RESOLVER_OWNER_AUTHORIZATION_RECORD_V1",
+  "status": "CONSUMED_SINGLE_READ_ONLY_STATEFUL_QUERY",
+  "software_version": "0.8.0",
+  "authorization_source": "OWNER_CHAT_INSTRUCTION_2026-09-03",
+  "owner_instruction": "Prossiga com o robo entao",
+  "scope": {
+    "task_id": "RECTASK_39a82b72abdffa19e0dba705",
+    "target_source": "LIMEIRA_CONTRATOS",
+    "host": "serv42.limeira.sp.gov.br",
+    "maximum_http_requests": 3,
+    "same_origin_only": true,
+    "allowed_methods": [
+      "GET",
+      "POST"
+    ],
+    "allowed_effect": "PUBLIC_READ_ONLY_STATEFUL_SEARCH",
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "state_registry_writes": 0,
+    "queue_writes": 0,
+    "serving_writes": 0,
+    "publications": 0,
+    "contract_identity_assertions": 0,
+    "financial_identity_assertions": 0
+  },
+  "authorized_execution_head_sha": "c1ffc0ca8572308936b643672e03feccd9a3c978",
+  "consumed_by": {
+    "run_id": 33760913444,
+    "actual_http_requests": 3,
+    "conclusion": "success"
+  },
+  "single_execution": true,
+  "retry_authorized": false,
+  "schedule_authorized": false,
+  "recurrence_authorized": false,
+  "future_execution_authorized": false,
+  "record_materialized_after_execution": true,
+  "chronology_note": "The owner authorization existed in chat before the bounded live run. This repository record was materialized afterward during TASK 081 offline closure and therefore does not claim to have been a pre-run repository gate.",
+  "authorization_consumed": true
+}
