@@ -15,7 +15,7 @@ def test_task076_exact_task075_plan_persisted_create_only():
     assert e["authorization"]["token_index"] == 6
     source = e["source_plan"]
     persisted = e["persistence"]
-    assert source["tasks"] == persisted["readback_bytes"] * 0 + 65
+    assert source["tasks"] == 65
     assert source["bytes"] == persisted["bytes"] == persisted["readback_bytes"] == 52843
     assert source["sha256"] == persisted["sha256"] == persisted["readback_sha256"]
     assert source["sha256"] == (
