@@ -1,0 +1,8 @@
+{
+ "version":1,"task":"TASK_067_FOLDER_SCOPED_AUTHORIZATION_MANIFEST","authorization_id":"AUTH_TEMPLATE_V1","enabled":false,
+ "scope":{"folder_ids":[],"include_descendants":false,"families":[],"surfaces":[]},
+ "allowed_effects":[],"forbidden_effects":["SILVER_PROMOTION","GOLD_PROMOTION","SERVING_WRITE","PUBLICATION","BRONZE_OVERWRITE","FINANCIAL_IDENTITY_AUTO_PROMOTION"],
+ "control":{"revocable":true,"revoked":false,"rule_version":"v1","owner_authorization_ref":null,"not_before":null,"not_after":null},
+ "requirements":["EXACT_FOLDER_ID","EXACT_FAMILY","EXECUTION_READY_MATURITY","ALLOWED_EFFECT_EXPLICIT","NOT_REVOKED","ENABLED"],
+ "unknown_child_behavior":"FAIL_CLOSED_UNLESS_DESCENDANTS_EXPLICITLY_INCLUDED"
+}
