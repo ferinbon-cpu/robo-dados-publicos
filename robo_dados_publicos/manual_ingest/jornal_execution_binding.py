@@ -24,7 +24,9 @@ def evaluate_new_edition_candidate(candidate: dict[str, Any], profile: dict[str,
     reasons: list[str] = []
     edition = candidate.get("edition")
     publication_date = str(candidate.get("publication_date") or "")
-    highest = int(profile["pinned_checkpoint"]["highest_edition"])
+    checkpoint = profile["pinned_checkpoint"]
+    highest = int(checkpoint["highest_edition"])
+    frontier_date = str(checkpoint["frontier_publication_date"])
 
     if not isinstance(edition, int):
         reasons.append("MISSING_OR_INVALID_EDITION")
@@ -34,6 +36,8 @@ def evaluate_new_edition_candidate(candidate: dict[str, Any], profile: dict[str,
         reasons.append("DUPLICATE_EDITION")
     if not publication_date:
         reasons.append("MISSING_PUBLICATION_DATE")
+    elif publication_date < frontier_date:
+        reasons.append("PUBLICATION_DATE_OLDER_THAN_CHECKPOINT_FRONTIER")
     if candidate.get("family") != "JORNAL_OFICIAL":
         reasons.append("SOURCE_METADATA_NOT_JORNAL")
     if candidate.get("discovery_requests", 0) > profile["future_discovery_limits"]["max_requests"]:
