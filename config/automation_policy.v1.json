@@ -32,23 +32,6 @@
       "human_confirmation_required": true
     }
   },
-  "semantic_controls": [
-    {
-      "id": "TASK_081_CONTRACT_CANDIDATE_POLICY",
-      "module": "robo_dados_publicos/reconciliation/contract_candidate_policy.py",
-      "enforced_by": "LimeiraContractsResolver._candidate_rows",
-      "validated_by": "tests/test_task_081_contract_candidate_hardening.py",
-      "tier": "T0_OFFLINE",
-      "purpose": "FAIL_CLOSED_CANDIDATE_QUALIFICATION_ONLY",
-      "effects": {
-        "source_network": false,
-        "drive_reads": false,
-        "drive_writes": false,
-        "publication": false,
-        "identity_promotion": false
-      }
-    }
-  ],
   "gates": [
     {
       "id": "CI_OFFLINE",
