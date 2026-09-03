@@ -31,7 +31,9 @@
     "metadata_routes_may_be_auto_ingest": true,
     "individual_family_maturity_remains": "ROUTING_ONLY_SUPERVISED_EXECUTION",
     "bundle_execution_maturity": "EXECUTION_READY_BOUNDED_MANUAL_SUPERVISED",
-    "reason": "PAIR_OR_TRIPLE_SEMANTICS_REQUIRE_COMPLETE_BUNDLE_BEFORE_CONTENT_EXECUTION"
+    "reason": "PAIR_OR_TRIPLE_SEMANTICS_REQUIRE_COMPLETE_BUNDLE_BEFORE_CONTENT_EXECUTION",
+    "controller_contract_path": "config/drive_ingestion_controller.v3.json",
+    "maturity_registry_path": "config/source_family_maturity_registry.v1.json"
   },
   "source_contract": {
     "exact_hash_required": true,
