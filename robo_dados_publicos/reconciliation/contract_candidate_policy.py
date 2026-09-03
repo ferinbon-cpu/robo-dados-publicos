@@ -15,18 +15,27 @@ def _digits(value) -> str:
 
 
 def _contract_reference(value) -> tuple[int, int] | None:
-    """Parse exactly one slash-form contract reference as (number, year).
+    """Parse exactly one standalone slash-form contract reference as (number, year).
 
     Leading zeroes and trailing punctuation are presentation differences only:
     `09/2025.` and `9/2025` normalize to the same reference. The parser is
     intentionally fail-closed: zero or multiple slash-form references return None.
-    Filenames such as `contrato_09_2025.pdf` are not accepted as contract-number
-    evidence because they do not expose the documentary `number/year` syntax.
+    A match embedded in a date (`17/03/2025`), dotted process number
+    (`29.185/2025`) or underscore filename (`contrato_09_2025.pdf`) is rejected.
     """
 
-    matches = re.findall(r"(?<!\d)(\d{1,9})\s*/\s*(\d{4})(?!\d)", str(value or ""))
+    matches = re.findall(
+        r"(?<![\d./_])(\d{1,9})\s*/\s*(\d{4})(?!\d)",
+        str(value or ""),
+    )
     refs = {(int(number), int(year)) for number, year in matches}
     return next(iter(refs)) if len(refs) == 1 else None
+
+
+def _cell_has_exact_cnpj(cell, expected_cnpj: str) -> bool:
+    """Require one individual cell to normalize to exactly the expected CNPJ."""
+
+    return bool(expected_cnpj and _digits(cell) == expected_cnpj)
 
 
 def fail_closed_contract_candidate_rows(rows: list[list[str]], keys: dict) -> list[dict]:
@@ -38,17 +47,17 @@ def fail_closed_contract_candidate_rows(rows: list[list[str]], keys: dict) -> li
 
     Rules are intentionally asymmetric and fail-closed:
 
-    * when a contract key is present, the same normalized number/year must occur in
-      one individual result cell;
+    * when a contract key is present, the same normalized standalone number/year
+      must occur in one individual result cell;
+    * dates, dotted process numbers and underscore filenames never substitute for a
+      contract-number cell;
     * `09/2025.`, `09/2025` and `9/2025` are the same documentary reference;
     * a normalized full-reference hit preserves the legacy `CONTRACT_FULL` signal
       used by the evidence assembler and also emits the explicit normalization signal;
-    * filenames or unrelated text containing a numeric stem never count as a
-      contract-number match;
-    * when an expected CNPJ is present in the task, the same row must expose it in
-      one individual cell;
+    * when an expected CNPJ is present in the task, it must be a valid 14-digit key
+      and one individual result cell must normalize exactly to those 14 digits;
     * otherwise, when supplier is available alongside contract, supplier must agree;
-    * CNPJ is never reconstructed across concatenated cells;
+    * CNPJ is never reconstructed across cells or accepted as a substring of a cell;
     * object-text similarity is never used to promote a candidate;
     * CNPJ-only promotion is allowed only when the task itself has no contract key.
     """
@@ -56,7 +65,13 @@ def fail_closed_contract_candidate_rows(rows: list[list[str]], keys: dict) -> li
     contract_value = keys.get("contract_number")
     expected_contract = _contract_reference(contract_value)
     contract_key_present = bool(str(contract_value or "").strip())
-    expected_cnpj = _digits(keys.get("cnpj"))
+
+    cnpj_value = keys.get("cnpj")
+    cnpj_key_present = bool(str(cnpj_value or "").strip())
+    expected_cnpj = _digits(cnpj_value)
+    if cnpj_key_present and len(expected_cnpj) != 14:
+        return []
+
     supplier = _ascii(keys.get("contractor"))
 
     out: list[dict] = []
@@ -77,7 +92,9 @@ def fail_closed_contract_candidate_rows(rows: list[list[str]], keys: dict) -> li
             # a loose digit-stem search across the whole row.
             contract_match = False
 
-        cnpj_match = bool(expected_cnpj and any(expected_cnpj in _digits(cell) for cell in cells))
+        cnpj_match = bool(
+            expected_cnpj and any(_cell_has_exact_cnpj(cell, expected_cnpj) for cell in cells)
+        )
         if cnpj_match:
             signals.append("CNPJ")
 
@@ -91,11 +108,11 @@ def fail_closed_contract_candidate_rows(rows: list[list[str]], keys: dict) -> li
 
         # If the task carries CNPJ, it is a mandatory corroborator, not an
         # alternative path that can override a mismatched/missing contract.
-        if expected_cnpj and not cnpj_match:
+        if cnpj_key_present and not cnpj_match:
             continue
 
         # Without CNPJ, a known supplier must corroborate a contract-number hit.
-        if not expected_cnpj and contract_key_present and supplier and not supplier_match:
+        if not cnpj_key_present and contract_key_present and supplier and not supplier_match:
             continue
 
         # A task with neither a proven contract reference nor expected CNPJ cannot
