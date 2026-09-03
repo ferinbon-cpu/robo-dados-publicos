@@ -46,7 +46,7 @@ jobs:
             --pr-number "${{ github.event.workflow_run.pull_requests[0].number }}" \
             --expected-head-sha "${{ github.event.workflow_run.head_sha }}" \
             --upstream-conclusion "${{ github.event.workflow_run.conclusion }}" \
-            --model "deepseek-v4-flash"
+            --model "deepseek-v4-pro"
 
       - name: Publish review and telemetry to job summary
         if: always()
