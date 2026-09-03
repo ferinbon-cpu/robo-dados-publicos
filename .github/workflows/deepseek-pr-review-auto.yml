@@ -36,7 +36,7 @@ jobs:
           python-version: "3.12"
           check-latest: false
 
-      - name: Review PR with DeepSeek and comment
+      - name: Review PR with DeepSeek read-only
         env:
           GITHUB_TOKEN: ${{ github.token }}
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
@@ -49,11 +49,14 @@ jobs:
             --upstream-conclusion "${{ github.event.workflow_run.conclusion }}" \
             --model "deepseek-v4-flash"
 
-      - name: Publish telemetry to job summary
+      - name: Publish review and telemetry to job summary
         if: always()
         run: |
+          if [[ -f runtime/deepseek_auto_review.md ]]; then
+            cat runtime/deepseek_auto_review.md >> "$GITHUB_STEP_SUMMARY"
+          fi
           if [[ -f runtime/deepseek_auto_review_summary.json ]]; then
-            printf '## DeepSeek automatic PR review\n\n```json\n' >> "$GITHUB_STEP_SUMMARY"
+            printf '\n```json\n' >> "$GITHUB_STEP_SUMMARY"
             cat runtime/deepseek_auto_review_summary.json >> "$GITHUB_STEP_SUMMARY"
             printf '\n```\n' >> "$GITHUB_STEP_SUMMARY"
           fi
