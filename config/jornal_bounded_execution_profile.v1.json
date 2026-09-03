@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "task": "TASK_069_JORNAL_BOUNDED_EXECUTION_BINDING",
+  "family": "JORNAL_OFICIAL",
+  "maturity_required": "EXECUTION_READY_BOUNDED",
+  "binding_mode": "PROVEN_CONTRACTS_PLUS_BOUNDED_INCREMENTAL_DISCOVERY_ONLY",
+  "proven_contracts": {
+    "collection": "config/sources.jornal_oficial_7310_gate.json",
+    "processing": "config/processing.jornal_oficial_7310_gate.json",
+    "incremental_design": "config/jornal_bounded_live_incremental_proof.v1.json",
+    "checkpoint": "docs/evidence/TASK_018_JORNAL_COMPLETED_CANONICAL_CHECKPOINT_0.8.0.json"
+  },
+  "pinned_checkpoint": {
+    "highest_edition": 7315,
+    "item_count": 12,
+    "canonical_payload_sha256": "64e78c27a2c233468d76bc94c5719a35ed68ff7455cfac36d958d922c4ece5db"
+  },
+  "future_discovery_limits": {
+    "max_requests": 8,
+    "max_pages": 8,
+    "max_new_items": 8,
+    "automatic_retry": false,
+    "pagination_expansion": false,
+    "downloads_during_discovery": 0
+  },
+  "eligible_execution_effects_after_separate_enabled_authorization": [
+    "CONTENT_READ_FOR_HASH_AND_INGEST",
+    "SHA256_COMPUTE",
+    "CREATE_ONLY_BRONZE_WRITE",
+    "MANIFEST_WRITE"
+  ],
+  "forbidden_effects": [
+    "SILVER_AUTO_PROMOTION",
+    "GOLD_AUTO_PROMOTION",
+    "SERVING_AUTO_WRITE",
+    "PUBLICATION_AUTO",
+    "RECURRENCE_AUTO_ENABLE",
+    "SCHEDULE_AUTO_ENABLE",
+    "CHECKPOINT_ADVANCE_WITHOUT_GATE"
+  ],
+  "new_item_requirements": [
+    "EDITION_GREATER_THAN_PINNED_HIGHEST",
+    "UNIQUE_EDITION",
+    "PUBLICATION_DATE_NOT_OLDER_THAN_CHECKPOINT_FRONTIER",
+    "DISCOVERY_WITHIN_BOUNDED_LIMITS",
+    "SOURCE_METADATA_CONSISTENT_WITH_JORNAL_FAMILY",
+    "SEPARATE_ENABLED_FOLDER_OR_SOURCE_AUTHORIZATION"
+  ],
+  "drift_behavior": "STOP_TO_REVIEW",
+  "recurrence_status": "NOT_GLOBALLY_PROMOTED",
+  "schedule_authorized": false,
+  "live_execution_authorized_by_task_069": false
+}
