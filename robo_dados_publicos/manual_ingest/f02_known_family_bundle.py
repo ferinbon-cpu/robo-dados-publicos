@@ -251,25 +251,30 @@ def run_known_family_bundle(
 
     normalized: list[dict[str, Any]] = []
     source_evidence: list[dict[str, Any]] = []
-    for contract in plan["contracts"]:
-        payload = _read_snapshot(root, plan["snapshot_paths"][contract.source_id])
-        verified = validate_f02_source_bytes(contract, payload)
-        text = verified["text"]
-        if plan["batch_kind"] == "LOCAL_ONLY":
-            record = normalize_f02_local_monitoring_document(contract, text)
-        else:
-            record = normalize_f02_document(contract, text)
-        normalized.append(record)
-        source_evidence.append({
-            "source_id": contract.source_id,
-            "family": contract.family,
-            "drive_file_id": contract.drive_file_id,
-            "sha256": verified["sha256"],
-            "bytes": verified["bytes"],
-            "pages": verified["pages"],
-            "snapshot_path": str(plan["snapshot_paths"][contract.source_id]),
-            "status": verified["status"],
-        })
+    try:
+        for contract in plan["contracts"]:
+            payload = _read_snapshot(root, plan["snapshot_paths"][contract.source_id])
+            verified = validate_f02_source_bytes(contract, payload)
+            text = verified["text"]
+            if plan["batch_kind"] == "LOCAL_ONLY":
+                record = normalize_f02_local_monitoring_document(contract, text)
+            else:
+                record = normalize_f02_document(contract, text)
+            normalized.append(record)
+            source_evidence.append({
+                "source_id": contract.source_id,
+                "family": contract.family,
+                "drive_file_id": contract.drive_file_id,
+                "sha256": verified["sha256"],
+                "bytes": verified["bytes"],
+                "pages": verified["pages"],
+                "snapshot_path": str(plan["snapshot_paths"][contract.source_id]),
+                "status": verified["status"],
+            })
+    except F02KnownFamilyBundleStop:
+        raise
+    except F02IngestStop as exc:
+        raise F02KnownFamilyBundleStop(str(exc)) from exc
 
     observed_periods = {
         (record.get("period_start"), record.get("period_end"))
@@ -285,22 +290,27 @@ def run_known_family_bundle(
             ),
         )
 
-    if plan["batch_kind"] == "LOCAL_ONLY":
-        reconciliation = reconcile_f02_local_monitoring(normalized)
-        authority = {
-            "official_mde_claim_authorized": False,
-            "annual_compliance_claim_authorized": False,
-            "rreo_mde_same_period_present": False,
-            "interpretation": "LOCAL_MONITORING_ONLY_NOT_OFFICIAL_MDE_SUBSTITUTION",
-        }
-    else:
-        reconciliation = reconcile_f02(normalized)
-        authority = {
-            "official_mde_claim_authorized": True,
-            "official_mde_claim_source": "RREO_MDE",
-            "annual_compliance_claim_authorized": False,
-            "interpretation": "OFFICIAL_PARTIAL_PERIOD_OBSERVATION_NOT_ANNUAL_COMPLIANCE",
-        }
+    try:
+        if plan["batch_kind"] == "LOCAL_ONLY":
+            reconciliation = reconcile_f02_local_monitoring(normalized)
+            authority = {
+                "official_mde_claim_authorized": False,
+                "annual_compliance_claim_authorized": False,
+                "rreo_mde_same_period_present": False,
+                "interpretation": "LOCAL_MONITORING_ONLY_NOT_OFFICIAL_MDE_SUBSTITUTION",
+            }
+        else:
+            reconciliation = reconcile_f02(normalized)
+            authority = {
+                "official_mde_claim_authorized": True,
+                "official_mde_claim_source": "RREO_MDE",
+                "annual_compliance_claim_authorized": False,
+                "interpretation": "OFFICIAL_PARTIAL_PERIOD_OBSERVATION_NOT_ANNUAL_COMPLIANCE",
+            }
+    except F02KnownFamilyBundleStop:
+        raise
+    except F02IngestStop as exc:
+        raise F02KnownFamilyBundleStop(str(exc)) from exc
 
     core = {
         "schema": "F02_KNOWN_FAMILY_BATCH_RESULT_V1",
