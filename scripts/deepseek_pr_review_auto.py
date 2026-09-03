@@ -123,6 +123,26 @@ def validate_same_repo_head(meta: dict[str, Any], *, repository: str, expected_h
         _stop("HEAD_SHA_MISMATCH")
 
 
+# Compatibility-only formatters retained for the existing focused tests. They
+# are not used by the automatic execution path and perform no remote effects.
+def comment_marker(head_sha: str) -> str:
+    return f"<!-- deepseek-auto-review:{head_sha} -->"
+
+
+def build_comment(review: dict[str, Any], *, head_sha: str, model: str, upstream_conclusion: str) -> str:
+    body = render_markdown(review)
+    return (
+        f"{comment_marker(head_sha)}\n"
+        "## DeepSeek automatic review\n\n"
+        f"Reviewed head: `{head_sha}`  \n"
+        f"Model: `{model}`  \n"
+        f"Upstream CI: `{upstream_conclusion}`\n\n"
+        f"{body}"
+        "\n---\n"
+        "Automated review only. It cannot write code, merge, access Drive, or publish data.\n"
+    )
+
+
 def build_report(review: dict[str, Any], *, head_sha: str, model: str, upstream_conclusion: str) -> str:
     body = render_markdown(review)
     return (
