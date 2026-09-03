@@ -3,7 +3,7 @@ name: DeepSeek automatic PR review
 on:
   workflow_run:
     workflows:
-      - "CI offline 0.8.0 candidate M7"
+      - "CI OFFLINE"
     types:
       - completed
 
