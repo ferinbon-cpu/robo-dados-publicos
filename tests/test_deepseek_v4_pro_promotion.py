@@ -11,17 +11,29 @@ WORKFLOW = ROOT / ".github/workflows/deepseek-pr-review-auto.yml"
 
 
 class DeepSeekV4ProPromotionTests(unittest.TestCase):
-    def test_pro_is_default_in_both_policies(self):
-        for path in (AUTO, AGENT):
-            policy = json.loads(path.read_text(encoding="utf-8"))
+    def test_pro_is_default_in_both_policies_and_allowlists_match(self):
+        auto = json.loads(AUTO.read_text(encoding="utf-8"))
+        agent = json.loads(AGENT.read_text(encoding="utf-8"))
+        for policy in (auto, agent):
             self.assertEqual(policy["api"]["default_model"], "deepseek-v4-pro")
             self.assertIn("deepseek-v4-pro", policy["api"]["allowed_models"])
             self.assertIn("deepseek-v4-flash", policy["api"]["allowed_models"])
+        self.assertEqual(auto["api"]["allowed_models"], agent["api"]["allowed_models"])
 
     def test_automatic_workflow_explicitly_uses_pro(self):
         workflow = WORKFLOW.read_text(encoding="utf-8")
         self.assertIn('--model "deepseek-v4-pro"', workflow)
         self.assertNotIn('--model "deepseek-v4-flash"', workflow)
+
+    def test_workflow_trust_boundary_remains_strict(self):
+        workflow = WORKFLOW.read_text(encoding="utf-8").lower()
+        self.assertNotIn("pull_request_target:", workflow)
+        self.assertNotIn("secrets: inherit", workflow)
+        self.assertNotIn("contents: write", workflow)
+        self.assertNotIn("pull-requests: write", workflow)
+        self.assertIn("persist-credentials: false", workflow)
+        self.assertIn("deepseek_api_key: " + "$" + "{{ secrets.deepseek_api_key }}", workflow)
+        self.assertIn("ref: " + "$" + "{{ github.event.repository.default_branch }}", workflow)
 
     def test_safety_boundary_is_unchanged(self):
         policy = json.loads(AUTO.read_text(encoding="utf-8"))
@@ -34,6 +46,7 @@ class DeepSeekV4ProPromotionTests(unittest.TestCase):
         for capability in (
             "direct_main_write", "branch_write", "github_code_write", "self_merge",
             "drive_read", "drive_write", "publication", "schedule", "recurrence",
+            "secret_readback", "secret_exposure_to_prompt",
         ):
             self.assertIn(capability, blocked)
 
