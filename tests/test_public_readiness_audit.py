@@ -76,6 +76,19 @@ class PublicReadinessAuditTests(unittest.TestCase):
         findings = base._current_binary_review()
         self.assertFalse(any(item.get("path") == "tests/fixtures/jornal_oficial_fixture_2pages.pdf" for item in findings))
 
+    def test_bounded_deepseek_workflow_run_review_is_closed_exactly(self) -> None:
+        blockers, reviews = base._workflow_findings()
+        self.assertFalse(
+            any(
+                item.get("detector") == "WORKFLOW_RUN_TRIGGER"
+                and item.get("path") == ".github/workflows/deepseek-pr-review-auto.yml"
+                for item in reviews
+            )
+        )
+        self.assertFalse(
+            any(item.get("path") == ".github/workflows/deepseek-pr-review-auto.yml" for item in blockers)
+        )
+
     def test_audit_source_never_emits_matched_secret_value(self) -> None:
         token = "gh" + "o_" + ("Xy7" * 12)
         findings = mod.scan_text(token)
