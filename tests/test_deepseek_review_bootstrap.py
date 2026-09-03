@@ -19,6 +19,8 @@ from robo_dados_publicos.automation.deepseek_review import (
     validate_review,
 )
 
+ROOT = Path(__file__).resolve().parents[1]
+
 
 class _FakeResponse:
     def __init__(self, body: bytes):
@@ -47,6 +49,26 @@ class TestDeepSeekReviewBootstrap(unittest.TestCase):
         self.assertFalse(activation["live_review_default"])
         self.assertIn("deepseek-v4-flash", self.policy["api"]["allowed_models"])
         self.assertIn("deepseek-v4-pro", self.policy["api"]["allowed_models"])
+
+    def test_workflow_is_manual_readonly_and_actions_are_sha_pinned(self):
+        text = (ROOT / ".github/workflows/deepseek-pr-review-bootstrap.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("workflow_dispatch:", text)
+        self.assertNotIn("pull_request_target:", text)
+        self.assertNotIn("schedule:", text)
+        self.assertNotIn("push:\n", text)
+        self.assertNotIn("pull_request:\n", text)
+        self.assertIn("contents: read", text)
+        self.assertIn("pull-requests: read", text)
+        self.assertNotIn("pull-requests: write", text)
+        self.assertNotIn("contents: write", text)
+        self.assertNotIn("secrets: inherit", text)
+        for line in text.splitlines():
+            stripped = line.strip()
+            if stripped.startswith("uses:"):
+                ref = stripped.rsplit("@", 1)[-1].split()[0]
+                self.assertRegex(ref, r"^[0-9a-f]{40}$")
 
     def test_secret_redaction(self):
         source = (
