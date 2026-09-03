@@ -1,3 +1,4 @@
 TASK 080 smoke trigger only.
 This branch exists solely to prove that the trusted post-CI DeepSeek reviewer runs automatically and comments without owner interaction.
+Second trigger after the CI workflow-name hotfix merged to main.
 Do not merge this file into main.
