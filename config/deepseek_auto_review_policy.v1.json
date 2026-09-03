@@ -3,7 +3,7 @@
   "software_candidate": "0.8.0",
   "mode": "PR_REVIEWER_AUTOMATIC_AFTER_CI",
   "provider": "DEEPSEEK",
-  "default_decision": "BLOCK",
+  "default_decision": "BLOCK_ONLY_ON_CONCRETE_BLOCKING_FINDING_OR_REVIEWER_FAILURE",
   "api": {
     "base_url": "https://api.deepseek.com",
     "chat_completions_path": "/chat/completions",
@@ -36,8 +36,7 @@
   },
   "github_permissions": {
     "contents": "read",
-    "pull_requests": "read",
-    "issues": "write"
+    "pull_requests": "read"
   },
   "trusted_instruction_sources": [
     "AGENTS.md",
@@ -69,18 +68,28 @@
       "suggested_changes"
     ]
   },
+  "review_gate_contract": {
+    "model_verdict_alone_is_not_a_merge_gate": true,
+    "blocking_signal": "NONEMPTY_BLOCKING_FINDINGS",
+    "changes_requested_without_blocking_findings": "ADVISORY_REVIEW",
+    "pass_with_blocking_findings": "BLOCK",
+    "full_sanitized_review_must_be_logged": true,
+    "summary_must_include_finding_counts": true,
+    "reviewer_failure_is_fail_closed": true
+  },
   "allowed_effects": [
     "github_pull_request_metadata_read",
     "github_pull_request_diff_read",
-    "github_issue_comments_read_for_dedupe",
     "deepseek_api_request",
-    "github_pull_request_conversation_comment_write",
-    "github_actions_job_summary"
+    "github_actions_job_summary",
+    "github_actions_job_log"
   ],
   "blocked_capabilities": [
     "direct_main_write",
     "branch_write",
     "github_code_write",
+    "github_issue_write",
+    "github_pull_request_comment_write",
     "self_merge",
     "source_collection_live",
     "drive_read",
@@ -101,6 +110,7 @@
     "task_078_bootstrap_merged": true,
     "task_079_first_live_call_proven": true,
     "first_live_run_id": 33711634761,
-    "owner_authorized_automatic_operation": true
+    "owner_authorized_automatic_operation": true,
+    "task_082_actionability_correction_authorized": true
   }
 }
