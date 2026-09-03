@@ -11,7 +11,8 @@
       "expected_sha256": "fe76d088143e61b9f0d5b1f611757bee924b5a2c95abae5fa5908b1b85b742f9",
       "expected_logical_sha256": "72cc2cb29990809c043877ef8b0ef19d61f1064b093ef58fdb8fcc0f87386c81",
       "expected_schema": "F02_MDE_FUNDEB_SILVER_V1",
-      "expected_status": "SILVER_SCOPED_VALIDATED"
+      "expected_status": "SILVER_SCOPED_VALIDATED",
+      "local_snapshot_path": "docs/evidence/f02_gold_preview/F02_MDE_FUNDEB_2026_JAN_ABR__72cc2cb29990__silver_v1.json"
     },
     {
       "input_id": "F02_SILVER_JAN_MAY_LOCAL",
@@ -21,7 +22,8 @@
       "expected_sha256": "ec1cb12dec7349cd391ed12ad9654d598136781acca0138bf6bc286f35827a42",
       "expected_logical_sha256": "d244b94d04f954c01771d9a416d97814fd163a0ecb693003677becfde06bf1a1",
       "expected_schema": "F02_LOCAL_MONITORING_SILVER_V1",
-      "expected_status": "SILVER_PROMOTED_VALIDATED_LOCAL_MONITORING_ONLY"
+      "expected_status": "SILVER_PROMOTED_VALIDATED_LOCAL_MONITORING_ONLY",
+      "local_snapshot_path": "docs/evidence/f02_gold_preview/F02_LOCAL_MONITORING_2026_JAN_MAY__d244b94d04f9__silver_v1.json"
     }
   ],
   "required_observations": [
