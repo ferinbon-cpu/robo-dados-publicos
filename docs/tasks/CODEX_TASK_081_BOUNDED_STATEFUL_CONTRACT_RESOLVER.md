@@ -1,6 +1,6 @@
 # TASK 081 — bounded stateful municipal contract resolver
 
-Fresh owner authorization is the user's 2026-09-03 instruction `Prossiga com o robo entao`, interpreted only for this bounded step. The consumed authorization is recorded transparently in `docs/evidence/TASK_081_BOUNDED_STATEFUL_CONTRACT_RESOLVER_OWNER_AUTHORIZATION_0.8.0.json`; that repository record was materialized after the bounded run and explicitly does not claim to have been a pre-run repository gate.
+Fresh owner authorization is the user's 2026-09-03 instruction `Prossiga com o robo entao`, interpreted only for this bounded step. The consumed authorization is normalized in `docs/evidence/TASK_081_BOUNDED_STATEFUL_CONTRACT_RESOLVER_OWNER_AUTHORIZATION_0.8.0.json`.
 
 ## Exact scope
 
@@ -16,4 +16,8 @@ Maximum three HTTP requests total: one GET to the official municipal contracts l
 
 No Google Drive read/write, no StateRegistry or queue mutation, no serving write, no publication, no source move/delete, no schedule/recurrence/retry loop, no automatic contract identity assertion and no financial identity assertion. Result may be at most `MATCH_CANDIDATE` with evidence. `NO_MATCH` is allowed only after an interpretable result table. Schema/origin/form ambiguity must STOP.
 
-The temporary live workflow used to obtain the evidence is branch-local and must be removed before the final PR is proposed for merge.
+## Auditable execution chronology
+
+This task contract was committed before the live run at `4502c552593b4e01d7c1c272e6bd1304fe034be1` (2026-09-03T13:23:05Z). The temporary bounded workflow was then committed at `c1ffc0ca8572308936b643672e03feccd9a3c978` (2026-09-03T13:23:45Z), with `contents: read`, exact branch scope, host allowlist and hard maximum of three requests. Run `33760913444` was created at 2026-09-03T13:23:48Z on that exact workflow SHA and completed successfully.
+
+The temporary live workflow was removed from the final PR head after the single run so it cannot execute again. Its historical source remains auditable at the pinned gate commit. The later normalized authorization file explicitly does not claim to have been the pre-run gate. The complete chain is pinned in `docs/evidence/TASK_081_PRE_RUN_GATE_CHAIN_0.8.0.json`.
