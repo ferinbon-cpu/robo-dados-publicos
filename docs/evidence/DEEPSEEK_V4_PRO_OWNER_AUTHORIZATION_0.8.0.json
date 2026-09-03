@@ -1,0 +1,31 @@
+{
+  "schema": "DEEPSEEK_V4_PRO_OWNER_AUTHORIZATION_V1",
+  "software_candidate": "0.8.0",
+  "recorded_at_utc": "2026-09-03T23:36:45Z",
+  "owner_instruction_verbatim": "Faça até onde sua ação permitir, pode ligar o modo mais forte do deepseek o q nao é  o fleah. Se precisar de minha autorização tome y tokens de autorização",
+  "bounded_interpretation": {
+    "tokens_selected_by_orchestrator": 12,
+    "purpose": "ADVANCE_ROBOT_WITH_LOOKER_SUSPENDED_AND_PROMOTE_DEEPSEEK_TO_STRONGEST_ALREADY_ALLOWLISTED_NON_FLASH_MODEL",
+    "deepseek_model_target": "deepseek-v4-pro",
+    "model_promotion_gates": [
+      2,
+      3,
+      4
+    ],
+    "direct_main_write": false,
+    "self_merge": false,
+    "drive_write_for_model_promotion": false,
+    "serving_write": false,
+    "publication": false,
+    "site_mutation": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "evidence_semantics": {
+    "prospective_current_owner_instruction": true,
+    "not_a_retroactive_signature": true,
+    "not_a_blanket_future_authorization": true,
+    "unused_tokens_must_remain_bounded_to_announced_sequence": true
+  },
+  "status": "OWNER_AUTHORIZATION_RECORDED_FOR_BOUNDED_V4_PRO_PROMOTION"
+}
