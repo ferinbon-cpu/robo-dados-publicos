@@ -1,0 +1,184 @@
+{
+  "authorization": {
+    "authorization_model": "SIX_SEQUENTIAL_BOUNDED_GATES",
+    "bronze_authorized": true,
+    "delete_move_overwrite_authorized": false,
+    "gate": 6,
+    "gold_authorized": false,
+    "owner_instruction": "Mais 6 tokens , prossiga",
+    "publication_authorized": false,
+    "scope": "ONE_F02_PILOT_PROMOTION_INBOX_TO_BRONZE_AND_SILVER",
+    "serving_authorized": false,
+    "silver_authorized": true,
+    "site_mutation_authorized": false
+  },
+  "batch": "F02_MDE_FUNDEB_2026_PILOT",
+  "bronze": {
+    "FUNDEB_LOCAL": {
+      "bronze_drive_file_id": "1Xxk4lwV4ZKldoXQ4dNxRHiDg1Rtloea-",
+      "bytes": 20195,
+      "inbox_drive_file_id": "1MwN-1lVFrhAUU7OUczWT8URZFzc953-G",
+      "readback_byte_identity": true,
+      "sha256": "d7f1e986c765a6e726d74fc83360601bdc223c5fb3c76accc4a7b910c621f178"
+    },
+    "MDE_25_LOCAL": {
+      "bronze_drive_file_id": "1pfAp5r6H1CgEOQcepJ_QVWma0tr8Vgfi",
+      "bytes": 18956,
+      "inbox_drive_file_id": "1jZFegmlVnVdsQNcDf4D8hlu7DjwgydYI",
+      "readback_byte_identity": true,
+      "sha256": "abfa856939c617a40b51d26cbfff8bb2453de3acd0f1a00c13900f39631e3b2d"
+    },
+    "RREO_MDE": {
+      "bronze_drive_file_id": "1kMbVriROtR7Pwif8Ku7y2oY9TyLqWDj2",
+      "bytes": 33147,
+      "inbox_drive_file_id": "133MXfFVUUELPmYUb59oViU_vVbAEjukQ",
+      "readback_byte_identity": true,
+      "sha256": "539144ae70edbcb3ca4662b9460c869ad4b21a6e6b027f3f3c332a0372e08361"
+    }
+  },
+  "candidate": {
+    "candidate_file_sha256": "fcf94db3706f87c0c72dbef75ce0fcfdac108fa793b94fe815d80b1a9ba9ba52",
+    "candidate_status_before_promotion": "PASS_F02_OFFLINE_SILVER_CANDIDATE_NOT_PROMOTED",
+    "logical_content_sha256": "9f9c9e81eb9abb0b6c50184ce0800eb5ac48a80a9c2bbd682acd6b106fee9229"
+  },
+  "content_sha256": "72cc2cb29990809c043877ef8b0ef19d61f1064b093ef58fdb8fcc0f87386c81",
+  "created_date": "2026-09-03",
+  "effects": {
+    "bronze_folder_creates": 1,
+    "bronze_readbacks": 3,
+    "bronze_writes_create_only": 3,
+    "delete": 0,
+    "gold_writes": 0,
+    "inbox_source_reads": 3,
+    "move": 0,
+    "overwrite": 0,
+    "publication_writes": 0,
+    "serving_writes": 0,
+    "silver_writes_create_only": 1,
+    "site_writes": 0
+  },
+  "implementation": {
+    "main_sha": "64c39f31660a2f25149400fae4eb852db3f4cb26",
+    "merge_pr": 368,
+    "merge_verification_reason": "valid",
+    "merge_verified": true,
+    "repository": "ferinbon-cpu/robo-dados-publicos"
+  },
+  "mode": "MANUAL_SUPERVISED_INGEST",
+  "next_gate_candidate": {
+    "authorized_by_gate6": false,
+    "purpose": "F02_GOLD_DESIGN_OR_F02_FAMILY_SCALE_OUT"
+  },
+  "normalized": [
+    {
+      "authority": "OFFICIAL_MDE_PRIMARY",
+      "drive_file_id": "133MXfFVUUELPmYUb59oViU_vVbAEjukQ",
+      "family": "RREO_MDE",
+      "metrics": {
+        "fundeb_available": "71668089.20",
+        "fundeb_destined_realized": "56621833.68",
+        "fundeb_limit_expense_committed": "129124321.63",
+        "fundeb_limit_expense_liquidated": "62841461.94",
+        "fundeb_limit_expense_paid": "43847432.77",
+        "fundeb_professionals_committed": "128900343.54",
+        "fundeb_professionals_considered": "62617483.85",
+        "fundeb_professionals_liquidated": "62617483.85",
+        "fundeb_professionals_minimum_required": "49434397.68",
+        "fundeb_professionals_paid": "43623454.68",
+        "fundeb_professionals_percent": "88.67",
+        "fundeb_received": "70620568.12",
+        "mde_applied": "115982840.60",
+        "mde_minimum_required": "119493717.52",
+        "mde_percent": "24.27",
+        "minimum_beyond_fundeb": "62871883.83",
+        "tax_revenue_realized": "477974870.08"
+      },
+      "period_end": "2026-04-30",
+      "period_start": "2026-01-01",
+      "source_id": "F02_RREO_MDE_2026_JAN_ABR",
+      "source_role": "OFFICIAL_PRIMARY_FOR_MDE_CLAIMS"
+    },
+    {
+      "authority": "LOCAL_MONITORING",
+      "drive_file_id": "1MwN-1lVFrhAUU7OUczWT8URZFzc953-G",
+      "family": "FUNDEB_LOCAL",
+      "generated_date": "2026-05-22",
+      "metrics": {
+        "fundeb_application_committed": "129124321.63",
+        "fundeb_application_committed_percent": "182.73",
+        "fundeb_application_liquidated": "62841461.94",
+        "fundeb_application_liquidated_percent": "88.93",
+        "fundeb_application_paid": "43847432.77",
+        "fundeb_application_paid_percent": "62.05",
+        "fundeb_professionals_committed": "128900343.54",
+        "fundeb_professionals_committed_percent": "182.42",
+        "fundeb_professionals_liquidated": "62617483.85",
+        "fundeb_professionals_liquidated_percent_local": "88.62",
+        "fundeb_professionals_paid": "43623454.68",
+        "fundeb_professionals_paid_percent_local": "61.74",
+        "fundeb_retained": "56621833.48",
+        "fundeb_tax_transfer_received": "69842340.65",
+        "fundeb_total_received": "70662083.95"
+      },
+      "period_end": "2026-04-30",
+      "period_start": "2026-01-01",
+      "source_id": "F02_FUNDEB_LOCAL_2026_POS_30_04",
+      "source_role": "LOCAL_FUNDEB_MONITORING"
+    },
+    {
+      "authority": "AUXILIARY_LOCAL_MONITORING",
+      "drive_file_id": "1jZFegmlVnVdsQNcDf4D8hlu7DjwgydYI",
+      "family": "MDE_25_LOCAL",
+      "generated_date": "2026-05-22",
+      "metrics": {
+        "education_expense_committed": "192993733.99",
+        "education_expense_committed_percent": "40.38",
+        "education_expense_liquidated": "111043318.30",
+        "education_expense_liquidated_percent": "23.23",
+        "education_expense_paid": "99563903.63",
+        "education_expense_paid_percent": "20.83",
+        "education_net_expense_committed": "192796668.89",
+        "education_net_expense_committed_percent": "40.34",
+        "education_net_expense_liquidated": "110846253.20",
+        "education_net_expense_liquidated_percent": "23.19",
+        "education_net_expense_paid": "86592437.82",
+        "education_net_expense_paid_percent": "18.12",
+        "fundeb_retained": "56621833.48",
+        "tax_revenue_realized": "477974870.08"
+      },
+      "period_end": "2026-04-30",
+      "period_start": "2026-01-01",
+      "source_id": "F02_MDE_25_LOCAL_2026_POS_30_04",
+      "source_role": "AUXILIARY_MDE_25_PERCENT_MONITORING"
+    }
+  ],
+  "reconciliation": {
+    "authority_rule": "RREO_MDE_FOR_OFFICIAL_MDE_CLAIMS",
+    "exact_checks": {
+      "fundeb_limit_liquidated_rreo_vs_local": true,
+      "fundeb_professionals_liquidated_rreo_vs_local": true,
+      "tax_revenue_realized_rreo_vs_mde25": true
+    },
+    "methodology_differences": {
+      "fundeb_retained_local_minus_rreo_destined": "-0.20",
+      "interpretation": "OBSERVED_DIFFERENCE_NOT_SOURCE_SUBSTITUTION",
+      "mde_liquidated_percent_local_minus_rreo_official": "-1.04"
+    },
+    "period_end": "2026-04-30",
+    "period_start": "2026-01-01",
+    "promotion": {
+      "gold_authorized": false,
+      "publication_authorized": false,
+      "serving_authorized": false
+    },
+    "status": "PASS_F02_RECONCILIATION"
+  },
+  "reference_period": "2026-01_to_2026-04",
+  "schema": "F02_MDE_FUNDEB_SILVER_V1",
+  "source_precedence": {
+    "fundeb_local_report": "LOCAL_MONITORING_PERIOD_MATCH_REQUIRED",
+    "mde_25_local_report": "AUXILIARY_MONITORING_NOT_SUBSTITUTE_FOR_RREO",
+    "mde_official_claim": "RREO_MDE"
+  },
+  "status": "SILVER_SCOPED_VALIDATED"
+}
