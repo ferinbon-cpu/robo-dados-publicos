@@ -93,7 +93,9 @@
         "process": "30903/2024",
         "supplier": "ART MULTIMÍDIA - COMÉRCIO E SERVIÇOS LTDA",
         "object_summary": "painéis eletrônicos para estádios municipais",
-        "match_signals": ["CONTRACT_STEM_PLUS_YEAR"],
+        "match_signals": [
+          "CONTRACT_STEM_PLUS_YEAR"
+        ],
         "expected_cnpj_observed": false,
         "expected_process_observed": false
       },
@@ -104,7 +106,9 @@
         "process": "24835/2024",
         "supplier": "FUTURA COMÉRCIO DE PRODUTOS MÉDICOS HOSPITALARES LTDA",
         "object_summary": "medicamentos padronizados",
-        "match_signals": ["CONTRACT_STEM_PLUS_YEAR"],
+        "match_signals": [
+          "CONTRACT_STEM_PLUS_YEAR"
+        ],
         "expected_cnpj_observed": false,
         "expected_process_observed": false
       }
@@ -121,9 +125,18 @@
   },
   "offline_hardening": {
     "policy_module": "robo_dados_publicos/reconciliation/contract_candidate_policy.py",
-    "rule": "WHEN_TASK_HAS_EXPECTED_CNPJ_REQUIRE_THAT_CNPJ_IN_AN_INDIVIDUAL_RESULT_CELL_BEFORE_CANDIDATE_PROMOTION",
+    "policy_revision": "FINAL_FAIL_CLOSED_CANDIDATE_QUALIFICATION_BEFORE_MERGE",
+    "rules": [
+      "WHEN_CONTRACT_KEY_EXISTS_REQUIRE_STANDALONE_NORMALIZED_NUMBER_YEAR_IN_ONE_RESULT_CELL",
+      "REJECT_DATE_DOTTED_PROCESS_AND_UNDERSCORE_FILENAME_FRAGMENTS_AS_CONTRACT_REFERENCES",
+      "WHEN_CNPJ_KEY_EXISTS_REQUIRE_VALID_14_DIGIT_KEY_AND_ONE_RESULT_CELL_NORMALIZING_EXACTLY_TO_THAT_CNPJ",
+      "CNPJ_MATCH_CANNOT_OVERRIDE_MISSING_OR_MISMATCHED_CONTRACT_WHEN_CONTRACT_KEY_EXISTS",
+      "WHEN_CNPJ_IS_ABSENT_AND_SUPPLIER_IS_KNOWN_REQUIRE_SUPPLIER_AGREEMENT_WITH_CONTRACT_MATCH"
+    ],
+    "legacy_signal_compatibility": "CONTRACT_FULL_IS_PRESERVED_ONLY_AFTER_PROVEN_FULL_SLASH_FORM_NUMBER_YEAR_MATCH_AND_IS_EMITTED_WITH_CONTRACT_NUMBER_YEAR_NORMALIZED",
     "object_similarity_used_for_promotion": false,
     "repeat_live_query": false,
+    "review_hardening_remote_requests": 0,
     "captured_live_rows_expected_candidate_count_after_policy": 0
   },
   "hard_boundaries": {
