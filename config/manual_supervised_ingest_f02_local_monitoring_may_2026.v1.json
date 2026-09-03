@@ -1,0 +1,53 @@
+{
+  "batch": "F02_LOCAL_MONITORING_2026_JAN_MAY",
+  "contract": "F02_LOCAL_MONITORING_PERIOD_WITHOUT_RREO_V1",
+  "mode": "MANUAL_SUPERVISED_INGEST",
+  "official_period_context": {
+    "annual_compliance_claim_authorized": false,
+    "official_mde_claim_authorized": false,
+    "reason": "NO_RREO_BIMONTHLY_MAY_PERIOD",
+    "rreo_mde_same_period_available": false
+  },
+  "promotion": {
+    "bronze_mutation_authorized_by_this_contract": false,
+    "gold_authorized": false,
+    "serving_authorized": false,
+    "silver_authorized_by_this_contract": false,
+    "site_mutation_authorized": false
+  },
+  "reference_period": {
+    "closing_status": "PARTIAL_LOCAL_MONITORING",
+    "end": "2026-05-31",
+    "start": "2026-01-01"
+  },
+  "schema": "MANUAL_SUPERVISED_INGEST_F02_LOCAL_MONITORING_V1",
+  "source_precedence": {
+    "fundeb_local_report": "LOCAL_MONITORING_PRIMARY_FOR_THIS_LOCAL_ONLY_BATCH",
+    "mde_25_local_report": "LOCAL_MONITORING_AUXILIARY_NOT_OFFICIAL_RREO_SUBSTITUTE",
+    "mde_official_claim": "NOT_AUTHORIZED_NO_RREO_SAME_PERIOD"
+  },
+  "sources": [
+    {
+      "drive_file_id": "1vtXPMSg94m2j9Bbss0bHLhAyJo_LWVxK",
+      "expected_bytes": 21579,
+      "expected_pages": 3,
+      "expected_sha256": "751704be95e98a908dea23468edd16948cdffc5e5453f31baff0edc71fb3f93f",
+      "family": "FUNDEB_LOCAL",
+      "ingestion_method": "MANUAL_SUPERVISED",
+      "role": "LOCAL_MONITORING_NO_RREO_PERIOD_MATCH",
+      "source_id": "F02_FUNDEB_LOCAL_2026_JAN_MAY",
+      "source_type": "SOURCE"
+    },
+    {
+      "drive_file_id": "1_rUUrjo19x9NlYueu3VyRcYN95sqbJpG",
+      "expected_bytes": 18954,
+      "expected_pages": 1,
+      "expected_sha256": "1fe6539f146469fb5f2b98168e68c80290f62f47b6f531eb525e767aa26211b0",
+      "family": "MDE_25_LOCAL",
+      "ingestion_method": "MANUAL_SUPERVISED",
+      "role": "AUXILIARY_LOCAL_MONITORING_NO_RREO_SUBSTITUTION",
+      "source_id": "F02_MDE25_LOCAL_2026_JAN_MAY",
+      "source_type": "SOURCE"
+    }
+  ]
+}
