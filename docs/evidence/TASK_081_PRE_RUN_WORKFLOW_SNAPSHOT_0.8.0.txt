@@ -1,0 +1,154 @@
+TASK 081 NON-EXECUTABLE HISTORICAL WORKFLOW SNAPSHOT
+source_commit_sha: c1ffc0ca8572308936b643672e03feccd9a3c978
+source_path: .github/workflows/task-081-contract-resolver-live-once.yml
+source_commit_timestamp: 2026-09-03T13:23:45Z
+live_run_id: 33760913444
+purpose: audit-only exact historical workflow text; .txt extension is intentional and this file cannot trigger GitHub Actions.
+
+--- BEGIN HISTORICAL CONTENT ---
+name: TASK 081 bounded contract resolver live once
+run-name: "TASK 081 one bounded municipal contract query by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-081-bounded-stateful-contract-resolver
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-081-contract-resolver-live-once
+  cancel-in-progress: false
+
+jobs:
+  bounded-readonly-query:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Execute exactly one bounded read-only stateful query
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from urllib.parse import urlparse
+
+          from robo_dados_publicos.reconciliation.resolvers import LimeiraContractsResolver
+
+          ALLOWED_HOST = "serv42.limeira.sp.gov.br"
+          MAX_REQUESTS = 3
+
+          task = {
+              "task_id": "RECTASK_39a82b72abdffa19e0dba705",
+              "target_source": "LIMEIRA_CONTRATOS",
+              "task_type": "FIND_CONTRACT_RECORD",
+              "status": "READY_SEARCH",
+              "match_keys": {
+                  "year": 2025,
+                  "contract_number": "09/2025.",
+                  "cnpj": "12226306000140",
+              },
+              "search_hints": {
+                  "process_number": "29.185/2025.",
+                  "object_text": "contratação de empresa para instalação e desinstalação de ar condicionado",
+              },
+          }
+
+          class BoundedResolver(LimeiraContractsResolver):
+              def __init__(self):
+                  super().__init__()
+                  self.request_log = []
+
+              def _request(self, url, *, method="GET", params=None):
+                  if len(self.request_log) >= MAX_REQUESTS:
+                      raise RuntimeError("STOP_TASK081_HTTP_BUDGET_EXCEEDED")
+                  host = (urlparse(url).hostname or "").lower()
+                  if host != ALLOWED_HOST:
+                      raise RuntimeError("STOP_TASK081_ORIGIN_OUTSIDE_ALLOWLIST")
+                  self.request_log.append({
+                      "ordinal": len(self.request_log) + 1,
+                      "method": method.upper(),
+                      "host": host,
+                      "path": urlparse(url).path,
+                      "submitted_field_names": sorted((params or {}).keys()),
+                  })
+                  return super()._request(url, method=method, params=params)
+
+          resolver = BoundedResolver()
+          out = {
+              "task": "TASK_081_BOUNDED_STATEFUL_CONTRACT_RESOLVER",
+              "base_main_sha": "1edd1e23571201513e9bd94c1bc65c3789825031",
+              "selected_task_id": task["task_id"],
+              "max_http_requests": MAX_REQUESTS,
+              "hard_boundaries": {
+                  "drive_reads": 0,
+                  "drive_writes": 0,
+                  "state_registry_writes": 0,
+                  "queue_writes": 0,
+                  "serving_writes": 0,
+                  "publications": 0,
+                  "contract_identity_assertions": 0,
+                  "financial_identity_assertions": 0,
+              },
+          }
+          try:
+              result = resolver.resolve(task)
+              payload = result.to_dict()
+              if payload["status"] not in {
+                  "MATCH_CANDIDATE",
+                  "NO_MATCH",
+                  "STOP_CONTRACT_FORM_UNPROVEN",
+                  "STOP_MISSING_CONTRACT_OR_SUPPLIER_KEY",
+                  "STOP_CONTRACT_RELAY_ORIGIN_UNPROVEN",
+                  "STOP_CONTRACT_RESULT_SCHEMA_UNPROVEN",
+              }:
+                  raise RuntimeError("STOP_TASK081_UNEXPECTED_RESOLVER_STATUS")
+              out["resolver_result"] = payload
+              out["result"] = "PASS_TASK081_BOUNDED_REMOTE_EXECUTION_RECORDED"
+          except Exception as exc:
+              out["resolver_result"] = {
+                  "status": "STOP_TASK081_REMOTE_EXECUTION",
+                  "error_type": type(exc).__name__,
+                  "error": str(exc)[:500],
+                  "candidates": [],
+              }
+              out["result"] = "STOP_TASK081_REMOTE_EXECUTION_RECORDED"
+          out["request_count"] = len(resolver.request_log)
+          out["requests"] = resolver.request_log
+          if out["request_count"] > MAX_REQUESTS:
+              raise SystemExit("STOP_TASK081_HTTP_BUDGET_EXCEEDED")
+          Path("runtime/task081_result.json").write_text(
+              json.dumps(out, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          print(json.dumps({
+              "result": out["result"],
+              "resolver_status": out["resolver_result"]["status"],
+              "candidate_count": len(out["resolver_result"].get("candidates") or []),
+              "request_count": out["request_count"],
+          }, ensure_ascii=False, sort_keys=True))
+          PY
+
+      - name: Upload sanitized bounded evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-081-bounded-contract-resolver-evidence
+          path: runtime/task081_result.json
+          if-no-files-found: error
+          retention-days: 1
+--- END HISTORICAL CONTENT ---
