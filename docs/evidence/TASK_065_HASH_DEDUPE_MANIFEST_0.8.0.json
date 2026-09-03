@@ -1,0 +1,11 @@
+{
+  "task":"TASK_065_HASH_DEDUPE_MANIFEST",
+  "base_main_sha":"fd8bb682d6ccc34378bd9b96a0c2e925cea9e646",
+  "authorization":{"token_index":5,"scope":"OFFLINE_HASH_DEDUPE_CONTRACT"},
+  "content_identity":"SHA256_ONLY",
+  "same_title_or_size_is_duplicate":false,
+  "bronze_write_mode":"CREATE_ONLY",
+  "same_hash_behavior":"REUSE_IDENTITY_APPEND_PROVENANCE_ONLY",
+  "hard_boundaries":{"real_source_reads":0,"drive_writes":0,"layer_writes":0,"publications":0},
+  "result":"PASS_TASK065_HASH_DEDUPE_MANIFEST_OFFLINE_READY"
+}
