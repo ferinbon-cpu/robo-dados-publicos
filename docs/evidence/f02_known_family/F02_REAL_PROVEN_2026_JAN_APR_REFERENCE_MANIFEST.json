@@ -1,0 +1,55 @@
+{
+  "schema": "F02_KNOWN_FAMILY_BATCH_MANIFEST_V1",
+  "mode": "MANUAL_SUPERVISED_INGEST",
+  "batch_id": "F02_REAL_PROVEN_2026_JAN_APR_REFERENCE",
+  "batch_kind": "RREO_ALIGNED",
+  "reference_period": {
+    "start": "2026-01-01",
+    "end": "2026-04-30"
+  },
+  "sources": [
+    {
+      "source_id": "F02_RREO_MDE_2026_JAN_ABR",
+      "family": "RREO_MDE",
+      "role": "OFFICIAL_PRIMARY_FOR_MDE_CLAIMS",
+      "drive_file_id": "133MXfFVUUELPmYUb59oViU_vVbAEjukQ",
+      "expected_sha256": "539144ae70edbcb3ca4662b9460c869ad4b21a6e6b027f3f3c332a0372e08361",
+      "expected_bytes": 33147,
+      "expected_pages": 7,
+      "snapshot_path": "runtime/f02/2026_jan_apr/RREO_ANEXO_8_MDE_2026_JAN_ABR.pdf"
+    },
+    {
+      "source_id": "F02_FUNDEB_LOCAL_2026_POS_30_04",
+      "family": "FUNDEB_LOCAL",
+      "role": "LOCAL_FUNDEB_MONITORING",
+      "drive_file_id": "1MwN-1lVFrhAUU7OUczWT8URZFzc953-G",
+      "expected_sha256": "d7f1e986c765a6e726d74fc83360601bdc223c5fb3c76accc4a7b910c621f178",
+      "expected_bytes": 20195,
+      "expected_pages": 2,
+      "snapshot_path": "runtime/f02/2026_jan_apr/FUNDEB_TRANSPARENTE_2026_POS_30-04.pdf"
+    },
+    {
+      "source_id": "F02_MDE_25_LOCAL_2026_POS_30_04",
+      "family": "MDE_25_LOCAL",
+      "role": "AUXILIARY_MDE_25_PERCENT_MONITORING",
+      "drive_file_id": "1jZFegmlVnVdsQNcDf4D8hlu7DjwgydYI",
+      "expected_sha256": "abfa856939c617a40b51d26cbfff8bb2453de3acd0f1a00c13900f39631e3b2d",
+      "expected_bytes": 18956,
+      "expected_pages": 1,
+      "snapshot_path": "runtime/f02/2026_jan_apr/MDE_25PCT_2026_POS_30-04.pdf"
+    }
+  ],
+  "remote_effects_authorized": {
+    "bronze_write": false,
+    "silver_write": false,
+    "gold_write": false,
+    "serving": false,
+    "publication": false,
+    "site": false,
+    "overwrite": false,
+    "delete": false,
+    "move": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
