@@ -72,7 +72,8 @@
   "offline_hardening": {
     "policy_module": "robo_dados_publicos/reconciliation/contract_candidate_policy.py",
     "integration": "EXPLICIT_LIMEIRA_CONTRACTS_RESOLVER_DELEGATION_NO_IMPORT_TIME_MONKEY_PATCH",
-    "semantic_control_registry": "config/automation_policy.v1.json#semantic_controls/TASK_081_CONTRACT_CANDIDATE_POLICY",
+    "automation_policy_changed": false,
+    "automation_policy_reason": "SEMANTIC_CANDIDATE_QUALIFICATION_IS_NOT_AN_AUTOMATION_GATE",
     "requires_standalone_normalized_contract_reference": true,
     "rejects_ambiguous_multiple_references_inside_contract_cell": true,
     "does_not_infer_separate_cell_role_from_slash_syntax": true,
