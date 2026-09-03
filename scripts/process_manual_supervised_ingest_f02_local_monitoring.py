@@ -6,7 +6,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from robo_dados_publicos.manual_ingest.mde_fundeb import validate_f02_source_bytes
+from robo_dados_publicos.manual_ingest.mde_fundeb import F02IngestStop, validate_f02_source_bytes
 from robo_dados_publicos.manual_ingest.mde_fundeb_local_monitoring import (
     load_f02_local_monitoring_plan,
     normalize_f02_local_monitoring_document,
@@ -54,7 +54,7 @@ def main() -> int:
         reference["start"],
         reference["end"],
     ):
-        raise ValueError("STOP_F02_LOCAL_REFERENCE_PERIOD_MISMATCH")
+        raise F02IngestStop("STOP_F02_LOCAL_REFERENCE_PERIOD_MISMATCH")
 
     core = {
         "schema": "F02_LOCAL_MONITORING_SILVER_CANDIDATE_V1",
