@@ -1,0 +1,3 @@
+{
+ "task":"TASK_066_AUTO_INGEST_DRY_RUN_EXECUTOR","base_main_sha":"794a7d6b774d8e691e989c5ff496ce95236c1cfa","authorization":{"token_index":6,"scope":"OFFLINE_INTEGRATED_DRY_RUN"},"integrates":["drive_ingestion_controller.v2","source_family_maturity_registry.v1","ingestion_execution_policy.v1"],"plan_states":["ELIGIBLE","REVIEW","QUARANTINE","BLOCKED_MATURITY","BLOCKED_POLICY"],"remote_effects":0,"result":"PASS_TASK066_INTEGRATED_AUTO_INGEST_DRY_RUN_OFFLINE_READY"
+}
