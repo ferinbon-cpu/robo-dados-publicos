@@ -1,6 +1,6 @@
 # TASK 081 — bounded stateful municipal contract resolver
 
-Fresh owner authorization is the user's 2026-09-03 instruction `Prossiga com o robo entao`, interpreted only for this bounded step.
+Fresh owner authorization is the user's 2026-09-03 instruction `Prossiga com o robo entao`, interpreted only for this bounded step. The consumed authorization is recorded transparently in `docs/evidence/TASK_081_BOUNDED_STATEFUL_CONTRACT_RESOLVER_OWNER_AUTHORIZATION_0.8.0.json`; that repository record was materialized after the bounded run and explicitly does not claim to have been a pre-run repository gate.
 
 ## Exact scope
 
