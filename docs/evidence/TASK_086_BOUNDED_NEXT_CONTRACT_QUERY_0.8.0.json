@@ -1,0 +1,81 @@
+{
+  "schema": "TASK_086_BOUNDED_NEXT_CONTRACT_QUERY_EVIDENCE_V1",
+  "task": "TASK_086_BOUNDED_NEXT_CONTRACT_QUERY",
+  "software_version": "0.8.0",
+  "base_main_sha": "44ed6cf24100317bce62252f03eeb0b1b6ab3995",
+  "authorization": {
+    "source": "OWNER_CHAT_INSTRUCTION_2026-09-03",
+    "instruction": "Prossiga",
+    "interpreted_scope": "ONE_BOUNDED_STATEFUL_LIMEIRA_CONTRATOS_QUERY_FOR_RECTASK_6600049d5284824e9a0a44a6_MAX_3_HTTP_REQUESTS_NO_REMOTE_WRITES",
+    "single_execution": true,
+    "consumed": true,
+    "retry_authorized": false,
+    "future_execution_authorized": false
+  },
+  "selected_task": {
+    "task_id": "RECTASK_6600049d5284824e9a0a44a6",
+    "origin_event_id": "JOEV_2bcf692890e87257ecad",
+    "origin_source_id": "LIMEIRA_JO_07024",
+    "target_source": "LIMEIRA_CONTRATOS",
+    "year": 2024,
+    "contract_number": "170/2024",
+    "cnpj": "51656458000134",
+    "contractor": "Consil Sistema Prevenção Contra Incêndio Ltda",
+    "process_hint": "900.711/2025"
+  },
+  "pre_run_chain": {
+    "task_contract_commit_sha": "6ce5e4b9cc8f7c20d18f383a67ae82d2993e84ec",
+    "execution_head_sha": "53f214ab64bdd1d475811586ea062362ae6d2ae3",
+    "workflow_path_at_execution": ".github/workflows/task-086-contract-resolver-live-once.yml",
+    "workflow_removed_after_run": true,
+    "documentation_snapshot": "docs/evidence/TASK_086_PRE_RUN_GATE_SOURCE_SNAPSHOT_0.8.0.md"
+  },
+  "live_run": {
+    "run_id": 33788639843,
+    "job_id": 100759492906,
+    "run_number": 1,
+    "event": "push",
+    "head_sha": "53f214ab64bdd1d475811586ea062362ae6d2ae3",
+    "conclusion": "success",
+    "resolver_status": "NO_MATCH",
+    "candidate_count": 0,
+    "candidate_summaries": [],
+    "request_count": 3,
+    "result_canonical_sha256": "80cd4dd6ffe018eb3cd019e6b453d750265dd0199bb288ba077ee58fa4955f61"
+  },
+  "artifact": {
+    "id": 9906411493,
+    "name": "task-086-bounded-contract-resolver-evidence",
+    "size_in_bytes": 1708,
+    "digest": "sha256:27bdf72489ed68deecc21d7a09d2c17a5328c2a2a88d9951b9af2468e39da797",
+    "retention_days": 1
+  },
+  "remote_budget": {
+    "maximum_http_requests": 3,
+    "actual_http_requests": 3,
+    "same_origin_only": true,
+    "allowed_host": "serv42.limeira.sp.gov.br",
+    "fourth_request_fail_closed": true
+  },
+  "semantic_interpretation": {
+    "result": "NO_COMPATIBLE_CANDIDATE_IN_INTERPRETABLE_QUERY_RESULT",
+    "contract_identity_asserted": false,
+    "financial_identity_asserted": false,
+    "object_similarity_used_for_promotion": false,
+    "global_absence_outside_this_bounded_query_asserted": false
+  },
+  "hard_boundaries": {
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "state_registry_writes": 0,
+    "queue_writes": 0,
+    "serving_writes": 0,
+    "publications": 0,
+    "source_moves": 0,
+    "source_deletes": 0,
+    "schedule_added": false,
+    "recurrence_added": false,
+    "automatic_retry": false
+  },
+  "result": "PASS_TASK086_ONE_BOUNDED_QUERY_COMPLETED_NO_COMPATIBLE_CANDIDATE"
+}
