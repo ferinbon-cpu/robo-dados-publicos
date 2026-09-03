@@ -223,7 +223,18 @@ def render_xlsx(plan: MaterializationPlan, contract: dict | None = None) -> byte
             info = ZipInfo(name, (2000, 1, 1, 0, 0, 0))
             info.compress_type = ZIP_DEFLATED
             info.external_attr = 0o600 << 16
-            out.writestr(info, source.read(name))
+            payload = source.read(name)
+            if name == "docProps/core.xml":
+                for tag in (b"created", b"modified"):
+                    pattern = (
+                        rb"(<dcterms:" + tag + rb"\b[^>]*>)[^<]*(</dcterms:" + tag + rb">)"
+                    )
+                    payload = re.sub(
+                        pattern,
+                        rb"\g<1>2000-01-01T00:00:00Z\g<2>",
+                        payload,
+                    )
+            out.writestr(info, payload)
     return target.getvalue()
 
 
