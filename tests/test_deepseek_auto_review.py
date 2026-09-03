@@ -1,16 +1,30 @@
-import json
-from pathlib import Path
 import unittest
+from pathlib import Path
 
 from robo_dados_publicos.automation.deepseek_review import DeepSeekReviewError
 from scripts.deepseek_pr_review_auto import (
     build_comment,
+    classify_review,
     comment_marker,
     load_auto_policy,
+    sanitize_review,
     validate_same_repo_head,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def review_payload(*, verdict="PASS", blockers=None):
+    return {
+        "verdict": verdict,
+        "summary": "Review summary.",
+        "blocking_findings": list(blockers or []),
+        "non_blocking_findings": [],
+        "security_findings": [],
+        "governance_findings": [],
+        "missing_tests": [],
+        "suggested_changes": [],
+    }
 
 
 class TestDeepSeekAutoReview(unittest.TestCase):
@@ -24,11 +38,16 @@ class TestDeepSeekAutoReview(unittest.TestCase):
         self.assertFalse(trigger["pull_request_target"])
         self.assertFalse(trigger["schedule"])
         self.assertEqual(
-            {"contents": "read", "pull_requests": "read", "issues": "write"},
+            {"contents": "read", "pull_requests": "read"},
             policy["github_permissions"],
         )
+        gate = policy["review_gate_contract"]
+        self.assertTrue(gate["model_verdict_alone_is_not_a_merge_gate"])
+        self.assertEqual("NONEMPTY_BLOCKING_FINDINGS", gate["blocking_signal"])
+        self.assertTrue(gate["full_sanitized_review_must_be_logged"])
         blocked = set(policy["blocked_capabilities"])
         self.assertTrue({"direct_main_write", "branch_write", "github_code_write", "self_merge"} <= blocked)
+        self.assertTrue({"github_issue_write", "github_pull_request_comment_write"} <= blocked)
         self.assertTrue({"drive_read", "drive_write", "publication"} <= blocked)
 
     def test_workflow_uses_trusted_workflow_run_not_pr_secret_trigger(self):
@@ -41,7 +60,7 @@ class TestDeepSeekAutoReview(unittest.TestCase):
         self.assertIn("ref: ${{ github.event.repository.default_branch }}", text)
         self.assertIn("contents: read", text)
         self.assertIn("pull-requests: read", text)
-        self.assertIn("issues: write", text)
+        self.assertNotIn("issues: write", text)
         self.assertNotIn("contents: write", text)
         self.assertNotIn("pull-requests: write", text)
         self.assertNotIn("secrets: inherit", text)
@@ -63,19 +82,40 @@ class TestDeepSeekAutoReview(unittest.TestCase):
         with self.assertRaisesRegex(DeepSeekReviewError, "HEAD_SHA_MISMATCH"):
             validate_same_repo_head(moved, repository="owner/repo", expected_head_sha="abc")
 
+    def test_changes_requested_without_concrete_blocker_is_advisory(self):
+        result = classify_review(review_payload(verdict="CHANGES_REQUESTED"))
+        self.assertEqual("ADVISORY", result["deepseek_gate_decision"])
+        self.assertEqual("REVIEW", result["effective_verdict"])
+        self.assertEqual(0, result["blocking_findings_count"])
+
+    def test_concrete_blocking_finding_is_the_only_deepseek_block_signal(self):
+        result = classify_review(
+            review_payload(
+                verdict="CHANGES_REQUESTED",
+                blockers=[{"severity": "BLOCKER", "detail": "Exact deterministic defect."}],
+            )
+        )
+        self.assertEqual("BLOCK", result["deepseek_gate_decision"])
+        self.assertEqual("CHANGES_REQUESTED", result["effective_verdict"])
+        self.assertEqual(1, result["blocking_findings_count"])
+
+    def test_blocking_finding_cannot_be_hidden_behind_pass_verdict(self):
+        result = classify_review(
+            review_payload(verdict="PASS", blockers=["Concrete blocker despite inconsistent verdict."])
+        )
+        self.assertEqual("BLOCK", result["deepseek_gate_decision"])
+        self.assertEqual("CHANGES_REQUESTED", result["effective_verdict"])
+
+    def test_review_output_is_redacted_before_log_or_summary_materialization(self):
+        review = review_payload(verdict="REVIEW")
+        review["summary"] = "SAMPLE_API_KEY=abcdefghijklmnop should never be logged"
+        safe = sanitize_review(review)
+        self.assertNotIn("abcdefghijklmnop", safe["summary"])
+        self.assertIn("[REDACTED]", safe["summary"])
+
     def test_comment_is_bound_to_reviewed_head(self):
-        review = {
-            "verdict": "PASS",
-            "summary": "No blocker.",
-            "blocking_findings": [],
-            "non_blocking_findings": [],
-            "security_findings": [],
-            "governance_findings": [],
-            "missing_tests": [],
-            "suggested_changes": [],
-        }
         body = build_comment(
-            review,
+            review_payload(),
             head_sha="a" * 40,
             model="deepseek-v4-flash",
             upstream_conclusion="success",
