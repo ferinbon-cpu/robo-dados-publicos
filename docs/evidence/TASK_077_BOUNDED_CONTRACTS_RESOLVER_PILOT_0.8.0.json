@@ -1,0 +1,80 @@
+{
+  "task": "TASK_077_BOUNDED_CONTRACTS_RESOLVER_PILOT",
+  "software_version": "0.8.0",
+  "base_main_sha": "fe34e13b0a476c74adf6356ed85f19e5433a7f35",
+  "authorization": {
+    "token_index": 7,
+    "token_count": 7,
+    "scope": "SELECT_ONE_READY_SEARCH_LIMEIRA_CONTRATOS_TASK_AND_ATTEMPT_ONE_BOUNDED_READ_ONLY_REMOTE_PILOT"
+  },
+  "source_plan": {
+    "drive_id": "11Yb8zIF5g4sTgAp1yhraWFixVFrLcBXs",
+    "sha256": "faf27576b5b2c3b3c542ae41eeac90c415da1d2f50b6ae8021e1c04bf246d7bc",
+    "tasks": 65,
+    "eligible_ready_limeira_contratos_tasks": 5
+  },
+  "selection": {
+    "rule": "FIRST_TASK_IN_PERSISTED_CANONICAL_ORDER_WHERE_STATUS_READY_SEARCH_AND_TARGET_LIMEIRA_CONTRATOS",
+    "task_id": "RECTASK_39a82b72abdffa19e0dba705",
+    "task_canonical_sha256": "33b6ae9cf63368f44f1f30225e15d27edebbaf5386c5e5c16563c38ee7ade2ca",
+    "origin_event_id": "JOEV_00c81f5db32efcd0414f",
+    "origin_source_id": "LIMEIRA_JO_07127",
+    "task_type": "FIND_CONTRACT_RECORD",
+    "priority": 100,
+    "minimum_link_confidence": "A",
+    "match_keys": {
+      "year": 2025,
+      "contract_number": "09/2025.",
+      "cnpj": "12226306000140"
+    },
+    "search_hints": {
+      "process_number": "29.185/2025.",
+      "object_text": "contratação de empresa para instalação e desinstalação de ar condicionado"
+    }
+  },
+  "resolver_contract": {
+    "class": "LimeiraContractsResolver",
+    "implementation_path": "robo_dados_publicos/reconciliation/resolvers.py",
+    "implementation_blob_sha": "1e563a133d7d1bf4d72ac5c4e1d33aea6bee349e",
+    "minimum_search_key_present": true,
+    "identity_rule": "Não promover identidade por nome/objeto isolado. Preferir número do contrato + ano e, quando disponível, CNPJ/processo."
+  },
+  "remote_pilot": {
+    "selected_task_budget": 1,
+    "selected_tasks_attempted": 1,
+    "target_url": "https://serv42.limeira.sp.gov.br/ncweb/cns_contratos_web_mestre/",
+    "transport": "READ_ONLY_PUBLIC_SURFACE_FETCH",
+    "surface_reached": true,
+    "surface_title": "PESQUISA - CONTRATOS / CONVÊNIOS / ATAS / LOCAÇÕES",
+    "observed_search_fields": [
+      "Ano de Pesquisa",
+      "Numero do Contrato",
+      "Tipo de Documento",
+      "Objeto",
+      "Fornecedor"
+    ],
+    "form_query_submitted": false,
+    "resolver_completed": false,
+    "candidate_records_returned": 0,
+    "no_match_asserted": false,
+    "stop_reason": "STOP_STATEFUL_FORM_QUERY_NOT_EXECUTED_WITHIN_BOUNDED_PILOT"
+  },
+  "semantic_audit": {
+    "match_candidate_promotions": 0,
+    "financial_identity_assertions": 0,
+    "contract_identity_assertions": 0,
+    "no_match_assertions": 0,
+    "candidate_evidence_only": true
+  },
+  "hard_boundaries": {
+    "drive_writes": 0,
+    "drive_overwrites": 0,
+    "state_registry_writes": 0,
+    "queue_writes": 0,
+    "serving_writes": 0,
+    "publications": 0,
+    "source_moves": 0,
+    "source_deletes": 0
+  },
+  "result": "STOP_TASK077_PUBLIC_CONTRACTS_SEARCH_SURFACE_REACHED_FORM_QUERY_NOT_EXECUTED_NO_IDENTITY_ASSERTION"
+}
