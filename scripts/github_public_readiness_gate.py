@@ -7,8 +7,8 @@ adds repository-specific, fail-closed decisions needed before public visibility:
 - environment-variable *names* and explicit test non-propagation sentinels are
   treated as placeholders, not credential values;
 - synthetic binary fixtures are allowlisted only by exact Git blob identity;
-- the TASK 080 DeepSeek `workflow_run` review is closed only while its exact
-  trusted-default-branch and no-PR-code trust boundary remains intact.
+- the TASK 080/082 DeepSeek `workflow_run` review is closed only while its exact
+  trusted-default-branch, read-only and no-PR-code trust boundary remains intact.
 
 No matched secret value is emitted.
 """
@@ -122,8 +122,14 @@ def _deepseek_auto_workflow_is_exactly_bounded() -> bool:
     if policy.get("github_permissions") != {
         "contents": "read",
         "pull_requests": "read",
-        "issues": "write",
     }:
+        return False
+    gate = policy.get("review_gate_contract") or {}
+    if gate.get("model_verdict_alone_is_not_a_merge_gate") is not True:
+        return False
+    if gate.get("blocking_signal") != "NONEMPTY_BLOCKING_FINDINGS":
+        return False
+    if gate.get("full_sanitized_review_must_be_logged") is not True:
         return False
 
     required_text = (
@@ -135,7 +141,6 @@ def _deepseek_auto_workflow_is_exactly_bounded() -> bool:
         "persist-credentials: false",
         "contents: read",
         "pull-requests: read",
-        "issues: write",
         "DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}",
         "python scripts/deepseek_pr_review_auto.py",
     )
@@ -148,6 +153,7 @@ def _deepseek_auto_workflow_is_exactly_bounded() -> bool:
         r"(?m)^\s*schedule\s*:",
         r"(?m)^\s*contents\s*:\s*write\s*$",
         r"(?m)^\s*pull-requests\s*:\s*write\s*$",
+        r"(?m)^\s*issues\s*:\s*write\s*$",
         r"(?m)^\s*id-token\s*:\s*write\s*$",
     )
     if any(re.search(pattern, workflow, flags=re.I) for pattern in forbidden):
@@ -168,6 +174,8 @@ def _deepseek_auto_workflow_is_exactly_bounded() -> bool:
         "direct_main_write",
         "branch_write",
         "github_code_write",
+        "github_issue_write",
+        "github_pull_request_comment_write",
         "self_merge",
         "drive_read",
         "drive_write",

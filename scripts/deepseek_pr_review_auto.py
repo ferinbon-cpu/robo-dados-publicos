@@ -3,11 +3,15 @@
 
 The worker is loaded from the default branch via `workflow_run`, never checks out
 or executes pull-request code, and makes no GitHub/Drive mutations. The validated
-review is written only to local runtime files consumed by the Actions job summary.
+review is written to local runtime files consumed by the Actions job summary and
+is also emitted, after secret redaction, to the job log between stable markers so
+an orchestrator can inspect concrete findings without treating an opaque model
+verdict as a merge gate.
 """
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -23,6 +27,7 @@ from robo_dados_publicos.automation.deepseek_review import (  # noqa: E402
     DeepSeekClient,
     DeepSeekReviewError,
     build_context_pack,
+    redact_secrets,
     render_markdown,
 )
 
@@ -30,6 +35,8 @@ POLICY_PATH = ROOT / "config/deepseek_auto_review_policy.v1.json"
 PASS_AUTO = "PASS_DEEPSEEK_AUTOMATIC_PR_REVIEW_READONLY"
 SKIP_NOT_OPEN = "SKIP_DEEPSEEK_AUTOMATIC_PR_NOT_OPEN"
 SKIP_DRAFT = "SKIP_DEEPSEEK_AUTOMATIC_PR_DRAFT"
+REVIEW_JSON_BEGIN = "BEGIN_DEEPSEEK_ACTIONABLE_REVIEW_JSON"
+REVIEW_JSON_END = "END_DEEPSEEK_ACTIONABLE_REVIEW_JSON"
 
 
 def _stop(code: str) -> None:
@@ -46,7 +53,8 @@ def load_auto_policy(path: str | Path = POLICY_PATH) -> dict[str, Any]:
     trigger = policy.get("trigger_contract")
     perms = policy.get("github_permissions")
     api = policy.get("api")
-    if not isinstance(trigger, dict) or not isinstance(perms, dict) or not isinstance(api, dict):
+    gate = policy.get("review_gate_contract")
+    if not all(isinstance(item, dict) for item in (trigger, perms, api, gate)):
         _stop("INVALID_POLICY")
     if trigger.get("event") != "workflow_run":
         _stop("INVALID_POLICY")
@@ -62,7 +70,13 @@ def load_auto_policy(path: str | Path = POLICY_PATH) -> dict[str, Any]:
         _stop("INVALID_POLICY")
     if trigger.get("schedule") is not False or trigger.get("recurrence") is not False:
         _stop("INVALID_POLICY")
-    if perms != {"contents": "read", "pull_requests": "read", "issues": "write"}:
+    if perms != {"contents": "read", "pull_requests": "read"}:
+        _stop("INVALID_POLICY")
+    if gate.get("model_verdict_alone_is_not_a_merge_gate") is not True:
+        _stop("INVALID_POLICY")
+    if gate.get("blocking_signal") != "NONEMPTY_BLOCKING_FINDINGS":
+        _stop("INVALID_POLICY")
+    if gate.get("full_sanitized_review_must_be_logged") is not True:
         _stop("INVALID_POLICY")
     allowed = api.get("allowed_models")
     if not isinstance(allowed, list) or api.get("default_model") not in allowed:
@@ -123,6 +137,63 @@ def validate_same_repo_head(meta: dict[str, Any], *, repository: str, expected_h
         _stop("HEAD_SHA_MISMATCH")
 
 
+def sanitize_review(value: Any) -> Any:
+    """Recursively redact secret-like strings before any persisted/logged output."""
+
+    if isinstance(value, str):
+        return redact_secrets(value)
+    if isinstance(value, list):
+        return [sanitize_review(item) for item in value]
+    if isinstance(value, dict):
+        return {str(key): sanitize_review(item) for key, item in value.items()}
+    return value
+
+
+def classify_review(review: dict[str, Any]) -> dict[str, Any]:
+    """Turn model output into an explicit, deterministic advisory/block signal.
+
+    A raw `CHANGES_REQUESTED` string is never sufficient to block. A DeepSeek
+    review blocks only when it contains at least one concrete `blocking_findings`
+    entry. CI and repository policy remain separate gates.
+    """
+
+    blockers = review.get("blocking_findings") or []
+    if not isinstance(blockers, list):
+        _stop("INVALID_REVIEW_BLOCKING_FINDINGS")
+    model_verdict = str(review.get("verdict") or "")
+    blocking_count = len(blockers)
+    if blocking_count:
+        gate_decision = "BLOCK"
+        effective_verdict = "CHANGES_REQUESTED"
+    elif model_verdict == "PASS":
+        gate_decision = "PASS"
+        effective_verdict = "PASS"
+    else:
+        gate_decision = "ADVISORY"
+        effective_verdict = "REVIEW"
+
+    list_fields = (
+        "blocking_findings",
+        "non_blocking_findings",
+        "security_findings",
+        "governance_findings",
+        "missing_tests",
+        "suggested_changes",
+    )
+    counts: dict[str, int] = {}
+    for field in list_fields:
+        items = review.get(field) or []
+        if not isinstance(items, list):
+            _stop("INVALID_REVIEW_FINDING_LIST")
+        counts[f"{field}_count"] = len(items)
+    return {
+        "model_verdict": model_verdict,
+        "effective_verdict": effective_verdict,
+        "deepseek_gate_decision": gate_decision,
+        **counts,
+    }
+
+
 # Compatibility-only formatters retained for the existing focused tests. They
 # are not used by the automatic execution path and perform no remote effects.
 def comment_marker(head_sha: str) -> str:
@@ -143,16 +214,27 @@ def build_comment(review: dict[str, Any], *, head_sha: str, model: str, upstream
     )
 
 
-def build_report(review: dict[str, Any], *, head_sha: str, model: str, upstream_conclusion: str) -> str:
+def build_report(
+    review: dict[str, Any],
+    *,
+    head_sha: str,
+    model: str,
+    upstream_conclusion: str,
+    gate_decision: str | None = None,
+) -> str:
     body = render_markdown(review)
+    gate_line = f"DeepSeek gate: `{gate_decision}`  \n" if gate_decision else ""
     return (
         "## DeepSeek automatic review\n\n"
         f"Reviewed head: `{head_sha}`  \n"
         f"Model: `{model}`  \n"
-        f"Upstream CI: `{upstream_conclusion}`\n\n"
+        f"Upstream CI: `{upstream_conclusion}`  \n"
+        f"{gate_line}\n"
         f"{body}"
         "\n---\n"
-        "Automatic read-only review. No code, PR, Drive, source, or publication write occurred.\n"
+        "Automatic read-only review. Model verdict alone is not a merge gate; "
+        "only concrete blocking findings produce DeepSeek `BLOCK`. No code, PR, "
+        "Drive, source, or publication write occurred.\n"
     )
 
 
@@ -199,12 +281,17 @@ def main() -> int:
             pr_diff=diff,
             policy=policy,
         )
-        review = DeepSeekClient(api_key=api_key, policy=policy).review(context, model=model)
+        raw_review = DeepSeekClient(api_key=api_key, policy=policy).review(context, model=model)
+        review = sanitize_review(raw_review)
+        classification = classify_review(review)
+        review_json = json.dumps(review, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        review_sha256 = hashlib.sha256(review_json.encode("utf-8")).hexdigest()
         report = build_report(
             review,
             head_sha=args.expected_head_sha,
             model=model,
             upstream_conclusion=args.upstream_conclusion,
+            gate_decision=classification["deepseek_gate_decision"],
         )
         summary = {
             "status": PASS_AUTO,
@@ -213,17 +300,21 @@ def main() -> int:
             "context_sha256": context.sha256,
             "context_chars": context.chars,
             "context_truncated": context.truncated,
+            "review_sha256": review_sha256,
             "deepseek_requests": 1,
             "github_reads": 2,
             "github_writes": 0,
             "drive_reads": 0,
             "drive_writes": 0,
             "publication": False,
-            "verdict": review["verdict"],
+            **classification,
         }
         write_outputs(Path(args.output), Path(args.summary_json), report, summary)
         print(PASS_AUTO)
         print(json.dumps(summary, ensure_ascii=False, sort_keys=True))
+        print(REVIEW_JSON_BEGIN)
+        print(review_json)
+        print(REVIEW_JSON_END)
         return 0
     except DeepSeekReviewError as exc:
         print(str(exc), file=sys.stderr)
