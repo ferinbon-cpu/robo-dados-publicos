@@ -52,7 +52,7 @@ def load_auto_policy(path: str | Path = POLICY_PATH) -> dict[str, Any]:
         _stop("INVALID_POLICY")
     if trigger.get("event") != "workflow_run":
         _stop("INVALID_POLICY")
-    if trigger.get("upstream_workflow_name") != "CI offline 0.8.0 candidate M7":
+    if trigger.get("upstream_workflow_name") != "CI OFFLINE":
         _stop("INVALID_POLICY")
     if trigger.get("same_repository_head_required") is not True:
         _stop("INVALID_POLICY")
