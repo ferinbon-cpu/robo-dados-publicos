@@ -1,0 +1,14 @@
+{
+  "task": "TASK_069_JORNAL_BOUNDED_EXECUTION_BINDING",
+  "base_main_sha": "09295c36650bc44bc01c30ba7f5bbd749b5c8303",
+  "authorization": {"token_index": 9, "scope": "OFFLINE_JORNAL_BOUNDED_EXECUTION_BINDING"},
+  "family": "JORNAL_OFICIAL",
+  "checkpoint": {"highest_edition": 7315, "frontier_publication_date": "2026-08-29", "item_count": 12},
+  "bounded_discovery": {"max_requests": 8, "max_pages": 8, "max_new_items": 8, "downloads": 0},
+  "recurrence_status": "NOT_GLOBALLY_PROMOTED",
+  "schedule_authorized": false,
+  "live_execution_authorized_by_task_069": false,
+  "downstream_auto_promotion": false,
+  "hard_boundaries": {"source_network_requests": 0, "source_content_reads": 0, "drive_writes": 0, "layer_writes": 0, "publications": 0},
+  "result": "PASS_TASK069_JORNAL_BOUNDED_EXECUTION_BINDING_OFFLINE_READY_FOR_SEPARATE_LIVE_GATE"
+}
