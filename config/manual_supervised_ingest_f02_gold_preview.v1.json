@@ -1,0 +1,87 @@
+{
+  "schema": "F02_GOLD_PREVIEW_CONFIG_V1",
+  "mode": "OFFLINE_GOLD_PREVIEW",
+  "batch": "F02_MDE_FUNDEB_2026_GOLD_PREVIEW",
+  "silver_inputs": [
+    {
+      "input_id": "F02_SILVER_JAN_APR",
+      "drive_file_id": "1YmINhBM_jE2BnsYrVN5BuZMv5mE4ElmP",
+      "file_name": "F02_MDE_FUNDEB_2026_JAN_ABR__72cc2cb29990__silver_v1.json",
+      "expected_bytes": 7269,
+      "expected_sha256": "fe76d088143e61b9f0d5b1f611757bee924b5a2c95abae5fa5908b1b85b742f9",
+      "expected_logical_sha256": "72cc2cb29990809c043877ef8b0ef19d61f1064b093ef58fdb8fcc0f87386c81",
+      "expected_schema": "F02_MDE_FUNDEB_SILVER_V1",
+      "expected_status": "SILVER_SCOPED_VALIDATED"
+    },
+    {
+      "input_id": "F02_SILVER_JAN_MAY_LOCAL",
+      "drive_file_id": "10GNOfBEKJOgRNS0Ord2asR2UdwKc1gse",
+      "file_name": "F02_LOCAL_MONITORING_2026_JAN_MAY__d244b94d04f9__silver_v1.json",
+      "expected_bytes": 6769,
+      "expected_sha256": "ec1cb12dec7349cd391ed12ad9654d598136781acca0138bf6bc286f35827a42",
+      "expected_logical_sha256": "d244b94d04f954c01771d9a416d97814fd163a0ecb693003677becfde06bf1a1",
+      "expected_schema": "F02_LOCAL_MONITORING_SILVER_V1",
+      "expected_status": "SILVER_PROMOTED_VALIDATED_LOCAL_MONITORING_ONLY"
+    }
+  ],
+  "required_observations": [
+    {
+      "observation_id": "MDE_OFFICIAL_PARTIAL_2026_JAN_APR",
+      "metric": "mde_percent",
+      "period_start": "2026-01-01",
+      "period_end": "2026-04-30",
+      "authority": "OFFICIAL_MDE_PRIMARY",
+      "claim_class": "OFFICIAL_PARTIAL_OBSERVATION_NOT_ANNUAL_COMPLIANCE",
+      "source_input_id": "F02_SILVER_JAN_APR"
+    },
+    {
+      "observation_id": "MDE_LOCAL_MONITORING_2026_JAN_MAY",
+      "metric": "education_expense_liquidated_percent",
+      "period_start": "2026-01-01",
+      "period_end": "2026-05-31",
+      "authority": "AUXILIARY_LOCAL_MONITORING",
+      "claim_class": "LOCAL_MONITORING_ONLY_NOT_OFFICIAL_MDE",
+      "source_input_id": "F02_SILVER_JAN_MAY_LOCAL"
+    },
+    {
+      "observation_id": "FUNDEB_PROFESSIONALS_OFFICIAL_PARTIAL_2026_JAN_APR",
+      "metric": "fundeb_professionals_percent",
+      "period_start": "2026-01-01",
+      "period_end": "2026-04-30",
+      "authority": "OFFICIAL_MDE_PRIMARY",
+      "claim_class": "OFFICIAL_PARTIAL_OBSERVATION_NOT_ANNUAL_COMPLIANCE",
+      "source_input_id": "F02_SILVER_JAN_APR"
+    },
+    {
+      "observation_id": "FUNDEB_PROFESSIONALS_LOCAL_MONITORING_2026_JAN_MAY",
+      "metric": "fundeb_professionals_liquidated_percent_local",
+      "period_start": "2026-01-01",
+      "period_end": "2026-05-31",
+      "authority": "LOCAL_MONITORING_NO_OFFICIAL_RREO_PERIOD_MATCH",
+      "claim_class": "LOCAL_MONITORING_ONLY_NOT_OFFICIAL_COMPLIANCE",
+      "source_input_id": "F02_SILVER_JAN_MAY_LOCAL"
+    }
+  ],
+  "semantic_policy": {
+    "allow_imputation": false,
+    "allow_period_collapsing": false,
+    "allow_authority_collapsing": false,
+    "allow_annual_compliance_claim": false,
+    "allow_local_mde_as_official": false,
+    "require_source_silver_identity_per_observation": true
+  },
+  "effects": {
+    "source_network_authorized": false,
+    "drive_network_authorized": false,
+    "drive_write_count": 0,
+    "gold_persistence_authorized": false,
+    "serving_authorized": false,
+    "publication_authorized": false,
+    "site_mutation_authorized": false,
+    "delete_authorized": false,
+    "move_authorized": false,
+    "overwrite_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false
+  }
+}
