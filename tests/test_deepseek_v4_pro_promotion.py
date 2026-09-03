@@ -4,6 +4,8 @@ import json
 import unittest
 from pathlib import Path
 
+from robo_dados_publicos.automation.deepseek_review import ContextPack, build_review_payload
+
 ROOT = Path(__file__).resolve().parents[1]
 AUTO = ROOT / "config/deepseek_auto_review_policy.v1.json"
 AGENT = ROOT / "config/deepseek_agent_policy.v1.json"
@@ -32,8 +34,14 @@ class DeepSeekV4ProPromotionTests(unittest.TestCase):
         self.assertNotIn("contents: write", workflow)
         self.assertNotIn("pull-requests: write", workflow)
         self.assertIn("persist-credentials: false", workflow)
-        self.assertIn("deepseek_api_key: " + "$" + "{{ secrets.deepseek_api_key }}", workflow)
+        self.assertIn("deepseek_api_key: ${{ secrets.deepseek_api_key }}", workflow)
         self.assertIn("ref: " + "$" + "{{ github.event.repository.default_branch }}", workflow)
+
+    def test_payload_without_explicit_model_uses_pro_default(self):
+        context = ContextPack(text="bounded-review-context", sha256="0" * 64, chars=22, truncated=False)
+        policy = json.loads(AGENT.read_text(encoding="utf-8"))
+        payload = build_review_payload(context, policy=policy)
+        self.assertEqual(payload["model"], "deepseek-v4-pro")
 
     def test_safety_boundary_is_unchanged(self):
         policy = json.loads(AUTO.read_text(encoding="utf-8"))
