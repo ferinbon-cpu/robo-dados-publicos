@@ -32,7 +32,8 @@
       "period_end": "2026-04-30",
       "authority": "OFFICIAL_MDE_PRIMARY",
       "claim_class": "OFFICIAL_PARTIAL_OBSERVATION_NOT_ANNUAL_COMPLIANCE",
-      "source_input_id": "F02_SILVER_JAN_APR"
+      "source_input_id": "F02_SILVER_JAN_APR",
+      "source_family": "RREO_MDE"
     },
     {
       "observation_id": "MDE_LOCAL_MONITORING_2026_JAN_MAY",
@@ -41,7 +42,8 @@
       "period_end": "2026-05-31",
       "authority": "AUXILIARY_LOCAL_MONITORING",
       "claim_class": "LOCAL_MONITORING_ONLY_NOT_OFFICIAL_MDE",
-      "source_input_id": "F02_SILVER_JAN_MAY_LOCAL"
+      "source_input_id": "F02_SILVER_JAN_MAY_LOCAL",
+      "source_family": "MDE_25_LOCAL"
     },
     {
       "observation_id": "FUNDEB_PROFESSIONALS_OFFICIAL_PARTIAL_2026_JAN_APR",
@@ -50,7 +52,8 @@
       "period_end": "2026-04-30",
       "authority": "OFFICIAL_MDE_PRIMARY",
       "claim_class": "OFFICIAL_PARTIAL_OBSERVATION_NOT_ANNUAL_COMPLIANCE",
-      "source_input_id": "F02_SILVER_JAN_APR"
+      "source_input_id": "F02_SILVER_JAN_APR",
+      "source_family": "RREO_MDE"
     },
     {
       "observation_id": "FUNDEB_PROFESSIONALS_LOCAL_MONITORING_2026_JAN_MAY",
@@ -59,7 +62,8 @@
       "period_end": "2026-05-31",
       "authority": "LOCAL_MONITORING_NO_OFFICIAL_RREO_PERIOD_MATCH",
       "claim_class": "LOCAL_MONITORING_ONLY_NOT_OFFICIAL_COMPLIANCE",
-      "source_input_id": "F02_SILVER_JAN_MAY_LOCAL"
+      "source_input_id": "F02_SILVER_JAN_MAY_LOCAL",
+      "source_family": "FUNDEB_LOCAL"
     }
   ],
   "semantic_policy": {
