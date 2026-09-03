@@ -7,6 +7,7 @@
   "non_executable_source_snapshot": "docs/evidence/TASK_081_PRE_RUN_GATE_SOURCE_SNAPSHOT_0.8.0.md",
   "pre_run_task_contract": {
     "commit_sha": "4502c552593b4e01d7c1c272e6bd1304fe034be1",
+    "commit_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/commit/4502c552593b4e01d7c1c272e6bd1304fe034be1",
     "commit_timestamp": "2026-09-03T13:23:05Z",
     "commit_message": "TASK 081: define bounded stateful contracts resolver scope",
     "path": "docs/tasks/CODEX_TASK_081_BOUNDED_STATEFUL_CONTRACT_RESOLVER.md",
@@ -20,6 +21,8 @@
   },
   "pre_run_branch_local_gate": {
     "commit_sha": "c1ffc0ca8572308936b643672e03feccd9a3c978",
+    "commit_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/commit/c1ffc0ca8572308936b643672e03feccd9a3c978",
+    "workflow_at_commit_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/blob/c1ffc0ca8572308936b643672e03feccd9a3c978/.github/workflows/task-081-contract-resolver-live-once.yml",
     "commit_timestamp": "2026-09-03T13:23:45Z",
     "commit_message": "TASK 081: add temporary one-shot bounded live resolver workflow",
     "workflow_path_at_commit": ".github/workflows/task-081-contract-resolver-live-once.yml",
@@ -42,6 +45,7 @@
   },
   "live_run": {
     "run_id": 33760913444,
+    "run_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/actions/runs/33760913444",
     "run_number": 1,
     "event": "push",
     "created_at": "2026-09-03T13:23:48Z",
@@ -66,5 +70,5 @@
     "retry_authorized": false,
     "future_execution_authorized": false
   },
-  "interpretation": "The later owner-authorization evidence file is a retrospective normalized record, but the task contract containing the owner instruction and exact remote budget existed in repository history before the bounded workflow and before the live run. The bounded workflow itself also existed at the exact run head SHA before execution. Both historical sources are now copied into a non-executable final-PR snapshot for direct audit. No claim is made that the retrospective authorization file itself was a pre-run gate."
+  "interpretation": "The later owner-authorization evidence file is a retrospective normalized record, but the task contract containing the owner instruction and exact remote budget existed in repository history before the bounded workflow and before the live run. The bounded workflow itself also existed at the exact run head SHA before execution. Both historical sources are copied into a non-executable final-PR snapshot and durable public GitHub URLs are recorded for direct audit. No claim is made that the retrospective authorization file itself was a pre-run gate."
 }
