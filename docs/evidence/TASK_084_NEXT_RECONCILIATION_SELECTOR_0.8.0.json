@@ -1,0 +1,86 @@
+{
+  "schema": "TASK_084_NEXT_RECONCILIATION_SELECTOR_EVIDENCE_V1",
+  "task": "TASK_084_NEXT_RECONCILIATION_SELECTOR",
+  "software_version": "0.8.0",
+  "base_main_sha": "f9e0ae9bb7ba4e18fcfc7dff2726ea9b49eb7e50",
+  "mode": "T0_OFFLINE_SELECTOR_IMPLEMENTATION",
+  "source_plan": {
+    "task_076_drive_id": "11Yb8zIF5g4sTgAp1yhraWFixVFrLcBXs",
+    "bytes": 52843,
+    "sha256": "faf27576b5b2c3b3c542ae41eeac90c415da1d2f50b6ae8021e1c04bf246d7bc",
+    "tasks": 65,
+    "ready_search": 60,
+    "limeira_contratos_tasks": 5,
+    "plan_bytes_present_in_current_git_tree": false
+  },
+  "consumed_contract_task": {
+    "task_id": "RECTASK_39a82b72abdffa19e0dba705",
+    "task_077_selected": true,
+    "task_081_live_query_consumed": true
+  },
+  "implementation": {
+    "module": "robo_dados_publicos/reconciliation/rollout.py",
+    "cli": "scripts/select_next_reconciliation_task.py",
+    "test": "tests/test_task_084_next_reconciliation_selector.py",
+    "selection_order": "-priority,origin_event_id,target_source,task_id",
+    "selection_order_provenance": "robo_dados_publicos/reconciliation/planner.py::plan_events",
+    "exact_sha_required": true,
+    "strict_utf8_required": true,
+    "jsonl_object_required": true,
+    "empty_plan_rejected": true,
+    "duplicate_task_ids_rejected": true,
+    "noncanonical_order_rejected": true,
+    "invalid_sort_fields_rejected": true,
+    "unknown_consumed_task_rejected": true,
+    "ready_search_only": true,
+    "remote_effects": 0
+  },
+  "real_plan_execution": {
+    "performed": false,
+    "reason": "EXACT_TASK076_PLAN_BYTES_ARE_IN_DRIVE_AND_WERE_NEVER_COMMITTED_TO_GIT",
+    "selected_task_id": null,
+    "selected_task_sha256": null,
+    "drive_read_performed_by_task084": false,
+    "municipal_source_query_performed_by_task084": false
+  },
+  "observed_validation_before_review_hardening": {
+    "head_sha": "57421af275e7550596daadef5131a709b72c8fbe",
+    "public_readiness_run_id": 33782018241,
+    "hash_routing_run_id": 33782018411,
+    "fragment_target_run_id": 33782018130,
+    "loaded_script_signatures_run_id": 33782018200,
+    "ci_offline_run_id": 33782018153,
+    "all_five_conclusions": "success",
+    "ci_offline_unit_tests": "success",
+    "ci_offline_historical_regression": "success",
+    "note": "These runs validate the initial TASK084 implementation head. Review hardening changes to tests/evidence require their own normal CI before merge."
+  },
+  "semantic_boundary": {
+    "next_task_guessed_without_plan_bytes": false,
+    "contract_identity_assertions": 0,
+    "financial_identity_assertions": 0,
+    "match_candidate_promotions": 0
+  },
+  "hard_boundaries": {
+    "source_network_requests": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "state_registry_writes": 0,
+    "queue_writes": 0,
+    "serving_writes": 0,
+    "publications": 0
+  },
+  "future_gate_candidate": {
+    "purpose": "READ_EXACT_TASK076_GOLD_PLAN_ONCE_AND_SELECT_NEXT_TASK_LOCALLY",
+    "maximum_drive_objects": 1,
+    "drive_mode": "READ_ONLY",
+    "expected_drive_id": "11Yb8zIF5g4sTgAp1yhraWFixVFrLcBXs",
+    "expected_bytes": 52843,
+    "expected_sha256": "faf27576b5b2c3b3c542ae41eeac90c415da1d2f50b6ae8021e1c04bf246d7bc",
+    "municipal_source_network": 0,
+    "remote_writes": 0,
+    "authorized_by_task084": false,
+    "live_resolver_query_authorized": false
+  },
+  "result": "PREPARED_TASK084_OFFLINE_SELECTOR_IMPLEMENTED_REAL_PLAN_SELECTION_NOT_EXECUTED"
+}
