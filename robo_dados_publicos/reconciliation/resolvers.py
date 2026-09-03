@@ -17,6 +17,7 @@ import zipfile
 
 from robo_dados_publicos.connectors.http_source import HttpSourceConnector
 from robo_dados_publicos.state.registry import StateRegistry
+from robo_dados_publicos.reconciliation.contract_candidate_policy import fail_closed_contract_candidate_rows
 from robo_dados_publicos.reconciliation.evidence import ReconciliationEvidenceAssembler
 from robo_dados_publicos.release import RESEARCH_USER_AGENT
 
@@ -638,28 +639,9 @@ class LimeiraContractsResolver:
 
     @staticmethod
     def _candidate_rows(rows: list[list[str]], keys: dict) -> list[dict]:
-        contract_raw = _ascii(keys.get("contract_number"))
-        stem = _ascii(LimeiraContractsResolver._contract_stem(keys.get("contract_number")))
-        cnpj = _digits(keys.get("cnpj"))
-        supplier = _ascii(keys.get("contractor"))
-        year = str(keys.get("year") or "")
-        out = []
-        for idx, cells in enumerate(rows):
-            joined = " | ".join(cells)
-            text = _ascii(joined)
-            digits = _digits(joined)
-            signals = []
-            if contract_raw and contract_raw in text:
-                signals.append("CONTRACT_FULL")
-            elif stem and re.search(rf"(?<!\d){re.escape(stem)}(?!\d)", text) and (not year or year in text):
-                signals.append("CONTRACT_STEM_PLUS_YEAR")
-            if cnpj and cnpj in digits:
-                signals.append("CNPJ")
-            if supplier and supplier in text:
-                signals.append("SUPPLIER_NAME")
-            if "CNPJ" in signals or "CONTRACT_FULL" in signals or "CONTRACT_STEM_PLUS_YEAR" in signals:
-                out.append({"row_index": idx, "cells": cells, "match_signals": signals})
-        return out
+        """Apply the explicit fail-closed municipal contract candidate policy."""
+
+        return fail_closed_contract_candidate_rows(rows, keys)
 
     def resolve(self, task: dict, *, work_dir: str | Path | None = None) -> ResolutionResult:
         if task.get("target_source") != "LIMEIRA_CONTRATOS":
