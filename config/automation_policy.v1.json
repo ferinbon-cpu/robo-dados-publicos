@@ -48,6 +48,22 @@
       "current_triggers": ["push:main", "pull_request:main", "workflow_dispatch"]
     },
     {
+      "id": "TASK_081_CONTRACT_CANDIDATE_POLICY",
+      "module": "robo_dados_publicos/reconciliation/contract_candidate_policy.py",
+      "test": "tests/test_task_081_contract_candidate_hardening.py",
+      "tier": "T0_OFFLINE",
+      "auto_allowed": true,
+      "credential_capability": "NONE",
+      "effects": {
+        "source_network": false,
+        "drive_reads": false,
+        "drive_writes": false,
+        "publication": false
+      },
+      "current_triggers": ["ci-offline"],
+      "blockers": []
+    },
+    {
       "id": "M8_SIOPE_HISTORICAL_PRODUCT_OUTPUT_PUBLICATION_REVIEW",
       "workflow": ".github/workflows/ci-offline.yml",
       "script": "scripts/review_m8_siope_historical_product_output_publication.py",
