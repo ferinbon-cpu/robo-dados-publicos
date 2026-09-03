@@ -1,0 +1,145 @@
+{
+  "task": "TASK_081_BOUNDED_STATEFUL_CONTRACT_RESOLVER",
+  "software_version": "0.8.0",
+  "base_main_sha": "1edd1e23571201513e9bd94c1bc65c3789825031",
+  "authorization": {
+    "source": "owner_chat_instruction_2026-09-03",
+    "instruction": "Prossiga com o robo entao",
+    "interpreted_scope": "ONE_READ_ONLY_STATEFUL_LIMEIRA_CONTRATOS_QUERY_FOR_TASK_RECTASK_39a82b72abdffa19e0dba705_MAX_3_HTTP_REQUESTS_NO_REMOTE_WRITES"
+  },
+  "selected_task": {
+    "task_id": "RECTASK_39a82b72abdffa19e0dba705",
+    "origin_event_id": "JOEV_00c81f5db32efcd0414f",
+    "origin_source_id": "LIMEIRA_JO_07127",
+    "target_source": "LIMEIRA_CONTRATOS",
+    "year": 2025,
+    "contract_number": "09/2025.",
+    "cnpj": "12226306000140",
+    "process_hint": "29.185/2025."
+  },
+  "live_run": {
+    "run_id": 33760913444,
+    "workflow_head_sha": "c1ffc0ca8572308936b643672e03feccd9a3c978",
+    "conclusion": "success",
+    "artifact_id": 9895394661,
+    "artifact_name": "task-081-bounded-contract-resolver-evidence",
+    "artifact_digest": "sha256:6fcf5c5f956ee2de514bad93650483be68ef38b8f05acdbe12483881e14d5aba",
+    "artifact_result_canonical_sha256": "a375c5a55f8cd701eebdec4cc93e89663eb636b8d7e78db530ab81d7d3a6155e"
+  },
+  "remote_budget": {
+    "maximum_requests": 3,
+    "actual_requests": 3,
+    "same_origin_only": true,
+    "requests": [
+      {
+        "ordinal": 1,
+        "method": "GET",
+        "host": "serv42.limeira.sp.gov.br",
+        "path": "/ncweb/cns_contratos_web_mestre/",
+        "submitted_field_names": []
+      },
+      {
+        "ordinal": 2,
+        "method": "POST",
+        "host": "serv42.limeira.sp.gov.br",
+        "path": "/ncweb/cns_contratos_web_mestre/",
+        "submitted_field_names": [
+          "NM_operador",
+          "ano_ano",
+          "ano_cond",
+          "bprocessa",
+          "cc_cond",
+          "form_condicao",
+          "fornecedor_cond",
+          "nmgp_opcao",
+          "nmgp_tab_label",
+          "numero",
+          "numero_autocomp",
+          "numero_cond",
+          "objeto_cond",
+          "script_case_init",
+          "script_case_session"
+        ]
+      },
+      {
+        "ordinal": 3,
+        "method": "POST",
+        "host": "serv42.limeira.sp.gov.br",
+        "path": "/ncweb/cns_contratos_web_mestre/",
+        "submitted_field_names": [
+          "nmgp_opcao",
+          "script_case_init",
+          "script_case_session"
+        ]
+      }
+    ]
+  },
+  "transport_observation": {
+    "form_discovery": "PASS_FORM_DISCOVERY",
+    "scriptcase_autocomplete_contract_pair": "FOUND_SCRIPTCASE_AUTOCOMPLETE_PAIR",
+    "autosubmit_relay": "PASS_PROVEN_AUTOSUBMIT_RELAY",
+    "relay_same_origin": true,
+    "result_table_rows": 18
+  },
+  "raw_prefilter_result": {
+    "status": "MATCH_CANDIDATE",
+    "candidate_count": 2,
+    "qualification_rule_exposed_as_insufficient": "CONTRACT_STEM_PLUS_YEAR_ALONE",
+    "candidates": [
+      {
+        "candidate_sha256": "168f522da105a377af2c39dae5595d3842099d07a88847cd6f3372b2c0a77f87",
+        "document_class": "CONTRATOS",
+        "number": "9/2025",
+        "process": "30903/2024",
+        "supplier": "ART MULTIMÍDIA - COMÉRCIO E SERVIÇOS LTDA",
+        "object_summary": "painéis eletrônicos para estádios municipais",
+        "match_signals": ["CONTRACT_STEM_PLUS_YEAR"],
+        "expected_cnpj_observed": false,
+        "expected_process_observed": false
+      },
+      {
+        "candidate_sha256": "31dae46430152029b9310cb40f37fe66ef9bb556e6cf5b15cb9d9674a234de8c",
+        "document_class": "ATAS",
+        "number": "9/2025",
+        "process": "24835/2024",
+        "supplier": "FUTURA COMÉRCIO DE PRODUTOS MÉDICOS HOSPITALARES LTDA",
+        "object_summary": "medicamentos padronizados",
+        "match_signals": ["CONTRACT_STEM_PLUS_YEAR"],
+        "expected_cnpj_observed": false,
+        "expected_process_observed": false
+      }
+    ]
+  },
+  "semantic_audit": {
+    "raw_match_candidate_promotions_accepted_as_identity": 0,
+    "contract_identity_assertions": 0,
+    "financial_identity_assertions": 0,
+    "diagnosis": "FALSE_POSITIVE_QUALIFICATION_RISK_NUMBER_YEAR_COLLISION_ACROSS_UNRELATED_DOCUMENTS",
+    "reason": "Both returned rows shared only number/year. Neither exposed the task CNPJ; both showed process and object information incompatible with the originating Jornal event.",
+    "corrected_interpretation": "NO_COMPATIBLE_CANDIDATE_IN_CAPTURED_RESULT",
+    "global_no_match_asserted": false
+  },
+  "offline_hardening": {
+    "policy_module": "robo_dados_publicos/reconciliation/contract_candidate_policy.py",
+    "rule": "WHEN_TASK_HAS_EXPECTED_CNPJ_REQUIRE_THAT_CNPJ_IN_AN_INDIVIDUAL_RESULT_CELL_BEFORE_CANDIDATE_PROMOTION",
+    "object_similarity_used_for_promotion": false,
+    "repeat_live_query": false,
+    "captured_live_rows_expected_candidate_count_after_policy": 0
+  },
+  "hard_boundaries": {
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "drive_overwrites": 0,
+    "state_registry_writes": 0,
+    "queue_writes": 0,
+    "serving_writes": 0,
+    "publications": 0,
+    "source_moves": 0,
+    "source_deletes": 0,
+    "schedule_added": false,
+    "recurrence_added": false,
+    "automatic_contract_identity": false,
+    "automatic_financial_identity": false
+  },
+  "result": "PASS_TASK081_STATEFUL_QUERY_PROVED_AND_FALSE_POSITIVE_CANDIDATE_POLICY_HARDENED_OFFLINE"
+}
