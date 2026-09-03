@@ -23,7 +23,7 @@
   },
   "trigger_contract": {
     "event": "workflow_run",
-    "upstream_workflow_name": "CI offline 0.8.0 candidate M7",
+    "upstream_workflow_name": "CI OFFLINE",
     "upstream_event_required": "pull_request",
     "upstream_status_required": "completed",
     "same_repository_head_required": true,
