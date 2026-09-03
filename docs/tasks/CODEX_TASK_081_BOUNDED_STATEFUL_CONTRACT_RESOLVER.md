@@ -1,0 +1,19 @@
+# TASK 081 — bounded stateful municipal contract resolver
+
+Fresh owner authorization is the user's 2026-09-03 instruction `Prossiga com o robo entao`, interpreted only for this bounded step.
+
+## Exact scope
+
+Execute the already-implemented `LimeiraContractsResolver.resolve(...)` against exactly one persisted TASK 076 reconciliation task: `RECTASK_39a82b72abdffa19e0dba705` (`target_source=LIMEIRA_CONTRATOS`). This is the same deterministic selection used by TASK 077.
+
+Search keys are fixed to year `2025`, contract number `09/2025.`, CNPJ corroborating signal `12226306000140`, process hint `29.185/2025.` and the fixed object hint already persisted in TASK 077. The resolver may submit only the contract/year search. CNPJ, process and object are corroborating evidence only and must not broaden the query.
+
+## Remote budget
+
+Maximum three HTTP requests total: one GET to the official municipal contracts landing/search surface; at most one stateful form submission using the discovered same-origin public search form; and at most one same-origin ScriptCase autosubmit relay follow-up if and only if the existing resolver proves it unambiguously. Any fourth request is fail-closed and forbidden.
+
+## Hard boundaries
+
+No Google Drive read/write, no StateRegistry or queue mutation, no serving write, no publication, no source move/delete, no schedule/recurrence/retry loop, no automatic contract identity assertion and no financial identity assertion. Result may be at most `MATCH_CANDIDATE` with evidence. `NO_MATCH` is allowed only after an interpretable result table. Schema/origin/form ambiguity must STOP.
+
+The temporary live workflow used to obtain the evidence is branch-local and must be removed before the final PR is proposed for merge.
