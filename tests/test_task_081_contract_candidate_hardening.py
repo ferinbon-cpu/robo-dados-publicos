@@ -1,7 +1,11 @@
+import json
+import sys
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from robo_dados_publicos.reconciliation.resolvers import LimeiraContractsResolver
+import scripts.github_siope_official_olinda_api_application_dom_structural_binding_diagnostics_gate as dom_binding_gate
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -169,6 +173,12 @@ class TestTask081ContractCandidateHardening(unittest.TestCase):
 
         self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
 
+    def test_ambiguous_contract_references_across_cells_fail_closed(self):
+        rows = [["Contrato 09/2025", "referência 10/2025", "12.226.306/0001-40"]]
+        keys = {"contract_number": "09/2025", "cnpj": "12226306000140"}
+
+        self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
+
     def test_resolve_end_to_end_uses_fail_closed_candidate_policy_without_network(self):
         landing = b'''<html><body><form method="post" action="/contracts">
         <label>Ano de Pesquisa <input name="ano_ano" type="text"></label>
@@ -212,12 +222,39 @@ class TestTask081ContractCandidateHardening(unittest.TestCase):
         self.assertEqual([], resolved.candidates)
         self.assertEqual(2, resolver.calls)
 
+    def test_contract_candidate_policy_is_registered_as_t0_offline(self):
+        policy = json.loads((ROOT / "config/automation_policy.v1.json").read_text(encoding="utf-8"))
+        gate = next(row for row in policy["gates"] if row["id"] == "TASK_081_CONTRACT_CANDIDATE_POLICY")
+
+        self.assertEqual("T0_OFFLINE", gate["tier"])
+        self.assertTrue(gate["auto_allowed"])
+        self.assertEqual(
+            "robo_dados_publicos/reconciliation/contract_candidate_policy.py",
+            gate["module"],
+        )
+        self.assertFalse(gate["effects"]["source_network"])
+        self.assertFalse(gate["effects"]["drive_reads"])
+        self.assertFalse(gate["effects"]["drive_writes"])
+        self.assertFalse(gate["effects"]["publication"])
+
     def test_ci_dom_binding_gate_explicitly_supports_dry_run_flag(self):
         path = ROOT / "scripts/github_siope_official_olinda_api_application_dom_structural_binding_diagnostics_gate.py"
         text = path.read_text(encoding="utf-8")
 
         self.assertIn('parser.add_argument("--dry-run", action="store_true")', text)
         self.assertIn("run_gate(dry=args.dry_run)", text)
+
+    def test_ci_dom_binding_main_dry_run_never_reaches_network_runtime(self):
+        with patch.object(
+            dom_binding_gate,
+            "run_dom_structural_binding_diagnostics",
+            side_effect=AssertionError("network runtime must not be reached in --dry-run"),
+        ) as live_runtime:
+            with patch.object(sys, "argv", ["dom-binding-gate", "--dry-run"]):
+                exit_code = dom_binding_gate.main()
+
+        self.assertEqual(0, exit_code)
+        live_runtime.assert_not_called()
 
 
 if __name__ == "__main__":
