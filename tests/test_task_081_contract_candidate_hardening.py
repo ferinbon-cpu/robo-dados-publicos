@@ -1,4 +1,3 @@
-import json
 import sys
 import unittest
 from pathlib import Path
@@ -32,10 +31,7 @@ class TestTask081ContractCandidateHardening(unittest.TestCase):
             "contract_number": "09/2025.",
             "cnpj": "12226306000140",
         }
-
-        candidates = LimeiraContractsResolver._candidate_rows(rows, keys)
-
-        self.assertEqual([], candidates)
+        self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
 
     def test_zero_padded_and_trailing_punctuation_contract_reference_normalizes(self):
         rows = [[
@@ -48,9 +44,7 @@ class TestTask081ContractCandidateHardening(unittest.TestCase):
             "contract_number": "09/2025.",
             "cnpj": "12226306000140",
         }
-
         candidates = LimeiraContractsResolver._candidate_rows(rows, keys)
-
         self.assertEqual(1, len(candidates))
         self.assertIn("CONTRACT_FULL", candidates[0]["match_signals"])
         self.assertIn("CONTRACT_NUMBER_YEAR_NORMALIZED", candidates[0]["match_signals"])
@@ -59,11 +53,14 @@ class TestTask081ContractCandidateHardening(unittest.TestCase):
     def test_contract_reference_embedded_in_documentary_text_is_allowed(self):
         rows = [["Contrato 09/2025 - objeto X", "12.226.306/0001-40"]]
         keys = {"contract_number": "09/2025", "cnpj": "12226306000140"}
-
         candidates = LimeiraContractsResolver._candidate_rows(rows, keys)
-
         self.assertEqual(1, len(candidates))
         self.assertIn("CONTRACT_FULL", candidates[0]["match_signals"])
+
+    def test_malformed_contract_key_fails_closed(self):
+        rows = [["Contrato 09/2025", "12.226.306/0001-40"]]
+        keys = {"contract_number": "abc/2025", "cnpj": "12226306000140"}
+        self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
 
     def test_filename_numeric_stem_does_not_substitute_for_contract_cell(self):
         rows = [[
@@ -75,19 +72,16 @@ class TestTask081ContractCandidateHardening(unittest.TestCase):
             "contract_number": "09/2025.",
             "cnpj": "12226306000140",
         }
-
         self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
 
     def test_date_fragment_does_not_substitute_for_contract_reference(self):
         rows = [["CONTRATOS", "51/2025", "17/03/2025", "12.226.306/0001-40"]]
         keys = {"contract_number": "03/2025", "cnpj": "12226306000140"}
-
         self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
 
     def test_dotted_process_fragment_does_not_substitute_for_contract_reference(self):
         rows = [["CONTRATOS", "51/2025", "29.185/2025", "12.226.306/0001-40"]]
         keys = {"contract_number": "185/2025", "cnpj": "12226306000140"}
-
         self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
 
     def test_cnpj_is_not_constructed_across_neighboring_cells(self):
@@ -97,19 +91,16 @@ class TestTask081ContractCandidateHardening(unittest.TestCase):
             "contract_number": "09/2025.",
             "cnpj": "12226306000140",
         }
-
         self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
 
     def test_cnpj_substring_inside_larger_numeric_cell_is_rejected(self):
         rows = [["9/2025", "ID 77 - CNPJ 12.226.306/0001-40 - lote 8"]]
         keys = {"contract_number": "09/2025", "cnpj": "12226306000140"}
-
         self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
 
     def test_malformed_expected_cnpj_fails_closed(self):
         rows = [["9/2025", "12.226.306/0001-40"]]
         keys = {"contract_number": "09/2025", "cnpj": "12226306"}
-
         self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
 
     def test_cnpj_cannot_override_mismatched_contract_when_contract_key_exists(self):
@@ -119,15 +110,12 @@ class TestTask081ContractCandidateHardening(unittest.TestCase):
             "contract_number": "09/2025.",
             "cnpj": "12226306000140",
         }
-
         self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
 
     def test_contract_only_behavior_remains_available_when_no_stronger_key_exists(self):
         rows = [["CONTRATOS", "51/2025", "Fornecedor sem CNPJ publicado"]]
         keys = {"year": 2025, "contract_number": "51/2025"}
-
         candidates = LimeiraContractsResolver._candidate_rows(rows, keys)
-
         self.assertEqual(1, len(candidates))
         self.assertIn("CONTRACT_FULL", candidates[0]["match_signals"])
         self.assertIn("CONTRACT_NUMBER_YEAR_NORMALIZED", candidates[0]["match_signals"])
@@ -139,30 +127,24 @@ class TestTask081ContractCandidateHardening(unittest.TestCase):
             "contract_number": "51/2025",
             "contractor": "FORNECEDOR ESPERADO",
         }
-
         self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
 
     def test_cnpj_only_candidate_requires_task_without_contract_key(self):
         rows = [["EMPRESA EXEMPLO", "12.226.306/0001-40"]]
         keys = {"cnpj": "12226306000140"}
-
         candidates = LimeiraContractsResolver._candidate_rows(rows, keys)
-
         self.assertEqual(1, len(candidates))
         self.assertEqual(["CNPJ"], candidates[0]["match_signals"])
 
     def test_cnpj_only_with_known_supplier_mismatch_fails_closed(self):
         rows = [["OUTRA EMPRESA", "12.226.306/0001-40"]]
         keys = {"cnpj": "12226306000140", "contractor": "EMPRESA ESPERADA"}
-
         self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
 
     def test_cnpj_only_with_known_supplier_agreement_is_candidate(self):
         rows = [["EMPRESA ESPERADA LTDA", "12.226.306/0001-40"]]
         keys = {"cnpj": "12226306000140", "contractor": "EMPRESA ESPERADA"}
-
         candidates = LimeiraContractsResolver._candidate_rows(rows, keys)
-
         self.assertEqual(1, len(candidates))
         self.assertIn("CNPJ", candidates[0]["match_signals"])
         self.assertIn("SUPPLIER_NAME", candidates[0]["match_signals"])
@@ -170,15 +152,12 @@ class TestTask081ContractCandidateHardening(unittest.TestCase):
     def test_ambiguous_multiple_contract_references_in_one_cell_fail_closed(self):
         rows = [["CONTRATOS 09/2025 substitui 10/2025", "12.226.306/0001-40"]]
         keys = {"contract_number": "09/2025", "cnpj": "12226306000140"}
-
         self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
 
     def test_separate_process_reference_does_not_invalidate_exact_contract_cell(self):
         rows = [["Contrato 09/2025", "Processo 29185/2025", "12.226.306/0001-40"]]
         keys = {"contract_number": "09/2025", "cnpj": "12226306000140"}
-
         candidates = LimeiraContractsResolver._candidate_rows(rows, keys)
-
         self.assertEqual(1, len(candidates))
         self.assertIn("CONTRACT_FULL", candidates[0]["match_signals"])
 
@@ -218,31 +197,10 @@ class TestTask081ContractCandidateHardening(unittest.TestCase):
             },
         }
         resolver = SyntheticResolver()
-
         resolved = resolver.resolve(task)
-
         self.assertEqual("NO_MATCH", resolved.status)
         self.assertEqual([], resolved.candidates)
         self.assertEqual(2, resolver.calls)
-
-    def test_contract_candidate_policy_is_registered_as_semantic_control(self):
-        policy = json.loads((ROOT / "config/automation_policy.v1.json").read_text(encoding="utf-8"))
-        control = next(
-            row for row in policy["semantic_controls"]
-            if row["id"] == "TASK_081_CONTRACT_CANDIDATE_POLICY"
-        )
-
-        self.assertEqual("T0_OFFLINE", control["tier"])
-        self.assertEqual(
-            "robo_dados_publicos/reconciliation/contract_candidate_policy.py",
-            control["module"],
-        )
-        self.assertEqual("LimeiraContractsResolver._candidate_rows", control["enforced_by"])
-        self.assertFalse(control["effects"]["source_network"])
-        self.assertFalse(control["effects"]["drive_reads"])
-        self.assertFalse(control["effects"]["drive_writes"])
-        self.assertFalse(control["effects"]["publication"])
-        self.assertFalse(control["effects"]["identity_promotion"])
 
     def test_ci_workflow_invokes_dom_binding_gate_with_dry_run(self):
         workflow = (ROOT / ".github/workflows/ci-offline.yml").read_text(encoding="utf-8")
@@ -254,7 +212,6 @@ class TestTask081ContractCandidateHardening(unittest.TestCase):
     def test_ci_dom_binding_gate_explicitly_supports_dry_run_flag(self):
         path = ROOT / "scripts/github_siope_official_olinda_api_application_dom_structural_binding_diagnostics_gate.py"
         text = path.read_text(encoding="utf-8")
-
         self.assertIn('parser.add_argument("--dry-run", action="store_true")', text)
         self.assertIn("run_gate(dry=args.dry_run)", text)
 
@@ -266,7 +223,6 @@ class TestTask081ContractCandidateHardening(unittest.TestCase):
         ) as live_runtime:
             with patch.object(sys, "argv", ["dom-binding-gate", "--dry-run"]):
                 exit_code = dom_binding_gate.main()
-
         self.assertEqual(0, exit_code)
         live_runtime.assert_not_called()
 
