@@ -4,13 +4,25 @@
   "owner_authorization": {
     "model": "TEN_SEQUENTIAL_BOUNDED_GATES",
     "instruction": "tome 10 tokens de autorização, bote o deepseek pra fritar no trabalho",
+    "interpretation": "PROSPECTIVE_BOUNDED_GATES_FOR_GITHUB_API_DEEPSEEK_REVIEW_THEN_ONE_CREATE_ONLY_GOLD_PERSISTENCE",
     "contract_materialization_gate": 7,
     "remote_persistence_gate": 10
   },
   "prerequisite": {
     "expected_main_before_pr": "952c5b5d77cdca2024f26f2680ff999835c91139",
-    "deepseek_review_evidence_path": "docs/evidence/F02_GOLD_DEEPSEEK_ADVERSARIAL_REVIEW_0.8.0.json",
-    "required_deepseek_blocking_findings": 0,
+    "gold_preview_base_dependency": {
+      "path": "robo_dados_publicos/manual_ingest/mde_fundeb_gold_preview.py",
+      "git_blob_sha": "5e9c10872bc191dfb73b6354d361db50d84e23cf"
+    },
+    "preview_review_evidence_path": "docs/evidence/F02_GOLD_DEEPSEEK_ADVERSARIAL_REVIEW_0.8.0.json",
+    "preview_review_evidence_schema": "F02_GOLD_DEEPSEEK_REVIEW_EVIDENCE_V1",
+    "preview_reviewed_target_pr": 372,
+    "preview_reviewed_target_head_sha": "101d2a94eebb6965fad087414a3fbef68604f28f",
+    "preview_review_sha256": "60071dacd563b6fc990841d19dd24ee975cccc8292256b147fe10d7ba3d7b5d1",
+    "required_preview_blocking_findings": 0,
+    "require_preview_evidence_not_to_authorize_persistence": true,
+    "persistence_pr_exact_head_deepseek_review_required": true,
+    "persistence_pr_review_enforcement": "ORCHESTRATOR_CHECK_BEFORE_PINNED_MERGE",
     "gold_preview_config_path": "config/manual_supervised_ingest_f02_gold_preview.v1.json"
   },
   "candidate": {
