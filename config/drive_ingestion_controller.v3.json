@@ -1,0 +1,48 @@
+{
+  "version": 3,
+  "task": "TASK_069_PRIMARY_SOURCE_ROLE_RESOLUTION",
+  "mode": "T0_OFFLINE_ROUTING_CONTROLLER",
+  "jurisdiction": "Limeira/SP",
+  "system_scope": "GENERAL_MUNICIPAL_PUBLIC_DATA_OBSERVATORY",
+  "eiti_role": "ANALYTIC_USE_CASE_NOT_GLOBAL_INGESTION_FILTER",
+  "purpose": "Route Drive metadata with deterministic primary-source role resolution while preserving secondary family signals.",
+  "allowed_input_surface": "DRIVE_METADATA_ONLY",
+  "content_read_authorized": false,
+  "drive_write_authorized": false,
+  "bronze_write_authorized": false,
+  "silver_write_authorized": false,
+  "gold_write_authorized": false,
+  "serving_authorized": false,
+  "publication_authorized": false,
+  "known_document_families": {
+    "JORNAL_OFICIAL": ["JORNAL OFICIAL", "DIARIO OFICIAL", "JOM", "LIMEIRA JORNAL OFICIAL"],
+    "MUNICIPAL_CONTRACTS": ["CONTRATO", "TERMO ADITIVO", "APOSTILAMENTO", "CONVENIO", "ATA DE REGISTRO DE PRECOS", "LOCACAO"],
+    "PROCUREMENT": ["LICITACAO", "EDITAL", "PREGAO", "CONCORRENCIA", "DISPENSA", "INEXIGIBILIDADE", "AVISO DE LICITACAO"],
+    "MUNICIPAL_LEGISLATION": ["LEI MUNICIPAL", "DECRETO", "PORTARIA", "RESOLUCAO MUNICIPAL", "PROJETO DE LEI"],
+    "CME": ["CME", "CONSELHO MUNICIPAL DE EDUCACAO", "PARECER CME", "INDICACAO CME"],
+    "TCE_SP_EXPENSES": ["TCE SP", "TCESP", "TRIBUNAL DE CONTAS", "TCE_SP_DESPESAS"],
+    "TDA_LIMEIRA": ["TDA LIMEIRA", "TDA_LIMEIRA", "PORTAL DA TRANSPARENCIA LIMEIRA", "TRANSPARENCIA DE LIMEIRA"],
+    "SIAVE_LIMEIRA": ["SIAVE", "SIAVE LIMEIRA", "CAMARA MUNICIPAL DE LIMEIRA"],
+    "PPA": ["PPA", "PLANO PLURIANUAL"],
+    "LDO": ["LDO", "DIRETRIZES ORCAMENTARIAS"],
+    "LOA": ["LOA", "ORCAMENTO ANUAL", "LEI ORCAMENTARIA"],
+    "SIOPE": ["SIOPE", "MAVS"],
+    "FUNDEB": ["FUNDEB"],
+    "RREO": ["RREO", "RELATORIO RESUMIDO DA EXECUCAO ORCAMENTARIA"],
+    "RGF": ["RGF", "RELATORIO DE GESTAO FISCAL"],
+    "MDE": ["MDE", "MANUTENCAO E DESENVOLVIMENTO DO ENSINO"],
+    "BUDGET_EXECUTION": ["BALANCETE", "DESPESA", "EMPENHO", "LIQUIDACAO", "PAGAMENTO", "EXECUCAO ORCAMENTARIA"],
+    "SAEB": ["SAEB"], "SARESP": ["SARESP"], "CENSO_ESCOLAR": ["CENSO ESCOLAR", "MICRODADOS CENSO"], "IDEB": ["IDEB"]
+  },
+  "family_match_order": ["JORNAL_OFICIAL","TCE_SP_EXPENSES","TDA_LIMEIRA","SIAVE_LIMEIRA","CME","MUNICIPAL_CONTRACTS","PROCUREMENT","MUNICIPAL_LEGISLATION","PPA","LDO","LOA","SIOPE","FUNDEB","RREO","RGF","MDE","BUDGET_EXECUTION","SAEB","SARESP","CENSO_ESCOLAR","IDEB"],
+  "family_default_routes": {
+    "JORNAL_OFICIAL":"AUTO_INGEST","MUNICIPAL_CONTRACTS":"REVIEW","PROCUREMENT":"REVIEW","MUNICIPAL_LEGISLATION":"REVIEW","CME":"REVIEW","TCE_SP_EXPENSES":"REVIEW","TDA_LIMEIRA":"REVIEW","SIAVE_LIMEIRA":"REVIEW","PPA":"REVIEW","LDO":"REVIEW","LOA":"REVIEW","SIOPE":"AUTO_INGEST","FUNDEB":"AUTO_INGEST","RREO":"AUTO_INGEST","RGF":"AUTO_INGEST","MDE":"AUTO_INGEST","BUDGET_EXECUTION":"REVIEW","SAEB":"AUTO_INGEST","SARESP":"AUTO_INGEST","CENSO_ESCOLAR":"AUTO_INGEST","IDEB":"AUTO_INGEST"
+  },
+  "primary_family_rules": [
+    {"rule_id":"SOURCE_JOM_PREFIX_V1","title_prefix":"SOURCE JOM ","primary_family":"JORNAL_OFICIAL","secondary_matches_preserved":true}
+  ],
+  "supported_mime_types": ["application/pdf","application/json","application/zip","application/x-zip-compressed","text/csv","text/plain","text/html","application/xml","text/xml","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.wordprocessingml.document","application/vnd.google-apps.document","application/vnd.google-apps.spreadsheet"],
+  "routing_semantics": {"AUTO_INGEST":"Routing eligibility only; separate maturity and authorization gates remain mandatory.","REVIEW":"Requires deterministic review before execution.","QUARANTINE":"No ingestion allowed."},
+  "deduplication":{"metadata_key":["file_id"],"content_key_after_authorized_read":"sha256","same_title_is_not_duplicate_proof":true,"same_size_is_not_duplicate_proof":true,"hash_required_for_content_duplicate_claim":true},
+  "handoff":{"auto_ingest_requires_separate_execution_authorization":true,"review_requires_source_specific_decision":true,"bronze_create_only":true,"unknown_schema_stops_before_silver":true,"promotion_never_inferred_from_routing":true}
+}
