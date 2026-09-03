@@ -12,7 +12,7 @@ Owner instruction: **"tome 10 tokens de autorização, bote o deepseek pra frita
 
 Authorization model: ten sequential bounded gates.
 
-This contract is materialized during token 7. The actual remote persistence is reserved for token 10 and must not occur before:
+This contract is materialized during token 7. The prior PR #372 DeepSeek evidence is semantic review of the Gold preview only; it is explicitly **not** authorization for persistence and is pinned by review SHA/head. The persistence PR itself must receive a separate automatic DeepSeek review on its exact head before merge.\n\nThe actual remote persistence is reserved for token 10 and must not occur before:
 1. this contract and its verifier are merged;
 2. CI is green on the exact PR head;
 3. automatic DeepSeek review of the persistence PR has no concrete blocking finding;
@@ -79,3 +79,19 @@ The execution manifest must record the Gold Drive ID returned by the write and t
 - compliance promotion beyond the typed claims already in the Gold payload.
 
 Any drift is STOP.
+
+
+## Base dependency
+
+The persistence preflight intentionally reuses the already-merged Gold preview builder rather than duplicating it:
+
+- path: `robo_dados_publicos/manual_ingest/mde_fundeb_gold_preview.py`
+- base Git blob SHA: `5e9c10872bc191dfb73b6354d361db50d84e23cf`
+
+CI proves this base dependency is importable and executable. An incremental PR does not need to re-add an unchanged base file.
+
+## Review semantics
+
+The presence of non-blocking, governance, missing-test, or suggested-change entries in a DeepSeek review does not itself mean BLOCK. Under the merged automatic-review policy, the blocking signal is a non-empty `blocking_findings` list. Concrete findings may still be adjudicated and hardened independently.
+
+No external reviewer creates owner authorization. The owner's current instruction remains the authority source under the merged adjudication protocol; no post-hoc signature or issue is fabricated.
