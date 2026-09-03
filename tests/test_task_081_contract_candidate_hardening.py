@@ -44,6 +44,7 @@ class TestTask081ContractCandidateHardening(unittest.TestCase):
         candidates = LimeiraContractsResolver._candidate_rows(rows, keys)
 
         self.assertEqual(1, len(candidates))
+        self.assertIn("CONTRACT_FULL", candidates[0]["match_signals"])
         self.assertIn("CONTRACT_NUMBER_YEAR_NORMALIZED", candidates[0]["match_signals"])
         self.assertIn("CNPJ", candidates[0]["match_signals"])
 
@@ -87,6 +88,7 @@ class TestTask081ContractCandidateHardening(unittest.TestCase):
         candidates = LimeiraContractsResolver._candidate_rows(rows, keys)
 
         self.assertEqual(1, len(candidates))
+        self.assertIn("CONTRACT_FULL", candidates[0]["match_signals"])
         self.assertIn("CONTRACT_NUMBER_YEAR_NORMALIZED", candidates[0]["match_signals"])
 
     def test_supplier_mismatch_blocks_contract_collision_when_cnpj_absent(self):
