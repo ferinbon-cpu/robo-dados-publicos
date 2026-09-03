@@ -12,6 +12,7 @@
   },
   "pinned_checkpoint": {
     "highest_edition": 7315,
+    "frontier_publication_date": "2026-08-29",
     "item_count": 12,
     "canonical_payload_sha256": "64e78c27a2c233468d76bc94c5719a35ed68ff7455cfac36d958d922c4ece5db"
   },
