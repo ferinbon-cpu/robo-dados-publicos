@@ -173,11 +173,14 @@ class TestTask081ContractCandidateHardening(unittest.TestCase):
 
         self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
 
-    def test_ambiguous_contract_references_across_cells_fail_closed(self):
-        rows = [["Contrato 09/2025", "referência 10/2025", "12.226.306/0001-40"]]
+    def test_separate_process_reference_does_not_invalidate_exact_contract_cell(self):
+        rows = [["Contrato 09/2025", "Processo 29185/2025", "12.226.306/0001-40"]]
         keys = {"contract_number": "09/2025", "cnpj": "12226306000140"}
 
-        self.assertEqual([], LimeiraContractsResolver._candidate_rows(rows, keys))
+        candidates = LimeiraContractsResolver._candidate_rows(rows, keys)
+
+        self.assertEqual(1, len(candidates))
+        self.assertIn("CONTRACT_FULL", candidates[0]["match_signals"])
 
     def test_resolve_end_to_end_uses_fail_closed_candidate_policy_without_network(self):
         landing = b'''<html><body><form method="post" action="/contracts">
