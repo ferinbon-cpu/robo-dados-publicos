@@ -1,10 +1,13 @@
 {
+  "schema": "TASK_081_BOUNDED_STATEFUL_CONTRACT_RESOLVER_EVIDENCE_V1",
   "task": "TASK_081_BOUNDED_STATEFUL_CONTRACT_RESOLVER",
   "software_version": "0.8.0",
   "base_main_sha": "1edd1e23571201513e9bd94c1bc65c3789825031",
   "authorization": {
     "source": "owner_chat_instruction_2026-09-03",
     "instruction": "Prossiga com o robo entao",
+    "repository_record": "docs/evidence/TASK_081_BOUNDED_STATEFUL_CONTRACT_RESOLVER_OWNER_AUTHORIZATION_0.8.0.json",
+    "record_materialized_after_execution": true,
     "interpreted_scope": "ONE_READ_ONLY_STATEFUL_LIMEIRA_CONTRATOS_QUERY_FOR_TASK_RECTASK_39a82b72abdffa19e0dba705_MAX_3_HTTP_REQUESTS_NO_REMOTE_WRITES"
   },
   "selected_task": {
