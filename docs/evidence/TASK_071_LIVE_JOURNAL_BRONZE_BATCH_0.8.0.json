@@ -1,0 +1,29 @@
+{
+  "task": "TASK_071_LIVE_JOURNAL_BRONZE_BATCH",
+  "batch_id": "TASK071_JOM_7024_7119_7127_20260902",
+  "started_at": "2026-09-03T01:03:00Z",
+  "software_version": "0.8.0",
+  "git_sha": "93d8d2890ab786ef396e6ab1455da9a0f3e0d384",
+  "controller_version": 3,
+  "maturity_registry_version": 1,
+  "execution_policy_version": 1,
+  "authorization_id": "AUTH_10_INBOX_JORNAL_OFICIAL_V1",
+  "owner_authorization": {"batch_token_index": 1, "batch_token_count": 7, "message": "Tome mais 7 tokens e rode até onde dá"},
+  "folder_scope": {"source_root_id":"16lvKYsbW96JLoLbRGuTUohjyzndrR9r8","source_batch_id":"1CdL4T1CVIPqNph3f5xHbiU8KgxgPpkl5","bronze_folder_id":"18yR-e6I1VCiy7XqG7Zhr0vUIJF0qA_MG"},
+  "input_metadata_snapshot_sha256": "b4479663928e1c02433ea84384ee911089f2bc165392f11868a5e0d4f98f8708",
+  "item_decisions": [
+    {"file_id":"1bRpmMxacX16P1tJBvam-55OOPTYuQnIA","title":"SOURCE_JOM_7127_2025-11-29_LOA_7223_2025.pdf","family":"JORNAL_OFICIAL","route":"AUTO_INGEST","maturity":"EXECUTION_READY_BOUNDED","plan_state":"BRONZE_CREATED_READBACK_VERIFIED","rule_version":"controller_v3","provenance_ref":"bronze:1PXnqz8iMmU1O1Rm2Qu4PgpfCU0qhu_QS"},
+    {"file_id":"1ez1B_mJ428IxTIUht1AHM9-I5SCotKXj","title":"SOURCE_JOM_7119_2025-11-15_PPA_7213_2025.pdf","family":"JORNAL_OFICIAL","route":"AUTO_INGEST","maturity":"EXECUTION_READY_BOUNDED","plan_state":"BRONZE_CREATED_READBACK_VERIFIED","rule_version":"controller_v3","provenance_ref":"bronze:1uOeraxmRTKHFNmolG7RN7esUPLod0aqB"},
+    {"file_id":"1U_E1I1Lbrq5WvedrDPygFuEfQj-ouOex","title":"SOURCE_JOM_7024_2025-07-08_LDO_7141_2025.pdf","family":"JORNAL_OFICIAL","route":"AUTO_INGEST","maturity":"EXECUTION_READY_BOUNDED","plan_state":"BRONZE_CREATED_READBACK_VERIFIED","rule_version":"controller_v3","provenance_ref":"bronze:1JTpCPj4_rL08RubO5wOVvBHjuwqKWfQ8"}
+  ],
+  "bronze_results": [
+    {"edition":7127,"source_id":"1bRpmMxacX16P1tJBvam-55OOPTYuQnIA","source_bytes":66119594,"source_sha256":"37ea54d85cc5428622b296881a279a17e1aeefd7574576e7a3414443bbee64c4","bronze_id":"1PXnqz8iMmU1O1Rm2Qu4PgpfCU0qhu_QS","bronze_name":"limeira_jornal_oficial_edicao_7127.pdf","readback_bytes":66119594,"readback_sha256":"37ea54d85cc5428622b296881a279a17e1aeefd7574576e7a3414443bbee64c4","readback_match":true},
+    {"edition":7119,"source_id":"1ez1B_mJ428IxTIUht1AHM9-I5SCotKXj","source_bytes":16867824,"source_sha256":"cb65f29c772eb7133c902e827884a4ed19d8c09f64586b8de9d6483023d9133a","bronze_id":"1uOeraxmRTKHFNmolG7RN7esUPLod0aqB","bronze_name":"limeira_jornal_oficial_edicao_7119.pdf","readback_bytes":16867824,"readback_sha256":"cb65f29c772eb7133c902e827884a4ed19d8c09f64586b8de9d6483023d9133a","readback_match":true},
+    {"edition":7024,"source_id":"1U_E1I1Lbrq5WvedrDPygFuEfQj-ouOex","source_bytes":17615179,"source_sha256":"44d92a6ac948bbf43dcb3302733faac1a4ed5e592702f66c07f0c6ede4ecb73c","bronze_id":"1JTpCPj4_rL08RubO5wOVvBHjuwqKWfQ8","bronze_name":"limeira_jornal_oficial_edicao_7024.pdf","readback_bytes":17615179,"readback_sha256":"44d92a6ac948bbf43dcb3302733faac1a4ed5e592702f66c07f0c6ede4ecb73c","readback_match":true}
+  ],
+  "dedupe": {"canonical_name_searches":3,"preexisting_canonical_names":0,"same_title_or_size_used_as_duplicate_proof":false,"sha256_is_content_identity":true},
+  "counters": {"metadata_records":3,"source_content_reads":3,"hash_reads":6,"drive_writes":3,"bronze_writes":3,"silver_writes":0,"gold_writes":0,"serving_writes":0,"publications":0,"stops":0,"warnings":0},
+  "final_status": "PASS_TASK071_LIVE_JOURNAL_BRONZE_3_CREATED_3_READBACK_VERIFIED",
+  "final_readback_verified": true,
+  "hard_boundaries": {"semantic_parse":0,"ocr":0,"silver_writes":0,"gold_writes":0,"rag_writes":0,"serving_writes":0,"publications":0,"source_moves":0,"source_deletes":0,"bronze_overwrites":0}
+}
