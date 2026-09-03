@@ -1,0 +1,62 @@
+{
+  "schema": "F02_GOLD_PERSISTENCE_CONTRACT_V1",
+  "mode": "CREATE_ONLY_GOLD_PERSISTENCE_AFTER_REVIEW",
+  "owner_authorization": {
+    "model": "TEN_SEQUENTIAL_BOUNDED_GATES",
+    "instruction": "tome 10 tokens de autorização, bote o deepseek pra fritar no trabalho",
+    "contract_materialization_gate": 7,
+    "remote_persistence_gate": 10
+  },
+  "prerequisite": {
+    "expected_main_before_pr": "952c5b5d77cdca2024f26f2680ff999835c91139",
+    "deepseek_review_evidence_path": "docs/evidence/F02_GOLD_DEEPSEEK_ADVERSARIAL_REVIEW_0.8.0.json",
+    "required_deepseek_blocking_findings": 0,
+    "gold_preview_config_path": "config/manual_supervised_ingest_f02_gold_preview.v1.json"
+  },
+  "candidate": {
+    "schema": "F02_MDE_FUNDEB_GOLD_PREVIEW_V1",
+    "logical_sha256": "38232ab8e02a3afc5444d3ef8f6276f056f29a001d62b2b2dc1d571a0a79e90d",
+    "rendered_sha256": "e2ef3f4eef403730f54c8f8ddfd5dcbf3facd5131a6cedd0cb356ffce7354fe1",
+    "rendered_bytes": 4231,
+    "expected_values": [
+      "24.27",
+      "23.60",
+      "88.67",
+      "96.99"
+    ]
+  },
+  "gold_target": {
+    "folder_name": "03_GOLD",
+    "folder_drive_id": "1hAmQNBnY6MNBtyr14ACfVfRkmWhsoRq4",
+    "file_name": "F02_MDE_FUNDEB_2026_GOLD__38232ab8e02a__gold_v1.json",
+    "create_only": true,
+    "overwrite": false,
+    "max_creates": 1,
+    "readback_required": true
+  },
+  "manifest_target": {
+    "folder_name": "07_LOGS",
+    "folder_drive_id": "1H2ggRDWZ3Zf5LF_ze8po8zU_Uf_IbvoU",
+    "file_name": "F02_MDE_FUNDEB_2026_GOLD_PERSISTENCE__38232ab8e02a__manifest_v1.json",
+    "create_only": true,
+    "overwrite": false,
+    "max_creates": 1,
+    "only_after_gold_readback": true,
+    "readback_required": true
+  },
+  "forbidden": {
+    "bronze_mutation": true,
+    "silver_mutation": true,
+    "source_collection": true,
+    "extra_gold_create": true,
+    "overwrite": true,
+    "delete": true,
+    "move": true,
+    "serving": true,
+    "publication": true,
+    "site_mutation": true,
+    "schedule": true,
+    "recurrence": true,
+    "annual_compliance_promotion": true
+  }
+}
