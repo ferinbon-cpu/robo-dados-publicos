@@ -22,6 +22,7 @@ def _contract_reference(value) -> tuple[int, int] | None:
     intentionally fail-closed: zero or multiple slash-form references return None.
     A match embedded in a date (`17/03/2025`), dotted process number
     (`29.185/2025`) or underscore filename (`contrato_09_2025.pdf`) is rejected.
+    Surrounding documentary text such as `Contrato 09/2025 - objeto` is allowed.
     """
 
     matches = re.findall(
@@ -56,10 +57,11 @@ def fail_closed_contract_candidate_rows(rows: list[list[str]], keys: dict) -> li
       used by the evidence assembler and also emits the explicit normalization signal;
     * when an expected CNPJ is present in the task, it must be a valid 14-digit key
       and one individual result cell must normalize exactly to those 14 digits;
-    * otherwise, when supplier is available alongside contract, supplier must agree;
+    * whenever a supplier key is also present, supplier mismatch blocks promotion;
     * CNPJ is never reconstructed across cells or accepted as a substring of a cell;
     * object-text similarity is never used to promote a candidate;
-    * CNPJ-only promotion is allowed only when the task itself has no contract key.
+    * CNPJ-only promotion is allowed only when the task itself has no contract key,
+      and still requires supplier agreement when a supplier key is available.
     """
 
     contract_value = keys.get("contract_number")
@@ -111,8 +113,9 @@ def fail_closed_contract_candidate_rows(rows: list[list[str]], keys: dict) -> li
         if cnpj_key_present and not cnpj_match:
             continue
 
-        # Without CNPJ, a known supplier must corroborate a contract-number hit.
-        if not cnpj_key_present and contract_key_present and supplier and not supplier_match:
+        # A known supplier is also a corroborator. Contradictory supplier evidence
+        # stays fail-closed even for a CNPJ-only task.
+        if supplier and not supplier_match:
             continue
 
         # A task with neither a proven contract reference nor expected CNPJ cannot
@@ -123,9 +126,3 @@ def fail_closed_contract_candidate_rows(rows: list[list[str]], keys: dict) -> li
         out.append({"row_index": idx, "cells": cells, "match_signals": signals})
 
     return out
-
-
-def install_fail_closed_contract_candidate_policy(resolver_class) -> None:
-    """Install the candidate policy on the existing resolver class deterministically."""
-
-    resolver_class._candidate_rows = staticmethod(fail_closed_contract_candidate_rows)
