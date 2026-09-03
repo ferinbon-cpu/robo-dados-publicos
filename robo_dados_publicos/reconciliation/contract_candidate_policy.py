@@ -18,7 +18,7 @@ def _contract_reference(value) -> tuple[int, int] | None:
     """Parse exactly one slash-form contract reference as (number, year).
 
     Leading zeroes and trailing punctuation are presentation differences only:
-    `09/2025.` and `9/2025` normalize to the same reference.  The parser is
+    `09/2025.` and `9/2025` normalize to the same reference. The parser is
     intentionally fail-closed: zero or multiple slash-form references return None.
     Filenames such as `contrato_09_2025.pdf` are not accepted as contract-number
     evidence because they do not expose the documentary `number/year` syntax.
@@ -41,6 +41,8 @@ def fail_closed_contract_candidate_rows(rows: list[list[str]], keys: dict) -> li
     * when a contract key is present, the same normalized number/year must occur in
       one individual result cell;
     * `09/2025.`, `09/2025` and `9/2025` are the same documentary reference;
+    * a normalized full-reference hit preserves the legacy `CONTRACT_FULL` signal
+      used by the evidence assembler and also emits the explicit normalization signal;
     * filenames or unrelated text containing a numeric stem never count as a
       contract-number match;
     * when an expected CNPJ is present in the task, the same row must expose it in
@@ -66,7 +68,10 @@ def fail_closed_contract_candidate_rows(rows: list[list[str]], keys: dict) -> li
         if expected_contract is not None:
             contract_match = any(_contract_reference(cell) == expected_contract for cell in cells)
             if contract_match:
-                signals.append("CONTRACT_NUMBER_YEAR_NORMALIZED")
+                # Backward compatibility is semantic, not permissive: CONTRACT_FULL
+                # now means a full slash-form number/year reference proven after
+                # canonical normalization in one individual result cell.
+                signals.extend(["CONTRACT_FULL", "CONTRACT_NUMBER_YEAR_NORMALIZED"])
         elif contract_key_present:
             # Unknown contract syntax stays fail-closed rather than falling back to
             # a loose digit-stem search across the whole row.
