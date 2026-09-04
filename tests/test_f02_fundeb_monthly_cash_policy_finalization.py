@@ -20,6 +20,7 @@ POLICY = ROOT / "config/automation_policy.v1.json"
 ACTUAL_GATE = ROOT / "config/f02_fundeb_monthly_cash_gate.v1.json"
 WORKFLOW = ROOT / ".github/workflows/f02-fundeb-monthly-policy-finalization-evidence.yml"
 MERGE_SHA = "48c2f7624dba3f46b61f09659f15d798b836c0ef"
+IMPLEMENTATION_BLOCKER = "IMPLEMENTATION_PR_376_MUST_BE_MERGED_BEFORE_MANUAL_EXECUTION"
 
 
 def evidence():
@@ -80,7 +81,7 @@ def execution_gate(*, finalized: bool = True):
             "implementation_merge_sha": MERGE_SHA,
         })
     else:
-        gate["blockers"].insert(0, "IMPLEMENTATION_PR_376_MUST_BE_MERGED_BEFORE_MANUAL_EXECUTION")
+        gate["blockers"].insert(0, IMPLEMENTATION_BLOCKER)
     return gate
 
 
@@ -136,6 +137,23 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
         self.assertFalse(result["auto_allowed"])
         self.assertEqual(result["remote_effects"], 0)
 
+    def test_prefinalization_requires_implementation_blocker_in_policy_and_contract(self):
+        bad_policy = policy(finalized=False)
+        bad_policy["gates"][0]["blockers"].remove(IMPLEMENTATION_BLOCKER)
+        with self.assertRaisesRegex(
+            F02FundebMonthlyPolicyFinalizationStop,
+            "PREFINALIZATION_IMPLEMENTATION_BLOCKER_MISSING: policy",
+        ):
+            validate_prefinalization_install(bad_policy, gate_contract(finalized=False))
+
+        bad_contract = gate_contract(finalized=False)
+        bad_contract["blockers"].remove(IMPLEMENTATION_BLOCKER)
+        with self.assertRaisesRegex(
+            F02FundebMonthlyPolicyFinalizationStop,
+            "PREFINALIZATION_IMPLEMENTATION_BLOCKER_MISSING: contract",
+        ):
+            validate_prefinalization_install(policy(finalized=False), bad_contract)
+
     def test_repository_lifecycle_accepts_missing_evidence_only_in_prefinalization(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
@@ -187,6 +205,17 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
             ):
                 validate_repository_state(root)
 
+    def test_actual_repository_prefinalization_cannot_pass_finalization_path(self):
+        actual_policy = load_json(POLICY)
+        actual_gate = load_json(ACTUAL_GATE)
+        with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "GATE_STATUS"):
+            validate_finalization(
+                evidence(),
+                actual_policy,
+                actual_gate,
+                implementation_ancestor_verified=True,
+            )
+
     def test_synthetic_finalization_passes_only_with_ancestor_proof(self):
         result = validate_finalization(
             evidence(), policy(), gate_contract(), implementation_ancestor_verified=True
@@ -218,6 +247,16 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
         del missing_sha["implementation_merge_sha"]
         with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "IMPLEMENTATION_MERGE_SHA"):
             validate_finalization(missing_sha, policy(), gate_contract(), implementation_ancestor_verified=True)
+
+        bad_gate = gate_contract()
+        del bad_gate["implementation_merge_sha"]
+        with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "IMPLEMENTATION_SHA_PIN_MISSING: contract"):
+            validate_finalization(evidence(), policy(), bad_gate, implementation_ancestor_verified=True)
+
+        bad_policy_missing = policy()
+        del bad_policy_missing["gates"][0]["implementation_merge_sha"]
+        with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "IMPLEMENTATION_SHA_PIN_MISSING: policy"):
+            validate_finalization(evidence(), bad_policy_missing, gate_contract(), implementation_ancestor_verified=True)
 
         bad_gate = gate_contract()
         bad_gate["implementation_merge_sha"] = "0" * 40
@@ -275,35 +314,32 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
             ):
                 verify_git_ancestor(repo, first)
 
-    def test_workflow_paths_match_canonical_policy_filter_exactly(self):
-        raw = json.loads(POLICY.read_text(encoding="utf-8"))
-        ci_gate = next(
-            row for row in raw["gates"]
-            if row.get("id") == "F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_EVIDENCE_CI"
-        )
-        expected = ci_gate["path_filter"]
+    def test_workflow_paths_are_exactly_the_f02_specific_trigger_set(self):
         observed = workflow_paths(WORKFLOW.read_text(encoding="utf-8"))
-        self.assertEqual(observed, expected)
-
-    def test_policy_path_trigger_is_safe_because_workflow_is_readonly_and_nonmutating(self):
-        text = WORKFLOW.read_text(encoding="utf-8")
-        observed = workflow_paths(text)
-        self.assertIn("config/automation_policy.v1.json", observed)
-        self.assertIn("permissions:\n  contents: read", text)
-        self.assertNotIn("contents: write", text)
-        self.assertNotIn("pull-requests: write", text)
-        self.assertNotIn("git push", text)
-        self.assertNotIn("gh pr", text)
-        self.assertNotIn("repository_dispatch", text)
-        self.assertNotIn("workflow_run", text)
+        self.assertEqual(
+            observed,
+            [
+                "config/f02_fundeb_monthly_cash_gate.v1.json",
+                "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json",
+                "robo_dados_publicos/automation/f02_fundeb_monthly_policy_finalization.py",
+                "scripts/validate_f02_fundeb_monthly_policy_finalization.py",
+                "tests/test_f02_fundeb_monthly_cash_policy_finalization.py",
+            ],
+        )
+        self.assertNotIn("config/automation_policy.v1.json", observed)
+        self.assertNotIn("README.md", observed)
 
     def test_workflow_is_full_history_readonly_and_lifecycle_aware(self):
         text = WORKFLOW.read_text(encoding="utf-8")
         self.assertIn("permissions:\n  contents: read", text)
         self.assertIn("persist-credentials: false", text)
         self.assertIn("fetch-depth: 0", text)
+        self.assertNotIn("contents: write", text)
+        self.assertNotIn("pull-requests: write", text)
         self.assertNotIn("pull_request_target", text)
         self.assertNotIn("schedule:", text)
+        self.assertNotIn("workflow_run", text)
+        self.assertNotIn("repository_dispatch", text)
         self.assertIn("Validate prefinalization install or finalized pinned implementation", text)
         self.assertNotIn("test -f docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json", text)
 
