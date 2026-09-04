@@ -368,5 +368,35 @@ class F02KnownFamilyBundleTests(unittest.TestCase):
                 validate_controller_alignment(adapter, root=ROOT)
 
 
+    def test_unknown_batch_kind_missing_source_field_and_bad_sha_stop(self):
+        base = {
+            "schema": "F02_KNOWN_FAMILY_BATCH_MANIFEST_V1",
+            "mode": "MANUAL_SUPERVISED_INGEST",
+            "batch_id": "BAD_SHAPE",
+            "batch_kind": "LOCAL_ONLY",
+            "reference_period": {"start": "2026-01-01", "end": "2026-05-31"},
+            "sources": [
+                source("F", "FUNDEB_LOCAL", b"x", "f.pdf"),
+                source("M", "MDE_25_LOCAL", b"y", "m.pdf"),
+            ],
+            "remote_effects_authorized": effects_false(),
+        }
+
+        bad_kind = copy.deepcopy(base)
+        bad_kind["batch_kind"] = "UNKNOWN_KIND"
+        with self.assertRaisesRegex(F02KnownFamilyBundleStop, "BATCH_KIND"):
+            validate_batch_manifest(bad_kind, self.adapter)
+
+        missing = copy.deepcopy(base)
+        missing["sources"][0].pop("expected_sha256")
+        with self.assertRaisesRegex(F02KnownFamilyBundleStop, "MISSING_FIELDS"):
+            validate_batch_manifest(missing, self.adapter)
+
+        bad_sha = copy.deepcopy(base)
+        bad_sha["sources"][0]["expected_sha256"] = "not-a-sha"
+        with self.assertRaisesRegex(F02KnownFamilyBundleStop, "BAD_SHA256"):
+            validate_batch_manifest(bad_sha, self.adapter)
+
+
 if __name__ == "__main__":
     unittest.main()
