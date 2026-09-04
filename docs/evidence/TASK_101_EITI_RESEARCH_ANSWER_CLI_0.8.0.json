@@ -1,0 +1,46 @@
+{
+  "task": "TASK_101",
+  "version": "0.8.0",
+  "mode": "T0_OFFLINE_STDOUT_ONLY_RESEARCH_CLI",
+  "result": "PENDING_REVIEW",
+  "entrypoint": "scripts/render_eiti_research_answer_offline.py",
+  "subject": "POLICY:EITI_LIMEIRA",
+  "default_query_type": "POLICY_STATUS_PACKET",
+  "allowed_query_types_source": "robo_dados_publicos.research.query.QUERY_TYPES",
+  "input_sources": [
+    "config/eiti_limeira_research_crosswalk.v1.json",
+    "config/eiti_historical_planning_crosswalk.v1.json"
+  ],
+  "output": {
+    "channel": "STDOUT",
+    "format": "MARKDOWN",
+    "repository_write": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false
+  },
+  "guards": [
+    "USES_TASK099_QUERY_PACKET",
+    "USES_TASK100_SHA_VERIFIED_RENDERER",
+    "NO_FREE_FORM_GENERATION",
+    "NO_LLM_CALL",
+    "NO_NETWORK_CLIENT",
+    "NO_DRIVE_CLIENT",
+    "NO_REMOTE_PERSISTENCE",
+    "NO_AUTOMATIC_WORKFLOW_TRIGGER"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
