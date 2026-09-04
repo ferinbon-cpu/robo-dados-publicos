@@ -41,7 +41,7 @@ jobs:
           test -f config/f02_fundeb_monthly_cash_gate.v1.json
 
       - name: Run dedicated validator tests
-        run: python tests/test_f02_fundeb_monthly_cash_policy_finalization.py
+        run: python -m unittest discover -s tests -p 'test_f02_fundeb_monthly_cash_policy_finalization.py' -v
 
       - name: Validate prefinalization install or finalized pinned implementation
         run: python scripts/validate_f02_fundeb_monthly_policy_finalization.py
