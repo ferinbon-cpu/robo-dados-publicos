@@ -44,7 +44,11 @@ For every accepted Jornal input, the executor calls the existing `JournalPdfProc
 - `plan_reconciliation=false`;
 - OCR disabled by contract;
 - no network capability;
-- no remote persistence capability.
+- no remote persistence capability;
+- the exact processor source is pinned to Git blob `899db8d357f40afbab595beb365b330a703c339b`;
+- the pinned processor source is audited before execution for forbidden network/process import roots.
+
+The CLI also requires its manifest file to be a regular file inside the supplied ephemeral workspace; a symlinked workspace root is rejected.
 
 Allowed candidate files are exactly:
 
