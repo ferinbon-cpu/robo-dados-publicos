@@ -1,0 +1,47 @@
+{
+  "schema": "F02_FUNDEB_MONTHLY_CASH_SERIES_CONTRACT_V1",
+  "software_candidate": "0.8.0",
+  "mode": "OFFLINE_MONTHLY_FUNDEB_CASH_RECONCILIATION",
+  "family": "FUNDEB_MONTHLY_CASH_LOCAL",
+  "purpose": "STRUCTURE_MONTHLY_FUNDEB_BALANCE_AND_FLOW_RECONCILIATION_WITHOUT_EXPENDITURE_PROMOTION",
+  "source_markers": [
+    "DEMONSTRATIVO MENSAL - RECURSOS DO FUNDEB",
+    "SALDO INICIAL",
+    "TOTAL DAS ENTRADAS",
+    "TOTAL DAS SAIDAS",
+    "SALDO FINAL"
+  ],
+  "required_monthly_invariants": [
+    "ACCOUNTING_EQUALS_BANK_FOR_TOTALS",
+    "OPENING_PLUS_INFLOWS_MINUS_OUTFLOWS_EQUALS_CLOSING"
+  ],
+  "required_series_invariants": [
+    "MONTHS_STRICTLY_INCREASING_AND_CONTIGUOUS",
+    "PREVIOUS_CLOSING_EQUALS_NEXT_OPENING",
+    "EXPLICIT_ETI_CLOSING_EQUALS_NEXT_EXPLICIT_ETI_OPENING_WHEN_BOTH_PRESENT"
+  ],
+  "semantic_boundary": {
+    "explicit_eti_or_fti_label_may_be_recorded_as_balance_or_identified_inflow": true,
+    "eti_spending_claim_authorized": false,
+    "eti_committed_claim_authorized": false,
+    "eti_liquidated_claim_authorized": false,
+    "eti_paid_claim_authorized": false,
+    "mde_compliance_claim_authorized": false,
+    "annual_compliance_claim_authorized": false,
+    "interpretation": "BALANCE_AND_IDENTIFIED_FLOW_ONLY_NOT_EXPENDITURE"
+  },
+  "remote_effects": {
+    "bronze_write": false,
+    "silver_write": false,
+    "gold_write": false,
+    "serving": false,
+    "publication": false,
+    "site": false,
+    "overwrite": false,
+    "delete": false,
+    "move": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "silver_persistence_requires_separate_create_only_execution": true
+}
