@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import json
 from pathlib import Path
+import tempfile
 import unittest
 
 from robo_dados_publicos.research.eiti_historical_planning import (
@@ -80,6 +81,28 @@ class TestTask098EitiHistoricalPlanningCrosswalk(unittest.TestCase):
         data["periods"][1]["primary_source_sha256"] = "0" * 64
         with self.assertRaisesRegex(EitiHistoricalPlanningStop, "2022_CROSSWALK_SOURCE_SHA"):
             self.validate(data)
+
+    def test_task107_canonical_hash_is_pinned_and_recomputed(self):
+        task107 = copy.deepcopy(self.task107)
+        task107["period_results"][1]["source_bytes"] += 1
+        with self.assertRaisesRegex(EitiHistoricalPlanningStop, "TASK107_CANONICAL_SHA_MISMATCH"):
+            self.validate(task107=task107)
+
+        task107 = copy.deepcopy(self.task107)
+        task107["result_canonical_sha256"] = "0" * 64
+        with self.assertRaisesRegex(EitiHistoricalPlanningStop, "TASK107_PINNED_CANONICAL_SHA"):
+            self.validate(task107=task107)
+
+    def test_missing_task107_input_fails_closed_with_stable_error(self):
+        with tempfile.TemporaryDirectory() as td:
+            missing = Path(td) / "missing-task107.json"
+            with self.assertRaisesRegex(EitiHistoricalPlanningStop, "REQUIRED_INPUT_MISSING"):
+                load_and_validate_historical_planning_crosswalk(
+                    CROSSWALK,
+                    task055a_path=TASK055A,
+                    task096_path=TASK096,
+                    task107_path=missing,
+                )
 
     def test_2022_primary_status_requires_matching_task107_primary_evidence(self):
         task107 = copy.deepcopy(self.task107)
