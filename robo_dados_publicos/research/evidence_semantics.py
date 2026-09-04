@@ -111,6 +111,8 @@ def source_role_max_status(source_role: str, claim_domain: str) -> str:
     _require(claim_domain in CLAIM_DOMAINS, "TASK095_CLAIM_DOMAIN")
     if claim_domain == "CAUSAL_EFFECT":
         return "CANDIDATE"
+    if claim_domain == "SEARCH_RESULT":
+        return "PROVEN"
     policy = SOURCE_DOMAIN_POLICY[source_role]
     if claim_domain in policy["direct"]:
         return "PROVEN"
