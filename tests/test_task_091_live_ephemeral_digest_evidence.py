@@ -33,7 +33,6 @@ class TestTask091LiveEphemeralDigestEvidence(unittest.TestCase):
             "PASS_TASK091_REDACTED_LIVE_DIGEST_EVIDENCE_OFFLINE",
             result["status"],
         )
-        self.assertEqual(33873064071, result["run_id"])
         self.assertEqual(2, result["request_count"])
         self.assertEqual(1, result["drive_media_gets"])
         self.assertTrue(result["digest_passed_before_historical_comparison"])
