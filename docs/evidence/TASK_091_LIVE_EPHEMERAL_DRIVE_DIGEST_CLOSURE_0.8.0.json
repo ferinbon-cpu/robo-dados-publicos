@@ -3,6 +3,12 @@
   "software_version": "0.8.0",
   "base_main_sha": "7750b28e42be1b9e786b908c4f8eb9307a9809ad",
   "branch": "task-091-live-ephemeral-drive-digest",
+  "archival_policy": {
+    "protected_main_target": "SQUASH_FINAL_REDACTED_TREE_ONLY",
+    "full_live_workflow_source_in_final_tree": false,
+    "remote_identifier_in_final_tree": false,
+    "exact_historical_objects_referenced_by_git_hash_only": true
+  },
   "prospective_authorization": {
     "owner_instruction": "2026-09-04: prossiga",
     "pre_run_contract_commit": "1e59ad3647e79c1783db3cf9568765234b2d99c2",
@@ -29,15 +35,18 @@
     "zip_sha256": "eb1d999b279556323a5a292b63585500c3419a1f35d0d1fdf2d2c25f3f2d236a",
     "zip_size_bytes": 901,
     "retention_days": 1,
-    "payload_path": "docs/evidence/TASK_091_LIVE_ARTIFACT_PAYLOAD_0.8.0.json",
-    "payload_self_hash_without_self_field": "7cd575881c2e3ae25b5afff287004738ee85681faf26c35d3a272fb6ba867c90"
+    "original_payload_self_hash": "7cd575881c2e3ae25b5afff287004738ee85681faf26c35d3a272fb6ba867c90",
+    "durable_redacted_record_path": "docs/evidence/TASK_091_LIVE_ARTIFACT_PAYLOAD_0.8.0.json",
+    "durable_redacted_record_self_hash": "1d6adfd5b698c6d217352675050c3dcaf5427d8ecd25984a26b933c3d9737d0e",
+    "durable_record_is_exact_original_payload": false
   },
   "source": {
-    "drive_file_id": "1JTpCPj4_rL08RubO5wOVvBHjuwqKWfQ8",
+    "remote_id_redacted": true,
+    "remote_id_sha256": "c4ddf384c210c0189c8c6da932de27cdaa70f810d026060736f10c76ed99dfc5",
     "expected_bytes": 17615179,
     "expected_sha256": "44d92a6ac948bbf43dcb3302733faac1a4ed5e592702f66c07f0c6ede4ecb73c",
     "source_identity_gate_passed_before_stop": true,
-    "interpretation": "The executed workflow checks bytes and SHA-256 before invoking the digest and can reach HISTORICAL_COUNT_DRIFT only after both checks pass."
+    "interpretation": "The executed workflow checks exact pre-run remote identity, bytes and SHA-256 before invoking the digest. The remote identifier is intentionally omitted from the final canonical tree."
   },
   "live_transport": {
     "guarded_request_count": 2,
@@ -74,7 +83,7 @@
     "observed_counts_captured": false,
     "count_comparison_result": "DRIFT",
     "root_cause_status": "UNRESOLVED",
-    "reproducibility_gap": "TASK_073 evidence does not contain a complete executable runtime fingerprint or the TASK_091 observed counts; do not infer an exact cause from current evidence."
+    "reproducibility_gap": "TASK_073 evidence does not contain a complete executable runtime fingerprint and TASK_091 did not capture observed counts before comparison."
   },
   "task091_runtime_fingerprint": {
     "github_runner_version": "2.337.0",
@@ -101,5 +110,5 @@
     "schedule": 0
   },
   "result": "STOP_TASK091_DIGEST_PROVEN_EPHEMERAL_HISTORICAL_COUNT_DRIFT_UNRESOLVED",
-  "next_action": "NO_RETRY_WITHOUT_FRESH_OWNER_AUTHORIZATION. BEFORE_ANY_NEW_LIVE_RUN, ADD_RUNTIME_FINGERPRINT_AND_CAPTURE_OBSERVED_COUNTS_BEFORE_HISTORICAL_COMPARISON."
+  "next_action": "NO_RETRY_WITHOUT_FRESH_OWNER_AUTHORIZATION. FIRST ADD_RUNTIME_FINGERPRINT_AND_CAPTURE_OBSERVED_COUNTS_BEFORE_HISTORICAL_COMPARISON."
 }
