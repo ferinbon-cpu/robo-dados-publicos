@@ -150,8 +150,10 @@ def _is_structurally_blank_export_page(page: Any, *, reader: Any | None = None) 
     try:
         if len(page.images) != 0:
             return False
-    except Exception:
-        return False
+    except Exception as exc:
+        raise F02FundebMonthlyCashStop(
+            "STOP_F02_FUNDEB_MONTHLY_BLANK_PAGE_IMAGE_INSPECTION_FAILED"
+        ) from exc
     contents = page.get_contents()
     if contents is None:
         return True
@@ -164,8 +166,10 @@ def _is_structurally_blank_export_page(page: Any, *, reader: Any | None = None) 
         return False
     try:
         operations = ContentStream(contents, reader).operations
-    except Exception:
-        return False
+    except Exception as exc:
+        raise F02FundebMonthlyCashStop(
+            "STOP_F02_FUNDEB_MONTHLY_BLANK_PAGE_CONTENT_STREAM_INSPECTION_FAILED"
+        ) from exc
     if not operations:
         return True
 
