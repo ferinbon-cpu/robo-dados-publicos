@@ -21,6 +21,7 @@ class F02KnownFamilyAutomationPolicyTests(unittest.TestCase):
         self.assertEqual(gate["current_triggers"], [])
         self.assertEqual(gate["invocation_surface"], "DIRECT_CLI_OR_CI_TEST_ONLY")
         self.assertTrue(gate["no_workflow_trigger"])
+        self.assertTrue(gate["manual_execution_required"])
         self.assertFalse(gate["effects"]["source_network"])
         self.assertFalse(gate["effects"]["drive_reads"])
         self.assertFalse(gate["effects"]["drive_writes"])
