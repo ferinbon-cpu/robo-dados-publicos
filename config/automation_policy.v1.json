@@ -308,9 +308,7 @@
         "drive_writes": false,
         "publication": false
       },
-      "current_triggers": [
-        "direct_cli_or_ci_test_only"
-      ],
+      "current_triggers": [],
       "local_snapshot_read_only": true,
       "remote_materialization_authorized": false,
       "bronze_write_authorized": false,
@@ -319,7 +317,9 @@
       "serving_authorized": false,
       "schedule": false,
       "recurrence": false,
-      "blockers": []
+      "blockers": [],
+      "invocation_surface": "DIRECT_CLI_OR_CI_TEST_ONLY",
+      "no_workflow_trigger": true
     }
   ],
   "agentic_work": {
