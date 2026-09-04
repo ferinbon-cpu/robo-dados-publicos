@@ -1,0 +1,39 @@
+{
+  "schema": "F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_V1",
+  "status": "READY_FOR_MANUAL_RUNTIME_AUTHORIZATION_ONLY",
+  "implementation_pr": 376,
+  "implementation_merge_sha": "48c2f7624dba3f46b61f09659f15d798b836c0ef",
+  "implementation_merge_verified": true,
+  "implementation_merge_verification_reason": "valid",
+  "prior_policy_pr": 378,
+  "prior_policy_merge_sha": "e0e1555a6c89c1aab0f823ce834f28432a170285",
+  "owner_sprint_instruction_still_in_force": true,
+  "owner_instruction_verbatim": "Autorizado executar autonomamente toda a próxima fase de maturação do robô, incluindo GitHub/Drive, PRs, CI, DeepSeek Pro, correções e merges necessários, até atingir um blocker material ou concluir a fase. Permanecem proibidos delete/overwrite, serving/Looker, publicação/site, schedule/recorrência e promoção financeira sem evidência.",
+  "gate_effects": {
+    "auto_allowed": false,
+    "workflow_trigger": false,
+    "source_network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "still_requires": [
+    "EXPLICIT_OWNER_RUNTIME_AUTHORIZATION",
+    "BOUNDED_LOCAL_SNAPSHOT_MATERIALIZATION",
+    "SEPARATE_CREATE_ONLY_SILVER_EXECUTION_AFTER_VALID_OFFLINE_RESULT"
+  ],
+  "still_forbidden": [
+    "DELETE",
+    "OVERWRITE",
+    "SERVING",
+    "LOOKER",
+    "PUBLICATION",
+    "SITE",
+    "SCHEDULE",
+    "RECURRENCE",
+    "GOLD_PROMOTION",
+    "FINANCIAL_CLAIM_PROMOTION_WITHOUT_EVIDENCE"
+  ]
+}
