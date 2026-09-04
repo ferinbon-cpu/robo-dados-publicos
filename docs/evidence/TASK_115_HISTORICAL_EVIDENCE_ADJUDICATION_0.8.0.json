@@ -1,0 +1,36 @@
+{
+  "task": "TASK_115",
+  "version": "0.8.0",
+  "mode": "T0_OFFLINE_HISTORICAL_EVIDENCE_ADJUDICATION",
+  "issue": 427,
+  "decision": "ACQUISITION_GAPS_CLOSED_BOUNDED_NEGATIVE_EVIDENCE_EXPLICIT",
+  "inputs": {
+    "task112": "docs/evidence/TASK_112_REAL_PPA_OCR_RESULT_0.8.0.json",
+    "task114": "docs/evidence/TASK_114_ONTOLOGY_OCR_RESULT_0.8.0.json",
+    "task112_source_sha256": "685a621a2f5fa8859e4b7f8518627c1523a2fbc5f3402ff48d4aa7573300113d",
+    "task114_result_canonical_sha256": "ab663f4f5f8a192e4cf9cf64c8e8ee3da2731f61d32041b7486244290f485c81"
+  },
+  "normalized_state": {
+    "primary_documents_acquired": 3,
+    "positive_primary_planning_periods": [
+      "2022-2025",
+      "2026-2029"
+    ],
+    "conflicted_planning_periods": [
+      "2018-2021"
+    ],
+    "acquisition_gaps": [],
+    "bounded_negative_evidence_periods": [
+      "2018-2021"
+    ],
+    "three_ppa_policy_continuity": "CONFLICTED",
+    "three_ppa_budgetary_persistence": "UNKNOWN",
+    "financial_identity": "UNKNOWN"
+  },
+  "query_renderer_change": "BOUNDED_NEGATIVE_EVIDENCE_SURFACED_SEPARATELY_FROM_ACQUISITION_GAPS",
+  "network_reads": 0,
+  "ocr_runs": 0,
+  "drive_reads": 0,
+  "drive_writes": 0,
+  "promotions_performed": 0
+}
