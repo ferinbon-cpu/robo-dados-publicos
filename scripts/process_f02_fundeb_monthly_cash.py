@@ -15,6 +15,7 @@ from robo_dados_publicos.manual_ingest.f02_fundeb_monthly_cash import (  # noqa:
     load_manifest,
     load_pinned_authorization,
     run_monthly_series,
+    validate_offline_telemetry,
 )
 
 CONTRACT = ROOT / "config/f02_fundeb_monthly_cash_series.v1.json"
@@ -40,9 +41,8 @@ def main() -> int:
         root=ROOT,
         authorization=authorization,
     )
+    validate_offline_telemetry(telemetry)
     print(json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2))
-    if telemetry["remote_effects"] != 0 or telemetry["silver_persisted"] or telemetry["gold_authorized"]:
-        raise RuntimeError("STOP_F02_FUNDEB_MONTHLY_UNEXPECTED_EFFECT")
     return 0
 
 
