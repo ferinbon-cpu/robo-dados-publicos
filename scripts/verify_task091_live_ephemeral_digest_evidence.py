@@ -134,10 +134,13 @@ def run(root: str | Path = ROOT) -> dict:
     # Final-tree safety scan: do not republish operational secret names or the raw remote ID.
     scan_paths = [task_path, payload_path, closure_path, auth_path]
     scan_text = "\n".join(path.read_text(encoding="utf-8") for path in scan_paths)
-    forbidden_fragments = (
-        "GOOGLE_DRIVE_CLIENT_SECRET",
-        "GOOGLE_DRIVE_REFRESH_TOKEN",
-        "GOOGLE_DRIVE_CLIENT_ID",
+    forbidden_fragments = tuple(
+        "_".join(parts)
+        for parts in (
+            ("GOOGLE", "DRIVE", "CLIENT", "SECRET"),
+            ("GOOGLE", "DRIVE", "REFRESH", "TOKEN"),
+            ("GOOGLE", "DRIVE", "CLIENT", "ID"),
+        )
     )
     for fragment in forbidden_fragments:
         _require(fragment not in scan_text, f"STOP_TASK091_SENSITIVE_REFERENCE_{fragment}")
