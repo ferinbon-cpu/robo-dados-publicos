@@ -299,6 +299,7 @@ def acquire_historical_ppa_evidence(
     contract: dict[str, Any],
     runtime_dir: Path,
     client: BoundedOfficialHttpClient,
+    extract_pdf_text: Callable[[Path], str] = _extract_pdf_text,
 ) -> dict[str, Any]:
     runtime_dir.mkdir(parents=True, exist_ok=True)
     results: list[dict[str, Any]] = []
@@ -346,7 +347,7 @@ def acquire_historical_ppa_evidence(
             source_hash = sha256(pdf_bytes).hexdigest()
             pdf_path = runtime_dir / f"ppa_{period.replace('-', '_')}.pdf"
             pdf_path.write_bytes(pdf_bytes)
-            pdf_text = _extract_pdf_text(pdf_path)
+            pdf_text = extract_pdf_text(pdf_path)
             result = analyze_pdf_text(
                 pdf_text,
                 period=period,
