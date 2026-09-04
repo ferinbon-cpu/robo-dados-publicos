@@ -2,7 +2,7 @@
   "schema": "TASK_106_OWNER_AUTHORIZATION_RECORD_V1",
   "task": "TASK_106_SINGLE_USE_HISTORICAL_PPA_PRIMARY_EVIDENCE_PYPDF",
   "software_version": "0.8.0",
-  "status": "AUTHORIZED_PROSPECTIVE_UNCONSUMED",
+  "status": "WORKFLOW_ATTEMPT_CONSUMED_PRE_NETWORK_SOURCE_READ_SCOPE_UNCONSUMED",
   "authorization_source": {
     "kind": "OWNER_CHAT_INSTRUCTION_2026-09-04",
     "instruction": "atorizado pra todoase essas etapas prossiga",
@@ -52,5 +52,20 @@
     "transaction_execution_promotion": false,
     "implementation_promotion": false,
     "causal_effect_promotion": false
+  },
+  "consumed_by": {
+    "run_id": 33914326253,
+    "job_id": 101157867281,
+    "execution_head_sha": "fc301acb3d33f6499a64c10e4ba9c127157f3817",
+    "conclusion": "failure",
+    "failed_step": "Execute exactly one bounded read-only historical PPA acquisition",
+    "failure_code": "PYTHON_MODULE_IMPORT_ROOT_NOT_BOOTSTRAPPED",
+    "error": "ModuleNotFoundError: No module named 'robo_dados_publicos'",
+    "parser_preflight_passed": true,
+    "live_runner_import_completed": false,
+    "source_http_requests_emitted": 0,
+    "primary_source_bytes_read": 0,
+    "source_read_scope_consumed": false,
+    "workflow_single_use_consumed": true
   }
 }
