@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+from hashlib import sha256
 import json
 from pathlib import Path
 import sys
@@ -24,17 +25,30 @@ from robo_dados_publicos.research.query import (  # noqa: E402
 
 EITI_PATH = ROOT / "config/eiti_limeira_research_crosswalk.v1.json"
 HISTORICAL_PATH = ROOT / "config/eiti_historical_planning_crosswalk.v1.json"
+EXPECTED_INPUT_SHA256 = {
+    EITI_PATH.name: "34bed580acb84abfe3e8894ed620c87b9918ef52c187716d5d02fa330db26953",
+    HISTORICAL_PATH.name: "f288a573e2d0dff801ac09028f62ee9a66c4617ece6bf489c61c436854318ac9",
+}
 
 
 class EitiResearchAnswerCliStop(RuntimeError):
     """Fail-closed offline CLI assembly error."""
 
 
-def _load_json(path: Path) -> dict[str, Any]:
+def _load_json(path: Path, *, expected_sha256: str) -> dict[str, Any]:
     try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
+        raw = path.read_bytes()
+    except OSError as exc:
         raise EitiResearchAnswerCliStop(f"TASK101_INPUT_READ:{path.name}") from exc
+
+    observed_sha256 = sha256(raw).hexdigest()
+    if observed_sha256 != expected_sha256:
+        raise EitiResearchAnswerCliStop(f"TASK101_INPUT_SHA256_MISMATCH:{path.name}")
+
+    try:
+        data = json.loads(raw.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise EitiResearchAnswerCliStop(f"TASK101_INPUT_JSON:{path.name}") from exc
     if not isinstance(data, dict):
         raise EitiResearchAnswerCliStop(f"TASK101_INPUT_OBJECT:{path.name}")
     return data
@@ -53,8 +67,14 @@ def build_eiti_research_answer(
     if not isinstance(include_unknown_gaps, bool):
         raise EitiResearchAnswerCliStop("TASK101_INCLUDE_UNKNOWN_GAPS")
 
-    eiti = _load_json(EITI_PATH)
-    historical = _load_json(HISTORICAL_PATH)
+    eiti = _load_json(
+        EITI_PATH,
+        expected_sha256=EXPECTED_INPUT_SHA256[EITI_PATH.name],
+    )
+    historical = _load_json(
+        HISTORICAL_PATH,
+        expected_sha256=EXPECTED_INPUT_SHA256[HISTORICAL_PATH.name],
+    )
 
     research_bundle = eiti.get("research_bundle")
     if not isinstance(research_bundle, dict):
