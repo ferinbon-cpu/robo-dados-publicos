@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "schema": "POLICY_BUDGET_LEDGER_V1",
+  "mode": "T0_OFFLINE_TEMPORAL_BUDGET_LEDGER",
+  "event_types": [
+    "AUTHORIZATION_INITIAL",
+    "AUTHORIZATION_SUPPLEMENT",
+    "AUTHORIZATION_CANCEL",
+    "COMMITMENT",
+    "COMMITMENT_CANCEL",
+    "LIQUIDATION",
+    "LIQUIDATION_CANCEL",
+    "PAYMENT",
+    "PAYMENT_CANCEL"
+  ],
+  "identity_dimensions": [
+    "entity",
+    "fiscal_year",
+    "org",
+    "unit",
+    "function",
+    "subfunction",
+    "program",
+    "action",
+    "subaction",
+    "economic_category",
+    "expense_group",
+    "application_mode",
+    "expense_nature",
+    "element",
+    "subelement",
+    "funding_source",
+    "destination",
+    "fund",
+    "cost_center",
+    "accounting_key"
+  ],
+  "required_identity_dimensions": [
+    "entity",
+    "fiscal_year"
+  ],
+  "invariants": [
+    "BUDGET_STATE_IS_RECONSTRUCTED_FROM_EVENTS_NOT_TREATED_AS_ONE_DOCUMENT_SNAPSHOT",
+    "AUTHORIZATION_CURRENT_EQUALS_INITIAL_PLUS_SUPPLEMENTS_MINUS_AUTHORIZATION_CANCELLATIONS",
+    "COMMITMENT_LIQUIDATION_PAYMENT_ARE_DISTINCT_EXECUTION_STAGES",
+    "CANCELLATION_EVENTS_REVERSE_ONLY_THEIR_OWN_STAGE",
+    "NET_BALANCES_MUST_NOT_BECOME_NEGATIVE",
+    "NET_COMMITTED_MUST_NOT_EXCEED_CURRENT_AUTHORIZATION",
+    "NET_LIQUIDATED_MUST_NOT_EXCEED_NET_COMMITTED",
+    "NET_PAID_MUST_NOT_EXCEED_NET_LIQUIDATED",
+    "POLICY_ATTRIBUTION_IS_EXTERNAL_TO_BUDGET_IDENTITY",
+    "TEXT_SIMILARITY_OR_AMOUNT_EQUALITY_ALONE_NEVER_PROVES_POLICY_LINK",
+    "MONEY_IS_NORMALIZED_AS_DECIMAL_STRING",
+    "SNAPSHOT_CAN_BE_RECONSTRUCTED_AT_AN_EFFECTIVE_DATE"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
