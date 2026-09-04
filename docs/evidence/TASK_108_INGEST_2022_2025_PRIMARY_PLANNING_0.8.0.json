@@ -1,0 +1,55 @@
+{
+  "task": "TASK_108",
+  "version": "0.8.0",
+  "mode": "T0_OFFLINE_INGEST_PINNED_TASK107_PRIMARY_PLANNING_EVIDENCE",
+  "result": "PENDING_REVIEW",
+  "issue": 413,
+  "source_evidence": {
+    "path": "docs/evidence/TASK_107_LIVE_RESULT_0.8.0.json",
+    "run_id": 33914777365,
+    "result_canonical_sha256": "f69259e73b6ce79618ecdea9ef10617fcc3ab123b7fcd7153ae5d379f037252a"
+  },
+  "promoted_scope": {
+    "period": "2022-2025",
+    "planning_signal_status": "PROVEN",
+    "policy_link_status": "CANDIDATE",
+    "financial_identity_status": "UNKNOWN",
+    "source_sha256": "8e10123b07d83e9a9928fd2444318f595a7560eac2bc06c920761ca7893778f7",
+    "source_pdf_page": 23,
+    "page_text_sha256": "6c8294fb4a511fc7fbc86d69dda780085cdc5bbbea363b8482d06c22eba57883"
+  },
+  "remaining_gap": {
+    "period": "2018-2021",
+    "status": "CANDIDATE",
+    "obstacle": "OFFICIAL_PDF_RESOLVED_BUT_PYPDF_TEXT_EMPTY",
+    "financial_identity_status": "UNKNOWN"
+  },
+  "output": {
+    "historical_crosswalk": "config/eiti_historical_planning_crosswalk.v1.json",
+    "historical_crosswalk_sha256": "b34452daf28600d9663a20dbae4e6c091ec65a03ac328313151f1788c45b4d39",
+    "acquisition_gap_count": 1,
+    "primary_proven_period_count": 2
+  },
+  "invariants": [
+    "NO_NEW_SOURCE_READS",
+    "TASK107_PRIMARY_MATCH_REQUIRED_FOR_2022_PROMOTION",
+    "2018_EMPTY_TEXT_DOES_NOT_PROMOTE_PRIMARY_EVIDENCE",
+    "HISTORICAL_PLANNING_SIGNAL_DOES_NOT_CREATE_FINANCIAL_IDENTITY",
+    "THREE_PPA_POLICY_CONTINUITY_REMAINS_CANDIDATE",
+    "NO_IMPLEMENTATION_OR_CAUSAL_EFFECT_CREATED"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
