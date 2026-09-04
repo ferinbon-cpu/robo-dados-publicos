@@ -13,6 +13,8 @@ from robo_dados_publicos.manual_ingest.mde_fundeb import inspect_f02_pdf
 from robo_dados_publicos.manual_ingest.f02_fundeb_monthly_cash import (
     F02FundebMonthlyCashStop,
     parse_monthly_text,
+    _is_structurally_blank_export_page,
+    inspect_monthly_pdf,
     load_manifest,
     load_pinned_authorization,
     reconcile_series,
@@ -240,6 +242,96 @@ class F02FundebMonthlyCashTests(unittest.TestCase):
         self.assertEqual(telemetry["remote_effects"], 0)
         self.assertFalse(telemetry["silver_persisted"])
         self.assertFalse(telemetry["gold_authorized"])
+
+    def test_structurally_blank_export_page_policy_is_narrow(self):
+        class Contents:
+            def __init__(self, data):
+                self._data = data
+            def get_data(self):
+                return self._data
+
+        class Page:
+            def __init__(self, text="", data=b"", images=()):
+                self._text = text
+                self._contents = Contents(data) if data is not None else None
+                self.images = list(images)
+            def extract_text(self):
+                return self._text
+            def get_contents(self):
+                return self._contents
+
+        self.assertTrue(_is_structurally_blank_export_page(Page("", b"")))
+        self.assertTrue(_is_structurally_blank_export_page(
+            Page("", b"0.750000 0.000000 0.000000 -0.750000 0.000000 841.920044 cm\n")
+        ))
+        self.assertFalse(_is_structurally_blank_export_page(
+            Page("", b"0 0 m 10 10 l S\n")
+        ))
+        self.assertFalse(_is_structurally_blank_export_page(
+            Page("", b"", images=(object(),))
+        ))
+        self.assertFalse(_is_structurally_blank_export_page(Page("visible", b"")))
+
+    def test_monthly_pdf_allows_only_trailing_structurally_blank_pages(self):
+        class Contents:
+            def __init__(self, data):
+                self._data = data
+            def get_data(self):
+                return self._data
+
+        class Page:
+            def __init__(self, text="", data=b""):
+                self._text = text
+                self._contents = Contents(data)
+                self.images = []
+            def extract_text(self):
+                return self._text
+            def get_contents(self):
+                return self._contents
+
+        class Reader:
+            def __init__(self, pages):
+                self.pages = pages
+
+        base = {
+            "pages": 2,
+            "text_pages": 1,
+            "text_chars": len(JAN),
+            "has_text_layer": False,
+            "text": JAN,
+        }
+        with patch(
+            "robo_dados_publicos.manual_ingest.f02_fundeb_monthly_cash.inspect_f02_pdf",
+            return_value=base,
+        ), patch(
+            "robo_dados_publicos.manual_ingest.f02_fundeb_monthly_cash.PdfReader",
+            return_value=Reader([
+                Page(JAN),
+                Page("", b"0.750000 0 0 -0.750000 0 841.92 cm\n"),
+            ]),
+        ):
+            observed = inspect_monthly_pdf(b"synthetic")
+        self.assertTrue(observed["has_required_text_layer"])
+        self.assertEqual(observed["structurally_blank_trailing_pages"], [2])
+
+        internal = dict(base, pages=3, text_pages=2)
+        with patch(
+            "robo_dados_publicos.manual_ingest.f02_fundeb_monthly_cash.inspect_f02_pdf",
+            return_value=internal,
+        ), patch(
+            "robo_dados_publicos.manual_ingest.f02_fundeb_monthly_cash.PdfReader",
+            return_value=Reader([Page(JAN), Page(""), Page(FEB)]),
+        ):
+            observed = inspect_monthly_pdf(b"synthetic")
+        self.assertFalse(observed["has_required_text_layer"])
+
+    def test_contract_rejects_blank_page_policy_drift(self):
+        good = copy.deepcopy(self.contract)
+        validate_contract(good)
+        bad = copy.deepcopy(good)
+        bad["source_page_policy"]["allow_internal_blank_pages"] = True
+        with self.assertRaisesRegex(F02FundebMonthlyCashStop, "SOURCE_PAGE_POLICY"):
+            validate_contract(bad)
 
     def test_pdf_inspection_is_local_only_even_with_socket_blocked(self):
         import io
