@@ -8,6 +8,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -83,6 +84,36 @@ class TestTask101EitiResearchAnswerCli(unittest.TestCase):
         result = run_cli("--query-type", "INVENTED")
         self.assertEqual(2, result.returncode)
         self.assertEqual("", result.stdout)
+
+    def test_build_function_invalid_query_type_fails_closed(self):
+        with self.assertRaisesRegex(_CLI.EitiResearchAnswerCliStop, "TASK101_QUERY_TYPE"):
+            _CLI.build_eiti_research_answer(query_type="INVENTED")
+
+    def test_build_function_fails_closed_on_missing_or_tampered_canonical_input(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            missing = root / _CLI.EITI_PATH.name
+            with mock.patch.object(_CLI, "EITI_PATH", missing):
+                with self.assertRaisesRegex(_CLI.EitiResearchAnswerCliStop, "INPUT_READ"):
+                    _CLI.build_eiti_research_answer()
+
+            tampered = root / _CLI.EITI_PATH.name
+            tampered.write_text('{"research_bundle":{},"institutionalization_matrix":{}}', encoding="utf-8")
+            with mock.patch.object(_CLI, "EITI_PATH", tampered):
+                with self.assertRaisesRegex(_CLI.EitiResearchAnswerCliStop, "INPUT_SHA256_MISMATCH"):
+                    _CLI.build_eiti_research_answer()
+
+    def test_claim_audit_with_no_unknown_gaps_remains_well_formed(self):
+        result = run_cli("--query-type", "CLAIM_AUDIT", "--no-unknown-gaps")
+        self.assertEqual(0, result.returncode, result.stderr)
+        self.assertIn(
+            "Nenhuma dimensão de institucionalização incluída neste tipo de consulta.",
+            result.stdout,
+        )
+        self.assertIn(
+            "Nenhuma lacuna de institucionalização incluída neste pacote.",
+            result.stdout,
+        )
 
     def test_load_json_fails_closed_on_missing_malformed_and_tampered_input(self):
         with tempfile.TemporaryDirectory() as temp_dir:
