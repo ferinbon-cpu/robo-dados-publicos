@@ -299,6 +299,42 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
                     evidence(missing), policy_missing, gate_missing, repo_root=root
                 )
 
+    def test_finalized_state_without_or_with_malformed_evidence_fails_closed(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            merge_sha = init_repo(root)
+            policy, gate = finalized_copies(merge_sha)
+            (root / "config").mkdir(parents=True)
+            (root / "docs/evidence").mkdir(parents=True)
+            (root / "config/automation_policy.v1.json").write_text(json.dumps(policy), encoding="utf-8")
+            (root / "config/f02_fundeb_monthly_cash_gate.v1.json").write_text(json.dumps(gate), encoding="utf-8")
+            install_ci_gate_files(root)
+            commit_state(root)
+            with self.assertRaisesRegex(
+                F02FundebMonthlyPolicyFinalizationStop,
+                "PREFINALIZATION_GATE_STATUS",
+            ):
+                validate_repository_state(root)
+
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            merge_sha = init_repo(root)
+            policy, gate = finalized_copies(merge_sha)
+            (root / "config").mkdir(parents=True)
+            (root / "docs/evidence").mkdir(parents=True)
+            (root / "config/automation_policy.v1.json").write_text(json.dumps(policy), encoding="utf-8")
+            (root / "config/f02_fundeb_monthly_cash_gate.v1.json").write_text(json.dumps(gate), encoding="utf-8")
+            install_ci_gate_files(root)
+            (root / "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json").write_text(
+                "{bad-json", encoding="utf-8"
+            )
+            commit_state(root)
+            with self.assertRaisesRegex(
+                F02FundebMonthlyPolicyFinalizationStop,
+                "JSON_READ",
+            ):
+                validate_repository_state(root)
+
     def test_repository_state_with_evidence_and_prefinal_gate_fails_closed_after_ancestry(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
