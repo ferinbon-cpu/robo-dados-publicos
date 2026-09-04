@@ -7,7 +7,9 @@ import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
+from pypdf import PdfWriter
 
+from robo_dados_publicos.manual_ingest.mde_fundeb import inspect_f02_pdf
 from robo_dados_publicos.manual_ingest.f02_fundeb_monthly_cash import (
     F02FundebMonthlyCashStop,
     parse_monthly_text,
@@ -99,6 +101,8 @@ class F02FundebMonthlyCashTests(unittest.TestCase):
         feb = parse_monthly_text(FEB)
         mar = parse_monthly_text(MAR)
         self.assertEqual(jan["period"], "2026-01")
+        self.assertEqual(feb["period"], "2026-02")
+        self.assertEqual(mar["period"], "2026-03")  # MARÇO is folded to MARCO
         self.assertEqual(jan["explicit_fti_inflow"], "182462.26")
         self.assertIsNone(jan["eti_opening_labeled_total"])
         self.assertEqual(jan["eti_closing_labeled_total"], "1232081.93")
@@ -236,6 +240,17 @@ class F02FundebMonthlyCashTests(unittest.TestCase):
         self.assertEqual(telemetry["remote_effects"], 0)
         self.assertFalse(telemetry["silver_persisted"])
         self.assertFalse(telemetry["gold_authorized"])
+
+    def test_pdf_inspection_is_local_only_even_with_socket_blocked(self):
+        import io
+        writer = PdfWriter()
+        writer.add_blank_page(width=100, height=100)
+        buf = io.BytesIO()
+        writer.write(buf)
+        with patch("socket.socket", side_effect=AssertionError("network access attempted")):
+            observed = inspect_f02_pdf(buf.getvalue())
+        self.assertEqual(observed["pages"], 1)
+        self.assertFalse(observed["has_text_layer"])
 
     def test_missing_document_marker_invalid_manifest_json_and_bad_auth_pin_stop(self):
         with self.assertRaisesRegex(F02FundebMonthlyCashStop, "DOCUMENT_SIGNATURE"):
