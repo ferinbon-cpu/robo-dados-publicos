@@ -4,7 +4,7 @@
   "mode": "T0_OFFLINE_VERSIONED_PPA_EVIDENCE_ADAPTER",
   "research_digest_contract": {
     "path": "config/research_ephemeral_digest.v1.json",
-    "git_blob_sha": "66abb987536908d8ee106e2a89e0fdc70752362a",
+    "git_blob_sha": "66757ed911a90a935b6c4eb3713999f740de862e",
     "policy_profile": "EITI_LIMEIRA"
   },
   "inputs": {
