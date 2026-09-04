@@ -27,8 +27,7 @@ def _fold(value: str) -> str:
     return re.sub(r"[^A-Z0-9]+", " ", ascii_like).strip()
 
 
-def load_controller_contract(path: str | Path) -> dict[str, Any]:
-    raw = json.loads(Path(path).read_text(encoding="utf-8"))
+def validate_controller_contract(raw: dict[str, Any]) -> dict[str, Any]:
     if raw.get("mode") != "T0_OFFLINE_ROUTING_CONTROLLER":
         raise DriveIngestionStop("STOP_DRIVE_CONTROLLER_BAD_MODE")
     for key in ("content_read_authorized", "drive_write_authorized", "bronze_write_authorized", "silver_write_authorized", "gold_write_authorized", "serving_authorized", "publication_authorized"):
@@ -55,6 +54,11 @@ def load_controller_contract(path: str | Path) -> dict[str, Any]:
         if rule.get("primary_family") not in families or not _fold(str(rule.get("title_prefix") or "")):
             raise DriveIngestionStop("STOP_DRIVE_CONTROLLER_BAD_PRIMARY_FAMILY_RULE")
     return raw
+
+
+def load_controller_contract(path: str | Path) -> dict[str, Any]:
+    raw = json.loads(Path(path).read_text(encoding="utf-8"))
+    return validate_controller_contract(raw)
 
 
 def _family_matches(title: str, contract: dict[str, Any]) -> list[str]:
