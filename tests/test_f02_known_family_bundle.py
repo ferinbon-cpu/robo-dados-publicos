@@ -432,7 +432,7 @@ class F02KnownFamilyBundleTests(unittest.TestCase):
                 "robo_dados_publicos.manual_ingest.f02_known_family_bundle.os.open",
                 side_effect=racing_open,
             ):
-                with self.assertRaisesRegex(F02KnownFamilyBundleStop, "SNAPSHOT_SECURE_OPEN"):
+                with self.assertRaisesRegex(F02KnownFamilyBundleStop, "SNAPSHOT_PATH_SYMLINK"):
                     self._run(manifest, texts)
             self.assertTrue(swapped["done"])
 
