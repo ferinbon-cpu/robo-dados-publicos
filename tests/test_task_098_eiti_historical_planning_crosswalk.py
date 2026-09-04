@@ -104,11 +104,11 @@ class TestTask098EitiHistoricalPlanningCrosswalk(unittest.TestCase):
                     task107_path=missing,
                 )
 
-    def test_2022_primary_status_requires_matching_task107_primary_evidence(self):
+    def test_2022_primary_status_tampering_is_blocked_by_pinned_task107_hash(self):
         task107 = copy.deepcopy(self.task107)
         period = next(item for item in task107["period_results"] if item["period"] == "2022-2025")
         period["status"] = "CANDIDATE"
-        with self.assertRaisesRegex(EitiHistoricalPlanningStop, "2022_PRIMARY_MATCH"):
+        with self.assertRaisesRegex(EitiHistoricalPlanningStop, "TASK107_CANONICAL_SHA_MISMATCH"):
             self.validate(task107=task107)
 
     def test_historical_planning_signal_cannot_become_financial_identity(self):
