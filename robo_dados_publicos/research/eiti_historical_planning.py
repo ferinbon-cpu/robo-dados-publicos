@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from hashlib import sha256
 import json
 from pathlib import Path
 import re
@@ -19,6 +20,7 @@ EXPECTED_HISTORICAL_SIGNALS = {
         "TASK055A_PPA2022_ALIAS_MISSING",
     ),
 }
+TASK107_RESULT_CANONICAL_SHA256 = "f69259e73b6ce79618ecdea9ef10617fcc3ab123b7fcd7153ae5d379f037252a"
 TASK107_2022_SOURCE_SHA256 = "8e10123b07d83e9a9928fd2444318f595a7560eac2bc06c920761ca7893778f7"
 TASK107_2022_PAGE_TEXT_SHA256 = "6c8294fb4a511fc7fbc86d69dda780085cdc5bbbea363b8482d06c22eba57883"
 TASK107_2022_URL = "https://www.limeira.sp.gov.br/sitenovo/downloads/9d8dd63f39cc3b51ef032a4c96210a07.pdf"
@@ -35,8 +37,28 @@ def _require(condition: bool, code: str) -> None:
         raise EitiHistoricalPlanningStop(code)
 
 
+def _task107_canonical_sha256(task107: dict[str, Any]) -> str:
+    payload = dict(task107)
+    payload.pop("result_canonical_sha256", None)
+    canonical = json.dumps(
+        payload,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ) + "\n"
+    return sha256(canonical.encode("utf-8")).hexdigest()
+
+
 def _validate_task107(task107: dict[str, Any]) -> dict[str, Any]:
     _require(isinstance(task107, dict), "TASK108_TASK107_OBJECT")
+    _require(
+        task107.get("result_canonical_sha256") == TASK107_RESULT_CANONICAL_SHA256,
+        "TASK108_TASK107_PINNED_CANONICAL_SHA",
+    )
+    _require(
+        _task107_canonical_sha256(task107) == TASK107_RESULT_CANONICAL_SHA256,
+        "TASK108_TASK107_CANONICAL_SHA_MISMATCH",
+    )
     _require(
         task107.get("schema") == "TASK_107_HISTORICAL_PPA_LIVE_RESULT_V1",
         "TASK108_TASK107_SCHEMA",
@@ -316,10 +338,15 @@ def load_and_validate_historical_planning_crosswalk(
     task096_path: str | Path,
     task107_path: str | Path,
 ) -> dict[str, Any]:
-    data = json.loads(Path(crosswalk_path).read_text(encoding="utf-8"))
-    task055a = json.loads(Path(task055a_path).read_text(encoding="utf-8"))
-    task096 = json.loads(Path(task096_path).read_text(encoding="utf-8"))
-    task107 = json.loads(Path(task107_path).read_text(encoding="utf-8"))
+    try:
+        data = json.loads(Path(crosswalk_path).read_text(encoding="utf-8"))
+        task055a = json.loads(Path(task055a_path).read_text(encoding="utf-8"))
+        task096 = json.loads(Path(task096_path).read_text(encoding="utf-8"))
+        task107 = json.loads(Path(task107_path).read_text(encoding="utf-8"))
+    except FileNotFoundError as exc:
+        raise EitiHistoricalPlanningStop("TASK108_REQUIRED_INPUT_MISSING") from exc
+    except json.JSONDecodeError as exc:
+        raise EitiHistoricalPlanningStop("TASK108_REQUIRED_INPUT_MALFORMED_JSON") from exc
     return validate_historical_planning_crosswalk(
         data,
         task055a=task055a,
