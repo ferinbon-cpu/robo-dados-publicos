@@ -43,5 +43,15 @@
     "schedule": false,
     "recurrence": false
   },
-  "silver_persistence_requires_separate_create_only_execution": true
+  "silver_persistence_requires_separate_create_only_execution": true,
+  "source_page_policy": {
+    "require_text_on_every_nonblank_page": true,
+    "allow_trailing_structurally_blank_export_pages": true,
+    "allow_internal_blank_pages": false,
+    "allow_images_on_blank_pages": false,
+    "allowed_blank_page_content": [
+      "EMPTY",
+      "CTM_ONLY"
+    ]
+  }
 }
