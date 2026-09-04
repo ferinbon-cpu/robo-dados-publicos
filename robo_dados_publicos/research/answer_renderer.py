@@ -170,6 +170,10 @@ def validate_query_result(result: dict[str, Any]) -> dict[str, Any]:
 
     result_sha256 = str(result.get("result_sha256") or "")
     _require(bool(_SHA256_RE.fullmatch(result_sha256)), "TASK100_RESULT_SHA256")
+    hash_payload = deepcopy(result)
+    hash_payload.pop("result_sha256", None)
+    recomputed_sha256 = sha256(_canonical_json(hash_payload).encode("utf-8")).hexdigest()
+    _require(recomputed_sha256 == result_sha256, "TASK100_RESULT_SHA256_MISMATCH")
     return deepcopy(result)
 
 
