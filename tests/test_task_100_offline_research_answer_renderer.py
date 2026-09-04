@@ -100,6 +100,12 @@ class TestTask100OfflineResearchAnswerRenderer(unittest.TestCase):
         self.assertFalse(result["free_form_generation_performed"])
         self.assertFalse(result["remote_effects_performed"])
 
+    def test_truthy_packet_remote_effect_fails_closed(self):
+        packet = copy.deepcopy(self.packet)
+        packet["remote_effects"] = {"network": True}
+        with self.assertRaisesRegex(ResearchAnswerRenderStop, "PACKET_REMOTE_EFFECT"):
+            render_research_answer_markdown(packet)
+
     def test_wrong_input_schema_fails_closed(self):
         packet = copy.deepcopy(self.packet)
         packet["schema"] = "OTHER"
@@ -154,6 +160,15 @@ class TestTask100OfflineResearchAnswerRenderer(unittest.TestCase):
         packet["historical_acquisition_gaps"][0]["required_before_promotion"] = []
         with self.assertRaisesRegex(ResearchAnswerRenderStop, "HISTORICAL_REQUIREMENTS"):
             render_research_answer_markdown(packet)
+
+    def test_incorrect_contract_mode_fails_closed(self):
+        contract = load(RENDERER_CONTRACT)
+        with tempfile.TemporaryDirectory() as temp_dir:
+            path = Path(temp_dir) / "contract.json"
+            contract["mode"] = "T1_REMOTE_READONLY"
+            path.write_text(json.dumps(contract), encoding="utf-8")
+            with self.assertRaisesRegex(ResearchAnswerRenderStop, "CONTRACT_MODE"):
+                load_renderer_contract(path)
 
     def test_altered_invariant_contract_fails_closed(self):
         contract = load(RENDERER_CONTRACT)
