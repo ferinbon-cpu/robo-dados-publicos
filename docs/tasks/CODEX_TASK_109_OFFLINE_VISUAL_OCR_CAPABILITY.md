@@ -56,17 +56,18 @@ Observed local capabilities:
 - ImageMagick: absent;
 - Python `fitz`, `cv2`, `pytesseract`, `pdf2image`: absent.
 
-### Decision
+### Interim decision after inventory
 
 `STOP_NO_LOCAL_OCR_CHAIN`.
 
-Chrome/PIL availability alone is not accepted as proof that an image-only PDF can
-be OCRed deterministically. Because the inventory did not reveal a plausible OCR
-chain, TASK 109 does **not** proceed to the synthetic image-only PDF proof and does
-not read or OCR the real PPA 2018–2021.
+The inventory established that no OCR engine/render chain was already available.
+Chrome/Chromium/ChromeDriver remained the only plausible dependency-free local
+surface worth testing. That narrower question was therefore isolated in one
+synthetic-only sub-gate below; the real PPA remained outside the task.
 
-A dependency route must be designed separately. No package installation is
-authorized by this task.
+No OCR stack installation was authorized. The only dependency used by the later
+synthetic proof was the already-pinned project dependency `pypdf==6.10.0`, solely
+to prove that the generated fixture had no extractable text layer.
 
 ## Synthetic image-only Chrome proof
 
