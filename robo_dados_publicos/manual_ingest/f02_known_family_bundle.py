@@ -3,7 +3,9 @@ from __future__ import annotations
 from pathlib import Path
 import hashlib
 import json
+import os
 import re
+import stat
 from typing import Any
 
 from .drive_ingestion_controller import load_controller_contract
@@ -299,9 +301,55 @@ def validate_batch_manifest(
 
 
 def _read_snapshot(root: Path, relative: Path) -> bytes:
+    _safe_repo_file(root, relative, code="SNAPSHOT_PATH")
+    root_resolved = root.resolve(strict=True)
+
+    nofollow = getattr(os, "O_NOFOLLOW", 0)
+    odirectory = getattr(os, "O_DIRECTORY", 0)
+    if os.name == "posix" and nofollow and odirectory:
+        opened_dirs: list[int] = []
+        file_fd: int | None = None
+        try:
+            current_fd = os.open(root_resolved, os.O_RDONLY | odirectory)
+            opened_dirs.append(current_fd)
+            for part in relative.parts[:-1]:
+                current_fd = os.open(
+                    part,
+                    os.O_RDONLY | odirectory | nofollow,
+                    dir_fd=current_fd,
+                )
+                opened_dirs.append(current_fd)
+            file_fd = os.open(
+                relative.parts[-1],
+                os.O_RDONLY | nofollow,
+                dir_fd=current_fd,
+            )
+            info = os.fstat(file_fd)
+            if not stat.S_ISREG(info.st_mode):
+                _stop("SNAPSHOT_PATH_NOT_REGULAR", str(relative))
+            with os.fdopen(file_fd, "rb", closefd=True) as handle:
+                file_fd = None
+                return handle.read()
+        except F02KnownFamilyBundleStop:
+            raise
+        except OSError as exc:
+            raise F02KnownFamilyBundleStop(
+                f"STOP_F02_KNOWN_BUNDLE_SNAPSHOT_SECURE_OPEN: {relative}"
+            ) from exc
+        finally:
+            if file_fd is not None:
+                os.close(file_fd)
+            for descriptor in reversed(opened_dirs):
+                os.close(descriptor)
+
     path = _safe_repo_file(root, relative, code="SNAPSHOT_PATH")
     try:
+        info = path.stat(follow_symlinks=False)
+        if not stat.S_ISREG(info.st_mode) or path.is_symlink():
+            _stop("SNAPSHOT_PATH_NOT_REGULAR", str(relative))
         return path.read_bytes()
+    except F02KnownFamilyBundleStop:
+        raise
     except OSError as exc:
         raise F02KnownFamilyBundleStop(
             f"STOP_F02_KNOWN_BUNDLE_SNAPSHOT_UNREADABLE: {relative}"
