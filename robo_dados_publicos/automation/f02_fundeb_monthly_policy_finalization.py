@@ -132,8 +132,9 @@ def validate_finalization(
     policy: dict[str, Any],
     gate_contract: dict[str, Any],
     *,
-    implementation_ancestor_verified: bool,
+    repo_root: str | Path,
 ) -> dict[str, Any]:
+    """Validate finalization and perform the Git object/ancestry proof internally."""
     if evidence.get("schema") != "F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_V2":
         _stop("EVIDENCE_SCHEMA")
     if evidence.get("status") != "READY_FOR_MANUAL_RUNTIME_AUTHORIZATION_ONLY":
@@ -156,8 +157,9 @@ def validate_finalization(
         _stop("NETWORK_REQUIRED_AFTER_CHECKOUT")
     if verification.get("github_signature_claimed_by_this_evidence") is not False:
         _stop("UNVERIFIABLE_SIGNATURE_CLAIM")
-    if implementation_ancestor_verified is not True:
-        _stop("IMPLEMENTATION_ANCESTRY_NOT_VERIFIED")
+
+    # This proof is not caller-supplied. It is an inseparable part of finalization.
+    verify_git_ancestor(repo_root, merge_sha)
 
     policy_gate = _policy_gate(policy)
     _validate_remote_closed_manual_policy_gate(policy_gate)
@@ -223,11 +225,4 @@ def validate_repository_state(repo_root: str | Path) -> dict[str, Any]:
         return validate_prefinalization_install(policy, gate)
 
     evidence = load_json(evidence_path)
-    merge_sha = str(evidence.get("implementation_merge_sha") or "").lower()
-    verify_git_ancestor(root, merge_sha)
-    return validate_finalization(
-        evidence,
-        policy,
-        gate,
-        implementation_ancestor_verified=True,
-    )
+    return validate_finalization(evidence, policy, gate, repo_root=root)
