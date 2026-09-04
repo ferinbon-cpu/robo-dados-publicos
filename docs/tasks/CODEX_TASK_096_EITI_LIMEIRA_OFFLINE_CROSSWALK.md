@@ -109,6 +109,21 @@ TASK 096 explicitly forbids promotion of:
 - FOMENTO ETI reporting bucket → individual transaction identity;
 - zero FUNDEB FOMENTO ETI in one period → zero total municipal EITI spending.
 
+## CI and dependency integration
+
+TASK 096 does not vendor copies of pre-existing repository dependencies into its diff.
+
+The following are already present on protected main and are intentionally reused:
+
+- `robo_dados_publicos/research/ontology.py` — merged by TASK 093;
+- `robo_dados_publicos/research/evidence_semantics.py` — merged by TASK 095;
+- `tests/fixtures/edges_v08.csv`;
+- `tests/fixtures/graph_qa_v08.csv`.
+
+The new test module is automatically executed by the existing canonical `CI_OFFLINE` repository-wide unittest discovery. TASK 096 adds no new workflow because it adds no new trigger, credential, autonomous executor or remote capability.
+
+The existing CI also runs the repository preflight, automation-policy gate, engineer-policy gate, unit suite and historical regression before a PR can merge. Public readiness remains a separate protected status check.
+
 ## Research significance
 
 This is the first concrete demonstration of the structural redesign:
