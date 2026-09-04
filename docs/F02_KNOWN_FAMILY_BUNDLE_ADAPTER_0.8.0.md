@@ -36,3 +36,25 @@ Unknown/ambiguous family, missing/duplicate family, immutable source drift, pars
 A passing adapter result is an offline deterministic candidate. It does not authorize Bronze, Silver, Gold, serving, publication, site, overwrite, delete, move, schedule, or recurrence.
 
 A new period with the same known schema can therefore be processed with a new manifest and existing code, while remote persistence remains a separately authorized effect.
+
+
+## Explicit blocked capabilities
+
+The adapter is a **T0 offline-only** capability. A PASS does not authorize any of the following:
+
+- remote Drive read;
+- Bronze write;
+- Silver write;
+- Gold write;
+- serving;
+- publication;
+- site mutation;
+- overwrite, delete or move;
+- schedule or recurrence;
+- automatic acceptance of a new family or parser/schema shape.
+
+The machine-readable boundary is pinned in `config/f02_known_family_bundle_gate.v1.json`. The only T0 execution privilege is reading already-materialized local snapshots inside the repository runtime boundary. Any remote materialization or persistence is a separate authorization.
+
+## Security boundary for local files
+
+Adapter config paths and snapshot paths must be repository-relative regular files. Absolute paths, `..`, symlink components, missing files and resolved paths outside the repository root fail closed.
