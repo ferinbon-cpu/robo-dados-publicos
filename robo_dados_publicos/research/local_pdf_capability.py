@@ -288,3 +288,22 @@ def prove_pypdf_text_extraction(
         "page_count": len(pages),
         "extracted_text": extracted,
     }
+
+
+def extract_pdf_text_pypdf(pdf_path: Path) -> str:
+    """Extract page-preserving text locally with the pinned pypdf dependency."""
+    try:
+        from pypdf import PdfReader
+    except ImportError as exc:
+        raise LocalPdfCapabilityStop("TASK106_PYPDF_UNAVAILABLE") from exc
+
+    try:
+        reader = PdfReader(str(pdf_path))
+        pages = [(page.extract_text() or "") for page in reader.pages]
+    except Exception as exc:
+        raise LocalPdfCapabilityStop("TASK106_PYPDF_EXTRACTION_ERROR") from exc
+
+    text = "\f".join(pages)
+    if not text.strip():
+        raise LocalPdfCapabilityStop("TASK106_PDF_TEXT_EMPTY")
+    return text
