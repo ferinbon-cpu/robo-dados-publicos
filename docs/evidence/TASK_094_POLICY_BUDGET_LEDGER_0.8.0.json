@@ -2,12 +2,6 @@
   "task": "TASK_094_POLICY_BUDGET_LEDGER",
   "mode": "T0_OFFLINE_TEMPORAL_BUDGET_LEDGER",
   "base_sha": "7cd4cb88e03c1cfb2bfe63ab5e1d9e90d15eee00",
-  "authorization": {
-    "owner_authorized": true,
-    "owner_message": "autorizado",
-    "scope": "STRUCTURAL_REDESIGN_TASK094_POLICY_BUDGET_LEDGER",
-    "remote_execution_authorized": false
-  },
   "event_types": [
     "AUTHORIZATION_INITIAL",
     "AUTHORIZATION_SUPPLEMENT",
@@ -53,5 +47,11 @@
     "schedule": 0
   },
   "next_task": "TASK_095_SOURCE_ROLES_EVIDENCE_SEMANTICS",
-  "result": "READY_FOR_CI_REVIEW_NO_REMOTE_EFFECT"
+  "result": "READY_FOR_CI_REVIEW_NO_REMOTE_EFFECT",
+  "design_context": {
+    "user_requested_structural_redesign": true,
+    "operational_authorization_required": false,
+    "remote_execution_authorized": false,
+    "note": "T0 design record only; this field is not evidence of a live authorization."
+  }
 }
