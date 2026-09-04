@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "schema": "EITI_HISTORICAL_PLANNING_CROSSWALK_V1",
+  "mode": "T0_OFFLINE_VERSIONED_REPOSITORY_EVIDENCE_ONLY",
+  "policy_id": "POLICY:EITI_LIMEIRA",
+  "periods": [
+    {
+      "period": "2018-2021",
+      "planning_document": "PPA_2018_2021",
+      "repository_signal": "escolas com programas em tempo integral",
+      "signal_origin": "TASK_055A_LOCAL_PLANNING_ALIAS",
+      "task055a_validator_tag": "TASK055A_PPA2018_ALIAS_MISSING",
+      "primary_document_entity_versioned": false,
+      "primary_source_hash_versioned": false,
+      "primary_locator_versioned": false,
+      "planning_signal_status": "CANDIDATE",
+      "policy_link_status": "UNKNOWN",
+      "financial_identity_status": "UNKNOWN",
+      "reason": "Normalized terminology survives in TASK055A, but the current repository does not preserve the underlying primary PPA source identity and locator required for direct planning proof."
+    },
+    {
+      "period": "2022-2025",
+      "planning_document": "PPA_2022_2025",
+      "repository_signal": "indice de alunos em Educacao Integral",
+      "signal_origin": "TASK_055A_LOCAL_PLANNING_ALIAS",
+      "task055a_validator_tag": "TASK055A_PPA2022_ALIAS_MISSING",
+      "primary_document_entity_versioned": false,
+      "primary_source_hash_versioned": false,
+      "primary_locator_versioned": false,
+      "planning_signal_status": "CANDIDATE",
+      "policy_link_status": "UNKNOWN",
+      "financial_identity_status": "UNKNOWN",
+      "reason": "Normalized terminology survives in TASK055A, but the current repository does not preserve the underlying primary PPA source identity and locator required for direct planning proof."
+    },
+    {
+      "period": "2026-2029",
+      "planning_document": "DOC:PPA_7213_2025",
+      "repository_signal": "INDICE DE ALUNOS EM EDUCACAO INTEGRAL",
+      "signal_origin": "TASK_041_TASK_049_TASK_096_PRIMARY_JOURNAL_CHAIN",
+      "primary_document_entity_versioned": true,
+      "primary_source_hash_versioned": true,
+      "primary_locator_versioned": true,
+      "preferred_locator": {
+        "coordinate_system": "JOURNAL_EDITION_PDF_PAGE",
+        "page": 15,
+        "source_sha256": "cb65f29c772eb7133c902e827884a4ed19d8c09f64586b8de9d6483023d9133a",
+        "page_text_sha256": "b6d44ee39efeed3b1acc3dccabbf56c73fb6914ef8ce15003d144c44a59e5eb4"
+      },
+      "planning_signal_status": "PROVEN",
+      "policy_link_status": "CORROBORATED",
+      "financial_identity_status": "UNKNOWN",
+      "reason": "Primary Jornal evidence proves the planning signal and Program 2001 structure; TASK096 preserves only a thematic/planning correspondence to EITI, not financial identity."
+    }
+  ],
+  "longitudinal_assessment": {
+    "three_ppa_period_policy_continuity": "CANDIDATE",
+    "three_ppa_period_budgetary_persistence": "UNKNOWN",
+    "existing_task096_normative_planning_persistence": "CORROBORATED",
+    "existing_task096_normative_planning_persistence_preserved": true,
+    "explanation": "The existing TASK096 persistence finding rests on the 2021 CME → 2024 decree → PPA 2026-2029 → 2026 law chain. It must not be silently reinterpreted as proven continuity across all three PPAs."
+  },
+  "acquisition_gaps": [
+    {
+      "period": "2018-2021",
+      "required_before_promotion": [
+        "PRIMARY_PPA_DOCUMENT_IDENTITY",
+        "STABLE_SOURCE_HASH_OR_EQUIVALENT_IDENTITY",
+        "TYPED_LOCATOR_FOR_THE_RELEVANT_PLANNING_SIGNAL",
+        "DIRECT_TEXT_OR_VISUAL_EVIDENCE"
+      ]
+    },
+    {
+      "period": "2022-2025",
+      "required_before_promotion": [
+        "PRIMARY_PPA_DOCUMENT_IDENTITY",
+        "STABLE_SOURCE_HASH_OR_EQUIVALENT_IDENTITY",
+        "TYPED_LOCATOR_FOR_THE_RELEVANT_PLANNING_SIGNAL",
+        "DIRECT_TEXT_OR_VISUAL_EVIDENCE"
+      ]
+    }
+  ],
+  "forbidden_promotions": [
+    "TASK055A_ALIAS_TO_PROVEN_PRIMARY_PLANNING_FACT",
+    "HISTORICAL_ALIAS_TO_FINANCIAL_IDENTITY",
+    "THREE_PPA_ALIAS_SEQUENCE_TO_PROVEN_POLICY_CONTINUITY",
+    "PLANNING_SIGNAL_TO_OBSERVED_IMPLEMENTATION",
+    "PLANNING_SIGNAL_TO_CAUSAL_OUTCOME"
+  ],
+  "remote_effects": {
+    "source_network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
