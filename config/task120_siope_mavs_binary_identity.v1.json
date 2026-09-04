@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "schema": "TASK120_SIOPE_MAVS_BINARY_IDENTITY_CONTRACT_V1",
+  "mode": "T1_SINGLE_USE_EXACT_DRIVE_BINARY_IDENTITY",
+  "source": {
+    "drive_file_id": "17Fl8opb1pkqdFa485-bkQR3j6LnApnE-",
+    "expected_title": "Demonstrativo SIOPE-MAVS - 1º BIMESTRE 2026.pdf",
+    "expected_mime_type": "application/pdf"
+  },
+  "request_budget": {
+    "drive_metadata_reads_max": 1,
+    "drive_media_reads_max": 1,
+    "drive_searches": 0,
+    "drive_lists": 0,
+    "drive_writes": 0,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  },
+  "processing": {
+    "compute_sha256": true,
+    "compute_bytes": true,
+    "verify_pdf_magic": true,
+    "text_extraction": false,
+    "ocr": false,
+    "ontology_scan": false,
+    "semantic_reinterpretation": false,
+    "temporary_materialization_only": true,
+    "persistent_raw_copy": false
+  },
+  "promotion": {
+    "source_binary_identity_only": true,
+    "financial_identity": false,
+    "transaction_identity": false,
+    "implementation": false,
+    "causal_effect": false
+  },
+  "hard_boundaries": {
+    "bronze_writes": 0,
+    "silver_writes": 0,
+    "gold_writes": 0,
+    "rag_writes": 0,
+    "state_registry_writes": 0,
+    "queue_writes": 0,
+    "serving_writes": 0,
+    "publication_writes": 0,
+    "overwrite": 0,
+    "delete": 0,
+    "move": 0
+  },
+  "future_execution_authorized": false
+}
