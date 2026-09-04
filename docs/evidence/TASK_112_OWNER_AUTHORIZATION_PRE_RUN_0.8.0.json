@@ -1,18 +1,35 @@
 {
   "schema": "TASK112_OWNER_AUTHORIZATION_PRE_RUN_V1",
   "task": "TASK_112_REAL_PPA_2018_2021_OCR",
-  "status": "AUTHORIZED_PROSPECTIVE_UNCONSUMED",
+  "status": "WORKFLOW_AND_EXACT_SOURCE_READ_CONSUMED_NO_MATCH_FOR_DECLARED_ALIAS",
   "owner_instruction": "Prossiga",
   "issued_before_execution": true,
   "interpreted_scope": "EXACT_ALREADY_RESOLVED_PPA_2018_2021_ONLY_WITH_TASK111_PROVEN_OCR_ROUTE_AND_EXISTING_FAIL_CLOSED_GATES",
   "source_url": "https://www.limeira.sp.gov.br/sitenovo/downloads/0fa1a5cc5c9a1823fbf5436def00f01f.pdf",
   "maximum_http_requests_total": 2,
-  "real_source_ocr_authorized": true,
+  "real_source_ocr_authorized": false,
   "single_execution": true,
   "retry": false,
   "discovery_search": false,
   "financial_identity_promotion": false,
   "transaction_execution_promotion": false,
   "implementation_promotion": false,
-  "causal_effect_promotion": false
+  "causal_effect_promotion": false,
+  "consumed_by": {
+    "run_id": 33920196346,
+    "job_id": 101176520616,
+    "execution_head_sha": "def4bd7f7c2bca3d8e5a6aa446078e6c9ecf554e",
+    "conclusion": "success",
+    "source_request_count": 1,
+    "source_sha256": "685a621a2f5fa8859e4b7f8518627c1523a2fbc5f3402ff48d4aa7573300113d",
+    "source_bytes": 3252087,
+    "page_count": 80,
+    "pages_ocr_scanned": 80,
+    "law_identity_status": "PROVEN_PAGE_1",
+    "declared_alias_status": "NO_MATCH_EXACT_NORMALIZED_PHRASE",
+    "retry_performed": false,
+    "source_read_scope_consumed": true,
+    "workflow_single_use_consumed": true
+  },
+  "future_execution_authorized": false
 }
