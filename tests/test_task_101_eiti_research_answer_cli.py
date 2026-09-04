@@ -1,14 +1,22 @@
 from __future__ import annotations
 
+from hashlib import sha256
+import importlib.util
 import os
 from pathlib import Path
 import subprocess
 import sys
+import tempfile
 import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts/render_eiti_research_answer_offline.py"
+
+_SPEC = importlib.util.spec_from_file_location("task101_cli", SCRIPT)
+assert _SPEC is not None and _SPEC.loader is not None
+_CLI = importlib.util.module_from_spec(_SPEC)
+_SPEC.loader.exec_module(_CLI)
 
 
 def run_cli(*args: str) -> subprocess.CompletedProcess[str]:
@@ -75,6 +83,29 @@ class TestTask101EitiResearchAnswerCli(unittest.TestCase):
         result = run_cli("--query-type", "INVENTED")
         self.assertEqual(2, result.returncode)
         self.assertEqual("", result.stdout)
+
+    def test_load_json_fails_closed_on_missing_malformed_and_tampered_input(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            missing = root / "missing.json"
+            with self.assertRaisesRegex(_CLI.EitiResearchAnswerCliStop, "INPUT_READ"):
+                _CLI._load_json(missing, expected_sha256="0" * 64)
+
+            malformed = root / "malformed.json"
+            malformed.write_bytes(b"{not-json")
+            malformed_sha = sha256(malformed.read_bytes()).hexdigest()
+            with self.assertRaisesRegex(_CLI.EitiResearchAnswerCliStop, "INPUT_JSON"):
+                _CLI._load_json(malformed, expected_sha256=malformed_sha)
+
+            tampered = root / "tampered.json"
+            tampered.write_text('{"ok":true}', encoding="utf-8")
+            with self.assertRaisesRegex(_CLI.EitiResearchAnswerCliStop, "INPUT_SHA256_MISMATCH"):
+                _CLI._load_json(tampered, expected_sha256="0" * 64)
+
+    def test_pinned_input_hashes_match_current_versioned_configs(self):
+        for path in (_CLI.EITI_PATH, _CLI.HISTORICAL_PATH):
+            observed = sha256(path.read_bytes()).hexdigest()
+            self.assertEqual(_CLI.EXPECTED_INPUT_SHA256[path.name], observed)
 
     def test_script_has_no_remote_client_imports_or_persistence_calls(self):
         source = SCRIPT.read_text(encoding="utf-8")
