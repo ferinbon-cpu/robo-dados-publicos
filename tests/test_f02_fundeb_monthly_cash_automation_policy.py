@@ -18,6 +18,7 @@ POLICY = ROOT / "config/automation_policy.v1.json"
 GATE = ROOT / "config/f02_fundeb_monthly_cash_gate.v1.json"
 CUSTODY = ROOT / "docs/evidence/f02_fundeb_monthly_cash/F02_FUNDEB_MONTHLY_2026_JAN_MAR_SOURCE_CUSTODY.json"
 POLICY_AUTH = ROOT / "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_OWNER_AUTHORIZATION_0.8.0.json"
+FINALIZATION_AUTH = ROOT / "docs/evidence/F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_OWNER_AUTHORIZATION_0.8.0.json"
 
 
 def synthetic_authorization() -> dict[str, object]:
@@ -83,6 +84,36 @@ class F02FundebMonthlyCashPolicyActivationTests(unittest.TestCase):
             "SILVER_WRITE_BY_THIS_POLICY_CHANGE","GOLD_WRITE","SERVING","LOOKER",
             "PUBLICATION","SITE","OVERWRITE","DELETE","SCHEDULE","RECURRENCE",
             "FINANCIAL_CLAIM_PROMOTION_WITHOUT_EVIDENCE",
+        ):
+            self.assertIn(effect, forbidden)
+
+    def test_finalization_preauthorization_is_trusted_but_does_not_enable_execution(self):
+        policy = json.loads(POLICY.read_text(encoding="utf-8"))
+        gate = json.loads(GATE.read_text(encoding="utf-8"))
+        auth = json.loads(FINALIZATION_AUTH.read_text(encoding="utf-8"))
+        policy_gate = next(row for row in policy["gates"] if row.get("id") == "F02_FUNDEB_MONTHLY_CASH_OFFLINE")
+        expected_path = "docs/evidence/F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_OWNER_AUTHORIZATION_0.8.0.json"
+        self.assertEqual(policy_gate["policy_finalization_authorization_evidence"], expected_path)
+        self.assertEqual(gate["policy_finalization_authorization_evidence"], expected_path)
+        self.assertEqual(policy_gate["policy_finalization_owner_comment_ids"], [5534571726, 5535072657])
+        self.assertEqual(gate["policy_finalization_owner_comment_ids"], [5534571726, 5535072657])
+        self.assertEqual(auth["status"], "AUTHORIZED_POLICY_FINALIZATION_PREAUTHORIZATION")
+        self.assertTrue(auth["authorized"])
+        self.assertEqual(
+            auth["authorized_future_policy_transition"]["remove_only_blocker"],
+            "IMPLEMENTATION_PR_376_MUST_BE_MERGED_BEFORE_MANUAL_EXECUTION",
+        )
+        self.assertTrue(policy_gate["implementation_merge_required_before_manual_execution"])
+        self.assertIn(
+            "IMPLEMENTATION_PR_376_MUST_BE_MERGED_BEFORE_MANUAL_EXECUTION",
+            policy_gate["blockers"],
+        )
+        self.assertEqual(gate["status"], "REGISTERED_MANUAL_T0_PENDING_IMPLEMENTATION_PR_376")
+        forbidden = set(auth["explicitly_not_authorized"])
+        for effect in (
+            "MANUAL_EXECUTION_BY_THIS_PREAUTHORIZATION_PR","AUTO_EXECUTION","DRIVE_WRITE",
+            "SILVER_PERSISTENCE_BY_THIS_PREAUTHORIZATION_PR","GOLD_WRITE","SERVING",
+            "LOOKER","PUBLICATION","SITE","OVERWRITE","DELETE","MOVE","SCHEDULE","RECURRENCE",
         ):
             self.assertIn(effect, forbidden)
 
