@@ -1,0 +1,56 @@
+{
+  "task": "TASK_097_PPA_PROVENANCE_PAGINATION_CROSSWALK",
+  "mode": "T0_OFFLINE_PROVENANCE_NORMALIZATION",
+  "base_sha": "baf5a49b8bd692a2964cb7e0bcc2748864446891",
+  "repository_only": true,
+  "case": {
+    "document": "PPA 2026-2029 / Lei 7.213/2025",
+    "legacy_locator": {
+      "source_key": "ppa_7213_2025",
+      "page": 18,
+      "coordinate_system": "LEGACY_UNTYPED_PAGE",
+      "source_sha256": null,
+      "legacy_edges": ["E08", "E09", "E10", "E11", "E12"]
+    },
+    "primary_journal_locator": {
+      "source_key": "SOURCE_JOM_7119_2025-11-15_PPA_7213_2025.pdf",
+      "source_sha256": "cb65f29c772eb7133c902e827884a4ed19d8c09f64586b8de9d6483023d9133a",
+      "page": 15,
+      "coordinate_system": "JOURNAL_EDITION_PDF_PAGE",
+      "page_text_sha256": "b6d44ee39efeed3b1acc3dccabbf56c73fb6914ef8ce15003d144c44a59e5eb4",
+      "validation": "DIRECT_PRIMARY_JOM_VISUAL_SOURCE_VERIFICATION"
+    },
+    "raw_page_difference": -3,
+    "raw_page_difference_is_equivalence_proof": false,
+    "equivalence_status": "UNRESOLVED_LEGACY_COORDINATE_SYSTEM",
+    "preferred_new_citation_locator": "PRIMARY_JOURNAL_PAGE_15",
+    "legacy_locator_preserved": true,
+    "legacy_history_rewritten": false
+  },
+  "invariants": [
+    "NO_SILENT_PAGE_EQUIVALENCE",
+    "NO_ARITHMETIC_OFFSET_ONLY_EQUIVALENCE",
+    "LEGACY_UNTYPED_LOCATOR_REMAINS_UNTYPED",
+    "PRIMARY_HASHED_JOURNAL_LOCATOR_PREFERRED_FOR_NEW_CITATIONS",
+    "LEGACY_LOCATOR_PRESERVED_FOR_AUDIT"
+  ],
+  "effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "source_acquisition": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "state_registry_write": 0,
+    "queue_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "retry": 0,
+    "recurrence": 0,
+    "schedule": 0
+  },
+  "next_task": "TASK_098_EITI_HISTORICAL_PLANNING_CROSSWALK_OFFLINE",
+  "result": "READY_FOR_CI_REVIEW_NO_REMOTE_EFFECT"
+}
