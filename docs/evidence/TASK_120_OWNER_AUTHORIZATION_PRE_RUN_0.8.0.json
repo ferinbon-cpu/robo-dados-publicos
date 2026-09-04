@@ -1,7 +1,7 @@
 {
   "schema": "TASK120_OWNER_AUTHORIZATION_PRE_RUN_V1",
   "task": "TASK_120_SIOPE_MAVS_BINARY_IDENTITY",
-  "status": "AUTHORIZED_PROSPECTIVE_UNCONSUMED",
+  "status": "CONSUMED_SINGLE_USE_NO_RETRY",
   "owner_instruction": "Prossiga",
   "issued_before_execution": true,
   "scope": "ONE_EXACT_DRIVE_METADATA_READ_PLUS_ONE_EXACT_RAW_MEDIA_READ_FOR_SHA256_AND_BYTES_ONLY",
@@ -14,5 +14,18 @@
   "no_content_interpretation": true,
   "retry": false,
   "single_execution": true,
-  "future_execution_authorized": false
+  "future_execution_authorized": false,
+  "consumed_by": {
+    "metadata_read_count": 1,
+    "raw_media_read_count": 1,
+    "observed_title": "Demonstrativo SIOPE-MAVS - 1º BIMESTRE 2026.pdf",
+    "observed_mime_type": "application/pdf",
+    "observed_bytes": 360070,
+    "observed_sha256": "d2b7f7638222bc9788f6d42df11126d2e3aa57cb4204450914c98d9400bf0bbe",
+    "pdf_magic_verified": true,
+    "metadata_size_matches_raw_bytes": true,
+    "content_interpretation_performed": false,
+    "raw_pdf_persisted_to_repository": false,
+    "retry_performed": false
+  }
 }
