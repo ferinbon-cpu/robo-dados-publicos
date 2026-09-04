@@ -513,7 +513,12 @@ class F02KnownFamilyBundleTests(unittest.TestCase):
                 "remote_effects_authorized": effects_false(),
             }
             with self.assertRaisesRegex(F02KnownFamilyBundleStop, "NOT_REGULAR"):
-                run_known_family_bundle(self.adapter, base, root=ROOT)
+                run_known_family_bundle(
+                    self.adapter,
+                    base,
+                    root=ROOT,
+                    authorization=authorization_for(base),
+                )
 
 
     def test_every_manifest_remote_effect_true_is_rejected(self):
@@ -584,8 +589,8 @@ class F02KnownFamilyBundleTests(unittest.TestCase):
 
     def test_secure_open_unavailable_stops_before_local_read(self):
         with patch(
-            "robo_dados_publicos.manual_ingest.f02_known_family_bundle.os.name",
-            "nt",
+            "robo_dados_publicos.manual_ingest.f02_known_family_bundle.os.O_NOFOLLOW",
+            0,
         ):
             with self.assertRaisesRegex(F02KnownFamilyBundleStop, "SECURE_OPEN_UNAVAILABLE"):
                 validate_controller_alignment(self.adapter, root=ROOT)
