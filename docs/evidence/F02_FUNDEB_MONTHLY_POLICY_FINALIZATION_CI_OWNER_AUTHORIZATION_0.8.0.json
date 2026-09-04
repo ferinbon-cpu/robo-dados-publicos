@@ -1,0 +1,38 @@
+{
+  "schema": "F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_CI_OWNER_AUTHORIZATION_V1",
+  "status": "AUTHORIZED_T0_READONLY_CI_GATE",
+  "authorized": true,
+  "software_candidate": "0.8.0",
+  "gate_id": "F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_EVIDENCE_CI",
+  "owner_instruction_verbatim": "Autorizado executar autonomamente toda a próxima fase de maturação do robô, incluindo GitHub/Drive, PRs, CI, DeepSeek Pro, correções e merges necessários, até atingir um blocker material ou concluir a fase. Permanecem proibidos delete/overwrite, serving/Looker, publicação/site, schedule/recorrência e promoção financeira sem evidência.",
+  "independent_github_owner_record": {
+    "pr_number": 380,
+    "comment_id": 5534958543,
+    "author_login": "ferinbon-cpu",
+    "author_user_id": 319600033
+  },
+  "authorized_policy_effects": {
+    "tier": "T0_OFFLINE",
+    "auto_allowed": true,
+    "repository_checkout_read": true,
+    "repository_full_history_read": true,
+    "external_source_network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "publication": false,
+    "serving": false,
+    "looker": false,
+    "site": false,
+    "secrets": false,
+    "schedule": false,
+    "recurrence": false,
+    "repository_write": false
+  },
+  "authorization_boundary": {
+    "authorizes_f02_manual_runtime_execution": false,
+    "authorizes_silver_persistence": false,
+    "authorizes_gold_promotion": false,
+    "authorizes_new_unrelated_auto_gates": false
+  },
+  "rationale": "CURRENT_PROSPECTIVE_OWNER_AUTHORIZATION_FOR_DETERMINISTIC_READONLY_FINALIZATION_EVIDENCE_CHECK"
+}
