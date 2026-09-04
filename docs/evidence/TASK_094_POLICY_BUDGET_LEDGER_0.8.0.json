@@ -49,9 +49,8 @@
   "next_task": "TASK_095_SOURCE_ROLES_EVIDENCE_SEMANTICS",
   "result": "READY_FOR_CI_REVIEW_NO_REMOTE_EFFECT",
   "design_context": {
-    "user_requested_structural_redesign": true,
+    "structural_redesign_scope": true,
     "operational_authorization_required": false,
-    "remote_execution_authorized": false,
-    "note": "T0 design record only; this field is not evidence of a live authorization."
+    "remote_execution_authorized": false
   }
 }
