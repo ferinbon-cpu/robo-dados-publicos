@@ -68,8 +68,36 @@ not read or OCR the real PPA 2018–2021.
 A dependency route must be designed separately. No package installation is
 authorized by this task.
 
+## Synthetic image-only Chrome proof
+
+Because Chrome/Chromium/ChromeDriver were present, one additional local-only sub-gate tested whether Chrome accessibility could recover text without installing an OCR stack.
+
+Run `33917837446`, job `101169024384`, execution head
+`5d886bc0d2b528a53d21a67020bd3dbeffe072b4`.
+
+The workflow installed only the already-pinned project dependency `pypdf==6.10.0` to verify that the generated PDF truly had no extractable text layer. It did not install Tesseract, Poppler, Ghostscript, ImageMagick, PyMuPDF, OpenCV or any OCR package.
+
+Observed synthetic proof:
+
+- raster PNG: 18,356 bytes;
+- image-only PDF: 18,287 bytes;
+- PDF pages: 1;
+- pypdf text: empty;
+- Chrome accessibility strings: 0;
+- marker in accessibility tree: false;
+- marker in page source: false;
+- marker in body innerText: false;
+- source reads: 0;
+- real-source OCR: false.
+
+### Final TASK 109 decision
+
+`STOP_NO_LOCAL_OCR_CHAIN_CHROME_IMAGE_ONLY_NEGATIVE`.
+
+Chrome renders the image-only PDF but does not expose a usable text/OCR channel in this runner configuration. Therefore the remaining PPA 2018–2021 gap cannot be closed with the currently available local toolchain.
+
+The real official PPA was not reread and was not OCRed in TASK 109.
+
 ## Next boundary
 
-TASK 110 may compare narrowly bounded dependency strategies for a reproducible
-Portuguese-capable PDF-image OCR path. It must remain T0/design-only until a
-separate reviewed gate authorizes any dependency installation or real-source OCR.
+TASK 110 may compare narrowly bounded dependency strategies for a reproducible Portuguese-capable PDF-image OCR path. It must remain T0/design-only until a separately reviewed gate authorizes any new OCR dependency installation or real-source OCR.
