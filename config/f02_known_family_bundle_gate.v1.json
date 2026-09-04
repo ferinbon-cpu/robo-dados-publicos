@@ -1,0 +1,39 @@
+{
+  "schema": "F02_KNOWN_FAMILY_BUNDLE_GATE_V1",
+  "software_candidate": "0.8.0",
+  "tier": "T0",
+  "mode": "T0_OFFLINE_KNOWN_FAMILY_BUNDLE",
+  "purpose": "ALLOW_LOCAL_OFFLINE_VALIDATION_OF_ALREADY_MATERIALIZED_KNOWN_FAMILY_BUNDLES_ONLY",
+  "local_snapshot_read_authorized": true,
+  "remote_drive_read_authorized": false,
+  "new_family_or_schema_auto_authorized": false,
+  "blocked_remote_effects": {
+    "bronze_write": true,
+    "silver_write": true,
+    "gold_write": true,
+    "serving": true,
+    "publication": true,
+    "site": true,
+    "overwrite": true,
+    "delete": true,
+    "move": true,
+    "schedule": true,
+    "recurrence": true
+  },
+  "promotion_boundary": {
+    "passing_result": "OFFLINE_CANDIDATE_ONLY",
+    "bronze_requires_separate_authorization": true,
+    "silver_requires_separate_authorization": true,
+    "gold_requires_separate_authorization": true,
+    "serving_requires_separate_authorization": true
+  },
+  "status": "T0_OFFLINE_ONLY_NO_REMOTE_EFFECT",
+  "runtime_authorization_required": true,
+  "runtime_authorization_schema": "F02_KNOWN_FAMILY_BUNDLE_RUNTIME_AUTHORIZATION_V1",
+  "runtime_authorization_scope": "F02_KNOWN_FAMILY_BUNDLE_LOCAL_SNAPSHOT_READ",
+  "authorization_mechanism": "REPOSITORY_RELATIVE_JSON_PLUS_EXACT_SHA256_CLI_PIN",
+  "authorization_must_match_batch_id": true,
+  "authorization_owner_instruction_required": true,
+  "cli_fixed_repository_root": true,
+  "cli_output": "STDOUT_ONLY"
+}

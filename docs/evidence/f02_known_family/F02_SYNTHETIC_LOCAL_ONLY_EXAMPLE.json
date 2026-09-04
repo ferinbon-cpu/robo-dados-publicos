@@ -1,0 +1,45 @@
+{
+  "schema": "F02_KNOWN_FAMILY_BATCH_MANIFEST_V1",
+  "mode": "MANUAL_SUPERVISED_INGEST",
+  "batch_id": "SYNTHETIC_LOCAL_ONLY_EXAMPLE",
+  "batch_kind": "LOCAL_ONLY",
+  "reference_period": {
+    "start": "2099-01-01",
+    "end": "2099-05-31"
+  },
+  "sources": [
+    {
+      "source_id": "SYNTH_FUNDEB_LOCAL",
+      "family": "FUNDEB_LOCAL",
+      "role": "SYNTHETIC_LOCAL_MONITORING",
+      "drive_file_id": "synthetic-drive-fundeb-local",
+      "expected_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "expected_bytes": 111,
+      "expected_pages": 1,
+      "snapshot_path": "runtime/f02/synthetic/local/fundeb.pdf"
+    },
+    {
+      "source_id": "SYNTH_MDE_LOCAL",
+      "family": "MDE_25_LOCAL",
+      "role": "SYNTHETIC_AUXILIARY_LOCAL",
+      "drive_file_id": "synthetic-drive-mde-local",
+      "expected_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "expected_bytes": 112,
+      "expected_pages": 1,
+      "snapshot_path": "runtime/f02/synthetic/local/mde.pdf"
+    }
+  ],
+  "remote_effects_authorized": {
+    "bronze_write": false,
+    "silver_write": false,
+    "gold_write": false,
+    "serving": false,
+    "publication": false,
+    "site": false,
+    "overwrite": false,
+    "delete": false,
+    "move": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

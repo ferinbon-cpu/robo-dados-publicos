@@ -9,8 +9,7 @@ class FamilyMaturityStop(ValueError):
     pass
 
 
-def load_maturity_registry(path: str | Path) -> dict[str, Any]:
-    data = json.loads(Path(path).read_text(encoding="utf-8"))
+def validate_maturity_registry(data: dict[str, Any]) -> dict[str, Any]:
     levels = set(data.get("levels", []))
     if levels != {"EXECUTION_READY_BOUNDED", "ROUTING_ONLY_SUPERVISED_EXECUTION", "BLOCKED_PENDING_CONTRACT"}:
         raise FamilyMaturityStop("STOP_BAD_MATURITY_LEVELS")
@@ -21,6 +20,11 @@ def load_maturity_registry(path: str | Path) -> dict[str, Any]:
         if item.get("level") not in levels:
             raise FamilyMaturityStop(f"STOP_BAD_FAMILY_LEVEL:{family}")
     return data
+
+
+def load_maturity_registry(path: str | Path) -> dict[str, Any]:
+    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    return validate_maturity_registry(data)
 
 
 def execution_maturity(family: str | None, registry: dict[str, Any]) -> str:

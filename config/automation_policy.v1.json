@@ -45,7 +45,11 @@
         "drive_writes": false,
         "publication": false
       },
-      "current_triggers": ["push:main", "pull_request:main", "workflow_dispatch"]
+      "current_triggers": [
+        "push:main",
+        "pull_request:main",
+        "workflow_dispatch"
+      ]
     },
     {
       "id": "M8_SIOPE_HISTORICAL_PRODUCT_OUTPUT_PUBLICATION_REVIEW",
@@ -60,7 +64,11 @@
         "drive_writes": false,
         "publication": false
       },
-      "current_triggers": ["push:main", "pull_request:main", "workflow_dispatch"],
+      "current_triggers": [
+        "push:main",
+        "pull_request:main",
+        "workflow_dispatch"
+      ],
       "blockers": []
     },
     {
@@ -94,9 +102,15 @@
         "drive_write_count": 0,
         "publication": false
       },
-      "current_triggers": ["workflow_dispatch"],
-      "reusable_contract_triggers": ["workflow_call"],
-      "automatic_triggers": ["push:protected-main:bounded-paths"],
+      "current_triggers": [
+        "workflow_dispatch"
+      ],
+      "reusable_contract_triggers": [
+        "workflow_call"
+      ],
+      "automatic_triggers": [
+        "push:protected-main:bounded-paths"
+      ],
       "automatic_trigger_paths": [
         "docs/evidence/M8_T1_NO_CLICK_ACTIVATION_0.8.0.json",
         "docs/evidence/M7_SIOPE_*.json",
@@ -140,12 +154,23 @@
       "workflow": ".github/workflows/task-018-full-operational-bootstrap.yml",
       "tier": "T3_MUTATING_OR_PUBLICATION",
       "compound_operation": true,
-      "stages": ["T1_DISCOVER_AND_COLLECT", "T2_CREATE_ONLY_PERSIST_AND_PROCESS", "T3_CREATE_ONLY_PRODUCT_PUBLICATION"],
+      "stages": [
+        "T1_DISCOVER_AND_COLLECT",
+        "T2_CREATE_ONLY_PERSIST_AND_PROCESS",
+        "T3_CREATE_ONLY_PRODUCT_PUBLICATION"
+      ],
       "auto_allowed": false,
       "owner_authorization_required": true,
       "credential_capability": "STAGE_SEPARATED_SOURCE_PUBLIC_GET_AND_DRIVE_WRITE_CAPABLE",
-      "effects": {"source_network": true, "drive_reads": true, "drive_writes": true, "publication": true},
-      "current_triggers": ["workflow_dispatch"],
+      "effects": {
+        "source_network": true,
+        "drive_reads": true,
+        "drive_writes": true,
+        "publication": true
+      },
+      "current_triggers": [
+        "workflow_dispatch"
+      ],
       "schedule": false,
       "recurrence": false,
       "automatic_retry": false,
@@ -155,7 +180,10 @@
       "delete": false,
       "authorization_evidence": "docs/evidence/TASK_018_FULL_OPERATIONAL_BOOTSTRAP_OWNER_AUTHORIZATION_0.8.0.json",
       "future_batch_execution_authorized": false,
-      "blockers": ["OWNER_AUTHORIZATION_EVIDENCE_MUST_VALIDATE_AT_RUNTIME", "ONE_SHOT_AUTHORIZATION_MUST_BE_UNCONSUMED"]
+      "blockers": [
+        "OWNER_AUTHORIZATION_EVIDENCE_MUST_VALIDATE_AT_RUNTIME",
+        "ONE_SHOT_AUTHORIZATION_MUST_BE_UNCONSUMED"
+      ]
     },
     {
       "id": "ACTIVE_RUNTIME_PERSISTENCE",
@@ -167,8 +195,12 @@
         "drive_writes": true,
         "publication": false
       },
-      "current_triggers": ["workflow_dispatch"],
-      "blockers": ["REMOTE_PERSISTENCE_REQUIRES_EXPLICIT_CONFIRMATION"]
+      "current_triggers": [
+        "workflow_dispatch"
+      ],
+      "blockers": [
+        "REMOTE_PERSISTENCE_REQUIRES_EXPLICIT_CONFIRMATION"
+      ]
     },
     {
       "id": "PRODUCT_OUTPUT_PUBLICATION",
@@ -180,8 +212,12 @@
         "drive_writes": true,
         "publication": true
       },
-      "current_triggers": ["workflow_dispatch"],
-      "blockers": ["PUBLICATION_REQUIRES_SEPARATE_EXPLICIT_AUTHORIZATION"]
+      "current_triggers": [
+        "workflow_dispatch"
+      ],
+      "blockers": [
+        "PUBLICATION_REQUIRES_SEPARATE_EXPLICIT_AUTHORIZATION"
+      ]
     },
     {
       "id": "M8_SIOPE_HISTORICAL_R2_FORENSIC_READONLY",
@@ -197,7 +233,9 @@
         "drive_writes": false,
         "publication": false
       },
-      "current_triggers": ["workflow_dispatch"],
+      "current_triggers": [
+        "workflow_dispatch"
+      ],
       "schedule": false,
       "recurrence": false,
       "readonly_secrets": [
@@ -210,7 +248,10 @@
         "page_size": 1000,
         "pagination_allowed": false
       },
-      "blockers": ["MANUAL_FORENSIC_OWNER_DISPATCH_REQUIRED", "NO_REPAIR_OR_PUBLICATION_AUTHORIZED"]
+      "blockers": [
+        "MANUAL_FORENSIC_OWNER_DISPATCH_REQUIRED",
+        "NO_REPAIR_OR_PUBLICATION_AUTHORIZED"
+      ]
     },
     {
       "id": "M8_SIOPE_HISTORICAL_CORRECTIVE_R2_PUBLICATION",
@@ -222,9 +263,13 @@
         "drive_writes": true,
         "publication": true
       },
-      "current_triggers": ["workflow_dispatch"],
+      "current_triggers": [
+        "workflow_dispatch"
+      ],
       "future_batch_execution_authorized": false,
-      "blockers": ["CORRECTIVE_R2_PUBLICATION_REQUIRES_SEPARATE_EXPLICIT_OWNER_AUTHORIZATION"]
+      "blockers": [
+        "CORRECTIVE_R2_PUBLICATION_REQUIRES_SEPARATE_EXPLICIT_OWNER_AUTHORIZATION"
+      ]
     },
     {
       "id": "M8_SIOPE_HISTORICAL_CORRECTIVE_R3_PUBLICATION",
@@ -236,7 +281,9 @@
         "drive_writes": true,
         "publication": true
       },
-      "current_triggers": ["workflow_dispatch"],
+      "current_triggers": [
+        "workflow_dispatch"
+      ],
       "manual_execution_required": true,
       "single_execution": true,
       "schedule": false,
@@ -244,7 +291,39 @@
       "retry": false,
       "cleanup": false,
       "future_batch_execution_authorized": false,
-      "blockers": ["CORRECTIVE_R3_PUBLICATION_REQUIRES_SEPARATE_EXPLICIT_OWNER_AUTHORIZATION"]
+      "blockers": [
+        "CORRECTIVE_R3_PUBLICATION_REQUIRES_SEPARATE_EXPLICIT_OWNER_AUTHORIZATION"
+      ]
+    },
+    {
+      "id": "F02_KNOWN_FAMILY_BUNDLE_OFFLINE",
+      "script": "scripts/process_f02_known_family_bundle.py",
+      "contract": "config/f02_known_family_bundle_gate.v1.json",
+      "tier": "T0_OFFLINE",
+      "auto_allowed": false,
+      "credential_capability": "NONE",
+      "effects": {
+        "source_network": false,
+        "drive_reads": false,
+        "drive_writes": false,
+        "publication": false
+      },
+      "current_triggers": [],
+      "local_snapshot_read_only": true,
+      "remote_materialization_authorized": false,
+      "bronze_write_authorized": false,
+      "silver_write_authorized": false,
+      "gold_write_authorized": false,
+      "serving_authorized": false,
+      "schedule": false,
+      "recurrence": false,
+      "blockers": [
+        "EXPLICIT_OWNER_OR_ORCHESTRATOR_GATE_REQUIRED_FOR_LOCAL_SNAPSHOT_EXECUTION"
+      ],
+      "invocation_surface": "DIRECT_CLI_OR_CI_TEST_ONLY",
+      "no_workflow_trigger": true,
+      "manual_execution_required": true,
+      "owner_authorization_required": true
     }
   ],
   "agentic_work": {

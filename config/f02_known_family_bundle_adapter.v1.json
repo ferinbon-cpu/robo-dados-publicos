@@ -1,0 +1,74 @@
+{
+  "schema": "F02_KNOWN_FAMILY_BUNDLE_ADAPTER_V1",
+  "software_candidate": "0.8.0",
+  "mode": "OFFLINE_KNOWN_FAMILY_BUNDLE_ADAPTER",
+  "purpose": "REUSE_PROVEN_F02_PARSERS_FOR_NEW_PERIOD_MANIFESTS_WITHOUT_PER_DOCUMENT_CODE_CHANGE",
+  "manifest_schema": "F02_KNOWN_FAMILY_BATCH_MANIFEST_V1",
+  "ingestion_method": "MANUAL_SUPERVISED",
+  "allowed_batch_kinds": {
+    "RREO_ALIGNED": {
+      "exact_families": [
+        "RREO_MDE",
+        "FUNDEB_LOCAL",
+        "MDE_25_LOCAL"
+      ],
+      "reconciliation": "RREO_ALIGNED_EXACT_CHECKS",
+      "official_mde_claim_source": "RREO_MDE"
+    },
+    "LOCAL_ONLY": {
+      "exact_families": [
+        "FUNDEB_LOCAL",
+        "MDE_25_LOCAL"
+      ],
+      "reconciliation": "LOCAL_RETENTION_AND_PERIOD_CHECKS",
+      "official_mde_claim_source": null
+    }
+  },
+  "controller_alignment": {
+    "RREO_MDE": "RREO",
+    "FUNDEB_LOCAL": "FUNDEB",
+    "MDE_25_LOCAL": "MDE",
+    "metadata_routes_may_be_auto_ingest": true,
+    "individual_family_maturity_remains": "ROUTING_ONLY_SUPERVISED_EXECUTION",
+    "bundle_execution_maturity": "EXECUTION_READY_BOUNDED_MANUAL_SUPERVISED",
+    "reason": "PAIR_OR_TRIPLE_SEMANTICS_REQUIRE_COMPLETE_BUNDLE_BEFORE_CONTENT_EXECUTION",
+    "controller_contract_path": "config/drive_ingestion_controller.v3.json",
+    "maturity_registry_path": "config/source_family_maturity_registry.v1.json",
+    "controller_expected_git_blob_sha": "6ed263410ff35733ef10d93f0132b1b588c3a0ff",
+    "maturity_expected_git_blob_sha": "21a177b1ddeeb5aba9cf2ee54845430db42c8014",
+    "pin_update_policy": "REVIEWED_PR_WITH_CONTROLLER_OR_MATURITY_CHANGE_ONLY",
+    "pin_semantics": "GIT_BLOB_CONTENT_IDENTITY_VERIFIED_BEFORE_JSON_PARSE"
+  },
+  "source_contract": {
+    "exact_hash_required": true,
+    "exact_bytes_required": true,
+    "exact_pages_required": true,
+    "full_text_layer_required": true,
+    "stable_drive_file_id_required": true,
+    "relative_snapshot_path_required": true,
+    "path_traversal_forbidden": true
+  },
+  "fail_closed": {
+    "unknown_family": "STOP_OR_QUARANTINE_UPSTREAM",
+    "ambiguous_family": "STOP_OR_QUARANTINE_UPSTREAM",
+    "schema_drift": "STOP_BEFORE_SILVER",
+    "period_mismatch": "STOP",
+    "missing_bundle_member": "STOP",
+    "duplicate_family": "STOP",
+    "immutable_source_drift": "STOP"
+  },
+  "automatic_effects": {
+    "bronze_write": false,
+    "silver_write": false,
+    "gold_write": false,
+    "serving": false,
+    "publication": false,
+    "site": false,
+    "overwrite": false,
+    "delete": false,
+    "move": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "gate_contract_path": "config/f02_known_family_bundle_gate.v1.json"
+}
