@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "schema": "LOA_RESEARCH_DIGEST_ADAPTER_V1",
+  "mode": "T0_OFFLINE_VERSIONED_LOA_EVIDENCE_ADAPTER",
+  "research_digest_contract": {
+    "path": "config/research_ephemeral_digest.v1.json",
+    "git_blob_sha": "66757ed911a90a935b6c4eb3713999f740de862e",
+    "policy_profile": "EITI_LIMEIRA"
+  },
+  "input": {
+    "task048_path": "docs/evidence/TASK_048_F01_LOA_SCOPED_SILVER_V2_CANDIDATE_REVIEW_0.8.0.json",
+    "task048_git_blob_sha": "408d62507a584b09c83a5a1668c99bcb1d903292"
+  },
+  "source": {
+    "document_id": "DOC:LOA_7223_2025",
+    "source_role": "BUDGET_PRIMARY",
+    "source_family": "LOA",
+    "required_source_sha256": "37ea54d85cc5428622b296881a279a17e1aeefd7574576e7a3414443bbee64c4",
+    "exercise": 2026,
+    "law_number": "7.223/2025"
+  },
+  "expected": {
+    "validated_action_records": 2,
+    "action_total_segments": 2,
+    "expense_group_segments": 4,
+    "funding_source_segments": 4,
+    "total_segments": 10,
+    "financial_identity_candidates": 0
+  },
+  "monetary_semantics": {
+    "appropriation_maps_to": "AUTHORIZATION",
+    "expense_group_component_maps_to": "AUTHORIZATION",
+    "funding_source_component_maps_to": "AUTHORIZATION",
+    "commitment_allowed": false,
+    "liquidation_allowed": false,
+    "payment_allowed": false,
+    "amount_equality_creates_policy_identity": false
+  },
+  "identity_semantics": {
+    "stable_key_types": [
+      "org",
+      "unit",
+      "function",
+      "subfunction",
+      "program",
+      "action",
+      "expense_group",
+      "funding_source"
+    ],
+    "program_2001_is_eiti": false,
+    "generic_action_2690_is_eiti": false,
+    "generic_action_2720_is_eiti": false,
+    "generic_action_or_program_total_attribution": "FORBIDDEN"
+  },
+  "divergence_guard": {
+    "required": true,
+    "pages": [
+      173,
+      174
+    ],
+    "text_layer_amount_brl": 29000000,
+    "visual_source_amount_brl": 28000000,
+    "canonical_selected_amount_brl": 28000000,
+    "silent_repair": false
+  },
+  "output": {
+    "schema": "LOA_RESEARCH_DIGEST_ADAPTER_RESULT_V1",
+    "packet_schema": "RESEARCH_EPHEMERAL_DIGEST_INPUT_V1",
+    "persistence_authorized": false,
+    "automatic_financial_identity_promotion": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "ocr": false,
+    "bronze_write": false,
+    "silver_write": false,
+    "gold_write": false,
+    "rag_write": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
