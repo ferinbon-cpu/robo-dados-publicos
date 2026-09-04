@@ -47,11 +47,14 @@
     "prior_policy_deepseek_review_sha256": "9f954fa6595ea2a644e39014833cbde50c1d994fc2183cf949d1cc8dc63c1a56",
     "no_new_runtime_authorization_created": true,
     "finalization_owner_github_record": {
-      "pr_number": 379,
-      "comment_id": 5534571726,
+      "pr_number": 381,
+      "comment_id": 5535072657,
       "author_login": "ferinbon-cpu",
+      "url": "https://github.com/ferinbon-cpu/robo-dados-publicos/pull/381#issuecomment-5535072657",
       "scope": "REMOVE_ONLY_SATISFIED_IMPLEMENTATION_MERGE_BLOCKER_AND_FINALIZE_MANUAL_T0_STATUS"
     },
-    "explicitly_no_runtime_effect_from_finalization": true
+    "explicitly_no_runtime_effect_from_finalization": true,
+    "finalization_authorization_is_policy_only": true,
+    "runtime_execution_still_separate": true
   }
 }
