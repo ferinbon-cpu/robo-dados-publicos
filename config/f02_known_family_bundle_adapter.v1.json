@@ -33,7 +33,9 @@
     "bundle_execution_maturity": "EXECUTION_READY_BOUNDED_MANUAL_SUPERVISED",
     "reason": "PAIR_OR_TRIPLE_SEMANTICS_REQUIRE_COMPLETE_BUNDLE_BEFORE_CONTENT_EXECUTION",
     "controller_contract_path": "config/drive_ingestion_controller.v3.json",
-    "maturity_registry_path": "config/source_family_maturity_registry.v1.json"
+    "maturity_registry_path": "config/source_family_maturity_registry.v1.json",
+    "controller_expected_git_blob_sha": "6ed263410ff35733ef10d93f0132b1b588c3a0ff",
+    "maturity_expected_git_blob_sha": "21a177b1ddeeb5aba9cf2ee54845430db42c8014"
   },
   "source_contract": {
     "exact_hash_required": true,
