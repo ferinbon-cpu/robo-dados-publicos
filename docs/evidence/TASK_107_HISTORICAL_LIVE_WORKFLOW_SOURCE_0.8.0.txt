@@ -1,0 +1,70 @@
+name: TASK 107 historical PPA primary evidence live once
+run-name: "TASK 107 one bounded historical PPA acquisition bootstrap-fixed by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-107-historical-ppa-live-bootstrap-fixed
+    paths:
+      - '.github/workflows/task-107-historical-ppa-live-once.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-107-historical-ppa-live-once
+  cancel-in-progress: false
+
+jobs:
+  bounded-readonly-primary-ppa-acquisition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Install exact pinned pypdf runtime dependency
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check --no-deps 'pypdf==6.10.0'
+
+      - name: Prove runner bootstrap and pypdf from outside repository before source read
+        shell: bash
+        working-directory: /tmp
+        run: |
+          set -euo pipefail
+          python "$GITHUB_WORKSPACE/scripts/run_task107_historical_ppa_live_once.py" --preflight-only
+
+      - name: Execute exactly one bounded read-only historical PPA acquisition
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime
+          python scripts/run_task107_historical_ppa_live_once.py
+
+      - name: Emit sanitized result for immutable run-log readback
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo TASK107_RESULT_JSON_BEGIN
+          cat runtime/task107_result.json
+          echo TASK107_RESULT_JSON_END
+
+      - name: Upload sanitized bounded evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-107-historical-ppa-primary-evidence
+          path: runtime/task107_result.json
+          if-no-files-found: error
+          retention-days: 1
