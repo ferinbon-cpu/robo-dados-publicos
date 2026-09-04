@@ -1,0 +1,51 @@
+name: TASK 109 visual OCR capability inventory once
+run-name: "TASK 109 offline visual/OCR inventory by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-109-offline-visual-ocr-capability
+    paths:
+      - '.github/workflows/task-109-visual-ocr-capability-once.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-109-visual-ocr-capability-once
+  cancel-in-progress: false
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - name: Emit local-only visual OCR capability inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import importlib.util
+          import json
+          import shutil
+          commands = [
+              "tesseract", "google-chrome", "chromium", "chromedriver",
+              "pdftoppm", "pdfimages", "mutool", "gs", "magick", "convert",
+          ]
+          modules = ["PIL", "fitz", "cv2", "pytesseract", "pdf2image"]
+          result = {
+              "schema": "TASK109_VISUAL_OCR_RUNNER_OBSERVATION_V1",
+              "runner": "ubuntu-latest",
+              "commands": {name: shutil.which(name) for name in commands},
+              "python_modules": {
+                  name: importlib.util.find_spec(name) is not None for name in modules
+              },
+              "source_network_requests": 0,
+              "source_reads": 0,
+              "package_installs": 0,
+              "real_source_ocr": False,
+          }
+          print("TASK109_CAPABILITY_JSON_BEGIN")
+          print(json.dumps(result, sort_keys=True))
+          print("TASK109_CAPABILITY_JSON_END")
+          PY
