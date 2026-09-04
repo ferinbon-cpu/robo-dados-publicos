@@ -1,0 +1,32 @@
+{
+  "schema": "TASK_089_PRE_RUN_GATE_CHAIN_V1",
+  "task": "TASK_089_BOUNDED_NEXT_EXECUTABLE_CONTRACT_QUERY",
+  "base_main_sha": "a9c56592dabb5900b6389cfa138ef1d3a71b167e",
+  "task_contract": {
+    "commit_sha": "a1efbc2960012cc7fcda456beaf2f100e4fcfdbc",
+    "path": "docs/tasks/CODEX_TASK_089_BOUNDED_NEXT_EXECUTABLE_CONTRACT_QUERY.md",
+    "blob_sha": "7e568df40a2eda20e25da1ba3c2c27f18558ee83"
+  },
+  "live_workflow": {
+    "execution_head_sha": "46aafb71a0656a9607d456cf0de887ce3c7749c8",
+    "original_path": ".github/workflows/task-089-contract-resolver-live-once.yml",
+    "original_blob_sha": "c5741a55a14e98736475ae271975963dd18d9691",
+    "removed_after_run": true
+  },
+  "preserved_source": {
+    "path": "docs/evidence/TASK_089_HISTORICAL_LIVE_WORKFLOW_SOURCE_0.8.0.txt",
+    "blob_sha": "c5741a55a14e98736475ae271975963dd18d9691",
+    "exact_blob_match_to_executed_workflow": true,
+    "inert_non_workflow_path": true
+  },
+  "authorization": {
+    "evidence_path": "docs/evidence/TASK_089_OWNER_AUTHORIZATION_0.8.0.json",
+    "github_comment_id": 5539799359
+  },
+  "live_run": {
+    "run_id": 33867790494,
+    "job_id": 101006491391,
+    "artifact_id": 9934646128,
+    "artifact_digest": "sha256:dc4fbe266c8bb3a8db09502e7098ef76fa88912bf10e7bcce8f8ac90c2bacca2"
+  }
+}
