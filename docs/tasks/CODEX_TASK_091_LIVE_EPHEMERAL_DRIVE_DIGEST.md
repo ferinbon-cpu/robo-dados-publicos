@@ -141,6 +141,14 @@ No second TASK 091 live run was observed.
 
 The complete live workflow source is not retained in the final canonical tree. Its exact executed Git-blob SHA remains recorded for audit correlation.
 
+## Offline validation surface
+
+The durable verifier is `scripts/verify_task091_live_ephemeral_digest_evidence.py`.
+
+It is exercised by `tests/test_task_091_live_ephemeral_digest_evidence.py`, which is discovered by the existing canonical `CI_OFFLINE` gate through the repository-wide unit-test suite. TASK 091 does not add a workflow, trigger, credential, remote capability or autonomous execution surface, so it does not create a new automation-policy gate.
+
+Exact Git-blob pins in the verifier are intentional tamper evidence for this closed historical record.
+
 ## Result
 
 `STOP_TASK091_DIGEST_PROVEN_EPHEMERAL_HISTORICAL_COUNT_DRIFT_UNRESOLVED`
