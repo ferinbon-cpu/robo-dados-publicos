@@ -157,6 +157,8 @@ def validate_ci_gate_install(policy: dict[str, Any], *, repo_root: str | Path) -
         _stop("CI_GATE_PERSIST_CREDENTIALS")
     if gate.get("secrets") != []:
         _stop("CI_GATE_SECRETS")
+    if gate.get("blockers") != []:
+        _stop("CI_GATE_BLOCKERS")
     if gate.get("repository_checkout_read_only") is not True:
         _stop("CI_GATE_REPOSITORY_READ_BOUNDARY")
     if gate.get("owner_authorization_evidence") != str(CI_OWNER_AUTH_RELATIVE_PATH):
@@ -194,6 +196,8 @@ def validate_ci_gate_install(policy: dict[str, Any], *, repo_root: str | Path) -
         _stop("CI_WORKFLOW_PATH_FILTER_DRIFT")
     required_fragments = (
         "permissions:\n  contents: read",
+        "uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+        "uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
         "persist-credentials: false",
         "fetch-depth: 0",
         "python -m unittest discover -s tests -p 'test_f02_fundeb_monthly_cash_policy_finalization.py' -v",
