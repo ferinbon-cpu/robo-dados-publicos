@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -13,8 +14,22 @@ from robo_dados_publicos.manual_ingest.f02_fundeb_monthly_cash import (
 ROOT = Path(__file__).resolve().parents[1]
 GATE = ROOT / "config/f02_fundeb_monthly_cash_gate.v1.json"
 CUSTODY = ROOT / "docs/evidence/f02_fundeb_monthly_cash/F02_FUNDEB_MONTHLY_2026_JAN_MAR_SOURCE_CUSTODY.json"
-EXAMPLE_AUTH = ROOT / "tests/fixtures/f02_fundeb_monthly_cash_runtime_authorization.example.json"
-EXAMPLE_AUTH_SHA256 = "284f06b181bfe0238e5b12365cb95298ccd58634cbe2f482e6f912a37adc1b81"
+
+
+def synthetic_authorization() -> dict[str, object]:
+    return {
+        "schema":"F02_FUNDEB_MONTHLY_CASH_RUNTIME_AUTHORIZATION_V1",
+        "authorization_id":"TEST_ONLY_EXAMPLE_DO_NOT_USE_OPERATIONALLY",
+        "scope":"F02_FUNDEB_MONTHLY_CASH_LOCAL_SNAPSHOT_READ",
+        "batch_id":"F02_FUNDEB_MONTHLY_CASH_2026_JAN_MAR",
+        "authorized":True,
+        "owner_instruction_verbatim":"SYNTHETIC TEST ONLY - NOT AN OWNER AUTHORIZATION",
+        "forbidden_effects":[
+            "DELETE","OVERWRITE","SERVING","LOOKER","PUBLICATION","SITE",
+            "SCHEDULE","RECURRENCE","GOLD_PROMOTION",
+            "FINANCIAL_CLAIM_PROMOTION_WITHOUT_EVIDENCE",
+        ],
+    }
 
 
 class F02FundebMonthlyCashStandaloneGateTests(unittest.TestCase):
@@ -25,10 +40,7 @@ class F02FundebMonthlyCashStandaloneGateTests(unittest.TestCase):
         self.assertEqual(gate["mode"], "T0_OFFLINE_FUNDEB_MONTHLY_CASH")
         self.assertFalse(gate["operational"])
         self.assertTrue(gate["global_policy_registration_required"])
-        self.assertEqual(
-            gate["execution_before_global_policy_registration"],
-            "STOP",
-        )
+        self.assertEqual(gate["execution_before_global_policy_registration"], "STOP")
         self.assertEqual(
             gate["status"],
             "DESIGN_ONLY_NON_OPERATIONAL_UNTIL_GLOBAL_POLICY_REGISTRATION",
@@ -52,21 +64,21 @@ class F02FundebMonthlyCashStandaloneGateTests(unittest.TestCase):
             custody["evidence_boundary"]["legacy_derived_artifacts_not_used_for_validation"]
         )
 
-    def test_synthetic_authorization_fixture_has_documented_sha_but_is_rejected_operationally(self):
-        payload = EXAMPLE_AUTH.read_bytes()
-        self.assertEqual(hashlib.sha256(payload).hexdigest(), EXAMPLE_AUTH_SHA256)
-        fixture = json.loads(payload.decode("utf-8"))
-        self.assertEqual(fixture["status"], "TEST_ONLY_SYNTHETIC_EXAMPLE")
-        self.assertIn("NOT AN OWNER AUTHORIZATION", fixture["owner_instruction_verbatim"])
-        with self.assertRaisesRegex(
-            F02FundebMonthlyCashStop,
-            "AUTHORIZATION_TEST_FIXTURE_FORBIDDEN_OPERATIONALLY",
-        ):
-            load_pinned_authorization(
-                root=ROOT,
-                relative_path=EXAMPLE_AUTH.relative_to(ROOT),
-                expected_sha256=EXAMPLE_AUTH_SHA256,
-            )
+    def test_synthetic_authorization_is_generated_transiently_and_tests_fixture_path_is_rejected(self):
+        payload = (json.dumps(synthetic_authorization(), sort_keys=True) + "\n").encode("utf-8")
+        digest = hashlib.sha256(payload).hexdigest()
+        with tempfile.TemporaryDirectory(dir=ROOT / "tests") as td:
+            path = Path(td) / "synthetic-authorization.json"
+            path.write_bytes(payload)
+            with self.assertRaisesRegex(
+                F02FundebMonthlyCashStop,
+                "AUTHORIZATION_TEST_FIXTURE_FORBIDDEN_OPERATIONALLY",
+            ):
+                load_pinned_authorization(
+                    root=ROOT,
+                    relative_path=path.relative_to(ROOT),
+                    expected_sha256=digest,
+                )
 
 
 if __name__ == "__main__":
