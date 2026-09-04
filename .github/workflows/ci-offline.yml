@@ -28,6 +28,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
+          fetch-depth: 0
 
       - name: Python 3.12
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
@@ -51,7 +52,7 @@ jobs:
         run: python scripts/github_task_018_full_operational_bootstrap_design_gate.py
 
       - name: Gate T0 do desenho da prova incremental Jornal TASK 021
-        run: python scripts/github_task_021_jornal_incremental_live_proof_gate_design.py
+        run: python scripts/github_task_021_jornal_incremental_live_proof_implementation_review_gate.py
 
       - name: Gate T0 da revisão do checkpoint real Jornal TASK 022
         run: python scripts/github_task_022_jornal_real_checkpoint_pinning_review_gate.py
