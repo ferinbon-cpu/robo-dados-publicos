@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "F02_KNOWN_FAMILY_BUNDLE_RUNTIME_AUTHORIZATION_V1",
+  "title": "F02 known-family runtime authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "authorization_id",
+    "scope",
+    "authorized",
+    "batch_id",
+    "owner_instruction_verbatim",
+    "remote_effects_authorized"
+  ],
+  "properties": {
+    "schema": {
+      "const": "F02_KNOWN_FAMILY_BUNDLE_RUNTIME_AUTHORIZATION_V1"
+    },
+    "authorization_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "const": "F02_KNOWN_FAMILY_BUNDLE_LOCAL_SNAPSHOT_READ"
+    },
+    "authorized": {
+      "const": true
+    },
+    "batch_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owner_instruction_verbatim": {
+      "type": "string",
+      "minLength": 1
+    },
+    "remote_effects_authorized": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bronze_write",
+        "silver_write",
+        "gold_write",
+        "serving",
+        "publication",
+        "site",
+        "overwrite",
+        "delete",
+        "move",
+        "schedule",
+        "recurrence"
+      ],
+      "properties": {
+        "bronze_write": {
+          "const": false
+        },
+        "silver_write": {
+          "const": false
+        },
+        "gold_write": {
+          "const": false
+        },
+        "serving": {
+          "const": false
+        },
+        "publication": {
+          "const": false
+        },
+        "site": {
+          "const": false
+        },
+        "overwrite": {
+          "const": false
+        },
+        "delete": {
+          "const": false
+        },
+        "move": {
+          "const": false
+        },
+        "schedule": {
+          "const": false
+        },
+        "recurrence": {
+          "const": false
+        }
+      }
+    }
+  }
+}
