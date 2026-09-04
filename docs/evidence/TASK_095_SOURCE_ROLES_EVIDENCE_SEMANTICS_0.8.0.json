@@ -1,7 +1,6 @@
 {
   "task": "TASK_095_SOURCE_ROLES_EVIDENCE_SEMANTICS",
   "mode": "T0_OFFLINE_EPISTEMIC_SOURCE_POLICY",
-  "base_ref": "TASK_094_FINAL_HEAD_STACKED_PENDING_MAIN_MERGE",
   "source_roles": [
     "DOCTRINAL_SOURCE",
     "ACADEMIC_RESEARCH",
@@ -42,5 +41,6 @@
     "schedule": 0
   },
   "next_task": "TASK_096_EITI_LIMEIRA_OFFLINE_CROSSWALK",
-  "result": "READY_FOR_STACKED_CI_AFTER_TASK094"
+  "result": "READY_FOR_CI_REVIEW_NO_REMOTE_EFFECT",
+  "base_sha": "2b59e34a520c5a5bb38a167cb746a1a75bbabcc1"
 }
