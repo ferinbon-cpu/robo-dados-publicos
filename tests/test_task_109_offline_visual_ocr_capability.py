@@ -13,6 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 EVIDENCE = ROOT / "docs/evidence/TASK_109_VISUAL_OCR_CAPABILITY_0.8.0.json"
 INVENTORY_WORKFLOW = ROOT / ".github/workflows/task-109-visual-ocr-capability-once.yml"
 CHROME_WORKFLOW = ROOT / ".github/workflows/task-109-chrome-image-only-probe-once.yml"
+INVENTORY_SOURCE = ROOT / "docs/evidence/TASK_109_VISUAL_OCR_INVENTORY_WORKFLOW_SOURCE_0.8.0.txt"
+CHROME_SOURCE = ROOT / "docs/evidence/TASK_109_EXECUTED_CHROME_IMAGE_ONLY_WORKFLOW_SOURCE_0.8.0.txt"
 
 
 class TestTask109OfflineVisualOcrCapability(unittest.TestCase):
@@ -90,8 +92,20 @@ class TestTask109OfflineVisualOcrCapability(unittest.TestCase):
             ROOT / "robo_dados_publicos/research/local_pdf_capability.py"
         ).read_text(encoding="utf-8")
         task109_source = source.split("def probe_visual_ocr_capabilities()", 1)[1]
+        self.assertNotIn("urlopen(", task109_source)
+        self.assertNotIn("subprocess.", task109_source)
         self.assertNotIn("limeira.sp.gov.br", task109_source)
         self.assertNotIn("0fa1a5cc5c9a1823fbf5436def00f01f.pdf", task109_source)
+
+    def test_executed_workflow_sources_are_preserved_inertly(self):
+        self.assertTrue(INVENTORY_SOURCE.exists())
+        self.assertTrue(CHROME_SOURCE.exists())
+        inventory = INVENTORY_SOURCE.read_text(encoding="utf-8")
+        chrome = CHROME_SOURCE.read_text(encoding="utf-8")
+        self.assertIn("TASK 109 visual OCR capability inventory once", inventory)
+        self.assertIn("TASK 109 Chrome image-only synthetic proof once", chrome)
+        self.assertNotIn("limeira.sp.gov.br", inventory)
+        self.assertNotIn("limeira.sp.gov.br", chrome)
 
     def test_single_use_task109_workflows_are_removed_before_merge(self):
         self.assertFalse(INVENTORY_WORKFLOW.exists())
