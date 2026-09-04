@@ -324,36 +324,6 @@
       "no_workflow_trigger": true,
       "manual_execution_required": true,
       "owner_authorization_required": true
-    },
-    {
-      "id": "F02_FUNDEB_MONTHLY_CASH_OFFLINE",
-      "script": "scripts/process_f02_fundeb_monthly_cash.py",
-      "contract": "config/f02_fundeb_monthly_cash_gate.v1.json",
-      "tier": "T0_OFFLINE",
-      "auto_allowed": false,
-      "credential_capability": "NONE",
-      "effects": {
-        "source_network": false,
-        "drive_reads": false,
-        "drive_writes": false,
-        "publication": false
-      },
-      "current_triggers": [],
-      "local_snapshot_read_only": true,
-      "remote_materialization_authorized": false,
-      "bronze_write_authorized": false,
-      "silver_write_authorized": false,
-      "gold_write_authorized": false,
-      "serving_authorized": false,
-      "schedule": false,
-      "recurrence": false,
-      "blockers": [
-        "EXPLICIT_OWNER_OR_ORCHESTRATOR_GATE_REQUIRED_FOR_LOCAL_SNAPSHOT_EXECUTION"
-      ],
-      "invocation_surface": "DIRECT_CLI_OR_CI_TEST_ONLY",
-      "no_workflow_trigger": true,
-      "manual_execution_required": true,
-      "owner_authorization_required": true
     }
   ],
   "agentic_work": {
