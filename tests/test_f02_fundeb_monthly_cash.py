@@ -7,7 +7,8 @@ import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
-from pypdf import PdfWriter
+from pypdf import PdfReader, PdfWriter
+from pypdf.generic import DecodedStreamObject, DictionaryObject, NameObject
 
 from robo_dados_publicos.manual_ingest.mde_fundeb import inspect_f02_pdf
 from robo_dados_publicos.manual_ingest.f02_fundeb_monthly_cash import (
@@ -77,6 +78,31 @@ def monthly_text(month_name, opening, transfer, auto_income, classic_income, fti
         *closing_lines,
         f"(25) TOTAL DO SALDO FINAL (3)+(9)-(21)=(25) {closing} {closing} -",
     ])
+
+
+def synthetic_pdf_bytes(page_streams):
+    import io
+    writer = PdfWriter()
+    for stream_bytes in page_streams:
+        page = writer.add_blank_page(width=200, height=200)
+        if stream_bytes is None:
+            continue
+        stream = DecodedStreamObject()
+        stream.set_data(stream_bytes)
+        page[NameObject("/Contents")] = writer._add_object(stream)
+        if b"BT" in stream_bytes:
+            font = DictionaryObject({
+                NameObject("/Type"): NameObject("/Font"),
+                NameObject("/Subtype"): NameObject("/Type1"),
+                NameObject("/BaseFont"): NameObject("/Helvetica"),
+            })
+            fonts = DictionaryObject({NameObject("/F1"): writer._add_object(font)})
+            page[NameObject("/Resources")] = DictionaryObject({
+                NameObject("/Font"): fonts,
+            })
+    buf = io.BytesIO()
+    writer.write(buf)
+    return buf.getvalue()
 
 
 JAN = monthly_text(
@@ -244,86 +270,64 @@ class F02FundebMonthlyCashTests(unittest.TestCase):
         self.assertFalse(telemetry["gold_authorized"])
 
     def test_structurally_blank_export_page_policy_is_narrow(self):
-        class Contents:
-            def __init__(self, data):
-                self._data = data
-            def get_data(self):
-                return self._data
-
-        class Page:
-            def __init__(self, text="", data=b"", images=()):
-                self._text = text
-                self._contents = Contents(data) if data is not None else None
-                self.images = list(images)
+        class PageWithImage:
+            images = [object()]
             def extract_text(self):
-                return self._text
+                return ""
             def get_contents(self):
-                return self._contents
+                return None
 
-        self.assertTrue(_is_structurally_blank_export_page(Page("", b"")))
-        self.assertTrue(_is_structurally_blank_export_page(
-            Page("", b"0.750000 0.000000 0.000000 -0.750000 0.000000 841.920044 cm\n")
-        ))
-        self.assertFalse(_is_structurally_blank_export_page(
-            Page("", b"0 0 m 10 10 l S\n")
-        ))
-        self.assertFalse(_is_structurally_blank_export_page(
-            Page("", b"", images=(object(),))
-        ))
-        self.assertFalse(_is_structurally_blank_export_page(Page("visible", b"")))
+        self.assertFalse(
+            _is_structurally_blank_export_page(PageWithImage(), reader=object())
+        )
 
-    def test_monthly_pdf_allows_only_trailing_structurally_blank_pages(self):
-        class Contents:
-            def __init__(self, data):
-                self._data = data
-            def get_data(self):
-                return self._data
+        empty_pdf = synthetic_pdf_bytes([None])
+        reader = PdfReader(__import__("io").BytesIO(empty_pdf))
+        self.assertTrue(
+            _is_structurally_blank_export_page(reader.pages[0], reader=reader)
+        )
 
-        class Page:
-            def __init__(self, text="", data=b""):
-                self._text = text
-                self._contents = Contents(data)
-                self.images = []
-            def extract_text(self):
-                return self._text
-            def get_contents(self):
-                return self._contents
+        ctm_pdf = synthetic_pdf_bytes([
+            b"0.750000 0.000000 0.000000 -0.750000 0.000000 841.920044 cm\n"
+        ])
+        reader = PdfReader(__import__("io").BytesIO(ctm_pdf))
+        self.assertTrue(
+            _is_structurally_blank_export_page(reader.pages[0], reader=reader)
+        )
 
-        class Reader:
-            def __init__(self, pages):
-                self.pages = pages
+        vector_pdf = synthetic_pdf_bytes([b"0 0 m 10 10 l S\n"])
+        reader = PdfReader(__import__("io").BytesIO(vector_pdf))
+        self.assertFalse(
+            _is_structurally_blank_export_page(reader.pages[0], reader=reader)
+        )
 
-        base = {
-            "pages": 2,
-            "text_pages": 1,
-            "text_chars": len(JAN),
-            "has_text_layer": False,
-            "text": JAN,
-        }
-        with patch(
-            "robo_dados_publicos.manual_ingest.f02_fundeb_monthly_cash.inspect_f02_pdf",
-            return_value=base,
-        ), patch(
-            "robo_dados_publicos.manual_ingest.f02_fundeb_monthly_cash.PdfReader",
-            return_value=Reader([
-                Page(JAN),
-                Page("", b"0.750000 0 0 -0.750000 0 841.92 cm\n"),
-            ]),
-        ):
-            observed = inspect_monthly_pdf(b"synthetic")
-        self.assertTrue(observed["has_required_text_layer"])
-        self.assertEqual(observed["structurally_blank_trailing_pages"], [2])
+        double_ctm_pdf = synthetic_pdf_bytes([
+            b"1 0 0 1 0 0 cm\n1 0 0 1 0 0 cm\n"
+        ])
+        reader = PdfReader(__import__("io").BytesIO(double_ctm_pdf))
+        self.assertFalse(
+            _is_structurally_blank_export_page(reader.pages[0], reader=reader)
+        )
 
-        internal = dict(base, pages=3, text_pages=2)
-        with patch(
-            "robo_dados_publicos.manual_ingest.f02_fundeb_monthly_cash.inspect_f02_pdf",
-            return_value=internal,
-        ), patch(
-            "robo_dados_publicos.manual_ingest.f02_fundeb_monthly_cash.PdfReader",
-            return_value=Reader([Page(JAN), Page(""), Page(FEB)]),
-        ):
-            observed = inspect_monthly_pdf(b"synthetic")
-        self.assertFalse(observed["has_required_text_layer"])
+    def test_monthly_pdf_real_parser_allows_only_trailing_structural_blank(self):
+        text_stream = b"BT /F1 12 Tf 10 100 Td (HELLO) Tj ET\n"
+        ctm_stream = b"0.750000 0.000000 0.000000 -0.750000 0.000000 841.920044 cm\n"
+
+        trailing = inspect_monthly_pdf(
+            synthetic_pdf_bytes([text_stream, ctm_stream])
+        )
+        self.assertTrue(trailing["has_required_text_layer"])
+        self.assertEqual(trailing["structurally_blank_trailing_pages"], [2])
+
+        internal = inspect_monthly_pdf(
+            synthetic_pdf_bytes([text_stream, None, text_stream])
+        )
+        self.assertFalse(internal["has_required_text_layer"])
+
+        vector = inspect_monthly_pdf(
+            synthetic_pdf_bytes([text_stream, b"0 0 m 10 10 l S\n"])
+        )
+        self.assertFalse(vector["has_required_text_layer"])
 
     def test_contract_rejects_blank_page_policy_drift(self):
         good = copy.deepcopy(self.contract)
@@ -332,6 +336,10 @@ class F02FundebMonthlyCashTests(unittest.TestCase):
         bad["source_page_policy"]["allow_internal_blank_pages"] = True
         with self.assertRaisesRegex(F02FundebMonthlyCashStop, "SOURCE_PAGE_POLICY"):
             validate_contract(bad)
+        missing = copy.deepcopy(good)
+        del missing["source_page_policy"]
+        with self.assertRaisesRegex(F02FundebMonthlyCashStop, "SOURCE_PAGE_POLICY"):
+            validate_contract(missing)
 
     def test_pdf_inspection_is_local_only_even_with_socket_blocked(self):
         import io
