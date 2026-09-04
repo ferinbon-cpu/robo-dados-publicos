@@ -1,0 +1,30 @@
+{
+  "schema": "F02_FUNDEB_MONTHLY_CASH_RUNTIME_AUTHORIZATION_V1",
+  "authorization_id": "OWNER_SPRINT_2026_09_03_F02_SCALE_OUT",
+  "scope": "F02_FUNDEB_MONTHLY_CASH_LOCAL_SNAPSHOT_READ",
+  "batch_id": "F02_FUNDEB_MONTHLY_CASH_2026_JAN_MAR",
+  "authorized": true,
+  "owner_instruction_verbatim": "Autorizado executar autonomamente toda a próxima fase de maturação do robô, incluindo GitHub/Drive, PRs, CI, DeepSeek Pro, correções e merges necessários, até atingir um blocker material ou concluir a fase. Permanecem proibidos delete/overwrite, serving/Looker, publicação/site, schedule/recorrência e promoção financeira sem evidência.",
+  "allowed_effects": [
+    "LOCAL_SNAPSHOT_READ",
+    "OFFLINE_PARSE",
+    "OFFLINE_RECONCILIATION",
+    "GITHUB_BRANCH_PR_CI_DEEPSEEK_MERGE",
+    "CREATE_ONLY_SILVER_AFTER_MERGED_PROOF",
+    "CREATE_ONLY_EXECUTION_MANIFEST_AFTER_SILVER_READBACK",
+    "STATE_CHECKPOINT_APPEND"
+  ],
+  "forbidden_effects": [
+    "DELETE",
+    "OVERWRITE",
+    "SERVING",
+    "LOOKER",
+    "PUBLICATION",
+    "SITE",
+    "SCHEDULE",
+    "RECURRENCE",
+    "GOLD_PROMOTION",
+    "FINANCIAL_CLAIM_PROMOTION_WITHOUT_EVIDENCE"
+  ],
+  "status": "CURRENT_PROSPECTIVE_BOUNDED_PHASE_AUTHORIZATION"
+}
