@@ -34,14 +34,6 @@
       "snapshot_path": "runtime/f02_fundeb_monthly/FUNDEB_LIMEIRA_2026_03.pdf"
     }
   ],
-  "legacy_derived_reconciliation": {
-    "status": "DERIVED_REFERENCE_ONLY_NOT_SOURCE_OF_TRUTH",
-    "monthly_silver_drive_id": "1NAxl1lqDLv1zXF4t1gS-GWiFfCGlY8LP",
-    "fomento_events_drive_id": "1x406bEsvEa4KCOZw2hELvMf9kxDfBvq2",
-    "portaria_series_drive_id": "1qiUKNWfi2VNeGO2M5vuLC6vXGLh-hAHN",
-    "observed_source_sha256_match_all_three": true,
-    "observed_january_fti_value_match": true
-  },
   "mode": "MANUAL_SUPERVISED_INGEST",
   "family": "FUNDEB_MONTHLY_CASH_LOCAL",
   "remote_effects_authorized": {
@@ -56,5 +48,10 @@
     "move": false,
     "schedule": false,
     "recurrence": false
+  },
+  "evidence_boundary": {
+    "primary_source_manifest_only": true,
+    "legacy_derived_artifacts_not_used_for_validation": true,
+    "legacy_reconciliation_observed_outside_manifest": true
   }
 }
