@@ -16,7 +16,10 @@
       "planning_signal_status": "CANDIDATE",
       "policy_link_status": "UNKNOWN",
       "financial_identity_status": "UNKNOWN",
-      "reason": "Normalized terminology survives in TASK055A, but the current repository does not preserve the underlying primary PPA source identity and locator required for direct planning proof."
+      "reason": "TASK 107 resolved and read the official 2018-2021 PPA PDF, but pypdf returned empty text and the live result did not preserve a source hash, typed signal locator or direct text/visual evidence for this period. The primary planning gap therefore remains open.",
+      "task107_official_pdf_url": "https://www.limeira.sp.gov.br/sitenovo/downloads/0fa1a5cc5c9a1823fbf5436def00f01f.pdf",
+      "task107_parser_status": "PDF_TEXT_EMPTY",
+      "task107_live_result": "docs/evidence/TASK_107_LIVE_RESULT_0.8.0.json"
     },
     {
       "period": "2022-2025",
@@ -24,13 +27,25 @@
       "repository_signal": "indice de alunos em Educacao Integral",
       "signal_origin": "TASK_055A_LOCAL_PLANNING_ALIAS",
       "task055a_validator_tag": "TASK055A_PPA2022_ALIAS_MISSING",
-      "primary_document_entity_versioned": false,
-      "primary_source_hash_versioned": false,
-      "primary_locator_versioned": false,
-      "planning_signal_status": "CANDIDATE",
-      "policy_link_status": "UNKNOWN",
+      "primary_document_entity_versioned": true,
+      "primary_source_hash_versioned": true,
+      "primary_locator_versioned": true,
+      "planning_signal_status": "PROVEN",
+      "policy_link_status": "CANDIDATE",
       "financial_identity_status": "UNKNOWN",
-      "reason": "Normalized terminology survives in TASK055A, but the current repository does not preserve the underlying primary PPA source identity and locator required for direct planning proof."
+      "reason": "TASK 107 primary official PDF evidence proves that PPA 2022-2025 contains the Educação Integral planning indicator. Because the formal EITI-Limeira policy was established later, this historical planning signal is only a candidate policy linkage and does not establish financial identity, implementation or causal effect.",
+      "primary_evidence_task": "TASK_107",
+      "primary_evidence_record": "docs/evidence/TASK_107_LIVE_RESULT_0.8.0.json",
+      "primary_source_url": "https://www.limeira.sp.gov.br/sitenovo/downloads/9d8dd63f39cc3b51ef032a4c96210a07.pdf",
+      "primary_source_sha256": "8e10123b07d83e9a9928fd2444318f595a7560eac2bc06c920761ca7893778f7",
+      "primary_source_bytes": 3273513,
+      "preferred_locator": {
+        "coordinate_system": "SOURCE_PDF_PAGE_1_BASED",
+        "page": 23,
+        "source_sha256": "8e10123b07d83e9a9928fd2444318f595a7560eac2bc06c920761ca7893778f7",
+        "page_text_sha256": "6c8294fb4a511fc7fbc86d69dda780085cdc5bbbea363b8482d06c22eba57883",
+        "match_signal": "ÍNDICE DE ALUNOS EM EDUCACAO INTEGRAL"
+      }
     },
     {
       "period": "2026-2029",
@@ -57,7 +72,8 @@
     "three_ppa_period_budgetary_persistence": "UNKNOWN",
     "existing_task096_normative_planning_persistence": "CORROBORATED",
     "existing_task096_normative_planning_persistence_preserved": true,
-    "explanation": "The existing TASK096 persistence finding rests on the 2021 CME → 2024 decree → PPA 2026-2029 → 2026 law chain. It must not be silently reinterpreted as proven continuity across all three PPAs."
+    "explanation": "Primary planning evidence is now proven for 2022-2025 and 2026-2029, while 2018-2021 remains unresolved because its official PDF yielded no pypdf text. The existing TASK096 persistence finding remains separate and the three-PPA policy-continuity claim remains CANDIDATE.",
+    "two_of_three_primary_planning_periods_proven": true
   },
   "acquisition_gaps": [
     {
@@ -67,16 +83,8 @@
         "STABLE_SOURCE_HASH_OR_EQUIVALENT_IDENTITY",
         "TYPED_LOCATOR_FOR_THE_RELEVANT_PLANNING_SIGNAL",
         "DIRECT_TEXT_OR_VISUAL_EVIDENCE"
-      ]
-    },
-    {
-      "period": "2022-2025",
-      "required_before_promotion": [
-        "PRIMARY_PPA_DOCUMENT_IDENTITY",
-        "STABLE_SOURCE_HASH_OR_EQUIVALENT_IDENTITY",
-        "TYPED_LOCATOR_FOR_THE_RELEVANT_PLANNING_SIGNAL",
-        "DIRECT_TEXT_OR_VISUAL_EVIDENCE"
-      ]
+      ],
+      "current_obstacle": "OFFICIAL_PDF_RESOLVED_BUT_PYPDF_TEXT_EMPTY; DIRECT_TEXT_OR_VISUAL_EVIDENCE_AND_STABLE_HASH_STILL_REQUIRED"
     }
   ],
   "forbidden_promotions": [

@@ -27,7 +27,7 @@ EITI_PATH = ROOT / "config/eiti_limeira_research_crosswalk.v1.json"
 HISTORICAL_PATH = ROOT / "config/eiti_historical_planning_crosswalk.v1.json"
 EXPECTED_INPUT_SHA256 = {
     EITI_PATH.name: "34bed580acb84abfe3e8894ed620c87b9918ef52c187716d5d02fa330db26953",
-    HISTORICAL_PATH.name: "f288a573e2d0dff801ac09028f62ee9a66c4617ece6bf489c61c436854318ac9",
+    HISTORICAL_PATH.name: "b34452daf28600d9663a20dbae4e6c091ec65a03ac328313151f1788c45b4d39",
 }
 
 

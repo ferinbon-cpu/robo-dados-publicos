@@ -47,7 +47,7 @@ class TestTask101EitiResearchAnswerCli(unittest.TestCase):
         self.assertIn("**transaction_execution_identity** — UNKNOWN", result.stdout)
         self.assertIn("**outcome_effect** — UNKNOWN", result.stdout)
         self.assertIn("### 2018-2021", result.stdout)
-        self.assertIn("### 2022-2025", result.stdout)
+        self.assertNotIn("### 2022-2025", result.stdout)
 
     def test_cli_is_deterministic(self):
         first = run_cli()

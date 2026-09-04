@@ -15,7 +15,7 @@
       },
       "historical_source": {
         "path": "config/eiti_historical_planning_crosswalk.v1.json",
-        "sha256": "f288a573e2d0dff801ac09028f62ee9a66c4617ece6bf489c61c436854318ac9"
+        "sha256": "b34452daf28600d9663a20dbae4e6c091ec65a03ac328313151f1788c45b4d39"
       },
       "allowed_query_types": [
         "CLAIM_AUDIT",
