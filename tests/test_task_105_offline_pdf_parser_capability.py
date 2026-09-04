@@ -37,3 +37,17 @@ def test_task105_chrome_pdf_accessibility_probe_is_local_only_and_observable():
     assert isinstance(result["marker_in_ax"], bool)
     assert isinstance(result["marker_in_source"], bool)
     assert isinstance(result["marker_in_body_inner_text"], bool)
+
+
+from robo_dados_publicos.research.local_pdf_capability import prove_pypdf_text_extraction
+
+
+def test_task105_pypdf_parser_must_recover_synthetic_text_marker():
+    result = prove_pypdf_text_extraction()
+    print("TASK105_PYPDF_PROOF=" + json.dumps(result, sort_keys=True))
+    assert result["schema"] == "TASK105_LOCAL_PDF_PARSER_PROOF_V1"
+    assert result["parser"] == "pypdf"
+    assert result["status"] == "PROVEN"
+    assert result["marker_in_text"] is True
+    assert result["page_count"] == 1
+    assert result["marker"] in result["extracted_text"]
