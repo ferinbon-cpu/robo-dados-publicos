@@ -61,7 +61,7 @@ class F02FundebMonthlyCashPolicyActivationTests(unittest.TestCase):
         self.assertEqual(gate["tier"], "T0")
         self.assertTrue(gate["operational"])
         self.assertTrue(gate["global_policy_registration_required"])
-        self.assertEqual(gate["status"], "REGISTERED_MANUAL_T0_REMOTE_CLOSED")
+        self.assertEqual(gate["status"], "REGISTERED_MANUAL_T0_PENDING_IMPLEMENTATION_PR_376")
         self.assertFalse(gate["remote_drive_read_authorized"])
         self.assertTrue(gate["runtime_authorization_required"])
         self.assertTrue(all(gate["blocked_remote_effects"].values()))
