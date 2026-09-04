@@ -2,12 +2,15 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
+from io import BytesIO
 from pathlib import Path
 import hashlib
 import json
 import re
 import unicodedata
 from typing import Any
+
+from pypdf import PdfReader
 
 from .f02_known_family_bundle import (
     F02KnownFamilyBundleStop,
@@ -132,6 +135,87 @@ def _safe_snapshot_path(value: object) -> Path:
     return path
 
 
+_CTM_ONLY_RE = re.compile(
+    r"^(?:[-+]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)\\s+){5}"
+    r"[-+]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)\\s+cm$"
+)
+
+
+def _is_structurally_blank_export_page(page: Any) -> bool:
+    if (page.extract_text() or "").strip():
+        return False
+    try:
+        if len(page.images) != 0:
+            return False
+    except Exception:
+        return False
+    contents = page.get_contents()
+    if contents is None:
+        return True
+    data = contents.get_data().strip()
+    if not data:
+        return True
+    try:
+        text = data.decode("ascii")
+    except UnicodeDecodeError:
+        return False
+    operations = [line.strip() for line in text.splitlines() if line.strip()]
+    return bool(operations) and all(
+        line in {"q", "Q"} or _CTM_ONLY_RE.fullmatch(line)
+        for line in operations
+    )
+
+
+def inspect_monthly_pdf(payload: bytes) -> dict[str, Any]:
+    observed = inspect_f02_pdf(payload)
+    if observed["has_text_layer"]:
+        return {
+            **observed,
+            "has_required_text_layer": True,
+            "structurally_blank_trailing_pages": [],
+        }
+
+    try:
+        reader = PdfReader(BytesIO(payload))
+    except Exception as exc:
+        raise F02FundebMonthlyCashStop(
+            "STOP_F02_FUNDEB_MONTHLY_INVALID_PDF"
+        ) from exc
+
+    page_texts = [(page.extract_text() or "") for page in reader.pages]
+    nonempty_indexes = [i for i, text in enumerate(page_texts) if text.strip()]
+    if not nonempty_indexes:
+        return {
+            **observed,
+            "has_required_text_layer": False,
+            "structurally_blank_trailing_pages": [],
+        }
+
+    last_nonempty = max(nonempty_indexes)
+    if any(not page_texts[i].strip() for i in range(last_nonempty)):
+        return {
+            **observed,
+            "has_required_text_layer": False,
+            "structurally_blank_trailing_pages": [],
+        }
+
+    trailing = []
+    for index in range(last_nonempty + 1, len(reader.pages)):
+        if not _is_structurally_blank_export_page(reader.pages[index]):
+            return {
+                **observed,
+                "has_required_text_layer": False,
+                "structurally_blank_trailing_pages": [],
+            }
+        trailing.append(index + 1)
+
+    return {
+        **observed,
+        "has_required_text_layer": True,
+        "structurally_blank_trailing_pages": trailing,
+    }
+
+
 def validate_contract(raw: dict[str, Any]) -> dict[str, Any]:
     if raw.get("schema") != "F02_FUNDEB_MONTHLY_CASH_SERIES_CONTRACT_V1":
         _stop("CONTRACT_SCHEMA")
@@ -159,6 +243,16 @@ def validate_contract(raw: dict[str, Any]) -> dict[str, Any]:
         _stop("CONTRACT_EFFECT_SET")
     if any(effects[key] is not False for key in REMOTE_EFFECT_KEYS):
         _stop("CONTRACT_REMOTE_EFFECT")
+    page_policy = raw.get("source_page_policy")
+    expected_page_policy = {
+        "require_text_on_every_nonblank_page": True,
+        "allow_trailing_structurally_blank_export_pages": True,
+        "allow_internal_blank_pages": False,
+        "allow_images_on_blank_pages": False,
+        "allowed_blank_page_content": ["EMPTY", "CTM_ONLY"],
+    }
+    if page_policy != expected_page_policy:
+        _stop("SOURCE_PAGE_POLICY")
     if raw.get("silver_persistence_requires_separate_create_only_execution") is not True:
         _stop("SILVER_PERSISTENCE_BOUNDARY")
     return raw
@@ -512,7 +606,7 @@ def run_monthly_series(
         except F02KnownFamilyBundleStop as exc:
             raise F02FundebMonthlyCashStop(str(exc)) from exc
         digest = hashlib.sha256(payload).hexdigest()
-        pdf = inspect_f02_pdf(payload)
+        pdf = inspect_monthly_pdf(payload)
         mismatches: dict[str, Any] = {}
         if digest != source.sha256:
             mismatches["sha256"] = {"expected": source.sha256, "observed": digest}
@@ -520,8 +614,12 @@ def run_monthly_series(
             mismatches["bytes"] = {"expected": source.bytes, "observed": len(payload)}
         if pdf["pages"] != source.pages:
             mismatches["pages"] = {"expected": source.pages, "observed": pdf["pages"]}
-        if not pdf["has_text_layer"]:
-            mismatches["text_layer"] = {"expected": "ALL_PAGES_NONEMPTY", "observed": pdf["text_pages"]}
+        if not pdf["has_required_text_layer"]:
+            mismatches["text_layer"] = {
+                "expected": "TEXT_ON_ALL_NONBLANK_PAGES_AND_ONLY_STRUCTURALLY_BLANK_TRAILING_EXPORT_PAGES",
+                "observed_text_pages": pdf["text_pages"],
+                "observed_pages": pdf["pages"],
+            }
         if mismatches:
             _stop("SOURCE_IMMUTABLE_MISMATCH", json.dumps(mismatches, sort_keys=True))
         record = parse_monthly_text(pdf["text"])
@@ -536,6 +634,8 @@ def run_monthly_series(
             "sha256": digest,
             "bytes": len(payload),
             "pages": pdf["pages"],
+            "text_pages": pdf["text_pages"],
+            "structurally_blank_trailing_pages": pdf["structurally_blank_trailing_pages"],
             "status": "PASS_SOURCE_IMMUTABLE_IDENTITY",
         })
 
