@@ -61,7 +61,13 @@ class F02FundebMonthlyCashPolicyActivationTests(unittest.TestCase):
         self.assertEqual(gate["tier"], "T0")
         self.assertTrue(gate["operational"])
         self.assertTrue(gate["global_policy_registration_required"])
-        self.assertEqual(gate["status"], "REGISTERED_MANUAL_T0_PENDING_IMPLEMENTATION_PR_376")
+        self.assertEqual(gate["status"], "REGISTERED_MANUAL_T0_REMOTE_CLOSED")
+        self.assertFalse(gate["implementation_merge_required_before_manual_execution"])
+        self.assertEqual(gate["implementation_pr_merged"], 376)
+        self.assertEqual(
+            gate["implementation_merge_sha"],
+            "48c2f7624dba3f46b61f09659f15d798b836c0ef",
+        )
         self.assertFalse(gate["remote_drive_read_authorized"])
         self.assertTrue(gate["runtime_authorization_required"])
         self.assertTrue(all(gate["blocked_remote_effects"].values()))
