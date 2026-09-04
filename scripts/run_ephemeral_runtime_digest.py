@@ -23,6 +23,21 @@ def _load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _safe_input_path(workspace: Path, value: str, *, code: str) -> Path:
+    root = workspace.resolve(strict=True)
+    candidate = Path(value)
+    if not candidate.is_absolute():
+        candidate = workspace / candidate
+    try:
+        resolved = candidate.resolve(strict=True)
+        resolved.relative_to(root)
+    except (FileNotFoundError, ValueError) as exc:
+        raise ValueError(code) from exc
+    if resolved.is_symlink() or not resolved.is_file():
+        raise ValueError(code)
+    return resolved
+
+
 def _safe_result_path(workspace: Path, relative: str) -> Path:
     rel = Path(relative)
     if rel.is_absolute() or ".." in rel.parts or rel == Path("."):
@@ -51,8 +66,11 @@ def main() -> int:
     workspace = Path(args.workspace)
     result_path = _safe_result_path(workspace, args.result)
     try:
+        manifest_path = _safe_input_path(
+            workspace, args.manifest, code="STOP_EPHEMERAL_DIGEST_MANIFEST_PATH"
+        )
         contract = _load_json(Path(args.contract))
-        manifest = _load_json(Path(args.manifest))
+        manifest = _load_json(manifest_path)
         maturity = load_maturity_registry(Path(args.maturity))
         payload = run_ephemeral_digest(
             contract,
