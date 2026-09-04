@@ -58,3 +58,12 @@ The machine-readable boundary is pinned in `config/f02_known_family_bundle_gate.
 ## Security boundary for local files
 
 Adapter config paths and snapshot paths must be repository-relative regular files. Absolute paths, `..`, symlink components, missing files and resolved paths outside the repository root fail closed.
+
+
+## Trusted configuration identity and runtime platform
+
+The controller and maturity registry are pinned by their exact Git blob identities in the adapter contract and are verified from securely opened bytes before JSON parsing. Content drift therefore stops before routing/maturity semantics are evaluated.
+
+The secure local reader requires POSIX support for descriptor-relative `O_DIRECTORY` and `O_NOFOLLOW`. If those primitives are unavailable, execution stops; there is no weaker fallback.
+
+The automation-policy entry is T0 but `auto_allowed=false`. A valid local bundle is therefore reusable without a new parser, while execution still requires an explicit owner/orchestrator gate.
