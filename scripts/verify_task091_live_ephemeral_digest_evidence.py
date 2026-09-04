@@ -72,7 +72,7 @@ def run(root: str | Path = ROOT) -> dict:
     _require(EXPECTED_SOURCE_SHA256 in task, "STOP_TASK091_SOURCE_SHA_TASK")
     _require(str(EXPECTED_SOURCE_BYTES) in task, "STOP_TASK091_SOURCE_BYTES_TASK")
     _require("No retry is authorized." in task, "STOP_TASK091_NO_RETRY_TASK")
-    _require("full live workflow source is not retained" in task.lower(), "STOP_TASK091_WORKFLOW_ARCHIVAL_POLICY")
+    _require("complete live workflow source is not retained" in task.lower(), "STOP_TASK091_WORKFLOW_ARCHIVAL_POLICY")
 
     _require(payload["source"]["remote_id_redacted"] is True, "STOP_TASK091_PAYLOAD_REMOTE_ID_REDACTION")
     _require(payload["source"]["remote_id_sha256"] == EXPECTED_REMOTE_ID_SHA256, "STOP_TASK091_PAYLOAD_REMOTE_ID_HASH")
