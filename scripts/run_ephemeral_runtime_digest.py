@@ -28,13 +28,13 @@ def _safe_input_path(workspace: Path, value: str, *, code: str) -> Path:
     candidate = Path(value)
     if not candidate.is_absolute():
         candidate = workspace / candidate
+    if candidate.is_symlink() or not candidate.is_file():
+        raise ValueError(code)
     try:
         resolved = candidate.resolve(strict=True)
         resolved.relative_to(root)
     except (FileNotFoundError, ValueError) as exc:
         raise ValueError(code) from exc
-    if resolved.is_symlink() or not resolved.is_file():
-        raise ValueError(code)
     return resolved
 
 
