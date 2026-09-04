@@ -40,6 +40,28 @@
     "prior_policy_pr": 378,
     "prior_policy_deepseek_review_sha256": "9f954fa6595ea2a644e39014833cbde50c1d994fc2183cf949d1cc8dc63c1a56",
     "current_owner_sprint_authorization_still_in_force": true,
-    "no_new_runtime_authorization_created": true
+    "no_new_runtime_authorization_created": true,
+    "finalization_owner_github_record": {
+      "pr_number": 379,
+      "comment_id": 5534571726,
+      "author_login": "ferinbon-cpu",
+      "scope": "REMOVE_ONLY_SATISFIED_IMPLEMENTATION_MERGE_BLOCKER_AND_FINALIZE_MANUAL_T0_STATUS"
+    },
+    "explicitly_no_runtime_effect_from_finalization": true
+  },
+  "implementation_merge_verification": {
+    "method": "GITHUB_SIGNED_COMMIT_PLUS_LOCAL_GIT_ANCESTRY_TEST",
+    "repository": "ferinbon-cpu/robo-dados-publicos",
+    "commit_api_url": "https://api.github.com/repos/ferinbon-cpu/robo-dados-publicos/commits/48c2f7624dba3f46b61f09659f15d798b836c0ef",
+    "commit_html_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/commit/48c2f7624dba3f46b61f09659f15d798b836c0ef",
+    "tree_sha": "911a9e0da7006bc3ff615ccb1df1e054bddfe5aa",
+    "parent_shas": [
+      "e0e1555a6c89c1aab0f823ce834f28432a170285",
+      "55bb74a7c2389b58da655dc0f3c1fef442d0d9c3"
+    ],
+    "github_signature_verified": true,
+    "github_signature_reason": "valid",
+    "github_signature_verified_at": "2026-09-04T01:49:16Z",
+    "github_signature_present": true
   }
 }
