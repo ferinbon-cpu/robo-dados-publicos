@@ -2,7 +2,7 @@
   "task": "TASK_100",
   "version": "0.8.0",
   "mode": "T0_OFFLINE_DETERMINISTIC_MARKDOWN_RENDERER",
-  "result": "IMPLEMENTED_PENDING_CI_REVIEW",
+  "result": "PENDING_REVIEW",
   "input_boundary": "RESEARCH_QUERY_RESULT_V1",
   "output_boundary": "RESEARCH_ANSWER_RENDER_V1",
   "first_subject": "POLICY:EITI_LIMEIRA",
