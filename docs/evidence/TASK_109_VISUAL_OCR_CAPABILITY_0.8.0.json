@@ -100,7 +100,9 @@
     "source_network_requests": 0,
     "source_reads": 0,
     "real_source_ocr": false,
-    "preserved_source": "docs/evidence/TASK_109_CHROME_IMAGE_ONLY_WORKFLOW_SOURCE_0.8.0.txt"
+    "preserved_source": "docs/evidence/TASK_109_EXECUTED_CHROME_IMAGE_ONLY_WORKFLOW_SOURCE_0.8.0.txt",
+    "executed_workflow_blob_sha": "04bc20abf4c5e2df8308f0fa57ecbb706fcb60a2",
+    "executed_source_proven": true
   },
   "explicit_inventory_workflow": {
     "run_id": 33917458022,
