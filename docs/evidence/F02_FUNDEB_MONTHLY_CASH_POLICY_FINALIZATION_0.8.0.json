@@ -6,12 +6,12 @@
   "prior_policy_pr": 378,
   "prior_policy_merge_sha": "e0e1555a6c89c1aab0f823ce834f28432a170285",
   "verification_contract": {
-    "method": "LOCAL_GIT_IMMEDIATE_PARENT_PLUS_CROSS_FILE_PIN_EQUALITY",
-    "required_parent_of_validation_head": true,
+    "method": "LOCAL_GIT_OBJECT_AND_ANCESTRY_PLUS_CROSS_FILE_PIN_EQUALITY",
+    "full_git_history_required": true,
     "validator": "scripts/validate_f02_fundeb_monthly_policy_finalization.py",
-    "network_required": false,
+    "network_required_after_checkout": false,
     "github_signature_claimed_by_this_evidence": false,
-    "reason": "The CI checkout may be shallow; the implementation merge must still be encoded as an immediate parent of the validation HEAD and pinned identically in policy, gate, and evidence."
+    "reason": "CI fetches full Git history, then verifies that the pinned implementation merge commit exists and is an ancestor of HEAD; policy, gate, and evidence must pin the same SHA."
   },
   "gate_effects": {
     "auto_allowed": false,
