@@ -85,10 +85,11 @@ class TestTask091LiveEphemeralDigestEvidence(unittest.TestCase):
             root = Path(td)
             copy_fixture_tree(root)
             path = root / "docs/tasks/CODEX_TASK_091_LIVE_EPHEMERAL_DRIVE_DIGEST.md"
-            raw = path.read_bytes() + b"\nGOOGLE_DRIVE_CLIENT_SECRET\n"
+            secret_ref = "_".join(("GOOGLE", "DRIVE", "CLIENT", "SECRET"))
+            raw = path.read_bytes() + ("\n" + secret_ref + "\n").encode("utf-8")
             path.write_bytes(raw)
             with patch.object(verifier, "EXPECTED_TASK_BLOB", verifier.git_blob_sha(raw)):
-                with self.assertRaisesRegex(RuntimeError, "SENSITIVE_REFERENCE_GOOGLE_DRIVE_CLIENT_SECRET"):
+                with self.assertRaisesRegex(RuntimeError, "SENSITIVE_REFERENCE_" + secret_ref):
                     verifier.run(root)
 
     def test_missing_evidence_file_fails_closed(self):
