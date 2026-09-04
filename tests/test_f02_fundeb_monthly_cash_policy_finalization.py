@@ -280,6 +280,7 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
             (root / "docs/evidence").mkdir(parents=True)
             (root / "config/automation_policy.v1.json").write_text(json.dumps(policy), encoding="utf-8")
             (root / "config/f02_fundeb_monthly_cash_gate.v1.json").write_text(json.dumps(gate), encoding="utf-8")
+            install_ci_gate_files(root)
             (root / "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json").write_text(
                 json.dumps(evidence(merge_sha)), encoding="utf-8"
             )
