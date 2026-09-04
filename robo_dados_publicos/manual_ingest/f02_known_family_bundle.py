@@ -301,17 +301,23 @@ def validate_batch_manifest(
 
 
 def _read_snapshot(root: Path, relative: Path) -> bytes:
-    _safe_repo_file(root, relative, code="SNAPSHOT_PATH")
-    root_resolved = root.resolve(strict=True)
+    if relative.is_absolute() or ".." in relative.parts or not relative.parts:
+        _stop("SNAPSHOT_PATH_UNSAFE", str(relative))
 
+    root_resolved = root.resolve(strict=True)
     nofollow = getattr(os, "O_NOFOLLOW", 0)
     odirectory = getattr(os, "O_DIRECTORY", 0)
+    nonblock = getattr(os, "O_NONBLOCK", 0)
+
     if os.name == "posix" and nofollow and odirectory:
         opened_dirs: list[int] = []
         file_fd: int | None = None
         try:
             current_fd = os.open(root_resolved, os.O_RDONLY | odirectory)
             opened_dirs.append(current_fd)
+
+            # Descriptor-relative traversal keeps every already-opened directory
+            # stable even if another process mutates names concurrently.
             for part in relative.parts[:-1]:
                 current_fd = os.open(
                     part,
@@ -319,14 +325,16 @@ def _read_snapshot(root: Path, relative: Path) -> bytes:
                     dir_fd=current_fd,
                 )
                 opened_dirs.append(current_fd)
+
             file_fd = os.open(
                 relative.parts[-1],
-                os.O_RDONLY | nofollow,
+                os.O_RDONLY | nofollow | nonblock,
                 dir_fd=current_fd,
             )
             info = os.fstat(file_fd)
             if not stat.S_ISREG(info.st_mode):
                 _stop("SNAPSHOT_PATH_NOT_REGULAR", str(relative))
+
             with os.fdopen(file_fd, "rb", closefd=True) as handle:
                 file_fd = None
                 return handle.read()
@@ -342,6 +350,9 @@ def _read_snapshot(root: Path, relative: Path) -> bytes:
             for descriptor in reversed(opened_dirs):
                 os.close(descriptor)
 
+    # Non-POSIX fallback remains fail-closed and revalidates immediately
+    # before reading. The production/CI runtime is POSIX and uses the
+    # descriptor-relative branch above.
     path = _safe_repo_file(root, relative, code="SNAPSHOT_PATH")
     try:
         info = path.stat(follow_symlinks=False)
