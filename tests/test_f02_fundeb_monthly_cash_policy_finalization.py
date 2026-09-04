@@ -79,6 +79,22 @@ def actual_policy_and_gate() -> tuple[dict, dict]:
     return load_json(POLICY), load_json(GATE)
 
 
+def prefinalized_copies() -> tuple[dict, dict]:
+    policy, gate = actual_policy_and_gate()
+    policy = copy.deepcopy(policy)
+    gate = copy.deepcopy(gate)
+    policy_gate = next(row for row in policy["gates"] if row.get("id") == GATE_ID)
+    for row in (policy_gate, gate):
+        row["implementation_pr_required"] = 376
+        row["implementation_merge_required_before_manual_execution"] = True
+        row["blockers"] = [IMPLEMENTATION_BLOCKER, *REMAINING_BLOCKERS]
+        row.pop("implementation_pr_merged", None)
+        row.pop("implementation_merge_sha", None)
+        row.pop("policy_finalization_evidence", None)
+    gate["status"] = "REGISTERED_MANUAL_T0_PENDING_IMPLEMENTATION_PR_376"
+    return policy, gate
+
+
 def finalized_copies(merge_sha: str) -> tuple[dict, dict]:
     policy, gate = actual_policy_and_gate()
     policy = copy.deepcopy(policy)
@@ -191,8 +207,8 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
             ):
                 validate_ci_gate_install(policy, repo_root=root)
 
-    def test_actual_prefinalization_is_safe_but_nonexecuting_and_blocker_is_symmetric(self):
-        policy, gate = actual_policy_and_gate()
+    def test_synthetic_prefinalization_is_safe_but_nonexecuting_and_blocker_is_symmetric(self):
+        policy, gate = prefinalized_copies()
         result = validate_prefinalization_install(policy, gate)
         self.assertEqual(result["status"], "PASS_F02_FUNDEB_MONTHLY_POLICY_PREFINALIZATION_INSTALL")
         self.assertFalse(result["manual_execution_authorized"])
@@ -237,7 +253,7 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
                 validate_ci_gate_install(policy, repo_root=root)
 
     def test_blocker_parity_drift_fails_in_prefinalization_and_finalization(self):
-        policy, gate = actual_policy_and_gate()
+        policy, gate = prefinalized_copies()
         bad_gate = copy.deepcopy(gate)
         bad_gate["blockers"] = list(bad_gate["blockers"]) + ["DRIFT"]
         with self.assertRaisesRegex(
@@ -287,7 +303,7 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
             merge_sha = init_repo(root)
-            policy, gate = actual_policy_and_gate()
+            policy, gate = prefinalized_copies()
             (root / "config").mkdir(parents=True)
             (root / "docs/evidence").mkdir(parents=True)
             (root / "config/automation_policy.v1.json").write_text(json.dumps(policy), encoding="utf-8")
