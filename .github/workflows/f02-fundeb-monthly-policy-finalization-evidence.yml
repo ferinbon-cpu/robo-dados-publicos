@@ -1,0 +1,37 @@
+name: F02 monthly FUNDEB policy finalization evidence
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "config/automation_policy.v1.json"
+      - "config/f02_fundeb_monthly_cash_gate.v1.json"
+      - "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json"
+      - "robo_dados_publicos/automation/f02_fundeb_monthly_policy_finalization.py"
+      - "scripts/validate_f02_fundeb_monthly_policy_finalization.py"
+      - "tests/test_f02_fundeb_monthly_cash_policy_finalization.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate F02 monthly finalization evidence
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout full Git history for ancestry proof
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Validate pinned implementation merge and remote-closed policy state
+        run: python scripts/validate_f02_fundeb_monthly_policy_finalization.py
