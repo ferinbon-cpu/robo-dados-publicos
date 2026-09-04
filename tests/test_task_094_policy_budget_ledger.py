@@ -186,6 +186,47 @@ class TestTask094PolicyBudgetLedger(unittest.TestCase):
                         event("BAD", "AUTHORIZATION_INITIAL", bad, "2026-01-01")
                     )
 
+    def test_duplicate_event_id_fails_closed(self):
+        duplicate = event("AUTH", "AUTHORIZATION_INITIAL", "100.00", "2026-01-01")
+        with self.assertRaisesRegex(BudgetLedgerStop, "DUPLICATE_EVENT_ID"):
+            reconstruct_budget_snapshot([duplicate, dict(duplicate)])
+
+    def test_empty_event_list_fails_closed(self):
+        with self.assertRaisesRegex(BudgetLedgerStop, "EVENTS_EMPTY"):
+            reconstruct_budget_snapshot([])
+
+    def test_invalid_canonical_status_selection_fails_closed(self):
+        events = [event("AUTH", "AUTHORIZATION_INITIAL", "100.00", "2026-01-01")]
+        with self.assertRaisesRegex(BudgetLedgerStop, "CANONICAL_STATUSES_EMPTY"):
+            reconstruct_budget_snapshot(events, canonical_statuses=[])
+        with self.assertRaisesRegex(BudgetLedgerStop, "CANONICAL_STATUSES_INVALID"):
+            reconstruct_budget_snapshot(events, canonical_statuses=["PROVEN", "NOT_A_STATUS"])
+
+    def test_as_of_before_all_events_returns_zero_state_and_future_event_list(self):
+        events = [
+            event("AUTH", "AUTHORIZATION_INITIAL", "100.00", "2026-02-01"),
+            event("EMP", "COMMITMENT", "20.00", "2026-03-01"),
+        ]
+        snapshot = reconstruct_budget_snapshot(events, as_of="2026-01-31")
+        self.assertEqual("0.00", snapshot["authorization_current"])
+        self.assertEqual("0.00", snapshot["committed"])
+        self.assertEqual("0.00", snapshot["liquidated"])
+        self.assertEqual("0.00", snapshot["paid"])
+        self.assertEqual([], snapshot["applied_event_ids"])
+        self.assertEqual(
+            ["BUDGET_EVENT:AUTH", "BUDGET_EVENT:EMP"],
+            snapshot["after_as_of_event_ids"],
+        )
+
+    def test_as_of_is_inclusive_of_events_on_cutoff_date(self):
+        events = [
+            event("AUTH", "AUTHORIZATION_INITIAL", "100.00", "2026-01-01"),
+            event("EMP", "COMMITMENT", "20.00", "2026-02-01"),
+        ]
+        snapshot = reconstruct_budget_snapshot(events, as_of="2026-02-01")
+        self.assertEqual("20.00", snapshot["committed"])
+        self.assertEqual([], snapshot["after_as_of_event_ids"])
+
     def test_budget_event_projects_into_generic_research_entity(self):
         research_entity = budget_event_to_research_entity(
             event("AUTH", "AUTHORIZATION_INITIAL", "100.00", "2026-01-01")
