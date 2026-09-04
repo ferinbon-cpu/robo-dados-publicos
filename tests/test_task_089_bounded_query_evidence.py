@@ -60,3 +60,53 @@ def test_task089_promotes_no_identity_and_preserves_next_state():
     assert e["next_state"]["raw_blocked_task_preserved"] == "RECTASK_78d06bc26f825243c23375c6"
     assert e["next_state"]["next_executable_candidate"] == "RECTASK_9060935fe5220f738bddfdb4"
     assert e["next_state"]["future_execution_authorized"] is False
+
+
+def _git_blob_sha(data: bytes) -> str:
+    import hashlib
+    header = f"blob {len(data)}\\0".encode("ascii")
+    return hashlib.sha1(header + data).hexdigest()
+
+
+def test_task089_historical_source_is_exact_executed_git_blob():
+    e = _load()
+    raw = HISTORICAL.read_bytes()
+    observed = _git_blob_sha(raw)
+    assert observed == "c5741a55a14e98736475ae271975963dd18d9691"
+    assert e["pre_run_chain"]["execution_workflow_blob_sha"] == observed
+    assert e["pre_run_chain"]["historical_workflow_blob_sha"] == observed
+    assert e["pre_run_chain"]["historical_source_exact_git_blob_match"] is True
+
+
+def test_task089_historical_workflow_security_boundary_is_auditable_offline():
+    text = HISTORICAL.read_text(encoding="utf-8")
+    assert "permissions:\\n  contents: read" in text
+    assert "persist-credentials: false" in text
+    assert "pull_request_target:" not in text
+    assert "schedule:" not in text
+    assert "workflow_dispatch:" not in text
+    assert "repository_dispatch:" not in text
+    assert "workflow_run:" not in text
+    assert "secrets." not in text
+    assert 'ALLOWED_HOST = "serv42.limeira.sp.gov.br"' in text
+    assert "MAX_REQUESTS = 3" in text
+    assert "drive" not in text.lower()
+
+
+def test_task089_owner_authorization_is_structured_and_consumed():
+    auth_path = ROOT / "docs/evidence/TASK_089_OWNER_AUTHORIZATION_0.8.0.json"
+    auth = json.loads(auth_path.read_text(encoding="utf-8"))
+    assert auth["status"] == "CONSUMED_SINGLE_READ_ONLY_STATEFUL_QUERY"
+    assert auth["authorization_source"]["github_comment_id"] == 5539799359
+    assert auth["authorization_source"]["issued_before_execution"] is True
+    assert auth["scope"]["maximum_http_requests"] == 3
+    assert auth["exclusions"]["retry"] is False
+    assert auth["exclusions"]["future_execution"] is False
+    assert auth["consumed_by"]["run_id"] == 33867790494
+
+
+def test_task089_execution_record_does_not_self_assert_policy_pass():
+    e = _load()
+    assert "result" not in e
+    assert e["execution_record_status"].startswith("RECORDED_TASK089_")
+    assert e["live_run"]["resolver_status"] == "NO_MATCH"
