@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "schema": "RESEARCH_ANSWER_RENDERER_V1",
+  "mode": "T0_OFFLINE_DETERMINISTIC_MARKDOWN_RENDERER",
+  "input_schema": "RESEARCH_QUERY_RESULT_V1",
+  "output_schema": "RESEARCH_ANSWER_RENDER_V1",
+  "format": "MARKDOWN",
+  "section_order": [
+    "QUERY",
+    "EPISTEMIC_SUMMARY",
+    "CLAIMS",
+    "INSTITUTIONALIZATION_MATRIX",
+    "INSTITUTIONALIZATION_GAPS",
+    "HISTORICAL_ACQUISITION_GAPS",
+    "GUARDRAILS"
+  ],
+  "invariants": [
+    "RENDERER_ONLY_FORMATS_A_VALIDATED_QUERY_PACKET",
+    "CLAIM_TEXT_IS_COPIED_VERBATIM",
+    "CLAIM_STATUS_IS_COPIED_WITHOUT_PROMOTION",
+    "EVIDENCE_SOURCE_IDENTITY_AND_LOCATOR_ARE_PRESERVED",
+    "UNKNOWN_CANDIDATE_AND_CONFLICTED_ITEMS_REMAIN_VISIBLE_WHEN_PRESENT",
+    "NO_FINANCIAL_IDENTITY_IS_CREATED",
+    "NO_CAUSAL_EFFECT_IS_CREATED",
+    "NO_FREE_FORM_OR_LLM_GENERATION_IS_PERFORMED",
+    "OUTPUT_IS_DETERMINISTIC_FOR_IDENTICAL_INPUT"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
