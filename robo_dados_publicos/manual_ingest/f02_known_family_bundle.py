@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import errno
 import hashlib
 import json
 import os
@@ -341,6 +342,10 @@ def _read_snapshot(root: Path, relative: Path) -> bytes:
         except F02KnownFamilyBundleStop:
             raise
         except OSError as exc:
+            if exc.errno == errno.ELOOP:
+                raise F02KnownFamilyBundleStop(
+                    f"STOP_F02_KNOWN_BUNDLE_SNAPSHOT_PATH_SYMLINK: {relative}"
+                ) from exc
             raise F02KnownFamilyBundleStop(
                 f"STOP_F02_KNOWN_BUNDLE_SNAPSHOT_SECURE_OPEN: {relative}"
             ) from exc
