@@ -1,5 +1,5 @@
 {
-  "schema": "F02_FUNDEB_MONTHLY_CASH_GATE_DESIGN_V1",
+  "schema": "F02_FUNDEB_MONTHLY_CASH_GATE_V1",
   "software_candidate": "0.8.0",
   "tier": "T0",
   "mode": "T0_OFFLINE_FUNDEB_MONTHLY_CASH",
@@ -31,9 +31,10 @@
     "mde_compliance_claim": true,
     "annual_compliance_claim": true
   },
-  "status": "DESIGN_ONLY_NON_OPERATIONAL_UNTIL_GLOBAL_POLICY_REGISTRATION",
-  "operational": false,
+  "status": "REGISTERED_MANUAL_T0_REMOTE_CLOSED",
+  "operational": true,
   "global_policy_gate_id": "F02_FUNDEB_MONTHLY_CASH_OFFLINE",
   "global_policy_registration_required": true,
-  "execution_before_global_policy_registration": "STOP"
+  "execution_before_global_policy_registration": "STOP",
+  "policy_change_authorization_evidence": "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_OWNER_AUTHORIZATION_0.8.0.json"
 }
