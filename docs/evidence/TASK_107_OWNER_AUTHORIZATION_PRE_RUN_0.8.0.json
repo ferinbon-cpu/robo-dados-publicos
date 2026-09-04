@@ -2,7 +2,7 @@
   "schema": "TASK_107_OWNER_AUTHORIZATION_RECORD_V1",
   "task": "TASK_107_SINGLE_USE_HISTORICAL_PPA_PRIMARY_EVIDENCE_PYPDF",
   "software_version": "0.8.0",
-  "status": "AUTHORIZED_PROSPECTIVE_UNCONSUMED",
+  "status": "WORKFLOW_AND_BOUNDED_SOURCE_READ_CONSUMED_PARTIAL_PRIMARY_EVIDENCE",
   "authorization_source": {
     "kind": "OWNER_CHAT_INSTRUCTION_2026-09-04",
     "instruction": "atorizado pra todoase essas etapas prossiga",
@@ -53,5 +53,19 @@
     "transaction_execution_promotion": false,
     "implementation_promotion": false,
     "causal_effect_promotion": false
-  }
+  },
+  "consumed_by": {
+    "run_id": 33914777365,
+    "job_id": 101159304607,
+    "execution_head_sha": "d400368c970f3b42161250b35b3821f812155487",
+    "conclusion": "success",
+    "request_count": 3,
+    "primary_match_count": 1,
+    "ppa_2022_2025_status": "PRIMARY_MATCH",
+    "ppa_2018_2021_status": "STOP_REMOTE_ACQUISITION_PDF_TEXT_EMPTY",
+    "source_read_scope_consumed": true,
+    "workflow_single_use_consumed": true,
+    "retry_performed": false
+  },
+  "next_execution_authorized": false
 }
