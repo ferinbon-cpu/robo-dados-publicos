@@ -7,16 +7,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-EXPECTED_TASK_BLOB = "6c0af7b97bb3897bf1a6226210fccb608d0bfe1e"
-EXPECTED_PAYLOAD_BLOB = "24728709af56bf0a1654c1725755a2a60b3e83da"
-EXPECTED_CLOSURE_BLOB = "d6df832cc98a5f1ca41d2a908a587526e3aaf90d"
-EXPECTED_AUTH_BLOB = "703da9fefb8b13544802b7dced3b256deafefab7"
+EXPECTED_TASK_BLOB = "8cc219b745ce3d349bb66fdfab96562f62c106c2"
+EXPECTED_PAYLOAD_BLOB = "014a9560c1743a4da34fd554db7b92dd51952962"
+EXPECTED_CLOSURE_BLOB = "7ce8b6a5363f9d8b306e44d81123250bfe9ffa49"
+EXPECTED_AUTH_BLOB = "50166ac2163b9aae822acb3060624a283e915f9f"
 EXPECTED_EXECUTED_WORKFLOW_BLOB = "1e354d9c9129f9c3ac4ba1e3bf80947301c7616c"
 EXPECTED_PRE_RUN_CONTRACT_BLOB = "143bad34650ac1707df96875312ef8e3ed749189"
-EXPECTED_REDACTED_PAYLOAD_SELF_HASH = "1d6adfd5b698c6d217352675050c3dcaf5427d8ecd25984a26b933c3d9737d0e"
+EXPECTED_REDACTED_PAYLOAD_SELF_HASH = "507787613a9108147cb31e03375c4a84fd6b63e05e7ffb137b862db03e948df5"
 EXPECTED_REMOTE_ID_SHA256 = "c4ddf384c210c0189c8c6da932de27cdaa70f810d026060736f10c76ed99dfc5"
 EXPECTED_SOURCE_SHA256 = "44d92a6ac948bbf43dcb3302733faac1a4ed5e592702f66c07f0c6ede4ecb73c"
-EXPECTED_SOURCE_BYTES = 17615179
+EXPECTED_SOURCE_BYTES = 17615179\nEXPECTED_RUN_REFERENCE_SHA256 = "2a758c122405c700aac6e24af17bc44f9902d657de462ad13736d894fa42c476"\nEXPECTED_JOB_REFERENCE_SHA256 = "21bf67d424f002480b27df12a42643b48057b7218ac53c34f7ab4ceaf406d483"\nEXPECTED_ARTIFACT_REFERENCE_SHA256 = "193b70687e2abb53d06aef0a8bf2b47433dfad6ed0890dbaf1eb7141fbb72299"
 
 
 def _require(condition: bool, code: str) -> None:
@@ -72,6 +72,7 @@ def run(root: str | Path = ROOT) -> dict:
     _require(EXPECTED_SOURCE_SHA256 in task, "STOP_TASK091_SOURCE_SHA_TASK")
     _require(str(EXPECTED_SOURCE_BYTES) in task, "STOP_TASK091_SOURCE_BYTES_TASK")
     _require("No retry is authorized." in task, "STOP_TASK091_NO_RETRY_TASK")
+    _require("existing canonical `CI_OFFLINE` gate" in task, "STOP_TASK091_CI_OFFLINE_INTEGRATION")
     _require("complete live workflow source is not retained" in task.lower(), "STOP_TASK091_WORKFLOW_ARCHIVAL_POLICY")
 
     _require(payload["source"]["remote_id_redacted"] is True, "STOP_TASK091_PAYLOAD_REMOTE_ID_REDACTION")
@@ -83,6 +84,7 @@ def run(root: str | Path = ROOT) -> dict:
     _require(payload["status"] == "STOP_TASK091_LIVE_DRIVE_TO_EPHEMERAL_DIGEST", "STOP_TASK091_PAYLOAD_STATUS")
     _require(payload["reason"] == "RuntimeError:STOP_TASK091_HISTORICAL_COUNT_DRIFT", "STOP_TASK091_STOP_REASON")
     _require(payload["request_count"] == 2, "STOP_TASK091_REQUEST_COUNT")
+    _require(payload["run"]["run_reference_sha256"] == EXPECTED_RUN_REFERENCE_SHA256, "STOP_TASK091_PAYLOAD_RUN_REFERENCE")
     _require(payload["ephemeral_cleanup_verified"] is True, "STOP_TASK091_CLEANUP")
 
     expected_requests = [
@@ -99,6 +101,7 @@ def run(root: str | Path = ROOT) -> dict:
     _require(archival["full_live_workflow_source_in_final_tree"] is False, "STOP_TASK091_FULL_WORKFLOW_RETAINED")
     _require(archival["remote_identifier_in_final_tree"] is False, "STOP_TASK091_REMOTE_ID_RETAINED")
     _require(closure["prospective_authorization"]["pre_run_contract_blob_sha"] == EXPECTED_PRE_RUN_CONTRACT_BLOB, "STOP_TASK091_PRE_RUN_BLOB")
+    _require(closure["prospective_authorization"]["consumed_by_run_reference_sha256"] == EXPECTED_RUN_REFERENCE_SHA256, "STOP_TASK091_CONSUMED_RUN_REFERENCE")
     _require(closure["execution"]["executed_workflow_blob_sha"] == EXPECTED_EXECUTED_WORKFLOW_BLOB, "STOP_TASK091_EXECUTED_WORKFLOW_BLOB")
     _require(closure["execution"]["run_id"] == 33873064071, "STOP_TASK091_RUN_ID")
     _require(closure["execution"]["job_id"] == 101023430264, "STOP_TASK091_JOB_ID")
@@ -116,6 +119,7 @@ def run(root: str | Path = ROOT) -> dict:
     _require(closure["digest"]["derived_candidates_uploaded_as_artifact"] is False, "STOP_TASK091_DERIVED_ARTIFACT")
     _require(closure["digest"]["observed_counts_captured"] is False, "STOP_TASK091_OBSERVED_COUNTS_OVERCLAIM")
     _require(closure["digest"]["root_cause_status"] == "UNRESOLVED", "STOP_TASK091_ROOT_CAUSE_OVERCLAIM")
+    _require(closure["artifact"]["artifact_reference_sha256"] == EXPECTED_ARTIFACT_REFERENCE_SHA256, "STOP_TASK091_ARTIFACT_REFERENCE")
     _require(closure["artifact"]["durable_record_is_exact_original_payload"] is False, "STOP_TASK091_ARTIFACT_REDACTION_SEMANTICS")
     _require(closure["artifact"]["durable_redacted_record_self_hash"] == EXPECTED_REDACTED_PAYLOAD_SELF_HASH, "STOP_TASK091_REDACTED_RECORD_HASH")
     _require(closure["result"] == "STOP_TASK091_DIGEST_PROVEN_EPHEMERAL_HISTORICAL_COUNT_DRIFT_UNRESOLVED", "STOP_TASK091_CLOSURE_RESULT")
@@ -127,7 +131,7 @@ def run(root: str | Path = ROOT) -> dict:
     _require(auth["owner_instruction"] == "2026-09-04: prossiga", "STOP_TASK091_AUTH_INSTRUCTION")
     _require(auth["pre_run_contract_blob_sha"] == EXPECTED_PRE_RUN_CONTRACT_BLOB, "STOP_TASK091_AUTH_PRE_RUN_BLOB")
     _require(auth["remote_target_redacted_in_final_tree"] is True, "STOP_TASK091_AUTH_REMOTE_REDACTION")
-    _require(auth["consumed_by"]["run_id"] == 33873064071, "STOP_TASK091_AUTH_RUN")
+    _require(auth["consumed_by"]["run_reference_sha256"] == EXPECTED_RUN_REFERENCE_SHA256, "STOP_TASK091_AUTH_RUN_REFERENCE")
     _require(auth["status"] == "CONSUMED_SINGLE_USE_NO_RETRY", "STOP_TASK091_AUTH_STATUS")
     _require(all(value is False for value in auth["exclusions"].values()), "STOP_TASK091_AUTH_EXCLUSION_ENABLED")
 
