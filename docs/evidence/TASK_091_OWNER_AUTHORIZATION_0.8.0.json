@@ -8,8 +8,8 @@
   "pre_run_contract_blob_sha": "143bad34650ac1707df96875312ef8e3ed749189",
   "remote_target_redacted_in_final_tree": true,
   "consumed_by": {
-    "run_id": 33873064071,
-    "execution_head_sha": "0c777c647cefaacc9d1daba35c1cded42109c120"
+    "execution_head_sha": "0c777c647cefaacc9d1daba35c1cded42109c120",
+    "run_reference_sha256": "2a758c122405c700aac6e24af17bc44f9902d657de462ad13736d894fa42c476"
   },
   "exclusions": {
     "retry": false,
