@@ -1,7 +1,7 @@
 {
   "schema": "TASK114_OWNER_AUTHORIZATION_PRE_RUN_V1",
   "task": "TASK_114_ONTOLOGY_AWARE_PPA2018_OCR",
-  "status": "AUTHORIZED_PROSPECTIVE_UNCONSUMED",
+  "status": "WORKFLOW_AND_EXACT_SOURCE_ONTOLOGY_SCAN_CONSUMED_NO_CANDIDATES",
   "owner_instruction": "Prossiga",
   "source_url": "https://www.limeira.sp.gov.br/sitenovo/downloads/0fa1a5cc5c9a1823fbf5436def00f01f.pdf",
   "required_source_sha256": "685a621a2f5fa8859e4b7f8518627c1523a2fbc5f3402ff48d4aa7573300113d",
@@ -16,5 +16,21 @@
   "retry": false,
   "single_execution": true,
   "output_semantics": "CANDIDATES_ONLY_NO_AUTOMATIC_PROMOTION",
-  "future_execution_authorized": false
+  "future_execution_authorized": false,
+  "consumed_by": {
+    "run_id": 33921252369,
+    "job_id": 101179846019,
+    "execution_head_sha": "b0e5c1bb466ca99f466b1fc56dcdf9694ec2824b",
+    "conclusion": "success",
+    "source_request_count": 1,
+    "source_sha256": "685a621a2f5fa8859e4b7f8518627c1523a2fbc5f3402ff48d4aa7573300113d",
+    "page_count": 80,
+    "ontology_term_count": 29,
+    "ontology_family_count": 3,
+    "candidate_count": 0,
+    "candidate_page_count": 0,
+    "retry_performed": false,
+    "source_read_scope_consumed": true,
+    "workflow_single_use_consumed": true
+  }
 }
