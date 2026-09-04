@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from hashlib import sha256
+import ast
+from hashlib import sha1, sha256
+import inspect
 import json
 import os
 from pathlib import Path
@@ -102,6 +104,53 @@ def _sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def _git_blob_sha(raw: bytes) -> str:
+    header = f"blob {len(raw)}\0".encode("ascii")
+    return sha1(header + raw).hexdigest()
+
+
+def _validate_processor_source(contract: dict[str, Any]) -> str:
+    source_cfg = contract["adapters"]["JORNAL_OFICIAL"]["processor_source"]
+    source_name = inspect.getsourcefile(JournalPdfProcessor)
+    if not source_name:
+        _stop("PROCESSOR_SOURCE_MISSING")
+    source_path = Path(source_name)
+    try:
+        st = os.lstat(source_path)
+    except FileNotFoundError:
+        _stop("PROCESSOR_SOURCE_MISSING")
+    if stat.S_ISLNK(st.st_mode) or not stat.S_ISREG(st.st_mode):
+        _stop("PROCESSOR_SOURCE_NOT_REGULAR")
+
+    expected_parts = Path(source_cfg["module_path"]).parts
+    if tuple(source_path.parts[-len(expected_parts):]) != tuple(expected_parts):
+        _stop("PROCESSOR_SOURCE_PATH", str(source_path))
+
+    raw = source_path.read_bytes()
+    observed = _git_blob_sha(raw)
+    if observed != source_cfg["expected_git_blob_sha"]:
+        _stop(
+            "PROCESSOR_BLOB_DRIFT",
+            f"expected={source_cfg['expected_git_blob_sha']};observed={observed}",
+        )
+
+    try:
+        tree = ast.parse(raw.decode("utf-8"))
+    except (UnicodeDecodeError, SyntaxError):
+        _stop("PROCESSOR_SOURCE_PARSE")
+    imports: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            imports.update(alias.name.split(".", 1)[0] for alias in node.names)
+        elif isinstance(node, ast.ImportFrom) and node.module:
+            imports.add(node.module.split(".", 1)[0])
+    forbidden = set(source_cfg["forbidden_import_roots"])
+    unexpected = sorted(imports & forbidden)
+    if unexpected:
+        _stop("PROCESSOR_FORBIDDEN_IMPORT", ",".join(unexpected))
+    return observed
+
+
 def validate_contract(data: dict[str, Any]) -> dict[str, Any]:
     if data.get("version") != 1:
         _stop("CONTRACT_VERSION")
@@ -151,6 +200,27 @@ def validate_contract(data: dict[str, Any]) -> dict[str, Any]:
             _stop("CONTRACT_JOURNAL_ADAPTER", key)
     if journal.get("supported_mime") != ["application/pdf"]:
         _stop("CONTRACT_JOURNAL_MIME")
+    source_cfg = journal.get("processor_source")
+    if not isinstance(source_cfg, dict):
+        _stop("CONTRACT_PROCESSOR_SOURCE")
+    if source_cfg.get("module_path") != "robo_dados_publicos/journal/processing.py":
+        _stop("CONTRACT_PROCESSOR_PATH")
+    if not re.fullmatch(r"[0-9a-f]{40}", str(source_cfg.get("expected_git_blob_sha") or "")):
+        _stop("CONTRACT_PROCESSOR_BLOB")
+    expected_forbidden = [
+        "boto3",
+        "ftplib",
+        "googleapiclient",
+        "http",
+        "paramiko",
+        "requests",
+        "smtplib",
+        "socket",
+        "subprocess",
+        "urllib",
+    ]
+    if source_cfg.get("forbidden_import_roots") != expected_forbidden:
+        _stop("CONTRACT_PROCESSOR_IMPORT_GUARD")
     expected_outputs = [
         "edition_manifest.json",
         "pages_silver.jsonl",
@@ -277,8 +347,14 @@ def run_ephemeral_digest(
     maturity_registry = validate_maturity_registry(maturity_registry)
     inputs = _validate_manifest(manifest, contract)
     root = Path(workspace_root)
-    if not root.is_dir():
+    try:
+        root_stat = os.lstat(root)
+    except FileNotFoundError:
         _stop("WORKSPACE_ROOT")
+    if stat.S_ISLNK(root_stat.st_mode) or not stat.S_ISDIR(root_stat.st_mode):
+        _stop("WORKSPACE_ROOT_NOT_REAL_DIRECTORY")
+    root = root.resolve(strict=True)
+    processor_blob_sha = _validate_processor_source(contract)
 
     candidate_rel = _safe_relative_path(
         contract["candidate_root"], code="CONTRACT_CANDIDATE_ROOT"
@@ -374,6 +450,7 @@ def run_ephemeral_digest(
         "mode": contract["mode"],
         "input_count": len(item_results),
         "input_bytes": total_input_bytes,
+        "processor_git_blob_sha": processor_blob_sha,
         "items": item_results,
         "candidate_root": str(candidate_rel / manifest["batch_id"]).replace("\\", "/"),
         "candidate_file_count": len(candidate_records),
