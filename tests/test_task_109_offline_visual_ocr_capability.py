@@ -5,6 +5,7 @@ from pathlib import Path
 import unittest
 
 from robo_dados_publicos.research.local_pdf_capability import (
+    probe_chrome_image_only_pdf_accessibility,
     probe_visual_ocr_capabilities,
 )
 
@@ -44,3 +45,17 @@ class TestTask109OfflineVisualOcrCapability(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+
+def test_task109_chrome_probe_builds_genuinely_image_only_pdf_without_real_source():
+    result = probe_chrome_image_only_pdf_accessibility()
+    print("TASK109_CHROME_IMAGE_ONLY_PDF=" + json.dumps(result, sort_keys=True))
+    assert result["schema"] == "TASK109_CHROME_IMAGE_ONLY_PDF_PROBE_V1"
+    assert result["status"] == "PROBED"
+    assert result["pdf_text_empty"] is True
+    assert result["pdf_page_count"] >= 1
+    assert isinstance(result["marker_in_ax"], bool)
+    assert isinstance(result["marker_in_source"], bool)
+    assert isinstance(result["marker_in_body_inner_text"], bool)
+    assert all(value is False for value in result["remote_effects"].values())
