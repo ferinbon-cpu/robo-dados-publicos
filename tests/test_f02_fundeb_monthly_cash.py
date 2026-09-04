@@ -281,6 +281,45 @@ class F02FundebMonthlyCashTests(unittest.TestCase):
             _is_structurally_blank_export_page(PageWithImage(), reader=object())
         )
 
+        class PageImageInspectionFailure:
+            def extract_text(self):
+                return ""
+            @property
+            def images(self):
+                raise RuntimeError("image inspection failed")
+            def get_contents(self):
+                return None
+
+        with self.assertRaisesRegex(
+            F02FundebMonthlyCashStop, "BLANK_PAGE_IMAGE_INSPECTION_FAILED"
+        ):
+            _is_structurally_blank_export_page(
+                PageImageInspectionFailure(), reader=object()
+            )
+
+        class FakeContents:
+            def get_data(self):
+                return b"q Q"
+
+        class PageContentStreamInspectionFailure:
+            images = []
+            def extract_text(self):
+                return ""
+            def get_contents(self):
+                return FakeContents()
+
+        with patch(
+            "robo_dados_publicos.manual_ingest.f02_fundeb_monthly_cash.ContentStream",
+            side_effect=RuntimeError("content stream inspection failed"),
+        ):
+            with self.assertRaisesRegex(
+                F02FundebMonthlyCashStop,
+                "BLANK_PAGE_CONTENT_STREAM_INSPECTION_FAILED",
+            ):
+                _is_structurally_blank_export_page(
+                    PageContentStreamInspectionFailure(), reader=object()
+                )
+
         empty_pdf = synthetic_pdf_bytes([None])
         reader = PdfReader(__import__("io").BytesIO(empty_pdf))
         self.assertTrue(
