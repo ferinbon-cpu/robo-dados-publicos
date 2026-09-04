@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "schema": "SIOPE_FUNDEB_RESEARCH_DIGEST_ADAPTER_V1",
+  "mode": "T0_OFFLINE_VERSIONED_SIOPE_FUNDEB_EVIDENCE_ADAPTER",
+  "research_digest_contract": {
+    "path": "config/research_ephemeral_digest.v1.json",
+    "git_blob_sha": "66757ed911a90a935b6c4eb3713999f740de862e",
+    "policy_profile": "EITI_LIMEIRA"
+  },
+  "inputs": {
+    "task056": {
+      "path": "docs/evidence/TASK_056_F01_SECONDARY_EDUCATION_SOURCE_BOUNDED_CONTENT_READ_0.8.0.json",
+      "git_blob_sha": "780908d581b68857b182ab0c84d74adfbfe34de2"
+    },
+    "task120": {
+      "path": "docs/evidence/TASK_120_SIOPE_MAVS_BINARY_IDENTITY_0.8.0.json",
+      "git_blob_sha": "33d57982c07800bca9ff77dde70e9a538eacea0e"
+    }
+  },
+  "source": {
+    "document_id": "DOC:SIOPE_MAVS_2026_B1",
+    "source_role": "ACCOUNTING_EXECUTION_PRIMARY",
+    "source_family": "SIOPE",
+    "expected_sha256": "d2b7f7638222bc9788f6d42df11126d2e3aa57cb4204450914c98d9400bf0bbe",
+    "expected_bytes": 360070,
+    "period": "1º Bimestre/2026",
+    "funding_scope": "FUNDEB_ONLY"
+  },
+  "segments": {
+    "expected_count": 3,
+    "execution_stage": "REPORTING_BUCKET",
+    "stable_accounting_keys_expected": 0,
+    "transaction_event_claims_allowed": false
+  },
+  "expected": {
+    "active_ontology_terms": 64,
+    "composite_alias": "FOMENTO ETI",
+    "composite_alias_qualified": true,
+    "financial_identity_candidates": 0,
+    "required_gaps": [
+      "STABLE_ACCOUNTING_LINKAGE_KEY_NOT_OBSERVED",
+      "SAME_SEGMENT_FINANCIAL_BRIDGE_NOT_OBSERVED"
+    ]
+  },
+  "semantic_boundary": {
+    "dedicated_policy_finance_reporting_identity": "PROVEN_SCOPED",
+    "transaction_level_financial_identity": "UNKNOWN",
+    "zero_bucket_value_generalizes_to_all_eiti_spending": false,
+    "reporting_bucket_is_transaction_identity": false,
+    "report_column_label_is_not_individual_event_chain": true
+  },
+  "output": {
+    "schema": "SIOPE_FUNDEB_RESEARCH_DIGEST_ADAPTER_RESULT_V1",
+    "persistence_authorized": false,
+    "automatic_financial_identity_promotion": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "ocr": false,
+    "bronze_write": false,
+    "silver_write": false,
+    "gold_write": false,
+    "rag_write": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
