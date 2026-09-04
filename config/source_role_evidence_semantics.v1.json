@@ -1,0 +1,168 @@
+{
+  "version": 1,
+  "schema": "SOURCE_ROLE_EVIDENCE_SEMANTICS_V1",
+  "mode": "T0_OFFLINE_EPISTEMIC_SOURCE_POLICY",
+  "source_roles": [
+    "DOCTRINAL_SOURCE",
+    "ACADEMIC_RESEARCH",
+    "NORMATIVE_PRIMARY",
+    "PLANNING_PRIMARY",
+    "BUDGET_PRIMARY",
+    "ACCOUNTING_EXECUTION_PRIMARY",
+    "ADMINISTRATIVE_PRIMARY",
+    "STATISTICAL_PRIMARY",
+    "SECONDARY_AGGREGATOR"
+  ],
+  "claim_domains": [
+    "CONCEPTUAL_INTERPRETATION",
+    "ACADEMIC_FINDING",
+    "LEGAL_NORM",
+    "PLANNING_INTENT",
+    "BUDGET_AUTHORIZATION",
+    "ACCOUNTING_EXECUTION",
+    "ADMINISTRATIVE_EVENT",
+    "STATISTICAL_OBSERVATION",
+    "POLICY_LINKAGE",
+    "SEARCH_RESULT",
+    "CAUSAL_EFFECT"
+  ],
+  "evidence_kinds": [
+    "DIRECT_EXPLICIT",
+    "DETERMINISTIC_DERIVATION",
+    "ANALYTICAL_INFERENCE",
+    "NEGATIVE_SEARCH_OBSERVATION"
+  ],
+  "status_order": [
+    "UNKNOWN",
+    "CANDIDATE",
+    "CORROBORATED",
+    "PROVEN"
+  ],
+  "source_domain_policy": {
+    "DOCTRINAL_SOURCE": {
+      "direct": [
+        "CONCEPTUAL_INTERPRETATION"
+      ],
+      "corroborate": [
+        "ACADEMIC_FINDING",
+        "POLICY_LINKAGE"
+      ]
+    },
+    "ACADEMIC_RESEARCH": {
+      "direct": [
+        "ACADEMIC_FINDING",
+        "CONCEPTUAL_INTERPRETATION"
+      ],
+      "corroborate": [
+        "POLICY_LINKAGE",
+        "STATISTICAL_OBSERVATION"
+      ]
+    },
+    "NORMATIVE_PRIMARY": {
+      "direct": [
+        "LEGAL_NORM"
+      ],
+      "corroborate": [
+        "PLANNING_INTENT",
+        "POLICY_LINKAGE",
+        "ADMINISTRATIVE_EVENT"
+      ]
+    },
+    "PLANNING_PRIMARY": {
+      "direct": [
+        "PLANNING_INTENT"
+      ],
+      "corroborate": [
+        "BUDGET_AUTHORIZATION",
+        "POLICY_LINKAGE"
+      ]
+    },
+    "BUDGET_PRIMARY": {
+      "direct": [
+        "BUDGET_AUTHORIZATION"
+      ],
+      "corroborate": [
+        "PLANNING_INTENT",
+        "POLICY_LINKAGE"
+      ]
+    },
+    "ACCOUNTING_EXECUTION_PRIMARY": {
+      "direct": [
+        "ACCOUNTING_EXECUTION"
+      ],
+      "corroborate": [
+        "BUDGET_AUTHORIZATION",
+        "POLICY_LINKAGE",
+        "ADMINISTRATIVE_EVENT"
+      ]
+    },
+    "ADMINISTRATIVE_PRIMARY": {
+      "direct": [
+        "ADMINISTRATIVE_EVENT"
+      ],
+      "corroborate": [
+        "POLICY_LINKAGE",
+        "ACCOUNTING_EXECUTION"
+      ]
+    },
+    "STATISTICAL_PRIMARY": {
+      "direct": [
+        "STATISTICAL_OBSERVATION"
+      ],
+      "corroborate": []
+    },
+    "SECONDARY_AGGREGATOR": {
+      "direct": [],
+      "corroborate": [
+        "STATISTICAL_OBSERVATION",
+        "ACCOUNTING_EXECUTION",
+        "BUDGET_AUTHORIZATION",
+        "ADMINISTRATIVE_EVENT",
+        "POLICY_LINKAGE"
+      ]
+    }
+  },
+  "invariants": [
+    "SOURCE_ROLE_LIMITS_WHAT_A_DOCUMENT_CAN_DIRECTLY_PROVE",
+    "DOCTRINE_CANNOT_PROVE_A_LOCAL_BUDGET_EXECUTION_FACT",
+    "NORMATIVE_SOURCE_CANNOT_PROVE_EXECUTION_ONLY_BY_CREATING_A_RULE",
+    "PLANNING_SOURCE_CANNOT_PROVE_IMPLEMENTATION_ONLY_BY_STATING_A_TARGET",
+    "BUDGET_AUTHORIZATION_IS_NOT_ACCOUNTING_EXECUTION",
+    "STATISTICAL_OBSERVATION_IS_NOT_CAUSAL_EFFECT",
+    "ANALYTICAL_INFERENCE_CANNOT_BE_PROVEN_AUTOMATICALLY",
+    "NEGATIVE_SEARCH_OBSERVATION_PROVES_ONLY_THE_SEARCH_RESULT_WITHIN_ITS_DECLARED_SCOPE",
+    "NO_MATCH_IS_NOT_NONEXISTENCE",
+    "CAUSAL_EFFECT_CANNOT_BE_PROVEN_BY_THIS_LAYER",
+    "POLICY_LINKAGE_REQUIRES_EXPLICIT_OR_SEPARATELY_PROVEN_BRIDGE"
+  ],
+  "negative_evidence": {
+    "schema": "NEGATIVE_EVIDENCE_V1",
+    "required_fields": [
+      "search_id",
+      "target",
+      "scope",
+      "method",
+      "coverage",
+      "result"
+    ],
+    "allowed_results": [
+      "NO_MATCH",
+      "PARTIAL_MATCH",
+      "MATCH"
+    ],
+    "no_match_semantics": "ABSENCE_OBSERVED_WITHIN_DECLARED_SEARCH_SCOPE_ONLY",
+    "proves_nonexistence": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
