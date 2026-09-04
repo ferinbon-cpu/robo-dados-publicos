@@ -88,7 +88,7 @@ class TestTask100OfflineResearchAnswerRenderer(unittest.TestCase):
         self.assertIn("**transaction_execution_identity** — UNKNOWN", rendered)
         self.assertIn("**outcome_effect** — UNKNOWN", rendered)
         self.assertIn("### 2018-2021", rendered)
-        self.assertIn("### 2022-2025", rendered)
+        self.assertNotIn("### 2022-2025", rendered)
         self.assertIn("PRIMARY_PPA_DOCUMENT_IDENTITY", rendered)
         self.assertIn("DIRECT_TEXT_OR_VISUAL_EVIDENCE", rendered)
 
