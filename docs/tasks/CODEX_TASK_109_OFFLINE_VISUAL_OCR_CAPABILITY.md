@@ -34,3 +34,42 @@ If no safe local chain exists, record STOP and design a separately reviewed depe
 ## Hard boundaries
 
 No source network, Drive, Bronze/Silver/Gold, StateRegistry, queue, serving, publication, financial identity, transaction identity, implementation proof or causal effect.
+
+
+## Phase A observed result
+
+CI run `33917496591`, job `101168021407`, on head
+`6723aee2ba5391ecff94e0fdbfaa5c779cd2bd51` executed the inventory under the
+canonical unittest suite.
+
+Observed local capabilities:
+
+- `google-chrome`: present;
+- `chromium`: present;
+- `chromedriver`: present;
+- Python `PIL`: present;
+- `tesseract`: absent;
+- `pdftoppm`: absent;
+- `pdfimages`: absent;
+- `mutool`: absent;
+- Ghostscript: absent;
+- ImageMagick: absent;
+- Python `fitz`, `cv2`, `pytesseract`, `pdf2image`: absent.
+
+### Decision
+
+`STOP_NO_LOCAL_OCR_CHAIN`.
+
+Chrome/PIL availability alone is not accepted as proof that an image-only PDF can
+be OCRed deterministically. Because the inventory did not reveal a plausible OCR
+chain, TASK 109 does **not** proceed to the synthetic image-only PDF proof and does
+not read or OCR the real PPA 2018–2021.
+
+A dependency route must be designed separately. No package installation is
+authorized by this task.
+
+## Next boundary
+
+TASK 110 may compare narrowly bounded dependency strategies for a reproducible
+Portuguese-capable PDF-image OCR path. It must remain T0/design-only until a
+separate reviewed gate authorizes any dependency installation or real-source OCR.
