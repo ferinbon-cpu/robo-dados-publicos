@@ -1,34 +1,28 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import unittest
 from pathlib import Path
 
-from robo_dados_publicos.automation.policy import evaluate_gate, validate_policy
+from robo_dados_publicos.manual_ingest.f02_fundeb_monthly_cash import (
+    load_pinned_authorization,
+    validate_runtime_authorization,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
-POLICY = ROOT / "config/automation_policy.v1.json"
 GATE = ROOT / "config/f02_fundeb_monthly_cash_gate.v1.json"
 CUSTODY = ROOT / "docs/evidence/f02_fundeb_monthly_cash/F02_FUNDEB_MONTHLY_2026_JAN_MAR_SOURCE_CUSTODY.json"
+EXAMPLE_AUTH = ROOT / "tests/fixtures/f02_fundeb_monthly_cash_runtime_authorization.example.json"
+EXAMPLE_AUTH_SHA256 = "284f06b181bfe0238e5b12365cb95298ccd58634cbe2f482e6f912a37adc1b81"
 
 
-class F02FundebMonthlyCashPolicyTests(unittest.TestCase):
-    def test_gate_is_manual_t0_and_policy_evaluator_blocks_auto(self):
-        policy = json.loads(POLICY.read_text(encoding="utf-8"))
-        validate_policy(policy)
-        gate = next(row for row in policy["gates"] if row["id"] == "F02_FUNDEB_MONTHLY_CASH_OFFLINE")
-        self.assertEqual(gate["tier"], "T0_OFFLINE")
-        self.assertFalse(gate["auto_allowed"])
-        self.assertTrue(gate["manual_execution_required"])
-        self.assertTrue(gate["no_workflow_trigger"])
-        self.assertEqual(gate["current_triggers"], [])
-        decision = evaluate_gate(policy, gate["id"])
-        self.assertEqual(decision["decision"], "BLOCK")
-        self.assertEqual(decision["reason"], "POLICY_AUTO_ALLOWED_FALSE")
-
-    def test_gate_contract_blocks_every_remote_and_financial_promotion(self):
+class F02FundebMonthlyCashStandaloneGateTests(unittest.TestCase):
+    def test_gate_is_manual_t0_remote_closed_without_global_policy_registration(self):
         gate = json.loads(GATE.read_text(encoding="utf-8"))
         self.assertEqual(gate["schema"], "F02_FUNDEB_MONTHLY_CASH_GATE_V1")
+        self.assertEqual(gate["tier"], "T0")
+        self.assertEqual(gate["mode"], "T0_OFFLINE_FUNDEB_MONTHLY_CASH")
         self.assertFalse(gate["remote_drive_read_authorized"])
         self.assertTrue(gate["runtime_authorization_required"])
         self.assertTrue(all(gate["blocked_remote_effects"].values()))
@@ -42,6 +36,22 @@ class F02FundebMonthlyCashPolicyTests(unittest.TestCase):
         self.assertEqual(len({x["sha256"] for x in custody["sources"]}), 3)
         self.assertTrue(custody["evidence_boundary"]["primary_source_manifest_only"])
         self.assertTrue(custody["evidence_boundary"]["legacy_derived_artifacts_not_used_for_validation"])
+
+    def test_synthetic_authorization_fixture_has_documented_exact_sha_and_loads(self):
+        payload = EXAMPLE_AUTH.read_bytes()
+        self.assertEqual(hashlib.sha256(payload).hexdigest(), EXAMPLE_AUTH_SHA256)
+        relative = EXAMPLE_AUTH.relative_to(ROOT)
+        loaded = load_pinned_authorization(
+            root=ROOT,
+            relative_path=relative,
+            expected_sha256=EXAMPLE_AUTH_SHA256,
+        )
+        validate_runtime_authorization(
+            loaded,
+            batch_id="F02_FUNDEB_MONTHLY_CASH_2026_JAN_MAR",
+        )
+        self.assertEqual(loaded["status"], "TEST_ONLY_SYNTHETIC_EXAMPLE")
+        self.assertIn("NOT AN OWNER AUTHORIZATION", loaded["owner_instruction_verbatim"])
 
 
 if __name__ == "__main__":
