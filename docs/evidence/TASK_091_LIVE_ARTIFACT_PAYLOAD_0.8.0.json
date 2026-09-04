@@ -6,7 +6,7 @@
     "single_use": true
   },
   "ephemeral_cleanup_verified": true,
-  "evidence_payload_sha256_without_self_hash": "1d6adfd5b698c6d217352675050c3dcaf5427d8ecd25984a26b933c3d9737d0e",
+  "evidence_payload_sha256_without_self_hash": "507787613a9108147cb31e03375c4a84fd6b63e05e7ffb137b862db03e948df5",
   "persistent_effects": {
     "bronze_writes": 0,
     "delete": 0,
@@ -43,7 +43,7 @@
   "run": {
     "attempt": "1",
     "head_sha": "0c777c647cefaacc9d1daba35c1cded42109c120",
-    "id": "33873064071"
+    "run_reference_sha256": "2a758c122405c700aac6e24af17bc44f9902d657de462ad13736d894fa42c476"
   },
   "source": {
     "expected_bytes": 17615179,
