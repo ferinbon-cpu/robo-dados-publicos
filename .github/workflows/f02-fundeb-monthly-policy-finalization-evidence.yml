@@ -4,8 +4,13 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - ".github/workflows/f02-fundeb-monthly-policy-finalization-evidence.yml"
+      - "config/automation_policy.v1.json"
       - "config/f02_fundeb_monthly_cash_gate.v1.json"
       - "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json"
+      - "robo_dados_publicos/automation/f02_fundeb_monthly_policy_finalization.py"
+      - "scripts/validate_f02_fundeb_monthly_policy_finalization.py"
+      - "tests/test_f02_fundeb_monthly_policy_finalization_validator.py"
   workflow_dispatch:
 
 permissions:
@@ -29,10 +34,11 @@ jobs:
           python-version: '3.12'
           check-latest: false
 
-      - name: Fail closed if validator or evidence is missing
+      - name: Fail closed if lifecycle validator is missing
         run: |
           test -f scripts/validate_f02_fundeb_monthly_policy_finalization.py
-          test -f docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json
+          test -f config/automation_policy.v1.json
+          test -f config/f02_fundeb_monthly_cash_gate.v1.json
 
-      - name: Validate pinned implementation merge and remote-closed policy state
+      - name: Validate prefinalization install or finalized pinned implementation
         run: python scripts/validate_f02_fundeb_monthly_policy_finalization.py
