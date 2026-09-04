@@ -6,9 +6,11 @@ from pathlib import Path
 import shutil
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from pypdf import PdfWriter
 
+from robo_dados_publicos.journal.processing import JournalPdfProcessor
 from robo_dados_publicos.manual_ingest.ephemeral_runtime_digest import (
     EphemeralDigestStop,
     REMOTE_EFFECT_KEYS,
@@ -18,6 +20,7 @@ from robo_dados_publicos.manual_ingest.ephemeral_runtime_digest import (
 from robo_dados_publicos.manual_ingest.source_family_maturity import (
     load_maturity_registry,
 )
+from scripts.run_ephemeral_runtime_digest import _safe_input_path
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -66,6 +69,13 @@ class TestTask090EphemeralRuntimeDigest(unittest.TestCase):
         self.assertLessEqual(contract["limits"]["max_input_bytes_each"], 70_000_000)
         self.assertLessEqual(contract["limits"]["max_total_input_bytes"], 110_000_000)
         self.assertEqual({"JORNAL_OFICIAL"}, set(contract["adapters"]))
+        source_cfg = contract["adapters"]["JORNAL_OFICIAL"]["processor_source"]
+        self.assertEqual(
+            "899db8d357f40afbab595beb365b330a703c339b",
+            source_cfg["expected_git_blob_sha"],
+        )
+        self.assertIn("socket", source_cfg["forbidden_import_roots"])
+        self.assertIn("subprocess", source_cfg["forbidden_import_roots"])
         self.assertTrue(
             all(value is False for value in contract["automatic_remote_effects"].values())
         )
@@ -85,6 +95,10 @@ class TestTask090EphemeralRuntimeDigest(unittest.TestCase):
             self.assertFalse(result["persistence_authorized"])
             self.assertEqual(1, result["input_count"])
             self.assertEqual(4, result["candidate_file_count"])
+            self.assertEqual(
+                "899db8d357f40afbab595beb365b330a703c339b",
+                result["processor_git_blob_sha"],
+            )
             self.assertEqual(0, result["effects"]["source_network_calls"])
             self.assertEqual(0, result["effects"]["drive_network_calls"])
             self.assertEqual(0, result["effects"]["bronze_writes"])
@@ -264,6 +278,100 @@ class TestTask090EphemeralRuntimeDigest(unittest.TestCase):
                     workspace_root=workspace,
                 )
             self.assertFalse((workspace / "ephemeral_digest_candidates").exists())
+
+
+    def test_invalid_batch_id_stops_before_output(self):
+        td, workspace = self._workspace_with_fixture()
+        try:
+            manifest = manifest_for()
+            manifest["batch_id"] = "../escape"
+            with self.assertRaisesRegex(EphemeralDigestStop, "BATCH_ID"):
+                run_ephemeral_digest(
+                    deepcopy(self.contract),
+                    manifest,
+                    deepcopy(self.maturity),
+                    workspace_root=workspace,
+                )
+            self.assertFalse((workspace / "ephemeral_digest_candidates").exists())
+        finally:
+            td.cleanup()
+
+    def test_workspace_root_symlink_is_rejected(self):
+        with tempfile.TemporaryDirectory() as td:
+            parent = Path(td)
+            real = parent / "real"
+            real.mkdir()
+            shutil.copyfile(FIXTURE, real / "input.pdf")
+            link = parent / "workspace-link"
+            link.symlink_to(real, target_is_directory=True)
+            with self.assertRaisesRegex(
+                EphemeralDigestStop, "WORKSPACE_ROOT_NOT_REAL_DIRECTORY"
+            ):
+                run_ephemeral_digest(
+                    deepcopy(self.contract),
+                    manifest_for(),
+                    deepcopy(self.maturity),
+                    workspace_root=link,
+                )
+            self.assertFalse((real / "ephemeral_digest_candidates").exists())
+
+    def test_processor_blob_drift_stops_before_processing(self):
+        td, workspace = self._workspace_with_fixture()
+        try:
+            contract = deepcopy(self.contract)
+            contract["adapters"]["JORNAL_OFICIAL"]["processor_source"][
+                "expected_git_blob_sha"
+            ] = "0" * 40
+            with self.assertRaisesRegex(EphemeralDigestStop, "PROCESSOR_BLOB_DRIFT"):
+                run_ephemeral_digest(
+                    contract,
+                    manifest_for(),
+                    deepcopy(self.maturity),
+                    workspace_root=workspace,
+                )
+            self.assertFalse((workspace / "ephemeral_digest_candidates").exists())
+        finally:
+            td.cleanup()
+
+    def test_unexpected_output_drift_stops_and_cleans_candidates(self):
+        td, workspace = self._workspace_with_fixture()
+        original = JournalPdfProcessor.process
+
+        def polluted_process(processor, *args, **kwargs):
+            result = original(processor, *args, **kwargs)
+            (Path(kwargs["out_dir"]) / "unexpected.txt").write_text(
+                "unexpected", encoding="utf-8"
+            )
+            return result
+
+        try:
+            with patch.object(JournalPdfProcessor, "process", new=polluted_process):
+                with self.assertRaisesRegex(EphemeralDigestStop, "OUTPUT_SET_DRIFT"):
+                    run_ephemeral_digest(
+                        deepcopy(self.contract),
+                        manifest_for(),
+                        deepcopy(self.maturity),
+                        workspace_root=workspace,
+                    )
+            self.assertFalse((workspace / "ephemeral_digest_candidates").exists())
+        finally:
+            td.cleanup()
+
+    def test_cli_manifest_path_must_be_inside_workspace(self):
+        with tempfile.TemporaryDirectory() as td:
+            parent = Path(td)
+            workspace = parent / "workspace"
+            workspace.mkdir()
+            outside = parent / "outside.json"
+            outside.write_text("{}", encoding="utf-8")
+            with self.assertRaisesRegex(
+                ValueError, "STOP_EPHEMERAL_DIGEST_MANIFEST_PATH"
+            ):
+                _safe_input_path(
+                    workspace,
+                    str(outside),
+                    code="STOP_EPHEMERAL_DIGEST_MANIFEST_PATH",
+                )
 
     def test_candidate_root_must_be_fresh(self):
         td, workspace = self._workspace_with_fixture()
