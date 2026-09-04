@@ -15,9 +15,7 @@
     "DELIVERY",
     "ORGANIZATION",
     "TERRITORY",
-    "INDICATOR",
-    "CLAIM",
-    "EVIDENCE"
+    "INDICATOR"
   ],
   "relation_types": [
     "MENTIONS",
@@ -62,9 +60,7 @@
     "DELIVERY": "DELIVERY",
     "ORGANIZATION": "ORG",
     "TERRITORY": "TERRITORY",
-    "INDICATOR": "INDICATOR",
-    "CLAIM": "CLAIM",
-    "EVIDENCE": "EVIDENCE"
+    "INDICATOR": "INDICATOR"
   },
   "invariants": [
     "ENTITY_IDS_ARE_STABLE_AND_TYPED",
@@ -97,5 +93,11 @@
     "retry": false,
     "recurrence": false,
     "schedule": false
-  }
+  },
+  "record_kinds": [
+    "ENTITY",
+    "RELATION",
+    "CLAIM",
+    "EVIDENCE"
+  ]
 }
