@@ -99,6 +99,40 @@
     "marker_in_body_inner_text": false,
     "source_network_requests": 0,
     "source_reads": 0,
+    "real_source_ocr": false,
+    "preserved_source": "docs/evidence/TASK_109_CHROME_IMAGE_ONLY_WORKFLOW_SOURCE_0.8.0.txt"
+  },
+  "explicit_inventory_workflow": {
+    "run_id": 33917458022,
+    "job_id": 101167825670,
+    "execution_head_sha": "2ab5ed645a18a4bfd36ba006ce719d3e42b75dbc",
+    "conclusion": "success",
+    "preserved_source": "docs/evidence/TASK_109_VISUAL_OCR_INVENTORY_WORKFLOW_SOURCE_0.8.0.txt",
+    "observed_system_python": {
+      "commands": {
+        "chromedriver": "/usr/bin/chromedriver",
+        "chromium": "/usr/bin/chromium",
+        "convert": null,
+        "google-chrome": "/usr/bin/google-chrome",
+        "gs": null,
+        "magick": null,
+        "mutool": null,
+        "pdfimages": null,
+        "pdftoppm": null,
+        "tesseract": null
+      },
+      "python_modules": {
+        "PIL": false,
+        "cv2": false,
+        "fitz": false,
+        "pdf2image": false,
+        "pytesseract": false
+      }
+    },
+    "source_network_requests": 0,
+    "source_reads": 0,
+    "package_installs": 0,
     "real_source_ocr": false
-  }
+  },
+  "workflow_cleanup_required": true
 }
