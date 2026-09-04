@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import json
 from pathlib import Path
+import tempfile
 import unittest
 
 from robo_dados_publicos.research.query import (
@@ -42,7 +43,28 @@ class TestTask099ResearchQueryLayer(unittest.TestCase):
     def test_contract_is_t0_and_remote_effect_free(self):
         contract = load_query_contract(QUERY_CONTRACT)
         self.assertEqual("RESEARCH_QUERY_V1", contract["schema"])
+        self.assertEqual(
+            [
+                "CLAIM_AUDIT",
+                "INSTITUTIONALIZATION_MATRIX",
+                "EVIDENCE_GAPS",
+                "POLICY_STATUS_PACKET",
+            ],
+            contract["query_types"],
+        )
         self.assertTrue(all(value is False for value in contract["remote_effects"].values()))
+
+    def test_missing_or_malformed_contract_fails_closed(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            missing = root / "missing.json"
+            with self.assertRaises(FileNotFoundError):
+                load_query_contract(missing)
+
+            malformed = root / "malformed.json"
+            malformed.write_text('{"schema":"WRONG"}\n', encoding="utf-8")
+            with self.assertRaisesRegex(ResearchQueryStop, "CONTRACT_SCHEMA"):
+                load_query_contract(malformed)
 
     def test_policy_status_packet_preserves_claims_evidence_and_gaps(self):
         result = execute_research_query(
@@ -63,6 +85,20 @@ class TestTask099ResearchQueryLayer(unittest.TestCase):
         self.assertFalse(result["causal_effect_created"])
         self.assertFalse(result["natural_language_generation_performed"])
         self.assertEqual(64, len(result["result_sha256"]))
+
+    def test_result_sha256_is_deterministic_for_same_inputs(self):
+        kwargs = {
+            "institutionalization_matrix": self.eiti["institutionalization_matrix"],
+            "historical_planning": self.historical,
+        }
+        first = execute_research_query(
+            self.eiti["research_bundle"], policy_query(), **kwargs
+        )
+        second = execute_research_query(
+            self.eiti["research_bundle"], policy_query(), **kwargs
+        )
+        self.assertEqual(first["result_sha256"], second["result_sha256"])
+        self.assertEqual(first, second)
 
     def test_unknown_financial_identity_is_returned_not_hidden(self):
         result = execute_research_query(
@@ -138,6 +174,36 @@ class TestTask099ResearchQueryLayer(unittest.TestCase):
         self.assertIn("budgetary_policy_identity", gap_names)
         self.assertIn("transaction_execution_identity", gap_names)
         self.assertIn("outcome_effect", gap_names)
+
+    def test_empty_institutionalization_matrix_fails_closed_when_required(self):
+        with self.assertRaisesRegex(ResearchQueryStop, "MATRIX_REQUIRED"):
+            execute_research_query(
+                self.eiti["research_bundle"],
+                policy_query("INSTITUTIONALIZATION_MATRIX"),
+                institutionalization_matrix={},
+            )
+
+    def test_unexpected_historical_schema_fails_closed(self):
+        historical = copy.deepcopy(self.historical)
+        historical["schema"] = "WRONG"
+        with self.assertRaisesRegex(ResearchQueryStop, "HISTORICAL_SCHEMA"):
+            execute_research_query(
+                self.eiti["research_bundle"],
+                policy_query("EVIDENCE_GAPS"),
+                institutionalization_matrix=self.eiti["institutionalization_matrix"],
+                historical_planning=historical,
+            )
+
+    def test_invalid_historical_acquisition_gaps_fails_closed(self):
+        historical = copy.deepcopy(self.historical)
+        historical["acquisition_gaps"] = "not-a-list"
+        with self.assertRaisesRegex(ResearchQueryStop, "HISTORICAL_GAPS"):
+            execute_research_query(
+                self.eiti["research_bundle"],
+                policy_query("EVIDENCE_GAPS"),
+                institutionalization_matrix=self.eiti["institutionalization_matrix"],
+                historical_planning=historical,
+            )
 
     def test_missing_subject_fails_closed(self):
         with self.assertRaisesRegex(ResearchQueryStop, "SUBJECT_NOT_FOUND"):
