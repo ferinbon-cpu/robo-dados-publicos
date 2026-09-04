@@ -6,7 +6,7 @@
   "purpose": "ALLOW_LOCAL_OFFLINE_PARSE_AND_RECONCILIATION_OF_PINNED_MONTHLY_FUNDEB_SOURCE_SNAPSHOTS_AFTER_IMPLEMENTATION_MERGE",
   "operational": true,
   "implementation_pr_required": 376,
-  "implementation_merge_required_before_manual_execution": true,
+  "implementation_merge_required_before_manual_execution": false,
   "local_snapshot_read_authorized": true,
   "remote_drive_read_authorized": false,
   "runtime_authorization_required": true,
@@ -38,10 +38,12 @@
   "global_policy_registration_required": true,
   "policy_change_authorization_evidence": "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_OWNER_AUTHORIZATION_0.8.0.json",
   "blockers": [
-    "IMPLEMENTATION_PR_376_MUST_BE_MERGED_BEFORE_MANUAL_EXECUTION",
     "EXPLICIT_OWNER_RUNTIME_AUTHORIZATION_REQUIRED",
     "LOCAL_SNAPSHOT_MATERIALIZATION_MUST_BE_BOUNDED",
     "SILVER_PERSISTENCE_REQUIRES_SEPARATE_CREATE_ONLY_EXECUTION"
   ],
-  "status": "REGISTERED_MANUAL_T0_PENDING_IMPLEMENTATION_PR_376"
+  "status": "REGISTERED_MANUAL_T0_REMOTE_CLOSED",
+  "implementation_pr_merged": 376,
+  "implementation_merge_sha": "48c2f7624dba3f46b61f09659f15d798b836c0ef",
+  "policy_finalization_evidence": "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json"
 }
