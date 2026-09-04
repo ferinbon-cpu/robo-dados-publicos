@@ -16,6 +16,8 @@ Default command:
 
 The command prints the deterministic POLICY_STATUS_PACKET for POLICY:EITI_LIMEIRA to stdout.
 
+Before parsing either research config, the CLI verifies the SHA-256 of its exact bytes against hashes pinned from the canonical TASK 100 merge state. Missing, malformed or byte-drifted inputs stop fail-closed.
+
 ## Supported views
 
 The CLI exposes only the query types already defined by TASK 099:
@@ -37,7 +39,7 @@ The optional --no-unknown-gaps flag suppresses the dedicated matrix-gap list. It
 
 The path is:
 
-versioned EITI evidence → TASK 099 deterministic query packet → TASK 100 SHA verification → TASK 100 Markdown renderer → TASK 101 stdout
+SHA-256-pinned versioned EITI evidence → TASK 099 deterministic query packet → TASK 100 query-packet SHA verification → TASK 100 Markdown renderer → TASK 101 stdout
 
 Any packet tampering detected by TASK 100 stops rendering.
 
@@ -64,7 +66,7 @@ The default output visibly includes the current EITI-Limeira evidence state, inc
 - tests/test_task_101_eiti_research_answer_cli.py
 - docs/evidence/TASK_101_EITI_RESEARCH_ANSWER_CLI_0.8.0.json
 
-TASK 101 also closes the TASK 100 evidence document using the already observed PR #398 merge and validation metadata.
+TASK 101 preserves the original TASK 100 evidence snapshot unchanged and adds a separate post-merge GitHub API readback record at `docs/evidence/TASK_100_POST_MERGE_CLOSURE_0.8.0.json`, after the referenced PR, runs and merge already existed.
 
 ## Next step
 
