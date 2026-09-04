@@ -88,7 +88,20 @@ class TestTask091LiveEphemeralDigestEvidence(unittest.TestCase):
             raw = path.read_bytes() + ("\n" + secret_ref + "\n").encode("utf-8")
             path.write_bytes(raw)
             with patch.object(verifier, "EXPECTED_TASK_BLOB", verifier.git_blob_sha(raw)):
-                with self.assertRaisesRegex(RuntimeError, "SENSITIVE_REFERENCE_" + secret_ref):
+                with self.assertRaisesRegex(RuntimeError, "UNREDACTED_OPERATIONAL_REFERENCE"):
+                    verifier.run(root)
+
+    def test_missing_required_payload_field_fails_closed(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            copy_fixture_tree(root)
+            path = root / "docs/evidence/TASK_091_LIVE_ARTIFACT_PAYLOAD_0.8.0.json"
+            data = json.loads(path.read_text(encoding="utf-8"))
+            del data["source"]["remote_id_sha256"]
+            raw = (json.dumps(data, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+            path.write_bytes(raw)
+            with patch.object(verifier, "EXPECTED_PAYLOAD_BLOB", verifier.git_blob_sha(raw)):
+                with self.assertRaises(KeyError):
                     verifier.run(root)
 
     def test_missing_evidence_file_fails_closed(self):
