@@ -17,7 +17,10 @@
         "D_FINANCING_AND_INDUCTION_SIGNALS": 13,
         "E_ACCOUNTING_AND_PLANNING_LINKAGE_KEYS": 21
       },
-      "expected_total_terms": 63
+      "terminology_registry_path": "config/eiti_research_terminology.v2.json",
+      "terminology_registry_git_blob_sha": "7787b768f29ae857a0502690e274e0630f28efae",
+      "expected_base_total_terms": 63,
+      "expected_active_total_terms": 64
     }
   },
   "limits": {
@@ -71,14 +74,17 @@
     "amount_equality_alone_creates_policy_identity": false,
     "candidate_financial_bridge_scope": "SAME_SEGMENT_ONLY",
     "candidate_financial_bridge_requires": [
-      "QUALIFIED_A_B_OR_C_POLICY_SIGNAL",
+      "QUALIFIED_POLICY_SIGNAL_FROM_A_B_C_OR_SCOPED_COMPOSITE_ALIAS",
       "STABLE_ACCOUNTING_KEY",
       "AMOUNT_BRL",
       "EXECUTION_STAGE"
     ],
     "candidate_bridge_status": "CANDIDATE",
     "automatic_promotion": false,
-    "causal_inference": false
+    "causal_inference": false,
+    "discovered_composite_alias_source": "EITI_RESEARCH_TERMINOLOGY_REGISTRY_V2",
+    "composite_policy_finance_alias_requires_source_role_scope": true,
+    "composite_alias_alone_creates_transaction_identity": false
   },
   "input_contract": {
     "schema": "RESEARCH_EPHEMERAL_DIGEST_INPUT_V1",
