@@ -71,6 +71,7 @@
       "path_filter": [
         "config/automation_policy.v1.json",
         "config/f02_fundeb_monthly_cash_gate.v1.json",
+        "docs/evidence/F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_CI_OWNER_AUTHORIZATION_0.8.0.json",
         "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json",
         "robo_dados_publicos/automation/f02_fundeb_monthly_policy_finalization.py",
         "scripts/validate_f02_fundeb_monthly_policy_finalization.py",
@@ -82,7 +83,11 @@
       },
       "persist_credentials": false,
       "secrets": [],
-      "blockers": []
+      "blockers": [],
+      "owner_authorization_evidence": "docs/evidence/F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_CI_OWNER_AUTHORIZATION_0.8.0.json",
+      "owner_authorization_comment_id": 5534958543,
+      "repository_checkout_read_only": true,
+      "source_network_semantics": "EXTERNAL_DATA_SOURCE_NETWORK_ONLY_REPOSITORY_CHECKOUT_IS_GITHUB_READ"
     },
     {
       "id": "M8_SIOPE_HISTORICAL_PRODUCT_OUTPUT_PUBLICATION_REVIEW",
