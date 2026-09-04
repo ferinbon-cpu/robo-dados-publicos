@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import json
 import unittest
 from pathlib import Path
@@ -11,10 +12,37 @@ POLICY = ROOT / "config/automation_policy.v1.json"
 GATE = ROOT / "config/f02_fundeb_monthly_cash_gate.v1.json"
 AUTH = ROOT / "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_OWNER_AUTHORIZATION_0.8.0.json"
 
+IMPLEMENTATION_BLOCKER = "IMPLEMENTATION_PR_376_MUST_BE_MERGED_BEFORE_MANUAL_EXECUTION"
+REMAINING_BLOCKERS = [
+    "EXPLICIT_OWNER_RUNTIME_AUTHORIZATION_REQUIRED",
+    "LOCAL_SNAPSHOT_MATERIALIZATION_MUST_BE_BOUNDED",
+    "SILVER_PERSISTENCE_REQUIRES_SEPARATE_CREATE_ONLY_EXECUTION",
+]
+
+
+def synthetic_preregistration_state() -> tuple[dict, dict]:
+    policy = json.loads(POLICY.read_text(encoding="utf-8"))
+    gate = json.loads(GATE.read_text(encoding="utf-8"))
+    policy = copy.deepcopy(policy)
+    gate = copy.deepcopy(gate)
+    policy_gate = next(
+        row for row in policy["gates"]
+        if row["id"] == "F02_FUNDEB_MONTHLY_CASH_OFFLINE"
+    )
+    for row in (policy_gate, gate):
+        row["implementation_pr_required"] = 376
+        row["implementation_merge_required_before_manual_execution"] = True
+        row["blockers"] = [IMPLEMENTATION_BLOCKER, *REMAINING_BLOCKERS]
+        row.pop("implementation_pr_merged", None)
+        row.pop("implementation_merge_sha", None)
+        row.pop("policy_finalization_evidence", None)
+    gate["status"] = "REGISTERED_MANUAL_T0_PENDING_IMPLEMENTATION_PR_376"
+    return policy, gate
+
 
 class F02FundebMonthlyCashPolicyPreRegistrationTests(unittest.TestCase):
     def test_policy_registers_manual_gate_but_auto_evaluator_still_blocks(self):
-        policy = json.loads(POLICY.read_text(encoding="utf-8"))
+        policy, _ = synthetic_preregistration_state()
         validate_policy(policy)
         matches = [g for g in policy["gates"] if g["id"] == "F02_FUNDEB_MONTHLY_CASH_OFFLINE"]
         self.assertEqual(len(matches), 1)
@@ -32,7 +60,7 @@ class F02FundebMonthlyCashPolicyPreRegistrationTests(unittest.TestCase):
         self.assertEqual(decision["reason"], "POLICY_AUTO_ALLOWED_FALSE")
 
     def test_contract_blocks_remote_effects_and_requires_implementation_merge(self):
-        gate = json.loads(GATE.read_text(encoding="utf-8"))
+        _, gate = synthetic_preregistration_state()
         self.assertEqual(gate["schema"], "F02_FUNDEB_MONTHLY_CASH_GATE_V1")
         self.assertEqual(gate["status"], "REGISTERED_MANUAL_T0_PENDING_IMPLEMENTATION_PR_376")
         self.assertTrue(gate["implementation_merge_required_before_manual_execution"])
