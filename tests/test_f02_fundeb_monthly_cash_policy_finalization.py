@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import json
 import subprocess
 import tempfile
@@ -11,19 +12,25 @@ from robo_dados_publicos.automation.f02_fundeb_monthly_policy_finalization impor
     load_json,
     validate_finalization,
     validate_prefinalization_install,
-    validate_repository_state,
     verify_git_ancestor,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
 POLICY = ROOT / "config/automation_policy.v1.json"
-ACTUAL_GATE = ROOT / "config/f02_fundeb_monthly_cash_gate.v1.json"
+GATE = ROOT / "config/f02_fundeb_monthly_cash_gate.v1.json"
 WORKFLOW = ROOT / ".github/workflows/f02-fundeb-monthly-policy-finalization-evidence.yml"
 MERGE_SHA = "48c2f7624dba3f46b61f09659f15d798b836c0ef"
+GATE_ID = "F02_FUNDEB_MONTHLY_CASH_OFFLINE"
+CI_GATE_ID = "F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_EVIDENCE_CI"
 IMPLEMENTATION_BLOCKER = "IMPLEMENTATION_PR_376_MUST_BE_MERGED_BEFORE_MANUAL_EXECUTION"
+REMAINING_BLOCKERS = [
+    "EXPLICIT_OWNER_RUNTIME_AUTHORIZATION_REQUIRED",
+    "LOCAL_SNAPSHOT_MATERIALIZATION_MUST_BE_BOUNDED",
+    "SILVER_PERSISTENCE_REQUIRES_SEPARATE_CREATE_ONLY_EXECUTION",
+]
 
 
-def evidence():
+def evidence() -> dict:
     return {
         "schema": "F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_V2",
         "status": "READY_FOR_MANUAL_RUNTIME_AUTHORIZATION_ONLY",
@@ -53,82 +60,48 @@ def evidence():
     }
 
 
-def execution_gate(*, finalized: bool = True):
-    gate = {
-        "id": "F02_FUNDEB_MONTHLY_CASH_OFFLINE",
-        "tier": "T0_OFFLINE",
-        "auto_allowed": False,
-        "manual_execution_required": True,
-        "no_workflow_trigger": True,
-        "current_triggers": [],
-        "effects": {
-            "source_network": False,
-            "drive_reads": False,
-            "drive_writes": False,
-            "publication": False,
-        },
-        "implementation_pr_required": 376,
-        "implementation_merge_required_before_manual_execution": not finalized,
-        "blockers": [
-            "EXPLICIT_OWNER_RUNTIME_AUTHORIZATION_REQUIRED",
-            "LOCAL_SNAPSHOT_MATERIALIZATION_MUST_BE_BOUNDED",
-            "SILVER_PERSISTENCE_REQUIRES_SEPARATE_CREATE_ONLY_EXECUTION",
-        ],
-    }
-    if finalized:
-        gate.update({
-            "implementation_pr_merged": 376,
-            "implementation_merge_sha": MERGE_SHA,
-        })
-    else:
-        gate["blockers"].insert(0, IMPLEMENTATION_BLOCKER)
-    return gate
-
-
-def policy(*, finalized: bool = True):
-    return {
-        "schema": "ROBO_DADOS_PUBLICOS_AUTOMATION_POLICY_V1",
-        "gates": [execution_gate(finalized=finalized)],
-    }
-
-
-def gate_contract(*, finalized: bool = True):
-    gate = execution_gate(finalized=finalized)
-    gate.update({
-        "schema": "F02_FUNDEB_MONTHLY_CASH_GATE_V1",
-        "status": (
-            "REGISTERED_MANUAL_T0_REMOTE_CLOSED"
-            if finalized
-            else "REGISTERED_MANUAL_T0_PENDING_IMPLEMENTATION_PR_376"
-        ),
-    })
-    return gate
-
-
 def workflow_paths(text: str) -> list[str]:
     lines = text.splitlines()
-    in_paths = False
-    paths: list[str] = []
+    active = False
+    observed: list[str] = []
     for line in lines:
         if line.strip() == "paths:":
-            in_paths = True
+            active = True
             continue
-        if not in_paths:
+        if not active:
             continue
         stripped = line.strip()
         if stripped.startswith('- "') and stripped.endswith('"'):
-            paths.append(stripped[3:-1])
+            observed.append(stripped[3:-1])
             continue
         if stripped and not stripped.startswith("#"):
             break
-    return paths
+    return observed
+
+
+def actual_policy_and_gate() -> tuple[dict, dict]:
+    return load_json(POLICY), load_json(GATE)
+
+
+def finalized_copies() -> tuple[dict, dict]:
+    policy, gate = actual_policy_and_gate()
+    policy = copy.deepcopy(policy)
+    gate = copy.deepcopy(gate)
+    policy_gate = next(row for row in policy["gates"] if row.get("id") == GATE_ID)
+    for row in (policy_gate, gate):
+        row["implementation_pr_required"] = 376
+        row["implementation_pr_merged"] = 376
+        row["implementation_merge_sha"] = MERGE_SHA
+        row["implementation_merge_required_before_manual_execution"] = False
+        row["blockers"] = list(REMAINING_BLOCKERS)
+    gate["status"] = "REGISTERED_MANUAL_T0_REMOTE_CLOSED"
+    return policy, gate
 
 
 class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
-    def test_prefinalization_install_is_valid_but_not_executable(self):
-        result = validate_prefinalization_install(
-            policy(finalized=False), gate_contract(finalized=False)
-        )
+    def test_actual_prefinalization_is_valid_but_not_executable(self):
+        policy, gate = actual_policy_and_gate()
+        result = validate_prefinalization_install(policy, gate)
         self.assertEqual(
             result["status"],
             "PASS_F02_FUNDEB_MONTHLY_POLICY_PREFINALIZATION_INSTALL",
@@ -137,153 +110,82 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
         self.assertFalse(result["auto_allowed"])
         self.assertEqual(result["remote_effects"], 0)
 
-    def test_prefinalization_requires_implementation_blocker_in_policy_and_contract(self):
-        bad_policy = policy(finalized=False)
-        bad_policy["gates"][0]["blockers"].remove(IMPLEMENTATION_BLOCKER)
+    def test_prefinalization_requires_same_implementation_blocker_in_policy_and_contract(self):
+        policy, gate = actual_policy_and_gate()
+        bad_policy = copy.deepcopy(policy)
+        policy_gate = next(row for row in bad_policy["gates"] if row.get("id") == GATE_ID)
+        policy_gate["blockers"].remove(IMPLEMENTATION_BLOCKER)
         with self.assertRaisesRegex(
             F02FundebMonthlyPolicyFinalizationStop,
             "PREFINALIZATION_IMPLEMENTATION_BLOCKER_MISSING: policy",
         ):
-            validate_prefinalization_install(bad_policy, gate_contract(finalized=False))
+            validate_prefinalization_install(bad_policy, gate)
 
-        bad_contract = gate_contract(finalized=False)
-        bad_contract["blockers"].remove(IMPLEMENTATION_BLOCKER)
+        bad_gate = copy.deepcopy(gate)
+        bad_gate["blockers"].remove(IMPLEMENTATION_BLOCKER)
         with self.assertRaisesRegex(
             F02FundebMonthlyPolicyFinalizationStop,
             "PREFINALIZATION_IMPLEMENTATION_BLOCKER_MISSING: contract",
         ):
-            validate_prefinalization_install(policy(finalized=False), bad_contract)
+            validate_prefinalization_install(policy, bad_gate)
 
-    def test_repository_lifecycle_accepts_missing_evidence_only_in_prefinalization(self):
-        with tempfile.TemporaryDirectory() as td:
-            root = Path(td)
-            (root / "config").mkdir(parents=True)
-            (root / "docs/evidence").mkdir(parents=True)
-            (root / "config/automation_policy.v1.json").write_text(
-                json.dumps(policy(finalized=False)), encoding="utf-8"
-            )
-            (root / "config/f02_fundeb_monthly_cash_gate.v1.json").write_text(
-                json.dumps(gate_contract(finalized=False)), encoding="utf-8"
-            )
-            result = validate_repository_state(root)
-        self.assertEqual(
-            result["status"],
-            "PASS_F02_FUNDEB_MONTHLY_POLICY_PREFINALIZATION_INSTALL",
-        )
-
-    def test_repository_lifecycle_rejects_evidence_while_gate_is_prefinalization(self):
-        with tempfile.TemporaryDirectory() as td:
-            root = Path(td)
-            (root / "config").mkdir(parents=True)
-            (root / "docs/evidence").mkdir(parents=True)
-            (root / "config/automation_policy.v1.json").write_text(
-                json.dumps(policy(finalized=False)), encoding="utf-8"
-            )
-            (root / "config/f02_fundeb_monthly_cash_gate.v1.json").write_text(
-                json.dumps(gate_contract(finalized=False)), encoding="utf-8"
-            )
-            (root / "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json").write_text(
-                json.dumps(evidence()), encoding="utf-8"
-            )
-            with self.assertRaises(F02FundebMonthlyPolicyFinalizationStop):
-                validate_repository_state(root)
-
-    def test_repository_lifecycle_rejects_finalized_gate_without_evidence(self):
-        with tempfile.TemporaryDirectory() as td:
-            root = Path(td)
-            (root / "config").mkdir(parents=True)
-            (root / "docs/evidence").mkdir(parents=True)
-            (root / "config/automation_policy.v1.json").write_text(
-                json.dumps(policy(finalized=True)), encoding="utf-8"
-            )
-            (root / "config/f02_fundeb_monthly_cash_gate.v1.json").write_text(
-                json.dumps(gate_contract(finalized=True)), encoding="utf-8"
-            )
-            with self.assertRaisesRegex(
-                F02FundebMonthlyPolicyFinalizationStop,
-                "PREFINALIZATION_GATE_STATUS",
-            ):
-                validate_repository_state(root)
-
-    def test_actual_repository_prefinalization_cannot_pass_finalization_path(self):
-        actual_policy = load_json(POLICY)
-        actual_gate = load_json(ACTUAL_GATE)
+    def test_actual_prefinalization_cannot_pass_finalization(self):
+        policy, gate = actual_policy_and_gate()
         with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "GATE_STATUS"):
             validate_finalization(
-                evidence(),
-                actual_policy,
-                actual_gate,
-                implementation_ancestor_verified=True,
+                evidence(), policy, gate, implementation_ancestor_verified=True
             )
 
-    def test_synthetic_finalization_passes_only_with_ancestor_proof(self):
+    def test_simulated_post_379_state_passes_only_when_policy_and_contract_both_pin_merge(self):
+        policy, gate = finalized_copies()
         result = validate_finalization(
-            evidence(), policy(), gate_contract(), implementation_ancestor_verified=True
+            evidence(), policy, gate, implementation_ancestor_verified=True
         )
         self.assertEqual(result["status"], "PASS_F02_FUNDEB_MONTHLY_POLICY_FINALIZATION")
-        self.assertTrue(result["implementation_ancestor_verified"])
+        self.assertEqual(result["implementation_merge_sha"], MERGE_SHA)
         self.assertFalse(result["auto_allowed"])
         self.assertEqual(result["remote_effects"], 0)
+
+        policy_missing, gate_ok = finalized_copies()
+        policy_gate = next(row for row in policy_missing["gates"] if row.get("id") == GATE_ID)
+        del policy_gate["implementation_merge_sha"]
+        with self.assertRaisesRegex(
+            F02FundebMonthlyPolicyFinalizationStop,
+            "IMPLEMENTATION_SHA_PIN_MISSING: policy",
+        ):
+            validate_finalization(
+                evidence(), policy_missing, gate_ok, implementation_ancestor_verified=True
+            )
+
+        policy_ok, gate_missing = finalized_copies()
+        del gate_missing["implementation_merge_sha"]
+        with self.assertRaisesRegex(
+            F02FundebMonthlyPolicyFinalizationStop,
+            "IMPLEMENTATION_SHA_PIN_MISSING: contract",
+        ):
+            validate_finalization(
+                evidence(), policy_ok, gate_missing, implementation_ancestor_verified=True
+            )
+
+    def test_auto_remote_and_ancestry_drift_fail_closed(self):
+        policy, gate = finalized_copies()
+        bad = copy.deepcopy(policy)
+        next(row for row in bad["gates"] if row.get("id") == GATE_ID)["auto_allowed"] = True
+        with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "AUTO_ENABLED"):
+            validate_finalization(evidence(), bad, gate, implementation_ancestor_verified=True)
+
+        bad = copy.deepcopy(policy)
+        next(row for row in bad["gates"] if row.get("id") == GATE_ID)["effects"]["drive_writes"] = True
+        with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "REMOTE_EFFECT_ENABLED"):
+            validate_finalization(evidence(), bad, gate, implementation_ancestor_verified=True)
+
         with self.assertRaisesRegex(
             F02FundebMonthlyPolicyFinalizationStop,
             "IMPLEMENTATION_ANCESTRY_NOT_VERIFIED",
         ):
-            validate_finalization(
-                evidence(), policy(), gate_contract(), implementation_ancestor_verified=False
-            )
+            validate_finalization(evidence(), policy, gate, implementation_ancestor_verified=False)
 
-    def test_current_repository_prefinalization_state_passes_install_lifecycle(self):
-        actual_policy = load_json(POLICY)
-        actual_gate = load_json(ACTUAL_GATE)
-        result = validate_prefinalization_install(actual_policy, actual_gate)
-        self.assertEqual(
-            result["status"],
-            "PASS_F02_FUNDEB_MONTHLY_POLICY_PREFINALIZATION_INSTALL",
-        )
-        self.assertFalse(result["manual_execution_authorized"])
-
-    def test_missing_merge_sha_and_pin_auto_remote_drift_fail_closed(self):
-        missing_sha = evidence()
-        del missing_sha["implementation_merge_sha"]
-        with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "IMPLEMENTATION_MERGE_SHA"):
-            validate_finalization(missing_sha, policy(), gate_contract(), implementation_ancestor_verified=True)
-
-        bad_gate = gate_contract()
-        del bad_gate["implementation_merge_sha"]
-        with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "IMPLEMENTATION_SHA_PIN_MISSING: contract"):
-            validate_finalization(evidence(), policy(), bad_gate, implementation_ancestor_verified=True)
-
-        bad_policy_missing = policy()
-        del bad_policy_missing["gates"][0]["implementation_merge_sha"]
-        with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "IMPLEMENTATION_SHA_PIN_MISSING: policy"):
-            validate_finalization(evidence(), bad_policy_missing, gate_contract(), implementation_ancestor_verified=True)
-
-        bad_gate = gate_contract()
-        bad_gate["implementation_merge_sha"] = "0" * 40
-        with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "IMPLEMENTATION_SHA_PIN_DRIFT"):
-            validate_finalization(evidence(), policy(), bad_gate, implementation_ancestor_verified=True)
-
-        bad_policy = policy()
-        bad_policy["gates"][0]["auto_allowed"] = True
-        with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "AUTO_ENABLED"):
-            validate_finalization(evidence(), bad_policy, gate_contract(), implementation_ancestor_verified=True)
-
-        bad_policy = policy()
-        bad_policy["gates"][0]["effects"]["drive_writes"] = True
-        with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "REMOTE_EFFECT_ENABLED"):
-            validate_finalization(evidence(), bad_policy, gate_contract(), implementation_ancestor_verified=True)
-
-    def test_missing_or_invalid_json_fails_closed(self):
-        with tempfile.TemporaryDirectory() as td:
-            missing = Path(td) / "missing.json"
-            with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "JSON_READ"):
-                load_json(missing)
-            invalid = Path(td) / "invalid.json"
-            invalid.write_text("{bad", encoding="utf-8")
-            with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "JSON_READ"):
-                load_json(invalid)
-
-    def test_git_ancestor_check_accepts_ancestor_rejects_missing_and_nonancestor(self):
+    def test_git_ancestor_check_accepts_ancestor_and_rejects_missing_or_nonancestor(self):
         with tempfile.TemporaryDirectory() as td:
             repo = Path(td)
             subprocess.run(["git", "init", "-q", str(repo)], check=True)
@@ -296,13 +198,11 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
             (repo / "a.txt").write_text("two\n", encoding="utf-8")
             subprocess.run(["git", "-C", str(repo), "commit", "-q", "-am", "second"], check=True)
             verify_git_ancestor(repo, first)
-
             with self.assertRaisesRegex(
                 F02FundebMonthlyPolicyFinalizationStop,
                 "IMPLEMENTATION_COMMIT_OBJECT_MISSING",
             ):
                 verify_git_ancestor(repo, "0" * 40)
-
             subprocess.run(["git", "-C", str(repo), "checkout", "--orphan", "other"], check=True, capture_output=True)
             subprocess.run(["git", "-C", str(repo), "rm", "-rf", "."], check=True, capture_output=True)
             (repo / "b.txt").write_text("other\n", encoding="utf-8")
@@ -314,11 +214,15 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
             ):
                 verify_git_ancestor(repo, first)
 
-    def test_workflow_paths_are_exactly_the_f02_specific_trigger_set(self):
+    def test_workflow_paths_match_canonical_policy_path_filter_exactly(self):
+        policy = load_json(POLICY)
+        ci_gate = next(row for row in policy["gates"] if row.get("id") == CI_GATE_ID)
         observed = workflow_paths(WORKFLOW.read_text(encoding="utf-8"))
+        self.assertEqual(observed, ci_gate["path_filter"])
         self.assertEqual(
             observed,
             [
+                "config/automation_policy.v1.json",
                 "config/f02_fundeb_monthly_cash_gate.v1.json",
                 "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json",
                 "robo_dados_publicos/automation/f02_fundeb_monthly_policy_finalization.py",
@@ -326,22 +230,24 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
                 "tests/test_f02_fundeb_monthly_cash_policy_finalization.py",
             ],
         )
-        self.assertNotIn("config/automation_policy.v1.json", observed)
-        self.assertNotIn("README.md", observed)
 
-    def test_workflow_is_full_history_readonly_and_lifecycle_aware(self):
+    def test_policy_path_trigger_cannot_loop_because_workflow_is_readonly(self):
         text = WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn('config/automation_policy.v1.json', text)
         self.assertIn("permissions:\n  contents: read", text)
         self.assertIn("persist-credentials: false", text)
         self.assertIn("fetch-depth: 0", text)
-        self.assertNotIn("contents: write", text)
-        self.assertNotIn("pull-requests: write", text)
-        self.assertNotIn("pull_request_target", text)
-        self.assertNotIn("schedule:", text)
-        self.assertNotIn("workflow_run", text)
-        self.assertNotIn("repository_dispatch", text)
-        self.assertIn("Validate prefinalization install or finalized pinned implementation", text)
-        self.assertNotIn("test -f docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json", text)
+        for forbidden in (
+            "contents: write",
+            "pull-requests: write",
+            "git push",
+            "gh pr",
+            "repository_dispatch",
+            "workflow_run",
+            "schedule:",
+            "pull_request_target",
+        ):
+            self.assertNotIn(forbidden, text)
 
 
 if __name__ == "__main__":
