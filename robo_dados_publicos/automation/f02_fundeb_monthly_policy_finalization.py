@@ -110,7 +110,7 @@ def validate_finalization(
             _stop("IMPLEMENTATION_MERGED_PIN_DRIFT", label)
         if row.get("implementation_merge_sha") != merge_sha:
             _stop("IMPLEMENTATION_SHA_PIN_DRIFT", label)
-        if row.get("implementation_merge_required_before_manual_execution") is not False:
+        if row.get("implementation_merge_required_before_manual_execution") != False:
             _stop("IMPLEMENTATION_BLOCKER_NOT_FINALIZED", label)
 
     if policy_gate.get("tier") != "T0_OFFLINE":
