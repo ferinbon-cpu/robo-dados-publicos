@@ -1,0 +1,57 @@
+{
+  "task": "TASK_094_POLICY_BUDGET_LEDGER",
+  "mode": "T0_OFFLINE_TEMPORAL_BUDGET_LEDGER",
+  "base_sha": "7cd4cb88e03c1cfb2bfe63ab5e1d9e90d15eee00",
+  "authorization": {
+    "owner_authorized": true,
+    "owner_message": "autorizado",
+    "scope": "STRUCTURAL_REDESIGN_TASK094_POLICY_BUDGET_LEDGER",
+    "remote_execution_authorized": false
+  },
+  "event_types": [
+    "AUTHORIZATION_INITIAL",
+    "AUTHORIZATION_SUPPLEMENT",
+    "AUTHORIZATION_CANCEL",
+    "COMMITMENT",
+    "COMMITMENT_CANCEL",
+    "LIQUIDATION",
+    "LIQUIDATION_CANCEL",
+    "PAYMENT",
+    "PAYMENT_CANCEL"
+  ],
+  "default_canonical_statuses": [
+    "PROVEN",
+    "CORROBORATED"
+  ],
+  "invariants": [
+    "BUDGET_STATE_RECONSTRUCTED_FROM_EVENTS",
+    "AUTHORIZATION_EXECUTION_STAGES_DISTINCT",
+    "CANDIDATE_EVENTS_EXCLUDED_FROM_CANONICAL_STATE_BY_DEFAULT",
+    "NO_NEGATIVE_EVENT_AMOUNTS",
+    "NO_NEGATIVE_NET_BALANCES",
+    "COMMITTED_LE_AUTHORIZATION",
+    "LIQUIDATED_LE_COMMITTED",
+    "PAID_LE_LIQUIDATED",
+    "POLICY_ATTRIBUTION_EXTERNAL_TO_BUDGET_IDENTITY",
+    "NO_TEXT_OR_AMOUNT_ONLY_POLICY_LINK",
+    "AS_OF_RECONSTRUCTION_SUPPORTED"
+  ],
+  "integration": {
+    "task093_budget_event_entity_projection": true,
+    "legacy_accounting_identity_not_replaced": true
+  },
+  "effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "state_registry_write": 0,
+    "queue_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "retry": 0,
+    "recurrence": 0,
+    "schedule": 0
+  },
+  "next_task": "TASK_095_SOURCE_ROLES_EVIDENCE_SEMANTICS",
+  "result": "READY_FOR_CI_REVIEW_NO_REMOTE_EFFECT"
+}
