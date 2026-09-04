@@ -46,8 +46,10 @@ class TestTask101EitiResearchAnswerCli(unittest.TestCase):
         self.assertIn("**budgetary_policy_identity** — UNKNOWN", result.stdout)
         self.assertIn("**transaction_execution_identity** — UNKNOWN", result.stdout)
         self.assertIn("**outcome_effect** — UNKNOWN", result.stdout)
+        self.assertIn("Nenhuma lacuna histórica de aquisição incluída neste pacote.", result.stdout)
+        self.assertIn("## Evidência histórica negativa bounded", result.stdout)
         self.assertIn("### 2018-2021", result.stdout)
-        self.assertNotIn("### 2022-2025", result.stdout)
+        self.assertIn("**Status:** BOUNDED_NO_CANDIDATES", result.stdout)
 
     def test_cli_is_deterministic(self):
         first = run_cli()
@@ -65,6 +67,10 @@ class TestTask101EitiResearchAnswerCli(unittest.TestCase):
         )
         self.assertIn(
             "Nenhuma lacuna histórica de aquisição incluída neste pacote.",
+            result.stdout,
+        )
+        self.assertIn(
+            "Nenhuma evidência histórica negativa bounded incluída neste pacote.",
             result.stdout,
         )
 
