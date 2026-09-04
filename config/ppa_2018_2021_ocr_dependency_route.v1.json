@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "schema": "PPA_2018_2021_OCR_DEPENDENCY_ROUTE_V1",
+  "mode": "T0_OFFLINE_DEPENDENCY_ROUTE_DESIGN_ONLY",
+  "target": {
+    "period": "2018-2021",
+    "planning_document": "PPA_2018_2021",
+    "law_number": "5.947/2017",
+    "official_pdf_url": "https://www.limeira.sp.gov.br/sitenovo/downloads/0fa1a5cc5c9a1823fbf5436def00f01f.pdf",
+    "expected_planning_signal": "escolas com programas em tempo integral",
+    "source_resolution_evidence": "docs/evidence/TASK_107_LIVE_RESULT_0.8.0.json",
+    "current_gap": "OFFICIAL_PDF_RESOLVED_BUT_PYPDF_TEXT_EMPTY"
+  },
+  "runner": {
+    "os_image": "ubuntu-24.04",
+    "architecture": "amd64"
+  },
+  "canonical_route": {
+    "renderer": {
+      "package": "poppler-utils",
+      "version": "24.02.0-1ubuntu9.9",
+      "executable": "pdftoppm",
+      "command_template": [
+        "pdftoppm",
+        "-f",
+        "{page}",
+        "-l",
+        "{page}",
+        "-singlefile",
+        "-r",
+        "300",
+        "-gray",
+        "-png",
+        "{source_pdf}",
+        "{output_prefix}"
+      ]
+    },
+    "ocr_engine": {
+      "package": "tesseract-ocr",
+      "version": "5.3.4-1build5",
+      "executable": "tesseract",
+      "language_package": {
+        "package": "tesseract-ocr-por",
+        "version": "1:4.1.0-2",
+        "language_code": "por"
+      },
+      "command_template": [
+        "tesseract",
+        "{page_png}",
+        "stdout",
+        "-l",
+        "por",
+        "--oem",
+        "1",
+        "--psm",
+        "3",
+        "tsv"
+      ]
+    },
+    "output_contract": {
+      "primary_output": "TSV",
+      "preserve_word_confidence": true,
+      "reconstruct_normalized_text_from_tsv": true,
+      "normalization": [
+        "UNICODE_NFKD",
+        "REMOVE_COMBINING_MARKS",
+        "UPPERCASE",
+        "COLLAPSE_WHITESPACE"
+      ],
+      "page_coordinate_system": "SOURCE_PDF_PAGE_1_BASED",
+      "preserve_source_sha256": true,
+      "preserve_rendered_page_sha256": true,
+      "preserve_ocr_tsv_sha256": true
+    }
+  },
+  "explicitly_rejected_routes": [
+    {
+      "route": "CHROME_ACCESSIBILITY_ONLY",
+      "reason": "TASK109_NEGATIVE_IMAGE_ONLY_SYNTHETIC_PROOF"
+    },
+    {
+      "route": "PYTESSERACT_WRAPPER",
+      "reason": "UNNECESSARY_PYTHON_WRAPPER_AROUND_TESSERACT_CLI"
+    },
+    {
+      "route": "OCRMYPDF",
+      "reason": "BROADER_DEPENDENCY_SURFACE_INCLUDING_GHOSTSCRIPT"
+    },
+    {
+      "route": "PYMUPDF_RENDERER",
+      "reason": "AVOID_ADDITIONAL_PYTHON_RENDERING_DEPENDENCY_WHEN_UBUNTU_POPPLER_PACKAGE_IS_AVAILABLE"
+    },
+    {
+      "route": "OPENCV_PREPROCESSING",
+      "reason": "NOT_REQUIRED_FOR_INITIAL_MINIMAL_PROOF"
+    }
+  ],
+  "task111_synthetic_gate": {
+    "authorized_now": false,
+    "purpose": "PROVE_EXACT_PINNED_DEPENDENCIES_ON_SYNTHETIC_IMAGE_ONLY_PDF",
+    "dependency_install_allowlist": [
+      "poppler-utils=24.02.0-1ubuntu9.9",
+      "tesseract-ocr=5.3.4-1build5",
+      "tesseract-ocr-por=1:4.1.0-2"
+    ],
+    "must_verify": [
+      "EXACT_INSTALLED_PACKAGE_VERSIONS",
+      "TESSERACT_LIST_LANGS_CONTAINS_POR",
+      "SYNTHETIC_PDF_HAS_NO_PYPDF_TEXT_LAYER",
+      "PDFTOPPM_PRESERVES_SOURCE_PAGE_1_AS_RENDERED_PAGE_1",
+      "TESSERACT_TSV_RECOVERS_ASCII_MARKER",
+      "TESSERACT_TSV_RECOVERS_PORTUGUESE_TEST_PHRASE_AFTER_NORMALIZATION",
+      "TSV_EXPOSES_WORD_CONFIDENCE",
+      "RENDERED_PAGE_SHA256_RECORDED",
+      "OCR_TSV_SHA256_RECORDED"
+    ],
+    "real_source_reads": 0,
+    "real_source_ocr": false
+  },
+  "future_real_source_gate": {
+    "authorized_now": false,
+    "requires_task111_pass": true,
+    "exact_source_only": true,
+    "discovery_search_allowed": false,
+    "maximum_source_http_requests_total": 2,
+    "allowed_method": "GET",
+    "allowed_host": "www.limeira.sp.gov.br",
+    "retry": false,
+    "pagination": false,
+    "max_pdf_pages": 250,
+    "required_before_primary_promotion": [
+      "OFFICIAL_SOURCE_BYTES_SHA256",
+      "PRIMARY_DOCUMENT_IDENTITY",
+      "EXPECTED_PLANNING_SIGNAL_OCR_MATCH",
+      "SOURCE_PDF_PAGE_1_BASED_LOCATOR",
+      "RENDERED_PAGE_SHA256",
+      "OCR_TSV_SHA256",
+      "BOUNDED_DIRECT_OCR_EVIDENCE",
+      "OCR_CONFIDENCE_METADATA"
+    ],
+    "forbidden_promotions": [
+      "PLANNING_SIGNAL_TO_FINANCIAL_IDENTITY",
+      "PLANNING_SIGNAL_TO_TRANSACTION_EXECUTION",
+      "PLANNING_SIGNAL_TO_IMPLEMENTATION",
+      "PLANNING_SIGNAL_TO_CAUSAL_EFFECT"
+    ]
+  },
+  "remote_effects": {
+    "package_network": false,
+    "source_network": false,
+    "source_read": false,
+    "real_source_ocr": false,
+    "drive_read": false,
+    "drive_write": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
