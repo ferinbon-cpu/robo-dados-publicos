@@ -21,6 +21,8 @@ class F02FundebMonthlyCashStop(ValueError):
     """Fail-closed stop for the monthly FUNDEB cash/balance series."""
 
 
+OPERATIONAL_GATE_ID = "F02_FUNDEB_MONTHLY_CASH_OFFLINE"
+
 REMOTE_EFFECT_KEYS = {
     "bronze_write",
     "silver_write",
@@ -162,6 +164,56 @@ def validate_contract(raw: dict[str, Any]) -> dict[str, Any]:
     return raw
 
 
+def validate_global_policy_registration(raw: object) -> dict[str, Any]:
+    if not isinstance(raw, dict) or raw.get("schema") != "ROBO_DADOS_PUBLICOS_AUTOMATION_POLICY_V1":
+        _stop("GLOBAL_POLICY_SCHEMA")
+    gates = raw.get("gates")
+    if not isinstance(gates, list):
+        _stop("GLOBAL_POLICY_GATES")
+    matches = [gate for gate in gates if isinstance(gate, dict) and gate.get("id") == OPERATIONAL_GATE_ID]
+    if not matches:
+        _stop("GATE_NOT_REGISTERED")
+    if len(matches) != 1:
+        _stop("GATE_DUPLICATE_REGISTRATION")
+    gate = matches[0]
+    expected = {
+        "tier": "T0_OFFLINE",
+        "auto_allowed": False,
+        "manual_execution_required": True,
+        "no_workflow_trigger": True,
+        "owner_authorization_required": True,
+    }
+    for key, value in expected.items():
+        if gate.get(key) != value:
+            _stop("GATE_REGISTRATION_DRIFT", f"{key}={gate.get(key)!r}")
+    effects = gate.get("effects")
+    if not isinstance(effects, dict):
+        _stop("GATE_REGISTRATION_EFFECTS")
+    for key in ("source_network", "drive_reads", "drive_writes", "publication"):
+        if effects.get(key) is not False:
+            _stop("GATE_REGISTRATION_REMOTE_EFFECT", key)
+    if gate.get("current_triggers") != []:
+        _stop("GATE_REGISTRATION_TRIGGER")
+    return gate
+
+
+def load_and_validate_global_policy(*, root: str | Path) -> dict[str, Any]:
+    try:
+        payload = _read_regular_file_beneath_root(
+            Path(root), Path("config/automation_policy.v1.json"), code="MONTHLY_GLOBAL_POLICY"
+        )
+    except F02KnownFamilyBundleStop as exc:
+        raise F02FundebMonthlyCashStop(str(exc)) from exc
+    try:
+        value = json.loads(payload.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise F02FundebMonthlyCashStop(
+            "STOP_F02_FUNDEB_MONTHLY_GLOBAL_POLICY_INVALID_JSON"
+        ) from exc
+    validate_global_policy_registration(value)
+    return value
+
+
 def validate_runtime_authorization(raw: object, *, batch_id: str) -> dict[str, Any]:
     if not isinstance(raw, dict):
         _stop("AUTHORIZATION_REQUIRED")
@@ -187,6 +239,9 @@ def validate_runtime_authorization(raw: object, *, batch_id: str) -> dict[str, A
 def load_pinned_authorization(
     *, root: str | Path, relative_path: str | Path, expected_sha256: str
 ) -> dict[str, Any]:
+    relative = Path(relative_path)
+    if "tests" in relative.parts or "fixtures" in relative.parts:
+        _stop("AUTHORIZATION_TEST_FIXTURE_FORBIDDEN_OPERATIONALLY")
     digest = str(expected_sha256 or "").lower().strip()
     if not re.fullmatch(r"[0-9a-f]{64}", digest):
         _stop("AUTHORIZATION_PIN")
