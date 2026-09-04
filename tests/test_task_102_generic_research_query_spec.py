@@ -42,7 +42,13 @@ class TestTask102GenericResearchQuerySpec(unittest.TestCase):
         specific = run_script(TASK101)
         self.assertEqual(0, generic.returncode, generic.stderr)
         self.assertEqual(0, specific.returncode, specific.stderr)
-        self.assertEqual(specific.stdout, generic.stdout)
+        specific_normalized = specific.stdout.replace(
+            "Q:EITI_CLI_POLICY_STATUS_PACKET", "Q:CANONICAL"
+        )
+        generic_normalized = generic.stdout.replace(
+            "Q:EITI_GENERIC_POLICY_STATUS", "Q:CANONICAL"
+        )
+        self.assertEqual(specific_normalized, generic_normalized)
 
     def test_generic_cli_is_deterministic(self):
         first = run_script(SCRIPT)
