@@ -492,5 +492,26 @@ class F02KnownFamilyBundleTests(unittest.TestCase):
                 run_known_family_bundle(self.adapter, base, root=ROOT)
 
 
+    def test_every_manifest_remote_effect_true_is_rejected(self):
+        base = {
+            "schema": "F02_KNOWN_FAMILY_BATCH_MANIFEST_V1",
+            "mode": "MANUAL_SUPERVISED_INGEST",
+            "batch_id": "REMOTE_EFFECT_MATRIX",
+            "batch_kind": "LOCAL_ONLY",
+            "reference_period": {"start": "2026-01-01", "end": "2026-05-31"},
+            "sources": [
+                source("F", "FUNDEB_LOCAL", b"x", "f.pdf"),
+                source("M", "MDE_25_LOCAL", b"y", "m.pdf"),
+            ],
+            "remote_effects_authorized": effects_false(),
+        }
+        for effect in sorted(base["remote_effects_authorized"]):
+            with self.subTest(effect=effect):
+                mutated = copy.deepcopy(base)
+                mutated["remote_effects_authorized"][effect] = True
+                with self.assertRaisesRegex(F02KnownFamilyBundleStop, "REMOTE_EFFECT_ENABLED"):
+                    validate_batch_manifest(mutated, self.adapter)
+
+
 if __name__ == "__main__":
     unittest.main()
