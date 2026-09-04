@@ -1,0 +1,43 @@
+{
+  "task": "TASK_096_EITI_LIMEIRA_OFFLINE_CROSSWALK",
+  "mode": "T0_OFFLINE_EXISTING_REPOSITORY_EVIDENCE_ONLY",
+  "base_sha": "8d5490edb1a0e1e704b16c046eae4ae31dd5184d",
+  "repository_only": true,
+  "institutionalization_matrix": {
+    "normative": "PROVEN",
+    "planning": "CORROBORATED",
+    "budgetary_policy_identity": "UNKNOWN",
+    "financial_reporting": "PROVEN_SCOPED",
+    "transaction_execution_identity": "UNKNOWN",
+    "organizational": "CANDIDATE",
+    "material_delivery": "UNKNOWN",
+    "outcome_effect": "UNKNOWN",
+    "normative_planning_persistence": "CORROBORATED",
+    "budgetary_persistence": "UNKNOWN"
+  },
+  "key_findings": [
+    "LEGACY_A_NORMATIVE_RELATIONS_MIGRATED_TO_PROVEN",
+    "LEGACY_B_POLICY_PROGRAM_CORRESPONDENCE_MIGRATED_TO_CORROBORATED",
+    "LEGACY_G10_NO_FINANCIAL_IDENTITY_PRESERVED",
+    "FOMENTO_ETI_FUNDEB_REPORTING_BUCKET_PROVEN_BUT_TRANSACTION_IDENTITY_UNKNOWN",
+    "PPA_PAGE_NUMBERING_18_VS_15_PRESERVED_UNRECONCILED",
+    "NO_MATCH_REMAINS_SCOPED_SEARCH_RESULT_NOT_NONEXISTENCE",
+    "NO_CAUSAL_CLAIM"
+  ],
+  "effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "state_registry_write": 0,
+    "queue_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "retry": 0,
+    "recurrence": 0,
+    "schedule": 0
+  },
+  "result": "READY_FOR_CI_REVIEW_NO_REMOTE_EFFECT"
+}
