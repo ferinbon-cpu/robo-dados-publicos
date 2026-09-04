@@ -10,6 +10,7 @@ from pathlib import Path
 from robo_dados_publicos.automation.f02_fundeb_monthly_policy_finalization import (
     F02FundebMonthlyPolicyFinalizationStop,
     load_json,
+    validate_ci_gate_install,
     validate_finalization,
     validate_prefinalization_install,
     validate_repository_state,
@@ -20,6 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 POLICY = ROOT / "config/automation_policy.v1.json"
 GATE = ROOT / "config/f02_fundeb_monthly_cash_gate.v1.json"
 WORKFLOW = ROOT / ".github/workflows/f02-fundeb-monthly-policy-finalization-evidence.yml"
+CI_AUTH = ROOT / "docs/evidence/F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_CI_OWNER_AUTHORIZATION_0.8.0.json"
 GATE_ID = "F02_FUNDEB_MONTHLY_CASH_OFFLINE"
 CI_GATE_ID = "F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_EVIDENCE_CI"
 IMPLEMENTATION_BLOCKER = "IMPLEMENTATION_PR_376_MUST_BE_MERGED_BEFORE_MANUAL_EXECUTION"
@@ -58,6 +60,19 @@ def evidence(merge_sha: str) -> dict:
             "FINANCIAL_CLAIM_PROMOTION_WITHOUT_EVIDENCE",
         ],
     }
+
+
+def install_ci_gate_files(root: Path) -> None:
+    (root / ".github/workflows").mkdir(parents=True, exist_ok=True)
+    (root / "docs/evidence").mkdir(parents=True, exist_ok=True)
+    (root / ".github/workflows/f02-fundeb-monthly-policy-finalization-evidence.yml").write_text(
+        WORKFLOW.read_text(encoding="utf-8"),
+        encoding="utf-8",
+    )
+    (root / "docs/evidence/F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_CI_OWNER_AUTHORIZATION_0.8.0.json").write_text(
+        CI_AUTH.read_text(encoding="utf-8"),
+        encoding="utf-8",
+    )
 
 
 def actual_policy_and_gate() -> tuple[dict, dict]:
@@ -115,6 +130,12 @@ def workflow_paths(text: str) -> list[str]:
 class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
     def test_ci_gate_is_registered_and_workflow_filter_matches_policy_exactly(self):
         policy = load_json(POLICY)
+        result = validate_ci_gate_install(policy, repo_root=ROOT)
+        self.assertEqual(
+            result["status"],
+            "PASS_F02_FUNDEB_MONTHLY_FINALIZATION_CI_GATE_INSTALL",
+        )
+        self.assertEqual(result["owner_authorization_comment_id"], 5534958543)
         ci_gate = next(row for row in policy["gates"] if row.get("id") == CI_GATE_ID)
         self.assertEqual(ci_gate["tier"], "T0_OFFLINE")
         self.assertTrue(ci_gate["auto_allowed"])
@@ -150,6 +171,68 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
         self.assertIn(IMPLEMENTATION_BLOCKER, policy_gate["blockers"])
         self.assertIn(IMPLEMENTATION_BLOCKER, gate["blockers"])
 
+    def test_ci_gate_missing_or_malformed_workflow_and_auth_drift_fail_closed(self):
+        policy = load_json(POLICY)
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            (root / "docs/evidence").mkdir(parents=True)
+            (root / "docs/evidence/F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_CI_OWNER_AUTHORIZATION_0.8.0.json").write_text(
+                CI_AUTH.read_text(encoding="utf-8"),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(
+                F02FundebMonthlyPolicyFinalizationStop,
+                "CI_WORKFLOW_READ",
+            ):
+                validate_ci_gate_install(policy, repo_root=root)
+
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            install_ci_gate_files(root)
+            workflow = root / ".github/workflows/f02-fundeb-monthly-policy-finalization-evidence.yml"
+            workflow.write_text("name: malformed\non:\n  pull_request:\n", encoding="utf-8")
+            with self.assertRaises(F02FundebMonthlyPolicyFinalizationStop):
+                validate_ci_gate_install(policy, repo_root=root)
+
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            install_ci_gate_files(root)
+            auth_path = root / "docs/evidence/F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_CI_OWNER_AUTHORIZATION_0.8.0.json"
+            auth = json.loads(auth_path.read_text(encoding="utf-8"))
+            auth["independent_github_owner_record"]["comment_id"] = 0
+            auth_path.write_text(json.dumps(auth), encoding="utf-8")
+            with self.assertRaisesRegex(
+                F02FundebMonthlyPolicyFinalizationStop,
+                "CI_AUTH_GITHUB_RECORD_PIN",
+            ):
+                validate_ci_gate_install(policy, repo_root=root)
+
+    def test_blocker_parity_drift_fails_in_prefinalization_and_finalization(self):
+        policy, gate = actual_policy_and_gate()
+        bad_gate = copy.deepcopy(gate)
+        bad_gate["blockers"] = list(bad_gate["blockers"]) + ["DRIFT"]
+        with self.assertRaisesRegex(
+            F02FundebMonthlyPolicyFinalizationStop,
+            "PREFINALIZATION_BLOCKER_PARITY",
+        ):
+            validate_prefinalization_install(policy, bad_gate)
+
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            merge_sha = init_repo(root)
+            final_policy, final_gate = finalized_copies(merge_sha)
+            final_gate["blockers"] = list(final_gate["blockers"]) + ["DRIFT"]
+            with self.assertRaisesRegex(
+                F02FundebMonthlyPolicyFinalizationStop,
+                "FINALIZATION_BLOCKER_PARITY",
+            ):
+                validate_finalization(
+                    evidence(merge_sha),
+                    final_policy,
+                    final_gate,
+                    repo_root=root,
+                )
+
     def test_finalization_performs_real_ancestry_proof_internally(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
@@ -180,6 +263,7 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
             (root / "docs/evidence").mkdir(parents=True)
             (root / "config/automation_policy.v1.json").write_text(json.dumps(policy), encoding="utf-8")
             (root / "config/f02_fundeb_monthly_cash_gate.v1.json").write_text(json.dumps(gate), encoding="utf-8")
+            install_ci_gate_files(root)
             (root / "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json").write_text(
                 json.dumps(evidence(merge_sha)), encoding="utf-8"
             )
