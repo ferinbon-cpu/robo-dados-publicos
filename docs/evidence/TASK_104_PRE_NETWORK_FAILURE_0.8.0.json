@@ -1,0 +1,49 @@
+{
+  "task": "TASK_104",
+  "version": "0.8.0",
+  "mode": "T1_SINGLE_USE_HISTORICAL_PPA_PRIMARY_EVIDENCE",
+  "result": "STOP_PRE_NETWORK_CAPABILITY_MISSING",
+  "issue": 404,
+  "pr": 405,
+  "live_run": {
+    "run_id": 33911282395,
+    "job_id": 101148033981,
+    "execution_head_sha": "913481052226b9c518b5418369f6b58e4ef3784d",
+    "conclusion": "failure",
+    "runner_os": "Ubuntu 24.04.4 LTS",
+    "runner_image": "ubuntu-24.04",
+    "runner_image_version": "20260831.293.1",
+    "python_version": "3.12.14"
+  },
+  "failure": {
+    "step": "Verify local PDF text extractor without installing anything",
+    "command": "command -v pdftotext",
+    "pdftotext_present": false,
+    "live_runner_invoked": false,
+    "runtime_result_created": false,
+    "artifact_created": false
+  },
+  "source_effects": {
+    "official_source_http_requests_emitted": 0,
+    "primary_source_bytes_read": 0,
+    "ppa_2018_2021_read": false,
+    "ppa_2022_2025_read": false,
+    "source_read_scope_consumed": false
+  },
+  "workflow_state": {
+    "single_use_trigger_consumed": true,
+    "workflow_path": ".github/workflows/task-104-historical-ppa-live-once.yml",
+    "executed_workflow_blob_sha": "5d798b5d6cbc9e2df8c4105676f2f9dc208ecd81",
+    "preserved_inert_source": "docs/evidence/TASK_104_HISTORICAL_LIVE_WORKFLOW_SOURCE_FAILED_PRE_NETWORK_0.8.0.txt",
+    "must_be_removed_before_merge": true,
+    "rerun_authorized": false
+  },
+  "epistemic_state": {
+    "historical_ppa_primary_gap_closed": false,
+    "financial_identity_created": false,
+    "transaction_execution_identity_created": false,
+    "implementation_proven": false,
+    "causal_effect_created": false
+  },
+  "next_boundary": "NEW_TASK_NEW_SINGLE_USE_WORKFLOW_WITH_OFFLINE_PROVEN_LOCAL_PDF_PARSER_CAPABILITY_NO_RERUN_OF_TASK104"
+}
