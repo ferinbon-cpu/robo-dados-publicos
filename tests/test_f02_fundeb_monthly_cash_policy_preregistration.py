@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 POLICY = ROOT / "config/automation_policy.v1.json"
 GATE = ROOT / "config/f02_fundeb_monthly_cash_gate.v1.json"
 AUTH = ROOT / "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_OWNER_AUTHORIZATION_0.8.0.json"
+FINALIZATION = ROOT / "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json"
 
 
 class F02FundebMonthlyCashPolicyFinalizationTests(unittest.TestCase):
@@ -42,6 +43,34 @@ class F02FundebMonthlyCashPolicyFinalizationTests(unittest.TestCase):
         self.assertFalse(gate["remote_drive_read_authorized"])
         self.assertTrue(all(gate["blocked_remote_effects"].values()))
         self.assertTrue(all(gate["semantic_blocks"].values()))
+
+    def test_finalization_evidence_matches_policy_gate_and_verified_implementation_merge(self):
+        evidence = json.loads(FINALIZATION.read_text(encoding="utf-8"))
+        policy = json.loads(POLICY.read_text(encoding="utf-8"))
+        gate_contract = json.loads(GATE.read_text(encoding="utf-8"))
+        policy_gate = next(
+            g for g in policy["gates"]
+            if g["id"] == "F02_FUNDEB_MONTHLY_CASH_OFFLINE"
+        )
+        expected = "48c2f7624dba3f46b61f09659f15d798b836c0ef"
+        self.assertEqual(evidence["schema"], "F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_V1")
+        self.assertEqual(evidence["status"], "READY_FOR_MANUAL_RUNTIME_AUTHORIZATION_ONLY")
+        self.assertEqual(evidence["implementation_pr"], 376)
+        self.assertTrue(evidence["implementation_merge_verified"])
+        self.assertEqual(evidence["implementation_merge_verification_reason"], "valid")
+        self.assertEqual(evidence["implementation_merge_sha"], expected)
+        self.assertEqual(policy_gate["implementation_merge_sha"], expected)
+        self.assertEqual(gate_contract["implementation_merge_sha"], expected)
+        self.assertEqual(policy_gate["implementation_pr_merged"], 376)
+        self.assertEqual(gate_contract["implementation_pr_merged"], 376)
+        self.assertNotIn("owner_instruction_verbatim", evidence)
+        self.assertEqual(
+            evidence["authorization_basis"]["prior_reviewed_policy_authorization"],
+            "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_OWNER_AUTHORIZATION_0.8.0.json",
+        )
+        self.assertTrue(
+            evidence["authorization_basis"]["no_new_runtime_authorization_created"]
+        )
 
     def test_owner_policy_authorization_is_not_runtime_execution_authorization(self):
         auth = json.loads(AUTH.read_text(encoding="utf-8"))
