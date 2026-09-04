@@ -5,7 +5,6 @@
   "source_observations": [
     {
       "month": "2026-01",
-      "drive_file_id": "1zRG-7fXYMTOMjsbWWJzoaSF7kQ54kJMe",
       "sha256": "ec503cbecf5f657ac6443bf11d723c330ef5875a3995709d6a9f5e2c3c4ba0ea",
       "pages": 1,
       "text_pages": 1,
@@ -14,7 +13,6 @@
     },
     {
       "month": "2026-02",
-      "drive_file_id": "1xmAFcp2pYYeua3vHQQoY4_tfFZzr21-I",
       "sha256": "99539e62a2e4b3d0aa1b38e31ac637a5387f43864aa006efa7166a00b5fbb2be",
       "pages": 2,
       "text_pages": 1,
@@ -31,7 +29,6 @@
     },
     {
       "month": "2026-03",
-      "drive_file_id": "1m1mg8LX-7VOn81Rl4t-zgDoP23JPCTRd",
       "sha256": "c42665845a0f12720554bc0adafd4eb04f85e15021878132ac764b2203438a30",
       "pages": 2,
       "text_pages": 1,
@@ -59,5 +56,14 @@
   "semantic_effect": "NONE",
   "financial_claim_promotion": false,
   "silver_persistence_authorized_by_this_evidence": false,
-  "status": "OBSERVED_SOURCE_EXPORT_ARTIFACT_NOT_SCHEMA_CONTENT_DRIFT"
+  "status": "OBSERVED_SOURCE_EXPORT_ARTIFACT_NOT_SCHEMA_CONTENT_DRIFT",
+  "provenance": {
+    "collector": "ORCHESTRATOR_BOUNDED_READ_OF_ALREADY_CUSTODIED_SOURCE_BYTES",
+    "observed_utc": "2026-09-04T03:16:00Z",
+    "authorization_basis": "CURRENT_OWNER_AUTONOMOUS_MATURATION_SPRINT",
+    "canonical_remote_ids_remain_only_in_existing_source_custody_manifest": true,
+    "observation_method": "PYPDF_TEXT_IMAGE_AND_CONTENT_STREAM_STRUCTURE_INSPECTION",
+    "no_ocr": true,
+    "no_source_mutation": true
+  }
 }
