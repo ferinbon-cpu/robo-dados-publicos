@@ -65,5 +65,6 @@
     "move": false,
     "schedule": false,
     "recurrence": false
-  }
+  },
+  "gate_contract_path": "config/f02_known_family_bundle_gate.v1.json"
 }
