@@ -26,7 +26,7 @@ class FakeClient:
         self.request_log = []
         self.responses = {
             "https://www.limeira.sp.gov.br/orcamentos": (
-                b'<html><a href="/downloads/ppa5947.pdf">Lei Municipal nÂº 5.947 e Anexos - PPA - PerÃ­odo 2018/2021</a></html>',
+                '<html><a href="/downloads/ppa5947.pdf">Lei Municipal 5.947 e Anexos - PPA - Periodo 2018/2021</a></html>'.encode("utf-8"),
                 "https://www.limeira.sp.gov.br/orcamentos",
                 "text/html",
             ),
@@ -57,8 +57,8 @@ class TestTask104HistoricalPpaLive(unittest.TestCase):
 
     def test_budget_index_link_resolution_is_exact_and_relative_safe(self):
         html = (
-            '<a href="/files/other.pdf">Lei Municipal nÂº 5.205 e Anexos - PPA - PerÃ­odo 2014/2017</a>'
-            '<a href="/files/ppa5947.pdf">Lei Municipal nÂº 5.947 e Anexos - PPA - PerÃ­odo 2018/2021</a>'
+            '<a href="/files/other.pdf">Lei Municipal 5.205 e Anexos - PPA - Periodo 2014/2017</a>'
+            '<a href="/files/ppa5947.pdf">Lei Municipal 5.947 e Anexos - PPA - Periodo 2018/2021</a>'
         )
         found = find_official_ppa_pdf_link(
             html,
@@ -87,7 +87,7 @@ class TestTask104HistoricalPpaLive(unittest.TestCase):
     def test_pdf_analysis_returns_typed_page_locator(self):
         pdf_text = (
             "LEI 5.947 DE 2017\nPPA 2018 2021\f"
-            "Secretaria da EducaÃ§Ã£o\n"
+            "Secretaria da Educacao\n"
             "ESCOLAS COM PROGRAMAS EM TEMPO INTEGRAL\n"
             "2018 71 2019 73 2020 74 2021 76\f"
         )
@@ -131,7 +131,7 @@ class TestTask104HistoricalPpaLive(unittest.TestCase):
             "LEI 6.659 DE 2021\nOUTRO INDICADOR\f",
             period="2022-2025",
             law_number="6.659",
-            expected_signal="ÃNDICE DE ALUNOS EM EDUCACAO INTEGRAL",
+            expected_signal="INDICE DE ALUNOS EM EDUCACAO INTEGRAL",
             source_url="https://www.limeira.sp.gov.br/ppa.pdf",
             final_url="https://www.limeira.sp.gov.br/ppa.pdf",
             source_sha256="c" * 64,
@@ -185,7 +185,7 @@ class TestTask104HistoricalPpaLive(unittest.TestCase):
                 )
             return (
                 "LEI 6.659 DE 2021\n"
-                "ÃNDICE DE ALUNOS EM EDUCACAO INTEGRAL / PERCENTUAL\n"
+                "INDICE DE ALUNOS EM EDUCACAO INTEGRAL / PERCENTUAL\n"
             )
 
         with tempfile.TemporaryDirectory() as td:
