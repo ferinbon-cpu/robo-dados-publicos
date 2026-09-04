@@ -12,7 +12,14 @@ class F02FundebMonthlyPolicyFinalizationStop(ValueError):
 
 
 GATE_ID = "F02_FUNDEB_MONTHLY_CASH_OFFLINE"
+CI_GATE_ID = "F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_EVIDENCE_CI"
 EXPECTED_IMPLEMENTATION_PR = 376
+CI_OWNER_AUTH_RELATIVE_PATH = Path(
+    "docs/evidence/F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_CI_OWNER_AUTHORIZATION_0.8.0.json"
+)
+CI_WORKFLOW_RELATIVE_PATH = Path(
+    ".github/workflows/f02-fundeb-monthly-policy-finalization-evidence.yml"
+)
 EVIDENCE_RELATIVE_PATH = Path(
     "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json"
 )
@@ -99,6 +106,126 @@ def _validate_remote_closed_manual_policy_gate(policy_gate: dict[str, Any]) -> N
             _stop("REMOTE_EFFECT_ENABLED", key)
 
 
+def _workflow_paths(text: str) -> list[str]:
+    active = False
+    result: list[str] = []
+    for line in text.splitlines():
+        if line.strip() == "paths:":
+            active = True
+            continue
+        if not active:
+            continue
+        stripped = line.strip()
+        if stripped.startswith('- "') and stripped.endswith('"'):
+            result.append(stripped[3:-1])
+            continue
+        if stripped and not stripped.startswith("#"):
+            break
+    return result
+
+
+def validate_ci_gate_install(policy: dict[str, Any], *, repo_root: str | Path) -> dict[str, Any]:
+    root = Path(repo_root)
+    gates = policy.get("gates")
+    if not isinstance(gates, list):
+        _stop("POLICY_GATES")
+    matches = [row for row in gates if isinstance(row, dict) and row.get("id") == CI_GATE_ID]
+    if len(matches) != 1:
+        _stop("CI_GATE_CARDINALITY", str(len(matches)))
+    gate = matches[0]
+    if gate.get("tier") != "T0_OFFLINE":
+        _stop("CI_GATE_TIER")
+    if gate.get("auto_allowed") is not True:
+        _stop("CI_GATE_AUTO_DISABLED")
+    if gate.get("credential_capability") != "NONE":
+        _stop("CI_GATE_CREDENTIAL_CAPABILITY")
+    if gate.get("effects") != {
+        "source_network": False,
+        "drive_reads": False,
+        "drive_writes": False,
+        "publication": False,
+    }:
+        _stop("CI_GATE_EFFECTS")
+    if gate.get("current_triggers") != [
+        "pull_request:main:path-filtered",
+        "workflow_dispatch",
+    ]:
+        _stop("CI_GATE_TRIGGERS")
+    if gate.get("permissions") != {"contents": "read"}:
+        _stop("CI_GATE_PERMISSIONS")
+    if gate.get("persist_credentials") is not False:
+        _stop("CI_GATE_PERSIST_CREDENTIALS")
+    if gate.get("secrets") != []:
+        _stop("CI_GATE_SECRETS")
+    if gate.get("repository_checkout_read_only") is not True:
+        _stop("CI_GATE_REPOSITORY_READ_BOUNDARY")
+    if gate.get("owner_authorization_evidence") != str(CI_OWNER_AUTH_RELATIVE_PATH):
+        _stop("CI_GATE_AUTH_EVIDENCE_PATH")
+    if gate.get("owner_authorization_comment_id") != 5534958543:
+        _stop("CI_GATE_AUTH_COMMENT")
+
+    auth = load_json(root / CI_OWNER_AUTH_RELATIVE_PATH)
+    if auth.get("schema") != "F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_CI_OWNER_AUTHORIZATION_V1":
+        _stop("CI_AUTH_SCHEMA")
+    if auth.get("status") != "AUTHORIZED_T0_READONLY_CI_GATE" or auth.get("authorized") is not True:
+        _stop("CI_AUTH_STATUS")
+    if auth.get("gate_id") != CI_GATE_ID:
+        _stop("CI_AUTH_GATE_ID")
+    record = auth.get("independent_github_owner_record")
+    if not isinstance(record, dict):
+        _stop("CI_AUTH_GITHUB_RECORD")
+    if record.get("pr_number") != 380 or record.get("comment_id") != 5534958543:
+        _stop("CI_AUTH_GITHUB_RECORD_PIN")
+    if record.get("author_login") != "ferinbon-cpu":
+        _stop("CI_AUTH_OWNER_LOGIN")
+    boundary = auth.get("authorization_boundary")
+    if not isinstance(boundary, dict) or any(value is not False for value in boundary.values()):
+        _stop("CI_AUTH_BOUNDARY")
+
+    workflow_path = root / CI_WORKFLOW_RELATIVE_PATH
+    try:
+        workflow_text = workflow_path.read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError) as exc:
+        raise F02FundebMonthlyPolicyFinalizationStop(
+            "STOP_F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_CI_WORKFLOW_READ"
+        ) from exc
+    expected_paths = gate.get("path_filter")
+    if not isinstance(expected_paths, list) or _workflow_paths(workflow_text) != expected_paths:
+        _stop("CI_WORKFLOW_PATH_FILTER_DRIFT")
+    required_fragments = (
+        "permissions:\n  contents: read",
+        "persist-credentials: false",
+        "fetch-depth: 0",
+        "python tests/test_f02_fundeb_monthly_cash_policy_finalization.py",
+        "python scripts/validate_f02_fundeb_monthly_policy_finalization.py",
+    )
+    for fragment in required_fragments:
+        if fragment not in workflow_text:
+            _stop("CI_WORKFLOW_REQUIRED_FRAGMENT", fragment)
+    for forbidden in (
+        "contents: write",
+        "pull-requests: write",
+        "secrets:",
+        "pull_request_target",
+        "repository_dispatch",
+        "workflow_run",
+        "schedule:",
+        "git push",
+        "gh pr",
+    ):
+        if forbidden in workflow_text:
+            _stop("CI_WORKFLOW_FORBIDDEN_FRAGMENT", forbidden)
+
+    return {
+        "status": "PASS_F02_FUNDEB_MONTHLY_FINALIZATION_CI_GATE_INSTALL",
+        "gate_id": CI_GATE_ID,
+        "owner_authorization_comment_id": 5534958543,
+        "workflow_paths_exact": True,
+        "repository_read_only": True,
+        "remote_effects": 0,
+    }
+
+
 def validate_prefinalization_install(
     policy: dict[str, Any], gate_contract: dict[str, Any]
 ) -> dict[str, Any]:
@@ -110,6 +237,11 @@ def validate_prefinalization_install(
         _stop("GATE_SCHEMA")
     if gate_contract.get("status") != PREFINALIZATION_STATUS:
         _stop("PREFINALIZATION_GATE_STATUS")
+    policy_blockers = list(policy_gate.get("blockers") or [])
+    contract_blockers = list(gate_contract.get("blockers") or [])
+    if policy_blockers != contract_blockers:
+        _stop("PREFINALIZATION_BLOCKER_PARITY")
+
     for label, row in (("policy", policy_gate), ("contract", gate_contract)):
         if row.get("implementation_pr_required") != EXPECTED_IMPLEMENTATION_PR:
             _stop("IMPLEMENTATION_PR_PIN_DRIFT", label)
@@ -181,7 +313,11 @@ def validate_finalization(
         if row.get("implementation_merge_required_before_manual_execution") != False:
             _stop("IMPLEMENTATION_BLOCKER_NOT_FINALIZED", label)
 
-    blockers = set(policy_gate.get("blockers") or [])
+    policy_blockers = list(policy_gate.get("blockers") or [])
+    contract_blockers = list(gate_contract.get("blockers") or [])
+    if policy_blockers != contract_blockers:
+        _stop("FINALIZATION_BLOCKER_PARITY")
+    blockers = set(policy_blockers)
     if IMPLEMENTATION_BLOCKER in blockers:
         _stop("SATISFIED_BLOCKER_STILL_PRESENT")
     for required in (
@@ -219,10 +355,15 @@ def validate_repository_state(repo_root: str | Path) -> dict[str, Any]:
     root = Path(repo_root)
     policy = load_json(root / "config/automation_policy.v1.json")
     gate = load_json(root / "config/f02_fundeb_monthly_cash_gate.v1.json")
+    ci_gate = validate_ci_gate_install(policy, repo_root=root)
     evidence_path = root / EVIDENCE_RELATIVE_PATH
 
     if not evidence_path.exists():
-        return validate_prefinalization_install(policy, gate)
+        result = validate_prefinalization_install(policy, gate)
+        result["ci_gate"] = ci_gate
+        return result
 
     evidence = load_json(evidence_path)
-    return validate_finalization(evidence, policy, gate, repo_root=root)
+    result = validate_finalization(evidence, policy, gate, repo_root=root)
+    result["ci_gate"] = ci_gate
+    return result
