@@ -29,5 +29,10 @@ jobs:
           python-version: '3.12'
           check-latest: false
 
+      - name: Fail closed if validator or evidence is missing
+        run: |
+          test -f scripts/validate_f02_fundeb_monthly_policy_finalization.py
+          test -f docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json
+
       - name: Validate pinned implementation merge and remote-closed policy state
         run: python scripts/validate_f02_fundeb_monthly_policy_finalization.py
