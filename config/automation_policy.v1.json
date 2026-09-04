@@ -324,6 +324,42 @@
       "no_workflow_trigger": true,
       "manual_execution_required": true,
       "owner_authorization_required": true
+    },
+    {
+      "id": "F02_FUNDEB_MONTHLY_CASH_OFFLINE",
+      "script": "scripts/process_f02_fundeb_monthly_cash.py",
+      "contract": "config/f02_fundeb_monthly_cash_gate.v1.json",
+      "tier": "T0_OFFLINE",
+      "auto_allowed": false,
+      "credential_capability": "NONE",
+      "effects": {
+        "source_network": false,
+        "drive_reads": false,
+        "drive_writes": false,
+        "publication": false
+      },
+      "current_triggers": [],
+      "local_snapshot_read_only": true,
+      "remote_materialization_authorized": false,
+      "bronze_write_authorized": false,
+      "silver_write_authorized": false,
+      "gold_write_authorized": false,
+      "serving_authorized": false,
+      "schedule": false,
+      "recurrence": false,
+      "invocation_surface": "DIRECT_CLI_OR_CI_TEST_ONLY",
+      "no_workflow_trigger": true,
+      "manual_execution_required": true,
+      "owner_authorization_required": true,
+      "implementation_pr_required": 376,
+      "implementation_merge_required_before_manual_execution": true,
+      "policy_change_authorization_evidence": "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_OWNER_AUTHORIZATION_0.8.0.json",
+      "blockers": [
+        "IMPLEMENTATION_PR_376_MUST_BE_MERGED_BEFORE_MANUAL_EXECUTION",
+        "EXPLICIT_OWNER_RUNTIME_AUTHORIZATION_REQUIRED",
+        "LOCAL_SNAPSHOT_MATERIALIZATION_MUST_BE_BOUNDED",
+        "SILVER_PERSISTENCE_REQUIRES_SEPARATE_CREATE_ONLY_EXECUTION"
+      ]
     }
   ],
   "agentic_work": {
