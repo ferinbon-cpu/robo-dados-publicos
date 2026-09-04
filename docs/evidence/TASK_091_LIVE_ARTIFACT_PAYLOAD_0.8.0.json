@@ -6,7 +6,7 @@
     "single_use": true
   },
   "ephemeral_cleanup_verified": true,
-  "evidence_payload_sha256_without_self_hash": "7cd575881c2e3ae25b5afff287004738ee85681faf26c35d3a272fb6ba867c90",
+  "evidence_payload_sha256_without_self_hash": "1d6adfd5b698c6d217352675050c3dcaf5427d8ecd25984a26b933c3d9737d0e",
   "persistent_effects": {
     "bronze_writes": 0,
     "delete": 0,
@@ -46,9 +46,10 @@
     "id": "33873064071"
   },
   "source": {
-    "drive_file_id": "1JTpCPj4_rL08RubO5wOVvBHjuwqKWfQ8",
     "expected_bytes": 17615179,
-    "expected_sha256": "44d92a6ac948bbf43dcb3302733faac1a4ed5e592702f66c07f0c6ede4ecb73c"
+    "expected_sha256": "44d92a6ac948bbf43dcb3302733faac1a4ed5e592702f66c07f0c6ede4ecb73c",
+    "remote_id_redacted": true,
+    "remote_id_sha256": "c4ddf384c210c0189c8c6da932de27cdaa70f810d026060736f10c76ed99dfc5"
   },
   "status": "STOP_TASK091_LIVE_DRIVE_TO_EPHEMERAL_DIGEST",
   "task": "TASK_091_LIVE_EPHEMERAL_DRIVE_DIGEST"
