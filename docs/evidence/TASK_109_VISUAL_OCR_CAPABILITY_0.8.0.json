@@ -32,18 +32,19 @@
       "pdf2image": false
     }
   },
-  "decision": "PENDING_CHROME_IMAGE_ONLY_SYNTHETIC_PROOF",
+  "decision": "STOP_NO_LOCAL_OCR_CHAIN_CHROME_IMAGE_ONLY_NEGATIVE",
   "decision_reason": [
-    "NO_OCR_ENGINE_OBSERVED",
-    "NO_NATIVE_PDF_TO_IMAGE_RENDERER_OBSERVED",
-    "CHROME_AND_PIL_ALONE_DO_NOT_PROVE_IMAGE_ONLY_PDF_OCR_CAPABILITY",
-    "SYNTHETIC_IMAGE_ONLY_PDF_PROOF_NOT_RUN_BECAUSE_PLAUSIBLE_OCR_CHAIN_WAS_NOT_OBSERVED"
+    "NO_TESSERACT_OR_OTHER_OCR_ENGINE_OBSERVED",
+    "NO_POPPLER_GHOSTSCRIPT_OR_PYMUPDF_RENDER_CHAIN_OBSERVED",
+    "SYNTHETIC_IMAGE_ONLY_PDF_CONFIRMED_TEXT_EMPTY_BY_PYPDF",
+    "CHROME_ACCESSIBILITY_TREE_RETURNED_ZERO_STRINGS_FOR_IMAGE_ONLY_PDF",
+    "MARKER_NOT_RECOVERED_IN_AX_SOURCE_OR_BODY_INNER_TEXT"
   ],
   "real_source_read_authorized": false,
   "real_source_ocr_authorized": false,
-  "package_install_authorized": "PYPDF_6_10_0_PINNED_PROJECT_DEPENDENCY_ONLY_FOR_SYNTHETIC_PROOF",
-  "synthetic_image_only_pdf_ocr_proof_run": false,
-  "next_boundary": "RUN_ONE_OFFLINE_CHROME_IMAGE_ONLY_SYNTHETIC_PROOF_THEN_ADJUDICATE",
+  "package_install_authorized": "CONSUMED_PYPDF_6_10_0_SYNTHETIC_PROOF_ONLY_NO_OCR_STACK",
+  "synthetic_image_only_pdf_ocr_proof_run": true,
+  "next_boundary": "TASK_110_T0_OCR_DEPENDENCY_ROUTE_DESIGN_SEPARATE_REVIEW",
   "remote_effects": {
     "network": false,
     "source_read": false,
@@ -76,5 +77,28 @@
       "pdf2image"
     ],
     "purpose": "VERIFY_IMAGE_ONLY_PDF_HAS_NO_TEXT_LAYER_AND_TEST_CHROME_ACCESSIBILITY_ONLY"
+  },
+  "synthetic_chrome_proof": {
+    "run_id": 33917837446,
+    "job_id": 101169024384,
+    "execution_head_sha": "5d886bc0d2b528a53d21a67020bd3dbeffe072b4",
+    "conclusion": "success",
+    "dependency_install": [
+      "pypdf==6.10.0"
+    ],
+    "schema": "TASK109_CHROME_IMAGE_ONLY_PDF_PROBE_V1",
+    "status": "PROBED",
+    "marker": "TASK109_IMAGE_ONLY_PDF_MARKER_48317",
+    "synthetic_png_bytes": 18356,
+    "synthetic_pdf_bytes": 18287,
+    "pdf_page_count": 1,
+    "pdf_text_empty": true,
+    "ax_string_count": 0,
+    "marker_in_ax": false,
+    "marker_in_source": false,
+    "marker_in_body_inner_text": false,
+    "source_network_requests": 0,
+    "source_reads": 0,
+    "real_source_ocr": false
   }
 }
