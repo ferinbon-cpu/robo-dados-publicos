@@ -12,6 +12,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from robo_dados_publicos.manual_ingest.f02_fundeb_monthly_cash import (  # noqa: E402
+    load_and_validate_global_policy,
     load_manifest,
     load_pinned_authorization,
     run_monthly_series,
@@ -28,6 +29,7 @@ def main() -> int:
     parser.add_argument("--authorization-sha256", required=True)
     args = parser.parse_args()
 
+    load_and_validate_global_policy(root=ROOT)
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
     manifest = load_manifest(root=ROOT, relative_path=args.manifest)
     authorization = load_pinned_authorization(
