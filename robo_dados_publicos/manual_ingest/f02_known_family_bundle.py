@@ -63,6 +63,63 @@ def load_json(path: str | Path) -> dict[str, Any]:
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
+def _safe_repo_file(root: Path, value: object, *, code: str) -> Path:
+    text = str(value or "").strip()
+    if not text:
+        _stop(code + "_MISSING")
+    relative = Path(text)
+    if relative.is_absolute() or ".." in relative.parts:
+        _stop(code + "_UNSAFE", text)
+
+    try:
+        root_resolved = root.resolve(strict=True)
+    except OSError as exc:
+        raise F02KnownFamilyBundleStop(
+            f"STOP_F02_KNOWN_BUNDLE_{code}_ROOT_UNREADABLE: {root}"
+        ) from exc
+
+    cursor = root_resolved
+    for part in relative.parts:
+        cursor = cursor / part
+        if cursor.is_symlink():
+            _stop(code + "_SYMLINK", text)
+
+    candidate = root_resolved / relative
+    try:
+        resolved = candidate.resolve(strict=True)
+    except OSError as exc:
+        raise F02KnownFamilyBundleStop(
+            f"STOP_F02_KNOWN_BUNDLE_{code}_UNREADABLE: {text}"
+        ) from exc
+
+    if resolved != root_resolved and root_resolved not in resolved.parents:
+        _stop(code + "_ESCAPES_ROOT", text)
+    if not resolved.is_file():
+        _stop(code + "_NOT_FILE", text)
+    return resolved
+
+
+def validate_gate_contract(raw: dict[str, Any]) -> dict[str, Any]:
+    if raw.get("schema") != "F02_KNOWN_FAMILY_BUNDLE_GATE_V1":
+        _stop("GATE_SCHEMA")
+    if raw.get("mode") != "T0_OFFLINE_KNOWN_FAMILY_BUNDLE":
+        _stop("GATE_MODE")
+    if raw.get("tier") != "T0":
+        _stop("GATE_TIER")
+    if raw.get("local_snapshot_read_authorized") is not True:
+        _stop("GATE_LOCAL_SNAPSHOT_READ")
+    blocked = raw.get("blocked_remote_effects")
+    if not isinstance(blocked, dict) or set(blocked) != REQUIRED_REMOTE_FALSE:
+        _stop("GATE_BLOCKED_EFFECT_SET")
+    if any(blocked[key] is not True for key in REQUIRED_REMOTE_FALSE):
+        _stop("GATE_REMOTE_EFFECT_OPEN")
+    if raw.get("remote_drive_read_authorized") is not False:
+        _stop("GATE_REMOTE_DRIVE_READ")
+    if raw.get("new_family_or_schema_auto_authorized") is not False:
+        _stop("GATE_NEW_SCHEMA_AUTO_AUTH")
+    return raw
+
+
 def validate_adapter_contract(raw: dict[str, Any]) -> dict[str, Any]:
     if raw.get("schema") != "F02_KNOWN_FAMILY_BUNDLE_ADAPTER_V1":
         _stop("ADAPTER_SCHEMA")
@@ -97,6 +154,8 @@ def validate_adapter_contract(raw: dict[str, Any]) -> dict[str, Any]:
         _stop("BUNDLE_MATURITY")
     if not alignment.get("controller_contract_path") or not alignment.get("maturity_registry_path"):
         _stop("ALIGNMENT_PATHS")
+    if not raw.get("gate_contract_path"):
+        _stop("GATE_PATH")
 
     effects = raw.get("automatic_effects")
     if not isinstance(effects, dict) or set(effects) != REQUIRED_REMOTE_FALSE:
@@ -126,8 +185,16 @@ def validate_controller_alignment(
 ) -> dict[str, Any]:
     root = Path(root)
     alignment = adapter["controller_alignment"]
-    controller = load_controller_contract(root / alignment["controller_contract_path"])
-    maturity = load_maturity_registry(root / alignment["maturity_registry_path"])
+    controller_path = _safe_repo_file(
+        root, alignment["controller_contract_path"], code="CONTROLLER_PATH"
+    )
+    maturity_path = _safe_repo_file(
+        root, alignment["maturity_registry_path"], code="MATURITY_PATH"
+    )
+    gate_path = _safe_repo_file(root, adapter["gate_contract_path"], code="GATE_PATH")
+    validate_gate_contract(load_json(gate_path))
+    controller = load_controller_contract(controller_path)
+    maturity = load_maturity_registry(maturity_path)
 
     defaults = controller.get("family_default_routes", {})
     for source_family, controller_family in EXPECTED_CONTROLLER_MAP.items():
@@ -199,7 +266,10 @@ def validate_batch_manifest(
     for item in sources:
         if not isinstance(item, dict):
             _stop("SOURCE_RECORD")
-        contract = F02SourceContract.from_mapping(item)
+        try:
+            contract = F02SourceContract.from_mapping(item)
+        except F02IngestStop as exc:
+            raise F02KnownFamilyBundleStop(str(exc)) from exc
         if contract.source_id in paths:
             _stop("DUPLICATE_SOURCE_ID", contract.source_id)
         paths[contract.source_id] = _safe_relative_path(item.get("snapshot_path"))
@@ -229,13 +299,31 @@ def validate_batch_manifest(
 
 
 def _read_snapshot(root: Path, relative: Path) -> bytes:
-    path = root / relative
+    path = _safe_repo_file(root, relative, code="SNAPSHOT_PATH")
     try:
         return path.read_bytes()
     except OSError as exc:
         raise F02KnownFamilyBundleStop(
             f"STOP_F02_KNOWN_BUNDLE_SNAPSHOT_UNREADABLE: {relative}"
         ) from exc
+
+
+def _validate_normalized_record(
+    record: object,
+    *,
+    expected_family: str,
+) -> dict[str, Any]:
+    if not isinstance(record, dict):
+        _stop("NORMALIZED_SCHEMA", expected_family)
+    if record.get("family") != expected_family:
+        _stop("NORMALIZED_FAMILY_DRIFT", expected_family)
+    for key in ("authority", "period_start", "period_end"):
+        if not isinstance(record.get(key), str) or not record.get(key):
+            _stop("NORMALIZED_SCHEMA", f"{expected_family}:{key}")
+    metrics = record.get("metrics")
+    if not isinstance(metrics, dict) or not metrics:
+        _stop("NORMALIZED_SCHEMA", f"{expected_family}:metrics")
+    return record
 
 
 def run_known_family_bundle(
@@ -260,6 +348,7 @@ def run_known_family_bundle(
                 record = normalize_f02_local_monitoring_document(contract, text)
             else:
                 record = normalize_f02_document(contract, text)
+            record = _validate_normalized_record(record, expected_family=contract.family)
             normalized.append(record)
             source_evidence.append({
                 "source_id": contract.source_id,
