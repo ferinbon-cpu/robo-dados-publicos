@@ -51,7 +51,18 @@
     "POLICY_ATTRIBUTION_IS_EXTERNAL_TO_BUDGET_IDENTITY",
     "TEXT_SIMILARITY_OR_AMOUNT_EQUALITY_ALONE_NEVER_PROVES_POLICY_LINK",
     "MONEY_IS_NORMALIZED_AS_DECIMAL_STRING",
-    "SNAPSHOT_CAN_BE_RECONSTRUCTED_AT_AN_EFFECTIVE_DATE"
+    "SNAPSHOT_CAN_BE_RECONSTRUCTED_AT_AN_EFFECTIVE_DATE",
+    "CANDIDATE_UNKNOWN_CONFLICTED_REFUTED_EVENTS_DO_NOT_AFFECT_CANONICAL_SNAPSHOT_BY_DEFAULT"
+  ],
+  "money": {
+    "currency": "BRL",
+    "max_decimal_places": 2,
+    "negative_amounts_forbidden": true,
+    "cancellations_use_explicit_event_types": true
+  },
+  "default_canonical_statuses": [
+    "PROVEN",
+    "CORROBORATED"
   ],
   "remote_effects": {
     "network": false,
