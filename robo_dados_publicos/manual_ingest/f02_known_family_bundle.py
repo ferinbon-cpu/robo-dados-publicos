@@ -130,6 +130,8 @@ def _read_regular_file_beneath_root(
         info = os.fstat(file_fd)
         if not stat.S_ISREG(info.st_mode):
             _stop(code + "_NOT_REGULAR", str(relative))
+        if info.st_nlink != 1:
+            _stop(code + "_HARDLINK", str(relative))
 
         with os.fdopen(file_fd, "rb", closefd=True) as handle:
             file_fd = None
@@ -170,6 +172,57 @@ def validate_gate_contract(raw: dict[str, Any]) -> dict[str, Any]:
     if raw.get("new_family_or_schema_auto_authorized") is not False:
         _stop("GATE_NEW_SCHEMA_AUTO_AUTH")
     return raw
+
+
+def validate_runtime_authorization(
+    raw: object,
+    *,
+    batch_id: str,
+) -> dict[str, Any]:
+    if not isinstance(raw, dict):
+        _stop("AUTHORIZATION_REQUIRED")
+    if raw.get("schema") != "F02_KNOWN_FAMILY_BUNDLE_RUNTIME_AUTHORIZATION_V1":
+        _stop("AUTHORIZATION_SCHEMA")
+    if raw.get("scope") != "F02_KNOWN_FAMILY_BUNDLE_LOCAL_SNAPSHOT_READ":
+        _stop("AUTHORIZATION_SCOPE")
+    if raw.get("authorized") is not True:
+        _stop("AUTHORIZATION_NOT_GRANTED")
+    if raw.get("batch_id") != batch_id:
+        _stop("AUTHORIZATION_BATCH_MISMATCH")
+    if not str(raw.get("authorization_id") or "").strip():
+        _stop("AUTHORIZATION_ID")
+    if not str(raw.get("owner_instruction_verbatim") or "").strip():
+        _stop("AUTHORIZATION_OWNER_INSTRUCTION")
+
+    effects = raw.get("remote_effects_authorized")
+    if not isinstance(effects, dict) or set(effects) != REQUIRED_REMOTE_FALSE:
+        _stop("AUTHORIZATION_EFFECT_SET")
+    if any(effects[key] is not False for key in REQUIRED_REMOTE_FALSE):
+        _stop("AUTHORIZATION_REMOTE_EFFECT")
+    return raw
+
+
+def load_pinned_runtime_authorization(
+    *,
+    root: str | Path,
+    relative_path: str | Path,
+    expected_sha256: str,
+) -> dict[str, Any]:
+    digest = str(expected_sha256 or "").lower().strip()
+    if not re.fullmatch(r"[0-9a-f]{64}", digest):
+        _stop("AUTHORIZATION_SHA256_FORMAT")
+    payload = _read_regular_file_beneath_root(
+        Path(root),
+        Path(relative_path),
+        code="AUTHORIZATION_PATH",
+    )
+    observed = hashlib.sha256(payload).hexdigest()
+    if observed != digest:
+        _stop(
+            "AUTHORIZATION_SHA256_DRIFT",
+            f"expected={digest};observed={observed}",
+        )
+    return _decode_json_bytes(payload, code="AUTHORIZATION_PATH")
 
 
 def validate_adapter_contract(raw: dict[str, Any]) -> dict[str, Any]:
@@ -412,11 +465,13 @@ def run_known_family_bundle(
     manifest: dict[str, Any],
     *,
     root: str | Path,
+    authorization: dict[str, Any] | None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     adapter = validate_adapter_contract(adapter)
     root = Path(root)
-    controller_alignment = validate_controller_alignment(adapter, root=root)
     plan = validate_batch_manifest(manifest, adapter)
+    validate_runtime_authorization(authorization, batch_id=plan["batch_id"])
+    controller_alignment = validate_controller_alignment(adapter, root=root)
 
     normalized: list[dict[str, Any]] = []
     source_evidence: list[dict[str, Any]] = []
