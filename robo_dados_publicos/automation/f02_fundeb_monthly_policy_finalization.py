@@ -196,7 +196,7 @@ def validate_ci_gate_install(policy: dict[str, Any], *, repo_root: str | Path) -
         "permissions:\n  contents: read",
         "persist-credentials: false",
         "fetch-depth: 0",
-        "python tests/test_f02_fundeb_monthly_cash_policy_finalization.py",
+        "python -m unittest discover -s tests -p 'test_f02_fundeb_monthly_cash_policy_finalization.py' -v",
         "python scripts/validate_f02_fundeb_monthly_policy_finalization.py",
     )
     for fragment in required_fragments:
