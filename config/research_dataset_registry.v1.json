@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "schema": "RESEARCH_DATASET_REGISTRY_V1",
+  "mode": "T0_OFFLINE_VERSIONED_REPOSITORY_DATASETS_ONLY",
+  "query_spec_directory": "config/research_queries",
+  "datasets": [
+    {
+      "dataset_id": "DATASET:EITI_LIMEIRA_V1",
+      "subject_id": "POLICY:EITI_LIMEIRA",
+      "research_source": {
+        "path": "config/eiti_limeira_research_crosswalk.v1.json",
+        "sha256": "34bed580acb84abfe3e8894ed620c87b9918ef52c187716d5d02fa330db26953",
+        "research_bundle_key": "research_bundle",
+        "institutionalization_matrix_key": "institutionalization_matrix"
+      },
+      "historical_source": {
+        "path": "config/eiti_historical_planning_crosswalk.v1.json",
+        "sha256": "f288a573e2d0dff801ac09028f62ee9a66c4617ece6bf489c61c436854318ac9"
+      },
+      "allowed_query_types": [
+        "CLAIM_AUDIT",
+        "INSTITUTIONALIZATION_MATRIX",
+        "EVIDENCE_GAPS",
+        "POLICY_STATUS_PACKET"
+      ]
+    }
+  ],
+  "invariants": [
+    "DATASET_INPUT_PATHS_ARE_VERSIONED_REPOSITORY_RELATIVE_PATHS",
+    "REGISTERED_INPUT_BYTES_MUST_MATCH_PINNED_SHA256",
+    "QUERY_SPEC_CANNOT_SUPPLY_SOURCE_PATHS_OR_URLS",
+    "SUBJECT_ID_MUST_MATCH_REGISTERED_DATASET_SUBJECT",
+    "ADDING_A_NEW_RESEARCH_OBJECT_REQUIRES_REVIEWED_REGISTRY_AND_SPEC_DATA",
+    "GENERIC_CLI_DOES_NOT_PROMOTE_STATUS_OR_CREATE_FINANCIAL_IDENTITY_OR_CAUSAL_EFFECT"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
