@@ -97,6 +97,11 @@ TOTAL 207.244.381,02 35,32 138.245.131,44 23,56 121.603.816,07 20,73
 """
 
 
+def git_blob_sha(payload: bytes) -> str:
+    header = f"blob {len(payload)}\0".encode("ascii")
+    return hashlib.sha1(header + payload).hexdigest()
+
+
 def effects_false():
     return {key: False for key in (
         "bronze_write", "silver_write", "gold_write", "serving", "publication",
@@ -328,6 +333,11 @@ class F02KnownFamilyBundleTests(unittest.TestCase):
             controller_path.write_text(json.dumps(controller), encoding="utf-8")
             adapter = copy.deepcopy(self.adapter)
             adapter["controller_alignment"]["controller_contract_path"] = str(rel / "controller.json")
+            with self.assertRaisesRegex(F02KnownFamilyBundleStop, "CONTROLLER_BLOB_DRIFT"):
+                validate_controller_alignment(adapter, root=ROOT)
+            adapter["controller_alignment"]["controller_expected_git_blob_sha"] = git_blob_sha(
+                controller_path.read_bytes()
+            )
             with self.assertRaisesRegex(F02KnownFamilyBundleStop, "CONTROLLER_ROUTE_DRIFT"):
                 validate_controller_alignment(adapter, root=ROOT)
 
@@ -339,6 +349,11 @@ class F02KnownFamilyBundleTests(unittest.TestCase):
             maturity_path.write_text(json.dumps(maturity), encoding="utf-8")
             adapter = copy.deepcopy(self.adapter)
             adapter["controller_alignment"]["maturity_registry_path"] = str(rel / "maturity.json")
+            with self.assertRaisesRegex(F02KnownFamilyBundleStop, "MATURITY_BLOB_DRIFT"):
+                validate_controller_alignment(adapter, root=ROOT)
+            adapter["controller_alignment"]["maturity_expected_git_blob_sha"] = git_blob_sha(
+                maturity_path.read_bytes()
+            )
             with self.assertRaisesRegex(F02KnownFamilyBundleStop, "INDIVIDUAL_MATURITY_DRIFT"):
                 validate_controller_alignment(adapter, root=ROOT)
 
