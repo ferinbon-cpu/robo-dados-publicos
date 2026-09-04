@@ -51,9 +51,10 @@ class TestTask116ResearchEphemeralDigest(unittest.TestCase):
     def setUpClass(cls):
         cls.contract = load_contract(CONTRACT_PATH, root=ROOT)
 
-    def test_contract_pins_full_63_term_ontology(self):
+    def test_contract_preserves_base_63_and_activates_64_terms(self):
         profile = self.contract["policy_profiles"]["EITI_LIMEIRA"]
-        self.assertEqual(63, profile["expected_total_terms"])
+        self.assertEqual(63, profile["expected_base_total_terms"])
+        self.assertEqual(64, profile["expected_active_total_terms"])
         self.assertEqual(
             {
                 "A_CANONICAL_POLICY_IDENTIFIERS": 8,
@@ -86,7 +87,9 @@ class TestTask116ResearchEphemeralDigest(unittest.TestCase):
         )
         result = digest_research_segments(p, deepcopy(self.contract), root=ROOT)
         self.assertEqual("PASS_RESEARCH_EPHEMERAL_DIGEST_CANDIDATES_ONLY", result["status"])
-        self.assertEqual(63, result["ontology_term_count"])
+        self.assertEqual(63, result["base_ontology_term_count"])
+        self.assertEqual(1, result["discovered_alias_term_count"])
+        self.assertEqual(64, result["ontology_term_count"])
         self.assertEqual(1, len(result["financial_identity_candidates"]))
         bridge = result["financial_identity_candidates"][0]
         self.assertEqual("CANDIDATE", bridge["status"])
@@ -158,6 +161,40 @@ class TestTask116ResearchEphemeralDigest(unittest.TestCase):
         self.assertEqual("CORROBORATED", result["source_role_boundary"]["policy_linkage_max_status"])
         self.assertEqual("CANDIDATE", result["source_role_boundary"]["digest_output_status_cap"])
         self.assertEqual("CANDIDATE", result["financial_identity_candidates"][0]["status"])
+
+
+    def test_fomento_eti_is_scoped_composite_policy_finance_signal_but_not_transaction_identity(self):
+        p = packet(
+            self.contract,
+            "TOTAL DAS DESPESAS APLICADAS EM FOMENTO ETI (4%) FUNDEB PAGAMENTOS EFETUADOS",
+            amounts=[{"amount_brl": "0.00", "execution_stage": "REPORTING_BUCKET"}],
+            role="ACCOUNTING_EXECUTION_PRIMARY",
+            family="SIOPE",
+        )
+        result = digest_research_segments(p, deepcopy(self.contract), root=ROOT)
+        hits = [h for h in result["ontology_hits"] if h["term"] == "FOMENTO ETI"]
+        self.assertEqual(1, len(hits))
+        self.assertEqual("X_DISCOVERED_COMPOSITE_ALIASES", hits[0]["family"])
+        self.assertTrue(hits[0]["qualified"])
+        self.assertIn("POLICY_SIGNAL", hits[0]["semantic_roles"])
+        self.assertIn("FINANCING_SIGNAL", hits[0]["semantic_roles"])
+        self.assertEqual("FINANCIAL_REPORTING_ONLY", hits[0]["policy_signal_scope"])
+        self.assertEqual([], result["financial_identity_candidates"])
+        self.assertIn("STABLE_ACCOUNTING_LINKAGE_KEY_NOT_OBSERVED", result["evidence_gaps"])
+        self.assertIn("FOMENTO ETI", result["context_groups"][0]["financing_signal_terms"])
+
+    def test_fomento_eti_alias_requires_accounting_execution_source_role(self):
+        p = packet(
+            self.contract,
+            "FOMENTO ETI",
+            role="PLANNING_PRIMARY",
+            family="PPA",
+        )
+        result = digest_research_segments(p, deepcopy(self.contract), root=ROOT)
+        hit = [h for h in result["ontology_hits"] if h["term"] == "FOMENTO ETI"][0]
+        self.assertFalse(hit["qualified"])
+        self.assertFalse(hit["source_role_qualified"])
+        self.assertIn("QUALIFIED_POLICY_SIGNAL_NOT_OBSERVED", result["evidence_gaps"])
 
     def test_malformed_locator_fails_closed(self):
         p = packet(self.contract, "Educação em Tempo Integral")
