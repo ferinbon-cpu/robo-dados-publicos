@@ -78,7 +78,7 @@ Cancellations are explicit event types; negative monetary events are forbidden.
 
 ## Temporal reconstruction
 
-`reconstruct_budget_snapshot(..., as_of=...)` can rebuild the state at a selected date and returns:
+`reconstruct_budget_snapshot(..., as_of=...)` can rebuild the state at a selected date. The cutoff is **inclusive**: events effective on the selected date are applied. It returns:
 
 - current authorization;
 - committed;
@@ -107,6 +107,10 @@ The ledger therefore becomes a financial/temporal layer beneath the generic rese
 ## Effects
 
 All remote-effect classes remain zero.
+
+The ledger is a local library exercised by the existing repository-wide `CI_OFFLINE` unit-test gate. It adds no workflow, trigger, credential, autonomous executor or remote persistence surface; therefore it does not create a new automation-policy execution gate.
+
+The TASK 094 design evidence intentionally does not claim or encode a live owner authorization because no operational authorization is required for this T0-only change.
 
 ## Next structural task
 
