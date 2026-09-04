@@ -11,16 +11,34 @@ from unittest.mock import patch
 from robo_dados_publicos.manual_ingest.f02_fundeb_monthly_cash import (
     F02FundebMonthlyCashStop,
     parse_monthly_text,
+    load_manifest,
+    load_pinned_authorization,
     reconcile_series,
     run_monthly_series,
     validate_contract,
     validate_manifest,
+    validate_offline_telemetry,
     validate_runtime_authorization,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "config/f02_fundeb_monthly_cash_series.v1.json"
-AUTH = ROOT / "docs/evidence/f02_fundeb_monthly_cash/F02_FUNDEB_MONTHLY_2026_JAN_MAR_RUNTIME_AUTHORIZATION.json"
+def synthetic_authorization():
+    return {
+        "schema":"F02_FUNDEB_MONTHLY_CASH_RUNTIME_AUTHORIZATION_V1",
+        "authorization_id":"TEST_AUTH",
+        "scope":"F02_FUNDEB_MONTHLY_CASH_LOCAL_SNAPSHOT_READ",
+        "batch_id":"F02_FUNDEB_MONTHLY_CASH_2026_JAN_MAR",
+        "authorized":True,
+        "owner_instruction_verbatim":"synthetic unit-test authorization",
+        "allowed_effects":["LOCAL_SNAPSHOT_READ","OFFLINE_PARSE","OFFLINE_RECONCILIATION"],
+        "forbidden_effects":[
+            "DELETE","OVERWRITE","SERVING","LOOKER","PUBLICATION","SITE",
+            "SCHEDULE","RECURRENCE","GOLD_PROMOTION",
+            "FINANCIAL_CLAIM_PROMOTION_WITHOUT_EVIDENCE",
+        ],
+        "status":"TEST_ONLY",
+    }
 
 
 def monthly_text(month_name, opening, transfer, auto_income, classic_income, fti, inflows, outflows, closing, opening_eti=None, closing_eti=()):
@@ -74,7 +92,7 @@ MAR = monthly_text(
 class F02FundebMonthlyCashTests(unittest.TestCase):
     def setUp(self):
         self.contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
-        self.authorization = json.loads(AUTH.read_text(encoding="utf-8"))
+        self.authorization = synthetic_authorization()
 
     def test_exact_monthly_values_and_semantic_boundary(self):
         jan = parse_monthly_text(JAN)
@@ -218,6 +236,49 @@ class F02FundebMonthlyCashTests(unittest.TestCase):
         self.assertEqual(telemetry["remote_effects"], 0)
         self.assertFalse(telemetry["silver_persisted"])
         self.assertFalse(telemetry["gold_authorized"])
+
+    def test_missing_document_marker_invalid_manifest_json_and_bad_auth_pin_stop(self):
+        with self.assertRaisesRegex(F02FundebMonthlyCashStop, "DOCUMENT_SIGNATURE"):
+            parse_monthly_text("Prefeitura Municipal de Limeira")
+
+        with tempfile.TemporaryDirectory(dir=ROOT) as td:
+            rel = Path(td).relative_to(ROOT)
+            bad_manifest = Path(td) / "bad.json"
+            bad_manifest.write_text("{not-json", encoding="utf-8")
+            with self.assertRaisesRegex(F02FundebMonthlyCashStop, "MANIFEST_INVALID_JSON"):
+                load_manifest(root=ROOT, relative_path=rel / "bad.json")
+
+            auth_path = Path(td) / "auth.json"
+            auth_path.write_text(json.dumps(self.authorization), encoding="utf-8")
+            with self.assertRaisesRegex(F02FundebMonthlyCashStop, "AUTHORIZATION_PIN"):
+                load_pinned_authorization(
+                    root=ROOT,
+                    relative_path=rel / "auth.json",
+                    expected_sha256="not-a-sha",
+                )
+            with self.assertRaisesRegex(F02FundebMonthlyCashStop, "AUTHORIZATION_SHA_DRIFT"):
+                load_pinned_authorization(
+                    root=ROOT,
+                    relative_path=rel / "auth.json",
+                    expected_sha256="0" * 64,
+                )
+
+    def test_unexpected_telemetry_fails_closed(self):
+        good = {
+            "remote_effects":0,
+            "silver_persisted":False,
+            "gold_authorized":False,
+        }
+        validate_offline_telemetry(good)
+        for key, value in (
+            ("remote_effects", 1),
+            ("silver_persisted", True),
+            ("gold_authorized", True),
+        ):
+            bad = dict(good)
+            bad[key] = value
+            with self.assertRaises(F02FundebMonthlyCashStop):
+                validate_offline_telemetry(bad)
 
     def test_source_hash_drift_fails_before_parse(self):
         payload = b"jan"
