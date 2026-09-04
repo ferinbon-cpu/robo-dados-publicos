@@ -1,0 +1,59 @@
+{
+  "schema": "F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_OWNER_AUTHORIZATION_V1",
+  "software_candidate": "0.8.0",
+  "status": "AUTHORIZED_POLICY_FINALIZATION_PREAUTHORIZATION",
+  "authorized": true,
+  "scope": "FINALIZE_F02_FUNDEB_MONTHLY_MANUAL_T0_AFTER_VERIFIED_IMPLEMENTATION_MERGE",
+  "owner_instruction_verbatim": "Autorizado executar autonomamente toda a próxima fase de maturação do robô, incluindo GitHub/Drive, PRs, CI, DeepSeek Pro, correções e merges necessários, até atingir um blocker material ou concluir a fase. Permanecem proibidos delete/overwrite, serving/Looker, publicação/site, schedule/recorrência e promoção financeira sem evidência.",
+  "prerequisites": {
+    "implementation_pr": 376,
+    "implementation_merge_sha": "48c2f7624dba3f46b61f09659f15d798b836c0ef",
+    "implementation_must_be_merged_before_finalization": true,
+    "prior_policy_pr": 378,
+    "ci_infrastructure_pr": 380
+  },
+  "independent_github_owner_records": [
+    {
+      "pr_number": 379,
+      "comment_id": 5534571726,
+      "author_login": "ferinbon-cpu",
+      "scope": "REMOVE_ONLY_SATISFIED_IMPLEMENTATION_MERGE_BLOCKER_AND_FINALIZE_MANUAL_T0_STATUS"
+    },
+    {
+      "pr_number": 381,
+      "comment_id": 5535072657,
+      "author_login": "ferinbon-cpu",
+      "scope": "SEPARATE_POLICY_ONLY_FINALIZATION_AFTER_376_378_380"
+    }
+  ],
+  "authorized_future_policy_transition": {
+    "remove_only_blocker": "IMPLEMENTATION_PR_376_MUST_BE_MERGED_BEFORE_MANUAL_EXECUTION",
+    "set_implementation_merge_required_before_manual_execution": false,
+    "set_status": "REGISTERED_MANUAL_T0_REMOTE_CLOSED",
+    "pin_implementation_pr_merged": 376,
+    "pin_implementation_merge_sha": "48c2f7624dba3f46b61f09659f15d798b836c0ef"
+  },
+  "explicitly_not_authorized": [
+    "MANUAL_EXECUTION_BY_THIS_PREAUTHORIZATION_PR",
+    "AUTO_EXECUTION",
+    "WORKFLOW_TRIGGER_FOR_MANUAL_GATE",
+    "SOURCE_NETWORK",
+    "REMOTE_DRIVE_READ",
+    "DRIVE_WRITE",
+    "SILVER_PERSISTENCE_BY_THIS_PREAUTHORIZATION_PR",
+    "GOLD_WRITE",
+    "SERVING",
+    "LOOKER",
+    "PUBLICATION",
+    "SITE",
+    "OVERWRITE",
+    "DELETE",
+    "MOVE",
+    "SCHEDULE",
+    "RECURRENCE",
+    "FINANCIAL_CLAIM_PROMOTION_WITHOUT_EVIDENCE"
+  ],
+  "runtime_authorization_is_separate": true,
+  "runtime_authorization_must_be_ephemeral_and_exact_sha_pinned": true,
+  "status_semantics": "TRUSTED_PREAUTHORIZATION_ONLY_NO_EXECUTION_EFFECT"
+}
