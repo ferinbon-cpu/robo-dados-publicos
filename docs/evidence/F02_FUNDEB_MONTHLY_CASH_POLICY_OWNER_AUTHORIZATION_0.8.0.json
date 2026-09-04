@@ -1,0 +1,45 @@
+{
+  "schema": "F02_FUNDEB_MONTHLY_CASH_POLICY_OWNER_AUTHORIZATION_V1",
+  "status": "AUTHORIZED_POLICY_CHANGE",
+  "authorized": true,
+  "software_candidate": "0.8.0",
+  "scope": "PRE_REGISTER_F02_FUNDEB_MONTHLY_CASH_OFFLINE_AS_MANUAL_T0_REMOTE_CLOSED",
+  "owner_instruction_verbatim": "Autorizado executar autonomamente toda a próxima fase de maturação do robô, incluindo GitHub/Drive, PRs, CI, DeepSeek Pro, correções e merges necessários, até atingir um blocker material ou concluir a fase. Permanecem proibidos delete/overwrite, serving/Looker, publicação/site, schedule/recorrência e promoção financeira sem evidência.",
+  "implementation_pr_required": 376,
+  "supplementary_github_owner_record": {
+    "pr_number": 376,
+    "comment_id": 5534258436,
+    "author_login": "ferinbon-cpu"
+  },
+  "authorized_policy_effects": [
+    "PRE_REGISTER_MANUAL_T0_GATE",
+    "AUTO_ALLOWED_FALSE",
+    "NO_WORKFLOW_TRIGGER",
+    "NO_REMOTE_SOURCE_NETWORK",
+    "NO_DRIVE_READ_BY_GATE",
+    "NO_DRIVE_WRITE",
+    "NO_PUBLICATION"
+  ],
+  "explicitly_not_authorized": [
+    "MANUAL_EXECUTION_BEFORE_IMPLEMENTATION_PR_376_MERGE",
+    "AUTO_EXECUTION",
+    "SOURCE_COLLECTION_LIVE",
+    "REMOTE_DRIVE_MATERIALIZATION",
+    "BRONZE_WRITE",
+    "SILVER_WRITE_BY_THIS_POLICY_CHANGE",
+    "GOLD_WRITE",
+    "SERVING",
+    "LOOKER",
+    "PUBLICATION",
+    "SITE",
+    "OVERWRITE",
+    "DELETE",
+    "MOVE",
+    "SCHEDULE",
+    "RECURRENCE",
+    "FINANCIAL_CLAIM_PROMOTION_WITHOUT_EVIDENCE"
+  ],
+  "runtime_authorization_is_separate": true,
+  "runtime_authorization_must_be_ephemeral_and_exact_sha_pinned": true,
+  "rationale": "SEPARATE_POLICY_REVIEW_BEFORE_IMPLEMENTATION_MERGE"
+}
