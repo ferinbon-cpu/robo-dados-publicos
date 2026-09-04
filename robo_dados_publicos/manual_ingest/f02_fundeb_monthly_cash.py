@@ -419,6 +419,18 @@ def reconcile_series(records: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def validate_offline_telemetry(raw: object) -> dict[str, Any]:
+    if not isinstance(raw, dict):
+        _stop("TELEMETRY_NOT_OBJECT")
+    if raw.get("remote_effects") != 0:
+        _stop("TELEMETRY_REMOTE_EFFECT")
+    if raw.get("silver_persisted") is not False:
+        _stop("TELEMETRY_SILVER_PERSISTED")
+    if raw.get("gold_authorized") is not False:
+        _stop("TELEMETRY_GOLD_AUTHORIZED")
+    return raw
+
+
 def run_monthly_series(
     contract: dict[str, Any],
     manifest: dict[str, Any],
