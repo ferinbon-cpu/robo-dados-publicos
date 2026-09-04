@@ -137,6 +137,64 @@ class TestTask096EitiLimeiraOfflineCrosswalk(unittest.TestCase):
         with self.assertRaisesRegex(EitiCrosswalkStop, "CAUSAL_CLAIM_FORBIDDEN"):
             validate(data)
 
+    def test_missing_legacy_edges_file_fails_closed(self):
+        with self.assertRaises(FileNotFoundError):
+            load_and_validate_eiti_crosswalk(
+                CROSSWALK,
+                legacy_edges_path=ROOT / "tests/fixtures/does_not_exist_edges.csv",
+                graph_qa_path=GRAPH_QA,
+            )
+
+    def test_malformed_legacy_edges_csv_fails_closed(self):
+        data = load_data()
+        with self.assertRaisesRegex(EitiCrosswalkStop, "LEGACY_E05_SOURCE"):
+            validate_eiti_crosswalk(
+                data,
+                legacy_edges_csv="edge_id,source_id,target_id,confidence\nE05,wrong,wrong,A\n",
+                graph_qa_csv=GRAPH_QA.read_text(encoding="utf-8-sig"),
+            )
+
+    def test_missing_graph_qa_file_fails_closed(self):
+        with self.assertRaises(FileNotFoundError):
+            load_and_validate_eiti_crosswalk(
+                CROSSWALK,
+                legacy_edges_path=EDGES,
+                graph_qa_path=ROOT / "tests/fixtures/does_not_exist_graph_qa.csv",
+            )
+
+    def test_malformed_graph_qa_csv_fails_closed(self):
+        data = load_data()
+        with self.assertRaisesRegex(EitiCrosswalkStop, "G10_SOURCE"):
+            validate_eiti_crosswalk(
+                data,
+                legacy_edges_csv=EDGES.read_text(encoding="utf-8-sig"),
+                graph_qa_csv="qid,source,target,relation,expected_exists,actual_exists,ok\nG10,wrong,wrong,financial_identity,0,0,1\n",
+            )
+
+    def test_empty_semantic_evidence_fails_closed(self):
+        data = load_data()
+        data["semantic_evidence"] = []
+        with self.assertRaisesRegex(EitiCrosswalkStop, "SEMANTIC_EVIDENCE"):
+            validate(data)
+
+    def test_empty_negative_evidence_fails_closed(self):
+        data = load_data()
+        data["negative_evidence"] = []
+        with self.assertRaisesRegex(EitiCrosswalkStop, "NEGATIVE_EVIDENCE"):
+            validate(data)
+
+    def test_missing_institutionalization_dimension_fails_closed(self):
+        data = load_data()
+        del data["institutionalization_matrix"]["budgetary_persistence"]
+        with self.assertRaisesRegex(EitiCrosswalkStop, "MATRIX_BUDGETARY_PERSISTENCE"):
+            validate(data)
+
+    def test_missing_required_forbidden_promotion_fails_closed(self):
+        data = load_data()
+        data["forbidden_promotions"].remove("PROGRAM_2001_TOTAL_TO_EITI")
+        with self.assertRaisesRegex(EitiCrosswalkStop, "FORBIDDEN_PROMOTIONS"):
+            validate(data)
+
     def test_any_remote_effect_fails_closed(self):
         data = load_data()
         data["effects"]["drive_read"] = 1
