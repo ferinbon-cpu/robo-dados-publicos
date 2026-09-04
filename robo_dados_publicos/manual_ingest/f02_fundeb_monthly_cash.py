@@ -50,6 +50,11 @@ MONTHS = {
     "DEZEMBRO": 12,
 }
 
+# Exact folded markers expected from the current official monthly FUNDEB layout:
+# TOTAL DO SALDO INICIAL; TOTAL DAS ENTRADAS; TOTAL DAS SAIDAS; TOTAL DO SALDO FINAL;
+# TRANSFERENCIAS DE RECURSOS DO FUNDEB; RENDIMENTO DA APLICACAO FINANCEIRA AUTOMATICO;
+# BB RF CP CLASSICO; FTI- FOMENTO TEMPO INTEGRAL.
+# Unknown or drifted wording stops closed rather than being guessed.
 MONEY_RE = re.compile(r"(?<!\d)(\d{1,3}(?:\.\d{3})*,\d{2}|\d+,\d{2})(?!\d)")
 
 
