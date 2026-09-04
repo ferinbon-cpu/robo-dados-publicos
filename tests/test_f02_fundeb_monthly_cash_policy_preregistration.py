@@ -12,7 +12,7 @@ GATE = ROOT / "config/f02_fundeb_monthly_cash_gate.v1.json"
 AUTH = ROOT / "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_OWNER_AUTHORIZATION_0.8.0.json"
 
 
-class F02FundebMonthlyCashPolicyPreRegistrationTests(unittest.TestCase):
+class F02FundebMonthlyCashPolicyLifecycleTests(unittest.TestCase):
     def test_policy_registers_manual_gate_but_auto_evaluator_still_blocks(self):
         policy = json.loads(POLICY.read_text(encoding="utf-8"))
         validate_policy(policy)
@@ -24,19 +24,29 @@ class F02FundebMonthlyCashPolicyPreRegistrationTests(unittest.TestCase):
         self.assertTrue(gate["manual_execution_required"])
         self.assertTrue(gate["no_workflow_trigger"])
         self.assertEqual(gate["current_triggers"], [])
-        self.assertTrue(gate["implementation_merge_required_before_manual_execution"])
+        self.assertFalse(gate["implementation_merge_required_before_manual_execution"])
         self.assertEqual(gate["implementation_pr_required"], 376)
+        self.assertEqual(gate["implementation_pr_merged"], 376)
+        self.assertEqual(
+            gate["implementation_merge_sha"],
+            "48c2f7624dba3f46b61f09659f15d798b836c0ef",
+        )
         self.assertTrue(all(value is False for value in gate["effects"].values()))
         decision = evaluate_gate(policy, gate["id"])
         self.assertEqual(decision["decision"], "BLOCK")
         self.assertEqual(decision["reason"], "POLICY_AUTO_ALLOWED_FALSE")
 
-    def test_contract_blocks_remote_effects_and_requires_implementation_merge(self):
+    def test_contract_blocks_remote_effects_after_implementation_merge_is_satisfied(self):
         gate = json.loads(GATE.read_text(encoding="utf-8"))
         self.assertEqual(gate["schema"], "F02_FUNDEB_MONTHLY_CASH_GATE_V1")
-        self.assertEqual(gate["status"], "REGISTERED_MANUAL_T0_PENDING_IMPLEMENTATION_PR_376")
-        self.assertTrue(gate["implementation_merge_required_before_manual_execution"])
+        self.assertEqual(gate["status"], "REGISTERED_MANUAL_T0_REMOTE_CLOSED")
+        self.assertFalse(gate["implementation_merge_required_before_manual_execution"])
         self.assertEqual(gate["implementation_pr_required"], 376)
+        self.assertEqual(gate["implementation_pr_merged"], 376)
+        self.assertEqual(
+            gate["implementation_merge_sha"],
+            "48c2f7624dba3f46b61f09659f15d798b836c0ef",
+        )
         self.assertFalse(gate["remote_drive_read_authorized"])
         self.assertTrue(all(gate["blocked_remote_effects"].values()))
         self.assertTrue(all(gate["semantic_blocks"].values()))
