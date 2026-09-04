@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "schema": "RESEARCH_EPHEMERAL_DIGEST_CONTRACT_V1",
+  "mode": "T0_OFFLINE_RESEARCH_EPHEMERAL_DIGEST",
+  "purpose": "Transform adapter-normalized source segments into deterministic ontology-aware research candidates without network or persistence.",
+  "policy_profiles": {
+    "EITI_LIMEIRA": {
+      "policy_id": "POLICY:EITI_LIMEIRA",
+      "task055a_path": "docs/evidence/TASK_055A_F01_EITI_TERMINOLOGY_ONTOLOGY_0.8.0.json",
+      "task055a_git_blob_sha": "01301a176231543da2fe6c1ed31744eb69aeade6",
+      "task113_abc_path": "config/task113_ppa2018_ontology_lexical.v1.json",
+      "task113_abc_git_blob_sha": "d1f8a5944ae0346fc56b3e9808f7b451ec61b6f8",
+      "expected_family_counts": {
+        "A_CANONICAL_POLICY_IDENTIFIERS": 8,
+        "B_LOCAL_PLANNING_AND_NORMATIVE_ALIASES": 6,
+        "C_OPERATIONAL_OFFER_AND_JOURNEY_SIGNALS": 15,
+        "D_FINANCING_AND_INDUCTION_SIGNALS": 13,
+        "E_ACCOUNTING_AND_PLANNING_LINKAGE_KEYS": 21
+      },
+      "expected_total_terms": 63
+    }
+  },
+  "limits": {
+    "max_segments": 400,
+    "max_segment_chars": 12000,
+    "max_total_chars": 1000000,
+    "max_hits_per_segment": 128,
+    "max_accounting_keys_per_segment": 32,
+    "max_amount_observations_per_segment": 32
+  },
+  "source_family_registry": "config/source_family_maturity_registry.v1.json",
+  "source_family_registry_git_blob_sha": "21a177b1ddeeb5aba9cf2ee54845430db42c8014",
+  "accounting_identity_contract": "config/policy_budget_ledger.v1.json",
+  "accounting_identity_contract_git_blob_sha": "19cbbe06e938095b97d6da4459ac892faa47a6e5",
+  "accounting_key_types": [
+    "org",
+    "unit",
+    "function",
+    "subfunction",
+    "program",
+    "action",
+    "subaction",
+    "economic_category",
+    "expense_group",
+    "application_mode",
+    "expense_nature",
+    "element",
+    "subelement",
+    "funding_source",
+    "destination",
+    "fund",
+    "cost_center",
+    "accounting_key"
+  ],
+  "accounting_key_stability": [
+    "EXPLICIT_SOURCE_FIELD",
+    "ADAPTER_PROVEN_STABLE"
+  ],
+  "execution_stages": [
+    "AUTHORIZATION",
+    "COMMITMENT",
+    "LIQUIDATION",
+    "PAYMENT",
+    "REPORTING_BUCKET"
+  ],
+  "matching_rules": {
+    "abc_qualification_source": "TASK113_STRENGTH_AND_COMPANION_RULES",
+    "d_terms_alone_create_policy_signal": false,
+    "e_terms_alone_create_policy_signal": false,
+    "accounting_key_alone_creates_policy_identity": false,
+    "amount_equality_alone_creates_policy_identity": false,
+    "candidate_financial_bridge_scope": "SAME_SEGMENT_ONLY",
+    "candidate_financial_bridge_requires": [
+      "QUALIFIED_A_B_OR_C_POLICY_SIGNAL",
+      "STABLE_ACCOUNTING_KEY",
+      "AMOUNT_BRL",
+      "EXECUTION_STAGE"
+    ],
+    "candidate_bridge_status": "CANDIDATE",
+    "automatic_promotion": false,
+    "causal_inference": false
+  },
+  "input_contract": {
+    "schema": "RESEARCH_EPHEMERAL_DIGEST_INPUT_V1",
+    "segment_locator_required": true,
+    "source_sha256_required": true,
+    "adapter_contract_required": true,
+    "raw_source_persistence_required": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "bronze_write": false,
+    "silver_write": false,
+    "gold_write": false,
+    "rag_write": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "overwrite": false,
+    "delete": false,
+    "move": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  },
+  "promotion_rule": "TASK116 emits candidates and gaps only. Any ontology/research-bundle or budget-ledger promotion requires a separate reviewed adjudication task."
+}
