@@ -1,7 +1,9 @@
 # F02 known-family runtime manifest examples
 
-These manifests pin **already-proven** April and May source identities. They are reference/runtime-input examples, not new ingestion authorizations.
+The JSON files in this folder are **synthetic examples only**. They intentionally do not duplicate real Drive IDs, source hashes, financial values, or custody identifiers.
 
-The snapshot paths deliberately point to a transient `runtime/f02/...` area that is not committed. An execution environment must materialize the exact Drive objects there under a separately authorized content-read scope. The adapter then re-verifies SHA-256, bytes, pages and text-layer before parsing.
+A production-period manifest is runtime data and must be materialized outside the public repository under a separately authorized scope. It pins the real source identity, SHA-256, bytes, pages, role and period for that one bounded execution.
 
-A future period uses the same schema and code, replacing only manifest identity/period/source pins. If the parser sees schema drift, the batch stops before Silver.
+Snapshot paths point to transient `runtime/f02/...` locations. `runtime/` is already ignored by Git. The adapter rejects absolute paths, `..`, symlinks, and any resolved path that escapes the repository root.
+
+A new period with an already-proven document shape changes the runtime manifest, not the parser. Unknown family, schema drift, immutable-byte drift, incomplete bundle or period mismatch stops before Silver.
