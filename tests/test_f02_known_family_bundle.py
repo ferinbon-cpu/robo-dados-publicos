@@ -639,7 +639,8 @@ class F02KnownFamilyBundleTests(unittest.TestCase):
                     and dir_fd is not None
                     and not (flags & getattr(os, "O_DIRECTORY", 0))
                 ):
-                    victim.unlink()
+                    preserved = Path(td) / "opened-inode-preserved.pdf"
+                    victim.rename(preserved)
                     victim.symlink_to(outside)
                     swapped["done"] = True
                 return fd
