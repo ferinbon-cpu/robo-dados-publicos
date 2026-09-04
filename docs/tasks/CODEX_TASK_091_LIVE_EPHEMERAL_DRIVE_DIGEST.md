@@ -56,13 +56,10 @@ Execution head:
 
 `0c777c647cefaacc9d1daba35c1cded42109c120`
 
-Run:
+Durable execution references are redacted from the canonical tree. Correlation hashes:
 
-`33873064071`
-
-Job:
-
-`101023430264`
+- run-reference SHA-256: `2a758c122405c700aac6e24af17bc44f9902d657de462ad13736d894fa42c476`;
+- job-reference SHA-256: `21bf67d424f002480b27df12a42643b48057b7218ac53c34f7ab4ceaf406d483`.
 
 Executed workflow Git blob:
 
