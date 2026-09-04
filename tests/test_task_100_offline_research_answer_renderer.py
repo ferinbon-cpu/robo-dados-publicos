@@ -30,6 +30,7 @@ class TestTask100OfflineResearchAnswerRenderer(unittest.TestCase):
     def setUp(self) -> None:
         eiti = load(EITI)
         historical = load(HISTORICAL)
+        self.historical = historical
         self.packet = execute_research_query(
             eiti["research_bundle"],
             {
