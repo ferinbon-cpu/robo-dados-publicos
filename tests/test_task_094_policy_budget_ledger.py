@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
+import tempfile
 import unittest
 
 from robo_dados_publicos.research.budget_ledger import (
@@ -226,6 +228,44 @@ class TestTask094PolicyBudgetLedger(unittest.TestCase):
         snapshot = reconstruct_budget_snapshot(events, as_of="2026-02-01")
         self.assertEqual("20.00", snapshot["committed"])
         self.assertEqual([], snapshot["after_as_of_event_ids"])
+
+    def test_contract_rejects_non_boolean_false_remote_effect(self):
+        contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
+        contract["remote_effects"]["network"] = 0
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "contract.json"
+            path.write_text(json.dumps(contract), encoding="utf-8")
+            with self.assertRaisesRegex(BudgetLedgerStop, "CONTRACT_REMOTE_EFFECT"):
+                load_budget_ledger_contract(path)
+
+    def test_contract_rejects_required_identity_dimension_drift(self):
+        contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
+        contract["required_identity_dimensions"] = ["entity"]
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "contract.json"
+            path.write_text(json.dumps(contract), encoding="utf-8")
+            with self.assertRaisesRegex(
+                BudgetLedgerStop,
+                "CONTRACT_REQUIRED_IDENTITY_DIMENSIONS",
+            ):
+                load_budget_ledger_contract(path)
+
+    def test_budget_event_projection_rejects_invalid_canonical_event(self):
+        invalid = event("BADPROJ", "AUTHORIZATION_INITIAL", "100.00", "2026-01-01")
+        invalid["evidence_ids"] = []
+        with self.assertRaisesRegex(
+            BudgetLedgerStop,
+            "CANONICAL_EVENT_EVIDENCE_REQUIRED",
+        ):
+            budget_event_to_research_entity(invalid)
+
+    def test_duplicate_canonical_statuses_fail_closed(self):
+        events = [event("AUTH", "AUTHORIZATION_INITIAL", "100.00", "2026-01-01")]
+        with self.assertRaisesRegex(BudgetLedgerStop, "CANONICAL_STATUSES_INVALID"):
+            reconstruct_budget_snapshot(
+                events,
+                canonical_statuses=["PROVEN", "PROVEN"],
+            )
 
     def test_budget_event_projects_into_generic_research_entity(self):
         research_entity = budget_event_to_research_entity(
