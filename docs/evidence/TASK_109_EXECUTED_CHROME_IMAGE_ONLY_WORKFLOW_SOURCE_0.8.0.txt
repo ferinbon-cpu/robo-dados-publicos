@@ -1,0 +1,57 @@
+name: TASK 109 Chrome image-only synthetic proof once
+run-name: "TASK 109 offline Chrome image-only proof by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-109-offline-visual-ocr-capability
+    paths:
+      - '.github/workflows/task-109-chrome-image-only-probe-once.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-109-chrome-image-only-probe-once
+  cancel-in-progress: false
+
+jobs:
+  synthetic-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Install only exact pinned pypdf project dependency
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check --no-deps 'pypdf==6.10.0'
+
+      - name: Execute local synthetic image-only PDF Chrome accessibility proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from robo_dados_publicos.research.local_pdf_capability import (
+              probe_chrome_image_only_pdf_accessibility,
+          )
+          result = probe_chrome_image_only_pdf_accessibility()
+          print("TASK109_CHROME_IMAGE_ONLY_JSON_BEGIN")
+          print(json.dumps(result, sort_keys=True))
+          print("TASK109_CHROME_IMAGE_ONLY_JSON_END")
+          if result.get("status") != "PROBED":
+              raise SystemExit("TASK109_CHROME_IMAGE_ONLY_NOT_PROBED")
+          if result.get("pdf_text_empty") is not True:
+              raise SystemExit("TASK109_SYNTHETIC_PDF_TEXT_NOT_EMPTY")
+          PY
