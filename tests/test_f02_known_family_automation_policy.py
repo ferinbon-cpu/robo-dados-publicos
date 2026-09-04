@@ -18,10 +18,9 @@ class F02KnownFamilyAutomationPolicyTests(unittest.TestCase):
         self.assertEqual(gate["tier"], "T0_OFFLINE")
         self.assertTrue(gate["auto_allowed"])
         self.assertEqual(gate["credential_capability"], "NONE")
-        self.assertEqual(
-            gate["current_triggers"],
-            ["direct_cli_or_ci_test_only"],
-        )
+        self.assertEqual(gate["current_triggers"], [])
+        self.assertEqual(gate["invocation_surface"], "DIRECT_CLI_OR_CI_TEST_ONLY")
+        self.assertTrue(gate["no_workflow_trigger"])
         self.assertFalse(gate["effects"]["source_network"])
         self.assertFalse(gate["effects"]["drive_reads"])
         self.assertFalse(gate["effects"]["drive_writes"])
