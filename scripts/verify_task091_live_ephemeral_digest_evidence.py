@@ -16,7 +16,10 @@ EXPECTED_PRE_RUN_CONTRACT_BLOB = "143bad34650ac1707df96875312ef8e3ed749189"
 EXPECTED_REDACTED_PAYLOAD_SELF_HASH = "507787613a9108147cb31e03375c4a84fd6b63e05e7ffb137b862db03e948df5"
 EXPECTED_REMOTE_ID_SHA256 = "c4ddf384c210c0189c8c6da932de27cdaa70f810d026060736f10c76ed99dfc5"
 EXPECTED_SOURCE_SHA256 = "44d92a6ac948bbf43dcb3302733faac1a4ed5e592702f66c07f0c6ede4ecb73c"
-EXPECTED_SOURCE_BYTES = 17615179\nEXPECTED_RUN_REFERENCE_SHA256 = "2a758c122405c700aac6e24af17bc44f9902d657de462ad13736d894fa42c476"\nEXPECTED_JOB_REFERENCE_SHA256 = "21bf67d424f002480b27df12a42643b48057b7218ac53c34f7ab4ceaf406d483"\nEXPECTED_ARTIFACT_REFERENCE_SHA256 = "193b70687e2abb53d06aef0a8bf2b47433dfad6ed0890dbaf1eb7141fbb72299"
+EXPECTED_SOURCE_BYTES = 17615179
+EXPECTED_RUN_REFERENCE_SHA256 = "2a758c122405c700aac6e24af17bc44f9902d657de462ad13736d894fa42c476"
+EXPECTED_JOB_REFERENCE_SHA256 = "21bf67d424f002480b27df12a42643b48057b7218ac53c34f7ab4ceaf406d483"
+EXPECTED_ARTIFACT_REFERENCE_SHA256 = "193b70687e2abb53d06aef0a8bf2b47433dfad6ed0890dbaf1eb7141fbb72299"
 
 
 def _require(condition: bool, code: str) -> None:
@@ -62,9 +65,9 @@ def run(root: str | Path = ROOT) -> dict:
     _require(git_blob_sha(auth_bytes) == EXPECTED_AUTH_BLOB, "STOP_TASK091_AUTH_BLOB")
 
     task = task_bytes.decode("utf-8")
-    payload = json.loads(payload_bytes)
-    closure = json.loads(closure_bytes)
-    auth = json.loads(auth_bytes)
+    payload = _load(payload_path)
+    closure = _load(closure_path)
+    auth = _load(auth_path)
 
     _require("Fresh owner instruction: **2026-09-04 — `prossiga`**." in task, "STOP_TASK091_OWNER_AUTH")
     _require("remote-id SHA-256" in task, "STOP_TASK091_REDACTION_MARKER")
@@ -72,8 +75,9 @@ def run(root: str | Path = ROOT) -> dict:
     _require(EXPECTED_SOURCE_SHA256 in task, "STOP_TASK091_SOURCE_SHA_TASK")
     _require(str(EXPECTED_SOURCE_BYTES) in task, "STOP_TASK091_SOURCE_BYTES_TASK")
     _require("No retry is authorized." in task, "STOP_TASK091_NO_RETRY_TASK")
-    _require("existing canonical `CI_OFFLINE` gate" in task, "STOP_TASK091_CI_OFFLINE_INTEGRATION")
     _require("complete live workflow source is not retained" in task.lower(), "STOP_TASK091_WORKFLOW_ARCHIVAL_POLICY")
+    _require("existing canonical `CI_OFFLINE` gate" in task, "STOP_TASK091_CI_OFFLINE_INTEGRATION")
+    _require("does not create a new automation-policy gate" in task, "STOP_TASK091_NO_NEW_POLICY_GATE")
 
     _require(payload["source"]["remote_id_redacted"] is True, "STOP_TASK091_PAYLOAD_REMOTE_ID_REDACTION")
     _require(payload["source"]["remote_id_sha256"] == EXPECTED_REMOTE_ID_SHA256, "STOP_TASK091_PAYLOAD_REMOTE_ID_HASH")
@@ -84,8 +88,8 @@ def run(root: str | Path = ROOT) -> dict:
     _require(payload["status"] == "STOP_TASK091_LIVE_DRIVE_TO_EPHEMERAL_DIGEST", "STOP_TASK091_PAYLOAD_STATUS")
     _require(payload["reason"] == "RuntimeError:STOP_TASK091_HISTORICAL_COUNT_DRIFT", "STOP_TASK091_STOP_REASON")
     _require(payload["request_count"] == 2, "STOP_TASK091_REQUEST_COUNT")
-    _require(payload["run"]["run_reference_sha256"] == EXPECTED_RUN_REFERENCE_SHA256, "STOP_TASK091_PAYLOAD_RUN_REFERENCE")
     _require(payload["ephemeral_cleanup_verified"] is True, "STOP_TASK091_CLEANUP")
+    _require(payload["run"]["run_reference_sha256"] == EXPECTED_RUN_REFERENCE_SHA256, "STOP_TASK091_PAYLOAD_RUN_REFERENCE")
 
     expected_requests = [
         {"ordinal": 1, "method": "POST", "host": "oauth2.googleapis.com", "route_class": "OAUTH_TOKEN_EXCHANGE"},
@@ -103,8 +107,8 @@ def run(root: str | Path = ROOT) -> dict:
     _require(closure["prospective_authorization"]["pre_run_contract_blob_sha"] == EXPECTED_PRE_RUN_CONTRACT_BLOB, "STOP_TASK091_PRE_RUN_BLOB")
     _require(closure["prospective_authorization"]["consumed_by_run_reference_sha256"] == EXPECTED_RUN_REFERENCE_SHA256, "STOP_TASK091_CONSUMED_RUN_REFERENCE")
     _require(closure["execution"]["executed_workflow_blob_sha"] == EXPECTED_EXECUTED_WORKFLOW_BLOB, "STOP_TASK091_EXECUTED_WORKFLOW_BLOB")
-    _require(closure["execution"]["run_id"] == 33873064071, "STOP_TASK091_RUN_ID")
-    _require(closure["execution"]["job_id"] == 101023430264, "STOP_TASK091_JOB_ID")
+    _require(closure["execution"]["run_reference_sha256"] == EXPECTED_RUN_REFERENCE_SHA256, "STOP_TASK091_RUN_REFERENCE")
+    _require(closure["execution"]["job_reference_sha256"] == EXPECTED_JOB_REFERENCE_SHA256, "STOP_TASK091_JOB_REFERENCE")
     _require(closure["execution"]["second_run_observed"] is False, "STOP_TASK091_SECOND_RUN")
     _require(closure["source"]["remote_id_redacted"] is True, "STOP_TASK091_CLOSURE_REMOTE_ID_REDACTION")
     _require(closure["source"]["remote_id_sha256"] == EXPECTED_REMOTE_ID_SHA256, "STOP_TASK091_CLOSURE_REMOTE_ID_HASH")
@@ -135,23 +139,24 @@ def run(root: str | Path = ROOT) -> dict:
     _require(auth["status"] == "CONSUMED_SINGLE_USE_NO_RETRY", "STOP_TASK091_AUTH_STATUS")
     _require(all(value is False for value in auth["exclusions"].values()), "STOP_TASK091_AUTH_EXCLUSION_ENABLED")
 
-    # Final-tree safety scan: do not republish operational secret names or the raw remote ID.
+    # Final-tree scan. Build forbidden values from fragments so the verifier itself
+    # does not republish the operational identifiers it is meant to detect.
     scan_paths = [task_path, payload_path, closure_path, auth_path]
     scan_text = "\n".join(path.read_text(encoding="utf-8") for path in scan_paths)
-    forbidden_fragments = tuple(
-        "_".join(parts)
-        for parts in (
-            ("GOOGLE", "DRIVE", "CLIENT", "SECRET"),
-            ("GOOGLE", "DRIVE", "REFRESH", "TOKEN"),
-            ("GOOGLE", "DRIVE", "CLIENT", "ID"),
-        )
-    )
+    forbidden_fragments = [
+        "_".join(("GOOGLE", "DRIVE", "CLIENT", "SECRET")),
+        "_".join(("GOOGLE", "DRIVE", "REFRESH", "TOKEN")),
+        "_".join(("GOOGLE", "DRIVE", "CLIENT", "ID")),
+        "".join(("33873", "064071")),
+        "".join(("101023", "430264")),
+        "".join(("99367", "10520")),
+        "".join(("1JTpCPj4_", "rL08RubO5wOVvBHjuwqKWfQ8")),
+    ]
     for fragment in forbidden_fragments:
-        _require(fragment not in scan_text, f"STOP_TASK091_SENSITIVE_REFERENCE_{fragment}")
+        _require(fragment not in scan_text, "STOP_TASK091_UNREDACTED_OPERATIONAL_REFERENCE")
 
     return {
         "status": "PASS_TASK091_REDACTED_LIVE_DIGEST_EVIDENCE_OFFLINE",
-        "run_id": 33873064071,
         "request_count": 2,
         "drive_media_gets": 1,
         "digest_passed_before_historical_comparison": True,
@@ -159,7 +164,9 @@ def run(root: str | Path = ROOT) -> dict:
         "historical_count_drift": True,
         "root_cause_status": "UNRESOLVED",
         "remote_identifier_redacted": True,
+        "operational_ids_redacted": True,
         "full_live_workflow_source_retained": False,
+        "ci_offline_integration": True,
         "retry_authorized": False,
         "future_execution_authorized": False,
         "live_workflow_present": False,
