@@ -162,6 +162,35 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
         ):
             self.assertNotIn(forbidden, text)
 
+    def test_ci_gate_missing_blockers_and_path_filter_drift_fail_closed(self):
+        policy = load_json(POLICY)
+
+        bad_policy = copy.deepcopy(policy)
+        bad_ci = next(row for row in bad_policy["gates"] if row.get("id") == CI_GATE_ID)
+        del bad_ci["blockers"]
+        with self.assertRaisesRegex(
+            F02FundebMonthlyPolicyFinalizationStop,
+            "CI_GATE_BLOCKERS",
+        ):
+            validate_ci_gate_install(bad_policy, repo_root=ROOT)
+
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            install_ci_gate_files(root)
+            workflow = root / ".github/workflows/f02-fundeb-monthly-policy-finalization-evidence.yml"
+            text = workflow.read_text(encoding="utf-8")
+            text = text.replace(
+                '      - "config/automation_policy.v1.json"\n',
+                '      - "UNEXPECTED_PATH"\n',
+                1,
+            )
+            workflow.write_text(text, encoding="utf-8")
+            with self.assertRaisesRegex(
+                F02FundebMonthlyPolicyFinalizationStop,
+                "CI_WORKFLOW_PATH_FILTER_DRIFT",
+            ):
+                validate_ci_gate_install(policy, repo_root=root)
+
     def test_actual_prefinalization_is_safe_but_nonexecuting_and_blocker_is_symmetric(self):
         policy, gate = actual_policy_and_gate()
         result = validate_prefinalization_install(policy, gate)
