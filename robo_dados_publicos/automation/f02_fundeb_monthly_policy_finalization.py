@@ -13,6 +13,12 @@ class F02FundebMonthlyPolicyFinalizationStop(ValueError):
 
 GATE_ID = "F02_FUNDEB_MONTHLY_CASH_OFFLINE"
 EXPECTED_IMPLEMENTATION_PR = 376
+EVIDENCE_RELATIVE_PATH = Path(
+    "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json"
+)
+PREFINALIZATION_STATUS = "REGISTERED_MANUAL_T0_PENDING_IMPLEMENTATION_PR_376"
+FINAL_STATUS = "REGISTERED_MANUAL_T0_REMOTE_CLOSED"
+IMPLEMENTATION_BLOCKER = "IMPLEMENTATION_PR_376_MUST_BE_MERGED_BEFORE_MANUAL_EXECUTION"
 
 
 def _stop(code: str, detail: str | None = None) -> None:
@@ -56,6 +62,65 @@ def verify_git_ancestor(repo_root: str | Path, commit_sha: str) -> None:
         _stop("GIT_ANCESTRY_CHECK_FAILED", ancestor.stderr.strip())
 
 
+def _policy_gate(policy: dict[str, Any]) -> dict[str, Any]:
+    if policy.get("schema") != "ROBO_DADOS_PUBLICOS_AUTOMATION_POLICY_V1":
+        _stop("POLICY_SCHEMA")
+    gates = policy.get("gates")
+    if not isinstance(gates, list):
+        _stop("POLICY_GATES")
+    matches = [row for row in gates if isinstance(row, dict) and row.get("id") == GATE_ID]
+    if len(matches) != 1:
+        _stop("POLICY_GATE_CARDINALITY", str(len(matches)))
+    return matches[0]
+
+
+def _validate_remote_closed_manual_policy_gate(policy_gate: dict[str, Any]) -> None:
+    if policy_gate.get("tier") != "T0_OFFLINE":
+        _stop("POLICY_TIER")
+    if policy_gate.get("auto_allowed") is not False:
+        _stop("AUTO_ENABLED")
+    if policy_gate.get("manual_execution_required") is not True:
+        _stop("MANUAL_EXECUTION_NOT_REQUIRED")
+    if policy_gate.get("no_workflow_trigger") is not True:
+        _stop("WORKFLOW_TRIGGER_ALLOWED")
+    if policy_gate.get("current_triggers") != []:
+        _stop("TRIGGER_DRIFT")
+    effects = policy_gate.get("effects")
+    if not isinstance(effects, dict):
+        _stop("POLICY_EFFECTS")
+    for key in ("source_network", "drive_reads", "drive_writes", "publication"):
+        if effects.get(key) is not False:
+            _stop("REMOTE_EFFECT_ENABLED", key)
+
+
+def validate_prefinalization_install(
+    policy: dict[str, Any], gate_contract: dict[str, Any]
+) -> dict[str, Any]:
+    """Validate the deliberately non-executable state used while installing this CI gate."""
+    policy_gate = _policy_gate(policy)
+    _validate_remote_closed_manual_policy_gate(policy_gate)
+
+    if gate_contract.get("schema") != "F02_FUNDEB_MONTHLY_CASH_GATE_V1":
+        _stop("GATE_SCHEMA")
+    if gate_contract.get("status") != PREFINALIZATION_STATUS:
+        _stop("PREFINALIZATION_GATE_STATUS")
+    for label, row in (("policy", policy_gate), ("contract", gate_contract)):
+        if row.get("implementation_pr_required") != EXPECTED_IMPLEMENTATION_PR:
+            _stop("IMPLEMENTATION_PR_PIN_DRIFT", label)
+        if row.get("implementation_merge_required_before_manual_execution") is not True:
+            _stop("PREFINALIZATION_BLOCKER_FLAG_MISSING", label)
+    blockers = set(policy_gate.get("blockers") or [])
+    if IMPLEMENTATION_BLOCKER not in blockers:
+        _stop("PREFINALIZATION_IMPLEMENTATION_BLOCKER_MISSING")
+    return {
+        "status": "PASS_F02_FUNDEB_MONTHLY_POLICY_PREFINALIZATION_INSTALL",
+        "implementation_pr": EXPECTED_IMPLEMENTATION_PR,
+        "manual_execution_authorized": False,
+        "auto_allowed": False,
+        "remote_effects": 0,
+    }
+
+
 def validate_finalization(
     evidence: dict[str, Any],
     policy: dict[str, Any],
@@ -88,19 +153,12 @@ def validate_finalization(
     if implementation_ancestor_verified is not True:
         _stop("IMPLEMENTATION_ANCESTRY_NOT_VERIFIED")
 
-    if policy.get("schema") != "ROBO_DADOS_PUBLICOS_AUTOMATION_POLICY_V1":
-        _stop("POLICY_SCHEMA")
-    gates = policy.get("gates")
-    if not isinstance(gates, list):
-        _stop("POLICY_GATES")
-    matches = [row for row in gates if isinstance(row, dict) and row.get("id") == GATE_ID]
-    if len(matches) != 1:
-        _stop("POLICY_GATE_CARDINALITY", str(len(matches)))
-    policy_gate = matches[0]
+    policy_gate = _policy_gate(policy)
+    _validate_remote_closed_manual_policy_gate(policy_gate)
 
     if gate_contract.get("schema") != "F02_FUNDEB_MONTHLY_CASH_GATE_V1":
         _stop("GATE_SCHEMA")
-    if gate_contract.get("status") != "REGISTERED_MANUAL_T0_REMOTE_CLOSED":
+    if gate_contract.get("status") != FINAL_STATUS:
         _stop("GATE_STATUS")
 
     for label, row in (("policy", policy_gate), ("contract", gate_contract)):
@@ -113,25 +171,8 @@ def validate_finalization(
         if row.get("implementation_merge_required_before_manual_execution") != False:
             _stop("IMPLEMENTATION_BLOCKER_NOT_FINALIZED", label)
 
-    if policy_gate.get("tier") != "T0_OFFLINE":
-        _stop("POLICY_TIER")
-    if policy_gate.get("auto_allowed") is not False:
-        _stop("AUTO_ENABLED")
-    if policy_gate.get("manual_execution_required") is not True:
-        _stop("MANUAL_EXECUTION_NOT_REQUIRED")
-    if policy_gate.get("no_workflow_trigger") is not True:
-        _stop("WORKFLOW_TRIGGER_ALLOWED")
-    if policy_gate.get("current_triggers") != []:
-        _stop("TRIGGER_DRIFT")
-    effects = policy_gate.get("effects")
-    if not isinstance(effects, dict):
-        _stop("POLICY_EFFECTS")
-    for key in ("source_network", "drive_reads", "drive_writes", "publication"):
-        if effects.get(key) is not False:
-            _stop("REMOTE_EFFECT_ENABLED", key)
-
     blockers = set(policy_gate.get("blockers") or [])
-    if "IMPLEMENTATION_PR_376_MUST_BE_MERGED_BEFORE_MANUAL_EXECUTION" in blockers:
+    if IMPLEMENTATION_BLOCKER in blockers:
         _stop("SATISFIED_BLOCKER_STILL_PRESENT")
     for required in (
         "EXPLICIT_OWNER_RUNTIME_AUTHORIZATION_REQUIRED",
@@ -166,9 +207,14 @@ def validate_finalization(
 
 def validate_repository_state(repo_root: str | Path) -> dict[str, Any]:
     root = Path(repo_root)
-    evidence = load_json(root / "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json")
     policy = load_json(root / "config/automation_policy.v1.json")
     gate = load_json(root / "config/f02_fundeb_monthly_cash_gate.v1.json")
+    evidence_path = root / EVIDENCE_RELATIVE_PATH
+
+    if not evidence_path.exists():
+        return validate_prefinalization_install(policy, gate)
+
+    evidence = load_json(evidence_path)
     merge_sha = str(evidence.get("implementation_merge_sha") or "").lower()
     verify_git_ancestor(root, merge_sha)
     return validate_finalization(
