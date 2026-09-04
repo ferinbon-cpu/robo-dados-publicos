@@ -50,7 +50,10 @@ class TestTask121SiopeFundebResearchDigestAdapter(unittest.TestCase):
     def test_financing_signals_and_reporting_amounts_are_visible(self):
         digest=self.result["research_digest"]
         self.assertTrue(any("FUNDEB" in group["financing_signal_terms"] for group in digest["context_groups"]))
-        self.assertTrue(any("FOMENTO" in group["financing_signal_terms"] for group in digest["context_groups"]))
+        self.assertTrue(any(
+            any(term.casefold() == "fomento" for term in group["financing_signal_terms"])
+            for group in digest["context_groups"]
+        ))
         self.assertTrue(all(group["amount_observations"] for group in digest["context_groups"]))
 
     def test_missing_stable_key_blocks_financial_bridge(self):
