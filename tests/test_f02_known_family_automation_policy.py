@@ -16,7 +16,7 @@ class F02KnownFamilyAutomationPolicyTests(unittest.TestCase):
         self.assertEqual(structural["status"], "PASS_AUTOMATION_POLICY_STRUCTURE")
         gate = next(row for row in policy["gates"] if row["id"] == GATE_ID)
         self.assertEqual(gate["tier"], "T0_OFFLINE")
-        self.assertTrue(gate["auto_allowed"])
+        self.assertFalse(gate["auto_allowed"])
         self.assertEqual(gate["credential_capability"], "NONE")
         self.assertEqual(gate["current_triggers"], [])
         self.assertEqual(gate["invocation_surface"], "DIRECT_CLI_OR_CI_TEST_ONLY")
@@ -33,13 +33,16 @@ class F02KnownFamilyAutomationPolicyTests(unittest.TestCase):
         self.assertFalse(gate["schedule"])
         self.assertFalse(gate["recurrence"])
 
-    def test_policy_evaluator_allows_only_the_offline_gate_semantics(self):
+    def test_policy_evaluator_keeps_new_adapter_manual_gated(self):
         decision = evaluate_gate(load_policy(ROOT), GATE_ID)
-        self.assertEqual(decision["decision"], "AUTO_ALLOWED")
+        self.assertEqual(decision["decision"], "BLOCK")
         self.assertEqual(decision["tier"], "T0_OFFLINE")
+        self.assertEqual(decision["reason"], "POLICY_AUTO_ALLOWED_FALSE")
+        gate = next(row for row in load_policy(ROOT)["gates"] if row["id"] == GATE_ID)
+        self.assertTrue(gate["owner_authorization_required"])
         self.assertEqual(
-            decision["reason"],
-            "OFFLINE_DETERMINISTIC_NO_REMOTE_EFFECTS",
+            gate["blockers"],
+            ["EXPLICIT_OWNER_OR_ORCHESTRATOR_GATE_REQUIRED_FOR_LOCAL_SNAPSHOT_EXECUTION"],
         )
 
 
