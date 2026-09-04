@@ -1,0 +1,17 @@
+{
+  "task": "TASK_114",
+  "run_id": 33921252369,
+  "job_id": 101179846019,
+  "execution_head_sha": "b0e5c1bb466ca99f466b1fc56dcdf9694ec2824b",
+  "result_canonical_sha256": "ab663f4f5f8a192e4cf9cf64c8e8ee3da2731f61d32041b7486244290f485c81",
+  "artifact": {
+    "id": 9955229109,
+    "name": "task-114-ontology-ppa-ocr-result",
+    "zip_sha256": "a288dd65298ee8475b266b6c7761e19d69913d58549d8572fd4ddccf51727ac7",
+    "size_in_bytes": 895,
+    "retention_days": 1
+  },
+  "result": "NO_CANDIDATES_FOUND_ACROSS_ONTOLOGY_A_B_C",
+  "interpretation": "BOUNDED_NEGATIVE_EVIDENCE_ONLY_NOT_GLOBAL_ABSENCE_PROOF",
+  "future_execution_authorized": false
+}
