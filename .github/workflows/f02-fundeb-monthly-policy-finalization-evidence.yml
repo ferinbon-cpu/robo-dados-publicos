@@ -4,12 +4,8 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - "config/automation_policy.v1.json"
       - "config/f02_fundeb_monthly_cash_gate.v1.json"
       - "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json"
-      - "robo_dados_publicos/automation/f02_fundeb_monthly_policy_finalization.py"
-      - "scripts/validate_f02_fundeb_monthly_policy_finalization.py"
-      - "tests/test_f02_fundeb_monthly_cash_policy_finalization.py"
   workflow_dispatch:
 
 permissions:
