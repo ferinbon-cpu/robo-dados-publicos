@@ -160,6 +160,14 @@ def validate_query_result(result: dict[str, Any]) -> dict[str, Any]:
         "TASK100_UPSTREAM_NATURAL_LANGUAGE_GENERATION",
     )
 
+    packet_remote_effects = result.get("remote_effects")
+    if packet_remote_effects is not None:
+        _require(isinstance(packet_remote_effects, dict), "TASK100_PACKET_REMOTE_EFFECT_OBJECT")
+        _require(
+            all(value is False for value in packet_remote_effects.values()),
+            "TASK100_PACKET_REMOTE_EFFECT",
+        )
+
     result_sha256 = str(result.get("result_sha256") or "")
     _require(bool(_SHA256_RE.fullmatch(result_sha256)), "TASK100_RESULT_SHA256")
     return deepcopy(result)
@@ -318,6 +326,10 @@ def render_research_answer_markdown(result: dict[str, Any]) -> dict[str, Any]:
 def load_renderer_contract(path: str | Path) -> dict[str, Any]:
     data = json.loads(Path(path).read_text(encoding="utf-8"))
     _require(data.get("schema") == "RESEARCH_ANSWER_RENDERER_V1", "TASK100_CONTRACT_SCHEMA")
+    _require(
+        data.get("mode") == "T0_OFFLINE_DETERMINISTIC_MARKDOWN_RENDERER",
+        "TASK100_CONTRACT_MODE",
+    )
     _require(data.get("input_schema") == "RESEARCH_QUERY_RESULT_V1", "TASK100_CONTRACT_INPUT_SCHEMA")
     _require(data.get("output_schema") == "RESEARCH_ANSWER_RENDER_V1", "TASK100_CONTRACT_OUTPUT_SCHEMA")
     _require(data.get("format") == "MARKDOWN", "TASK100_CONTRACT_FORMAT")
