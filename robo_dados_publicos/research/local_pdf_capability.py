@@ -246,3 +246,45 @@ def probe_chrome_pdf_accessibility(
         except subprocess.TimeoutExpired:
             process.kill()
             process.wait(timeout=5)
+
+
+def prove_pypdf_text_extraction(
+    *,
+    marker: str = "TASK105_PYPDF_TEXT_MARKER_91743",
+) -> dict[str, Any]:
+    """Prove local deterministic PDF text extraction using the pinned pypdf dependency."""
+    try:
+        from io import BytesIO
+        from pypdf import PdfReader
+    except ImportError:
+        return {
+            "schema": "TASK105_LOCAL_PDF_PARSER_PROOF_V1",
+            "parser": "pypdf",
+            "status": "UNAVAILABLE",
+            "marker": marker,
+            "marker_in_text": False,
+            "page_count": 0,
+            "extracted_text": "",
+        }
+
+    raw = _minimal_pdf_bytes(marker)
+    try:
+        reader = PdfReader(BytesIO(raw))
+        pages = [(page.extract_text() or "") for page in reader.pages]
+    except Exception as exc:
+        raise LocalPdfCapabilityStop("TASK105_PYPDF_EXTRACTION_ERROR") from exc
+
+    extracted = "\n".join(pages)
+    marker_in_text = marker in extracted
+    if not marker_in_text:
+        raise LocalPdfCapabilityStop("TASK105_PYPDF_MARKER_NOT_RECOVERED")
+
+    return {
+        "schema": "TASK105_LOCAL_PDF_PARSER_PROOF_V1",
+        "parser": "pypdf",
+        "status": "PROVEN",
+        "marker": marker,
+        "marker_in_text": True,
+        "page_count": len(pages),
+        "extracted_text": extracted,
+    }
