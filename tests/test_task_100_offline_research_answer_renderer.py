@@ -100,6 +100,12 @@ class TestTask100OfflineResearchAnswerRenderer(unittest.TestCase):
         self.assertFalse(result["free_form_generation_performed"])
         self.assertFalse(result["remote_effects_performed"])
 
+    def test_tampered_packet_sha_fails_closed(self):
+        packet = copy.deepcopy(self.packet)
+        packet["claims"][0]["text"] += " adulterado"
+        with self.assertRaisesRegex(ResearchAnswerRenderStop, "RESULT_SHA256_MISMATCH"):
+            render_research_answer_markdown(packet)
+
     def test_truthy_packet_remote_effect_fails_closed(self):
         packet = copy.deepcopy(self.packet)
         packet["remote_effects"] = {"network": True}
