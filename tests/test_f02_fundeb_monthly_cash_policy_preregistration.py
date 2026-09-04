@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 POLICY = ROOT / "config/automation_policy.v1.json"
 GATE = ROOT / "config/f02_fundeb_monthly_cash_gate.v1.json"
 AUTH = ROOT / "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_OWNER_AUTHORIZATION_0.8.0.json"
+FINALIZATION_AUTH = ROOT / "docs/evidence/F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_OWNER_AUTHORIZATION_0.8.0.json"
 
 
 class F02FundebMonthlyCashPolicyPreRegistrationTests(unittest.TestCase):
@@ -40,6 +41,19 @@ class F02FundebMonthlyCashPolicyPreRegistrationTests(unittest.TestCase):
         self.assertFalse(gate["remote_drive_read_authorized"])
         self.assertTrue(all(gate["blocked_remote_effects"].values()))
         self.assertTrue(all(gate["semantic_blocks"].values()))
+
+    def test_finalization_preauthorization_does_not_satisfy_runtime_or_implementation_blockers(self):
+        policy = json.loads(POLICY.read_text(encoding="utf-8"))
+        contract = json.loads(GATE.read_text(encoding="utf-8"))
+        auth = json.loads(FINALIZATION_AUTH.read_text(encoding="utf-8"))
+        gate = next(row for row in policy["gates"] if row.get("id") == "F02_FUNDEB_MONTHLY_CASH_OFFLINE")
+        self.assertEqual(auth["status"], "AUTHORIZED_POLICY_FINALIZATION_PREAUTHORIZATION")
+        self.assertTrue(gate["implementation_merge_required_before_manual_execution"])
+        self.assertTrue(contract["implementation_merge_required_before_manual_execution"])
+        self.assertIn("IMPLEMENTATION_PR_376_MUST_BE_MERGED_BEFORE_MANUAL_EXECUTION", gate["blockers"])
+        self.assertIn("IMPLEMENTATION_PR_376_MUST_BE_MERGED_BEFORE_MANUAL_EXECUTION", contract["blockers"])
+        self.assertIn("MANUAL_EXECUTION_BY_THIS_PREAUTHORIZATION_PR", auth["explicitly_not_authorized"])
+        self.assertIn("SILVER_PERSISTENCE_BY_THIS_PREAUTHORIZATION_PR", auth["explicitly_not_authorized"])
 
     def test_owner_policy_authorization_is_not_runtime_execution_authorization(self):
         auth = json.loads(AUTH.read_text(encoding="utf-8"))
