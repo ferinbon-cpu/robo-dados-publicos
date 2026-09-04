@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import copy
 import json
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -10,10 +11,12 @@ from robo_dados_publicos.automation.f02_fundeb_monthly_policy_finalization impor
     F02FundebMonthlyPolicyFinalizationStop,
     load_json,
     validate_finalization,
+    verify_git_ancestor,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
 POLICY = ROOT / "config/automation_policy.v1.json"
+WORKFLOW = ROOT / ".github/workflows/f02-fundeb-monthly-policy-finalization-evidence.yml"
 MERGE_SHA = "48c2f7624dba3f46b61f09659f15d798b836c0ef"
 
 
@@ -107,7 +110,12 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
                 evidence(), policy(), gate_contract(), implementation_ancestor_verified=False
             )
 
-    def test_pin_auto_and_remote_drift_fail_closed(self):
+    def test_missing_merge_sha_and_pin_auto_remote_drift_fail_closed(self):
+        missing_sha = evidence()
+        del missing_sha["implementation_merge_sha"]
+        with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "IMPLEMENTATION_MERGE_SHA"):
+            validate_finalization(missing_sha, policy(), gate_contract(), implementation_ancestor_verified=True)
+
         bad_gate = gate_contract()
         bad_gate["implementation_merge_sha"] = "0" * 40
         with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "IMPLEMENTATION_SHA_PIN_DRIFT"):
@@ -133,6 +141,25 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
             with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "JSON_READ"):
                 load_json(invalid)
 
+    def test_git_ancestor_check_uses_real_local_git_objects(self):
+        with tempfile.TemporaryDirectory() as td:
+            repo = Path(td)
+            subprocess.run(["git", "init", "-q", str(repo)], check=True)
+            subprocess.run(["git", "-C", str(repo), "config", "user.email", "test@example.invalid"], check=True)
+            subprocess.run(["git", "-C", str(repo), "config", "user.name", "F02 Test"], check=True)
+            (repo / "a.txt").write_text("one\n", encoding="utf-8")
+            subprocess.run(["git", "-C", str(repo), "add", "a.txt"], check=True)
+            subprocess.run(["git", "-C", str(repo), "commit", "-q", "-m", "first"], check=True)
+            first = subprocess.check_output(["git", "-C", str(repo), "rev-parse", "HEAD"], text=True).strip()
+            (repo / "a.txt").write_text("two\n", encoding="utf-8")
+            subprocess.run(["git", "-C", str(repo), "commit", "-q", "-am", "second"], check=True)
+            verify_git_ancestor(repo, first)
+            with self.assertRaisesRegex(
+                F02FundebMonthlyPolicyFinalizationStop,
+                "IMPLEMENTATION_COMMIT_OBJECT_MISSING",
+            ):
+                verify_git_ancestor(repo, "0" * 40)
+
     def test_new_workflow_is_registered_as_auto_t0_remote_closed(self):
         raw = json.loads(POLICY.read_text(encoding="utf-8"))
         matches = [
@@ -152,6 +179,18 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
         self.assertEqual(gate["permissions"], {"contents": "read"})
         self.assertFalse(gate["persist_credentials"])
         self.assertEqual(gate["secrets"], [])
+
+    def test_workflow_is_path_scoped_full_history_readonly_and_fail_closed(self):
+        text = WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("permissions:\n  contents: read", text)
+        self.assertIn("persist-credentials: false", text)
+        self.assertIn("fetch-depth: 0", text)
+        self.assertNotIn("pull_request_target", text)
+        self.assertNotIn("schedule:", text)
+        self.assertIn('config/f02_fundeb_monthly_cash_gate.v1.json', text)
+        self.assertIn('F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json', text)
+        self.assertIn("test -f scripts/validate_f02_fundeb_monthly_policy_finalization.py", text)
+        self.assertIn("test -f docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json", text)
 
 
 if __name__ == "__main__":
