@@ -1,15 +1,18 @@
 {
-  "schema": "F02_FUNDEB_MONTHLY_CASH_GATE_DESIGN_V1",
+  "schema": "F02_FUNDEB_MONTHLY_CASH_GATE_V1",
   "software_candidate": "0.8.0",
   "tier": "T0",
   "mode": "T0_OFFLINE_FUNDEB_MONTHLY_CASH",
-  "purpose": "ALLOW_LOCAL_OFFLINE_PARSE_AND_RECONCILIATION_OF_PINNED_MONTHLY_FUNDEB_SOURCE_SNAPSHOTS",
+  "purpose": "ALLOW_LOCAL_OFFLINE_PARSE_AND_RECONCILIATION_OF_PINNED_MONTHLY_FUNDEB_SOURCE_SNAPSHOTS_AFTER_IMPLEMENTATION_MERGE",
+  "operational": true,
+  "implementation_pr_required": 376,
+  "implementation_merge_required_before_manual_execution": true,
   "local_snapshot_read_authorized": true,
   "remote_drive_read_authorized": false,
   "runtime_authorization_required": true,
   "runtime_authorization_schema": "F02_FUNDEB_MONTHLY_CASH_RUNTIME_AUTHORIZATION_V1",
   "runtime_authorization_scope": "F02_FUNDEB_MONTHLY_CASH_LOCAL_SNAPSHOT_READ",
-  "authorization_mechanism": "REPOSITORY_RELATIVE_JSON_PLUS_EXACT_SHA256_CLI_PIN",
+  "authorization_mechanism": "REPOSITORY_RELATIVE_EPHEMERAL_JSON_PLUS_EXACT_SHA256_CLI_PIN",
   "cli_fixed_repository_root": true,
   "cli_output": "STDOUT_ONLY",
   "blocked_remote_effects": {
@@ -31,9 +34,8 @@
     "mde_compliance_claim": true,
     "annual_compliance_claim": true
   },
-  "status": "DESIGN_ONLY_NON_OPERATIONAL_UNTIL_GLOBAL_POLICY_REGISTRATION",
-  "operational": false,
   "global_policy_gate_id": "F02_FUNDEB_MONTHLY_CASH_OFFLINE",
   "global_policy_registration_required": true,
-  "execution_before_global_policy_registration": "STOP"
+  "policy_change_authorization_evidence": "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_OWNER_AUTHORIZATION_0.8.0.json",
+  "status": "REGISTERED_MANUAL_T0_PENDING_IMPLEMENTATION_PR_376"
 }
