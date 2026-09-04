@@ -1,0 +1,57 @@
+{
+  "schema": "TASK_107_OWNER_AUTHORIZATION_RECORD_V1",
+  "task": "TASK_107_SINGLE_USE_HISTORICAL_PPA_PRIMARY_EVIDENCE_PYPDF",
+  "software_version": "0.8.0",
+  "status": "AUTHORIZED_PROSPECTIVE_UNCONSUMED",
+  "authorization_source": {
+    "kind": "OWNER_CHAT_INSTRUCTION_2026-09-04",
+    "instruction": "atorizado pra todoase essas etapas prossiga",
+    "followup": "prossiga",
+    "issued_before_execution": true,
+    "interpretation": "AUTHORIZE_PREVIOUSLY_DESCRIBED_STAGED_SEQUENCE_WITH_EXISTING_FAIL_CLOSED_GATES_PRESERVED"
+  },
+  "preconditions": {
+    "task106_run_id": 33914326253,
+    "task106_source_requests": 0,
+    "task106_primary_source_bytes": 0,
+    "task106_source_read_scope_consumed": false,
+    "task106_workflow_consumed": true,
+    "task106_merge_main": "4045728d9a8bc09121a0acf0eb2e0abb61dfdbd2"
+  },
+  "scope": {
+    "issue": 411,
+    "periods": [
+      "2018-2021",
+      "2022-2025"
+    ],
+    "purpose": "PRIMARY_PPA_EVIDENCE_ACQUISITION_ONLY",
+    "maximum_http_requests_total": 6,
+    "maximum_http_requests_per_period": 3,
+    "allowed_methods": [
+      "GET"
+    ],
+    "single_execution": true,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "bronze_writes": 0,
+    "silver_writes": 0,
+    "gold_writes": 0,
+    "state_registry_writes": 0,
+    "queue_writes": 0,
+    "serving_writes": 0,
+    "publications": 0
+  },
+  "exclusions": {
+    "retry": false,
+    "future_execution": false,
+    "overwrite": false,
+    "delete": false,
+    "move": false,
+    "schedule": false,
+    "recurrence": false,
+    "financial_identity_promotion": false,
+    "transaction_execution_promotion": false,
+    "implementation_promotion": false,
+    "causal_effect_promotion": false
+  }
+}
