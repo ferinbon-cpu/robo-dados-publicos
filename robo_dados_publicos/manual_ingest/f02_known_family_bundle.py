@@ -9,8 +9,8 @@ import re
 import stat
 from typing import Any
 
-from .drive_ingestion_controller import load_controller_contract
-from .source_family_maturity import load_maturity_registry, execution_maturity
+from .drive_ingestion_controller import validate_controller_contract
+from .source_family_maturity import validate_maturity_registry, execution_maturity
 from .mde_fundeb import (
     F02IngestStop,
     F02SourceContract,
@@ -66,13 +66,31 @@ def load_json(path: str | Path) -> dict[str, Any]:
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
-def _safe_repo_file(root: Path, value: object, *, code: str) -> Path:
-    text = str(value or "").strip()
-    if not text:
-        _stop(code + "_MISSING")
-    relative = Path(text)
-    if relative.is_absolute() or ".." in relative.parts:
-        _stop(code + "_UNSAFE", text)
+def _git_blob_sha(payload: bytes) -> str:
+    header = f"blob {len(payload)}\0".encode("ascii")
+    return hashlib.sha1(header + payload).hexdigest()
+
+
+def _decode_json_bytes(payload: bytes, *, code: str) -> dict[str, Any]:
+    try:
+        value = json.loads(payload.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise F02KnownFamilyBundleStop(
+            f"STOP_F02_KNOWN_BUNDLE_{code}_INVALID_JSON"
+        ) from exc
+    if not isinstance(value, dict):
+        _stop(code + "_NOT_OBJECT")
+    return value
+
+
+def _read_regular_file_beneath_root(
+    root: Path,
+    relative: Path,
+    *,
+    code: str,
+) -> bytes:
+    if relative.is_absolute() or ".." in relative.parts or not relative.parts:
+        _stop(code + "_UNSAFE", str(relative))
 
     try:
         root_resolved = root.resolve(strict=True)
@@ -81,25 +99,56 @@ def _safe_repo_file(root: Path, value: object, *, code: str) -> Path:
             f"STOP_F02_KNOWN_BUNDLE_{code}_ROOT_UNREADABLE: {root}"
         ) from exc
 
-    cursor = root_resolved
-    for part in relative.parts:
-        cursor = cursor / part
-        if cursor.is_symlink():
-            _stop(code + "_SYMLINK", text)
+    nofollow = getattr(os, "O_NOFOLLOW", 0)
+    odirectory = getattr(os, "O_DIRECTORY", 0)
+    nonblock = getattr(os, "O_NONBLOCK", 0)
+    if os.name != "posix" or not nofollow or not odirectory:
+        _stop(code + "_SECURE_OPEN_UNAVAILABLE")
 
-    candidate = root_resolved / relative
+    opened_dirs: list[int] = []
+    file_fd: int | None = None
     try:
-        resolved = candidate.resolve(strict=True)
-    except OSError as exc:
-        raise F02KnownFamilyBundleStop(
-            f"STOP_F02_KNOWN_BUNDLE_{code}_UNREADABLE: {text}"
-        ) from exc
+        current_fd = os.open(
+            root_resolved,
+            os.O_RDONLY | odirectory | nofollow,
+        )
+        opened_dirs.append(current_fd)
 
-    if resolved != root_resolved and root_resolved not in resolved.parents:
-        _stop(code + "_ESCAPES_ROOT", text)
-    if not resolved.is_file():
-        _stop(code + "_NOT_FILE", text)
-    return resolved
+        for part in relative.parts[:-1]:
+            current_fd = os.open(
+                part,
+                os.O_RDONLY | odirectory | nofollow,
+                dir_fd=current_fd,
+            )
+            opened_dirs.append(current_fd)
+
+        file_fd = os.open(
+            relative.parts[-1],
+            os.O_RDONLY | nofollow | nonblock,
+            dir_fd=current_fd,
+        )
+        info = os.fstat(file_fd)
+        if not stat.S_ISREG(info.st_mode):
+            _stop(code + "_NOT_REGULAR", str(relative))
+
+        with os.fdopen(file_fd, "rb", closefd=True) as handle:
+            file_fd = None
+            return handle.read()
+    except F02KnownFamilyBundleStop:
+        raise
+    except OSError as exc:
+        if exc.errno == errno.ELOOP:
+            raise F02KnownFamilyBundleStop(
+                f"STOP_F02_KNOWN_BUNDLE_{code}_SYMLINK: {relative}"
+            ) from exc
+        raise F02KnownFamilyBundleStop(
+            f"STOP_F02_KNOWN_BUNDLE_{code}_SECURE_OPEN: {relative}"
+        ) from exc
+    finally:
+        if file_fd is not None:
+            os.close(file_fd)
+        for descriptor in reversed(opened_dirs):
+            os.close(descriptor)
 
 
 def validate_gate_contract(raw: dict[str, Any]) -> dict[str, Any]:
@@ -157,6 +206,10 @@ def validate_adapter_contract(raw: dict[str, Any]) -> dict[str, Any]:
         _stop("BUNDLE_MATURITY")
     if not alignment.get("controller_contract_path") or not alignment.get("maturity_registry_path"):
         _stop("ALIGNMENT_PATHS")
+    for key in ("controller_expected_git_blob_sha", "maturity_expected_git_blob_sha"):
+        value = str(alignment.get(key) or "")
+        if not re.fullmatch(r"[0-9a-f]{40}", value):
+            _stop("ALIGNMENT_BLOB_PIN", key)
     if not raw.get("gate_contract_path"):
         _stop("GATE_PATH")
 
@@ -188,16 +241,43 @@ def validate_controller_alignment(
 ) -> dict[str, Any]:
     root = Path(root)
     alignment = adapter["controller_alignment"]
-    controller_path = _safe_repo_file(
-        root, alignment["controller_contract_path"], code="CONTROLLER_PATH"
+
+    controller_bytes = _read_regular_file_beneath_root(
+        root,
+        Path(str(alignment["controller_contract_path"])),
+        code="CONTROLLER_PATH",
     )
-    maturity_path = _safe_repo_file(
-        root, alignment["maturity_registry_path"], code="MATURITY_PATH"
+    observed_controller_blob = _git_blob_sha(controller_bytes)
+    if observed_controller_blob != alignment["controller_expected_git_blob_sha"]:
+        _stop(
+            "CONTROLLER_BLOB_DRIFT",
+            f"expected={alignment['controller_expected_git_blob_sha']};observed={observed_controller_blob}",
+        )
+
+    maturity_bytes = _read_regular_file_beneath_root(
+        root,
+        Path(str(alignment["maturity_registry_path"])),
+        code="MATURITY_PATH",
     )
-    gate_path = _safe_repo_file(root, adapter["gate_contract_path"], code="GATE_PATH")
-    validate_gate_contract(load_json(gate_path))
-    controller = load_controller_contract(controller_path)
-    maturity = load_maturity_registry(maturity_path)
+    observed_maturity_blob = _git_blob_sha(maturity_bytes)
+    if observed_maturity_blob != alignment["maturity_expected_git_blob_sha"]:
+        _stop(
+            "MATURITY_BLOB_DRIFT",
+            f"expected={alignment['maturity_expected_git_blob_sha']};observed={observed_maturity_blob}",
+        )
+
+    gate_bytes = _read_regular_file_beneath_root(
+        root,
+        Path(str(adapter["gate_contract_path"])),
+        code="GATE_PATH",
+    )
+    validate_gate_contract(_decode_json_bytes(gate_bytes, code="GATE_PATH"))
+    controller = validate_controller_contract(
+        _decode_json_bytes(controller_bytes, code="CONTROLLER_PATH")
+    )
+    maturity = validate_maturity_registry(
+        _decode_json_bytes(maturity_bytes, code="MATURITY_PATH")
+    )
 
     defaults = controller.get("family_default_routes", {})
     for source_family, controller_family in EXPECTED_CONTROLLER_MAP.items():
@@ -302,74 +382,11 @@ def validate_batch_manifest(
 
 
 def _read_snapshot(root: Path, relative: Path) -> bytes:
-    if relative.is_absolute() or ".." in relative.parts or not relative.parts:
-        _stop("SNAPSHOT_PATH_UNSAFE", str(relative))
-
-    root_resolved = root.resolve(strict=True)
-    nofollow = getattr(os, "O_NOFOLLOW", 0)
-    odirectory = getattr(os, "O_DIRECTORY", 0)
-    nonblock = getattr(os, "O_NONBLOCK", 0)
-
-    if os.name == "posix" and nofollow and odirectory:
-        opened_dirs: list[int] = []
-        file_fd: int | None = None
-        try:
-            current_fd = os.open(root_resolved, os.O_RDONLY | odirectory)
-            opened_dirs.append(current_fd)
-
-            # Descriptor-relative traversal keeps every already-opened directory
-            # stable even if another process mutates names concurrently.
-            for part in relative.parts[:-1]:
-                current_fd = os.open(
-                    part,
-                    os.O_RDONLY | odirectory | nofollow,
-                    dir_fd=current_fd,
-                )
-                opened_dirs.append(current_fd)
-
-            file_fd = os.open(
-                relative.parts[-1],
-                os.O_RDONLY | nofollow | nonblock,
-                dir_fd=current_fd,
-            )
-            info = os.fstat(file_fd)
-            if not stat.S_ISREG(info.st_mode):
-                _stop("SNAPSHOT_PATH_NOT_REGULAR", str(relative))
-
-            with os.fdopen(file_fd, "rb", closefd=True) as handle:
-                file_fd = None
-                return handle.read()
-        except F02KnownFamilyBundleStop:
-            raise
-        except OSError as exc:
-            if exc.errno == errno.ELOOP:
-                raise F02KnownFamilyBundleStop(
-                    f"STOP_F02_KNOWN_BUNDLE_SNAPSHOT_PATH_SYMLINK: {relative}"
-                ) from exc
-            raise F02KnownFamilyBundleStop(
-                f"STOP_F02_KNOWN_BUNDLE_SNAPSHOT_SECURE_OPEN: {relative}"
-            ) from exc
-        finally:
-            if file_fd is not None:
-                os.close(file_fd)
-            for descriptor in reversed(opened_dirs):
-                os.close(descriptor)
-
-    # Non-POSIX fallback remains fail-closed and revalidates immediately
-    # before reading. The production/CI runtime is POSIX and uses the
-    # descriptor-relative branch above.
-    path = _safe_repo_file(root, relative, code="SNAPSHOT_PATH")
-    try:
-        info = path.stat(follow_symlinks=False)
-        if not stat.S_ISREG(info.st_mode) or path.is_symlink():
-            _stop("SNAPSHOT_PATH_NOT_REGULAR", str(relative))
-        return path.read_bytes()
-    except F02KnownFamilyBundleStop:
-        raise
-    except OSError as exc:
-        raise F02KnownFamilyBundleStop(
-            f"STOP_F02_KNOWN_BUNDLE_SNAPSHOT_UNREADABLE: {relative}"
-        ) from exc
+    return _read_regular_file_beneath_root(
+        root,
+        relative,
+        code="SNAPSHOT_PATH",
+    )
 
 
 def _validate_normalized_record(
