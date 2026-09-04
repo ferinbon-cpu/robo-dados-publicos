@@ -370,6 +370,10 @@ def load_budget_ledger_contract(path: str | Path) -> dict[str, Any]:
         tuple(data.get("default_canonical_statuses") or ()) == DEFAULT_CANONICAL_STATUSES,
         "TASK094_CONTRACT_CANONICAL_STATUSES",
     )
+    _require(
+        set(DEFAULT_CANONICAL_STATUSES).issubset(set(ASSERTION_STATUSES)),
+        "TASK094_CONTRACT_CANONICAL_STATUS_NOT_IN_ONTOLOGY",
+    )
     money = data.get("money") or {}
     _require(money.get("currency") == "BRL", "TASK094_CONTRACT_CURRENCY")
     _require(money.get("max_decimal_places") == 2, "TASK094_CONTRACT_DECIMALS")
