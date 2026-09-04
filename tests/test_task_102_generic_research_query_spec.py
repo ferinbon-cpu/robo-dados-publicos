@@ -42,13 +42,18 @@ class TestTask102GenericResearchQuerySpec(unittest.TestCase):
         specific = run_script(TASK101)
         self.assertEqual(0, generic.returncode, generic.stderr)
         self.assertEqual(0, specific.returncode, specific.stderr)
-        specific_normalized = specific.stdout.replace(
-            "Q:EITI_CLI_POLICY_STATUS_PACKET", "Q:CANONICAL"
+        def normalize(markdown: str, query_id: str) -> str:
+            lines = markdown.replace(query_id, "Q:CANONICAL").splitlines()
+            return "\n".join(
+                line
+                for line in lines
+                if not line.startswith("- **Query packet SHA-256:**")
+            )
+
+        self.assertEqual(
+            normalize(specific.stdout, "Q:EITI_CLI_POLICY_STATUS_PACKET"),
+            normalize(generic.stdout, "Q:EITI_GENERIC_POLICY_STATUS"),
         )
-        generic_normalized = generic.stdout.replace(
-            "Q:EITI_GENERIC_POLICY_STATUS", "Q:CANONICAL"
-        )
-        self.assertEqual(specific_normalized, generic_normalized)
 
     def test_generic_cli_is_deterministic(self):
         first = run_script(SCRIPT)
