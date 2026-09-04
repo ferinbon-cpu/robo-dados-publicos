@@ -2,7 +2,7 @@
   "task": "TASK_100",
   "version": "0.8.0",
   "mode": "T0_OFFLINE_DETERMINISTIC_MARKDOWN_RENDERER",
-  "result": "PASS_MERGED",
+  "result": "PENDING_REVIEW",
   "input_boundary": "RESEARCH_QUERY_RESULT_V1",
   "output_boundary": "RESEARCH_ANSWER_RENDER_V1",
   "first_subject": "POLICY:EITI_LIMEIRA",
@@ -52,27 +52,5 @@
     "retry": false,
     "recurrence": false,
     "schedule": false
-  },
-  "merge": {
-    "pr": 398,
-    "merge_sha": "90d1537925150a6b505206f682967f42d7cb49e9",
-    "final_head_sha": "ad52cdbccec607be0e5a16184333d160905d0f84"
-  },
-  "validation": {
-    "exact_head_ci": {
-      "final_ci_run_id": 33892965299,
-      "all_five_checks_success": true,
-      "unit_tests_success": true,
-      "historical_regression_success": true
-    },
-    "final_automatic_review": {
-      "run_id": 33893121431,
-      "model": "deepseek-v4-pro",
-      "review_sha256": "47ef66f79648e436da8d1d084ca88a8b56cdea22288a3dc66e5ae4d89a60184e",
-      "raw_verdict": "CHANGES_REQUESTED",
-      "security_findings_count": 0,
-      "adjudication": "NO_UNRESOLVED_CONCRETE_BLOCKER",
-      "adjudication_comment_id": 5543216009
-    }
   }
 }
