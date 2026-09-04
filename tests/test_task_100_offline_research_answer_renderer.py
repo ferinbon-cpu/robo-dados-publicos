@@ -8,6 +8,7 @@ import unittest
 
 from robo_dados_publicos.research.answer_renderer import (
     REMOTE_EFFECT_KEYS,
+    REQUIRED_INVARIANTS,
     ResearchAnswerRenderStop,
     load_renderer_contract,
     render_research_answer_markdown,
@@ -47,6 +48,7 @@ class TestTask100OfflineResearchAnswerRenderer(unittest.TestCase):
         self.assertEqual("T0_OFFLINE_DETERMINISTIC_MARKDOWN_RENDERER", contract["mode"])
         self.assertEqual(set(REMOTE_EFFECT_KEYS), set(contract["remote_effects"]))
         self.assertTrue(all(value is False for value in contract["remote_effects"].values()))
+        self.assertEqual(REQUIRED_INVARIANTS, tuple(contract["invariants"]))
 
     def test_eiti_packet_renders_deterministically(self):
         first = render_research_answer_markdown(self.packet)
@@ -123,6 +125,24 @@ class TestTask100OfflineResearchAnswerRenderer(unittest.TestCase):
         with self.assertRaisesRegex(ResearchAnswerRenderStop, "EVIDENCE_LOCATOR"):
             render_research_answer_markdown(packet)
 
+    def test_invalid_evidence_source_document_id_fails_closed(self):
+        packet = copy.deepcopy(self.packet)
+        claim = next(item for item in packet["claims"] if item.get("evidence"))
+        claim["evidence"][0].pop("source_document_id")
+        with self.assertRaisesRegex(ResearchAnswerRenderStop, "SOURCE_DOCUMENT_ID"):
+            render_research_answer_markdown(packet)
+
+    def test_count_metadata_mismatch_fails_closed(self):
+        packet = copy.deepcopy(self.packet)
+        packet["claim_count"] += 1
+        with self.assertRaisesRegex(ResearchAnswerRenderStop, "CLAIM_COUNT_MISMATCH"):
+            render_research_answer_markdown(packet)
+
+        packet = copy.deepcopy(self.packet)
+        packet["evidence_reference_count"] += 1
+        with self.assertRaisesRegex(ResearchAnswerRenderStop, "EVIDENCE_REFERENCE_COUNT_MISMATCH"):
+            render_research_answer_markdown(packet)
+
     def test_invalid_matrix_status_fails_closed(self):
         packet = copy.deepcopy(self.packet)
         packet["institutionalization_dimensions"][0]["status"] = "CERTAIN"
@@ -134,6 +154,15 @@ class TestTask100OfflineResearchAnswerRenderer(unittest.TestCase):
         packet["historical_acquisition_gaps"][0]["required_before_promotion"] = []
         with self.assertRaisesRegex(ResearchAnswerRenderStop, "HISTORICAL_REQUIREMENTS"):
             render_research_answer_markdown(packet)
+
+    def test_altered_invariant_contract_fails_closed(self):
+        contract = load(RENDERER_CONTRACT)
+        with tempfile.TemporaryDirectory() as temp_dir:
+            path = Path(temp_dir) / "contract.json"
+            contract["invariants"] = contract["invariants"][:-1]
+            path.write_text(json.dumps(contract), encoding="utf-8")
+            with self.assertRaisesRegex(ResearchAnswerRenderStop, "CONTRACT_INVARIANTS"):
+                load_renderer_contract(path)
 
     def test_truthy_or_incomplete_remote_effect_contract_fails_closed(self):
         contract = load(RENDERER_CONTRACT)
