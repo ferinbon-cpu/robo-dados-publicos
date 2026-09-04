@@ -10,7 +10,10 @@
     "single_execution": true,
     "consumed": true,
     "retry_authorized": false,
-    "future_execution_authorized": false
+    "future_execution_authorized": false,
+    "evidence_path": "docs/evidence/TASK_089_OWNER_AUTHORIZATION_0.8.0.json",
+    "owner_github_comment_id": 5539799359,
+    "owner_github_comment_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/pull/387#issuecomment-5539799359"
   },
   "selected_task": {
     "task_id": "RECTASK_bf460d6fbffa22124902553f",
@@ -26,7 +29,11 @@
     "execution_head_sha": "46aafb71a0656a9607d456cf0de887ce3c7749c8",
     "workflow_path_at_execution": ".github/workflows/task-089-contract-resolver-live-once.yml",
     "workflow_removed_after_run": true,
-    "historical_workflow_source": "docs/evidence/TASK_089_HISTORICAL_LIVE_WORKFLOW_SOURCE_0.8.0.txt"
+    "historical_workflow_source": "docs/evidence/TASK_089_HISTORICAL_LIVE_WORKFLOW_SOURCE_0.8.0.txt",
+    "execution_workflow_blob_sha": "c5741a55a14e98736475ae271975963dd18d9691",
+    "historical_workflow_blob_sha": "c5741a55a14e98736475ae271975963dd18d9691",
+    "historical_source_exact_git_blob_match": true,
+    "task_contract_blob_sha": "7e568df40a2eda20e25da1ba3c2c27f18558ee83"
   },
   "live_run": {
     "run_id": 33867790494,
@@ -98,5 +105,12 @@
     "next_executable_contract_number": "08/2025.",
     "future_execution_authorized": false
   },
-  "result": "PASS_TASK089_ONE_BOUNDED_QUERY_COMPLETED_NO_COMPATIBLE_CANDIDATE"
+  "execution_record_status": "RECORDED_TASK089_ONE_BOUNDED_QUERY_COMPLETED_NO_COMPATIBLE_CANDIDATE",
+  "governance_interpretation": {
+    "execution_mode": "MANUAL_OWNER_AUTHORIZED_SINGLE_USE_REMOTE_READ",
+    "automation_policy_auto_execution_promoted": false,
+    "live_workflow_present_after_execution": false,
+    "historical_source_inert": true,
+    "future_remote_execution_authorized": false
+  }
 }
