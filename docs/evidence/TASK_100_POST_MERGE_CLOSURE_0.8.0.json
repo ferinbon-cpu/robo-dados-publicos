@@ -1,0 +1,35 @@
+{
+  "task": "TASK_100",
+  "version": "0.8.0",
+  "evidence_type": "POST_MERGE_GITHUB_API_READBACK",
+  "observed_after_merge": true,
+  "pr": {
+    "number": 398,
+    "url": "https://github.com/ferinbon-cpu/robo-dados-publicos/pull/398",
+    "final_head_sha": "ad52cdbccec607be0e5a16184333d160905d0f84",
+    "merge_sha": "90d1537925150a6b505206f682967f42d7cb49e9"
+  },
+  "exact_head_validation": {
+    "final_ci_run_id": 33892965299,
+    "final_ci_run_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/actions/runs/33892965299",
+    "five_pr_checks_success": true,
+    "unit_tests_success": true,
+    "historical_regression_success": true
+  },
+  "automatic_review": {
+    "final_run_id": 33893121431,
+    "final_run_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/actions/runs/33893121431",
+    "model": "deepseek-v4-pro",
+    "review_sha256": "47ef66f79648e436da8d1d084ca88a8b56cdea22288a3dc66e5ae4d89a60184e",
+    "raw_verdict": "CHANGES_REQUESTED",
+    "security_findings_count": 0,
+    "adjudication": "NO_UNRESOLVED_CONCRETE_BLOCKER",
+    "adjudication_comment_id": 5543216009,
+    "adjudication_comment_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/pull/398#issuecomment-5543216009"
+  },
+  "provenance": {
+    "observation_source": "GitHub API readback after the referenced runs and merge existed",
+    "retroactive_authorization_claimed": false,
+    "live_data_run": false
+  }
+}
