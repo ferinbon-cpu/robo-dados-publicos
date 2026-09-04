@@ -11,6 +11,7 @@ from robo_dados_publicos.research.local_pdf_capability import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
+EVIDENCE = ROOT / "docs/evidence/TASK_109_VISUAL_OCR_CAPABILITY_0.8.0.json"
 
 
 class TestTask109OfflineVisualOcrCapability(unittest.TestCase):
@@ -32,6 +33,23 @@ class TestTask109OfflineVisualOcrCapability(unittest.TestCase):
             set(result["python_modules"]) >= {"PIL", "fitz", "pytesseract"}
         )
         self.assertTrue(all(value is False for value in result["remote_effects"].values()))
+
+    def test_observed_stop_is_pinned_and_does_not_authorize_install_or_real_ocr(self):
+        evidence = json.loads(EVIDENCE.read_text(encoding="utf-8"))
+        self.assertEqual("STOP_NO_LOCAL_OCR_CHAIN", evidence["decision"])
+        self.assertEqual(33917496591, evidence["observed_ci"]["run_id"])
+        self.assertEqual(101168021407, evidence["observed_ci"]["job_id"])
+        self.assertIsNone(evidence["observed_inventory"]["commands"]["tesseract"])
+        self.assertIsNone(evidence["observed_inventory"]["commands"]["pdftoppm"])
+        self.assertFalse(evidence["package_install_authorized"])
+        self.assertFalse(evidence["real_source_read_authorized"])
+        self.assertFalse(evidence["real_source_ocr_authorized"])
+        self.assertFalse(evidence["synthetic_image_only_pdf_ocr_proof_run"])
+        self.assertEqual(
+            "TASK_110_T0_OCR_DEPENDENCY_ROUTE_DESIGN_SEPARATE_REVIEW",
+            evidence["next_boundary"],
+        )
+        self.assertTrue(all(value is False for value in evidence["remote_effects"].values()))
 
     def test_probe_source_contains_no_network_or_real_ppa_reference(self):
         source = (
