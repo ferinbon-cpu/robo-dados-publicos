@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "schema": "RESEARCH_ONTOLOGY_V1",
+  "mode": "T0_OFFLINE_RESEARCH_SEMANTICS",
+  "entity_types": [
+    "POLICY",
+    "DOCUMENT",
+    "PLAN",
+    "PROGRAM",
+    "ACTION",
+    "BUDGET_EVENT",
+    "EXPENSE",
+    "CONTRACT",
+    "PROVIDER",
+    "DELIVERY",
+    "ORGANIZATION",
+    "TERRITORY",
+    "INDICATOR"
+  ],
+  "relation_types": [
+    "MENTIONS",
+    "ESTABLISHES",
+    "REGULATES",
+    "PLANS",
+    "CONTAINS",
+    "RESPONSIBLE_FOR",
+    "AUTHORIZES",
+    "ADJUSTS",
+    "EXECUTES",
+    "FINANCES",
+    "PROVIDES",
+    "DELIVERS_TO",
+    "MEASURES",
+    "CONTEXTUALIZES",
+    "SUPPORTS",
+    "CONTRADICTS",
+    "DERIVED_FROM",
+    "SUCCESSOR_OF",
+    "OVERLAPS_WITH",
+    "SAME_IDENTITY_AS"
+  ],
+  "assertion_statuses": [
+    "PROVEN",
+    "CORROBORATED",
+    "CANDIDATE",
+    "UNKNOWN",
+    "CONFLICTED",
+    "REFUTED"
+  ],
+  "id_prefixes": {
+    "POLICY": "POLICY",
+    "DOCUMENT": "DOC",
+    "PLAN": "PLAN",
+    "PROGRAM": "PROGRAM",
+    "ACTION": "ACTION",
+    "BUDGET_EVENT": "BUDGET_EVENT",
+    "EXPENSE": "EXPENSE",
+    "CONTRACT": "CONTRACT",
+    "PROVIDER": "PROVIDER",
+    "DELIVERY": "DELIVERY",
+    "ORGANIZATION": "ORG",
+    "TERRITORY": "TERRITORY",
+    "INDICATOR": "INDICATOR"
+  },
+  "invariants": [
+    "ENTITY_IDS_ARE_STABLE_AND_TYPED",
+    "RELATIONS_NEVER_IMPLY_FINANCIAL_IDENTITY_BY_TEXT_SIMILARITY_ONLY",
+    "CLAIMS_ARE_SEPARATE_FROM_EVIDENCE",
+    "PROVEN_OR_CORROBORATED_ASSERTIONS_REQUIRE_EVIDENCE_REFERENCES",
+    "UNKNOWN_MUST_NOT_BE_AUTO_PROMOTED",
+    "CONFLICTED_MUST_PRESERVE_SUPPORTING_AND_CONTRADICTING_EVIDENCE",
+    "POLICY_ENTITY_IS_NOT_HARDCODED_TO_EITI"
+  ],
+  "legacy_compatibility": {
+    "task055a_eiti_ontology": "PRESERVED_AS_POLICY_SPECIFIC_TERMINOLOGY_LAYER",
+    "evidence_graph": "PRESERVED_AS_LEGACY_EDGE_READER",
+    "financial_identity_classes": {
+      "A": "PROVEN",
+      "B": "CORROBORATED",
+      "C": "CANDIDATE",
+      "D": "UNKNOWN"
+    },
+    "eiti_insufficient_status": "EVIDENCIA_INSUFICIENTE_REMAINS_VALID_UPSTREAM_STATUS"
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  },
+  "record_kinds": [
+    "ENTITY",
+    "RELATION",
+    "CLAIM",
+    "EVIDENCE"
+  ]
+}
