@@ -1,0 +1,56 @@
+{
+  "task": "TASK_100",
+  "version": "0.8.0",
+  "mode": "T0_OFFLINE_DETERMINISTIC_MARKDOWN_RENDERER",
+  "result": "IMPLEMENTED_PENDING_CI_REVIEW",
+  "input_boundary": "RESEARCH_QUERY_RESULT_V1",
+  "output_boundary": "RESEARCH_ANSWER_RENDER_V1",
+  "first_subject": "POLICY:EITI_LIMEIRA",
+  "required_preservations": {
+    "claim_text_verbatim": true,
+    "claim_status_unchanged": true,
+    "evidence_document_identity": true,
+    "evidence_locator": true,
+    "institutionalization_unknowns": true,
+    "historical_acquisition_gaps": true
+  },
+  "eiti_required_visible_unknowns": [
+    "budgetary_policy_identity",
+    "transaction_execution_identity",
+    "outcome_effect"
+  ],
+  "eiti_required_historical_gaps": [
+    "2018-2021",
+    "2022-2025"
+  ],
+  "forbidden_operations": [
+    "STATUS_PROMOTION",
+    "FINANCIAL_IDENTITY_CREATION",
+    "CAUSAL_EFFECT_CREATION",
+    "FREE_FORM_GENERATION",
+    "LLM_CALL",
+    "NETWORK_READ",
+    "DRIVE_READ",
+    "DRIVE_WRITE",
+    "SERVING",
+    "PUBLICATION"
+  ],
+  "determinism": {
+    "same_input_same_markdown": true,
+    "markdown_sha256_emitted": true
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
