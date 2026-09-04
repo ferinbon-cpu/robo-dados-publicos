@@ -10,16 +10,31 @@
       "repository_signal": "escolas com programas em tempo integral",
       "signal_origin": "TASK_055A_LOCAL_PLANNING_ALIAS",
       "task055a_validator_tag": "TASK055A_PPA2018_ALIAS_MISSING",
-      "primary_document_entity_versioned": false,
-      "primary_source_hash_versioned": false,
+      "primary_document_entity_versioned": true,
+      "primary_source_hash_versioned": true,
       "primary_locator_versioned": false,
-      "planning_signal_status": "CANDIDATE",
+      "primary_document_identity_locator_versioned": true,
+      "planning_signal_status": "CONFLICTED",
       "policy_link_status": "UNKNOWN",
       "financial_identity_status": "UNKNOWN",
-      "reason": "TASK 107 resolved and read the official 2018-2021 PPA PDF, but pypdf returned empty text and the live result did not preserve a source hash, typed signal locator or direct text/visual evidence for this period. The primary planning gap therefore remains open.",
-      "task107_official_pdf_url": "https://www.limeira.sp.gov.br/sitenovo/downloads/0fa1a5cc5c9a1823fbf5436def00f01f.pdf",
-      "task107_parser_status": "PDF_TEXT_EMPTY",
-      "task107_live_result": "docs/evidence/TASK_107_LIVE_RESULT_0.8.0.json"
+      "reason": "The official PPA 2018-2021 is fully acquired and identified by primary OCR evidence, but the TASK055A historical alias remains only a repository candidate and TASK114 found zero A/B/C ontology candidates across all 80 OCRed pages. This is bounded negative evidence, not global refutation.",
+      "primary_evidence_tasks": [
+        "TASK_112",
+        "TASK_114"
+      ],
+      "primary_source_url": "https://www.limeira.sp.gov.br/sitenovo/downloads/0fa1a5cc5c9a1823fbf5436def00f01f.pdf",
+      "primary_source_sha256": "685a621a2f5fa8859e4b7f8518627c1523a2fbc5f3402ff48d4aa7573300113d",
+      "primary_source_bytes": 3252087,
+      "document_page_count": 80,
+      "document_identity_locator": {
+        "coordinate_system": "SOURCE_PDF_PAGE_1_BASED",
+        "page": 1,
+        "rendered_page_sha256": "76479c5b3d9bec19aa23c173ab1396813710140cbe0314506af8a8b1af666ed0",
+        "ocr_tsv_sha256": "ae8fdb489de7783326ea9fe6d3f1ab0a72cb6ea084ce846e658b9b2208836bb0",
+        "law_number": "5.947",
+        "confidence_mean": 94.20056408498583
+      },
+      "positive_planning_signal_locator": null
     },
     {
       "period": "2022-2025",
@@ -68,29 +83,51 @@
     }
   ],
   "longitudinal_assessment": {
-    "three_ppa_period_policy_continuity": "CANDIDATE",
+    "three_ppa_period_policy_continuity": "CONFLICTED",
     "three_ppa_period_budgetary_persistence": "UNKNOWN",
     "existing_task096_normative_planning_persistence": "CORROBORATED",
     "existing_task096_normative_planning_persistence_preserved": true,
-    "explanation": "Primary planning evidence is now proven for 2022-2025 and 2026-2029, while 2018-2021 remains unresolved because its official PDF yielded no pypdf text. The existing TASK096 persistence finding remains separate and the three-PPA policy-continuity claim remains CANDIDATE.",
-    "two_of_three_primary_planning_periods_proven": true
+    "explanation": "Primary planning evidence is positive for 2022-2025 and 2026-2029. PPA 2018-2021 is fully acquired but yields bounded negative evidence for the declared A/B/C ontology, while a secondary historical alias remains in repository history. Therefore three-period continuity is CONFLICTED rather than proven.",
+    "two_of_three_primary_planning_periods_proven": true,
+    "all_three_primary_documents_acquired": true
   },
-  "acquisition_gaps": [
+  "acquisition_gaps": [],
+  "bounded_negative_evidence": [
     {
       "period": "2018-2021",
-      "required_before_promotion": [
-        "PRIMARY_PPA_DOCUMENT_IDENTITY",
-        "STABLE_SOURCE_HASH_OR_EQUIVALENT_IDENTITY",
-        "TYPED_LOCATOR_FOR_THE_RELEVANT_PLANNING_SIGNAL",
-        "DIRECT_TEXT_OR_VISUAL_EVIDENCE"
+      "status": "BOUNDED_NO_CANDIDATES",
+      "source_url": "https://www.limeira.sp.gov.br/sitenovo/downloads/0fa1a5cc5c9a1823fbf5436def00f01f.pdf",
+      "source_sha256": "685a621a2f5fa8859e4b7f8518627c1523a2fbc5f3402ff48d4aa7573300113d",
+      "source_bytes": 3252087,
+      "document_page_count": 80,
+      "pages_ocr_scanned": 80,
+      "ontology_family_count": 3,
+      "ontology_families": [
+        "A_CANONICAL_POLICY_IDENTIFIERS",
+        "B_LOCAL_PLANNING_AND_NORMATIVE_ALIASES",
+        "C_OPERATIONAL_OFFER_AND_JOURNEY_SIGNALS"
       ],
-      "current_obstacle": "OFFICIAL_PDF_RESOLVED_BUT_PYPDF_TEXT_EMPTY; DIRECT_TEXT_OR_VISUAL_EVIDENCE_AND_STABLE_HASH_STILL_REQUIRED"
+      "ontology_term_count": 29,
+      "candidate_count": 0,
+      "candidate_page_count": 0,
+      "task112_result": "docs/evidence/TASK_112_REAL_PPA_OCR_RESULT_0.8.0.json",
+      "task114_result": "docs/evidence/TASK_114_ONTOLOGY_OCR_RESULT_0.8.0.json",
+      "task114_result_canonical_sha256": "ab663f4f5f8a192e4cf9cf64c8e8ee3da2731f61d32041b7486244290f485c81",
+      "interpretation": "Scoped negative evidence for the declared ontology and OCR method only; not proof of global absence of time-integral planning, provision, practice or policy.",
+      "limitations": [
+        "OCR_ERRORS_REMAIN_POSSIBLE",
+        "ONTOLOGY_A_B_C_IS_FINITE",
+        "NO_FUZZY_EDIT_DISTANCE_WAS_USED",
+        "NO_FINANCING_OR_ACCOUNTING_TERMS_WERE_USED_FOR_POLICY_IDENTIFICATION",
+        "NEGATIVE_EVIDENCE_DOES_NOT_PROVE_GLOBAL_ABSENCE"
+      ]
     }
   ],
   "forbidden_promotions": [
     "TASK055A_ALIAS_TO_PROVEN_PRIMARY_PLANNING_FACT",
+    "BOUNDED_NO_MATCH_TO_GLOBAL_ABSENCE",
     "HISTORICAL_ALIAS_TO_FINANCIAL_IDENTITY",
-    "THREE_PPA_ALIAS_SEQUENCE_TO_PROVEN_POLICY_CONTINUITY",
+    "THREE_PPA_SEQUENCE_TO_PROVEN_POLICY_CONTINUITY",
     "PLANNING_SIGNAL_TO_OBSERVED_IMPLEMENTATION",
     "PLANNING_SIGNAL_TO_CAUSAL_OUTCOME"
   ],
