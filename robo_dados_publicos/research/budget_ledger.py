@@ -47,6 +47,7 @@ IDENTITY_DIMENSIONS = (
     "accounting_key",
 )
 
+REQUIRED_IDENTITY_DIMENSIONS = ("entity", "fiscal_year")
 DEFAULT_CANONICAL_STATUSES = ("PROVEN", "CORROBORATED")
 _MONEY_RE = re.compile(r"^(?:0|[1-9][0-9]*)(?:\.[0-9]{1,2})?$")
 _TYPED_ID_RE = re.compile(r"^[A-Z_]+:[A-Za-z0-9][A-Za-z0-9._:-]{0,199}$")
@@ -365,6 +366,10 @@ def load_budget_ledger_contract(path: str | Path) -> dict[str, Any]:
     _require(
         tuple(data.get("identity_dimensions") or ()) == IDENTITY_DIMENSIONS,
         "TASK094_CONTRACT_IDENTITY_DIMENSIONS",
+    )
+    _require(
+        tuple(data.get("required_identity_dimensions") or ()) == REQUIRED_IDENTITY_DIMENSIONS,
+        "TASK094_CONTRACT_REQUIRED_IDENTITY_DIMENSIONS",
     )
     _require(
         tuple(data.get("default_canonical_statuses") or ()) == DEFAULT_CANONICAL_STATUSES,
