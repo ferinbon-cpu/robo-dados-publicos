@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import copy
 import json
 import subprocess
 import tempfile
@@ -105,6 +104,25 @@ def gate_contract(*, finalized: bool = True):
     return gate
 
 
+def workflow_paths(text: str) -> list[str]:
+    lines = text.splitlines()
+    in_paths = False
+    paths: list[str] = []
+    for line in lines:
+        if line.strip() == "paths:":
+            in_paths = True
+            continue
+        if not in_paths:
+            continue
+        stripped = line.strip()
+        if stripped.startswith('- "') and stripped.endswith('"'):
+            paths.append(stripped[3:-1])
+            continue
+        if stripped and not stripped.startswith("#"):
+            break
+    return paths
+
+
 class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
     def test_prefinalization_install_is_valid_but_not_executable(self):
         result = validate_prefinalization_install(
@@ -134,6 +152,40 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
             result["status"],
             "PASS_F02_FUNDEB_MONTHLY_POLICY_PREFINALIZATION_INSTALL",
         )
+
+    def test_repository_lifecycle_rejects_evidence_while_gate_is_prefinalization(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            (root / "config").mkdir(parents=True)
+            (root / "docs/evidence").mkdir(parents=True)
+            (root / "config/automation_policy.v1.json").write_text(
+                json.dumps(policy(finalized=False)), encoding="utf-8"
+            )
+            (root / "config/f02_fundeb_monthly_cash_gate.v1.json").write_text(
+                json.dumps(gate_contract(finalized=False)), encoding="utf-8"
+            )
+            (root / "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json").write_text(
+                json.dumps(evidence()), encoding="utf-8"
+            )
+            with self.assertRaises(F02FundebMonthlyPolicyFinalizationStop):
+                validate_repository_state(root)
+
+    def test_repository_lifecycle_rejects_finalized_gate_without_evidence(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            (root / "config").mkdir(parents=True)
+            (root / "docs/evidence").mkdir(parents=True)
+            (root / "config/automation_policy.v1.json").write_text(
+                json.dumps(policy(finalized=True)), encoding="utf-8"
+            )
+            (root / "config/f02_fundeb_monthly_cash_gate.v1.json").write_text(
+                json.dumps(gate_contract(finalized=True)), encoding="utf-8"
+            )
+            with self.assertRaisesRegex(
+                F02FundebMonthlyPolicyFinalizationStop,
+                "PREFINALIZATION_GATE_STATUS",
+            ):
+                validate_repository_state(root)
 
     def test_synthetic_finalization_passes_only_with_ancestor_proof(self):
         result = validate_finalization(
@@ -217,13 +269,11 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
             (repo / "b.txt").write_text("other\n", encoding="utf-8")
             subprocess.run(["git", "-C", str(repo), "add", "b.txt"], check=True)
             subprocess.run(["git", "-C", str(repo), "commit", "-q", "-m", "other"], check=True)
-            other = subprocess.check_output(["git", "-C", str(repo), "rev-parse", "HEAD"], text=True).strip()
             with self.assertRaisesRegex(
                 F02FundebMonthlyPolicyFinalizationStop,
                 "IMPLEMENTATION_MERGE_NOT_ANCESTOR",
             ):
                 verify_git_ancestor(repo, first)
-            self.assertRegex(other, r"^[0-9a-f]{40}$")
 
     def test_workflow_paths_match_canonical_policy_filter_exactly(self):
         raw = json.loads(POLICY.read_text(encoding="utf-8"))
@@ -232,20 +282,20 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
             if row.get("id") == "F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_EVIDENCE_CI"
         )
         expected = ci_gate["path_filter"]
+        observed = workflow_paths(WORKFLOW.read_text(encoding="utf-8"))
+        self.assertEqual(observed, expected)
+
+    def test_policy_path_trigger_is_safe_because_workflow_is_readonly_and_nonmutating(self):
         text = WORKFLOW.read_text(encoding="utf-8")
-        for path in expected:
-            self.assertEqual(text.count(f'- "{path}"'), 1, path)
-        self.assertEqual(
-            expected,
-            [
-                "config/automation_policy.v1.json",
-                "config/f02_fundeb_monthly_cash_gate.v1.json",
-                "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json",
-                "robo_dados_publicos/automation/f02_fundeb_monthly_policy_finalization.py",
-                "scripts/validate_f02_fundeb_monthly_policy_finalization.py",
-                "tests/test_f02_fundeb_monthly_cash_policy_finalization.py",
-            ],
-        )
+        observed = workflow_paths(text)
+        self.assertIn("config/automation_policy.v1.json", observed)
+        self.assertIn("permissions:\n  contents: read", text)
+        self.assertNotIn("contents: write", text)
+        self.assertNotIn("pull-requests: write", text)
+        self.assertNotIn("git push", text)
+        self.assertNotIn("gh pr", text)
+        self.assertNotIn("repository_dispatch", text)
+        self.assertNotIn("workflow_run", text)
 
     def test_workflow_is_full_history_readonly_and_lifecycle_aware(self):
         text = WORKFLOW.read_text(encoding="utf-8")
