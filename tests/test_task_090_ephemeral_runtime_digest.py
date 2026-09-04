@@ -14,19 +14,22 @@ from robo_dados_publicos.journal.processing import JournalPdfProcessor
 from robo_dados_publicos.manual_ingest.ephemeral_runtime_digest import (
     EphemeralDigestStop,
     REMOTE_EFFECT_KEYS,
+    _git_blob_sha,
+    _validate_processor_source,
     run_ephemeral_digest,
     validate_contract,
 )
 from robo_dados_publicos.manual_ingest.source_family_maturity import (
     load_maturity_registry,
 )
-from scripts.run_ephemeral_runtime_digest import _safe_input_path
+from scripts.run_ephemeral_runtime_digest import _safe_input_path, _safe_result_path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_PATH = ROOT / "config" / "ephemeral_runtime_digest.v1.json"
 MATURITY_PATH = ROOT / "config" / "source_family_maturity_registry.v1.json"
 FIXTURE = ROOT / "tests" / "fixtures" / "jornal_oficial_fixture_2pages.pdf"
+PROCESSOR_PATH = ROOT / "robo_dados_publicos" / "journal" / "processing.py"
 
 
 def manifest_for(relative_path: str = "input.pdf") -> dict:
@@ -79,6 +82,23 @@ class TestTask090EphemeralRuntimeDigest(unittest.TestCase):
         self.assertTrue(
             all(value is False for value in contract["automatic_remote_effects"].values())
         )
+
+
+    def test_contract_processor_blob_matches_repository_file(self):
+        observed = _git_blob_sha(PROCESSOR_PATH.read_bytes())
+        expected = self.contract["adapters"]["JORNAL_OFICIAL"]["processor_source"][
+            "expected_git_blob_sha"
+        ]
+        self.assertEqual("899db8d357f40afbab595beb365b330a703c339b", observed)
+        self.assertEqual(expected, observed)
+
+    def test_processor_source_audit_rejects_forbidden_import_if_declared(self):
+        contract = deepcopy(self.contract)
+        contract["adapters"]["JORNAL_OFICIAL"]["processor_source"][
+            "forbidden_import_roots"
+        ].append("json")
+        with self.assertRaisesRegex(EphemeralDigestStop, "PROCESSOR_FORBIDDEN_IMPORT"):
+            _validate_processor_source(contract)
 
     def test_happy_path_digests_only_in_ephemeral_workspace(self):
         td, workspace = self._workspace_with_fixture()
@@ -372,6 +392,39 @@ class TestTask090EphemeralRuntimeDigest(unittest.TestCase):
                     str(outside),
                     code="STOP_EPHEMERAL_DIGEST_MANIFEST_PATH",
                 )
+
+
+    def test_cli_result_path_accepts_bounded_relative_path(self):
+        with tempfile.TemporaryDirectory() as td:
+            workspace = Path(td)
+            got = _safe_result_path(workspace, "results/result.json")
+            self.assertEqual(workspace / "results" / "result.json", got)
+            self.assertTrue((workspace / "results").is_dir())
+
+    def test_cli_result_path_rejects_absolute_and_parent_traversal(self):
+        with tempfile.TemporaryDirectory() as td:
+            workspace = Path(td)
+            with self.assertRaisesRegex(
+                ValueError, "STOP_EPHEMERAL_DIGEST_RESULT_PATH"
+            ):
+                _safe_result_path(workspace, str((workspace / "absolute.json").resolve()))
+            with self.assertRaisesRegex(
+                ValueError, "STOP_EPHEMERAL_DIGEST_RESULT_PATH"
+            ):
+                _safe_result_path(workspace, "../outside.json")
+
+    def test_cli_result_path_rejects_symlink_escape(self):
+        with tempfile.TemporaryDirectory() as td:
+            parent = Path(td)
+            workspace = parent / "workspace"
+            outside = parent / "outside"
+            workspace.mkdir()
+            outside.mkdir()
+            (workspace / "escape").symlink_to(outside, target_is_directory=True)
+            with self.assertRaisesRegex(
+                ValueError, "STOP_EPHEMERAL_DIGEST_RESULT_PATH"
+            ):
+                _safe_result_path(workspace, "escape/result.json")
 
     def test_candidate_root_must_be_fresh(self):
         td, workspace = self._workspace_with_fixture()
