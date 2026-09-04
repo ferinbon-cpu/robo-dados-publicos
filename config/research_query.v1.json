@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "schema": "RESEARCH_QUERY_V1",
+  "mode": "T0_OFFLINE_DETERMINISTIC_RESEARCH_QUERY",
+  "query_types": [
+    "CLAIM_AUDIT",
+    "INSTITUTIONALIZATION_MATRIX",
+    "EVIDENCE_GAPS",
+    "POLICY_STATUS_PACKET"
+  ],
+  "status_order": [
+    "UNKNOWN",
+    "CANDIDATE",
+    "CORROBORATED",
+    "PROVEN",
+    "CONFLICTED",
+    "REFUTED"
+  ],
+  "default_allowed_claim_statuses": [
+    "PROVEN",
+    "CORROBORATED",
+    "CANDIDATE",
+    "UNKNOWN",
+    "CONFLICTED",
+    "REFUTED"
+  ],
+  "invariants": [
+    "QUERY_OUTPUT_IS_DERIVED_ONLY_FROM_SUPPLIED_VALIDATED_RESEARCH_RECORDS",
+    "CLAIM_TEXT_IS_NOT_REWRITTEN_BY_THE_DETERMINISTIC_QUERY_ENGINE",
+    "EVIDENCE_LOCATORS_ARE_PRESERVED_WITH_SOURCE_DOCUMENT_IDENTITY",
+    "UNKNOWN_AND_CANDIDATE_ARE_RETURNED_AS_GAPS_NOT_SILENTLY_DROPPED",
+    "QUERY_DOES_NOT_PROMOTE_ASSERTION_STATUS",
+    "QUERY_DOES_NOT_CREATE_FINANCIAL_IDENTITY",
+    "QUERY_DOES_NOT_CREATE_CAUSAL_EFFECT",
+    "MISSING_EVIDENCE_REMAINS_EXPLICIT",
+    "NATURAL_LANGUAGE_GENERATION_IS_OUTSIDE_THIS_T0_ENGINE"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
