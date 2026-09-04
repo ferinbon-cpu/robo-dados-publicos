@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -396,6 +397,84 @@ class F02KnownFamilyBundleTests(unittest.TestCase):
         bad_sha["sources"][0]["expected_sha256"] = "not-a-sha"
         with self.assertRaisesRegex(F02KnownFamilyBundleStop, "BAD_SHA256"):
             validate_batch_manifest(bad_sha, self.adapter)
+
+
+    @unittest.skipUnless(
+        os.name == "posix" and hasattr(os, "O_NOFOLLOW") and hasattr(os, "O_DIRECTORY"),
+        "descriptor-relative no-follow test requires POSIX",
+    )
+    def test_toctou_swap_to_symlink_before_final_open_stops(self):
+        with tempfile.TemporaryDirectory(dir=ROOT) as td:
+            tmp = type("T", (), {"name": td})()
+            manifest, texts = self._write_bundle(
+                tmp, "LOCAL_ONLY", "2026-05-31", [FUNDEB_MAY, MDE_MAY]
+            )
+            rel = Path(manifest["sources"][0]["snapshot_path"])
+            victim = ROOT / rel
+            outside = Path(td) / "outside.txt"
+            outside.write_text("outside", encoding="utf-8")
+            real_open = os.open
+            swapped = {"done": False}
+
+            def racing_open(path, flags, mode=0o777, *, dir_fd=None):
+                if (
+                    not swapped["done"]
+                    and str(path) == rel.parts[-1]
+                    and dir_fd is not None
+                    and not (flags & getattr(os, "O_DIRECTORY", 0))
+                ):
+                    victim.unlink()
+                    victim.symlink_to(outside)
+                    swapped["done"] = True
+                return real_open(path, flags, mode, dir_fd=dir_fd)
+
+            with patch(
+                "robo_dados_publicos.manual_ingest.f02_known_family_bundle.os.open",
+                side_effect=racing_open,
+            ):
+                with self.assertRaisesRegex(F02KnownFamilyBundleStop, "SNAPSHOT_SECURE_OPEN"):
+                    self._run(manifest, texts)
+            self.assertTrue(swapped["done"])
+
+    @unittest.skipUnless(os.name == "posix" and hasattr(os, "mkfifo"), "FIFO test requires POSIX")
+    def test_fifo_and_directory_snapshot_are_not_regular_files(self):
+        with tempfile.TemporaryDirectory(dir=ROOT) as td:
+            rel_dir = Path(td).relative_to(ROOT)
+            fifo = Path(td) / "snapshot.fifo"
+            os.mkfifo(fifo)
+            base = {
+                "schema": "F02_KNOWN_FAMILY_BATCH_MANIFEST_V1",
+                "mode": "MANUAL_SUPERVISED_INGEST",
+                "batch_id": "SPECIAL_FILE",
+                "batch_kind": "LOCAL_ONLY",
+                "reference_period": {"start": "2026-01-01", "end": "2026-05-31"},
+                "sources": [
+                    source("F", "FUNDEB_LOCAL", b"x", str(rel_dir / fifo.name)),
+                    source("M", "MDE_25_LOCAL", b"y", str(rel_dir / "missing.pdf")),
+                ],
+                "remote_effects_authorized": effects_false(),
+            }
+            with self.assertRaisesRegex(F02KnownFamilyBundleStop, "NOT_REGULAR"):
+                run_known_family_bundle(self.adapter, base, root=ROOT)
+
+        with tempfile.TemporaryDirectory(dir=ROOT) as td:
+            rel_dir = Path(td).relative_to(ROOT)
+            directory = Path(td) / "snapshot-dir"
+            directory.mkdir()
+            base = {
+                "schema": "F02_KNOWN_FAMILY_BATCH_MANIFEST_V1",
+                "mode": "MANUAL_SUPERVISED_INGEST",
+                "batch_id": "DIRECTORY_FILE",
+                "batch_kind": "LOCAL_ONLY",
+                "reference_period": {"start": "2026-01-01", "end": "2026-05-31"},
+                "sources": [
+                    source("F", "FUNDEB_LOCAL", b"x", str(rel_dir / directory.name)),
+                    source("M", "MDE_25_LOCAL", b"y", str(rel_dir / "missing.pdf")),
+                ],
+                "remote_effects_authorized": effects_false(),
+            }
+            with self.assertRaisesRegex(F02KnownFamilyBundleStop, "NOT_REGULAR"):
+                run_known_family_bundle(self.adapter, base, root=ROOT)
 
 
 if __name__ == "__main__":
