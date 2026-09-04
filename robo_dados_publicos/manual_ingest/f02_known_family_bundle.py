@@ -174,6 +174,19 @@ def validate_gate_contract(raw: dict[str, Any]) -> dict[str, Any]:
     return raw
 
 
+def load_runtime_manifest(
+    *,
+    root: str | Path,
+    relative_path: str | Path,
+) -> dict[str, Any]:
+    payload = _read_regular_file_beneath_root(
+        Path(root),
+        Path(relative_path),
+        code="MANIFEST_PATH",
+    )
+    return _decode_json_bytes(payload, code="MANIFEST_PATH")
+
+
 def validate_runtime_authorization(
     raw: object,
     *,
