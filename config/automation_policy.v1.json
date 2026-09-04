@@ -322,6 +322,7 @@
       ],
       "invocation_surface": "DIRECT_CLI_OR_CI_TEST_ONLY",
       "no_workflow_trigger": true,
+      "manual_execution_required": true,
       "owner_authorization_required": true
     }
   ],
