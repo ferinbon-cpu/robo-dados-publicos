@@ -41,12 +41,18 @@ def load_json(path: str | Path) -> dict[str, Any]:
 
 
 def _git(repo_root: str | Path, *args: str) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
-        ["git", "-C", str(Path(repo_root)), *args],
-        text=True,
-        capture_output=True,
-        check=False,
-    )
+    try:
+        return subprocess.run(
+            ["git", "-C", str(Path(repo_root)), *args],
+            text=True,
+            capture_output=True,
+            check=False,
+            timeout=30,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise F02FundebMonthlyPolicyFinalizationStop(
+            "STOP_F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_GIT_TIMEOUT"
+        ) from exc
 
 
 def verify_git_ancestor(repo_root: str | Path, commit_sha: str) -> None:
@@ -109,9 +115,9 @@ def validate_prefinalization_install(
             _stop("IMPLEMENTATION_PR_PIN_DRIFT", label)
         if row.get("implementation_merge_required_before_manual_execution") is not True:
             _stop("PREFINALIZATION_BLOCKER_FLAG_MISSING", label)
-    blockers = set(policy_gate.get("blockers") or [])
-    if IMPLEMENTATION_BLOCKER not in blockers:
-        _stop("PREFINALIZATION_IMPLEMENTATION_BLOCKER_MISSING")
+        blockers = set(row.get("blockers") or [])
+        if IMPLEMENTATION_BLOCKER not in blockers:
+            _stop("PREFINALIZATION_IMPLEMENTATION_BLOCKER_MISSING", label)
     return {
         "status": "PASS_F02_FUNDEB_MONTHLY_POLICY_PREFINALIZATION_INSTALL",
         "implementation_pr": EXPECTED_IMPLEMENTATION_PR,
@@ -166,6 +172,8 @@ def validate_finalization(
             _stop("IMPLEMENTATION_PR_PIN_DRIFT", label)
         if row.get("implementation_pr_merged") != EXPECTED_IMPLEMENTATION_PR:
             _stop("IMPLEMENTATION_MERGED_PIN_DRIFT", label)
+        if "implementation_merge_sha" not in row or not str(row.get("implementation_merge_sha") or "").strip():
+            _stop("IMPLEMENTATION_SHA_PIN_MISSING", label)
         if row.get("implementation_merge_sha") != merge_sha:
             _stop("IMPLEMENTATION_SHA_PIN_DRIFT", label)
         if row.get("implementation_merge_required_before_manual_execution") != False:
