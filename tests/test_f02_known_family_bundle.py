@@ -193,6 +193,22 @@ class F02KnownFamilyBundleTests(unittest.TestCase):
             "ROUTING_ONLY_SUPERVISED_EXECUTION",
         )
 
+    def test_adapter_pins_match_current_controller_and_maturity_blobs(self):
+        alignment = self.adapter["controller_alignment"]
+        pairs = (
+            ("controller_contract_path", "controller_expected_git_blob_sha"),
+            ("maturity_registry_path", "maturity_expected_git_blob_sha"),
+        )
+        for path_key, sha_key in pairs:
+            with self.subTest(path_key=path_key):
+                payload = (ROOT / alignment[path_key]).read_bytes()
+                self.assertEqual(git_blob_sha(payload), alignment[sha_key])
+        result = validate_controller_alignment(self.adapter, root=ROOT)
+        self.assertEqual(
+            result["status"],
+            "PASS_F02_KNOWN_BUNDLE_CONTROLLER_ALIGNMENT",
+        )
+
     def test_same_code_runs_rreo_aligned_and_local_only_manifests(self):
         with tempfile.TemporaryDirectory(dir=ROOT) as td1, tempfile.TemporaryDirectory(dir=ROOT) as td2:
             m1, t1 = self._write_bundle(type("T", (), {"name": td1})(), "RREO_ALIGNED", "2026-04-30", [RREO_APR, FUNDEB_APR, MDE_APR])
@@ -468,6 +484,74 @@ class F02KnownFamilyBundleTests(unittest.TestCase):
             ):
                 with self.assertRaisesRegex(F02KnownFamilyBundleStop, "SNAPSHOT_PATH_SYMLINK"):
                     self._run(manifest, texts)
+            self.assertTrue(swapped["done"])
+
+    @unittest.skipUnless(
+        os.name == "posix" and hasattr(os, "O_NOFOLLOW") and hasattr(os, "O_DIRECTORY"),
+        "intermediate-directory race test requires POSIX",
+    )
+    def test_toctou_swap_intermediate_directory_to_symlink_stops(self):
+        with tempfile.TemporaryDirectory(dir=ROOT) as td, tempfile.TemporaryDirectory() as outside_td:
+            rel_dir = Path(td).relative_to(ROOT)
+            nested = Path(td) / "race-dir"
+            nested.mkdir()
+            preserved = Path(td) / "race-dir-preserved"
+            fundeb_payload = b"fundeb-intermediate-race"
+            mde_payload = b"mde-intermediate-race"
+            (nested / "fundeb.pdf").write_bytes(fundeb_payload)
+            (Path(td) / "mde.pdf").write_bytes(mde_payload)
+            (Path(outside_td) / "fundeb.pdf").write_bytes(fundeb_payload)
+            manifest = {
+                "schema": "F02_KNOWN_FAMILY_BATCH_MANIFEST_V1",
+                "mode": "MANUAL_SUPERVISED_INGEST",
+                "batch_id": "INTERMEDIATE_DIR_RACE",
+                "batch_kind": "LOCAL_ONLY",
+                "reference_period": {"start": "2026-01-01", "end": "2026-05-31"},
+                "sources": [
+                    source(
+                        "F",
+                        "FUNDEB_LOCAL",
+                        fundeb_payload,
+                        str(rel_dir / nested.name / "fundeb.pdf"),
+                    ),
+                    source(
+                        "M",
+                        "MDE_25_LOCAL",
+                        mde_payload,
+                        str(rel_dir / "mde.pdf"),
+                    ),
+                ],
+                "remote_effects_authorized": effects_false(),
+            }
+            real_open = os.open
+            swapped = {"done": False}
+
+            def racing_open(path, flags, mode=0o777, *, dir_fd=None):
+                if (
+                    not swapped["done"]
+                    and str(path) == nested.name
+                    and dir_fd is not None
+                    and (flags & getattr(os, "O_DIRECTORY", 0))
+                ):
+                    nested.rename(preserved)
+                    nested.symlink_to(Path(outside_td), target_is_directory=True)
+                    swapped["done"] = True
+                return real_open(path, flags, mode, dir_fd=dir_fd)
+
+            with patch(
+                "robo_dados_publicos.manual_ingest.f02_known_family_bundle.os.open",
+                side_effect=racing_open,
+            ):
+                with self.assertRaisesRegex(
+                    F02KnownFamilyBundleStop,
+                    r"SNAPSHOT_PATH_(?:SYMLINK|SECURE_OPEN)",
+                ):
+                    run_known_family_bundle(
+                        self.adapter,
+                        manifest,
+                        root=ROOT,
+                        authorization=authorization_for(manifest),
+                    )
             self.assertTrue(swapped["done"])
 
     @unittest.skipUnless(os.name == "posix" and hasattr(os, "mkfifo"), "FIFO test requires POSIX")
