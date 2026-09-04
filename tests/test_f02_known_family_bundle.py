@@ -14,6 +14,8 @@ from robo_dados_publicos.manual_ingest.f02_known_family_bundle import (
     run_known_family_bundle,
     validate_adapter_contract,
     validate_batch_manifest,
+    validate_controller_alignment,
+    validate_gate_contract,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -229,6 +231,141 @@ class F02KnownFamilyBundleTests(unittest.TestCase):
             manifest, texts = self._write_bundle(tmp, "LOCAL_ONLY", "2026-04-30", [FUNDEB_MAY, MDE_MAY])
             with self.assertRaisesRegex(F02KnownFamilyBundleStop, "MANIFEST_PERIOD_DRIFT"):
                 self._run(manifest, texts)
+
+
+    def test_unknown_and_duplicate_family_manifest_stop(self):
+        base = {
+            "schema": "F02_KNOWN_FAMILY_BATCH_MANIFEST_V1",
+            "mode": "MANUAL_SUPERVISED_INGEST",
+            "batch_id": "BAD_FAMILY",
+            "batch_kind": "LOCAL_ONLY",
+            "reference_period": {"start": "2026-01-01", "end": "2026-05-31"},
+            "sources": [
+                source("F", "FUNDEB_LOCAL", b"x", "f.pdf"),
+                source("M", "MDE_25_LOCAL", b"y", "m.pdf"),
+            ],
+            "remote_effects_authorized": effects_false(),
+        }
+        unknown = copy.deepcopy(base)
+        unknown["sources"][1]["family"] = "ALIEN_FAMILY"
+        with self.assertRaisesRegex(F02KnownFamilyBundleStop, "BAD_FAMILY"):
+            validate_batch_manifest(unknown, self.adapter)
+
+        duplicate = copy.deepcopy(base)
+        duplicate["sources"][1]["family"] = "FUNDEB_LOCAL"
+        with self.assertRaisesRegex(F02KnownFamilyBundleStop, "DUPLICATE_FAMILY"):
+            validate_batch_manifest(duplicate, self.adapter)
+
+    def test_absolute_snapshot_and_missing_remote_effect_key_stop(self):
+        base = {
+            "schema": "F02_KNOWN_FAMILY_BATCH_MANIFEST_V1",
+            "mode": "MANUAL_SUPERVISED_INGEST",
+            "batch_id": "BAD_PATH",
+            "batch_kind": "LOCAL_ONLY",
+            "reference_period": {"start": "2026-01-01", "end": "2026-05-31"},
+            "sources": [
+                source("F", "FUNDEB_LOCAL", b"x", "/tmp/escape.pdf"),
+                source("M", "MDE_25_LOCAL", b"y", "m.pdf"),
+            ],
+            "remote_effects_authorized": effects_false(),
+        }
+        with self.assertRaisesRegex(F02KnownFamilyBundleStop, "SNAPSHOT_PATH_UNSAFE"):
+            validate_batch_manifest(base, self.adapter)
+
+        base["sources"][0]["snapshot_path"] = "f.pdf"
+        base["remote_effects_authorized"].pop("gold_write")
+        with self.assertRaisesRegex(F02KnownFamilyBundleStop, "REMOTE_EFFECT_SET"):
+            validate_batch_manifest(base, self.adapter)
+
+    def test_snapshot_symlink_is_rejected_at_read_boundary(self):
+        with tempfile.TemporaryDirectory(dir=ROOT) as td:
+            tmp = type("T", (), {"name": td})()
+            manifest, texts = self._write_bundle(
+                tmp, "LOCAL_ONLY", "2026-05-31", [FUNDEB_MAY, MDE_MAY]
+            )
+            rel_dir = Path(td).relative_to(ROOT)
+            target = Path(td) / "target.pdf"
+            target.write_bytes(b"payload")
+            link = Path(td) / "link.pdf"
+            link.symlink_to(target.name)
+            manifest["sources"][0]["snapshot_path"] = str(rel_dir / "link.pdf")
+            manifest["sources"][0]["expected_sha256"] = hashlib.sha256(b"payload").hexdigest()
+            manifest["sources"][0]["expected_bytes"] = len(b"payload")
+            texts[b"payload"] = FUNDEB_MAY
+            with self.assertRaisesRegex(F02KnownFamilyBundleStop, "SNAPSHOT_PATH_SYMLINK"):
+                self._run(manifest, texts)
+
+    def test_parser_schema_drift_is_normalized_to_bundle_stop(self):
+        with tempfile.TemporaryDirectory(dir=ROOT) as td:
+            tmp = type("T", (), {"name": td})()
+            manifest, texts = self._write_bundle(
+                tmp, "LOCAL_ONLY", "2026-05-31", [FUNDEB_MAY, MDE_MAY]
+            )
+            with patch(
+                "robo_dados_publicos.manual_ingest.f02_known_family_bundle."
+                "normalize_f02_local_monitoring_document",
+                return_value={"family": "FUNDEB_LOCAL", "authority": "X", "period_start": "2026-01-01", "period_end": "2026-05-31"},
+            ):
+                with self.assertRaisesRegex(F02KnownFamilyBundleStop, "NORMALIZED_SCHEMA"):
+                    self._run(manifest, texts)
+
+    def test_mixed_normalized_periods_stop(self):
+        with tempfile.TemporaryDirectory(dir=ROOT) as td:
+            tmp = type("T", (), {"name": td})()
+            manifest, texts = self._write_bundle(
+                tmp, "LOCAL_ONLY", "2026-05-31", [FUNDEB_MAY, MDE_APR]
+            )
+            with self.assertRaisesRegex(F02KnownFamilyBundleStop, "MANIFEST_PERIOD_DRIFT"):
+                self._run(manifest, texts)
+
+    def test_controller_and_maturity_drift_stop(self):
+        with tempfile.TemporaryDirectory(dir=ROOT) as td:
+            rel = Path(td).relative_to(ROOT)
+            controller = load_json(ROOT / "config/drive_ingestion_controller.v3.json")
+            controller["family_default_routes"]["RREO"] = "REVIEW"
+            controller_path = Path(td) / "controller.json"
+            controller_path.write_text(json.dumps(controller), encoding="utf-8")
+            adapter = copy.deepcopy(self.adapter)
+            adapter["controller_alignment"]["controller_contract_path"] = str(rel / "controller.json")
+            with self.assertRaisesRegex(F02KnownFamilyBundleStop, "CONTROLLER_ROUTE_DRIFT"):
+                validate_controller_alignment(adapter, root=ROOT)
+
+        with tempfile.TemporaryDirectory(dir=ROOT) as td:
+            rel = Path(td).relative_to(ROOT)
+            maturity = load_json(ROOT / "config/source_family_maturity_registry.v1.json")
+            maturity["families"]["RREO"]["level"] = "EXECUTION_READY_BOUNDED"
+            maturity_path = Path(td) / "maturity.json"
+            maturity_path.write_text(json.dumps(maturity), encoding="utf-8")
+            adapter = copy.deepcopy(self.adapter)
+            adapter["controller_alignment"]["maturity_registry_path"] = str(rel / "maturity.json")
+            with self.assertRaisesRegex(F02KnownFamilyBundleStop, "INDIVIDUAL_MATURITY_DRIFT"):
+                validate_controller_alignment(adapter, root=ROOT)
+
+    def test_adapter_and_gate_cannot_enable_remote_effects(self):
+        adapter = copy.deepcopy(self.adapter)
+        adapter["automatic_effects"]["gold_write"] = True
+        with self.assertRaisesRegex(F02KnownFamilyBundleStop, "AUTOMATIC_EFFECT_ENABLED"):
+            validate_adapter_contract(adapter)
+
+        gate = load_json(ROOT / "config/f02_known_family_bundle_gate.v1.json")
+        gate["blocked_remote_effects"]["gold_write"] = False
+        with self.assertRaisesRegex(F02KnownFamilyBundleStop, "GATE_REMOTE_EFFECT_OPEN"):
+            validate_gate_contract(gate)
+
+    def test_adapter_config_paths_reject_absolute_and_symlink(self):
+        absolute = copy.deepcopy(self.adapter)
+        absolute["controller_alignment"]["controller_contract_path"] = "/tmp/controller.json"
+        with self.assertRaisesRegex(F02KnownFamilyBundleStop, "CONTROLLER_PATH_UNSAFE"):
+            validate_controller_alignment(absolute, root=ROOT)
+
+        with tempfile.TemporaryDirectory(dir=ROOT) as td:
+            rel = Path(td).relative_to(ROOT)
+            link = Path(td) / "controller-link.json"
+            link.symlink_to(ROOT / "config/drive_ingestion_controller.v3.json")
+            adapter = copy.deepcopy(self.adapter)
+            adapter["controller_alignment"]["controller_contract_path"] = str(rel / link.name)
+            with self.assertRaisesRegex(F02KnownFamilyBundleStop, "CONTROLLER_PATH_SYMLINK"):
+                validate_controller_alignment(adapter, root=ROOT)
 
 
 if __name__ == "__main__":
