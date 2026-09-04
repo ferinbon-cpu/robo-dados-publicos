@@ -33,70 +33,63 @@ class ProcessF02FundebMonthlyCashCliTests(unittest.TestCase):
     def test_missing_required_arguments_is_nonzero(self):
         cp = subprocess.run(
             [sys.executable, str(SCRIPT)],
-            cwd=ROOT,
-            text=True,
-            capture_output=True,
-            check=False,
+            cwd=ROOT,text=True,capture_output=True,check=False,
         )
         self.assertNotEqual(cp.returncode, 0)
         self.assertIn("--manifest", cp.stderr)
         self.assertIn("--authorization", cp.stderr)
 
-    def _run_before_registration(self, manifest, authorization, sha):
-        return subprocess.run(
-            [
-                sys.executable, str(SCRIPT),
-                "--manifest", manifest,
-                "--authorization", authorization,
-                "--authorization-sha256", sha,
-            ],
-            cwd=ROOT,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-
-    def test_unregistered_gate_blocks_before_bad_authorization_sha_pin(self):
+    def test_bad_authorization_sha_pin_is_nonzero_after_registered_policy_preflight(self):
         with tempfile.TemporaryDirectory(dir=ROOT) as td:
             auth_path = Path(td) / "auth.json"
             auth_path.write_text(json.dumps(test_auth()), encoding="utf-8")
-            cp = self._run_before_registration(
-                MANIFEST,
-                str(auth_path.relative_to(ROOT)),
-                "not-a-sha",
+            cp = subprocess.run(
+                [
+                    sys.executable,str(SCRIPT),
+                    "--manifest",MANIFEST,
+                    "--authorization",str(auth_path.relative_to(ROOT)),
+                    "--authorization-sha256","not-a-sha",
+                ],
+                cwd=ROOT,text=True,capture_output=True,check=False,
             )
         self.assertNotEqual(cp.returncode, 0)
-        self.assertIn("STOP_F02_FUNDEB_MONTHLY_GATE_NOT_REGISTERED", cp.stderr)
-        self.assertNotIn("STOP_F02_FUNDEB_MONTHLY_AUTHORIZATION_PIN", cp.stderr)
+        self.assertIn("STOP_F02_FUNDEB_MONTHLY_AUTHORIZATION_PIN", cp.stderr)
+        self.assertNotIn("GATE_NOT_REGISTERED", cp.stderr)
 
-    def test_unregistered_gate_blocks_before_authorization_sha_drift(self):
+    def test_authorization_sha_drift_is_nonzero_after_registered_policy_preflight(self):
         with tempfile.TemporaryDirectory(dir=ROOT) as td:
             auth_path = Path(td) / "auth.json"
             auth_path.write_text(json.dumps(test_auth()), encoding="utf-8")
-            cp = self._run_before_registration(
-                MANIFEST,
-                str(auth_path.relative_to(ROOT)),
-                "0" * 64,
+            cp = subprocess.run(
+                [
+                    sys.executable,str(SCRIPT),
+                    "--manifest",MANIFEST,
+                    "--authorization",str(auth_path.relative_to(ROOT)),
+                    "--authorization-sha256","0"*64,
+                ],
+                cwd=ROOT,text=True,capture_output=True,check=False,
             )
         self.assertNotEqual(cp.returncode, 0)
-        self.assertIn("STOP_F02_FUNDEB_MONTHLY_GATE_NOT_REGISTERED", cp.stderr)
-        self.assertNotIn("STOP_F02_FUNDEB_MONTHLY_AUTHORIZATION_SHA_DRIFT", cp.stderr)
+        self.assertIn("STOP_F02_FUNDEB_MONTHLY_AUTHORIZATION_SHA_DRIFT", cp.stderr)
 
-    def test_unregistered_gate_blocks_before_invalid_manifest_json(self):
+    def test_invalid_manifest_json_is_nonzero_after_registered_policy_preflight(self):
         with tempfile.TemporaryDirectory(dir=ROOT) as td:
             bad_manifest = Path(td) / "bad.json"
             bad_manifest.write_text("{bad-json", encoding="utf-8")
             auth_path = Path(td) / "auth.json"
             auth_bytes = json.dumps(test_auth()).encode("utf-8")
             auth_path.write_bytes(auth_bytes)
-            cp = self._run_before_registration(
-                str(bad_manifest.relative_to(ROOT)),
-                str(auth_path.relative_to(ROOT)),
-                hashlib.sha256(auth_bytes).hexdigest(),
+            cp = subprocess.run(
+                [
+                    sys.executable,str(SCRIPT),
+                    "--manifest",str(bad_manifest.relative_to(ROOT)),
+                    "--authorization",str(auth_path.relative_to(ROOT)),
+                    "--authorization-sha256",hashlib.sha256(auth_bytes).hexdigest(),
+                ],
+                cwd=ROOT,text=True,capture_output=True,check=False,
             )
         self.assertNotEqual(cp.returncode, 0)
-        self.assertIn("STOP_F02_FUNDEB_MONTHLY_GATE_NOT_REGISTERED", cp.stderr)
-        self.assertNotIn("STOP_F02_FUNDEB_MONTHLY_MANIFEST_INVALID_JSON", cp.stderr)
+        self.assertIn("STOP_F02_FUNDEB_MONTHLY_MANIFEST_INVALID_JSON", cp.stderr)
 
 
 if __name__ == "__main__":
