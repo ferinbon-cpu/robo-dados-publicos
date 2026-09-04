@@ -1,0 +1,200 @@
+from __future__ import annotations
+
+from pathlib import Path
+import unittest
+
+from robo_dados_publicos.research.budget_ledger import (
+    BudgetLedgerStop,
+    budget_event_to_research_entity,
+    budget_identity_sha256,
+    load_budget_ledger_contract,
+    reconstruct_budget_snapshot,
+    validate_budget_event,
+)
+from robo_dados_publicos.research.ontology import validate_entity
+
+
+ROOT = Path(__file__).resolve().parents[1]
+CONTRACT = ROOT / "config/policy_budget_ledger.v1.json"
+
+
+IDENTITY = {
+    "entity": "LIMEIRA",
+    "fiscal_year": 2026,
+    "org": "EDUCACAO",
+    "unit": "SME",
+    "function": "12",
+    "subfunction": "361",
+    "program": "2001",
+    "action": "2680",
+    "expense_nature": "3.3.90.39",
+    "funding_source": "01",
+}
+
+
+def event(
+    suffix: str,
+    event_type: str,
+    amount: str,
+    effective_date: str,
+    *,
+    status: str = "PROVEN",
+    identity=None,
+    sequence: int = 0,
+):
+    evidence = [] if status not in {"PROVEN", "CORROBORATED"} else [f"EVIDENCE:{suffix}"]
+    return {
+        "event_id": f"BUDGET_EVENT:{suffix}",
+        "event_type": event_type,
+        "effective_date": effective_date,
+        "sequence": sequence,
+        "amount": amount,
+        "assertion_status": status,
+        "evidence_ids": evidence,
+        "source_document_id": "DOC:BUDGET_2026",
+        "identity": dict(IDENTITY if identity is None else identity),
+        "attributes": {},
+    }
+
+
+class TestTask094PolicyBudgetLedger(unittest.TestCase):
+    def test_contract_is_t0_and_remote_effect_free(self):
+        contract = load_budget_ledger_contract(CONTRACT)
+        self.assertEqual("POLICY_BUDGET_LEDGER_V1", contract["schema"])
+        self.assertEqual(["PROVEN", "CORROBORATED"], contract["default_canonical_statuses"])
+        self.assertTrue(all(value is False for value in contract["remote_effects"].values()))
+
+    def test_budget_identity_is_exact_multidimensional_not_label_similarity(self):
+        first = budget_identity_sha256(IDENTITY)
+        second = budget_identity_sha256({**IDENTITY, "action": "2720"})
+        self.assertEqual(64, len(first))
+        self.assertNotEqual(first, second)
+
+    def test_reconstructs_authorization_and_execution_stages(self):
+        events = [
+            event("AUTH", "AUTHORIZATION_INITIAL", "1000.00", "2026-01-01"),
+            event("SUP", "AUTHORIZATION_SUPPLEMENT", "200.00", "2026-03-01"),
+            event("EMP", "COMMITMENT", "800.00", "2026-04-01"),
+            event("LIQ", "LIQUIDATION", "700.00", "2026-05-01"),
+            event("PAG", "PAYMENT", "600.00", "2026-06-01"),
+            event("ANU", "AUTHORIZATION_CANCEL", "100.00", "2026-07-01"),
+        ]
+        snapshot = reconstruct_budget_snapshot(events)
+        self.assertEqual("1100.00", snapshot["authorization_current"])
+        self.assertEqual("800.00", snapshot["committed"])
+        self.assertEqual("700.00", snapshot["liquidated"])
+        self.assertEqual("600.00", snapshot["paid"])
+        self.assertEqual("300.00", snapshot["available_authorization"])
+        self.assertFalse(snapshot["policy_attribution_inferred"])
+        self.assertEqual(6, len(snapshot["history"]))
+
+    def test_as_of_reconstructs_prior_budget_state(self):
+        events = [
+            event("AUTH", "AUTHORIZATION_INITIAL", "1000.00", "2026-01-01"),
+            event("SUP", "AUTHORIZATION_SUPPLEMENT", "200.00", "2026-03-01"),
+            event("EMP", "COMMITMENT", "800.00", "2026-04-01"),
+        ]
+        snapshot = reconstruct_budget_snapshot(events, as_of="2026-03-15")
+        self.assertEqual("1200.00", snapshot["authorization_current"])
+        self.assertEqual("0.00", snapshot["committed"])
+        self.assertEqual(["BUDGET_EVENT:EMP"], snapshot["after_as_of_event_ids"])
+
+    def test_candidate_event_is_preserved_but_excluded_from_canonical_state(self):
+        events = [
+            event("AUTH", "AUTHORIZATION_INITIAL", "1000.00", "2026-01-01"),
+            event(
+                "CAND",
+                "COMMITMENT",
+                "900.00",
+                "2026-02-01",
+                status="CANDIDATE",
+            ),
+            event("EMP", "COMMITMENT", "300.00", "2026-02-02"),
+        ]
+        snapshot = reconstruct_budget_snapshot(events)
+        self.assertEqual("300.00", snapshot["committed"])
+        self.assertEqual(
+            ["BUDGET_EVENT:CAND"],
+            snapshot["excluded_noncanonical_event_ids"],
+        )
+
+    def test_commitment_cannot_exceed_current_authorization(self):
+        events = [
+            event("AUTH", "AUTHORIZATION_INITIAL", "100.00", "2026-01-01"),
+            event("EMP", "COMMITMENT", "100.01", "2026-02-01"),
+        ]
+        with self.assertRaisesRegex(BudgetLedgerStop, "COMMITTED_EXCEEDS_AUTHORIZATION"):
+            reconstruct_budget_snapshot(events)
+
+    def test_liquidation_cannot_exceed_commitment(self):
+        events = [
+            event("AUTH", "AUTHORIZATION_INITIAL", "100.00", "2026-01-01"),
+            event("EMP", "COMMITMENT", "80.00", "2026-02-01"),
+            event("LIQ", "LIQUIDATION", "80.01", "2026-03-01"),
+        ]
+        with self.assertRaisesRegex(BudgetLedgerStop, "LIQUIDATED_EXCEEDS_COMMITTED"):
+            reconstruct_budget_snapshot(events)
+
+    def test_payment_cannot_exceed_liquidation(self):
+        events = [
+            event("AUTH", "AUTHORIZATION_INITIAL", "100.00", "2026-01-01"),
+            event("EMP", "COMMITMENT", "80.00", "2026-02-01"),
+            event("LIQ", "LIQUIDATION", "70.00", "2026-03-01"),
+            event("PAG", "PAYMENT", "70.01", "2026-04-01"),
+        ]
+        with self.assertRaisesRegex(BudgetLedgerStop, "PAID_EXCEEDS_LIQUIDATED"):
+            reconstruct_budget_snapshot(events)
+
+    def test_authorization_cancel_cannot_invade_committed_balance(self):
+        events = [
+            event("AUTH", "AUTHORIZATION_INITIAL", "100.00", "2026-01-01"),
+            event("EMP", "COMMITMENT", "80.00", "2026-02-01"),
+            event("ANU", "AUTHORIZATION_CANCEL", "21.00", "2026-03-01"),
+        ]
+        with self.assertRaisesRegex(BudgetLedgerStop, "COMMITTED_EXCEEDS_AUTHORIZATION"):
+            reconstruct_budget_snapshot(events)
+
+    def test_stage_cancellation_is_explicit_and_cannot_make_balance_negative(self):
+        events = [
+            event("AUTH", "AUTHORIZATION_INITIAL", "100.00", "2026-01-01"),
+            event("EMP", "COMMITMENT", "80.00", "2026-02-01"),
+            event("EST", "COMMITMENT_CANCEL", "80.01", "2026-03-01"),
+        ]
+        with self.assertRaisesRegex(BudgetLedgerStop, "NEGATIVE_NET_BALANCE"):
+            reconstruct_budget_snapshot(events)
+
+    def test_mixed_budget_identities_are_forbidden_in_one_snapshot(self):
+        other = {**IDENTITY, "action": "2720"}
+        events = [
+            event("AUTH1", "AUTHORIZATION_INITIAL", "100.00", "2026-01-01"),
+            event(
+                "AUTH2",
+                "AUTHORIZATION_INITIAL",
+                "100.00",
+                "2026-01-01",
+                identity=other,
+            ),
+        ]
+        with self.assertRaisesRegex(BudgetLedgerStop, "MIXED_BUDGET_IDENTITIES"):
+            reconstruct_budget_snapshot(events)
+
+    def test_negative_or_overprecision_amount_is_forbidden(self):
+        for bad in ("-1.00", "1.001", "abc", "0.00"):
+            with self.subTest(amount=bad):
+                with self.assertRaisesRegex(BudgetLedgerStop, "TASK094_AMOUNT"):
+                    validate_budget_event(
+                        event("BAD", "AUTHORIZATION_INITIAL", bad, "2026-01-01")
+                    )
+
+    def test_budget_event_projects_into_generic_research_entity(self):
+        research_entity = budget_event_to_research_entity(
+            event("AUTH", "AUTHORIZATION_INITIAL", "100.00", "2026-01-01")
+        )
+        validated = validate_entity(research_entity)
+        self.assertEqual("BUDGET_EVENT", validated["type"])
+        self.assertEqual("BUDGET_EVENT:AUTH", validated["id"])
+        self.assertEqual("2026-01-01", validated["valid_from"])
+
+
+if __name__ == "__main__":
+    unittest.main()
