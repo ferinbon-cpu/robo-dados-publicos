@@ -1,0 +1,102 @@
+{
+  "schema": "TASK_089_BOUNDED_NEXT_EXECUTABLE_CONTRACT_QUERY_EVIDENCE_V1",
+  "task": "TASK_089_BOUNDED_NEXT_EXECUTABLE_CONTRACT_QUERY",
+  "software_version": "0.8.0",
+  "base_main_sha": "a9c56592dabb5900b6389cfa138ef1d3a71b167e",
+  "authorization": {
+    "source": "OWNER_CHAT_INSTRUCTION_2026-09-04",
+    "instruction": "Prossiga e registre no drive",
+    "interpreted_scope": "ONE_BOUNDED_STATEFUL_LIMEIRA_CONTRATOS_QUERY_FOR_RECTASK_bf460d6fbffa22124902553f_MAX_3_HTTP_REQUESTS_NO_REMOTE_WRITES",
+    "single_execution": true,
+    "consumed": true,
+    "retry_authorized": false,
+    "future_execution_authorized": false
+  },
+  "selected_task": {
+    "task_id": "RECTASK_bf460d6fbffa22124902553f",
+    "task_sha256": "ffbe78c55c1f9f5c2576bcbcc92da195df0048b991450bdc81613bac6988ad60",
+    "target_source": "LIMEIRA_CONTRATOS",
+    "year": 2025,
+    "contract_number": "10/2025.",
+    "cnpj": "59448656000114",
+    "process_hint": "32.754/2025."
+  },
+  "pre_run_chain": {
+    "task_contract_commit_sha": "a1efbc2960012cc7fcda456beaf2f100e4fcfdbc",
+    "execution_head_sha": "46aafb71a0656a9607d456cf0de887ce3c7749c8",
+    "workflow_path_at_execution": ".github/workflows/task-089-contract-resolver-live-once.yml",
+    "workflow_removed_after_run": true,
+    "historical_workflow_source": "docs/evidence/TASK_089_HISTORICAL_LIVE_WORKFLOW_SOURCE_0.8.0.txt"
+  },
+  "live_run": {
+    "run_id": 33867790494,
+    "job_id": 101006491391,
+    "run_number": 1,
+    "event": "push",
+    "head_sha": "46aafb71a0656a9607d456cf0de887ce3c7749c8",
+    "conclusion": "success",
+    "resolver_status": "NO_MATCH",
+    "candidate_count": 0,
+    "candidate_summaries": [],
+    "request_count": 3,
+    "result_canonical_sha256": "9a18afe974028d969f58f885524a24a85b631eca4ddd88ddcc7e6ba556d199de"
+  },
+  "artifact": {
+    "id": 9934646128,
+    "name": "task-089-bounded-contract-resolver-evidence",
+    "size_in_bytes": 1712,
+    "digest": "sha256:dc4fbe266c8bb3a8db09502e7098ef76fa88912bf10e7bcce8f8ac90c2bacca2",
+    "retention_days": 1
+  },
+  "remote_budget": {
+    "maximum_http_requests": 3,
+    "actual_http_requests": 3,
+    "same_origin_only": true,
+    "allowed_host": "serv42.limeira.sp.gov.br",
+    "fourth_request_fail_closed": true
+  },
+  "observed_request_shape": [
+    {
+      "ordinal": 1,
+      "method": "GET",
+      "path": "/ncweb/cns_contratos_web_mestre/"
+    },
+    {
+      "ordinal": 2,
+      "method": "POST",
+      "path": "/ncweb/cns_contratos_web_mestre/"
+    },
+    {
+      "ordinal": 3,
+      "method": "POST",
+      "path": "/ncweb/cns_contratos_web_mestre/"
+    }
+  ],
+  "semantic_interpretation": {
+    "result": "NO_COMPATIBLE_CANDIDATE_IN_INTERPRETABLE_QUERY_RESULT",
+    "contract_identity_asserted": false,
+    "financial_identity_asserted": false,
+    "global_absence_outside_this_bounded_query_asserted": false
+  },
+  "hard_boundaries": {
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "state_registry_writes": 0,
+    "queue_writes": 0,
+    "serving_writes": 0,
+    "publications": 0,
+    "source_moves": 0,
+    "source_deletes": 0,
+    "schedule_added": false,
+    "recurrence_added": false,
+    "automatic_retry": false
+  },
+  "next_state": {
+    "raw_blocked_task_preserved": "RECTASK_78d06bc26f825243c23375c6",
+    "task089_consumed": "RECTASK_bf460d6fbffa22124902553f",
+    "next_executable_candidate": "RECTASK_9060935fe5220f738bddfdb4",
+    "next_executable_contract_number": "08/2025.",
+    "future_execution_authorized": false
+  },
+  "result": "PASS_TASK089_ONE_BOUNDED_QUERY_COMPLETED_NO_COMPATIBLE_CANDIDATE"
+}
