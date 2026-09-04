@@ -1,0 +1,35 @@
+{
+  "schema": "F02_FUNDEB_MONTHLY_CASH_GATE_V1",
+  "software_candidate": "0.8.0",
+  "tier": "T0",
+  "mode": "T0_OFFLINE_FUNDEB_MONTHLY_CASH",
+  "purpose": "ALLOW_LOCAL_OFFLINE_PARSE_AND_RECONCILIATION_OF_PINNED_MONTHLY_FUNDEB_SOURCE_SNAPSHOTS",
+  "local_snapshot_read_authorized": true,
+  "remote_drive_read_authorized": false,
+  "runtime_authorization_required": true,
+  "runtime_authorization_schema": "F02_FUNDEB_MONTHLY_CASH_RUNTIME_AUTHORIZATION_V1",
+  "runtime_authorization_scope": "F02_FUNDEB_MONTHLY_CASH_LOCAL_SNAPSHOT_READ",
+  "authorization_mechanism": "REPOSITORY_RELATIVE_JSON_PLUS_EXACT_SHA256_CLI_PIN",
+  "cli_fixed_repository_root": true,
+  "cli_output": "STDOUT_ONLY",
+  "blocked_remote_effects": {
+    "bronze_write": true,
+    "silver_write": true,
+    "gold_write": true,
+    "serving": true,
+    "publication": true,
+    "site": true,
+    "overwrite": true,
+    "delete": true,
+    "move": true,
+    "schedule": true,
+    "recurrence": true
+  },
+  "semantic_blocks": {
+    "eti_spending_claim": true,
+    "eti_committed_liquidated_paid_claim": true,
+    "mde_compliance_claim": true,
+    "annual_compliance_claim": true
+  },
+  "status": "T0_OFFLINE_ONLY_NO_REMOTE_EFFECT"
+}
