@@ -307,3 +307,43 @@ def extract_pdf_text_pypdf(pdf_path: Path) -> str:
     if not text.strip():
         raise LocalPdfCapabilityStop("TASK106_PDF_TEXT_EMPTY")
     return text
+
+
+def probe_visual_ocr_capabilities() -> dict[str, Any]:
+    """Inventory local-only visual/OCR capabilities on the current runner."""
+    commands = (
+        "tesseract",
+        "google-chrome",
+        "chromium",
+        "chromedriver",
+        "pdftoppm",
+        "pdfimages",
+        "mutool",
+        "gs",
+        "magick",
+        "convert",
+    )
+    modules = (
+        "PIL",
+        "fitz",
+        "cv2",
+        "pytesseract",
+        "pdf2image",
+    )
+    return {
+        "schema": "TASK109_VISUAL_OCR_CAPABILITY_PROBE_V1",
+        "mode": "T0_OFFLINE_CAPABILITY_INVENTORY",
+        "commands": {name: shutil.which(name) for name in commands},
+        "python_modules": {
+            name: importlib.util.find_spec(name) is not None for name in modules
+        },
+        "remote_effects": {
+            "network": False,
+            "source_read": False,
+            "drive_read": False,
+            "drive_write": False,
+            "ocr_real_source": False,
+            "persistence": False,
+            "publication": False,
+        },
+    }
