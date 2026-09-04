@@ -11,6 +11,7 @@ import unicodedata
 
 from robo_dados_publicos.research.budget_ledger import IDENTITY_DIMENSIONS
 from robo_dados_publicos.research.evidence_semantics import SOURCE_ROLES, source_role_max_status
+from robo_dados_publicos.research.eiti_terminology_registry import load_terminology_registry
 
 
 class ResearchEphemeralDigestStop(RuntimeError):
@@ -29,7 +30,9 @@ ABC_FAMILIES = (
 )
 D_FAMILY = "D_FINANCING_AND_INDUCTION_SIGNALS"
 E_FAMILY = "E_ACCOUNTING_AND_PLANNING_LINKAGE_KEYS"
+COMPOSITE_FAMILY = "X_DISCOVERED_COMPOSITE_ALIASES"
 ALL_FAMILIES = ABC_FAMILIES + (D_FAMILY, E_FAMILY)
+SEARCH_FAMILIES = ALL_FAMILIES + (COMPOSITE_FAMILY,)
 
 
 def _require(condition: bool, code: str) -> None:
@@ -112,6 +115,7 @@ def validate_contract(
     pinned = (
         ("task055a_path", "task055a_git_blob_sha", "TASK116_TASK055A_BLOB"),
         ("task113_abc_path", "task113_abc_git_blob_sha", "TASK116_TASK113_BLOB"),
+        ("terminology_registry_path", "terminology_registry_git_blob_sha", "TASK116_TERMINOLOGY_REGISTRY_BLOB"),
     )
     loaded: dict[str, dict[str, Any]] = {}
     for path_key, sha_key, code in pinned:
@@ -134,11 +138,16 @@ def validate_contract(
 
     task055a = loaded["task055a_path"]
     task113 = loaded["task113_abc_path"]
+    terminology_registry = load_terminology_registry(
+        root / profile["terminology_registry_path"],
+        root=root,
+    )
     ontology = task055a.get("ontology") or {}
     _require(set(ontology) == set(ALL_FAMILIES), "TASK116_ONTOLOGY_FAMILIES")
     counts = {family: len(ontology.get(family) or []) for family in ALL_FAMILIES}
     _require(counts == profile.get("expected_family_counts"), "TASK116_ONTOLOGY_COUNTS")
-    _require(sum(counts.values()) == profile.get("expected_total_terms") == 63, "TASK116_ONTOLOGY_TOTAL")
+    _require(sum(counts.values()) == profile.get("expected_base_total_terms") == 63, "TASK116_ONTOLOGY_TOTAL")
+    _require(terminology_registry.get("active_distinct_term_count") == profile.get("expected_active_total_terms") == 64, "TASK116_ACTIVE_ONTOLOGY_TOTAL")
 
     abc = task113.get("families") or {}
     _require(set(abc) == set(ABC_FAMILIES), "TASK116_TASK113_ABC_SET")
@@ -155,6 +164,9 @@ def validate_contract(
     matching = contract.get("matching_rules") or {}
     _require(matching.get("d_terms_alone_create_policy_signal") is False, "TASK116_D_POLICY_GUARD")
     _require(matching.get("e_terms_alone_create_policy_signal") is False, "TASK116_E_POLICY_GUARD")
+    _require(matching.get("discovered_composite_alias_source") == "EITI_RESEARCH_TERMINOLOGY_REGISTRY_V2", "TASK116_COMPOSITE_SOURCE")
+    _require(matching.get("composite_policy_finance_alias_requires_source_role_scope") is True, "TASK116_COMPOSITE_ROLE_SCOPE")
+    _require(matching.get("composite_alias_alone_creates_transaction_identity") is False, "TASK116_COMPOSITE_TRANSACTION_GUARD")
     _require(matching.get("accounting_key_alone_creates_policy_identity") is False, "TASK116_KEY_POLICY_GUARD")
     _require(matching.get("amount_equality_alone_creates_policy_identity") is False, "TASK116_AMOUNT_POLICY_GUARD")
     _require(matching.get("candidate_financial_bridge_scope") == "SAME_SEGMENT_ONLY", "TASK116_BRIDGE_SCOPE")
@@ -164,7 +176,11 @@ def validate_contract(
     return contract
 
 
-def _ontology_entries(task055a: dict[str, Any], task113: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
+def _ontology_entries(
+    task055a: dict[str, Any],
+    task113: dict[str, Any],
+    terminology_registry: dict[str, Any],
+) -> dict[str, list[dict[str, Any]]]:
     ontology = task055a["ontology"]
     out: dict[str, list[dict[str, Any]]] = {}
     for family in ABC_FAMILIES:
@@ -173,16 +189,30 @@ def _ontology_entries(task055a: dict[str, Any], task113: dict[str, Any]) -> dict
                 "term": item["term"],
                 "strength": item["strength"],
                 "requires_companion": item["requires_companion"],
+                "semantic_roles": ["POLICY_SIGNAL"],
+                "policy_signal_scope": "GENERAL_POLICY_MATCHING",
+                "source_role_scope": None,
             }
             for item in task113["families"][family]
         ]
     out[D_FAMILY] = [
-        {"term": term, "strength": "FINANCING_SIGNAL", "requires_companion": False}
+        {"term": term, "strength": "FINANCING_SIGNAL", "requires_companion": False, "semantic_roles": ["FINANCING_SIGNAL"], "policy_signal_scope": None, "source_role_scope": None}
         for term in ontology[D_FAMILY]
     ]
     out[E_FAMILY] = [
-        {"term": term, "strength": "ACCOUNTING_LINKAGE_TERM", "requires_companion": False}
+        {"term": term, "strength": "ACCOUNTING_LINKAGE_TERM", "requires_companion": False, "semantic_roles": ["ACCOUNTING_LINKAGE_TERM"], "policy_signal_scope": None, "source_role_scope": None}
         for term in ontology[E_FAMILY]
+    ]
+    out[COMPOSITE_FAMILY] = [
+        {
+            "term": alias["term"],
+            "strength": alias["classification"],
+            "requires_companion": alias["requires_companion"],
+            "semantic_roles": list(alias["semantic_roles"]),
+            "policy_signal_scope": alias["policy_signal_scope"],
+            "source_role_scope": alias["source_role_scope"],
+        }
+        for alias in terminology_registry["discovered_aliases"]
     ]
     return out
 
@@ -291,9 +321,13 @@ def digest_research_segments(
 
     task055a = _load_json(root / profile["task055a_path"], code="TASK116_TASK055A_JSON")
     task113 = _load_json(root / profile["task113_abc_path"], code="TASK116_TASK113_JSON")
+    terminology_registry = load_terminology_registry(
+        root / profile["terminology_registry_path"],
+        root=root,
+    )
     registry = _load_json(root / contract["source_family_registry"], code="TASK116_FAMILY_REGISTRY_JSON")
     segments = _validate_input(packet, contract=contract, family_registry=registry)
-    entries = _ontology_entries(task055a, task113)
+    entries = _ontology_entries(task055a, task113, terminology_registry)
     companions = [normalize_research_text(x) for x in (task113.get("companion_context_terms") or [])]
 
     hits: list[dict[str, Any]] = []
@@ -302,6 +336,7 @@ def digest_research_segments(
     policy_signal_segments: set[str] = set()
     stable_key_segments: set[str] = set()
     amount_segments: set[str] = set()
+    source_role_for_matching = packet["source"]["source_role"]
 
     for segment in segments:
         normalized_text = normalize_research_text(segment["text"])
@@ -309,12 +344,15 @@ def digest_research_segments(
         segment_hits: list[dict[str, Any]] = []
         qualified_policy_hits: list[dict[str, Any]] = []
 
-        for family in ALL_FAMILIES:
+        for family in SEARCH_FAMILIES:
             for entry in entries[family]:
                 normalized_term = normalize_research_text(entry["term"])
                 if not normalized_term or normalized_term not in normalized_text:
                     continue
-                qualified = not entry["requires_companion"] or bool(companion_hits)
+                companion_qualified = not entry["requires_companion"] or bool(companion_hits)
+                source_role_scope = entry.get("source_role_scope")
+                role_qualified = source_role_scope is None or source_role_scope == source_role_for_matching
+                qualified = companion_qualified and role_qualified
                 hit = {
                     "segment_id": segment["segment_id"],
                     "family": family,
@@ -324,10 +362,18 @@ def digest_research_segments(
                     "requires_companion": entry["requires_companion"],
                     "qualified": qualified,
                     "companion_hits": companion_hits[:10] if entry["requires_companion"] else [],
+                    "semantic_roles": list(entry.get("semantic_roles") or []),
+                    "policy_signal_scope": entry.get("policy_signal_scope"),
+                    "source_role_scope": source_role_scope,
+                    "source_role_qualified": role_qualified,
                     "locator": deepcopy(segment["locator"]),
                 }
                 segment_hits.append(hit)
-                if family in ABC_FAMILIES and qualified:
+                is_policy_signal = family in ABC_FAMILIES or (
+                    family == COMPOSITE_FAMILY
+                    and "POLICY_SIGNAL" in (entry.get("semantic_roles") or [])
+                )
+                if is_policy_signal and qualified:
                     qualified_policy_hits.append(hit)
 
         _require(len(segment_hits) <= contract["limits"]["max_hits_per_segment"], "TASK116_HIT_LIMIT")
@@ -348,7 +394,7 @@ def digest_research_segments(
 
         family_counts = {
             family: sum(1 for hit in segment_hits if hit["family"] == family)
-            for family in ALL_FAMILIES
+            for family in SEARCH_FAMILIES
         }
         contexts.append({
             "segment_id": segment["segment_id"],
@@ -356,7 +402,15 @@ def digest_research_segments(
             "family_hit_counts": family_counts,
             "qualified_policy_signal": bool(qualified_policy_hits),
             "qualified_policy_terms": [hit["term"] for hit in qualified_policy_hits],
-            "financing_signal_terms": [hit["term"] for hit in segment_hits if hit["family"] == D_FAMILY],
+            "financing_signal_terms": [
+                hit["term"]
+                for hit in segment_hits
+                if hit["family"] == D_FAMILY
+                or (
+                    hit["family"] == COMPOSITE_FAMILY
+                    and "FINANCING_SIGNAL" in hit["semantic_roles"]
+                )
+            ],
             "accounting_linkage_terms": [hit["term"] for hit in segment_hits if hit["family"] == E_FAMILY],
             "stable_accounting_keys": deepcopy(stable_keys),
             "amount_observations": deepcopy(amounts),
@@ -381,7 +435,7 @@ def digest_research_segments(
                     "candidate_bridge_sha256": sha256(_canonical_bytes(core)).hexdigest(),
                 })
 
-    hits.sort(key=lambda x: (x["segment_id"], ALL_FAMILIES.index(x["family"]), x["normalized_term"], x["term"]))
+    hits.sort(key=lambda x: (x["segment_id"], SEARCH_FAMILIES.index(x["family"]), x["normalized_term"], x["term"]))
     contexts.sort(key=lambda x: x["segment_id"])
     bridges.sort(key=lambda x: (x["segment_id"], x["execution_stage"], x["amount_brl"], x["candidate_bridge_sha256"]))
 
@@ -416,7 +470,9 @@ def digest_research_segments(
             "source_role_does_not_override_candidate_only_rule": True,
         },
         "segment_count": len(segments),
-        "ontology_term_count": sum(profile["expected_family_counts"].values()),
+        "base_ontology_term_count": profile["expected_base_total_terms"],
+        "discovered_alias_term_count": len(terminology_registry["discovered_aliases"]),
+        "ontology_term_count": profile["expected_active_total_terms"],
         "ontology_hits": hits,
         "context_groups": contexts,
         "financial_identity_candidates": bridges,
