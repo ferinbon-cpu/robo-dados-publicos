@@ -8,7 +8,6 @@
   "prior_policy_pr": 378,
   "prior_policy_merge_sha": "e0e1555a6c89c1aab0f823ce834f28432a170285",
   "owner_sprint_instruction_still_in_force": true,
-  "owner_instruction_verbatim": "Autorizado executar autonomamente toda a próxima fase de maturação do robô, incluindo GitHub/Drive, PRs, CI, DeepSeek Pro, correções e merges necessários, até atingir um blocker material ou concluir a fase. Permanecem proibidos delete/overwrite, serving/Looker, publicação/site, schedule/recorrência e promoção financeira sem evidência.",
   "gate_effects": {
     "auto_allowed": false,
     "workflow_trigger": false,
@@ -35,5 +34,12 @@
     "RECURRENCE",
     "GOLD_PROMOTION",
     "FINANCIAL_CLAIM_PROMOTION_WITHOUT_EVIDENCE"
-  ]
+  ],
+  "authorization_basis": {
+    "prior_reviewed_policy_authorization": "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_OWNER_AUTHORIZATION_0.8.0.json",
+    "prior_policy_pr": 378,
+    "prior_policy_deepseek_review_sha256": "9f954fa6595ea2a644e39014833cbde50c1d994fc2183cf949d1cc8dc63c1a56",
+    "current_owner_sprint_authorization_still_in_force": true,
+    "no_new_runtime_authorization_created": true
+  }
 }
