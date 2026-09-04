@@ -17,6 +17,7 @@ SECTION_ORDER = (
     "INSTITUTIONALIZATION_MATRIX",
     "INSTITUTIONALIZATION_GAPS",
     "HISTORICAL_ACQUISITION_GAPS",
+    "HISTORICAL_BOUNDED_NEGATIVE_EVIDENCE",
     "GUARDRAILS",
 )
 
@@ -131,6 +132,7 @@ def validate_query_result(result: dict[str, Any]) -> dict[str, Any]:
         ("institutionalization_dimensions", "TASK100_MATRIX"),
         ("institutionalization_gaps", "TASK100_MATRIX_GAPS"),
         ("historical_acquisition_gaps", "TASK100_HISTORICAL_GAPS"),
+        ("historical_bounded_negative_evidence", "TASK115_HISTORICAL_NEGATIVE"),
         ("unresolved_claims", "TASK100_UNRESOLVED_CLAIMS"),
     ):
         _require(isinstance(result.get(key), list), code)
@@ -151,6 +153,16 @@ def validate_query_result(result: dict[str, Any]) -> dict[str, Any]:
         required = gap.get("required_before_promotion")
         _require(isinstance(required, list) and required, "TASK100_HISTORICAL_REQUIREMENTS")
         _require(all(bool(str(item).strip()) for item in required), "TASK100_HISTORICAL_REQUIREMENT_ITEM")
+
+    for item in result["historical_bounded_negative_evidence"]:
+        _require(isinstance(item, dict), "TASK115_HISTORICAL_NEGATIVE_ITEM")
+        _require(bool(str(item.get("period") or "").strip()), "TASK115_HISTORICAL_NEGATIVE_PERIOD")
+        _require(item.get("status") == "BOUNDED_NO_CANDIDATES", "TASK115_HISTORICAL_NEGATIVE_STATUS")
+        _require(type(item.get("pages_ocr_scanned")) is int and item["pages_ocr_scanned"] > 0, "TASK115_HISTORICAL_NEGATIVE_COVERAGE")
+        _require(type(item.get("ontology_term_count")) is int and item["ontology_term_count"] > 0, "TASK115_HISTORICAL_NEGATIVE_TERMS")
+        _require(type(item.get("candidate_count")) is int and item["candidate_count"] >= 0, "TASK115_HISTORICAL_NEGATIVE_CANDIDATES")
+        limitations = item.get("limitations")
+        _require(isinstance(limitations, list) and limitations, "TASK115_HISTORICAL_NEGATIVE_LIMITATIONS")
 
     _require(result.get("status_promotions_performed") == 0, "TASK100_STATUS_PROMOTION")
     _require(result.get("financial_identity_created") is False, "TASK100_FINANCIAL_IDENTITY")
@@ -298,6 +310,20 @@ def render_research_answer_markdown(result: dict[str, Any]) -> dict[str, Any]:
             lines.append("")
         if lines[-1] == "":
             lines.pop()
+
+    lines.extend(["", "## Evidência histórica negativa bounded", ""])
+    if not validated["historical_bounded_negative_evidence"]:
+        lines.append("Nenhuma evidência histórica negativa bounded incluída neste pacote.")
+    else:
+        for item in validated["historical_bounded_negative_evidence"]:
+            lines.append(f"### {item['period']}")
+            lines.append("")
+            lines.append(f"- **Status:** {item['status']}")
+            lines.append(f"- **Páginas OCR:** {item['pages_ocr_scanned']}")
+            lines.append(f"- **Termos ontológicos:** {item['ontology_term_count']}")
+            lines.append(f"- **Candidatos encontrados:** {item['candidate_count']}")
+            lines.append(f"- **Interpretação:** {item['interpretation']}")
+            lines.append("- **Limitações:** " + ", ".join(item["limitations"]))
 
     lines.extend(
         [

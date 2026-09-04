@@ -79,8 +79,14 @@ class TestTask099ResearchQueryLayer(unittest.TestCase):
         self.assertGreater(result["evidence_reference_count"], 0)
         self.assertGreater(len(result["institutionalization_dimensions"]), 0)
         self.assertGreater(len(result["institutionalization_gaps"]), 0)
-        self.assertEqual(1, len(result["historical_acquisition_gaps"]))
-        self.assertEqual("2018-2021", result["historical_acquisition_gaps"][0]["period"])
+        self.assertEqual([], result["historical_acquisition_gaps"])
+        self.assertEqual(1, len(result["historical_bounded_negative_evidence"]))
+        negative = result["historical_bounded_negative_evidence"][0]
+        self.assertEqual("2018-2021", negative["period"])
+        self.assertEqual("BOUNDED_NO_CANDIDATES", negative["status"])
+        self.assertEqual(80, negative["pages_ocr_scanned"])
+        self.assertEqual(29, negative["ontology_term_count"])
+        self.assertEqual(0, negative["candidate_count"])
         self.assertEqual(0, result["status_promotions_performed"])
         self.assertFalse(result["financial_identity_created"])
         self.assertFalse(result["causal_effect_created"])
@@ -199,6 +205,17 @@ class TestTask099ResearchQueryLayer(unittest.TestCase):
         historical = copy.deepcopy(self.historical)
         historical["acquisition_gaps"] = "not-a-list"
         with self.assertRaisesRegex(ResearchQueryStop, "HISTORICAL_GAPS"):
+            execute_research_query(
+                self.eiti["research_bundle"],
+                policy_query("EVIDENCE_GAPS"),
+                institutionalization_matrix=self.eiti["institutionalization_matrix"],
+                historical_planning=historical,
+            )
+
+    def test_invalid_bounded_negative_evidence_fails_closed(self):
+        historical = copy.deepcopy(self.historical)
+        historical["bounded_negative_evidence"][0]["status"] = "GLOBAL_ABSENCE"
+        with self.assertRaisesRegex(ResearchQueryStop, "HISTORICAL_NEGATIVE_STATUS"):
             execute_research_query(
                 self.eiti["research_bundle"],
                 policy_query("EVIDENCE_GAPS"),

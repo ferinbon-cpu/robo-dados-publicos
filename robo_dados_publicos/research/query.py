@@ -169,16 +169,29 @@ def _matrix_packet(matrix: dict[str, Any], *, include_unknown_gaps: bool) -> dic
     }
 
 
-def _historical_gap_packet(historical_planning: dict[str, Any] | None) -> list[dict[str, Any]]:
+def _historical_packets(
+    historical_planning: dict[str, Any] | None,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     if historical_planning is None:
-        return []
+        return [], []
     _require(
         historical_planning.get("schema") == "EITI_HISTORICAL_PLANNING_CROSSWALK_V1",
         "TASK099_HISTORICAL_SCHEMA",
     )
     gaps = historical_planning.get("acquisition_gaps")
+    negative = historical_planning.get("bounded_negative_evidence")
     _require(isinstance(gaps, list), "TASK099_HISTORICAL_GAPS")
-    return deepcopy(gaps)
+    _require(isinstance(negative, list), "TASK115_HISTORICAL_NEGATIVE_EVIDENCE")
+    for item in negative:
+        _require(isinstance(item, dict), "TASK115_HISTORICAL_NEGATIVE_ITEM")
+        _require(bool(str(item.get("period") or "").strip()), "TASK115_HISTORICAL_NEGATIVE_PERIOD")
+        _require(item.get("status") == "BOUNDED_NO_CANDIDATES", "TASK115_HISTORICAL_NEGATIVE_STATUS")
+        _require(type(item.get("pages_ocr_scanned")) is int, "TASK115_HISTORICAL_NEGATIVE_COVERAGE")
+        _require(type(item.get("ontology_term_count")) is int, "TASK115_HISTORICAL_NEGATIVE_TERMS")
+        _require(type(item.get("candidate_count")) is int, "TASK115_HISTORICAL_NEGATIVE_CANDIDATES")
+        limitations = item.get("limitations")
+        _require(isinstance(limitations, list) and limitations, "TASK115_HISTORICAL_NEGATIVE_LIMITATIONS")
+    return deepcopy(gaps), deepcopy(negative)
 
 
 def execute_research_query(
@@ -205,6 +218,7 @@ def execute_research_query(
 
     matrix_packet = {"dimensions": [], "gaps": []}
     historical_gaps: list[dict[str, Any]] = []
+    historical_negative: list[dict[str, Any]] = []
     if query["query_type"] in {
         "INSTITUTIONALIZATION_MATRIX",
         "EVIDENCE_GAPS",
@@ -215,7 +229,7 @@ def execute_research_query(
             include_unknown_gaps=query["include_unknown_gaps"],
         )
     if query["query_type"] in {"EVIDENCE_GAPS", "POLICY_STATUS_PACKET"}:
-        historical_gaps = _historical_gap_packet(historical_planning)
+        historical_gaps, historical_negative = _historical_packets(historical_planning)
 
     unresolved_claims = [
         {
@@ -235,6 +249,7 @@ def execute_research_query(
         "institutionalization_dimensions": matrix_packet["dimensions"],
         "institutionalization_gaps": matrix_packet["gaps"],
         "historical_acquisition_gaps": historical_gaps,
+        "historical_bounded_negative_evidence": historical_negative,
         "unresolved_claims": unresolved_claims,
         "claim_count": len(claims),
         "evidence_reference_count": sum(len(item["evidence_ids"]) for item in claims),

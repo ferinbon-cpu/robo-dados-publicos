@@ -83,15 +83,19 @@ class TestTask100OfflineResearchAnswerRenderer(unittest.TestCase):
         )
         self.assertIn(locator, rendered)
 
-    def test_matrix_unknowns_and_historical_gaps_remain_visible(self):
+    def test_matrix_unknowns_and_bounded_negative_evidence_remain_visible(self):
         rendered = render_research_answer_markdown(self.packet)["markdown"]
         self.assertIn("**budgetary_policy_identity** — UNKNOWN", rendered)
         self.assertIn("**transaction_execution_identity** — UNKNOWN", rendered)
         self.assertIn("**outcome_effect** — UNKNOWN", rendered)
+        self.assertIn("Nenhuma lacuna histórica de aquisição incluída neste pacote.", rendered)
+        self.assertIn("## Evidência histórica negativa bounded", rendered)
         self.assertIn("### 2018-2021", rendered)
-        self.assertNotIn("### 2022-2025", rendered)
-        self.assertIn("PRIMARY_PPA_DOCUMENT_IDENTITY", rendered)
-        self.assertIn("DIRECT_TEXT_OR_VISUAL_EVIDENCE", rendered)
+        self.assertIn("**Status:** BOUNDED_NO_CANDIDATES", rendered)
+        self.assertIn("**Páginas OCR:** 80", rendered)
+        self.assertIn("**Termos ontológicos:** 29", rendered)
+        self.assertIn("**Candidatos encontrados:** 0", rendered)
+        self.assertIn("NEGATIVE_EVIDENCE_DOES_NOT_PROVE_GLOBAL_ABSENCE", rendered)
 
     def test_renderer_metadata_preserves_guardrails(self):
         result = render_research_answer_markdown(self.packet)
@@ -162,11 +166,17 @@ class TestTask100OfflineResearchAnswerRenderer(unittest.TestCase):
         with self.assertRaisesRegex(ResearchAnswerRenderStop, "MATRIX_STATUS"):
             render_research_answer_markdown(packet)
 
-    def test_malformed_historical_gap_fails_closed(self):
+    def test_malformed_bounded_negative_evidence_fails_closed(self):
         packet = copy.deepcopy(self.packet)
-        packet["historical_acquisition_gaps"][0]["required_before_promotion"] = []
-        with self.assertRaisesRegex(ResearchAnswerRenderStop, "HISTORICAL_REQUIREMENTS"):
-            render_research_answer_markdown(packet)
+        packet["historical_bounded_negative_evidence"][0]["limitations"] = []
+        core = copy.deepcopy(packet)
+        core.pop("result_sha256", None)
+        from hashlib import sha256
+        core["result_sha256"] = sha256(
+            json.dumps(core, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        ).hexdigest()
+        with self.assertRaisesRegex(ResearchAnswerRenderStop, "HISTORICAL_NEGATIVE_LIMITATIONS"):
+            render_research_answer_markdown(core)
 
     def test_incorrect_contract_mode_fails_closed(self):
         contract = load(RENDERER_CONTRACT)
