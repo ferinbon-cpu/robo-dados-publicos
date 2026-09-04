@@ -16,6 +16,7 @@ from robo_dados_publicos.automation.f02_fundeb_monthly_policy_finalization impor
 
 ROOT = Path(__file__).resolve().parents[1]
 POLICY = ROOT / "config/automation_policy.v1.json"
+ACTUAL_GATE = ROOT / "config/f02_fundeb_monthly_cash_gate.v1.json"
 WORKFLOW = ROOT / ".github/workflows/f02-fundeb-monthly-policy-finalization-evidence.yml"
 MERGE_SHA = "48c2f7624dba3f46b61f09659f15d798b836c0ef"
 
@@ -110,6 +111,30 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
                 evidence(), policy(), gate_contract(), implementation_ancestor_verified=False
             )
 
+    def test_current_repository_prefinalization_state_is_expected_to_block(self):
+        """PR #380 installs the validator; it must NOT finalize the F02 gate itself."""
+        actual_policy = load_json(POLICY)
+        actual_gate = load_json(ACTUAL_GATE)
+        self.assertEqual(
+            actual_gate["status"],
+            "REGISTERED_MANUAL_T0_PENDING_IMPLEMENTATION_PR_376",
+        )
+        self.assertTrue(actual_gate["implementation_merge_required_before_manual_execution"])
+        monthly = next(
+            row for row in actual_policy["gates"]
+            if row.get("id") == "F02_FUNDEB_MONTHLY_CASH_OFFLINE"
+        )
+        self.assertTrue(monthly["implementation_merge_required_before_manual_execution"])
+        self.assertIn(
+            "IMPLEMENTATION_PR_376_MUST_BE_MERGED_BEFORE_MANUAL_EXECUTION",
+            monthly["blockers"],
+        )
+        with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "GATE_STATUS"):
+            validate_finalization(
+                evidence(), actual_policy, actual_gate,
+                implementation_ancestor_verified=True,
+            )
+
     def test_missing_merge_sha_and_pin_auto_remote_drift_fail_closed(self):
         missing_sha = evidence()
         del missing_sha["implementation_merge_sha"]
@@ -130,6 +155,19 @@ class F02FundebMonthlyPolicyFinalizationValidatorTests(unittest.TestCase):
         bad_policy["gates"][0]["effects"]["drive_writes"] = True
         with self.assertRaisesRegex(F02FundebMonthlyPolicyFinalizationStop, "REMOTE_EFFECT_ENABLED"):
             validate_finalization(evidence(), bad_policy, gate_contract(), implementation_ancestor_verified=True)
+
+    def test_finalization_flag_true_is_rejected_and_false_is_accepted(self):
+        pre = gate_contract()
+        pre["implementation_merge_required_before_manual_execution"] = True
+        with self.assertRaisesRegex(
+            F02FundebMonthlyPolicyFinalizationStop,
+            "IMPLEMENTATION_BLOCKER_NOT_FINALIZED",
+        ):
+            validate_finalization(evidence(), policy(), pre, implementation_ancestor_verified=True)
+        result = validate_finalization(
+            evidence(), policy(), gate_contract(), implementation_ancestor_verified=True
+        )
+        self.assertEqual(result["status"], "PASS_F02_FUNDEB_MONTHLY_POLICY_FINALIZATION")
 
     def test_missing_or_invalid_json_fails_closed(self):
         with tempfile.TemporaryDirectory() as td:
