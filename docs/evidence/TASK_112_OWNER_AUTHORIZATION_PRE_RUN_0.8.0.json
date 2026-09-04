@@ -1,0 +1,18 @@
+{
+  "schema": "TASK112_OWNER_AUTHORIZATION_PRE_RUN_V1",
+  "task": "TASK_112_REAL_PPA_2018_2021_OCR",
+  "status": "AUTHORIZED_PROSPECTIVE_UNCONSUMED",
+  "owner_instruction": "Prossiga",
+  "issued_before_execution": true,
+  "interpreted_scope": "EXACT_ALREADY_RESOLVED_PPA_2018_2021_ONLY_WITH_TASK111_PROVEN_OCR_ROUTE_AND_EXISTING_FAIL_CLOSED_GATES",
+  "source_url": "https://www.limeira.sp.gov.br/sitenovo/downloads/0fa1a5cc5c9a1823fbf5436def00f01f.pdf",
+  "maximum_http_requests_total": 2,
+  "real_source_ocr_authorized": true,
+  "single_execution": true,
+  "retry": false,
+  "discovery_search": false,
+  "financial_identity_promotion": false,
+  "transaction_execution_promotion": false,
+  "implementation_promotion": false,
+  "causal_effect_promotion": false
+}
