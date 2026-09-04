@@ -12,11 +12,13 @@ from unittest.mock import patch
 from robo_dados_publicos.manual_ingest.f02_known_family_bundle import (
     F02KnownFamilyBundleStop,
     load_json,
+    load_pinned_runtime_authorization,
     run_known_family_bundle,
     validate_adapter_contract,
     validate_batch_manifest,
     validate_controller_alignment,
     validate_gate_contract,
+    validate_runtime_authorization,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -109,6 +111,18 @@ def effects_false():
     )}
 
 
+def authorization_for(manifest):
+    return {
+        "schema": "F02_KNOWN_FAMILY_BUNDLE_RUNTIME_AUTHORIZATION_V1",
+        "authorization_id": "SYNTHETIC_TEST_AUTH",
+        "scope": "F02_KNOWN_FAMILY_BUNDLE_LOCAL_SNAPSHOT_READ",
+        "authorized": True,
+        "batch_id": manifest["batch_id"],
+        "owner_instruction_verbatim": "synthetic unittest authorization",
+        "remote_effects_authorized": effects_false(),
+    }
+
+
 def source(source_id, family, payload, path):
     return {
         "source_id": source_id,
@@ -161,7 +175,12 @@ class F02KnownFamilyBundleTests(unittest.TestCase):
                 "text": text_by_payload[payload],
             }
         with patch("robo_dados_publicos.manual_ingest.mde_fundeb.inspect_f02_pdf", side_effect=inspect):
-            return run_known_family_bundle(self.adapter, manifest, root=ROOT)
+            return run_known_family_bundle(
+                self.adapter,
+                manifest,
+                root=ROOT,
+                authorization=authorization_for(manifest),
+            )
 
     def test_adapter_preserves_individual_supervised_maturity(self):
         validated = validate_adapter_contract(self.adapter)
@@ -470,7 +489,12 @@ class F02KnownFamilyBundleTests(unittest.TestCase):
                 "remote_effects_authorized": effects_false(),
             }
             with self.assertRaisesRegex(F02KnownFamilyBundleStop, "NOT_REGULAR"):
-                run_known_family_bundle(self.adapter, base, root=ROOT)
+                run_known_family_bundle(
+                    self.adapter,
+                    base,
+                    root=ROOT,
+                    authorization=authorization_for(base),
+                )
 
         with tempfile.TemporaryDirectory(dir=ROOT) as td:
             rel_dir = Path(td).relative_to(ROOT)
@@ -511,6 +535,125 @@ class F02KnownFamilyBundleTests(unittest.TestCase):
                 mutated["remote_effects_authorized"][effect] = True
                 with self.assertRaisesRegex(F02KnownFamilyBundleStop, "REMOTE_EFFECT_ENABLED"):
                     validate_batch_manifest(mutated, self.adapter)
+
+
+    def test_runtime_authorization_is_required_and_batch_bound(self):
+        base = {
+            "schema": "F02_KNOWN_FAMILY_BATCH_MANIFEST_V1",
+            "mode": "MANUAL_SUPERVISED_INGEST",
+            "batch_id": "AUTH_BOUND",
+            "batch_kind": "LOCAL_ONLY",
+            "reference_period": {"start": "2026-01-01", "end": "2026-05-31"},
+            "sources": [
+                source("F", "FUNDEB_LOCAL", b"x", "f.pdf"),
+                source("M", "MDE_25_LOCAL", b"y", "m.pdf"),
+            ],
+            "remote_effects_authorized": effects_false(),
+        }
+        with self.assertRaisesRegex(F02KnownFamilyBundleStop, "AUTHORIZATION_REQUIRED"):
+            run_known_family_bundle(self.adapter, base, root=ROOT, authorization=None)
+
+        auth = authorization_for(base)
+        auth["batch_id"] = "OTHER_BATCH"
+        with self.assertRaisesRegex(F02KnownFamilyBundleStop, "AUTHORIZATION_BATCH_MISMATCH"):
+            validate_runtime_authorization(auth, batch_id=base["batch_id"])
+
+    def test_runtime_authorization_file_is_sha256_pinned(self):
+        manifest = {
+            "batch_id": "PINNED_AUTH",
+        }
+        auth = authorization_for(manifest)
+        with tempfile.TemporaryDirectory(dir=ROOT) as td:
+            path = Path(td) / "authorization.json"
+            payload = (json.dumps(auth, sort_keys=True) + "\n").encode("utf-8")
+            path.write_bytes(payload)
+            relative = path.relative_to(ROOT)
+            digest = hashlib.sha256(payload).hexdigest()
+            loaded = load_pinned_runtime_authorization(
+                root=ROOT,
+                relative_path=relative,
+                expected_sha256=digest,
+            )
+            self.assertEqual(loaded["batch_id"], "PINNED_AUTH")
+            with self.assertRaisesRegex(F02KnownFamilyBundleStop, "AUTHORIZATION_SHA256_DRIFT"):
+                load_pinned_runtime_authorization(
+                    root=ROOT,
+                    relative_path=relative,
+                    expected_sha256="0" * 64,
+                )
+
+    def test_secure_open_unavailable_stops_before_local_read(self):
+        with patch(
+            "robo_dados_publicos.manual_ingest.f02_known_family_bundle.os.name",
+            "nt",
+        ):
+            with self.assertRaisesRegex(F02KnownFamilyBundleStop, "SECURE_OPEN_UNAVAILABLE"):
+                validate_controller_alignment(self.adapter, root=ROOT)
+
+    @unittest.skipUnless(os.name == "posix", "hard-link test requires POSIX")
+    def test_hard_link_snapshot_is_rejected(self):
+        with tempfile.TemporaryDirectory(dir=ROOT) as td, tempfile.TemporaryDirectory(dir=ROOT.parent) as outside_td:
+            tmp = type("T", (), {"name": td})()
+            manifest, texts = self._write_bundle(
+                tmp, "LOCAL_ONLY", "2026-05-31", [FUNDEB_MAY, MDE_MAY]
+            )
+            rel = Path(manifest["sources"][0]["snapshot_path"])
+            victim = ROOT / rel
+            victim.unlink()
+            outside = Path(outside_td) / "outside.pdf"
+            outside.write_bytes(b"outside-hardlink")
+            try:
+                os.link(outside, victim)
+            except OSError as exc:
+                self.skipTest(f"hard-link unavailable on this filesystem: {exc}")
+            manifest["sources"][0]["expected_sha256"] = hashlib.sha256(
+                b"outside-hardlink"
+            ).hexdigest()
+            manifest["sources"][0]["expected_bytes"] = len(b"outside-hardlink")
+            texts[b"outside-hardlink"] = FUNDEB_MAY
+            with self.assertRaisesRegex(F02KnownFamilyBundleStop, "SNAPSHOT_PATH_HARDLINK"):
+                self._run(manifest, texts)
+
+    @unittest.skipUnless(
+        os.name == "posix" and hasattr(os, "O_NOFOLLOW") and hasattr(os, "O_DIRECTORY"),
+        "descriptor stability test requires POSIX",
+    )
+    def test_path_swap_after_open_does_not_change_opened_inode(self):
+        with tempfile.TemporaryDirectory(dir=ROOT) as td:
+            tmp = type("T", (), {"name": td})()
+            manifest, texts = self._write_bundle(
+                tmp, "LOCAL_ONLY", "2026-05-31", [FUNDEB_MAY, MDE_MAY]
+            )
+            rel = Path(manifest["sources"][0]["snapshot_path"])
+            victim = ROOT / rel
+            outside = Path(td) / "replacement.pdf"
+            outside.write_bytes(b"replacement")
+            real_open = os.open
+            swapped = {"done": False}
+
+            def swap_after_open(path, flags, mode=0o777, *, dir_fd=None):
+                fd = real_open(path, flags, mode, dir_fd=dir_fd)
+                if (
+                    not swapped["done"]
+                    and str(path) == rel.parts[-1]
+                    and dir_fd is not None
+                    and not (flags & getattr(os, "O_DIRECTORY", 0))
+                ):
+                    victim.unlink()
+                    victim.symlink_to(outside)
+                    swapped["done"] = True
+                return fd
+
+            with patch(
+                "robo_dados_publicos.manual_ingest.f02_known_family_bundle.os.open",
+                side_effect=swap_after_open,
+            ):
+                result, _ = self._run(manifest, texts)
+            self.assertTrue(swapped["done"])
+            self.assertEqual(
+                result["status"],
+                "PASS_F02_KNOWN_FAMILY_BATCH_OFFLINE_NOT_PERSISTED",
+            )
 
 
 if __name__ == "__main__":
