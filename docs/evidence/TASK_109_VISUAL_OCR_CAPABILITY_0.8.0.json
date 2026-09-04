@@ -4,11 +4,46 @@
   "mode": "T0_OFFLINE_VISUAL_OCR_CAPABILITY_INVENTORY",
   "issue": 415,
   "source_gap": "PPA_2018_2021_ONLY",
+  "observed_ci": {
+    "run_id": 33917496591,
+    "job_id": 101168021407,
+    "head_sha": "6723aee2ba5391ecff94e0fdbfaa5c779cd2bd51",
+    "inventory_marker": "TASK109_VISUAL_OCR_CAPABILITY",
+    "conclusion": "success"
+  },
+  "observed_inventory": {
+    "commands": {
+      "tesseract": null,
+      "google-chrome": "/usr/bin/google-chrome",
+      "chromium": "/usr/bin/chromium",
+      "chromedriver": "/usr/bin/chromedriver",
+      "pdftoppm": null,
+      "pdfimages": null,
+      "mutool": null,
+      "gs": null,
+      "magick": null,
+      "convert": null
+    },
+    "python_modules": {
+      "PIL": true,
+      "fitz": false,
+      "cv2": false,
+      "pytesseract": false,
+      "pdf2image": false
+    }
+  },
+  "decision": "STOP_NO_LOCAL_OCR_CHAIN",
+  "decision_reason": [
+    "NO_OCR_ENGINE_OBSERVED",
+    "NO_NATIVE_PDF_TO_IMAGE_RENDERER_OBSERVED",
+    "CHROME_AND_PIL_ALONE_DO_NOT_PROVE_IMAGE_ONLY_PDF_OCR_CAPABILITY",
+    "SYNTHETIC_IMAGE_ONLY_PDF_PROOF_NOT_RUN_BECAUSE_PLAUSIBLE_OCR_CHAIN_WAS_NOT_OBSERVED"
+  ],
   "real_source_read_authorized": false,
   "real_source_ocr_authorized": false,
   "package_install_authorized": false,
-  "phase_a_goal": "INVENTORY_EXISTING_LOCAL_RENDER_AND_OCR_CAPABILITIES",
-  "decision": "PENDING_CI_OBSERVATION",
+  "synthetic_image_only_pdf_ocr_proof_run": false,
+  "next_boundary": "TASK_110_T0_OCR_DEPENDENCY_ROUTE_DESIGN_SEPARATE_REVIEW",
   "remote_effects": {
     "network": false,
     "source_read": false,
