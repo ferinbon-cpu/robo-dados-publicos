@@ -110,13 +110,14 @@ jobs:
               subprocess.run([
                   "google-chrome","--headless","--no-sandbox","--disable-gpu",
                   f"--print-to-pdf={pdf}",
-                  "--print-to-pdf-no-header",
+                  "--no-pdf-header-footer",
                   image_html.resolve().as_uri(),
               ], check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
               reader = PdfReader(str(pdf))
               extracted = "\n".join((p.extract_text() or "") for p in reader.pages)
               if extracted.strip():
+                  print("TASK111_UNEXPECTED_PDF_TEXT=" + repr(extracted))
                   raise SystemExit("TASK111_SYNTHETIC_PDF_NOT_IMAGE_ONLY")
               if len(reader.pages) != 1:
                   raise SystemExit("TASK111_SYNTHETIC_PDF_PAGE_COUNT")
