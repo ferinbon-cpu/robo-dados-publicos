@@ -1,0 +1,20 @@
+{
+  "schema": "TASK114_OWNER_AUTHORIZATION_PRE_RUN_V1",
+  "task": "TASK_114_ONTOLOGY_AWARE_PPA2018_OCR",
+  "status": "AUTHORIZED_PROSPECTIVE_UNCONSUMED",
+  "owner_instruction": "Prossiga",
+  "source_url": "https://www.limeira.sp.gov.br/sitenovo/downloads/0fa1a5cc5c9a1823fbf5436def00f01f.pdf",
+  "required_source_sha256": "685a621a2f5fa8859e4b7f8518627c1523a2fbc5f3402ff48d4aa7573300113d",
+  "maximum_http_requests_total": 1,
+  "page_count_required": 80,
+  "ontology_families": [
+    "A",
+    "B",
+    "C"
+  ],
+  "discovery_search": false,
+  "retry": false,
+  "single_execution": true,
+  "output_semantics": "CANDIDATES_ONLY_NO_AUTOMATIC_PROMOTION",
+  "future_execution_authorized": false
+}
