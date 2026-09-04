@@ -6,11 +6,13 @@ from io import BytesIO
 from pathlib import Path
 import hashlib
 import json
+import math
 import re
 import unicodedata
 from typing import Any
 
 from pypdf import PdfReader
+from pypdf.generic import ContentStream
 
 from .f02_known_family_bundle import (
     F02KnownFamilyBundleStop,
@@ -135,13 +137,14 @@ def _safe_snapshot_path(value: object) -> Path:
     return path
 
 
-_CTM_ONLY_RE = re.compile(
-    r"^(?:[-+]?(?:\d+(?:\.\d*)?|\.\d+)\s+){5}"
-    r"[-+]?(?:\d+(?:\.\d*)?|\.\d+)\s+cm$"
-)
+def _is_finite_pdf_number(value: object) -> bool:
+    try:
+        return math.isfinite(float(value))
+    except (TypeError, ValueError, OverflowError):
+        return False
 
 
-def _is_structurally_blank_export_page(page: Any) -> bool:
+def _is_structurally_blank_export_page(page: Any, *, reader: Any | None = None) -> bool:
     if (page.extract_text() or "").strip():
         return False
     try:
@@ -155,15 +158,39 @@ def _is_structurally_blank_export_page(page: Any) -> bool:
     data = contents.get_data().strip()
     if not data:
         return True
-    try:
-        text = data.decode("ascii")
-    except UnicodeDecodeError:
+    if reader is None:
+        reader = getattr(page, "pdf", None)
+    if reader is None:
         return False
-    operations = [line.strip() for line in text.splitlines() if line.strip()]
-    return bool(operations) and all(
-        line in {"q", "Q"} or _CTM_ONLY_RE.fullmatch(line)
-        for line in operations
-    )
+    try:
+        operations = ContentStream(contents, reader).operations
+    except Exception:
+        return False
+    if not operations:
+        return True
+
+    cm_count = 0
+    graphics_depth = 0
+    for operands, operator in operations:
+        if operator == b"q":
+            if operands:
+                return False
+            graphics_depth += 1
+            continue
+        if operator == b"Q":
+            if operands or graphics_depth <= 0:
+                return False
+            graphics_depth -= 1
+            continue
+        if operator == b"cm":
+            cm_count += 1
+            if cm_count > 1 or len(operands) != 6:
+                return False
+            if not all(_is_finite_pdf_number(value) for value in operands):
+                return False
+            continue
+        return False
+    return graphics_depth == 0 and cm_count == 1
 
 
 def inspect_monthly_pdf(payload: bytes) -> dict[str, Any]:
@@ -201,7 +228,7 @@ def inspect_monthly_pdf(payload: bytes) -> dict[str, Any]:
 
     trailing = []
     for index in range(last_nonempty + 1, len(reader.pages)):
-        if not _is_structurally_blank_export_page(reader.pages[index]):
+        if not _is_structurally_blank_export_page(reader.pages[index], reader=reader):
             return {
                 **observed,
                 "has_required_text_layer": False,
