@@ -1,0 +1,74 @@
+{
+  "task": "TASK_093_RESEARCH_ONTOLOGY_SCHEMA",
+  "mode": "T0_OFFLINE_RESEARCH_SEMANTICS",
+  "base_sha": "0d427078035efd502926da3fd7068835405e3e0e",
+  "authorization": {
+    "owner_authorized": true,
+    "owner_message": "autorizado",
+    "scope": "STRUCTURAL_REDESIGN_TASK093_GENERIC_RESEARCH_ONTOLOGY",
+    "remote_execution_authorized": false
+  },
+  "record_kinds": [
+    "ENTITY",
+    "RELATION",
+    "CLAIM",
+    "EVIDENCE"
+  ],
+  "entity_types": [
+    "POLICY",
+    "DOCUMENT",
+    "PLAN",
+    "PROGRAM",
+    "ACTION",
+    "BUDGET_EVENT",
+    "EXPENSE",
+    "CONTRACT",
+    "PROVIDER",
+    "DELIVERY",
+    "ORGANIZATION",
+    "TERRITORY",
+    "INDICATOR"
+  ],
+  "assertion_statuses": [
+    "PROVEN",
+    "CORROBORATED",
+    "CANDIDATE",
+    "UNKNOWN",
+    "CONFLICTED",
+    "REFUTED"
+  ],
+  "compatibility": {
+    "task055a_eiti_terminology_preserved": true,
+    "evidence_graph_preserved": true,
+    "financial_identity_mapping": {
+      "A": "PROVEN",
+      "B": "CORROBORATED",
+      "C": "CANDIDATE",
+      "D": "UNKNOWN"
+    },
+    "insufficient_eiti_financial_identity_not_promoted": true
+  },
+  "invariants": [
+    "CLAIM_AND_EVIDENCE_ARE_NOT_ENTITY_TYPES",
+    "PROVEN_AND_CORROBORATED_REQUIRE_EVIDENCE",
+    "CONFLICTED_PRESERVES_SUPPORT_AND_CONTRADICTION",
+    "RELATION_AND_CLAIM_REFERENCES_MUST_RESOLVE",
+    "EVIDENCE_SOURCE_MUST_BE_A_DOCUMENT_ENTITY",
+    "NO_TEXT_SIMILARITY_ONLY_FINANCIAL_IDENTITY",
+    "NO_POLICY_SPECIFIC_HARDCODING"
+  ],
+  "effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "state_registry_write": 0,
+    "queue_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "retry": 0,
+    "recurrence": 0,
+    "schedule": 0
+  },
+  "next_task": "TASK_094_POLICY_BUDGET_LEDGER_T0",
+  "result": "READY_FOR_CI_REVIEW_NO_REMOTE_EFFECT"
+}
