@@ -52,6 +52,44 @@
       ]
     },
     {
+      "id": "F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_EVIDENCE_CI",
+      "workflow": ".github/workflows/f02-fundeb-monthly-policy-finalization-evidence.yml",
+      "script": "scripts/validate_f02_fundeb_monthly_policy_finalization.py",
+      "tier": "T0_OFFLINE",
+      "auto_allowed": true,
+      "credential_capability": "NONE",
+      "effects": {
+        "source_network": false,
+        "drive_reads": false,
+        "drive_writes": false,
+        "publication": false
+      },
+      "current_triggers": [
+        "pull_request:main:path-filtered",
+        "workflow_dispatch"
+      ],
+      "path_filter": [
+        "config/automation_policy.v1.json",
+        "config/f02_fundeb_monthly_cash_gate.v1.json",
+        "docs/evidence/F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_CI_OWNER_AUTHORIZATION_0.8.0.json",
+        "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json",
+        "robo_dados_publicos/automation/f02_fundeb_monthly_policy_finalization.py",
+        "scripts/validate_f02_fundeb_monthly_policy_finalization.py",
+        "tests/test_f02_fundeb_monthly_cash_policy_finalization.py"
+      ],
+      "checkout_full_history": true,
+      "permissions": {
+        "contents": "read"
+      },
+      "persist_credentials": false,
+      "secrets": [],
+      "blockers": [],
+      "owner_authorization_evidence": "docs/evidence/F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_CI_OWNER_AUTHORIZATION_0.8.0.json",
+      "owner_authorization_comment_id": 5534958543,
+      "repository_checkout_read_only": true,
+      "source_network_semantics": "EXTERNAL_DATA_SOURCE_NETWORK_ONLY_REPOSITORY_CHECKOUT_IS_GITHUB_READ"
+    },
+    {
       "id": "M8_SIOPE_HISTORICAL_PRODUCT_OUTPUT_PUBLICATION_REVIEW",
       "workflow": ".github/workflows/ci-offline.yml",
       "script": "scripts/review_m8_siope_historical_product_output_publication.py",
