@@ -27,5 +27,13 @@
     "gold_requires_separate_authorization": true,
     "serving_requires_separate_authorization": true
   },
-  "status": "T0_OFFLINE_ONLY_NO_REMOTE_EFFECT"
+  "status": "T0_OFFLINE_ONLY_NO_REMOTE_EFFECT",
+  "runtime_authorization_required": true,
+  "runtime_authorization_schema": "F02_KNOWN_FAMILY_BUNDLE_RUNTIME_AUTHORIZATION_V1",
+  "runtime_authorization_scope": "F02_KNOWN_FAMILY_BUNDLE_LOCAL_SNAPSHOT_READ",
+  "authorization_mechanism": "REPOSITORY_RELATIVE_JSON_PLUS_EXACT_SHA256_CLI_PIN",
+  "authorization_must_match_batch_id": true,
+  "authorization_owner_instruction_required": true,
+  "cli_fixed_repository_root": true,
+  "cli_output": "STDOUT_ONLY"
 }
