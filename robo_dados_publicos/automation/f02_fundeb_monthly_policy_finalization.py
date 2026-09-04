@@ -34,19 +34,26 @@ def load_json(path: str | Path) -> dict[str, Any]:
     return value
 
 
-def git_head_parents(repo_root: str | Path) -> tuple[str, ...]:
-    cp = subprocess.run(
-        ["git", "-C", str(Path(repo_root)), "show", "-s", "--format=%P", "HEAD"],
+def _git(repo_root: str | Path, *args: str) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        ["git", "-C", str(Path(repo_root)), *args],
         text=True,
         capture_output=True,
         check=False,
     )
-    if cp.returncode != 0:
-        _stop("GIT_HEAD_PARENTS_UNAVAILABLE", cp.stderr.strip())
-    parents = tuple(part for part in cp.stdout.strip().split() if part)
-    if not parents or any(not re.fullmatch(r"[0-9a-f]{40}", part) for part in parents):
-        _stop("GIT_HEAD_PARENTS_INVALID")
-    return parents
+
+
+def verify_git_ancestor(repo_root: str | Path, commit_sha: str) -> None:
+    if not re.fullmatch(r"[0-9a-f]{40}", commit_sha):
+        _stop("IMPLEMENTATION_MERGE_SHA")
+    exists = _git(repo_root, "cat-file", "-e", f"{commit_sha}^{{commit}}")
+    if exists.returncode != 0:
+        _stop("IMPLEMENTATION_COMMIT_OBJECT_MISSING", commit_sha)
+    ancestor = _git(repo_root, "merge-base", "--is-ancestor", commit_sha, "HEAD")
+    if ancestor.returncode == 1:
+        _stop("IMPLEMENTATION_MERGE_NOT_ANCESTOR", commit_sha)
+    if ancestor.returncode != 0:
+        _stop("GIT_ANCESTRY_CHECK_FAILED", ancestor.stderr.strip())
 
 
 def validate_finalization(
@@ -54,7 +61,7 @@ def validate_finalization(
     policy: dict[str, Any],
     gate_contract: dict[str, Any],
     *,
-    head_parents: tuple[str, ...],
+    implementation_ancestor_verified: bool,
 ) -> dict[str, Any]:
     if evidence.get("schema") != "F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_V2":
         _stop("EVIDENCE_SCHEMA")
@@ -70,16 +77,16 @@ def validate_finalization(
     verification = evidence.get("verification_contract")
     if not isinstance(verification, dict):
         _stop("VERIFICATION_CONTRACT")
-    if verification.get("method") != "LOCAL_GIT_IMMEDIATE_PARENT_PLUS_CROSS_FILE_PIN_EQUALITY":
+    if verification.get("method") != "LOCAL_GIT_OBJECT_AND_ANCESTRY_PLUS_CROSS_FILE_PIN_EQUALITY":
         _stop("VERIFICATION_METHOD")
-    if verification.get("required_parent_of_validation_head") is not True:
-        _stop("PARENT_PROOF_DISABLED")
-    if verification.get("network_required") is not False:
-        _stop("NETWORK_REQUIRED")
+    if verification.get("full_git_history_required") is not True:
+        _stop("FULL_HISTORY_REQUIREMENT")
+    if verification.get("network_required_after_checkout") is not False:
+        _stop("NETWORK_REQUIRED_AFTER_CHECKOUT")
     if verification.get("github_signature_claimed_by_this_evidence") is not False:
         _stop("UNVERIFIABLE_SIGNATURE_CLAIM")
-    if merge_sha not in head_parents:
-        _stop("IMPLEMENTATION_MERGE_NOT_HEAD_PARENT", merge_sha)
+    if implementation_ancestor_verified is not True:
+        _stop("IMPLEMENTATION_ANCESTRY_NOT_VERIFIED")
 
     if policy.get("schema") != "ROBO_DADOS_PUBLICOS_AUTOMATION_POLICY_V1":
         _stop("POLICY_SCHEMA")
@@ -151,7 +158,7 @@ def validate_finalization(
         "status": "PASS_F02_FUNDEB_MONTHLY_POLICY_FINALIZATION",
         "implementation_pr": EXPECTED_IMPLEMENTATION_PR,
         "implementation_merge_sha": merge_sha,
-        "head_parent_match": True,
+        "implementation_ancestor_verified": True,
         "auto_allowed": False,
         "remote_effects": 0,
     }
@@ -162,9 +169,11 @@ def validate_repository_state(repo_root: str | Path) -> dict[str, Any]:
     evidence = load_json(root / "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json")
     policy = load_json(root / "config/automation_policy.v1.json")
     gate = load_json(root / "config/f02_fundeb_monthly_cash_gate.v1.json")
+    merge_sha = str(evidence.get("implementation_merge_sha") or "").lower()
+    verify_git_ancestor(root, merge_sha)
     return validate_finalization(
         evidence,
         policy,
         gate,
-        head_parents=git_head_parents(root),
+        implementation_ancestor_verified=True,
     )
