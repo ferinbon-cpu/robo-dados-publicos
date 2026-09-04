@@ -20,6 +20,18 @@ SECTION_ORDER = (
     "GUARDRAILS",
 )
 
+REQUIRED_INVARIANTS = (
+    "RENDERER_ONLY_FORMATS_A_VALIDATED_QUERY_PACKET",
+    "CLAIM_TEXT_IS_COPIED_VERBATIM",
+    "CLAIM_STATUS_IS_COPIED_WITHOUT_PROMOTION",
+    "EVIDENCE_SOURCE_IDENTITY_AND_LOCATOR_ARE_PRESERVED",
+    "UNKNOWN_CANDIDATE_AND_CONFLICTED_ITEMS_REMAIN_VISIBLE_WHEN_PRESENT",
+    "NO_FINANCIAL_IDENTITY_IS_CREATED",
+    "NO_CAUSAL_EFFECT_IS_CREATED",
+    "NO_FREE_FORM_OR_LLM_GENERATION_IS_PERFORMED",
+    "OUTPUT_IS_DETERMINISTIC_FOR_IDENTICAL_INPUT",
+)
+
 REMOTE_EFFECT_KEYS = (
     "network",
     "drive_read",
@@ -103,6 +115,17 @@ def validate_query_result(result: dict[str, Any]) -> dict[str, Any]:
             _require(isinstance(claim["evidence"], list), "TASK100_CLAIM_EVIDENCE")
             for packet in claim["evidence"]:
                 _validate_evidence_packet(packet)
+
+    claim_count = result.get("claim_count")
+    evidence_reference_count = result.get("evidence_reference_count")
+    _require(type(claim_count) is int, "TASK100_CLAIM_COUNT_TYPE")
+    _require(type(evidence_reference_count) is int, "TASK100_EVIDENCE_REFERENCE_COUNT_TYPE")
+    _require(claim_count == len(claims), "TASK100_CLAIM_COUNT_MISMATCH")
+    actual_evidence_reference_count = sum(len(claim["evidence_ids"]) for claim in claims)
+    _require(
+        evidence_reference_count == actual_evidence_reference_count,
+        "TASK100_EVIDENCE_REFERENCE_COUNT_MISMATCH",
+    )
 
     for key, code in (
         ("institutionalization_dimensions", "TASK100_MATRIX"),
@@ -306,5 +329,8 @@ def load_renderer_contract(path: str | Path) -> dict[str, Any]:
     _require(all(value is False for value in remote.values()), "TASK100_CONTRACT_REMOTE_EFFECT")
 
     invariants = data.get("invariants")
-    _require(isinstance(invariants, list) and invariants, "TASK100_CONTRACT_INVARIANTS")
+    _require(
+        tuple(invariants or ()) == REQUIRED_INVARIANTS,
+        "TASK100_CONTRACT_INVARIANTS",
+    )
     return data
