@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "task": "TASK_090_EPHEMERAL_RUNTIME_DIGEST_EXECUTOR",
+  "mode": "T0_OFFLINE_EPHEMERAL_RUNTIME_DIGEST",
+  "purpose": "Digest already-staged local source bytes inside a fresh ephemeral runtime workspace and emit candidate derived files without any network or persistent remote effect.",
+  "candidate_root": "ephemeral_digest_candidates",
+  "limits": {
+    "max_batch_files": 3,
+    "max_input_bytes_each": 70000000,
+    "max_total_input_bytes": 110000000
+  },
+  "adapters": {
+    "JORNAL_OFICIAL": {
+      "required_maturity": "EXECUTION_READY_BOUNDED",
+      "processor_contract": "JORNAL_OFICIAL_LIMEIRA_PDF_V01",
+      "supported_mime": [
+        "application/pdf"
+      ],
+      "stage_bronze": false,
+      "plan_reconciliation": false,
+      "ocr_allowed": false,
+      "network_allowed": false,
+      "persistent_writes_allowed": false,
+      "allowed_output_files": [
+        "edition_manifest.json",
+        "pages_silver.jsonl",
+        "events_gold.jsonl",
+        "chunks_rag.jsonl"
+      ]
+    }
+  },
+  "automatic_remote_effects": {
+    "source_network_calls": false,
+    "drive_network_calls": false,
+    "bronze_writes": false,
+    "silver_writes": false,
+    "gold_writes": false,
+    "rag_writes": false,
+    "state_registry_writes": false,
+    "queue_writes": false,
+    "serving_writes": false,
+    "publication_writes": false,
+    "overwrite": false,
+    "delete": false,
+    "move": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "promotion_rule": "Adding another family adapter or increasing any bound requires a separate reviewed task; routing eligibility alone never authorizes digest execution.",
+  "persistence_rule": "Candidate outputs exist only in the supplied ephemeral workspace. Any Bronze/Silver/Gold/RAG/Drive persistence remains a separate gate."
+}
