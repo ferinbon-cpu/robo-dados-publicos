@@ -1,0 +1,27 @@
+{
+  "task": "TASK_091_LIVE_EPHEMERAL_DRIVE_DIGEST",
+  "authorization_type": "PROSPECTIVE_SINGLE_USE_OWNER_INSTRUCTION",
+  "issued_before_execution": true,
+  "owner_instruction": "2026-09-04: prossiga",
+  "scope": "ONE_BOUNDED_DRIVE_MEDIA_READ_TO_EPHEMERAL_RUNTIME_DIGEST",
+  "pre_run_contract_commit": "1e59ad3647e79c1783db3cf9568765234b2d99c2",
+  "pre_run_contract_blob_sha": "143bad34650ac1707df96875312ef8e3ed749189",
+  "remote_target_redacted_in_final_tree": true,
+  "consumed_by": {
+    "run_id": 33873064071,
+    "execution_head_sha": "0c777c647cefaacc9d1daba35c1cded42109c120"
+  },
+  "exclusions": {
+    "retry": false,
+    "future_execution": false,
+    "recurrence": false,
+    "schedule": false,
+    "drive_write": false,
+    "derived_persistence": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false
+  },
+  "status": "CONSUMED_SINGLE_USE_NO_RETRY"
+}
