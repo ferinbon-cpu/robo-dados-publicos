@@ -35,7 +35,9 @@
     "controller_contract_path": "config/drive_ingestion_controller.v3.json",
     "maturity_registry_path": "config/source_family_maturity_registry.v1.json",
     "controller_expected_git_blob_sha": "6ed263410ff35733ef10d93f0132b1b588c3a0ff",
-    "maturity_expected_git_blob_sha": "21a177b1ddeeb5aba9cf2ee54845430db42c8014"
+    "maturity_expected_git_blob_sha": "21a177b1ddeeb5aba9cf2ee54845430db42c8014",
+    "pin_update_policy": "REVIEWED_PR_WITH_CONTROLLER_OR_MATURITY_CHANGE_ONLY",
+    "pin_semantics": "GIT_BLOB_CONTENT_IDENTITY_VERIFIED_BEFORE_JSON_PARSE"
   },
   "source_contract": {
     "exact_hash_required": true,
