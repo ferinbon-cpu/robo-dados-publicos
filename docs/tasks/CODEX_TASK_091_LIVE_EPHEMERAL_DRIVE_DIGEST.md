@@ -1,137 +1,162 @@
 # TASK 091 — one live Drive-to-ephemeral-runtime digest proof
 
-## Prospective owner authorization
+## Authorization and archival policy
 
 Fresh owner instruction: **2026-09-04 — `prossiga`**.
 
-This instruction is consumed only by this single bounded TASK 091 live gate. It does not authorize retry, recurrence, schedule, a second file, future batches, derived persistence, publication, serving, StateRegistry/queue writes, source mutation, Drive mutation or any later live gate.
+The instruction authorized exactly one bounded live TASK 091 run. It did not authorize retry, recurrence, schedule, a second file, future batches, derived persistence, publication, serving, StateRegistry/queue writes, source mutation or Drive mutation.
 
-## Base
+The exact prospective pre-run contract existed before network execution at:
+
+- commit: `1e59ad3647e79c1783db3cf9568765234b2d99c2`;
+- Git blob: `143bad34650ac1707df96875312ef8e3ed749189`.
+
+That historical source contained the exact remote identifier required for the one-shot gate. The final canonical tree intentionally **does not reproduce that remote identifier**. This document is the redacted durable task record. The final PR is intended for squash merge so intermediate operational identifiers are not promoted into protected-main history.
+
+## Base and executor
 
 Protected main at task opening:
 
 `7750b28e42be1b9e786b908c4f8eb9307a9809ad`
 
-TASK 090 is already merged and provides the T0/offline executor:
+TASK 090 was already merged and provided the T0/offline executor:
 
-- `config/ephemeral_runtime_digest.v1.json`
-- `scripts/run_ephemeral_runtime_digest.py`
-- family adapter: `JORNAL_OFICIAL`
-- `stage_bronze=false`
-- `plan_reconciliation=false`
-- no OCR
-- no network inside the digest executor
-- no persistent derived writes
+- `config/ephemeral_runtime_digest.v1.json`;
+- `scripts/run_ephemeral_runtime_digest.py`;
+- family adapter `JORNAL_OFICIAL`;
+- `stage_bronze=false`;
+- `plan_reconciliation=false`;
+- no OCR;
+- no network inside the digest executor;
+- no persistent derived writes.
 
-## Exact live source
+## Redacted live source contract
 
-Use exactly one already-immutable TASK 071 Bronze object:
+Exactly one already-immutable TASK 071 Bronze Jornal object was selected.
 
-- Drive file ID: `1JTpCPj4_rL08RubO5wOVvBHjuwqKWfQ8`
-- canonical name: `limeira_jornal_oficial_edicao_7024.pdf`
-- edition: `7024`
-- publication date: `2025-07-08`
-- expected bytes: `17615179`
-- expected SHA-256: `44d92a6ac948bbf43dcb3302733faac1a4ed5e592702f66c07f0c6ede4ecb73c`
+Durable non-identifier evidence:
 
-Historical TASK 073 deterministic expectations for the same source bytes:
+- remote-id SHA-256: `c4ddf384c210c0189c8c6da932de27cdaa70f810d026060736f10c76ed99dfc5`;
+- edition: `7024`;
+- publication date: `2025-07-08`;
+- expected bytes: `17615179`;
+- expected source SHA-256: `44d92a6ac948bbf43dcb3302733faac1a4ed5e592702f66c07f0c6ede4ecb73c`.
 
-- Silver rows/pages: `79`
-- Gold events: `15`
-- RAG chunks: `126`
+Historical TASK 073 comparison values for those same source bytes were:
 
-These counts are comparison evidence only; they do not authorize persistence.
+- Silver pages: `79`;
+- Gold events: `15`;
+- RAG chunks: `126`.
 
-## Exact runtime boundary
+These values were comparison evidence only and never authorized persistence.
 
-The live part must run only on branch:
+## Executed runtime boundary
 
-`task-091-live-ephemeral-drive-digest`
+Execution head:
 
-The live transport is bounded after repository checkout/setup:
+`0c777c647cefaacc9d1daba35c1cded42109c120`
 
-1. exactly one OAuth token-exchange POST to `https://oauth2.googleapis.com/token`;
-2. exactly one Drive media GET to the exact file ID above;
-3. no other request may pass through the live transport guard.
+Run:
 
-The downloaded source must be written only below `$RUNNER_TEMP`.
+`33873064071`
 
-Before digest:
+Job:
 
-- bytes must equal `17615179`;
-- SHA-256 must equal `44d92a6ac948bbf43dcb3302733faac1a4ed5e592702f66c07f0c6ede4ecb73c`;
-- any mismatch is STOP before processing.
+`101023430264`
 
-## Digest behavior
+Executed workflow Git blob:
 
-Invoke the merged TASK 090 executor over the staged source inside a fresh runner temp workspace.
+`1e354d9c9129f9c3ac4ba1e3bf80947301c7616c`
 
-Expected semantic result:
+The transport guard permitted exactly:
 
+1. one OAuth token-exchange POST;
+2. one exact Drive media GET bound to the pre-run remote identifier;
+3. no additional guarded request.
+
+No metadata/list/search call and no Drive mutation were allowed.
+
+The source was staged only below the runner temporary directory. Before digest, byte count and source SHA-256 were checked. The merged TASK 090 executor then ran locally.
+
+## Observed outcome
+
+The run reached all of these gates successfully:
+
+- exact request budget: 2;
+- source byte-count gate;
+- source SHA-256 gate;
 - `PASS_EPHEMERAL_RUNTIME_DIGEST_NOT_PERSISTED`;
-- input count `1`;
-- candidate file count `4`;
-- Silver rows `79`;
-- Gold rows `15`;
-- RAG rows `126`;
-- all remote/persistent effect counters `0`.
+- input count = 1;
+- candidate file count = 4.
 
-The candidate files remain ephemeral:
+The four local candidate roles were:
 
-- `edition_manifest.json`
-- `pages_silver.jsonl`
-- `events_gold.jsonl`
-- `chunks_rag.jsonl`
+- edition manifest;
+- Silver pages;
+- Gold events;
+- RAG chunks.
 
-They must **not** be uploaded as GitHub artifacts and must **not** be written to Drive.
+The run then stopped at:
 
-## Allowed durable evidence
+`STOP_TASK091_HISTORICAL_COUNT_DRIFT`
 
-Only one sanitized JSON evidence artifact may be uploaded, containing:
+The TASK 091 artifact did not capture the observed row counts before raising. Therefore the exact difference versus TASK 073 is unknown and the root cause remains:
 
-- run identity;
-- exact source file ID;
-- observed source bytes and SHA-256;
-- request count/method/host/path class without credentials;
-- digest status;
-- source/candidate hashes;
-- row/file counts;
-- zero-effect counters;
-- comparison against TASK 073 counts.
+`UNRESOLVED`
 
-The evidence must contain no source PDF bytes, no Silver/Gold/RAG text, no OAuth values and no personal data.
+No explanation for the drift may be inferred from current evidence.
 
-## Forbidden
+## Runtime fingerprint captured after the STOP
 
-- Drive metadata/list/search requests;
-- any Drive POST/PATCH/PUT/DELETE;
-- any source mutation;
-- any Bronze/Silver/Gold/RAG Drive write;
-- artifact upload of source or derived candidates;
-- StateRegistry or reconciliation-queue write;
-- serving/publication;
-- retry;
-- pagination;
-- recurrence;
-- schedule;
-- workflow_dispatch;
-- repository_dispatch;
-- workflow_call;
-- future execution authorization.
+- GitHub runner: `2.337.0`;
+- OS: Ubuntu 24.04.4 LTS;
+- image: `ubuntu-24.04`;
+- image version: `20260823.283.1`;
+- Python: 3.12;
+- pypdf: 6.10.0;
+- project: robo-dados-publicos 0.8.0.
+
+TASK 073 does not preserve an equally complete executable runtime fingerprint.
+
+## Hard boundaries observed
+
+- one Drive media GET;
+- zero Drive mutating requests;
+- zero source mutation;
+- zero Bronze/Silver/Gold/RAG remote writes;
+- zero StateRegistry writes;
+- zero queue writes;
+- zero serving writes;
+- zero publication;
+- zero retry runs;
+- zero recurrence;
+- zero schedule;
+- source and candidate workspace removed after execution;
+- only sanitized JSON evidence was uploaded.
 
 ## Single-use closure
 
-After the one live run:
+The temporary live workflow was removed immediately after the consumed run at commit:
 
-1. remove the temporary live workflow from the branch;
-2. preserve the exact executed workflow source inertly under `docs/evidence/`;
-3. commit sanitized run evidence and a verifier;
-4. confirm final PR diff contains zero live TASK 091 workflow path;
-5. run all required CI and DeepSeek review;
-6. merge only if no unresolved concrete blocker remains.
+`715fea0d4eb0991b39500736dda1226e5317bbd6`
 
-## Result before execution
+No second TASK 091 live run was observed.
 
-`READY_FOR_ONE_OWNER_AUTHORIZED_LIVE_RUN`
+The complete live workflow source is not retained in the final canonical tree. Its exact executed Git-blob SHA remains recorded for audit correlation.
 
-No live request has occurred merely because this contract exists.
+## Result
+
+`STOP_TASK091_DIGEST_PROVEN_EPHEMERAL_HISTORICAL_COUNT_DRIFT_UNRESOLVED`
+
+## Next gate
+
+No retry is authorized.
+
+Before any future live proof, an offline follow-up must:
+
+1. capture runtime fingerprint before processing;
+2. capture observed counts and candidate hashes before historical comparison;
+3. distinguish `DIGEST_PASS` from `HISTORICAL_REPRODUCTION_DRIFT`;
+4. preserve the same zero-persistence boundary.
+
+Any new live read requires fresh owner authorization.
