@@ -171,6 +171,22 @@ def validate_gate_contract(raw: dict[str, Any]) -> dict[str, Any]:
         _stop("GATE_REMOTE_DRIVE_READ")
     if raw.get("new_family_or_schema_auto_authorized") is not False:
         _stop("GATE_NEW_SCHEMA_AUTO_AUTH")
+    if raw.get("runtime_authorization_required") is not True:
+        _stop("GATE_RUNTIME_AUTH_REQUIRED")
+    if raw.get("runtime_authorization_schema") != "F02_KNOWN_FAMILY_BUNDLE_RUNTIME_AUTHORIZATION_V1":
+        _stop("GATE_RUNTIME_AUTH_SCHEMA")
+    if raw.get("runtime_authorization_scope") != "F02_KNOWN_FAMILY_BUNDLE_LOCAL_SNAPSHOT_READ":
+        _stop("GATE_RUNTIME_AUTH_SCOPE")
+    if raw.get("authorization_mechanism") != "REPOSITORY_RELATIVE_JSON_PLUS_EXACT_SHA256_CLI_PIN":
+        _stop("GATE_RUNTIME_AUTH_MECHANISM")
+    if raw.get("authorization_must_match_batch_id") is not True:
+        _stop("GATE_RUNTIME_AUTH_BATCH")
+    if raw.get("authorization_owner_instruction_required") is not True:
+        _stop("GATE_RUNTIME_AUTH_OWNER_INSTRUCTION")
+    if raw.get("cli_fixed_repository_root") is not True:
+        _stop("GATE_CLI_ROOT")
+    if raw.get("cli_output") != "STDOUT_ONLY":
+        _stop("GATE_CLI_OUTPUT")
     return raw
 
 
@@ -276,6 +292,8 @@ def validate_adapter_contract(raw: dict[str, Any]) -> dict[str, Any]:
         value = str(alignment.get(key) or "")
         if not re.fullmatch(r"[0-9a-f]{40}", value):
             _stop("ALIGNMENT_BLOB_PIN", key)
+    if alignment.get("pin_update_policy") != "REVIEWED_PR_WITH_CONTROLLER_OR_MATURITY_CHANGE_ONLY":
+        _stop("ALIGNMENT_PIN_UPDATE_POLICY")
     if not raw.get("gate_contract_path"):
         _stop("GATE_PATH")
 
