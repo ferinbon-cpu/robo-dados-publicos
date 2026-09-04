@@ -32,7 +32,7 @@
       "pdf2image": false
     }
   },
-  "decision": "STOP_NO_LOCAL_OCR_CHAIN",
+  "decision": "PENDING_CHROME_IMAGE_ONLY_SYNTHETIC_PROOF",
   "decision_reason": [
     "NO_OCR_ENGINE_OBSERVED",
     "NO_NATIVE_PDF_TO_IMAGE_RENDERER_OBSERVED",
@@ -41,9 +41,9 @@
   ],
   "real_source_read_authorized": false,
   "real_source_ocr_authorized": false,
-  "package_install_authorized": false,
+  "package_install_authorized": "PYPDF_6_10_0_PINNED_PROJECT_DEPENDENCY_ONLY_FOR_SYNTHETIC_PROOF",
   "synthetic_image_only_pdf_ocr_proof_run": false,
-  "next_boundary": "TASK_110_T0_OCR_DEPENDENCY_ROUTE_DESIGN_SEPARATE_REVIEW",
+  "next_boundary": "RUN_ONE_OFFLINE_CHROME_IMAGE_ONLY_SYNTHETIC_PROOF_THEN_ADJUDICATE",
   "remote_effects": {
     "network": false,
     "source_read": false,
@@ -57,5 +57,24 @@
     "retry": false,
     "recurrence": false,
     "schedule": false
+  },
+  "synthetic_proof_scope": {
+    "real_source_read": false,
+    "real_source_ocr": false,
+    "source_network": false,
+    "allowed_dependency_install": [
+      "pypdf==6.10.0"
+    ],
+    "forbidden_dependency_install": [
+      "tesseract",
+      "poppler",
+      "ghostscript",
+      "imagemagick",
+      "pymupdf",
+      "opencv",
+      "pytesseract",
+      "pdf2image"
+    ],
+    "purpose": "VERIFY_IMAGE_ONLY_PDF_HAS_NO_TEXT_LAYER_AND_TEST_CHROME_ACCESSIBILITY_ONLY"
   }
 }
