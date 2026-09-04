@@ -397,6 +397,11 @@
         "EXPLICIT_OWNER_RUNTIME_AUTHORIZATION_REQUIRED",
         "LOCAL_SNAPSHOT_MATERIALIZATION_MUST_BE_BOUNDED",
         "SILVER_PERSISTENCE_REQUIRES_SEPARATE_CREATE_ONLY_EXECUTION"
+      ],
+      "policy_finalization_authorization_evidence": "docs/evidence/F02_FUNDEB_MONTHLY_POLICY_FINALIZATION_OWNER_AUTHORIZATION_0.8.0.json",
+      "policy_finalization_owner_comment_ids": [
+        5534571726,
+        5535072657
       ]
     }
   ],
