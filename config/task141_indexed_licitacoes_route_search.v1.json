@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "schema": "TASK141_INDEXED_LICITACOES_ROUTE_SEARCH_DESIGN_V1",
+  "mode": "T0_OFFLINE_INDEXED_LICITACOES_ROUTE_DESIGN_ONLY",
+  "base_sha": "36ce46e6a9a69af93b61eb1fe154e985d2465048",
+  "issue": 490,
+  "authorization": {
+    "owner_authorization_units_granted": 10,
+    "authorization_unit_index": 6,
+    "search_invocations_max": 1,
+    "open_invocations_max": 1,
+    "does_not_broaden_task133": true
+  },
+  "search": {
+    "query": "site:limeira.sp.gov.br/licitacoes \"ESCOLA EM TEMPO INTEGRAL 2026\" credenciamento oficineiros",
+    "official_domain": "limeira.sp.gov.br",
+    "search_invocations_max": 1,
+    "retry": 0
+  },
+  "conditional_open": {
+    "only_result_under_official_licitacoes_route": true,
+    "strong_eiti_marker_required": true,
+    "open_invocations_max": 1,
+    "followup_clicks": 0,
+    "followup_searches": 0,
+    "retry": 0
+  },
+  "epistemic_semantics": {
+    "search_snippet_max_status": "CORROBORATED",
+    "opened_primary_procurement_page_can_prove_identifier_if_explicit": true,
+    "negative_exhaustive_conclusion_allowed": false,
+    "automatic_financial_identity": false,
+    "automatic_transaction_identity": false,
+    "automatic_supplier_linkage": false
+  },
+  "remote_effects_in_task141_design": {
+    "network": false,
+    "drive": false,
+    "publication": false
+  }
+}
