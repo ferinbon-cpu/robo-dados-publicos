@@ -3,10 +3,67 @@
   "mode": "T1_BOUNDED_WEB_INDEXED_PRIMARY_REFERENT_DISCOVERY",
   "issue": 463,
   "base_sha": "bc688fc67d05558e5ec19ebabb61503c20c2ede8",
-  "objective": "RECOVER_STABLE_ADMINISTRATIVE_IDENTIFIER_FOR_EITI_OFICINEIRO_PROCUREMENT",
-  "search_executed": false,
+  "preflight_ci": "PASS_5_OF_5",
+  "search_execution": {
+    "query_family_count": 8,
+    "search_query_count": 16,
+    "target_domains": [
+      "ecrie.com.br",
+      "limeira.sp.gov.br"
+    ],
+    "direct_pdf_open_requests": 0,
+    "raw_pdf_requests": 0,
+    "pncp_requests": 0,
+    "drive_reads": 0,
+    "retry": 0,
+    "pre_gate_reconnaissance_excluded_from_task_evidence": true
+  },
+  "relevant_index_hits": [
+    {
+      "url": "https://limeira.sp.gov.br/imprensa/noticias/geral/programa-de-educacao-integral-esta-com-inscricoes-abertas-para-oficineiros",
+      "type": "MUNICIPAL_PRIMARY_PAGE_INDEXED",
+      "observed": [
+        "PROGRAMA_DE_EDUCACAO_INTEGRAL",
+        "EDITAL_CONTINUO",
+        "CREDENCIAMENTO_PESSOAS_JURIDICAS_MEI",
+        "OFICINEIROS",
+        "R30_POR_HORA_EFETIVAMENTE_PRESTADA",
+        "PAGAMENTO_MENSAL"
+      ],
+      "stable_administrative_identifier_observed": false
+    },
+    {
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_15122025182852.pdf",
+      "type": "WEB_INDEXED_JOM_CROSS_REFERENCE",
+      "observed": [
+        "EDITAL_DE_CREDENCIAMENTO_ESCOLA_EM_TEMPO_INTEGRAL_2026",
+        "JOM_EDICAO_7126_28_NOVEMBRO_2025"
+      ],
+      "stable_administrative_identifier_observed": false,
+      "target_pdf_direct_read": false
+    }
+  ],
   "candidate_identifiers": [],
+  "interpretation": {
+    "bounded_index_no_identifier_observed": true,
+    "proves_no_identifier_exists": false,
+    "target_procurement_exists": true,
+    "policy_procurement_marker_preserved": true,
+    "web_index_insufficient_for_accounting_join": true,
+    "financial_identity_changed": false,
+    "transaction_identity_changed": false
+  },
+  "next_action": {
+    "status": "DISCOVER_PROCUREMENT_PUBLICATION_OR_PURCHASE_SURFACE_BY_EXACT_TITLE",
+    "objective": "FIND_PRIMARY_OR_OFFICIAL_REGISTRY_PROCUREMENT_RECORD_FOR_EDITAL_ESCOLA_EM_TEMPO_INTEGRAL_2026_BEFORE_CONTRACT_JOIN",
+    "preferred_surfaces": [
+      "PNCP_PURCHASE_OR_CONTRATACAO_RECORDS_NOT_CONTRACTS",
+      "LIMEIRA_LICITACAO_CREDENCIAMENTO_PORTAL",
+      "MUNICIPAL_TRANSPARENCY_PROCESS_OR_PROCUREMENT_SEARCH"
+    ],
+    "weak_contract_join_authorized": false
+  },
   "automatic_financial_identity": false,
   "automatic_transaction_identity": false,
-  "result": "PENDING_PREFLIGHT_CI"
+  "result": "PASS_TASK131_BOUNDED_WEB_INDEX_NO_STABLE_ADMINISTRATIVE_IDENTIFIER"
 }
