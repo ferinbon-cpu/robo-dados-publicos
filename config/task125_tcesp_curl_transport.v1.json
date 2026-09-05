@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "schema": "TASK125_TCESP_CURL_TRANSPORT_V1",
+  "mode": "T1_SINGLE_USE_EXACT_CURL_GET",
+  "base_sha": "901a9031b398c3ae2dff8313077ba1e9453222a5",
+  "issue": 447,
+  "source": {
+    "url": "https://transparencia.tce.sp.gov.br/sites/default/files/csv/despesas-limeira-2026.zip",
+    "host": "transparencia.tce.sp.gov.br",
+    "source_role": "SECONDARY_AGGREGATOR",
+    "max_bytes": 10485760
+  },
+  "curl_contract": {
+    "get_requests_max": 1,
+    "head_requests": 0,
+    "max_redirs": 0,
+    "fail_on_http_error": true,
+    "silent": true,
+    "show_error": true,
+    "retry": 0,
+    "exact_url_only": true
+  },
+  "local_processing": {
+    "sha256": true,
+    "verify_zip": true,
+    "max_members": 10,
+    "max_uncompressed_bytes": 104857600,
+    "csv_only": true,
+    "exact_code_tokens": [
+      "2607004"
+    ],
+    "normalized_phrases": [
+      "FOMENTO ETI",
+      "EDUCACAO INTEGRAL",
+      "EDUCACAO EM TEMPO INTEGRAL",
+      "TEMPO INTEGRAL",
+      "PROGRAMA ESCOLA EM TEMPO INTEGRAL",
+      "EITI"
+    ],
+    "standalone_tokens": [
+      "ETI"
+    ],
+    "fuzzy_matching": false
+  },
+  "semantics": {
+    "source_role": "SECONDARY_AGGREGATOR",
+    "automatic_financial_identity": false,
+    "automatic_transaction_identity": false,
+    "primary_municipal_verification_required": true
+  },
+  "persistence": {
+    "raw_zip_git": false,
+    "raw_csv_git": false,
+    "drive_write": false,
+    "bronze": false,
+    "silver": false,
+    "gold": false,
+    "rag": false,
+    "state_registry": false,
+    "queue": false,
+    "serving": false,
+    "publication": false
+  },
+  "future_retry_authorized": false,
+  "future_primary_verification_authorized": false
+}
