@@ -1,0 +1,22 @@
+{
+  "task": "TASK_146_PNCP_PROCUREMENT_PAGE_SIZE_50_CORRECTION",
+  "issue": 502,
+  "mode": "T0_OFFLINE_CORRECTION_GATE_ONLY",
+  "base_sha": "b5abe1dbb248737809e38aca135dda176ac5b80c",
+  "prior_page_size": 500,
+  "prior_user_observed_status": 400,
+  "prior_user_observed_error": "Tamanho de página inválido",
+  "corrected_page_size": 50,
+  "fresh_user_authorization": true,
+  "future_open_invocations_max": 1,
+  "future_retry": 0,
+  "future_search_queries": 0,
+  "negative_exhaustive_conclusion_allowed": false,
+  "pncp_no_match_allowed": false,
+  "candidate_max_status": "CORROBORATED",
+  "primary_municipal_verification_required": true,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "remote_effects": 0,
+  "result": "PASS_TASK146_PAGE_SIZE_50_CORRECTION_DESIGNED_NOT_EXECUTED"
+}
