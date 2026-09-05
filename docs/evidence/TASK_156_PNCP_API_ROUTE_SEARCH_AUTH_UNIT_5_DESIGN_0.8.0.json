@@ -1,0 +1,20 @@
+{
+  "task":"TASK_156_PNCP_API_ROUTE_SEARCH_AUTH_UNIT_5",
+  "issue":524,
+  "mode":"T0_OFFLINE_OFFICIAL_DOMAIN_SEARCH_DESIGN_ONLY",
+  "base_sha":"cabe8ae129f815041def33787e1d2a696f42c385",
+  "authorization_unit_index":5,
+  "remaining_units_before_execution":6,
+  "future_search_invocations_max":1,
+  "future_query_count_max":1,
+  "future_query":"PNCP api consulta v1 contratacoes publicacao",
+  "domain_restriction":["pncp.gov.br"],
+  "future_result_opens":0,
+  "future_clicks":0,
+  "future_retry":0,
+  "future_direct_download_invocations":0,
+  "negative_exhaustive_conclusion_allowed":false,
+  "pncp_no_match_allowed":false,
+  "remaining_units_after_invocation":5,
+  "result":"PASS_TASK156_ROUTE_SEARCH_DESIGNED_NOT_EXECUTED"
+}
