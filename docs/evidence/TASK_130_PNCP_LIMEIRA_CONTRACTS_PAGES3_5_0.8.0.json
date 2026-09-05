@@ -1,0 +1,27 @@
+{
+  "task": "TASK_130_PNCP_LIMEIRA_CONTRACTS_PAGES_3_5_SCAN",
+  "mode": "T1_SINGLE_USE_OFFICIAL_REGISTRY_PAGES_3_5_SCAN",
+  "issue": 461,
+  "base_sha": "0a06019de6eb3af2e62d37b8d61c03c42d167e99",
+  "prior_coverage": {
+    "pages": [
+      1,
+      2
+    ],
+    "rows": 1000,
+    "candidates": 0
+  },
+  "remaining_pages": [
+    3,
+    4,
+    5
+  ],
+  "remaining_rows_expected": 1023,
+  "get_requests_max": 3,
+  "timeout_seconds": 60,
+  "retry": 0,
+  "raw_payload_persisted": false,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "result": "PENDING_PREFLIGHT_CI"
+}
