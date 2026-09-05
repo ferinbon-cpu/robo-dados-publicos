@@ -1,0 +1,56 @@
+{
+  "task": "TASK_125_TCESP_CURL_TRANSPORT",
+  "mode": "T1_SINGLE_USE_EXACT_CURL_GET",
+  "issue": 447,
+  "source_url": "https://transparencia.tce.sp.gov.br/sites/default/files/csv/despesas-limeira-2026.zip",
+  "source_role": "SECONDARY_AGGREGATOR",
+  "preflight_ci": "PASS_5_OF_5",
+  "live_execution": {
+    "get_attempts": 1,
+    "max_get_attempts": 1,
+    "head_requests": 0,
+    "redirects_followed": 0,
+    "retry_performed": false,
+    "curl_exit_code": 6,
+    "http_code": "000",
+    "effective_url": "https://transparencia.tce.sp.gov.br/sites/default/files/csv/despesas-limeira-2026.zip",
+    "size_download_bytes": 0,
+    "failure_class": "DNS_RESOLUTION_FAILURE",
+    "failure_message": "Could not resolve host: transparencia.tce.sp.gov.br",
+    "zip_created": false,
+    "rows_scanned": 0
+  },
+  "interpretation": {
+    "transport_failure_only": true,
+    "no_data_conclusion": true,
+    "no_match_claim": false,
+    "source_unavailable_claim": false,
+    "tcesp_source_validity_changed": false,
+    "financial_identity_changed": false,
+    "transaction_identity_changed": false
+  },
+  "next_action": {
+    "status": "USE_WEB_ACCESSIBLE_HTML_OR_SEARCH_SURFACE_NEW_GATE",
+    "third_transport_retry_in_same_task_allowed": false,
+    "raw_zip_route_blocked_by_runtime_network": true
+  },
+  "effects": {
+    "source_get_attempts": 1,
+    "source_bytes": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "rag": 0,
+    "state_registry": 0,
+    "queue": 0,
+    "serving": 0,
+    "publication": 0,
+    "retry": 0,
+    "recurrence": 0,
+    "schedule": 0
+  },
+  "result": "STOP_TASK125_DNS_RESOLUTION_FAILURE_ZERO_BYTES_NO_DATA_CONCLUSION"
+}
