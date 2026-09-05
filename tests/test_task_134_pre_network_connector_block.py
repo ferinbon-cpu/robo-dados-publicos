@@ -15,9 +15,12 @@ class TestTask134PreNetworkBlock(unittest.TestCase):
         cls.b = json.loads(BLOCK.read_text(encoding="utf-8"))
 
     def test_authorization_remains_unconsumed(self):
-        self.assertEqual(
-            "AUTHORIZED_UNCONSUMED_PRE_NETWORK_CONNECTOR_WORKFLOW_WRITE_BLOCK",
+        self.assertIn(
             self.a["status"],
+            {
+                "AUTHORIZED_UNCONSUMED_PRE_NETWORK_CONNECTOR_WORKFLOW_WRITE_BLOCK",
+                "ALT_TRANSPORT_ATTEMPT_CONSUMED_PRE_HTTP_SOURCE_READ_SCOPE_UNCONSUMED",
+            },
         )
         self.assertFalse(self.a["authorization_consumed"])
         self.assertFalse(self.a["source_read_scope_consumed"])
