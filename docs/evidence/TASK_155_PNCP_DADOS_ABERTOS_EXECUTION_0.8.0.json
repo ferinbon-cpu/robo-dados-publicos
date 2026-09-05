@@ -1,0 +1,18 @@
+{
+  "task":"TASK_155_PNCP_DADOS_ABERTOS_AUTH_UNIT_4",
+  "authorization_unit_index":4,
+  "task155_merge_sha":"cabe8ae129f815041def33787e1d2a696f42c385",
+  "result":"PASS_OFFICIAL_PNCP_DADOS_ABERTOS_PAGE_REACHED",
+  "execution":{
+    "click_invocations":1,
+    "retry_performed":false,
+    "official_page_url":"https://www.gov.br/pncp/pt-br/acesso-a-informacao/copy_of_dados-abertos",
+    "official_open_data_api_description_observed":true,
+    "api_access_without_registration_or_login_observed":true,
+    "parameterized_api_opened":false,
+    "direct_download_invocations":0,
+    "raw_payload_persisted":false
+  },
+  "authorization_state":{"unit_4_consumed":true,"remaining_units":6},
+  "epistemic_state":{"candidate_created":false,"pncp_no_match_created":false,"negative_exhaustive_conclusion_created":false}
+}
