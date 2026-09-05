@@ -1,0 +1,12 @@
+{
+  "task": "TASK_131_WEB_INDEX_PROCUREMENT_IDENTIFIER_DISCOVERY",
+  "mode": "T1_BOUNDED_WEB_INDEXED_PRIMARY_REFERENT_DISCOVERY",
+  "issue": 463,
+  "base_sha": "bc688fc67d05558e5ec19ebabb61503c20c2ede8",
+  "objective": "RECOVER_STABLE_ADMINISTRATIVE_IDENTIFIER_FOR_EITI_OFICINEIRO_PROCUREMENT",
+  "search_executed": false,
+  "candidate_identifiers": [],
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "result": "PENDING_PREFLIGHT_CI"
+}
