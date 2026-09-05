@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "schema": "TASK131_WEB_INDEX_PROCUREMENT_IDENTIFIER_DISCOVERY_V1",
+  "mode": "T1_BOUNDED_WEB_INDEXED_PRIMARY_REFERENT_DISCOVERY",
+  "base_sha": "bc688fc67d05558e5ec19ebabb61503c20c2ede8",
+  "issue": 463,
+  "upstream": {
+    "task126": {
+      "path": "docs/evidence/TASK_126_PRIMARY_PROCUREMENT_SURFACE_SELECTION_0.8.0.json",
+      "git_blob_sha": "f44f7cd30377b08fe7cf43e0fc255fe7906eb83d"
+    },
+    "task127": {
+      "path": "docs/evidence/TASK_127_JOM_EITI_ACCOUNTING_FIELD_SCAN_0.8.0.json",
+      "git_blob_sha": "eb1050d68cf6443ee6c1ec7c68e2a7a2b5d4101c"
+    },
+    "task130": {
+      "path": "docs/evidence/TASK_130_PNCP_LIMEIRA_CONTRACTS_PAGES3_5_0.8.0.json",
+      "git_blob_sha": "3fb9bba882647dabe7c543ae5f6befda903980f0"
+    }
+  },
+  "target": {
+    "procurement_title": "EDITAL DE CREDENCIAMENTO ESCOLA EM TEMPO INTEGRAL 2026",
+    "policy_program": "PROGRAMA DE EDUCACAO INTEGRAL",
+    "source_publication": "JORNAL OFICIAL LIMEIRA EDICAO 7126 28 DE NOVEMBRO DE 2025",
+    "selected_pdf_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_27112025163143.pdf"
+  },
+  "search": {
+    "allowed_target_domains": [
+      "ecrie.com.br",
+      "limeira.sp.gov.br"
+    ],
+    "query_family_count_max": 8,
+    "search_query_count_max": 16,
+    "direct_pdf_open_requests": 0,
+    "raw_pdf_requests": 0,
+    "pncp_requests": 0,
+    "drive_reads": 0,
+    "retry": 0,
+    "query_families": [
+      "PROCESSO_ADMINISTRATIVO",
+      "PROCESSO",
+      "EDITAL_NUMBER",
+      "CREDENCIAMENTO_NUMBER",
+      "INEXIGIBILIDADE",
+      "CHAMAMENTO",
+      "BUDGET_FIELDS",
+      "OFICINEIROS_POLICY_PROCESS"
+    ]
+  },
+  "identifier_types": [
+    "PROCESSO_ADMINISTRATIVO",
+    "EDITAL_NUMBER",
+    "CREDENCIAMENTO_NUMBER",
+    "CHAMAMENTO_NUMBER",
+    "INEXIGIBILIDADE_NUMBER",
+    "PNCP_PURCHASE_CONTROL_NUMBER",
+    "OTHER_STABLE_ADMINISTRATIVE_IDENTIFIER"
+  ],
+  "evidence_semantics": {
+    "search_index_snippet_max_status": "CANDIDATE",
+    "candidate_status": "CANDIDATE_ADMINISTRATIVE_IDENTIFIER_REQUIRES_PRIMARY_VERIFICATION",
+    "may_select_future_primary_lookup": true,
+    "financial_identity": false,
+    "transaction_identity": false,
+    "expenditure_attribution": false,
+    "supplier_contract_linkage": false,
+    "weak_term_contract_join": false
+  },
+  "persistence": {
+    "raw_web_content": false,
+    "sanitized_query_log_git": true,
+    "sanitized_candidate_evidence_git": true,
+    "drive_write": false,
+    "bronze": false,
+    "silver": false,
+    "gold": false,
+    "rag": false,
+    "state_registry": false,
+    "queue": false,
+    "serving": false,
+    "publication": false
+  },
+  "future_primary_read_authorized": false,
+  "future_weak_join_authorized": false
+}
