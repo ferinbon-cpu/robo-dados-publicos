@@ -102,7 +102,7 @@ class TestTask128(unittest.TestCase):
 
     def test_malformed_pagination_fails_closed(self):
         payload={"data":[],"totalRegistros":1,"totalPaginas":1,"numeroPagina":1}
-        with self.assertRaisesRegex(Task128Stop,"TOTAL_LT_PAGE|ZERO_PAGES|PAYLOAD"):
+        with self.assertRaisesRegex(Task128Stop,"POSITIVE_TOTAL_EMPTY_PAGE"):
             scan_pncp_payload(payload,deepcopy(self.c))
 
     def test_scope_widening_fails(self):
