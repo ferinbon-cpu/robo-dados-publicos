@@ -1,0 +1,15 @@
+{
+  "task": "TASK_142_CHAMAMENTO_PUBLICO_OPEN_DESIGN",
+  "issue": 492,
+  "mode": "T0_OFFLINE_CHAMAMENTO_PUBLICO_OPEN_DESIGN_ONLY",
+  "base_sha": "d6d9dffe2c6badd15ea7bedee6b275e380d1e4ba",
+  "authorization_unit_index": 7,
+  "owner_authorization_units_granted": 10,
+  "future_click_invocations_max": 1,
+  "known_link_label": "Chamamento Público",
+  "negative_exhaustive_conclusion_allowed": false,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "remote_effects": 0,
+  "result": "PASS_TASK142_CHAMAMENTO_PUBLICO_OPEN_DESIGNED_NOT_EXECUTED"
+}
