@@ -1,0 +1,47 @@
+{
+  "task": "TASK_122_CROSS_DOCUMENT_EITI_FINANCIAL_IDENTITY_RESOLVER",
+  "mode": "T0_OFFLINE_CROSS_DOCUMENT_IDENTITY_RESOLUTION",
+  "base_sha": "8137ac52997f57de5903c7035e727fa7b15faf1c",
+  "issue": 441,
+  "adapters": [
+    "TASK_117_PPA",
+    "TASK_119_LOA",
+    "TASK_121_SIOPE_FUNDEB"
+  ],
+  "expected_intersections": {
+    "ppa_loa": [
+      {
+        "key_type": "program",
+        "value": "2001",
+        "admissible": false
+      }
+    ],
+    "ppa_siope": [],
+    "loa_siope": []
+  },
+  "cross_dimension_observation": "PPA unit 10.00.00 vs LOA org 10.00.00 is not a match",
+  "current_financial_identity": "UNKNOWN",
+  "current_transaction_identity": "UNKNOWN",
+  "legacy_2607004": "HYPOTHESIS_ONLY_NOT_ADMISSIBLE_AS_PROVEN_KEY",
+  "expected_cross_document_candidates": 0,
+  "expected_status": "STOP_NO_STABLE_POLICY_TO_ACCOUNTING_EXECUTION_KEY",
+  "next_gate_objective": "FIND_PRIMARY_GRANULAR_RECORD_BINDING_POLICY_MARKER_TO_STABLE_ACCOUNTING_IDENTIFIER_AND_EXECUTION_EVENT",
+  "automatic_promotion": false,
+  "remote_effects": {
+    "network": 0,
+    "drive": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "rag": 0,
+    "state_registry": 0,
+    "queue": 0,
+    "serving": 0,
+    "publication": 0,
+    "retry": 0,
+    "recurrence": 0,
+    "schedule": 0
+  },
+  "result": "PENDING_CI_REVIEW"
+}
