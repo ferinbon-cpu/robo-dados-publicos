@@ -1,0 +1,32 @@
+{
+  "task": "TASK_138_WEB_EXACT_URL_SAFETY_BLOCK",
+  "issue": 482,
+  "mode": "T1_WEB_OPEN_PRE_SOURCE_SAFETY_STOP",
+  "base_sha": "78d327299a91b8a9b4ed7acddc582cf0e3da5683",
+  "task137_design_merge_sha": "78d327299a91b8a9b4ed7acddc582cf0e3da5683",
+  "authorization_unit_index": 2,
+  "owner_authorization_units_granted": 10,
+  "result": "STOP_WEB_SAFE_OPEN_PRE_SOURCE_NO_PNCP_DATA",
+  "execution": {
+    "web_open_invocations": 1,
+    "search_queries": 0,
+    "followup_clicks": 0,
+    "followup_opens": 0,
+    "retry": 0,
+    "safe_open_error": "URL_NOT_SAFE_TO_OPEN_WITHOUT_PRIOR_WEB_RESULT_OR_USER_MESSAGE_REFERENT",
+    "source_read_proven": false,
+    "pncp_data_observed": false
+  },
+  "authorization_state": {
+    "authorization_unit_2_consumed": true,
+    "authorization_units_remaining": 8
+  },
+  "epistemic_state": {
+    "candidate_found": false,
+    "no_match_conclusion_created": false,
+    "negative_exhaustive_conclusion_created": false,
+    "financial_identity_created": false,
+    "transaction_identity_created": false
+  },
+  "next_boundary": "TASK_139_MAY_USE_AUTHORIZATION_UNIT_3_TO_ESTABLISH_SAFE_WEB_REFERENT_THEN_OPEN_EXACT_URL_UNDER_NEW_GATE"
+}
