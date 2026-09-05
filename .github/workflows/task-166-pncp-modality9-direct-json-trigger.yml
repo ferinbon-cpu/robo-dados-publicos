@@ -1,0 +1,171 @@
+name: TASK 166 PNCP modality 9 direct JSON trigger
+run-name: "TASK 166 PNCP modality 9 direct JSON by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-166-pncp-modality9-direct-json
+    paths:
+      - 'runtime_triggers/task166_pncp_modality9.run'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-166-pncp-modality9-direct-json-trigger
+  cancel-in-progress: false
+
+jobs:
+  task166-direct-json:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Execute official PNCP JSON sweep
+        shell: bash
+        env:
+          TASK166_HEAD_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p runtime
+          python - <<'PY'
+          from __future__ import annotations
+          import hashlib, json, os
+          from pathlib import Path
+          import urllib.error, urllib.parse, urllib.request
+          from robo_dados_publicos.research.task166_pncp_modality9_direct_json import (
+              Task166Stop, combine_pages, load_config, scan_page,
+          )
+
+          ROOT=Path(".")
+          cfg=load_config(ROOT/"config/task166_pncp_modality9_direct_json_sweep.v1.json")
+          source=cfg["source"]
+
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, req, fp, code, msg, headers, newurl):
+                  return None
+
+          opener=urllib.request.build_opener(NoRedirect)
+          requests=[]
+          pages=[]
+
+          def build_url(page):
+              q=urllib.parse.urlencode([
+                  ("dataInicial",source["dataInicial"]),
+                  ("dataFinal",source["dataFinal"]),
+                  ("codigoModalidadeContratacao",source["codigoModalidadeContratacao"]),
+                  ("cnpj",source["cnpj"]),
+                  ("pagina",page),
+                  ("tamanhoPagina",source["tamanhoPagina"]),
+              ])
+              return source["endpoint"]+"?"+q
+
+          def fetch(page):
+              url=build_url(page)
+              req=urllib.request.Request(url,method="GET",headers={
+                  "Accept":"application/json",
+                  "User-Agent":"robo-dados-publicos-task166/0.8.0",
+              })
+              raw=b""
+              http_status=None
+              content_type=None
+              transport_error=None
+              try:
+                  with opener.open(req,timeout=source["timeoutSeconds"]) as response:
+                      http_status=int(response.status)
+                      content_type=response.headers.get("Content-Type")
+                      raw=response.read(source["maxBytesPorPagina"]+1)
+                      if len(raw)>source["maxBytesPorPagina"]:
+                          raise RuntimeError("TASK166_RESPONSE_TOO_LARGE")
+              except urllib.error.HTTPError as exc:
+                  http_status=int(exc.code)
+                  transport_error=f"HTTP_ERROR_{exc.code}"
+              except urllib.error.URLError as exc:
+                  transport_error=f"URL_ERROR:{type(exc.reason).__name__}"
+              except Exception as exc:
+                  transport_error=f"TRANSPORT_ERROR:{type(exc).__name__}:{str(exc)[:160]}"
+
+              rec={
+                  "page":page,
+                  "url":url,
+                  "http_status":http_status,
+                  "content_type":content_type,
+                  "bytes_received":len(raw),
+                  "source_sha256":hashlib.sha256(raw).hexdigest() if raw else None,
+                  "transport_error":transport_error,
+              }
+              requests.append(rec)
+              if not raw or http_status!=200:
+                  raise RuntimeError("SOURCE_TRANSPORT_UNAVAILABLE")
+              try:
+                  payload=json.loads(raw.decode("utf-8"))
+              except (UnicodeDecodeError,json.JSONDecodeError) as exc:
+                  rec["parse_error"]=type(exc).__name__
+                  raise RuntimeError("SOURCE_SCHEMA_MISMATCH") from exc
+              return scan_page(payload,cfg,page)
+
+          try:
+              first=fetch(1)
+              pages.append(first)
+              total_pages=first["totalPaginas"]
+              if total_pages < 1:
+                  raise Task166Stop("TASK166_ZERO_PAGE_METADATA_UNEXPECTED")
+              if total_pages > source["maxPaginas"]:
+                  raise Task166Stop("TASK166_PAGE_CAP")
+              for page in range(2,total_pages+1):
+                  pages.append(fetch(page))
+              combined=combine_pages(pages)
+              status=combined["status"]
+          except Task166Stop as exc:
+              combined={"status":"SOURCE_SCHEMA_OR_SCOPE_INVALID","failure":str(exc),"exhaustive_within_exact_scope":False,"target_hits":[],"explicit_eiti_hits":[],"education_hits":[],"records":[]}
+              status=combined["status"]
+          except RuntimeError as exc:
+              combined={"status":str(exc),"failure":str(exc),"exhaustive_within_exact_scope":False,"target_hits":[],"explicit_eiti_hits":[],"education_hits":[],"records":[]}
+              status=combined["status"]
+
+          result={
+              "schema":"TASK166_PNCP_MODALITY9_LIVE_RESULT_V1",
+              "execution_head_sha":os.environ["TASK166_HEAD_SHA"],
+              "authorization_scope":cfg["authorization"]["scope"],
+              "query":{
+                  "endpoint":source["endpoint"],
+                  "dataInicial":source["dataInicial"],
+                  "dataFinal":source["dataFinal"],
+                  "codigoModalidadeContratacao":source["codigoModalidadeContratacao"],
+                  "cnpj":source["cnpj"],
+                  "tamanhoPagina":source["tamanhoPagina"],
+              },
+              "requests":{"attempted":len(requests),"records":requests,"retry_performed":False,"redirects_followed":0},
+              "result":combined,
+              "status":status,
+              "raw_payload_persisted":False,
+              "raw_payload_artifact":False,
+              "git_write":False,
+              "drive_write":False,
+              "no_match_from_transport_failure":False,
+          }
+          canonical=json.dumps(result,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode("utf-8")
+          result["result_sha256"]=hashlib.sha256(canonical).hexdigest()
+          Path("runtime/task166_result.json").write_text(json.dumps(result,ensure_ascii=False,indent=2,sort_keys=True)+"\n",encoding="utf-8")
+          print("TASK166_STATUS="+status)
+          print("TASK166_REQUESTS="+str(len(requests)))
+          if combined.get("exhaustive_within_exact_scope"):
+              print("TASK166_TOTAL_RECORDS="+str(combined.get("totalRegistros")))
+              print("TASK166_TOTAL_PAGES="+str(combined.get("totalPaginas")))
+              print("TASK166_TARGET_HITS="+str(len(combined.get("target_hits",[]))))
+              print("TASK166_EXPLICIT_EITI_HITS="+str(len(combined.get("explicit_eiti_hits",[]))))
+              print("TASK166_EDUCATION_HITS="+str(len(combined.get("education_hits",[]))))
+          PY
+
+      - name: Upload sanitized TASK 166 result
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-166-pncp-modality9-direct-json-result
+          path: runtime/task166_result.json
+          if-no-files-found: error
+          retention-days: 1
