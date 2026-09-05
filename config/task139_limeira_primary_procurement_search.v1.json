@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "schema": "TASK139_LIMEIRA_PRIMARY_PROCUREMENT_SEARCH_DESIGN_V1",
+  "mode": "T0_OFFLINE_MUNICIPAL_PRIMARY_WEB_SEARCH_DESIGN_ONLY",
+  "base_sha": "1e211b7f7a483e8eb057ab354c7652b9480cd538",
+  "issue": 484,
+  "authorization": {
+    "owner_authorization_units_granted": 10,
+    "authorization_unit_index": 4,
+    "search_invocations_max": 1,
+    "open_invocations_max": 1,
+    "does_not_broaden_task133": true
+  },
+  "search": {
+    "engine": "WEB_FAST_SEARCH",
+    "query": "credenciamento escola em tempo integral 2026 programa de educacao integral Limeira",
+    "domains": [
+      "limeira.sp.gov.br"
+    ],
+    "search_invocations_max": 1,
+    "retry": 0
+  },
+  "matching": {
+    "strong_policy_markers": [
+      "ESCOLA EM TEMPO INTEGRAL 2026",
+      "PROGRAMA DE EDUCACAO INTEGRAL",
+      "EDUCACAO INTEGRAL",
+      "TEMPO INTEGRAL"
+    ],
+    "procurement_context_markers": [
+      "CREDENCIAMENTO",
+      "OFICINEIRO",
+      "OFICINEIROS",
+      "OFICINAS EXTRACURRICULARES"
+    ],
+    "weak_context_alone_qualifies": false
+  },
+  "conditional_open": {
+    "allowed_only_for_official_limeira_result": true,
+    "allowed_domain_suffix": "limeira.sp.gov.br",
+    "open_most_probative_result_max": 1,
+    "require_policy_and_procurement_context_in_search_result": true,
+    "followup_clicks": 0,
+    "followup_searches": 0,
+    "retry": 0
+  },
+  "epistemic_semantics": {
+    "search_snippet_max_status": "CORROBORATED_CANDIDATE",
+    "opened_primary_page_can_prove_identifier_only_if_explicitly_bound_to_eiti_object": true,
+    "negative_exhaustive_conclusion_allowed": false,
+    "global_no_match_allowed": false,
+    "automatic_financial_identity": false,
+    "automatic_transaction_identity": false,
+    "automatic_supplier_linkage": false
+  },
+  "followup_procurement_or_financial_endpoints_authorized": false,
+  "remote_effects_in_task139_design": {
+    "network": false,
+    "drive": false,
+    "publication": false
+  }
+}
