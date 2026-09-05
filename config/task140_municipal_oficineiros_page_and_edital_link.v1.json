@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "schema": "TASK140_MUNICIPAL_OFICINEIROS_PAGE_AND_EDITAL_LINK_DESIGN_V1",
+  "mode": "T0_OFFLINE_MUNICIPAL_PRIMARY_PAGE_OPEN_DESIGN_ONLY",
+  "base_sha": "0a9cabaeabca00dd6f6a5596e50a87757bafb633",
+  "issue": 487,
+  "authorization": {
+    "owner_authorization_units_granted": 10,
+    "authorization_unit_index": 5,
+    "search_invocations_max": 1,
+    "open_invocations_max": 1,
+    "click_invocations_max": 1,
+    "does_not_broaden_task133": true
+  },
+  "search": {
+    "query": ""Programa de Educação Integral está com inscrições abertas para oficineiros"",
+    "official_domains": ["limeira.sp.gov.br"],
+    "exact_target_url": "https://limeira.sp.gov.br/imprensa/noticias/geral/programa-de-educacao-integral-esta-com-inscricoes-abertas-para-oficineiros",
+    "search_invocations_max": 1,
+    "retry": 0
+  },
+  "conditional_open": {
+    "open_only_if_exact_target_url_returned": true,
+    "open_invocations_max": 1,
+    "retry": 0
+  },
+  "conditional_click": {
+    "allowed_only_if_opened_primary_page_exposes_explicit_edital_credenciamento_or_processo_link": true,
+    "click_invocations_max": 1,
+    "followup_opens": 0,
+    "followup_searches": 0,
+    "retry": 0
+  },
+  "epistemic_semantics": {
+    "search_snippet_max_status": "CORROBORATED",
+    "opened_primary_page_can_prove_identifier_if_explicitly_bound_to_object": true,
+    "linked_primary_artifact_can_prove_identifier_if_explicitly_bound_to_object": true,
+    "negative_exhaustive_conclusion_allowed": false,
+    "automatic_financial_identity": false,
+    "automatic_transaction_identity": false,
+    "automatic_supplier_linkage": false
+  },
+  "followup_procurement_or_financial_endpoints_authorized": false,
+  "remote_effects_in_task140_design": {
+    "network": false,
+    "drive": false,
+    "publication": false
+  }
+}
