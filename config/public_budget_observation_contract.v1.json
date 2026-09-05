@@ -1,0 +1,242 @@
+{
+  "version": 1,
+  "schema": "PUBLIC_BUDGET_OBSERVATION_CONTRACT_V1",
+  "task": "TASK_163_PUBLIC_BUDGET_METHODOLOGY_JSON_BRAIN",
+  "purpose": "Mandatory normalized packet for any public-budget observation before it can enter research reasoning.",
+  "required_top_level": [
+    "observation_id",
+    "source",
+    "scope",
+    "evidence_stage",
+    "amounts",
+    "classifications",
+    "stable_keys",
+    "policy_linkage",
+    "provenance",
+    "quality"
+  ],
+  "field_contract": {
+    "observation_id": {
+      "type": "string",
+      "rule": "Unique deterministic research observation identifier."
+    },
+    "source": {
+      "required": [
+        "source_role",
+        "source_family",
+        "authority",
+        "document_or_endpoint",
+        "official"
+      ],
+      "allowed_source_roles": [
+        "PLANNING_PRIMARY",
+        "BUDGET_GUIDANCE_PRIMARY",
+        "BUDGET_PRIMARY",
+        "ACCOUNTING_EXECUTION_PRIMARY",
+        "PROCUREMENT_PRIMARY",
+        "CONTRACT_PRIMARY",
+        "CONTROL_PRIMARY",
+        "ACADEMIC_METHOD_REFERENCE",
+        "DERIVED_WORKING"
+      ],
+      "rule": "Academic methodology may guide interpretation but cannot be used as the empirical source of an amount."
+    },
+    "scope": {
+      "required": [
+        "entity",
+        "period"
+      ],
+      "optional": [
+        "cnpj",
+        "municipality",
+        "uf",
+        "fiscal_year",
+        "reporting_period"
+      ]
+    },
+    "evidence_stage": {
+      "allowed": [
+        "PLANNING_INTENT",
+        "ANNUAL_BUDGET_GUIDANCE",
+        "BUDGET_AUTHORIZATION_INITIAL",
+        "BUDGET_AUTHORIZATION_UPDATED",
+        "PROCUREMENT",
+        "CONTRACT",
+        "COMMITMENT",
+        "LIQUIDATION",
+        "PAYMENT",
+        "RESTOS_A_PAGAR",
+        "AGGREGATED_REPORTING"
+      ]
+    },
+    "amounts": {
+      "type": "array",
+      "each_requires": [
+        "amount",
+        "currency",
+        "semantic"
+      ],
+      "semantic_allowed": [
+        "PPA_PLANNED_VALUE",
+        "REVENUE_FORECAST",
+        "REVENUE_REALIZED",
+        "LOA_INITIAL_APPROPRIATION",
+        "UPDATED_APPROPRIATION",
+        "PROCUREMENT_ESTIMATED_VALUE",
+        "PROCUREMENT_HOMOLOGATED_VALUE",
+        "CONTRACT_VALUE",
+        "COMMITTED_VALUE",
+        "LIQUIDATED_VALUE",
+        "PAID_VALUE",
+        "RESTOS_A_PAGAR_VALUE",
+        "AGGREGATED_REPORTED_VALUE"
+      ],
+      "comparison_rule": "Cross-year comparisons must declare price_basis as NOMINAL or REAL. REAL requires deflator_id and base_date."
+    },
+    "classifications": {
+      "required_slots": [
+        "institutional",
+        "functional",
+        "programmatic",
+        "economic_nature",
+        "funding"
+      ],
+      "missing_value": "UNKNOWN_NOT_INFERRED",
+      "rule": "Missing classifications are never filled from thematic similarity."
+    },
+    "stable_keys": {
+      "examples": [
+        "program_code",
+        "action_code",
+        "budget_unit_code",
+        "ficha",
+        "empenho_number",
+        "contract_number",
+        "numeroControlePNCP",
+        "processo",
+        "supplier_cnpj"
+      ],
+      "rule": "Keys must preserve raw source spelling/value and provenance."
+    },
+    "policy_linkage": {
+      "required": [
+        "policy_id",
+        "status",
+        "basis"
+      ],
+      "allowed_status": [
+        "UNRELATED",
+        "THEMATIC_CANDIDATE",
+        "SECTOR_RELEVANT",
+        "POLICY_CANDIDATE",
+        "POLICY_CORROBORATED",
+        "POLICY_FINANCIAL_IDENTITY_PROVEN"
+      ],
+      "rule": "Policy-specific financial identity requires explicit stable linkage across the necessary chain; sector relevance alone is insufficient."
+    },
+    "provenance": {
+      "required": [
+        "retrieval_or_custody_mode",
+        "source_locator",
+        "observed_at_or_document_date"
+      ],
+      "optional": [
+        "sha256",
+        "page",
+        "line",
+        "endpoint_query",
+        "raw_record_digest"
+      ]
+    },
+    "quality": {
+      "required": [
+        "identity_validated",
+        "semantic_validated",
+        "anomalies"
+      ],
+      "allowed_anomaly_actions": [
+        "PRESERVE_RAW_AND_FLAG",
+        "STOP_PROMOTION",
+        "REQUIRE_SOURCE_RECONCILIATION"
+      ]
+    }
+  },
+  "promotion_gates": [
+    {
+      "id": "G1_EMPIRICAL_AMOUNT",
+      "requires": [
+        "source.source_role != ACADEMIC_METHOD_REFERENCE",
+        "amount semantic explicit",
+        "scope explicit"
+      ]
+    },
+    {
+      "id": "G2_CROSS_SOURCE_IDENTITY",
+      "requires": [
+        "stable key or exact identity bundle",
+        "entity identity match",
+        "period compatibility",
+        "semantic compatibility"
+      ]
+    },
+    {
+      "id": "G3_POLICY_FINANCIAL_IDENTITY",
+      "requires": [
+        "policy linkage explicit or corroborated",
+        "program/action linkage",
+        "institutional unit",
+        "funding/economic classification when relevant",
+        "execution key when claiming execution"
+      ]
+    }
+  ],
+  "example_template": {
+    "observation_id": "OBS:EXAMPLE",
+    "source": {
+      "source_role": "BUDGET_PRIMARY",
+      "source_family": "LOA",
+      "authority": "MUNICIPALITY",
+      "document_or_endpoint": "OFFICIAL_SOURCE",
+      "official": true
+    },
+    "scope": {
+      "entity": "MUNICIPALITY",
+      "period": "YYYY",
+      "cnpj": "UNKNOWN_NOT_INFERRED",
+      "municipality": "UNKNOWN_NOT_INFERRED",
+      "uf": "UNKNOWN_NOT_INFERRED"
+    },
+    "evidence_stage": "BUDGET_AUTHORIZATION_INITIAL",
+    "amounts": [
+      {
+        "amount": "0.00",
+        "currency": "BRL",
+        "semantic": "LOA_INITIAL_APPROPRIATION",
+        "price_basis": "NOMINAL"
+      }
+    ],
+    "classifications": {
+      "institutional": "UNKNOWN_NOT_INFERRED",
+      "functional": "UNKNOWN_NOT_INFERRED",
+      "programmatic": "UNKNOWN_NOT_INFERRED",
+      "economic_nature": "UNKNOWN_NOT_INFERRED",
+      "funding": "UNKNOWN_NOT_INFERRED"
+    },
+    "stable_keys": {},
+    "policy_linkage": {
+      "policy_id": "UNKNOWN_NOT_INFERRED",
+      "status": "UNRELATED",
+      "basis": []
+    },
+    "provenance": {
+      "retrieval_or_custody_mode": "EXAMPLE_ONLY",
+      "source_locator": "EXAMPLE_ONLY",
+      "observed_at_or_document_date": "UNKNOWN_NOT_INFERRED"
+    },
+    "quality": {
+      "identity_validated": false,
+      "semantic_validated": false,
+      "anomalies": []
+    }
+  }
+}

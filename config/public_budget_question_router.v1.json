@@ -1,0 +1,331 @@
+{
+  "version": 1,
+  "schema": "PUBLIC_BUDGET_QUESTION_ROUTER_V1",
+  "task": "TASK_163_PUBLIC_BUDGET_METHODOLOGY_JSON_BRAIN",
+  "purpose": "Route research questions to the source families and evidence stages capable of answering them.",
+  "source_capabilities": [
+    {
+      "source_family": "PPA",
+      "preferred_role": "PLANNING_PRIMARY",
+      "can_answer": [
+        "medium_term_priority",
+        "program",
+        "objective",
+        "indicator",
+        "target",
+        "planned_value_when_present"
+      ],
+      "cannot_answer_alone": [
+        "annual_authorization",
+        "commitment",
+        "liquidation",
+        "payment",
+        "supplier",
+        "causal_effect"
+      ]
+    },
+    {
+      "source_family": "LDO",
+      "preferred_role": "BUDGET_GUIDANCE_PRIMARY",
+      "can_answer": [
+        "annual_priority",
+        "budget_guideline",
+        "fiscal_or_budget_rule"
+      ],
+      "cannot_answer_alone": [
+        "payment",
+        "transaction_identity"
+      ]
+    },
+    {
+      "source_family": "LOA",
+      "preferred_role": "BUDGET_PRIMARY",
+      "can_answer": [
+        "annual_budget_authorization",
+        "initial_appropriation",
+        "budget_classification_when_explicit"
+      ],
+      "cannot_answer_alone": [
+        "commitment",
+        "liquidation",
+        "payment"
+      ]
+    },
+    {
+      "source_family": "SIOPE_OR_ACCOUNTING_REPORT",
+      "preferred_role": "ACCOUNTING_EXECUTION_PRIMARY",
+      "can_answer": [
+        "reported_execution",
+        "education_finance_aggregate",
+        "MDE_or_FUNDEB_bucket_when_explicit"
+      ],
+      "cannot_answer_alone": [
+        "individual_transaction_identity_without_stable_key",
+        "procurement_object_detail",
+        "causal_effect"
+      ]
+    },
+    {
+      "source_family": "PNCP",
+      "preferred_role": "PROCUREMENT_PRIMARY",
+      "can_answer": [
+        "procurement_object",
+        "procurement_modality",
+        "estimated_value",
+        "homologated_value",
+        "procurement_stable_id",
+        "contract_link_when_exposed"
+      ],
+      "cannot_answer_alone": [
+        "budget_appropriation",
+        "liquidation",
+        "payment",
+        "policy_specific_financial_identity_without_linkage"
+      ]
+    },
+    {
+      "source_family": "TRANSPARENCY_OR_ACCOUNTING_LEDGER",
+      "preferred_role": "ACCOUNTING_EXECUTION_PRIMARY",
+      "can_answer": [
+        "commitment",
+        "liquidation",
+        "payment",
+        "supplier_when_explicit",
+        "budget_classification_when_explicit"
+      ],
+      "cannot_answer_alone": [
+        "policy_identity_without_program_or_documentary_link",
+        "causal_effect"
+      ]
+    },
+    {
+      "source_family": "OFFICIAL_GAZETTE_OR_CONTRACT",
+      "preferred_role": "CONTRACT_PRIMARY",
+      "can_answer": [
+        "contract_identity",
+        "supplier",
+        "object",
+        "legal_act",
+        "contract_value",
+        "administrative_process"
+      ],
+      "cannot_answer_alone": [
+        "payment_unless_explicit",
+        "policy_effect"
+      ]
+    },
+    {
+      "source_family": "TCE_CONTROL",
+      "preferred_role": "CONTROL_PRIMARY",
+      "can_answer": [
+        "control_record",
+        "cross_check_execution",
+        "supplier_or_commitment_when_explicit"
+      ],
+      "cannot_answer_alone": [
+        "replace_municipal_primary_source_when_identity_unresolved",
+        "causal_effect"
+      ]
+    },
+    {
+      "source_family": "ACADEMIC_METHOD",
+      "preferred_role": "ACADEMIC_METHOD_REFERENCE",
+      "can_answer": [
+        "conceptual_definition",
+        "interpretive_rule",
+        "methodological_caution"
+      ],
+      "cannot_answer_alone": [
+        "current_law",
+        "municipal_amount",
+        "transaction",
+        "supplier",
+        "current_threshold"
+      ]
+    }
+  ],
+  "question_routes": [
+    {
+      "id": "Q_PLANNED",
+      "question_pattern": "What did government plan for the policy?",
+      "required_sources": [
+        "PPA"
+      ],
+      "optional_sources": [
+        "normative_policy_document"
+      ],
+      "target_stage": "PLANNING_INTENT",
+      "allowed_claim": "PLANNING_SIGNAL",
+      "forbidden_claim": "EXECUTION"
+    },
+    {
+      "id": "Q_ANNUAL_PRIORITY",
+      "question_pattern": "Was the policy an annual budget priority or guideline?",
+      "required_sources": [
+        "LDO"
+      ],
+      "target_stage": "ANNUAL_BUDGET_GUIDANCE",
+      "allowed_claim": "ANNUAL_GUIDANCE_SIGNAL",
+      "forbidden_claim": "PAYMENT"
+    },
+    {
+      "id": "Q_AUTHORIZED",
+      "question_pattern": "How much was authorized?",
+      "required_sources": [
+        "LOA"
+      ],
+      "optional_sources": [
+        "budget_execution_portal_for_updated_appropriation"
+      ],
+      "target_stage": "BUDGET_AUTHORIZATION_INITIAL",
+      "allowed_claim": "AUTHORIZED_AMOUNT",
+      "forbidden_claim": "SPENT_AMOUNT"
+    },
+    {
+      "id": "Q_EXECUTED",
+      "question_pattern": "How much was committed, liquidated and paid?",
+      "required_sources": [
+        "TRANSPARENCY_OR_ACCOUNTING_LEDGER"
+      ],
+      "optional_sources": [
+        "SIOPE_OR_ACCOUNTING_REPORT",
+        "TCE_CONTROL"
+      ],
+      "target_stage": "PAYMENT",
+      "required_semantic_split": [
+        "COMMITTED_VALUE",
+        "LIQUIDATED_VALUE",
+        "PAID_VALUE"
+      ],
+      "forbidden_claim": "MERGE_STAGES"
+    },
+    {
+      "id": "Q_PROCURED",
+      "question_pattern": "What was contracted/procured and for what object?",
+      "required_sources": [
+        "PNCP"
+      ],
+      "optional_sources": [
+        "OFFICIAL_GAZETTE_OR_CONTRACT"
+      ],
+      "target_stage": "PROCUREMENT",
+      "allowed_claim": "PROCUREMENT_IDENTITY",
+      "forbidden_claim": "PAYMENT_FROM_PROCUREMENT"
+    },
+    {
+      "id": "Q_POLICY_FINANCIAL_IDENTITY",
+      "question_pattern": "How much of a broad program is specifically attributable to the policy?",
+      "required_sources": [
+        "PPA",
+        "LOA",
+        "TRANSPARENCY_OR_ACCOUNTING_LEDGER"
+      ],
+      "optional_sources": [
+        "PNCP",
+        "OFFICIAL_GAZETTE_OR_CONTRACT",
+        "SIOPE_OR_ACCOUNTING_REPORT"
+      ],
+      "required_link_chain": [
+        "policy_or_indicator",
+        "program",
+        "action_or_subaction",
+        "institutional_unit",
+        "appropriation",
+        "execution_key"
+      ],
+      "fallback": "EVIDENCIA_INSUFICIENTE"
+    },
+    {
+      "id": "Q_MULTIYEAR",
+      "question_pattern": "Did spending grow or shrink over time?",
+      "required_sources": [
+        "same_semantic_amount_series"
+      ],
+      "required_checks": [
+        "classification_crosswalk",
+        "period_consistency",
+        "price_basis"
+      ],
+      "real_change_requires": [
+        "deflator_id",
+        "base_date"
+      ],
+      "fallback": "REPORT_NOMINAL_ONLY"
+    },
+    {
+      "id": "Q_PRIORITY",
+      "question_pattern": "Does the budget show that the policy is a priority?",
+      "required_sources": [
+        "PPA_or_LDO_or_LOA_or_execution"
+      ],
+      "allowed_claim": "PRIORITY_SIGNAL_WITH_SCOPE",
+      "forbidden_claims": [
+        "IMPLEMENTATION_SUCCESS",
+        "QUALITY",
+        "CAUSAL_EFFECT"
+      ]
+    },
+    {
+      "id": "Q_EFFECT",
+      "question_pattern": "Did spending cause educational outcomes?",
+      "required_sources": [
+        "separate_causal_research_design"
+      ],
+      "budget_sources_role": "EXPLANATORY_CONTEXT_OR_EXPOSURE_ONLY",
+      "fallback": "CAUSAL_INFERENCE_NOT_AUTHORIZED"
+    }
+  ],
+  "research_pipeline": [
+    "1_IDENTITY_VALIDATE_ENTITY_PERIOD_SOURCE",
+    "2_CLASSIFY_KNOWLEDGE_LAYER",
+    "3_CLASSIFY_EVIDENCE_STAGE",
+    "4_ASSIGN_AMOUNT_SEMANTICS",
+    "5_EXTRACT_CLASSIFICATION_DIMENSIONS",
+    "6_PRESERVE_STABLE_KEYS_AND_RAW_VALUES",
+    "7_BUILD_POLICY_LINKAGE_WITH_EVIDENCE",
+    "8_RECONCILE_CROSS_SOURCE_IDENTITIES",
+    "9_CALCULATE_ONLY_WITH_COMPATIBLE_SEMANTICS",
+    "10_SEPARATE_OBSERVED_FACT_FROM_INTERPRETATION",
+    "11_APPLY_FORBIDDEN_PROMOTIONS",
+    "12_RETURN_ANSWER_OR_EVIDENCIA_INSUFICIENTE",
+    "13_NAME_NEXT_SOURCE_NEEDED_TO_CLOSE_GAP"
+  ],
+  "gap_to_source_map": [
+    {
+      "missing": "annual_authorization",
+      "next_source": "LOA"
+    },
+    {
+      "missing": "updated_appropriation",
+      "next_source": "budget_execution_portal_or_accounting_report"
+    },
+    {
+      "missing": "procurement_identity",
+      "next_source": "PNCP"
+    },
+    {
+      "missing": "contract_supplier",
+      "next_source": "PNCP_contract_or_official_contract"
+    },
+    {
+      "missing": "commitment",
+      "next_source": "empenho_record"
+    },
+    {
+      "missing": "liquidation",
+      "next_source": "liquidation_record"
+    },
+    {
+      "missing": "payment",
+      "next_source": "payment_record"
+    },
+    {
+      "missing": "current_legal_semantics",
+      "next_source": "current_official_normative_source"
+    },
+    {
+      "missing": "policy_specific_link",
+      "next_source": "explicit_program_action_policy_document_or_stable_cross_source_key"
+    }
+  ]
+}
