@@ -43,5 +43,5 @@
     "recurrence": 0,
     "schedule": 0
   },
-  "result": "PENDING_CI_REVIEW"
+  "result": "STOP_NO_STABLE_POLICY_TO_ACCOUNTING_EXECUTION_KEY"
 }
