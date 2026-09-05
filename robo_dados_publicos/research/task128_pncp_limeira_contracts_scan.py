@@ -118,6 +118,7 @@ def scan_pncp_payload(payload: dict[str, Any], contract: dict[str, Any]) -> dict
     numero_pagina = _int_field(payload, rc["numero_pagina_field"], "TASK128_PAYLOAD_NUMERO_PAGINA")
     _r(numero_pagina == 1, "TASK128_PAYLOAD_PAGE_MISMATCH")
     _r(total_registros >= len(data), "TASK128_PAYLOAD_TOTAL_LT_PAGE")
+    _r(total_registros == 0 or len(data) > 0, "TASK128_POSITIVE_TOTAL_EMPTY_PAGE")
 
     if total_registros == 0:
         _r(len(data) == 0, "TASK128_EMPTY_WITH_DATA")
