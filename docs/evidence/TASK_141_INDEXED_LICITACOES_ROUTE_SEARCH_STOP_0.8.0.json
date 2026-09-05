@@ -1,0 +1,17 @@
+{
+  "task": "TASK_141_INDEXED_LICITACOES_ROUTE_SEARCH_ATTEMPT",
+  "mode": "T1_BOUNDED_INDEXED_LICITACOES_SEARCH",
+  "task141_merge_sha": "d6d9dffe2c6badd15ea7bedee6b275e380d1e4ba",
+  "result": "STOP_INDEXED_LICITACOES_SEARCH_NO_QUALIFIED_ROUTE_RESULT",
+  "authorization_unit_index": 6,
+  "search_invocations": 1,
+  "open_invocations": 0,
+  "search_result_count": 1,
+  "returned_result_under_licitacoes_route": false,
+  "returned_result_has_credenciamento_context": false,
+  "administrative_identifier_found": false,
+  "negative_exhaustive_conclusion_created": false,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "retry_performed": false
+}
