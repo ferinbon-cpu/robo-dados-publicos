@@ -12,15 +12,19 @@ class TestTask136(unittest.TestCase):
         cls.a=json.loads(AUTH.read_text(encoding="utf-8"))
         cls.e=json.loads(E.read_text(encoding="utf-8"))
 
-    def test_dns_stop_is_pre_http(self):
-        self.assertEqual("STOP_PRE_HTTP_DNS_RESOLUTION_FAILED", self.e["result"])
-        x=self.e["execution"]
-        self.assertEqual(6,x["curl_exit_code"])
-        self.assertEqual(0,x["http_status"])
-        self.assertFalse(x["http_get_emitted"])
-        self.assertEqual(0,x["bytes_received"])
-        self.assertFalse(x["raw_file_created"])
-        self.assertFalse(x["retry_performed"])
+    def test_historical_dns_claim_is_preserved_but_not_admissible(self):
+        self.assertEqual(
+            "UNVERIFIED_EXECUTION_CLAIM_NOT_ADMISSIBLE_AS_SOURCE_EFFECT",
+            self.e["canonical_result"],
+        )
+        p=self.e["provenance_adjudication"]
+        self.assertFalse(p["executor_run_id_present"])
+        self.assertFalse(p["executor_job_id_present"])
+        self.assertFalse(p["executor_log_present"])
+        self.assertFalse(p["executor_artifact_present"])
+        self.assertFalse(p["source_effect_claim_admissible"])
+        self.assertTrue(p["historical_record_preserved"])
+        self.assertEqual(6,self.e["historical_claim"]["curl_exit_code"])
 
     def test_no_data_conclusion_created(self):
         s=self.e["epistemic_state"]
@@ -30,8 +34,9 @@ class TestTask136(unittest.TestCase):
         self.assertFalse(s["financial_identity_created"])
         self.assertFalse(s["transaction_identity_created"])
 
-    def test_source_authorization_remains_unconsumed(self):
-        self.assertTrue(self.a["task134_execution_attempt_consumed"])
+    def test_source_authorization_is_restored_to_unconsumed(self):
+        self.assertEqual("AUTHORIZED_UNCONSUMED_NO_PROVEN_SOURCE_ATTEMPT",self.a["status"])
+        self.assertFalse(self.a["task134_execution_attempt_consumed"])
         self.assertFalse(self.a["source_read_scope_consumed"])
         self.assertFalse(self.a["authorization_consumed"])
         self.assertEqual(0,self.a["source_http_requests_emitted"])
