@@ -1,0 +1,33 @@
+{
+  "task": "TASK_128_PNCP_LIMEIRA_CONTRACTS_PAGE1_SCAN",
+  "mode": "T1_SINGLE_USE_OFFICIAL_REGISTRY_PAGE1_SCAN",
+  "base_sha": "f8abd6d0a1581a5ec11be24acc97c85fd3762c2a",
+  "issue": 455,
+  "phase": "PREFLIGHT",
+  "source": {
+    "registry": "PNCP",
+    "role": "SECONDARY_AGGREGATOR",
+    "cnpj_orgao": "45132495000140",
+    "date_range": [
+      "2025-11-28",
+      "2026-09-04"
+    ],
+    "pagina": 1,
+    "tamanho_pagina": 500
+  },
+  "strong_policy_markers": [
+    "PROGRAMA DE EDUCACAO INTEGRAL",
+    "PROGRAMA ESCOLA EM TEMPO INTEGRAL",
+    "ESCOLA EM TEMPO INTEGRAL",
+    "EDUCACAO EM TEMPO INTEGRAL",
+    "EDUCACAO INTEGRAL",
+    "FOMENTO ETI"
+  ],
+  "weak_terms_do_not_qualify_alone": true,
+  "municipal_primary_verification_required": true,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "live_request_performed": false,
+  "next": "RUN_ONE_EXACT_GET_ONLY_AFTER_5_OF_5_PREFLIGHT_CI",
+  "result": "PENDING_CI_REVIEW"
+}
