@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "schema": "TASK129_PNCP_LIMEIRA_PAGES2_5_SCAN_V1",
+  "mode": "T1_SINGLE_USE_OFFICIAL_REGISTRY_REMAINING_PAGES_SCAN",
+  "base_sha": "35042a338c4db6799bb3cb0466406bc5adab6cf0",
+  "issue": 457,
+  "upstream": {
+    "task128_path": "docs/evidence/TASK_128_PNCP_LIMEIRA_CONTRACTS_PAGE1_SCAN_0.8.0.json",
+    "task128_git_blob_sha": "996ca2b3aa66be5f8264d1dead0d18b82a696c8e",
+    "total_registros": 2023,
+    "total_paginas": 5,
+    "page1_rows": 500,
+    "page1_candidates": 0
+  },
+  "source": {
+    "registry": "PNCP",
+    "source_role": "SECONDARY_AGGREGATOR",
+    "cnpj_orgao": "45132495000140",
+    "data_inicial": "20251128",
+    "data_final": "20260904",
+    "tamanho_pagina": 500,
+    "pages": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "exact_urls": [
+      "https://pncp.gov.br/api/consulta/v1/contratos?dataInicial=20251128&dataFinal=20260904&cnpjOrgao=45132495000140&pagina=2&tamanhoPagina=500",
+      "https://pncp.gov.br/api/consulta/v1/contratos?dataInicial=20251128&dataFinal=20260904&cnpjOrgao=45132495000140&pagina=3&tamanhoPagina=500",
+      "https://pncp.gov.br/api/consulta/v1/contratos?dataInicial=20251128&dataFinal=20260904&cnpjOrgao=45132495000140&pagina=4&tamanhoPagina=500",
+      "https://pncp.gov.br/api/consulta/v1/contratos?dataInicial=20251128&dataFinal=20260904&cnpjOrgao=45132495000140&pagina=5&tamanhoPagina=500"
+    ],
+    "max_bytes_per_page": 20971520
+  },
+  "transport": {
+    "method": "GET",
+    "get_requests_max": 4,
+    "exact_page_order": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "redirects_max": 0,
+    "retry": 0,
+    "timeout_seconds": 30,
+    "stop_on_first_failure": true,
+    "no_page1_reread": true
+  },
+  "matching": {
+    "normalized_strong_policy_markers": [
+      "PROGRAMA DE EDUCACAO INTEGRAL",
+      "PROGRAMA ESCOLA EM TEMPO INTEGRAL",
+      "ESCOLA EM TEMPO INTEGRAL",
+      "EDUCACAO EM TEMPO INTEGRAL",
+      "EDUCACAO INTEGRAL",
+      "FOMENTO ETI"
+    ],
+    "weak_support_terms": [
+      "OFICINA",
+      "OFICINEIRO",
+      "EXTRACURRICULAR",
+      "TEMPO INTEGRAL"
+    ],
+    "weak_terms_qualify_alone": false,
+    "fields_to_search": [
+      "objetoContrato",
+      "informacaoComplementar"
+    ],
+    "max_candidates": 100
+  },
+  "candidate_fields": [
+    "numeroControlePNCP",
+    "numeroControlePncpCompra",
+    "numeroContratoEmpenho",
+    "anoContrato",
+    "tipoContratoId",
+    "tipoContratoNome",
+    "processo",
+    "codigoUnidade",
+    "niFornecedor",
+    "nomeRazaoSocialFornecedor",
+    "objetoContrato",
+    "informacaoComplementar",
+    "valorInicial",
+    "valorGlobal",
+    "valorAcumulado",
+    "numeroParcelas",
+    "valorParcela",
+    "dataAssinatura",
+    "dataVigenciaInicio",
+    "dataVigenciaFim"
+  ],
+  "completion_rules": {
+    "required_total_registros": 2023,
+    "required_total_paginas": 5,
+    "required_pages": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "required_remaining_rows": 1523,
+    "full_scope_rows": 2023,
+    "zero_candidate_result": "NO_MATCH_WITHIN_COMPLETE_PNCP_CNPJ_DATE_SCOPE_ONLY",
+    "candidate_result": "CANDIDATE_MATCH_WITHIN_COMPLETE_PNCP_CNPJ_DATE_SCOPE",
+    "any_failure_result": "PARTIAL_REMAINING_PAGES_TRANSPORT_OR_SCHEMA_STOP"
+  },
+  "epistemic_semantics": {
+    "source_role": "SECONDARY_AGGREGATOR",
+    "no_match_proves_global_absence": false,
+    "no_match_proves_no_municipal_execution": false,
+    "generic_or_abbreviated_unmatched_objects_remain_possible": true,
+    "municipal_primary_verification_required": true,
+    "automatic_financial_identity": false,
+    "automatic_transaction_identity": false
+  },
+  "persistence": {
+    "raw_json_git": false,
+    "raw_json_drive": false,
+    "sanitized_candidate_evidence_git": true,
+    "bronze": false,
+    "silver": false,
+    "gold": false,
+    "rag": false,
+    "state_registry": false,
+    "queue": false,
+    "serving": false,
+    "publication": false
+  },
+  "future_retry_authorized": false,
+  "future_additional_paging_authorized": false
+}
