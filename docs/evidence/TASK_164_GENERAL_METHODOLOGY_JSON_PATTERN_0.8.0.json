@@ -1,0 +1,27 @@
+{
+  "task": "TASK_164_GENERAL_METHODOLOGY_JSON_PATTERN",
+  "issue": 540,
+  "base_sha": "18f7a307be319b37fcbfd36baa3ece083d272920",
+  "purpose": "Generalize the successful TASK 163 JSON methodology architecture into a reusable robot-wide engineering rule.",
+  "new_artifacts": [
+    "config/methodology_json_engineering_pattern.v1.json",
+    "config/methodology_domain_registry.v1.json"
+  ],
+  "first_conforming_domain": "PUBLIC_BUDGET",
+  "hard_boundaries": {
+    "prose_only_as_default_for_reusable_methodology": false,
+    "methodological_reference_substitutes_normative_source": false,
+    "methodological_reference_substitutes_empirical_source": false,
+    "transport_failure_creates_no_match": false,
+    "thematic_similarity_creates_identity": false,
+    "missing_field_is_guessed": false
+  },
+  "remote_effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "source_acquisition": 0,
+    "serving": 0,
+    "publication": 0
+  }
+}

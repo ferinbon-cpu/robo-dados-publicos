@@ -1,0 +1,158 @@
+{
+  "version": 1,
+  "schema": "METHODOLOGY_JSON_ENGINEERING_PATTERN_V1",
+  "task": "TASK_164_GENERAL_METHODOLOGY_JSON_PATTERN",
+  "issue": 540,
+  "base_sha": "18f7a307be319b37fcbfd36baa3ece083d272920",
+  "scope": "ROBOT_WIDE_METHOD_ENGINEERING_PATTERN",
+  "purpose": "Prefer machine-readable, testable methodology artifacts over prose-only methodological notes when a domain contains reusable concepts, evidence semantics, source capabilities, inference rules, or analytical routing.",
+  "default_decision_rule": {
+    "use_json_engineering_when_any": [
+      "domain_has_reusable_concepts_or_ontology",
+      "domain_requires_distinct_evidence_stages",
+      "domain_requires_source_capability_mapping",
+      "domain_requires_allowed_or_forbidden_inferences",
+      "domain_requires_stable_cross_source_identity_rules",
+      "domain_requires_repeatable_observation_normalization",
+      "domain_requires_question_to_source_routing",
+      "domain_requires_gap_to_next_source_guidance"
+    ],
+    "prose_only_allowed_when": [
+      "content_is_purely_narrative_context",
+      "content_has_no_reusable_machine_decision_semantics"
+    ]
+  },
+  "required_components": [
+    {
+      "id": "DOMAIN_METHODOLOGY",
+      "purpose": "Concepts, ontology, relations, evidence stages, interpretation rules, calculations and forbidden promotions.",
+      "required": true
+    },
+    {
+      "id": "OBSERVATION_CONTRACT",
+      "purpose": "Normalized packet that any observation must satisfy before research reasoning.",
+      "required": true
+    },
+    {
+      "id": "QUESTION_SOURCE_ROUTER",
+      "purpose": "Maps research questions to source families, proof capabilities, fallbacks and next evidence needs.",
+      "required": true
+    },
+    {
+      "id": "VALIDATOR",
+      "purpose": "Fail-closed validation of schemas, hard boundaries and cross-component consistency.",
+      "required": true
+    },
+    {
+      "id": "TESTS",
+      "purpose": "Regression tests for forbidden inferences and mandatory semantics.",
+      "required": true
+    },
+    {
+      "id": "SANITIZED_EVIDENCE",
+      "purpose": "Records inputs, boundaries, effects and implementation state without persisting restricted source text.",
+      "required": true
+    }
+  ],
+  "knowledge_layer_contract": {
+    "required_layers_when_applicable": [
+      "METHODOLOGICAL_ACADEMIC",
+      "NORMATIVE_OFFICIAL",
+      "EMPIRICAL_PRIMARY"
+    ],
+    "rule": "Methodological references guide interpretation; normative sources prove dated rules; empirical primary sources prove scoped facts. No layer silently substitutes another."
+  },
+  "ontology_contract": {
+    "must_define": [
+      "concept_ids",
+      "concept_relations_or_roles",
+      "evidence_or_state_semantics",
+      "unknown_semantics"
+    ],
+    "unknown_default": "UNKNOWN_NOT_INFERRED",
+    "silent_completion_forbidden": true
+  },
+  "observation_contract_requirements": [
+    "observation_id",
+    "source_role",
+    "entity_scope",
+    "time_scope",
+    "evidence_semantic",
+    "normalized_values_or_claims",
+    "stable_keys_when_available",
+    "provenance",
+    "quality_or_anomalies",
+    "domain_linkage_status"
+  ],
+  "routing_contract": {
+    "must_map": [
+      "question_pattern",
+      "required_source_family_or_evidence",
+      "optional_corroborating_sources",
+      "allowed_claim",
+      "forbidden_claims",
+      "fallback",
+      "next_source_when_gap_remains"
+    ],
+    "default_fallback": "EVIDENCIA_INSUFICIENTE"
+  },
+  "inference_contract": {
+    "must_explicitly_list": [
+      "allowed_promotions",
+      "forbidden_promotions",
+      "stable_identity_requirements",
+      "scope_boundaries",
+      "freshness_boundaries"
+    ],
+    "general_forbidden_promotions": [
+      "THEMATIC_SIMILARITY_TO_IDENTITY",
+      "CHRONOLOGY_TO_IDENTITY",
+      "SEARCH_SNIPPET_TO_EXHAUSTIVE_EVIDENCE",
+      "TRANSPORT_FAILURE_TO_SOURCE_NO_MATCH",
+      "AGGREGATE_TO_INDIVIDUAL_WITHOUT_KEY",
+      "ACADEMIC_REFERENCE_TO_CURRENT_NORMATIVE_FACT",
+      "MISSING_FIELD_TO_GUESSED_VALUE"
+    ]
+  },
+  "provenance_contract": {
+    "must_preserve": [
+      "source_locator",
+      "source_role",
+      "observed_or_document_date",
+      "raw_identifier_values_when_available"
+    ],
+    "recommended": [
+      "sha256_or_digest",
+      "page_or_line",
+      "endpoint_query",
+      "retrieval_mode"
+    ]
+  },
+  "freshness_contract": {
+    "rule": "Time-sensitive normative or source semantics must be validated against a dated official source before use.",
+    "methodological_reference_never_overrides_current_official_semantics": true
+  },
+  "integration_contract": {
+    "domain_adapters_should_emit_observation_contract_packets": true,
+    "research_queries_should_use_router_before_claim_promotion": true,
+    "validators_should_run_offline_in_ci": true,
+    "domain_implementation_must_register_itself": true
+  },
+  "registration_requirements": [
+    "domain_id",
+    "status",
+    "methodology_path",
+    "observation_contract_path",
+    "router_path",
+    "validator_path",
+    "test_path",
+    "evidence_path",
+    "conformance_version"
+  ],
+  "first_reference_implementation": {
+    "domain_id": "PUBLIC_BUDGET",
+    "task": "TASK_163_PUBLIC_BUDGET_METHODOLOGY_JSON_BRAIN",
+    "conformance_version": 1,
+    "status": "CONFORMING"
+  }
+}
