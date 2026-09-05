@@ -1,0 +1,22 @@
+{
+  "task": "TASK_135_PNCP_ALTERNATE_CURL_TRANSPORT_DESIGN",
+  "issue": 472,
+  "mode": "T0_OFFLINE_ALTERNATE_TRANSPORT_DESIGN_ONLY",
+  "base_sha": "cc6b6cf41f360d0c0d8414aa3ff04f036363d2f0",
+  "authorization_source": "TASK_134_OWNER_AUTHORIZATION_PRE_RUN_0.8.0.json",
+  "new_live_scope_created": false,
+  "future_transport": "LOCAL_CURL",
+  "future_get_requests_max": 1,
+  "future_redirects_followed_max": 0,
+  "future_retry": 0,
+  "future_max_time_seconds": 60,
+  "future_max_response_bytes": 20971520,
+  "raw_persistence": false,
+  "sanitized_evidence_only": true,
+  "parser_contract": "TASK133_PNCP_PROCUREMENT_PUBLICATION_LIVE_GATE_DESIGN_V1",
+  "followup_endpoints_authorized": false,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "remote_effects": 0,
+  "result": "PASS_TASK135_ALTERNATE_CURL_TRANSPORT_DESIGNED_NOT_EXECUTED"
+}
