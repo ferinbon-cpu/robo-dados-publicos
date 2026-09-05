@@ -1,0 +1,17 @@
+{
+  "task": "TASK_141_INDEXED_LICITACOES_ROUTE_SEARCH_DESIGN",
+  "issue": 490,
+  "mode": "T0_OFFLINE_INDEXED_LICITACOES_ROUTE_DESIGN_ONLY",
+  "base_sha": "36ce46e6a9a69af93b61eb1fe154e985d2465048",
+  "authorization_unit_index": 6,
+  "owner_authorization_units_granted": 10,
+  "future_search_invocations_max": 1,
+  "future_open_invocations_max": 1,
+  "path_specific_official_licitacoes_search": true,
+  "opened_primary_procurement_page_can_prove_identifier_if_explicit": true,
+  "negative_exhaustive_conclusion_allowed": false,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "remote_effects": 0,
+  "result": "PASS_TASK141_INDEXED_LICITACOES_ROUTE_SEARCH_DESIGNED_NOT_EXECUTED"
+}
