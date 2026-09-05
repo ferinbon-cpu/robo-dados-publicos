@@ -1,0 +1,80 @@
+{
+  "task": "TASK_129_PNCP_LIMEIRA_CONTRACTS_PAGES_2_5_SCAN",
+  "mode": "T1_SINGLE_USE_OFFICIAL_REGISTRY_PAGES_2_5_SCAN",
+  "issue": 459,
+  "phase": "CLOSED_PARTIAL_TRANSPORT_STOP",
+  "preflight_ci": "PASS_5_OF_5",
+  "live_execution": {
+    "run_id": 33941118103,
+    "job_id": 101238625651,
+    "execution_head_sha": "586985cb0963eee2ffe3977288d3d4889f051c4e",
+    "workflow_git_blob_sha": "2218d815242c1bb2c0293f5a27c5a6e695b7bac6",
+    "request_attempts": 2,
+    "max_request_attempts": 4,
+    "redirects_followed": 0,
+    "retry_performed": false,
+    "page2": {
+      "http_status": 200,
+      "bytes_received": 766311,
+      "source_sha256": "dbd7d4cb1c623299348d082bae0d8976544f95e30bd5d3070283c94cea09c6cd",
+      "json_valid": true,
+      "total_registros": 2023,
+      "total_paginas": 5,
+      "numero_pagina": 2,
+      "rows_on_page": 500,
+      "candidate_count": 0
+    },
+    "page3": {
+      "http_status": null,
+      "bytes_received": 0,
+      "source_sha256": null,
+      "json_valid": false,
+      "transport_error": "TRANSPORT_OR_SIZE_ERROR:TimeoutError:The read operation timed out"
+    },
+    "pages4_5_attempted": false,
+    "result_sha256": "ff0cb0a3af61884ec9aa585c2c37d76b053bf4bef0ad6bc120a6b0cd2651992f"
+  },
+  "combined_coverage": {
+    "task128_page1_rows": 500,
+    "task129_page2_rows": 500,
+    "rows_confirmed_scanned": 1000,
+    "total_registros_snapshot": 2023,
+    "pages_confirmed_scanned": [
+      1,
+      2
+    ],
+    "pages_remaining": [
+      3,
+      4,
+      5
+    ],
+    "exhaustive_within_query_scope": false
+  },
+  "interpretation": {
+    "page2_bounded_candidate_result": "ZERO_STRONG_POLICY_CANDIDATES",
+    "no_global_no_match_claim": true,
+    "page3_timeout_is_transport_failure_only": true,
+    "pages4_5_no_data_conclusion": true,
+    "financial_identity_changed": false,
+    "transaction_identity_changed": false
+  },
+  "artifact": {
+    "id": 9961857923,
+    "name": "task-129-pncp-pages2-5-result",
+    "zip_sha256": "b82fe218fa3756cd99669d0a73f36e7109e66c3a1db265da2d215e0fed5cbf40",
+    "size_in_bytes": 1101,
+    "retention_days": 1
+  },
+  "next_action": {
+    "status": "NEW_GATE_PAGES_3_TO_5_ONLY",
+    "page1_reread": false,
+    "page2_reread": false,
+    "remaining_pages": [
+      3,
+      4,
+      5
+    ],
+    "same_task_retry_allowed": false
+  },
+  "result": "STOP_TASK129_PAGE3_TIMEOUT_AFTER_PAGE2_SUCCESS_PARTIAL_NO_EXHAUSTIVE_CONCLUSION"
+}
