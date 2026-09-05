@@ -1,0 +1,34 @@
+{
+  "task": "TASK_165_DIRECT_JSON_FIRST_SOURCE_DISCOVERY",
+  "issue": 542,
+  "base_sha": "f540a23fd9210f78a9116eef366eee75e1da3487",
+  "mode": "T0_OFFLINE_POLICY_ONLY",
+  "derived_from_repository_lessons": [
+    "TASK_148_PNCP_DIRECT_DOWNLOAD_GATE",
+    "TASK_161_PNCP_MANUAL_PUBLICATION_SWEEP_EVIDENCE_GUARDS",
+    "TASK_162_PNCP_MODALITY9_STABLE_ID_RECOVERY_GUARD"
+  ],
+  "policy_result": {
+    "direct_json_first": true,
+    "reverse_engineering_is_fallback": true,
+    "reuse_scope_authorization_for_equivalent_read_only_calls": true,
+    "per_page_authorization_required_inside_reusable_scope": false,
+    "new_authorization_still_required_on_scope_or_method_change": true
+  },
+  "hard_boundaries": {
+    "bypass_authentication": false,
+    "bypass_access_control": false,
+    "expand_owner_authorization_by_inference": false,
+    "allow_mutation_under_read_only_scope": false,
+    "turn_transport_failure_into_no_match": false,
+    "turn_partial_pagination_into_exhaustive_negative": false
+  },
+  "remote_effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "source_acquisition": 0,
+    "serving": 0,
+    "publication": 0
+  }
+}
