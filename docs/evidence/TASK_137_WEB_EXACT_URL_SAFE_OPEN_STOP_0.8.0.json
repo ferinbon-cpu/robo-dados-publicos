@@ -1,0 +1,17 @@
+{
+  "task": "TASK_137_PNCP_WEB_EXACT_URL_DISCOVERY_ATTEMPT",
+  "mode": "T1_WEB_EXACT_URL_OPEN_PRE_SOURCE_STOP",
+  "task137_merge_sha": "78d327299a91b8a9b4ed7acddc582cf0e3da5683",
+  "result": "STOP_PRE_SOURCE_WEB_SAFE_OPEN_REJECTED",
+  "web_open_invocations": 1,
+  "source_url": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao?dataInicial=20251128&dataFinal=20260904&codigoModalidadeContratacao=12&cnpj=45132495000140&pagina=1&tamanhoPagina=500",
+  "tool_error_class": "NON_RETRYABLE_SAFE_OPEN_REJECTION",
+  "tool_error_message_summary": "URL can only be opened when returned by prior search results or supplied in the user message",
+  "pncp_content_returned": false,
+  "source_data_observed": false,
+  "administrative_identifier_found": false,
+  "negative_conclusion_created": false,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "retry_performed": false
+}

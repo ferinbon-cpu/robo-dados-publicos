@@ -1,0 +1,20 @@
+{
+  "task": "TASK_138_PNCP_WEB_SEARCH_PREFLIGHT_DESIGN",
+  "issue": 480,
+  "mode": "T0_OFFLINE_WEB_SEARCH_PREFLIGHT_DESIGN_ONLY",
+  "base_sha": "78d327299a91b8a9b4ed7acddc582cf0e3da5683",
+  "authorization_unit_index": 3,
+  "owner_authorization_units_granted": 10,
+  "future_search_invocations_max": 1,
+  "future_open_invocations_max": 1,
+  "open_only_if_exact_api_url_returned": true,
+  "candidate_discovery_allowed": true,
+  "negative_exhaustive_conclusion_allowed": false,
+  "pncp_no_match_allowed": false,
+  "source_role": "SECONDARY_AGGREGATOR",
+  "primary_municipal_verification_required": true,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "remote_effects": 0,
+  "result": "PASS_TASK138_WEB_SEARCH_PREFLIGHT_DESIGNED_NOT_EXECUTED"
+}
