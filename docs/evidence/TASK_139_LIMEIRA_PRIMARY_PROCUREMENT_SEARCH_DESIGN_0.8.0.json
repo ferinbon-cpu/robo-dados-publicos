@@ -1,0 +1,18 @@
+{
+  "task": "TASK_139_LIMEIRA_PRIMARY_PROCUREMENT_SEARCH_DESIGN",
+  "issue": 484,
+  "mode": "T0_OFFLINE_MUNICIPAL_PRIMARY_WEB_SEARCH_DESIGN_ONLY",
+  "base_sha": "1e211b7f7a483e8eb057ab354c7652b9480cd538",
+  "authorization_unit_index": 4,
+  "owner_authorization_units_granted": 10,
+  "future_search_invocations_max": 1,
+  "future_open_invocations_max": 1,
+  "official_domain": "limeira.sp.gov.br",
+  "primary_identifier_proof_requires_explicit_object_binding": true,
+  "negative_exhaustive_conclusion_allowed": false,
+  "global_no_match_allowed": false,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "remote_effects": 0,
+  "result": "PASS_TASK139_MUNICIPAL_PRIMARY_SEARCH_DESIGNED_NOT_EXECUTED"
+}
