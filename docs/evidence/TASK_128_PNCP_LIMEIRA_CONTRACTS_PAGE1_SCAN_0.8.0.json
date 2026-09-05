@@ -1,0 +1,59 @@
+{
+  "task": "TASK_128_PNCP_LIMEIRA_CONTRACTS_PAGE1_SCAN",
+  "mode": "T1_SINGLE_USE_OFFICIAL_REGISTRY_PAGE1_SCAN",
+  "base_sha": "f8abd6d0a1581a5ec11be24acc97c85fd3762c2a",
+  "issue": 455,
+  "phase": "CLOSED_LIVE_PAGE1",
+  "source": {
+    "registry": "PNCP",
+    "role": "SECONDARY_AGGREGATOR",
+    "cnpj_orgao": "45132495000140",
+    "date_range": [
+      "2025-11-28",
+      "2026-09-04"
+    ],
+    "pagina": 1,
+    "tamanho_pagina": 500
+  },
+  "strong_policy_markers": [
+    "PROGRAMA DE EDUCACAO INTEGRAL",
+    "PROGRAMA ESCOLA EM TEMPO INTEGRAL",
+    "ESCOLA EM TEMPO INTEGRAL",
+    "EDUCACAO EM TEMPO INTEGRAL",
+    "EDUCACAO INTEGRAL",
+    "FOMENTO ETI"
+  ],
+  "weak_terms_do_not_qualify_alone": true,
+  "municipal_primary_verification_required": true,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "live_request_performed": true,
+  "next": "TASK_129_PNCP_LIMEIRA_CONTRACTS_PAGES_2_TO_5_SCAN",
+  "result": "PASS_TASK128_PAGE1_PARTIAL_ZERO_STRONG_POLICY_CANDIDATES_FRESH_PAGING_GATE_REQUIRED",
+  "preflight_ci": "PASS_5_OF_5",
+  "live_execution": {
+    "run_id": 33936732563,
+    "job_id": 101226011211,
+    "execution_head_sha": "ef902e52c5eeef1d10f32c3c126a4baadee36abf",
+    "workflow_git_blob_sha": "995a50763e0fce6ec7220b51047016db0cb0bedf",
+    "get_attempts": 1,
+    "redirects_followed": 0,
+    "retry_performed": false,
+    "http_status": 200,
+    "bytes_received": 767611,
+    "source_sha256": "8935e589bbbf4cfaba6c49eea7b675ab30e160c168f374c3a87857969bb11990",
+    "json_valid": true,
+    "result_sha256": "3e072a5a6a967067988b0d973f11dcbba1be9d40a5350fcc477f6c82390dc00f"
+  },
+  "coverage": {
+    "total_registros": 2023,
+    "total_paginas": 5,
+    "numero_pagina": 1,
+    "rows_on_page": 500,
+    "exhaustive_within_query_scope": false,
+    "fresh_paging_gate_required": true
+  },
+  "candidate_count": 0,
+  "status": "PARTIAL_PAGE1_REQUIRES_FRESH_PAGING_GATE",
+  "raw_payload_persisted": false
+}
