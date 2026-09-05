@@ -1,0 +1,18 @@
+{
+  "task": "TASK_142_MUNICIPAL_CHAMAMENTO_PUBLICO_SURFACE_DESIGN",
+  "issue": 493,
+  "mode": "T0_OFFLINE_MUNICIPAL_CHAMAMENTO_SURFACE_DESIGN_ONLY",
+  "base_sha": "d6d9dffe2c6badd15ea7bedee6b275e380d1e4ba",
+  "authorization_unit_index": 7,
+  "owner_authorization_units_granted": 10,
+  "future_click_invocations_max": 1,
+  "search_invocations": 0,
+  "source_link_label": "Chamamento Público",
+  "surface_name_does_not_prove_eiti_linkage": true,
+  "candidate_requires_explicit_binding": true,
+  "negative_exhaustive_conclusion_allowed": false,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "remote_effects": 0,
+  "result": "PASS_TASK142_CHAMAMENTO_PUBLICO_SURFACE_DESIGNED_NOT_EXECUTED"
+}
