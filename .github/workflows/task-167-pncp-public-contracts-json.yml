@@ -1,0 +1,177 @@
+name: TASK 167 PNCP public contracts link JSON
+run-name: "TASK 167 PNCP public contracts JSON by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-167-pncp-stable-id-direct-json-traversal
+    paths:
+      - 'runtime_triggers/task167_pncp_public_contracts.run'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-167-pncp-public-contracts-json
+  cancel-in-progress: false
+
+jobs:
+  task167-public-contracts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Fetch public PNCP contracts and match purchase IDs
+        shell: bash
+        env:
+          TASK167_HEAD_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p runtime
+          python - <<'PY'
+          import hashlib, json, os, urllib.error, urllib.parse, urllib.request
+          from pathlib import Path
+
+          ENDPOINT="https://pncp.gov.br/api/consulta/v1/contratos"
+          CNPJ="45132495000140"
+          TARGETS={
+              "45132495000140-1-000368/2026":"SCHOOL_PASS",
+              "45132495000140-1-000593/2026":"I00084",
+          }
+          INTERVALS=[
+              ("20260608","20260630"),
+              ("20260701","20260731"),
+              ("20260801","20260831"),
+              ("20260901","20260904"),
+          ]
+          PAGE_SIZE=50
+          TIMEOUT=60
+          MAX_PAGES=20
+
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, req, fp, code, msg, headers, newurl):
+                  return None
+          opener=urllib.request.build_opener(NoRedirect)
+
+          def url_for(start,end,page):
+              q=urllib.parse.urlencode([
+                  ("dataInicial",start),("dataFinal",end),("cnpjOrgao",CNPJ),
+                  ("pagina",page),("tamanhoPagina",PAGE_SIZE)
+              ])
+              return ENDPOINT+"?"+q
+
+          KEEP={
+              "numeroControlePNCP","numeroControlePNCPCompra","numeroContratoEmpenho",
+              "anoContrato","sequencialContrato","processo","objetoContrato",
+              "valorInicial","valorGlobal","valorAcumulado","valorParcela","numeroParcelas",
+              "dataAssinatura","dataVigenciaInicio","dataVigenciaFim","dataPublicacaoPncp",
+              "dataInclusao","dataAtualizacao","dataAtualizacaoGlobal",
+              "niFornecedor","nomeRazaoSocialFornecedor","tipoPessoa",
+              "cnpjOrgao","nomeOrgao","codigoUnidadeOrgao","nomeUnidadeOrgao",
+              "tipoContrato","categoriaProcesso","receita","informacaoComplementar"
+          }
+          def sanitize(rec):
+              return {k:v for k,v in rec.items() if k in KEEP}
+
+          requests=[]
+          intervals=[]
+          all_records=[]
+          overall="EXHAUSTIVE_COMPLETE"
+          failure=None
+
+          for start,end in INTERVALS:
+              page=1; total_pages=None; total_records=None; records=[]; st="EXHAUSTIVE_COMPLETE"; fail=None
+              try:
+                  while True:
+                      url=url_for(start,end,page)
+                      raw=b""; hs=None; ct=None; terr=None
+                      req=urllib.request.Request(url,method="GET",headers={
+                          "Accept":"application/json",
+                          "User-Agent":"robo-dados-publicos-task167-contracts/0.8.0"
+                      })
+                      try:
+                          with opener.open(req,timeout=TIMEOUT) as response:
+                              hs=int(response.status); ct=response.headers.get("Content-Type")
+                              raw=response.read(10000000+1)
+                      except urllib.error.HTTPError as exc:
+                          hs=int(exc.code); terr=f"HTTP_ERROR_{exc.code}"
+                      except urllib.error.URLError as exc:
+                          terr=f"URL_ERROR:{type(exc.reason).__name__}"
+                      except Exception as exc:
+                          terr=f"TRANSPORT_ERROR:{type(exc).__name__}:{str(exc)[:160]}"
+                      requests.append({
+                          "start":start,"end":end,"page":page,"url":url,"http_status":hs,
+                          "content_type":ct,"bytes_received":len(raw),
+                          "source_sha256":hashlib.sha256(raw).hexdigest() if raw else None,
+                          "transport_error":terr
+                      })
+                      if hs!=200 or not raw:
+                          raise RuntimeError("SOURCE_TRANSPORT_UNAVAILABLE")
+                      payload=json.loads(raw.decode("utf-8"))
+                      data=payload.get("data")
+                      if not isinstance(data,list):
+                          raise RuntimeError("SOURCE_SCHEMA_MISMATCH")
+                      if payload.get("numeroPagina")!=page:
+                          raise RuntimeError("PAGE_IDENTITY_MISMATCH")
+                      tp=payload.get("totalPaginas"); tr=payload.get("totalRegistros")
+                      if not isinstance(tp,int) or not isinstance(tr,int):
+                          raise RuntimeError("PAGINATION_METADATA_MISSING")
+                      if tp>MAX_PAGES:
+                          raise RuntimeError("PAGE_CAP")
+                      if total_pages is None:
+                          total_pages=tp; total_records=tr
+                      elif total_pages!=tp or total_records!=tr:
+                          raise RuntimeError("PAGINATION_DRIFT")
+                      records.extend(sanitize(x) for x in data)
+                      if tp==0 or page>=tp:
+                          break
+                      page+=1
+                  if len(records)!=(total_records or 0):
+                      raise RuntimeError("RECORD_COUNT_MISMATCH")
+              except Exception as exc:
+                  st="INCOMPLETE"; fail=f"{type(exc).__name__}:{str(exc)}"; overall="INCOMPLETE"
+                  failure=failure or f"{start}-{end}:{fail}"
+              intervals.append({
+                  "start":start,"end":end,"status":st,"failure":fail,
+                  "totalRegistros":total_records,"totalPaginas":total_pages,"record_count":len(records)
+              })
+              all_records.extend(records)
+
+          matches={"SCHOOL_PASS":[],"I00084":[]}
+          for rec in all_records:
+              key=rec.get("numeroControlePNCPCompra")
+              if key in TARGETS:
+                  matches[TARGETS[key]].append(rec)
+
+          out={
+              "schema":"TASK167_PNCP_PUBLIC_CONTRACTS_LINK_RESULT_V1",
+              "execution_head_sha":os.environ["TASK167_HEAD_SHA"],
+              "authorization_scope":"PNCP_LIVE_READ_DISCOVERY_ONLY",
+              "scope":{"dataInicial":"20260608","dataFinal":"20260904","cnpjOrgao":CNPJ},
+              "status":overall,"failure":failure,"intervals":intervals,
+              "total_contract_records_observed":len(all_records),
+              "matches":matches,"requests":requests,
+              "raw_payload_persisted":False,"git_write":False,"drive_write":False,
+              "payment_inference_allowed":False
+          }
+          out["result_sha256"]=hashlib.sha256(
+              json.dumps(out,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode()
+          ).hexdigest()
+          Path("runtime/task167_public_contracts.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2,sort_keys=True)+"\n",encoding="utf-8")
+          print("STATUS",overall,"TOTAL",len(all_records),
+                "SCHOOL_PASS_MATCHES",len(matches["SCHOOL_PASS"]),"I00084_MATCHES",len(matches["I00084"]))
+          PY
+
+      - name: Upload sanitized contract-link result
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-167-pncp-public-contracts-link-result
+          path: runtime/task167_public_contracts.json
+          if-no-files-found: error
+          retention-days: 1
