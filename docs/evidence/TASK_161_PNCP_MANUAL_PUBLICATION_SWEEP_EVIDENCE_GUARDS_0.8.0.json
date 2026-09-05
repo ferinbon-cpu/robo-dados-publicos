@@ -1,0 +1,65 @@
+{
+  "task": "TASK_161_PNCP_MANUAL_PUBLICATION_SWEEP_EVIDENCE_GUARDS",
+  "issue": 534,
+  "base_sha": "f8e92da2d602b817807b63a8355d9ca2622590d0",
+  "owner_authorization": {
+    "exact_text": "Autorizado pn p irrestrito",
+    "fresh_after_task_160": true,
+    "interpreted_scope": "PNCP live read/discovery only",
+    "authorization_units_remaining": null,
+    "mutations_allowed": false
+  },
+  "manual_publication_api_observation": {
+    "endpoint": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao",
+    "cnpj": "45132495000140",
+    "publication_window": [
+      "2025-11-28",
+      "2026-09-04"
+    ],
+    "page_size": 50,
+    "raw_payload_persisted": false,
+    "complete_modalities": {
+      "6": {
+        "records": 181,
+        "pages": 4,
+        "explicit_eiti_matches": 0
+      },
+      "8": {
+        "records": 434,
+        "pages": 9,
+        "explicit_eiti_matches": 0
+      },
+      "12": {
+        "records": 5,
+        "pages": 1,
+        "explicit_eiti_matches": 0
+      }
+    }
+  },
+  "modality_9_status": {
+    "exhaustive": false,
+    "strongest_education_lead": "AQUISICAO DE PASSE ESCOLAR",
+    "estimated_value_brl": 3816720.0,
+    "stable_pncp_id_recovered": false,
+    "classification": "DISCOVERY_LEAD_EDUCATION_RELEVANT_CONTEXT",
+    "eiti_proven": false
+  },
+  "rejected_false_positive": {
+    "apparent_subject": "PCA 2026 - EDUCACAO",
+    "actual_municipality": "Itupeva",
+    "expected_municipality": "Limeira",
+    "reason": "ENTITY_IDENTITY_MISMATCH",
+    "promoted": false
+  },
+  "epistemic_closure": {
+    "education_relevant_equals_eiti_proven": false,
+    "complete_scope_negative_is_global_negative": false,
+    "indexed_discovery_is_exhaustive": false,
+    "transport_failure_is_no_match": false,
+    "global_pncp_no_match_created": false,
+    "eiti_financial_identity_created": false,
+    "eiti_transaction_identity_created": false,
+    "supplier_linkage_created": false
+  },
+  "next_action": "CONTINUE_PNCP_MODALITY_9_WITH_STABLE_ID_RECOVERY_THEN_MODALITIES_15_4_7_5_14_WHEN_TRANSPORT_AVAILABLE"
+}
