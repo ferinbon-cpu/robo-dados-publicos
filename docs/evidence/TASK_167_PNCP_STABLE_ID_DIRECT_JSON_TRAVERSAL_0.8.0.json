@@ -1,0 +1,145 @@
+{
+  "task": "TASK_167_PNCP_STABLE_ID_DIRECT_JSON_TRAVERSAL",
+  "issue": 546,
+  "base_main_sha": "e862fc91f3fe208c4655205d661c042dd3f86f81",
+  "authorization": {
+    "scope": "PNCP_LIVE_READ_DISCOVERY_ONLY",
+    "metering": "UNMETERED_WITHIN_PNCP_SCOPE_UNTIL_REVOKED_OR_SUPERSEDED",
+    "per_route_authorization_required": false
+  },
+  "targets": [
+    {
+      "id": "SCHOOL_PASS",
+      "anoCompra": 2026,
+      "sequencialCompra": 368,
+      "numeroControlePNCP": "45132495000140-1-000368/2026",
+      "processo": "I00055"
+    },
+    {
+      "id": "I00084",
+      "anoCompra": 2026,
+      "sequencialCompra": 593,
+      "numeroControlePNCP": "45132495000140-1-000593/2026",
+      "processo": "I00084"
+    }
+  ],
+  "integration_family_attempt": {
+    "run_id": 33995339389,
+    "artifact_id": 9977883624,
+    "result_sha256": "dd182ce4e2c9d19ae674e8349924535fac76bdcdc8a306c8f06345d3d6dd82bc",
+    "base": "https://pncp.gov.br/api/pncp/v1",
+    "routes_per_target": [
+      "detail",
+      "items",
+      "history",
+      "budget_sources",
+      "contracts"
+    ],
+    "requests": 10,
+    "http_503_count": 10,
+    "bytes_received": 0,
+    "result": "SOURCE_BACKEND_UNAVAILABLE_HTTP_503",
+    "no_absence_conclusion_allowed": true,
+    "no_contract_absence_conclusion_allowed": true,
+    "no_item_absence_conclusion_allowed": true
+  },
+  "public_consulta_specific_detail": {
+    "run_id": 33995464921,
+    "artifact_id": 9977910131,
+    "result_sha256": "2b297dad9722ef74924e0aaa6a2b49488d27cf9dcc9818b1e73e4c3cefb140aa",
+    "base": "https://pncp.gov.br/api/consulta/v1/orgaos",
+    "result": "SUCCESS_JSON_2_OF_2",
+    "records": [
+      {
+        "id": "SCHOOL_PASS",
+        "url": "https://pncp.gov.br/api/consulta/v1/orgaos/45132495000140/compras/2026/368",
+        "http_status": 200,
+        "source_sha256": "c04ad1e38e5576d015feeb6d04d6c7e20492368c475931a1d89bd8a681293ca2",
+        "numeroControlePNCP": "45132495000140-1-000368/2026",
+        "processo": "I00055",
+        "objetoCompra": "AQUISICAO DE PASSE ESCOLAR",
+        "valorTotalEstimado": 3816720.0,
+        "valorTotalHomologado": 3816720.0,
+        "amparoLegal": "Lei 14.133/2021, Art. 74, I",
+        "amparoLegalDescricao": "Inexigibilidade de Licitacao por fornecedor/produtor/representante exclusivo",
+        "situacaoCompraNome": "Divulgada no PNCP",
+        "fontesOrcamentarias_count": 0,
+        "linkProcessoEletronico": null,
+        "linkSistemaOrigem": "",
+        "education_tier": "EDUCATION_RELEVANT",
+        "eiti_proven": false
+      },
+      {
+        "id": "I00084",
+        "url": "https://pncp.gov.br/api/consulta/v1/orgaos/45132495000140/compras/2026/593",
+        "http_status": 200,
+        "source_sha256": "85ce5ba63567125963df92c5e90c30a460957c75f2844fa5d1cb3701c1f1b7c8",
+        "numeroControlePNCP": "45132495000140-1-000593/2026",
+        "processo": "I00084",
+        "objetoCompra": "CURSO DE CAPACITACAO",
+        "valorTotalEstimado": 12400.0,
+        "valorTotalHomologado": 12400.0,
+        "amparoLegal": "Lei 14.133/2021, Art. 74, III, f",
+        "amparoLegalDescricao": "Treinamento e aperfeicoamento de pessoal",
+        "situacaoCompraNome": "Divulgada no PNCP",
+        "fontesOrcamentarias_count": 0,
+        "linkProcessoEletronico": null,
+        "linkSistemaOrigem": "",
+        "education_tier": "GENERAL_DISCOVERY_LEAD",
+        "eiti_proven": false
+      }
+    ],
+    "interpretation": {
+      "school_pass_supplier_exclusivity_basis_observed": true,
+      "supplier_identity_observed": false,
+      "i00084_personnel_training_basis_observed": true,
+      "education_target_for_i00084_observed": false,
+      "budget_source_identity_observed": false
+    }
+  },
+  "public_contracts_attempt": {
+    "endpoint": "https://pncp.gov.br/api/consulta/v1/contratos",
+    "monthly_partition_run_id": 33995535972,
+    "monthly_artifact_id": 9977988972,
+    "monthly_result_sha256": "ff06f4752278f6cb2f52b633a4910d7e4d495e8bc14aee7e55cf0552a6b4baa8",
+    "monthly_intervals": 4,
+    "monthly_timeouts": 4,
+    "target_date_run_id": 33995764321,
+    "target_date_artifact_id": 9978027817,
+    "target_date_result_sha256": "50df29acce0ccfc611478820888147a163ebdfcc8b1a51abf224f1b6c10c57d0",
+    "target_date_requests": 2,
+    "target_date_timeouts": 2,
+    "bytes_received": 0,
+    "status": "SOURCE_TRANSPORT_UNAVAILABLE_TIMEOUT",
+    "contract_match_observed": false,
+    "contract_absence_proven": false,
+    "supplier_identity_proven": false,
+    "payment_identity_proven": false
+  },
+  "epistemic_closure": {
+    "purchase_identity_school_pass": "PROVEN_OFFICIAL_PUBLIC_JSON",
+    "purchase_identity_i00084": "PROVEN_OFFICIAL_PUBLIC_JSON",
+    "school_pass_education_relevance": "PROVEN_BY_OBJECT",
+    "school_pass_eiti_link": "NOT_PROVEN",
+    "i00084_personnel_training": "PROVEN_BY_LEGAL_BASIS",
+    "i00084_education_link": "NOT_PROVEN",
+    "budget_source_identity": "NOT_PROVEN",
+    "contract_identity": "NOT_PROVEN_ENDPOINT_UNAVAILABLE",
+    "supplier_identity": "NOT_PROVEN",
+    "commitment_identity": "NOT_PROVEN",
+    "liquidation_identity": "NOT_PROVEN",
+    "payment_identity": "NOT_PROVEN"
+  },
+  "routing_lesson": {
+    "public_consulta_specific_purchase_detail_preferred_when_integration_family_unavailable": true,
+    "integration_http_503_is_not_resource_absence": true,
+    "public_contract_timeout_is_not_contract_absence": true,
+    "reverse_engineering_required_now": false,
+    "next_machine_readable_action": "RETRY_OR_ALTERNATE_DOCUMENTED_PNCP_CONTRACT_OR_ITEM_JSON_ROUTE_WHEN_TRANSPORT_RECOVERS_OR_CONTINUE_OTHER_MODALITY_PUBLICATION_JSON"
+  },
+  "persistence": {
+    "raw_pncp_payload_git": false,
+    "raw_pncp_payload_drive": false,
+    "sanitized_evidence_git": true
+  }
+}
