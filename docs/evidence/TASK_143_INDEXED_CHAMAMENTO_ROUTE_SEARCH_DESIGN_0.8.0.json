@@ -1,0 +1,15 @@
+{
+  "task": "TASK_143_INDEXED_CHAMAMENTO_ROUTE_SEARCH_DESIGN",
+  "issue": 496,
+  "mode": "T0_OFFLINE_INDEXED_CHAMAMENTO_ROUTE_DESIGN_ONLY",
+  "base_sha": "7f48b5f631e1d26910cbe8fffac54be5ee8c8847",
+  "authorization_unit_index": 8,
+  "owner_authorization_units_granted": 10,
+  "future_search_invocations_max": 1,
+  "future_open_invocations_max": 1,
+  "negative_exhaustive_conclusion_allowed": false,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "remote_effects": 0,
+  "result": "PASS_TASK143_INDEXED_CHAMAMENTO_ROUTE_SEARCH_DESIGNED_NOT_EXECUTED"
+}
