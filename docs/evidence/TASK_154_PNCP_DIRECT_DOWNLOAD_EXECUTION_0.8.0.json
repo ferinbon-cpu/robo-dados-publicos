@@ -1,0 +1,24 @@
+{
+  "task":"TASK_154_PNCP_DIRECT_DOWNLOAD_AUTH_UNIT_3",
+  "authorization_unit_index":3,
+  "task154_merge_sha":"2ca4cfddaa33245e39268c4ca35d9d4d7697bcb0",
+  "normalized_url":"https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao?cnpj=45132495000140&codigoModalidadeContratacao=12&dataFinal=20260904&dataInicial=20251128&pagina=1&tamanhoPagina=50",
+  "result":"STOP_DIRECT_DOWNLOAD_URL_NOT_SUCCESSFULLY_VIEWED_PRE_SOURCE",
+  "execution":{
+    "direct_download_invocations":1,
+    "retry_performed":false,
+    "pncp_source_reach_established":false,
+    "pncp_http_status_established":false,
+    "temporary_payload_created":false,
+    "raw_payload_persisted":false
+  },
+  "authorization_state":{"unit_3_consumed":true,"remaining_units":7},
+  "epistemic_state":{
+    "candidate_created":false,
+    "pncp_no_match_created":false,
+    "negative_exhaustive_conclusion_created":false,
+    "financial_identity_created":false,
+    "transaction_identity_created":false,
+    "supplier_linkage_created":false
+  }
+}
