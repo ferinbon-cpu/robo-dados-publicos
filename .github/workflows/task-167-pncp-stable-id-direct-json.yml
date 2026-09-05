@@ -1,0 +1,191 @@
+name: TASK 167 PNCP stable ID direct JSON traversal
+run-name: "TASK 167 PNCP stable ID JSON by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-167-pncp-stable-id-direct-json-traversal
+    paths:
+      - 'runtime_triggers/task167_pncp_stable_id.run'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-167-pncp-stable-id-direct-json
+  cancel-in-progress: false
+
+jobs:
+  task167:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Traverse direct PNCP JSON routes
+        shell: bash
+        env:
+          TASK167_HEAD_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p runtime
+          python - <<'PY'
+          from __future__ import annotations
+          import hashlib, json, os, re
+          from pathlib import Path
+          import urllib.error, urllib.request
+
+          CNPJ="45132495000140"
+          BASE="https://pncp.gov.br/api/pncp/v1/orgaos"
+          TIMEOUT=40
+          MAX_BYTES=10000000
+
+          targets=[
+              {"id":"SCHOOL_PASS","ano":2026,"seq":368,"control":"45132495000140-1-000368/2026","processo":"I00055"},
+              {"id":"I00084","ano":2026,"seq":593,"control":"45132495000140-1-000593/2026","processo":"I00084"},
+          ]
+
+          def routes(t):
+              stem=f"{BASE}/{CNPJ}/compras/{t['ano']}/{t['seq']}"
+              return {
+                  "detail": stem,
+                  "items": stem+"/itens",
+                  "history": stem+"/historico",
+                  "budget_sources": stem+"/fonte-orcamentaria",
+                  "contracts": f"{BASE}/{CNPJ}/contratos/contratacao/{t['ano']}/{t['seq']}",
+              }
+
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, req, fp, code, msg, headers, newurl):
+                  return None
+          opener=urllib.request.build_opener(NoRedirect)
+
+          INTEREST=re.compile(
+              r"(cnpj|ni$|controle|process|objeto|descri|nome|razao|fornecedor|item|quant|unidade|valor|"
+              r"data|situacao|status|modalidade|categoria|fonte|orcament|exercicio|contrato|empenho|"
+              r"numero|sequencial|codigo|tipo|natureza|vigencia|assinatura|homolog)",
+              re.I,
+          )
+
+          def summarize_obj(obj, max_depth=3, max_list=80):
+              def walk(v, depth):
+                  if depth > max_depth:
+                      return "<DEPTH_LIMIT>"
+                  if isinstance(v, dict):
+                      out={}
+                      for k,val in v.items():
+                          if INTEREST.search(str(k)):
+                              if isinstance(val,(str,int,float,bool)) or val is None:
+                                  out[k]=val
+                              elif isinstance(val,(dict,list)):
+                                  out[k]=walk(val,depth+1)
+                      return out
+                  if isinstance(v,list):
+                      return [walk(x,depth+1) for x in v[:max_list]]
+                  if isinstance(v,(str,int,float,bool)) or v is None:
+                      return v
+                  return str(v)[:200]
+              return walk(obj,0)
+
+          results=[]
+          for target in targets:
+              target_result={
+                  "target":target,
+                  "routes":{},
+              }
+              for role,url in routes(target).items():
+                  raw=b""
+                  hs=None
+                  ct=None
+                  terr=None
+                  parsed=None
+                  req=urllib.request.Request(url,method="GET",headers={
+                      "Accept":"application/json",
+                      "User-Agent":"robo-dados-publicos-task167/0.8.0",
+                  })
+                  try:
+                      with opener.open(req,timeout=TIMEOUT) as response:
+                          hs=int(response.status)
+                          ct=response.headers.get("Content-Type")
+                          raw=response.read(MAX_BYTES+1)
+                          if len(raw)>MAX_BYTES:
+                              raise RuntimeError("RESPONSE_TOO_LARGE")
+                  except urllib.error.HTTPError as exc:
+                      hs=int(exc.code)
+                      terr=f"HTTP_ERROR_{exc.code}"
+                  except urllib.error.URLError as exc:
+                      terr=f"URL_ERROR:{type(exc.reason).__name__}"
+                  except Exception as exc:
+                      terr=f"TRANSPORT_ERROR:{type(exc).__name__}:{str(exc)[:160]}"
+
+                  rec={
+                      "url":url,
+                      "http_status":hs,
+                      "content_type":ct,
+                      "bytes_received":len(raw),
+                      "source_sha256":hashlib.sha256(raw).hexdigest() if raw else None,
+                      "transport_error":terr,
+                      "source_reached":hs is not None,
+                      "json_valid":False,
+                      "status":"SOURCE_TRANSPORT_UNAVAILABLE" if hs is None else f"HTTP_{hs}",
+                      "summary":None,
+                      "top_level_type":None,
+                      "top_level_keys":None,
+                      "top_level_count":None,
+                  }
+                  if hs==200 and raw:
+                      try:
+                          parsed=json.loads(raw.decode("utf-8"))
+                          rec["json_valid"]=True
+                          rec["status"]="JSON_OK"
+                          rec["top_level_type"]=type(parsed).__name__
+                          if isinstance(parsed,dict):
+                              rec["top_level_keys"]=sorted(str(k) for k in parsed.keys())
+                              rec["top_level_count"]=len(parsed)
+                          elif isinstance(parsed,list):
+                              rec["top_level_count"]=len(parsed)
+                          rec["summary"]=summarize_obj(parsed)
+                      except Exception as exc:
+                          rec["status"]="SOURCE_SCHEMA_MISMATCH"
+                          rec["parse_error"]=type(exc).__name__
+                  elif hs is not None:
+                      rec["status"]=f"HTTP_{hs}_NO_DATA_CONCLUSION"
+
+                  target_result["routes"][role]=rec
+              results.append(target_result)
+
+          result={
+              "schema":"TASK167_PNCP_STABLE_ID_DIRECT_JSON_RESULT_V1",
+              "execution_head_sha":os.environ["TASK167_HEAD_SHA"],
+              "authorization_scope":"PNCP_LIVE_READ_DISCOVERY_ONLY",
+              "targets":results,
+              "raw_payload_persisted":False,
+              "raw_payload_artifact":False,
+              "git_write":False,
+              "drive_write":False,
+              "payment_inference_allowed":False,
+          }
+          result["result_sha256"]=hashlib.sha256(
+              json.dumps(result,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode("utf-8")
+          ).hexdigest()
+          Path("runtime/task167_result.json").write_text(
+              json.dumps(result,ensure_ascii=False,indent=2,sort_keys=True)+"\n",
+              encoding="utf-8",
+          )
+          for t in results:
+              print("TARGET",t["target"]["id"])
+              for role,r in t["routes"].items():
+                  print(" ",role,r["status"],r["bytes_received"],r["top_level_type"],r["top_level_count"])
+          PY
+
+      - name: Upload sanitized TASK 167 result
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-167-pncp-stable-id-direct-json-result
+          path: runtime/task167_result.json
+          if-no-files-found: error
+          retention-days: 1
