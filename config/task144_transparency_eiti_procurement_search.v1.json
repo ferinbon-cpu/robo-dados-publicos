@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "schema": "TASK144_TRANSPARENCY_EITI_PROCUREMENT_SEARCH_DESIGN_V1",
+  "mode": "T0_OFFLINE_TRANSPARENCY_SEARCH_DESIGN_ONLY",
+  "base_sha": "cd96cbab508f099b5c4fcb2750085c79922ddd7d",
+  "issue": 498,
+  "authorization": {
+    "owner_authorization_units_granted": 10,
+    "authorization_unit_index": 9,
+    "search_invocations_max": 1,
+    "open_invocations_max": 1,
+    "does_not_broaden_task133": true
+  },
+  "search": {
+    "query": ""PROGRAMA DE EDUCAÇÃO INTEGRAL" credenciamento oficineiros",
+    "official_domain": "transparencia.limeira.sp.gov.br",
+    "search_invocations_max": 1,
+    "retry": 0
+  },
+  "conditional_open": {
+    "official_transparency_result_only": true,
+    "require_strong_policy_and_procurement_context_or_stable_identifier": true,
+    "open_invocations_max": 1,
+    "followup_clicks": 0,
+    "followup_searches": 0,
+    "retry": 0
+  },
+  "epistemic_semantics": {
+    "search_snippet_max_status": "CORROBORATED",
+    "opened_transparency_record_can_prove_identifier_if_explicitly_bound_to_object": true,
+    "negative_exhaustive_conclusion_allowed": false,
+    "automatic_financial_identity": false,
+    "automatic_transaction_identity": false,
+    "automatic_supplier_linkage": false
+  },
+  "remote_effects_in_task144_design": {
+    "network": false,
+    "drive": false,
+    "publication": false
+  }
+}
