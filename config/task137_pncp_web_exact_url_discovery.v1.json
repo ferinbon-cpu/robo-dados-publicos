@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "schema": "TASK137_PNCP_WEB_EXACT_URL_DISCOVERY_DESIGN_V1",
+  "mode": "T0_OFFLINE_WEB_DISCOVERY_TRANSPORT_DESIGN_ONLY",
+  "base_sha": "6c3f0e6591366b9696d214ad240d06458995f945",
+  "issue": 476,
+  "authorization": {
+    "owner_authorization_units_granted": 10,
+    "authorization_unit_index": 2,
+    "max_web_open_invocations": 1,
+    "does_not_broaden_task133": true
+  },
+  "source": {
+    "exact_url": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao?dataInicial=20251128&dataFinal=20260904&codigoModalidadeContratacao=12&cnpj=45132495000140&pagina=1&tamanhoPagina=500",
+    "source_role": "SECONDARY_AGGREGATOR"
+  },
+  "web_transport": {
+    "operation": "OPEN_EXACT_URL",
+    "open_invocations_max": 1,
+    "search_queries": 0,
+    "followup_clicks": 0,
+    "followup_opens": 0,
+    "retry": 0,
+    "raw_payload_persistence": false
+  },
+  "epistemic_semantics": {
+    "candidate_discovery_allowed": true,
+    "negative_exhaustive_conclusion_allowed": false,
+    "pncp_no_match_allowed": false,
+    "administrative_identifier_candidate_max_status": "CORROBORATED",
+    "primary_municipal_verification_required": true,
+    "automatic_financial_identity": false,
+    "automatic_transaction_identity": false,
+    "automatic_supplier_linkage": false
+  },
+  "followup_endpoints_authorized": false,
+  "remote_effects_in_task137_design": {
+    "network": false,
+    "drive": false,
+    "publication": false
+  }
+}
