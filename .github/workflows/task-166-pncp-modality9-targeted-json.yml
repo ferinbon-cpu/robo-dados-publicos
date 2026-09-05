@@ -1,0 +1,229 @@
+name: TASK 166 PNCP modality 9 targeted direct JSON
+run-name: "TASK 166 PNCP targeted JSON by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-166-pncp-modality9-direct-json
+    paths:
+      - 'runtime_triggers/task166_pncp_modality9_targeted.run'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-166-pncp-modality9-targeted-json
+  cancel-in-progress: false
+
+jobs:
+  task166-targeted-json:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Fetch two targeted official PNCP JSON windows
+        shell: bash
+        env:
+          TASK166_HEAD_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p runtime
+          python - <<'PY'
+          from __future__ import annotations
+          import hashlib, json, os, unicodedata
+          from pathlib import Path
+          import urllib.error, urllib.parse, urllib.request
+
+          ENDPOINT="https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao"
+          CNPJ="45132495000140"
+          MOD=9
+          PAGE_SIZE=50
+          MAX_PAGES=5
+          TIMEOUT=60
+
+          targets=[
+              {"target_id":"SCHOOL_PASS","date":"20260608","processo":None,"object_contains":"PASSE ESCOLAR","estimated":3816720.0},
+              {"target_id":"I00084","date":"20260819","processo":"I00084","object_contains":"CURSO DE CAPACITACAO","estimated":12400.0},
+          ]
+
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, req, fp, code, msg, headers, newurl):
+                  return None
+          opener=urllib.request.build_opener(NoRedirect)
+
+          def fold(v):
+              s="" if v is None else str(v)
+              s=unicodedata.normalize("NFKD",s)
+              return "".join(ch for ch in s if not unicodedata.combining(ch)).lower().strip()
+
+          def build_url(date,page):
+              q=urllib.parse.urlencode([
+                  ("dataInicial",date),
+                  ("dataFinal",date),
+                  ("codigoModalidadeContratacao",MOD),
+                  ("cnpj",CNPJ),
+                  ("pagina",page),
+                  ("tamanhoPagina",PAGE_SIZE),
+              ])
+              return ENDPOINT+"?"+q
+
+          def norm(rec):
+              org=rec.get("orgaoEntidade") or {}
+              unit=rec.get("unidadeOrgao") or {}
+              cnpj=str(org.get("cnpj") or rec.get("cnpj") or "")
+              if cnpj != CNPJ:
+                  raise RuntimeError("ENTITY_IDENTITY_MISMATCH")
+              mid=rec.get("modalidadeId")
+              if mid is not None and mid != MOD:
+                  raise RuntimeError("MODALITY_IDENTITY_MISMATCH")
+              return {
+                  "anoCompra":rec.get("anoCompra"),
+                  "sequencialCompra":rec.get("sequencialCompra"),
+                  "numeroControlePNCP":rec.get("numeroControlePNCP"),
+                  "processo":rec.get("processo"),
+                  "numeroCompra":rec.get("numeroCompra"),
+                  "objetoCompra":rec.get("objetoCompra"),
+                  "valorTotalEstimado":rec.get("valorTotalEstimado"),
+                  "valorTotalHomologado":rec.get("valorTotalHomologado"),
+                  "dataPublicacaoPncp":rec.get("dataPublicacaoPncp"),
+                  "modalidadeId":rec.get("modalidadeId"),
+                  "modalidadeNome":rec.get("modalidadeNome"),
+                  "situacaoCompraNome":rec.get("situacaoCompraNome"),
+                  "cnpj":cnpj,
+                  "razaoSocial":org.get("razaoSocial"),
+                  "municipioNome":unit.get("municipioNome"),
+                  "ufSigla":unit.get("ufSigla"),
+              }
+
+          all_results=[]
+          all_requests=[]
+
+          for target in targets:
+              records=[]
+              target_hits=[]
+              status="UNKNOWN"
+              exhaustive=False
+              failure=None
+              total_records=None
+              total_pages=None
+              try:
+                  page=1
+                  while True:
+                      url=build_url(target["date"],page)
+                      req=urllib.request.Request(url,method="GET",headers={
+                          "Accept":"application/json",
+                          "User-Agent":"robo-dados-publicos-task166-targeted/0.8.0",
+                      })
+                      raw=b""
+                      hs=None
+                      ct=None
+                      terr=None
+                      try:
+                          with opener.open(req,timeout=TIMEOUT) as response:
+                              hs=int(response.status)
+                              ct=response.headers.get("Content-Type")
+                              raw=response.read(10000000+1)
+                              if len(raw)>10000000:
+                                  raise RuntimeError("RESPONSE_TOO_LARGE")
+                      except urllib.error.HTTPError as exc:
+                          hs=int(exc.code); terr=f"HTTP_ERROR_{exc.code}"
+                      except urllib.error.URLError as exc:
+                          terr=f"URL_ERROR:{type(exc.reason).__name__}"
+                      except Exception as exc:
+                          terr=f"TRANSPORT_ERROR:{type(exc).__name__}:{str(exc)[:160]}"
+
+                      all_requests.append({
+                          "target_id":target["target_id"],"date":target["date"],"page":page,"url":url,
+                          "http_status":hs,"content_type":ct,"bytes_received":len(raw),
+                          "sha256":hashlib.sha256(raw).hexdigest() if raw else None,
+                          "transport_error":terr,
+                      })
+                      if hs != 200 or not raw:
+                          raise RuntimeError("SOURCE_TRANSPORT_UNAVAILABLE")
+                      payload=json.loads(raw.decode("utf-8"))
+                      data=payload.get("data")
+                      if not isinstance(data,list):
+                          raise RuntimeError("SOURCE_SCHEMA_MISMATCH")
+                      reported=payload.get("numeroPagina")
+                      if reported != page:
+                          raise RuntimeError("PAGE_IDENTITY_MISMATCH")
+                      tp=payload.get("totalPaginas")
+                      tr=payload.get("totalRegistros")
+                      if not isinstance(tp,int) or not isinstance(tr,int):
+                          raise RuntimeError("PAGINATION_METADATA_MISSING")
+                      if tp > MAX_PAGES:
+                          raise RuntimeError("PAGE_CAP_EXCEEDED")
+                      if total_pages is None:
+                          total_pages=tp; total_records=tr
+                      elif total_pages != tp or total_records != tr:
+                          raise RuntimeError("PAGINATION_METADATA_DRIFT")
+                      for rawrec in data:
+                          r=norm(rawrec)
+                          records.append(r)
+                          obj=fold(r["objetoCompra"])
+                          proc=fold(r["processo"])
+                          process_ok=target["processo"] is None or proc==fold(target["processo"])
+                          object_ok=fold(target["object_contains"]) in obj
+                          try:
+                              value_ok=abs(float(r["valorTotalEstimado"])-float(target["estimated"])) <= 0.01
+                          except Exception:
+                              value_ok=False
+                          if process_ok and object_ok and value_ok:
+                              target_hits.append(r)
+                      if tp == 0 or page >= tp:
+                          break
+                      page += 1
+
+                  if total_records is not None and len(records) != total_records:
+                      raise RuntimeError("RECORD_COUNT_MISMATCH")
+                  status="EXHAUSTIVE_COMPLETE"
+                  exhaustive=True
+              except Exception as exc:
+                  failure=f"{type(exc).__name__}:{str(exc)}"
+                  status="SOURCE_TRANSPORT_OR_SCHEMA_UNAVAILABLE"
+
+              all_results.append({
+                  "target_id":target["target_id"],
+                  "date":target["date"],
+                  "status":status,
+                  "failure":failure,
+                  "exhaustive_within_date_scope":exhaustive,
+                  "totalRegistros":total_records,
+                  "totalPaginas":total_pages,
+                  "record_count":len(records),
+                  "records":records,
+                  "target_hits":target_hits,
+              })
+
+          result={
+              "schema":"TASK166_PNCP_TARGETED_JSON_RESULT_V1",
+              "execution_head_sha":os.environ["TASK166_HEAD_SHA"],
+              "authorization_scope":"PNCP_LIVE_READ_DISCOVERY_ONLY",
+              "requests":all_requests,
+              "targets":all_results,
+              "raw_payload_persisted":False,
+              "git_write":False,
+              "drive_write":False,
+          }
+          result["result_sha256"]=hashlib.sha256(
+              json.dumps(result,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode("utf-8")
+          ).hexdigest()
+          Path("runtime/task166_targeted_result.json").write_text(
+              json.dumps(result,ensure_ascii=False,indent=2,sort_keys=True)+"\n",encoding="utf-8"
+          )
+          for x in all_results:
+              print("TASK166_TARGET",x["target_id"],x["status"],"records",x["record_count"],"hits",len(x["target_hits"]))
+          PY
+
+      - name: Upload sanitized targeted result
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-166-pncp-modality9-targeted-json-result
+          path: runtime/task166_targeted_result.json
+          if-no-files-found: error
+          retention-days: 1
