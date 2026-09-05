@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "schema": "TASK145_CONSULTA_PROCESSOS_SURFACE_DESIGN_V1",
+  "mode": "T0_OFFLINE_MUNICIPAL_PROCESS_SURFACE_DESIGN_ONLY",
+  "base_sha": "b5abe1dbb248737809e38aca135dda176ac5b80c",
+  "issue": 500,
+  "authorization": {
+    "owner_authorization_units_granted": 10,
+    "authorization_unit_index": 10,
+    "click_invocations_max": 1,
+    "authorization_exhausted_after_execution": true,
+    "does_not_broaden_task133": true
+  },
+  "source_context": {
+    "known_primary_page": "https://limeira.sp.gov.br/imprensa/noticias/geral/programa-de-educacao-integral-esta-com-inscricoes-abertas-para-oficineiros",
+    "link_label": "Consulta de Processos",
+    "link_is_explicit_on_known_primary_page": true
+  },
+  "execution": {
+    "click_known_process_consultation_link_once": true,
+    "search_invocations": 0,
+    "form_submissions": 0,
+    "additional_opens": 0,
+    "additional_clicks": 0,
+    "retry": 0
+  },
+  "epistemic_semantics": {
+    "surface_role": "MUNICIPAL_PRIMARY_PROCESS_DISCOVERY_SURFACE",
+    "surface_existence_does_not_prove_eiti_identifier": true,
+    "returned_page_can_prove_identifier_only_if_explicitly_bound_to_eiti_object": true,
+    "negative_exhaustive_conclusion_allowed": false,
+    "automatic_financial_identity": false,
+    "automatic_transaction_identity": false,
+    "automatic_supplier_linkage": false
+  },
+  "followup_process_query_or_form_submission_authorized": false,
+  "remote_effects_in_task145_design": {
+    "network": false,
+    "drive": false,
+    "publication": false
+  }
+}
