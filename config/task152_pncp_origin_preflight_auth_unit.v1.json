@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "schema": "TASK152_PNCP_ORIGIN_PREFLIGHT_AUTH_UNIT_V1",
+  "mode": "T0_OFFLINE_ORIGIN_PREFLIGHT_GATE_ONLY",
+  "base_sha": "c89293b917b131a242529bbe1a16ef28c9018005",
+  "issue": 516,
+  "authorization": {
+    "owner_instruction": "10 tokens de autorização concedidos",
+    "owner_authorization_units_granted": 10,
+    "authorization_unit_index": 1,
+    "remaining_units_before_execution": 10,
+    "consume_on_single_web_open_invocation": true,
+    "remaining_units_after_execution": 9
+  },
+  "source": {
+    "origin_url": "https://pncp.gov.br/",
+    "origin_host": "pncp.gov.br",
+    "parameterized_api_url_authorized": false
+  },
+  "execution": {
+    "web_open_invocations_max": 1,
+    "search_queries": 0,
+    "clicks": 0,
+    "retry": 0,
+    "followup_opens": 0,
+    "direct_download_invocations": 0,
+    "raw_payload_persistence": false,
+    "execute_only_after_merge": true
+  },
+  "epistemic_semantics": {
+    "origin_preflight_only": true,
+    "transport_failure_is_source_response": false,
+    "candidate_discovery_allowed": false,
+    "negative_exhaustive_conclusion_allowed": false,
+    "pncp_no_match_allowed": false,
+    "automatic_financial_identity": false,
+    "automatic_transaction_identity": false,
+    "automatic_supplier_linkage": false
+  },
+  "remote_effects_in_design": {
+    "network": false,
+    "drive": false,
+    "publication": false
+  }
+}
