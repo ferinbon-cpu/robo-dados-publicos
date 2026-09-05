@@ -1,7 +1,7 @@
 {
   "schema": "TASK130_OWNER_AUTHORIZATION_PRE_RUN_V1",
   "task": "TASK_130_PNCP_LIMEIRA_CONTRACTS_PAGES_3_5_SCAN",
-  "status": "AUTHORIZED_PROSPECTIVE_UNCONSUMED",
+  "status": "CONSUMED_EXHAUSTIVE_SUCCESS_NO_RETRY",
   "owner_instruction": "Prossiga",
   "issued_before_execution": true,
   "scope": "THREE_EXACT_PNCP_GETS_PAGES_3_TO_5_ONLY",
@@ -23,5 +23,29 @@
   "raw_payload_persistence": false,
   "automatic_financial_identity": false,
   "automatic_transaction_identity": false,
-  "future_execution_authorized": false
+  "future_execution_authorized": false,
+  "consumed_by": {
+    "run_id": 33941461213,
+    "job_id": 101239600369,
+    "execution_head_sha": "1c458f6c57bf4e2d7e6d8eb6a48d56224a2aa8bf",
+    "conclusion": "success",
+    "get_attempts": 3,
+    "pages_scanned": [
+      3,
+      4,
+      5
+    ],
+    "rows_scanned": [
+      500,
+      500,
+      23
+    ],
+    "total_registros": 2023,
+    "total_paginas": 5,
+    "candidate_count": 0,
+    "redirects_followed": 0,
+    "retry_performed": false,
+    "raw_payload_persisted": false,
+    "workflow_single_use_consumed": true
+  }
 }
