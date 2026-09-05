@@ -2,26 +2,97 @@
   "task": "TASK_130_PNCP_LIMEIRA_CONTRACTS_PAGES_3_5_SCAN",
   "mode": "T1_SINGLE_USE_OFFICIAL_REGISTRY_PAGES_3_5_SCAN",
   "issue": 461,
-  "base_sha": "0a06019de6eb3af2e62d37b8d61c03c42d167e99",
-  "prior_coverage": {
+  "phase": "CLOSED_EXHAUSTIVE_SUCCESS",
+  "preflight_ci": "PASS_5_OF_5",
+  "live_execution": {
+    "run_id": 33941461213,
+    "job_id": 101239600369,
+    "execution_head_sha": "1c458f6c57bf4e2d7e6d8eb6a48d56224a2aa8bf",
+    "workflow_git_blob_sha": "3d372b16acdb01ba684b61b6357dc5216dc6ec51",
+    "request_attempts": 3,
+    "max_request_attempts": 3,
+    "timeout_seconds": 60,
+    "redirects_followed": 0,
+    "retry_performed": false,
     "pages": [
-      1,
-      2
+      {
+        "page": 3,
+        "http_status": 200,
+        "bytes_received": 767354,
+        "source_sha256": "75439d500893aecded604276e1de113d0a06d99af0971f64931d7e0e2a1f086c",
+        "rows": 500,
+        "candidate_count": 0
+      },
+      {
+        "page": 4,
+        "http_status": 200,
+        "bytes_received": 778862,
+        "source_sha256": "8cfb62893f38ebd74528e65b18604e30c1346b557d06589036960ad037933072",
+        "rows": 500,
+        "candidate_count": 0
+      },
+      {
+        "page": 5,
+        "http_status": 200,
+        "bytes_received": 36130,
+        "source_sha256": "0645526008b2657a0c77dd5ba001943b707955e1b4142b0640c3c90ba0b55f8a",
+        "rows": 23,
+        "candidate_count": 0
+      }
     ],
-    "rows": 1000,
-    "candidates": 0
+    "result_sha256": "9a12b1ab4ac88b10a29e2da307b3ddc90f56d4dc8d558559a8b0df07b18eea06"
   },
-  "remaining_pages": [
-    3,
-    4,
-    5
-  ],
-  "remaining_rows_expected": 1023,
-  "get_requests_max": 3,
-  "timeout_seconds": 60,
-  "retry": 0,
-  "raw_payload_persisted": false,
-  "automatic_financial_identity": false,
-  "automatic_transaction_identity": false,
-  "result": "PENDING_PREFLIGHT_CI"
+  "combined_coverage": {
+    "task128_page1_rows": 500,
+    "task129_page2_rows": 500,
+    "task130_pages3_5_rows": 1023,
+    "rows_scanned_total": 2023,
+    "total_registros": 2023,
+    "total_paginas": 5,
+    "pages_scanned": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "exhaustive_within_query_scope": true,
+    "strong_policy_candidate_count": 0
+  },
+  "bounded_conclusion": {
+    "status": "NO_MATCH_WITHIN_PNCP_CNPJ_DATE_SCOPE_ONLY",
+    "cnpj_orgao": "45132495000140",
+    "data_inicial": "20251128",
+    "data_final": "20260904",
+    "strong_policy_markers": [
+      "PROGRAMA DE EDUCACAO INTEGRAL",
+      "PROGRAMA ESCOLA EM TEMPO INTEGRAL",
+      "ESCOLA EM TEMPO INTEGRAL",
+      "EDUCACAO EM TEMPO INTEGRAL",
+      "EDUCACAO INTEGRAL",
+      "FOMENTO ETI"
+    ],
+    "weak_terms_do_not_qualify_alone": true,
+    "proves_no_eiti_contract_exists": false,
+    "proves_no_eiti_execution": false,
+    "search_outside_fields_or_scope_not_covered": true
+  },
+  "promotion": {
+    "financial_identity": false,
+    "transaction_identity": false
+  },
+  "artifact": {
+    "id": 9961975677,
+    "name": "task-130-pncp-pages3-5-result",
+    "zip_sha256": "19783f5b82f17d81fc29be2018d0ffff2168f54ab1370756cb74d2c770d2f536",
+    "size_in_bytes": 1291,
+    "retention_days": 1
+  },
+  "next_action": {
+    "status": "RECOVER_PRIMARY_MUNICIPAL_PROCUREMENT_IDENTIFIER",
+    "objective": "FIND_PROCESS_EDITAL_CREDENCIAMENTO_OR_OTHER_STABLE_ADMINISTRATIVE_IDENTIFIER_FOR_EITI_OFICINEIROS_BEFORE_ANY_FURTHER_EXECUTION_JOIN",
+    "do_not_repeat_pncp_strong_marker_scan": true,
+    "do_not_widen_to_weak_term_contract_attribution_without_primary_identifier": true
+  },
+  "result": "PASS_TASK130_EXHAUSTIVE_PNCP_SCOPE_NO_STRONG_POLICY_CANDIDATES"
 }
