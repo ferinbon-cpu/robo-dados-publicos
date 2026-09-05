@@ -1,0 +1,27 @@
+{
+  "version":1,
+  "schema":"TASK157_PNCP_EXACT_ROUTE_SEARCH_AUTH_UNIT_V1",
+  "mode":"T0_OFFLINE_EXACT_PHRASE_SEARCH_GATE_ONLY",
+  "base_sha":"ce1368d0ec5287e8fde2f59cc16b8ff6f25d795f",
+  "issue":526,
+  "authorization":{
+    "owner_instruction":"10 tokens de autorização concedidos",
+    "owner_authorization_units_granted":10,
+    "authorization_unit_index":6,
+    "remaining_units_before_execution":5,
+    "consume_on_single_search_invocation":true,
+    "remaining_units_after_execution":4
+  },
+  "search":{
+    "query":"contratacoes/publicacao",
+    "exact_phrase_target":true,
+    "domain_restriction":["pncp.gov.br"],
+    "search_invocations_max":1,
+    "query_count_max":1,
+    "result_open_invocations":0,
+    "clicks":0,
+    "retry":0,
+    "direct_download_invocations":0
+  },
+  "epistemic_semantics":{"discovery_only":true,"negative_exhaustive_conclusion_allowed":false,"pncp_no_match_allowed":false}
+}

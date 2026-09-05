@@ -1,0 +1,11 @@
+{
+  "task":"TASK_156_PNCP_API_ROUTE_SEARCH_AUTH_UNIT_5",
+  "authorization_unit_index":5,
+  "task156_merge_sha":"ce1368d0ec5287e8fde2f59cc16b8ff6f25d795f",
+  "result":"PASS_OFFICIAL_PNCP_SEARCH_RESULTS_EXACT_TARGET_ROUTE_NOT_SURFACED_IN_BOUNDED_RESULTS",
+  "execution":{"search_invocations":1,"query_count":1,"domain_restriction":["pncp.gov.br"],"result_opens":0,"retry":false},
+  "observed_official_result_families":["integration_manual_contracts","integration_manual_singlehtml","budget_source_endpoint"],
+  "pncp_no_match_created":false,
+  "negative_exhaustive_conclusion_created":false,
+  "authorization_state":{"unit_5_consumed":true,"remaining_units":5}
+}
