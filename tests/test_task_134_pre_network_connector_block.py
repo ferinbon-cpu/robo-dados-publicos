@@ -20,6 +20,7 @@ class TestTask134PreNetworkBlock(unittest.TestCase):
             {
                 "AUTHORIZED_UNCONSUMED_PRE_NETWORK_CONNECTOR_WORKFLOW_WRITE_BLOCK",
                 "ALT_TRANSPORT_ATTEMPT_CONSUMED_PRE_HTTP_SOURCE_READ_SCOPE_UNCONSUMED",
+                "AUTHORIZED_UNCONSUMED_NO_PROVEN_SOURCE_ATTEMPT",
             },
         )
         self.assertFalse(self.a["authorization_consumed"])
