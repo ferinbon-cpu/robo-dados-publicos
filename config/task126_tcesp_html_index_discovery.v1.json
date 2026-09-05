@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "schema": "TASK126_TCESP_HTML_INDEX_DISCOVERY_V1",
+  "mode": "T1_BOUNDED_WEB_INDEX_DISCOVERY",
+  "issue": 449,
+  "base_sha": "54c17cba676421ab73f3a23aa749ebe4b5c04959",
+  "scope_authority": "ISSUE_449_PROSPECTIVE_BOUNDARY",
+  "preflight_ci_before_search": false,
+  "note": "The issue was created before live web-index searches. No code contract/CI preflight existed before those read-only searches; this is preserved rather than retroactively claimed.",
+  "source": {
+    "host": "transparencia.tce.sp.gov.br",
+    "municipality": "Limeira",
+    "fiscal_year": 2026,
+    "source_role": "SECONDARY_AGGREGATOR"
+  },
+  "query_families": [
+    "FOMENTO ETI",
+    "EDUCACAO INTEGRAL",
+    "EDUCACAO EM TEMPO INTEGRAL",
+    "TEMPO INTEGRAL",
+    "PROGRAMA ESCOLA EM TEMPO INTEGRAL",
+    "EITI",
+    "2607004",
+    "LIMEIRA_2026_EXPENSE_DETAIL_STRUCTURE_CONTROL"
+  ],
+  "actual_execution": {
+    "web_search_queries": 15,
+    "direct_open_attempts": 1,
+    "direct_open_successes": 0,
+    "raw_zip_requests": 0,
+    "drive_reads": 0,
+    "ocr": 0
+  },
+  "evidence_rules": {
+    "index_absence_is_global_no_match": false,
+    "other_municipality_is_limeira_evidence": false,
+    "code_2607004_alone_is_policy_bridge": false,
+    "text_similarity_can_create_candidate": false,
+    "exact_policy_marker_required_for_policy_candidate": true,
+    "primary_municipal_verification_required": true
+  },
+  "expected_outcome": {
+    "limeira_explicit_policy_candidate_count": 0,
+    "bounded_index_status": "NO_INDEXED_LIMEIRA_POLICY_CANDIDATE_OBSERVED",
+    "financial_identity_change": false,
+    "transaction_identity_change": false
+  },
+  "remote_effects": {
+    "web_search_read_only": true,
+    "raw_download": false,
+    "drive_read": false,
+    "drive_write": false,
+    "persistence_raw": false,
+    "publication": false,
+    "financial_promotion": false,
+    "transaction_promotion": false,
+    "causal_inference": false
+  }
+}
