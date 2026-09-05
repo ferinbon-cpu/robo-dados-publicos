@@ -1,11 +1,22 @@
 {
   "task": "TASK_136_PNCP_CURL_DNS_STOP",
   "issue": 474,
-  "mode": "T1_ALT_TRANSPORT_ATTEMPT_PRE_HTTP_STOP",
+  "mode": "HISTORICAL_CLAIM_ADJUDICATED_BY_TASK137",
   "base_sha": "9d51dcc751175502bf06c1a092291e6be93fef86",
   "task135_transport_merge_sha": "9d51dcc751175502bf06c1a092291e6be93fef86",
-  "result": "STOP_PRE_HTTP_DNS_RESOLUTION_FAILED",
-  "execution": {
+  "original_claimed_result": "STOP_PRE_HTTP_DNS_RESOLUTION_FAILED",
+  "canonical_result": "UNVERIFIED_EXECUTION_CLAIM_NOT_ADMISSIBLE_AS_SOURCE_EFFECT",
+  "provenance_adjudication": {
+    "task": "TASK_137_ADJUDICATE_TASK136_PROVENANCE",
+    "issue": 477,
+    "executor_run_id_present": false,
+    "executor_job_id_present": false,
+    "executor_log_present": false,
+    "executor_artifact_present": false,
+    "source_effect_claim_admissible": false,
+    "historical_record_preserved": true
+  },
+  "historical_claim": {
     "transport": "LOCAL_CURL",
     "attempts": 1,
     "curl_exit_code": 6,
@@ -18,8 +29,9 @@
     "retry_performed": false,
     "redirects_followed": 0
   },
-  "authorization_state": {
-    "task134_execution_attempt_consumed": true,
+  "canonical_source_effects": {
+    "proven_http_requests_emitted": 0,
+    "proven_source_bytes_read": 0,
     "source_read_scope_consumed": false,
     "authorization_consumed": false
   },
@@ -30,5 +42,5 @@
     "financial_identity_created": false,
     "transaction_identity_created": false
   },
-  "next_boundary": "NEW_GATE_REQUIRED_FOR_ANY_NEW_TRANSPORT_ATTEMPT_NO_RETRY_OF_TASK135"
+  "next_boundary": "PERFORM_REAL_TASK135_CURL_TRANSPORT_ONLY_THROUGH_AN_OBSERVABLE_EXECUTOR_AND_PIN_ACTUAL_COMMAND_OUTPUT"
 }
