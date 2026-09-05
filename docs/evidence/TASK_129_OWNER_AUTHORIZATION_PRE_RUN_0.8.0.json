@@ -1,0 +1,20 @@
+{
+  "schema": "TASK129_OWNER_AUTHORIZATION_PRE_RUN_V1",
+  "task": "TASK_129_PNCP_LIMEIRA_PAGES2_5_SCAN",
+  "status": "AUTHORIZED_PROSPECTIVE_UNCONSUMED",
+  "owner_instruction": "Prossiga",
+  "pages": [
+    2,
+    3,
+    4,
+    5
+  ],
+  "get_requests_max": 4,
+  "stop_on_first_failure": true,
+  "retry": 0,
+  "redirects_max": 0,
+  "no_page1_reread": true,
+  "raw_payload_persistence": false,
+  "future_retry_authorized": false,
+  "future_additional_paging_authorized": false
+}
