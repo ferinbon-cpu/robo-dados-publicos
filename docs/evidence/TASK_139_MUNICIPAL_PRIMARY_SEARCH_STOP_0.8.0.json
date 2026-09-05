@@ -1,0 +1,16 @@
+{
+  "task": "TASK_139_MUNICIPAL_PRIMARY_PROCUREMENT_SEARCH_ATTEMPT",
+  "mode": "T1_BOUNDED_MUNICIPAL_PRIMARY_WEB_SEARCH",
+  "task139_merge_sha": "0a9cabaeabca00dd6f6a5596e50a87757bafb633",
+  "result": "STOP_MUNICIPAL_SEARCH_ZERO_RESULTS_NO_OPEN",
+  "search_invocations": 1,
+  "open_invocations": 0,
+  "official_domains": ["limeira.sp.gov.br", "serv42.limeira.sp.gov.br"],
+  "search_results": 0,
+  "municipal_content_observed": false,
+  "administrative_identifier_found": false,
+  "negative_exhaustive_conclusion_created": false,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "retry_performed": false
+}
