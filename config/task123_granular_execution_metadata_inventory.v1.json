@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "schema": "TASK123_GRANULAR_EXECUTION_METADATA_INVENTORY_V1",
+  "mode": "T1_BOUNDED_DRIVE_METADATA_ONLY_FILENAME_INVENTORY",
+  "base_sha": "b64d2e46d26f8ec4098fbd4661de6277ab4d9a64",
+  "issue": 443,
+  "owner_instruction": "Prossiga",
+  "source_surface": "GOOGLE_DRIVE_METADATA_ONLY",
+  "search_contract": {
+    "item_type": "document",
+    "best_effort_fetch": false,
+    "filename_only_filters": true,
+    "max_probes": 8,
+    "topn_per_probe": 20,
+    "allowed_probe_terms": [
+      "fomento",
+      "2607004",
+      "empenho",
+      "liquidacao",
+      "pagamento",
+      "balancete",
+      "ficha",
+      "despesa"
+    ],
+    "page_token_allowed": false,
+    "content_hydration_allowed": false
+  },
+  "known_exclusions": [
+    {
+      "title": "05 - Maio_despesa.pdf",
+      "reason": "TASK055_AGGREGATE_ECONOMIC_ELEMENT_REPORT"
+    },
+    {
+      "title": "Demonstrativo SIOPE-MAVS - 1º BIMESTRE 2026.pdf",
+      "reason": "TASK056_TASK121_REPORTING_BUCKET_NO_STABLE_TRANSACTION_KEY"
+    },
+    {
+      "title_pattern": "FUNDEB_LIMEIRA_2026_",
+      "reason": "MONTHLY_CASH_RECEIPT_SERIES_NOT_EITI_EXECUTION_IDENTITY"
+    }
+  ],
+  "classification_priority": [
+    "EXPLICIT_POLICY_AND_EXECUTION_FILENAME",
+    "GRANULAR_EXECUTION_FILENAME",
+    "ACCOUNTING_KEY_FILENAME",
+    "AGGREGATE_OR_ALREADY_KNOWN_INSUFFICIENT",
+    "UNKNOWN_METADATA_ONLY"
+  ],
+  "allowed_observed_fields": [
+    "id",
+    "title",
+    "mime_type",
+    "modified_time",
+    "url"
+  ],
+  "content_claims_allowed": false,
+  "remote_effects": {
+    "drive_metadata_search": true,
+    "drive_content_read": false,
+    "drive_raw_download": false,
+    "drive_write": false,
+    "ocr": false,
+    "source_network_other_than_drive_metadata": false,
+    "persistence": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  },
+  "future_content_read_authorized": false
+}
