@@ -1,0 +1,34 @@
+{
+  "version":1,
+  "schema":"TASK156_PNCP_API_ROUTE_SEARCH_AUTH_UNIT_V1",
+  "mode":"T0_OFFLINE_OFFICIAL_DOMAIN_SEARCH_GATE_ONLY",
+  "base_sha":"cabe8ae129f815041def33787e1d2a696f42c385",
+  "issue":524,
+  "prior_task":{"task":155,"result":"PASS_OFFICIAL_PNCP_DADOS_ABERTOS_PAGE_REACHED"},
+  "authorization":{
+    "owner_instruction":"10 tokens de autorização concedidos",
+    "owner_authorization_units_granted":10,
+    "authorization_unit_index":5,
+    "remaining_units_before_execution":6,
+    "consume_on_single_search_invocation":true,
+    "remaining_units_after_execution":5
+  },
+  "search":{
+    "query":"PNCP api consulta v1 contratacoes publicacao",
+    "domain_restriction":["pncp.gov.br"],
+    "search_invocations_max":1,
+    "query_count_max":1,
+    "result_open_invocations":0,
+    "clicks":0,
+    "retry":0,
+    "direct_download_invocations":0
+  },
+  "epistemic_semantics":{
+    "discovery_only":true,
+    "negative_exhaustive_conclusion_allowed":false,
+    "pncp_no_match_allowed":false,
+    "automatic_financial_identity":false,
+    "automatic_transaction_identity":false,
+    "automatic_supplier_linkage":false
+  }
+}
