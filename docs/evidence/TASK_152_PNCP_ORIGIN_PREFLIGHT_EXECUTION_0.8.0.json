@@ -1,0 +1,33 @@
+{
+  "task": "TASK_152_PNCP_ORIGIN_PREFLIGHT_AUTH_UNIT_1",
+  "authorization_unit_index": 1,
+  "task152_merge_sha": "a94d705db60766e5cebb03b93d93ee9ba3a0172d",
+  "requested_origin_url": "https://pncp.gov.br/",
+  "result": "PASS_OFFICIAL_PNCP_ORIGIN_REACHED_WITH_OFFICIAL_GOVBR_REDIRECT",
+  "execution": {
+    "web_open_invocations": 1,
+    "retry_performed": false,
+    "search_queries": 0,
+    "clicks": 0,
+    "followup_opens": 0,
+    "parameterized_api_opens": 0,
+    "direct_download_invocations": 0,
+    "source_reach_established": true,
+    "redirect_observed": true,
+    "redirect_target": "https://www.gov.br/pncp/pt-br",
+    "official_pncp_surface_observed": true,
+    "raw_payload_persisted": false
+  },
+  "authorization_state": {
+    "unit_1_consumed": true,
+    "remaining_units": 9
+  },
+  "epistemic_state": {
+    "candidate_created": false,
+    "pncp_no_match_created": false,
+    "negative_exhaustive_conclusion_created": false,
+    "financial_identity_created": false,
+    "transaction_identity_created": false,
+    "supplier_linkage_created": false
+  }
+}
