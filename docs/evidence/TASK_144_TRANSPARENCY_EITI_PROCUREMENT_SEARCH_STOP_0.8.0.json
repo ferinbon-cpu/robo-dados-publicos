@@ -1,0 +1,16 @@
+{
+  "task": "TASK_144_TRANSPARENCY_EITI_PROCUREMENT_SEARCH_ATTEMPT",
+  "mode": "T1_BOUNDED_TRANSPARENCY_WEB_SEARCH",
+  "task144_merge_sha": "b5abe1dbb248737809e38aca135dda176ac5b80c",
+  "result": "STOP_TRANSPARENCY_SEARCH_ZERO_RESULTS_NO_OPEN",
+  "authorization_unit_index": 9,
+  "search_invocations": 1,
+  "open_invocations": 0,
+  "official_domain": "transparencia.limeira.sp.gov.br",
+  "search_results": 0,
+  "administrative_identifier_found": false,
+  "negative_exhaustive_conclusion_created": false,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "retry_performed": false
+}
