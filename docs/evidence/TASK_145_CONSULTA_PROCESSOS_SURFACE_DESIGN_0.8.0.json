@@ -1,0 +1,19 @@
+{
+  "task": "TASK_145_CONSULTA_PROCESSOS_SURFACE_DESIGN",
+  "issue": 500,
+  "mode": "T0_OFFLINE_MUNICIPAL_PROCESS_SURFACE_DESIGN_ONLY",
+  "base_sha": "b5abe1dbb248737809e38aca135dda176ac5b80c",
+  "authorization_unit_index": 10,
+  "owner_authorization_units_granted": 10,
+  "future_click_invocations_max": 1,
+  "future_search_invocations": 0,
+  "future_form_submissions": 0,
+  "authorization_exhausted_after_execution": true,
+  "source_link_label": "Consulta de Processos",
+  "surface_existence_does_not_prove_eiti_identifier": true,
+  "negative_exhaustive_conclusion_allowed": false,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "remote_effects": 0,
+  "result": "PASS_TASK145_CONSULTA_PROCESSOS_SURFACE_DESIGNED_NOT_EXECUTED"
+}
