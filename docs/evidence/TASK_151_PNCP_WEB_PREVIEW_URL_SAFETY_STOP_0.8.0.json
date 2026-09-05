@@ -1,0 +1,39 @@
+{
+  "task": "TASK_151_PNCP_WEB_PREVIEW_URL_SAFETY_STOP",
+  "issue": 514,
+  "mode": "T1_SINGLE_AUTHORIZED_WEB_OPEN",
+  "base_sha": "004c3b3047f500bc148426aebb852b6fb381fc15",
+  "task150_merge_sha": "004c3b3047f500bc148426aebb852b6fb381fc15",
+  "requested_exact_url": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao?dataInicial=20251128&dataFinal=20260904&codigoModalidadeContratacao=12&cnpj=45132495000140&pagina=1&tamanhoPagina=50",
+  "tool_reported_normalized_url": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao?cnpj=45132495000140&codigoModalidadeContratacao=12&dataFinal=20260904&dataInicial=20251128&pagina=1&tamanhoPagina=50",
+  "result": "STOP_WEB_URL_SAFETY_PRECONDITION_PRE_SOURCE",
+  "execution": {
+    "web_open_invocations": 1,
+    "retry_performed": false,
+    "search_queries": 0,
+    "clicks": 0,
+    "followup_opens": 0,
+    "direct_download_invocations": 0,
+    "tool_failure_class": "URL_SAFETY_PRECONDITION_NON_RETRYABLE",
+    "tool_failure_summary": "URL rejected as unsafe after tool-side query-parameter normalization; exact prior URL requirement not satisfied",
+    "pncp_source_reach_established": false,
+    "pncp_http_status_established": false,
+    "source_data_observed": false,
+    "raw_payload_persisted": false
+  },
+  "authorization_state": {
+    "task150_single_web_open_authorization_consumed": true,
+    "second_open_authorized": false,
+    "retry_authorized": false,
+    "direct_download_authorized": false
+  },
+  "epistemic_state": {
+    "administrative_identifier_candidate_found": false,
+    "pncp_no_match_conclusion_created": false,
+    "negative_exhaustive_conclusion_created": false,
+    "financial_identity_created": false,
+    "transaction_identity_created": false,
+    "supplier_linkage_created": false
+  },
+  "next_boundary": "NEW_EXPLICIT_OWNER_AUTHORIZATION_AND_NEW_GATE_REQUIRED_BEFORE_ANY_FURTHER_LIVE_SOURCE_OPERATION"
+}
