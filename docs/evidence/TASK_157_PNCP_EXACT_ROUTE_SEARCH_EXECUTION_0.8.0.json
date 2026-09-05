@@ -1,0 +1,11 @@
+{
+  "task":"TASK_157_PNCP_EXACT_ROUTE_SEARCH_AUTH_UNIT_6",
+  "authorization_unit_index":6,
+  "task157_merge_sha":"a9c51aa7068e86a5b46c2974e860e6490d02cf3b",
+  "result":"PASS_OFFICIAL_PNCP_APP_INDEX_SURFACES_FOUND_EXACT_API_ROUTE_NOT_SURFACED",
+  "execution":{"search_invocations":1,"query_count":1,"result_opens":0,"retry":false},
+  "observed_surfaces":["https://pncp.gov.br/app/buscar/editais","https://pncp.gov.br/app/buscar/contratos"],
+  "pncp_no_match_created":false,
+  "negative_exhaustive_conclusion_created":false,
+  "authorization_state":{"unit_6_consumed":true,"remaining_units":4}
+}
