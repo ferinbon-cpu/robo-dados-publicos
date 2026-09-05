@@ -1,0 +1,15 @@
+{
+  "schema": "TASK128_OWNER_AUTHORIZATION_PRE_RUN_V1",
+  "task": "TASK_128_PNCP_LIMEIRA_CONTRACTS_PAGE1_SCAN",
+  "status": "AUTHORIZED_PROSPECTIVE_UNCONSUMED",
+  "owner_instruction": "Prossiga",
+  "exact_url": "https://pncp.gov.br/api/consulta/v1/contratos?dataInicial=20251128&dataFinal=20260904&cnpjOrgao=45132495000140&pagina=1&tamanhoPagina=500",
+  "get_requests_max": 1,
+  "page": 1,
+  "tamanho_pagina": 500,
+  "retry": 0,
+  "redirects_max": 0,
+  "raw_response_persistence": false,
+  "future_paging_authorized": false,
+  "future_retry_authorized": false
+}
