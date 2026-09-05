@@ -1,0 +1,46 @@
+{
+  "task": "TASK_134_PNCP_PROCUREMENT_PUBLICATION_LIVE_ONCE",
+  "issue": 470,
+  "version": "0.8.0",
+  "mode": "AUTHORIZED_SINGLE_USE_PRE_NETWORK",
+  "result": "STOP_PRE_NETWORK_CONNECTOR_WORKFLOW_WRITE_BLOCK",
+  "authorized_main_sha": "abd1f3751300f7a20a2fa8af4202a72ca4b34163",
+  "owner_instruction": "10 tokens de autorização concedidos",
+  "effective_authorized_live_runs": 1,
+  "effective_authorized_get_requests": 1,
+  "attempt": {
+    "workflow_path": ".github/workflows/task-134-pncp-procurement-live-once.yml",
+    "workflow_write_attempted": true,
+    "workflow_created": false,
+    "workflow_run_created": false,
+    "block_layer": "CHATGPT_GITHUB_CONNECTOR_SECURITY",
+    "block_code": "OPENAI_CONNECTOR_SECURITY_BLOCK_WORKFLOW_CREATE_FILE",
+    "failure_before_network": true
+  },
+  "source_effects": {
+    "pncp_http_requests_emitted": 0,
+    "source_bytes_read": 0,
+    "raw_payload_persisted": false,
+    "sanitized_live_result_created": false,
+    "source_read_scope_consumed": false
+  },
+  "authorization_state": {
+    "authorization_consumed": false,
+    "one_shot_live_run_consumed": false,
+    "one_get_budget_consumed": false,
+    "surplus_owner_tokens_used": 0
+  },
+  "epistemic_state": {
+    "administrative_identifier_found": false,
+    "no_match_conclusion_created": false,
+    "financial_identity_created": false,
+    "transaction_identity_created": false
+  },
+  "forbidden_workarounds": [
+    "REUSE_SIOPE_SPECIFIC_LIVE_WORKFLOW_FOR_PNCP",
+    "INJECT_NETWORK_SIDE_EFFECT_INTO_OFFLINE_CI",
+    "BYPASS_WORKFLOW_WRITE_BLOCK_WITH_UNGATED_TRANSPORT",
+    "TREAT_BLOCK_AS_NO_MATCH"
+  ],
+  "next_boundary": "REQUIRE_AN_APPROVED_CAPABILITY_TO_CREATE_THE_EXACT_SINGLE_USE_WORKFLOW_OR_AN_EXPLICITLY_REDESIGNED_AND_MERGED_ALTERNATIVE_TRANSPORT_GATE_BEFORE_ANY_PNCP_GET"
+}
