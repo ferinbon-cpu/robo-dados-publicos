@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "schema": "TASK166_PNCP_MODALITY9_DIRECT_JSON_SWEEP_V1",
+  "task": "TASK_166_PNCP_MODALITY9_DIRECT_JSON_SWEEP",
+  "issue": 544,
+  "base_sha": "1bcf40ba900ba069ec7c2b1197db425b3d4c861f",
+  "authorization": {
+    "source_record": "config/task161_pncp_manual_publication_sweep_evidence_guards.v1.json",
+    "scope": "PNCP_LIVE_READ_DISCOVERY_ONLY",
+    "metering": "UNMETERED_WITHIN_PNCP_SCOPE_UNTIL_REVOKED_OR_SUPERSEDED",
+    "new_per_page_authorization_required": false
+  },
+  "source": {
+    "endpoint": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao",
+    "dataInicial": "20251128",
+    "dataFinal": "20260904",
+    "codigoModalidadeContratacao": 9,
+    "cnpj": "45132495000140",
+    "paginaInicial": 1,
+    "tamanhoPagina": 50,
+    "maxPaginas": 20,
+    "maxBytesPorPagina": 10000000,
+    "timeoutSeconds": 25,
+    "expectedMunicipio": "Limeira",
+    "expectedUf": "SP"
+  },
+  "targets": [
+    {
+      "id": "SCHOOL_PASS",
+      "processo": null,
+      "object_contains": "PASSE ESCOLAR",
+      "estimated_value_brl": 3816720.0
+    },
+    {
+      "id": "I00084",
+      "processo": "I00084",
+      "object_contains": "CURSO DE CAPACITACAO",
+      "estimated_value_brl": 12400.0
+    }
+  ],
+  "explicit_eiti_terms": [
+    "educacao integral",
+    "tempo integral",
+    "jornada ampliada",
+    "contraturno"
+  ],
+  "education_terms": [
+    "educacao",
+    "escola",
+    "escolar",
+    "aluno",
+    "estudante",
+    "professor",
+    "educador",
+    "creche",
+    "pedagog",
+    "livro",
+    "curso",
+    "oficina",
+    "monitor"
+  ],
+  "persistence": {
+    "raw_payload_git": false,
+    "raw_payload_drive": false,
+    "raw_payload_workflow_artifact": false,
+    "normalized_result_workflow_artifact": true,
+    "artifact_retention_days": 1
+  },
+  "guards": {
+    "transport_failure_is_no_match": false,
+    "partial_pagination_is_exhaustive": false,
+    "entity_identity_required": true,
+    "modality_identity_required": true,
+    "raw_anomalies_preserved": true,
+    "silent_repair_forbidden": true
+  }
+}
