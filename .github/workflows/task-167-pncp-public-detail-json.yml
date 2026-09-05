@@ -1,0 +1,130 @@
+name: TASK 167 PNCP public consulta detail JSON
+run-name: "TASK 167 PNCP public detail JSON by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-167-pncp-stable-id-direct-json-traversal
+    paths:
+      - 'runtime_triggers/task167_pncp_public_detail.run'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-167-pncp-public-detail-json
+  cancel-in-progress: false
+
+jobs:
+  task167-public-detail:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Fetch public consulta specific purchase JSON
+        shell: bash
+        env:
+          TASK167_HEAD_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p runtime
+          python - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          import urllib.error, urllib.request
+
+          CNPJ="45132495000140"
+          BASE="https://pncp.gov.br/api/consulta/v1/orgaos"
+          TARGETS=[
+              {"id":"SCHOOL_PASS","ano":2026,"seq":368,"control":"45132495000140-1-000368/2026","processo":"I00055"},
+              {"id":"I00084","ano":2026,"seq":593,"control":"45132495000140-1-000593/2026","processo":"I00084"},
+          ]
+
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, req, fp, code, msg, headers, newurl):
+                  return None
+          opener=urllib.request.build_opener(NoRedirect)
+
+          def selected(obj):
+              if not isinstance(obj,dict):
+                  return obj
+              allowed={
+                  "numeroControlePNCP","numeroCompra","anoCompra","processo","sequencialCompra",
+                  "objetoCompra","informacaoComplementar","valorTotalEstimado","valorTotalHomologado",
+                  "dataAberturaProposta","dataEncerramentoProposta","dataPublicacaoPncp","dataInclusao",
+                  "dataAtualizacao","dataAtualizacaoGlobal","modalidadeId","modalidadeNome",
+                  "situacaoCompraId","situacaoCompraNome","modoDisputaId","modoDisputaNome",
+                  "tipoInstrumentoConvocatorioId","tipoInstrumentoConvocatorioNome",
+                  "amparoLegal","orgaoEntidade","unidadeOrgao","linkSistemaOrigem","linkProcessoEletronico",
+                  "fontesOrcamentarias"
+              }
+              return {k:v for k,v in obj.items() if k in allowed}
+
+          results=[]
+          for t in TARGETS:
+              url=f"{BASE}/{CNPJ}/compras/{t['ano']}/{t['seq']}"
+              raw=b""; hs=None; ct=None; terr=None; payload=None
+              req=urllib.request.Request(url,method="GET",headers={
+                  "Accept":"application/json",
+                  "User-Agent":"robo-dados-publicos-task167-public-detail/0.8.0"
+              })
+              try:
+                  with opener.open(req,timeout=45) as response:
+                      hs=int(response.status); ct=response.headers.get("Content-Type")
+                      raw=response.read(10000000+1)
+              except urllib.error.HTTPError as exc:
+                  hs=int(exc.code); terr=f"HTTP_ERROR_{exc.code}"
+              except urllib.error.URLError as exc:
+                  terr=f"URL_ERROR:{type(exc.reason).__name__}"
+              except Exception as exc:
+                  terr=f"TRANSPORT_ERROR:{type(exc).__name__}:{str(exc)[:160]}"
+
+              rec={
+                  "target":t,"url":url,"http_status":hs,"content_type":ct,
+                  "bytes_received":len(raw),"source_sha256":hashlib.sha256(raw).hexdigest() if raw else None,
+                  "transport_error":terr,"status":"SOURCE_TRANSPORT_UNAVAILABLE","detail":None
+              }
+              if hs==200 and raw:
+                  try:
+                      payload=json.loads(raw.decode("utf-8"))
+                      rec["status"]="JSON_OK"
+                      rec["detail"]=selected(payload)
+                      if isinstance(payload,dict):
+                          rec["top_level_keys"]=sorted(payload.keys())
+                  except Exception as exc:
+                      rec["status"]="SOURCE_SCHEMA_MISMATCH"
+                      rec["parse_error"]=type(exc).__name__
+              elif hs is not None:
+                  rec["status"]=f"HTTP_{hs}_NO_DATA_CONCLUSION"
+              results.append(rec)
+
+          out={
+              "schema":"TASK167_PNCP_PUBLIC_DETAIL_JSON_RESULT_V1",
+              "execution_head_sha":os.environ["TASK167_HEAD_SHA"],
+              "authorization_scope":"PNCP_LIVE_READ_DISCOVERY_ONLY",
+              "results":results,
+              "raw_payload_persisted":False,
+              "git_write":False,
+              "drive_write":False
+          }
+          out["result_sha256"]=hashlib.sha256(
+              json.dumps(out,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode()
+          ).hexdigest()
+          Path("runtime/task167_public_detail.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2,sort_keys=True)+"\n",encoding="utf-8")
+          for r in results:
+              print(r["target"]["id"],r["status"],r["http_status"],r["bytes_received"])
+          PY
+
+      - name: Upload sanitized public-detail result
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-167-pncp-public-detail-json-result
+          path: runtime/task167_public_detail.json
+          if-no-files-found: error
+          retention-days: 1
