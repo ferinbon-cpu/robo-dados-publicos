@@ -1,0 +1,27 @@
+{
+  "schema": "TASK130_OWNER_AUTHORIZATION_PRE_RUN_V1",
+  "task": "TASK_130_PNCP_LIMEIRA_CONTRACTS_PAGES_3_5_SCAN",
+  "status": "AUTHORIZED_PROSPECTIVE_UNCONSUMED",
+  "owner_instruction": "Prossiga",
+  "issued_before_execution": true,
+  "scope": "THREE_EXACT_PNCP_GETS_PAGES_3_TO_5_ONLY",
+  "pages": [
+    3,
+    4,
+    5
+  ],
+  "cnpj_orgao": "45132495000140",
+  "data_inicial": "20251128",
+  "data_final": "20260904",
+  "tamanho_pagina": 500,
+  "get_requests_max": 3,
+  "timeout_seconds": 60,
+  "retry": 0,
+  "redirects": 0,
+  "page1_reread": false,
+  "page2_reread": false,
+  "raw_payload_persistence": false,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "future_execution_authorized": false
+}
