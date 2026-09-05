@@ -1,0 +1,142 @@
+{
+  "version": 1,
+  "schema": "TASK133_PNCP_PROCUREMENT_PUBLICATION_LIVE_GATE_DESIGN_V1",
+  "mode": "T0_OFFLINE_LIVE_GATE_DESIGN_ONLY",
+  "base_sha": "ca09484b3967e6e7820d949dc8859129d5586b24",
+  "issue": 468,
+  "depends_on": {
+    "task": "TASK_132_PROCUREMENT_PUBLICATION_SURFACE_SELECTION",
+    "merge_sha": "ca09484b3967e6e7820d949dc8859129d5586b24",
+    "selected_surface": "PNCP_PUBLIC_CONTRATACOES_BY_PUBLICATION"
+  },
+  "authorization": {
+    "owner_authorization_required": true,
+    "authorized_now": false,
+    "one_shot_required": true,
+    "max_live_runs": 1,
+    "must_be_issued_after_gate_merge": true,
+    "fixed_artifact_path": "docs/evidence/TASK_133_OWNER_AUTHORIZATION_PRE_RUN_0.8.0.json",
+    "authorization_artifact_must_be_absent_in_design": true,
+    "owner_instruction_consumed": false
+  },
+  "source": {
+    "registry": "PNCP",
+    "endpoint": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao",
+    "exact_url": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao?dataInicial=20251128&dataFinal=20260904&codigoModalidadeContratacao=12&cnpj=45132495000140&pagina=1&tamanhoPagina=500",
+    "source_role": "SECONDARY_AGGREGATOR",
+    "official_registry_surface": true,
+    "cnpj_orgao": "45132495000140",
+    "data_inicial": "20251128",
+    "data_final": "20260904",
+    "codigo_modalidade_contratacao": 12,
+    "modalidade_nome": "Credenciamento",
+    "pagina": 1,
+    "tamanho_pagina": 500,
+    "max_bytes": 20971520
+  },
+  "transport": {
+    "method": "GET",
+    "get_requests_max": 1,
+    "redirects_max": 0,
+    "retry": 0,
+    "timeout_seconds": 60,
+    "accept": "application/json",
+    "exact_url_only": true
+  },
+  "response_contract": {
+    "data_field": "data",
+    "total_registros_field": "totalRegistros",
+    "total_paginas_field": "totalPaginas",
+    "numero_pagina_field": "numeroPagina",
+    "no_pagination_in_this_execution": true
+  },
+  "matching": {
+    "normalized_strong_policy_markers": [
+      "PROGRAMA DE EDUCACAO INTEGRAL",
+      "PROGRAMA ESCOLA EM TEMPO INTEGRAL",
+      "ESCOLA EM TEMPO INTEGRAL",
+      "EDUCACAO EM TEMPO INTEGRAL",
+      "EDUCACAO INTEGRAL"
+    ],
+    "title_context_markers": [
+      "CREDENCIAMENTO",
+      "OFICINEIRO",
+      "OFICINEIROS",
+      "OFICINAS EXTRACURRICULARES"
+    ],
+    "strong_policy_marker_required": true,
+    "weak_context_alone_qualifies": false,
+    "fields_to_search": [
+      "objetoCompra",
+      "informacaoComplementar"
+    ],
+    "max_candidates": 100
+  },
+  "candidate_fields": [
+    "numeroControlePNCP",
+    "anoCompra",
+    "sequencialCompra",
+    "numeroCompra",
+    "processo",
+    "objetoCompra",
+    "informacaoComplementar",
+    "modalidadeId",
+    "modalidadeNome",
+    "tipoInstrumentoConvocatorioNome",
+    "dataPublicacaoPncp",
+    "dataAberturaProposta",
+    "dataEncerramentoProposta",
+    "orgaoEntidade",
+    "unidadeOrgao"
+  ],
+  "status_rules": {
+    "http_or_transport_failure": "STOP_TRANSPORT_NO_DATA_CONCLUSION",
+    "invalid_json": "STOP_INVALID_JSON_NO_DATA_CONCLUSION",
+    "malformed_response": "STOP_MALFORMED_RESPONSE_NO_DATA_CONCLUSION",
+    "partial_page_no_candidate": "PARTIAL_PAGE1_NO_CONCLUSION_FRESH_GATE_REQUIRED",
+    "partial_page_candidate": "PARTIAL_CANDIDATE_ADMIN_IDENTIFIER_REQUIRES_PRIMARY_VERIFICATION",
+    "exhaustive_no_candidate": "NO_MATCH_WITHIN_PNCP_CNPJ_MODALITY_DATE_SCOPE_ONLY",
+    "exhaustive_candidate": "CANDIDATE_ADMIN_IDENTIFIER_REQUIRES_PRIMARY_VERIFICATION"
+  },
+  "epistemic_semantics": {
+    "source_role": "SECONDARY_AGGREGATOR",
+    "administrative_identifier_candidate_max_status": "CORROBORATED",
+    "primary_municipal_verification_required": true,
+    "automatic_financial_identity": false,
+    "automatic_transaction_identity": false,
+    "automatic_supplier_linkage": false,
+    "weak_join_forbidden": true
+  },
+  "persistence": {
+    "raw_json_git": false,
+    "raw_json_drive": false,
+    "bronze": false,
+    "silver": false,
+    "gold": false,
+    "rag": false,
+    "state_registry": false,
+    "queue": false,
+    "serving": false,
+    "publication": false
+  },
+  "followup_authorization": {
+    "detail_endpoint_authorized": false,
+    "items_endpoint_authorized": false,
+    "history_endpoint_authorized": false,
+    "budget_sources_endpoint_authorized": false,
+    "linked_contracts_endpoint_authorized": false,
+    "future_paging_authorized": false,
+    "future_retry_authorized": false
+  },
+  "remote_effects_in_task133_design": {
+    "network": false,
+    "pncp_request": false,
+    "drive_read": false,
+    "drive_write": false,
+    "persistence": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false,
+    "retry": false
+  }
+}
