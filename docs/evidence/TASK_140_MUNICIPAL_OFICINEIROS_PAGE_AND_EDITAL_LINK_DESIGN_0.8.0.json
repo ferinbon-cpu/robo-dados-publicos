@@ -1,0 +1,18 @@
+{
+  "task": "TASK_140_MUNICIPAL_OFICINEIROS_PAGE_AND_EDITAL_LINK_DESIGN",
+  "issue": 487,
+  "mode": "T0_OFFLINE_MUNICIPAL_PRIMARY_PAGE_OPEN_DESIGN_ONLY",
+  "base_sha": "0a9cabaeabca00dd6f6a5596e50a87757bafb633",
+  "authorization_unit_index": 5,
+  "owner_authorization_units_granted": 10,
+  "future_search_invocations_max": 1,
+  "future_open_invocations_max": 1,
+  "future_click_invocations_max": 1,
+  "exact_target_url_pinned": true,
+  "primary_identifier_proof_requires_explicit_object_binding": true,
+  "negative_exhaustive_conclusion_allowed": false,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "remote_effects": 0,
+  "result": "PASS_TASK140_MUNICIPAL_OFICINEIROS_PAGE_DESIGNED_NOT_EXECUTED"
+}
