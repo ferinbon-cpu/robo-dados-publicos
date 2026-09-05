@@ -1,0 +1,48 @@
+{
+  "task": "TASK_121_SIOPE_FUNDEB_RESEARCH_DIGEST_ADAPTER",
+  "mode": "T0_OFFLINE_VERSIONED_SIOPE_FUNDEB_EVIDENCE_ADAPTER",
+  "base_sha": "02e5ccaab562a8fcca3021779a746e8b2a535f06",
+  "issue": 439,
+  "semantic_input": "TASK_056",
+  "binary_identity_input": "TASK_120",
+  "source_sha256": "d2b7f7638222bc9788f6d42df11126d2e3aa57cb4204450914c98d9400bf0bbe",
+  "active_ontology_terms": 64,
+  "composite_alias": "FOMENTO ETI",
+  "reporting_observations": [
+    {
+      "role": "APPLIED_BUCKET",
+      "amount_brl": "0.00"
+    },
+    {
+      "role": "REQUIRED_4_PERCENT",
+      "amount_brl": "1315673.39"
+    },
+    {
+      "role": "APPLIED_AFTER_DEDUCTIONS",
+      "amount_brl": "0.00"
+    }
+  ],
+  "reporting_identity": "PROVEN_SCOPED",
+  "transaction_identity": "UNKNOWN",
+  "stable_accounting_key_found": false,
+  "expected_financial_identity_candidates": 0,
+  "automatic_promotion": false,
+  "remote_effects": {
+    "network": 0,
+    "drive": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "rag": 0,
+    "state_registry": 0,
+    "queue": 0,
+    "serving": 0,
+    "publication": 0,
+    "retry": 0,
+    "recurrence": 0,
+    "schedule": 0
+  },
+  "next": "DESIGN_CROSS_DOCUMENT_EITI_FINANCIAL_IDENTITY_RESOLVER_OVER_TASK117_TASK119_TASK121",
+  "result": "PENDING_CI_REVIEW"
+}
