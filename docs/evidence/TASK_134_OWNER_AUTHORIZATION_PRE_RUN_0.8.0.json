@@ -2,7 +2,7 @@
   "schema": "TASK134_OWNER_AUTHORIZATION_PRE_RUN_V1",
   "task": "TASK_134_PNCP_PROCUREMENT_PUBLICATION_LIVE_ONCE",
   "issue": 470,
-  "status": "AUTHORIZED_SINGLE_USE_NOT_CONSUMED",
+  "status": "AUTHORIZED_UNCONSUMED_PRE_NETWORK_CONNECTOR_WORKFLOW_WRITE_BLOCK",
   "owner_instruction": "10 tokens de autorização concedidos",
   "authorization_received_after_task133_merge": true,
   "task133_merge_sha": "abd1f3751300f7a20a2fa8af4202a72ca4b34163",
@@ -26,5 +26,13 @@
   "followup_endpoints_authorized": false,
   "future_retry_authorized": false,
   "future_rerun_authorized": false,
+  "workflow_write_attempted": true,
+  "workflow_created": false,
+  "workflow_run_created": false,
+  "source_http_requests_emitted": 0,
+  "source_bytes_read": 0,
+  "source_read_scope_consumed": false,
+  "authorization_consumed": false,
+  "connector_block_code": "OPENAI_CONNECTOR_SECURITY_BLOCK_WORKFLOW_CREATE_FILE",
   "consumed_by": null
 }
