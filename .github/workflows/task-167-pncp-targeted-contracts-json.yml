@@ -1,0 +1,116 @@
+name: TASK 167 PNCP targeted contracts JSON
+run-name: "TASK 167 targeted contracts JSON by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-167-pncp-stable-id-direct-json-traversal
+    paths:
+      - 'runtime_triggers/task167_pncp_targeted_contracts.run'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-167-pncp-targeted-contracts-json
+  cancel-in-progress: false
+
+jobs:
+  task167-targeted-contracts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Fetch target-date public PNCP contracts JSON
+        shell: bash
+        env:
+          TASK167_HEAD_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p runtime
+          python - <<'PY'
+          import hashlib, json, os, urllib.error, urllib.parse, urllib.request
+          from pathlib import Path
+
+          ENDPOINT="https://pncp.gov.br/api/consulta/v1/contratos"
+          CNPJ="45132495000140"
+          TARGETS=[
+              {"id":"SCHOOL_PASS","date":"20260608","purchase":"45132495000140-1-000368/2026"},
+              {"id":"I00084","date":"20260819","purchase":"45132495000140-1-000593/2026"},
+          ]
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, req, fp, code, msg, headers, newurl): return None
+          opener=urllib.request.build_opener(NoRedirect)
+          KEEP={"numeroControlePNCP","numeroControlePNCPCompra","numeroContratoEmpenho","anoContrato",
+                "sequencialContrato","processo","objetoContrato","valorInicial","valorGlobal",
+                "valorAcumulado","valorParcela","numeroParcelas","dataAssinatura","dataVigenciaInicio",
+                "dataVigenciaFim","dataPublicacaoPncp","niFornecedor","nomeRazaoSocialFornecedor",
+                "tipoPessoa","cnpjOrgao","nomeOrgao","codigoUnidadeOrgao","nomeUnidadeOrgao",
+                "tipoContrato","categoriaProcesso","receita","informacaoComplementar"}
+
+          out_targets=[]
+          for t in TARGETS:
+              q=urllib.parse.urlencode([
+                  ("dataInicial",t["date"]),("dataFinal",t["date"]),("cnpjOrgao",CNPJ),
+                  ("pagina",1),("tamanhoPagina",50)
+              ])
+              url=ENDPOINT+"?"+q
+              raw=b""; hs=None; ct=None; terr=None; payload=None
+              req=urllib.request.Request(url,method="GET",headers={
+                  "Accept":"application/json","User-Agent":"robo-dados-publicos-task167-target-contract/0.8.0"
+              })
+              try:
+                  with opener.open(req,timeout=60) as response:
+                      hs=int(response.status); ct=response.headers.get("Content-Type")
+                      raw=response.read(10000000+1)
+              except urllib.error.HTTPError as exc:
+                  hs=int(exc.code); terr=f"HTTP_ERROR_{exc.code}"
+              except urllib.error.URLError as exc:
+                  terr=f"URL_ERROR:{type(exc.reason).__name__}"
+              except Exception as exc:
+                  terr=f"TRANSPORT_ERROR:{type(exc).__name__}:{str(exc)[:160]}"
+
+              rec={"target_id":t["id"],"date":t["date"],"purchase":t["purchase"],"url":url,
+                   "http_status":hs,"content_type":ct,"bytes_received":len(raw),
+                   "source_sha256":hashlib.sha256(raw).hexdigest() if raw else None,
+                   "transport_error":terr,"status":"SOURCE_TRANSPORT_UNAVAILABLE","totalRegistros":None,
+                   "totalPaginas":None,"matches":[],"records_on_date":[]}
+              if hs==200 and raw:
+                  try:
+                      payload=json.loads(raw.decode("utf-8"))
+                      data=payload.get("data")
+                      if not isinstance(data,list): raise RuntimeError("SCHEMA")
+                      rec["totalRegistros"]=payload.get("totalRegistros")
+                      rec["totalPaginas"]=payload.get("totalPaginas")
+                      rec["records_on_date"]=[{k:v for k,v in x.items() if k in KEEP} for x in data]
+                      rec["matches"]=[x for x in rec["records_on_date"] if x.get("numeroControlePNCPCompra")==t["purchase"]]
+                      rec["status"]="JSON_OK"
+                  except Exception as exc:
+                      rec["status"]="SOURCE_SCHEMA_MISMATCH"; rec["parse_error"]=type(exc).__name__
+              elif hs is not None:
+                  rec["status"]=f"HTTP_{hs}_NO_DATA_CONCLUSION"
+              out_targets.append(rec)
+
+          out={"schema":"TASK167_TARGETED_CONTRACTS_RESULT_V1",
+               "execution_head_sha":os.environ["TASK167_HEAD_SHA"],
+               "authorization_scope":"PNCP_LIVE_READ_DISCOVERY_ONLY",
+               "targets":out_targets,"raw_payload_persisted":False,"git_write":False,"drive_write":False,
+               "payment_inference_allowed":False}
+          out["result_sha256"]=hashlib.sha256(json.dumps(out,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode()).hexdigest()
+          Path("runtime/task167_targeted_contracts.json").write_text(json.dumps(out,ensure_ascii=False,indent=2,sort_keys=True)+"\n",encoding="utf-8")
+          for x in out_targets:
+              print(x["target_id"],x["status"],"total",x["totalRegistros"],"matches",len(x["matches"]))
+          PY
+
+      - name: Upload sanitized targeted-contract result
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-167-pncp-targeted-contracts-json-result
+          path: runtime/task167_targeted_contracts.json
+          if-no-files-found: error
+          retention-days: 1
