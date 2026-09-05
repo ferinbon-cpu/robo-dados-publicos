@@ -1,0 +1,14 @@
+{
+  "task": "TASK_141_INDEXED_LICITACOES_ROUTE_SEARCH_ATTEMPT",
+  "mode": "T1_BOUNDED_INDEXED_LICITACOES_ROUTE_SEARCH",
+  "task141_merge_sha": "d6d9dffe2c6badd15ea7bedee6b275e380d1e4ba",
+  "result": "STOP_INDEXED_LICITACOES_NO_RELEVANT_ROUTE_RESULT",
+  "search_invocations": 1,
+  "open_invocations": 0,
+  "returned_result_count_observed": 1,
+  "returned_result_under_licitacoes_route": false,
+  "returned_result_strong_eiti_procurement_marker": false,
+  "administrative_identifier_found": false,
+  "negative_exhaustive_conclusion_created": false,
+  "retry_performed": false
+}
