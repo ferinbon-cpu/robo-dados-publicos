@@ -153,9 +153,9 @@ class TestTask191AnnualEducationPerEnrollment(unittest.TestCase):
         self.assertEqual(
             after["status_counts"],
             {
-                "EXPLICIT_GAP": 3,
+                "EXPLICIT_GAP": 2,
                 "MATERIALIZED_ANSWERABLE": 26,
-                "MATERIALIZED_PARTIAL": 9,
+                "MATERIALIZED_PARTIAL": 10,
             },
         )
         before_by_id = {row["question_id"]: row for row in before["questions"]}
@@ -167,7 +167,10 @@ class TestTask191AnnualEducationPerEnrollment(unittest.TestCase):
         }
         self.assertEqual(
             changed,
-            {"FIN_Q2": ("MATERIALIZED_PARTIAL", "MATERIALIZED_ANSWERABLE")},
+            {
+                "NETWORK_Q1": ("EXPLICIT_GAP", "MATERIALIZED_PARTIAL"),
+                "FIN_Q2": ("MATERIALIZED_PARTIAL", "MATERIALIZED_ANSWERABLE"),
+            },
         )
         self.assertEqual(after_by_id["FIN_Q1"]["status"], "MATERIALIZED_ANSWERABLE")
         self.assertEqual(after_by_id["FIN_Q4"]["status"], "MATERIALIZED_PARTIAL")
@@ -192,9 +195,9 @@ class TestTask191AnnualEducationPerEnrollment(unittest.TestCase):
         self.assertEqual(
             e["answerability"]["expected_after_status_counts"],
             {
-                "EXPLICIT_GAP": 3,
+                "EXPLICIT_GAP": 2,
                 "MATERIALIZED_ANSWERABLE": 26,
-                "MATERIALIZED_PARTIAL": 9,
+                "MATERIALIZED_PARTIAL": 10,
             },
         )
         self.assertEqual(e["answerability"]["fin_q4_must_remain"], "MATERIALIZED_PARTIAL")
