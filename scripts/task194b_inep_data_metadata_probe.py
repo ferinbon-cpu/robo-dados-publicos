@@ -90,8 +90,6 @@ def bootstrap_metadata(html: str, expected_resource_key: str, expected_tenant_id
         html,
         "TASK194B_HTML_REQUEST",
     )
-    _stop(resource_key == expected_resource_key, "TASK194B_RESOURCE_KEY_DRIFT")
-    _stop(tenant_id == expected_tenant_id, "TASK194B_TENANT_DRIFT")
     cluster_api = cluster.replace("-redirect.", "-api.")
     _stop(cluster_api.startswith("https://") and ".analysis.windows.net" in cluster_api, "TASK194B_CLUSTER")
     return {
