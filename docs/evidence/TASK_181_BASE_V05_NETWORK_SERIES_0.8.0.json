@@ -1,0 +1,45 @@
+{
+  "task": "TASK_181_BASE_V05_NETWORK_SERIES",
+  "issue": 573,
+  "mode": "T0_OFFLINE_USER_LIBRARY_MEDIATED_SANITIZED_SERIES",
+  "base_main_sha": "84cf9e21d849c41039bf70326a64a7ad3a8f466a",
+  "source": {
+    "filename": "BASE_MESTRA_LIMEIRA_V05.xlsx",
+    "sheet": "Series Rede",
+    "sha256": "4d352dc55537240a4c1ffb3c37337e9c029577ab611f851f2ec925d0178b9eda",
+    "period": "2007-2025",
+    "binary_import_complete": false
+  },
+  "materialized": {
+    "school_indicator_rows": 171,
+    "school_missing_cells": 133,
+    "fiscal_rows": 38,
+    "fiscal_missing_cells": 0,
+    "deferred_remuneration_observed": 16,
+    "deferred_remuneration_missing": 22
+  },
+  "guards": {
+    "blank_is_zero": false,
+    "published_zero_is_observed_zero": true,
+    "simple_school_saresp_mean_equals_official_municipal_mean": false,
+    "remuneration_promoted_without_source_role": false
+  },
+  "products": [
+    "SCHOOL_INDICATOR_SERIES",
+    "FISCAL_SERIES"
+  ],
+  "next": [
+    "V08_CENSO_69_2018_2025",
+    "V08_LONG_HISTORY_SHEETS",
+    "REFRESH_QUERY_PRODUCT_CATALOG"
+  ],
+  "remote_effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  }
+}
