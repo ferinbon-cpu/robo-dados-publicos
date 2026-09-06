@@ -13,6 +13,7 @@ from robo_dados_publicos.analytics.task189_loa_substantive_overlay import (
 ROOT = Path(__file__).resolve().parents[1]
 TASK188 = ROOT / "docs/evidence/TASK_188_RREO_RESTS_PAYABLE_MATERIALIZATION_0.8.0.json"
 TASK186 = ROOT / "docs/evidence/TASK_186_TCESP_REVENUE_LEDGER_0.8.0.json"
+EVIDENCE = ROOT / "docs/evidence/TASK_189_LOA_SUBSTANTIVE_PLANNING_OVERLAY_0.8.0.json"
 GENERATED_AT = "2026-09-06T15:12:00+00:00"
 SOFTWARE_VERSION = "0.8.0"
 
@@ -134,6 +135,31 @@ class TestTask189LoaSubstantiveOverlay(unittest.TestCase):
         self.assertEqual(by_id["PLAN_Q3"]["status"], "MATERIALIZED_ANSWERABLE")
         self.assertEqual(by_id["FIN_Q1"]["status"], "MATERIALIZED_PARTIAL")
         self.assertEqual(by_id["ACC_Q3"]["status"], "MATERIALIZED_ANSWERABLE")
+
+
+    def test_canonical_evidence_pins_snapshot_scope_and_gain(self):
+        e = json.loads(EVIDENCE.read_text(encoding="utf-8"))
+        self.assertEqual(e["status"], "PASS_SCOPED_SUBSTANTIVE_LOA_OVERLAY_MATERIALIZED")
+        self.assertEqual(e["planning_document_index"]["row_count"], 9)
+        self.assertEqual(e["planning_document_index"]["snapshot_id"], "62e88978304b6abfe6eb029d")
+        self.assertEqual(
+            e["planning_document_index"]["content_sha256"],
+            "62e88978304b6abfe6eb029d8a6a1a7fbe60f1556e0078af8b9c04ce39b55f84",
+        )
+        self.assertEqual(
+            e["planning_document_index"]["gzip_sha256"],
+            "243981e6c4b93dc219df0ca612c5ef0cc30fb00012a19b097aa97d870ab86970",
+        )
+        self.assertFalse(e["promotion"]["complete_loa_parse_claim"])
+        self.assertFalse(e["promotion"]["accounting_execution_proven_by_loa"])
+        self.assertEqual(e["promotion"]["eiti_financial_identity"], "EVIDENCIA_INSUFICIENTE")
+        self.assertEqual(
+            e["answerability"]["after_status_counts"],
+            {"EXPLICIT_GAP": 5, "MATERIALIZED_ANSWERABLE": 22, "MATERIALIZED_PARTIAL": 11},
+        )
+        self.assertEqual(e["answerability"]["changes"][0]["question_id"], "PLAN_Q3")
+        self.assertEqual(e["remote_effects"]["serving"], 0)
+
 
 
 if __name__ == "__main__":
