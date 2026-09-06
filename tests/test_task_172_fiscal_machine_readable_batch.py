@@ -11,6 +11,7 @@ from robo_dados_publicos.research.task172_fiscal_machine_readable_batch import (
     summarize_json,
     summarize_zip,
     validate_contract,
+    run_live,
 )
 
 
@@ -23,7 +24,13 @@ class TestTask172FiscalMachineReadableBatch(unittest.TestCase):
         self.assertEqual(got["status"], "PASS")
         self.assertEqual(got["source_count"], 12)
         self.assertEqual(got["max_requests"], 13)
-        self.assertTrue(got["live_authorized"])
+        self.assertFalse(got["live_authorized"])
+
+    def test_consumed_authorization_blocks_future_live_execution(self):
+        self.assertEqual(self.contract["owner_authorization"]["authorization_status"], "CONSUMED_SUCCESS")
+        self.assertTrue(self.contract["remote_effects"]["authorization_consumed"])
+        with self.assertRaisesRegex(Task172Stop, "TASK172_LIVE_NOT_AUTHORIZED"):
+            run_live()
 
     def test_source_groups_and_hosts_are_exact(self):
         ids = [x["id"] for x in self.contract["sources"]]
