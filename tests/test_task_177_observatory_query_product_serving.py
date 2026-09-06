@@ -188,11 +188,12 @@ class TestTask177ObservatoryQueryProductServing(unittest.TestCase):
         self.assertEqual(len(legacy["dataset_allowlist"]), 6)
         self.assertFalse(any(x.startswith("OBS_") for x in legacy["serving_names"]))
 
-    def test_all_six_products_have_exact_obs_serving_names(self):
+    def test_all_seven_products_have_exact_obs_serving_names(self):
         expected = {
             "SCHOOL_INDICATOR_SERIES": "OBS_SCHOOL_INDICATOR_SERIES__SERVING",
             "JOM_EVENT_INDEX": "OBS_JOM_EVENT_INDEX__SERVING",
             "ACCOUNTING_LEDGER": "OBS_ACCOUNTING_LEDGER__SERVING",
+            "REVENUE_LEDGER": "OBS_REVENUE_LEDGER__SERVING",
             "FISCAL_SERIES": "OBS_FISCAL_SERIES__SERVING",
             "PLANNING_DOCUMENT_INDEX": "OBS_PLANNING_DOCUMENT_INDEX__SERVING",
             "QUERY_PRODUCT_CATALOG": "OBS_QUERY_PRODUCT_CATALOG__SERVING",
