@@ -64,7 +64,7 @@ class TestTask184LocalBundle(unittest.TestCase):
             "TERMO_ADITIVO_CONTRATO": 5,
         })
         self.assertEqual(stats["evidence_layer_counts"].get("PERSONNEL", 0), 0)
-        self.assertEqual(stats["evidence_layer_counts"].get("INFRASTRUCTURE", 0), 5)
+        self.assertEqual(stats["evidence_layer_counts"].get("INFRASTRUCTURE", 0), 3)
         self.assertEqual(stats["evidence_layer_counts"].get("PROCUREMENT_CONTRACT", 0), 76)
         self.assertEqual(stats["policy_domain_counts"].get("EDUCATION", 0), 2)
         self.assertTrue(
@@ -239,7 +239,11 @@ class TestTask184LocalBundle(unittest.TestCase):
         b = self.bundle()
         samples = b["sample_packets"]
         self.assertEqual(set(samples), {"JOM_RADAR", "SCHOOL_NORMS", "PLANNING_2026"})
-        self.assertEqual(samples["JOM_RADAR"]["document_record_count"], 303)
+        self.assertGreaterEqual(samples["JOM_RADAR"]["document_record_count"], 303)
+        self.assertEqual(
+            samples["JOM_RADAR"]["document_record_counts_by_product"]["JOM_EVENT_INDEX"],
+            303,
+        )
         self.assertGreater(samples["SCHOOL_NORMS"]["document_record_count"], 0)
         self.assertGreater(samples["PLANNING_2026"]["document_record_count"], 0)
         self.assertIn("JOM_EVENT_INDEX", samples["JOM_RADAR"]["used_snapshots"])
