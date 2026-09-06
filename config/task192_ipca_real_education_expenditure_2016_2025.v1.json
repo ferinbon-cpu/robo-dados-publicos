@@ -1,0 +1,164 @@
+{
+  "version": 1,
+  "schema": "TASK192_IPCA_REAL_EDUCATION_EXPENDITURE_2016_2025_V1",
+  "task": "TASK_192_IPCA_REAL_EDUCATION_EXPENDITURE_2016_2025",
+  "mode": "T0_OFFLINE_EXISTING_CUSTODY_OFFICIAL_DEFLATOR",
+  "base_main_sha": "b8d24533651b46593af7d2fcf789f4bb8d690154",
+  "jurisdiction": "Limeira/SP",
+  "entity": {
+    "entity_id": "3526902",
+    "name": "LIMEIRA"
+  },
+  "nominal_series_semantics": {
+    "metric_id": "EDUCATION_EXPENDITURE",
+    "value_semantic": "ANNUAL_EDUCATION_COMMITTED_EXPENDITURE",
+    "historical_2016_2024_source": "SIOPE_DADOS_GERAIS_VL_DESP_EMPE_EDU_GOLD",
+    "year_2025_source": "RREO_ANEXO_8_LINE_33_COMMITTED_FINAL_BIMESTER",
+    "comparability_status": "EXPLICIT_BRIDGE_WITH_SOURCE_FAMILY_CHANGE_IN_2025",
+    "compliance_claim": false
+  },
+  "nominal_observations": [
+    {
+      "year": 2016,
+      "period": 1,
+      "value_brl": "215348241.40",
+      "source_family": "SIOPE",
+      "drive_id": "1kh9BWuVvtYwAVflQmiobF_OTIAceqt9T",
+      "source_sha256": "7f84500f5915b21210fda36c638a6d1fecdf1fb1ef0a5a4f9431c5273659d2bd"
+    },
+    {
+      "year": 2017,
+      "period": 6,
+      "value_brl": "223837389.67",
+      "source_family": "SIOPE",
+      "drive_id": "16VllLkTHsFSFAYz0B_0qfYF0FrnOQjVX",
+      "source_sha256": "d9a62de4345c42a8c02a8b97e7c5ccb129b203b1c75f3b4074f09ddf96783d0e"
+    },
+    {
+      "year": 2018,
+      "period": 6,
+      "value_brl": "222452947.74",
+      "source_family": "SIOPE",
+      "drive_id": "1xRD6gqnWTBOpEAV4TAGW2rpm3nvXC8L9",
+      "source_sha256": "b479a4801a83f3d1f3086ea57b10f25ff393b69714b3a00ea7e6b0256e03ce02"
+    },
+    {
+      "year": 2019,
+      "period": 6,
+      "value_brl": "247138233.41",
+      "source_family": "SIOPE",
+      "drive_id": "1NyfBC7rsZ0O8obzA7sGLoxIkvaO0O2VZ",
+      "source_sha256": "d843f61c37f84d978de8488243492cd8fe09c3a9ad3856c856e314e5063ab19c"
+    },
+    {
+      "year": 2020,
+      "period": 6,
+      "value_brl": "239780107.99",
+      "source_family": "SIOPE",
+      "drive_id": "1f3i2fveHFkPeWDxVG-LdG4ox6ew_kLZT",
+      "source_sha256": "073e5e823ad9d37431ef4e89876236ff545c2211a4e9167000c01cef96eab7fa"
+    },
+    {
+      "year": 2021,
+      "period": 6,
+      "value_brl": "249487132.42",
+      "source_family": "SIOPE",
+      "drive_id": "1wDYYB6AkVPx2-yX64WRIlJrmIqKqN1T0",
+      "source_sha256": "e8b4888b243aee21af0ba4654a481d502150a45bbbecebfcb5239f5d338d5ef5"
+    },
+    {
+      "year": 2022,
+      "period": 6,
+      "value_brl": "347826196.02",
+      "source_family": "SIOPE",
+      "drive_id": "1dxaAbXViRfEeUpvDX-YWhyyqpXRoQyL7",
+      "source_sha256": "4057aac2b18dc7184db992ee989d64c8732c4ad858cc6e8b7520cd50c4d37f68"
+    },
+    {
+      "year": 2023,
+      "period": 6,
+      "value_brl": "414827473.94",
+      "source_family": "SIOPE",
+      "drive_id": "1Qxatfo7o_JLRk0UmCWooDzU28ZR-9d-K",
+      "source_sha256": "a4da994fd2a04ef0b3133d9a20855e6809922f19366075d48aab3296ca488272"
+    },
+    {
+      "year": 2024,
+      "period": 6,
+      "value_brl": "458206043.38",
+      "source_family": "SIOPE",
+      "drive_id": "1ozmTs_eJaFMbsLuBciocYGmkMOstebM9",
+      "source_sha256": "d6a35db7c42129569c73f19de789d871d0d285929d8eb3fe2a04d5ef03fdd6e0"
+    },
+    {
+      "year": 2025,
+      "period": 6,
+      "value_brl": "463766660.32",
+      "source_family": "RREO",
+      "drive_id": null,
+      "source_sha256": "565c8f12ca40dece6c87382bf472bf85ade405335fc3213ebd21e5dd7935934c"
+    }
+  ],
+  "deflator": {
+    "authority": "IBGE",
+    "index": "IPCA",
+    "source_document": "Indicadores IBGE - IPCA e INPC - Dezembro de 2025",
+    "source_url": "https://ftp.ibge.gov.br/Precos_Indices_de_Precos_ao_Consumidor/INPC/Fasciculo_Indicadores_IBGE/2025/ipca-inpc_202512caderno.pdf",
+    "locator": "page:23:SÉRIE_HISTÓRICA_DOS_ACUMULADOS_NO_ANO_IPCA",
+    "base_price_period": "2025-12",
+    "normalized_observation_sha256": "a3d8ef329c9c3a6de30d9944803ee4bd83646dca4a3469698e350835ebcc865e",
+    "annual_rates_pct": {
+      "2016": "6.29",
+      "2017": "2.95",
+      "2018": "3.75",
+      "2019": "4.31",
+      "2020": "4.52",
+      "2021": "10.06",
+      "2022": "5.79",
+      "2023": "4.62",
+      "2024": "4.83",
+      "2025": "4.26"
+    },
+    "conversion_formula": "REAL_Y_DEC2025 = NOMINAL_Y * PRODUCT(1 + IPCA_RATE_t/100), t=Y+1..2025",
+    "same_year_rate_in_factor": false,
+    "annual_flow_monthly_weighted": false,
+    "semantic_label": "YEAR_END_EQUIVALENT_CONSTANT_DEC_2025_BRL"
+  },
+  "expected_real_brl": {
+    "2016": "333866834.92",
+    "2017": "337084072.38",
+    "2018": "322890791.17",
+    "2019": "343899454.29",
+    "2020": "319231176.99",
+    "2021": "301794131.51",
+    "2022": "397722636.08",
+    "2023": "453388832.03",
+    "2024": "477725620.83",
+    "2025": "463766660.32"
+  },
+  "expected_changes_pct": {
+    "nominal_2016_to_2025": "115.36",
+    "real_2016_to_2025": "38.91",
+    "nominal_2024_to_2025": "1.21",
+    "real_2024_to_2025": "-2.92"
+  },
+  "guards": [
+    "NOMINAL_NE_REAL",
+    "YEAR_END_IPCA_DEFLATION_NE_MONTHLY_FLOW_DEFLATION",
+    "IPCA_BASE_PERIOD_MUST_BE_EXPLICIT",
+    "SIOPE_2016_2024_NE_RREO_2025_SOURCE_FAMILY",
+    "COMMITTED_ANNUAL_NE_PAID_ANNUAL",
+    "2026_PARTIAL_NE_ANNUALIZED",
+    "TASK192_MUST_PRESERVE_2026_LIQUIDATED_TO_DATE",
+    "REAL_EDUCATION_EXPENDITURE_NE_COMPLIANCE_CLAIM"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
