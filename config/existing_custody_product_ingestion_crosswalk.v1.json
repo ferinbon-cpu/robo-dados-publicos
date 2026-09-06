@@ -241,7 +241,7 @@
   ],
   "noncanonical_task_note": {
     "task_178_remote_serving_should_wait": true,
-    "reason": "MATERIALIZE_EXISTING_CUSTODY_PRODUCTS_BEFORE_FIRST_REMOTE_OBSERVATORY_SERVING_PROOF"
+    "reason": "BUILD_AND_VALIDATE_LOCAL_FUSED_KNOWLEDGE_PACK_AND_FILL_HIGH_VALUE_GAPS_BEFORE_REMOTE_SERVING"
   },
   "remote_effects": {
     "network": false,
@@ -251,5 +251,23 @@
     "publication": false,
     "schedule": false,
     "recurrence": false
+  },
+  "integrated_knowledge_pack": {
+    "task": "TASK_183",
+    "status": "LOCAL_FUSED_PACK_READY_AFTER_CI",
+    "products_bundled": [
+      "SCHOOL_INDICATOR_SERIES",
+      "FISCAL_SERIES",
+      "QUERY_PRODUCT_CATALOG"
+    ],
+    "expected_rows": {
+      "SCHOOL_INDICATOR_SERIES": 1017,
+      "FISCAL_SERIES": 38,
+      "QUERY_PRODUCT_CATALOG": 2
+    },
+    "semantic_question_count": 38,
+    "semantic_domain_count": 15,
+    "product_presence_ne_question_answerability": true,
+    "remote_serving_authorized": false
   }
 }
