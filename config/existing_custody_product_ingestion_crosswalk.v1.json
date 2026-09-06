@@ -213,13 +213,27 @@
       ],
       "guards": [
         "MD_FISCAL_CONTEXT_NE_ACCOUNTING_TRANSACTION_IDENTITY",
-        "TCE_STAGE_SEPARATION_PRESERVED"
+        "TCE_STAGE_SEPARATION_PRESERVED",
+        "OFFICIAL_DETAIL_ID_NE_SUPPLIER_ID",
+        "PROGRAMMATIC_CLASSIFICATION_NE_POLICY_IDENTITY"
       ],
-      "materialization_blocker": {
-        "task": "TASK_184",
-        "status": "REAL_ROWS_NOT_PERSISTED",
-        "task172_live_expense_rows_observed": 39780,
-        "raw_payload_persisted": false,
+      "materialized_block": {
+        "task": "TASK_187",
+        "source": "TCESP_LIMEIRA_2026_DESPESAS_RICH_CSV",
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "row_count": 39779,
+        "raw_payload_persisted": true,
+        "exact_one_to_one_with_task185_json_ledger": true,
+        "programmatic_dimensions_ready": true,
+        "rests_payable_ready": false,
         "synthetic_fixture_allowed": false
       }
     },
