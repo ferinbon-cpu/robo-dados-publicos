@@ -54,7 +54,23 @@
         "sheet": "01 Escolas 40",
         "scope": "40_PRIMARY_YEARS_SCHOOLS_2025_WIDE_SNAPSHOT",
         "binary_import_complete": false
-      }
+      },
+      "materialized_blocks": [
+        {
+          "task": "TASK_180",
+          "source": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
+          "scope": "40_PRIMARY_YEARS_SCHOOLS_2025",
+          "non_null_rows": 798,
+          "binary_import_complete": false
+        },
+        {
+          "task": "TASK_181",
+          "source": "BASE_MESTRA_LIMEIRA_V05",
+          "scope": "LIMEIRA_MUNICIPAL_NETWORK_SERIES_2007_2025",
+          "non_null_rows": 171,
+          "binary_import_complete": false
+        }
+      ]
     },
     "PLANNING_DOCUMENT_INDEX": {
       "current_status": "READY_FROM_EXISTING_CUSTODY",
@@ -109,6 +125,15 @@
         "INTERPRETATION_NE_NUMERIC_TRUTH",
         "PARTIAL_EXECUTION_NE_ANNUAL_CLOSURE",
         "FUNDEB_NE_MDE_NE_GENERAL_BUDGET_NE_LRF_PERSONNEL"
+      ],
+      "materialized_blocks": [
+        {
+          "task": "TASK_181",
+          "source": "BASE_MESTRA_LIMEIRA_V05",
+          "scope": "SIOPE_MDE_AND_FUNDEB_SHARES_2007_2025",
+          "non_null_rows": 38,
+          "binary_import_complete": false
+        }
       ]
     },
     "JOM_EVENT_INDEX": {
