@@ -33,7 +33,7 @@ Observed event types:
 - TERMO_ADITIVO_CONTRATO: 5
 - RESOLUCAO: 4
 
-The old serving is semantically sparse. Current recomputation identifies 76 procurement-contract layer events, 3 infrastructure events, only 2 explicit education-domain events and no PERSONNEL layer event.
+The old serving is semantically sparse. Current recomputation identifies 76 procurement-contract layer events, 3 infrastructure events, only 1 explicit education-domain event and no PERSONNEL layer event.
 
 This is intentionally reflected in question answerability. The presence of 79 Portarias does not by itself prove personnel coverage.
 
