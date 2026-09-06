@@ -22,6 +22,7 @@ _PII_PATTERNS = {
 _ORG_PATTERNS = [
     re.compile(r"(?i)\bSECRETARIA\s+MUNICIPAL\s+DE\s+[^\n:]{2,100}"),
     re.compile(r"(?i)\bCÂMARA\s+MUNICIPAL\s+DE\s+LIMEIRA\b"),
+    re.compile(r"(?i)\bCONSELHO\s+MUNICIPAL\s+DE\s+EDUCA[ÇC][ÃA]O\b"),
     re.compile(r"(?i)\bCEPROSOM\b"),
     re.compile(r"(?i)\bIPML\b"),
     re.compile(r"(?i)\bPREFEITURA\s+MUNICIPAL\s+DE\s+LIMEIRA\b"),
@@ -60,6 +61,7 @@ _FIELD_PATTERNS = {
     "cnpj": re.compile(r"(?i)\bCNPJ\s*(?:N[ºO°.]?\s*)?[:\-]?\s*([0-9 .\-/]{14,22})"),
     "bidding": re.compile(r"(?i)\b(PREG[ÃA]O\s+ELETR[ÔO]NICO|PREG[ÃA]O|DISPENSA|INEXIGIBILIDADE|CONCORR[ÊE]NCIA(?:\s+P[ÚU]BLICA)?|CHAMAMENTO\s+P[ÚU]BLICO)\s+N[ºO°.]?\s*:?\s*([0-9A-Za-z./-]+)"),
     "signature_date": re.compile(r"(?i)\b(?:DATA\s+DA\s+ASSINATURA|ASSINATURA)\s*:?\s*(\d{1,2}/\d{1,2}/\d{4})"),
+    "retification_target": re.compile(r"(?i)\bRETIFICA[ÇC][ÃA]O\s+(?:DO|DA|AO|A)\s+(EDITAL|PORTARIA|DECRETO|LEI|RESOLU[ÇC][ÃA]O|CONTRATO)\s+N[ºO°.]?\s*:?\s*([0-9A-Za-z./-]+)"),
 }
 
 _LABELS = (
