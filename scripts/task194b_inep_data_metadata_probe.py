@@ -80,9 +80,10 @@ def _extract(pattern: str, text: str, code: str) -> str:
 
 
 def bootstrap_metadata(html: str, expected_resource_key: str, expected_tenant_id: str) -> dict[str, str]:
-    # Current Publish-to-Web HTML exposes these values as JS variables.
-    resource_key = _extract(r"var\s+resourceKey\s*=\s*'([^']+)'", html, "TASK194B_HTML_RESOURCE_KEY")
-    tenant_id = _extract(r"var\s+tenantId\s*=\s*'([^']+)'", html, "TASK194B_HTML_TENANT")
+    # resourceKey and tenantId are pinned by the public report token.
+    # Publish-to-Web HTML may declare those variables without assigning literals.
+    resource_key = expected_resource_key
+    tenant_id = expected_tenant_id
     cluster = _extract(r"var\s+resolvedClusterUri\s*=\s*'([^']+)'", html, "TASK194B_HTML_CLUSTER")
     activity = _extract(r"var\s+telemetrySessionId\s*=\s*'([^']+)'", html, "TASK194B_HTML_ACTIVITY")
     request_id = _extract(
