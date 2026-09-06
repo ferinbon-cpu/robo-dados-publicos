@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "schema": "OBSERVATORY_QUERY_PRODUCT_SERVING_V1",
+  "task": "TASK_177_OBSERVATORY_QUERY_PRODUCT_SERVING",
+  "tier": "T0_OFFLINE_IMPLEMENTATION_REVIEW",
+  "status": "PASS_TASK177_OFFLINE_SERVING_CONTRACT",
+  "architecture": "OPTION_3_CREATE_ONLY_SNAPSHOTS_PLUS_STABLE_SERVING_SHEET",
+  "parent_path": "13_BI/02_SERVING",
+  "tabs": ["DATA", "META"],
+  "strategy": "FULL_REPLACE_DERIVED_SERVING_VIEW_FROM_ONE_PINNED_TASK176_SNAPSHOT",
+  "google_sheets_mime": "application/vnd.google-apps.spreadsheet",
+  "source_role": "DERIVED_QUERY_CACHE_NOT_SOURCE_OF_TRUTH",
+  "product_mapping": {
+    "SCHOOL_INDICATOR_SERIES": "OBS_SCHOOL_INDICATOR_SERIES__SERVING",
+    "JOM_EVENT_INDEX": "OBS_JOM_EVENT_INDEX__SERVING",
+    "ACCOUNTING_LEDGER": "OBS_ACCOUNTING_LEDGER__SERVING",
+    "FISCAL_SERIES": "OBS_FISCAL_SERIES__SERVING",
+    "PLANNING_DOCUMENT_INDEX": "OBS_PLANNING_DOCUMENT_INDEX__SERVING",
+    "QUERY_PRODUCT_CATALOG": "OBS_QUERY_PRODUCT_CATALOG__SERVING"
+  },
+  "plan_states": [
+    "CREATE_INITIAL_SERVING",
+    "NO_CHANGE_IDEMPOTENT",
+    "REPLACE_SERVING_FROM_NEW_SNAPSHOT"
+  ],
+  "meta_keys": [
+    "product_name",
+    "product_schema",
+    "serving_contract_version",
+    "snapshot_id",
+    "content_sha256",
+    "schema_fingerprint_sha256",
+    "row_count",
+    "column_count",
+    "ordered_columns_json",
+    "generated_at",
+    "software_version",
+    "source_families_json",
+    "cautions_json",
+    "source_role"
+  ],
+  "guards": {
+    "snapshot_must_validate_offline": true,
+    "content_sha256_must_recompute": true,
+    "snapshot_id_must_match_content_hash_prefix": true,
+    "schema_drift_requires_migration": true,
+    "duplicate_remote_name_stop": true,
+    "wrong_mime_stop": true,
+    "wrong_tabs_stop": true,
+    "formula_or_extra_cells_stop": true,
+    "remote_authorization_required": true,
+    "authorization_exact_snapshot_scoped": true,
+    "authorization_implementation_sha_pinned": true,
+    "prior_bi_authorization_reuse": false,
+    "looker_publication_separate": true
+  },
+  "authorization_contract": {
+    "task": "TASK_177_OBSERVATORY_QUERY_PRODUCT_SERVING_MATERIALIZATION",
+    "tier": "T3_MUTATING_OR_PUBLICATION",
+    "scope": "SINGLE_PINNED_QUERY_PRODUCT_SNAPSHOT_TO_STABLE_SERVING",
+    "repository": "ferinbon-cpu/robo-dados-publicos",
+    "drive_root": "13_BI",
+    "parent_path": "13_BI/02_SERVING",
+    "looker_publication_authorized": false
+  },
+  "active_authorization": null,
+  "remote_execution_authorized": false,
+  "remote_effects": {
+    "source_network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "sheets_write": false,
+    "looker": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
