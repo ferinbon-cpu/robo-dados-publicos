@@ -49,8 +49,13 @@ class TestTask185TcespJsonApi(unittest.TestCase):
         self.assertEqual(obs["stage"], "PAYMENT")
         self.assertEqual(obs["amount_brl"], "123.45")
         self.assertEqual(obs["supplier_name"], "FORNECEDOR TESTE")
+        self.assertEqual(obs["entity_name"], "PREFEITURA MUNICIPAL DE LIMEIRA")
         self.assertIsNone(obs["programmatic_dimensions"]["program_code"])
         self.assertFalse(obs["policy_identity_proven"])
+
+    def test_contract_pins_180_second_timeout(self):
+        from robo_dados_publicos.accounting.tcesp_json_api import load_contract
+        self.assertEqual(load_contract()["source"]["network_timeout_seconds"], 180)
 
     def test_reinforcement_is_commitment_modifier(self):
         obs = normalize_json_expense_row(self.sample(event="Reforço"), source_body_sha256="b"*64, month=1)
