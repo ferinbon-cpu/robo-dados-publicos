@@ -1,169 +1,29 @@
 {
   "version": 1,
   "task": "TASK_062_SOURCE_FAMILY_MATURITY_REGISTRY",
-  "levels": [
-    "EXECUTION_READY_BOUNDED",
-    "ROUTING_ONLY_SUPERVISED_EXECUTION",
-    "BLOCKED_PENDING_CONTRACT"
-  ],
+  "levels": ["EXECUTION_READY_BOUNDED", "ROUTING_ONLY_SUPERVISED_EXECUTION", "BLOCKED_PENDING_CONTRACT"],
   "families": {
-    "JORNAL_OFICIAL": {
-      "level": "EXECUTION_READY_BOUNDED",
-      "surface": "JORNAL_PDF_CONTRACT",
-      "evidence": [
-        "config/sources.jornal_oficial_7310_gate.json",
-        "config/processing.jornal_oficial_7310_gate.json"
-      ],
-      "recurrence": "NOT_GLOBALLY_PROMOTED"
-    },
-    "SIOPE": {
-      "level": "EXECUTION_READY_BOUNDED",
-      "surface": "PROVEN_SIOPE_CONTRACTS_ONLY",
-      "evidence": [
-        "STATE:M8_SIOPE_PROOFS"
-      ],
-      "recurrence": "CONTRACT_SCOPED"
-    },
-    "FUNDEB": {
-      "level": "EXECUTION_READY_BOUNDED",
-      "surface": "OFFICIAL_FNDE_2026_DECLARED_CSV_ROUTES",
-      "evidence": [
-        "TASK_056",
-        "TASK_057",
-        "docs/evidence/TASK_172_FISCAL_MACHINE_READABLE_BATCH_LIVE_CLOSURE_0.8.0.json"
-      ],
-      "recurrence": "CURRENT_PUBLICATION_ROUTE_PROVEN_NOT_SCHEDULED"
-    },
-    "RREO": {
-      "level": "EXECUTION_READY_BOUNDED",
-      "surface": "SICONFI_OFFICIAL_JSON_API_EXACT_QUERY",
-      "evidence": [
-        "docs/evidence/TASK_172_FISCAL_MACHINE_READABLE_BATCH_LIVE_CLOSURE_0.8.0.json"
-      ],
-      "recurrence": "EXACT_QUERY_CONTRACT_PROVEN_NOT_SCHEDULED"
-    },
-    "RGF": {
-      "level": "EXECUTION_READY_BOUNDED",
-      "surface": "SICONFI_OFFICIAL_JSON_API_EXACT_QUERY",
-      "evidence": [
-        "docs/evidence/TASK_172_FISCAL_MACHINE_READABLE_BATCH_LIVE_CLOSURE_0.8.0.json"
-      ],
-      "recurrence": "EXACT_QUERY_CONTRACT_PROVEN_NOT_SCHEDULED"
-    },
-    "MDE": {
-      "level": "ROUTING_ONLY_SUPERVISED_EXECUTION",
-      "surface": "DRIVE_DOCUMENT",
-      "evidence": [
-        "docs/evidence/TASK_172_FISCAL_MACHINE_READABLE_BATCH_LIVE_CLOSURE_0.8.0.json"
-      ],
-      "recurrence": "RREO_ANEXO_08_EXACT_QUERY_EMPTY_ROUTE_VARIANT_NOT_YET_RESOLVED"
-    },
-    "SAEB": {
-      "level": "ROUTING_ONLY_SUPERVISED_EXECUTION",
-      "surface": "DATASET_OR_DOCUMENT",
-      "evidence": [],
-      "recurrence": "NOT_PROVEN_FOR_DRIVE_CONTROLLER"
-    },
-    "SARESP": {
-      "level": "ROUTING_ONLY_SUPERVISED_EXECUTION",
-      "surface": "DATASET_OR_DOCUMENT",
-      "evidence": [],
-      "recurrence": "NOT_PROVEN_FOR_DRIVE_CONTROLLER"
-    },
-    "CENSO_ESCOLAR": {
-      "level": "ROUTING_ONLY_SUPERVISED_EXECUTION",
-      "surface": "DATASET_OR_ARCHIVE",
-      "evidence": [],
-      "recurrence": "NOT_PROVEN_FOR_DRIVE_CONTROLLER"
-    },
-    "IDEB": {
-      "level": "ROUTING_ONLY_SUPERVISED_EXECUTION",
-      "surface": "DATASET_OR_DOCUMENT",
-      "evidence": [],
-      "recurrence": "NOT_PROVEN_FOR_DRIVE_CONTROLLER"
-    },
-    "PPA": {
-      "level": "ROUTING_ONLY_SUPERVISED_EXECUTION",
-      "surface": "DRIVE_DOCUMENT",
-      "evidence": [
-        "TASK_047"
-      ],
-      "recurrence": "SUPERVISED"
-    },
-    "LDO": {
-      "level": "ROUTING_ONLY_SUPERVISED_EXECUTION",
-      "surface": "DRIVE_DOCUMENT",
-      "evidence": [
-        "TASK_042"
-      ],
-      "recurrence": "SUPERVISED"
-    },
-    "LOA": {
-      "level": "ROUTING_ONLY_SUPERVISED_EXECUTION",
-      "surface": "DRIVE_DOCUMENT",
-      "evidence": [
-        "TASK_050"
-      ],
-      "recurrence": "SUPERVISED"
-    },
-    "BUDGET_EXECUTION": {
-      "level": "ROUTING_ONLY_SUPERVISED_EXECUTION",
-      "surface": "DRIVE_DOCUMENT",
-      "evidence": [
-        "TASK_055"
-      ],
-      "recurrence": "SUPERVISED"
-    },
-    "MUNICIPAL_CONTRACTS": {
-      "level": "ROUTING_ONLY_SUPERVISED_EXECUTION",
-      "surface": "DRIVE_DOCUMENT_OR_RECONCILIATION_TARGET",
-      "evidence": [
-        "RECONCILIATION_RESOLVER"
-      ],
-      "recurrence": "DOCUMENT_ADAPTER_NOT_PROVEN"
-    },
-    "PROCUREMENT": {
-      "level": "ROUTING_ONLY_SUPERVISED_EXECUTION",
-      "surface": "DRIVE_DOCUMENT",
-      "evidence": [],
-      "recurrence": "DOCUMENT_ADAPTER_NOT_PROVEN"
-    },
-    "MUNICIPAL_LEGISLATION": {
-      "level": "ROUTING_ONLY_SUPERVISED_EXECUTION",
-      "surface": "DRIVE_DOCUMENT",
-      "evidence": [],
-      "recurrence": "DOCUMENT_ADAPTER_NOT_PROVEN"
-    },
-    "CME": {
-      "level": "ROUTING_ONLY_SUPERVISED_EXECUTION",
-      "surface": "DRIVE_DOCUMENT",
-      "evidence": [],
-      "recurrence": "DOCUMENT_ADAPTER_NOT_PROVEN"
-    },
-    "TCE_SP_EXPENSES": {
-      "level": "EXECUTION_READY_BOUNDED",
-      "surface": "CURRENT_OFFICIAL_2026_ZIP_CSV_WITH_ACCOUNTING_DIMENSIONS",
-      "evidence": [
-        "TCE_RESOLVER",
-        "docs/evidence/TASK_172_FISCAL_MACHINE_READABLE_BATCH_LIVE_CLOSURE_0.8.0.json"
-      ],
-      "recurrence": "CURRENT_YEAR_DIRECT_FILE_PROVEN_NOT_SCHEDULED"
-    },
-    "TDA_LIMEIRA": {
-      "level": "BLOCKED_PENDING_CONTRACT",
-      "surface": "PUBLIC_PORTAL",
-      "evidence": [
-        "TASK_170_SELECTED_SOURCE",
-        "TASK_172_SOURCE_ACCESS_SURFACE_BLOCKED_301_LOGOUT"
-      ],
-      "recurrence": "BLOCKED"
-    },
-    "SIAVE_LIMEIRA": {
-      "level": "ROUTING_ONLY_SUPERVISED_EXECUTION",
-      "surface": "RECONCILIATION_TARGET",
-      "evidence": [],
-      "recurrence": "GENERIC_DRIVE_ADAPTER_NOT_PROVEN"
-    }
+    "JORNAL_OFICIAL": {"level":"EXECUTION_READY_BOUNDED","surface":"JORNAL_PDF_CONTRACT","evidence":["config/sources.jornal_oficial_7310_gate.json","config/processing.jornal_oficial_7310_gate.json"],"recurrence":"NOT_GLOBALLY_PROMOTED"},
+    "SIOPE": {"level":"EXECUTION_READY_BOUNDED","surface":"PROVEN_SIOPE_CONTRACTS_ONLY","evidence":["STATE:M8_SIOPE_PROOFS"],"recurrence":"CONTRACT_SCOPED"},
+    "FUNDEB": {"level":"ROUTING_ONLY_SUPERVISED_EXECUTION","surface":"DRIVE_DOCUMENT","evidence":["TASK_056","TASK_057"],"recurrence":"NOT_PROVEN"},
+    "RREO": {"level":"ROUTING_ONLY_SUPERVISED_EXECUTION","surface":"DRIVE_DOCUMENT","evidence":[],"recurrence":"NOT_PROVEN"},
+    "RGF": {"level":"ROUTING_ONLY_SUPERVISED_EXECUTION","surface":"DRIVE_DOCUMENT","evidence":[],"recurrence":"NOT_PROVEN"},
+    "MDE": {"level":"ROUTING_ONLY_SUPERVISED_EXECUTION","surface":"DRIVE_DOCUMENT","evidence":[],"recurrence":"NOT_PROVEN"},
+    "SAEB": {"level":"ROUTING_ONLY_SUPERVISED_EXECUTION","surface":"DATASET_OR_DOCUMENT","evidence":[],"recurrence":"NOT_PROVEN_FOR_DRIVE_CONTROLLER"},
+    "SARESP": {"level":"ROUTING_ONLY_SUPERVISED_EXECUTION","surface":"DATASET_OR_DOCUMENT","evidence":[],"recurrence":"NOT_PROVEN_FOR_DRIVE_CONTROLLER"},
+    "CENSO_ESCOLAR": {"level":"ROUTING_ONLY_SUPERVISED_EXECUTION","surface":"DATASET_OR_ARCHIVE","evidence":[],"recurrence":"NOT_PROVEN_FOR_DRIVE_CONTROLLER"},
+    "IDEB": {"level":"ROUTING_ONLY_SUPERVISED_EXECUTION","surface":"DATASET_OR_DOCUMENT","evidence":[],"recurrence":"NOT_PROVEN_FOR_DRIVE_CONTROLLER"},
+    "PPA": {"level":"ROUTING_ONLY_SUPERVISED_EXECUTION","surface":"DRIVE_DOCUMENT","evidence":["TASK_047"],"recurrence":"SUPERVISED"},
+    "LDO": {"level":"ROUTING_ONLY_SUPERVISED_EXECUTION","surface":"DRIVE_DOCUMENT","evidence":["TASK_042"],"recurrence":"SUPERVISED"},
+    "LOA": {"level":"ROUTING_ONLY_SUPERVISED_EXECUTION","surface":"DRIVE_DOCUMENT","evidence":["TASK_050"],"recurrence":"SUPERVISED"},
+    "BUDGET_EXECUTION": {"level":"ROUTING_ONLY_SUPERVISED_EXECUTION","surface":"DRIVE_DOCUMENT","evidence":["TASK_055"],"recurrence":"SUPERVISED"},
+    "MUNICIPAL_CONTRACTS": {"level":"ROUTING_ONLY_SUPERVISED_EXECUTION","surface":"DRIVE_DOCUMENT_OR_RECONCILIATION_TARGET","evidence":["RECONCILIATION_RESOLVER"],"recurrence":"DOCUMENT_ADAPTER_NOT_PROVEN"},
+    "PROCUREMENT": {"level":"ROUTING_ONLY_SUPERVISED_EXECUTION","surface":"DRIVE_DOCUMENT","evidence":[],"recurrence":"DOCUMENT_ADAPTER_NOT_PROVEN"},
+    "MUNICIPAL_LEGISLATION": {"level":"ROUTING_ONLY_SUPERVISED_EXECUTION","surface":"DRIVE_DOCUMENT","evidence":[],"recurrence":"DOCUMENT_ADAPTER_NOT_PROVEN"},
+    "CME": {"level":"ROUTING_ONLY_SUPERVISED_EXECUTION","surface":"DRIVE_DOCUMENT","evidence":[],"recurrence":"DOCUMENT_ADAPTER_NOT_PROVEN"},
+    "TCE_SP_EXPENSES": {"level":"ROUTING_ONLY_SUPERVISED_EXECUTION","surface":"RECONCILIATION_EXPORT","evidence":["TCE_RESOLVER"],"recurrence":"TEMPORAL_SCHEMA_CAUTION"},
+    "TDA_LIMEIRA": {"level":"BLOCKED_PENDING_CONTRACT","surface":"PUBLIC_PORTAL","evidence":["BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"],"recurrence":"BLOCKED"},
+    "SIAVE_LIMEIRA": {"level":"ROUTING_ONLY_SUPERVISED_EXECUTION","surface":"RECONCILIATION_TARGET","evidence":[],"recurrence":"GENERIC_DRIVE_ADAPTER_NOT_PROVEN"}
   },
   "rule": "ROUTING_AUTO_INGEST_NEVER_OVERRIDES_MATURITY_REGISTRY",
   "promotion_rule": "A_FAMILY_CAN_MOVE_TO_EXECUTION_READY_BOUNDED_ONLY_WITH_VERSIONED_CONTRACT_FIXTURE_TEST_AND_PROVENANCE_EVIDENCE"
