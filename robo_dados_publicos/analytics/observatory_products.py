@@ -55,6 +55,7 @@ def validate_contract(
             "SCHOOL_INDICATOR_SERIES",
             "JOM_EVENT_INDEX",
             "ACCOUNTING_LEDGER",
+            "REVENUE_LEDGER",
             "FISCAL_SERIES",
             "PLANNING_DOCUMENT_INDEX",
             "QUERY_PRODUCT_CATALOG",
@@ -329,6 +330,53 @@ def build_accounting_ledger(
     return product
 
 
+def build_revenue_ledger(
+    observations: Iterable[Mapping[str, Any]],
+    *,
+    generated_at: str,
+    software_version: str,
+) -> dict[str, Any]:
+    rows = []
+    capabilities: set[str] = set()
+    for obs in observations:
+        rows.append(
+            {
+                **dict(obs),
+                "observation_period": f"{obs.get('fiscal_year')}:{int(obs.get('revenue_month') or 0):02d}",
+                "source_family": "TCE_SP_REVENUES",
+                "source_sha256": obs.get("source_record_hash"),
+                "provenance_ref": obs.get("revenue_observation_id"),
+                "quality_status": "VALIDATED",
+                "caution": "REVENUE_CLASSIFICATION_NE_EXPENDITURE_DESTINATION",
+            }
+        )
+        capabilities.update(
+            {
+                "OFFICIAL_RECORD_ID",
+                "REVENUE_AMOUNT",
+                "EVENT_MONTH",
+                "FUNDING_SOURCE",
+                "APPLICATION_FIXED",
+                "APPLICATION_VARIABLE",
+                "REVENUE_NATURE_HIERARCHY",
+            }
+        )
+        if obs.get("education_application"):
+            capabilities.add("EDUCATION_REVENUE_CLASSIFICATION")
+        if obs.get("fundeb_classification"):
+            capabilities.add("FUNDEB_REVENUE_CLASSIFICATION")
+        if obs.get("eti_classification"):
+            capabilities.add("ETI_REVENUE_CLASSIFICATION")
+    product = materialize_product(
+        "REVENUE_LEDGER",
+        rows,
+        generated_at=generated_at,
+        software_version=software_version,
+    )
+    product["capabilities"] = sorted(capabilities)
+    return product
+
+
 def build_fiscal_series(
     rows: Iterable[Mapping[str, Any]],
     *,
@@ -489,7 +537,7 @@ def query_products(
             record = dict(row)
             record["query_product_name"] = product_name
             record.setdefault("product_name", product_name)
-            if product_name in {"SCHOOL_INDICATOR_SERIES", "ACCOUNTING_LEDGER", "FISCAL_SERIES"}:
+            if product_name in {"SCHOOL_INDICATOR_SERIES", "ACCOUNTING_LEDGER", "REVENUE_LEDGER", "FISCAL_SERIES"}:
                 numeric_records.append(record)
             elif product_name in {"JOM_EVENT_INDEX", "PLANNING_DOCUMENT_INDEX"}:
                 if product_name == "PLANNING_DOCUMENT_INDEX":
