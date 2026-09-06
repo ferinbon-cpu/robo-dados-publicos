@@ -74,7 +74,7 @@ class TestTask189LoaSubstantiveOverlay(unittest.TestCase):
             "EVIDENCIA_INSUFICIENTE",
         )
 
-    def test_plan_q3_closes_only_when_substantive_loa_and_real_accounting_are_combined(self):
+    def test_scoped_substantive_loa_closes_all_three_planning_questions(self):
         t188 = json.loads(TASK188.read_text(encoding="utf-8"))
         t186 = json.loads(TASK186.read_text(encoding="utf-8"))
         bundle = build_task184_bundle(
@@ -83,12 +83,8 @@ class TestTask189LoaSubstantiveOverlay(unittest.TestCase):
         )
         substantive = {
             k: v for k, v in bundle["products"].items()
-            if k not in {"QUERY_PRODUCT_CATALOG", "PLANNING_DOCUMENT_INDEX"}
+            if k != "QUERY_PRODUCT_CATALOG"
         }
-        planning = build_planning_overlay(
-            generated_at=GENERATED_AT,
-            software_version=SOFTWARE_VERSION,
-        )
         accounting = {
             "product_name": "ACCOUNTING_LEDGER",
             "product_schema": "ACCOUNTING_LEDGER_V1",
@@ -112,7 +108,23 @@ class TestTask189LoaSubstantiveOverlay(unittest.TestCase):
             "rows": [],
             "capabilities": t186["revenue_ledger"]["capabilities"],
         }
-        products = _with_catalog(
+
+        before_products = _with_catalog(
+            {
+                **substantive,
+                "ACCOUNTING_LEDGER": accounting,
+                "REVENUE_LEDGER": revenue,
+            },
+            generated_at=GENERATED_AT,
+            software_version=SOFTWARE_VERSION,
+        )
+        before = question_answerability(before_products)
+
+        planning = build_planning_overlay(
+            generated_at=GENERATED_AT,
+            software_version=SOFTWARE_VERSION,
+        )
+        after_products = _with_catalog(
             {
                 **substantive,
                 "PLANNING_DOCUMENT_INDEX": planning,
@@ -122,20 +134,41 @@ class TestTask189LoaSubstantiveOverlay(unittest.TestCase):
             generated_at=GENERATED_AT,
             software_version=SOFTWARE_VERSION,
         )
-        report = question_answerability(products)
-        by_id = {row["question_id"]: row for row in report["questions"]}
+        after = question_answerability(after_products)
+
         self.assertEqual(
-            report["status_counts"],
+            before["status_counts"],
             {
                 "EXPLICIT_GAP": 5,
-                "MATERIALIZED_ANSWERABLE": 22,
-                "MATERIALIZED_PARTIAL": 11,
+                "MATERIALIZED_ANSWERABLE": 21,
+                "MATERIALIZED_PARTIAL": 12,
             },
         )
-        self.assertEqual(by_id["PLAN_Q3"]["status"], "MATERIALIZED_ANSWERABLE")
-        self.assertEqual(by_id["FIN_Q1"]["status"], "MATERIALIZED_PARTIAL")
-        self.assertEqual(by_id["ACC_Q3"]["status"], "MATERIALIZED_ANSWERABLE")
-
+        self.assertEqual(
+            after["status_counts"],
+            {
+                "EXPLICIT_GAP": 5,
+                "MATERIALIZED_ANSWERABLE": 24,
+                "MATERIALIZED_PARTIAL": 9,
+            },
+        )
+        before_by_id = {row["question_id"]: row for row in before["questions"]}
+        after_by_id = {row["question_id"]: row for row in after["questions"]}
+        changed = {
+            qid: (before_by_id[qid]["status"], after_by_id[qid]["status"])
+            for qid in before_by_id
+            if before_by_id[qid]["status"] != after_by_id[qid]["status"]
+        }
+        self.assertEqual(
+            changed,
+            {
+                "PLAN_Q1": ("MATERIALIZED_PARTIAL", "MATERIALIZED_ANSWERABLE"),
+                "PLAN_Q2": ("MATERIALIZED_PARTIAL", "MATERIALIZED_ANSWERABLE"),
+                "PLAN_Q3": ("MATERIALIZED_PARTIAL", "MATERIALIZED_ANSWERABLE"),
+            },
+        )
+        self.assertEqual(after_by_id["FIN_Q1"]["status"], "MATERIALIZED_PARTIAL")
+        self.assertEqual(after_by_id["ACC_Q3"]["status"], "MATERIALIZED_ANSWERABLE")
 
     def test_canonical_evidence_pins_snapshot_scope_and_gain(self):
         e = json.loads(EVIDENCE.read_text(encoding="utf-8"))
@@ -155,9 +188,12 @@ class TestTask189LoaSubstantiveOverlay(unittest.TestCase):
         self.assertEqual(e["promotion"]["eiti_financial_identity"], "EVIDENCIA_INSUFICIENTE")
         self.assertEqual(
             e["answerability"]["after_status_counts"],
-            {"EXPLICIT_GAP": 5, "MATERIALIZED_ANSWERABLE": 22, "MATERIALIZED_PARTIAL": 11},
+            {"EXPLICIT_GAP": 5, "MATERIALIZED_ANSWERABLE": 24, "MATERIALIZED_PARTIAL": 9},
         )
-        self.assertEqual(e["answerability"]["changes"][0]["question_id"], "PLAN_Q3")
+        self.assertEqual(
+            [row["question_id"] for row in e["answerability"]["changes"]],
+            ["PLAN_Q1", "PLAN_Q2", "PLAN_Q3"],
+        )
         self.assertEqual(e["remote_effects"]["serving"], 0)
 
 
