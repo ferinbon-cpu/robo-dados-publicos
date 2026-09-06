@@ -191,6 +191,13 @@ class TestTask187TcespRichAccounting(unittest.TestCase):
         self.assertEqual(by_id["FIN_Q1"]["status"], "MATERIALIZED_PARTIAL")
         self.assertEqual(by_id["ACC_Q2"]["status"], "MATERIALIZED_ANSWERABLE")
         self.assertEqual(by_id["ACC_Q3"]["status"], "MATERIALIZED_PARTIAL")
+        self.assertEqual(report["status_counts"], {
+            "EXPLICIT_GAP": 5,
+            "MATERIALIZED_ANSWERABLE": 20,
+            "MATERIALIZED_PARTIAL": 13,
+        })
+        self.assertEqual(by_id["INFRA_Q2"]["status"], "MATERIALIZED_ANSWERABLE")
+        self.assertEqual(by_id["PLAN_Q3"]["status"], "MATERIALIZED_PARTIAL")
 
 
 if __name__ == "__main__":
