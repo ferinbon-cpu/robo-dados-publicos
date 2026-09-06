@@ -1,0 +1,706 @@
+{
+  "version": 1,
+  "schema": "OBSERVATORY_SEMANTIC_ANSWERABILITY_V1",
+  "task": "TASK_183_EXISTING_CUSTODY_KNOWLEDGE_PACK",
+  "status_enum": [
+    "MATERIALIZED_ANSWERABLE",
+    "MATERIALIZED_PARTIAL",
+    "ROUTE_READY_PRODUCT_NOT_BUNDLED",
+    "SOURCE_READY_NOT_MATERIALIZED",
+    "EXPLICIT_GAP"
+  ],
+  "signal_kinds": [
+    "METRIC",
+    "PRODUCT"
+  ],
+  "evaluation_rules": {
+    "all_signals_full": "MATERIALIZED_ANSWERABLE",
+    "some_signal_full_or_partial": "MATERIALIZED_PARTIAL",
+    "no_materialized_signal_but_route_ready_product": "ROUTE_READY_PRODUCT_NOT_BUNDLED",
+    "no_materialized_signal_but_source_ready_product": "SOURCE_READY_NOT_MATERIALIZED",
+    "otherwise": "EXPLICIT_GAP",
+    "metric_min_periods_shortfall": "PARTIAL",
+    "metric_scope_shortfall": "PARTIAL",
+    "missing_metric_ne_zero": true,
+    "product_presence_ne_question_answerability": true
+  },
+  "recipes": {
+    "NETWORK_SCALE": {
+      "signals": [
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "BASIC_EDUCATION_ENROLLMENT"
+          ],
+          "match": "ANY"
+        },
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "CLASS_COUNT"
+          ],
+          "match": "ANY"
+        },
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "SCHOOL_COUNT"
+          ],
+          "match": "ANY"
+        }
+      ]
+    },
+    "NETWORK_CHANGE_FULLTIME": {
+      "signals": [
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "FULL_TIME_SHARE"
+          ],
+          "match": "ANY",
+          "min_periods": 2
+        }
+      ]
+    },
+    "SCHOOL_NETWORK_COMPARE": {
+      "signals": [
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "IDEB",
+            "APPROVAL_RATE"
+          ],
+          "match": "ANY",
+          "scope_levels_required": [
+            "SCHOOL",
+            "NETWORK"
+          ]
+        }
+      ]
+    },
+    "SCHOOL_RESOURCES": {
+      "signals": [
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "INFRASTRUCTURE_SCORE_0_8",
+            "ACCESSIBILITY_SCORE_0_8",
+            "DEVICE_COUNT"
+          ],
+          "match": "ALL"
+        }
+      ]
+    },
+    "WORKS_EVENTS": {
+      "signals": [
+        {
+          "kind": "PRODUCT",
+          "product": "JOM_EVENT_INDEX"
+        },
+        {
+          "kind": "PRODUCT",
+          "product": "ACCOUNTING_LEDGER"
+        }
+      ]
+    },
+    "LEARNING_CORE": {
+      "signals": [
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "IDEB"
+          ],
+          "match": "ANY",
+          "min_periods": 2
+        },
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "SAEB_LP",
+            "SAEB_MATH"
+          ],
+          "match": "ANY",
+          "min_periods": 2
+        },
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "SARESP_OFFICIAL_LP_MEAN",
+            "SARESP_OFFICIAL_MATH_MEAN"
+          ],
+          "match": "ANY",
+          "min_periods": 2
+        }
+      ]
+    },
+    "IDEB_DECOMPOSITION": {
+      "signals": [
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "IDEB_LP_PROFICIENCY",
+            "IDEB_MATH_PROFICIENCY"
+          ],
+          "match": "ANY",
+          "min_periods": 2
+        },
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "APPROVAL_RATE"
+          ],
+          "match": "ANY",
+          "min_periods": 2
+        }
+      ]
+    },
+    "FLOW_TREND": {
+      "signals": [
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "APPROVAL_RATE",
+            "FAILURE_RATE",
+            "DROPOUT_RATE"
+          ],
+          "match": "ALL",
+          "min_periods": 2
+        },
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "TDI"
+          ],
+          "match": "ANY",
+          "min_periods": 2
+        }
+      ]
+    },
+    "EQUITY_CONTEXT": {
+      "signals": [
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "PPI_SHARE",
+            "INSE",
+            "SPECIAL_EDUCATION_ENROLLMENT"
+          ],
+          "match": "ALL"
+        },
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "VULNERABILITY",
+            "TERRITORY_VULNERABILITY"
+          ],
+          "match": "ANY"
+        }
+      ]
+    },
+    "AEE_INCLUSION": {
+      "signals": [
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "SPECIAL_EDUCATION_ENROLLMENT"
+          ],
+          "match": "ANY",
+          "min_periods": 2
+        },
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "AEE_ROOM_AVAILABILITY_RATE"
+          ],
+          "match": "ANY",
+          "min_periods": 2
+        }
+      ]
+    },
+    "TEACHER_QUALITY": {
+      "signals": [
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "AFD",
+            "IRD",
+            "IED_LEVEL_5_6_SHARE"
+          ],
+          "match": "ALL"
+        }
+      ]
+    },
+    "STAFFING_BONDS": {
+      "signals": [
+        {
+          "kind": "PRODUCT",
+          "product": "JOM_EVENT_INDEX"
+        },
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "STAFF_COUNT",
+            "EMPLOYMENT_BOND"
+          ],
+          "match": "ANY"
+        }
+      ]
+    },
+    "EDUCATION_SPENDING_AMOUNT": {
+      "signals": [
+        {
+          "kind": "METRIC",
+          "product": "FISCAL_SERIES",
+          "ids": [
+            "EDUCATION_EXPENDITURE",
+            "EDUCATION_PAID_EXPENDITURE"
+          ],
+          "match": "ANY"
+        },
+        {
+          "kind": "PRODUCT",
+          "product": "ACCOUNTING_LEDGER"
+        }
+      ]
+    },
+    "SPENDING_PER_STUDENT": {
+      "signals": [
+        {
+          "kind": "METRIC",
+          "product": "FISCAL_SERIES",
+          "ids": [
+            "EDUCATION_EXPENDITURE"
+          ],
+          "match": "ANY"
+        },
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "BASIC_EDUCATION_ENROLLMENT"
+          ],
+          "match": "ANY"
+        }
+      ]
+    },
+    "FUNDEB_OWN_TRANSFERS": {
+      "signals": [
+        {
+          "kind": "METRIC",
+          "product": "FISCAL_SERIES",
+          "ids": [
+            "SIOPE_FUNDEB_REMUNERATION_SHARE",
+            "SIOPE_MDE_SHARE"
+          ],
+          "match": "ANY",
+          "min_periods": 2
+        },
+        {
+          "kind": "METRIC",
+          "product": "FISCAL_SERIES",
+          "ids": [
+            "FUNDEB_REVENUE",
+            "OWN_SOURCE_EDUCATION",
+            "EDUCATION_TRANSFERS"
+          ],
+          "match": "ANY"
+        }
+      ]
+    },
+    "NOMINAL_REAL_TREND": {
+      "signals": [
+        {
+          "kind": "METRIC",
+          "product": "FISCAL_SERIES",
+          "ids": [
+            "EDUCATION_EXPENDITURE"
+          ],
+          "match": "ANY",
+          "min_periods": 2
+        },
+        {
+          "kind": "METRIC",
+          "product": "FISCAL_SERIES",
+          "ids": [
+            "REAL_EDUCATION_EXPENDITURE"
+          ],
+          "match": "ANY",
+          "min_periods": 2
+        }
+      ]
+    },
+    "PLANNING_DOCUMENTS": {
+      "signals": [
+        {
+          "kind": "PRODUCT",
+          "product": "PLANNING_DOCUMENT_INDEX"
+        }
+      ]
+    },
+    "PLANNING_EXECUTION_LINK": {
+      "signals": [
+        {
+          "kind": "PRODUCT",
+          "product": "PLANNING_DOCUMENT_INDEX"
+        },
+        {
+          "kind": "PRODUCT",
+          "product": "ACCOUNTING_LEDGER"
+        }
+      ]
+    },
+    "ACCOUNTING_STAGES": {
+      "signals": [
+        {
+          "kind": "PRODUCT",
+          "product": "ACCOUNTING_LEDGER"
+        }
+      ]
+    },
+    "PROCUREMENT": {
+      "signals": [
+        {
+          "kind": "PRODUCT",
+          "product": "JOM_EVENT_INDEX"
+        },
+        {
+          "kind": "PRODUCT",
+          "product": "ACCOUNTING_LEDGER"
+        }
+      ]
+    },
+    "PERSONNEL_EVENTS": {
+      "signals": [
+        {
+          "kind": "PRODUCT",
+          "product": "JOM_EVENT_INDEX"
+        }
+      ]
+    },
+    "SCHOOL_NORMS": {
+      "signals": [
+        {
+          "kind": "PRODUCT",
+          "product": "JOM_EVENT_INDEX"
+        },
+        {
+          "kind": "PRODUCT",
+          "product": "PLANNING_DOCUMENT_INDEX"
+        }
+      ]
+    },
+    "PUBLIC_POLICIES": {
+      "signals": [
+        {
+          "kind": "PRODUCT",
+          "product": "JOM_EVENT_INDEX"
+        },
+        {
+          "kind": "PRODUCT",
+          "product": "PLANNING_DOCUMENT_INDEX"
+        }
+      ]
+    },
+    "JOM_RADAR": {
+      "signals": [
+        {
+          "kind": "PRODUCT",
+          "product": "JOM_EVENT_INDEX"
+        }
+      ]
+    },
+    "TERRITORY": {
+      "signals": [
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": [
+            "POPULATION",
+            "INCOME",
+            "TERRITORY_VULNERABILITY",
+            "DEMOGRAPHIC_PROFILE"
+          ],
+          "match": "ANY"
+        }
+      ]
+    },
+    "TRANSPARENCY_CATALOG": {
+      "signals": [
+        {
+          "kind": "PRODUCT",
+          "product": "QUERY_PRODUCT_CATALOG"
+        }
+      ]
+    },
+    "CONTROL_CORROBORATION": {
+      "signals": [
+        {
+          "kind": "PRODUCT",
+          "product": "ACCOUNTING_LEDGER"
+        },
+        {
+          "kind": "PRODUCT",
+          "product": "JOM_EVENT_INDEX"
+        }
+      ]
+    }
+  },
+  "questions": [
+    {
+      "id": "NETWORK_Q1",
+      "domain_id": "NETWORK_ENROLLMENT",
+      "text": "Quantos alunos, turmas e escolas existem?",
+      "recipe": "NETWORK_SCALE"
+    },
+    {
+      "id": "NETWORK_Q2",
+      "domain_id": "NETWORK_ENROLLMENT",
+      "text": "Como matriculas, etapas e tempo integral mudaram?",
+      "recipe": "NETWORK_CHANGE_FULLTIME"
+    },
+    {
+      "id": "NETWORK_Q3",
+      "domain_id": "NETWORK_ENROLLMENT",
+      "text": "Como uma escola se compara a rede?",
+      "recipe": "SCHOOL_NETWORK_COMPARE"
+    },
+    {
+      "id": "INFRA_Q1",
+      "domain_id": "SCHOOLS_INFRASTRUCTURE",
+      "text": "Quais recursos e estruturas cada escola possui?",
+      "recipe": "SCHOOL_RESOURCES"
+    },
+    {
+      "id": "INFRA_Q2",
+      "domain_id": "SCHOOLS_INFRASTRUCTURE",
+      "text": "Quais escolas receberam obras, reformas ou equipamentos?",
+      "recipe": "WORKS_EVENTS"
+    },
+    {
+      "id": "LEARN_Q1",
+      "domain_id": "LEARNING_FLOW",
+      "text": "Como estao IDEB, SAEB e SARESP?",
+      "recipe": "LEARNING_CORE"
+    },
+    {
+      "id": "LEARN_Q2",
+      "domain_id": "LEARNING_FLOW",
+      "text": "A mudanca veio de aprendizagem, fluxo ou ambos?",
+      "recipe": "IDEB_DECOMPOSITION"
+    },
+    {
+      "id": "LEARN_Q3",
+      "domain_id": "LEARNING_FLOW",
+      "text": "Como aprovacao, reprovacao, abandono e distorcao evoluem?",
+      "recipe": "FLOW_TREND"
+    },
+    {
+      "id": "EQUITY_Q1",
+      "domain_id": "EQUITY_INCLUSION",
+      "text": "Existem desigualdades por contexto social, raca/cor, deficiencia ou territorio?",
+      "recipe": "EQUITY_CONTEXT"
+    },
+    {
+      "id": "EQUITY_Q2",
+      "domain_id": "EQUITY_INCLUSION",
+      "text": "Como AEE e inclusao estao distribuidos?",
+      "recipe": "AEE_INCLUSION"
+    },
+    {
+      "id": "TEACH_Q1",
+      "domain_id": "TEACHERS_WORKFORCE",
+      "text": "Como estao formacao adequada, regularidade e esforco docente?",
+      "recipe": "TEACHER_QUALITY"
+    },
+    {
+      "id": "TEACH_Q2",
+      "domain_id": "TEACHERS_WORKFORCE",
+      "text": "Quantos profissionais e quais vinculos existem?",
+      "recipe": "STAFFING_BONDS"
+    },
+    {
+      "id": "FIN_Q1",
+      "domain_id": "FINANCING",
+      "text": "Quanto Limeira gasta com educacao?",
+      "recipe": "EDUCATION_SPENDING_AMOUNT"
+    },
+    {
+      "id": "FIN_Q2",
+      "domain_id": "FINANCING",
+      "text": "Quanto por aluno?",
+      "recipe": "SPENDING_PER_STUDENT"
+    },
+    {
+      "id": "FIN_Q3",
+      "domain_id": "FINANCING",
+      "text": "Quanto vem de FUNDEB, recursos proprios e transferencias?",
+      "recipe": "FUNDEB_OWN_TRANSFERS"
+    },
+    {
+      "id": "FIN_Q4",
+      "domain_id": "FINANCING",
+      "text": "Como valores mudam nominal e realmente?",
+      "recipe": "NOMINAL_REAL_TREND"
+    },
+    {
+      "id": "PLAN_Q1",
+      "domain_id": "PLANNING_BUDGET",
+      "text": "O que PPA, LDO e LOA prometeram e autorizaram?",
+      "recipe": "PLANNING_DOCUMENTS"
+    },
+    {
+      "id": "PLAN_Q2",
+      "domain_id": "PLANNING_BUDGET",
+      "text": "Quais programas, acoes, metas e dotacoes existem?",
+      "recipe": "PLANNING_DOCUMENTS"
+    },
+    {
+      "id": "PLAN_Q3",
+      "domain_id": "PLANNING_BUDGET",
+      "text": "Planejamento e execucao estao coerentes?",
+      "recipe": "PLANNING_EXECUTION_LINK"
+    },
+    {
+      "id": "ACC_Q1",
+      "domain_id": "ACCOUNTING_EXECUTION",
+      "text": "Quanto foi empenhado, liquidado e pago?",
+      "recipe": "ACCOUNTING_STAGES"
+    },
+    {
+      "id": "ACC_Q2",
+      "domain_id": "ACCOUNTING_EXECUTION",
+      "text": "Qual ficha, dotacao, fonte e aplicacao sustentam o gasto?",
+      "recipe": "ACCOUNTING_STAGES"
+    },
+    {
+      "id": "ACC_Q3",
+      "domain_id": "ACCOUNTING_EXECUTION",
+      "text": "Ha restos a pagar?",
+      "recipe": "ACCOUNTING_STAGES"
+    },
+    {
+      "id": "PROC_Q1",
+      "domain_id": "PROCUREMENT_CONTRACTS",
+      "text": "O que a prefeitura esta comprando?",
+      "recipe": "PROCUREMENT"
+    },
+    {
+      "id": "PROC_Q2",
+      "domain_id": "PROCUREMENT_CONTRACTS",
+      "text": "Quem fornece, por quanto e por quanto tempo?",
+      "recipe": "PROCUREMENT"
+    },
+    {
+      "id": "PROC_Q3",
+      "domain_id": "PROCUREMENT_CONTRACTS",
+      "text": "Houve aditivo, apostilamento ou nova licitacao?",
+      "recipe": "PROCUREMENT"
+    },
+    {
+      "id": "PERS_Q1",
+      "domain_id": "PERSONNEL_MANAGEMENT",
+      "text": "Que nomeacoes, concursos, processos seletivos e mudancas de quadro ocorreram?",
+      "recipe": "PERSONNEL_EVENTS"
+    },
+    {
+      "id": "PERS_Q2",
+      "domain_id": "PERSONNEL_MANAGEMENT",
+      "text": "Quais cargos e funcoes afetam a rede?",
+      "recipe": "PERSONNEL_EVENTS"
+    },
+    {
+      "id": "NORMS_Q1",
+      "domain_id": "NORMS_SCHOOL_FUNCTIONING",
+      "text": "Que normas mudaram o funcionamento das escolas?",
+      "recipe": "SCHOOL_NORMS"
+    },
+    {
+      "id": "NORMS_Q2",
+      "domain_id": "NORMS_SCHOOL_FUNCTIONING",
+      "text": "O que mudou em calendario, matricula, jornada, atribuicao, transporte, alimentacao, inclusao ou gestao?",
+      "recipe": "SCHOOL_NORMS"
+    },
+    {
+      "id": "POLICY_Q1",
+      "domain_id": "PUBLIC_POLICIES",
+      "text": "Que politicas foram criadas, alteradas ou regulamentadas?",
+      "recipe": "PUBLIC_POLICIES"
+    },
+    {
+      "id": "POLICY_Q2",
+      "domain_id": "PUBLIC_POLICIES",
+      "text": "Quais metas, publico, recursos e unidades foram vinculados?",
+      "recipe": "PUBLIC_POLICIES"
+    },
+    {
+      "id": "JOM_Q1",
+      "domain_id": "JOURNAL_EVENT_RADAR",
+      "text": "O que saiu no Jornal Oficial que importa para educacao e demais politicas?",
+      "recipe": "JOM_RADAR"
+    },
+    {
+      "id": "JOM_Q2",
+      "domain_id": "JOURNAL_EVENT_RADAR",
+      "text": "Que eventos financeiros, normativos, administrativos e operacionais ocorreram?",
+      "recipe": "JOM_RADAR"
+    },
+    {
+      "id": "TERR_Q1",
+      "domain_id": "TERRITORY_CONTEXT",
+      "text": "Que contexto demografico e socioeconomico ajuda a interpretar os numeros?",
+      "recipe": "TERRITORY"
+    },
+    {
+      "id": "TERR_Q2",
+      "domain_id": "TERRITORY_CONTEXT",
+      "text": "Quais comparacoes territoriais fazem sentido?",
+      "recipe": "TERRITORY"
+    },
+    {
+      "id": "CTRL_Q1",
+      "domain_id": "TRANSPARENCY_CONTROL",
+      "text": "Quais fontes estao completas, bloqueadas ou desatualizadas?",
+      "recipe": "TRANSPARENCY_CATALOG"
+    },
+    {
+      "id": "CTRL_Q2",
+      "domain_id": "TRANSPARENCY_CONTROL",
+      "text": "O que TCE e demais controles corroboram?",
+      "recipe": "CONTROL_CORROBORATION"
+    },
+    {
+      "id": "CTRL_Q3",
+      "domain_id": "TRANSPARENCY_CONTROL",
+      "text": "Qual a forca da evidencia?",
+      "recipe": "TRANSPARENCY_CATALOG"
+    }
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
