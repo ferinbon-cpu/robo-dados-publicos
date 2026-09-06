@@ -1,0 +1,89 @@
+{
+  "task": "TASK_184_BUNDLE_JOM_PLANNING_LOCAL_PACK",
+  "issue": 579,
+  "mode": "T0_OFFLINE_EXISTING_CUSTODY_REAL_ROWS_ONLY",
+  "base_main_sha": "ef38ac0fd1ad3d0e8d8010a06c920d0f6e81b686",
+  "jom": {
+    "source": "BI_JORNAL_EVENTOS__SERVING",
+    "source_snapshot_id": "d126c0df36075f759b687c05",
+    "canonical_matrix_sha256": "d126c0df36075f759b687c0554a7dbbf5a4e4897384707a588ddc5033697f252",
+    "validated_rows": 303,
+    "event_types": {
+      "EDITAL": 81,
+      "PORTARIA": 79,
+      "DECRETO": 66,
+      "ATA_REGISTRO_PRECOS": 32,
+      "CONTRATO": 20,
+      "LEI": 8,
+      "CONVENIO": 8,
+      "TERMO_ADITIVO_CONTRATO": 5,
+      "RESOLUCAO": 4
+    },
+    "semantic_observations": {
+      "procurement_contract_layer": 76,
+      "infrastructure_layer": 5,
+      "education_domain": 2,
+      "personnel_layer": 0
+    },
+    "semantics_recomputed": true,
+    "identity_rewritten": false
+  },
+  "planning": {
+    "evidence_rows": 7,
+    "documents": 5,
+    "ppa_sha256": "3e5deb53448c2e5eea56217a4e5d7f20f7fc3859eff7fcb93a7de7eb17011c1a",
+    "ldo_sha256": "6f28017bb61fe6dbd7db44e2306bd1a48f813d8d40411d87c130fba78fca2406",
+    "loa_sha256": "bc4c8bf4b2b1e8f59e880318c37ec7f7fbd4357a85a8b46c97750444dbf01d4b",
+    "cme_sha256": "5d01a883bd5ec721b9a9a8b0a0f2c985eea8958da23de8d475d7c73d3109c07c",
+    "decreto118_sha256": "a534b99711652d437e1672dbaf39b9f56fe8f35c042f3648ae8483187c909b60",
+    "primary_substantive_document_types": [
+      "PPA",
+      "LDO"
+    ],
+    "primary_normative_source_families": [
+      "CME",
+      "MUNICIPAL_LEGISLATION"
+    ],
+    "loa_role": "PRIMARY_METADATA_ONLY",
+    "loa_substantive_annex_parsed": false
+  },
+  "accounting": {
+    "task172_live_expense_rows_observed": 39780,
+    "raw_payload_persisted": false,
+    "real_row_dataset_found_in_drive": false,
+    "bundled": false,
+    "synthetic_fixture_allowed": false,
+    "question_gain": 0
+  },
+  "final_expected_products": [
+    "SCHOOL_INDICATOR_SERIES",
+    "FISCAL_SERIES",
+    "JOM_EVENT_INDEX",
+    "PLANNING_DOCUMENT_INDEX",
+    "QUERY_PRODUCT_CATALOG"
+  ],
+  "answerability": {
+    "content_aware_product_signals": true,
+    "independent_jom_gain_report": true,
+    "independent_planning_gain_report": true,
+    "combined_gain_report": true,
+    "accounting_gain_zero": true
+  },
+  "hard_guards": [
+    "PUBLICATION_NE_IMPLEMENTATION",
+    "SEMANTIC_FACET_NE_IDENTITY",
+    "PPA_NE_EXECUTION",
+    "LOA_AUTHORIZATION_NE_ACCOUNTING_EXECUTION",
+    "LOA_METADATA_NE_SUBSTANTIVE_ANNEX_COVERAGE",
+    "NORMATIVE_ACT_NE_IMPLEMENTATION_RESULT",
+    "SYNTHETIC_ACCOUNTING_FIXTURE_NE_REAL_LEDGER"
+  ],
+  "remote_effects": {
+    "network": 0,
+    "drive_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  }
+}
