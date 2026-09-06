@@ -404,6 +404,7 @@ def run_ephemeral_digest(
                 out_dir=item_dir,
                 stage_bronze=False,
                 plan_reconciliation=False,
+                emit_semantic_facets=False,
             )
             if processed.get("status") != "PASS_DOCUMENT_PROCESSING":
                 _stop(

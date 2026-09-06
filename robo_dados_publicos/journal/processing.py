@@ -388,6 +388,7 @@ class JournalPdfProcessor:
         out_dir: str | Path,
         stage_bronze: bool = True,
         plan_reconciliation: bool = True,
+        emit_semantic_facets: bool = True,
     ) -> dict:
         pdf_path = Path(pdf_path)
         out_dir = Path(out_dir)
@@ -412,6 +413,7 @@ class JournalPdfProcessor:
             "privacy_rule": "Derived Silver/Gold/RAG persist redacted text only; original evidence stays in Bronze PDF.",
             "silver_pages": 0,
             "gold_events": 0,
+            "semantic_event_facets": 0,
             "rag_chunks": 0,
             "reconciliation_tasks": 0,
         }
@@ -463,16 +465,23 @@ class JournalPdfProcessor:
                 })
 
         self._write_jsonl(out_dir / "pages_silver.jsonl", silver_rows)
-        self._write_jsonl(out_dir / "events_gold.jsonl", [e.to_dict() for e in all_events])
+        event_rows = [e.to_dict() for e in all_events]
+        semantic_rows = []
+        self._write_jsonl(out_dir / "events_gold.jsonl", event_rows)
+        if emit_semantic_facets:
+            from robo_dados_publicos.journal.semantic_layers import classify_event
+            semantic_rows = [classify_event(row) for row in event_rows]
+            self._write_jsonl(out_dir / "event_semantics_gold.jsonl", semantic_rows)
         self._write_jsonl(out_dir / "chunks_rag.jsonl", rag_rows)
         reconciliation_tasks = []
         if plan_reconciliation:
-            reconciliation_tasks = ReconciliationPlanner().plan_events([e.to_dict() for e in all_events])
+            reconciliation_tasks = ReconciliationPlanner().plan_events(event_rows)
             ReconciliationPlanner.write_jsonl(out_dir / "reconciliation_tasks.jsonl", reconciliation_tasks)
         manifest.update({
             "status": "PASS_DOCUMENT_PROCESSING",
             "silver_pages": len(silver_rows),
             "gold_events": len(all_events),
+            "semantic_event_facets": len(semantic_rows),
             "rag_chunks": len(rag_rows),
             "reconciliation_tasks": len(reconciliation_tasks),
         })
