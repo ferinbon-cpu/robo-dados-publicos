@@ -410,6 +410,7 @@ def query_products(
 
     numeric_records: list[dict[str, Any]] = []
     document_records: list[dict[str, Any]] = []
+    catalog_records: list[dict[str, Any]] = []
     product_gaps: list[dict[str, Any]] = []
     used_snapshots: dict[str, str] = {}
 
@@ -438,9 +439,12 @@ def query_products(
                 if product_name == "PLANNING_DOCUMENT_INDEX":
                     _stop(bool(row.get("locator")), "TASK176_DOCUMENT_LOCATOR_MISSING")
                 document_records.append(record)
+            elif product_name == "QUERY_PRODUCT_CATALOG":
+                catalog_records.append(record)
 
     numeric_records.sort(key=lambda x: _canonical_bytes(x))
     document_records.sort(key=lambda x: _canonical_bytes(x))
+    catalog_records.sort(key=lambda x: _canonical_bytes(x))
 
     packet_material = {
         "domain_id": domain_id,
@@ -448,6 +452,7 @@ def query_products(
         "used_snapshots": used_snapshots,
         "numeric_records": numeric_records,
         "document_records": document_records,
+        "catalog_records": catalog_records,
         "product_gaps": product_gaps,
     }
     packet_sha256 = _sha(packet_material)
@@ -460,6 +465,7 @@ def query_products(
         "used_snapshots": used_snapshots,
         "numeric_records": numeric_records,
         "document_records": document_records,
+        "catalog_records": catalog_records,
         "product_gaps": product_gaps,
         "upstream_evidence_gaps": list(query_plan.get("evidence_gaps") or []),
         "join_semantics": {
@@ -472,6 +478,51 @@ def query_products(
         "numeric_truth_from_structured_records_only": True,
         "llm_numeric_truth_allowed": False,
         "source_layers_replaced": False,
+    }
+
+
+
+def coverage_report(
+    products: Mapping[str, Mapping[str, Any]],
+    *,
+    contract_path: str | Path = DEFAULT_CONTRACT,
+) -> dict[str, Any]:
+    contract = load_contract(contract_path)
+    rows = []
+    counts = {"READY_PRODUCTS": 0, "PARTIAL_PRODUCTS": 0, "NO_PRODUCTS": 0}
+    for domain_id, required_products in contract["domain_product_routes"].items():
+        available = [name for name in required_products if name in products]
+        missing = [name for name in required_products if name not in products]
+        if not missing:
+            status = "READY_PRODUCTS"
+        elif available:
+            status = "PARTIAL_PRODUCTS"
+        else:
+            status = "NO_PRODUCTS"
+        counts[status] += 1
+        rows.append(
+            {
+                "domain_id": domain_id,
+                "status": status,
+                "required_products": list(required_products),
+                "available_products": available,
+                "missing_products": missing,
+                "snapshot_ids": {
+                    name: products[name].get("snapshot_id")
+                    for name in available
+                },
+            }
+        )
+    rows.sort(key=lambda x: x["domain_id"])
+    return {
+        "schema": "OBSERVATORY_QUERY_PRODUCT_COVERAGE_V1",
+        "domain_count": len(rows),
+        "counts": counts,
+        "domains": rows,
+        "all_domains_explicit": len(rows) == 15,
+        "network": False,
+        "drive_write": False,
+        "serving_write": False,
     }
 
 
