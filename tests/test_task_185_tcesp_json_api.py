@@ -7,6 +7,9 @@ from robo_dados_publicos.accounting.tcesp_json_api import (
     source_capabilities,
     validate_payload,
 )
+from robo_dados_publicos.analytics.observatory_knowledge_pack import question_answerability
+from robo_dados_publicos.analytics.observatory_products import build_accounting_ledger
+from robo_dados_publicos.analytics.task184_local_bundle import _with_catalog, build_task184_bundle
 
 
 class TestTask185TcespJsonApi(unittest.TestCase):
@@ -66,6 +69,36 @@ class TestTask185TcespJsonApi(unittest.TestCase):
         self.assertIn("SUPPLIER_AMOUNT", caps)
         self.assertNotIn("PROGRAMMATIC_CLASSIFICATION", caps)
         self.assertNotIn("RESTS_PAYABLE", caps)
+
+    def test_json_ledger_is_capability_aware_for_accounting_questions(self):
+        observations = [
+            normalize_json_expense_row(self.sample(event=e), source_body_sha256=(str(i) * 64)[:64], month=1)
+            for i,e in enumerate(["Empenhado","Valor Liquidado","Valor Pago"], start=1)
+        ]
+        ledger = build_accounting_ledger(
+            observations,
+            generated_at="2026-09-06T12:00:00Z",
+            software_version="0.8.0",
+        )
+        self.assertIn("COMMITMENT_AMOUNTS", ledger["capabilities"])
+        self.assertNotIn("PROGRAMMATIC_CLASSIFICATION", ledger["capabilities"])
+        self.assertNotIn("RESTS_PAYABLE", ledger["capabilities"])
+
+        task184 = build_task184_bundle(
+            generated_at="2026-09-06T12:00:00Z",
+            software_version="0.8.0",
+        )
+        substantive = {k:v for k,v in task184["products"].items() if k != "QUERY_PRODUCT_CATALOG"}
+        products = _with_catalog(
+            {**substantive, "ACCOUNTING_LEDGER": ledger},
+            generated_at="2026-09-06T12:00:00Z",
+            software_version="0.8.0",
+        )
+        report = question_answerability(products)
+        status = {row["question_id"]: row["status"] for row in report["questions"]}
+        self.assertEqual(status["ACC_Q1"], "MATERIALIZED_ANSWERABLE")
+        self.assertEqual(status["ACC_Q2"], "MATERIALIZED_PARTIAL")
+        self.assertEqual(status["ACC_Q3"], "MATERIALIZED_PARTIAL")
 
 
 if __name__ == "__main__":
