@@ -45,7 +45,7 @@ For every accepted Jornal input, the executor calls the existing `JournalPdfProc
 - OCR disabled by contract;
 - no network capability;
 - no remote persistence capability;
-- the exact processor source is pinned to Git blob `50c7d0f697f63f651daaf010beed541bc46ec9a1`;
+- the exact processor source is pinned to Git blob `7dc539955c99caa6f2a0f1824e8492290ad75344`;
 - the pinned processor source is audited before execution for forbidden network/process import roots.
 
 The CLI also requires its manifest file to be a regular file inside the supplied ephemeral workspace; a symlinked workspace root is rejected.
@@ -107,3 +107,8 @@ That future staging step is remote-read scope and is **not authorized by TASK 09
 ## TASK 171 compatibility note
 
 The Jornal processor evolved in TASK 171 to emit semantic facets by default. This legacy ephemeral digest contract explicitly calls `emit_semantic_facets=false`, so its historical four-file candidate output set remains unchanged. The processor blob pin is updated to the reviewed TASK 171 processor source; no output-set broadening or remote effect is introduced here.
+
+
+## TASK 173 compatibility note
+
+TASK 173 adds an accounting-query sidecar to normal Jornal processing, but the legacy ephemeral digest still calls the processor with `emit_semantic_facets=false`. Therefore neither `event_semantics_gold.jsonl` nor `accounting_query_tasks.jsonl` enters the historical four-file TASK 090 candidate set. The processor blob pin is updated explicitly; no remote effect or output-set broadening is authorized.
