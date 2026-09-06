@@ -414,6 +414,7 @@ class JournalPdfProcessor:
             "silver_pages": 0,
             "gold_events": 0,
             "semantic_event_facets": 0,
+            "accounting_query_tasks": 0,
             "rag_chunks": 0,
             "reconciliation_tasks": 0,
         }
@@ -467,11 +468,19 @@ class JournalPdfProcessor:
         self._write_jsonl(out_dir / "pages_silver.jsonl", silver_rows)
         event_rows = [e.to_dict() for e in all_events]
         semantic_rows = []
+        accounting_query_rows = []
         self._write_jsonl(out_dir / "events_gold.jsonl", event_rows)
         if emit_semantic_facets:
             from robo_dados_publicos.journal.semantic_layers import classify_event
+            from robo_dados_publicos.accounting.tcesp_current import route_jom_event_to_tcesp
             semantic_rows = [classify_event(row) for row in event_rows]
+            semantics_by_event = {row["event_id"]: row for row in semantic_rows}
+            accounting_query_rows = [
+                route_jom_event_to_tcesp(row, semantics_by_event.get(row["event_id"]))
+                for row in event_rows
+            ]
             self._write_jsonl(out_dir / "event_semantics_gold.jsonl", semantic_rows)
+            self._write_jsonl(out_dir / "accounting_query_tasks.jsonl", accounting_query_rows)
         self._write_jsonl(out_dir / "chunks_rag.jsonl", rag_rows)
         reconciliation_tasks = []
         if plan_reconciliation:
@@ -482,6 +491,7 @@ class JournalPdfProcessor:
             "silver_pages": len(silver_rows),
             "gold_events": len(all_events),
             "semantic_event_facets": len(semantic_rows),
+            "accounting_query_tasks": len(accounting_query_rows),
             "rag_chunks": len(rag_rows),
             "reconciliation_tasks": len(reconciliation_tasks),
         })

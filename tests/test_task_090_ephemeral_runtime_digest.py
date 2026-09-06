@@ -74,7 +74,7 @@ class TestTask090EphemeralRuntimeDigest(unittest.TestCase):
         self.assertEqual({"JORNAL_OFICIAL"}, set(contract["adapters"]))
         source_cfg = contract["adapters"]["JORNAL_OFICIAL"]["processor_source"]
         self.assertEqual(
-            "50c7d0f697f63f651daaf010beed541bc46ec9a1",
+            "7dc539955c99caa6f2a0f1824e8492290ad75344",
             source_cfg["expected_git_blob_sha"],
         )
         self.assertIn("socket", source_cfg["forbidden_import_roots"])
@@ -89,7 +89,7 @@ class TestTask090EphemeralRuntimeDigest(unittest.TestCase):
         expected = self.contract["adapters"]["JORNAL_OFICIAL"]["processor_source"][
             "expected_git_blob_sha"
         ]
-        self.assertEqual("50c7d0f697f63f651daaf010beed541bc46ec9a1", observed)
+        self.assertEqual("7dc539955c99caa6f2a0f1824e8492290ad75344", observed)
         self.assertEqual(expected, observed)
 
     def test_processor_source_audit_rejects_forbidden_import_if_declared(self):
@@ -116,7 +116,7 @@ class TestTask090EphemeralRuntimeDigest(unittest.TestCase):
             self.assertEqual(1, result["input_count"])
             self.assertEqual(4, result["candidate_file_count"])
             self.assertEqual(
-                "50c7d0f697f63f651daaf010beed541bc46ec9a1",
+                "7dc539955c99caa6f2a0f1824e8492290ad75344",
                 result["processor_git_blob_sha"],
             )
             self.assertEqual(0, result["effects"]["source_network_calls"])

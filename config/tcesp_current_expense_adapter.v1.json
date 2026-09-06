@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "schema": "TCESP_LIMEIRA_CURRENT_EXPENSE_ADAPTER_V1",
+  "task": "TASK_173_TCESP_ACCOUNTING_LEDGER_JOM_ROUTER",
+  "source_id": "TCESP_LIMEIRA_2026_DESPESAS",
+  "source_role": "CONTROL_PRIMARY",
+  "source_authority": "Tribunal de Contas do Estado de Sao Paulo",
+  "upstream_evidence": "docs/evidence/TASK_172_FISCAL_MACHINE_READABLE_BATCH_LIVE_CLOSURE_0.8.0.json",
+  "route_schema_scope": "EXACT_CURRENT_2026_DECLARED_ZIP_CSV_ONLY",
+  "family_wide_auto_ingest_promoted": false,
+  "proven_columns": [
+    "tp_despesa",
+    "nr_empenho",
+    "identificador_despesa",
+    "ds_despesa",
+    "dt_emissao_despesa",
+    "vl_despesa",
+    "ds_funcao_governo",
+    "ds_subfuncao_governo",
+    "cd_programa",
+    "ds_programa",
+    "cd_acao",
+    "ds_acao",
+    "ds_fonte_recurso",
+    "ds_cd_aplicacao_fixo",
+    "ds_modalidade_lic",
+    "ds_elemento",
+    "historico_despesa"
+  ],
+  "stage_normalization": {
+    "COMMITMENT": ["EMPENHADO", "EMPENHO", "EMISSAO DE EMPENHO"],
+    "LIQUIDATION": ["LIQUIDADO", "LIQUIDACAO"],
+    "PAYMENT": ["PAGO", "PAGAMENTO"],
+    "REVERSAL": ["ANULADO", "ANULACAO", "CANCELADO", "CANCELAMENTO", "ESTORNO"]
+  },
+  "unknown_stage": "OTHER_REVIEW",
+  "entity_contract": {
+    "entity_name": "LIMEIRA",
+    "fiscal_year": 2026
+  },
+  "mapping": {
+    "source_stage": "tp_despesa",
+    "commitment_number": "nr_empenho",
+    "source_expense_identifier": "identificador_despesa",
+    "source_description": "ds_despesa",
+    "event_date": "dt_emissao_despesa",
+    "amount": "vl_despesa",
+    "function": "ds_funcao_governo",
+    "subfunction": "ds_subfuncao_governo",
+    "program_code": "cd_programa",
+    "program_name": "ds_programa",
+    "action_code": "cd_acao",
+    "action_name": "ds_acao",
+    "funding_source": "ds_fonte_recurso",
+    "application_code": "ds_cd_aplicacao_fixo",
+    "procurement_modality": "ds_modalidade_lic",
+    "expense_element": "ds_elemento",
+    "history_text": "historico_despesa"
+  },
+  "policy_domain_hints": {
+    "EDUCATION": ["EDUCACAO", "ENSINO", "ESCOLA", "CRECHE"],
+    "HEALTH": ["SAUDE", "ATENCAO BASICA", "HOSPITAL", "VIGILANCIA SANITARIA"],
+    "SOCIAL_ASSISTANCE": ["ASSISTENCIA SOCIAL", "PROTECAO SOCIAL"],
+    "ADMINISTRATION": ["ADMINISTRACAO"],
+    "FINANCE": ["FAZENDA", "FINANCAS", "ENCARGOS ESPECIAIS"],
+    "WORKS_INFRASTRUCTURE": ["URBANISMO", "HABITACAO", "SANEAMENTO", "OBRAS"],
+    "MOBILITY": ["TRANSPORTE", "TRANSITO"],
+    "ENVIRONMENT": ["GESTAO AMBIENTAL", "MEIO AMBIENTE"],
+    "CULTURE_SPORTS": ["CULTURA", "DESPORTO", "LAZER"]
+  },
+  "identity_rules": {
+    "source_expense_identifier": "STRONG_SOURCE_RECORD_KEY_WHEN_NONEMPTY",
+    "fiscal_year_plus_empenho": "STRONG_ACCOUNTING_COMMITMENT_KEY_WHEN_BOTH_EXPLICIT",
+    "program_action_source_application": "CONTEXTUAL_PROGRAMMATIC_KEY_NOT_POLICY_IDENTITY",
+    "amount_date_history": "WEAK_CORROBORATORS_ONLY",
+    "policy_domain_hint": "ROUTING_HINT_ONLY"
+  },
+  "unproven_columns_not_assumed": [
+    "supplier_cnpj",
+    "supplier_name",
+    "procurement_number",
+    "contract_number",
+    "process_number"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false
+  }
+}

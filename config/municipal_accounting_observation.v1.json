@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "schema": "MUNICIPAL_ACCOUNTING_OBSERVATION_V1",
+  "task": "TASK_173_TCESP_ACCOUNTING_LEDGER_JOM_ROUTER",
+  "scope": "GENERAL_MUNICIPAL_PUBLIC_DATA_OBSERVATORY",
+  "purpose": "Canonical observation contract for granular municipal accounting events without conflating policy, procurement or payment stages.",
+  "required_fields": [
+    "observation_id",
+    "source_id",
+    "source_role",
+    "entity_name",
+    "fiscal_year",
+    "stage",
+    "amount_semantic",
+    "amount_brl",
+    "source_record_hash",
+    "identity_status",
+    "programmatic_dimensions",
+    "evidence_status"
+  ],
+  "stages": [
+    "COMMITMENT",
+    "LIQUIDATION",
+    "PAYMENT",
+    "REVERSAL",
+    "OTHER_REVIEW"
+  ],
+  "amount_semantics": {
+    "COMMITMENT": "COMMITTED_VALUE",
+    "LIQUIDATION": "LIQUIDATED_VALUE",
+    "PAYMENT": "PAID_VALUE",
+    "REVERSAL": "REVERSAL_VALUE",
+    "OTHER_REVIEW": "SOURCE_EVENT_VALUE_UNCLASSIFIED"
+  },
+  "identity_statuses": [
+    "SOURCE_RECORD_ONLY",
+    "ACCOUNTING_TRANSACTION_KEY_AVAILABLE",
+    "POLICY_LINK_NOT_PROVEN",
+    "POLICY_LINK_PROVEN_SEPARATELY"
+  ],
+  "programmatic_dimensions": [
+    "function",
+    "subfunction",
+    "program_code",
+    "program_name",
+    "action_code",
+    "action_name",
+    "funding_source",
+    "application_code",
+    "expense_element",
+    "procurement_modality"
+  ],
+  "stable_key_candidates": [
+    "source_expense_identifier",
+    "fiscal_year_plus_empenho_number",
+    "other_source_defined_unique_accounting_key"
+  ],
+  "not_identity_by_itself": [
+    "policy_domain_hint",
+    "program_name",
+    "action_name",
+    "funding_source",
+    "application_code",
+    "amount",
+    "date",
+    "history_text",
+    "semantic_similarity"
+  ],
+  "invariants": [
+    "COMMITMENT_NE_LIQUIDATION_NE_PAYMENT",
+    "PROCUREMENT_NE_ACCOUNTING_PAYMENT",
+    "PROGRAMMATIC_CLASSIFICATION_NE_POLICY_IDENTITY",
+    "POLICY_DOMAIN_HINT_NE_POLICY_IDENTITY",
+    "SAME_AMOUNT_NE_IDENTITY",
+    "NEAR_DATE_NE_IDENTITY",
+    "HISTORY_TEXT_SIMILARITY_NE_IDENTITY",
+    "CONTROL_SOURCE_RECORD_NE_MUNICIPAL_PRIMARY_POLICY_IDENTITY"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false
+  }
+}
