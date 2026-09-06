@@ -119,7 +119,10 @@
           "network_q1_remaining_missing": [
             "CLASS_COUNT"
           ],
-          "snapshot_id": "PENDING_CANONICAL_CI"
+          "snapshot_id": "c41aa1deac4f2577ac5185e9",
+          "content_sha256": "c41aa1deac4f2577ac5185e92a51753d9522867aab31a64ac7dbb0571e101020",
+          "fiscal_series_snapshot_id": "e0b91b47ee6a6e63892aba71",
+          "fiscal_series_content_sha256": "e0b91b47ee6a6e63892aba71cdaf8ac7daf03af531c661fd455023898c03e3ea"
         }
       ],
       "pending_structured_blocks": [
