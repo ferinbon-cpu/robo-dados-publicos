@@ -2,7 +2,7 @@
   "schema": "TASK191_ANNUAL_EDUCATION_PER_ENROLLMENT_EVIDENCE_V1",
   "task": "TASK_191_ANNUAL_EDUCATION_PER_ENROLLMENT_2025",
   "base_main_sha": "944985d7465c9b9124c32ed5fc848c9ac8d398ea",
-  "status": "PENDING_CI_RECHECK_AFTER_FAIL_CLOSED_DISCOVERED_NETWORK_Q1_GAIN",
+  "status": "PASS_CI_OFFLINE_SAME_YEAR_ANNUAL_PER_ENROLLMENT_MATERIALIZED",
   "period": "2025",
   "annual_spending": {
     "metric_id": "EDUCATION_EXPENDITURE",
@@ -100,5 +100,12 @@
     "school_content_sha256": "35690fe26f9ea06effaacb191ca6b6585ce2e93d4521c726b5eda86d2e18198b",
     "fiscal_snapshot_id": "434c6506cc34f3469bd97bed",
     "fiscal_content_sha256": "434c6506cc34f3469bd97bedc5660affce370633a34f9e9aa9bdf8550d6c1f64"
+  },
+  "ci": {
+    "first_fail_closed_run_id": 34044922671,
+    "first_result": "FAIL_EXPECTATION_ONLY_NETWORK_Q1_COLLATERAL_GAIN_DISCOVERED",
+    "passing_run_id": 34045043926,
+    "passing_result": "SUCCESS",
+    "required_checks_passed": 5
   }
 }
