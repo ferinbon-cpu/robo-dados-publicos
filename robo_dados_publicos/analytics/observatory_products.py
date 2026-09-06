@@ -437,7 +437,9 @@ def query_products(
                 continue
             if not _record_matches_context(row, context):
                 continue
-            record = {"product_name": product_name, **dict(row)}
+            record = dict(row)
+            record["query_product_name"] = product_name
+            record.setdefault("product_name", product_name)
             if product_name in {"SCHOOL_INDICATOR_SERIES", "ACCOUNTING_LEDGER", "FISCAL_SERIES"}:
                 numeric_records.append(record)
             elif product_name in {"JOM_EVENT_INDEX", "PLANNING_DOCUMENT_INDEX"}:
