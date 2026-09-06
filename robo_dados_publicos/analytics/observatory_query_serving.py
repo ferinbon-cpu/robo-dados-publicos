@@ -316,13 +316,57 @@ def serialize_target(target: QueryServingTarget) -> dict[str, Any]:
     }
 
 
-def _validate_existing(existing: Mapping[str, Any], target: QueryServingTarget) -> None:
+def _validate_existing_state(existing: Mapping[str, Any], expected_product_name: str) -> dict[str, Any]:
+    contract = load_contract()
     _stop(existing.get("tabs") == ["DATA", "META"], "TASK177_EXISTING_TABS")
     _stop(existing.get("formula_present") is not True, "TASK177_FORMULA_PRESENT")
     _stop(existing.get("extra_cells") is not True, "TASK177_EXTRA_CELLS")
-    _stop(existing.get("headers") == list(target.ordered_columns), "TASK177_HEADERS")
-    _stop(existing.get("meta") == target.meta, "TASK177_EXISTING_META")
-    _stop(existing.get("rows") == [list(row) for row in target.rows], "TASK177_EXISTING_ROWS")
+    headers = existing.get("headers")
+    rows = existing.get("rows")
+    meta = existing.get("meta")
+    _stop(isinstance(headers, list) and len(set(headers)) == len(headers), "TASK177_HEADERS")
+    _stop(isinstance(rows, list), "TASK177_EXISTING_ROWS")
+    _stop(isinstance(meta, dict) and list(meta) == contract["meta_keys"], "TASK177_EXISTING_META")
+    _stop(meta.get("product_name") == expected_product_name, "TASK177_PRODUCT_MISMATCH")
+    _stop(meta.get("source_role") == "DERIVED_QUERY_CACHE_NOT_SOURCE_OF_TRUTH", "TASK177_SOURCE_ROLE")
+    _stop(meta.get("row_count") == str(len(rows)), "TASK177_EXISTING_ROW_COUNT")
+    _stop(meta.get("column_count") == str(len(headers)), "TASK177_EXISTING_COLUMN_COUNT")
+    _stop(
+        meta.get("ordered_columns_json") == json.dumps(headers, ensure_ascii=False, separators=(",", ":")),
+        "TASK177_EXISTING_COLUMNS_META",
+    )
+    _stop(all(isinstance(row, list) and len(row) == len(headers) for row in rows), "TASK177_EXISTING_ROWS")
+    row_dicts = [dict(zip(headers, row)) for row in rows]
+    base_rows = [dict(row) for row in row_dicts]
+    if expected_product_name == "QUERY_PRODUCT_CATALOG":
+        for row in base_rows:
+            row.pop("catalog_snapshot_id", None)
+    else:
+        for row in base_rows:
+            row.pop("snapshot_id", None)
+    content_sha256 = _sha(base_rows)
+    _stop(meta.get("content_sha256") == content_sha256, "TASK177_EXISTING_CONTENT_HASH")
+    _stop(meta.get("snapshot_id") == content_sha256[:24], "TASK177_EXISTING_SNAPSHOT_ID")
+    bound = {
+        "product_name": expected_product_name,
+        "product_schema": meta.get("product_schema"),
+        "ordered_columns": headers,
+        "type_profile": _type_profile(row_dicts, headers),
+    }
+    _stop(meta.get("schema_fingerprint_sha256") == _sha(bound), "TASK177_EXISTING_SCHEMA_FINGERPRINT")
+    return {
+        "headers": headers,
+        "rows": rows,
+        "meta": meta,
+        "content_sha256": content_sha256,
+    }
+
+
+def _validate_existing_exact(existing: Mapping[str, Any], target: QueryServingTarget) -> None:
+    state = _validate_existing_state(existing, target.product_name)
+    _stop(state["headers"] == list(target.ordered_columns), "TASK177_HEADERS")
+    _stop(state["meta"] == target.meta, "TASK177_EXISTING_META")
+    _stop(state["rows"] == [list(row) for row in target.rows], "TASK177_EXISTING_ROWS")
 
 
 def plan_serving(
@@ -342,13 +386,8 @@ def plan_serving(
             semantic_readback_required=True,
         )
 
-    if existing.get("tabs") != ["DATA", "META"]:
-        raise Task177Stop("TASK177_EXISTING_TABS")
-    _stop(existing.get("formula_present") is not True, "TASK177_FORMULA_PRESENT")
-    _stop(existing.get("extra_cells") is not True, "TASK177_EXTRA_CELLS")
-    meta = existing.get("meta")
-    _stop(isinstance(meta, dict), "TASK177_EXISTING_META")
-    _stop(meta.get("product_name") == target.product_name, "TASK177_PRODUCT_MISMATCH")
+    state = _validate_existing_state(existing, target.product_name)
+    meta = state["meta"]
     if meta.get("schema_fingerprint_sha256") != target.schema_fingerprint_sha256:
         raise Task177Stop("TASK177_SCHEMA_DRIFT_REQUIRES_MIGRATION")
 
@@ -357,7 +396,7 @@ def plan_serving(
         and meta.get("content_sha256") == target.content_sha256
     )
     if same_snapshot:
-        _validate_existing(existing, target)
+        _validate_existing_exact(existing, target)
         return QueryServingPlan(
             operation="NO_CHANGE_IDEMPOTENT",
             target=target,
@@ -442,7 +481,7 @@ def validate_authorization(
 
 
 def semantic_readback(target: QueryServingTarget, readback: Mapping[str, Any]) -> str:
-    _validate_existing(readback, target)
+    _validate_existing_exact(readback, target)
     return "PASS_TASK177_SEMANTIC_READBACK_VERIFIED"
 
 
