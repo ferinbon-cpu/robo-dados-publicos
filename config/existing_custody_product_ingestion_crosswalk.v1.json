@@ -112,7 +112,10 @@
       "guards": [
         "SYNTHESIS_NE_OFFICIAL_NORM_PROOF",
         "DOCUMENT_LOCATOR_REQUIRED",
-        "HISTORICAL_OR_REVOKED_CONTEXT_ONLY"
+        "HISTORICAL_OR_REVOKED_CONTEXT_ONLY",
+        "LOA_SUBSTANTIVE_SEGMENT_NE_COMPLETE_LOA_PARSE",
+        "LOA_AUTHORIZATION_NE_ACCOUNTING_EXECUTION",
+        "PROGRAM_2001_NE_EITI_IDENTITY"
       ],
       "materialized_blocks": [
         {
@@ -129,6 +132,25 @@
             "MUNICIPAL_LEGISLATION"
           ],
           "loa_status": "PRIMARY_METADATA_ONLY_SUBSTANTIVE_ANNEX_NOT_PARSED"
+        },
+        {
+          "task": "TASK_189",
+          "source": "LOA_2026_SCOPED_SILVER_V2_PRIMARY_JOM_VALIDATED_ACTION_SEGMENTS",
+          "evidence_rows_added": 2,
+          "total_evidence_rows_after_overlay": 9,
+          "documents": 5,
+          "primary_substantive_document_types": [
+            "PPA",
+            "LDO",
+            "LOA"
+          ],
+          "loa_status": "PRIMARY_SUBSTANTIVE_SCOPED_SEGMENTS_AVAILABLE",
+          "complete_loa_parse_claim": false,
+          "accounting_execution_proven_by_loa": false,
+          "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+          "snapshot_id": "62e88978304b6abfe6eb029d",
+          "snapshot_drive_id": "1d8K02zE36QkgVNm7p-uyG8oOcS-Wz2vS",
+          "manifest_drive_id": "1Ou3yj_BvU_ODcqOtr3UJU6pvQ46E1AKD"
         }
       ]
     },
