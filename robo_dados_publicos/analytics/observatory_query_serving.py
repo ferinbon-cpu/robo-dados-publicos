@@ -61,7 +61,7 @@ def validate_contract(
     expected_products = set(task176["products"])
     mapping = contract["product_mapping"]
     _stop(set(mapping) == expected_products, "TASK177_PRODUCT_MAPPING")
-    _stop(len(set(mapping.values())) == 6, "TASK177_SERVING_NAMES_UNIQUE")
+    _stop(len(set(mapping.values())) == len(expected_products), "TASK177_SERVING_NAMES_UNIQUE")
     _stop(
         all(name.startswith("OBS_") and name.endswith("__SERVING") for name in mapping.values()),
         "TASK177_SERVING_NAMESPACE",
