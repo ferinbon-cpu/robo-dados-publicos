@@ -218,10 +218,10 @@ class TestTask176ObservatoryQueryProducts(unittest.TestCase):
             "PLANNING_DOCUMENT_INDEX": planning,
         }
 
-    def test_contract_passes_and_covers_six_products_and_fifteen_domains(self):
+    def test_contract_passes_and_covers_seven_products_and_fifteen_domains(self):
         got = validate_contract()
         self.assertEqual(got["status"], "PASS")
-        self.assertEqual(got["product_count"], 6)
+        self.assertEqual(got["product_count"], 7)
         self.assertEqual(got["domain_count"], 15)
         self.assertFalse(got["network"])
         self.assertFalse(got["drive_write"])
