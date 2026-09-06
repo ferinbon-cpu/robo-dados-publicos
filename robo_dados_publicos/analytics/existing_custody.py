@@ -75,7 +75,27 @@ def validate_contracts(
     _stop(collection["coverage"]["school_universe_2025"] == 69, "TASK179_SCHOOL_UNIVERSE")
     _stop(collection["coverage"]["primary_years_schools"] == 40, "TASK179_PRIMARY_SCHOOLS")
     _stop(collection["coverage"]["early_childhood_only_or_other_profiles"] == 29, "TASK179_EI_SCHOOLS")
-    _stop("NEEDS_BASE_STRUCTURED_FILE_HANDOFF" in collection["readiness"], "TASK179_COLLECTION_HANDOFF_GUARD")
+    _stop("READY_FOR_PARTIAL_STRUCTURED_EXTRACTION" in collection["readiness"], "TASK179_COLLECTION_PARTIAL_READY")
+    _stop(
+        "VOLUME_I_NARRATIVE_MUST_NOT_OVERWRITE_CANONICAL_STRUCTURED_ROWS" in collection["constraints"],
+        "TASK179_COLLECTION_NUMERIC_PRECEDENCE_GUARD",
+    )
+
+    base = assets["BASE_MESTRA_LIMEIRA_V05"]
+    _stop(base["custody"] == "DISCOVERED_AND_READABLE_IN_USER_LIBRARY", "TASK179_BASE_CUSTODY")
+    _stop("READY_FOR_FULL_STRUCTURED_ROW_MATERIALIZATION" in base["readiness"], "TASK179_BASE_READY")
+    _stop(
+        base.get("sha256") == "4d352dc55537240a4c1ffb3c37337e9c029577ab611f851f2ec925d0178b9eda",
+        "TASK179_BASE_SHA",
+    )
+    extension = assets["CAMADA_ANALITICA_V06_40_ESCOLAS_V08"]
+    _stop(extension["custody"] == "DISCOVERED_AND_READABLE_IN_USER_LIBRARY", "TASK179_EXTENSION_CUSTODY")
+    _stop("READY_FOR_FULL_STRUCTURED_ROW_MATERIALIZATION" in extension["readiness"], "TASK179_EXTENSION_READY")
+    _stop(
+        extension.get("sha256_xlsx") == "0516868e06685aebe8254b11ca6488ef26b03dea61f927ff637840cf2a21e865",
+        "TASK179_EXTENSION_SHA",
+    )
+    _stop(extension.get("coverage", {}).get("reconciliation_2025_divergences") == 0, "TASK179_EXTENSION_QA")
 
     brain = assets["CEREBRO_NORMATIVO_GESTAO_ESCOLAR_LIMEIRA"]
     _stop("SYNTHESIS_NE_LEGAL_PROOF" in brain["constraints"], "TASK179_NORMATIVE_PROOF_GUARD")
@@ -92,7 +112,7 @@ def validate_contracts(
     }
     _stop(set(crosswalk["products"]) == expected_products, "TASK179_PRODUCT_SET")
     _stop(
-        crosswalk["products"]["SCHOOL_INDICATOR_SERIES"]["current_status"] == "READY_PARTIAL_ONLY",
+        crosswalk["products"]["SCHOOL_INDICATOR_SERIES"]["current_status"] == "READY_FROM_EXISTING_CUSTODY",
         "TASK179_SCHOOL_STATUS",
     )
     _stop(
@@ -103,7 +123,7 @@ def validate_contracts(
         crosswalk["noncanonical_task_note"]["task_178_remote_serving_should_wait"] is True,
         "TASK179_TASK178_WAIT",
     )
-    _stop(crosswalk["handoff_priority"][0]["asset_id"] == "BASE_MESTRA_LIMEIRA_V05", "TASK179_HANDOFF_PRIORITY")
+    _stop(crosswalk["handoff_priority"][0]["asset_id"] == "MD_01_3B_CORPUS", "TASK179_HANDOFF_PRIORITY")
 
     ontology_ids = {row["id"] for row in ontology["domains"]}
     _stop(len(ontology_ids) == 15, "TASK179_DOMAIN_COUNT")
@@ -175,11 +195,31 @@ def product_readiness(
                 }
             )
 
+    blocking_refs = {
+        str(ref).split(":", 1)[0]
+        for ref in (spec.get("full_materialization_requires") or [])
+    }
+    optional_refs = {
+        str(ref).split(":", 1)[0]
+        for ref in (
+            list(spec.get("enrichment_inputs_needing_handoff") or [])
+            + list(spec.get("preferred_optional_extension") or [])
+        )
+    }
     needs_handoff = sorted(
         {
             row["asset_id"]
             for row in asset_rows
-            if "NEEDS_BASE_STRUCTURED_FILE_HANDOFF" in row["readiness"]
+            if row["asset_id"] in blocking_refs
+            and "NEEDS_BASE_STRUCTURED_FILE_HANDOFF" in row["readiness"]
+        }
+    )
+    optional_handoffs = sorted(
+        {
+            row["asset_id"]
+            for row in asset_rows
+            if row["asset_id"] in optional_refs
+            and "NEEDS_BASE_STRUCTURED_FILE_HANDOFF" in row["readiness"]
         }
     )
     return {
@@ -189,6 +229,7 @@ def product_readiness(
         "target_domains": list(spec.get("target_domains") or []),
         "asset_rows": asset_rows,
         "needs_handoff": needs_handoff,
+        "optional_handoffs": optional_handoffs,
         "full_materialization_ready": (
             spec["current_status"] in {"READY_FROM_EXISTING_CUSTODY", "NO_NEW_CUSTODY_INPUT_REQUIRED"}
             and not needs_handoff
