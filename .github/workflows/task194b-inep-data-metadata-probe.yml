@@ -1,0 +1,78 @@
+name: TASK 194B Inep Data metadata one-shot probe
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: read
+
+concurrency:
+  group: task194b-inep-data-metadata
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    if: github.event.issue.number == 600 && github.actor == 'ferinbon-cpu' && startsWith(github.event.comment.body, 'TASK194B_INEP_DATA_METADATA_AUTHORIZED ')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONPATH: ${{ github.workspace }}
+      TASK194B_AUTH_COMMENT: ${{ github.event.comment.body }}
+      TASK194B_ISSUE_NUMBER: ${{ github.event.issue.number }}
+    steps:
+      - name: Checkout exact main authorization target
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.12"
+
+      - name: Verify exact authorization
+        shell: bash
+        run: |
+          set -euo pipefail
+          HEAD_SHA="$(git rev-parse HEAD)"
+          test "$HEAD_SHA" = "$GITHUB_SHA"
+          EXPECTED="TASK194B_INEP_DATA_METADATA_AUTHORIZED main=$GITHUB_SHA issue=600 max_http_requests=2 querydata=0"
+          test "$TASK194B_AUTH_COMMENT" = "$EXPECTED"
+
+      - name: Offline preflight
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m compileall -q scripts tests
+          python -m unittest tests.test_task_194b_inep_data_metadata_probe -v
+
+      - name: Probe official public metadata only
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime/task194b
+          TASK194B_CHECKED_OUT_SHA="$(git rev-parse HEAD)" \
+            python scripts/task194b_inep_data_metadata_probe.py \
+            --output runtime/task194b/sanitized_metadata.json
+
+      - name: Assert sanitized output only
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -d runtime/task194b ]; then
+            find runtime/task194b -maxdepth 1 -type f -printf '%f\n' | grep -vx 'sanitized_metadata.json' && exit 1 || true
+          fi
+
+      - name: Upload sanitized metadata
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task194b-inep-data-sanitized-metadata
+          path: runtime/task194b/sanitized_metadata.json
+          if-no-files-found: warn
+          retention-days: 30

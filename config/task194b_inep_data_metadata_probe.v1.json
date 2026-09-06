@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "schema": "TASK194B_INEP_DATA_METADATA_PROBE_V1",
+  "task": "TASK_194B_INEP_DATA_METADATA_PROBE",
+  "mode": "T1_BOUNDED_READ_ONLY_OFFICIAL_PUBLIC_PANEL_METADATA",
+  "base_main_sha": "d6fbaf4ad1d759e64fb67bbaefa0c3eda343aee3",
+  "authorization_issue": 600,
+  "source": {
+    "official_inep_page": "https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/inep-data/estatisticas-censo-escolar",
+    "report_url": "https://app.powerbi.com/view?r=eyJrIjoiN2ViNDBjNDEtMTM0OC00ZmFhLWIyZWYtZjI1YjU0NzQzMTJhIiwidCI6IjI2ZjczODk3LWM4YWMtNGIxZS05NzhmLWVhNGMwNzc0MzRiZiJ9",
+    "report_host": "app.powerbi.com",
+    "expected_resource_key": "7eb40c41-1348-4faa-b2ef-f25b5474312a",
+    "expected_tenant_id": "26f73897-c8ac-4b1e-978f-ea4c077434bf",
+    "max_http_requests": 2
+  },
+  "keyword_scan": [
+    "turma",
+    "class",
+    "matr",
+    "munic",
+    "depend",
+    "administr",
+    "estabelec",
+    "rede",
+    "localiza",
+    "ano"
+  ],
+  "output": {
+    "sanitized_json_only": true,
+    "raw_html_persisted": false,
+    "raw_models_persisted": false,
+    "querydata_calls": 0,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "guards": [
+    "OFFICIAL_INEP_LINKED_REPORT_ONLY",
+    "RESOURCE_KEY_MUST_MATCH_PIN",
+    "TENANT_ID_MUST_MATCH_PIN",
+    "MAX_TWO_HTTP_REQUESTS",
+    "METADATA_ONLY_NO_QUERYDATA",
+    "RAW_PAYLOAD_EPHEMERAL_ONLY",
+    "NO_CLASS_COUNT_MATERIALIZATION_IN_TASK194B"
+  ]
+}
