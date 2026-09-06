@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "schema": "TASK191_EDUCATION_SPENDING_PER_STUDENT_2025_V1",
+  "task": "TASK_191_EDUCATION_SPENDING_PER_STUDENT_2025",
+  "mode": "T0_OFFLINE_EXISTING_CUSTODY_SAME_PERIOD_DERIVATION",
+  "entity": {
+    "entity_id": "3526902",
+    "municipality_code": 352690,
+    "name": "Limeira",
+    "uf": "SP"
+  },
+  "period": "2025",
+  "fiscal_source": {
+    "family": "RREO",
+    "observation_class": "USER_MEDIATED_OFFICIAL_OBSERVATION",
+    "fixture": "tests/fixtures/siope_2025_operational_financial_alias_bridge/official_observations.json",
+    "fixture_sha256": "a190bf8ac3f11e5d0e84f2dba56d286e128f577c0d9b426f82a852ca3a4f2a30",
+    "evidence": "docs/evidence/TASK_010N_R_E_M3_SIOPE_2025_OPERATIONAL_FINANCIAL_ALIAS_BRIDGE_0.8.0.json",
+    "evidence_sha256": "df84296b8fa4a04d09431329395e4fa6d44d669799dc4041c7f35695e955774e",
+    "source_locator": "rreo_anexo_8_line_33",
+    "label": "TOTAL GERAL DAS DESPESAS COM EDUCAÇÃO (10 + 20 + 32)",
+    "committed_brl": "463766660.32",
+    "liquidated_brl": "455867723.30",
+    "paid_brl": "420264584.22",
+    "liquidated_reconciliation_status": "PROVEN_EXACT_OPERATIONAL",
+    "liquidated_variance_brl": "0.00",
+    "annual_submission_observed": true,
+    "immutable_finality_proven": false,
+    "currently_effective_declaration_proven": false
+  },
+  "enrollment_source": {
+    "family": "CENSO_ESCOLAR",
+    "asset_id": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
+    "xlsx_sha256": "0516868e06685aebe8254b11ca6488ef26b03dea61f927ff637840cf2a21e865",
+    "panel_csv_sha256": "b8edac61a559b0e745d09cdd9e66f8ffee0090552526386dd2bc77987fc293e4",
+    "sheet": "81 Censo 69 2018-25",
+    "sanitized_aggregate_fixture": "docs/evidence/fixtures/TASK_191_CENSO_2025_NETWORK_ENROLLMENT_SANITIZED.csv",
+    "scope_id": "LIMEIRA_MUNICIPAL_NETWORK_69_UNITS_2025",
+    "active_units": 69,
+    "basic_education_enrollment": 22788,
+    "row_sum_verified": true,
+    "imputations": 0,
+    "full_panel_runtime_transfer_complete": false
+  },
+  "derivation": {
+    "metric_id": "EDUCATION_EXPENDITURE_PER_STUDENT",
+    "numerator_metric_id": "EDUCATION_EXPENDITURE",
+    "numerator_stage": "LIQUIDATED_ANNUAL_OBSERVED",
+    "numerator_brl": "455867723.30",
+    "denominator_indicator_id": "BASIC_EDUCATION_ENROLLMENT",
+    "denominator_count": 22788,
+    "periods_match": true,
+    "exact_quotient_brl_per_student": "20004.7271941372652273126206775",
+    "rounded_brl_per_student": "20004.73",
+    "rounding": "ROUND_HALF_UP_2_DECIMALS",
+    "derived_not_source": true
+  },
+  "guards": [
+    "SAME_PERIOD_REQUIRED",
+    "ANNUAL_OBSERVED_SUBMISSION_NE_IMMUTABLE_FINALITY",
+    "LIQUIDATED_NE_PAID_NE_COMMITTED",
+    "EDUCATION_TOTAL_NE_MDE_CONSTITUTIONAL_BASE",
+    "ENROLLMENT_CURRENT_69_UNITS_2025_NE_HISTORICAL_UNIVERSE",
+    "DERIVED_RATIO_NE_SOURCE_REPORTED_METRIC",
+    "NOMINAL_NE_REAL",
+    "NO_2026_PARTIAL_ANNUALIZATION",
+    "FULL_PANEL_RUNTIME_TRANSFER_FALSE_DOES_NOT_AUTHORIZE_SNIPPET_RECONSTRUCTION"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
