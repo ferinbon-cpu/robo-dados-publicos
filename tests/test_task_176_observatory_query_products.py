@@ -402,7 +402,8 @@ class TestTask176ObservatoryQueryProducts(unittest.TestCase):
         )
         packet = query_observatory("TRANSPARENCY_CONTROL", bundle)
         self.assertTrue(packet["catalog_records"])
-        self.assertTrue(all(x["product_name"] == "QUERY_PRODUCT_CATALOG" for x in packet["catalog_records"]))
+        self.assertTrue(all(x["query_product_name"] == "QUERY_PRODUCT_CATALOG" for x in packet["catalog_records"]))
+        self.assertTrue(all(x["product_name"] != "QUERY_PRODUCT_CATALOG" for x in packet["catalog_records"]))
 
     def test_missing_product_becomes_explicit_gap(self):
         plan = route_observatory_question("LEARNING_FLOW", question_text="Como está o IDEB?")
