@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "schema": "LIMEIRA_OBSERVATORY_QUESTION_ONTOLOGY_V1",
+  "task": "TASK_171_OBSERVATORY_QUESTION_ONTOLOGY_BUDGET_MAP_JOM_SEMANTICS",
+  "jurisdiction": "Limeira/SP",
+  "system_scope": "GENERAL_MUNICIPAL_PUBLIC_DATA_OBSERVATORY",
+  "primary_user_lens": ["PROFESSOR_REDE_MUNICIPAL", "GESTOR_ESCOLAR", "CONSELHEIRO", "PESQUISADOR", "CIDADAO"],
+  "answer_contract": {
+    "required_parts_when_available": ["NUMBER_OR_FACT", "TIME_REFERENCE", "COMPARISON_OR_TREND", "PLAIN_LANGUAGE_EXPLANATION", "SOURCE_AND_PROVENANCE", "CAUTION_OR_LIMIT"],
+    "numbers_must_be_deterministic": true,
+    "llm_may_explain_but_not_invent_numbers": true,
+    "insufficient_evidence_result": "EVIDENCIA_INSUFICIENTE"
+  },
+  "priority": {
+    "school_indicator_custody": "RICH_USER_CUSTODY_REQUIRES_CATALOGING_NOT_PRIMARY_ACQUISITION_BOTTLENECK",
+    "current_acquisition_focus": ["FINANCING", "PLANNING_BUDGET", "ACCOUNTING_EXECUTION", "PROCUREMENT_CONTRACTS", "JOURNAL_EVENT_RADAR", "NORMS_SCHOOL_FUNCTIONING"],
+    "reason": "Broaden municipal explanatory coverage while preserving existing education-indicator assets."
+  },
+  "domains": [
+    {
+      "id": "NETWORK_ENROLLMENT",
+      "questions": ["Quantos alunos, turmas e escolas existem?", "Como matriculas, etapas e tempo integral mudaram?", "Como uma escola se compara a rede?"],
+      "metrics": ["enrollment", "schools", "classes", "stage_distribution", "full_time_share"],
+      "source_families": ["CENSO_ESCOLAR", "MUNICIPAL_REPORTS"],
+      "evidence_role": "STATISTICAL_PRIMARY"
+    },
+    {
+      "id": "SCHOOLS_INFRASTRUCTURE",
+      "questions": ["Quais recursos e estruturas cada escola possui?", "Quais escolas receberam obras, reformas ou equipamentos?"],
+      "metrics": ["infrastructure_features", "accessibility", "internet", "sports_facilities", "works_events"],
+      "source_families": ["CENSO_ESCOLAR", "JORNAL_OFICIAL", "PROCUREMENT", "MUNICIPAL_CONTRACTS"],
+      "evidence_role": "STATISTICAL_PRIMARY_PLUS_ADMINISTRATIVE_PRIMARY"
+    },
+    {
+      "id": "LEARNING_FLOW",
+      "questions": ["Como estao IDEB, SAEB e SARESP?", "A mudanca veio de aprendizagem, fluxo ou ambos?", "Como aprovacao, reprovacao, abandono e distorcao evoluem?"],
+      "metrics": ["ideb", "saeb", "saresp", "approval", "failure", "dropout", "age_grade_distortion"],
+      "source_families": ["IDEB", "SAEB", "SARESP", "CENSO_ESCOLAR"],
+      "evidence_role": "STATISTICAL_PRIMARY"
+    },
+    {
+      "id": "EQUITY_INCLUSION",
+      "questions": ["Existem desigualdades por contexto social, raca/cor, deficiencia ou territorio?", "Como AEE e inclusao estao distribuidos?"],
+      "metrics": ["ppi_share", "socioeconomic_context", "special_education", "aee", "vulnerability"],
+      "source_families": ["CENSO_ESCOLAR", "SAEB", "IDEB", "MUNICIPAL_REPORTS"],
+      "evidence_role": "STATISTICAL_PRIMARY"
+    },
+    {
+      "id": "TEACHERS_WORKFORCE",
+      "questions": ["Como estao formacao adequada, regularidade e esforco docente?", "Quantos profissionais e quais vinculos existem?"],
+      "metrics": ["teacher_training", "teacher_regularity", "teacher_effort", "staffing", "employment_bond"],
+      "source_families": ["CENSO_ESCOLAR", "JORNAL_OFICIAL", "PERSONNEL_TRANSPARENCY"],
+      "evidence_role": "STATISTICAL_PRIMARY_PLUS_ADMINISTRATIVE_PRIMARY"
+    },
+    {
+      "id": "FINANCING",
+      "questions": ["Quanto Limeira gasta com educacao?", "Quanto por aluno?", "Quanto vem de FUNDEB, recursos proprios e transferencias?", "Como valores mudam nominal e realmente?"],
+      "metrics": ["education_revenue", "education_expenditure", "spending_per_student", "fundeb", "mde", "transfers", "real_growth"],
+      "source_families": ["SIOPE", "FUNDEB", "RREO", "MDE", "TDA_LIMEIRA", "TCE_SP_EXPENSES"],
+      "evidence_role": "BUDGET_PRIMARY_PLUS_ACCOUNTING_EXECUTION_PRIMARY"
+    },
+    {
+      "id": "PLANNING_BUDGET",
+      "questions": ["O que PPA, LDO e LOA prometeram e autorizaram?", "Quais programas, acoes, metas e dotacoes existem?", "Planejamento e execucao estao coerentes?"],
+      "metrics": ["programs", "actions", "physical_targets", "budget_authorization", "appropriation_changes"],
+      "source_families": ["PPA", "LDO", "LOA", "JORNAL_OFICIAL"],
+      "evidence_role": "PLANNING_PRIMARY_PLUS_BUDGET_PRIMARY"
+    },
+    {
+      "id": "ACCOUNTING_EXECUTION",
+      "questions": ["Quanto foi empenhado, liquidado e pago?", "Qual ficha, dotacao, fonte e aplicacao sustentam o gasto?", "Ha restos a pagar?"],
+      "metrics": ["commitment", "liquidation", "payment", "restos_a_pagar", "budget_key", "funding_source"],
+      "source_families": ["TDA_LIMEIRA", "TCE_SP_EXPENSES", "SIOPE", "BUDGET_EXECUTION"],
+      "evidence_role": "ACCOUNTING_EXECUTION_PRIMARY"
+    },
+    {
+      "id": "PROCUREMENT_CONTRACTS",
+      "questions": ["O que a prefeitura esta comprando?", "Quem fornece, por quanto e por quanto tempo?", "Houve aditivo, apostilamento ou nova licitacao?"],
+      "metrics": ["procurement_object", "supplier", "contract_value", "amendments", "process_id", "pncp_id"],
+      "source_families": ["PNCP", "MUNICIPAL_CONTRACTS", "PROCUREMENT", "JORNAL_OFICIAL"],
+      "evidence_role": "ADMINISTRATIVE_PRIMARY"
+    },
+    {
+      "id": "PERSONNEL_MANAGEMENT",
+      "questions": ["Que nomeacoes, concursos, processos seletivos e mudancas de quadro ocorreram?", "Quais cargos e funcoes afetam a rede?"],
+      "metrics": ["appointments", "dismissals", "competitions", "selection_processes", "positions"],
+      "source_families": ["JORNAL_OFICIAL", "PERSONNEL_TRANSPARENCY", "MUNICIPAL_LEGISLATION"],
+      "evidence_role": "ADMINISTRATIVE_PRIMARY"
+    },
+    {
+      "id": "NORMS_SCHOOL_FUNCTIONING",
+      "questions": ["Que normas mudaram o funcionamento das escolas?", "O que mudou em calendario, matricula, jornada, atribuicao, transporte, alimentacao, inclusao ou gestao?"],
+      "metrics": ["normative_events", "effective_date", "affected_units", "operational_topic"],
+      "source_families": ["JORNAL_OFICIAL", "MUNICIPAL_LEGISLATION", "CME", "SIAVE_LIMEIRA"],
+      "evidence_role": "NORMATIVE_PRIMARY"
+    },
+    {
+      "id": "PUBLIC_POLICIES",
+      "questions": ["Que politicas foram criadas, alteradas ou regulamentadas?", "Quais metas, publico, recursos e unidades foram vinculados?"],
+      "metrics": ["policy_creation", "policy_change", "targets", "beneficiaries", "policy_budget_link"],
+      "source_families": ["JORNAL_OFICIAL", "MUNICIPAL_LEGISLATION", "CME", "PPA", "LDO", "LOA"],
+      "evidence_role": "NORMATIVE_PRIMARY_PLUS_PLANNING_PRIMARY"
+    },
+    {
+      "id": "JOURNAL_EVENT_RADAR",
+      "questions": ["O que saiu no Jornal Oficial que importa para educacao e demais politicas?", "Que eventos financeiros, normativos, administrativos e operacionais ocorreram?"],
+      "metrics": ["event_count", "event_type", "policy_domain", "evidence_layer", "financial_stage", "affected_service"],
+      "source_families": ["JORNAL_OFICIAL"],
+      "evidence_role": "ADMINISTRATIVE_PRIMARY_PLUS_NORMATIVE_PRIMARY"
+    },
+    {
+      "id": "TERRITORY_CONTEXT",
+      "questions": ["Que contexto demografico e socioeconomico ajuda a interpretar os numeros?", "Quais comparacoes territoriais fazem sentido?"],
+      "metrics": ["population", "income", "vulnerability", "demographic_profile"],
+      "source_families": ["IBGE", "OTHER_OFFICIAL_STATISTICS"],
+      "evidence_role": "STATISTICAL_PRIMARY"
+    },
+    {
+      "id": "TRANSPARENCY_CONTROL",
+      "questions": ["Quais fontes estao completas, bloqueadas ou desatualizadas?", "O que TCE e demais controles corroboram?", "Qual a forca da evidencia?"],
+      "metrics": ["source_status", "coverage", "reconciliation", "audit_signal", "evidence_status"],
+      "source_families": ["TCE_SP_EXPENSES", "TDA_LIMEIRA", "JORNAL_OFICIAL", "PNCP"],
+      "evidence_role": "CONTROL_AND_PROVENANCE"
+    }
+  ],
+  "cross_domain_invariants": [
+    "TYPE_OF_DOCUMENT_NE_SUBJECT_NE_EVIDENCE_LAYER_NE_FINANCIAL_STAGE",
+    "PPA_NE_EXECUTION",
+    "LOA_AUTHORIZATION_NE_COMMITMENT_NE_LIQUIDATION_NE_PAYMENT",
+    "PROCUREMENT_NE_PAYMENT",
+    "STATISTICAL_ASSOCIATION_NE_CAUSAL_EFFECT",
+    "RANKING_WITHOUT_CONTEXT_REQUIRES_CAUTION",
+    "SEMANTIC_SIMILARITY_NE_POLICY_OR_FINANCIAL_IDENTITY"
+  ],
+  "remote_effects": {"network": false, "drive_read": false, "drive_write": false, "serving": false, "publication": false, "schedule": false, "recurrence": false}
+}
