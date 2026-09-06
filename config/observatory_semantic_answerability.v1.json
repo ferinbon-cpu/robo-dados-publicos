@@ -101,7 +101,18 @@
       "signals": [
         {
           "kind": "PRODUCT",
-          "product": "JOM_EVENT_INDEX"
+          "product": "JOM_EVENT_INDEX",
+          "row_criteria": {
+            "policy_domains_any": [
+              "EDUCATION"
+            ],
+            "evidence_layers_any": [
+              "INFRASTRUCTURE",
+              "SCHOOL_OR_SERVICE_OPERATION",
+              "PROCUREMENT_CONTRACT"
+            ]
+          },
+          "min_matching_rows": 1
         },
         {
           "kind": "PRODUCT",
@@ -352,7 +363,18 @@
       "signals": [
         {
           "kind": "PRODUCT",
-          "product": "PLANNING_DOCUMENT_INDEX"
+          "product": "PLANNING_DOCUMENT_INDEX",
+          "required_document_role_pairs": {
+            "PPA": [
+              "PRIMARY_SUBSTANTIVE"
+            ],
+            "LDO": [
+              "PRIMARY_SUBSTANTIVE"
+            ],
+            "LOA": [
+              "PRIMARY_SUBSTANTIVE"
+            ]
+          }
         }
       ]
     },
@@ -360,7 +382,18 @@
       "signals": [
         {
           "kind": "PRODUCT",
-          "product": "PLANNING_DOCUMENT_INDEX"
+          "product": "PLANNING_DOCUMENT_INDEX",
+          "required_document_role_pairs": {
+            "PPA": [
+              "PRIMARY_SUBSTANTIVE"
+            ],
+            "LDO": [
+              "PRIMARY_SUBSTANTIVE"
+            ],
+            "LOA": [
+              "PRIMARY_SUBSTANTIVE"
+            ]
+          }
         },
         {
           "kind": "PRODUCT",
@@ -380,7 +413,13 @@
       "signals": [
         {
           "kind": "PRODUCT",
-          "product": "JOM_EVENT_INDEX"
+          "product": "JOM_EVENT_INDEX",
+          "row_criteria": {
+            "evidence_layers_any": [
+              "PROCUREMENT_CONTRACT"
+            ]
+          },
+          "min_matching_rows": 1
         },
         {
           "kind": "PRODUCT",
@@ -392,7 +431,13 @@
       "signals": [
         {
           "kind": "PRODUCT",
-          "product": "JOM_EVENT_INDEX"
+          "product": "JOM_EVENT_INDEX",
+          "row_criteria": {
+            "evidence_layers_any": [
+              "PERSONNEL"
+            ]
+          },
+          "min_matching_rows": 1
         }
       ]
     },
@@ -400,11 +445,29 @@
       "signals": [
         {
           "kind": "PRODUCT",
-          "product": "JOM_EVENT_INDEX"
+          "product": "JOM_EVENT_INDEX",
+          "row_criteria": {
+            "policy_domains_any": [
+              "EDUCATION"
+            ],
+            "evidence_layers_any": [
+              "NORMATIVE",
+              "SCHOOL_OR_SERVICE_OPERATION"
+            ]
+          },
+          "min_matching_rows": 2
         },
         {
           "kind": "PRODUCT",
-          "product": "PLANNING_DOCUMENT_INDEX"
+          "product": "PLANNING_DOCUMENT_INDEX",
+          "required_source_family_role_pairs": {
+            "CME": [
+              "PRIMARY_NORMATIVE"
+            ],
+            "MUNICIPAL_LEGISLATION": [
+              "PRIMARY_NORMATIVE"
+            ]
+          }
         }
       ]
     },
@@ -412,11 +475,26 @@
       "signals": [
         {
           "kind": "PRODUCT",
-          "product": "JOM_EVENT_INDEX"
+          "product": "JOM_EVENT_INDEX",
+          "row_criteria": {
+            "evidence_layers_any": [
+              "NORMATIVE",
+              "GOVERNANCE"
+            ]
+          },
+          "min_matching_rows": 5
         },
         {
           "kind": "PRODUCT",
-          "product": "PLANNING_DOCUMENT_INDEX"
+          "product": "PLANNING_DOCUMENT_INDEX",
+          "required_source_family_role_pairs": {
+            "CME": [
+              "PRIMARY_NORMATIVE"
+            ],
+            "MUNICIPAL_LEGISLATION": [
+              "PRIMARY_NORMATIVE"
+            ]
+          }
         }
       ]
     },
@@ -424,7 +502,8 @@
       "signals": [
         {
           "kind": "PRODUCT",
-          "product": "JOM_EVENT_INDEX"
+          "product": "JOM_EVENT_INDEX",
+          "min_rows": 1
         }
       ]
     },
@@ -459,7 +538,8 @@
         },
         {
           "kind": "PRODUCT",
-          "product": "JOM_EVENT_INDEX"
+          "product": "JOM_EVENT_INDEX",
+          "min_rows": 1
         }
       ]
     }

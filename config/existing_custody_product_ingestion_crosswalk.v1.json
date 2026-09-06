@@ -113,6 +113,23 @@
         "SYNTHESIS_NE_OFFICIAL_NORM_PROOF",
         "DOCUMENT_LOCATOR_REQUIRED",
         "HISTORICAL_OR_REVOKED_CONTEXT_ONLY"
+      ],
+      "materialized_blocks": [
+        {
+          "task": "TASK_184",
+          "source": "F01_PPA_LDO_LOA_2026_PLUS_PRIMARY_CME_DECREE",
+          "evidence_rows": 7,
+          "documents": 5,
+          "primary_substantive_document_types": [
+            "PPA",
+            "LDO"
+          ],
+          "primary_normative_source_families": [
+            "CME",
+            "MUNICIPAL_LEGISLATION"
+          ],
+          "loa_status": "PRIMARY_METADATA_ONLY_SUBSTANTIVE_ANNEX_NOT_PARSED"
+        }
       ]
     },
     "FISCAL_SERIES": {
@@ -169,6 +186,16 @@
       ],
       "guards": [
         "CUSTODY_SYNTHESIS_MAY_ENRICH_TOPIC_ROUTING_NOT_EVENT_IDENTITY"
+      ],
+      "materialized_blocks": [
+        {
+          "task": "TASK_184",
+          "source": "BI_JORNAL_EVENTOS__SERVING",
+          "source_snapshot_id": "d126c0df36075f759b687c05",
+          "validated_event_rows": 303,
+          "semantics_recomputed": true,
+          "remote_serving_mutated": false
+        }
       ]
     },
     "ACCOUNTING_LEDGER": {
@@ -187,7 +214,14 @@
       "guards": [
         "MD_FISCAL_CONTEXT_NE_ACCOUNTING_TRANSACTION_IDENTITY",
         "TCE_STAGE_SEPARATION_PRESERVED"
-      ]
+      ],
+      "materialization_blocker": {
+        "task": "TASK_184",
+        "status": "REAL_ROWS_NOT_PERSISTED",
+        "task172_live_expense_rows_observed": 39780,
+        "raw_payload_persisted": false,
+        "synthetic_fixture_allowed": false
+      }
     },
     "QUERY_PRODUCT_CATALOG": {
       "current_status": "READY_FROM_EXISTING_CUSTODY",
@@ -253,11 +287,13 @@
     "recurrence": false
   },
   "integrated_knowledge_pack": {
-    "task": "TASK_183",
-    "status": "LOCAL_FUSED_PACK_READY_AFTER_CI",
+    "task": "TASK_184",
+    "status": "LOCAL_PACK_ENRICHED_WITH_REAL_JOM_AND_PLANNING",
     "products_bundled": [
       "SCHOOL_INDICATOR_SERIES",
       "FISCAL_SERIES",
+      "JOM_EVENT_INDEX",
+      "PLANNING_DOCUMENT_INDEX",
       "QUERY_PRODUCT_CATALOG"
     ],
     "expected_rows": {
@@ -268,6 +304,7 @@
     "semantic_question_count": 38,
     "semantic_domain_count": 15,
     "product_presence_ne_question_answerability": true,
-    "remote_serving_authorized": false
+    "remote_serving_authorized": false,
+    "accounting_bundled": false
   }
 }
