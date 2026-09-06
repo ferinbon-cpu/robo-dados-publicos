@@ -1,0 +1,260 @@
+{
+  "version": 1,
+  "schema": "EXISTING_CUSTODY_CORPUS_REGISTRY_V1",
+  "task": "TASK_179_EXISTING_CUSTODY_CORPUS_REGISTRY",
+  "scope": "GENERAL_MUNICIPAL_PUBLIC_DATA_OBSERVATORY",
+  "mode": "T0_OFFLINE_CUSTODY_MAPPING_ONLY",
+  "custody_classes": [
+    "DISCOVERED_AND_READABLE_IN_USER_LIBRARY",
+    "DISCOVERED_IN_DRIVE",
+    "REFERENCED_BY_CORPUS_BUT_BASE_FILE_NOT_CURRENTLY_RUNTIME_ACCESSIBLE"
+  ],
+  "readiness_classes": [
+    "READY_FOR_DOCUMENT_INDEX",
+    "READY_FOR_PARTIAL_STRUCTURED_EXTRACTION",
+    "READY_FOR_FULL_STRUCTURED_ROW_MATERIALIZATION",
+    "NEEDS_BASE_STRUCTURED_FILE_HANDOFF",
+    "GOVERNANCE_ONLY_NOT_QUERY_EVIDENCE"
+  ],
+  "school_identity_rule": {
+    "preferred_key": "INEP_CODE",
+    "name_is_fallback_context_only": true,
+    "do_not_merge_distinct_codes_without_documentary_evidence": true,
+    "not_applicable_ne_missing_ne_zero": true
+  },
+  "assets": [
+    {
+      "id": "INDICATORS_COLLECTION_2026_PUBLICATION",
+      "title": "COLECAO_LIMEIRA_INDICADORES_EDUCACIONAIS_2026_PUBLICACAO.pdf",
+      "custody": "DISCOVERED_AND_READABLE_IN_USER_LIBRARY",
+      "version": "SYNCHRONIZED_I_V07_II_V06_III_V07",
+      "role": "DOCUMENTARY_AND_TECHNICAL_PUBLICATION",
+      "evidence_strength": "HIGH_FOR_PUBLISHED_TABLES_AND_METHOD_NOT_CANONICAL_ROW_STORE",
+      "referenced_canonical_bases": [
+        "BASE_MESTRA_LIMEIRA_V05",
+        "CAMADA_ANALITICA_V06_40_ESCOLAS_V08"
+      ],
+      "coverage": {
+        "school_universe_2025": 69,
+        "primary_years_schools": 40,
+        "early_childhood_only_or_other_profiles": 29,
+        "censo_panel_period": "2018-2025",
+        "atu_period": "2007-2025",
+        "had_period": "2010-2025",
+        "tnr_period": "2011-2025"
+      },
+      "volume_roles": {
+        "VOLUME_I_V07": "INTERPRETIVE_NETWORK_DIAGNOSIS_AND_INTEGRATED_ANALYSIS",
+        "VOLUME_II_V06": "SCHOOL_BY_SCHOOL_PROFILES",
+        "VOLUME_III_V07": "TECHNICAL_TABLES_SERIES_QA_PROVENANCE_AND_REPRODUCTION"
+      },
+      "product_targets": [
+        "SCHOOL_INDICATOR_SERIES",
+        "PLANNING_DOCUMENT_INDEX",
+        "QUERY_PRODUCT_CATALOG"
+      ],
+      "readiness": [
+        "READY_FOR_DOCUMENT_INDEX",
+        "READY_FOR_PARTIAL_STRUCTURED_EXTRACTION",
+        "NEEDS_BASE_STRUCTURED_FILE_HANDOFF"
+      ],
+      "numeric_precedence_rank": 3,
+      "explanatory_precedence_rank": 1,
+      "constraints": [
+        "VOLUME_I_NARRATIVE_MUST_NOT_OVERWRITE_CANONICAL_STRUCTURED_ROWS",
+        "VOLUME_III_TABLES_PREFERRED_OVER_VOLUME_II_PROFILES_FOR_TECHNICAL_SERIES",
+        "ABSENCE_NE_ZERO",
+        "NOT_APPLICABLE_NE_MISSING"
+      ]
+    },
+    {
+      "id": "BASE_MESTRA_LIMEIRA_V05",
+      "title": "Base Mestra Limeira V05",
+      "custody": "REFERENCED_BY_CORPUS_BUT_BASE_FILE_NOT_CURRENTLY_RUNTIME_ACCESSIBLE",
+      "role": "CANONICAL_STRUCTURED_SCHOOL_INDICATOR_BASE",
+      "evidence_strength": "CANONICAL_IF_FILE_HANDOFF_CONFIRMS_SCHEMA_AND_HASH",
+      "product_targets": [
+        "SCHOOL_INDICATOR_SERIES"
+      ],
+      "readiness": [
+        "NEEDS_BASE_STRUCTURED_FILE_HANDOFF"
+      ],
+      "numeric_precedence_rank": 1,
+      "constraints": [
+        "DO_NOT_RECONSTRUCT_FULL_BASE_FROM_NARRATIVE_IF_STRUCTURED_BASE_CAN_BE_HANDED_OFF",
+        "HASH_AND_SCHEMA_REQUIRED_BEFORE_FULL_MATERIALIZATION"
+      ]
+    },
+    {
+      "id": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
+      "title": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
+      "custody": "REFERENCED_BY_CORPUS_BUT_BASE_FILE_NOT_CURRENTLY_RUNTIME_ACCESSIBLE",
+      "role": "AUDITABLE_OPERATIONAL_EXTENSION",
+      "evidence_strength": "HIGH_IF_FILE_HANDOFF_CONFIRMS_SCHEMA_AND_HASH",
+      "product_targets": [
+        "SCHOOL_INDICATOR_SERIES"
+      ],
+      "readiness": [
+        "NEEDS_BASE_STRUCTURED_FILE_HANDOFF"
+      ],
+      "numeric_precedence_rank": 2,
+      "constraints": [
+        "EXTENSION_DOES_NOT_REPLACE_BASE_MESTRA",
+        "APPLICABILITY_MATRIX_REQUIRED_FOR_SCHOOL_LEVEL_CROSSES"
+      ]
+    },
+    {
+      "id": "CEREBRO_NORMATIVO_GESTAO_ESCOLAR_LIMEIRA",
+      "title": "Cerebro_Normativo_Gestao_Escolar_Limeira_v0_1",
+      "custody": "DISCOVERED_AND_READABLE_IN_USER_LIBRARY",
+      "version": "V0_1_DISCOVERED_CURRENT_SEARCH",
+      "role": "STRUCTURED_NORMATIVE_OPERATIONAL_SYNTHESIS",
+      "evidence_strength": "SECONDARY_SYNTHESIS_TO_OFFICIAL_NORMATIVE_DOCUMENTS",
+      "product_targets": [
+        "PLANNING_DOCUMENT_INDEX",
+        "QUERY_PRODUCT_CATALOG"
+      ],
+      "readiness": [
+        "READY_FOR_DOCUMENT_INDEX"
+      ],
+      "normative_precedence_rank": 3,
+      "topic_coverage": [
+        "SME",
+        "CME",
+        "CONSELHO_DE_ESCOLA",
+        "APM",
+        "CACS_FUNDEB",
+        "CAE",
+        "FME",
+        "VIDA_ESCOLAR",
+        "RH",
+        "CURRICULO",
+        "EDUCACAO_ESPECIAL_AEE",
+        "TRANSPORTE_ESCOLAR",
+        "ALIMENTACAO_ESCOLAR",
+        "PATRIMONIO",
+        "SEGURANCA",
+        "GESTAO_DEMOCRATICA"
+      ],
+      "constraints": [
+        "SYNTHESIS_NE_LEGAL_PROOF",
+        "OFFICIAL_DOCUMENT_PRECEDENCE",
+        "HISTORICAL_OR_REVOKED_MATERIAL_CONTEXT_ONLY",
+        "MISSING_UNDERLYING_NORM_MUST_REMAIN_EVIDENCE_GAP"
+      ]
+    },
+    {
+      "id": "MD_01_2_BASE_UNIFICADA_FISCAL_ORCAMENTARIA_LIMEIRA",
+      "title": "MD_01.2 — Base Unificada Fiscal-Orçamentária da Educação Municipal de Limeira/SP",
+      "custody": "DISCOVERED_AND_READABLE_IN_USER_LIBRARY",
+      "version": "1.2",
+      "role": "CONSOLIDATED_FISCAL_BUDGET_TECHNICAL_DOSSIER_PLUS_DOCUMENTARY_ANNEX",
+      "evidence_strength": "SECONDARY_CONSOLIDATION_TO_OFFICIAL_STRUCTURED_AND_UNDERLYING_DOCUMENTS",
+      "product_targets": [
+        "FISCAL_SERIES",
+        "PLANNING_DOCUMENT_INDEX",
+        "QUERY_PRODUCT_CATALOG"
+      ],
+      "readiness": [
+        "READY_FOR_DOCUMENT_INDEX",
+        "READY_FOR_PARTIAL_STRUCTURED_EXTRACTION"
+      ],
+      "fiscal_precedence_rank": 3,
+      "constraints": [
+        "DOCUMENTED_TABLE_ROWS_MAY_BE_EXTRACTED_ONLY_WITH_PERIOD_SOURCE_AND_SEMANTIC_ROLE",
+        "INTERPRETATION_NE_NUMERIC_TRUTH",
+        "PARTIAL_EXECUTION_NE_ANNUAL_CLOSURE",
+        "FUNDEB_NE_MDE_NE_GENERAL_EDUCATION_BUDGET_NE_LRF_PERSONNEL",
+        "MARGIN_FISCAL_NE_FREE_CASH"
+      ]
+    },
+    {
+      "id": "MD_01_3B_CORPUS",
+      "title": "MD_01.3B — corpus documental transcrito/deduplicado",
+      "custody": "REFERENCED_BY_CORPUS_BUT_BASE_FILE_NOT_CURRENTLY_RUNTIME_ACCESSIBLE",
+      "role": "DOCUMENT_CORPUS_AND_MANIFEST",
+      "evidence_strength": "HIGH_DOCUMENTARY_LAYER_IF_FILE_HANDOFF_CONFIRMS_CORPUS",
+      "referenced_document_count": 194,
+      "product_targets": [
+        "PLANNING_DOCUMENT_INDEX",
+        "QUERY_PRODUCT_CATALOG"
+      ],
+      "readiness": [
+        "NEEDS_BASE_STRUCTURED_FILE_HANDOFF"
+      ],
+      "fiscal_precedence_rank": 2,
+      "constraints": [
+        "CORPUS_TRANSCRIPTION_NE_STRUCTURED_NUMERIC_SOURCE_BY_DEFAULT",
+        "UNDERLYING_OFFICIAL_DOCUMENT_ROLE_MUST_BE_PRESERVED",
+        "EXACT_LOCATOR_REQUIRED_FOR_DOCUMENT_EVIDENCE"
+      ]
+    },
+    {
+      "id": "MD_00_V17",
+      "title": "MD_00_METODO_COLETA_TRATAMENTO_DADOS_PUBLICOS_IA_V17.md",
+      "custody": "DISCOVERED_IN_DRIVE",
+      "role": "METHODOLOGY_AND_INGESTION_GOVERNANCE",
+      "evidence_strength": "GOVERNANCE_NOT_EMPIRICAL_QUERY_EVIDENCE",
+      "product_targets": [
+        "QUERY_PRODUCT_CATALOG"
+      ],
+      "readiness": [
+        "GOVERNANCE_ONLY_NOT_QUERY_EVIDENCE"
+      ],
+      "constraints": [
+        "MARKDOWN_NE_NUMERIC_DATABASE",
+        "SOURCE_BEFORE_AI",
+        "STRUCTURED_DATA_PREFERRED_FOR_NUMBERS",
+        "SQL_FOR_NUMERIC_RAG_FOR_DOCUMENT_HYBRID_FOR_CROSS_LAYER_QUESTIONS"
+      ]
+    },
+    {
+      "id": "MD_00_1_V02",
+      "title": "MD_00_1_REFERENCIAL_ACADEMICO_E_MATRIZ_DE_INCORPORACAO_V02.md",
+      "custody": "DISCOVERED_IN_DRIVE",
+      "role": "ACADEMIC_REFERENCE_AND_KNOWLEDGE_GOVERNANCE",
+      "evidence_strength": "GOVERNANCE_NOT_EMPIRICAL_QUERY_EVIDENCE",
+      "product_targets": [
+        "QUERY_PRODUCT_CATALOG"
+      ],
+      "readiness": [
+        "GOVERNANCE_ONLY_NOT_QUERY_EVIDENCE"
+      ],
+      "constraints": [
+        "REFERENCE_NE_IMPLEMENTATION_PROOF",
+        "ACADEMIC_METHOD_NE_CURRENT_LEGAL_OR_EMPIRICAL_FACT"
+      ]
+    }
+  ],
+  "precedence": {
+    "school_numeric": [
+      "BASE_MESTRA_LIMEIRA_V05",
+      "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
+      "INDICATORS_COLLECTION_2026_PUBLICATION:VOLUME_III_V07",
+      "INDICATORS_COLLECTION_2026_PUBLICATION:VOLUME_II_V06",
+      "INDICATORS_COLLECTION_2026_PUBLICATION:VOLUME_I_V07"
+    ],
+    "normative": [
+      "EXACT_OFFICIAL_NORMATIVE_DOCUMENT",
+      "EXACT_EXTRACTED_DOCUMENT_CORPUS",
+      "CEREBRO_NORMATIVO_GESTAO_ESCOLAR_LIMEIRA",
+      "FREE_INTERPRETATION"
+    ],
+    "fiscal": [
+      "OFFICIAL_STRUCTURED_TCE_SIOPE_SICONFI_FUNDEB",
+      "EXACT_UNDERLYING_DOCUMENT_OR_MD_01_3B_CORPUS",
+      "MD_01_2_BASE_UNIFICADA_FISCAL_ORCAMENTARIA_LIMEIRA:TABLES",
+      "MD_01_2_BASE_UNIFICADA_FISCAL_ORCAMENTARIA_LIMEIRA:INTERPRETATION",
+      "MD_00_V17"
+    ]
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
