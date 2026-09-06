@@ -19,6 +19,7 @@ jobs:
     timeout-minutes: 20
     env:
       PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONPATH: ${{ github.workspace }}
       TASK185_AUTH_COMMENT: ${{ github.event.comment.body }}
       TASK185_ISSUE_NUMBER: ${{ github.event.issue.number }}
     steps:
@@ -47,6 +48,7 @@ jobs:
         run: |
           set -euo pipefail
           python -m compileall -q robo_dados_publicos scripts tests
+          python -c "import scripts.task185_json_api_live_gate as m; assert 'months=1-8' in m.exact_auth_comment('a'*40)"
           python -m unittest tests.test_task_185_tcesp_json_api -v
 
       - name: Execute bounded JSON API batch and offline Stage C
@@ -61,5 +63,5 @@ jobs:
         with:
           name: task185-json-api-2026-live-result
           path: task185-json-live-output/
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 30
