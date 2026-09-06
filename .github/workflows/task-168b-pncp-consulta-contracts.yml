@@ -1,0 +1,85 @@
+name: TASK 168B PNCP Consulta contracts fallback
+run-name: "TASK 168B PNCP Consulta contracts by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-168-pncp-resource-api-recovery
+    paths:
+      - 'runtime_triggers/task168b_pncp_consulta_contracts.run'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-168b-pncp-consulta-contracts
+  cancel-in-progress: false
+
+jobs:
+  task168b-consulta-contracts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Execute exhaustive bounded contract query
+        shell: bash
+        env:
+          TASK168B_HEAD_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p runtime
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          from robo_dados_publicos.research.task168_pncp_consulta_contracts_fallback import execute, load_config
+
+          config = load_config("config/task168_pncp_consulta_contracts_fallback.v1.json")
+          result = execute(config)
+          result["execution_head_sha"] = os.environ["TASK168B_HEAD_SHA"]
+
+          canonical = json.dumps(
+              result,
+              ensure_ascii=False,
+              sort_keys=True,
+              separators=(",", ":"),
+          ).encode("utf-8")
+          result["result_sha256"] = hashlib.sha256(canonical).hexdigest()
+
+          Path("runtime/task168b_sanitized_result.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+
+          print("TASK168B_STATUS=" + str(result["status"]))
+          print("TASK168B_REQUESTS=" + str(len(result["requests"])))
+          pagination = result.get("pagination") or {}
+          print("TASK168B_TOTAL_RECORDS=" + str(pagination.get("totalRegistros")))
+          print("TASK168B_TOTAL_PAGES=" + str(pagination.get("totalPaginas")))
+          print("TASK168B_TARGET_MATCHES=" + str(pagination.get("target_match_count")))
+          print("TASK168B_RAW_PERSISTED=" + str(result["raw_payload_persisted"]))
+          PY
+
+      - name: Verify sanitized-only persistence
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f runtime/task168b_sanitized_result.json
+          test ! -e runtime/raw.json
+          test ! -e runtime/page.json
+          test ! -e runtime/response.json
+
+      - name: Upload sanitized result only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-168b-pncp-consulta-contracts-sanitized-result
+          path: runtime/task168b_sanitized_result.json
+          if-no-files-found: error
+          retention-days: 1
