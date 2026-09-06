@@ -15,7 +15,9 @@
     "scope": "READ_ONLY_OFFICIAL_MACHINE_READABLE_FISCAL_OBSERVATORY_BATCH",
     "source_mutation_authorized": false,
     "drive_write_authorized": false,
-    "serving_publication_authorized": false
+    "serving_publication_authorized": false,
+    "authorization_status": "CONSUMED_SUCCESS",
+    "live_run_id": 34004438029
   },
   "network_policy": {
     "method": "GET",
@@ -79,7 +81,12 @@
       "format": "CSV",
       "url": "https://www.gov.br/fnde/pt-br/acesso-a-informacao/acoes-e-programas/financiamento/fundeb/2026-1/publicacoes-2026/3-publicacoes/1-receita-total-do-fundeb-por-ente-federado-p-11.csv",
       "expected_content_family": "CSV",
-      "selector": {"contains_any": ["LIMEIRA", "3526902"]},
+      "selector": {
+        "contains_any": [
+          "LIMEIRA",
+          "3526902"
+        ]
+      },
       "purpose": "current 3rd-publication Fundeb total revenue"
     },
     {
@@ -88,7 +95,12 @@
       "format": "CSV",
       "url": "https://www.gov.br/fnde/pt-br/acesso-a-informacao/acoes-e-programas/financiamento/fundeb/2026-1/publicacoes-2026/3-publicacoes/6-redes-beneficiadas-coeficientes-de-distribuicao-e-complementacao-vaar-prevista-p11.csv",
       "expected_content_family": "CSV",
-      "selector": {"contains_any": ["LIMEIRA", "3526902"]},
+      "selector": {
+        "contains_any": [
+          "LIMEIRA",
+          "3526902"
+        ]
+      },
       "purpose": "current VAAR beneficiary coefficient and forecast"
     },
     {
@@ -97,7 +109,12 @@
       "format": "CSV",
       "url": "https://www.gov.br/fnde/pt-br/acesso-a-informacao/acoes-e-programas/financiamento/fundeb/2026-1/indicadores-atendimento-aprendizagem-vaar-2026-iii.csv",
       "expected_content_family": "CSV",
-      "selector": {"contains_any": ["LIMEIRA", "3526902"]},
+      "selector": {
+        "contains_any": [
+          "LIMEIRA",
+          "3526902"
+        ]
+      },
       "purpose": "VAAR attendance and learning indicators"
     },
     {
@@ -106,7 +123,12 @@
       "format": "CSV",
       "url": "https://www.gov.br/fnde/pt-br/acesso-a-informacao/acoes-e-programas/financiamento/fundeb/vaat/lista-dos-entes-habilitados-e-inabilitados-ao-vaat-2026-posicao-final-com-ajuste-de-decisao-judicial-edit-csv.csv",
       "expected_content_family": "CSV",
-      "selector": {"contains_any": ["LIMEIRA", "3526902"]},
+      "selector": {
+        "contains_any": [
+          "LIMEIRA",
+          "3526902"
+        ]
+      },
       "purpose": "VAAT 2026 final eligibility status"
     },
     {
@@ -141,8 +163,18 @@
       "expected_content_family": "HTML_OR_REDIRECT",
       "purpose": "discover only explicitly declared machine-readable route from exact known public surface",
       "optional_followup_if_declared": true,
-      "allowed_declared_extensions": [".json", ".csv", ".xlsx", ".xls", ".zip"],
-      "allowed_declared_markers": ["/api/", "download", "export"]
+      "allowed_declared_extensions": [
+        ".json",
+        ".csv",
+        ".xlsx",
+        ".xls",
+        ".zip"
+      ],
+      "allowed_declared_markers": [
+        "/api/",
+        "download",
+        "export"
+      ]
     }
   ],
   "adjudication": {
@@ -175,13 +207,14 @@
     "raw_body": false
   },
   "remote_effects": {
-    "source_gets_authorized_within_contract": true,
+    "source_gets_authorized_within_contract": false,
     "source_writes": false,
     "drive_read": false,
     "drive_write": false,
     "serving": false,
     "publication": false,
     "schedule": false,
-    "recurrence": false
+    "recurrence": false,
+    "authorization_consumed": true
   }
 }
