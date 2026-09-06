@@ -1,0 +1,143 @@
+{
+  "schema": "TASK188_RREO_RESTS_PAYABLE_MATERIALIZATION_V1",
+  "task": "TASK_188_RREO_RESTS_PAYABLE_MATERIALIZATION",
+  "base_main_sha": "6e85536936d417d74cba896790d84f6d22bf00b4",
+  "status": "PASS_REAL_RREO_RESTS_PAYABLE_MATERIALIZED",
+  "source": {
+    "custody": "USER_FILE_LIBRARY_EXISTING_UPLOADS_NOT_COPIED_TO_DRIVE",
+    "sources": [
+      {
+        "source_id": "RREO_2026_B1_ANEXO_07",
+        "title": "ANEXO 7-RESTOS A PAGAR - LRF -MES_FEVEREIRO.pdf",
+        "file_library_id": "file_000000007e9c720ea7d90afbce06fe16",
+        "period": "2026-02"
+      },
+      {
+        "source_id": "RREO_2026_B2_ANEXO_07",
+        "title": "ANEXO 7 - Restos a Pagar por Poder e Orgão.pdf",
+        "file_library_id": "file_000000006a5871f5a24f1d593d30a59e",
+        "period": "2026-04"
+      }
+    ],
+    "source_evidence_drive_id": "1GsJpfm_P5CquvOH5p6lfucQ9CclIOHj5",
+    "source_evidence_sha256": "4d8b6b8578f4bdadc0c7b415dbb19cfbd38a099094315e8be607657a6df73744",
+    "materialized_observation_count": 4
+  },
+  "observed": {
+    "february": {
+      "municipal": {
+        "processed_balance_brl": "26670251.53",
+        "nonprocessed_balance_brl": "59169534.90",
+        "total_balance_brl": "85839786.43"
+      },
+      "education": {
+        "processed_balance_brl": "632369.49",
+        "nonprocessed_balance_brl": "4726335.64",
+        "total_balance_brl": "5358705.13"
+      }
+    },
+    "april": {
+      "municipal": {
+        "processed_balance_brl": "16476433.49",
+        "nonprocessed_balance_brl": "34576745.90",
+        "total_balance_brl": "51053179.39"
+      },
+      "education": {
+        "processed_balance_brl": "308667.86",
+        "nonprocessed_balance_brl": "2701837.69",
+        "total_balance_brl": "3010505.55"
+      }
+    },
+    "changes_feb_to_apr": {
+      "municipal_total_delta_brl": "-34786607.04",
+      "municipal_total_change_pct": "-40.525013",
+      "education_total_delta_brl": "-2348199.58",
+      "education_total_change_pct": "-43.818411"
+    }
+  },
+  "tcesp_granular_enrichment": {
+    "source_id": "TCESP_LIMEIRA_2026_RESTOS",
+    "exact_url": "https://transparencia.tce.sp.gov.br/sites/default/files/dados/planilhas/restos/limeira-2026.zip",
+    "task172_observed_record_count": 7425,
+    "task172_observed_zip_bytes": 237773,
+    "task172_observed_zip_sha256": "889eaa71d87e935903c39417af951dacb7078a39f010271853cd075e13f04e01",
+    "current_task188_transport_status": "SOURCE_TRANSPORT_UNAVAILABLE_NOT_NO_DATA",
+    "raw_payload_currently_custodied": false,
+    "required_for_acc_q3_answerability": false
+  },
+  "accounting_ledger": {
+    "base_snapshot_id": "0fde2c8045c1b9ce2da87dc5",
+    "snapshot_id": "64503339d8352a2f61e1ee85",
+    "content_sha256": "64503339d8352a2f61e1ee8596e9a7ab4dcd6237d1d84010682b4203992b4cb8",
+    "row_count": 39783,
+    "json_sha256": "0b3fa5b5b30447d483a6974e06c541ab00f2be294daa3f54bb9c74e50d1b6f79",
+    "json_bytes": 94014699,
+    "gzip_sha256": "5447581813677855ac8edcc70e6a90164ef1caa7799df544cc0a08d62ada25b0",
+    "gzip_bytes": 7845217,
+    "snapshot_drive_id": "1hDWwZj3lvbPlZWNvOY_aNE6hthrpxnDt",
+    "manifest_drive_id": "1G25ya3gSM_oZozIAPAkXNlVMtckujEED",
+    "capabilities": [
+      "COMMITMENT_AMOUNTS",
+      "COMMITMENT_NUMBER",
+      "EDUCATION_CLASSIFICATION",
+      "EVENT_MONTH",
+      "EXPENSE_ELEMENT",
+      "EXPENSE_ISSUE_DATE",
+      "FUNDING_SOURCE_APPLICATION",
+      "LIQUIDATION_AMOUNTS",
+      "PAYMENT_AMOUNTS",
+      "PROGRAMMATIC_CLASSIFICATION",
+      "RESTS_PAYABLE",
+      "REVERSAL_EVENTS",
+      "SOURCE_DESCRIPTION",
+      "SUPPLIER_AMOUNT"
+    ],
+    "observed_stages": [
+      "COMMITMENT",
+      "LIQUIDATION",
+      "OTHER_REVIEW",
+      "PAYMENT",
+      "REVERSAL"
+    ]
+  },
+  "answerability": {
+    "before_status_counts": {
+      "EXPLICIT_GAP": 5,
+      "MATERIALIZED_ANSWERABLE": 20,
+      "MATERIALIZED_PARTIAL": 13
+    },
+    "after_status_counts": {
+      "EXPLICIT_GAP": 5,
+      "MATERIALIZED_ANSWERABLE": 21,
+      "MATERIALIZED_PARTIAL": 12
+    },
+    "changed_question_count": 1,
+    "changes": [
+      {
+        "question_id": "ACC_Q3",
+        "before": "MATERIALIZED_PARTIAL",
+        "after": "MATERIALIZED_ANSWERABLE"
+      }
+    ],
+    "preserved_partial": [
+      "FIN_Q1",
+      "PLAN_Q3"
+    ]
+  },
+  "guards": [
+    "RESTS_PAYABLE_NE_CURRENT_YEAR_EXPENDITURE",
+    "PROCESSED_NE_NONPROCESSED",
+    "RREO_AGGREGATE_NE_TCESP_GRANULAR_TRANSACTION",
+    "SECRETARIA_EDUCACAO_NE_SPECIFIC_EDUCATION_POLICY_IDENTITY",
+    "SOURCE_TRANSPORT_FAILURE_NE_NO_DATA"
+  ],
+  "remote_effects": {
+    "source_network_get_attempts_current_task": 1,
+    "source_network_successes_current_task": 0,
+    "drive_overwrites": 0,
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  }
+}
