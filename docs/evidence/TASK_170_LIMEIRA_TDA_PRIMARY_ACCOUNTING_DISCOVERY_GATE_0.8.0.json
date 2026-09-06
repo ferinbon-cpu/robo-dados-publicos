@@ -1,0 +1,40 @@
+{
+  "task": "TASK_170_SELECT_LIMEIRA_TDA_PRIMARY_ACCOUNTING_DISCOVERY_GATE",
+  "issue": 552,
+  "base_main_sha": "547bcff812763677ac99b576d32efe6e57bd3c80",
+  "mode": "T0_OFFLINE_SELECTION_ONLY",
+  "selected_source": "LIMEIRA_TDA_PORTAL",
+  "selected_host": "transparencia.limeira.sp.gov.br",
+  "selected_known_url": "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+  "source_role": "ACCOUNTING_EXECUTION_PRIMARY",
+  "selection_basis": [
+    "TASK169_SOURCE_RANK_1_MUNICIPAL_PRIMARY_TRANSPARENCY",
+    "VERSIONED_LIMEIRA_SOURCE_REGISTRY",
+    "DECLARED_DESPESAS_AND_EMPENHO_LIQUIDACAO_PAGAMENTO_CAPABILITY"
+  ],
+  "prior_access_state": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN",
+  "future_live_gate": {
+    "authorized_now": false,
+    "fresh_owner_authorization_required": true,
+    "max_requests": 1,
+    "max_redirects_followed": 0,
+    "retry": 0,
+    "purpose": "DISCOVER_EXPLICITLY_DECLARED_MACHINE_READABLE_ACCOUNTING_ROUTE_ONLY"
+  },
+  "direct_json_first": true,
+  "endpoint_guessing": false,
+  "authentication": false,
+  "form_submission": false,
+  "javascript_execution": false,
+  "captcha_bypass": false,
+  "financial_identity_promoted": false,
+  "transaction_identity_promoted": false,
+  "tce_role": "CORROBORATION_ONLY_AFTER_STABLE_POLICY_ACCOUNTING_KEY",
+  "remote_effects": {
+    "network": 0,
+    "drive": 0,
+    "publication": 0
+  },
+  "result": "PASS_TDA_SELECTED_FUTURE_LIVE_GATE_NOT_AUTHORIZED",
+  "next_action": "AFTER_MERGE_REQUIRE_FRESH_EXPLICIT_OWNER_AUTHORIZATION_FOR_ONE_READ_ONLY_GET_TO_THE_EXACT_TDA_URL; IF_THE_RESPONSE_LITERAL_DECLARATION_EXPOSES_AN_OFFICIAL_MACHINE_READABLE_ROUTE_PIN_IT_FOR_A_SEPARATE_SCHEMA_GATE; OTHERWISE_STOP_WITH_ACCESS_OR_DISCOVERY_STATUS_WITHOUT_NO_DATA"
+}
