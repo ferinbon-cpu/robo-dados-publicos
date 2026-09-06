@@ -122,7 +122,8 @@ def classify_event(event: dict[str, Any], *, config_path: str | Path = DEFAULT_C
         },
         "semantic_classification_proves_policy_identity": False,
         "semantic_classification_proves_financial_identity": False,
-        "semantic_classification_proves_payment": bool(explicit_payment and explicit_accounting),
+        "payment_evidence_candidate": bool(explicit_payment and explicit_accounting),
+        "semantic_classification_proves_payment": False,
         "review_required": domains == [cfg["rules"]["unknown_policy_domain"]],
     }
 
