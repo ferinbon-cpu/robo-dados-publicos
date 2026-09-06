@@ -1,0 +1,62 @@
+{
+  "task": "TASK_167_PNCP_STABLE_ID_DIRECT_JSON_TRAVERSAL",
+  "issue": 546,
+  "pr": 547,
+  "base_main_sha": "e862fc91f3fe208c4655205d661c042dd3f86f81",
+  "execution": {
+    "run_id": 34000741244,
+    "job_id": 101399039367,
+    "execution_head_sha": "eb8bbd04ef6d55d57a8b1b317d991efc88546448",
+    "workflow_conclusion": "success",
+    "artifact_id": 9979411953,
+    "artifact_digest": "sha256:989e12896cf8f7d54acf2a782efa521ee6f8e975428ece8404d97f22b44253ce",
+    "sanitized_result_sha256": "51ebd18002548aeb832e59d658a9f47c557c0c9326e209c2e5c4ec1c270a816a",
+    "raw_payload_persisted": false
+  },
+  "authorization": {
+    "scope": "PNCP_LIVE_READ_DISCOVERY_ONLY",
+    "source_record": "config/task161_pncp_manual_publication_sweep_evidence_guards.v1.json",
+    "new_per_route_authorization_required": false
+  },
+  "targets": [
+    {
+      "target_id": "SCHOOL_PASS",
+      "numeroControlePNCP": "45132495000140-1-000368/2026",
+      "processo": "I00055",
+      "routes": {
+        "DETAIL": {"http_status": 502, "bytes_received": 0, "status": "SOURCE_TRANSPORT_OR_HTTP_OR_JSON_UNAVAILABLE"},
+        "ITEMS": {"http_status": 503, "bytes_received": 0, "status": "SOURCE_TRANSPORT_OR_HTTP_OR_JSON_UNAVAILABLE"},
+        "HISTORY": {"http_status": 503, "bytes_received": 0, "status": "SOURCE_TRANSPORT_OR_HTTP_OR_JSON_UNAVAILABLE"},
+        "BUDGET_SOURCES": {"http_status": 503, "bytes_received": 0, "status": "SOURCE_TRANSPORT_OR_HTTP_OR_JSON_UNAVAILABLE"},
+        "LINKED_CONTRACTS": {"http_status": 503, "bytes_received": 0, "status": "SOURCE_TRANSPORT_OR_HTTP_OR_JSON_UNAVAILABLE"}
+      },
+      "detail_identity_validated_this_run": false
+    },
+    {
+      "target_id": "COURSE_I00084",
+      "numeroControlePNCP": "45132495000140-1-000593/2026",
+      "processo": "I00084",
+      "routes": {
+        "DETAIL": {"http_status": 503, "bytes_received": 0, "status": "SOURCE_TRANSPORT_OR_HTTP_OR_JSON_UNAVAILABLE"},
+        "ITEMS": {"http_status": 503, "bytes_received": 0, "status": "SOURCE_TRANSPORT_OR_HTTP_OR_JSON_UNAVAILABLE"},
+        "HISTORY": {"http_status": 503, "bytes_received": 0, "status": "SOURCE_TRANSPORT_OR_HTTP_OR_JSON_UNAVAILABLE"},
+        "BUDGET_SOURCES": {"http_status": 503, "bytes_received": 0, "status": "SOURCE_TRANSPORT_OR_HTTP_OR_JSON_UNAVAILABLE"},
+        "LINKED_CONTRACTS": {"http_status": 503, "bytes_received": 0, "status": "SOURCE_TRANSPORT_OR_HTTP_OR_JSON_UNAVAILABLE"}
+      },
+      "detail_identity_validated_this_run": false
+    }
+  ],
+  "adjudication": {
+    "requests_attempted": 10,
+    "successful_json_bodies": 0,
+    "candidate_accounting_signals": 0,
+    "transport_or_http_failure_is_no_data": false,
+    "pncp_no_data_created": false,
+    "eiti_financial_identity_proven": false,
+    "eiti_transaction_identity_proven": false,
+    "payment_inference_from_pncp": "FORBIDDEN",
+    "scientific_state": "UNCHANGED_UNKNOWN_FINANCIAL_IDENTITY"
+  },
+  "interpretation": "All ten documented stable-ID routes were reached through the GitHub runner but returned HTTP 502/503 without response bodies. This is source/transport unavailability, not evidence that detail, items, history, budget sources or linked contracts are absent. No budget/accounting key was observed and no EITI financial or transaction identity is promoted.",
+  "next_action": "DO_NOT_CREATE_NO_DATA_FROM_THIS_RUN; PRESERVE_TASK166_STABLE_IDENTITIES; RETRY_OR_ALTERNATE_DOCUMENTED_PNCP_MACHINE_READABLE_ROUTE_ONLY_UNDER_THE_STANDING_PNCP_READ_SCOPE; IF_A_BUDGET_ACCOUNTING_KEY_IS_EVENTUALLY_OBSERVED_OPEN_A_SEPARATE_ACCOUNTING_EXECUTION_BRIDGE"
+}

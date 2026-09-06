@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "schema": "TASK167_PNCP_STABLE_ID_DIRECT_JSON_TRAVERSAL_V1",
+  "task": "TASK_167_PNCP_STABLE_ID_DIRECT_JSON_TRAVERSAL",
+  "issue": 546,
+  "base_sha": "e862fc91f3fe208c4655205d661c042dd3f86f81",
+  "authorization": {
+    "source_record": "config/task161_pncp_manual_publication_sweep_evidence_guards.v1.json",
+    "scope": "PNCP_LIVE_READ_DISCOVERY_ONLY",
+    "metering": "UNMETERED_WITHIN_PNCP_SCOPE_UNTIL_REVOKED_OR_SUPERSEDED",
+    "new_per_route_authorization_required": false
+  },
+  "source": {
+    "origin": "https://pncp.gov.br",
+    "cnpj": "45132495000140",
+    "timeoutSeconds": 60,
+    "maxBytesPerRoute": 10000000,
+    "redirectsMax": 0,
+    "retryMax": 0
+  },
+  "targets": [
+    {
+      "id": "SCHOOL_PASS",
+      "ano": 2026,
+      "sequencial": 368,
+      "numeroControlePNCP": "45132495000140-1-000368/2026",
+      "processo": "I00055",
+      "estimatedValueBrl": 3816720.0
+    },
+    {
+      "id": "COURSE_I00084",
+      "ano": 2026,
+      "sequencial": 593,
+      "numeroControlePNCP": "45132495000140-1-000593/2026",
+      "processo": "I00084",
+      "estimatedValueBrl": 12400.0
+    }
+  ],
+  "routes": [
+    {"id":"DETAIL","path":"/api/pncp/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}","expectedShape":"OBJECT"},
+    {"id":"ITEMS","path":"/api/pncp/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}/itens","expectedShape":"LIST"},
+    {"id":"HISTORY","path":"/api/pncp/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}/historico","expectedShape":"LIST"},
+    {"id":"BUDGET_SOURCES","path":"/api/pncp/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}/fonte-orcamentaria","expectedShape":"LIST"},
+    {"id":"LINKED_CONTRACTS","path":"/api/pncp/v1/orgaos/{cnpj}/contratos/contratacao/{ano}/{sequencial}","expectedShape":"LIST"}
+  ],
+  "persistence": {
+    "rawPayloadGit": false,
+    "rawPayloadDrive": false,
+    "rawPayloadWorkflowArtifact": false,
+    "sanitizedResultWorkflowArtifact": true,
+    "artifactRetentionDays": 1
+  },
+  "guards": {
+    "transportFailureIsNoData": false,
+    "http404IsNoData": false,
+    "detailIdentityRequired": true,
+    "routeSchemaRequired": true,
+    "paymentInferenceFromPncpForbidden": true,
+    "financialIdentityAutoPromotionForbidden": true,
+    "transactionIdentityAutoPromotionForbidden": true,
+    "rawAnomaliesPreserved": true,
+    "silentRepairForbidden": true
+  }
+}
