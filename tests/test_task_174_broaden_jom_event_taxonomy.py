@@ -127,7 +127,7 @@ Escola municipal informa calendário escolar, ano letivo e horário escolar.
         self.assertIn("SCHOOL_OR_SERVICE_OPERATION", sem["evidence_layers"])
         self.assertIn("SCHOOL_CALENDAR", sem["education_topics"])
         self.assertIn("HOURS_SHIFT", sem["education_topics"])
-        self.assertFalse(sem["policy_identity_proven"])
+        self.assertFalse(sem["semantic_classification_proves_policy_identity"])
 
     def test_partnership_instruments_are_governance_not_procurement_by_type(self):
         event = parse(
