@@ -337,6 +337,25 @@ def _validate_existing_state(existing: Mapping[str, Any], expected_product_name:
     )
     _stop(all(isinstance(row, list) and len(row) == len(headers) for row in rows), "TASK177_EXISTING_ROWS")
     row_dicts = [dict(zip(headers, row)) for row in rows]
+    task176 = json.loads(TASK176_CONTRACT.read_text(encoding="utf-8"))
+    expected_schema = task176["products"][expected_product_name]["schema"]
+    _stop(meta.get("product_schema") == expected_schema, "TASK177_EXISTING_PRODUCT_SCHEMA")
+    _stop(
+        meta.get("source_families_json")
+        == json.dumps(_source_families({"rows": row_dicts}), ensure_ascii=False, separators=(",", ":")),
+        "TASK177_EXISTING_SOURCE_FAMILIES_META",
+    )
+    _stop(
+        meta.get("cautions_json")
+        == json.dumps(_cautions({"rows": row_dicts}), ensure_ascii=False, separators=(",", ":")),
+        "TASK177_EXISTING_CAUTIONS_META",
+    )
+    if "generated_at" in headers:
+        generated = {str(row.get("generated_at")) for row in row_dicts}
+        _stop(generated == {str(meta.get("generated_at"))}, "TASK177_EXISTING_GENERATED_AT_META")
+    if "software_version" in headers:
+        versions = {str(row.get("software_version")) for row in row_dicts}
+        _stop(versions == {str(meta.get("software_version"))}, "TASK177_EXISTING_SOFTWARE_META")
     base_rows = [dict(row) for row in row_dicts]
     if expected_product_name == "QUERY_PRODUCT_CATALOG":
         for row in base_rows:
