@@ -14,12 +14,14 @@
   ],
   "products": {
     "SCHOOL_INDICATOR_SERIES": {
-      "current_status": "READY_PARTIAL_ONLY",
+      "current_status": "READY_FROM_EXISTING_CUSTODY",
       "canonical_inputs": [
         "BASE_MESTRA_LIMEIRA_V05",
         "CAMADA_ANALITICA_V06_40_ESCOLAS_V08"
       ],
       "currently_readable_inputs": [
+        "BASE_MESTRA_LIMEIRA_V05",
+        "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
         "INDICATORS_COLLECTION_2026_PUBLICATION"
       ],
       "allowed_partial_sources": [
@@ -29,9 +31,7 @@
       "narrative_context_sources": [
         "INDICATORS_COLLECTION_2026_PUBLICATION:VOLUME_I_V07"
       ],
-      "full_materialization_requires": [
-        "BASE_MESTRA_LIMEIRA_V05"
-      ],
+      "full_materialization_requires": [],
       "preferred_optional_extension": [
         "CAMADA_ANALITICA_V06_40_ESCOLAS_V08"
       ],
@@ -47,7 +47,14 @@
         "NOT_APPLICABLE_NE_MISSING_NE_ZERO",
         "NARRATIVE_NE_CANONICAL_NUMERIC_ROW",
         "SCHOOL_NAME_NE_IDENTITY_WHEN_INEP_CODE_AVAILABLE"
-      ]
+      ],
+      "library_mediated_seed": {
+        "task": "TASK_180",
+        "source": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
+        "sheet": "01 Escolas 40",
+        "scope": "40_PRIMARY_YEARS_SCHOOLS_2025_WIDE_SNAPSHOT",
+        "binary_import_complete": false
+      }
     },
     "PLANNING_DOCUMENT_INDEX": {
       "current_status": "READY_FROM_EXISTING_CUSTODY",
@@ -163,34 +170,6 @@
   "handoff_priority": [
     {
       "rank": 1,
-      "asset_id": "BASE_MESTRA_LIMEIRA_V05",
-      "reason": "UNLOCKS_FULL_SCHOOL_INDICATOR_SERIES_FOR_69_UNIT_NETWORK_AND_SCHOOL_LEVEL_QUERYING",
-      "expected_product_gain": [
-        "SCHOOL_INDICATOR_SERIES"
-      ],
-      "expected_domain_gain": [
-        "NETWORK_ENROLLMENT",
-        "SCHOOLS_INFRASTRUCTURE",
-        "LEARNING_FLOW",
-        "EQUITY_INCLUSION",
-        "TEACHERS_WORKFORCE"
-      ]
-    },
-    {
-      "rank": 2,
-      "asset_id": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
-      "reason": "ADDS_AUDITABLE_HISTORICAL_EXTENSION_AND_RECOVERED_SCHOOL_SERIES",
-      "expected_product_gain": [
-        "SCHOOL_INDICATOR_SERIES"
-      ],
-      "expected_domain_gain": [
-        "LEARNING_FLOW",
-        "TEACHERS_WORKFORCE",
-        "EQUITY_INCLUSION"
-      ]
-    },
-    {
-      "rank": 3,
       "asset_id": "MD_01_3B_CORPUS",
       "reason": "UNLOCKS_194_DOCUMENT_CORPUS_FOR_EXACT_DOCUMENT_LOCATORS_AND_FISCAL_RECONCILIATION",
       "expected_product_gain": [
@@ -205,7 +184,7 @@
       ]
     },
     {
-      "rank": 4,
+      "rank": 2,
       "asset_id": "LATEST_CEREBRO_NORMATIVO_IF_NEWER_THAN_DISCOVERED_V0_1",
       "reason": "REFRESHES_OPERATIONAL_NORMATIVE_SYNTHESIS_WITHOUT_REPLACING_OFFICIAL_NORMS",
       "expected_product_gain": [
@@ -220,7 +199,7 @@
   ],
   "noncanonical_task_note": {
     "task_178_remote_serving_should_wait": true,
-    "reason": "MAP_AND_INGEST_EXISTING_CUSTODY_BEFORE_FIRST_REMOTE_OBSERVATORY_SERVING_PROOF"
+    "reason": "MATERIALIZE_EXISTING_CUSTODY_PRODUCTS_BEFORE_FIRST_REMOTE_OBSERVATORY_SERVING_PROOF"
   },
   "remote_effects": {
     "network": false,
