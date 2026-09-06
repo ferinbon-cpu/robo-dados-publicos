@@ -1,5 +1,9 @@
+import json
+import tempfile
 import unittest
+from pathlib import Path
 
+from robo_dados_publicos.journal.processing import JournalPdfProcessor
 from robo_dados_publicos.accounting.tcesp_current import (
     Task173Stop,
     normalize_tcesp_expense_row,
@@ -30,6 +34,9 @@ def row(**updates):
     }
     base.update(updates)
     return base
+
+
+FIXTURE = Path(__file__).parent / "fixtures" / "jornal_oficial_fixture_2pages.pdf"
 
 
 class TestTask173TcespAccountingLedgerJomRouter(unittest.TestCase):
@@ -133,6 +140,23 @@ class TestTask173TcespAccountingLedgerJomRouter(unittest.TestCase):
         self.assertEqual(got["weak_corroborators"]["value_brl"], "100000.00")
         self.assertFalse(got["amount_date_text_can_create_identity"])
         self.assertFalse(got["semantic_facets_can_create_identity"])
+
+    def test_normal_journal_pipeline_emits_accounting_query_sidecar(self):
+        with tempfile.TemporaryDirectory() as td:
+            out = JournalPdfProcessor().process(
+                FIXTURE,
+                edition=7309,
+                publication_date="2026-08-21",
+                source_url="https://example.org/7309.pdf",
+                out_dir=td,
+            )
+            self.assertEqual(out["gold_events"], out["accounting_query_tasks"])
+            path = Path(td) / "accounting_query_tasks.jsonl"
+            self.assertTrue(path.exists())
+            rows = [json.loads(x) for x in path.read_text(encoding="utf-8").splitlines() if x.strip()]
+            self.assertEqual(out["gold_events"], len(rows))
+            self.assertTrue(all(x["target_source"] == "TCESP_LIMEIRA_2026_DESPESAS" for x in rows))
+            self.assertTrue(all(x["financial_identity_proven"] is False for x in rows))
 
     def test_query_id_is_deterministic(self):
         event = {
