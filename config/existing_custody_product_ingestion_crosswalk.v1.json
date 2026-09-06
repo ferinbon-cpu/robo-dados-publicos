@@ -48,7 +48,11 @@
         "NARRATIVE_NE_CANONICAL_NUMERIC_ROW",
         "SCHOOL_NAME_NE_IDENTITY_WHEN_INEP_CODE_AVAILABLE",
         "SAME_YEAR_REQUIRED_FOR_SPENDING_PER_ENROLLMENT",
-        "PER_ENROLLMENT_NE_INDIVIDUAL_STUDENT_COST"
+        "PER_ENROLLMENT_NE_INDIVIDUAL_STUDENT_COST",
+        "SCHOOL_COUNT_ACTIVE_ESTABLISHMENTS_NE_BUILDINGS",
+        "CLASS_COUNT_NE_ATU_DERIVATION",
+        "OFFICIAL_TABELA_TURMA_MD5_REQUIRED_BEFORE_NETWORK_CLASS_COUNT",
+        "MISSING_CLASS_COUNT_NE_ZERO"
       ],
       "library_mediated_seed": {
         "task": "TASK_180",
@@ -92,6 +96,33 @@
           "unit": "COUNT",
           "full_panel_transfer_complete": false,
           "snapshot_id": "35690fe26f9ea06effaacb19"
+        },
+        {
+          "task": "TASK_193",
+          "source": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08_PLUS_AUDITORIA_29_UNIDADES",
+          "scope": "LIMEIRA_MUNICIPAL_CURRENT_69_UNITS_2025_NETWORK_SCALE",
+          "rows_added": 1,
+          "total_school_rows_after_overlay": 1019,
+          "period": "2025",
+          "metric_id": "SCHOOL_COUNT",
+          "value": 69,
+          "unit": "COUNT",
+          "reconciliation": "69_EQUALS_40_PLUS_29",
+          "basic_education_enrollment_preserved": 22788,
+          "class_count_materialized": false,
+          "class_count_status": "BLOCKED_PRIMARY_RAW_RECOVERY_REQUIRED",
+          "official_turma_source": "Tabela_Turma_2025_v2.csv",
+          "official_turma_md5": "438A3A3FC37F28E7E50E57D7CD8B9DAC",
+          "validated_ei29_class_count": 294,
+          "ai40_class_count": null,
+          "network_q1": "MATERIALIZED_PARTIAL",
+          "network_q1_remaining_missing": [
+            "CLASS_COUNT"
+          ],
+          "snapshot_id": "c41aa1deac4f2577ac5185e9",
+          "content_sha256": "c41aa1deac4f2577ac5185e92a51753d9522867aab31a64ac7dbb0571e101020",
+          "fiscal_series_snapshot_id": "e0b91b47ee6a6e63892aba71",
+          "fiscal_series_content_sha256": "e0b91b47ee6a6e63892aba71cdaf8ac7daf03af531c661fd455023898c03e3ea"
         }
       ],
       "pending_structured_blocks": [
@@ -102,6 +133,16 @@
           "expected_rows": 552,
           "expected_columns": 25,
           "status": "IMPORT_CONTRACT_READY_FULL_ROW_TRANSFER_NOT_COMPLETE"
+        },
+        {
+          "task": "TASK_193",
+          "source": "Tabela_Turma_2025_v2.csv",
+          "official_md5": "438A3A3FC37F28E7E50E57D7CD8B9DAC",
+          "target_metric": "CLASS_COUNT",
+          "target_scope": "3526902:MUNICIPAL:CURRENT_69_UNITS",
+          "validated_subgroup": "EI29_CLASS_COUNT_294",
+          "remaining_subgroup": "AI40_CLASS_COUNT_UNKNOWN",
+          "status": "RAW_PRIMARY_RECOVERY_REQUIRED_NO_PROXY"
         }
       ]
     },
