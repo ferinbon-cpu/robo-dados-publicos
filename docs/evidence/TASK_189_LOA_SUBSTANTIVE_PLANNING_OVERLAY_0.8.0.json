@@ -86,11 +86,21 @@
     },
     "after_status_counts": {
       "EXPLICIT_GAP": 5,
-      "MATERIALIZED_ANSWERABLE": 22,
-      "MATERIALIZED_PARTIAL": 11
+      "MATERIALIZED_ANSWERABLE": 24,
+      "MATERIALIZED_PARTIAL": 9
     },
-    "changed_question_count": 1,
+    "changed_question_count": 3,
     "changes": [
+      {
+        "question_id": "PLAN_Q1",
+        "before": "MATERIALIZED_PARTIAL",
+        "after": "MATERIALIZED_ANSWERABLE"
+      },
+      {
+        "question_id": "PLAN_Q2",
+        "before": "MATERIALIZED_PARTIAL",
+        "after": "MATERIALIZED_ANSWERABLE"
+      },
       {
         "question_id": "PLAN_Q3",
         "before": "MATERIALIZED_PARTIAL",
