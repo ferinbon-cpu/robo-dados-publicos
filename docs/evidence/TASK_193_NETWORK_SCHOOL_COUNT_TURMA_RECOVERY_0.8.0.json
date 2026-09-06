@@ -1,0 +1,84 @@
+{
+  "schema": "TASK193_NETWORK_SCHOOL_COUNT_TURMA_RECOVERY_EVIDENCE_V1",
+  "software_candidate": "0.8.0",
+  "task": "TASK_193_NETWORK_SCHOOL_COUNT_TURMA_RECOVERY",
+  "base_main_sha": "c7eee31c2158d593341660b221a65954d857b36b",
+  "status": "CANDIDATE_PENDING_CANONICAL_CI",
+  "period": "2025",
+  "scope_id": "3526902:MUNICIPAL:CURRENT_69_UNITS",
+  "enrollment": {
+    "metric_id": "BASIC_EDUCATION_ENROLLMENT",
+    "value": 22788,
+    "status": "PRESERVED_FROM_TASK191"
+  },
+  "school_count": {
+    "metric_id": "SCHOOL_COUNT",
+    "value": 69,
+    "unit": "COUNT",
+    "source_family": "CENSO_ESCOLAR",
+    "source": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08.xlsx#81 Censo 69 2018-25",
+    "source_sha256": "0516868e06685aebe8254b11ca6488ef26b03dea61f927ff637840cf2a21e865",
+    "reconciliation": "69_EQUALS_40_PLUS_29",
+    "status": "MATERIALIZED_VALIDATED"
+  },
+  "class_count": {
+    "metric_id": "CLASS_COUNT",
+    "network_value": null,
+    "status": "BLOCKED_PRIMARY_RAW_RECOVERY_REQUIRED",
+    "official_source_file": "Tabela_Turma_2025_v2.csv",
+    "official_turma_md5": "438A3A3FC37F28E7E50E57D7CD8B9DAC",
+    "raw_transport_status": "NOT_IN_ACTIVE_CUSTODY",
+    "validated_ei29_class_count": 294,
+    "validated_ei29_units": 29,
+    "ai40_class_count": null,
+    "secondary_web_mirror": "DIAGNOSTIC_ONLY_NOT_CANONICAL",
+    "proxy_forbidden": true
+  },
+  "answerability": {
+    "before_status_counts": {
+      "EXPLICIT_GAP": 2,
+      "MATERIALIZED_ANSWERABLE": 27,
+      "MATERIALIZED_PARTIAL": 9
+    },
+    "expected_after_status_counts": {
+      "EXPLICIT_GAP": 2,
+      "MATERIALIZED_ANSWERABLE": 27,
+      "MATERIALIZED_PARTIAL": 9
+    },
+    "network_q1": "MATERIALIZED_PARTIAL",
+    "missing_before": [
+      "CLASS_COUNT",
+      "SCHOOL_COUNT"
+    ],
+    "remaining_missing_metrics": [
+      "CLASS_COUNT"
+    ],
+    "status_inflation_forbidden": true
+  },
+  "expected_products": {
+    "school_indicator_series_row_count": 1019,
+    "fiscal_series_row_count": 61,
+    "school_rows_added": 1,
+    "fiscal_rows_added": 0,
+    "runtime_snapshot_status": "TO_BE_PINNED_AFTER_PASSING_CI"
+  },
+  "next_action": "RECOVER_OFFICIAL_TABELA_TURMA_2025_V2_BYTES_VERIFY_MD5_438A3A3FC37F28E7E50E57D7CD8B9DAC_FILTER_LIMEIRA_MUNICIPAL_ACTIVE_69_COUNT_UNIQUE_TURMAS_RECONCILE_EI29_294_THEN_MATERIALIZE_CLASS_COUNT",
+  "guards": [
+    "SCHOOL_COUNT_ACTIVE_ESTABLISHMENTS_NE_BUILDINGS",
+    "CLASS_COUNT_NE_ATU_DERIVATION",
+    "CLASS_COUNT_NE_ENROLLMENT_DIVIDED_BY_ATU",
+    "SECONDARY_WEB_MIRROR_NE_PRIMARY_RAW_CUSTODY",
+    "EI29_CLASS_COUNT_294_NE_FULL_NETWORK_CLASS_COUNT",
+    "OFFICIAL_TABELA_TURMA_MD5_REQUIRED_BEFORE_NETWORK_CLASS_COUNT",
+    "MISSING_CLASS_COUNT_NE_ZERO"
+  ],
+  "remote_effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  }
+}
