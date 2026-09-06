@@ -61,6 +61,7 @@ def load_contract(path: str | Path = DEFAULT_CONTRACT) -> dict[str, Any]:
     _stop(source["max_requests"] == 8, "TASK185_JSON_REQUEST_BUDGET")
     _stop(source["retry"] == 0, "TASK185_JSON_RETRY")
     _stop(source["follow_redirects"] is False, "TASK185_JSON_REDIRECT")
+    _stop(int(source.get("network_timeout_seconds") or 0) == 180, "TASK185_JSON_TIMEOUT")
     _stop(contract["authorization"]["single_use"] is True, "TASK185_JSON_AUTH_SINGLE_USE")
     return contract
 
@@ -146,7 +147,7 @@ def normalize_json_expense_row(row: Mapping[str, Any], *, source_body_sha256: st
         "schema": observation_contract["schema"],
         "source_id": source["source_id"],
         "source_role": "OFFICIAL_EXTERNAL_CONTROL_RECORD",
-        "entity_name": "Limeira",
+        "entity_name": _clean(row.get("orgao")) or "Limeira",
         "fiscal_year": 2026,
         "stage": stage,
         "source_stage": _clean(row.get("evento")),
