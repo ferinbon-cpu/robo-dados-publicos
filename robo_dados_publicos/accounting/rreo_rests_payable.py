@@ -123,6 +123,7 @@ def build_rests_payable_observations(
                 "schema": "MUNICIPAL_ACCOUNTING_OBSERVATION_V1",
                 "source_id": row["source_id"],
                 "source_role": contract["source_role"],
+                "source_family": "BUDGET_EXECUTION",
                 "entity_name": "MUNICIPIO DE LIMEIRA",
                 "fiscal_year": 2026,
                 "stage": "OTHER_REVIEW",
@@ -147,6 +148,7 @@ def build_rests_payable_observations(
                     f"RREO Anexo 7 - {row['scope_name']} - {source['period']}"
                 ),
                 "history_text": None,
+                "caution": "OFFICIAL_RREO_AGGREGATE_NE_GRANULAR_ACCOUNTING_TRANSACTION",
                 "rests_payable_status": {
                     "scope_type": row["scope_type"],
                     "scope_name": row["scope_name"],
