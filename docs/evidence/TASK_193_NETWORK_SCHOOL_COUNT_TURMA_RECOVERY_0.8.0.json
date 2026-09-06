@@ -3,7 +3,7 @@
   "software_candidate": "0.8.0",
   "task": "TASK_193_NETWORK_SCHOOL_COUNT_TURMA_RECOVERY",
   "base_main_sha": "c7eee31c2158d593341660b221a65954d857b36b",
-  "status": "CANDIDATE_PENDING_CANONICAL_CI",
+  "status": "PASS_CANONICAL_CI_RUNTIME_SNAPSHOTS_PINNED",
   "period": "2025",
   "scope_id": "3526902:MUNICIPAL:CURRENT_69_UNITS",
   "enrollment": {
@@ -60,7 +60,11 @@
     "fiscal_series_row_count": 61,
     "school_rows_added": 1,
     "fiscal_rows_added": 0,
-    "runtime_snapshot_status": "TO_BE_PINNED_AFTER_PASSING_CI"
+    "runtime_snapshot_status": "PINNED_FROM_PASSING_CI",
+    "school_indicator_series_snapshot_id": "c41aa1deac4f2577ac5185e9",
+    "school_indicator_series_content_sha256": "c41aa1deac4f2577ac5185e92a51753d9522867aab31a64ac7dbb0571e101020",
+    "fiscal_series_snapshot_id": "e0b91b47ee6a6e63892aba71",
+    "fiscal_series_content_sha256": "e0b91b47ee6a6e63892aba71cdaf8ac7daf03af531c661fd455023898c03e3ea"
   },
   "next_action": "RECOVER_OFFICIAL_TABELA_TURMA_2025_V2_BYTES_VERIFY_MD5_438A3A3FC37F28E7E50E57D7CD8B9DAC_FILTER_LIMEIRA_MUNICIPAL_ACTIVE_69_COUNT_UNIQUE_TURMAS_RECONCILE_EI29_294_THEN_MATERIALIZE_CLASS_COUNT",
   "guards": [
@@ -80,5 +84,12 @@
     "publication": 0,
     "schedule": 0,
     "recurrence": 0
+  },
+  "canonical_ci": {
+    "run_id": 34062468462,
+    "job_id": 101565308041,
+    "head_sha": "7103ce522e592e2515e57a17fd3f825ea48c5e14",
+    "checks": "5_OF_5_SUCCESS",
+    "unit_tests": "3221_OF_3221_PASS"
   }
 }
