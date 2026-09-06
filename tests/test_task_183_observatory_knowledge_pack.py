@@ -149,6 +149,21 @@ class TestTask183ObservatoryKnowledgePack(unittest.TestCase):
         self.assertEqual(by_id["TERR_Q1"]["status"], "EXPLICIT_GAP")
         self.assertEqual(by_id["CTRL_Q1"]["status"], "MATERIALIZED_ANSWERABLE")
         self.assertFalse(report["llm_may_fill_missing_numeric_evidence"])
+        self.assertEqual(report["status_counts"], {
+            "EXPLICIT_GAP": 5,
+            "MATERIALIZED_ANSWERABLE": 8,
+            "MATERIALIZED_PARTIAL": 4,
+            "ROUTE_READY_PRODUCT_NOT_BUNDLED": 19,
+            "SOURCE_READY_NOT_MATERIALIZED": 2,
+        })
+        domain_counts = {}
+        for row in report["domains"]:
+            domain_counts[row["status"]] = domain_counts.get(row["status"], 0) + 1
+        self.assertEqual(domain_counts, {
+            "EXPLICIT_GAP": 1,
+            "MATERIALIZED_PARTIAL": 7,
+            "ROUTE_READY_PRODUCT_NOT_BUNDLED": 7,
+        })
 
     def test_product_presence_does_not_make_total_enrollment_answerable(self):
         report = question_answerability(self.products())
