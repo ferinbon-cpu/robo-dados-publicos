@@ -1,0 +1,61 @@
+{
+  "task": "TASK_174_BROADEN_JOM_EVENT_TAXONOMY",
+  "issue": 560,
+  "mode": "T0_OFFLINE_CONSERVATIVE_EVENT_TAXONOMY_EXPANSION",
+  "base_main_sha": "7dd21be8b0f88555189ad2b1cde99046c65262b3",
+  "scope": "GENERAL_MUNICIPAL_PUBLIC_DATA_OBSERVATORY",
+  "legacy_event_types": 11,
+  "new_event_types": [
+    "COMUNICADO",
+    "PARECER",
+    "INSTRUCAO_NORMATIVA",
+    "DELIBERACAO",
+    "RETIFICACAO",
+    "TERMO_COLABORACAO",
+    "TERMO_FOMENTO",
+    "ACORDO_COOPERACAO",
+    "ATO_CREDITO_ORCAMENTARIO",
+    "AVISO_OPERACAO_ESCOLAR"
+  ],
+  "retification": {
+    "explicit_target_required": true,
+    "emitted_fields": [
+      "target_act_type",
+      "target_act_number"
+    ],
+    "nearby_identity_inheritance": false
+  },
+  "school_operation_topics_added": [
+    "ENROLLMENT",
+    "SCHOOL_CALENDAR",
+    "CLASS_ASSIGNMENT",
+    "UNIT_OPERATION",
+    "HOURS_SHIFT",
+    "INFRASTRUCTURE_MAINTENANCE"
+  ],
+  "downstream": {
+    "semantic_facets": "event_semantics_gold.jsonl",
+    "accounting_router": "accounting_query_tasks.jsonl",
+    "policy_identity_auto_promotion": false,
+    "accounting_identity_auto_promotion": false,
+    "payment_auto_promotion": false
+  },
+  "hard_guards": [
+    "EVENT_TYPE_NE_POLICY_DOMAIN_NE_EVIDENCE_LAYER_NE_FINANCIAL_STAGE",
+    "RETIFICATION_NE_TARGET_IDENTITY_UNLESS_EXPLICIT",
+    "BUDGET_CREDIT_ACT_NE_COMMITMENT_LIQUIDATION_PAYMENT",
+    "SCHOOL_OPERATION_NOTICE_NE_IMPLEMENTATION_RESULT",
+    "UNKNOWN_PROSE_REMAINS_UNSTRUCTURED",
+    "SEMANTIC_SIMILARITY_NE_ACCOUNTING_IDENTITY"
+  ],
+  "remote_effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  },
+  "next": "UNIFIED_OBSERVATORY_QUERY_LAYER_OVER_EVENTS_ACCOUNTING_AND_SCHOOL_INDICATORS"
+}
