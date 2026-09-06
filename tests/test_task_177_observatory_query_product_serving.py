@@ -110,6 +110,28 @@ def accounting():
     )
 
 
+def revenue():
+    row = {
+        "revenue_observation_id": "TCESP_REV_2026_1",
+        "source_record_id": "1",
+        "fiscal_year": 2026,
+        "revenue_month": 1,
+        "funding_source": "05 - TRANSFERÊNCIAS E CONVÊNIOS FEDERAIS-VINCULADOS",
+        "application_fixed": "260 - EDUCAÇÃO - FUNDEB - RECURSOS PRÓPRIOS",
+        "application_variable": "70 - FUNDEB - Fomento a matrículas ETI",
+        "revenue_type": "17515001 - Transferências do FUNDEB - Principal",
+        "amount_brl": "100.00",
+        "evidence_status": "OFFICIAL_TCESP_REVENUE_RECORD",
+        **common("TCE_SP_REVENUES", "Revenue is not expenditure."),
+    }
+    return materialize_product(
+        "REVENUE_LEDGER",
+        [row],
+        generated_at=GENERATED_AT,
+        software_version=SOFTWARE,
+    )
+
+
 def fiscal():
     row = {
         "entity_id": "3526902",
@@ -152,6 +174,7 @@ def bundle_without_catalog():
         "SCHOOL_INDICATOR_SERIES": school(),
         "JOM_EVENT_INDEX": jom(),
         "ACCOUNTING_LEDGER": accounting(),
+        "REVENUE_LEDGER": revenue(),
         "FISCAL_SERIES": fiscal(),
         "PLANNING_DOCUMENT_INDEX": planning(),
     }
@@ -182,7 +205,7 @@ class TestTask177ObservatoryQueryProductServing(unittest.TestCase):
     def test_contract_passes_and_legacy_bi_allowlist_stays_unchanged(self):
         got = validate_contract()
         self.assertEqual(got["status"], "PASS")
-        self.assertEqual(got["product_count"], 6)
+        self.assertEqual(got["product_count"], 7)
         self.assertTrue(got["legacy_bi_allowlist_unchanged"])
         legacy = json.loads((ROOT / "config/bi/serving.v1.json").read_text(encoding="utf-8"))
         self.assertEqual(len(legacy["dataset_allowlist"]), 6)
