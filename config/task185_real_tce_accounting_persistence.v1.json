@@ -1,0 +1,146 @@
+{
+  "version": 1,
+  "schema": "TASK185_REAL_TCE_ACCOUNTING_PERSISTENCE_V1",
+  "task": "TASK_185_PERSIST_REAL_TCE_2026_EXPENSE_ROWS_AND_MATERIALIZE_ACCOUNTING_LEDGER",
+  "issue": 581,
+  "stage": "A",
+  "mode": "T0_OFFLINE_DESIGN_ONLY",
+  "base_main_sha": "542282af46c53173c3d86cd35691ad3bfa3742ab",
+  "upstream": {
+    "task172_contract": "config/task172_observatory_fiscal_machine_readable_batch.v1.json",
+    "task172_closure": "docs/evidence/TASK_172_FISCAL_MACHINE_READABLE_BATCH_LIVE_CLOSURE_0.8.0.json",
+    "task173_adapter": "config/tcesp_current_expense_adapter.v1.json",
+    "task173_observation_contract": "config/municipal_accounting_observation.v1.json",
+    "task176_product_contract": "config/observatory_query_products.v1.json",
+    "task184_bundle": "docs/evidence/TASK_184_LOCAL_JOM_PLANNING_BUNDLE_0.8.0.json"
+  },
+  "source": {
+    "source_id": "TCESP_LIMEIRA_2026_DESPESAS",
+    "authority": "Tribunal de Contas do Estado de Sao Paulo",
+    "url": "https://transparencia.tce.sp.gov.br/sites/default/files/csv/despesas-limeira-2026.zip",
+    "method": "GET",
+    "allowed_host": "transparencia.tce.sp.gov.br",
+    "expected_content_family": "ZIP",
+    "expected_member_exact": "despesas-limeira-2026.csv",
+    "max_requests": 1,
+    "retry": 0,
+    "follow_redirects": false,
+    "max_response_bytes": 30000000,
+    "previous_observation": {
+      "task172_live_run_id": 34004438029,
+      "observed_record_count": 39780,
+      "semantic": "HISTORICAL_OBSERVATION_ONLY_NOT_FUTURE_ASSERTION"
+    }
+  },
+  "csv_schema": {
+    "compatibility_rule": "ALL_TASK173_PROVEN_COLUMNS_REQUIRED_EXTRA_COLUMNS_ALLOWED_BUT_RECORDED",
+    "required_headers": [
+      "tp_despesa",
+      "nr_empenho",
+      "identificador_despesa",
+      "ds_despesa",
+      "dt_emissao_despesa",
+      "vl_despesa",
+      "ds_funcao_governo",
+      "ds_subfuncao_governo",
+      "cd_programa",
+      "ds_programa",
+      "cd_acao",
+      "ds_acao",
+      "ds_fonte_recurso",
+      "ds_cd_aplicacao_fixo",
+      "ds_modalidade_lic",
+      "ds_elemento",
+      "historico_despesa"
+    ],
+    "duplicate_header": "STOP",
+    "missing_required_header": "STOP",
+    "empty_csv": "STOP",
+    "exact_row_count_required": false
+  },
+  "custody": {
+    "target_layer": "01_BRONZE",
+    "target_folder_name": "CONTABILIDADE_LIMEIRA_2025_2026",
+    "target_folder_id": "1cgG2YiVm14DYEqAJGFpB7GOKaRloIqUC",
+    "drive_write_authorized_in_stage_a": false,
+    "create_only": true,
+    "overwrite": false,
+    "delete": false,
+    "move": false,
+    "collision": "STOP_BEFORE_FIRST_WRITE",
+    "artifacts": {
+      "zip_name_template": "TCESP_LIMEIRA_2026_DESPESAS__ZIP__{zip_sha256}.zip",
+      "csv_name_template": "TCESP_LIMEIRA_2026_DESPESAS__CSV__{csv_sha256}.csv",
+      "manifest_name_template": "TCESP_LIMEIRA_2026_DESPESAS__MANIFEST__{zip_sha256}.json",
+      "manifest_written_last": true
+    },
+    "manifest_required_fields": [
+      "schema",
+      "source_id",
+      "source_url",
+      "retrieved_at",
+      "zip_sha256",
+      "zip_bytes",
+      "member_name",
+      "csv_sha256",
+      "csv_bytes",
+      "csv_headers",
+      "extra_headers",
+      "record_count",
+      "task173_adapter_schema",
+      "task173_observation_schema",
+      "stage_counts",
+      "custody_folder_id",
+      "authorization_artifact",
+      "implementation_sha"
+    ]
+  },
+  "stage_b_authorization": {
+    "required": true,
+    "prior_task172_authorization_reusable": false,
+    "authorization_artifact_required_before_network": true,
+    "bind_exact_url": true,
+    "bind_exact_implementation_sha": true,
+    "bind_exact_drive_folder_id": true,
+    "bind_max_requests": 1,
+    "serving_authorized": false,
+    "publication_authorized": false,
+    "schedule_authorized": false,
+    "recurrence_authorized": false
+  },
+  "stage_c": {
+    "network": false,
+    "adapter_function": "robo_dados_publicos.accounting.tcesp_current.normalize_tcesp_expense_row",
+    "product_builder": "robo_dados_publicos.analytics.observatory_products.build_accounting_ledger",
+    "preserve_stages": [
+      "COMMITMENT",
+      "LIQUIDATION",
+      "PAYMENT",
+      "REVERSAL",
+      "OTHER_REVIEW"
+    ],
+    "weak_join_can_create_identity": false,
+    "programmatic_dimensions_can_create_policy_identity": false,
+    "recompute_question_matrix": true,
+    "attribution": "ACCOUNTING_ONLY_GAIN_MUST_BE_REPORTED_SEPARATELY"
+  },
+  "hard_guards": [
+    "TASK172_39780_NE_REQUIRED_FUTURE_ROW_COUNT",
+    "CONTROL_RECORD_NE_MUNICIPAL_PRIMARY_POLICY_IDENTITY",
+    "COMMITMENT_NE_LIQUIDATION_NE_PAYMENT",
+    "AMOUNT_DATE_TEXT_NE_IDENTITY",
+    "PROGRAM_ACTION_SOURCE_NE_SPECIFIC_POLICY_IDENTITY",
+    "SYNTHETIC_FIXTURE_NE_REAL_ACCOUNTING_LEDGER",
+    "SOURCE_READ_NE_DRIVE_WRITE_AUTHORIZATION",
+    "ACCOUNTING_LEDGER_NE_SERVING_PUBLICATION"
+  ],
+  "stage_a_remote_effects": {
+    "source_network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
