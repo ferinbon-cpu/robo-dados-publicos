@@ -1,0 +1,87 @@
+{
+  "version": 2,
+  "schema": "JORNAL_OFICIAL_EVENT_TAXONOMY_V2",
+  "task": "TASK_174_BROADEN_JOM_EVENT_TAXONOMY",
+  "scope": "GENERAL_MUNICIPAL_PUBLIC_DATA_OBSERVATORY",
+  "principle": "A missing structured event is preferable to hallucinating an event from ordinary prose.",
+  "dimensions_are_independent": [
+    "EVENT_TYPE",
+    "POLICY_DOMAIN",
+    "EVIDENCE_LAYER",
+    "FINANCIAL_STAGE",
+    "EDUCATION_TOPIC",
+    "ACCOUNTING_QUERY"
+  ],
+  "legacy_event_types": [
+    "CONTRATO",
+    "TERMO_ADITIVO_CONTRATO",
+    "APOSTILAMENTO",
+    "ATA_REGISTRO_PRECOS",
+    "CONVENIO",
+    "DECRETO",
+    "PORTARIA",
+    "LEI",
+    "RESOLUCAO",
+    "EDITAL",
+    "AVISO_LICITACAO"
+  ],
+  "new_event_types": [
+    "COMUNICADO",
+    "PARECER",
+    "INSTRUCAO_NORMATIVA",
+    "DELIBERACAO",
+    "RETIFICACAO",
+    "TERMO_COLABORACAO",
+    "TERMO_FOMENTO",
+    "ACORDO_COOPERACAO",
+    "ATO_CREDITO_ORCAMENTARIO",
+    "AVISO_OPERACAO_ESCOLAR"
+  ],
+  "recognition_rules": {
+    "COMUNICADO": "Explicit numbered heading only, optionally with a short institutional acronym/name.",
+    "PARECER": "Explicit numbered heading only.",
+    "INSTRUCAO_NORMATIVA": "Explicit numbered heading only.",
+    "DELIBERACAO": "Explicit numbered heading only.",
+    "RETIFICACAO": "Heading must explicitly name and number the target EDITAL, PORTARIA, DECRETO, LEI, RESOLUCAO or CONTRATO.",
+    "TERMO_COLABORACAO": "Explicit TERMO DE COLABORACAO heading.",
+    "TERMO_FOMENTO": "Explicit TERMO DE FOMENTO heading.",
+    "ACORDO_COOPERACAO": "Explicit ACORDO DE COOPERACAO heading.",
+    "ATO_CREDITO_ORCAMENTARIO": "Explicit CREDITO ADICIONAL, SUPLEMENTAR or ESPECIAL heading; ordinary budget prose does not create this event type.",
+    "AVISO_OPERACAO_ESCOLAR": "Heading must explicitly state AVISO DE/SOBRE and a school-operation topic such as matricula, calendario escolar, atribuicao, transporte, alimentacao or funcionamento escolar."
+  },
+  "retification_rule": {
+    "target_act_must_be_explicit": true,
+    "nearby_act_identity_inheritance": false,
+    "target_fields": ["target_act_type", "target_act_number"]
+  },
+  "school_operation_topics": [
+    "ENROLLMENT",
+    "SCHOOL_CALENDAR",
+    "CLASS_ASSIGNMENT",
+    "SCHOOL_TRANSPORT",
+    "SCHOOL_MEALS",
+    "SPECIAL_EDUCATION_AEE",
+    "UNIT_OPEN_CLOSE_RELOCATION",
+    "HOURS_SHIFT",
+    "INFRASTRUCTURE_MAINTENANCE"
+  ],
+  "hard_guards": [
+    "EVENT_TYPE_NE_POLICY_DOMAIN",
+    "EVENT_TYPE_NE_EVIDENCE_LAYER",
+    "EVENT_TYPE_NE_FINANCIAL_STAGE",
+    "RETIFICATION_NE_TARGET_IDENTITY_UNLESS_EXPLICIT",
+    "BUDGET_CREDIT_ACT_PROVES_AUTHORIZATION_OR_CHANGE_NOT_COMMITMENT_LIQUIDATION_PAYMENT",
+    "SCHOOL_OPERATION_NOTICE_PROVES_PUBLICATION_NOT_IMPLEMENTATION_OR_RESULT",
+    "UNKNOWN_PROSE_REMAINS_RAG_ONLY",
+    "SEMANTIC_SIMILARITY_NE_ACCOUNTING_IDENTITY"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

@@ -69,6 +69,8 @@ def classify_event(event: dict[str, Any], *, config_path: str | Path = DEFAULT_C
         event.get("contract_number"),
         event.get("process_number"),
         event.get("bidding_modality"),
+        event.get("target_act_type"),
+        event.get("target_act_number"),
     ]
     text = _ascii_upper(" ".join(str(x) for x in fields if x))
 
