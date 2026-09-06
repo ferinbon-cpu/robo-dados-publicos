@@ -38,7 +38,7 @@
       "vl_despesa"
     ],
     "docs_declared_year_range": "2014-2019",
-    "current_2026_route_status": "MUST_BE_PROVEN_LIVE_BY_PROBE",
+    "current_2026_route_status": "PROVEN_VALID_BY_OWNER_SUPPLIED_JAN_JUL_BODIES_GITHUB_HOSTED_TRANSPORT_UNRELIABLE",
     "network_timeout_seconds": 180
   },
   "current_portal_evidence": {
@@ -63,6 +63,12 @@
         "INSTITUTO DE PREVIDENCIA MUNICIPAL DE LIMEIRA"
       ],
       "note": "User-supplied file proves 2026 route validity and shows prior 60-second live STOP was transport/timeout, not unsupported endpoint."
+    },
+    "jan_jul_owner_supplied_2026": {
+      "status": "PROVEN_VALID_JSON_MONTHS_1_7",
+      "validated_total_rows": 39779,
+      "durable_bronze_custody": true,
+      "august_status": "OWNER_REPORTS_NO_RECORDS_BODY_NOT_CUSTODIED"
     }
   },
   "source_capabilities": {
@@ -70,19 +76,21 @@
       "COMMITMENT_NUMBER",
       "SUPPLIER_PUBLIC_ID",
       "SUPPLIER_NAME",
-      "EVENT_DATE",
+      "EXPENSE_ISSUE_DATE",
+      "EVENT_MONTH",
       "EVENT_STAGE",
       "EVENT_AMOUNT"
     ],
     "not_provided": [
-      "PROGRAMMATIC_CLASSIFICATION",
-      "FUNCTION_SUBFUNCTION",
-      "PROGRAM_ACTION",
-      "FUNDING_SOURCE_APPLICATION",
+      "EVENT_DATE",
       "EXPENSE_ELEMENT",
+      "FUNCTION_SUBFUNCTION",
+      "FUNDING_SOURCE_APPLICATION",
+      "HISTORY_TEXT",
       "PROCUREMENT_MODALITY",
-      "RESTS_PAYABLE",
-      "HISTORY_TEXT"
+      "PROGRAMMATIC_CLASSIFICATION",
+      "PROGRAM_ACTION",
+      "RESTS_PAYABLE"
     ]
   },
   "stage_normalization": {
