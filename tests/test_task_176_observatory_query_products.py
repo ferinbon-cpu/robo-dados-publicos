@@ -318,9 +318,27 @@ class TestTask176ObservatoryQueryProducts(unittest.TestCase):
             question_text="Quanto custa o transporte escolar e quais contratos existem?",
         )
         self.assertTrue(any(x["product_name"] == "JOM_EVENT_INDEX" for x in packet["document_records"]))
-        self.assertTrue(any(x["product_name"] == "ACCOUNTING_LEDGER" for x in packet["numeric_records"]))
+        numeric_products = {x["product_name"] for x in packet["numeric_records"]}
+        self.assertIn("ACCOUNTING_LEDGER", numeric_products)
+        self.assertIn("FISCAL_SERIES", numeric_products)
+        self.assertIn("SCHOOL_INDICATOR_SERIES", numeric_products)
         self.assertTrue(packet["upstream_evidence_gaps"])
         self.assertTrue(packet["numeric_truth_from_structured_records_only"])
+
+    def test_school_meals_query_combines_event_finance_accounting_and_enrollment_products(self):
+        bundle = self.build_bundle()
+        packet = query_observatory(
+            "PROCUREMENT_CONTRACTS",
+            bundle,
+            question_text="Quanto custa a alimentação escolar e a merenda por aluno?",
+        )
+        numeric_products = {x["product_name"] for x in packet["numeric_records"]}
+        document_products = {x["product_name"] for x in packet["document_records"]}
+        self.assertIn("SCHOOL_INDICATOR_SERIES", numeric_products)
+        self.assertIn("FISCAL_SERIES", numeric_products)
+        self.assertIn("ACCOUNTING_LEDGER", numeric_products)
+        self.assertIn("JOM_EVENT_INDEX", document_products)
+        self.assertFalse(packet["join_semantics"]["weak_can_create_identity"])
 
     def test_financing_query_combines_fiscal_and_accounting_without_merging_stages(self):
         bundle = self.build_bundle()
