@@ -303,11 +303,11 @@ def build_accounting_ledger(
                 "application_code": dims.get("application_code"),
                 "commitment_number": keys.get("fiscal_year_plus_empenho"),
                 "observation_period": f"{obs.get('fiscal_year')}:{int(obs.get('event_month') or obs.get('source_month') or 0):02d}" if (obs.get("event_month") is not None or obs.get("source_month") is not None) else str(obs.get("fiscal_year") or ""),
-                "source_family": "TCE_SP_EXPENSES",
+                "source_family": obs.get("source_family") or "TCE_SP_EXPENSES",
                 "source_sha256": obs.get("source_record_hash"),
                 "provenance_ref": obs.get("observation_id"),
                 "quality_status": "VALIDATED",
-                "caution": "CONTROL_RECORD_NE_MUNICIPAL_PRIMARY_POLICY_IDENTITY",
+                "caution": obs.get("caution") or "CONTROL_RECORD_NE_MUNICIPAL_PRIMARY_POLICY_IDENTITY",
             }
         )
     if "COMMITMENT" in observed_stages:
