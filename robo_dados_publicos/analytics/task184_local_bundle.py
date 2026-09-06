@@ -322,11 +322,21 @@ def build_task184_bundle(
             final_products,
             question_text=question_text,
         )
+        document_counts = Counter(
+            str(row.get("query_product_name") or "")
+            for row in packet["document_records"]
+        )
+        numeric_counts = Counter(
+            str(row.get("query_product_name") or "")
+            for row in packet["numeric_records"]
+        )
         sample_packets[sample_id] = {
             "packet_id": packet["packet_id"],
             "packet_sha256": packet["packet_sha256"],
             "numeric_record_count": len(packet["numeric_records"]),
             "document_record_count": len(packet["document_records"]),
+            "document_record_counts_by_product": dict(sorted(document_counts.items())),
+            "numeric_record_counts_by_product": dict(sorted(numeric_counts.items())),
             "product_gap_count": len(packet["product_gaps"]),
             "used_snapshots": packet["used_snapshots"],
         }
