@@ -154,7 +154,9 @@ def normalize_json_expense_row(row: Mapping[str, Any], *, source_body_sha256: st
         "stage_modifier": modifier,
         "amount_semantic": observation_contract["amount_semantics"][stage],
         "amount_brl": amount,
-        "event_date": _clean(row.get("dt_emissao_despesa")),
+        "event_date": None,
+        "expense_issue_date": _clean(row.get("dt_emissao_despesa")),
+        "event_month": month,
         "source_record_hash": source_record_hash,
         "identity_status": "ACCOUNTING_TRANSACTION_KEY_AVAILABLE" if empenho else "SOURCE_RECORD_ONLY",
         "transaction_keys": {
@@ -189,7 +191,7 @@ def normalize_json_expense_row(row: Mapping[str, Any], *, source_body_sha256: st
 
 def source_capabilities(observations: list[Mapping[str, Any]]) -> list[str]:
     stages = {str(row.get("stage") or "") for row in observations}
-    caps = {"COMMITMENT_NUMBER", "SUPPLIER_AMOUNT", "EVENT_DATE"}
+    caps = {"COMMITMENT_NUMBER", "SUPPLIER_AMOUNT", "EXPENSE_ISSUE_DATE", "EVENT_MONTH"}
     if "COMMITMENT" in stages:
         caps.add("COMMITMENT_AMOUNTS")
     if "LIQUIDATION" in stages:
