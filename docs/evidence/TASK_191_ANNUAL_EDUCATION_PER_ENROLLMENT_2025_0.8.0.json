@@ -1,0 +1,79 @@
+{
+  "schema": "TASK191_ANNUAL_EDUCATION_PER_ENROLLMENT_EVIDENCE_V1",
+  "task": "TASK_191_ANNUAL_EDUCATION_PER_ENROLLMENT_2025",
+  "base_main_sha": "944985d7465c9b9124c32ed5fc848c9ac8d398ea",
+  "status": "PASS_EXPECTED_PENDING_CI_RECOMPUTATION",
+  "period": "2025",
+  "annual_spending": {
+    "metric_id": "EDUCATION_EXPENDITURE",
+    "stage_semantic": "COMMITTED_FINAL_BIMESTER",
+    "committed_brl": "463766660.32",
+    "liquidated_brl": "455867723.30",
+    "paid_brl": "420264584.22",
+    "source_family": "RREO",
+    "locator": "RREO_ANEXO_8_LINE_33",
+    "reconciled_official_observation": true
+  },
+  "enrollment": {
+    "indicator_id": "BASIC_EDUCATION_ENROLLMENT",
+    "value": 22788,
+    "unit": "COUNT",
+    "active_units": 69,
+    "source_family": "CENSO_ESCOLAR",
+    "source_title": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08.xlsx",
+    "sheet": "81 Censo 69 2018-25",
+    "xlsx_sha256": "0516868e06685aebe8254b11ca6488ef26b03dea61f927ff637840cf2a21e865",
+    "row_sum_verified": true
+  },
+  "derived": {
+    "metric_id": "EDUCATION_SPENDING_PER_ENROLLMENT",
+    "value": "20351.35",
+    "unit": "BRL_PER_ENROLLMENT",
+    "same_year_verified": true,
+    "individual_student_cost_claim": false
+  },
+  "expected_products": {
+    "school_indicator_series_row_count": 1018,
+    "fiscal_series_row_count": 42,
+    "task190_current_2026_rows_preserved": 3
+  },
+  "answerability": {
+    "before_status_counts": {
+      "EXPLICIT_GAP": 3,
+      "MATERIALIZED_ANSWERABLE": 25,
+      "MATERIALIZED_PARTIAL": 10
+    },
+    "expected_after_status_counts": {
+      "EXPLICIT_GAP": 3,
+      "MATERIALIZED_ANSWERABLE": 26,
+      "MATERIALIZED_PARTIAL": 9
+    },
+    "expected_changes": [
+      {
+        "question_id": "FIN_Q2",
+        "before": "MATERIALIZED_PARTIAL",
+        "after": "MATERIALIZED_ANSWERABLE"
+      }
+    ],
+    "fin_q1_current_2026_stage_must_remain": "LIQUIDATED_TO_DATE",
+    "fin_q4_must_remain": "MATERIALIZED_PARTIAL"
+  },
+  "guards": [
+    "SAME_FISCAL_YEAR_REQUIRED",
+    "LAST_BIMESTER_COMMITTED_NE_INTERIM_LIQUIDATED",
+    "PER_ENROLLMENT_NE_INDIVIDUAL_STUDENT_COST",
+    "CENSO_ENROLLMENT_COUNT_NE_PERSON_YEAR_COST",
+    "RREO_EDUCATION_TOTAL_NE_SCHOOL_LEVEL_EXPENDITURE",
+    "NOMINAL_NE_REAL",
+    "TASK191_MUST_NOT_CHANGE_FIN_Q1_CURRENT_2026_STAGE"
+  ],
+  "remote_effects": {
+    "network": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  }
+}
