@@ -155,7 +155,7 @@
       ]
     },
     "FISCAL_SERIES": {
-      "current_status": "MATERIALIZED_WITH_2026_EDUCATION_SPENDING",
+      "current_status": "READY_PARTIAL_ONLY",
       "currently_readable_inputs": [
         "MD_01_2_BASE_UNIFICADA_FISCAL_ORCAMENTARIA_LIMEIRA"
       ],
@@ -214,7 +214,8 @@
           "snapshot_drive_id": "1hLHVUlLhS93r0UmzsGbv1869R3PKBghN",
           "manifest_drive_id": "1e1kM7OOBV1RM3vhHEH2pM93LDXi5ZjgV"
         }
-      ]
+      ],
+      "current_materialization_status": "TASK190_EDUCATION_SPENDING_2026_MATERIALIZED_WITHIN_PARTIAL_FISCAL_SERIES"
     },
     "JOM_EVENT_INDEX": {
       "current_status": "NO_NEW_CUSTODY_INPUT_REQUIRED",
