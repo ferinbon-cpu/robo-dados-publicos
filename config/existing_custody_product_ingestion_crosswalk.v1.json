@@ -241,6 +241,35 @@
       "guards": [
         "CATALOG_AVAILABILITY_NE_SUBSTANTIVE_EVIDENCE"
       ]
+    },
+    "REVENUE_LEDGER": {
+      "current_status": "NO_NEW_CUSTODY_INPUT_REQUIRED",
+      "existing_system_source": "TCE_SP_REVENUES",
+      "target_domains": [
+        "FINANCING",
+        "TRANSPARENCY_CONTROL"
+      ],
+      "guards": [
+        "REVENUE_NE_EXPENDITURE",
+        "REVENUE_CLASSIFICATION_NE_EXPENDITURE_DESTINATION",
+        "OFFICIAL_RECORD_ID_PRESERVED"
+      ],
+      "materialized_block": {
+        "task": "TASK_186",
+        "source": "TCESP_LIMEIRA_2026_RECEITAS_DETALHADAS",
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "row_count": 2286,
+        "raw_payload_persisted": true,
+        "synthetic_fixture_allowed": false
+      }
     }
   },
   "handoff_priority": [
