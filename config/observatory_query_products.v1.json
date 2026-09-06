@@ -1,0 +1,245 @@
+{
+  "version": 1,
+  "schema": "OBSERVATORY_QUERY_PRODUCTS_V1",
+  "task": "TASK_176_MATERIALIZE_UNIFIED_OBSERVATORY_QUERY_PRODUCTS",
+  "scope": "GENERAL_MUNICIPAL_PUBLIC_DATA_OBSERVATORY",
+  "mode": "T0_OFFLINE_DERIVED_QUERY_PRODUCT_MATERIALIZATION",
+  "role": "DERIVED_QUERY_CACHE_NOT_SOURCE_OF_TRUTH",
+  "bi_architecture_compatibility": {
+    "architecture": "OPTION_3_CREATE_ONLY_SNAPSHOTS_PLUS_STABLE_SERVING_SHEET",
+    "future_drive_root": "13_BI",
+    "remote_materialization_authorized": false,
+    "stable_serving_mutation_authorized": false
+  },
+  "common_required_metadata": [
+    "product_schema",
+    "snapshot_id",
+    "observation_period",
+    "generated_at",
+    "software_version",
+    "source_family",
+    "source_sha256",
+    "provenance_ref",
+    "quality_status",
+    "caution"
+  ],
+  "quality_enum": [
+    "PROVEN",
+    "VALIDATED",
+    "READY_WITH_CAUTION",
+    "PARTIAL",
+    "CANDIDATE",
+    "BLOCKED",
+    "UNKNOWN",
+    "STOP",
+    "NOT_APPLICABLE"
+  ],
+  "products": {
+    "SCHOOL_INDICATOR_SERIES": {
+      "schema": "SCHOOL_INDICATOR_SERIES_V1",
+      "grain": "one school_or_network x period x indicator",
+      "primary_key": ["snapshot_id", "scope_id", "period", "indicator_id", "source_family"],
+      "query_dimensions": ["scope_level", "scope_id", "school_code", "network", "period", "indicator_id", "source_family"],
+      "required_fields": [
+        "scope_level",
+        "scope_id",
+        "period",
+        "indicator_id",
+        "indicator_name",
+        "value",
+        "unit",
+        "context"
+      ],
+      "source_families": ["CENSO_ESCOLAR", "IDEB", "SAEB", "SARESP", "MUNICIPAL_REPORTS"],
+      "semantic_guards": [
+        "RANKING_WITHOUT_CONTEXT_REQUIRES_CAUTION",
+        "STATISTICAL_ASSOCIATION_NE_CAUSAL_EFFECT"
+      ]
+    },
+    "JOM_EVENT_INDEX": {
+      "schema": "JOM_EVENT_INDEX_V1",
+      "grain": "one structured Jornal Oficial event",
+      "primary_key": ["snapshot_id", "event_id"],
+      "query_dimensions": ["publication_date", "event_type", "policy_domains", "evidence_layers", "financial_stages", "education_topics"],
+      "required_fields": [
+        "event_id",
+        "publication_date",
+        "event_type",
+        "policy_domains",
+        "evidence_layers",
+        "financial_stages",
+        "education_topics",
+        "source_locator"
+      ],
+      "source_families": ["JORNAL_OFICIAL"],
+      "semantic_guards": [
+        "PUBLICATION_NE_IMPLEMENTATION",
+        "JOM_PUBLICATION_NE_ACCOUNTING_EXECUTION",
+        "SEMANTIC_FACETS_NE_POLICY_OR_FINANCIAL_IDENTITY"
+      ]
+    },
+    "ACCOUNTING_LEDGER": {
+      "schema": "ACCOUNTING_LEDGER_V1",
+      "grain": "one canonical accounting observation",
+      "primary_key": ["snapshot_id", "observation_id"],
+      "query_dimensions": [
+        "fiscal_year",
+        "stage",
+        "function",
+        "subfunction",
+        "program_code",
+        "action_code",
+        "funding_source",
+        "application_code",
+        "commitment_number"
+      ],
+      "required_fields": [
+        "observation_id",
+        "fiscal_year",
+        "stage",
+        "amount_semantic",
+        "amount_brl",
+        "transaction_keys",
+        "programmatic_dimensions",
+        "evidence_status"
+      ],
+      "source_families": ["TCE_SP_EXPENSES", "SIOPE", "BUDGET_EXECUTION"],
+      "semantic_guards": [
+        "COMMITMENT_NE_LIQUIDATION_NE_PAYMENT",
+        "PROGRAMMATIC_CLASSIFICATION_NE_POLICY_IDENTITY",
+        "WEAK_JOIN_NE_ACCOUNTING_IDENTITY"
+      ]
+    },
+    "FISCAL_SERIES": {
+      "schema": "FISCAL_SERIES_V1",
+      "grain": "one entity x period x metric x source family",
+      "primary_key": ["snapshot_id", "entity_id", "period", "metric_id", "source_family"],
+      "query_dimensions": ["entity_id", "period", "metric_id", "stage_semantic", "source_family"],
+      "required_fields": [
+        "entity_id",
+        "period",
+        "metric_id",
+        "metric_name",
+        "value",
+        "unit",
+        "stage_semantic"
+      ],
+      "source_families": ["SICONFI_STN", "SIOPE", "FUNDEB", "RREO", "RGF", "MDE"],
+      "semantic_guards": [
+        "AUTHORIZATION_NE_EXECUTION",
+        "NOMINAL_NE_REAL",
+        "EMPTY_EXACT_QUERY_NE_GLOBAL_ABSENCE"
+      ]
+    },
+    "PLANNING_DOCUMENT_INDEX": {
+      "schema": "PLANNING_DOCUMENT_INDEX_V1",
+      "grain": "one documentary evidence segment",
+      "primary_key": ["snapshot_id", "document_id", "locator"],
+      "query_dimensions": ["document_type", "period", "evidence_role", "policy_domains", "topics"],
+      "required_fields": [
+        "document_id",
+        "document_type",
+        "period",
+        "evidence_role",
+        "locator",
+        "text_redacted"
+      ],
+      "source_families": ["PPA", "LDO", "LOA", "CME", "MUNICIPAL_LEGISLATION", "SIAVE_LIMEIRA"],
+      "semantic_guards": [
+        "DOCUMENT_SOURCE_ROLE_LIMITS_PROOF",
+        "PPA_NE_EXECUTION",
+        "LOA_AUTHORIZATION_NE_ACCOUNTING_EXECUTION"
+      ]
+    },
+    "QUERY_PRODUCT_CATALOG": {
+      "schema": "QUERY_PRODUCT_CATALOG_V1",
+      "grain": "one query product snapshot",
+      "primary_key": ["product_name", "snapshot_id"],
+      "query_dimensions": ["product_name", "coverage_domains", "source_families", "readiness"],
+      "required_fields": [
+        "product_name",
+        "product_schema",
+        "snapshot_id",
+        "row_count",
+        "coverage_domains",
+        "source_families",
+        "readiness",
+        "content_sha256"
+      ],
+      "source_families": [],
+      "semantic_guards": [
+        "CATALOG_NE_SOURCE_OF_TRUTH",
+        "EXACT_PRODUCT_READINESS_NE_FAMILY_WIDE_RECURRENCE_PROMOTION"
+      ]
+    }
+  },
+  "domain_product_routes": {
+    "NETWORK_ENROLLMENT": ["SCHOOL_INDICATOR_SERIES"],
+    "SCHOOLS_INFRASTRUCTURE": ["SCHOOL_INDICATOR_SERIES", "JOM_EVENT_INDEX", "ACCOUNTING_LEDGER"],
+    "LEARNING_FLOW": ["SCHOOL_INDICATOR_SERIES"],
+    "EQUITY_INCLUSION": ["SCHOOL_INDICATOR_SERIES"],
+    "TEACHERS_WORKFORCE": ["SCHOOL_INDICATOR_SERIES", "JOM_EVENT_INDEX", "FISCAL_SERIES"],
+    "FINANCING": ["FISCAL_SERIES", "ACCOUNTING_LEDGER", "SCHOOL_INDICATOR_SERIES"],
+    "PLANNING_BUDGET": ["PLANNING_DOCUMENT_INDEX", "FISCAL_SERIES", "ACCOUNTING_LEDGER", "JOM_EVENT_INDEX"],
+    "ACCOUNTING_EXECUTION": ["ACCOUNTING_LEDGER", "FISCAL_SERIES"],
+    "PROCUREMENT_CONTRACTS": ["JOM_EVENT_INDEX", "ACCOUNTING_LEDGER"],
+    "PERSONNEL_MANAGEMENT": ["JOM_EVENT_INDEX", "SCHOOL_INDICATOR_SERIES", "FISCAL_SERIES"],
+    "NORMS_SCHOOL_FUNCTIONING": ["JOM_EVENT_INDEX", "PLANNING_DOCUMENT_INDEX"],
+    "PUBLIC_POLICIES": ["JOM_EVENT_INDEX", "PLANNING_DOCUMENT_INDEX", "ACCOUNTING_LEDGER", "FISCAL_SERIES"],
+    "JOURNAL_EVENT_RADAR": ["JOM_EVENT_INDEX"],
+    "TERRITORY_CONTEXT": ["SCHOOL_INDICATOR_SERIES"],
+    "TRANSPARENCY_CONTROL": ["QUERY_PRODUCT_CATALOG", "ACCOUNTING_LEDGER", "JOM_EVENT_INDEX", "FISCAL_SERIES"]
+  },
+  "join_strengths": {
+    "STRONG": [
+      "EXACT_EMPENHO",
+      "EXACT_SOURCE_EXPENSE_IDENTIFIER",
+      "EXACT_CONTRACT_OR_PROCESS_ID",
+      "EXACT_PNCP_CONTROL_ID",
+      "EXACT_CNPJ_WHEN_SOURCE_FIELD_EXISTS"
+    ],
+    "CONTEXTUAL": [
+      "FISCAL_YEAR",
+      "PROGRAM",
+      "ACTION",
+      "FUNDING_SOURCE",
+      "APPLICATION_CODE",
+      "SCHOOL_OR_UNIT"
+    ],
+    "WEAK": [
+      "AMOUNT",
+      "DATE_PROXIMITY",
+      "OBJECT_TEXT",
+      "HISTORY_TEXT",
+      "SEMANTIC_SIMILARITY"
+    ]
+  },
+  "materialization_rules": {
+    "snapshot_id": "SHA256_CANONICAL_ROWS_PREFIX_24",
+    "generated_at": "CALLER_SUPPLIED_REQUIRED_NOT_CURRENT_CLOCK",
+    "row_order": "PRIMARY_KEY_ASCENDING",
+    "content_hash": "SHA256_CANONICAL_ROWS",
+    "raw_payload_persistence": false,
+    "query_products_replace_source_layers": false,
+    "remote_persistence": false,
+    "drive_write": false,
+    "serving_write": false
+  },
+  "query_api": {
+    "input": "UNIFIED_OBSERVATORY_QUERY_PLAN_V1_PLUS_PRODUCT_BUNDLE",
+    "output": "OBSERVATORY_EVIDENCE_PACKET_V1",
+    "numeric_truth_from_structured_records_only": true,
+    "document_truth_requires_locator": true,
+    "missing_product_or_coverage": "EXPLICIT_GAP",
+    "weak_join_can_create_identity": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
