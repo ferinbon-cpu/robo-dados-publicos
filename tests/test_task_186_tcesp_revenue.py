@@ -1,4 +1,6 @@
+import json
 import unittest
+from pathlib import Path
 
 from robo_dados_publicos.accounting.tcesp_revenue import (
     Task186RevenueStop,
@@ -12,6 +14,9 @@ from robo_dados_publicos.analytics.observatory_products import build_revenue_led
 from robo_dados_publicos.analytics.task184_local_bundle import _with_catalog, build_task184_bundle
 
 
+ROOT = Path(__file__).resolve().parents[1]
+EVIDENCE = ROOT / "docs/evidence/TASK_186_TCESP_REVENUE_LEDGER_0.8.0.json"
+TASK185_EVIDENCE = ROOT / "docs/evidence/TASK_185_MANUAL_JSON_LEDGER_MATERIALIZATION_0.8.0.json"
 GENERATED_AT = "2026-09-06T14:05:02.574464+00:00"
 SOFTWARE_VERSION = "0.8.0"
 
@@ -123,6 +128,69 @@ class TestTask186TcespRevenue(unittest.TestCase):
         report = question_answerability(products)
         by_id = {x["question_id"]: x for x in report["questions"]}
         self.assertEqual(by_id["FIN_Q3"]["status"], "MATERIALIZED_ANSWERABLE")
+
+
+    def test_canonical_evidence_recomputes_full_38_question_gain(self):
+        e = json.loads(EVIDENCE.read_text(encoding="utf-8"))
+        t185 = json.loads(TASK185_EVIDENCE.read_text(encoding="utf-8"))
+        bundle = build_task184_bundle(
+            generated_at=GENERATED_AT,
+            software_version=SOFTWARE_VERSION,
+        )
+        substantive = {
+            k: v for k, v in bundle["products"].items()
+            if k != "QUERY_PRODUCT_CATALOG"
+        }
+        accounting = {
+            "product_name": "ACCOUNTING_LEDGER",
+            "product_schema": "ACCOUNTING_LEDGER_V1",
+            "snapshot_id": t185["accounting_ledger"]["snapshot_id"],
+            "content_sha256": t185["accounting_ledger"]["content_sha256"],
+            "row_count": t185["accounting_ledger"]["row_count"],
+            "generated_at": GENERATED_AT,
+            "software_version": SOFTWARE_VERSION,
+            "rows": [],
+            "capabilities": t185["accounting_ledger"]["capabilities"],
+        }
+        revenue = {
+            "product_name": "REVENUE_LEDGER",
+            "product_schema": e["revenue_ledger"]["product_schema"],
+            "snapshot_id": e["revenue_ledger"]["snapshot_id"],
+            "content_sha256": e["revenue_ledger"]["content_sha256"],
+            "row_count": e["revenue_ledger"]["row_count"],
+            "generated_at": GENERATED_AT,
+            "software_version": SOFTWARE_VERSION,
+            "rows": [],
+            "capabilities": e["revenue_ledger"]["capabilities"],
+        }
+        before_products = _with_catalog(
+            {**substantive, "ACCOUNTING_LEDGER": accounting},
+            generated_at=GENERATED_AT,
+            software_version=SOFTWARE_VERSION,
+        )
+        after_products = _with_catalog(
+            {**substantive, "ACCOUNTING_LEDGER": accounting, "REVENUE_LEDGER": revenue},
+            generated_at=GENERATED_AT,
+            software_version=SOFTWARE_VERSION,
+        )
+        before = question_answerability(before_products)
+        after = question_answerability(after_products)
+        self.assertEqual(before["status_counts"], e["answerability"]["before_status_counts"])
+        self.assertEqual(after["status_counts"], e["answerability"]["after_status_counts"])
+        changed = [
+            q["question_id"]
+            for q in after["questions"]
+            if q["status"] != next(
+                b["status"] for b in before["questions"]
+                if b["question_id"] == q["question_id"]
+            )
+        ]
+        self.assertEqual(changed, ["FIN_Q3"])
+        by_id = {x["question_id"]: x for x in after["questions"]}
+        self.assertEqual(by_id["FIN_Q3"]["status"], "MATERIALIZED_ANSWERABLE")
+        self.assertEqual(e["eti"]["direct_transfer_net_brl"], "3606418.18")
+        self.assertEqual(e["eti"]["financial_remuneration_net_brl"], "85724.69")
+        self.assertFalse(e["source"]["august_present_in_snapshot"])
 
 
 if __name__ == "__main__":
