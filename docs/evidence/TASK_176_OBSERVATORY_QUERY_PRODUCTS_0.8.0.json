@@ -1,0 +1,74 @@
+{
+  "task": "TASK_176_MATERIALIZE_UNIFIED_OBSERVATORY_QUERY_PRODUCTS",
+  "issue": 564,
+  "mode": "T0_OFFLINE_DERIVED_QUERY_PRODUCT_MATERIALIZATION",
+  "base_main_sha": "5831d91da24c1fd57f88a53e0e310d36a4892a41",
+  "role": "DERIVED_QUERY_CACHE_NOT_SOURCE_OF_TRUTH",
+  "bi_architecture_reused": "OPTION_3_CREATE_ONLY_SNAPSHOTS_PLUS_STABLE_SERVING_SHEET",
+  "product_schemas": [
+    "SCHOOL_INDICATOR_SERIES_V1",
+    "JOM_EVENT_INDEX_V1",
+    "ACCOUNTING_LEDGER_V1",
+    "FISCAL_SERIES_V1",
+    "PLANNING_DOCUMENT_INDEX_V1",
+    "QUERY_PRODUCT_CATALOG_V1"
+  ],
+  "query_api": {
+    "input": "UNIFIED_OBSERVATORY_QUERY_PLAN_V1_PLUS_PRODUCT_BUNDLE",
+    "output": "OBSERVATORY_EVIDENCE_PACKET_V1",
+    "scenario_source_family_expansion": true,
+    "numeric_truth_from_structured_records_only": true,
+    "document_truth_requires_locator": true,
+    "missing_product": "EXPLICIT_GAP",
+    "weak_join_can_create_identity": false
+  },
+  "snapshot_contract": {
+    "row_order": "PRIMARY_KEY_ASCENDING",
+    "generated_at": "CALLER_SUPPLIED",
+    "content_hash": "SHA256_CANONICAL_ROWS",
+    "snapshot_id": "CONTENT_SHA256_PREFIX_24",
+    "row_order_change_changes_identity": false
+  },
+  "upstream_integration": [
+    "TASK_171_OBSERVATORY_ONTOLOGY_AND_JOM_SEMANTICS",
+    "TASK_173_MUNICIPAL_ACCOUNTING_OBSERVATION",
+    "TASK_174_JOM_21_EVENT_TYPES",
+    "TASK_175_UNIFIED_QUESTION_TO_EVIDENCE_ROUTER",
+    "BI_001_TO_BI_005_DERIVED_SERVING_ARCHITECTURE"
+  ],
+  "test_scenarios": [
+    "LEARNING_FLOW",
+    "SCHOOL_REFORM",
+    "SCHOOL_TRANSPORT",
+    "SCHOOL_MEALS",
+    "FINANCING",
+    "NORMS_SCHOOL_FUNCTIONING",
+    "TRANSPARENCY_CONTROL"
+  ],
+  "domain_coverage_contract": {
+    "domain_count": 15,
+    "relevant_source_rows_required": true,
+    "generic_empty_or_irrelevant_product_does_not_count": true,
+    "explicit_gap_preserved": true
+  },
+  "hard_guards": [
+    "QUERY_PRODUCT_NE_SOURCE_OF_TRUTH",
+    "COMMITMENT_NE_LIQUIDATION_NE_PAYMENT",
+    "PPA_NE_EXECUTION",
+    "LOA_AUTHORIZATION_NE_ACCOUNTING_EXECUTION",
+    "JOM_PUBLICATION_NE_IMPLEMENTATION",
+    "STATISTICAL_ASSOCIATION_NE_CAUSAL_EFFECT",
+    "WEAK_JOIN_NE_IDENTITY",
+    "MISSING_PRODUCT_NE_INVENTED_EVIDENCE"
+  ],
+  "remote_effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  },
+  "next": "SEPARATE_GATE_FOR_APPROVED_QUERY_PRODUCT_SNAPSHOT_SERVING_MATERIALIZATION"
+}
