@@ -50,10 +50,11 @@
     "denominator_indicator_id": "BASIC_EDUCATION_ENROLLMENT",
     "denominator_count": 22788,
     "periods_match": true,
-    "exact_quotient_brl_per_student": "20004.7271941372652273126206775",
+    "exact_quotient_brl_per_student": "20004.72719413726522731262068",
     "rounded_brl_per_student": "20004.73",
     "rounding": "ROUND_HALF_UP_2_DECIMALS",
-    "derived_not_source": true
+    "derived_not_source": true,
+    "decimal_precision": 28
   },
   "guards": [
     "SAME_PERIOD_REQUIRED",
