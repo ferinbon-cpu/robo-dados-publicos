@@ -38,8 +38,22 @@
     "SCHOOL_INDICATOR_SERIES": {
       "schema": "SCHOOL_INDICATOR_SERIES_V1",
       "grain": "one school_or_network x period x indicator",
-      "primary_key": ["snapshot_id", "scope_id", "period", "indicator_id", "source_family"],
-      "query_dimensions": ["scope_level", "scope_id", "school_code", "network", "period", "indicator_id", "source_family"],
+      "primary_key": [
+        "snapshot_id",
+        "scope_id",
+        "period",
+        "indicator_id",
+        "source_family"
+      ],
+      "query_dimensions": [
+        "scope_level",
+        "scope_id",
+        "school_code",
+        "network",
+        "period",
+        "indicator_id",
+        "source_family"
+      ],
       "required_fields": [
         "scope_level",
         "scope_id",
@@ -50,7 +64,13 @@
         "unit",
         "context"
       ],
-      "source_families": ["CENSO_ESCOLAR", "IDEB", "SAEB", "SARESP", "MUNICIPAL_REPORTS"],
+      "source_families": [
+        "CENSO_ESCOLAR",
+        "IDEB",
+        "SAEB",
+        "SARESP",
+        "MUNICIPAL_REPORTS"
+      ],
       "semantic_guards": [
         "RANKING_WITHOUT_CONTEXT_REQUIRES_CAUTION",
         "STATISTICAL_ASSOCIATION_NE_CAUSAL_EFFECT"
@@ -59,8 +79,18 @@
     "JOM_EVENT_INDEX": {
       "schema": "JOM_EVENT_INDEX_V1",
       "grain": "one structured Jornal Oficial event",
-      "primary_key": ["snapshot_id", "event_id"],
-      "query_dimensions": ["publication_date", "event_type", "policy_domains", "evidence_layers", "financial_stages", "education_topics"],
+      "primary_key": [
+        "snapshot_id",
+        "event_id"
+      ],
+      "query_dimensions": [
+        "publication_date",
+        "event_type",
+        "policy_domains",
+        "evidence_layers",
+        "financial_stages",
+        "education_topics"
+      ],
       "required_fields": [
         "event_id",
         "publication_date",
@@ -71,7 +101,9 @@
         "education_topics",
         "source_locator"
       ],
-      "source_families": ["JORNAL_OFICIAL"],
+      "source_families": [
+        "JORNAL_OFICIAL"
+      ],
       "semantic_guards": [
         "PUBLICATION_NE_IMPLEMENTATION",
         "JOM_PUBLICATION_NE_ACCOUNTING_EXECUTION",
@@ -81,7 +113,10 @@
     "ACCOUNTING_LEDGER": {
       "schema": "ACCOUNTING_LEDGER_V1",
       "grain": "one canonical accounting observation",
-      "primary_key": ["snapshot_id", "observation_id"],
+      "primary_key": [
+        "snapshot_id",
+        "observation_id"
+      ],
       "query_dimensions": [
         "fiscal_year",
         "stage",
@@ -103,7 +138,11 @@
         "programmatic_dimensions",
         "evidence_status"
       ],
-      "source_families": ["TCE_SP_EXPENSES", "SIOPE", "BUDGET_EXECUTION"],
+      "source_families": [
+        "TCE_SP_EXPENSES",
+        "SIOPE",
+        "BUDGET_EXECUTION"
+      ],
       "semantic_guards": [
         "COMMITMENT_NE_LIQUIDATION_NE_PAYMENT",
         "PROGRAMMATIC_CLASSIFICATION_NE_POLICY_IDENTITY",
@@ -113,8 +152,20 @@
     "FISCAL_SERIES": {
       "schema": "FISCAL_SERIES_V1",
       "grain": "one entity x period x metric x source family",
-      "primary_key": ["snapshot_id", "entity_id", "period", "metric_id", "source_family"],
-      "query_dimensions": ["entity_id", "period", "metric_id", "stage_semantic", "source_family"],
+      "primary_key": [
+        "snapshot_id",
+        "entity_id",
+        "period",
+        "metric_id",
+        "source_family"
+      ],
+      "query_dimensions": [
+        "entity_id",
+        "period",
+        "metric_id",
+        "stage_semantic",
+        "source_family"
+      ],
       "required_fields": [
         "entity_id",
         "period",
@@ -124,7 +175,14 @@
         "unit",
         "stage_semantic"
       ],
-      "source_families": ["SICONFI_STN", "SIOPE", "FUNDEB", "RREO", "RGF", "MDE"],
+      "source_families": [
+        "SICONFI_STN",
+        "SIOPE",
+        "FUNDEB",
+        "RREO",
+        "RGF",
+        "MDE"
+      ],
       "semantic_guards": [
         "AUTHORIZATION_NE_EXECUTION",
         "NOMINAL_NE_REAL",
@@ -134,8 +192,18 @@
     "PLANNING_DOCUMENT_INDEX": {
       "schema": "PLANNING_DOCUMENT_INDEX_V1",
       "grain": "one documentary evidence segment",
-      "primary_key": ["snapshot_id", "document_id", "locator"],
-      "query_dimensions": ["document_type", "period", "evidence_role", "policy_domains", "topics"],
+      "primary_key": [
+        "snapshot_id",
+        "document_id",
+        "locator"
+      ],
+      "query_dimensions": [
+        "document_type",
+        "period",
+        "evidence_role",
+        "policy_domains",
+        "topics"
+      ],
       "required_fields": [
         "document_id",
         "document_type",
@@ -144,7 +212,14 @@
         "locator",
         "text_redacted"
       ],
-      "source_families": ["PPA", "LDO", "LOA", "CME", "MUNICIPAL_LEGISLATION", "SIAVE_LIMEIRA"],
+      "source_families": [
+        "PPA",
+        "LDO",
+        "LOA",
+        "CME",
+        "MUNICIPAL_LEGISLATION",
+        "SIAVE_LIMEIRA"
+      ],
       "semantic_guards": [
         "DOCUMENT_SOURCE_ROLE_LIMITS_PROOF",
         "PPA_NE_EXECUTION",
@@ -154,8 +229,16 @@
     "QUERY_PRODUCT_CATALOG": {
       "schema": "QUERY_PRODUCT_CATALOG_V1",
       "grain": "one query product snapshot",
-      "primary_key": ["product_name", "snapshot_id"],
-      "query_dimensions": ["product_name", "coverage_domains", "source_families", "readiness"],
+      "primary_key": [
+        "product_name",
+        "snapshot_id"
+      ],
+      "query_dimensions": [
+        "product_name",
+        "coverage_domains",
+        "source_families",
+        "readiness"
+      ],
       "required_fields": [
         "product_name",
         "product_schema",
@@ -171,24 +254,118 @@
         "CATALOG_NE_SOURCE_OF_TRUTH",
         "EXACT_PRODUCT_READINESS_NE_FAMILY_WIDE_RECURRENCE_PROMOTION"
       ]
+    },
+    "REVENUE_LEDGER": {
+      "schema": "REVENUE_LEDGER_V1",
+      "grain": "one official TCESP detailed revenue record",
+      "primary_key": [
+        "snapshot_id",
+        "revenue_observation_id"
+      ],
+      "query_dimensions": [
+        "fiscal_year",
+        "revenue_month",
+        "entity_name",
+        "funding_source",
+        "application_fixed",
+        "application_variable",
+        "revenue_category",
+        "revenue_type",
+        "education_application",
+        "fundeb_classification",
+        "eti_classification"
+      ],
+      "required_fields": [
+        "revenue_observation_id",
+        "source_record_id",
+        "fiscal_year",
+        "revenue_month",
+        "funding_source",
+        "application_fixed",
+        "application_variable",
+        "revenue_type",
+        "amount_brl",
+        "evidence_status"
+      ],
+      "source_families": [
+        "TCE_SP_REVENUES"
+      ],
+      "semantic_guards": [
+        "REVENUE_NE_EXPENDITURE",
+        "REVENUE_CLASSIFICATION_NE_EXPENDITURE_DESTINATION",
+        "NEGATIVE_REVENUE_ROW_NE_INVALID_ROW",
+        "OFFICIAL_RECORD_ID_PRESERVED"
+      ]
     }
   },
   "domain_product_routes": {
-    "NETWORK_ENROLLMENT": ["SCHOOL_INDICATOR_SERIES"],
-    "SCHOOLS_INFRASTRUCTURE": ["SCHOOL_INDICATOR_SERIES", "JOM_EVENT_INDEX", "ACCOUNTING_LEDGER"],
-    "LEARNING_FLOW": ["SCHOOL_INDICATOR_SERIES"],
-    "EQUITY_INCLUSION": ["SCHOOL_INDICATOR_SERIES"],
-    "TEACHERS_WORKFORCE": ["SCHOOL_INDICATOR_SERIES", "JOM_EVENT_INDEX", "FISCAL_SERIES"],
-    "FINANCING": ["FISCAL_SERIES", "ACCOUNTING_LEDGER", "SCHOOL_INDICATOR_SERIES"],
-    "PLANNING_BUDGET": ["PLANNING_DOCUMENT_INDEX", "FISCAL_SERIES", "ACCOUNTING_LEDGER", "JOM_EVENT_INDEX"],
-    "ACCOUNTING_EXECUTION": ["ACCOUNTING_LEDGER", "FISCAL_SERIES"],
-    "PROCUREMENT_CONTRACTS": ["JOM_EVENT_INDEX", "ACCOUNTING_LEDGER"],
-    "PERSONNEL_MANAGEMENT": ["JOM_EVENT_INDEX", "SCHOOL_INDICATOR_SERIES", "FISCAL_SERIES"],
-    "NORMS_SCHOOL_FUNCTIONING": ["JOM_EVENT_INDEX", "PLANNING_DOCUMENT_INDEX"],
-    "PUBLIC_POLICIES": ["JOM_EVENT_INDEX", "PLANNING_DOCUMENT_INDEX", "ACCOUNTING_LEDGER", "FISCAL_SERIES"],
-    "JOURNAL_EVENT_RADAR": ["JOM_EVENT_INDEX"],
-    "TERRITORY_CONTEXT": ["SCHOOL_INDICATOR_SERIES"],
-    "TRANSPARENCY_CONTROL": ["QUERY_PRODUCT_CATALOG", "ACCOUNTING_LEDGER", "JOM_EVENT_INDEX", "FISCAL_SERIES"]
+    "NETWORK_ENROLLMENT": [
+      "SCHOOL_INDICATOR_SERIES"
+    ],
+    "SCHOOLS_INFRASTRUCTURE": [
+      "SCHOOL_INDICATOR_SERIES",
+      "JOM_EVENT_INDEX",
+      "ACCOUNTING_LEDGER"
+    ],
+    "LEARNING_FLOW": [
+      "SCHOOL_INDICATOR_SERIES"
+    ],
+    "EQUITY_INCLUSION": [
+      "SCHOOL_INDICATOR_SERIES"
+    ],
+    "TEACHERS_WORKFORCE": [
+      "SCHOOL_INDICATOR_SERIES",
+      "JOM_EVENT_INDEX",
+      "FISCAL_SERIES"
+    ],
+    "FINANCING": [
+      "FISCAL_SERIES",
+      "ACCOUNTING_LEDGER",
+      "SCHOOL_INDICATOR_SERIES",
+      "REVENUE_LEDGER"
+    ],
+    "PLANNING_BUDGET": [
+      "PLANNING_DOCUMENT_INDEX",
+      "FISCAL_SERIES",
+      "ACCOUNTING_LEDGER",
+      "JOM_EVENT_INDEX"
+    ],
+    "ACCOUNTING_EXECUTION": [
+      "ACCOUNTING_LEDGER",
+      "FISCAL_SERIES"
+    ],
+    "PROCUREMENT_CONTRACTS": [
+      "JOM_EVENT_INDEX",
+      "ACCOUNTING_LEDGER"
+    ],
+    "PERSONNEL_MANAGEMENT": [
+      "JOM_EVENT_INDEX",
+      "SCHOOL_INDICATOR_SERIES",
+      "FISCAL_SERIES"
+    ],
+    "NORMS_SCHOOL_FUNCTIONING": [
+      "JOM_EVENT_INDEX",
+      "PLANNING_DOCUMENT_INDEX"
+    ],
+    "PUBLIC_POLICIES": [
+      "JOM_EVENT_INDEX",
+      "PLANNING_DOCUMENT_INDEX",
+      "ACCOUNTING_LEDGER",
+      "FISCAL_SERIES"
+    ],
+    "JOURNAL_EVENT_RADAR": [
+      "JOM_EVENT_INDEX"
+    ],
+    "TERRITORY_CONTEXT": [
+      "SCHOOL_INDICATOR_SERIES"
+    ],
+    "TRANSPARENCY_CONTROL": [
+      "QUERY_PRODUCT_CATALOG",
+      "ACCOUNTING_LEDGER",
+      "JOM_EVENT_INDEX",
+      "FISCAL_SERIES",
+      "REVENUE_LEDGER"
+    ]
   },
   "join_strengths": {
     "STRONG": [
