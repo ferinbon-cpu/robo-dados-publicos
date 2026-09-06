@@ -241,7 +241,7 @@
   ],
   "noncanonical_task_note": {
     "task_178_remote_serving_should_wait": true,
-    "reason": "BUILD_AND_VALIDATE_LOCAL_FUSED_KNOWLEDGE_PACK_AND_FILL_HIGH_VALUE_GAPS_BEFORE_REMOTE_SERVING"
+    "reason": "MATERIALIZE_EXISTING_CUSTODY_PRODUCTS_BUILD_AND_VALIDATE_LOCAL_FUSED_KNOWLEDGE_PACK_AND_FILL_HIGH_VALUE_GAPS_BEFORE_REMOTE_SERVING"
   },
   "remote_effects": {
     "network": false,
