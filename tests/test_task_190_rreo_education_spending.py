@@ -15,6 +15,7 @@ from robo_dados_publicos.analytics.task190_rreo_education_spending import (
 ROOT = Path(__file__).resolve().parents[1]
 TASK188 = ROOT / "docs/evidence/TASK_188_RREO_RESTS_PAYABLE_MATERIALIZATION_0.8.0.json"
 TASK186 = ROOT / "docs/evidence/TASK_186_TCESP_REVENUE_LEDGER_0.8.0.json"
+EVIDENCE = ROOT / "docs/evidence/TASK_190_RREO_EDUCATION_SPENDING_FISCAL_SERIES_0.8.0.json"
 GENERATED_AT = "2026-09-06T15:30:00+00:00"
 SOFTWARE_VERSION = "0.8.0"
 
@@ -170,6 +171,31 @@ class TestTask190RreoEducationSpending(unittest.TestCase):
             "REAL_EDUCATION_EXPENDITURE",
             after_by_id["FIN_Q4"]["missing_or_insufficient_metrics"],
         )
+
+
+    def test_canonical_evidence_pins_snapshot_and_safety_scope(self):
+        e = json.loads(EVIDENCE.read_text(encoding="utf-8"))
+        self.assertEqual(e["status"], "PASS_OFFICIAL_RREO_EDUCATION_SPENDING_MATERIALIZED")
+        self.assertEqual(e["fiscal_series"]["row_count"], 41)
+        self.assertEqual(e["fiscal_series"]["snapshot_id"], "e130605546356808bd11800e")
+        self.assertEqual(
+            e["fiscal_series"]["content_sha256"],
+            "e130605546356808bd11800e6cd7755e3d5d3b47a61e334474b35e4bd0a3dadc",
+        )
+        self.assertEqual(
+            e["fiscal_series"]["json_sha256"],
+            "616634a2b82ba511589f4a2977b68f0a64cc91e8601a4608da2c4917b91c4fce",
+        )
+        self.assertEqual(
+            e["fiscal_series"]["gzip_sha256"],
+            "7684de78c3b205524b3593b74184be170511d3f178e63810ad97f0d90113423a",
+        )
+        self.assertFalse(e["enrollment_candidate"]["materialized_in_task190"])
+        self.assertTrue(e["enrollment_candidate"]["row_sum_verified"])
+        self.assertEqual(e["enrollment_candidate"]["basic_education_enrollment_2025"], 22788)
+        self.assertEqual(e["remote_effects"]["serving"], 0)
+        self.assertEqual(e["remote_effects"]["publication"], 0)
+
 
 
 if __name__ == "__main__":
