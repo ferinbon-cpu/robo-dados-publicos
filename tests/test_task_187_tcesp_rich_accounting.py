@@ -15,6 +15,7 @@ from robo_dados_publicos.analytics.task184_local_bundle import _with_catalog, bu
 ROOT = Path(__file__).resolve().parents[1]
 TASK185 = ROOT / "docs/evidence/TASK_185_MANUAL_JSON_LEDGER_MATERIALIZATION_0.8.0.json"
 TASK186 = ROOT / "docs/evidence/TASK_186_TCESP_REVENUE_LEDGER_0.8.0.json"
+EVIDENCE = ROOT / "docs/evidence/TASK_187_TCESP_RICH_ACCOUNTING_LEDGER_0.8.0.json"
 GENERATED_AT = "2026-09-06T14:28:02.336990+00:00"
 SOFTWARE_VERSION = "0.8.0"
 
@@ -198,6 +199,29 @@ class TestTask187TcespRichAccounting(unittest.TestCase):
         })
         self.assertEqual(by_id["INFRA_Q2"]["status"], "MATERIALIZED_ANSWERABLE")
         self.assertEqual(by_id["PLAN_Q3"]["status"], "MATERIALIZED_PARTIAL")
+
+
+    def test_canonical_evidence_pins_real_source_reconciliation_and_snapshot(self):
+        e = json.loads(EVIDENCE.read_text(encoding="utf-8"))
+        self.assertEqual(e["status"], "PASS_REAL_RICH_ACCOUNTING_LEDGER_MATERIALIZED")
+        self.assertEqual(e["source"]["row_count"], 39779)
+        self.assertEqual(e["source"]["unique_official_record_ids"], 39779)
+        self.assertTrue(e["reconciliation"]["exact_one_to_one"])
+        self.assertEqual(e["reconciliation"]["matched_rows"], 39779)
+        self.assertEqual(e["reconciliation"]["unmatched_prior"], 0)
+        self.assertEqual(e["reconciliation"]["unmatched_rich_csv"], 0)
+        self.assertEqual(e["accounting_ledger"]["snapshot_id"], "0fde2c8045c1b9ce2da87dc5")
+        self.assertEqual(
+            e["accounting_ledger"]["content_sha256"],
+            "0fde2c8045c1b9ce2da87dc5b8c6bd6cb1f6c83148b06a33e04a4b725087371c",
+        )
+        self.assertEqual(
+            e["answerability"]["after_status_counts"],
+            {"EXPLICIT_GAP": 5, "MATERIALIZED_ANSWERABLE": 20, "MATERIALIZED_PARTIAL": 13},
+        )
+        self.assertFalse(e["eti"]["revenue_expense_link_proven"])
+        self.assertEqual(e["remote_effects"]["source_network_gets"], 0)
+        self.assertEqual(e["remote_effects"]["serving"], 0)
 
 
 if __name__ == "__main__":
