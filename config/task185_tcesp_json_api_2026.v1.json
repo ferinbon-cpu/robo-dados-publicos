@@ -38,7 +38,8 @@
       "vl_despesa"
     ],
     "docs_declared_year_range": "2014-2019",
-    "current_2026_route_status": "MUST_BE_PROVEN_LIVE_BY_PROBE"
+    "current_2026_route_status": "MUST_BE_PROVEN_LIVE_BY_PROBE",
+    "network_timeout_seconds": 180
   },
   "current_portal_evidence": {
     "limeira_2026_ui_available": true,
@@ -50,7 +51,19 @@
       "Reforço",
       "Anulação"
     ],
-    "note": "UI existence is corroboration, not proof that the legacy JSON route supports 2026."
+    "note": "UI existence is corroboration, not proof that the legacy JSON route supports 2026.",
+    "user_supplied_january_2026": {
+      "status": "PROVEN_VALID_JSON",
+      "row_count": 4860,
+      "body_bytes": 1326399,
+      "sha256": "363883def8553c36fd21965838ee95b32f50f808b208aa416e25f76c12cf7ae5",
+      "observed_entities": [
+        "PREFEITURA MUNICIPAL DE LIMEIRA",
+        "CAMARA MUNICIPAL DE LIMEIRA",
+        "INSTITUTO DE PREVIDENCIA MUNICIPAL DE LIMEIRA"
+      ],
+      "note": "User-supplied file proves 2026 route validity and shows prior 60-second live STOP was transport/timeout, not unsupported endpoint."
+    }
   },
   "source_capabilities": {
     "provided": [
