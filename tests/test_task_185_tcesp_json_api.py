@@ -50,6 +50,9 @@ class TestTask185TcespJsonApi(unittest.TestCase):
         self.assertEqual(obs["amount_brl"], "123.45")
         self.assertEqual(obs["supplier_name"], "FORNECEDOR TESTE")
         self.assertEqual(obs["entity_name"], "PREFEITURA MUNICIPAL DE LIMEIRA")
+        self.assertIsNone(obs["event_date"])
+        self.assertEqual(obs["expense_issue_date"], "05/01/2026")
+        self.assertEqual(obs["event_month"], 1)
         self.assertIsNone(obs["programmatic_dimensions"]["program_code"])
         self.assertFalse(obs["policy_identity_proven"])
 
@@ -72,6 +75,9 @@ class TestTask185TcespJsonApi(unittest.TestCase):
         self.assertIn("LIQUIDATION_AMOUNTS", caps)
         self.assertIn("PAYMENT_AMOUNTS", caps)
         self.assertIn("SUPPLIER_AMOUNT", caps)
+        self.assertIn("EXPENSE_ISSUE_DATE", caps)
+        self.assertIn("EVENT_MONTH", caps)
+        self.assertNotIn("EVENT_DATE", caps)
         self.assertNotIn("PROGRAMMATIC_CLASSIFICATION", caps)
         self.assertNotIn("RESTS_PAYABLE", caps)
 
@@ -86,6 +92,10 @@ class TestTask185TcespJsonApi(unittest.TestCase):
             software_version="0.8.0",
         )
         self.assertIn("COMMITMENT_AMOUNTS", ledger["capabilities"])
+        self.assertIn("EXPENSE_ISSUE_DATE", ledger["capabilities"])
+        self.assertIn("EVENT_MONTH", ledger["capabilities"])
+        self.assertNotIn("EVENT_DATE", ledger["capabilities"])
+        self.assertEqual(ledger["rows"][0]["observation_period"], "2026:01")
         self.assertNotIn("PROGRAMMATIC_CLASSIFICATION", ledger["capabilities"])
         self.assertNotIn("RESTS_PAYABLE", ledger["capabilities"])
 
