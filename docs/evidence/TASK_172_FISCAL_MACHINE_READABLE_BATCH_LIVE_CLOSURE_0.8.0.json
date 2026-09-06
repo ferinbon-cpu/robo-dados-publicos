@@ -203,7 +203,16 @@
     "jom_cross_layer_autodifferentiation_can_now_route_to_tcesp_accounting_dimensions": true,
     "policy_identity_promoted": false,
     "financial_identity_promoted": false,
-    "payment_promoted": false
+    "payment_promoted": false,
+    "exact_route_contract_maturity_proven": [
+      "SICONFI_RREO_2025_ANEXO_01",
+      "SICONFI_RREO_2025_ANEXO_02",
+      "SICONFI_RGF_2025_ANEXO_01",
+      "FNDE_FUNDEB_2026_DECLARED_CSV_SET",
+      "TCESP_LIMEIRA_2026_DECLARED_ZIP_SET"
+    ],
+    "family_wide_auto_ingest_maturity_promoted": false,
+    "family_registry_reason": "EXACT_URL_SCHEMA_PROOF_DOES_NOT_GENERALIZE_TO_ARBITRARY_FAMILY_FILES_OR_RECURRENCE"
   },
   "authorization": {
     "task172_live_authorization_consumed": true,
