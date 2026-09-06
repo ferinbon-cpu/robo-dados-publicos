@@ -105,7 +105,6 @@ def parse_csv_bytes(
         _amount(row["vl_despesa"])
 
     _stop(sorted(months) == contract["source"]["months_expected"], "TASK187_MONTH_COVERAGE")
-    _stop(len(ids) == contract["observed"]["unique_official_ids"], "TASK187_ID_COUNT")
     return rows
 
 
@@ -118,6 +117,7 @@ def validate_real_payload(
     _stop(hashlib.sha256(payload).hexdigest() == contract["source"]["csv_sha256"], "TASK187_REAL_CSV_HASH")
     rows = parse_csv_bytes(payload, contract_path=contract_path)
     _stop(len(rows) == contract["observed"]["row_count"], "TASK187_ROW_COUNT")
+    _stop(len({row["id_despesa_detalhe"] for row in rows}) == contract["observed"]["unique_official_ids"], "TASK187_ID_COUNT")
     month_counts: dict[str, int] = {}
     organ_counts: dict[str, int] = {}
     event_counts: dict[str, int] = {}
