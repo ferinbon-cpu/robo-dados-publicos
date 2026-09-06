@@ -10,7 +10,6 @@ import shutil
 from typing import Iterable
 
 from robo_dados_publicos.reconciliation.planner import ReconciliationPlanner
-from robo_dados_publicos.journal.semantic_layers import classify_event
 
 
 _PII_PATTERNS = {
@@ -389,6 +388,7 @@ class JournalPdfProcessor:
         out_dir: str | Path,
         stage_bronze: bool = True,
         plan_reconciliation: bool = True,
+        emit_semantic_facets: bool = True,
     ) -> dict:
         pdf_path = Path(pdf_path)
         out_dir = Path(out_dir)
@@ -466,9 +466,12 @@ class JournalPdfProcessor:
 
         self._write_jsonl(out_dir / "pages_silver.jsonl", silver_rows)
         event_rows = [e.to_dict() for e in all_events]
-        semantic_rows = [classify_event(row) for row in event_rows]
+        semantic_rows = []
         self._write_jsonl(out_dir / "events_gold.jsonl", event_rows)
-        self._write_jsonl(out_dir / "event_semantics_gold.jsonl", semantic_rows)
+        if emit_semantic_facets:
+            from robo_dados_publicos.journal.semantic_layers import classify_event
+            semantic_rows = [classify_event(row) for row in event_rows]
+            self._write_jsonl(out_dir / "event_semantics_gold.jsonl", semantic_rows)
         self._write_jsonl(out_dir / "chunks_rag.jsonl", rag_rows)
         reconciliation_tasks = []
         if plan_reconciliation:
