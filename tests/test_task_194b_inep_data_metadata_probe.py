@@ -21,7 +21,7 @@ class TestTask194BInepDataMetadataProbe(unittest.TestCase):
         sha="a"*40
         self.assertEqual(
             exact_auth_comment(sha),
-            f"TASK194B_INEP_DATA_METADATA_AUTHORIZED main={sha} issue=600 max_http_requests=2 querydata=0",
+            f"TASK194C_INEP_DATA_METADATA_AUTHORIZED main={sha} issue=602 max_http_requests=2 querydata=0",
         )
 
     def test_bootstrap_extracts_only_pinned_report(self):
