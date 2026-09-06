@@ -1,0 +1,263 @@
+{
+  "version": 1,
+  "schema": "EITI_ACCOUNTING_EXECUTION_SOURCE_ROUTER_V1",
+  "task": "TASK_169_EITI_PRIMARY_MUNICIPAL_ACCOUNTING_EXECUTION_SOURCE_ROUTER",
+  "issue": 550,
+  "base_main_sha": "4f124ece48e118d47e52932474130626240db281",
+  "mode": "T0_OFFLINE_SOURCE_ROUTER_ONLY",
+  "objective": "Define the minimum source capabilities and exact identity bundles required to bridge EITI policy evidence to municipal accounting execution without weak joins.",
+  "inputs": {
+    "task122": "STOP_NO_STABLE_POLICY_TO_ACCOUNTING_EXECUTION_KEY",
+    "task123": "FIND_PRIMARY_GRANULAR_ACCOUNTING_EXECUTION_SURFACE_WITH_POLICY_MARKER_AND_STABLE_KEY",
+    "task163": "PUBLIC_BUDGET_METHODOLOGY_JSON_BRAIN",
+    "task164": "GENERAL_METHODOLOGY_JSON_ENGINEERING_PATTERN",
+    "task165": "DIRECT_JSON_FIRST",
+    "task168": "PNCP_TARGET_CONTRACT_BRIDGE_BOUNDED_NEGATIVE"
+  },
+  "current_state": {
+    "policy_id": "EITI_LIMEIRA",
+    "financial_identity": "UNKNOWN",
+    "transaction_identity": "UNKNOWN",
+    "commitment": "NOT_PROVEN",
+    "liquidation": "NOT_PROVEN",
+    "payment": "NOT_PROVEN",
+    "pncp_target_bridge": "BOUNDED_NEGATIVE_CURRENT_SCOPE"
+  },
+  "authorization_boundary": {
+    "new_non_pncp_live_read_authorized": false,
+    "fresh_explicit_source_scope_authorization_required": true,
+    "t0_network_requests": 0,
+    "t0_drive_reads": 0,
+    "t0_drive_writes": 0,
+    "t0_publication": false
+  },
+  "direct_json_first": [
+    "DIRECT_OFFICIAL_JSON_API_GET",
+    "DIRECT_AUTHORIZED_MACHINE_READABLE_GET",
+    "DOCUMENTED_API_OR_DECLARED_DOWNLOAD_ROUTE",
+    "HTML_DOM_JS_INTERNAL_PATH_REVERSE_ENGINEERING_FALLBACK_ONLY"
+  ],
+  "source_classes": [
+    {
+      "rank": 1,
+      "id": "LIMEIRA_PRIMARY_TRANSPARENCY_EXPENSE_DETAIL",
+      "role": "ACCOUNTING_EXECUTION_PRIMARY",
+      "authority": "MUNICIPAL_PRIMARY",
+      "minimum_capabilities": [
+        "filter_or_locate_by_fiscal_year",
+        "expose_institutional_unit",
+        "expose_programmatic_classification",
+        "expose_budget_or_accounting_stable_key",
+        "expose_commitment_when_available",
+        "expose_liquidation_when_available",
+        "expose_payment_when_available"
+      ],
+      "preferred_transport": "DIRECT_OFFICIAL_JSON_API_GET",
+      "can_promote_alone": [
+        "COMMITMENT",
+        "LIQUIDATION",
+        "PAYMENT"
+      ],
+      "cannot_promote_alone": [
+        "POLICY_FINANCIAL_IDENTITY_WITHOUT_EXPLICIT_POLICY_TO_BUDGET_LINK"
+      ]
+    },
+    {
+      "rank": 2,
+      "id": "ACCOUNTING_APPLICATION_FICHA_DOTACAO_SEARCH",
+      "role": "ACCOUNTING_EXECUTION_PRIMARY",
+      "authority": "MUNICIPAL_PRIMARY",
+      "minimum_capabilities": [
+        "filter_or_locate_by_fiscal_year",
+        "expose_ficha_or_dotacao_identifier",
+        "expose_institutional_unit",
+        "expose_program_action_or_subaction",
+        "expose_funding_and_economic_classification_when_available"
+      ],
+      "preferred_transport": "DIRECT_OFFICIAL_JSON_API_GET",
+      "can_promote_alone": [
+        "BUDGET_EXECUTION_KEY"
+      ],
+      "cannot_promote_alone": [
+        "PAYMENT_UNLESS_PAYMENT_RECORD_EXPLICIT"
+      ]
+    },
+    {
+      "rank": 3,
+      "id": "EDUCATION_COST_CENTER_OR_SUBACTION_EXECUTION_REPORT",
+      "role": "ACCOUNTING_EXECUTION_PRIMARY",
+      "authority": "MUNICIPAL_PRIMARY",
+      "minimum_capabilities": [
+        "education_scope_explicit",
+        "cost_center_or_subaction_explicit",
+        "fiscal_year_explicit",
+        "amount_semantic_explicit",
+        "stable_execution_key_when_claiming_transaction"
+      ],
+      "preferred_transport": "DIRECT_OFFICIAL_MACHINE_READABLE_DOWNLOAD_OR_JSON",
+      "can_promote_alone": [
+        "POLICY_FINANCIAL_IDENTITY_IF_POLICY_AND_STABLE_BUDGET_KEY_EXPLICIT"
+      ],
+      "cannot_promote_alone": [
+        "INDIVIDUAL_TRANSACTION_WITHOUT_STABLE_KEY"
+      ]
+    },
+    {
+      "rank": 4,
+      "id": "TCE_CONTROL_GRANULAR_EXECUTION",
+      "role": "CONTROL_PRIMARY",
+      "authority": "EXTERNAL_CONTROL",
+      "minimum_capabilities": [
+        "entity_identity",
+        "fiscal_year",
+        "granular_execution_key",
+        "amount_semantic"
+      ],
+      "preferred_transport": "DOCUMENTED_MACHINE_READABLE_CONTROL_SOURCE",
+      "can_promote_alone": [
+        "CONTROL_RECORD"
+      ],
+      "cannot_promote_alone": [
+        "REPLACE_MUNICIPAL_PRIMARY_POLICY_IDENTITY_WHEN_UNRESOLVED"
+      ]
+    }
+  ],
+  "minimum_policy_financial_identity_bundle": {
+    "all_required": [
+      "entity_cnpj_exact",
+      "fiscal_year_exact",
+      "policy_link_basis_explicit",
+      "institutional_unit_explicit",
+      "program_or_action_explicit",
+      "stable_budget_key_explicit",
+      "amount_semantic_explicit",
+      "source_role_accounting_or_budget_primary"
+    ],
+    "policy_link_basis_allowed": [
+      "explicit_eiti_or_fomento_eti_marker_in_same_primary_record",
+      "exact_stable_key_crosswalk_to_primary_policy_document",
+      "exact_program_action_subaction_crosswalk_with_policy_document_and_no_broader_ambiguity"
+    ],
+    "stable_budget_key_preference": [
+      "ficha",
+      "dotacao_identifier",
+      "action_subaction_plus_budget_unit_when_source_defines_unique_identity",
+      "other_official_unique_accounting_key"
+    ],
+    "not_sufficient": [
+      "program_2001_alone",
+      "unit_10_00_00_similarity",
+      "capl_2607004_alone",
+      "fomento_eti_text_without_granular_execution_key",
+      "same_or_similar_value",
+      "chronology",
+      "semantic_similarity",
+      "pncp_purchase_or_contract_without_accounting_link"
+    ]
+  },
+  "transaction_stage_gates": [
+    {
+      "stage": "COMMITMENT",
+      "amount_semantic": "COMMITTED_VALUE",
+      "requires": [
+        "policy_financial_identity_proven_or_exact_accounting_key_link",
+        "empenho_number_explicit",
+        "fiscal_year_exact",
+        "entity_exact",
+        "committed_amount_explicit"
+      ],
+      "promotion": "COMMITMENT_PROVEN"
+    },
+    {
+      "stage": "LIQUIDATION",
+      "amount_semantic": "LIQUIDATED_VALUE",
+      "requires": [
+        "commitment_identity_or_same_exact_accounting_transaction_key",
+        "liquidation_record_or_explicit_liquidated_amount",
+        "fiscal_year_or_event_date",
+        "entity_exact"
+      ],
+      "promotion": "LIQUIDATION_PROVEN"
+    },
+    {
+      "stage": "PAYMENT",
+      "amount_semantic": "PAID_VALUE",
+      "requires": [
+        "liquidation_or_same_exact_accounting_transaction_key",
+        "payment_record_or_explicit_paid_amount",
+        "payment_date_or_reporting_period",
+        "entity_exact"
+      ],
+      "promotion": "PAYMENT_PROVEN"
+    }
+  ],
+  "question_source_router": [
+    {
+      "question": "Which municipal source can bind EITI to a stable budget/accounting key?",
+      "required_capability": "POLICY_TO_BUDGET_KEY",
+      "preferred_sources": [
+        "ACCOUNTING_APPLICATION_FICHA_DOTACAO_SEARCH",
+        "EDUCATION_COST_CENTER_OR_SUBACTION_EXECUTION_REPORT",
+        "LIMEIRA_PRIMARY_TRANSPARENCY_EXPENSE_DETAIL"
+      ],
+      "fallback": "EVIDENCIA_INSUFICIENTE"
+    },
+    {
+      "question": "What was committed for the proven EITI accounting identity?",
+      "required_capability": "COMMITMENT",
+      "preferred_sources": [
+        "LIMEIRA_PRIMARY_TRANSPARENCY_EXPENSE_DETAIL",
+        "TCE_CONTROL_GRANULAR_EXECUTION"
+      ],
+      "fallback": "COMMITMENT_NOT_PROVEN"
+    },
+    {
+      "question": "What was liquidated for the same identity?",
+      "required_capability": "LIQUIDATION",
+      "preferred_sources": [
+        "LIMEIRA_PRIMARY_TRANSPARENCY_EXPENSE_DETAIL",
+        "TCE_CONTROL_GRANULAR_EXECUTION"
+      ],
+      "fallback": "LIQUIDATION_NOT_PROVEN"
+    },
+    {
+      "question": "What was paid for the same identity?",
+      "required_capability": "PAYMENT",
+      "preferred_sources": [
+        "LIMEIRA_PRIMARY_TRANSPARENCY_EXPENSE_DETAIL",
+        "TCE_CONTROL_GRANULAR_EXECUTION"
+      ],
+      "fallback": "PAYMENT_NOT_PROVEN"
+    }
+  ],
+  "future_live_gate_contract": {
+    "before_any_request": [
+      "select_exact_source_host_and_endpoint_family",
+      "document_source_role_and_capabilities",
+      "pin_expected_entity_identity",
+      "pin_request_budget",
+      "pin_schema_guard",
+      "obtain_fresh_explicit_owner_authorization_for_new_source_scope"
+    ],
+    "if_direct_json_exists": "USE_DIRECT_JSON_FIRST",
+    "if_only_declared_download_exists": "USE_DOCUMENTED_MACHINE_READABLE_DOWNLOAD",
+    "if_transport_fails": "SOURCE_TRANSPORT_UNAVAILABLE_NOT_NO_MATCH",
+    "if_schema_lacks_required_identity_fields": "STOP_SOURCE_INSUFFICIENT_FOR_POLICY_FINANCIAL_IDENTITY",
+    "raw_persistence": "SEPARATELY_GOVERNED"
+  },
+  "forbidden_promotions": [
+    "PPA_TO_EXECUTION",
+    "LOA_TO_PAYMENT",
+    "PNCP_TO_PAYMENT",
+    "PROGRAM_TOTAL_TO_EITI",
+    "SAME_AMOUNT_TO_IDENTITY",
+    "CHRONOLOGY_TO_IDENTITY",
+    "TEXT_SIMILARITY_TO_IDENTITY",
+    "TRANSPORT_FAILURE_TO_NO_MATCH",
+    "AGGREGATE_REPORT_TO_TRANSACTION",
+    "COMMITMENT_TO_LIQUIDATION",
+    "LIQUIDATION_TO_PAYMENT",
+    "TCE_CONTROL_TO_MUNICIPAL_POLICY_IDENTITY_WITHOUT_STABLE_LINK"
+  ],
+  "next_live_source_selection_rule": "Choose the highest-ranked official municipal source that can expose policy-to-budget stable keys and transaction-stage semantics. No source is selected as live-authorized by TASK 169 itself."
+}

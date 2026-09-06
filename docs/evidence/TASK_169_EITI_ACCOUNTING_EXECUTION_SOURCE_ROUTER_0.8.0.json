@@ -1,0 +1,49 @@
+{
+  "task": "TASK_169_EITI_PRIMARY_MUNICIPAL_ACCOUNTING_EXECUTION_SOURCE_ROUTER",
+  "issue": 550,
+  "base_main_sha": "4f124ece48e118d47e52932474130626240db281",
+  "mode": "T0_OFFLINE_SOURCE_ROUTER_ONLY",
+  "input_evidence": [
+    "TASK_122_CROSS_DOCUMENT_FINANCIAL_IDENTITY_RESOLVER",
+    "TASK_123_GRANULAR_EXECUTION_METADATA_INVENTORY",
+    "TASK_163_PUBLIC_BUDGET_METHODOLOGY_JSON_BRAIN",
+    "TASK_164_GENERAL_METHODOLOGY_JSON_ENGINEERING_PATTERN",
+    "TASK_165_DIRECT_JSON_FIRST_SOURCE_DISCOVERY_POLICY",
+    "TASK_168_RESOURCE_API_RECOVERY_AND_CONSULTA_CONTRACTS_FALLBACK"
+  ],
+  "result": "PASS_ACCOUNTING_EXECUTION_SOURCE_ROUTER_DESIGNED",
+  "current_financial_identity": "UNKNOWN",
+  "current_transaction_identity": "UNKNOWN",
+  "preferred_source_order": [
+    "LIMEIRA_PRIMARY_TRANSPARENCY_EXPENSE_DETAIL",
+    "ACCOUNTING_APPLICATION_FICHA_DOTACAO_SEARCH",
+    "EDUCATION_COST_CENTER_OR_SUBACTION_EXECUTION_REPORT",
+    "TCE_CONTROL_GRANULAR_EXECUTION"
+  ],
+  "minimum_policy_financial_identity_requires": [
+    "entity_cnpj_exact",
+    "fiscal_year_exact",
+    "policy_link_basis_explicit",
+    "institutional_unit_explicit",
+    "program_or_action_explicit",
+    "stable_budget_key_explicit",
+    "amount_semantic_explicit",
+    "source_role_accounting_or_budget_primary"
+  ],
+  "transaction_stage_order": [
+    "COMMITMENT",
+    "LIQUIDATION",
+    "PAYMENT"
+  ],
+  "direct_json_first": true,
+  "new_non_pncp_live_source_authorized": false,
+  "fresh_explicit_source_scope_authorization_required": true,
+  "remote_effects": {
+    "network": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "next_action": "AFTER_REVIEW_AND_MERGE_SELECT_ONE_EXACT_PRIMARY_MUNICIPAL_ACCOUNTING_SOURCE_HOST_AND_DESIGN_A_SEPARATE_BOUNDED_LIVE_GATE; DO_NOT_EXECUTE_UNTIL_FRESH_EXPLICIT_OWNER_AUTHORIZATION_FOR_THAT_NEW_SOURCE_SCOPE"
+}
