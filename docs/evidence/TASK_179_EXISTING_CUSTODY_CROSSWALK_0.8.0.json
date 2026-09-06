@@ -1,0 +1,77 @@
+{
+  "task": "TASK_179_EXISTING_CUSTODY_CORPUS_REGISTRY",
+  "issue": 569,
+  "mode": "T0_OFFLINE_CUSTODY_MAPPING_ONLY",
+  "base_main_sha": "7f9dfefe2a3947551d651752a3ff20f1b7882f74",
+  "discovered_assets": {
+    "indicators_collection": {
+      "version": "I_V07_II_V06_III_V07",
+      "school_universe_2025": 69,
+      "primary_years_schools": 40,
+      "other_or_early_childhood_profiles": 29,
+      "canonical_base_referenced": "BASE_MESTRA_LIMEIRA_V05",
+      "operational_extension_referenced": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
+      "full_structured_base_runtime_accessible": false
+    },
+    "normative_brain": {
+      "discovered_version": "v0.1",
+      "document_index_ready": true,
+      "legal_proof": false
+    },
+    "md_01_2": {
+      "version": "1.2",
+      "document_index_ready": true,
+      "partial_structured_extraction": true,
+      "interpretation_is_numeric_truth": false
+    },
+    "md_01_3b": {
+      "referenced_unique_documents": 194,
+      "runtime_accessible": false,
+      "handoff_required": true
+    },
+    "md_00_v17": {
+      "role": "METHODOLOGY_GOVERNANCE_NOT_EMPIRICAL_QUERY_EVIDENCE"
+    }
+  },
+  "product_status": {
+    "SCHOOL_INDICATOR_SERIES": "READY_PARTIAL_ONLY",
+    "PLANNING_DOCUMENT_INDEX": "READY_FROM_EXISTING_CUSTODY",
+    "FISCAL_SERIES": "READY_PARTIAL_ONLY",
+    "JOM_EVENT_INDEX": "NO_NEW_CUSTODY_INPUT_REQUIRED",
+    "ACCOUNTING_LEDGER": "NO_NEW_CUSTODY_INPUT_REQUIRED",
+    "QUERY_PRODUCT_CATALOG": "READY_FROM_EXISTING_CUSTODY"
+  },
+  "domain_coverage": {
+    "total": 15,
+    "covered_or_partial": 14,
+    "explicit_gaps": [
+      "TERRITORY_CONTEXT"
+    ]
+  },
+  "handoff_priority": [
+    "BASE_MESTRA_LIMEIRA_V05",
+    "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
+    "MD_01_3B_CORPUS",
+    "LATEST_CEREBRO_NORMATIVO_IF_NEWER_THAN_DISCOVERED_V0_1"
+  ],
+  "task178_remote_serving_should_wait": true,
+  "guards": [
+    "BASE_MESTRA_BEFORE_PUBLICATION_FOR_CANONICAL_SCHOOL_NUMBERS",
+    "VOLUME_I_NARRATIVE_NE_CANONICAL_NUMERIC_ROW",
+    "NOT_APPLICABLE_NE_MISSING_NE_ZERO",
+    "NORMATIVE_SYNTHESIS_NE_LEGAL_PROOF",
+    "OFFICIAL_STRUCTURED_FISCAL_SOURCE_PRECEDENCE",
+    "MD_INTERPRETATION_NE_NUMERIC_TRUTH",
+    "PARTIAL_EXECUTION_NE_ANNUAL_CLOSURE"
+  ],
+  "remote_effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  },
+  "next": "HANDOFF_OR_LOCATE_BASE_MESTRA_V05_THEN_MATERIALIZE_SCHOOL_INDICATOR_SERIES_BEFORE_TASK178_REMOTE_SERVING"
+}
