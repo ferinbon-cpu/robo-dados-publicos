@@ -54,6 +54,13 @@ jobs:
           test -n "$GOOGLE_DRIVE_CLIENT_SECRET"
           test -n "$GOOGLE_DRIVE_REFRESH_TOKEN"
 
+      - name: Offline preflight before source network
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m compileall -q robo_dados_publicos scripts tests
+          python -m unittest tests.test_task_185_accounting_persistence tests.test_task_185_live_gate_offline -v
+
       - name: Execute bounded source GET, create-only custody and offline Stage C
         shell: bash
         run: |
