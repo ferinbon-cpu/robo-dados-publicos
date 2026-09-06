@@ -69,6 +69,23 @@
           "scope": "LIMEIRA_MUNICIPAL_NETWORK_SERIES_2007_2025",
           "non_null_rows": 171,
           "binary_import_complete": false
+        },
+        {
+          "task": "TASK_182",
+          "source": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
+          "scope": "CENSO_AGGREGATES_AI40_AND_EI_2018_2025",
+          "non_null_rows": 48,
+          "binary_import_complete": false
+        }
+      ],
+      "pending_structured_blocks": [
+        {
+          "task": "TASK_182",
+          "source": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
+          "sheet": "81 Censo 69 2018-25",
+          "expected_rows": 552,
+          "expected_columns": 25,
+          "status": "IMPORT_CONTRACT_READY_FULL_ROW_TRANSFER_NOT_COMPLETE"
         }
       ]
     },
