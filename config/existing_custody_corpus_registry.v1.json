@@ -70,38 +70,55 @@
     {
       "id": "BASE_MESTRA_LIMEIRA_V05",
       "title": "Base Mestra Limeira V05",
-      "custody": "REFERENCED_BY_CORPUS_BUT_BASE_FILE_NOT_CURRENTLY_RUNTIME_ACCESSIBLE",
+      "custody": "DISCOVERED_AND_READABLE_IN_USER_LIBRARY",
       "role": "CANONICAL_STRUCTURED_SCHOOL_INDICATOR_BASE",
-      "evidence_strength": "CANONICAL_IF_FILE_HANDOFF_CONFIRMS_SCHEMA_AND_HASH",
+      "evidence_strength": "CANONICAL_STRUCTURED_SCHOOL_INDICATOR_BASE",
       "product_targets": [
         "SCHOOL_INDICATOR_SERIES"
       ],
       "readiness": [
-        "NEEDS_BASE_STRUCTURED_FILE_HANDOFF"
+        "READY_FOR_FULL_STRUCTURED_ROW_MATERIALIZATION"
       ],
       "numeric_precedence_rank": 1,
       "constraints": [
-        "DO_NOT_RECONSTRUCT_FULL_BASE_FROM_NARRATIVE_IF_STRUCTURED_BASE_CAN_BE_HANDED_OFF",
-        "HASH_AND_SCHEMA_REQUIRED_BEFORE_FULL_MATERIALIZATION"
-      ]
+        "CANONICAL_FOR_ALREADY_MATERIALIZED_SCHOOL_NUMBERS",
+        "NEW_DERIVATIONS_MAY_REQUIRE_ORIGINAL_SOURCE",
+        "HASH_MUST_MATCH_BEFORE_MATERIALIZATION"
+      ],
+      "sha256": "4d352dc55537240a4c1ffb3c37337e9c029577ab611f851f2ec925d0178b9eda",
+      "library_access": "READABLE_BY_ASSISTANT_FILE_LIBRARY"
     },
     {
       "id": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
       "title": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
-      "custody": "REFERENCED_BY_CORPUS_BUT_BASE_FILE_NOT_CURRENTLY_RUNTIME_ACCESSIBLE",
+      "custody": "DISCOVERED_AND_READABLE_IN_USER_LIBRARY",
       "role": "AUDITABLE_OPERATIONAL_EXTENSION",
-      "evidence_strength": "HIGH_IF_FILE_HANDOFF_CONFIRMS_SCHEMA_AND_HASH",
+      "evidence_strength": "AUDITABLE_OPERATIONAL_EXTENSION",
       "product_targets": [
         "SCHOOL_INDICATOR_SERIES"
       ],
       "readiness": [
-        "NEEDS_BASE_STRUCTURED_FILE_HANDOFF"
+        "READY_FOR_FULL_STRUCTURED_ROW_MATERIALIZATION"
       ],
       "numeric_precedence_rank": 2,
       "constraints": [
         "EXTENSION_DOES_NOT_REPLACE_BASE_MESTRA",
-        "APPLICABILITY_MATRIX_REQUIRED_FOR_SCHOOL_LEVEL_CROSSES"
-      ]
+        "APPLICABILITY_MATRIX_REQUIRED_FOR_SCHOOL_LEVEL_CROSSES",
+        "SOURCE_HASH_MUST_MATCH_BEFORE_EXTRACTION"
+      ],
+      "sha256_xlsx": "0516868e06685aebe8254b11ca6488ef26b03dea61f927ff637840cf2a21e865",
+      "sha256_sqlite": "7365bae889e866c5547089eac52a611c7b3e4a989d9f5bb601fff90eca54955b",
+      "library_access": "READABLE_BY_ASSISTANT_FILE_LIBRARY",
+      "coverage": {
+        "school_2025_ai40": 40,
+        "censo_panel_2018_2025_rows": 552,
+        "units_2025": 69,
+        "ai40_2025": 40,
+        "ei29_2025": 29,
+        "reconciliation_2025_comparisons": 240,
+        "reconciliation_2025_divergences": 0,
+        "imputations": 0
+      }
     },
     {
       "id": "CEREBRO_NORMATIVO_GESTAO_ESCOLAR_LIMEIRA",
