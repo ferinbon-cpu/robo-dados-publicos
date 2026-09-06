@@ -115,7 +115,8 @@ class TestTask171ObservatoryOntologyJomSemantics(unittest.TestCase):
         self.assertIn("ACCOUNTING_EXECUTION", got["evidence_layers"])
         self.assertIn("PAYMENT", got["financial_stages"])
         self.assertTrue(got["explicit_payment_marker"])
-        self.assertTrue(got["semantic_classification_proves_payment"])
+        self.assertTrue(got["payment_evidence_candidate"])
+        self.assertFalse(got["semantic_classification_proves_payment"])
         self.assertFalse(got["semantic_classification_proves_financial_identity"])
 
     def test_existing_journal_pipeline_emits_semantic_gold_sidecar(self):
