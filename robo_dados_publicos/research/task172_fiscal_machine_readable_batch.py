@@ -321,6 +321,10 @@ def _base_result(source: dict[str, Any], response: dict[str, Any]) -> dict[str, 
 
 def run_live(contract_path: str | Path = DEFAULT_CONTRACT) -> dict[str, Any]:
     contract = load_contract(contract_path)
+    _stop(
+        contract["remote_effects"]["source_gets_authorized_within_contract"] is True,
+        "TASK172_LIVE_NOT_AUTHORIZED",
+    )
     transport = LiveTransport(contract)
     results: list[dict[str, Any]] = []
     tda_declared: list[str] = []
@@ -334,6 +338,8 @@ def run_live(contract_path: str | Path = DEFAULT_CONTRACT) -> dict[str, Any]:
             try:
                 if fmt == "JSON":
                     result.update(summarize_json(body))
+                    if result.get("record_count") == 0:
+                        result["status"] = "EMPTY_WITHIN_EXACT_QUERY_NOT_GLOBAL_ABSENCE"
                 elif fmt == "CSV":
                     selectors = source.get("selector", {}).get("contains_any", [])
                     result.update(summarize_csv(body, selectors))
