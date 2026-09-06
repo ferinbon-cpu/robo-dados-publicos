@@ -25,7 +25,6 @@ jobs:
       GOOGLE_DRIVE_CLIENT_ID: ${{ secrets.GOOGLE_DRIVE_CLIENT_ID }}
       GOOGLE_DRIVE_CLIENT_SECRET: ${{ secrets.GOOGLE_DRIVE_CLIENT_SECRET }}
       GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_REFRESH_TOKEN }}
-      TASK185_IMPLEMENTATION_SHA: __IMPLEMENTATION_SHA_PLACEHOLDER__
     steps:
       - name: Checkout exact authorization commit
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
@@ -42,8 +41,10 @@ jobs:
         run: |
           set -euo pipefail
           test "$GITHUB_REF" = "refs/heads/task-185-stage-b-live-one-shot"
-          test "$(git rev-parse HEAD^)" = "$TASK185_IMPLEMENTATION_SHA"
+          IMPLEMENTATION_SHA="$(python -c 'import json; print(json.load(open("docs/evidence/TASK_185_STAGE_B_OWNER_AUTHORIZATION_0.8.0.json", encoding="utf-8"))["implementation_sha"])')"
+          test "$(git rev-parse HEAD^)" = "$IMPLEMENTATION_SHA"
           test "$(git diff --name-only HEAD^ HEAD)" = "docs/evidence/TASK_185_STAGE_B_OWNER_AUTHORIZATION_0.8.0.json"
+          echo "TASK185_IMPLEMENTATION_SHA=$IMPLEMENTATION_SHA" >> "$GITHUB_ENV"
 
       - name: Verify OAuth secrets are present
         shell: bash
@@ -57,7 +58,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python scripts/task185_live_accounting_gate.py             --implementation-sha "$TASK185_IMPLEMENTATION_SHA"             --generated-at "2026-09-06T12:30:00-03:00"             --software-version "0.8.0"
+          python scripts/task185_live_accounting_gate.py \
+            --implementation-sha "$TASK185_IMPLEMENTATION_SHA" \
+            --generated-at "2026-09-06T09:15:00-03:00" \
+            --software-version "0.8.0"
 
       - name: Upload sanitized result and derived ledger artifact
         if: always()
