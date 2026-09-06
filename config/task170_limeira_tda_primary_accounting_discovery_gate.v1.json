@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "schema": "TASK170_LIMEIRA_TDA_PRIMARY_ACCOUNTING_DISCOVERY_GATE_V1",
+  "task": "TASK_170_SELECT_LIMEIRA_TDA_PRIMARY_ACCOUNTING_DISCOVERY_GATE",
+  "issue": 552,
+  "base_main_sha": "547bcff812763677ac99b576d32efe6e57bd3c80",
+  "mode": "T0_OFFLINE_SELECTION_ONLY",
+  "selected_source": {
+    "source_id": "LIMEIRA_TDA_PORTAL",
+    "authority": "PREFEITURA_MUNICIPAL_DE_LIMEIRA",
+    "source_role": "ACCOUNTING_EXECUTION_PRIMARY",
+    "host": "transparencia.limeira.sp.gov.br",
+    "known_url": "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+    "known_capabilities": [
+      "receitas",
+      "despesas",
+      "fornecedor",
+      "empenho_liquidacao_pagamento",
+      "restos_a_pagar",
+      "compras_licitacoes_contratos"
+    ],
+    "current_status": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN",
+    "selection_reason": "TASK169 ranks municipal primary transparency first and this is the already-versioned Limeira municipal financial transparency core with declared execution-stage capability."
+  },
+  "prior_evidence": {
+    "date": "2026-08-22",
+    "exact_route_was_requested": true,
+    "observed_redirect_chain": [
+      "EXACT_TDA_ROUTE",
+      "LOGOUT",
+      "PORTAL_ROOT"
+    ],
+    "final_static_surface_only": true,
+    "api_or_download_hint_found": false,
+    "authentication_attempted": false,
+    "form_submission_attempted": false,
+    "javascript_execution_attempted": false,
+    "captcha_bypass_attempted": false,
+    "endpoint_guessing_attempted": false
+  },
+  "future_live_gate": {
+    "authorized_now": false,
+    "fresh_explicit_owner_authorization_required": true,
+    "authorization_scope_if_granted": {
+      "source": "LIMEIRA_TDA_PORTAL",
+      "host": "transparencia.limeira.sp.gov.br",
+      "purpose": "DISCOVER_EXPLICITLY_DECLARED_MACHINE_READABLE_ACCOUNTING_ROUTE",
+      "method": "GET_READ_ONLY"
+    },
+    "request_budget": {
+      "max_requests": 1,
+      "max_redirects_followed": 0,
+      "retry_max": 0,
+      "timeout_seconds": 30,
+      "max_response_bytes": 2000000
+    },
+    "exact_first_request": {
+      "method": "GET",
+      "url": "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+      "accept": "text/html,application/json;q=0.9,*/*;q=0.1"
+    },
+    "allowed_response_inspection": [
+      "http_status",
+      "location_header_without_following_redirect",
+      "content_type",
+      "byte_count",
+      "sha256",
+      "literal_declared_https_links",
+      "literal_declared_relative_links",
+      "literal_machine_readable_markers_json_csv_xlsx_zip_api_download"
+    ],
+    "machine_readable_candidate_rule": "Candidate route must be literally declared by the official response and remain on an official Limeira municipal host or a clearly declared official data host.",
+    "if_3xx_or_login_barrier": "SOURCE_ACCESS_SURFACE_BLOCKED",
+    "if_200_without_declared_machine_route": "STOP_NO_DECLARED_MACHINE_READABLE_ROUTE_ON_EXACT_PUBLIC_SURFACE",
+    "if_declared_machine_route_found": "PIN_CANDIDATE_ROUTE_AND_DESIGN_SEPARATE_SCHEMA_VALIDATION_GATE_BEFORE_COLLECTION",
+    "transport_failure": "SOURCE_TRANSPORT_UNAVAILABLE_NOT_NO_MATCH"
+  },
+  "forbidden_actions": [
+    "FOLLOW_REDIRECT",
+    "AUTHENTICATE",
+    "SUBMIT_FORM",
+    "EXECUTE_JAVASCRIPT",
+    "BYPASS_CAPTCHA",
+    "GUESS_ENDPOINT",
+    "BRUTE_FORCE_PATHS",
+    "INFER_NO_DATA_FROM_ACCESS_BARRIER",
+    "PROMOTE_FINANCIAL_IDENTITY",
+    "PROMOTE_TRANSACTION_IDENTITY"
+  ],
+  "fallback_after_blocked_tda": {
+    "TCE_SP_DESPESAS": {
+      "role": "CONTROL_PRIMARY_CORROBORATION_ONLY",
+      "known_normalized_fields": [
+        "event",
+        "commitment",
+        "supplier_id",
+        "supplier_name",
+        "date",
+        "value",
+        "organ",
+        "month"
+      ],
+      "missing_for_policy_discovery": [
+        "policy_marker",
+        "program_action_subaction",
+        "ficha_or_dotacao"
+      ],
+      "rule": "Do not use TCE alone to discover or promote EITI financial identity."
+    }
+  },
+  "remote_effects_this_task": {
+    "network": 0,
+    "drive": 0,
+    "publication": 0
+  },
+  "next_action": "AFTER_REVIEW_AND_MERGE_WAIT_FOR_FRESH_EXPLICIT_OWNER_AUTHORIZATION_FOR_THE_EXACT_LIMEIRA_TDA_READ_SCOPE_BEFORE_EXECUTING_THE_ONE_REQUEST_DISCOVERY_GATE"
+}
