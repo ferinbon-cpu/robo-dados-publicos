@@ -301,7 +301,9 @@
           "nominal_change_2024_2025_pct": "1.21",
           "real_change_2024_2025_pct": "-2.92",
           "fin_q4": "MATERIALIZED_ANSWERABLE",
-          "snapshot_id": "PENDING_CANONICAL_CI"
+          "snapshot_id": "78f71327acc6c5de2267943b",
+          "content_sha256": "78f71327acc6c5de2267943bdfc95c85a4000e696acb0ddacca0dae3745d39bd",
+          "school_indicator_series_snapshot_id": "68b82bf24a9347d591bdc2da"
         }
       ],
       "current_materialization_status": "TASK192_NOMINAL_VS_IPCA_REAL_ANNUAL_EDUCATION_EXPENDITURE_MATERIALIZED_WITHIN_PARTIAL_FISCAL_SERIES"
