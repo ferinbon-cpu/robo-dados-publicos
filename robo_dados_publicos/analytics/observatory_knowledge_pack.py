@@ -333,6 +333,11 @@ def _eval_product_signal(
     rows = [dict(row) for row in product.get("rows", [])]
     gaps: list[str] = []
 
+    required_capabilities = {str(x) for x in signal.get("required_capabilities") or []}
+    observed_capabilities = {str(x) for x in product.get("capabilities") or []}
+    for capability in sorted(required_capabilities - observed_capabilities):
+        gaps.append(f"CAPABILITY:{capability}")
+
     min_rows = int(signal.get("min_rows") or 0)
     if min_rows and len(rows) < min_rows:
         gaps.append(f"MIN_ROWS:{min_rows}")
