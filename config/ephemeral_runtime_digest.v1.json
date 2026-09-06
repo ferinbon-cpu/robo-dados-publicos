@@ -29,7 +29,7 @@
       ],
       "processor_source": {
         "module_path": "robo_dados_publicos/journal/processing.py",
-        "expected_git_blob_sha": "7dc539955c99caa6f2a0f1824e8492290ad75344",
+        "expected_git_blob_sha": "f6791b7313cde8e76ef1a044c1a6a1b995178792",
         "forbidden_import_roots": [
           "boto3",
           "ftplib",
