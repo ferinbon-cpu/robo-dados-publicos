@@ -1,0 +1,187 @@
+{
+  "version": 1,
+  "schema": "TASK172_OBSERVATORY_FISCAL_MACHINE_READABLE_BATCH_V1",
+  "task": "TASK_172_BOUNDED_OBSERVATORY_FISCAL_MACHINE_READABLE_ACQUISITION",
+  "issue": 556,
+  "base_main_sha": "57359d85aa7ba185cc2a622b41dec917b33a4318",
+  "jurisdiction": "Limeira/SP",
+  "entity": {
+    "ibge_code": "3526902",
+    "cnpj_prefeitura": "45132495000140",
+    "name": "LIMEIRA"
+  },
+  "owner_authorization": {
+    "text": "Prossiga depois pegue os json das urls q faltam das outras categorias. Tenho muito dos indicadores escolares, precisamos mapear o orçamentário...",
+    "scope": "READ_ONLY_OFFICIAL_MACHINE_READABLE_FISCAL_OBSERVATORY_BATCH",
+    "source_mutation_authorized": false,
+    "drive_write_authorized": false,
+    "serving_publication_authorized": false
+  },
+  "network_policy": {
+    "method": "GET",
+    "max_requests": 13,
+    "retry": 0,
+    "follow_redirects": false,
+    "max_response_bytes": 30000000,
+    "raw_body_persistence": false,
+    "allowed_hosts": [
+      "apidatalake.tesouro.gov.br",
+      "www.gov.br",
+      "transparencia.tce.sp.gov.br",
+      "transparencia.limeira.sp.gov.br"
+    ],
+    "forbidden": [
+      "AUTHENTICATION",
+      "FORM_SUBMISSION",
+      "JAVASCRIPT_EXECUTION",
+      "CAPTCHA_BYPASS",
+      "ENDPOINT_GUESSING",
+      "INTERNAL_PATH_INFERENCE",
+      "SOURCE_WRITE"
+    ]
+  },
+  "sources": [
+    {
+      "id": "SICONFI_RREO_2025_ANEXO_01",
+      "role": "BUDGET_EXECUTION_AGGREGATE_PRIMARY",
+      "format": "JSON",
+      "url": "https://apidatalake.tesouro.gov.br/ords/siconfi/tt/rreo?an_exercicio=2025&nr_periodo=6&co_tipo_demonstrativo=RREO&no_anexo=RREO-Anexo%2001&co_esfera=M&id_ente=3526902",
+      "expected_content_family": "JSON",
+      "purpose": "closed-year budget balance"
+    },
+    {
+      "id": "SICONFI_RREO_2025_ANEXO_02",
+      "role": "BUDGET_EXECUTION_AGGREGATE_PRIMARY",
+      "format": "JSON",
+      "url": "https://apidatalake.tesouro.gov.br/ords/siconfi/tt/rreo?an_exercicio=2025&nr_periodo=6&co_tipo_demonstrativo=RREO&no_anexo=RREO-Anexo%2002&co_esfera=M&id_ente=3526902",
+      "expected_content_family": "JSON",
+      "purpose": "expense execution by function and subfunction"
+    },
+    {
+      "id": "SICONFI_RREO_2025_ANEXO_08",
+      "role": "EDUCATION_BUDGET_PRIMARY",
+      "format": "JSON",
+      "url": "https://apidatalake.tesouro.gov.br/ords/siconfi/tt/rreo?an_exercicio=2025&nr_periodo=6&co_tipo_demonstrativo=RREO&no_anexo=RREO-Anexo%2008&co_esfera=M&id_ente=3526902",
+      "expected_content_family": "JSON",
+      "purpose": "MDE education revenue and expenditure"
+    },
+    {
+      "id": "SICONFI_RGF_2025_ANEXO_01",
+      "role": "FISCAL_PERSONNEL_PRIMARY",
+      "format": "JSON",
+      "url": "https://apidatalake.tesouro.gov.br/ords/siconfi/tt/rgf?an_exercicio=2025&in_periodicidade=Q&nr_periodo=3&co_tipo_demonstrativo=RGF&no_anexo=RGF-Anexo%2001&co_esfera=M&co_poder=E&id_ente=3526902",
+      "expected_content_family": "JSON",
+      "purpose": "executive personnel expenditure and LRF limits"
+    },
+    {
+      "id": "FNDE_FUNDEB_2026_RECEITA_TOTAL",
+      "role": "EDUCATION_FINANCING_PRIMARY",
+      "format": "CSV",
+      "url": "https://www.gov.br/fnde/pt-br/acesso-a-informacao/acoes-e-programas/financiamento/fundeb/2026-1/publicacoes-2026/3-publicacoes/1-receita-total-do-fundeb-por-ente-federado-p-11.csv",
+      "expected_content_family": "CSV",
+      "selector": {"contains_any": ["LIMEIRA", "3526902"]},
+      "purpose": "current 3rd-publication Fundeb total revenue"
+    },
+    {
+      "id": "FNDE_FUNDEB_2026_VAAR_PREVISTA",
+      "role": "EDUCATION_FINANCING_PRIMARY",
+      "format": "CSV",
+      "url": "https://www.gov.br/fnde/pt-br/acesso-a-informacao/acoes-e-programas/financiamento/fundeb/2026-1/publicacoes-2026/3-publicacoes/6-redes-beneficiadas-coeficientes-de-distribuicao-e-complementacao-vaar-prevista-p11.csv",
+      "expected_content_family": "CSV",
+      "selector": {"contains_any": ["LIMEIRA", "3526902"]},
+      "purpose": "current VAAR beneficiary coefficient and forecast"
+    },
+    {
+      "id": "FNDE_FUNDEB_2026_VAAR_INDICADORES",
+      "role": "EDUCATION_POLICY_FINANCE_PRIMARY",
+      "format": "CSV",
+      "url": "https://www.gov.br/fnde/pt-br/acesso-a-informacao/acoes-e-programas/financiamento/fundeb/2026-1/indicadores-atendimento-aprendizagem-vaar-2026-iii.csv",
+      "expected_content_family": "CSV",
+      "selector": {"contains_any": ["LIMEIRA", "3526902"]},
+      "purpose": "VAAR attendance and learning indicators"
+    },
+    {
+      "id": "FNDE_FUNDEB_2026_VAAT_HABILITACAO",
+      "role": "EDUCATION_FINANCING_ELIGIBILITY_PRIMARY",
+      "format": "CSV",
+      "url": "https://www.gov.br/fnde/pt-br/acesso-a-informacao/acoes-e-programas/financiamento/fundeb/vaat/lista-dos-entes-habilitados-e-inabilitados-ao-vaat-2026-posicao-final-com-ajuste-de-decisao-judicial-edit-csv.csv",
+      "expected_content_family": "CSV",
+      "selector": {"contains_any": ["LIMEIRA", "3526902"]},
+      "purpose": "VAAT 2026 final eligibility status"
+    },
+    {
+      "id": "TCESP_LIMEIRA_2026_RECEITAS",
+      "role": "CONTROL_PRIMARY_CURRENT_REVENUE",
+      "format": "ZIP",
+      "url": "https://transparencia.tce.sp.gov.br/sites/default/files/csv/receitas-limeira-2026.zip",
+      "expected_content_family": "ZIP",
+      "purpose": "current detailed revenue control dataset"
+    },
+    {
+      "id": "TCESP_LIMEIRA_2026_DESPESAS",
+      "role": "CONTROL_PRIMARY_CURRENT_EXPENDITURE",
+      "format": "ZIP",
+      "url": "https://transparencia.tce.sp.gov.br/sites/default/files/csv/despesas-limeira-2026.zip",
+      "expected_content_family": "ZIP",
+      "purpose": "current detailed expense control dataset"
+    },
+    {
+      "id": "TCESP_LIMEIRA_2026_RESTOS",
+      "role": "CONTROL_PRIMARY_CURRENT_RESTOS_A_PAGAR",
+      "format": "ZIP",
+      "url": "https://transparencia.tce.sp.gov.br/sites/default/files/dados/planilhas/restos/limeira-2026.zip",
+      "expected_content_family": "ZIP",
+      "purpose": "current restos a pagar control dataset"
+    },
+    {
+      "id": "TDA_LIMEIRA_DECLARED_ROUTE_DISCOVERY",
+      "role": "ACCOUNTING_EXECUTION_PRIMARY_DISCOVERY",
+      "format": "HTML_DISCOVERY",
+      "url": "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+      "expected_content_family": "HTML_OR_REDIRECT",
+      "purpose": "discover only explicitly declared machine-readable route from exact known public surface",
+      "optional_followup_if_declared": true,
+      "allowed_declared_extensions": [".json", ".csv", ".xlsx", ".xls", ".zip"],
+      "allowed_declared_markers": ["/api/", "download", "export"]
+    }
+  ],
+  "adjudication": {
+    "transport_failure": "SOURCE_TRANSPORT_UNAVAILABLE_NOT_NO_DATA",
+    "http_non_2xx": "SOURCE_HTTP_UNAVAILABLE_NOT_NO_DATA",
+    "empty_machine_readable_result": "EMPTY_WITHIN_EXACT_QUERY_NOT_GLOBAL_ABSENCE",
+    "tda_login_session_barrier": "SOURCE_ACCESS_SURFACE_BLOCKED",
+    "tda_no_declared_machine_route": "STOP_NO_DECLARED_MACHINE_READABLE_ROUTE",
+    "raw_payload": "NEVER_PERSIST",
+    "policy_identity_promotion": false,
+    "financial_identity_promotion": false,
+    "payment_promotion": false
+  },
+  "sanitized_output": {
+    "schema": "TASK172_SANITIZED_RESULT_V1",
+    "allowed": [
+      "source_id",
+      "status",
+      "http_status",
+      "content_type",
+      "bytes",
+      "sha256",
+      "schema_keys",
+      "record_count",
+      "limeira_selected_rows",
+      "zip_member_names",
+      "csv_headers",
+      "declared_machine_routes"
+    ],
+    "raw_body": false
+  },
+  "remote_effects": {
+    "source_gets_authorized_within_contract": true,
+    "source_writes": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
