@@ -1,0 +1,234 @@
+{
+  "version": 1,
+  "schema": "EXISTING_CUSTODY_PRODUCT_INGESTION_CROSSWALK_V1",
+  "task": "TASK_179_EXISTING_CUSTODY_CORPUS_REGISTRY",
+  "upstream_registry": "config/existing_custody_corpus_registry.v1.json",
+  "task176_products": "config/observatory_query_products.v1.json",
+  "observatory_ontology": "config/observatory_question_ontology.v1.json",
+  "product_status_enum": [
+    "READY_FROM_EXISTING_CUSTODY",
+    "READY_PARTIAL_ONLY",
+    "DOCUMENT_INDEX_READY_NUMERIC_NOT_READY",
+    "NO_NEW_CUSTODY_INPUT_REQUIRED",
+    "BLOCKED_NEEDS_BASE_HANDOFF"
+  ],
+  "products": {
+    "SCHOOL_INDICATOR_SERIES": {
+      "current_status": "READY_PARTIAL_ONLY",
+      "canonical_inputs": [
+        "BASE_MESTRA_LIMEIRA_V05",
+        "CAMADA_ANALITICA_V06_40_ESCOLAS_V08"
+      ],
+      "currently_readable_inputs": [
+        "INDICATORS_COLLECTION_2026_PUBLICATION"
+      ],
+      "allowed_partial_sources": [
+        "INDICATORS_COLLECTION_2026_PUBLICATION:VOLUME_III_V07",
+        "INDICATORS_COLLECTION_2026_PUBLICATION:VOLUME_II_V06"
+      ],
+      "narrative_context_sources": [
+        "INDICATORS_COLLECTION_2026_PUBLICATION:VOLUME_I_V07"
+      ],
+      "full_materialization_requires": [
+        "BASE_MESTRA_LIMEIRA_V05"
+      ],
+      "preferred_optional_extension": [
+        "CAMADA_ANALITICA_V06_40_ESCOLAS_V08"
+      ],
+      "identity_key": "INEP_CODE",
+      "target_domains": [
+        "NETWORK_ENROLLMENT",
+        "SCHOOLS_INFRASTRUCTURE",
+        "LEARNING_FLOW",
+        "EQUITY_INCLUSION",
+        "TEACHERS_WORKFORCE"
+      ],
+      "guards": [
+        "NOT_APPLICABLE_NE_MISSING_NE_ZERO",
+        "NARRATIVE_NE_CANONICAL_NUMERIC_ROW",
+        "SCHOOL_NAME_NE_IDENTITY_WHEN_INEP_CODE_AVAILABLE"
+      ]
+    },
+    "PLANNING_DOCUMENT_INDEX": {
+      "current_status": "READY_FROM_EXISTING_CUSTODY",
+      "canonical_inputs": [
+        "CEREBRO_NORMATIVO_GESTAO_ESCOLAR_LIMEIRA",
+        "MD_01_2_BASE_UNIFICADA_FISCAL_ORCAMENTARIA_LIMEIRA"
+      ],
+      "enrichment_inputs_needing_handoff": [
+        "MD_01_3B_CORPUS"
+      ],
+      "governance_only_inputs": [
+        "MD_00_V17",
+        "MD_00_1_V02"
+      ],
+      "target_domains": [
+        "PLANNING_BUDGET",
+        "NORMS_SCHOOL_FUNCTIONING",
+        "PUBLIC_POLICIES",
+        "PERSONNEL_MANAGEMENT",
+        "TRANSPARENCY_CONTROL"
+      ],
+      "guards": [
+        "SYNTHESIS_NE_OFFICIAL_NORM_PROOF",
+        "DOCUMENT_LOCATOR_REQUIRED",
+        "HISTORICAL_OR_REVOKED_CONTEXT_ONLY"
+      ]
+    },
+    "FISCAL_SERIES": {
+      "current_status": "READY_PARTIAL_ONLY",
+      "currently_readable_inputs": [
+        "MD_01_2_BASE_UNIFICADA_FISCAL_ORCAMENTARIA_LIMEIRA"
+      ],
+      "stronger_existing_system_sources": [
+        "TCE_SP_EXPENSES",
+        "SIOPE",
+        "SICONFI_STN",
+        "FUNDEB"
+      ],
+      "enrichment_inputs_needing_handoff": [
+        "MD_01_3B_CORPUS"
+      ],
+      "target_domains": [
+        "FINANCING",
+        "PLANNING_BUDGET",
+        "ACCOUNTING_EXECUTION",
+        "TEACHERS_WORKFORCE",
+        "PERSONNEL_MANAGEMENT",
+        "TRANSPARENCY_CONTROL"
+      ],
+      "guards": [
+        "EXPLICIT_TABLE_ROW_WITH_PERIOD_SOURCE_AND_METRIC_REQUIRED",
+        "INTERPRETATION_NE_NUMERIC_TRUTH",
+        "PARTIAL_EXECUTION_NE_ANNUAL_CLOSURE",
+        "FUNDEB_NE_MDE_NE_GENERAL_BUDGET_NE_LRF_PERSONNEL"
+      ]
+    },
+    "JOM_EVENT_INDEX": {
+      "current_status": "NO_NEW_CUSTODY_INPUT_REQUIRED",
+      "existing_system_source": "JORNAL_OFICIAL",
+      "optional_context_inputs": [
+        "CEREBRO_NORMATIVO_GESTAO_ESCOLAR_LIMEIRA"
+      ],
+      "target_domains": [
+        "JOURNAL_EVENT_RADAR",
+        "NORMS_SCHOOL_FUNCTIONING",
+        "PUBLIC_POLICIES",
+        "PERSONNEL_MANAGEMENT",
+        "PROCUREMENT_CONTRACTS",
+        "SCHOOLS_INFRASTRUCTURE"
+      ],
+      "guards": [
+        "CUSTODY_SYNTHESIS_MAY_ENRICH_TOPIC_ROUTING_NOT_EVENT_IDENTITY"
+      ]
+    },
+    "ACCOUNTING_LEDGER": {
+      "current_status": "NO_NEW_CUSTODY_INPUT_REQUIRED",
+      "existing_system_source": "TCE_SP_EXPENSES",
+      "optional_context_inputs": [
+        "MD_01_2_BASE_UNIFICADA_FISCAL_ORCAMENTARIA_LIMEIRA"
+      ],
+      "target_domains": [
+        "ACCOUNTING_EXECUTION",
+        "FINANCING",
+        "PROCUREMENT_CONTRACTS",
+        "SCHOOLS_INFRASTRUCTURE",
+        "TRANSPARENCY_CONTROL"
+      ],
+      "guards": [
+        "MD_FISCAL_CONTEXT_NE_ACCOUNTING_TRANSACTION_IDENTITY",
+        "TCE_STAGE_SEPARATION_PRESERVED"
+      ]
+    },
+    "QUERY_PRODUCT_CATALOG": {
+      "current_status": "READY_FROM_EXISTING_CUSTODY",
+      "catalog_inputs": [
+        "INDICATORS_COLLECTION_2026_PUBLICATION",
+        "BASE_MESTRA_LIMEIRA_V05",
+        "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
+        "CEREBRO_NORMATIVO_GESTAO_ESCOLAR_LIMEIRA",
+        "MD_01_2_BASE_UNIFICADA_FISCAL_ORCAMENTARIA_LIMEIRA",
+        "MD_01_3B_CORPUS",
+        "MD_00_V17",
+        "MD_00_1_V02"
+      ],
+      "target_domains": [
+        "TRANSPARENCY_CONTROL"
+      ],
+      "guards": [
+        "CATALOG_AVAILABILITY_NE_SUBSTANTIVE_EVIDENCE"
+      ]
+    }
+  },
+  "handoff_priority": [
+    {
+      "rank": 1,
+      "asset_id": "BASE_MESTRA_LIMEIRA_V05",
+      "reason": "UNLOCKS_FULL_SCHOOL_INDICATOR_SERIES_FOR_69_UNIT_NETWORK_AND_SCHOOL_LEVEL_QUERYING",
+      "expected_product_gain": [
+        "SCHOOL_INDICATOR_SERIES"
+      ],
+      "expected_domain_gain": [
+        "NETWORK_ENROLLMENT",
+        "SCHOOLS_INFRASTRUCTURE",
+        "LEARNING_FLOW",
+        "EQUITY_INCLUSION",
+        "TEACHERS_WORKFORCE"
+      ]
+    },
+    {
+      "rank": 2,
+      "asset_id": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
+      "reason": "ADDS_AUDITABLE_HISTORICAL_EXTENSION_AND_RECOVERED_SCHOOL_SERIES",
+      "expected_product_gain": [
+        "SCHOOL_INDICATOR_SERIES"
+      ],
+      "expected_domain_gain": [
+        "LEARNING_FLOW",
+        "TEACHERS_WORKFORCE",
+        "EQUITY_INCLUSION"
+      ]
+    },
+    {
+      "rank": 3,
+      "asset_id": "MD_01_3B_CORPUS",
+      "reason": "UNLOCKS_194_DOCUMENT_CORPUS_FOR_EXACT_DOCUMENT_LOCATORS_AND_FISCAL_RECONCILIATION",
+      "expected_product_gain": [
+        "PLANNING_DOCUMENT_INDEX",
+        "FISCAL_SERIES"
+      ],
+      "expected_domain_gain": [
+        "PLANNING_BUDGET",
+        "FINANCING",
+        "TRANSPARENCY_CONTROL",
+        "PUBLIC_POLICIES"
+      ]
+    },
+    {
+      "rank": 4,
+      "asset_id": "LATEST_CEREBRO_NORMATIVO_IF_NEWER_THAN_DISCOVERED_V0_1",
+      "reason": "REFRESHES_OPERATIONAL_NORMATIVE_SYNTHESIS_WITHOUT_REPLACING_OFFICIAL_NORMS",
+      "expected_product_gain": [
+        "PLANNING_DOCUMENT_INDEX"
+      ],
+      "expected_domain_gain": [
+        "NORMS_SCHOOL_FUNCTIONING",
+        "PERSONNEL_MANAGEMENT",
+        "PUBLIC_POLICIES"
+      ]
+    }
+  ],
+  "noncanonical_task_note": {
+    "task_178_remote_serving_should_wait": true,
+    "reason": "MAP_AND_INGEST_EXISTING_CUSTODY_BEFORE_FIRST_REMOTE_OBSERVATORY_SERVING_PROOF"
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
