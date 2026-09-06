@@ -1,0 +1,206 @@
+{
+  "version": 1,
+  "schema": "TASK187_TCESP_RICH_EXPENSES_2026_V1",
+  "task": "TASK_187_TCESP_RICH_ACCOUNTING_LEDGER_2026",
+  "mode": "OWNER_SUPPLIED_OFFICIAL_ZIP_OFFLINE",
+  "source": {
+    "source_id": "TCESP_LIMEIRA_2026_DESPESAS_RICH_CSV",
+    "authority": "Tribunal de Contas do Estado de Sao Paulo",
+    "url": "https://transparencia.tce.sp.gov.br/sites/default/files/csv/despesas-limeira-2026.zip",
+    "fiscal_year": 2026,
+    "zip_sha256": "e696c40b1af0e68efca01e8f819cd26c62a3f62881692e0da33d867604d4d11b",
+    "zip_bytes": 2132655,
+    "csv_member": "despesas-limeira-2026.csv",
+    "csv_sha256": "87b640aa9d854832bdd66b452d8532043e9f27bc12ec638ee77dcb5d8001f152",
+    "csv_bytes": 17226548,
+    "csv_encoding": "cp1252",
+    "delimiter": ";",
+    "months_expected": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "exact_headers": [
+      "id_despesa_detalhe",
+      "ano_exercicio",
+      "ds_municipio",
+      "ds_orgao",
+      "mes_referencia",
+      "mes_ref_extenso",
+      "tp_despesa",
+      "nr_empenho",
+      "identificador_despesa",
+      "ds_despesa",
+      "dt_emissao_despesa",
+      "vl_despesa",
+      "ds_funcao_governo",
+      "ds_subfuncao_governo",
+      "cd_programa",
+      "ds_programa",
+      "cd_acao",
+      "ds_acao",
+      "ds_fonte_recurso",
+      "ds_cd_aplicacao_fixo",
+      "ds_modalidade_lic",
+      "ds_elemento",
+      "historico_despesa"
+    ],
+    "allowed_empty_fields": [
+      "ds_elemento"
+    ]
+  },
+  "observed": {
+    "row_count": 39779,
+    "unique_official_ids": 39779,
+    "duplicate_official_ids": 0,
+    "invalid_amounts": 0,
+    "expense_element_empty_rows": 2,
+    "month_row_counts": {
+      "1": 4860,
+      "2": 4680,
+      "3": 5630,
+      "4": 6065,
+      "5": 6152,
+      "6": 6122,
+      "7": 6270
+    },
+    "organs": {
+      "PREFEITURA MUNICIPAL DE LIMEIRA": 36406,
+      "CÂMARA MUNICIPAL DE LIMEIRA": 2582,
+      "INSTITUTO DE PREVIDÊNCIA MUNICIPAL DE LIMEIRA": 791
+    },
+    "events": {
+      "Empenhado": 6956,
+      "Reforço": 757,
+      "Anulação": 684,
+      "Valor Liquidado": 16460,
+      "Valor Pago": 14922
+    }
+  },
+  "identity_semantics": {
+    "official_record_id_field": "id_despesa_detalhe",
+    "supplier_public_id_field": "identificador_despesa",
+    "supplier_name_field": "ds_despesa",
+    "correction": "identificador_despesa is supplier identity and MUST NOT be used as source accounting record identity"
+  },
+  "reconciliation": {
+    "prior_snapshot_id": "8c898422c61137c6a51755ec",
+    "prior_row_count": 39779,
+    "exact_one_to_one": true,
+    "matched_rows": 39779,
+    "unmatched_prior": 0,
+    "unmatched_rich_csv": 0,
+    "comparison_projection": [
+      "mes_referencia",
+      "ds_orgao",
+      "tp_despesa",
+      "nr_empenho",
+      "identificador_despesa",
+      "html_unescaped_ds_despesa",
+      "dt_emissao_despesa",
+      "vl_despesa"
+    ],
+    "guard": "HTML_ENTITY_NORMALIZATION_ONLY_NE_WEAK_JOIN"
+  },
+  "capabilities": [
+    "COMMITMENT_AMOUNTS",
+    "COMMITMENT_NUMBER",
+    "EDUCATION_CLASSIFICATION",
+    "EVENT_MONTH",
+    "EXPENSE_ELEMENT",
+    "EXPENSE_ISSUE_DATE",
+    "FUNDING_SOURCE_APPLICATION",
+    "LIQUIDATION_AMOUNTS",
+    "PAYMENT_AMOUNTS",
+    "PROGRAMMATIC_CLASSIFICATION",
+    "REVERSAL_EVENTS",
+    "SOURCE_DESCRIPTION",
+    "SUPPLIER_AMOUNT"
+  ],
+  "missing_capabilities": [
+    "EVENT_DATE",
+    "RESTS_PAYABLE"
+  ],
+  "custody": {
+    "bronze_folder_id": "1cgG2YiVm14DYEqAJGFpB7GOKaRloIqUC",
+    "zip_drive_id": "1ZzvQJiRYRPwYz44YZyNmtiqcl8ab4wYu",
+    "csv_drive_id": "13stOkNA8U50nJuz_bV2ZY2dGqQX3MG-Y",
+    "manifest_drive_id": "1X6PA5TeiimujfVUM7PnCS7HmvmjC2njV",
+    "manifest_sha256": "cf4c0ccdd2004219f86022311de19ce9f53854fef518f3fa0fbbe620710ea15a",
+    "create_only": true
+  },
+  "amount_semantics": {
+    "COMMITMENT": "COMMITTED_VALUE",
+    "LIQUIDATION": "LIQUIDATED_VALUE",
+    "PAYMENT": "PAID_VALUE",
+    "REVERSAL": "REVERSAL_VALUE",
+    "OTHER_REVIEW": "SOURCE_EVENT_VALUE_UNCLASSIFIED"
+  },
+  "policy_domain_hints": {
+    "EDUCATION": [
+      "EDUCACAO",
+      "ENSINO",
+      "ESCOLA",
+      "CRECHE"
+    ],
+    "HEALTH": [
+      "SAUDE",
+      "ATENCAO BASICA",
+      "HOSPITAL",
+      "VIGILANCIA SANITARIA"
+    ],
+    "SOCIAL_ASSISTANCE": [
+      "ASSISTENCIA SOCIAL",
+      "PROTECAO SOCIAL"
+    ],
+    "ADMINISTRATION": [
+      "ADMINISTRACAO"
+    ],
+    "FINANCE": [
+      "FAZENDA",
+      "FINANCAS",
+      "ENCARGOS ESPECIAIS"
+    ],
+    "WORKS_INFRASTRUCTURE": [
+      "URBANISMO",
+      "HABITACAO",
+      "SANEAMENTO",
+      "OBRAS"
+    ],
+    "MOBILITY": [
+      "TRANSPORTE",
+      "TRANSITO"
+    ],
+    "ENVIRONMENT": [
+      "GESTAO AMBIENTAL",
+      "MEIO AMBIENTE"
+    ],
+    "CULTURE_SPORTS": [
+      "CULTURA",
+      "DESPORTO",
+      "LAZER"
+    ]
+  },
+  "guards": [
+    "OFFICIAL_DETAIL_ID_NE_SUPPLIER_ID",
+    "COMMITMENT_NE_LIQUIDATION_NE_PAYMENT",
+    "REINFORCEMENT_IS_COMMITMENT_MODIFIER",
+    "EXPENSE_ISSUE_DATE_NE_EVENT_DATE",
+    "PROGRAMMATIC_CLASSIFICATION_NE_POLICY_IDENTITY",
+    "REVENUE_NE_EXPENDITURE",
+    "AMOUNT_DATE_TEXT_NE_IDENTITY",
+    "NO_ETI_EXPENSE_IDENTITY_FROM_REVENUE_CLASSIFICATION"
+  ],
+  "remote_effects": {
+    "source_network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
