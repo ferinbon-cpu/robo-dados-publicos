@@ -1,0 +1,132 @@
+{
+  "version": 1,
+  "schema": "TASK190_RREO_EDUCATION_SPENDING_2026_V1",
+  "task": "TASK_190_RREO_EDUCATION_SPENDING_FISCAL_SERIES",
+  "mode": "T0_OFFLINE_EXISTING_CUSTODY_FISCAL_OVERLAY",
+  "jurisdiction": "Limeira/SP",
+  "entity": {
+    "entity_id": "3526902",
+    "name": "LIMEIRA"
+  },
+  "source": {
+    "family": "RREO",
+    "document_family": "RREO_ANEXO_8_MDE",
+    "source_role": "OFFICIAL_PRIMARY_FOR_MDE_CLAIMS",
+    "period_start": "2026-01-01",
+    "period_end": "2026-04-30",
+    "period": "2026-04",
+    "inbox_drive_id": "133MXfFVUUELPmYUb59oViU_vVbAEjukQ",
+    "bronze_drive_id": "1kMbVriROtR7Pwif8Ku7y2oY9TyLqWDj2",
+    "filename": "RREO_ANEXO_8_MDE_2026_JAN_ABR.pdf",
+    "bytes": 33147,
+    "sha256": "539144ae70edbcb3ca4662b9460c869ad4b21a6e6b027f3f3c332a0372e08361",
+    "readback_byte_identity_verified": true,
+    "silver_v1_drive_id": "1YmINhBM_jE2BnsYrVN5BuZMv5mE4ElmP",
+    "silver_v1_file_sha256": "fe76d088143e61b9f0d5b1f611757bee924b5a2c95abae5fa5908b1b85b742f9",
+    "silver_v1_logical_sha256": "72cc2cb29990809c043877ef8b0ef19d61f1064b093ef58fdb8fcc0f87386c81",
+    "silver_status": "SILVER_SCOPED_VALIDATED",
+    "authority_rule": "RREO_MDE_FOR_OFFICIAL_MDE_CLAIMS"
+  },
+  "source_observation": {
+    "locator": "RREO_ANEXO_8:line:33:TOTAL_GERAL_DAS_DESPESAS_COM_EDUCACAO",
+    "label": "TOTAL GERAL DAS DESPESAS COM EDUCACAO (10 + 20 + 32)",
+    "committed_brl": "319000956.31",
+    "liquidated_brl": "138279835.79",
+    "paid_brl": "104176664.15",
+    "current_assets": {
+      "committed_brl": "315284287.49",
+      "liquidated_brl": "136202970.58",
+      "paid_brl": "102378786.19"
+    },
+    "active_personnel": {
+      "committed_brl": "225215508.88",
+      "liquidated_brl": "104233818.72",
+      "paid_brl": "74766373.48"
+    },
+    "other_current_expenses": {
+      "committed_brl": "90068778.61",
+      "liquidated_brl": "31969151.86",
+      "paid_brl": "27612412.71"
+    },
+    "capital_expenses": {
+      "committed_brl": "3716668.82",
+      "liquidated_brl": "2076865.21",
+      "paid_brl": "1797877.96"
+    }
+  },
+  "interim_semantics": {
+    "rreo_note_5_rule": "FIRST_FIVE_BIMESTERS_TRACK_CONSTITUTIONAL_APPLICATION_USING_LIQUIDATED_EXPENSE;LAST_BIMESTER_USES_COMMITTED_EXPENSE",
+    "canonical_current_spending_metric": "EDUCATION_EXPENDITURE",
+    "canonical_current_spending_stage": "LIQUIDATED_TO_DATE",
+    "why": "CURRENT_2026_PERIOD_IS_SECOND_BIMESTER_AND_SOURCE_EXPLICITLY_DISTINGUISHES_COMMITTED_LIQUIDATED_PAID"
+  },
+  "fiscal_metrics": [
+    {
+      "metric_id": "EDUCATION_COMMITTED_EXPENDITURE",
+      "metric_name": "Despesa total com Educação empenhada até abril de 2026",
+      "value": "319000956.31",
+      "unit": "BRL",
+      "stage_semantic": "COMMITTED_TO_DATE",
+      "provenance_suffix": "DESPESAS_EMPENHADAS"
+    },
+    {
+      "metric_id": "EDUCATION_EXPENDITURE",
+      "metric_name": "Despesa total com Educação liquidada até abril de 2026",
+      "value": "138279835.79",
+      "unit": "BRL",
+      "stage_semantic": "LIQUIDATED_TO_DATE",
+      "provenance_suffix": "DESPESAS_LIQUIDADAS"
+    },
+    {
+      "metric_id": "EDUCATION_PAID_EXPENDITURE",
+      "metric_name": "Despesa total com Educação paga até abril de 2026",
+      "value": "104176664.15",
+      "unit": "BRL",
+      "stage_semantic": "PAID_TO_DATE",
+      "provenance_suffix": "DESPESAS_PAGAS"
+    }
+  ],
+  "contextual_reconciliation": {
+    "rreo_anexo_2_function_education": {
+      "committed_brl": "270671381.58",
+      "liquidated_brl": "118273067.96",
+      "role": "CONTEXTUAL_SCOPE_COMPARISON_ONLY",
+      "equality_expected": false,
+      "reason": "RREO_ANEXO_8_MDE_TOTAL_AND_ANEXO_2_FUNCTION_SUBFUNCTION_USE_DIFFERENT_REPORTING_SCOPES"
+    },
+    "accounting_ledger": {
+      "snapshot_id": "64503339d8352a2f61e1ee85",
+      "education_classification_available": true,
+      "equality_expected": false,
+      "reason": "RREO_AGGREGATE_SCOPE_NE_TCESP_EVENT_LEDGER_SCOPE"
+    }
+  },
+  "enrollment_candidate_not_promoted": {
+    "source_title": "CENSO69_2025_V08.csv",
+    "period": "2025",
+    "active_units": 69,
+    "basic_education_enrollment": 22788,
+    "status": "VALIDATED_CANDIDATE_NOT_MATERIALIZED_IN_TASK190",
+    "reason": "2025_ANNUAL_ENROLLMENT_MUST_NOT_SILENTLY_BECOME_DENOMINATOR_FOR_PARTIAL_2026_SPENDING"
+  },
+  "guards": [
+    "LIQUIDATED_NE_PAID",
+    "COMMITTED_NE_LIQUIDATED",
+    "INTERIM_BIMONTHLY_NE_ANNUAL_FINAL",
+    "RREO_MDE_TOTAL_NE_TCE_FUNCTION_TOTAL",
+    "RREO_ANEXO8_NE_RREO_ANEXO2_SCOPE",
+    "MDE_CONSTITUTIONAL_TRACKING_NE_GENERIC_ACCOUNTING_IDENTITY",
+    "NO_NET_SPENDING_DERIVATION",
+    "NOMINAL_NE_REAL",
+    "2025_ENROLLMENT_NE_SILENT_2026_PARTIAL_DENOMINATOR"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
