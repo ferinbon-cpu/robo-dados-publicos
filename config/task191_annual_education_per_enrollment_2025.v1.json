@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "schema": "TASK191_ANNUAL_EDUCATION_PER_ENROLLMENT_2025_V1",
+  "task": "TASK_191_ANNUAL_EDUCATION_PER_ENROLLMENT_2025",
+  "mode": "T0_OFFLINE_EXISTING_CUSTODY_SAME_YEAR_BRIDGE",
+  "base_main_sha": "944985d7465c9b9124c32ed5fc848c9ac8d398ea",
+  "jurisdiction": "Limeira/SP",
+  "entity": {
+    "entity_id": "3526902",
+    "name": "LIMEIRA"
+  },
+  "annual_spending_source": {
+    "period": "2025",
+    "source_family": "RREO",
+    "document_family": "RREO_ANEXO_8_MDE",
+    "locator": "line:33:TOTAL_GERAL_DAS_DESPESAS_COM_EDUCACAO",
+    "official_observation_fixture": "tests/fixtures/siope_2025_operational_financial_alias_bridge/official_observations.json",
+    "observation_digest_sha256": "565c8f12ca40dece6c87382bf472bf85ade405335fc3213ebd21e5dd7935934c",
+    "committed_brl": "463766660.32",
+    "liquidated_brl": "455867723.30",
+    "paid_brl": "420264584.22",
+    "annual_canonical_stage": "COMMITTED_FINAL_BIMESTER",
+    "source_semantics": "RREO_NOTE_5_LAST_BIMESTER_USES_COMMITTED_EXPENSE",
+    "quality_status": "VALIDATED_RECONCILED_OFFICIAL_OBSERVATION",
+    "binary_source_hash_available_in_this_contract": false
+  },
+  "enrollment_source": {
+    "period": "2025",
+    "source_family": "CENSO_ESCOLAR",
+    "source_title": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08.xlsx",
+    "sheet": "81 Censo 69 2018-25",
+    "xlsx_sha256": "0516868e06685aebe8254b11ca6488ef26b03dea61f927ff637840cf2a21e865",
+    "scope_level": "NETWORK",
+    "scope_id": "3526902:MUNICIPAL:CURRENT_69_UNITS",
+    "active_units": 69,
+    "basic_education_enrollment": 22788,
+    "row_sum_verified": true,
+    "quality_status": "VALIDATED"
+  },
+  "derivation": {
+    "metric_id": "EDUCATION_SPENDING_PER_ENROLLMENT",
+    "numerator_metric_id": "EDUCATION_EXPENDITURE",
+    "numerator_period": "2025",
+    "numerator_stage": "COMMITTED_FINAL_BIMESTER",
+    "denominator_indicator_id": "BASIC_EDUCATION_ENROLLMENT",
+    "denominator_period": "2025",
+    "denominator_scope": "3526902:MUNICIPAL:CURRENT_69_UNITS",
+    "expected_value_brl_per_enrollment": "20351.35",
+    "rounding": "HALF_UP_0.01",
+    "semantic_label": "DESPESA_ANUAL_EDUCACAO_EMPENHADA_POR_MATRICULA_CENSO",
+    "individual_student_cost_claim": false
+  },
+  "guards": [
+    "SAME_FISCAL_YEAR_REQUIRED",
+    "LAST_BIMESTER_COMMITTED_NE_INTERIM_LIQUIDATED",
+    "PER_ENROLLMENT_NE_INDIVIDUAL_STUDENT_COST",
+    "CENSO_ENROLLMENT_COUNT_NE_PERSON_YEAR_COST",
+    "RREO_EDUCATION_TOTAL_NE_SCHOOL_LEVEL_EXPENDITURE",
+    "NOMINAL_NE_REAL",
+    "TASK191_MUST_NOT_CHANGE_FIN_Q1_CURRENT_2026_STAGE"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
