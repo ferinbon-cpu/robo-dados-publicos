@@ -1,0 +1,115 @@
+{
+  "schema": "TASK190_RREO_EDUCATION_SPENDING_FISCAL_SERIES_V1",
+  "task": "TASK_190_RREO_EDUCATION_SPENDING_FISCAL_SERIES",
+  "base_main_sha": "0cec2851f65d96d4982f9e5abb7ed44426556f9f",
+  "status": "PASS_OFFICIAL_RREO_EDUCATION_SPENDING_MATERIALIZED",
+  "source": {
+    "source_id": "F02_RREO_MDE_2026_JAN_ABR",
+    "source_family": "RREO",
+    "document_family": "RREO_ANEXO_8_MDE",
+    "source_role": "OFFICIAL_PRIMARY_FOR_MDE_CLAIMS",
+    "period_start": "2026-01-01",
+    "period_end": "2026-04-30",
+    "inbox_drive_id": "133MXfFVUUELPmYUb59oViU_vVbAEjukQ",
+    "bronze_drive_id": "1kMbVriROtR7Pwif8Ku7y2oY9TyLqWDj2",
+    "source_sha256": "539144ae70edbcb3ca4662b9460c869ad4b21a6e6b027f3f3c332a0372e08361",
+    "source_bytes": 33147,
+    "source_readback_byte_identity_verified": true,
+    "silver_v1_drive_id": "1YmINhBM_jE2BnsYrVN5BuZMv5mE4ElmP",
+    "silver_v1_logical_sha256": "72cc2cb29990809c043877ef8b0ef19d61f1064b093ef58fdb8fcc0f87386c81"
+  },
+  "observed_line_33": {
+    "label": "TOTAL GERAL DAS DESPESAS COM EDUCACAO (10 + 20 + 32)",
+    "committed_brl": "319000956.31",
+    "liquidated_brl": "138279835.79",
+    "paid_brl": "104176664.15",
+    "interim_rule": "FIRST_FIVE_BIMESTERS_TRACK_CONSTITUTIONAL_APPLICATION_USING_LIQUIDATED_EXPENSE",
+    "canonical_current_spending_metric": "EDUCATION_EXPENDITURE",
+    "canonical_current_spending_stage": "LIQUIDATED_TO_DATE"
+  },
+  "contextual_comparison": {
+    "rreo_anexo_2_function_education": {
+      "committed_brl": "270671381.58",
+      "liquidated_brl": "118273067.96",
+      "equality_expected": false,
+      "reason": "DIFFERENT_REPORTING_SCOPE"
+    },
+    "accounting_ledger": {
+      "snapshot_id": "64503339d8352a2f61e1ee85",
+      "education_classification_available": true,
+      "equality_expected": false,
+      "reason": "RREO_AGGREGATE_SCOPE_NE_TCESP_EVENT_LEDGER_SCOPE"
+    }
+  },
+  "fiscal_series": {
+    "base_task183_rows": 38,
+    "task190_rows_added": 3,
+    "row_count": 41,
+    "snapshot_id": "e130605546356808bd11800e",
+    "content_sha256": "e130605546356808bd11800e6cd7755e3d5d3b47a61e334474b35e4bd0a3dadc",
+    "json_sha256": "616634a2b82ba511589f4a2977b68f0a64cc91e8601a4608da2c4917b91c4fce",
+    "json_bytes": 31151,
+    "gzip_sha256": "7684de78c3b205524b3593b74184be170511d3f178e63810ad97f0d90113423a",
+    "gzip_bytes": 1790,
+    "snapshot_drive_id": "1hLHVUlLhS93r0UmzsGbv1869R3PKBghN",
+    "manifest_drive_id": "1e1kM7OOBV1RM3vhHEH2pM93LDXi5ZjgV",
+    "generated_at": "2026-09-06T15:30:00+00:00"
+  },
+  "enrollment_candidate": {
+    "source_title": "CENSO69_2025_V08.csv",
+    "active_units": 69,
+    "basic_education_enrollment_2025": 22788,
+    "row_sum_verified": true,
+    "materialized_in_task190": false,
+    "reason": "DO_NOT_USE_2025_ANNUAL_DENOMINATOR_AS_IF_SAME_PERIOD_AS_2026_PARTIAL_SPENDING"
+  },
+  "answerability": {
+    "before_status_counts": {
+      "EXPLICIT_GAP": 5,
+      "MATERIALIZED_ANSWERABLE": 24,
+      "MATERIALIZED_PARTIAL": 9
+    },
+    "expected_after_status_counts": {
+      "EXPLICIT_GAP": 3,
+      "MATERIALIZED_ANSWERABLE": 25,
+      "MATERIALIZED_PARTIAL": 10
+    },
+    "expected_changes": [
+      {
+        "question_id": "FIN_Q1",
+        "before": "MATERIALIZED_PARTIAL",
+        "after": "MATERIALIZED_ANSWERABLE"
+      },
+      {
+        "question_id": "FIN_Q2",
+        "before": "EXPLICIT_GAP",
+        "after": "MATERIALIZED_PARTIAL"
+      },
+      {
+        "question_id": "FIN_Q4",
+        "before": "EXPLICIT_GAP",
+        "after": "MATERIALIZED_PARTIAL"
+      }
+    ],
+    "exact_transition_must_be_recomputed_in_ci": true
+  },
+  "guards": [
+    "LIQUIDATED_NE_PAID",
+    "COMMITTED_NE_LIQUIDATED",
+    "INTERIM_BIMONTHLY_NE_ANNUAL_FINAL",
+    "RREO_MDE_TOTAL_NE_TCE_FUNCTION_TOTAL",
+    "RREO_ANEXO8_NE_RREO_ANEXO2_SCOPE",
+    "NO_NET_SPENDING_DERIVATION",
+    "NOMINAL_NE_REAL",
+    "2025_ENROLLMENT_NE_SILENT_2026_PARTIAL_DENOMINATOR"
+  ],
+  "remote_effects": {
+    "network": 0,
+    "drive_creates": 2,
+    "drive_overwrites": 0,
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  }
+}
