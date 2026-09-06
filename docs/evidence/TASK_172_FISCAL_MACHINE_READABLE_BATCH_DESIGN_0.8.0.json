@@ -1,0 +1,44 @@
+{
+  "task": "TASK_172_BOUNDED_OBSERVATORY_FISCAL_MACHINE_READABLE_ACQUISITION",
+  "issue": 556,
+  "mode": "T0_CONTRACT_IMPLEMENTATION_BEFORE_LIVE_EXECUTION",
+  "base_main_sha": "57359d85aa7ba185cc2a622b41dec917b33a4318",
+  "scope": "GENERAL_LIMEIRA_PUBLIC_DATA_OBSERVATORY_FISCAL_MACHINE_READABLE_BATCH",
+  "source_groups": {
+    "SICONFI_JSON": 4,
+    "FNDE_FUNDEB_CSV": 4,
+    "TCESP_CURRENT_ZIP": 3,
+    "TDA_DECLARED_ROUTE_DISCOVERY": 1
+  },
+  "request_budget": {
+    "base_gets": 12,
+    "optional_tda_followup": 1,
+    "max_gets": 13,
+    "retry": 0,
+    "redirect_follow": 0
+  },
+  "direct_json_first": true,
+  "official_csv_fallback_when_declared": true,
+  "raw_payload_persistence": false,
+  "automatic_promotions": {
+    "policy_identity": false,
+    "financial_identity": false,
+    "payment": false
+  },
+  "forbidden": [
+    "authentication",
+    "form_submission",
+    "javascript_execution",
+    "captcha_bypass",
+    "endpoint_guessing",
+    "internal_path_inference",
+    "source_write"
+  ],
+  "implementation": [
+    "config/task172_observatory_fiscal_machine_readable_batch.v1.json",
+    "robo_dados_publicos/research/task172_fiscal_machine_readable_batch.py",
+    "tests/test_task_172_fiscal_machine_readable_batch.py"
+  ],
+  "live_execution_status": "NOT_YET_EXECUTED",
+  "next": "OFFLINE_CI_THEN_ONE_BOUNDED_LIVE_BATCH_UNDER_PINNED_OWNER_AUTHORIZATION"
+}
