@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "schema": "TASK186_TCESP_REVENUE_2026_V1",
+  "task": "TASK_186_TCESP_REVENUE_LEDGER_2026",
+  "mode": "OWNER_SUPPLIED_OFFICIAL_ZIP_OFFLINE",
+  "source": {
+    "source_id": "TCESP_LIMEIRA_2026_RECEITAS_DETALHADAS",
+    "authority": "Tribunal de Contas do Estado de Sao Paulo",
+    "url": "https://transparencia.tce.sp.gov.br/sites/default/files/csv/receitas-limeira-2026.zip",
+    "fiscal_year": 2026,
+    "zip_sha256": "d138522776b1a10bf9b512741c442bfee04a0d3e03e04a1c20a38f44b84f7fc5",
+    "zip_bytes": 81921,
+    "csv_member": "receitas-limeira-2026.csv",
+    "csv_sha256": "725f605a68f1eea8aa76686b1025490ab08e1c5f2fb586f7a762c27d4831e34f",
+    "csv_bytes": 1303231,
+    "csv_encoding": "cp1252",
+    "delimiter": ";",
+    "months_expected": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "required_headers": [
+      "id_rec_arrec_detalhe",
+      "ano_exercicio",
+      "ds_municipio",
+      "ds_orgao",
+      "mes_referencia",
+      "mes_ref_extenso",
+      "ds_poder",
+      "ds_fonte_recurso",
+      "ds_cd_aplicacao_fixo",
+      "ds_cd_aplicacao_variavel",
+      "ds_categoria",
+      "ds_subcategoria",
+      "ds_fonte",
+      "ds_d1",
+      "ds_dd2",
+      "ds_d3",
+      "ds_tipo",
+      "vl_arrecadacao"
+    ]
+  },
+  "custody": {
+    "bronze_folder_id": "1cgG2YiVm14DYEqAJGFpB7GOKaRloIqUC",
+    "zip_drive_id": "1vVQYxNoRtWdQjOYYKGlZTUVdbLtpJo7V",
+    "csv_drive_id": "1aYYX4Qiim4aL2kBwo_PD7FLfmuzOaCCz",
+    "manifest_drive_id": "1YQsVe-Ima9CiP2nEqFNl1EZAYo6mH_pW",
+    "manifest_sha256": "7b55bbe4f26dade7c855599c6f99d3705893127080bb378b603fd4daf9f7e3ff",
+    "create_only": true
+  },
+  "observed": {
+    "row_count": 2286,
+    "month_row_counts": {
+      "1": 281,
+      "2": 297,
+      "3": 302,
+      "4": 348,
+      "5": 322,
+      "6": 349,
+      "7": 387
+    },
+    "unique_record_ids": 2286,
+    "negative_amount_rows": 267,
+    "invalid_amounts": 0,
+    "organs": {
+      "PREFEITURA MUNICIPAL DE LIMEIRA": 2107,
+      "INSTITUTO DE PREVIDÊNCIA MUNICIPAL DE LIMEIRA": 179
+    },
+    "august_present_in_snapshot": false,
+    "eti_direct_transfer_rows": 2,
+    "eti_direct_transfer_net_sum_brl": "3606418.18",
+    "eti_financial_remuneration_rows": 5,
+    "eti_financial_remuneration_net_sum_brl": "85724.69",
+    "eti_all_linked_rows": 7,
+    "eti_all_linked_net_sum_brl": "3692142.87"
+  },
+  "capabilities": [
+    "OFFICIAL_RECORD_ID",
+    "REVENUE_AMOUNT",
+    "EVENT_MONTH",
+    "FUNDING_SOURCE",
+    "APPLICATION_FIXED",
+    "APPLICATION_VARIABLE",
+    "REVENUE_NATURE_HIERARCHY",
+    "EDUCATION_REVENUE_CLASSIFICATION",
+    "FUNDEB_REVENUE_CLASSIFICATION",
+    "ETI_REVENUE_CLASSIFICATION"
+  ],
+  "guards": [
+    "REVENUE_NE_EXPENDITURE",
+    "REVENUE_CLASSIFICATION_NE_EXPENDITURE_DESTINATION",
+    "NEGATIVE_REVENUE_ROW_NE_INVALID_ROW",
+    "ETI_DIRECT_TRANSFER_NE_ETI_FINANCIAL_REMUNERATION",
+    "AUGUST_NOT_PRESENT_IN_SNAPSHOT_NE_GLOBAL_NO_REVENUE"
+  ],
+  "remote_effects": {
+    "source_network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

@@ -332,14 +332,14 @@
           "min_periods": 2
         },
         {
-          "kind": "METRIC",
-          "product": "FISCAL_SERIES",
-          "ids": [
-            "FUNDEB_REVENUE",
-            "OWN_SOURCE_EDUCATION",
-            "EDUCATION_TRANSFERS"
-          ],
-          "match": "ANY"
+          "kind": "PRODUCT",
+          "product": "REVENUE_LEDGER",
+          "required_capabilities": [
+            "REVENUE_AMOUNT",
+            "FUNDING_SOURCE",
+            "APPLICATION_FIXED",
+            "REVENUE_NATURE_HIERARCHY"
+          ]
         }
       ]
     },

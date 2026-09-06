@@ -110,6 +110,28 @@ def accounting():
     )
 
 
+def revenue():
+    row = {
+        "revenue_observation_id": "TCESP_REV_2026_1",
+        "source_record_id": "1",
+        "fiscal_year": 2026,
+        "revenue_month": 1,
+        "funding_source": "05 - TRANSFERÊNCIAS E CONVÊNIOS FEDERAIS-VINCULADOS",
+        "application_fixed": "260 - EDUCAÇÃO - FUNDEB - RECURSOS PRÓPRIOS",
+        "application_variable": "70 - FUNDEB - Fomento a matrículas ETI",
+        "revenue_type": "17515001 - Transferências do FUNDEB - Principal",
+        "amount_brl": "100.00",
+        "evidence_status": "OFFICIAL_TCESP_REVENUE_RECORD",
+        **common("TCE_SP_REVENUES", "Revenue is not expenditure."),
+    }
+    return materialize_product(
+        "REVENUE_LEDGER",
+        [row],
+        generated_at=GENERATED_AT,
+        software_version=SOFTWARE,
+    )
+
+
 def fiscal():
     row = {
         "entity_id": "3526902",
@@ -152,6 +174,7 @@ def bundle_without_catalog():
         "SCHOOL_INDICATOR_SERIES": school(),
         "JOM_EVENT_INDEX": jom(),
         "ACCOUNTING_LEDGER": accounting(),
+        "REVENUE_LEDGER": revenue(),
         "FISCAL_SERIES": fiscal(),
         "PLANNING_DOCUMENT_INDEX": planning(),
     }
@@ -182,17 +205,18 @@ class TestTask177ObservatoryQueryProductServing(unittest.TestCase):
     def test_contract_passes_and_legacy_bi_allowlist_stays_unchanged(self):
         got = validate_contract()
         self.assertEqual(got["status"], "PASS")
-        self.assertEqual(got["product_count"], 6)
+        self.assertEqual(got["product_count"], 7)
         self.assertTrue(got["legacy_bi_allowlist_unchanged"])
         legacy = json.loads((ROOT / "config/bi/serving.v1.json").read_text(encoding="utf-8"))
         self.assertEqual(len(legacy["dataset_allowlist"]), 6)
         self.assertFalse(any(x.startswith("OBS_") for x in legacy["serving_names"]))
 
-    def test_all_six_products_have_exact_obs_serving_names(self):
+    def test_all_seven_products_have_exact_obs_serving_names(self):
         expected = {
             "SCHOOL_INDICATOR_SERIES": "OBS_SCHOOL_INDICATOR_SERIES__SERVING",
             "JOM_EVENT_INDEX": "OBS_JOM_EVENT_INDEX__SERVING",
             "ACCOUNTING_LEDGER": "OBS_ACCOUNTING_LEDGER__SERVING",
+            "REVENUE_LEDGER": "OBS_REVENUE_LEDGER__SERVING",
             "FISCAL_SERIES": "OBS_FISCAL_SERIES__SERVING",
             "PLANNING_DOCUMENT_INDEX": "OBS_PLANNING_DOCUMENT_INDEX__SERVING",
             "QUERY_PRODUCT_CATALOG": "OBS_QUERY_PRODUCT_CATALOG__SERVING",
