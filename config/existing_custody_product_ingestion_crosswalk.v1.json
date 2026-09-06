@@ -215,11 +215,13 @@
         "MD_FISCAL_CONTEXT_NE_ACCOUNTING_TRANSACTION_IDENTITY",
         "TCE_STAGE_SEPARATION_PRESERVED",
         "OFFICIAL_DETAIL_ID_NE_SUPPLIER_ID",
-        "PROGRAMMATIC_CLASSIFICATION_NE_POLICY_IDENTITY"
+        "PROGRAMMATIC_CLASSIFICATION_NE_POLICY_IDENTITY",
+        "RREO_AGGREGATE_NE_TCESP_GRANULAR_TRANSACTION",
+        "RESTS_PAYABLE_NE_CURRENT_YEAR_EXPENDITURE"
       ],
       "materialized_block": {
-        "task": "TASK_187",
-        "source": "TCESP_LIMEIRA_2026_DESPESAS_RICH_CSV",
+        "task": "TASK_188",
+        "source": "TCESP_LIMEIRA_2026_DESPESAS_RICH_CSV_PLUS_RREO_2026_ANEXO_07",
         "months": [
           1,
           2,
@@ -229,12 +231,14 @@
           6,
           7
         ],
-        "row_count": 39779,
+        "row_count": 39783,
         "raw_payload_persisted": true,
         "exact_one_to_one_with_task185_json_ledger": true,
         "programmatic_dimensions_ready": true,
-        "rests_payable_ready": false,
-        "synthetic_fixture_allowed": false
+        "rests_payable_ready": true,
+        "synthetic_fixture_allowed": false,
+        "rests_payable_basis": "RREO_2026_B1_B2_ANEXO_07_AGGREGATES",
+        "tcesp_granular_rests_ready": false
       }
     },
     "QUERY_PRODUCT_CATALOG": {
