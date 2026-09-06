@@ -251,9 +251,42 @@ def build_accounting_ledger(
     software_version: str,
 ) -> dict[str, Any]:
     rows = []
+    capabilities: set[str] = set()
+    observed_stages: set[str] = set()
     for obs in observations:
         dims = dict(obs.get("programmatic_dimensions") or {})
         keys = dict(obs.get("transaction_keys") or {})
+        stage = str(obs.get("stage") or "")
+        observed_stages.add(stage)
+        if keys.get("fiscal_year_plus_empenho"):
+            capabilities.add("COMMITMENT_NUMBER")
+        if obs.get("supplier_name") or obs.get("supplier_public_id"):
+            capabilities.add("SUPPLIER_AMOUNT")
+        if obs.get("event_date"):
+            capabilities.add("EVENT_DATE")
+        if any(dims.get(k) for k in ("function", "subfunction", "program_code", "program_name", "action_code", "action_name")):
+            capabilities.add("PROGRAMMATIC_CLASSIFICATION")
+        if dims.get("funding_source") or dims.get("application_code"):
+            capabilities.add("FUNDING_SOURCE_APPLICATION")
+        if dims.get("expense_element"):
+            capabilities.add("EXPENSE_ELEMENT")
+        if obs.get("source_description") or obs.get("history_text"):
+            capabilities.add("SOURCE_DESCRIPTION")
+        text = " ".join(
+            str(x or "")
+            for x in (
+                dims.get("function"),
+                dims.get("subfunction"),
+                dims.get("program_name"),
+                dims.get("action_name"),
+                *(obs.get("policy_domain_hints") or []),
+            )
+        ).upper()
+        if "EDUCA" in text:
+            capabilities.add("EDUCATION_CLASSIFICATION")
+        if obs.get("rests_payable_status") is not None:
+            capabilities.add("RESTS_PAYABLE")
+
         rows.append(
             {
                 **dict(obs),
@@ -272,12 +305,24 @@ def build_accounting_ledger(
                 "caution": "CONTROL_RECORD_NE_MUNICIPAL_PRIMARY_POLICY_IDENTITY",
             }
         )
-    return materialize_product(
+    if "COMMITMENT" in observed_stages:
+        capabilities.add("COMMITMENT_AMOUNTS")
+    if "LIQUIDATION" in observed_stages:
+        capabilities.add("LIQUIDATION_AMOUNTS")
+    if "PAYMENT" in observed_stages:
+        capabilities.add("PAYMENT_AMOUNTS")
+    if "REVERSAL" in observed_stages:
+        capabilities.add("REVERSAL_EVENTS")
+
+    product = materialize_product(
         "ACCOUNTING_LEDGER",
         rows,
         generated_at=generated_at,
         software_version=software_version,
     )
+    product["capabilities"] = sorted(capabilities)
+    product["observed_stages"] = sorted(observed_stages)
+    return product
 
 
 def build_fiscal_series(

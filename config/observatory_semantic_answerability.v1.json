@@ -116,7 +116,10 @@
         },
         {
           "kind": "PRODUCT",
-          "product": "ACCOUNTING_LEDGER"
+          "product": "ACCOUNTING_LEDGER",
+          "required_capabilities": [
+            "PROGRAMMATIC_CLASSIFICATION"
+          ]
         }
       ]
     },
@@ -289,7 +292,10 @@
         },
         {
           "kind": "PRODUCT",
-          "product": "ACCOUNTING_LEDGER"
+          "product": "ACCOUNTING_LEDGER",
+          "required_capabilities": [
+            "EDUCATION_CLASSIFICATION"
+          ]
         }
       ]
     },
@@ -397,15 +403,10 @@
         },
         {
           "kind": "PRODUCT",
-          "product": "ACCOUNTING_LEDGER"
-        }
-      ]
-    },
-    "ACCOUNTING_STAGES": {
-      "signals": [
-        {
-          "kind": "PRODUCT",
-          "product": "ACCOUNTING_LEDGER"
+          "product": "ACCOUNTING_LEDGER",
+          "required_capabilities": [
+            "PROGRAMMATIC_CLASSIFICATION"
+          ]
         }
       ]
     },
@@ -423,7 +424,10 @@
         },
         {
           "kind": "PRODUCT",
-          "product": "ACCOUNTING_LEDGER"
+          "product": "ACCOUNTING_LEDGER",
+          "required_capabilities": [
+            "SUPPLIER_AMOUNT"
+          ]
         }
       ]
     },
@@ -534,12 +538,52 @@
       "signals": [
         {
           "kind": "PRODUCT",
-          "product": "ACCOUNTING_LEDGER"
+          "product": "ACCOUNTING_LEDGER",
+          "required_capabilities": [
+            "COMMITMENT_NUMBER"
+          ]
         },
         {
           "kind": "PRODUCT",
           "product": "JOM_EVENT_INDEX",
           "min_rows": 1
+        }
+      ]
+    },
+    "ACCOUNTING_STAGE_AMOUNTS": {
+      "signals": [
+        {
+          "kind": "PRODUCT",
+          "product": "ACCOUNTING_LEDGER",
+          "required_capabilities": [
+            "COMMITMENT_AMOUNTS",
+            "LIQUIDATION_AMOUNTS",
+            "PAYMENT_AMOUNTS"
+          ]
+        }
+      ]
+    },
+    "ACCOUNTING_CLASSIFICATION": {
+      "signals": [
+        {
+          "kind": "PRODUCT",
+          "product": "ACCOUNTING_LEDGER",
+          "required_capabilities": [
+            "PROGRAMMATIC_CLASSIFICATION",
+            "FUNDING_SOURCE_APPLICATION",
+            "EXPENSE_ELEMENT"
+          ]
+        }
+      ]
+    },
+    "RESTS_PAYABLE": {
+      "signals": [
+        {
+          "kind": "PRODUCT",
+          "product": "ACCOUNTING_LEDGER",
+          "required_capabilities": [
+            "RESTS_PAYABLE"
+          ]
         }
       ]
     }
@@ -663,19 +707,19 @@
       "id": "ACC_Q1",
       "domain_id": "ACCOUNTING_EXECUTION",
       "text": "Quanto foi empenhado, liquidado e pago?",
-      "recipe": "ACCOUNTING_STAGES"
+      "recipe": "ACCOUNTING_STAGE_AMOUNTS"
     },
     {
       "id": "ACC_Q2",
       "domain_id": "ACCOUNTING_EXECUTION",
       "text": "Qual ficha, dotacao, fonte e aplicacao sustentam o gasto?",
-      "recipe": "ACCOUNTING_STAGES"
+      "recipe": "ACCOUNTING_CLASSIFICATION"
     },
     {
       "id": "ACC_Q3",
       "domain_id": "ACCOUNTING_EXECUTION",
       "text": "Ha restos a pagar?",
-      "recipe": "ACCOUNTING_STAGES"
+      "recipe": "RESTS_PAYABLE"
     },
     {
       "id": "PROC_Q1",
