@@ -155,7 +155,7 @@
       ]
     },
     "FISCAL_SERIES": {
-      "current_status": "READY_PARTIAL_ONLY",
+      "current_status": "MATERIALIZED_WITH_2026_EDUCATION_SPENDING",
       "currently_readable_inputs": [
         "MD_01_2_BASE_UNIFICADA_FISCAL_ORCAMENTARIA_LIMEIRA"
       ],
@@ -180,7 +180,12 @@
         "EXPLICIT_TABLE_ROW_WITH_PERIOD_SOURCE_AND_METRIC_REQUIRED",
         "INTERPRETATION_NE_NUMERIC_TRUTH",
         "PARTIAL_EXECUTION_NE_ANNUAL_CLOSURE",
-        "FUNDEB_NE_MDE_NE_GENERAL_BUDGET_NE_LRF_PERSONNEL"
+        "FUNDEB_NE_MDE_NE_GENERAL_BUDGET_NE_LRF_PERSONNEL",
+        "LIQUIDATED_NE_PAID",
+        "COMMITTED_NE_LIQUIDATED",
+        "RREO_MDE_TOTAL_NE_TCE_FUNCTION_TOTAL",
+        "NOMINAL_NE_REAL",
+        "2025_ENROLLMENT_NE_SILENT_2026_PARTIAL_DENOMINATOR"
       ],
       "materialized_blocks": [
         {
@@ -189,6 +194,25 @@
           "scope": "SIOPE_MDE_AND_FUNDEB_SHARES_2007_2025",
           "non_null_rows": 38,
           "binary_import_complete": false
+        },
+        {
+          "task": "TASK_190",
+          "source": "RREO_ANEXO_8_MDE_2026_JAN_ABR",
+          "source_role": "OFFICIAL_PRIMARY_FOR_MDE_CLAIMS",
+          "rows_added": 3,
+          "total_fiscal_rows_after_overlay": 41,
+          "period": "2026-04",
+          "education_committed_brl": "319000956.31",
+          "education_liquidated_brl": "138279835.79",
+          "education_paid_brl": "104176664.15",
+          "canonical_current_spending_metric": "EDUCATION_EXPENDITURE",
+          "canonical_current_spending_stage": "LIQUIDATED_TO_DATE",
+          "annual_final": false,
+          "real_terms": false,
+          "per_student_metric_materialized": false,
+          "snapshot_id": "e130605546356808bd11800e",
+          "snapshot_drive_id": "1hLHVUlLhS93r0UmzsGbv1869R3PKBghN",
+          "manifest_drive_id": "1e1kM7OOBV1RM3vhHEH2pM93LDXi5ZjgV"
         }
       ]
     },
