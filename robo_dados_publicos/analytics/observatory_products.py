@@ -404,8 +404,13 @@ def query_products(
     _stop(query_plan.get("schema") == "UNIFIED_OBSERVATORY_QUERY_PLAN_V1", "TASK176_QUERY_PLAN_SCHEMA")
     domain_id = str(query_plan.get("domain_id") or "")
     _stop(domain_id in contract["domain_product_routes"], "TASK176_QUERY_DOMAIN")
-    desired_products = contract["domain_product_routes"][domain_id]
     source_families = _source_family_set(query_plan)
+    desired_products = list(contract["domain_product_routes"][domain_id])
+    for product_name, spec in contract["products"].items():
+        if product_name == "QUERY_PRODUCT_CATALOG":
+            continue
+        if set(spec.get("source_families") or []) & source_families and product_name not in desired_products:
+            desired_products.append(product_name)
     context = dict(query_plan.get("context") or {})
 
     numeric_records: list[dict[str, Any]] = []
