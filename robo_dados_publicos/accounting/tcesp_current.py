@@ -246,7 +246,7 @@ def _extract_empenho(event: Mapping[str, Any]) -> str | None:
         for pattern in _EMPENHO_PATTERNS:
             m = pattern.search(str(text))
             if m:
-                return m.group(1)
+                return m.group(1).rstrip(".,;:)")
     return None
 
 
