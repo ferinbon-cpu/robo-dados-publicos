@@ -1,0 +1,81 @@
+name: TASK 168 PNCP resource API recovery
+run-name: "TASK 168 PNCP resource recovery by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-168-pncp-resource-api-recovery
+    paths:
+      - 'runtime_triggers/task168_pncp_resource_recovery.run'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-168-pncp-resource-api-recovery
+  cancel-in-progress: false
+
+jobs:
+  task168-resource-recovery:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Execute bounded resource API recovery
+        shell: bash
+        env:
+          TASK168_HEAD_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p runtime
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          from robo_dados_publicos.research.task168_pncp_resource_api_recovery import execute, load_config
+
+          config = load_config("config/task168_pncp_resource_api_recovery.v1.json")
+          result = execute(config)
+          result["execution_head_sha"] = os.environ["TASK168_HEAD_SHA"]
+
+          canonical = json.dumps(
+              result,
+              ensure_ascii=False,
+              sort_keys=True,
+              separators=(",", ":"),
+          ).encode("utf-8")
+          result["result_sha256"] = hashlib.sha256(canonical).hexdigest()
+
+          Path("runtime/task168_sanitized_result.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+
+          print("TASK168_STATUS=" + str(result["status"]))
+          print("TASK168_REQUEST_COUNT=" + str(result["request_count"]))
+          print("TASK168_TARGET_ROUTES_ATTEMPTED=" + str(result.get("target_routes_attempted", 0)))
+          print("TASK168_RAW_PERSISTED=" + str(result["raw_payload_persisted"]))
+          PY
+
+      - name: Verify sanitized-only persistence
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f runtime/task168_sanitized_result.json
+          test ! -e runtime/raw.json
+          test ! -e runtime/response.json
+
+      - name: Upload sanitized result only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-168-pncp-resource-recovery-sanitized-result
+          path: runtime/task168_sanitized_result.json
+          if-no-files-found: error
+          retention-days: 1
