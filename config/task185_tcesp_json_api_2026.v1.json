@@ -1,0 +1,130 @@
+{
+  "version": 1,
+  "schema": "TASK185_TCESP_JSON_API_2026_V1",
+  "task": "TASK_185_JSON_API_2026_FALLBACK_ACCOUNTING_LEDGER",
+  "issue": 581,
+  "mode": "BOUNDED_JSON_API_SINGLE_PASS",
+  "source": {
+    "source_id": "TCESP_LIMEIRA_2026_DESPESAS_JSON_API",
+    "official_docs_url": "https://transparencia.tce.sp.gov.br/apis",
+    "url_template": "https://transparencia.tce.sp.gov.br/api/json/despesas/limeira/2026/{month}",
+    "municipality_slug": "limeira",
+    "fiscal_year": 2026,
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "probe_month": 1,
+    "max_requests": 8,
+    "retry": 0,
+    "follow_redirects": false,
+    "max_response_bytes_per_month": 15000000,
+    "expected_content_family": "application/json",
+    "expected_top_level": "ARRAY",
+    "expected_fields": [
+      "orgao",
+      "mes",
+      "evento",
+      "nr_empenho",
+      "id_fornecedor",
+      "nm_fornecedor",
+      "dt_emissao_despesa",
+      "vl_despesa"
+    ],
+    "docs_declared_year_range": "2014-2019",
+    "current_2026_route_status": "MUST_BE_PROVEN_LIVE_BY_PROBE"
+  },
+  "current_portal_evidence": {
+    "limeira_2026_ui_available": true,
+    "update_observed": "2026-08-22",
+    "stage_events_observed": [
+      "Empenhado",
+      "Valor Liquidado",
+      "Valor Pago",
+      "Reforço",
+      "Anulação"
+    ],
+    "note": "UI existence is corroboration, not proof that the legacy JSON route supports 2026."
+  },
+  "source_capabilities": {
+    "provided": [
+      "COMMITMENT_NUMBER",
+      "SUPPLIER_PUBLIC_ID",
+      "SUPPLIER_NAME",
+      "EVENT_DATE",
+      "EVENT_STAGE",
+      "EVENT_AMOUNT"
+    ],
+    "not_provided": [
+      "PROGRAMMATIC_CLASSIFICATION",
+      "FUNCTION_SUBFUNCTION",
+      "PROGRAM_ACTION",
+      "FUNDING_SOURCE_APPLICATION",
+      "EXPENSE_ELEMENT",
+      "PROCUREMENT_MODALITY",
+      "RESTS_PAYABLE",
+      "HISTORY_TEXT"
+    ]
+  },
+  "stage_normalization": {
+    "COMMITMENT": [
+      "Empenhado",
+      "Reforço"
+    ],
+    "LIQUIDATION": [
+      "Liquidado",
+      "Valor Liquidado"
+    ],
+    "PAYMENT": [
+      "Pago",
+      "Valor Pago"
+    ],
+    "REVERSAL": [
+      "Anulação",
+      "Anulado",
+      "Cancelamento"
+    ],
+    "OTHER_REVIEW": []
+  },
+  "custody": {
+    "layer": "01_BRONZE",
+    "target_folder": "CONTABILIDADE_LIMEIRA_2025_2026",
+    "target_folder_id": "1cgG2YiVm14DYEqAJGFpB7GOKaRloIqUC",
+    "github_artifact_name": "task185-json-api-2026-live-result",
+    "final_drive_object_type": "GITHUB_ACTIONS_ARTIFACT_ZIP_WITH_EXACT_MONTHLY_JSON_BODIES_AND_MANIFEST",
+    "create_only": true,
+    "overwrite": false,
+    "delete": false,
+    "move": false
+  },
+  "authorization": {
+    "mechanism": "GITHUB_ISSUE_COMMENT_ON_581",
+    "exact_template": "TASK185_JSON_API_2026_LIVE_AUTHORIZED main={main_sha} months=1-8 max_requests=8 retry=0",
+    "actor": "ferinbon-cpu",
+    "single_use": true,
+    "binds_main_sha": true,
+    "prior_authorizations_reusable": false
+  },
+  "stage_c": {
+    "materialize_accounting_ledger": true,
+    "recompute_question_count": 38,
+    "capability_aware_answerability": true,
+    "no_synthetic_substitute": true
+  },
+  "guards": [
+    "JANUARY_IS_PROBE_AND_FAILURE_STOPS_BATCH",
+    "NO_ENDPOINT_DISCOVERY",
+    "NO_MONTH_OUTSIDE_1_8",
+    "ZERO_RETRY",
+    "HTTP_REDIRECT_STOPS",
+    "JSON_SCHEMA_DRIFT_STOPS",
+    "GENERIC_JSON_LEDGER_NE_PROGRAMMATIC_ACCOUNTING_LEDGER",
+    "PRODUCT_PRESENCE_NE_QUESTION_ANSWERABILITY"
+  ]
+}
