@@ -3,7 +3,7 @@
   "software_candidate": "0.8.0",
   "task": "TASK_192_IPCA_REAL_EDUCATION_EXPENDITURE_2016_2025",
   "base_main_sha": "b8d24533651b46593af7d2fcf789f4bb8d690154",
-  "status": "CANDIDATE_PENDING_CANONICAL_CI",
+  "status": "PASS_CANONICAL_CI_RUNTIME_SNAPSHOTS_PINNED",
   "period": "2016-2025",
   "base_price_period": "2025-12",
   "nominal_series": {
@@ -93,7 +93,11 @@
     "rows_added_to_fiscal_series": 19,
     "nominal_history_rows_added": 9,
     "real_rows_added": 10,
-    "runtime_snapshot_status": "TO_BE_PINNED_AFTER_PASSING_CI"
+    "runtime_snapshot_status": "PINNED_FROM_PASSING_CI",
+    "school_indicator_series_snapshot_id": "68b82bf24a9347d591bdc2da",
+    "school_indicator_series_content_sha256": "68b82bf24a9347d591bdc2da6da8bf660dd0518b6743bf2274c7b15eb71abb69",
+    "fiscal_series_snapshot_id": "78f71327acc6c5de2267943b",
+    "fiscal_series_content_sha256": "78f71327acc6c5de2267943bdfc95c85a4000e696acb0ddacca0dae3745d39bd"
   },
   "answerability": {
     "before_status_counts": {
@@ -130,5 +134,12 @@
     "publication": 0,
     "schedule": 0,
     "recurrence": 0
+  },
+  "canonical_ci": {
+    "run_id": 34058338658,
+    "job_id": 101554258239,
+    "head_sha": "3d5d953e49a16ef07682ed91ff7118922ed2c32d",
+    "checks": "5_OF_5_SUCCESS",
+    "unit_tests": "3213_OF_3213_PASS"
   }
 }
