@@ -302,6 +302,100 @@ def _eval_metric_signal(
     }
 
 
+def _row_has_any(row: Mapping[str, Any], field: str, values: set[str]) -> bool:
+    raw = row.get(field)
+    if isinstance(raw, list):
+        observed = {str(x) for x in raw}
+    elif raw is None:
+        observed = set()
+    else:
+        observed = {str(raw)}
+    return bool(observed & values)
+
+
+def _eval_product_signal(
+    signal: Mapping[str, Any],
+    products: Mapping[str, Mapping[str, Any]],
+    crosswalk: Mapping[str, Any],
+) -> dict[str, Any]:
+    product_name = str(signal["product"])
+    product = products.get(product_name)
+    if product is None:
+        return {
+            "kind": "PRODUCT",
+            "product": product_name,
+            "state": "NONE",
+            "readiness": _product_readiness_status(product_name, products, crosswalk),
+            "content_gaps": ["PRODUCT_NOT_BUNDLED"],
+            "matching_row_count": 0,
+        }
+
+    rows = [dict(row) for row in product.get("rows", [])]
+    gaps: list[str] = []
+
+    min_rows = int(signal.get("min_rows") or 0)
+    if min_rows and len(rows) < min_rows:
+        gaps.append(f"MIN_ROWS:{min_rows}")
+
+    criteria = dict(signal.get("row_criteria") or {})
+    matching_rows = rows
+    if criteria:
+        filtered = []
+        for row in rows:
+            ok = True
+            for field, allowed in criteria.items():
+                if not field.endswith("_any"):
+                    raise Task183Stop("TASK183_PRODUCT_CRITERIA_FIELD")
+                source_field = field[:-4]
+                if not _row_has_any(row, source_field, {str(x) for x in allowed}):
+                    ok = False
+                    break
+            if ok:
+                filtered.append(row)
+        matching_rows = filtered
+        min_matching = int(signal.get("min_matching_rows") or 1)
+        if len(matching_rows) < min_matching:
+            gaps.append(
+                "ROW_CRITERIA:"
+                + ",".join(sorted(criteria))
+                + f":MIN_MATCHING:{min_matching}"
+            )
+
+    required_doc_roles = dict(signal.get("required_document_role_pairs") or {})
+    for document_type, roles in sorted(required_doc_roles.items()):
+        if not any(
+            str(row.get("document_type") or "") == str(document_type)
+            and str(row.get("evidence_role") or "") in {str(x) for x in roles}
+            for row in rows
+        ):
+            gaps.append(
+                f"DOCUMENT_ROLE:{document_type}:"
+                + "|".join(sorted(str(x) for x in roles))
+            )
+
+    required_family_roles = dict(signal.get("required_source_family_role_pairs") or {})
+    for family, roles in sorted(required_family_roles.items()):
+        if not any(
+            str(row.get("source_family") or "") == str(family)
+            and str(row.get("evidence_role") or "") in {str(x) for x in roles}
+            for row in rows
+        ):
+            gaps.append(
+                f"SOURCE_FAMILY_ROLE:{family}:"
+                + "|".join(sorted(str(x) for x in roles))
+            )
+
+    return {
+        "kind": "PRODUCT",
+        "product": product_name,
+        "state": "FULL" if not gaps else "PARTIAL",
+        "readiness": "BUNDLED",
+        "content_gaps": gaps,
+        "row_count": len(rows),
+        "matching_row_count": len(matching_rows),
+    }
+
+
 def _product_readiness_status(
     product_name: str,
     products: Mapping[str, Mapping[str, Any]],
@@ -344,16 +438,10 @@ def question_answerability(
                 if result["state"] == "NONE":
                     absent_products.add(str(signal["product"]))
             else:
-                product_name = str(signal["product"])
-                bundled = product_name in products
-                signal_results.append({
-                    "kind": "PRODUCT",
-                    "product": product_name,
-                    "state": "FULL" if bundled else "NONE",
-                    "readiness": _product_readiness_status(product_name, products, crosswalk),
-                })
-                if not bundled:
-                    absent_products.add(product_name)
+                result = _eval_product_signal(signal, products, crosswalk)
+                signal_results.append(result)
+                if result["state"] == "NONE":
+                    absent_products.add(str(signal["product"]))
 
         states = [row["state"] for row in signal_results]
         if states and all(state == "FULL" for state in states):
@@ -383,6 +471,13 @@ def question_answerability(
             for result in signal_results
             if result["kind"] == "PRODUCT" and result["state"] == "NONE"
         })
+        product_content_gaps = sorted({
+            f"{result['product']}::{gap}"
+            for result in signal_results
+            if result["kind"] == "PRODUCT"
+            for gap in result.get("content_gaps", [])
+            if gap != "PRODUCT_NOT_BUNDLED"
+        })
         counts[status] += 1
         question_rows.append({
             "question_id": question["id"],
@@ -393,6 +488,7 @@ def question_answerability(
             "signal_results": signal_results,
             "missing_or_insufficient_metrics": missing_metrics,
             "required_nonbundled_products": required_nonbundled_products,
+            "product_content_gaps": product_content_gaps,
         })
 
     domain_rows = []
