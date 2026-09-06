@@ -264,6 +264,10 @@ def build_accounting_ledger(
             capabilities.add("SUPPLIER_AMOUNT")
         if obs.get("event_date"):
             capabilities.add("EVENT_DATE")
+        if obs.get("expense_issue_date"):
+            capabilities.add("EXPENSE_ISSUE_DATE")
+        if obs.get("event_month") is not None or obs.get("source_month") is not None:
+            capabilities.add("EVENT_MONTH")
         if any(dims.get(k) for k in ("function", "subfunction", "program_code", "program_name", "action_code", "action_name")):
             capabilities.add("PROGRAMMATIC_CLASSIFICATION")
         if dims.get("funding_source") or dims.get("application_code"):
@@ -297,7 +301,7 @@ def build_accounting_ledger(
                 "funding_source": dims.get("funding_source"),
                 "application_code": dims.get("application_code"),
                 "commitment_number": keys.get("fiscal_year_plus_empenho"),
-                "observation_period": str(obs.get("fiscal_year") or ""),
+                "observation_period": f"{obs.get('fiscal_year')}:{int(obs.get('event_month') or obs.get('source_month') or 0):02d}" if (obs.get("event_month") is not None or obs.get("source_month") is not None) else str(obs.get("fiscal_year") or ""),
                 "source_family": "TCE_SP_EXPENSES",
                 "source_sha256": obs.get("source_record_hash"),
                 "provenance_ref": obs.get("observation_id"),
