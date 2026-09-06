@@ -40,7 +40,8 @@ class TestTask179ExistingCustodyCrosswalk(unittest.TestCase):
         self.assertEqual(collection["coverage"]["primary_years_schools"], 40)
         self.assertEqual(collection["coverage"]["early_childhood_only_or_other_profiles"], 29)
         self.assertIn("READY_FOR_PARTIAL_STRUCTURED_EXTRACTION", collection["readiness"])
-        self.assertIn("NEEDS_BASE_STRUCTURED_FILE_HANDOFF", collection["readiness"])
+        self.assertNotIn("NEEDS_BASE_STRUCTURED_FILE_HANDOFF", collection["readiness"])
+        self.assertIn("PUBLICATION_IS_NOT_CANONICAL_STRUCTURED_ROW_STORE", collection["constraints"])
         self.assertIn(
             "VOLUME_I_NARRATIVE_MUST_NOT_OVERWRITE_CANONICAL_STRUCTURED_ROWS",
             collection["constraints"],
@@ -54,12 +55,20 @@ class TestTask179ExistingCustodyCrosswalk(unittest.TestCase):
         self.assertIn("VOLUME_III_V07", order[2])
         self.assertIn("VOLUME_I_V07", order[-1])
 
-    def test_school_product_is_partial_until_base_mestra_handoff(self):
+    def test_school_product_is_ready_after_base_and_extension_library_discovery(self):
         got = product_readiness("SCHOOL_INDICATOR_SERIES")
-        self.assertEqual(got["status"], "READY_PARTIAL_ONLY")
-        self.assertFalse(got["full_materialization_ready"])
-        self.assertIn("BASE_MESTRA_LIMEIRA_V05", got["needs_handoff"])
-        self.assertIn("CAMADA_ANALITICA_V06_40_ESCOLAS_V08", got["needs_handoff"])
+        self.assertEqual(got["status"], "READY_FROM_EXISTING_CUSTODY")
+        self.assertTrue(got["full_materialization_ready"])
+        self.assertEqual(got["needs_handoff"], [])
+        assets = {row["asset_id"]: row for row in got["asset_rows"]}
+        self.assertEqual(
+            assets["BASE_MESTRA_LIMEIRA_V05"]["custody"],
+            "DISCOVERED_AND_READABLE_IN_USER_LIBRARY",
+        )
+        self.assertEqual(
+            assets["CAMADA_ANALITICA_V06_40_ESCOLAS_V08"]["custody"],
+            "DISCOVERED_AND_READABLE_IN_USER_LIBRARY",
+        )
 
     def test_normative_brain_is_document_ready_but_not_legal_proof(self):
         obj = json.loads(REGISTRY.read_text(encoding="utf-8"))
@@ -109,21 +118,19 @@ class TestTask179ExistingCustodyCrosswalk(unittest.TestCase):
         self.assertEqual(got["explicit_gap_count"], 1)
         self.assertEqual(got["explicit_gaps"], ["TERRITORY_CONTEXT"])
 
-    def test_handoff_priority_is_base_then_extension_then_document_corpus(self):
+    def test_handoff_priority_now_starts_with_document_corpus(self):
         got = recommended_handoffs()
         ids = [row["asset_id"] for row in got["priorities"]]
-        self.assertEqual(ids[:3], [
-            "BASE_MESTRA_LIMEIRA_V05",
-            "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
-            "MD_01_3B_CORPUS",
-        ])
+        self.assertEqual(ids[0], "MD_01_3B_CORPUS")
+        self.assertNotIn("BASE_MESTRA_LIMEIRA_V05", ids)
+        self.assertNotIn("CAMADA_ANALITICA_V06_40_ESCOLAS_V08", ids)
         self.assertTrue(got["remote_execution_should_wait"])
 
     def test_task178_remote_serving_is_noncanonical_until_custody_mapping(self):
         obj = json.loads(CROSSWALK.read_text(encoding="utf-8"))
         note = obj["noncanonical_task_note"]
         self.assertTrue(note["task_178_remote_serving_should_wait"])
-        self.assertIn("MAP_AND_INGEST_EXISTING_CUSTODY", note["reason"])
+        self.assertIn("MATERIALIZE_EXISTING_CUSTODY_PRODUCTS", note["reason"])
 
     def test_mutating_precedence_fails_closed(self):
         registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
@@ -150,7 +157,7 @@ class TestTask179ExistingCustodyCrosswalk(unittest.TestCase):
         self.assertEqual(got["schema"], "TASK179_EXISTING_CUSTODY_SUMMARY_V1")
         self.assertEqual(len(got["products"]), 6)
         self.assertEqual(got["coverage"]["covered_or_partial_count"], 14)
-        self.assertEqual(got["handoffs"]["first"]["asset_id"], "BASE_MESTRA_LIMEIRA_V05")
+        self.assertEqual(got["handoffs"]["first"]["asset_id"], "MD_01_3B_CORPUS")
 
 
 if __name__ == "__main__":
