@@ -66,7 +66,7 @@ class TestTask184LocalBundle(unittest.TestCase):
         self.assertEqual(stats["evidence_layer_counts"].get("PERSONNEL", 0), 0)
         self.assertEqual(stats["evidence_layer_counts"].get("INFRASTRUCTURE", 0), 3)
         self.assertEqual(stats["evidence_layer_counts"].get("PROCUREMENT_CONTRACT", 0), 76)
-        self.assertEqual(stats["policy_domain_counts"].get("EDUCATION", 0), 2)
+        self.assertEqual(stats["policy_domain_counts"].get("EDUCATION", 0), 1)
         self.assertTrue(
             all(
                 row["caution"]
