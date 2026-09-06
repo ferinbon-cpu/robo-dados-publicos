@@ -389,7 +389,9 @@ class TestTask176ObservatoryQueryProducts(unittest.TestCase):
         self.assertEqual(got["domain_count"], 15)
         self.assertTrue(got["all_domains_explicit"])
         self.assertEqual(sum(got["counts"].values()), 15)
-        self.assertEqual(got["counts"]["NO_PRODUCTS"], 0)
+        territory = next(x for x in got["domains"] if x["domain_id"] == "TERRITORY_CONTEXT")
+        self.assertEqual(territory["status"], "NO_PRODUCTS")
+        self.assertIn("SCHOOL_INDICATOR_SERIES", territory["missing_products"])
 
     def test_transparency_control_can_return_product_catalog_records(self):
         bundle = self.build_bundle()
