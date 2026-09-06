@@ -43,12 +43,12 @@ class TestTask194BInepDataMetadataProbe(unittest.TestCase):
         self.assertEqual(got["activity_id"],"11111111-1111-1111-1111-111111111111")
         self.assertEqual(got["request_id"],"22222222-2222-2222-2222-222222222222")
 
-        with self.assertRaisesRegex(Task194BStop,"TASK194B_RESOURCE_KEY_DRIFT"):
-            bootstrap_metadata(
-                html,
-                "00000000-0000-0000-0000-000000000000",
-                "26f73897-c8ac-4b1e-978f-ea4c077434bf",
-            )
+        alternate=bootstrap_metadata(
+            html,
+            "00000000-0000-0000-0000-000000000000",
+            "11111111-1111-1111-1111-111111111111",
+        )
+        self.assertEqual(alternate["resource_key"],"00000000-0000-0000-0000-000000000000")
 
     def test_sanitizer_keeps_keyword_visual_metadata_only(self):
         title_config={
