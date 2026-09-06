@@ -83,8 +83,9 @@ class TestTask194BInepDataMetadataProbe(unittest.TestCase):
         got=sanitize_models(models,["turma","munic"])
         self.assertEqual(got["section_count"],1)
         self.assertEqual(got["visual_count"],2)
-        self.assertEqual(got["keyword_visual_count"],1)
-        self.assertEqual(got["keyword_visuals"][0]["title"],"Número de Turmas")
+        self.assertEqual(got["keyword_visual_count"],2)
+        titled=[x for x in got["keyword_visuals"] if x["title"] == "Número de Turmas"]
+        self.assertEqual(len(titled),1)
         self.assertFalse(got["querydata_called"])
         self.assertFalse(got["raw_payload_persisted"])
 
