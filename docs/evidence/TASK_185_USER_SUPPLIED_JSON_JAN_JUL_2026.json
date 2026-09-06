@@ -1,0 +1,149 @@
+{
+  "schema": "TASK185_USER_SUPPLIED_JSON_2026_MANIFEST_V1",
+  "status": "JAN_JUL_REAL_BYTES_VALIDATED_AUGUST_NO_BODY_CUSTODY",
+  "source_id": "TCESP_LIMEIRA_2026_DESPESAS_JSON_API",
+  "source_url_template": "https://transparencia.tce.sp.gov.br/api/json/despesas/limeira/2026/{month}",
+  "fiscal_year": 2026,
+  "validated_months": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "validated_total_rows": 39779,
+  "validated_total_rows_by_event": {
+    "Empenhado": 6956,
+    "Reforço": 757,
+    "Anulação": 684,
+    "Valor Liquidado": 16460,
+    "Valor Pago": 14922
+  },
+  "validated_total_rows_by_orgao": {
+    "PREFEITURA MUNICIPAL DE LIMEIRA": 36406,
+    "CÂMARA MUNICIPAL DE LIMEIRA": 2582,
+    "INSTITUTO DE PREVIDÊNCIA MUNICIPAL DE LIMEIRA": 791
+  },
+  "months": {
+    "1": {
+      "status": "USER_SUPPLIED_VALIDATED_IN_PRIOR_CHAT_TURN",
+      "rows": 4860,
+      "bytes": 1326399,
+      "sha256": "363883def8553c36fd21965838ee95b32f50f808b208aa416e25f76c12cf7ae5",
+      "events": {
+        "Empenhado": 2794,
+        "Reforço": 14,
+        "Anulação": 35,
+        "Valor Liquidado": 1315,
+        "Valor Pago": 702
+      },
+      "orgaos": {
+        "PREFEITURA MUNICIPAL DE LIMEIRA": 4422,
+        "CÂMARA MUNICIPAL DE LIMEIRA": 339,
+        "INSTITUTO DE PREVIDÊNCIA MUNICIPAL DE LIMEIRA": 99
+      }
+    },
+    "2": {
+      "status": "USER_SUPPLIED_VALIDATED_CURRENT_INTAKE",
+      "rows": 4680,
+      "bytes": 1297114,
+      "sha256": "ce13a7fad3c8d9e819c6137bd7c214df67076da4d8d9ee7c2f1ec600d1c96dd3",
+      "events": {
+        "Empenhado": 641,
+        "Reforço": 35,
+        "Anulação": 32,
+        "Valor Liquidado": 2040,
+        "Valor Pago": 1932
+      }
+    },
+    "3": {
+      "status": "USER_SUPPLIED_VALIDATED_CURRENT_INTAKE",
+      "rows": 5630,
+      "bytes": 1563457,
+      "sha256": "468e5c60f3ddea454361a141d32e586582137d8b81f914a0082ec096a8a0cbcc",
+      "events": {
+        "Empenhado": 776,
+        "Reforço": 87,
+        "Anulação": 129,
+        "Valor Liquidado": 2449,
+        "Valor Pago": 2189
+      }
+    },
+    "4": {
+      "status": "USER_SUPPLIED_VALIDATED_CURRENT_INTAKE",
+      "rows": 6065,
+      "bytes": 1654219,
+      "sha256": "9907ab1f76c048e871045a445b9d48ca26ef6314b9ede1954ede6f3a2b180cac",
+      "events": {
+        "Empenhado": 611,
+        "Reforço": 111,
+        "Anulação": 122,
+        "Valor Liquidado": 2666,
+        "Valor Pago": 2555
+      }
+    },
+    "5": {
+      "status": "USER_SUPPLIED_VALIDATED_CURRENT_INTAKE",
+      "rows": 6152,
+      "bytes": 1660369,
+      "sha256": "c858501ca4247c3fc02466065d5a53e06bd8a9d143730568c41b1396b7cccc3b",
+      "events": {
+        "Empenhado": 614,
+        "Reforço": 131,
+        "Anulação": 203,
+        "Valor Liquidado": 2691,
+        "Valor Pago": 2513
+      }
+    },
+    "6": {
+      "status": "USER_SUPPLIED_VALIDATED_CURRENT_INTAKE",
+      "rows": 6122,
+      "bytes": 1665786,
+      "sha256": "b97e55bfa12fc85caf506b9f116cf06963d0f4308ea889feb9c706624b1427f9",
+      "events": {
+        "Empenhado": 883,
+        "Reforço": 195,
+        "Anulação": 63,
+        "Valor Liquidado": 2576,
+        "Valor Pago": 2405
+      }
+    },
+    "7": {
+      "status": "USER_SUPPLIED_VALIDATED_CURRENT_INTAKE",
+      "rows": 6270,
+      "bytes": 1713883,
+      "sha256": "7879dd4921c24d646ec3890da0e2798502d8ccdadd5177f5b8cfa6298b3f68f0",
+      "events": {
+        "Empenhado": 637,
+        "Reforço": 184,
+        "Anulação": 100,
+        "Valor Liquidado": 2723,
+        "Valor Pago": 2626
+      }
+    },
+    "8": {
+      "status": "OWNER_REPORTS_NO_RECORDS_BODY_NOT_CUSTODIED",
+      "rows": null,
+      "bytes": null,
+      "sha256": null,
+      "caution": "Do not promote to cryptographically proven empty response until exact August body is preserved."
+    }
+  },
+  "semantic_findings": {
+    "required_fields_complete_for_months_2_7": true,
+    "unknown_fields_for_months_2_7": [],
+    "invalid_amounts_for_months_2_7": 0,
+    "exact_duplicate_rows_for_months_2_7": 0,
+    "expense_issue_date_is_not_event_date": true,
+    "cross_month_issue_date_rows_observed_months_2_7": 350,
+    "explanation": "The API field dt_emissao_despesa can precede the response event month for liquidation/payment rows. Treat it as expense issue date; use mes as event period, not as exact event date."
+  },
+  "provenance": {
+    "intake": "CHAT_UPLOAD_BY_OWNER",
+    "network_gets_by_robot_for_this_intake": 0,
+    "user_supplied_source_bytes": true,
+    "raw_bytes_committed_to_git": false
+  }
+}
