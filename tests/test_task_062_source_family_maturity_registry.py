@@ -32,9 +32,14 @@ class Task062Tests(unittest.TestCase):
     def test_siope_is_contract_scoped_execution_ready(self):
         self.assertTrue(auto_execution_allowed_by_maturity("SIOPE", self.registry))
 
-    def test_fundeb_routing_auto_does_not_mean_execution_ready(self):
-        self.assertFalse(auto_execution_allowed_by_maturity("FUNDEB", self.registry))
-        self.assertEqual(execution_maturity("FUNDEB", self.registry), "ROUTING_ONLY_SUPERVISED_EXECUTION")
+    def test_task172_promotes_proven_machine_readable_fiscal_families(self):
+        for family in ("FUNDEB", "RREO", "RGF", "TCE_SP_EXPENSES"):
+            self.assertTrue(auto_execution_allowed_by_maturity(family, self.registry))
+            self.assertEqual(execution_maturity(family, self.registry), "EXECUTION_READY_BOUNDED")
+
+    def test_mde_remains_supervised_after_exact_empty_query(self):
+        self.assertFalse(auto_execution_allowed_by_maturity("MDE", self.registry))
+        self.assertEqual(execution_maturity("MDE", self.registry), "ROUTING_ONLY_SUPERVISED_EXECUTION")
 
     def test_tda_remains_blocked(self):
         self.assertEqual(execution_maturity("TDA_LIMEIRA", self.registry), "BLOCKED_PENDING_CONTRACT")
