@@ -1,0 +1,160 @@
+[
+  {
+    "document_id": "PPA_2026_2029_LEI_7213_2025",
+    "document_type": "PPA",
+    "period": "2026-2029",
+    "evidence_role": "PRIMARY_SUBSTANTIVE",
+    "locator": "PDF:page:18#programa:2001",
+    "text_redacted": "Programa 2001 da Secretaria de Educacao inclui indicador de alunos em educacao integral com metas anuais 2026-2029.",
+    "policy_domains": [
+      "EDUCATION"
+    ],
+    "topics": [
+      "PLANNING",
+      "FULL_TIME_EDUCATION",
+      "PROGRAM_2001"
+    ],
+    "substantive_status": "PRIMARY_SUBSTANTIVE",
+    "observation_period": "2026-2029",
+    "source_family": "PPA",
+    "source_sha256": "3e5deb53448c2e5eea56217a4e5d7f20f7fc3859eff7fcb93a7de7eb17011c1a",
+    "provenance_ref": "PPA_2026_2029_LEI_7213_2025:PDF:page:18#programa:2001",
+    "quality_status": "VALIDATED",
+    "caution": "PPA_PROGRAM_AND_ESTIMATES_NE_BUDGET_EXECUTION"
+  },
+  {
+    "document_id": "PPA_2026_2029_LEI_7213_2025",
+    "document_type": "PPA",
+    "period": "2026-2029",
+    "evidence_role": "PRIMARY_SUBSTANTIVE",
+    "locator": "PDF:page:3#artigo:4",
+    "text_redacted": "Art. 4 estabelece que estimativas de receitas e valores dos programas conferem consistencia ao PPA e nao limitam as leis orcamentarias.",
+    "policy_domains": [
+      "PLANNING_BUDGET"
+    ],
+    "topics": [
+      "PLANNING",
+      "BUDGET_ESTIMATE"
+    ],
+    "substantive_status": "PRIMARY_SUBSTANTIVE",
+    "observation_period": "2026-2029",
+    "source_family": "PPA",
+    "source_sha256": "3e5deb53448c2e5eea56217a4e5d7f20f7fc3859eff7fcb93a7de7eb17011c1a",
+    "provenance_ref": "PPA_2026_2029_LEI_7213_2025:PDF:page:3#artigo:4",
+    "quality_status": "VALIDATED",
+    "caution": "PPA_ESTIMATE_NE_LOA_AUTHORIZATION_NE_EXECUTION"
+  },
+  {
+    "document_id": "LDO_2026_LEI_7141_2025",
+    "document_type": "LDO",
+    "period": "2026",
+    "evidence_role": "PRIMARY_SUBSTANTIVE",
+    "locator": "PDF:page:4#artigo:8-paragrafos:3-5",
+    "text_redacted": "A LDO disciplina limitacao de empenho e protege, sob condicoes legais, acoes sociais e vinculacoes minimas de ensino.",
+    "policy_domains": [
+      "PLANNING_BUDGET",
+      "EDUCATION"
+    ],
+    "topics": [
+      "BUDGET_EXECUTION_RULE",
+      "EDUCATION_MINIMUM_APPLICATION"
+    ],
+    "substantive_status": "PRIMARY_SUBSTANTIVE",
+    "observation_period": "2026",
+    "source_family": "LDO",
+    "source_sha256": "6f28017bb61fe6dbd7db44e2306bd1a48f813d8d40411d87c130fba78fca2406",
+    "provenance_ref": "LDO_2026_LEI_7141_2025:PDF:page:4#artigo:8-paragrafos:3-5",
+    "quality_status": "VALIDATED",
+    "caution": "LDO_RULE_NE_OBSERVED_EXECUTION"
+  },
+  {
+    "document_id": "LDO_2026_LEI_7141_2025",
+    "document_type": "LDO",
+    "period": "2026",
+    "evidence_role": "PRIMARY_SUBSTANTIVE",
+    "locator": "PDF:page:7#artigo:12",
+    "text_redacted": "Art. 12 determina apuracao de custos e avaliacao de resultados com base em despesas liquidadas, com quadros anuais.",
+    "policy_domains": [
+      "PLANNING_BUDGET",
+      "TRANSPARENCY_CONTROL"
+    ],
+    "topics": [
+      "COST_CONTROL",
+      "LIQUIDATED_EXPENSE_BASIS"
+    ],
+    "substantive_status": "PRIMARY_SUBSTANTIVE",
+    "observation_period": "2026",
+    "source_family": "LDO",
+    "source_sha256": "6f28017bb61fe6dbd7db44e2306bd1a48f813d8d40411d87c130fba78fca2406",
+    "provenance_ref": "LDO_2026_LEI_7141_2025:PDF:page:7#artigo:12",
+    "quality_status": "VALIDATED",
+    "caution": "LEGAL_REQUIREMENT_NE_ACCOUNTING_OBSERVATION"
+  },
+  {
+    "document_id": "LOA_2026_LEI_7223_2025",
+    "document_type": "LOA",
+    "period": "2026",
+    "evidence_role": "PRIMARY_METADATA_ONLY",
+    "locator": "PDF:page:1#artigos:1-2",
+    "text_redacted": "Lei 7.223/2025 estima a receita e fixa a despesa de Limeira para 2026; TASK184 nao reparseou os anexos para cobertura programatica de Educacao.",
+    "policy_domains": [
+      "PLANNING_BUDGET"
+    ],
+    "topics": [
+      "LOA_SCOPE",
+      "BUDGET_AUTHORIZATION"
+    ],
+    "substantive_status": "PRIMARY_METADATA_ONLY",
+    "observation_period": "2026",
+    "source_family": "LOA",
+    "source_sha256": "bc4c8bf4b2b1e8f59e880318c37ec7f7fbd4357a85a8b46c97750444dbf01d4b",
+    "provenance_ref": "LOA_2026_LEI_7223_2025:PDF:page:1#artigos:1-2",
+    "quality_status": "PARTIAL",
+    "caution": "LOA_PRIMARY_SCOPE_VERIFIED_BUT_EDUCATION_ACTION_ANNEX_COVERAGE_NOT_PARSED_IN_TASK184"
+  },
+  {
+    "document_id": "CME_02_2021_EDUCACAO_TEMPO_INTEGRAL",
+    "document_type": "CME",
+    "period": "2021",
+    "evidence_role": "PRIMARY_NORMATIVE",
+    "locator": "PDF:page:7#deliberacao-artigos:1-3",
+    "text_redacted": "Deliberacao CME 02/2021 institui diretrizes basicas para implementacao gradual da politica de Educacao em Tempo Integral e retoma instancias de governanca.",
+    "policy_domains": [
+      "EDUCATION"
+    ],
+    "topics": [
+      "FULL_TIME_EDUCATION",
+      "GOVERNANCE",
+      "POLICY_GUIDELINES"
+    ],
+    "substantive_status": "PRIMARY_NORMATIVE",
+    "observation_period": "2021",
+    "source_family": "CME",
+    "source_sha256": "5d01a883bd5ec721b9a9a8b0a0f2c985eea8958da23de8d475d7c73d3109c07c",
+    "provenance_ref": "CME_02_2021_EDUCACAO_TEMPO_INTEGRAL:PDF:page:7#deliberacao-artigos:1-3",
+    "quality_status": "VALIDATED",
+    "caution": "NORMATIVE_ACT_NE_IMPLEMENTATION_RESULT"
+  },
+  {
+    "document_id": "DECRETO_118_2024_EITI_LIMEIRA",
+    "document_type": "MUNICIPAL_LEGISLATION",
+    "period": "2024",
+    "evidence_role": "PRIMARY_NORMATIVE",
+    "locator": "PDF:page:1#artigo:1",
+    "text_redacted": "Decreto 118/2024 institui a Politica de Educacao Integral em Tempo Integral nas escolas da rede municipal de Limeira.",
+    "policy_domains": [
+      "EDUCATION"
+    ],
+    "topics": [
+      "FULL_TIME_EDUCATION",
+      "MUNICIPAL_POLICY"
+    ],
+    "substantive_status": "PRIMARY_NORMATIVE",
+    "observation_period": "2024",
+    "source_family": "MUNICIPAL_LEGISLATION",
+    "source_sha256": "a534b99711652d437e1672dbaf39b9f56fe8f35c042f3648ae8483187c909b60",
+    "provenance_ref": "DECRETO_118_2024_EITI_LIMEIRA:PDF:page:1#artigo:1",
+    "quality_status": "VALIDATED",
+    "caution": "NORMATIVE_ACT_NE_IMPLEMENTATION_RESULT"
+  }
+]
