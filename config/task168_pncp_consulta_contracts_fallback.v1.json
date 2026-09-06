@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "schema": "TASK168B_PNCP_CONSULTA_CONTRACTS_FALLBACK_V1",
+  "task": "TASK_168B_PNCP_CONSULTA_CONTRACTS_FALLBACK",
+  "issue": 548,
+  "authorization": {
+    "source_record": "config/task161_pncp_manual_publication_sweep_evidence_guards.v1.json",
+    "scope": "PNCP_LIVE_READ_DISCOVERY_ONLY",
+    "new_per_page_authorization_required": false
+  },
+  "source": {
+    "endpoint": "https://pncp.gov.br/api/consulta/v1/contratos",
+    "cnpjOrgao": "45132495000140",
+    "dataInicial": "20260608",
+    "dataFinal": "20260905",
+    "tamanhoPagina": 500,
+    "maxPaginas": 20,
+    "timeoutSeconds": 60,
+    "maxBytesPerPage": 20000000,
+    "retryMax": 0,
+    "redirectsMax": 0
+  },
+  "targets": [
+    {
+      "id": "SCHOOL_PASS",
+      "numeroControlePNCPCompra": "45132495000140-1-000368/2026",
+      "processoCompra": "I00055",
+      "purchasePublicationDate": "2026-06-08"
+    },
+    {
+      "id": "COURSE_I00084",
+      "numeroControlePNCPCompra": "45132495000140-1-000593/2026",
+      "processoCompra": "I00084",
+      "purchasePublicationDate": "2026-08-19"
+    }
+  ],
+  "persistence": {
+    "rawPayloadGit": false,
+    "rawPayloadDrive": false,
+    "rawPayloadWorkflowArtifact": false,
+    "sanitizedResultWorkflowArtifact": true,
+    "artifactRetentionDays": 1
+  },
+  "guards": {
+    "completePaginationRequiredForBoundedNegative": true,
+    "http204IsSuccessfulEmptyScope": true,
+    "transportFailureIsNoMatch": false,
+    "entityIdentityRequiredWhenFieldPresent": true,
+    "targetMatchRequiresExactNumeroControlePNCPCompra": true,
+    "paymentInferenceForbidden": true,
+    "financialIdentityAutoPromotionForbidden": true,
+    "transactionIdentityAutoPromotionForbidden": true
+  }
+}
