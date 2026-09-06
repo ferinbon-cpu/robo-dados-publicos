@@ -1,0 +1,19 @@
+{
+  "schema": "TASK172_LIVE_TRIGGER_V1",
+  "task": "TASK_172_BOUNDED_OBSERVATORY_FISCAL_MACHINE_READABLE_ACQUISITION",
+  "issue": 556,
+  "owner_authorization_text": "Prossiga depois pegue os json das urls q faltam das outras categorias. Tenho muito dos indicadores escolares, precisamos mapear o orçamentário...",
+  "authorization_scope": "EXACT_CONFIG_TASK172_READ_ONLY_OFFICIAL_MACHINE_READABLE_BATCH",
+  "contract_path": "config/task172_observatory_fiscal_machine_readable_batch.v1.json",
+  "max_requests": 13,
+  "method": "GET",
+  "retry": 0,
+  "follow_redirects": false,
+  "raw_payload_persistence": false,
+  "source_writes": false,
+  "drive_writes": false,
+  "serving_publication": false,
+  "schedule": false,
+  "recurrence": false,
+  "single_use": true
+}
