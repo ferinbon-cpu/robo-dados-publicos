@@ -30,6 +30,16 @@ _ORG_PATTERNS = [
 # Event starts are intentionally conservative. A missing event is preferable to
 # hallucinating one from ordinary prose. Patterns can be extended under regression tests.
 _EVENT_STARTS: list[tuple[str, re.Pattern[str]]] = [
+    ("RETIFICACAO", re.compile(r"(?i)^RETIFICA[ÇC][ÃA]O\s+(?:DO|DA|AO|A)\s+(?:EDITAL|PORTARIA|DECRETO|LEI|RESOLU[ÇC][ÃA]O|CONTRATO)\s+N[ºO°.]?\s*:?\s*[0-9A-Za-z./-]+")),
+    ("INSTRUCAO_NORMATIVA", re.compile(r"(?i)^INSTRU[ÇC][ÃA]O\s+NORMATIVA\s+(?:N[ºO°.]?\s*)?\d")),
+    ("DELIBERACAO", re.compile(r"(?i)^DELIBERA[ÇC][ÃA]O\s+(?:N[ºO°.]?\s*)?\d")),
+    ("PARECER", re.compile(r"(?i)^PARECER(?:\s+[A-ZÀ-Ü./-]{2,30})?\s+(?:N[ºO°.]?\s*)?\d")),
+    ("COMUNICADO", re.compile(r"(?i)^COMUNICADO(?:\s+[A-ZÀ-Ü./-]{2,20})?\s+(?:N[ºO°.]?\s*)?\d")),
+    ("TERMO_COLABORACAO", re.compile(r"(?i)^TERMO\s+DE\s+COLABORA[ÇC][ÃA]O(?:\s+N[ºO°.]?\s*:?\s*[0-9A-Za-z./-]+)?")),
+    ("TERMO_FOMENTO", re.compile(r"(?i)^TERMO\s+DE\s+FOMENTO(?:\s+N[ºO°.]?\s*:?\s*[0-9A-Za-z./-]+)?")),
+    ("ACORDO_COOPERACAO", re.compile(r"(?i)^ACORDO\s+DE\s+COOPERA[ÇC][ÃA]O(?:\s+N[ºO°.]?\s*:?\s*[0-9A-Za-z./-]+)?")),
+    ("ATO_CREDITO_ORCAMENTARIO", re.compile(r"(?i)^(?:ATO\s+DE\s+)?CR[ÉE]DITO\s+(?:ADICIONAL|SUPLEMENTAR|ESPECIAL)(?:\s+N[ºO°.]?\s*:?\s*[0-9A-Za-z./-]+)?")),
+    ("AVISO_OPERACAO_ESCOLAR", re.compile(r"(?i)^AVISO\s+(?:DE|SOBRE)\s+(?:MATR[ÍI]CULA|CALEND[ÁA]RIO\s+ESCOLAR|ATRIBUI[ÇC][ÃA]O\s+(?:DE\s+)?(?:AULAS|CLASSES)|TRANSPORTE\s+ESCOLAR|ALIMENTA[ÇC][ÃA]O\s+ESCOLAR|FUNCIONAMENTO\s+ESCOLAR)\b")),
     ("TERMO_ADITIVO_CONTRATO", re.compile(r"(?i)^(?:(?:PRIMEIRO|SEGUNDO|TERCEIRO|QUARTO|QUINTO|SEXTO|SÉTIMO|SETIMO|OITAVO|NONO|DÉCIMO|DECIMO)|\d+[ºªo])\s+TERMO\s+(?:DE\s+)?ADITIVO\s+AO\s+CONTRATO\b")),
     ("APOSTILAMENTO", re.compile(r"(?i)^(?:(?:PRIMEIRO|SEGUNDO|TERCEIRO|QUARTO|QUINTO)|\d+[ºªo])\s+TERMO\s+DE\s+APOSTILAMENTO\b")),
     ("CONTRATO", re.compile(r"(?i)^CONTRATO\s+N[ºO°.]?\s*:?\s*\S+")),
@@ -99,6 +109,8 @@ class JournalEvent:
     object_text: str | None
     value_brl: str | None
     signature_date: str | None
+    target_act_type: str | None
+    target_act_number: str | None
     source_url: str | None
     source_sha256: str
     excerpt_redacted: str
@@ -178,12 +190,35 @@ def _extract_act_number(event_type: str, block: str) -> str | None:
         "LEI": "LEI",
         "RESOLUCAO": r"RESOLU[ÇC][ÃA]O",
         "EDITAL": "EDITAL",
+        "INSTRUCAO_NORMATIVA": r"INSTRU[ÇC][ÃA]O\s+NORMATIVA",
+        "DELIBERACAO": r"DELIBERA[ÇC][ÃA]O",
+        "PARECER": r"PARECER(?:\s+[A-ZÀ-Ü./-]{2,30})?",
+        "COMUNICADO": r"COMUNICADO(?:\s+[A-ZÀ-Ü./-]{2,20})?",
+        "TERMO_COLABORACAO": r"TERMO\s+DE\s+COLABORA[ÇC][ÃA]O",
+        "TERMO_FOMENTO": r"TERMO\s+DE\s+FOMENTO",
+        "ACORDO_COOPERACAO": r"ACORDO\s+DE\s+COOPERA[ÇC][ÃA]O",
+        "ATO_CREDITO_ORCAMENTARIO": r"(?:ATO\s+DE\s+)?CR[ÉE]DITO\s+(?:ADICIONAL|SUPLEMENTAR|ESPECIAL)",
     }
     target = name_map.get(event_type)
     if not target:
         return None
     m = re.search(rf"(?i)\b{target}\s*(?:N[ºO°.]?\s*)?:?\s*([0-9A-Za-z./-]+)", block)
-    return m.group(1) if m else None
+    return m.group(1).rstrip(".,;:)") if m else None
+
+
+def _extract_retification_target(block: str) -> tuple[str | None, str | None]:
+    m = _FIELD_PATTERNS["retification_target"].search(block)
+    if not m:
+        return None, None
+    target_type = re.sub(r"[^A-Z]", "_", _ascii_fold_upper(m.group(1))).strip("_")
+    return target_type or None, m.group(2).rstrip(".,;:)")
+
+
+def _ascii_fold_upper(value: str) -> str:
+    import unicodedata
+    text = unicodedata.normalize("NFKD", value)
+    text = "".join(ch for ch in text if not unicodedata.combining(ch))
+    return text.upper()
 
 
 def detect_organ(lines: Iterable[str], current: str | None = None) -> str | None:
@@ -259,9 +294,10 @@ def parse_events_from_page(
             object_text = redact_personal_identifiers(object_text).text[:2000]
         value_brl = _extract_value_brl(block)
         act_number = _extract_act_number(event_type, block)
+        target_act_type, target_act_number = _extract_retification_target(block) if event_type == "RETIFICACAO" else (None, None)
         identity = "|".join([
             source_id, str(page_number), str(start + 1), event_type,
-            act_number or "", contract_number or "", process_number or "",
+            act_number or "", contract_number or "", process_number or "", target_act_type or "", target_act_number or "",
         ])
         event_id = "JOEV_" + sha256(identity.encode("utf-8")).hexdigest()[:20]
         events.append(JournalEvent(
@@ -285,6 +321,8 @@ def parse_events_from_page(
             object_text=object_text,
             value_brl=value_brl,
             signature_date=signature_match.group(1) if signature_match else None,
+            target_act_type=target_act_type,
+            target_act_number=target_act_number,
             source_url=source_url,
             source_sha256=source_sha256,
             excerpt_redacted=compact_excerpt,
