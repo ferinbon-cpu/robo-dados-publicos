@@ -85,7 +85,6 @@ def parse_csv_bytes(
     _stop(reader.fieldnames == contract["source"]["exact_headers"], "TASK187_HEADERS")
     rows = [dict(row) for row in reader]
     _stop(bool(rows), "TASK187_EMPTY")
-    _stop(len(rows) == contract["observed"]["row_count"], "TASK187_ROW_COUNT")
 
     ids: set[str] = set()
     months: set[int] = set()
@@ -108,6 +107,43 @@ def parse_csv_bytes(
     _stop(sorted(months) == contract["source"]["months_expected"], "TASK187_MONTH_COVERAGE")
     _stop(len(ids) == contract["observed"]["unique_official_ids"], "TASK187_ID_COUNT")
     return rows
+
+
+def validate_real_payload(
+    payload: bytes,
+    *,
+    contract_path: str | Path = DEFAULT_CONTRACT,
+) -> dict[str, Any]:
+    contract = load_contract(contract_path)
+    _stop(hashlib.sha256(payload).hexdigest() == contract["source"]["csv_sha256"], "TASK187_REAL_CSV_HASH")
+    rows = parse_csv_bytes(payload, contract_path=contract_path)
+    _stop(len(rows) == contract["observed"]["row_count"], "TASK187_ROW_COUNT")
+    month_counts: dict[str, int] = {}
+    organ_counts: dict[str, int] = {}
+    event_counts: dict[str, int] = {}
+    empty_element_rows = 0
+    for row in rows:
+        month = str(int(row["mes_referencia"]))
+        month_counts[month] = month_counts.get(month, 0) + 1
+        organ = str(row["ds_orgao"]).strip()
+        organ_counts[organ] = organ_counts.get(organ, 0) + 1
+        event = str(row["tp_despesa"]).strip()
+        event_counts[event] = event_counts.get(event, 0) + 1
+        if not str(row.get("ds_elemento") or "").strip():
+            empty_element_rows += 1
+    _stop(month_counts == contract["observed"]["month_row_counts"], "TASK187_MONTH_COUNTS")
+    _stop(organ_counts == contract["observed"]["organs"], "TASK187_ORGAN_COUNTS")
+    _stop(event_counts == contract["observed"]["events"], "TASK187_EVENT_COUNTS")
+    _stop(empty_element_rows == contract["observed"]["expense_element_empty_rows"], "TASK187_ELEMENT_EMPTY_COUNT")
+    return {
+        "status": "PASS_REAL_TCESP_RICH_EXPENSE_PAYLOAD",
+        "row_count": len(rows),
+        "unique_official_ids": len({row["id_despesa_detalhe"] for row in rows}),
+        "month_row_counts": month_counts,
+        "organ_counts": organ_counts,
+        "event_counts": event_counts,
+        "expense_element_empty_rows": empty_element_rows,
+    }
 
 
 def normalize_stage(value: Any) -> tuple[str, str | None]:
