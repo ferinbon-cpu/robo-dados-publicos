@@ -45,12 +45,17 @@ A TASK 190 continua fornecendo os três estágios parciais de 2026 e FIN_Q1 não
 
 ## Efeito esperado na matriz
 
-A única mudança semântica esperada após a TASK 190 é:
+O primeiro CI fail-closed revelou um ganho colateral correto: a mesma matrícula também é um dos três sinais de `NETWORK_Q1 — Quantos alunos, turmas e escolas existem?`. Como `CLASS_COUNT` e `SCHOOL_COUNT` continuam ausentes, essa pergunta sobe apenas de gap para parcial.
 
-- `FIN_Q2: MATERIALIZED_PARTIAL -> MATERIALIZED_ANSWERABLE`.
+Mudanças semânticas após a TASK 190:
+
+- `FIN_Q2: MATERIALIZED_PARTIAL -> MATERIALIZED_ANSWERABLE`;
+- `NETWORK_Q1: EXPLICIT_GAP -> MATERIALIZED_PARTIAL`.
 
 Contagens esperadas:
 
 - 26 `MATERIALIZED_ANSWERABLE`;
-- 9 `MATERIALIZED_PARTIAL`;
-- 3 `EXPLICIT_GAP`.
+- 10 `MATERIALIZED_PARTIAL`;
+- 2 `EXPLICIT_GAP`.
+
+Essa correção foi descoberta pelo CI repository-wide; o gate não foi afrouxado.
