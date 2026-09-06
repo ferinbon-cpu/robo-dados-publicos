@@ -1,0 +1,65 @@
+name: TASK 185 JSON API 2026 one-shot live gate
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: read
+
+concurrency:
+  group: task185-json-api-2026-live
+  cancel-in-progress: false
+
+jobs:
+  live:
+    if: github.event.issue.number == 581 && github.actor == 'ferinbon-cpu' && startsWith(github.event.comment.body, 'TASK185_JSON_API_2026_LIVE_AUTHORIZED ')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      TASK185_AUTH_COMMENT: ${{ github.event.comment.body }}
+      TASK185_ISSUE_NUMBER: ${{ github.event.issue.number }}
+    steps:
+      - name: Checkout exact default-branch authorization target
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.12"
+
+      - name: Verify exact authorization comment and main SHA
+        shell: bash
+        run: |
+          set -euo pipefail
+          HEAD_SHA="$(git rev-parse HEAD)"
+          test "$HEAD_SHA" = "$GITHUB_SHA"
+          EXPECTED="TASK185_JSON_API_2026_LIVE_AUTHORIZED main=$GITHUB_SHA months=1-8 max_requests=8 retry=0"
+          test "$TASK185_AUTH_COMMENT" = "$EXPECTED"
+
+      - name: Offline preflight
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m compileall -q robo_dados_publicos scripts tests
+          python -m unittest tests.test_task_185_tcesp_json_api -v
+
+      - name: Execute bounded JSON API batch and offline Stage C
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/task185_json_api_live_gate.py
+
+      - name: Upload exact monthly JSON custody and derived results
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task185-json-api-2026-live-result
+          path: task185-json-live-output/
+          if-no-files-found: error
+          retention-days: 30
