@@ -7,11 +7,13 @@ from robo_dados_publicos.accounting.rreo_rests_payable import (
     validate_contract,
 )
 from robo_dados_publicos.analytics.observatory_knowledge_pack import question_answerability
+from robo_dados_publicos.analytics.observatory_products import build_accounting_ledger
 from robo_dados_publicos.analytics.task184_local_bundle import _with_catalog, build_task184_bundle
 
 ROOT = Path(__file__).resolve().parents[1]
 TASK187 = ROOT / "docs/evidence/TASK_187_TCESP_RICH_ACCOUNTING_LEDGER_0.8.0.json"
 TASK186 = ROOT / "docs/evidence/TASK_186_TCESP_REVENUE_LEDGER_0.8.0.json"
+EVIDENCE = ROOT / "docs/evidence/TASK_188_RREO_RESTS_PAYABLE_MATERIALIZATION_0.8.0.json"
 GENERATED_AT = "2026-09-06T15:05:00+00:00"
 SOFTWARE_VERSION = "0.8.0"
 
@@ -62,6 +64,20 @@ class TestTask188RreoRestsPayable(unittest.TestCase):
         self.assertTrue(all("EDUCATION" in row["policy_domain_hints"] for row in education))
         self.assertTrue(all(row["policy_identity_proven"] is False for row in education))
         self.assertTrue(all(row["financial_policy_identity_proven"] is False for row in education))
+
+    def test_rreo_rows_preserve_budget_execution_source_family(self):
+        product = build_accounting_ledger(
+            build_rests_payable_observations(),
+            generated_at=GENERATED_AT,
+            software_version=SOFTWARE_VERSION,
+        )
+        self.assertEqual(product["row_count"], 4)
+        self.assertIn("RESTS_PAYABLE", product["capabilities"])
+        self.assertTrue(all(row["source_family"] == "BUDGET_EXECUTION" for row in product["rows"]))
+        self.assertTrue(all(
+            row["caution"] == "OFFICIAL_RREO_AGGREGATE_NE_GRANULAR_ACCOUNTING_TRANSACTION"
+            for row in product["rows"]
+        ))
 
     def test_rests_payable_capability_closes_acc_q3_only(self):
         t187 = json.loads(TASK187.read_text(encoding="utf-8"))
@@ -117,6 +133,30 @@ class TestTask188RreoRestsPayable(unittest.TestCase):
         self.assertEqual(by_id["ACC_Q3"]["status"], "MATERIALIZED_ANSWERABLE")
         self.assertEqual(by_id["FIN_Q1"]["status"], "MATERIALIZED_PARTIAL")
         self.assertEqual(by_id["PLAN_Q3"]["status"], "MATERIALIZED_PARTIAL")
+
+
+    def test_canonical_evidence_pins_snapshot_and_answerability(self):
+        e = json.loads(EVIDENCE.read_text(encoding="utf-8"))
+        self.assertEqual(e["status"], "PASS_REAL_RREO_RESTS_PAYABLE_MATERIALIZED")
+        self.assertEqual(e["source"]["materialized_observation_count"], 4)
+        self.assertEqual(e["accounting_ledger"]["row_count"], 39783)
+        self.assertEqual(e["accounting_ledger"]["snapshot_id"], "64503339d8352a2f61e1ee85")
+        self.assertIn("RESTS_PAYABLE", e["accounting_ledger"]["capabilities"])
+        self.assertEqual(
+            e["answerability"]["after_status_counts"],
+            {
+                "EXPLICIT_GAP": 5,
+                "MATERIALIZED_ANSWERABLE": 21,
+                "MATERIALIZED_PARTIAL": 12,
+            },
+        )
+        self.assertEqual(
+            e["tcesp_granular_enrichment"]["current_task188_transport_status"],
+            "SOURCE_TRANSPORT_UNAVAILABLE_NOT_NO_DATA",
+        )
+        self.assertFalse(e["tcesp_granular_enrichment"]["raw_payload_currently_custodied"])
+        self.assertEqual(e["remote_effects"]["serving"], 0)
+
 
 
 if __name__ == "__main__":
