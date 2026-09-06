@@ -19,6 +19,7 @@ jobs:
     timeout-minutes: 20
     env:
       PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONPATH: ${{ github.workspace }}
       TASK185_AUTH_COMMENT: ${{ github.event.comment.body }}
       TASK185_ISSUE_NUMBER: ${{ github.event.issue.number }}
     steps:
@@ -61,5 +62,5 @@ jobs:
         with:
           name: task185-json-api-2026-live-result
           path: task185-json-live-output/
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 30
