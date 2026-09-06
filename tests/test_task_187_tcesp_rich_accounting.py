@@ -141,7 +141,7 @@ class TestTask187TcespRichAccounting(unittest.TestCase):
         self.assertNotIn("EVENT_DATE", product["capabilities"])
         self.assertNotIn("RESTS_PAYABLE", product["capabilities"])
 
-    def test_rich_capabilities_close_fin_q1_and_acc_q2_but_not_rests_payable(self):
+    def test_rich_capabilities_close_acc_q2_without_overpromoting_fin_q1_or_rests_payable(self):
         t185 = json.loads(TASK185.read_text(encoding="utf-8"))
         t186 = json.loads(TASK186.read_text(encoding="utf-8"))
         bundle = build_task184_bundle(
@@ -188,7 +188,7 @@ class TestTask187TcespRichAccounting(unittest.TestCase):
         )
         report = question_answerability(products)
         by_id = {x["question_id"]: x for x in report["questions"]}
-        self.assertEqual(by_id["FIN_Q1"]["status"], "MATERIALIZED_ANSWERABLE")
+        self.assertEqual(by_id["FIN_Q1"]["status"], "MATERIALIZED_PARTIAL")
         self.assertEqual(by_id["ACC_Q2"]["status"], "MATERIALIZED_ANSWERABLE")
         self.assertEqual(by_id["ACC_Q3"]["status"], "MATERIALIZED_PARTIAL")
 
