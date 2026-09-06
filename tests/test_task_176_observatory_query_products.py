@@ -9,6 +9,7 @@ from robo_dados_publicos.analytics.observatory_products import (
     build_planning_document_index,
     build_product_catalog,
     build_school_indicator_series,
+    coverage_report,
     materialize_product,
     query_observatory,
     query_products,
@@ -204,6 +205,7 @@ class TestTask176ObservatoryQueryProducts(unittest.TestCase):
                 planning_row(),
                 planning_row("LDO", "LDO_2026", "Diretrizes orçamentárias da educação."),
                 planning_row("LOA", "LOA_2026", "Dotação autorizada para educação."),
+                planning_row("CME", "CME_PARECER_002_2024", "Parecer sobre funcionamento da educação municipal."),
             ],
             generated_at=GENERATED_AT,
             software_version=SOFTWARE,
@@ -356,6 +358,31 @@ class TestTask176ObservatoryQueryProducts(unittest.TestCase):
         self.assertTrue(packet["numeric_records"])
         self.assertTrue(all("2023" in str(x.get("period") or x.get("observation_period") or "") for x in packet["numeric_records"]))
         self.assertTrue(all(x.get("scope_id") == "CEIEF_RAL" for x in packet["numeric_records"]))
+
+    def test_coverage_report_is_explicit_for_all_fifteen_domains(self):
+        bundle = self.build_bundle()
+        catalog = build_product_catalog(
+            bundle,
+            generated_at=GENERATED_AT,
+            software_version=SOFTWARE,
+        )
+        full = {**bundle, "QUERY_PRODUCT_CATALOG": catalog}
+        got = coverage_report(full)
+        self.assertEqual(got["domain_count"], 15)
+        self.assertTrue(got["all_domains_explicit"])
+        self.assertEqual(sum(got["counts"].values()), 15)
+        self.assertEqual(got["counts"]["NO_PRODUCTS"], 0)
+
+    def test_transparency_control_can_return_product_catalog_records(self):
+        bundle = self.build_bundle()
+        bundle["QUERY_PRODUCT_CATALOG"] = build_product_catalog(
+            bundle,
+            generated_at=GENERATED_AT,
+            software_version=SOFTWARE,
+        )
+        packet = query_observatory("TRANSPARENCY_CONTROL", bundle)
+        self.assertTrue(packet["catalog_records"])
+        self.assertTrue(all(x["product_name"] == "QUERY_PRODUCT_CATALOG" for x in packet["catalog_records"]))
 
     def test_missing_product_becomes_explicit_gap(self):
         plan = route_observatory_question("LEARNING_FLOW", question_text="Como está o IDEB?")
