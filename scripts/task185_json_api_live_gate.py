@@ -109,9 +109,9 @@ def run() -> int:
 
     for month in contract["source"]["months"]:
         url = contract["source"]["url_template"].format(month=month)
+        requests_used += 1
         try:
             payload, content_type = get_once(url, int(contract["source"]["max_response_bytes_per_month"]))
-            requests_used += 1
             rows, meta = validate_payload(payload, month=month)
             if month == contract["source"]["probe_month"] and not rows:
                 raise Task185JsonStop("TASK185_JSON_PROBE_EMPTY")
