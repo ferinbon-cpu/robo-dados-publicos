@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "schema": "TASK184_LOCAL_PRODUCT_BUNDLE_V1",
+  "task": "TASK_184_BUNDLE_JOM_PLANNING_LOCAL_PACK",
+  "mode": "T0_OFFLINE_EXISTING_CUSTODY_REAL_ROWS_ONLY",
+  "base_main_sha": "ef38ac0fd1ad3d0e8d8010a06c920d0f6e81b686",
+  "jom": {
+    "source_spreadsheet_id": "1Q-wtXsEmP5WDfQglxAhZWiIgwyfVTnEr9ZBc3MSxlsY",
+    "serving_name": "BI_JORNAL_EVENTOS__SERVING",
+    "source_snapshot_id": "d126c0df36075f759b687c05",
+    "canonical_matrix_sha256": "d126c0df36075f759b687c0554a7dbbf5a4e4897384707a588ddc5033697f252",
+    "schema_fingerprint_sha256": "60d52f60d58785a357a7ffddefbc7a8f138c45e331e7a5af88ecf9f58a1bf1f1",
+    "source_row_count": 303,
+    "source_column_count": 24,
+    "source_quality_status": "VALIDATED",
+    "fixture": "docs/evidence/fixtures/TASK_184_JOM_303_VALIDATED_EVENTS.jsonl",
+    "semantics": "RECOMPUTE_WITH_CURRENT_TASK171_TASK174_CLASSIFIER",
+    "identity_rewritten": false,
+    "semantic_classification_proves_payment": false,
+    "semantic_classification_proves_financial_identity": false
+  },
+  "planning": {
+    "fixture": "docs/evidence/fixtures/TASK_184_PLANNING_PRIMARY_EVIDENCE.json",
+    "sources": [
+      {
+        "document_id": "PPA_2026_2029_LEI_7213_2025",
+        "source_family": "PPA",
+        "drive_id": "1btfxebkUxkjjVIrdsTT_W6WOSSbGCEbq",
+        "filename": "SOURCE_PPA_2026_2029_LEI_7213_2025_LIMEIRA.pdf",
+        "sha256": "3e5deb53448c2e5eea56217a4e5d7f20f7fc3859eff7fcb93a7de7eb17011c1a",
+        "pages": 105,
+        "custody_status": "SOURCE_CANONICAL_READBACK_VERIFIED"
+      },
+      {
+        "document_id": "LDO_2026_LEI_7141_2025",
+        "source_family": "LDO",
+        "drive_id": "1EyoQ69aaPx7u4_w7xkSg7-oWCx_vkJlX",
+        "filename": "SOURCE_LDO_2026_LEI_7141_2025_LIMEIRA.pdf",
+        "sha256": "6f28017bb61fe6dbd7db44e2306bd1a48f813d8d40411d87c130fba78fca2406",
+        "pages": 37,
+        "custody_status": "SOURCE_CANONICAL_READBACK_VERIFIED"
+      },
+      {
+        "document_id": "LOA_2026_LEI_7223_2025",
+        "source_family": "LOA",
+        "drive_id": "1zoG37Ao-h5GSzxkwlvwki8LDHzuD_DmT",
+        "filename": "SOURCE_LOA_2026_LEI_7223_2025_LIMEIRA.pdf",
+        "sha256": "bc4c8bf4b2b1e8f59e880318c37ec7f7fbd4357a85a8b46c97750444dbf01d4b",
+        "pages": 466,
+        "custody_status": "SOURCE_CANONICAL_READBACK_VERIFIED_OCR_HISTORICAL_AVAILABLE",
+        "task184_primary_text_scope": "METADATA_ONLY_NO_FULL_SUBSTANTIVE_PARSE"
+      },
+      {
+        "document_id": "CME_02_2021_EDUCACAO_TEMPO_INTEGRAL",
+        "source_family": "CME",
+        "drive_id": "1H5XVqisjFvXJcL7uVrJxadiufLBk0d8X",
+        "filename": "INDICACAO_CME_02_2021_EDUCACAO_TEMPO_INTEGRAL.pdf",
+        "sha256": "5d01a883bd5ec721b9a9a8b0a0f2c985eea8958da23de8d475d7c73d3109c07c",
+        "pages": 7,
+        "custody_status": "OFFICIAL_PRIMARY_READABLE"
+      },
+      {
+        "document_id": "DECRETO_118_2024_EITI_LIMEIRA",
+        "source_family": "MUNICIPAL_LEGISLATION",
+        "drive_id": "1zJ-D42f4pBtzEQAUfsTigIROgqkW3Kzt",
+        "filename": "DECRETO_118_2024_EITI_LIMEIRA.pdf",
+        "sha256": "a534b99711652d437e1672dbaf39b9f56fe8f35c042f3648ae8483187c909b60",
+        "pages": 1,
+        "custody_status": "OFFICIAL_PRIMARY_READABLE"
+      }
+    ],
+    "guards": [
+      "PPA_NE_EXECUTION",
+      "LOA_AUTHORIZATION_NE_ACCOUNTING_EXECUTION",
+      "CME_OR_DECREE_PUBLICATION_NE_IMPLEMENTATION_RESULT",
+      "LOA_CUSTODY_METADATA_NE_SUBSTANTIVE_ACTION_COVERAGE",
+      "DERIVED_PPA_LOA_BRIDGE_NE_PRIMARY_LOA_TEXT"
+    ]
+  },
+  "accounting": {
+    "bundle_status": "NOT_MATERIALIZED",
+    "reason": "TASK172_TCE_39780_EXPENSE_ROWS_WERE_NOT_PERSISTED_AND_NO_REAL_ACCOUNTING_ROW_DATASET_WAS_FOUND_IN_DRIVE",
+    "task172_live_row_count_observed": 39780,
+    "raw_payload_persisted": false,
+    "synthetic_fixture_allowed": false,
+    "new_acquisition_required_for_real_bundle": true
+  },
+  "remote_effects": {
+    "source_network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
