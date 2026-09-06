@@ -204,7 +204,10 @@
         "2025_ENROLLMENT_NE_SILENT_2026_PARTIAL_DENOMINATOR",
         "SAME_FISCAL_YEAR_REQUIRED_FOR_PER_ENROLLMENT",
         "LAST_BIMESTER_COMMITTED_NE_INTERIM_LIQUIDATED",
-        "PER_ENROLLMENT_NE_INDIVIDUAL_STUDENT_COST"
+        "PER_ENROLLMENT_NE_INDIVIDUAL_STUDENT_COST",
+        "YEAR_END_IPCA_DEFLATION_NE_MONTHLY_FLOW_DEFLATION",
+        "BRL_DEC_2025_EQUIVALENT_NE_NOMINAL_BRL",
+        "2026_PARTIAL_NE_ANNUALIZED"
       ],
       "materialized_blocks": [
         {
@@ -251,9 +254,59 @@
           "individual_student_cost_claim": false,
           "real_terms": false,
           "snapshot_id": "434c6506cc34f3469bd97bed"
+        },
+        {
+          "task": "TASK_192",
+          "source": "SIOPE_GOLD_2016_2024_PLUS_RREO_2025_PLUS_IBGE_IPCA",
+          "source_role": "OFFICIAL_ANNUAL_NOMINAL_SERIES_PLUS_OFFICIAL_PRICE_DEFLATOR",
+          "rows_added_to_fiscal_series": 19,
+          "total_fiscal_rows_after_overlay": 61,
+          "nominal_years": [
+            2016,
+            2017,
+            2018,
+            2019,
+            2020,
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "real_years": [
+            2016,
+            2017,
+            2018,
+            2019,
+            2020,
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "nominal_metric_id": "EDUCATION_EXPENDITURE",
+          "real_metric_id": "REAL_EDUCATION_EXPENDITURE",
+          "real_unit": "BRL_DEC_2025_EQUIVALENT",
+          "base_price_period": "2025-12",
+          "deflator": "IBGE_IPCA",
+          "annual_flow_monthly_weighted": false,
+          "annualized_2026": false,
+          "nominal_2016_brl": "215348241.40",
+          "real_2016_brl_dec_2025": "333866834.92",
+          "nominal_2025_brl": "463766660.32",
+          "real_2025_brl_dec_2025": "463766660.32",
+          "nominal_change_2016_2025_pct": "115.36",
+          "real_change_2016_2025_pct": "38.91",
+          "nominal_change_2024_2025_pct": "1.21",
+          "real_change_2024_2025_pct": "-2.92",
+          "fin_q4": "MATERIALIZED_ANSWERABLE",
+          "snapshot_id": "78f71327acc6c5de2267943b",
+          "content_sha256": "78f71327acc6c5de2267943bdfc95c85a4000e696acb0ddacca0dae3745d39bd",
+          "school_indicator_series_snapshot_id": "68b82bf24a9347d591bdc2da"
         }
       ],
-      "current_materialization_status": "TASK191_2025_ANNUAL_EDUCATION_PER_ENROLLMENT_MATERIALIZED_WITHIN_PARTIAL_FISCAL_SERIES"
+      "current_materialization_status": "TASK192_NOMINAL_VS_IPCA_REAL_ANNUAL_EDUCATION_EXPENDITURE_MATERIALIZED_WITHIN_PARTIAL_FISCAL_SERIES"
     },
     "JOM_EVENT_INDEX": {
       "current_status": "NO_NEW_CUSTODY_INPUT_REQUIRED",
