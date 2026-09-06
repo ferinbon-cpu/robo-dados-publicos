@@ -496,8 +496,27 @@ def coverage_report(
     rows = []
     counts = {"READY_PRODUCTS": 0, "PARTIAL_PRODUCTS": 0, "NO_PRODUCTS": 0}
     for domain_id, required_products in contract["domain_product_routes"].items():
-        available = [name for name in required_products if name in products]
-        missing = [name for name in required_products if name not in products]
+        plan = route_observatory_question(domain_id)
+        allowed_families = _source_family_set(plan)
+        available = []
+        missing = []
+        for name in required_products:
+            product = products.get(name)
+            if product is None:
+                missing.append(name)
+                continue
+            if name == "QUERY_PRODUCT_CATALOG":
+                available.append(name)
+                continue
+            row_families = {
+                str(row.get("source_family"))
+                for row in product.get("rows", [])
+                if row.get("source_family")
+            }
+            if row_families & allowed_families:
+                available.append(name)
+            else:
+                missing.append(name)
         if not missing:
             status = "READY_PRODUCTS"
         elif available:
