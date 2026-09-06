@@ -270,9 +270,17 @@ def run() -> int:
         "status":"PASS",
         "requests_used":requests_used,
         "total_rows":manifest["total_rows"],
+        "month_row_counts":{str(m["month"]):m["row_count"] for m in month_manifest},
+        "source_bundle_sha256":source_bundle_sha,
+        "ledger_snapshot_id":ledger["snapshot_id"],
+        "ledger_content_sha256":ledger["content_sha256"],
         "stage_counts":stage_counts,
-        "changed_questions":gain["changed_question_count"],
+        "before_status_counts":before["status_counts"],
+        "after_status_counts":after["status_counts"],
+        "changed_question_count":gain["changed_question_count"],
+        "changed_questions":[row["question_id"] for row in gain["changes"]],
         "capabilities":capabilities,
+        "missing_capabilities":contract["source_capabilities"]["not_provided"],
     }, ensure_ascii=False, sort_keys=True))
     return 0
 
