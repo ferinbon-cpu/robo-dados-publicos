@@ -61,7 +61,7 @@ def verify_authorization() -> tuple[str, str]:
     return main_sha, body
 
 
-def get_once(url: str, max_bytes: int) -> tuple[bytes, str]:
+def get_once(url: str, max_bytes: int, timeout_seconds: int) -> tuple[bytes, str]:
     opener = urllib.request.build_opener(NoRedirect())
     req = urllib.request.Request(
         url,
@@ -69,7 +69,7 @@ def get_once(url: str, max_bytes: int) -> tuple[bytes, str]:
         headers={"User-Agent":"ROBO_DADOS_PUBLICOS-TASK185-JSON/0.8.0","Accept":"application/json"},
     )
     try:
-        with opener.open(req, timeout=60) as response:
+        with opener.open(req, timeout=timeout_seconds) as response:
             status = int(getattr(response, "status", 0) or response.getcode())
             if status != 200:
                 raise Task185JsonStop(f"TASK185_JSON_HTTP_{status}")
@@ -111,7 +111,11 @@ def run() -> int:
         url = contract["source"]["url_template"].format(month=month)
         requests_used += 1
         try:
-            payload, content_type = get_once(url, int(contract["source"]["max_response_bytes_per_month"]))
+            payload, content_type = get_once(
+                url,
+                int(contract["source"]["max_response_bytes_per_month"]),
+                int(contract["source"]["network_timeout_seconds"]),
+            )
             rows, meta = validate_payload(payload, month=month)
             if month == contract["source"]["probe_month"] and not rows:
                 raise Task185JsonStop("TASK185_JSON_PROBE_EMPTY")
