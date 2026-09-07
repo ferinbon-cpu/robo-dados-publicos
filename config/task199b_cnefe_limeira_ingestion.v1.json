@@ -1,0 +1,123 @@
+{
+  "version": 1,
+  "schema": "TASK199B_CNEFE_LIMEIRA_INGESTION_V1",
+  "task": "TASK_199B_CNEFE_LIMEIRA_INGESTION",
+  "issue": 628,
+  "base_main_sha": "86a106d1ec09a40aa6db71f5326a74fbb66e3371",
+  "mode": "T0_OFFLINE_USER_MEDIATED_OFFICIAL_IBGE_BINARY_INGESTION",
+  "scope": {
+    "municipality": "Limeira",
+    "uf": "SP",
+    "ibge_code_7": "3526902",
+    "reference": "CENSO_2022_CNEFE"
+  },
+  "provenance": {
+    "classification": "USER_MEDIATED_DIRECT_OFFICIAL_IBGE_BINARY_HANDOFF",
+    "authority": "IBGE_CNEFE_CENSO_2022",
+    "official_source_url": "https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2022/Arquivos_CNEFE/CSV/Municipio/35_SP/3526902_LIMEIRA.zip",
+    "raw_archive_bytes_preserved": true,
+    "raw_member_bytes_preserved": true
+  },
+  "archive": {
+    "filename": "3526902_LIMEIRA.zip",
+    "bytes": 3486586,
+    "sha256": "ab73250df889effcb01ddc2d060bddd3252e995468e97ef93b048564763626a7",
+    "member_count": 1
+  },
+  "member": {
+    "filename": "3526902_LIMEIRA.csv",
+    "bytes": 26082570,
+    "sha256": "8adb17d18a8c0a4de9e6d48b31ed63f74e0bfde27f11f63154c17456d35218b3",
+    "delimiter": ";",
+    "encoding": "UTF-8",
+    "rows": 150450,
+    "columns": 34,
+    "expected_identity": {
+      "COD_UF": "35",
+      "COD_MUNICIPIO": "3526902"
+    }
+  },
+  "geography": {
+    "unique_sector_codes": 724,
+    "unique_ceps": 2471,
+    "rows_with_latitude_longitude": 150450,
+    "coordinate_coverage_rate": 1.0,
+    "NV_GEO_COORD_counts": {
+      "1": 134798,
+      "2": 10372,
+      "3": 2411,
+      "4": 2850,
+      "5": 12,
+      "6": 7
+    }
+  },
+  "establishments": {
+    "rows_with_description": 20163,
+    "unique_descriptions": 13528,
+    "clear_municipal_school_name_candidate_rows": 41,
+    "clear_municipal_school_name_candidate_unique_descriptions": 38,
+    "candidate_only": true
+  },
+  "rafael_candidate_example": {
+    "COD_UNICO_ENDERECO": "222923668",
+    "COD_SETOR": "352690205000136P",
+    "CEP": "13486559",
+    "NOM_SEGLOGR": "MARIO RUDGE RAMOS PARADA",
+    "NUM_ENDERECO": "0",
+    "LATITUDE": "-22.574023",
+    "LONGITUDE": "-47.377727",
+    "DSC_ESTABELECIMENTO": "CEIEF RAFAEL AFONSO LEITE",
+    "status": "CANDIDATE_ONLY_NOT_CANONICAL_SCHOOL_JOIN"
+  },
+  "drive_artifacts": {
+    "raw_zip": {
+      "id": "1EfrJkwj6bcu9WiokX6zz59_4-Wt8Caiy",
+      "bytes": 3486586,
+      "sha256": "ab73250df889effcb01ddc2d060bddd3252e995468e97ef93b048564763626a7"
+    },
+    "raw_csv": {
+      "id": "1pqAYHvs9RTfHAymDJaR9QgVvIe8RBT2h",
+      "bytes": 26082570,
+      "sha256": "8adb17d18a8c0a4de9e6d48b31ed63f74e0bfde27f11f63154c17456d35218b3"
+    },
+    "evidence_json": {
+      "id": "1t0RZseEiTHLodv5C5obI8C7a2gs_EugA",
+      "bytes": 3821,
+      "sha256": "c0417e2125bccb5b0f6f4b51f4b470bea672ef95ce376776ecbbc220f1194ea0"
+    },
+    "school_name_candidates_csv": {
+      "id": "1EPggDnjOECybG5wGP0PrQ6Ur3JgUzlhs",
+      "bytes": 4587,
+      "sha256": "a52c8b01ffe475858efb0e5fd17c3af8d77b55f46120fb3622a4923beb685b12"
+    }
+  },
+  "adjudication": {
+    "cnefe_ingested": true,
+    "school_to_sector_crosswalk_materialized": false,
+    "territory_profile_materialized": false,
+    "canonical_answerability_change": false,
+    "reason": "CNEFE provides exact address/coordinate/sector rows but school identity must be reconciled with the official 69-school roster using INEP code plus address or coordinates before any canonical school-sector join."
+  },
+  "next_required_sources": [
+    "CENSO2022_SECTOR_BASIC_AGGREGATES",
+    "CENSO2022_SECTOR_INCOME_AGGREGATES",
+    "SP_2022_SECTOR_GEOMETRY",
+    "OFFICIAL_69_SCHOOL_ROSTER_WITH_INEP_AND_ADDRESS_OR_COORDINATES"
+  ],
+  "guards": [
+    "SCHOOL_NAME_NE_CANONICAL_IDENTITY_WHEN_INEP_CODE_AVAILABLE",
+    "CNEFE_ESTABLISHMENT_TEXT_NE_OFFICIAL_SCHOOL_ROSTER_IDENTITY",
+    "COORDINATE_ROW_NE_SCHOOL_COORDINATE_UNLESS_MATCH_PROVEN",
+    "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
+    "NO_TERRITORY_PROFILE_PROMOTION_BEFORE_SECTOR_DICTIONARY_AND_SCHOOL_JOIN_VALIDATION",
+    "MISSING_GEOGRAPHY_NE_ZERO"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
