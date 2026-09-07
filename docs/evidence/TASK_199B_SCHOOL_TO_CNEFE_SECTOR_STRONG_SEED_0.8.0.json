@@ -1,0 +1,56 @@
+{
+  "schema": "TASK199B_SCHOOL_TO_CNEFE_SECTOR_STRONG_SEED_EVIDENCE_V1",
+  "software_candidate": "0.8.0",
+  "task": "TASK_199B_SCHOOL_TO_CNEFE_SECTOR_STRONG_SEED",
+  "issue": 628,
+  "base_main_sha": "96a4f374799f293626e590ca799f46ed5ec42430",
+  "status": "PASS_PARTIAL_STRONG_SCHOOL_TO_SECTOR_SEED",
+  "seed": {
+    "rows": 14,
+    "roster_denominator": 40,
+    "coverage_rate": 0.35,
+    "unique_sector_codes": 14,
+    "fixture_sha256": "ca36374daa6c8a4ac23e039251d892b35355f007d8c71e48bb57ec3689d21e95",
+    "drive_id": "1txR-fFTCKkbKxSXCiuHa76621FwS6WLH",
+    "drive_readback_bytes": 3907
+  },
+  "provenance": {
+    "inep_roster": {
+      "asset": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08.xlsx",
+      "sha256": "0516868e06685aebe8254b11ca6488ef26b03dea61f927ff637840cf2a21e865"
+    },
+    "current_address": {
+      "authority": "SECRETARIA_MUNICIPAL_EDUCACAO_LIMEIRA",
+      "url": "https://sme.limeira.sp.gov.br/consulta_ue_2.php",
+      "retrieved_date": "2026-09-07",
+      "raw_bytes_preserved": false
+    },
+    "cnefe": {
+      "archive_sha256": "ab73250df889effcb01ddc2d060bddd3252e995468e97ef93b048564763626a7",
+      "csv_sha256": "8adb17d18a8c0a4de9e6d48b31ed63f74e0bfde27f11f63154c17456d35218b3"
+    }
+  },
+  "identity_semantics": {
+    "promotion": "INEP_FROM_PINNED_ROSTER + CURRENT_OFFICIAL_SME_STREET_NUMBER + EXACT_CNEFE_STREET_NUMBER + COMPATIBLE_CNEFE_SCHOOL_DESCRIPTION",
+    "name_only": "FORBIDDEN",
+    "fuzzy_only": "FORBIDDEN",
+    "nearest_coordinate_only": "FORBIDDEN"
+  },
+  "notable_nonpromotion": {
+    "codigo_inep": "35470600",
+    "school": "CEIEF Rafael Affonso Leite",
+    "reason": "CNEFE textual school candidate is at a different address from the current official SME address; no canonical sector promotion."
+  },
+  "decision": "MATERIALIZE_PARTIAL_STRONG_SEED_KEEP_FULL_CROSSWALK_AND_TERRITORY_PROFILE_PENDING",
+  "answerability": {
+    "before": "28_ANSWERABLE_8_PARTIAL_2_EXPLICIT_GAP",
+    "after": "28_ANSWERABLE_8_PARTIAL_2_EXPLICIT_GAP",
+    "reason": "A 14-school location seed is useful infrastructure but is not full school/network territorial context and sector socioeconomic aggregates are not yet ingested."
+  },
+  "next": [
+    "INGEST_CENSO2022_SECTOR_BASIC",
+    "INGEST_CENSO2022_SECTOR_INCOME",
+    "EXTEND_EXACT_ADDRESS_CROSSWALK_TO_REMAINING_SCHOOLS_WITHOUT_FUZZY_PROMOTION",
+    "SPATIAL_QA_WITH_SECTOR_GEOMETRY_WHEN_BYTES_AVAILABLE"
+  ]
+}
