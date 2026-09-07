@@ -1,0 +1,92 @@
+{
+  "schema": "TASK195B_SIOPE_UI_DOTACAO_CORROBORATION_V1",
+  "software_candidate": "0.8.0",
+  "task": "TASK_195B_SIOPE_UI_DOTACAO_CORROBORATION",
+  "issue": 623,
+  "base_main_sha": "94431a92b87ba3d5d030a27521d445e1b94a6eff",
+  "mode": "T0_OFFLINE_USER_MEDIATED_OFFICIAL_UI_EXPORT_CORROBORATION",
+  "status": "PASS_CORROBORATION_NO_ALIAS_PROMOTION",
+  "scope": {
+    "year": 2025,
+    "period": "Anual",
+    "uf": "Sao Paulo",
+    "municipality": "Limeira",
+    "expense_phase": "Dotação Atualizada",
+    "report_title": "Quadro Resumo da Dotação Atualizada Segundo SubFunções/Natureza"
+  },
+  "provenance": {
+    "classification": "USER_MEDIATED_OFFICIAL_SIOPE_UI_EXPORT",
+    "authority": "FNDE_SIOPE",
+    "raw_csv_preserved_in_drive": true,
+    "context_screenshot_preserved_in_drive": true,
+    "derived_json_preserved_in_drive": true,
+    "automated_source_get_performed": false
+  },
+  "drive_artifacts": {
+    "csv": {
+      "id": "1AP3B650gZq68dLHk0L-fmAFhmmhhIqHV",
+      "filename": "quadro_resumo_despesas_2025_6.csv",
+      "bytes": 6775,
+      "sha256": "6e3b7d7043b22fc5862994e0c5d92f36c5be3c8c208958e8dd02041175d1b499"
+    },
+    "screenshot": {
+      "id": "15WrcJIPIsAd-lcL4C6RIFid3S9RH8Eff",
+      "filename": "SIOPE_LIMEIRA_2025_DOTACAO_ATUALIZADA_UI_SCREENSHOT.jpg",
+      "bytes": 143818,
+      "sha256": "b8eb5755fbe89166eba57614cee452f021add7a3b9376ffbdf9733b3849a2209"
+    },
+    "derived_evidence": {
+      "id": "1b8CumRghd3K7qd1LWJVB50f5_yVISOxn",
+      "filename": "FNDE_SIOPE_LIMEIRA_2025_DOTACAO_ATUALIZADA_UI_EXPORT_EVIDENCE.json",
+      "bytes": 3449,
+      "sha256": "318b70e81bebc4ce54b989ca80ae74ed9ac505c88dc6d34cef71e3028fd9e7c5"
+    }
+  },
+  "csv_shape": {
+    "rows_including_total": 44,
+    "columns": 12,
+    "nonzero_detail_rows": 9
+  },
+  "official_ui_total": {
+    "column": "Total Geral (Exceto Inativos)",
+    "value": "526804985.21",
+    "status": "PROVEN_EXACT_FROM_OFFICIAL_UI_CSV"
+  },
+  "nonzero_detail_rows": [
+    {"label": "361 - Ensino Fundamental", "value": "5320000.00"},
+    {"label": "361 - Ensino Fundamental", "value": "147090848.21"},
+    {"label": "361 - Ensino Fundamental - Exceto FUNDEB (Despesas Próprias)", "value": "158654889.49"},
+    {"label": "361 - Ensino Fundamental (Despesas Vinculadas)", "value": "31782684.96"},
+    {"label": "362 - Ensino Médio (Despesas Vinculadas)", "value": "35000.00"},
+    {"label": "364 - Ensino Superior (Despesas Vinculadas)", "value": "359500.00"},
+    {"label": "365 - Educação Infantil (Pré-Escola) - Exceto FUNDEB (Despesas Próprias)", "value": "110384638.78"},
+    {"label": "365 - Educação Infantil (Pré-Escola) (Despesas Vinculadas)", "value": "17853423.77"},
+    {"label": "365 - Educação Infantill (Creche)", "value": "55324000.00"}
+  ],
+  "cross_evidence_reconciliation": {
+    "previous_m3_consolidated_DA_total": "526804985.21",
+    "ui_csv_total": "526804985.21",
+    "difference": "0.00",
+    "status": "INDEPENDENT_EXACT_CORROBORATION"
+  },
+  "alias_comparison": {
+    "VL_DESP_DOTA_ATUA_EDU": "520399255.47",
+    "RREO_LINE_33_DA": "520398255.47",
+    "UI_TOTAL": "526804985.21",
+    "UI_MINUS_ALIAS": "6405729.74",
+    "UI_MINUS_RREO_LINE_33": "6406729.74",
+    "ALIAS_MINUS_RREO_LINE_33": "1000.00"
+  },
+  "adjudication": {
+    "VL_DESP_DOTA_ATUA_EDU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "reason": "Official UI export corroborates the consolidated DA total but does not define the source/backend inclusion-exclusion rule that maps that total to VL_DESP_DOTA_ATUA_EDU."
+  },
+  "guards": [
+    "OFFICIAL_UI_TOTAL_NE_ALIAS_BY_DEFAULT",
+    "OFFICIAL_UI_TOTAL_NE_RREO_LINE_33_BY_DEFAULT",
+    "EXACT_CORROBORATION_NE_BACKEND_FORMULA",
+    "NO_DOUBLE_COUNTING_WITHOUT_SOURCE_DEFINED_HIERARCHY",
+    "NO_S2_PROMOTION"
+  ]
+}
