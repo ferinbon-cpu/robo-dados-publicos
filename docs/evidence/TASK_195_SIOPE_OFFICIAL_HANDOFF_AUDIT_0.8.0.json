@@ -1,0 +1,89 @@
+{
+  "schema": "TASK195_SIOPE_OFFICIAL_HANDOFF_EVIDENCE_V1",
+  "software_candidate": "0.8.0",
+  "task": "TASK_195_SIOPE_OFFICIAL_HANDOFF_AUDIT",
+  "issue": 623,
+  "base_main_sha": "75542bd8a6028d3c26c861141c453d7f57ccb9e9",
+  "status": "PASS_PARTIAL_USER_MEDIATED_OFFICIAL_LABEL_AND_VALUE_RECONCILIATION",
+  "identity": {
+    "TIPO": "Municipal",
+    "NUM_ANO": 2025,
+    "NUM_PERI": 6,
+    "COD_UF": 35,
+    "SIG_UF": "SP",
+    "COD_MUNI": 352690,
+    "NOM_MUNI": "Limeira"
+  },
+  "provenance": {
+    "classification": "USER_MEDIATED_DIRECT_OFFICIAL_URL_RESPONSE_PASTED",
+    "authority": "FNDE_SIOPE_OLINDA",
+    "raw_endpoint_bytes_available": false,
+    "raw_endpoint_sha256": null,
+    "derived_evidence_files_in_drive": true
+  },
+  "official_semantics_observed": {
+    "receita": {
+      "PA": "Previsão Atualizada",
+      "RR": "Receitas Realizadas",
+      "DF": "Deduções FUNDEB",
+      "IO": "IntraOrçamentaria",
+      "OD": "Outras Deduções"
+    },
+    "despesas": {
+      "DE": "Desp. Empenhadas",
+      "DL": "Desp. Liquidadas",
+      "DP": "Desp. Pagas"
+    }
+  },
+  "reconciliations": {
+    "VAL_RECE_PREV_ATUA": {
+      "status": "PROVEN_EXACT_OPERATIONAL",
+      "components": ["2198860107.12", "43133736.15"],
+      "sum": "2241993843.27",
+      "variance_to_existing_alias": "0.00"
+    },
+    "VAL_RECE_REAL": {
+      "status": "PROVEN_EXACT_OPERATIONAL",
+      "components": ["2087296383.01", "39799480.18"],
+      "sum": "2127095863.19",
+      "variance_to_existing_alias": "0.00"
+    },
+    "VAAR": {
+      "receita_realizada": "885554.43",
+      "despesa_empenhada": "885554.43",
+      "despesa_liquidada": "885554.43",
+      "despesa_paga": "885554.43",
+      "status": "EXACT_EQUALITY_OBSERVED"
+    }
+  },
+  "education_transfer_observations": {
+    "fundeb_eti_creation": {
+      "previsao_atualizada": "516976.41",
+      "receita_realizada": "1033952.81"
+    },
+    "salario_educacao_receita_realizada": "13344754.26",
+    "pnae_receita_realizada": "4563800.00",
+    "pnate_receita_realizada": "202356.77",
+    "fundeb_transfer_receita_realizada": "195763651.55"
+  },
+  "drive_persistence": {
+    "folder": "01_BRONZE/SIOPE",
+    "receita_evidence_drive_id": "1XS0swEF0pgBdTjPII51z4PJFctwe0grT",
+    "despesas_probe_evidence_drive_id": "12QNBsO0-fmVlVPBJftcaJVDZhUtHipMV",
+    "manifest_drive_id": "1gb6g-zCst8Ch_uQCvHC6sZK2yZ35Z7ia"
+  },
+  "adjudication": {
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "VL_DESP_DOTA_ATUA_EDU": "NOT_PROVEN",
+    "reason": "CURRENT_DESPESAS_SUBSET_PROVES_DE_DL_DP_LABELS_AND_VAAR_VALUES_BUT_HAS_NO_DA_ROWS_OR_SOURCE_DEFINED_EDUCATION_DOTACAO_INCLUSION_RULE"
+  },
+  "next_probe": "DESPESAS_SIOPE_LIMEIRA_2025_P6_IDN_CLAS_DA",
+  "guards": [
+    "NO_RAW_HASH_INVENTION",
+    "USER_HANDOFF_PROVENANCE_EXPLICIT",
+    "MISSING_DA_NE_ZERO",
+    "EDU_NE_MDE_GENERAL_IDENTITY",
+    "NO_S2_PROMOTION_BEFORE_DA_RULE_PROOF"
+  ]
+}
