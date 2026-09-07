@@ -518,7 +518,8 @@
       "guards": [
         "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
         "PARTIAL_14_OF_69_NE_FULL_NETWORK_COVERAGE",
-        "NO_VULNERABILITY_INDEX_WITHOUT_EXPLICIT_METHOD"
+        "NO_VULNERABILITY_INDEX_WITHOUT_EXPLICIT_METHOD",
+        "57_OF_69_NE_FULL_NETWORK_COVERAGE"
       ],
       "materialized_blocks": [
         {
@@ -531,6 +532,24 @@
           "school_sector_links": 14,
           "network_school_denominator": 69,
           "full_network_school_link": false
+        },
+        {
+          "task": "TASK_199E",
+          "source": "SME_CURRENT_CIE_ADDRESS_PLUS_IBGE_CNEFE_CENSO2022",
+          "scope": "LIMEIRA_2022_TERRITORY_CONTEXT_PLUS_57_STRONG_SCHOOL_LINKS",
+          "strong_school_sector_links": 57,
+          "network_school_denominator": 69,
+          "coverage_rate": 0.826087,
+          "years_initial_links": 32,
+          "early_childhood_only_links": 25,
+          "tier_counts": {
+            "A": 41,
+            "B": 15,
+            "C": 1
+          },
+          "held_school_links": 12,
+          "full_network_school_link": false,
+          "territory_profile_rows": 239
         }
       ],
       "unbundled_answerability": "EXPLICIT_GAP"
