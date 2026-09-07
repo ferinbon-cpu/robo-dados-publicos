@@ -1,0 +1,56 @@
+name: TASK 194H Inep resource-package index
+
+on:
+  issue_comment:
+    types: [created]
+permissions:
+  contents: read
+  issues: read
+concurrency:
+  group: task194h-inep-resource-index
+  cancel-in-progress: false
+jobs:
+  probe:
+    if: github.event.issue.number == 613 && github.actor == 'ferinbon-cpu' && startsWith(github.event.comment.body, 'TASK194H_INEP_RESOURCE_INDEX_AUTHORIZED ')
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONPATH: ${{ github.workspace }}
+      TASK194H_AUTH_COMMENT: ${{ github.event.comment.body }}
+      TASK194H_ISSUE_NUMBER: ${{ github.event.issue.number }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with: {ref: main, fetch-depth: 1}
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with: {python-version: "3.12"}
+      - name: Verify exact authorization
+        shell: bash
+        run: |
+          set -euo pipefail
+          HEAD_SHA="$(git rev-parse HEAD)"
+          test "$HEAD_SHA" = "$GITHUB_SHA"
+          EXPECTED="TASK194H_INEP_RESOURCE_INDEX_AUTHORIZED main=$GITHUB_SHA issue=613 max_http_requests=2 blob_gets=0 querydata=0"
+          test "$TASK194H_AUTH_COMMENT" = "$EXPECTED"
+      - name: Offline preflight
+        run: |
+          python -m compileall -q scripts tests
+          python -m unittest tests.test_task_194h_inep_resource_index -v
+      - name: Execute official resource-index probe
+        run: |
+          mkdir -p runtime/task194h
+          TASK194H_CHECKED_OUT_SHA="$(git rev-parse HEAD)" python scripts/task194h_inep_resource_index.py --output runtime/task194h/sanitized_resource_index.json
+      - name: Assert sanitized output only
+        if: always()
+        run: |
+          if [ -d runtime/task194h ]; then
+            find runtime/task194h -maxdepth 1 -type f -printf '%f\n' | grep -vx 'sanitized_resource_index.json' && exit 1 || true
+          fi
+      - name: Upload sanitized resource index
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task194h-inep-resource-index
+          path: runtime/task194h/sanitized_resource_index.json
+          if-no-files-found: warn
+          retention-days: 30
