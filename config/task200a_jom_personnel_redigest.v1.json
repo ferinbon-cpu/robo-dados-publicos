@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "schema": "TASK200A_JOM_PERSONNEL_REDIGEST_V1",
+  "task": "TASK_200A",
+  "issue": 636,
+  "base_main_sha": "fc89f34215d4cd9188ec98a4ee05a73a74bc5266",
+  "mode": "T0_EXISTING_CUSTODY_NATIVE_PDF_TEXT_SUBJECT_AWARE_REDIGEST",
+  "source_fixture": "docs/evidence/fixtures/TASK_200A_JOM_PERSONNEL_REDIGEST_EVENTS.json",
+  "source_fixture_sha256": "87ce1d3d519f5794fb49975910c80f4b69cce8f00c45cefab683b636135c5fbc",
+  "drive": {
+    "full_events_id": "1C7U-c3xurZxrL7zKBEc6fyELYq1V5NUU",
+    "full_events_bytes": 12757,
+    "full_events_sha256": "edcea1e9ae251ffd05d1396f3ec117ee55292848f27825d4d3519e1579363bda",
+    "evidence_id": "1qlMBXpfUWvL2ZTsOrLmPaLNqQOTdl9zS",
+    "evidence_bytes": 2820,
+    "evidence_sha256": "11e0d2f26280b22f3fda53238538fc038eed861b6d15388cb9ff0d8070154ce7",
+    "readback_verified": true
+  },
+  "current_snapshot": {
+    "row_count": 303,
+    "object_text_nonblank": 77,
+    "object_text_blank": 226,
+    "act_rows": 157,
+    "blank_act_rows": 148,
+    "affected_unique_pages": 141
+  },
+  "redigest": {
+    "event_count": 10,
+    "principal_subject": "EDUCATION_PERSONNEL",
+    "native_text_only": true,
+    "ocr_used": false,
+    "event_identity_rewritten": false,
+    "current_object_text_required_blank": true
+  },
+  "answerability_hardening": {
+    "PERSONNEL_EVENTS": {
+      "requires_policy_domain": "EDUCATION",
+      "requires_evidence_layer": "PERSONNEL"
+    },
+    "SCHOOL_NORMS": {
+      "requires_normative_event_type": true,
+      "requires_non_workforce_education_topic": true,
+      "generic_personnel_portaria_must_not_match": true
+    }
+  },
+  "expected": {
+    "jom_rows": 303,
+    "personnel_education_matching_rows_min": 10,
+    "answerability_before": {
+      "MATERIALIZED_ANSWERABLE": 32,
+      "MATERIALIZED_PARTIAL": 6
+    },
+    "answerability_after": {
+      "MATERIALIZED_ANSWERABLE": 34,
+      "MATERIALIZED_PARTIAL": 4
+    },
+    "changed_questions": ["PERS_Q1", "PERS_Q2"],
+    "norms_remain_partial": true
+  },
+  "guards": [
+    "NO_EVENT_ID_REWRITE",
+    "CURRENT_OBJECT_TEXT_MUST_BE_BLANK",
+    "NATIVE_TEXT_ONLY_NO_OCR",
+    "OBJECT_TEXT_IS_PRIMARY_OPERATIVE_CLAUSE_NOT_SUMMARY",
+    "PRINCIPAL_SUBJECT_MUST_BE_EDUCATION_PERSONNEL",
+    "INCIDENTAL_EDUCATION_ROLE_MENTION_NE_PROMOTION",
+    "PERSONNEL_RECIPE_REQUIRES_EDUCATION_DOMAIN",
+    "SCHOOL_NORMS_NE_GENERIC_PERSONNEL_PORTARIA",
+    "PUBLICATION_NE_IMPLEMENTATION"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
