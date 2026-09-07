@@ -1,0 +1,81 @@
+name: TASK 201A2 SME workforce one-shot discovery
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: read
+
+concurrency:
+  group: task201a2-sme-workforce-live
+  cancel-in-progress: false
+
+jobs:
+  live:
+    if: github.event.issue.number == 639 && github.actor == 'ferinbon-cpu' && startsWith(github.event.comment.body, 'TASK201A2_SME_WORKFORCE_AUTHORIZED ')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONPATH: ${{ github.workspace }}
+      TASK201A2_AUTH_COMMENT: ${{ github.event.comment.body }}
+      TASK201A2_ISSUE_NUMBER: ${{ github.event.issue.number }}
+    steps:
+      - name: Checkout exact default-branch authorization target
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.12"
+
+      - name: Verify exact authorization comment and main SHA
+        shell: bash
+        run: |
+          set -euo pipefail
+          HEAD_SHA="$(git rev-parse HEAD)"
+          test "$HEAD_SHA" = "$GITHUB_SHA"
+          EXPECTED="TASK201A2_SME_WORKFORCE_AUTHORIZED main=$GITHUB_SHA issue=639 sme_attempts=2 raw_persist=0 pii_persist=0"
+          test "$TASK201A2_AUTH_COMMENT" = "$EXPECTED"
+
+      - name: Offline preflight
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m compileall -q scripts robo_dados_publicos tests
+          python -m unittest tests.test_task_201a2_sme_workforce_discovery -v
+
+      - name: Execute bounded SME workforce discovery
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime/task201a2
+          TASK201A2_CHECKED_OUT_SHA="$(git rev-parse HEAD)" \
+            python scripts/task201a2_sme_workforce_discovery.py \
+            --output runtime/task201a2/sanitized_result.json
+
+      - name: Assert aggregate-only persistence
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -d runtime/task201a2 ]; then
+            find runtime/task201a2 -maxdepth 1 -type f -printf '%f\n' | grep -vx 'sanitized_result.json' && exit 1 || true
+          fi
+          if [ -f runtime/task201a2/sanitized_result.json ]; then
+            ! grep -Eiq '"(cpf|matricula|person_name)"|[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}' runtime/task201a2/sanitized_result.json
+          fi
+
+      - name: Upload sanitized aggregate only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task201a2-sme-workforce-sanitized-result
+          path: runtime/task201a2/sanitized_result.json
+          if-no-files-found: warn
+          retention-days: 30
