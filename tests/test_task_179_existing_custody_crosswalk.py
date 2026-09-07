@@ -25,7 +25,7 @@ class TestTask179ExistingCustodyCrosswalk(unittest.TestCase):
         got = validate_contracts()
         self.assertEqual(got["status"], "PASS")
         self.assertEqual(got["asset_count"], 8)
-        self.assertEqual(got["product_count"], 7)
+        self.assertEqual(got["product_count"], 8)
         self.assertEqual(got["domain_count"], 15)
         self.assertFalse(got["network"])
         self.assertFalse(got["drive_write"])
@@ -110,13 +110,13 @@ class TestTask179ExistingCustodyCrosswalk(unittest.TestCase):
             self.assertEqual(got["status"], "NO_NEW_CUSTODY_INPUT_REQUIRED")
             self.assertTrue(got["full_materialization_ready"])
 
-    def test_coverage_is_14_of_15_with_territory_explicit_gap(self):
+    def test_coverage_is_15_of_15_after_territory_product(self):
         got = domain_coverage()
         self.assertEqual(got["domain_count"], 15)
         self.assertTrue(got["all_domains_explicit"])
-        self.assertEqual(got["covered_or_partial_count"], 14)
-        self.assertEqual(got["explicit_gap_count"], 1)
-        self.assertEqual(got["explicit_gaps"], ["TERRITORY_CONTEXT"])
+        self.assertEqual(got["covered_or_partial_count"], 15)
+        self.assertEqual(got["explicit_gap_count"], 0)
+        self.assertEqual(got["explicit_gaps"], [])
 
     def test_handoff_priority_now_starts_with_document_corpus(self):
         got = recommended_handoffs()
@@ -155,8 +155,8 @@ class TestTask179ExistingCustodyCrosswalk(unittest.TestCase):
     def test_summary_is_deterministic_shape(self):
         got = summary()
         self.assertEqual(got["schema"], "TASK179_EXISTING_CUSTODY_SUMMARY_V1")
-        self.assertEqual(len(got["products"]), 7)
-        self.assertEqual(got["coverage"]["covered_or_partial_count"], 14)
+        self.assertEqual(len(got["products"]), 8)
+        self.assertEqual(got["coverage"]["covered_or_partial_count"], 15)
         self.assertEqual(got["handoffs"]["first"]["asset_id"], "MD_01_3B_CORPUS")
 
 
