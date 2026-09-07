@@ -532,7 +532,8 @@
           "network_school_denominator": 69,
           "full_network_school_link": false
         }
-      ]
+      ],
+      "unbundled_answerability": "EXPLICIT_GAP"
     }
   },
   "handoff_priority": [
