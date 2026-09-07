@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "schema": "TASK194J_SEDUC_MIEST_LIMEIRA_CLASS_PROBE_V1",
+  "task": "TASK_194J_SEDUC_MIEST_LIMEIRA_CLASS_PROBE",
+  "mode": "T1_BOUNDED_READ_ONLY_OFFICIAL_SEDUC_MIEST_SCHEMA",
+  "base_main_sha": "9759994819b4b71dd317ab6401dca25ac73178bd",
+  "authorization_issue": 619,
+  "source": {
+    "catalog_url": "https://dadosabertos.des.sp.gov.br/dataset/c4f68676-eada-48ab-9498-4452dd9d503b",
+    "csv_url": "https://dados.educacao.sp.gov.br/sites/default/files/MIEST%20CICLO%20-%2012%202025.csv",
+    "allowed_host": "dados.educacao.sp.gov.br",
+    "period": "2025-12",
+    "max_http_requests": 1
+  },
+  "target": {
+    "municipality_name": "LIMEIRA",
+    "municipality_tokens": [
+      "MUNIC",
+      "MUN",
+      "CIDADE"
+    ],
+    "interesting_header_tokens": [
+      "CLAS",
+      "TURM",
+      "MATR",
+      "REDE",
+      "DEPEND",
+      "MUNIC",
+      "CIDADE",
+      "ESCOLA",
+      "CIE",
+      "CICLO",
+      "ENSINO",
+      "DIRETORIA",
+      "TIPO"
+    ]
+  },
+  "limits": {
+    "max_distinct_values_per_field": 80,
+    "max_category_fields": 40,
+    "max_numeric_summary_fields": 60
+  },
+  "output": {
+    "sanitized_json_only": true,
+    "raw_csv_persisted": false,
+    "class_count_materialized": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "guards": [
+    "OFFICIAL_SEDUC_SP_RESOURCE_ONLY",
+    "EXACTLY_ONE_HTTP_GET_MAX",
+    "FINAL_HOST_MUST_MATCH_SEDUC",
+    "RAW_CSV_EPHEMERAL_ONLY",
+    "NO_STUDENT_LEVEL_OUTPUT",
+    "NO_CLASS_COUNT_MATERIALIZATION_IN_TASK194J"
+  ]
+}
