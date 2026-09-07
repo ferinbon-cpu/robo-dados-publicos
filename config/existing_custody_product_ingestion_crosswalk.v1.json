@@ -123,6 +123,34 @@
           "content_sha256": "c41aa1deac4f2577ac5185e92a51753d9522867aab31a64ac7dbb0571e101020",
           "fiscal_series_snapshot_id": "e0b91b47ee6a6e63892aba71",
           "fiscal_series_content_sha256": "e0b91b47ee6a6e63892aba71cdaf8ac7daf03af531c661fd455023898c03e3ea"
+        },
+        {
+          "task": "TASK_194K",
+          "source": "SEDUC_SP_MIEST_CICLO_12_2025_USER_MEDIATED_OFFICIAL_HANDOFF",
+          "scope": "LIMEIRA_MUNICIPAL_CURRENT_69_UNITS_2025_NETWORK_SCALE",
+          "rows_added": 1,
+          "total_school_rows_after_overlay": 1020,
+          "period": "2025",
+          "metric_id": "CLASS_COUNT",
+          "value": 1110,
+          "unit": "COUNT",
+          "source_family": "SEDUC_SP_MIEST",
+          "ai40_class_count": 816,
+          "ei29_class_count": 294,
+          "education_infantil_class_count": 538,
+          "ensino_fundamental_class_count": 565,
+          "eja_class_count": 7,
+          "complementary_classes_excluded": 131,
+          "complementary_field": "CLASSESEC",
+          "complementary_semantic": "CLASSES_EDUCACAO_COMPLEMENTAR",
+          "network_q1": "MATERIALIZED_ANSWERABLE",
+          "csv_sha256": "72577ea79fcdacd22f96daf114b25fa49f623bd3496ca0bba619e43c291f2b6b",
+          "dictionary_sha256": "4444763557f26e76164a331a495601b042ce161f1fa4eb0ba26a93e163392391",
+          "runtime_snapshot_status": "PINNED_FROM_PASSING_CI",
+          "snapshot_id": "c2aa07c6cb9becc54df98c19",
+          "content_sha256": "c2aa07c6cb9becc54df98c19c57b59cfb682d87834442e269115db96d3d5fb60",
+          "fiscal_series_snapshot_id": "32805aae76ff7065f2b1efca",
+          "fiscal_series_content_sha256": "32805aae76ff7065f2b1efca83f1c2229c5f77b4737e5de862795ba2d1759def"
         }
       ],
       "pending_structured_blocks": [
@@ -141,8 +169,13 @@
           "target_metric": "CLASS_COUNT",
           "target_scope": "3526902:MUNICIPAL:CURRENT_69_UNITS",
           "validated_subgroup": "EI29_CLASS_COUNT_294",
-          "remaining_subgroup": "AI40_CLASS_COUNT_UNKNOWN",
-          "status": "RAW_PRIMARY_RECOVERY_REQUIRED_NO_PROXY"
+          "remaining_subgroup": "AI40_CLASS_COUNT_816",
+          "status": "RESOLVED_BY_TASK194K_USER_MEDIATED_OFFICIAL_MIEST",
+          "resolution_task": "TASK_194K",
+          "network_class_count": 1110,
+          "complementary_classes_excluded": 131,
+          "user_mediated_miest_sha256": "72577ea79fcdacd22f96daf114b25fa49f623bd3496ca0bba619e43c291f2b6b",
+          "dictionary_sha256": "4444763557f26e76164a331a495601b042ce161f1fa4eb0ba26a93e163392391"
         }
       ]
     },

@@ -69,7 +69,8 @@
         "IDEB",
         "SAEB",
         "SARESP",
-        "MUNICIPAL_REPORTS"
+        "MUNICIPAL_REPORTS",
+        "SEDUC_SP_MIEST"
       ],
       "semantic_guards": [
         "RANKING_WITHOUT_CONTEXT_REQUIRES_CAUTION",

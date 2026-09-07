@@ -1,0 +1,112 @@
+{
+  "schema": "TASK194K_MIEST_CLASS_COUNT_MATERIALIZATION_EVIDENCE_V1",
+  "software_candidate": "0.8.0",
+  "task": "TASK_194K_MIEST_CLASS_COUNT_MATERIALIZATION",
+  "issue": 621,
+  "base_main_sha": "031c9597ab801a98d083c56579fe2a9f04f02290",
+  "status": "PASS_OFFLINE_USER_MEDIATED_OFFICIAL_ARTIFACT_RECONCILIATION",
+  "provenance": {
+    "classification": "USER_MEDIATED_OFFICIAL_DOWNLOAD_CANDIDATE_VALIDATED_OFFLINE",
+    "source_authority": "SEDUC_SP",
+    "automated_predecessor": "TASK_194J_HTTP_403_FORBIDDEN",
+    "raw_artifacts_versioned": false
+  },
+  "artifacts": [
+    {
+      "filename": "MIEST CICLO - 12 2025.csv",
+      "official_url": "https://dados.educacao.sp.gov.br/sites/default/files/MIEST%20CICLO%20-%2012%202025.csv",
+      "sha256": "72577ea79fcdacd22f96daf114b25fa49f623bd3496ca0bba619e43c291f2b6b",
+      "rows": 30244,
+      "columns": 183
+    },
+    {
+      "filename": "DICIONÁRIO_MIEST.xlsx",
+      "official_url": "https://dados.educacao.sp.gov.br/sites/default/files/DICION%C3%81RIO_MIEST.xlsx",
+      "sha256": "4444763557f26e76164a331a495601b042ce161f1fa4eb0ba26a93e163392391",
+      "semantic_proof": "CLASSESEC = CLASSES EDUCAÇÃO COMPLIMENTAR"
+    }
+  ],
+  "scope": {
+    "period": "2025",
+    "scope_id": "3526902:MUNICIPAL:CURRENT_69_UNITS",
+    "limeira_rows_all_dependencies": 177,
+    "municipal_rows": 69,
+    "unique_inep_codes": 69,
+    "ai40_codes_expected": 40,
+    "ai40_codes_found": 40,
+    "ei29_complement": 29
+  },
+  "class_count": {
+    "metric_id": "CLASS_COUNT",
+    "network_value": 1110,
+    "status": "MATERIALIZED_VALIDATED",
+    "education_infantil": 538,
+    "ensino_fundamental": 565,
+    "eja": 7,
+    "ai40": 816,
+    "ei29": 294,
+    "independent_ei29_task193": 294,
+    "reconciliation": "816_PLUS_294_EQUALS_1110",
+    "complementary_classes_excluded": 131,
+    "complementary_field": "CLASSESEC",
+    "complementary_semantic": "CLASSES_EDUCACAO_COMPLEMENTAR",
+    "proxy_used": false
+  },
+  "answerability": {
+    "before_status_counts": {
+      "EXPLICIT_GAP": 2,
+      "MATERIALIZED_ANSWERABLE": 27,
+      "MATERIALIZED_PARTIAL": 9
+    },
+    "expected_after_status_counts": {
+      "EXPLICIT_GAP": 2,
+      "MATERIALIZED_ANSWERABLE": 28,
+      "MATERIALIZED_PARTIAL": 8
+    },
+    "network_q1_before": "MATERIALIZED_PARTIAL",
+    "network_q1_after": "MATERIALIZED_ANSWERABLE",
+    "remaining_missing_metrics": []
+  },
+  "expected_products": {
+    "school_indicator_series_row_count": 1020,
+    "fiscal_series_row_count": 61,
+    "school_rows_added": 1,
+    "fiscal_rows_added": 0,
+    "runtime_snapshot_status": "PINNED_FROM_PASSING_CI",
+    "school_indicator_series_snapshot_id": "c2aa07c6cb9becc54df98c19",
+    "school_indicator_series_content_sha256": "c2aa07c6cb9becc54df98c19c57b59cfb682d87834442e269115db96d3d5fb60",
+    "fiscal_series_snapshot_id": "32805aae76ff7065f2b1efca",
+    "fiscal_series_content_sha256": "32805aae76ff7065f2b1efca83f1c2229c5f77b4737e5de862795ba2d1759def"
+  },
+  "historical_transport_preserved": {
+    "task194j_live_run": 34074393140,
+    "task194j_result": "HTTP_403_FORBIDDEN_ON_OFFICIAL_SEDUC_RESOURCE",
+    "bypass_performed": false
+  },
+  "guards": [
+    "CLASS_COUNT_DIRECT_ONLY",
+    "CLASS_COUNT_NE_ATU_DERIVATION",
+    "CLASSESEC_COMPLEMENTARY_NE_CURRICULAR_CLASS_COUNT",
+    "EI29_RECONCILIATION_294_REQUIRED",
+    "USER_MEDIATED_OFFICIAL_ARTIFACT_PROVENANCE_EXPLICIT"
+  ],
+  "remote_effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  },
+  "runtime_validation": {
+    "run_id": 34080037720,
+    "job_id": 101613500659,
+    "unit_tests": "3257_OF_3257_PASS",
+    "answerability_after": {
+      "MATERIALIZED_ANSWERABLE": 28,
+      "MATERIALIZED_PARTIAL": 8,
+      "EXPLICIT_GAP": 2
+    }
+  }
+}
