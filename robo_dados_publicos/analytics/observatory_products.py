@@ -59,6 +59,7 @@ def validate_contract(
             "FISCAL_SERIES",
             "PLANNING_DOCUMENT_INDEX",
             "QUERY_PRODUCT_CATALOG",
+            "TERRITORY_PROFILE",
         },
         "TASK176_PRODUCT_SET",
     )
@@ -190,6 +191,23 @@ def build_school_indicator_series(
         generated_at=generated_at,
         software_version=software_version,
     )
+
+
+def build_territory_profile(
+    rows: Iterable[Mapping[str, Any]],
+    *,
+    generated_at: str,
+    software_version: str,
+    capabilities: Iterable[str] = (),
+) -> dict[str, Any]:
+    product = materialize_product(
+        "TERRITORY_PROFILE",
+        rows,
+        generated_at=generated_at,
+        software_version=software_version,
+    )
+    product["capabilities"] = sorted({str(x) for x in capabilities})
+    return product
 
 
 def build_jom_event_index(
