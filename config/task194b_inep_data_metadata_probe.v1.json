@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "schema": "TASK194C_INEP_DATA_METADATA_PROBE_V1",
-  "task": "TASK_194C_INEP_DATA_METADATA_GZIP_RETRY",
+  "schema": "TASK194D_INEP_DATA_METADATA_PROBE_V1",
+  "task": "TASK_194D_INEP_DATA_METADATA_TESTED_GZIP_RETRY",
   "mode": "T1_BOUNDED_READ_ONLY_OFFICIAL_PUBLIC_PANEL_METADATA",
-  "base_main_sha": "d6fbaf4ad1d759e64fb67bbaefa0c3eda343aee3",
-  "authorization_issue": 602,
+  "base_main_sha": "69369e4fcb97810f0b009f9d48f1ca82c6e4ef55",
+  "authorization_issue": 605,
   "source": {
     "official_inep_page": "https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/inep-data/estatisticas-censo-escolar",
     "report_url": "https://app.powerbi.com/view?r=eyJrIjoiN2ViNDBjNDEtMTM0OC00ZmFhLWIyZWYtZjI1YjU0NzQzMTJhIiwidCI6IjI2ZjczODk3LWM4YWMtNGIxZS05NzhmLWVhNGMwNzc0MzRiZiJ9",

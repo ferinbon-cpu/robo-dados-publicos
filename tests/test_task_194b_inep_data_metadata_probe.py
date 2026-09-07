@@ -1,7 +1,10 @@
+import gzip
+import json
 import unittest
 
 from scripts.task194b_inep_data_metadata_probe import (
     Task194BStop,
+    _decode_http_body,
     bootstrap_metadata,
     decode_report_token,
     exact_auth_comment,
@@ -12,6 +15,13 @@ REPORT_URL = "https://app.powerbi.com/view?r=eyJrIjoiN2ViNDBjNDEtMTM0OC00ZmFhLWI
 
 
 class TestTask194BInepDataMetadataProbe(unittest.TestCase):
+    def test_gzip_body_is_decompressed_offline(self):
+        payload = json.dumps({"models":[{"id":"x"}]}).encode("utf-8")
+        compressed = gzip.compress(payload)
+        self.assertEqual(_decode_http_body(compressed, "gzip"), payload)
+        self.assertEqual(_decode_http_body(compressed, ""), payload)
+        self.assertEqual(_decode_http_body(payload, ""), payload)
+
     def test_report_token_is_exact(self):
         got=decode_report_token(REPORT_URL)
         self.assertEqual(got["resource_key"],"7eb40c41-1348-4faa-b2ef-f25b5474312a")
@@ -21,7 +31,7 @@ class TestTask194BInepDataMetadataProbe(unittest.TestCase):
         sha="a"*40
         self.assertEqual(
             exact_auth_comment(sha),
-            f"TASK194C_INEP_DATA_METADATA_AUTHORIZED main={sha} issue=602 max_http_requests=2 querydata=0",
+            f"TASK194D_INEP_DATA_METADATA_AUTHORIZED main={sha} issue=605 max_http_requests=2 querydata=0",
         )
 
     def test_bootstrap_extracts_only_pinned_report(self):

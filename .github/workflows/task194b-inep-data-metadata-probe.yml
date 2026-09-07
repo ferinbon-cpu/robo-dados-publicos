@@ -1,4 +1,4 @@
-name: TASK 194C Inep Data metadata gzip retry
+name: TASK 194D Inep Data metadata tested gzip retry
 
 on:
   issue_comment:
@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   probe:
-    if: github.event.issue.number == 602 && github.actor == 'ferinbon-cpu' && startsWith(github.event.comment.body, 'TASK194C_INEP_DATA_METADATA_AUTHORIZED ')
+    if: github.event.issue.number == 605 && github.actor == 'ferinbon-cpu' && startsWith(github.event.comment.body, 'TASK194D_INEP_DATA_METADATA_AUTHORIZED ')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
@@ -40,7 +40,7 @@ jobs:
           set -euo pipefail
           HEAD_SHA="$(git rev-parse HEAD)"
           test "$HEAD_SHA" = "$GITHUB_SHA"
-          EXPECTED="TASK194C_INEP_DATA_METADATA_AUTHORIZED main=$GITHUB_SHA issue=602 max_http_requests=2 querydata=0"
+          EXPECTED="TASK194D_INEP_DATA_METADATA_AUTHORIZED main=$GITHUB_SHA issue=605 max_http_requests=2 querydata=0"
           test "$TASK194B_AUTH_COMMENT" = "$EXPECTED"
 
       - name: Offline preflight
