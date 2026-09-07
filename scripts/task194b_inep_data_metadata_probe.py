@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import gzip
 import json
 import os
 import re
@@ -25,7 +26,7 @@ def _stop(condition: bool, code: str) -> None:
 
 def load_contract(path: str | Path = DEFAULT_CONTRACT) -> dict[str, Any]:
     obj = json.loads(Path(path).read_text(encoding="utf-8"))
-    _stop(obj.get("schema") in {"TASK194B_INEP_DATA_METADATA_PROBE_V1", "TASK194C_INEP_DATA_METADATA_PROBE_V1"}, "TASK194B_SCHEMA")
+    _stop(obj.get("schema") in {"TASK194B_INEP_DATA_METADATA_PROBE_V1", "TASK194C_INEP_DATA_METADATA_PROBE_V1", "TASK194D_INEP_DATA_METADATA_PROBE_V1"}, "TASK194B_SCHEMA")
     _stop(obj.get("mode") == "T1_BOUNDED_READ_ONLY_OFFICIAL_PUBLIC_PANEL_METADATA", "TASK194B_MODE")
     source = obj["source"]
     _stop(urllib.parse.urlparse(source["report_url"]).hostname == source["report_host"], "TASK194B_REPORT_HOST")
@@ -54,9 +55,16 @@ def exact_auth_comment(main_sha: str, contract_path: str | Path = DEFAULT_CONTRA
     obj = load_contract(contract_path)
     _stop(len(main_sha) == 40 and all(c in "0123456789abcdef" for c in main_sha.lower()), "TASK194B_AUTH_SHA")
     return (
-        "TASK194C_INEP_DATA_METADATA_AUTHORIZED "
+        "TASK194D_INEP_DATA_METADATA_AUTHORIZED "
         f"main={main_sha} issue={obj['authorization_issue']} max_http_requests=2 querydata=0"
     )
+
+
+def _decode_http_body(body: bytes, content_encoding: str = "") -> bytes:
+    encoding = str(content_encoding or "").casefold()
+    if encoding == "gzip" or body.startswith(b"\\x1f\\x8b"):
+        return gzip.decompress(body)
+    return body
 
 
 def _get(url: str, headers: dict[str, str] | None = None) -> tuple[bytes, str]:
@@ -70,10 +78,10 @@ def _get(url: str, headers: dict[str, str] | None = None) -> tuple[bytes, str]:
         method="GET",
     )
     with urllib.request.urlopen(request, timeout=90) as response:
-        body = response.read()
-        encoding = str(response.headers.get("Content-Encoding") or "").casefold()
-        if encoding == "gzip" or body.startswith(b"\\x1f\\x8b"):
-            body = gzip.decompress(body)
+        body = _decode_http_body(
+            response.read(),
+            str(response.headers.get("Content-Encoding") or ""),
+        )
         return body, response.geturl()
 
 
