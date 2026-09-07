@@ -1,0 +1,66 @@
+{
+  "schema": "TASK195B_SIOPE_UI_DOTACAO_CORROBORATION_EVIDENCE_V1",
+  "software_candidate": "0.8.0",
+  "task": "TASK_195B_SIOPE_UI_DOTACAO_CORROBORATION",
+  "issue": 623,
+  "base_main_sha": "94431a92b87ba3d5d030a27521d445e1b94a6eff",
+  "status": "PASS_OFFICIAL_UI_EXPORT_EXACT_CORROBORATION_NO_SEMANTIC_PROMOTION",
+  "provenance": {
+    "classification": "USER_MEDIATED_OFFICIAL_SIOPE_UI_EXPORT",
+    "authority": "FNDE_SIOPE",
+    "ui_context": "Relatório Quadro de Resumo de Despesas",
+    "selected_phase": "Dotação Atualizada",
+    "year": 2025,
+    "period": "Anual",
+    "uf": "Sao Paulo",
+    "municipality": "Limeira"
+  },
+  "artifacts": {
+    "csv": {
+      "drive_id": "1AP3B650gZq68dLHk0L-fmAFhmmhhIqHV",
+      "sha256": "6e3b7d7043b22fc5862994e0c5d92f36c5be3c8c208958e8dd02041175d1b499",
+      "bytes": 6775
+    },
+    "screenshot": {
+      "drive_id": "15WrcJIPIsAd-lcL4C6RIFid3S9RH8Eff",
+      "sha256": "b8eb5755fbe89166eba57614cee452f021add7a3b9376ffbdf9733b3849a2209",
+      "bytes": 143818
+    },
+    "derived_json": {
+      "drive_id": "1b8CumRghd3K7qd1LWJVB50f5_yVISOxn",
+      "sha256": "318b70e81bebc4ce54b989ca80ae74ed9ac505c88dc6d34cef71e3028fd9e7c5",
+      "bytes": 3449
+    }
+  },
+  "observed_total": {
+    "label": "TOTAL",
+    "column": "Total Geral (Exceto Inativos)",
+    "value": "526804985.21"
+  },
+  "reconciliation": {
+    "detail_sum": "526804985.21",
+    "reported_total": "526804985.21",
+    "previous_m3_consolidated_DA_total": "526804985.21",
+    "all_equal": true
+  },
+  "comparison": {
+    "observed_alias_value": "520399255.47",
+    "rreo_line_33_DA": "520398255.47",
+    "ui_total_minus_alias": "6405729.74",
+    "ui_total_minus_rreo_line_33": "6406729.74",
+    "alias_minus_rreo_line_33": "1000.00"
+  },
+  "decision": "KEEP_VL_DESP_DOTA_ATUA_EDU_AND_S2_NOT_PROVEN",
+  "reason": "The official report independently confirms the consolidated DA total already observed in M3, but the report contains no explicit backend formula or inclusion/exclusion mapping for VL_DESP_DOTA_ATUA_EDU.",
+  "next_authoritative_target": {
+    "protocol": "23546.111504/2026-30",
+    "needed": "Exact definition and source-defined construction of VL_DESP_DOTA_ATUA_EDU, including treatment of the R$ 1,000 parent/child budget-only account evidence."
+  },
+  "remote_effects": {
+    "network": 0,
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  }
+}
