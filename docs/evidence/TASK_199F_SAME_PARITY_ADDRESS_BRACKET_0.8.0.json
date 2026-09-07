@@ -1,0 +1,69 @@
+{
+  "schema": "TASK199F_SAME_PARITY_ADDRESS_BRACKET_EVIDENCE_V1",
+  "software_candidate": "0.8.0",
+  "task": "TASK_199F",
+  "issue": 628,
+  "base_main_sha": "c32fe72d3af1c1b493666c72b694b6606dcded52",
+  "status": "PASS_STRONG_CROSSWALK_EXPANDED_57_TO_59_OF_69",
+  "method": "SAME_STREET_SAME_PARITY_BRACKET_SAME_SECTOR",
+  "promotions": [
+    {
+      "codigo_inep": "35217864",
+      "school": "EMEIEF Ary Gomes de Castro, Tenente Aviador",
+      "sme_address": "JACOB DE GASPARI 220",
+      "lower_same_parity": "164 -> 352690205000812P",
+      "upper_same_parity": "248 -> 352690205000812P",
+      "promoted_sector": "352690205000812"
+    },
+    {
+      "codigo_inep": "35099557",
+      "school": "CI Vilma Terezinha Marrafon Coppi",
+      "sme_address": "ARLINDA ABREU RIBEIRO 1175",
+      "lower_same_parity": "1165 -> 352690205000135P",
+      "upper_same_parity": "1189 -> 352690205000135P",
+      "promoted_sector": "352690205000135"
+    }
+  ],
+  "crosswalk": {
+    "before": 57,
+    "after": 59,
+    "coverage_percent": 85.5,
+    "tier_A": 41,
+    "tier_B": 15,
+    "tier_C": 1,
+    "tier_D": 2,
+    "held": 10,
+    "full_network": false
+  },
+  "territory_profile": {
+    "before_rows": 239,
+    "after_rows": 247,
+    "municipal_rows": 11,
+    "school_rows": 236,
+    "metrics_per_linked_school": 4,
+    "capability_added": "SCHOOL_TO_SECTOR_LINK_COVERAGE_59_OF_69",
+    "full_network_capability_added": false
+  },
+  "drive_artifacts": {
+    "profile_59": {"id":"1n8AifxJQYnhhoCxXMN0a2Mfg0fy4IEle","bytes":8858,"sha256":"89880ec71a00a1bc717471b335ce324a6bb9f1bf54fa6c2ad2705098f054e121"},
+    "held_10": {"id":"1E_gMOxkvgaQpJ_mgI8GQeu9usQxyWeqN","bytes":2651,"sha256":"e99ccaf6e091c66a3a49845a003da4402651f74cd3df6a1cf1003700f163ded6"},
+    "bracket_evidence": {"id":"1vbMxS_yrkDlxLiVElt3cBt3zlaOHBZcN","bytes":522,"sha256":"d8a58c1662b166fee390070f6f44ec74cded309a370743b4b8965bc35f113808"},
+    "evidence": {"id":"1KSwnDd3qBgL2HIEF-J8T8D0Cusny-XtT","bytes":3010,"sha256":"543cf4ff6c8da8ae29ef9fb7730fe0bbc26af9d8e9bb1238781b51051ef4dbb0"}
+  },
+  "answerability": {
+    "before": "32_ANSWERABLE_6_PARTIAL_0_EXPLICIT_GAP",
+    "after": "32_ANSWERABLE_6_PARTIAL_0_EXPLICIT_GAP",
+    "status_change_count": 0,
+    "equity_q1": "MATERIALIZED_PARTIAL",
+    "reason": "59/69 remains partial and does not satisfy SCHOOL_TO_SECTOR_LINK_FULL_NETWORK."
+  },
+  "guards": [
+    "SAME_PARITY_BRACKET_REQUIRES_BOTH_SIDES",
+    "BRACKETING_SECTORS_MUST_MATCH_EXACTLY",
+    "OPPOSITE_SIDE_PARITY_NE_PROMOTION",
+    "SINGLE_SIDED_NE_PROMOTION",
+    "FUZZY_ONLY_NE_PROMOTION",
+    "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
+    "59_OF_69_NE_FULL_NETWORK"
+  ]
+}

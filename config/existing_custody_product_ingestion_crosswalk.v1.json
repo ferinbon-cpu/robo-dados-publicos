@@ -519,7 +519,8 @@
         "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
         "PARTIAL_14_OF_69_NE_FULL_NETWORK_COVERAGE",
         "NO_VULNERABILITY_INDEX_WITHOUT_EXPLICIT_METHOD",
-        "57_OF_69_NE_FULL_NETWORK_COVERAGE"
+        "57_OF_69_NE_FULL_NETWORK_COVERAGE",
+        "59_OF_69_NE_FULL_NETWORK_COVERAGE"
       ],
       "materialized_blocks": [
         {
@@ -550,6 +551,18 @@
           "held_school_links": 12,
           "full_network_school_link": false,
           "territory_profile_rows": 239
+        },
+        {
+          "task": "TASK_199F",
+          "source": "SME_CURRENT_ADDRESS_PLUS_IBGE_CNEFE_SAME_PARITY_BRACKET",
+          "scope": "LIMEIRA_2022_TERRITORY_CONTEXT_PLUS_59_STRONG_SCHOOL_LINKS",
+          "strong_school_sector_links": 59,
+          "network_school_denominator": 69,
+          "coverage_rate": 0.855072,
+          "tier_D_same_parity_bracket": 2,
+          "held_school_links": 10,
+          "full_network_school_link": false,
+          "territory_profile_rows": 247
         }
       ],
       "unbundled_answerability": "EXPLICIT_GAP"
