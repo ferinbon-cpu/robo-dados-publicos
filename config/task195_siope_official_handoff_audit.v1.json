@@ -1,0 +1,129 @@
+{
+  "schema": "TASK195_SIOPE_OFFICIAL_HANDOFF_AUDIT_V1",
+  "software_candidate": "0.8.0",
+  "task": "TASK_195_SIOPE_OFFICIAL_HANDOFF_AUDIT",
+  "issue": 623,
+  "base_main_sha": "75542bd8a6028d3c26c861141c453d7f57ccb9e9",
+  "mode": "T0_OFFLINE_USER_MEDIATED_DIRECT_OFFICIAL_JSON_HANDOFF_AUDIT",
+  "status": "PASS_PARTIAL_AWAITING_DOTACAO_ATUALIZADA_DA",
+  "scope": {
+    "tipo": "Municipal",
+    "num_ano": 2025,
+    "num_peri": 6,
+    "cod_uf": 35,
+    "sig_uf": "SP",
+    "cod_muni": 352690,
+    "nom_muni": "Limeira"
+  },
+  "provenance": {
+    "classification": "USER_MEDIATED_DIRECT_OFFICIAL_URL_RESPONSE_PASTED",
+    "source_authority": "FNDE_SIOPE_OLINDA",
+    "raw_endpoint_bytes_preserved": false,
+    "raw_endpoint_sha256": null,
+    "derived_evidence_jsons_persisted_in_drive": true,
+    "derived_evidence_ne_raw_endpoint_capture": true
+  },
+  "drive_artifacts": {
+    "receita_evidence": {
+      "id": "1XS0swEF0pgBdTjPII51z4PJFctwe0grT",
+      "filename": "FNDE_SIOPE_LIMEIRA_2025_P6_RECEITA_USER_HANDOFF_EVIDENCE.json",
+      "size_bytes": 3959,
+      "sha256": "8c105d51d5227b3deac5afa03e67e853e0f4cdf4f9d9893c59976fc5bdcf5b73"
+    },
+    "despesas_probe_evidence": {
+      "id": "12QNBsO0-fmVlVPBJftcaJVDZhUtHipMV",
+      "filename": "FNDE_SIOPE_LIMEIRA_2025_P6_DESPESAS_USER_HANDOFF_PROBE_EVIDENCE.json",
+      "size_bytes": 5466,
+      "sha256": "779449943c6c6d855bb38bba5fe7ce7c0ac6f5065c5e661158b3e197005996d6"
+    },
+    "manifest": {
+      "id": "1gb6g-zCst8Ch_uQCvHC6sZK2yZ35Z7ia",
+      "filename": "TASK_195_SIOPE_HANDOFF_DRIVE_MANIFEST.json",
+      "size_bytes": 1546,
+      "sha256": "4937e603565d5e4b6b88da7f3a4c65e1ba80e5bc8b130a47ba209a91d1cb06ea"
+    }
+  },
+  "transport_findings": {
+    "canonical_robot_dados_gerais_filter_encoding": "%20",
+    "canonical_robot_client_already_uses_percent20": true,
+    "manual_receita_success_filter": "COD_MUNI%20eq%20352690",
+    "manual_despesas_success_filter_whitespace": "%09",
+    "manual_plus_space_encoding_observed_as_invalid": true,
+    "robot_client_patch_required": false
+  },
+  "receita_labels": {
+    "PA": "Previsão Atualizada",
+    "RR": "Receitas Realizadas",
+    "DF": "Deduções FUNDEB",
+    "IO": "IntraOrçamentaria",
+    "OD": "Outras Deduções"
+  },
+  "despesas_labels": {
+    "DE": "Desp. Empenhadas",
+    "DL": "Desp. Liquidadas",
+    "DP": "Desp. Pagas"
+  },
+  "exact_reconciliations": {
+    "VAL_RECE_PREV_ATUA": {
+      "receitas_correntes_pa": "2198860107.12",
+      "receitas_capital_pa": "43133736.15",
+      "sum": "2241993843.27",
+      "existing_alias_value": "2241993843.27",
+      "variance": "0.00",
+      "status": "PROVEN_EXACT_OPERATIONAL"
+    },
+    "VAL_RECE_REAL": {
+      "receitas_correntes_rr": "2087296383.01",
+      "receitas_capital_rr": "39799480.18",
+      "sum": "2127095863.19",
+      "existing_alias_value": "2127095863.19",
+      "variance": "0.00",
+      "status": "PROVEN_EXACT_OPERATIONAL"
+    },
+    "VAAR": {
+      "receita_realizada_rr": "885554.43",
+      "despesa_empenhada_de": "885554.43",
+      "despesa_liquidada_dl": "885554.43",
+      "despesa_paga_dp": "885554.43",
+      "status": "EXACT_EQUALITY_OBSERVED"
+    }
+  },
+  "research_value_rows": {
+    "fundeb_eti_creation_receita_realizada": "1033952.81",
+    "fundeb_eti_creation_previsao_atualizada": "516976.41",
+    "salary_education_receita_realizada": "13344754.26",
+    "pnae_receita_realizada": "4563800.00",
+    "pnate_receita_realizada": "202356.77",
+    "fundeb_transfer_receita_realizada": "195763651.55"
+  },
+  "remaining_blockers": {
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "VL_DESP_DOTA_ATUA_EDU": "NOT_PROVEN_PENDING_DA_SOURCE_DEFINED_ROWS_AND_RULE",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "annual_closure_or_finality": "UNKNOWN_UNLESS_SEPARATELY_PROVEN"
+  },
+  "next_probe": {
+    "resource": "Despesas_Siope",
+    "filter_semantic": "LIMEIRA_2025_P6_AND_IDN_CLAS_EQ_DA",
+    "goal": "ENUMERATE_DOTACAO_ATUALIZADA_ROWS_AND_TEST_EDUCATION_SCOPE_ALIAS_WITHOUT_INVENTING_INCLUSION_RULE"
+  },
+  "guards": [
+    "NO_RAW_ENDPOINT_HASH_INVENTION",
+    "DERIVED_DRIVE_JSON_NE_RAW_ENDPOINT_CAPTURE",
+    "EXACT_EQUALITY_NE_CAUSAL_ACCOUNTING_IDENTITY",
+    "EDU_NE_MDE_GENERAL_IDENTITY",
+    "MISSING_DA_NE_ZERO",
+    "NO_GOLD_OR_CLOSED_SERIES_PROMOTION",
+    "S1_NUM_POPU_UNCHANGED",
+    "S2_REMAINS_NOT_PROVEN_UNTIL_DA_RULE_PROVEN"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
