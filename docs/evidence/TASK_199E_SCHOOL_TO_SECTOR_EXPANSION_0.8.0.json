@@ -1,0 +1,58 @@
+{
+  "schema": "TASK199E_SCHOOL_SECTOR_EXPANSION_EVIDENCE_V1",
+  "software_candidate": "0.8.0",
+  "task": "TASK_199E",
+  "issue": 628,
+  "base_main_sha": "3658a533f3609003e232da54d7ff9077f23226b9",
+  "status": "PASS_STRONG_CROSSWALK_EXPANDED_14_TO_57_OF_69",
+  "identity_bridge": {
+    "verified_current_network_rows": 69,
+    "passed": 69,
+    "rule": "int(SME_CIE) == int(INEP_CODE_LAST_6_DIGITS)",
+    "scope": "CURRENT_69_UNIT_ROSTER_ONLY"
+  },
+  "crosswalk": {
+    "before_strong_links": 14,
+    "after_strong_links": 57,
+    "coverage_percent": 82.6,
+    "years_initial": "32_OF_40",
+    "early_childhood_only": "25_OF_29",
+    "tier_A": 41,
+    "tier_B": 15,
+    "tier_C": 1,
+    "held": 12,
+    "full_network": false
+  },
+  "territory_profile": {
+    "before_rows": 67,
+    "after_rows": 239,
+    "municipal_rows": 11,
+    "school_rows": 228,
+    "metrics_per_linked_school": 4,
+    "capability_added": "SCHOOL_TO_SECTOR_LINK_COVERAGE_57_OF_69",
+    "full_network_capability_added": false
+  },
+  "drive_artifacts": {
+    "sme_cie_address_69": {"id":"1j82mtwkcW52t9nLo5o3YMUHcIBc1jetV","bytes":17007,"sha256":"26af4e00eec7617100d300c2d9dfb9781a2101e492e4e163b4b9407109f8a83c"},
+    "strong_57": {"id":"1HYRq4HjOFgebYeZ8JIYTdc5QVpKcdpAL","bytes":18910,"sha256":"6d1c54dc1ec4052bf35f8ddfc69b1e101ed774e3c1330a62c327fe3d9982141a"},
+    "held_12": {"id":"1kxjR4_HM8LGBgXXFZFw_4bYNFNq57xq2","bytes":3136,"sha256":"340d508939d54d6d7f509a6520cc04aa464eaed98aa50380f3a697eeb4c19725"},
+    "profile_57": {"id":"1x6_yWp5zLLd1S4nG9dKa6wpWjZCHf39P","bytes":23672,"sha256":"4cdaeb52892bc7742ed2b5ca5037162ab41f1de8b8f0bd2a813b88ceaf98e826"},
+    "evidence": {"id":"15p45yvwKXVAh2JPbd77mvbgu_q3KQ_U0","bytes":3433,"sha256":"7ffdbd0f1c7b0fdb6ac1688a9406ee7346ddbd0cfcead4ff54052f693c3fb98d"}
+  },
+  "answerability": {
+    "before": "32_ANSWERABLE_6_PARTIAL_0_EXPLICIT_GAP",
+    "after": "32_ANSWERABLE_6_PARTIAL_0_EXPLICIT_GAP",
+    "status_change_count": 0,
+    "equity_q1": "MATERIALIZED_PARTIAL",
+    "reason": "57/69 is materially stronger context but does not satisfy SCHOOL_TO_SECTOR_LINK_FULL_NETWORK."
+  },
+  "guards": [
+    "CIE_SUFFIX_BRIDGE_NE_GENERAL_RULE_OUTSIDE_VERIFIED_69_ROWS",
+    "NAME_ONLY_NE_IDENTITY",
+    "FUZZY_ONLY_NE_PROMOTION",
+    "CURRENT_ADDRESS_CONFLICT_NE_PROMOTION",
+    "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
+    "57_OF_69_NE_FULL_NETWORK",
+    "NO_VULNERABILITY_INDEX_WITHOUT_EXPLICIT_METHOD"
+  ]
+}
