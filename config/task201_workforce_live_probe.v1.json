@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "schema": "TASK201_WORKFORCE_LIVE_PROBE_V1",
+  "task": "TASK_201A_WORKFORCE_LIVE_PROBE",
+  "mode": "T1_BOUNDED_READ_ONLY_PRIMARY_WORKFORCE_DISCOVERY",
+  "base_main_sha": "360df7e64655461d14ac392b322f8f1c51bd23a3",
+  "authorization_issue": 639,
+  "sources": {
+    "inep_sinopse": {
+      "official_page": "https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/sinopses-estatisticas/educacao-basica",
+      "url": "https://download.inep.gov.br/dados_abertos/sinopses_estatisticas/sinopse_estatistica_censo_escolar_2025.zip",
+      "allowed_host": "download.inep.gov.br",
+      "max_http_attempts": 3
+    },
+    "sme_home": {
+      "url": "https://www.sme.limeira.sp.gov.br/",
+      "allowed_hosts": [
+        "www.sme.limeira.sp.gov.br",
+        "sme.limeira.sp.gov.br"
+      ],
+      "max_http_attempts": 2
+    },
+    "sme_contracted": {
+      "url": "https://sme.limeira.sp.gov.br/contratado_classe.php",
+      "allowed_hosts": [
+        "sme.limeira.sp.gov.br",
+        "www.sme.limeira.sp.gov.br"
+      ],
+      "max_http_attempts": 2,
+      "expected_title": "PROFESSORES CONTRATADOS EM CLASSE"
+    }
+  },
+  "target": {
+    "municipality_name": "Limeira",
+    "municipality_code": "3526902",
+    "year": 2025,
+    "inep_keywords": [
+      "docente",
+      "dependência administrativa",
+      "municipal"
+    ],
+    "required_bond_labels": [
+      "EFETIVO",
+      "CLT_PROCESSO_SELETIVO"
+    ]
+  },
+  "privacy": {
+    "person_level_input_ephemeral_only": true,
+    "raw_sme_html_persisted": false,
+    "raw_sme_html_artifact": false,
+    "names_persisted": false,
+    "cpf_persisted": false,
+    "matricula_persisted": false,
+    "person_hashes_persisted": false,
+    "aggregate_only": true
+  },
+  "output": {
+    "sanitized_json_only": true,
+    "raw_zip_persisted": false,
+    "raw_workbook_persisted": false,
+    "raw_html_persisted": false,
+    "staff_count_materialized": false,
+    "employment_bond_materialized": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "guards": [
+    "OFFICIAL_FIXED_URLS_ONLY",
+    "SAME_ALLOWED_HOST_REDIRECT_ONLY",
+    "INEP_MAX_THREE_HTTP_ATTEMPTS",
+    "SME_MAX_TWO_HTTP_ATTEMPTS_PER_FIXED_URL",
+    "RAW_ZIP_WORKBOOK_HTML_EPHEMERAL_ONLY",
+    "NO_PERSON_LEVEL_OUTPUT",
+    "ASSIGNMENT_ROWS_NE_UNIQUE_PEOPLE",
+    "SCHOOL_LEVEL_DOCENTE_SUM_NE_UNIQUE_NETWORK_HEADCOUNT",
+    "2025_INEP_NE_2026_SME_PERIOD",
+    "CLT_CONTRACTED_NE_ALL_NON_EFFECTIVE_BONDS",
+    "NO_STAFF_OR_BOND_MATERIALIZATION_IN_TASK201A",
+    "NO_DRIVE_WRITE_NO_SERVING_NO_PUBLICATION_NO_RECURRENCE"
+  ]
+}
