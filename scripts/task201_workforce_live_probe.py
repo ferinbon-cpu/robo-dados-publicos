@@ -272,7 +272,7 @@ def parse_contracted_aggregate(contracted_bytes: bytes, expected_title: str) -> 
         "people_with_multiple_assignment_rows": duplicates,
         "distinct_school_label_count": len(schools),
         "assignment_rows_by_cargo": dict(sorted(cargos.items())),
-        "dedupe_key_semantic": "EPHEMERAL_REGISTRATION_VALUE_NOT_PERSISTED",
+        "dedupe_key_semantic": "EPHEMERAL_PRIVATE_IDENTIFIER_NOT_PERSISTED",
         "person_level_output": False,
     }
 
