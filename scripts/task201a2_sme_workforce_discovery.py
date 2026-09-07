@@ -138,7 +138,18 @@ def derive_sanitized_result(
     contract_path: str | Path = DEFAULT_CONTRACT,
 ) -> dict[str, Any]:
     obj = _load(contract_path)
-    bonds = parse_sme_bonds(home_bytes)
+    try:
+        bonds = parse_sme_bonds(home_bytes)
+        bonds["raw_home_label_status"] = "OBSERVED"
+    except Task201Stop as exc:
+        if str(exc) not in {"TASK201_SME_EFFECTIVE_LABEL_NOT_FOUND", "TASK201_SME_CLT_LABEL_NOT_FOUND"}:
+            raise
+        bonds = {
+            "bond_categories": [],
+            "category_count": 0,
+            "evidence_semantic": "RAW_HOME_DYNAMIC_LABELS_NOT_OBSERVED",
+            "raw_home_label_status": "NOT_OBSERVED_NOT_ABSENT",
+        }
     contracted = parse_contracted_aggregate(
         contracted_bytes,
         obj["sources"]["sme_contracted"]["expected_title"],
@@ -149,7 +160,7 @@ def derive_sanitized_result(
     ))
     result = {
         "schema": "TASK201A2_SME_WORKFORCE_SANITIZED_DISCOVERY_V1",
-        "status": "PASS",
+        "status": "PASS_WITH_DYNAMIC_HOME_LABEL_GAP" if not bonds["bond_categories"] else "PASS",
         "inep_transport": {
             "status": obj["prior_inep_probe"]["status"],
             "run_id": obj["prior_inep_probe"]["run_id"],
