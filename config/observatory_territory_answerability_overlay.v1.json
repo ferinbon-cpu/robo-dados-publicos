@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "schema": "OBSERVATORY_TERRITORY_ANSWERABILITY_OVERLAY_V1",
+  "task": "TASK_199A_IBGE_TERRITORIAL_FOUNDATION",
+  "status": "DESIGNED_NOT_CANONICALLY_APPLIED",
+  "replaces_problematic_rule": {
+    "recipe": "TERRITORY",
+    "old_match": "ANY",
+    "old_ids": [
+      "POPULATION",
+      "INCOME",
+      "TERRITORY_VULNERABILITY",
+      "DEMOGRAPHIC_PROFILE"
+    ],
+    "problem": "A single available metric can mark both territory questions answerable."
+  },
+  "target_rule": {
+    "product": "TERRITORY_PROFILE",
+    "municipal_context_requires_all_capabilities": [
+      "MUNICIPAL_DEMOGRAPHY",
+      "MUNICIPAL_ECONOMY_OR_INCOME"
+    ],
+    "school_territory_context_requires_all_capabilities": [
+      "CENSUS_SECTOR_CONTEXT",
+      "SCHOOL_TO_SECTOR_LINK"
+    ]
+  },
+  "promotion_condition": "Apply only after the first TERRITORY_PROFILE snapshot is materialized and validated.",
+  "guards": [
+    "SOURCE_DISCOVERY_NE_MATERIALIZED_ANSWERABILITY",
+    "MUNICIPAL_CONTEXT_NE_SCHOOL_CONTEXT",
+    "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_PROFILE"
+  ]
+}
