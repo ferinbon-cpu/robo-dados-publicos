@@ -436,6 +436,9 @@
           "kind": "PRODUCT",
           "product": "JOM_EVENT_INDEX",
           "row_criteria": {
+            "policy_domains_any": [
+              "EDUCATION"
+            ],
             "evidence_layers_any": [
               "PERSONNEL"
             ]
@@ -452,6 +455,28 @@
           "row_criteria": {
             "policy_domains_any": [
               "EDUCATION"
+            ],
+            "event_type_any": [
+              "DECRETO",
+              "PORTARIA",
+              "LEI",
+              "RESOLUCAO",
+              "INSTRUCAO_NORMATIVA",
+              "DELIBERACAO"
+            ],
+            "education_topics_any": [
+              "FULL_TIME_EDUCATION",
+              "SPECIAL_EDUCATION_AEE",
+              "SCHOOL_MEALS",
+              "SCHOOL_TRANSPORT",
+              "ENROLLMENT_CALENDAR",
+              "CURRICULUM_ASSESSMENT",
+              "ENROLLMENT",
+              "SCHOOL_CALENDAR",
+              "CLASS_ASSIGNMENT",
+              "UNIT_OPERATION",
+              "HOURS_SHIFT",
+              "INFRASTRUCTURE_MAINTENANCE"
             ],
             "evidence_layers_any": [
               "NORMATIVE",
