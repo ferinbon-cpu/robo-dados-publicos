@@ -297,6 +297,50 @@
         "NEGATIVE_REVENUE_ROW_NE_INVALID_ROW",
         "OFFICIAL_RECORD_ID_PRESERVED"
       ]
+    },
+    "TERRITORY_PROFILE": {
+      "schema": "TERRITORY_PROFILE_V1",
+      "grain": "one geographic_unit x period x metric",
+      "primary_key": [
+        "snapshot_id",
+        "geo_level",
+        "geo_id",
+        "period",
+        "metric_id",
+        "source_family"
+      ],
+      "query_dimensions": [
+        "geo_level",
+        "geo_id",
+        "municipality_code",
+        "school_code",
+        "sector_id",
+        "period",
+        "metric_id",
+        "source_family"
+      ],
+      "required_fields": [
+        "geo_level",
+        "geo_id",
+        "period",
+        "metric_id",
+        "metric_name",
+        "value",
+        "unit",
+        "context"
+      ],
+      "source_families": [
+        "IBGE_CENSO_2022",
+        "IBGE_CNEFE",
+        "IBGE_CIDADES"
+      ],
+      "semantic_guards": [
+        "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
+        "SECTOR_INCOME_NE_STUDENT_OR_ENROLLED_HOUSEHOLD_INCOME",
+        "UNWEIGHTED_SECTOR_DISTRIBUTION_NE_PERSON_WEIGHTED_MUNICIPAL_INCOME",
+        "PARTIAL_SCHOOL_TO_SECTOR_LINK_NE_FULL_NETWORK_COVERAGE",
+        "NO_VULNERABILITY_INDEX_WITHOUT_EXPLICIT_METHOD"
+      ]
     }
   },
   "domain_product_routes": {
@@ -312,7 +356,8 @@
       "SCHOOL_INDICATOR_SERIES"
     ],
     "EQUITY_INCLUSION": [
-      "SCHOOL_INDICATOR_SERIES"
+      "SCHOOL_INDICATOR_SERIES",
+      "TERRITORY_PROFILE"
     ],
     "TEACHERS_WORKFORCE": [
       "SCHOOL_INDICATOR_SERIES",
@@ -358,7 +403,7 @@
       "JOM_EVENT_INDEX"
     ],
     "TERRITORY_CONTEXT": [
-      "SCHOOL_INDICATOR_SERIES"
+      "TERRITORY_PROFILE"
     ],
     "TRANSPARENCY_CONTROL": [
       "QUERY_PRODUCT_CATALOG",
