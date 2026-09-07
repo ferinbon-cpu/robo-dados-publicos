@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "schema": "TASK194E_SINOPSE_2025_TURMA_RECOVERY_V1",
+  "task": "TASK_194E_SINOPSE_2025_TURMA_RECOVERY",
+  "mode": "T1_BOUNDED_READ_ONLY_OFFICIAL_SINOPSE_AGGREGATE_PROBE",
+  "base_main_sha": "55dee65f0f8273e56d5478cf9bc826acef322e24",
+  "authorization_issue": 607,
+  "source": {
+    "official_page": "https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/sinopses-estatisticas/educacao-basica",
+    "url": "https://download.inep.gov.br/dados_abertos/sinopses_estatisticas/sinopse_estatistica_censo_escolar_2025.zip",
+    "allowed_host": "download.inep.gov.br",
+    "max_http_attempts": 3
+  },
+  "target": {
+    "municipality_name": "Limeira",
+    "municipality_code": "3526902",
+    "year": 2025,
+    "keywords": [
+      "turma",
+      "dependencia administrativa",
+      "municipal"
+    ]
+  },
+  "output": {
+    "sanitized_json_only": true,
+    "raw_zip_persisted": false,
+    "raw_workbook_persisted": false,
+    "class_count_materialized": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "guards": [
+    "OFFICIAL_INEP_SINOPSE_URL_ONLY",
+    "SAME_HOST_REDIRECT_ONLY",
+    "MAX_THREE_HTTP_ATTEMPTS_SAME_URL",
+    "RAW_ZIP_AND_WORKBOOK_EPHEMERAL_ONLY",
+    "NO_UNRELATED_MUNICIPALITY_ROWS_IN_SANITIZED_OUTPUT",
+    "NO_CLASS_COUNT_MATERIALIZATION_IN_TASK194E",
+    "MISSING_CANDIDATE_NE_ZERO"
+  ]
+}
