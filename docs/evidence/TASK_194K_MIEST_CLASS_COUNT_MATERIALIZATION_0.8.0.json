@@ -72,7 +72,11 @@
     "fiscal_series_row_count": 61,
     "school_rows_added": 1,
     "fiscal_rows_added": 0,
-    "runtime_snapshot_status": "TO_BE_PINNED_FROM_PASSING_CI"
+    "runtime_snapshot_status": "PINNED_FROM_PASSING_CI",
+    "school_indicator_series_snapshot_id": "c2aa07c6cb9becc54df98c19",
+    "school_indicator_series_content_sha256": "c2aa07c6cb9becc54df98c19c57b59cfb682d87834442e269115db96d3d5fb60",
+    "fiscal_series_snapshot_id": "32805aae76ff7065f2b1efca",
+    "fiscal_series_content_sha256": "32805aae76ff7065f2b1efca83f1c2229c5f77b4737e5de862795ba2d1759def"
   },
   "historical_transport_preserved": {
     "task194j_live_run": 34074393140,
@@ -94,5 +98,15 @@
     "publication": 0,
     "schedule": 0,
     "recurrence": 0
+  },
+  "runtime_validation": {
+    "run_id": 34080037720,
+    "job_id": 101613500659,
+    "unit_tests": "3257_OF_3257_PASS",
+    "answerability_after": {
+      "MATERIALIZED_ANSWERABLE": 28,
+      "MATERIALIZED_PARTIAL": 8,
+      "EXPLICIT_GAP": 2
+    }
   }
 }
