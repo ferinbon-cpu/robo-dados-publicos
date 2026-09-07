@@ -192,6 +192,23 @@ class TestTask194KMIeSTClassCountMaterialization(unittest.TestCase):
         self.assertEqual(e["historical_transport_preserved"]["task194j_result"], "HTTP_403_FORBIDDEN_ON_OFFICIAL_SEDUC_RESOURCE")
         self.assertEqual(e["remote_effects"]["serving"], 0)
 
+    def test_answerability_matrix_probe(self):
+        report = question_answerability(current_products(task194k=True))
+        print(
+            "TASK194K_ANSWERABILITY_MATRIX="
+            + json.dumps(
+                [
+                    {
+                        "question_id": row["question_id"],
+                        "status": row["status"],
+                        "missing_or_insufficient_metrics": row["missing_or_insufficient_metrics"],
+                    }
+                    for row in report["questions"]
+                ],
+                sort_keys=True,
+            )
+        )
+
     def test_runtime_snapshot_probe(self):
         products = build_task194k_products(
             generated_at=GENERATED_AT,
