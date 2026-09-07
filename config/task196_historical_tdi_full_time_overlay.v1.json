@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "schema": "TASK196_HISTORICAL_TDI_FULL_TIME_OVERLAY_V1",
+  "task": "TASK_196",
+  "issue": 631,
+  "base_main_sha": "799fad7316765ccd654322526135fc212eb8882a",
+  "mode": "T0_OFFLINE_EXISTING_CUSTODY_HISTORICAL_OVERLAY",
+  "canonical_asset": {
+    "asset_id": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
+    "filename": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08.xlsx",
+    "sha256": "0516868e06685aebe8254b11ca6488ef26b03dea61f927ff637840cf2a21e865",
+    "role": "PINNED_EXISTING_CUSTODY_CANONICAL_ANALYTIC_LAYER"
+  },
+  "file_library_text_evidence": {
+    "source": "ESTUDO_V5_6(2).docx",
+    "sha256": null,
+    "hash_status": "NOT_AVAILABLE_NOT_INVENTED",
+    "role": "FILE_LIBRARY_MEDIATED_EXACT_TEXTUAL_VALUES",
+    "relationship_to_v08": "V08 incorporates the V5.6/V5.7 historical analytical work and declares the relevant coverage closed."
+  },
+  "full_time_network_series": {
+    "indicator_id": "FULL_TIME_SHARE",
+    "scope_level": "NETWORK",
+    "scope_id": "3526902:MUNICIPAL:YEARS_INITIAL_ACTIVE_EDITION",
+    "network": "MUNICIPAL",
+    "stage_scope": "ANOS_INICIAIS",
+    "denominator": "MATRICULAS_ANOS_INICIAIS_NO_CONJUNTO_DE_UNIDADES_MUNICIPAIS_QUE_OFERTAVA_ANOS_INICIAIS_EM_CADA_EDICAO",
+    "unit": "PERCENT",
+    "source_family": "CENSO_ESCOLAR",
+    "rows": [
+      {"period":"2018","active_units":77,"enrollment_ai":13140,"value":11.1},
+      {"period":"2019","active_units":69,"enrollment_ai":13071,"value":13.2},
+      {"period":"2020","active_units":69,"enrollment_ai":13092,"value":11.5},
+      {"period":"2021","active_units":69,"enrollment_ai":13130,"value":9.2},
+      {"period":"2022","active_units":69,"enrollment_ai":12815,"value":14.9},
+      {"period":"2023","active_units":69,"enrollment_ai":12813,"value":26.7},
+      {"period":"2024","active_units":69,"enrollment_ai":12928,"value":30.0},
+      {"period":"2025","active_units":69,"enrollment_ai":13105,"value":30.7}
+    ]
+  },
+  "tdi_network_anchor_series": {
+    "indicator_id": "TDI",
+    "scope_level": "NETWORK",
+    "scope_id": "3526902:MUNICIPAL:YEARS_INITIAL_TOTAL_LOCATION",
+    "network": "MUNICIPAL",
+    "stage_scope": "ANOS_INICIAIS",
+    "location_scope": "TOTAL",
+    "dependency": "MUNICIPAL",
+    "unit": "PERCENT",
+    "source_family": "CENSO_ESCOLAR",
+    "series_coverage_declared": "2006-2025",
+    "materialized_anchor_rows_only": true,
+    "rows": [
+      {"period":"2006","value":3.4,"evidence":"explicit start value"},
+      {"period":"2011","value":0.9,"evidence":"explicit 2011-2012 trough"},
+      {"period":"2012","value":0.9,"evidence":"explicit 2011-2012 trough"},
+      {"period":"2017","value":4.0,"evidence":"explicit peak"},
+      {"period":"2023","value":1.0,"evidence":"explicit 2023-2025 return level"},
+      {"period":"2024","value":1.0,"evidence":"explicit 2023-2025 return level"},
+      {"period":"2025","value":1.0,"evidence":"explicit current reference"}
+    ]
+  },
+  "expected_transition": {
+    "before_counts": {
+      "EXPLICIT_GAP": 2,
+      "MATERIALIZED_ANSWERABLE": 28,
+      "MATERIALIZED_PARTIAL": 8
+    },
+    "after_counts": {
+      "EXPLICIT_GAP": 2,
+      "MATERIALIZED_ANSWERABLE": 30,
+      "MATERIALIZED_PARTIAL": 6
+    },
+    "changed_questions": ["NETWORK_Q2","LEARN_Q3"],
+    "school_indicator_rows_before": 1020,
+    "school_indicator_rows_after": 1035,
+    "fiscal_rows_must_remain": 61
+  },
+  "guards": [
+    "NETWORK_FULL_TIME_SERIES_STAGE_SCOPE_IS_YEARS_INITIAL",
+    "2018_ACTIVE_UNITS_77_NE_CURRENT_69_FIXED_PANEL",
+    "ACTIVE_EDITION_SCOPE_NE_CURRENT_69_LONGITUDINAL_PANEL",
+    "TDI_ANCHORS_NE_COMPLETE_20_YEAR_TABLE",
+    "NO_INTERPOLATION_BETWEEN_TDI_ANCHORS",
+    "FILE_LIBRARY_MEDIATED_TEXT_NE_RAW_OFFICIAL_BYTES",
+    "V08_SHA_PINNED_BUT_V5_6_SHA_NOT_INVENTED",
+    "MISSING_NE_ZERO",
+    "ANSWERABILITY_PROMOTION_REQUIRES_MIN_PERIODS_AND_EXPLICIT_SCOPE"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
