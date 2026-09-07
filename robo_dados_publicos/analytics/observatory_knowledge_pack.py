@@ -18,6 +18,7 @@ from robo_dados_publicos.analytics.v08_censo_panel import aggregate_long_rows as
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_ANSWERABILITY = ROOT / "config/observatory_semantic_answerability.v1.json"
+CURRENT_ANSWERABILITY = ROOT / "config/observatory_semantic_answerability.v2.json"
 DEFAULT_ONTOLOGY = ROOT / "config/observatory_question_ontology.v1.json"
 DEFAULT_CROSSWALK = ROOT / "config/existing_custody_product_ingestion_crosswalk.v1.json"
 DEFAULT_PRODUCTS = ROOT / "config/observatory_query_products.v1.json"
@@ -530,6 +531,19 @@ def question_answerability(
         "product_presence_is_not_answerability": True,
         "llm_may_fill_missing_numeric_evidence": False,
     }
+
+
+def current_question_answerability(
+    products: Mapping[str, Mapping[str, Any]],
+    *,
+    crosswalk_path: str | Path = DEFAULT_CROSSWALK,
+) -> dict[str, Any]:
+    """Evaluate the canonical current matrix without rewriting historical task semantics."""
+    return question_answerability(
+        products,
+        answerability_path=CURRENT_ANSWERABILITY,
+        crosswalk_path=crosswalk_path,
+    )
 
 
 def sample_packet_summaries(products: Mapping[str, Mapping[str, Any]]) -> list[dict[str, Any]]:
