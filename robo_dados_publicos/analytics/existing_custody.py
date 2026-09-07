@@ -110,6 +110,7 @@ def validate_contracts(
         "ACCOUNTING_LEDGER",
         "REVENUE_LEDGER",
         "QUERY_PRODUCT_CATALOG",
+        "TERRITORY_PROFILE",
     }
     _stop(set(crosswalk["products"]) == expected_products, "TASK179_PRODUCT_SET")
     _stop(

@@ -65,7 +65,13 @@ def validate_foundation(
     _stop("CNEFE" in join["fallback"], "TASK199A_CNEFE_FALLBACK")
 
     _stop(overlay["schema"] == "OBSERVATORY_TERRITORY_ANSWERABILITY_OVERLAY_V1", "TASK199A_OVERLAY_SCHEMA")
-    _stop(overlay["status"] == "DESIGNED_NOT_CANONICALLY_APPLIED", "TASK199A_OVERLAY_STATUS")
+    _stop(
+        overlay["status"] in {
+            "DESIGNED_NOT_CANONICALLY_APPLIED",
+            "CANONICALLY_APPLIED_TASK_199D",
+        },
+        "TASK199A_OVERLAY_STATUS",
+    )
     _stop(overlay["replaces_problematic_rule"]["old_match"] == "ANY", "TASK199A_OLD_ANY")
     _stop(
         overlay["target_rule"]["municipal_context_requires_all_capabilities"]

@@ -2,7 +2,7 @@
   "version": 1,
   "schema": "OBSERVATORY_TERRITORY_ANSWERABILITY_OVERLAY_V1",
   "task": "TASK_199A_IBGE_TERRITORIAL_FOUNDATION",
-  "status": "DESIGNED_NOT_CANONICALLY_APPLIED",
+  "status": "CANONICALLY_APPLIED_TASK_199D",
   "replaces_problematic_rule": {
     "recipe": "TERRITORY",
     "old_match": "ANY",
@@ -25,10 +25,16 @@
       "SCHOOL_TO_SECTOR_LINK"
     ]
   },
-  "promotion_condition": "Apply only after the first TERRITORY_PROFILE snapshot is materialized and validated.",
+  "promotion_condition": "SATISFIED_BY_TASK199D_TERRITORY_PROFILE_VALIDATED",
   "guards": [
     "SOURCE_DISCOVERY_NE_MATERIALIZED_ANSWERABILITY",
     "MUNICIPAL_CONTEXT_NE_SCHOOL_CONTEXT",
     "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_PROFILE"
-  ]
+  ],
+  "applied_capabilities": [
+    "MUNICIPAL_DEMOGRAPHY",
+    "CENSUS_SECTOR_CONTEXT",
+    "SECTOR_INCOME_CONTEXT"
+  ],
+  "remaining_equity_guard": "SCHOOL_TO_SECTOR_LINK_FULL_NETWORK_NOT_YET_PRESENT"
 }

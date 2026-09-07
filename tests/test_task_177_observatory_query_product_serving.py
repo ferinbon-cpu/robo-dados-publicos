@@ -187,7 +187,25 @@ def all_products():
         generated_at=GENERATED_AT,
         software_version=SOFTWARE,
     )
-    return {**bundle, "QUERY_PRODUCT_CATALOG": catalog}
+    territory_row = {
+        "geo_level": "MUNICIPAL",
+        "geo_id": "3526902",
+        "municipality_code": "3526902",
+        "period": "2022",
+        "metric_id": "POPULATION",
+        "metric_name": "População",
+        "value": 291869,
+        "unit": "PERSONS",
+        "context": "Fixture territorial sanitizada.",
+        **common("IBGE_CENSO_2022", "Territory context is not student profile."),
+    }
+    territory = materialize_product(
+        "TERRITORY_PROFILE",
+        [territory_row],
+        generated_at=GENERATED_AT,
+        software_version=SOFTWARE,
+    )
+    return {**bundle, "TERRITORY_PROFILE": territory, "QUERY_PRODUCT_CATALOG": catalog}
 
 
 def existing_from_target(target):
@@ -205,13 +223,13 @@ class TestTask177ObservatoryQueryProductServing(unittest.TestCase):
     def test_contract_passes_and_legacy_bi_allowlist_stays_unchanged(self):
         got = validate_contract()
         self.assertEqual(got["status"], "PASS")
-        self.assertEqual(got["product_count"], 7)
+        self.assertEqual(got["product_count"], 8)
         self.assertTrue(got["legacy_bi_allowlist_unchanged"])
         legacy = json.loads((ROOT / "config/bi/serving.v1.json").read_text(encoding="utf-8"))
         self.assertEqual(len(legacy["dataset_allowlist"]), 6)
         self.assertFalse(any(x.startswith("OBS_") for x in legacy["serving_names"]))
 
-    def test_all_seven_products_have_exact_obs_serving_names(self):
+    def test_all_eight_products_have_exact_obs_serving_names(self):
         expected = {
             "SCHOOL_INDICATOR_SERIES": "OBS_SCHOOL_INDICATOR_SERIES__SERVING",
             "JOM_EVENT_INDEX": "OBS_JOM_EVENT_INDEX__SERVING",
@@ -220,6 +238,7 @@ class TestTask177ObservatoryQueryProductServing(unittest.TestCase):
             "FISCAL_SERIES": "OBS_FISCAL_SERIES__SERVING",
             "PLANNING_DOCUMENT_INDEX": "OBS_PLANNING_DOCUMENT_INDEX__SERVING",
             "QUERY_PRODUCT_CATALOG": "OBS_QUERY_PRODUCT_CATALOG__SERVING",
+            "TERRITORY_PROFILE": "OBS_TERRITORY_PROFILE__SERVING",
         }
         products = all_products()
         for name, serving_name in expected.items():

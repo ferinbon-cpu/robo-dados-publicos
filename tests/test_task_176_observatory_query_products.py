@@ -218,10 +218,10 @@ class TestTask176ObservatoryQueryProducts(unittest.TestCase):
             "PLANNING_DOCUMENT_INDEX": planning,
         }
 
-    def test_contract_passes_and_covers_seven_products_and_fifteen_domains(self):
+    def test_contract_passes_and_covers_eight_products_and_fifteen_domains(self):
         got = validate_contract()
         self.assertEqual(got["status"], "PASS")
-        self.assertEqual(got["product_count"], 7)
+        self.assertEqual(got["product_count"], 8)
         self.assertEqual(got["domain_count"], 15)
         self.assertFalse(got["network"])
         self.assertFalse(got["drive_write"])
@@ -391,7 +391,7 @@ class TestTask176ObservatoryQueryProducts(unittest.TestCase):
         self.assertEqual(sum(got["counts"].values()), 15)
         territory = next(x for x in got["domains"] if x["domain_id"] == "TERRITORY_CONTEXT")
         self.assertEqual(territory["status"], "NO_PRODUCTS")
-        self.assertIn("SCHOOL_INDICATOR_SERIES", territory["missing_products"])
+        self.assertIn("TERRITORY_PROFILE", territory["missing_products"])
 
     def test_transparency_control_can_return_product_catalog_records(self):
         bundle = self.build_bundle()

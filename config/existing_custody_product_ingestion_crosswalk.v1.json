@@ -500,6 +500,40 @@
         "raw_payload_persisted": true,
         "synthetic_fixture_allowed": false
       }
+    },
+    "TERRITORY_PROFILE": {
+      "current_status": "READY_FROM_EXISTING_CUSTODY",
+      "canonical_inputs": [
+        "IBGE_CNEFE_LIMEIRA_2022",
+        "IBGE_CENSO2022_SECTOR_BASIC_20260520",
+        "IBGE_CENSO2022_SECTOR_INCOME_20260508",
+        "IBGE_INCOME_DICTIONARY_20260508"
+      ],
+      "full_materialization_requires": [],
+      "identity_key": "IBGE_GEOCODE_OR_INEP_PLUS_SECTOR",
+      "target_domains": [
+        "TERRITORY_CONTEXT",
+        "EQUITY_INCLUSION"
+      ],
+      "guards": [
+        "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
+        "PARTIAL_14_OF_69_NE_FULL_NETWORK_COVERAGE",
+        "NO_VULNERABILITY_INDEX_WITHOUT_EXPLICIT_METHOD"
+      ],
+      "materialized_blocks": [
+        {
+          "task": "TASK_199D",
+          "source": "IBGE_CENSO_2022_PLUS_CNEFE_PLUS_OFFICIAL_INCOME_DICTIONARY",
+          "scope": "LIMEIRA_2022_MUNICIPAL_SECTOR_CONTEXT_PLUS_14_PROVEN_SCHOOL_LINKS",
+          "raw_basic_sector_rows": 735,
+          "raw_income_sector_rows": 728,
+          "income_nonmissing_v06004_rows": 718,
+          "school_sector_links": 14,
+          "network_school_denominator": 69,
+          "full_network_school_link": false
+        }
+      ],
+      "unbundled_answerability": "EXPLICIT_GAP"
     }
   },
   "handoff_priority": [

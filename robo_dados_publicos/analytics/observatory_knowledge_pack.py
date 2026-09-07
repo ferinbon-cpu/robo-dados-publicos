@@ -408,7 +408,10 @@ def _product_readiness_status(
 ) -> str:
     if product_name in products:
         return "BUNDLED"
-    status = str(crosswalk["products"][product_name]["current_status"])
+    spec = crosswalk["products"][product_name]
+    if str(spec.get("unbundled_answerability") or "") == "EXPLICIT_GAP":
+        return "EXPLICIT_GAP"
+    status = str(spec["current_status"])
     if status == "NO_NEW_CUSTODY_INPUT_REQUIRED":
         return "ROUTE_READY_PRODUCT_NOT_BUNDLED"
     if status in {
