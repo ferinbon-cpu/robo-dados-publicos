@@ -1,0 +1,13 @@
+codigo_inep,cie_sme,cie_inep_suffix_bridge,unidade,sme_street,sme_number,promotion_status,hold_reason
+35470600,470600,PROVEN,CEIEF Rafael Affonso Leite,ANTONIO ALVES DE OLIVEIRA,SN,HELD,CNEFE named school candidate is on a different street from current SME address
+35656823,656823,PROVEN,EMEIEF Alfredo Christiano Stahlberg (Rural),VIA MARTIM LUTERO,KM 10,HELD,rural KM address lacks exact current-address CNEFE reconciliation
+35217864,217864,PROVEN,"EMEIEF Ary Gomes de Castro, Tenente Aviador",JACOB DE GASPARI,220,HELD,CNEFE named school candidate has same street but conflicting number
+35208437,208437,PROVEN,"EMEIEF Ismael Pereira Lago, Pastor",LUIS VAZ DE CAMOES,330,HELD,current address not present exactly; street spelling segments map to different sectors and no named-school candidate
+35217924,217924,PROVEN,"EMEIEF José Levy Sobrinho, Major",FRANCISCO BENEDITO GONCALVES DE OLIVEIRA,3,HELD,CNEFE named school candidate has compatible street abbreviation but conflicting number
+35217992,217992,PROVEN,EMEIEF Martim Lutero (Rural),VIA MARTIM LUTERO,KM 03,HELD,rural KM address lacks exact current-address reconciliation; named CNEFE school row has road-name variant and no KM
+35286229,286229,PROVEN,"EMEIEF Maurício Sebastião Ferreira, Padre",JOAO POMPEU FILHO,571,HELD,current SME street/number has no exact CNEFE address and no compatible named-school candidate
+35004773,4773,PROVEN,"EMEIEF Raquel Aparecida Gonçalves Franceschi, Profa.",SEBASTIAO TEIXEIRA,200,HELD,current SME street/number has no exact CNEFE address and no compatible named-school candidate
+35223359,223359,PROVEN,"CI Ary Levy Pereira, Prefeito",ADEMAR MARCOLINO,215,HELD,current SME street/number has no exact CNEFE address and no compatible named-school candidate
+35099569,99569,PROVEN,CI Neusa Francisco Correa da Silva,MARIO ALVES FERRAZ,185,HELD,CNEFE named-school candidate is on non-current/undefined street
+35241885,241885,PROVEN,EMEI Theresa Veronesi D Andrea,MANOEL RATO,25,HELD,CNEFE named-school candidate is at a different address from current SME address
+35099557,99557,PROVEN,CI Vilma Terezinha Marrafon Coppi,ARLINDA ABREU RIBEIRO,1175,HELD,current SME street/number has no exact CNEFE address and no compatible named-school candidate
