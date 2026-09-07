@@ -216,13 +216,12 @@
           "match": "ALL"
         },
         {
-          "kind": "METRIC",
-          "product": "SCHOOL_INDICATOR_SERIES",
-          "ids": [
-            "VULNERABILITY",
-            "TERRITORY_VULNERABILITY"
-          ],
-          "match": "ANY"
+          "kind": "PRODUCT",
+          "product": "TERRITORY_PROFILE",
+          "required_capabilities": [
+            "CENSUS_SECTOR_CONTEXT",
+            "SCHOOL_TO_SECTOR_LINK_FULL_NETWORK"
+          ]
         }
       ]
     },
@@ -514,15 +513,13 @@
     "TERRITORY": {
       "signals": [
         {
-          "kind": "METRIC",
-          "product": "SCHOOL_INDICATOR_SERIES",
-          "ids": [
-            "POPULATION",
-            "INCOME",
-            "TERRITORY_VULNERABILITY",
-            "DEMOGRAPHIC_PROFILE"
-          ],
-          "match": "ANY"
+          "kind": "PRODUCT",
+          "product": "TERRITORY_PROFILE",
+          "required_capabilities": [
+            "MUNICIPAL_DEMOGRAPHY",
+            "CENSUS_SECTOR_CONTEXT",
+            "SECTOR_INCOME_CONTEXT"
+          ]
         }
       ]
     },
