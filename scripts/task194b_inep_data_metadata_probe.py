@@ -62,7 +62,7 @@ def exact_auth_comment(main_sha: str, contract_path: str | Path = DEFAULT_CONTRA
 
 def _decode_http_body(body: bytes, content_encoding: str = "") -> bytes:
     encoding = str(content_encoding or "").casefold()
-    if encoding == "gzip" or body.startswith(b"\\x1f\\x8b"):
+    if encoding == "gzip" or body.startswith(bytes((0x1F, 0x8B))):
         return gzip.decompress(body)
     return body
 
