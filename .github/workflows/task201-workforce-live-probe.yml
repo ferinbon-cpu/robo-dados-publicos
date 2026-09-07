@@ -71,7 +71,7 @@ jobs:
             find runtime/task201 -maxdepth 1 -type f -printf '%f\n' | grep -vx 'sanitized_result.json' && exit 1 || true
           fi
           if [ -f runtime/task201/sanitized_result.json ]; then
-            ! grep -Eiq '"(cpf|nome|matricula)"|[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}' runtime/task201/sanitized_result.json
+            ! grep -Eiq '"(cpf|matricula|person_name)"|[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}' runtime/task201/sanitized_result.json
           fi
 
       - name: Upload sanitized aggregate only
