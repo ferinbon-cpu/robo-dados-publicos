@@ -93,6 +93,20 @@ class TestTask201A2SmeWorkforceDiscovery(unittest.TestCase):
         self.assertNotIn("111.111.111-11", encoded)
         self.assertNotIn("000.001-1", encoded)
 
+    def test_dynamic_home_label_gap_does_not_block_contracted_aggregate(self):
+        result = derive_sanitized_result(
+            home_bytes=b"<html><body>Sistema Integrado de Gestao Educacional</body></html>",
+            app_menu_bytes=_menu(),
+            contracted_bytes=_contracted(),
+        )
+        self.assertEqual(result["status"], "PASS_WITH_DYNAMIC_HOME_LABEL_GAP")
+        self.assertEqual(result["sme_bond_taxonomy"]["raw_home_label_status"], "NOT_OBSERVED_NOT_ABSENT")
+        self.assertEqual(
+            result["sme_contracted_aggregate"]["unique_contracted_teacher_count"],
+            2,
+        )
+        self.assertFalse(result["guards"]["person_level_output"])
+
 
 if __name__ == "__main__":
     unittest.main()
