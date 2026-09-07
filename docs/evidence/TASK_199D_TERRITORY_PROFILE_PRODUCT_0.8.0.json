@@ -1,0 +1,67 @@
+{
+  "schema": "TASK199D_TERRITORY_PROFILE_PRODUCT_EVIDENCE_V1",
+  "software_candidate": "0.8.0",
+  "task": "TASK_199D",
+  "issue": 628,
+  "base_main_sha": "747feb9233ce488344f428c72bc500963322429f",
+  "status": "PASS_TERRITORY_PROFILE_FIRST_CANONICAL_MATERIALIZATION",
+  "dictionary": {
+    "drive_id": "1DVZE_sIha4wYZcsxhEAVgS0qzUOu1j42",
+    "bytes": 10197,
+    "sha256": "fea6e2b2439eeb167c6fa9c136ed7cb13ebcb06f4c875d634e3e2578c668a48d",
+    "readback_verified": true,
+    "v06004_semantic": "Valor do rendimento nominal médio mensal das pessoas responsáveis com rendimentos por domicílios particulares permanentes ocupados",
+    "v06006_semantic": "Valor do rendimento nominal mediano mensal das pessoas responsáveis com rendimentos por domicílios particulares permanentes ocupados"
+  },
+  "raw_sources": {
+    "basic_zip_sha256": "ec04624286233d699ebe69c7b9625744a1cfdfc8352126f30245bdef5e9bdc63",
+    "income_zip_sha256": "141c83e7635674e7e2c941e55f98811e538fcbf2e1e1125b0aa7892c260f4a23",
+    "cnefe_zip_sha256": "ab73250df889effcb01ddc2d060bddd3252e995468e97ef93b048564763626a7"
+  },
+  "reconciliation": {
+    "limeira_population_sector_sum": 291869,
+    "census_2022_population": 291869,
+    "difference": 0,
+    "basic_sector_rows": 735,
+    "urban_sector_rows": 685,
+    "rural_sector_rows": 50,
+    "income_sector_rows": 728,
+    "v06004_nonmissing_rows": 718
+  },
+  "territory_profile": {
+    "row_count": 67,
+    "municipal_summary_rows": 11,
+    "school_sector_metric_rows": 56,
+    "proven_school_links": 14,
+    "network_school_denominator": 69,
+    "full_network_school_link": false,
+    "capabilities": [
+      "CENSUS_SECTOR_CONTEXT",
+      "MUNICIPAL_DEMOGRAPHY",
+      "OFFICIAL_INCOME_DICTIONARY",
+      "SCHOOL_TO_SECTOR_LINK_PARTIAL",
+      "SECTOR_INCOME_CONTEXT"
+    ]
+  },
+  "answerability": {
+    "historical_before": "30_ANSWERABLE_6_PARTIAL_2_EXPLICIT_GAP",
+    "expected_after": "32_ANSWERABLE_6_PARTIAL_0_EXPLICIT_GAP",
+    "territory_q1": "MATERIALIZED_ANSWERABLE",
+    "territory_q2": "MATERIALIZED_ANSWERABLE",
+    "equity_q1": "MATERIALIZED_PARTIAL",
+    "equity_reason": "Full-network school-to-sector link is still absent; no vulnerability index is invented."
+  },
+  "guards": [
+    "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
+    "SECTOR_INCOME_NE_STUDENT_OR_ENROLLED_HOUSEHOLD_INCOME",
+    "UNWEIGHTED_SECTOR_DISTRIBUTION_NE_PERSON_WEIGHTED_MUNICIPAL_INCOME",
+    "PARTIAL_14_OF_69_NE_FULL_NETWORK_SCHOOL_TERRITORY_COVERAGE",
+    "NO_VULNERABILITY_INDEX_WITHOUT_EXPLICIT_METHOD"
+  ],
+  "remote_effects": {
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  }
+}
