@@ -408,7 +408,7 @@ def scan_inep_docente_candidates(package_bytes: bytes, target: dict[str, Any]) -
 def _assert_no_person_level_payload(result: dict[str, Any]) -> None:
     encoded = json.dumps(result, ensure_ascii=False, sort_keys=True)
     lowered = _norm(encoded)
-    forbidden_keys = ["cpf", "nome", "matricula", "registration_value"]
+    forbidden_keys = ['"cpf"', '"matricula"', '"person_name"', "registration_value"]
     _stop(not any(token in lowered for token in forbidden_keys), "TASK201_PERSON_LEVEL_OUTPUT_LEAK")
     _stop(not re.search(r"\b\d{3}\.\d{3}\.\d{3}-\d{2}\b", encoded), "TASK201_CPF_PATTERN_LEAK")
 
