@@ -146,7 +146,11 @@
           "network_q1": "MATERIALIZED_ANSWERABLE",
           "csv_sha256": "72577ea79fcdacd22f96daf114b25fa49f623bd3496ca0bba619e43c291f2b6b",
           "dictionary_sha256": "4444763557f26e76164a331a495601b042ce161f1fa4eb0ba26a93e163392391",
-          "runtime_snapshot_status": "TO_BE_PINNED_FROM_PASSING_CI"
+          "runtime_snapshot_status": "PINNED_FROM_PASSING_CI",
+          "snapshot_id": "c2aa07c6cb9becc54df98c19",
+          "content_sha256": "c2aa07c6cb9becc54df98c19c57b59cfb682d87834442e269115db96d3d5fb60",
+          "fiscal_series_snapshot_id": "32805aae76ff7065f2b1efca",
+          "fiscal_series_content_sha256": "32805aae76ff7065f2b1efca83f1c2229c5f77b4737e5de862795ba2d1759def"
         }
       ],
       "pending_structured_blocks": [
