@@ -1,0 +1,56 @@
+{
+  "schema": "TASK200B_SCHOOL_NORMS_PRIMARY_EVIDENCE_RESULT_V1",
+  "software_candidate": "0.8.0",
+  "task": "TASK_200B",
+  "issue": 636,
+  "base_main_sha": "78e070f7bdd6bc03da037532ec3d0445c92c7e14",
+  "status": "CANDIDATE_PRIMARY_NORMATIVE_GATE_EXPECTED_TO_CLOSE_NORMS_Q1_Q2",
+  "evidence_basis": {
+    "cme": {
+      "drive_id": "1H5XVqisjFvXJcL7uVrJxadiufLBk0d8X",
+      "sha256": "5d01a883bd5ec721b9a9a8b0a0f2c985eea8958da23de8d475d7c73d3109c07c",
+      "facts": [
+        "sets minimum full-time duration at seven daily hours or 35 weekly hours",
+        "defines integrated organization of the daily school journey and complementary activities",
+        "requires specialized educational assistance for students with special educational needs",
+        "establishes monitoring and governance directions for implementation"
+      ]
+    },
+    "municipal_decree": {
+      "drive_id": "1zJ-D42f4pBtzEQAUfsTigIROgqkW3Kzt",
+      "sha256": "a534b99711652d437e1672dbaf39b9f56fe8f35c042f3648ae8483187c909b60",
+      "facts": [
+        "institutes the municipal full-time integral education policy in municipal network schools",
+        "expressly anchors the policy in CME Deliberation 02/2021",
+        "records official Jornal publication in edition 6718 on 2024-04-20"
+      ]
+    }
+  },
+  "methodological_change": {
+    "from": "TWO_RECENT_JOM_NORM_ROWS_PLUS_PRIMARY_NORMATIVE_PAIR",
+    "to": "TWO_VALIDATED_PRIMARY_NORMATIVE_EDUCATION_ROWS_FROM_BOTH_CME_AND_MUNICIPAL_LEGISLATION",
+    "rationale": "Answerability must follow evidentiary authority and substantive relevance, not an arbitrary recent-Jornal publication window."
+  },
+  "expected_answerability": {
+    "before": "34_ANSWERABLE_4_PARTIAL_0_EXPLICIT_GAP",
+    "after": "36_ANSWERABLE_2_PARTIAL_0_EXPLICIT_GAP",
+    "changed_questions": [
+      "NORMS_Q1",
+      "NORMS_Q2"
+    ],
+    "remaining_partial": [
+      "EQUITY_Q1",
+      "TEACH_Q2"
+    ]
+  },
+  "guards": [
+    "PRIMARY_NORMATIVE_AUTHORITY_GT_ARBITRARY_RECENT_JOM_COVERAGE",
+    "CONTRACT_NE_SCHOOL_NORM",
+    "PERSONNEL_ACT_NE_SCHOOL_NORM",
+    "BUDGET_DECREE_NE_SCHOOL_OPERATION_NORM",
+    "NORMATIVE_ACT_NE_IMPLEMENTATION_RESULT",
+    "PUBLICATION_NE_IMPLEMENTATION",
+    "NO_FABRICATED_EVIDENCE",
+    "HISTORICAL_ANSWERABILITY_V1_IMMUTABLE"
+  ]
+}
