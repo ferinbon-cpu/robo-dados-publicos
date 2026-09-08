@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "schema": "TASK210_GENERALIZED_CONTEXT_EXECUTION_V1",
+  "task": "TASK_210",
+  "issue": 664,
+  "base_main_sha": "3de45f63f9c93b393f1f60ec70ec6787c26a1085",
+  "mode": "T0_OFFLINE_CONTEXT_CAPABILITY_MATRIX_AND_GENERIC_LOCAL_METRIC_EXECUTION",
+  "upstream_context_schema": "TASK208_CONTEXT_BIND_RESULT_V1",
+  "task209_special_questions": ["FIN_Q1", "NETWORK_Q3", "NORMS_Q2"],
+  "generic_school_metric_recipe_questions_expected": [
+    "EQUITY_Q2",
+    "INFRA_Q1",
+    "LEARN_Q1",
+    "LEARN_Q2",
+    "LEARN_Q3",
+    "NETWORK_Q1",
+    "NETWORK_Q2",
+    "NETWORK_Q3",
+    "TEACH_Q1"
+  ],
+  "generic_executor": {
+    "product": "SCHOOL_INDICATOR_SERIES",
+    "allowed_period_modes": ["YEAR"],
+    "school_scope_level": "SCHOOL",
+    "network_scope_level": "NETWORK",
+    "network": "MUNICIPAL",
+    "scope_without_school": "NETWORK",
+    "year_without_explicit_period": "LATEST_YEAR_SATISFYING_COMPLETE_RECIPE",
+    "require_complete_recipe_before_answer": true,
+    "allow_partial_recipe_as_full_answer": false,
+    "nearest_year_substitution": false
+  },
+  "recipe_consumed_facets": {
+    "NETWORK_Q2": ["TEMPO_INTEGRAL"],
+    "INFRA_Q1": ["INFRAESTRUTURA"],
+    "EQUITY_Q2": ["AEE"],
+    "TEACH_Q1": ["DOCENTES"]
+  },
+  "execution_classes": [
+    "TASK209_SPECIAL",
+    "GENERIC_LOCAL_SCHOOL_METRIC",
+    "NOT_YET_CONTEXT_EXECUTABLE"
+  ],
+  "capability_dimensions": [
+    "SCHOOL",
+    "PERIOD",
+    "POLICY_SERVICE_FACETS",
+    "GRANULARITY"
+  ],
+  "claim_boundaries": {
+    "semantic_answerability_equals_contextual_executability": false,
+    "metric_recipe_class_equals_every_context_supported": false,
+    "complete_recipe_required_for_answer": true,
+    "context_gap_means_global_absence": false,
+    "context_gap_means_requested_exact_context_not_fully_materialized": true,
+    "nearest_period_substitution_allowed": false,
+    "causal_inference_allowed": false,
+    "mixed_product_recipe_auto_promoted": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "llm": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
