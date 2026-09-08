@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "schema": "TASK211_DOCUMENT_EVENT_CONTEXT_EXECUTION_V1",
+  "task": "TASK_211",
+  "issue": 666,
+  "base_main_sha": "a78a57d08d244b781ad0dcaa329a5285341b408c",
+  "mode": "T0_OFFLINE_LOCAL_DOCUMENT_EVENT_CONTEXT_EXECUTION",
+  "upstream": {
+    "context_binding": "TASK208_CONTEXT_BIND_RESULT_V1",
+    "special_executor": "TASK209",
+    "metric_executor": "TASK210"
+  },
+  "local_document_event_products": [
+    "JOM_EVENT_INDEX",
+    "PLANNING_DOCUMENT_INDEX"
+  ],
+  "expected_recipe_class_questions": [
+    "JOM_Q1",
+    "JOM_Q2",
+    "NORMS_Q1",
+    "NORMS_Q2",
+    "PERS_Q1",
+    "PERS_Q2",
+    "PLAN_Q1",
+    "PLAN_Q2",
+    "POLICY_Q1",
+    "POLICY_Q2"
+  ],
+  "task209_special_overlap": [
+    "NORMS_Q2"
+  ],
+  "new_generic_document_event_questions": [
+    "JOM_Q1",
+    "JOM_Q2",
+    "NORMS_Q1",
+    "PERS_Q1",
+    "PERS_Q2",
+    "PLAN_Q1",
+    "PLAN_Q2",
+    "POLICY_Q1",
+    "POLICY_Q2"
+  ],
+  "extended_matrix_target": {
+    "TASK209_SPECIAL": 3,
+    "GENERIC_LOCAL_SCHOOL_METRIC": 8,
+    "GENERIC_LOCAL_DOCUMENT_EVENT": 9,
+    "NOT_YET_CONTEXT_EXECUTABLE": 18
+  },
+  "period": {
+    "supported_modes": ["YEAR"],
+    "jom_field": "publication_date",
+    "planning_field": "period",
+    "planning_range_is_inclusive": true,
+    "nearest_period_substitution": false,
+    "month_coercion": false
+  },
+  "facet_filtering": {
+    "source": "TASK209_POLICY_FACET_TOPICS",
+    "jom_dimension": "education_topics",
+    "planning_dimension": "topics",
+    "object_text_semantic_guessing": false,
+    "empty_topic_mapping_supported": false
+  },
+  "recipe_semantics": {
+    "row_criteria_are_contextual_selectors": true,
+    "required_source_family_role_pairs_are_eligible_row_selectors": true,
+    "required_source_family_role_pairs_require_all_families_inside_each_context_slice": false,
+    "required_document_role_pairs_are_eligible_row_selectors": true,
+    "required_document_types_must_all_exist_inside_planning_context_slice": true,
+    "min_rows_are_global_coverage_gates_not_contextual_minimums": true,
+    "min_matching_rows_are_global_coverage_gates_not_contextual_minimums": true,
+    "each_recipe_signal_requires_at_least_one_contextual_match": true
+  },
+  "display": {
+    "jom_max_event_facts": 12,
+    "planning_max_document_facts": 50,
+    "preserve_total_match_count": true,
+    "preserve_selected_ids_digest": true,
+    "aggregate_event_types": true,
+    "aggregate_evidence_layers": true,
+    "aggregate_policy_domains": true
+  },
+  "claim_boundaries": {
+    "school_identity_from_document_text_allowed": false,
+    "publication_equals_implementation": false,
+    "normative_act_equals_implementation": false,
+    "planning_equals_execution": false,
+    "context_zero_match_equals_global_absence": false,
+    "current_jom_materialization_equals_complete_year": false,
+    "display_sample_equals_all_matches": false,
+    "partial_recipe_signal_equals_full_answer": false,
+    "metadata_only_remote_products_auto_promoted": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "llm": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
