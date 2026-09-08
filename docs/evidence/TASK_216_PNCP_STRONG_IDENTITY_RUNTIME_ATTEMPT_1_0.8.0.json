@@ -1,0 +1,66 @@
+{
+  "task": "TASK_216_PNCP_STRONG_IDENTITY_RUNTIME_ATTEMPT_1",
+  "issue": 676,
+  "design_merge_sha": "2d9364315d6f1ff256a968d61885e34cb32b9fae",
+  "runtime_branch": "task-216-pncp-identity-runtime",
+  "execution_head_sha": "7c5cddee5149cb34319e922e975df184225947bb",
+  "workflow_run_id": 34272133316,
+  "workflow_job_id": 102216071916,
+  "workflow_conclusion": "success",
+  "sanitized_artifact": {
+    "id": 10074321138,
+    "zip_digest": "sha256:0e75be128bc0c65615742e744c63f66f019967a6ac46eff458844aae73e1f796",
+    "retention_days": 1,
+    "raw_payload_persisted": false
+  },
+  "sanitized_result_sha256": "543f449b3947c71c251db4aaa488c8d06b5765890387d51955fcc9ef0a125c11",
+  "source_scope": {
+    "endpoint": "https://pncp.gov.br/api/consulta/v1/contratos",
+    "cnpjOrgao": "45132495000140",
+    "dataInicial": "20260101",
+    "dataFinal": "20260908",
+    "tamanhoPagina": 500
+  },
+  "result": "STOP_SOURCE_TRANSPORT_OR_HTTP_OR_JSON_UNAVAILABLE",
+  "complete_pagination": false,
+  "failed_page": 4,
+  "requests": [
+    {
+      "page": 1,
+      "http_status": 200,
+      "bytes_received": 766814,
+      "sha256": "ee41062930fe792a0984552ed60bb5e8a1959ec29b605b045fbf561aa5f1d811",
+      "transport_error": null
+    },
+    {
+      "page": 2,
+      "http_status": 200,
+      "bytes_received": 766057,
+      "sha256": "13d12e2ccb018e6e5d8aa5d3c512346011d42fdaec6a76f9239b249ee8177445",
+      "transport_error": null
+    },
+    {
+      "page": 3,
+      "http_status": 200,
+      "bytes_received": 768920,
+      "sha256": "67ae14ffc969e8ec152ee807c2ed88b2c0b0b0edcf23bf098b05250848408d5c",
+      "transport_error": null
+    },
+    {
+      "page": 4,
+      "http_status": 502,
+      "bytes_received": 0,
+      "sha256": null,
+      "transport_error": "HTTP_ERROR_502"
+    }
+  ],
+  "adjudication": {
+    "bounded_negative_created": false,
+    "identity_chain_created": false,
+    "procurement_question_promoted": false,
+    "control_question_promoted": false,
+    "source_transport_failure_is_no_data": false,
+    "weak_identity_fields_used": false
+  },
+  "next_action": "MONTHLY_PARTITIONED_SAME_SCOPE_RETRY_ZERO_EACH_REQUEST"
+}
