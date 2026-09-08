@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "schema": "TASK202_EQUITY_MISSINGNESS_AWARE_GATE_V1",
+  "task": "TASK_202",
+  "issue": 644,
+  "base_main_sha": "074c5415d9b71312692a4e034ff5a020406358b3",
+  "mode": "T0_OFFLINE_SEMANTIC_ADEQUACY_CORRECTION",
+  "coverage": {
+    "active_school_denominator": 69,
+    "strong_links": 59,
+    "held": 10,
+    "rate": 0.855072,
+    "minimum_rate": 0.85,
+    "full_network": false
+  },
+  "held_roster": {
+    "drive_id": "1E_gMOxkvgaQpJ_mgI8GQeu9usQxyWeqN",
+    "sha256": "e99ccaf6e091c66a3a49845a003da4402651f74cd3df6a1cf1003700f163ded6",
+    "bytes": 2651,
+    "codes": [
+      "35470600",
+      "35656823",
+      "35208437",
+      "35217924",
+      "35217992",
+      "35286229",
+      "35004773",
+      "35223359",
+      "35099569",
+      "35241885"
+    ]
+  },
+  "capability": {
+    "id": "SCHOOL_TO_SECTOR_LINK_SUBSTANTIAL_COVERAGE_WITH_EXPLICIT_MISSINGNESS",
+    "requires": [
+      "DENOMINATOR_69_PINNED",
+      "STRONG_LINKS_AT_LEAST_59",
+      "COVERAGE_AT_LEAST_0_85",
+      "HELD_COUNT_EXACTLY_10",
+      "HELD_ROSTER_HASH_PINNED",
+      "LINKED_AND_HELD_DISJOINT",
+      "NO_HELD_PROMOTION",
+      "FULL_NETWORK_CAPABILITY_ABSENT"
+    ]
+  },
+  "answerability": {
+    "prior_current_config": "config/observatory_semantic_answerability.v3.json",
+    "current_overlay": "config/observatory_semantic_answerability.v4.overlay.json",
+    "before": {
+      "MATERIALIZED_ANSWERABLE": 37,
+      "MATERIALIZED_PARTIAL": 1
+    },
+    "desired_after": {
+      "MATERIALIZED_ANSWERABLE": 38,
+      "MATERIALIZED_PARTIAL": 0
+    },
+    "changed_questions": ["EQUITY_Q1"]
+  },
+  "guards": [
+    "NO_WEAK_GEOGRAPHIC_PROMOTIONS",
+    "59_OF_69_NE_FULL_NETWORK",
+    "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
+    "NO_COMPLETE_NETWORK_TERRITORIAL_RANKING_CLAIM",
+    "MISSING_GEOGRAPHY_NE_ZERO",
+    "V1_V2_V3_ANSWERABILITY_PRESERVED",
+    "FULL_NETWORK_CAPABILITY_MUST_REMAIN_ABSENT"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
