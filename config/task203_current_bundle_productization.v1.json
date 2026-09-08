@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "schema": "TASK203_CURRENT_BUNDLE_PRODUCTIZATION_V1",
+  "task": "TASK_203",
+  "issue": 649,
+  "base_main_sha": "10dea8a216fa1c52060c61e83977fe3a874a0554",
+  "mode": "T0_OFFLINE_CANONICAL_BUNDLE_AND_RENDERABILITY_AUDIT",
+  "canonical_answerability": {
+    "version": 4,
+    "expected_question_count": 38,
+    "expected_status_counts": {
+      "MATERIALIZED_ANSWERABLE": 38
+    }
+  },
+  "canonical_product_set": [
+    "SCHOOL_INDICATOR_SERIES",
+    "JOM_EVENT_INDEX",
+    "ACCOUNTING_LEDGER",
+    "REVENUE_LEDGER",
+    "FISCAL_SERIES",
+    "PLANNING_DOCUMENT_INDEX",
+    "QUERY_PRODUCT_CATALOG",
+    "TERRITORY_PROFILE"
+  ],
+  "productization_states": [
+    "RECORD_BACKED",
+    "MIXED_RECORD_AND_CAPABILITY",
+    "CAPABILITY_ONLY"
+  ],
+  "expected_productization_counts": {
+    "RECORD_BACKED": 27,
+    "MIXED_RECORD_AND_CAPABILITY": 8,
+    "CAPABILITY_ONLY": 3
+  },
+  "expected_mixed_questions": [
+    "INFRA_Q2",
+    "FIN_Q1",
+    "FIN_Q3",
+    "PLAN_Q3",
+    "PROC_Q1",
+    "PROC_Q2",
+    "PROC_Q3",
+    "CTRL_Q2"
+  ],
+  "expected_capability_only_questions": [
+    "ACC_Q1",
+    "ACC_Q2",
+    "ACC_Q3"
+  ],
+  "expected_query_projection_backlog_count": 11,
+  "payload_boundaries": {
+    "accounting_ledger_repo_rows": 0,
+    "accounting_ledger_declared_rows": 39783,
+    "revenue_ledger_repo_rows": 0,
+    "revenue_ledger_declared_rows": 2286,
+    "capability_metadata_may_supply_numeric_value": false,
+    "semantic_answerability_equals_human_ready_answer": false
+  },
+  "guards": [
+    "SEMANTIC_ANSWERABILITY_NE_LOCAL_RENDERABILITY_NE_HUMAN_READY_ANSWER",
+    "CAPABILITY_METADATA_NE_NUMERIC_VALUE",
+    "DECLARED_REMOTE_ROW_COUNT_NE_LOCAL_ROW_PAYLOAD",
+    "NO_TEST_HELPER_AS_CANONICAL_RUNTIME",
+    "NO_LLM_NUMERIC_FILL",
+    "NO_SERVING_ENABLEMENT"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
