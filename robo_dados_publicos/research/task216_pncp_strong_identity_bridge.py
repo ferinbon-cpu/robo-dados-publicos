@@ -272,6 +272,35 @@ def adjudicate_records(
                 "purchase_control_id": str(purchase_id),
             })
 
+    # Multiple PNCP records (for example a Contract and its Nota de Empenho)
+    # may carry the same exact administrative process.  They prove the same
+    # JOM -> purchase relation and must not multiply the identity chain.
+    dedup: dict[tuple[str, str, str, str], dict[str, Any]] = {}
+    for row in accepted:
+        key = (
+            row["event_id"],
+            row["anchor_type"],
+            row["anchor_value"],
+            row["purchase_control_id"],
+        )
+        anchor_record = row["pncp_anchor_record"]
+        if key not in dedup:
+            dedup[key] = {
+                **{k: v for k, v in row.items() if k != "pncp_anchor_record"},
+                "pncp_anchor_records": [anchor_record],
+            }
+        else:
+            existing = dedup[key]["pncp_anchor_records"]
+            if anchor_record not in existing:
+                existing.append(anchor_record)
+    accepted = list(dedup.values())
+    for row in accepted:
+        row["pncp_anchor_records"].sort(
+            key=lambda x: (
+                str(x.get("numeroControlePNCP") or ""),
+                str(x.get("numeroContratoEmpenho") or ""),
+            )
+        )
     accepted.sort(key=lambda x: (x["event_id"], x["anchor_type"], x["anchor_value"], x["purchase_control_id"]))
     purchase_ids = {row["purchase_control_id"] for row in accepted}
     siblings = [
@@ -313,7 +342,11 @@ def adjudicate_records(
                 "jom_anchor_type": anchor["anchor_type"],
                 "jom_anchor_value": anchor["anchor_value"],
                 "purchase_control_id": purchase_id,
-                "pncp_anchor_control_id": anchor["pncp_anchor_record"].get("numeroControlePNCP"),
+                "pncp_anchor_control_ids": [
+                    row.get("numeroControlePNCP")
+                    for row in anchor["pncp_anchor_records"]
+                    if row.get("numeroControlePNCP")
+                ],
                 "pncp_empenho_control_id": sibling.get("numeroControlePNCP"),
                 "pncp_tipo_contrato_nome": sibling.get("tipoContratoNome"),
                 "pncp_numero_contrato_empenho": sibling.get("numeroContratoEmpenho"),
