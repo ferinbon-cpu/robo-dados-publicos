@@ -1,0 +1,143 @@
+{
+  "schema": "TASK215_PLANNING_ACCOUNTING_CROSSWALK_V1",
+  "source_period": "2026",
+  "accounting_observation_window": "2026-01..2026-07",
+  "rows": [
+    {
+      "crosswalk_id": "PLANACC_2026_12_306_2001_2720",
+      "planning": {
+        "segment_id": "LOA2026_ACTION_12.306.2001.2720",
+        "document_id": "LOA_2026_LEI_7223_2025",
+        "locator": "JOM:edition:7127:law-page:173-174#action:12.306.2001.2720",
+        "function_code": "12",
+        "subfunction_code": "306",
+        "program_code": "2001",
+        "action_code": "2720",
+        "label": "ALIMENTACAO ESCOLAR",
+        "appropriation_brl": "28000000.00",
+        "funding_sources_brl": {
+          "01_TESOURO": "8680000.00",
+          "05_TRANSFERENCIAS_E_CONVENIOS_FEDERAIS_VINCULADOS": "19320000.00"
+        }
+      },
+      "authoritative_code_label_bridge": {
+        "function_code": "12",
+        "function_label": "EDUCAÇÃO",
+        "subfunction_code": "306",
+        "subfunction_label": "ALIMENTAÇÃO E NUTRIÇÃO"
+      },
+      "accounting_filter": {
+        "fiscal_year": 2026,
+        "function": "EDUCAÇÃO",
+        "subfunction": "ALIMENTAÇÃO E NUTRIÇÃO",
+        "program_code": "2001",
+        "action_code": "2720"
+      },
+      "accounting_source_rows": 434,
+      "source_stage_counts": {
+        "Empenhado": 77,
+        "Reforço": 0,
+        "Anulação": 4,
+        "Valor Liquidado": 201,
+        "Valor Pago": 152
+      },
+      "source_stage_amounts_brl": {
+        "Empenhado": "27340672.24",
+        "Reforço": "0.00",
+        "Anulação": "1114738.73",
+        "Valor Liquidado": "14756899.27",
+        "Valor Pago": "14756899.27"
+      },
+      "commitment_arithmetic_brl": "26225933.51",
+      "appropriation_relative_pct": {
+        "commitment_arithmetic": "93.66",
+        "liquidated": "52.70",
+        "paid": "52.70"
+      },
+      "accounting_commitment_arithmetic_by_funding_source_brl": {
+        "TESOURO": "7280569.97",
+        "TRANSFERÊNCIAS E CONVÊNIOS FEDERAIS-VINCULADOS": "17645519.24",
+        "TRANSFERÊNCIAS E CONVÊNIOS FEDERAIS-VINCULADOS - EXERCICIOS ANTERIORES": "1299844.30"
+      },
+      "relation_strength": "AUTHORITATIVE_STRUCTURED_DIMENSIONAL_CROSSWALK",
+      "transaction_identity": false,
+      "whole_plan_coherence": false
+    },
+    {
+      "crosswalk_id": "PLANACC_2026_12_362_2001_2690",
+      "planning": {
+        "segment_id": "LOA2026_ACTION_12.362.2001.2690",
+        "document_id": "LOA_2026_LEI_7223_2025",
+        "locator": "JOM:edition:7127:law-page:170-171#action:12.362.2001.2690",
+        "function_code": "12",
+        "subfunction_code": "362",
+        "program_code": "2001",
+        "action_code": "2690",
+        "label": "TRANSPORTE ESCOLAR",
+        "unit_name": "ENSINO MEDIO E SUPERIOR",
+        "appropriation_brl": "6152000.00",
+        "funding_sources_brl": {
+          "01_TESOURO": "943000.00",
+          "02_TRANSFERENCIAS_E_CONVENIOS_ESTADUAIS_VINCULADOS": "5209000.00"
+        }
+      },
+      "authoritative_code_label_bridge": {
+        "function_code": "12",
+        "function_label": "EDUCAÇÃO",
+        "subfunction_code": "362",
+        "subfunction_label": "ENSINO MÉDIO"
+      },
+      "accounting_filter": {
+        "fiscal_year": 2026,
+        "function": "EDUCAÇÃO",
+        "subfunction": "ENSINO MÉDIO",
+        "program_code": "2001",
+        "action_code": "2690"
+      },
+      "accounting_action_unrestricted_rows": 78,
+      "accounting_subfunction_row_counts": {
+        "ENSINO FUNDAMENTAL": 39,
+        "EDUCAÇÃO INFANTIL": 19,
+        "ENSINO MÉDIO": 20
+      },
+      "accounting_source_rows": 20,
+      "source_stage_counts": {
+        "Empenhado": 7,
+        "Reforço": 0,
+        "Anulação": 1,
+        "Valor Liquidado": 7,
+        "Valor Pago": 5
+      },
+      "source_stage_amounts_brl": {
+        "Empenhado": "2546867.04",
+        "Reforço": "0.00",
+        "Anulação": "153786.00",
+        "Valor Liquidado": "209450.16",
+        "Valor Pago": "209450.16"
+      },
+      "commitment_arithmetic_brl": "2393081.04",
+      "appropriation_relative_pct": {
+        "commitment_arithmetic": "38.90",
+        "liquidated": "3.40",
+        "paid": "3.40"
+      },
+      "accounting_commitment_arithmetic_by_funding_source_brl": {
+        "TESOURO": "735377.04",
+        "TRANSFERÊNCIAS E CONVÊNIOS ESTADUAIS-VINCULADOS": "1657704.00"
+      },
+      "relation_strength": "AUTHORITATIVE_STRUCTURED_DIMENSIONAL_CROSSWALK",
+      "subfunction_restriction_required": true,
+      "transaction_identity": false,
+      "whole_plan_coherence": false
+    }
+  ],
+  "guards": [
+    "LOA_AUTHORIZATION_NE_ACCOUNTING_EXECUTION",
+    "STRUCTURED_DIMENSIONAL_CROSSWALK_NE_TRANSACTION_IDENTITY",
+    "SCOPED_SEGMENTS_NE_WHOLE_PLAN_COHERENCE",
+    "COMMITMENT_ARITHMETIC_NE_LEGAL_NET_EXPENDITURE",
+    "TCE_JAN_JUL_2026_NE_FULL_YEAR_2026",
+    "ACTION_2690_REQUIRES_SUBFUNCTION_362_SCOPE",
+    "NO_TEXT_AMOUNT_DATE_WEAK_JOIN"
+  ]
+}
