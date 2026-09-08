@@ -1,0 +1,42 @@
+{
+  "task": "TASK_217C_JOM_2026_DISCOVERY_CANONICAL_RESULT",
+  "issue": 680,
+  "status": "PASS_COMPLETE_DISCOVERY_CANONIZED",
+  "implementation_sha": "993f8a07516bae641461221959552e6e2950a8d1",
+  "runtime_head_sha": "ae56b19ebf56b2c12b8ff04f4557355825ee468a",
+  "run_id": 34292251773,
+  "artifact_id": 10081782988,
+  "artifact_zip_sha256": "2f4534f4da59f6af59b0ca78e8a7a424c88f5761a2871b6fde309354a4f3a393",
+  "sanitized_result_sha256": "7c31c9791793c889a8c76e27bcf0d6b6b26f23a3b6bec07fbd95d8c1fba29510",
+  "scope": {
+    "2026-01": 12,
+    "2026-02": 12,
+    "2026-03": 12,
+    "2026-04": 12,
+    "2026-05": 12,
+    "2026-06": 12,
+    "2026-07": 10,
+    "2026-08": 12,
+    "2026-09_through_08": 5,
+    "total_documents": 99,
+    "complete_month_partitions": 9,
+    "index_pages": 9,
+    "estimated_remote_gets": 18
+  },
+  "existing_materialized_jom": {
+    "validated_event_rows": 303,
+    "editions": [7304,7305,7306,7307,7308,7309,7310,7311,7312,7313,7314,7315],
+    "overlap_count": 12
+  },
+  "next_scope": {
+    "new_editions_to_redigest": 87,
+    "repeat_existing_12": false,
+    "pdf_downloads_authorized": false,
+    "redigest_authorized": false
+  },
+  "answerability": {
+    "INFRA_Q2": "BLOCKED_PENDING_DOCUMENT_REDIGEST",
+    "contextual_coverage": "33/38"
+  },
+  "scientific_interpretation": "The official JOM index proves the existence and identity of 99 editions in the exact date scope. It does not prove the content of the 87 not-yet-materialized editions and therefore cannot itself identify school infrastructure events."
+}
