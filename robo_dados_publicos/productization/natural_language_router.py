@@ -315,6 +315,7 @@ def route_and_render(
     *,
     contract_path: str | Path = DEFAULT_CONTRACT,
 ) -> dict[str, Any]:
+    contract = load_contract(contract_path)
     route = route_natural_language(text, contract_path=contract_path)
     _stop(route["state"] == "ROUTED", f"TASK207_ROUTE_NOT_RENDERABLE:{route['state']}")
     generated_at, software_version = _task206_runtime()
