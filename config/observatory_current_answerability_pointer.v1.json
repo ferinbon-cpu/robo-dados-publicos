@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "schema": "OBSERVATORY_CURRENT_ANSWERABILITY_POINTER_V1",
+  "task": "TASK_202C",
+  "canonical_version": 4,
+  "base_config": "config/observatory_semantic_answerability.v3.json",
+  "overlay": "config/observatory_semantic_answerability.v4.overlay.json",
+  "evaluator_module": "robo_dados_publicos.analytics.current_observatory_answerability",
+  "evaluator_function": "current_question_answerability",
+  "legacy_v3_wrapper_preserved": "robo_dados_publicos.analytics.observatory_knowledge_pack.current_question_answerability",
+  "legacy_wrapper_semantic": "TASK201_CURRENT_COMPATIBILITY_NOT_CANONICAL_AFTER_TASK202",
+  "expected_status_counts": {
+    "MATERIALIZED_ANSWERABLE": 38
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
