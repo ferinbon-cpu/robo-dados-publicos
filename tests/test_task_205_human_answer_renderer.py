@@ -105,6 +105,16 @@ class TestTask205HumanAnswerRenderer(unittest.TestCase):
         self.assertIn("3692142.87", facts)
         self.assertIn("REVENUE_NE_EXPENDITURE", card["CAUTION_OR_LIMIT"])
 
+    def test_projection_provenance_names_only_actual_source_ledger(self):
+        acc = build_answer_card("ACC_Q1", self.products)
+        acc_products = {ref.get("product") for ref in acc["SOURCE_AND_PROVENANCE"]}
+        self.assertIn("ACCOUNTING_LEDGER", acc_products)
+        self.assertNotIn("REVENUE_LEDGER", acc_products)
+
+        fin = build_answer_card("FIN_Q3", self.products)
+        fin_products = {ref.get("product") for ref in fin["SOURCE_AND_PROVENANCE"]}
+        self.assertIn("REVENUE_LEDGER", fin_products)
+
     def test_markdown_is_deterministic_and_contains_fixed_sections(self):
         card = build_answer_card("ACC_Q1", self.products)
         a = render_answer_card_markdown(card)
