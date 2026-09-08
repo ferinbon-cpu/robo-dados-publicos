@@ -100,6 +100,19 @@ def load_contract(path: str | Path = DEFAULT_CONTRACT) -> dict[str, Any]:
         "TASK212_RECIPE_CONSUMED_FACETS",
     )
     _stop(
+        obj["context"]["parallel_context_period_signals"]
+        == {
+            "EQUITY_Q1": ["TERRITORY_PROFILE"],
+            "TEACH_Q2": ["JOM_EVENT_INDEX"],
+        },
+        "TASK212_PARALLEL_CONTEXT_PERIOD_SIGNALS",
+    )
+    _stop(
+        set(obj["context"]["equity_explicit_territory_missingness_school_codes"])
+        == {"35208437", "35286229", "35004773", "35099569", "35241885"},
+        "TASK212_EQUITY_HELD_CODES",
+    )
+    _stop(
         obj["context"]["unconsumed_requested_facets_are_context_incompatible"] is True,
         "TASK212_UNCONSUMED_FACET_GUARD",
     )
@@ -112,6 +125,18 @@ def load_contract(path: str | Path = DEFAULT_CONTRACT) -> dict[str, Any]:
         "TASK212_CROSS_GRAIN_RATIO",
     )
     _stop(bounds["partial_period_equals_annual_period"] is False, "TASK212_PARTIAL_ANNUAL")
+    _stop(
+        bounds["parallel_context_period_may_be_relabelled_as_requested_year"] is False,
+        "TASK212_PARALLEL_PERIOD_RELABEL",
+    )
+    _stop(
+        bounds["parallel_jom_period_may_be_relabelled_as_workforce_stock_period"] is False,
+        "TASK212_PARALLEL_JOM_RELABEL",
+    )
+    _stop(
+        bounds["explicit_territory_missingness_may_be_replaced_by_weak_geographic_identity"] is False,
+        "TASK212_EQUITY_WEAK_GEO_GUARD",
+    )
     _stop(all(v is False for v in obj["remote_effects"].values()), "TASK212_REMOTE")
     return obj
 
@@ -377,10 +402,12 @@ def _product_period_value(product_name: str, row: Mapping[str, Any]) -> Any:
 
 
 def _filter_product_rows(
+    question_id: str,
     product_name: str,
     product: Mapping[str, Any],
     signal: Mapping[str, Any],
     context: Mapping[str, Any],
+    contract: Mapping[str, Any],
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     rows = [dict(row) for row in product.get("rows", [])]
     criteria = dict(signal.get("row_criteria") or {})
@@ -413,11 +440,21 @@ def _filter_product_rows(
         ]
 
     year = _requested_year(context)
-    if year is not None and product_name in {
-        "JOM_EVENT_INDEX",
-        "PLANNING_DOCUMENT_INDEX",
-        "TERRITORY_PROFILE",
-    }:
+    parallel_period_products = set(
+        str(x)
+        for x in contract["context"]["parallel_context_period_signals"].get(
+            question_id, []
+        )
+    )
+    if (
+        year is not None
+        and product_name not in parallel_period_products
+        and product_name in {
+            "JOM_EVENT_INDEX",
+            "PLANNING_DOCUMENT_INDEX",
+            "TERRITORY_PROFILE",
+        }
+    ):
         rows = [
             row for row in rows
             if _period_year(_product_period_value(product_name, row)) == year
@@ -439,7 +476,22 @@ def _filter_product_rows(
         set(required_document_types) - set(observed_document_types)
     )
 
-    satisfied = bool(rows) and not missing_caps and not missing_document_types
+    explicit_missingness = False
+    if (
+        question_id == "EQUITY_Q1"
+        and product_name == "TERRITORY_PROFILE"
+        and school_code is not None
+        and not rows
+        and school_code
+        in set(contract["context"]["equity_explicit_territory_missingness_school_codes"])
+    ):
+        explicit_missingness = True
+
+    satisfied = (
+        (bool(rows) or explicit_missingness)
+        and not missing_caps
+        and not missing_document_types
+    )
     return rows, {
         "required_capabilities": required_caps,
         "observed_capabilities": observed_caps,
@@ -453,6 +505,18 @@ def _filter_product_rows(
                 for row in rows
                 if _product_period_value(product_name, row) not in (None, "")
             }
+        ),
+        "period_role": (
+            "PARALLEL_CONTEXT_PERIOD"
+            if product_name in parallel_period_products
+            else "REQUEST_CONTEXT_PERIOD"
+        ),
+        "requested_year_relabelled": False,
+        "explicit_missingness": explicit_missingness,
+        "missingness_kind": (
+            "HELD_SCHOOL_SECTOR_LINK"
+            if explicit_missingness
+            else None
         ),
         "recipe_signal_satisfied_in_context": satisfied,
     }
@@ -543,10 +607,12 @@ def _signal_plan(
         )
     elif signal["kind"] == "PRODUCT":
         selected, inventory = _filter_product_rows(
+            question_id,
             product_name,
             product,
             signal,
             context,
+            contract,
         )
     else:
         raise Task212PlannerStop(f"TASK212_UNKNOWN_SIGNAL_KIND:{signal['kind']}")
@@ -649,14 +715,27 @@ def _join_plan(
         territory_rows = signal_rows[1]
         if school_code is not None:
             strong = any(str(row.get("school_code") or "") == school_code for row in territory_rows)
-            status = "SAFE_FOR_EXECUTOR_DESIGN" if strong else "BLOCKED_NO_EXACT_SCHOOL_CODE_LINK"
+            explicit_missingness = bool(
+                signal_plans[1]
+                .get("context_inventory", {})
+                .get("explicit_missingness")
+            )
+            if strong:
+                status = "SAFE_FOR_EXECUTOR_DESIGN"
+            elif explicit_missingness:
+                status = "SAFE_WITH_EXPLICIT_TERRITORY_MISSINGNESS"
+            else:
+                status = "BLOCKED_NO_EXACT_SCHOOL_CODE_LINK"
         else:
+            explicit_missingness = False
             status = "SAFE_FOR_EXECUTOR_DESIGN"
         return {
             **base,
             "mode": "EXACT_SCHOOL_CODE_OR_PARALLEL_CONTEXT",
             "status": status,
             "exact_school_code_required_for_school_level_alignment": True,
+            "explicit_territory_missingness": explicit_missingness,
+            "weak_geographic_substitution_allowed": False,
             "sector_income_equals_student_household_income": False,
         }
 

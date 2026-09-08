@@ -95,7 +95,22 @@
     },
     "unconsumed_requested_facets_are_context_incompatible": true,
     "period_semantic_granularity_must_match_for_arithmetic": true,
-    "period_prefix_match_creates_equivalent_period": false
+    "period_prefix_match_creates_equivalent_period": false,
+    "parallel_context_period_signals": {
+      "EQUITY_Q1": [
+        "TERRITORY_PROFILE"
+      ],
+      "TEACH_Q2": [
+        "JOM_EVENT_INDEX"
+      ]
+    },
+    "equity_explicit_territory_missingness_school_codes": [
+      "35208437",
+      "35286229",
+      "35004773",
+      "35099569",
+      "35241885"
+    ]
   },
   "join_safety": {
     "weak_join_can_create_identity": false,
@@ -125,7 +140,10 @@
     "municipal_numerator_may_be_divided_by_school_denominator": false,
     "partial_period_equals_annual_period": false,
     "jom_personnel_event_equals_workforce_stock": false,
-    "territory_sector_income_equals_student_household_income": false
+    "territory_sector_income_equals_student_household_income": false,
+    "parallel_context_period_may_be_relabelled_as_requested_year": false,
+    "explicit_territory_missingness_may_be_replaced_by_weak_geographic_identity": false,
+    "parallel_jom_period_may_be_relabelled_as_workforce_stock_period": false
   },
   "remote_effects": {
     "network": false,
