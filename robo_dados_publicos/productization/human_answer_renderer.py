@@ -574,7 +574,15 @@ def build_answer_card(
                     "text": text,
                 }
             )
-        for source_name, spec in sorted((projection.get("source_snapshots") or {}).items()):
+        source_snapshots = dict(projection.get("source_snapshots") or {})
+        if name.startswith("ACCOUNTING_"):
+            source_names = ["ACCOUNTING_LEDGER"]
+        elif name.startswith("REVENUE_"):
+            source_names = ["REVENUE_LEDGER"]
+        else:
+            source_names = sorted(source_snapshots)
+        for source_name in source_names:
+            spec = source_snapshots[source_name]
             provenance.append(
                 {
                     "product": source_name,
