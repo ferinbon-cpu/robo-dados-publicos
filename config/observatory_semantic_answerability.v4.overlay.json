@@ -1,0 +1,42 @@
+{
+  "version": 4,
+  "schema": "OBSERVATORY_SEMANTIC_ANSWERABILITY_OVERLAY_V1",
+  "task": "TASK_202_EQUITY_MISSINGNESS_AWARE_GATE",
+  "base_config": "config/observatory_semantic_answerability.v3.json",
+  "replace_recipes": {
+    "EQUITY_CONTEXT": {
+      "signals": [
+        {
+          "kind": "METRIC",
+          "product": "SCHOOL_INDICATOR_SERIES",
+          "ids": ["PPI_SHARE", "INSE", "SPECIAL_EDUCATION_ENROLLMENT"],
+          "match": "ALL"
+        },
+        {
+          "kind": "PRODUCT",
+          "product": "TERRITORY_PROFILE",
+          "required_capabilities": [
+            "CENSUS_SECTOR_CONTEXT",
+            "SCHOOL_TO_SECTOR_LINK_SUBSTANTIAL_COVERAGE_WITH_EXPLICIT_MISSINGNESS"
+          ]
+        }
+      ]
+    }
+  },
+  "semantic_correction": {
+    "question_id": "EQUITY_Q1",
+    "question_logic": "SOCIAL_CONTEXT_OR_RACE_COLOR_OR_DISABILITY_OR_TERRITORY",
+    "prior_gate": "SCHOOL_TO_SECTOR_LINK_FULL_NETWORK",
+    "current_gate": "SCHOOL_TO_SECTOR_LINK_SUBSTANTIAL_COVERAGE_WITH_EXPLICIT_MISSINGNESS",
+    "rationale": "FULL_69_OF_69_GEOCODING_IS_NOT_REQUIRED_TO_ESTABLISH_MATERIAL_EQUITY_EVIDENCE_AND_MUST_NOT_INCENTIVIZE_WEAK_GEOGRAPHIC_MATCHES"
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
