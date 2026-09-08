@@ -1,0 +1,92 @@
+name: TASK 216 PNCP strong identity bridge
+run-name: "TASK 216 PNCP strong identity by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-216-pncp-identity-runtime
+    paths:
+      - 'runtime_triggers/task216_pncp_strong_identity.run'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-216-pncp-strong-identity
+  cancel-in-progress: false
+
+jobs:
+  task216-pncp-identity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Execute bounded strong-identity discovery
+        shell: bash
+        env:
+          TASK216_HEAD_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p runtime
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          from robo_dados_publicos.research.task216_pncp_strong_identity_bridge import (
+              execute,
+              load_config,
+          )
+
+          config = load_config("config/task216_pncp_strong_identity_bridge.v1.json")
+          result = execute(config)
+          result["execution_head_sha"] = os.environ["TASK216_HEAD_SHA"]
+          canonical = json.dumps(
+              result,
+              ensure_ascii=False,
+              sort_keys=True,
+              separators=(",", ":"),
+          ).encode("utf-8")
+          result["result_sha256"] = hashlib.sha256(canonical).hexdigest()
+
+          target = Path("runtime/task216_sanitized_result.json")
+          target.write_text(
+              json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+
+          counts = (result.get("identity") or {}).get("counts") or {}
+          pagination = result.get("pagination") or {}
+          print("TASK216_STATUS=" + str(result.get("status")))
+          print("TASK216_TOTAL_RECORDS=" + str(pagination.get("totalRegistros")))
+          print("TASK216_TOTAL_PAGES=" + str(pagination.get("totalPaginas")))
+          print("TASK216_ACCEPTED_ANCHORS=" + str(counts.get("accepted_jom_pncp_anchor_count")))
+          print("TASK216_PURCHASE_IDS=" + str(counts.get("matched_purchase_id_count")))
+          print("TASK216_SIBLINGS=" + str(counts.get("sanitized_sibling_count")))
+          print("TASK216_STRONG_CHAINS=" + str(counts.get("end_to_end_identity_chain_count")))
+          print("TASK216_RAW_PERSISTED=" + str(result.get("raw_payload_persisted")))
+          PY
+
+      - name: Verify sanitized-only persistence
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f runtime/task216_sanitized_result.json
+          test ! -e runtime/raw.json
+          test ! -e runtime/page.json
+          test ! -e runtime/response.json
+          test ! -e runtime/pncp_raw.json
+
+      - name: Upload sanitized result only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-216-pncp-strong-identity-sanitized-result
+          path: runtime/task216_sanitized_result.json
+          if-no-files-found: error
+          retention-days: 1
