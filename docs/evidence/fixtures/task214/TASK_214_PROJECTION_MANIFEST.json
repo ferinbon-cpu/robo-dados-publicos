@@ -1,1 +1,76 @@
-{"guards":["BOUNDED_PROJECTION_NE_FULL_LEDGER_ROWS","SOURCE_GZIP_HASHES_PINNED","SOURCE_ROW_COUNTS_RECONCILE","TOP30_CLASSIFICATION_NE_FULL_CLASSIFICATION_LIST","NO_CROSS_PRODUCT_IDENTITY_CREATED","COMMITMENT_ARITHMETIC_NE_NET_EXPENDITURE","RESTS_PAYABLE_NE_CURRENT_YEAR_EXPENDITURE","REVENUE_NE_EXPENDITURE","FUNDING_SOURCE_CLASSIFICATION_NE_EXPENDITURE_DESTINATION"],"projection_content_sha256":"83a50df3b34172b22ddb7ddcba6ac347c0830e57dd10f6e297d37fe407e9836a","reevaluation":{"remain_blocked_due_to_cross_product_identity_or_coherence":["CTRL_Q2","INFRA_Q2","PLAN_Q3","PROC_Q1","PROC_Q2","PROC_Q3"],"safe_to_execute":["ACC_Q1","ACC_Q2","ACC_Q3","FIN_Q3"]},"schema":"TASK214_CUSTODY_REHYDRATED_BOUNDED_LEDGER_PROJECTIONS_V1","source_snapshots":{"ACCOUNTING_LEDGER":{"content_sha256":"64503339d8352a2f61e1ee8596e9a7ab4dcd6237d1d84010682b4203992b4cb8","drive_id":"1hDWwZj3lvbPlZWNvOY_aNE6hthrpxnDt","gzip_sha256":"5447581813677855ac8edcc70e6a90164ef1caa7799df544cc0a08d62ada25b0","row_count":39783,"rreo_rests_row_count":4,"snapshot_id":"64503339d8352a2f61e1ee85","tce_source_row_count":39779},"REVENUE_LEDGER":{"content_sha256":"fd110fa5c0c2a2583c475a191fef23669c9453a2dbf015a92036247c03d3b8e6","drive_id":"1Qwcucw5eUd18kJmg0wLqAT-EN6CuB04i","gzip_sha256":"02c644bfaf35a70a981967afdc15e0d0e548ed7df30a6da54e21435b17564847","row_count":2286,"snapshot_id":"fd110fa5c0c2a2583c475a19"}},"task":"TASK_214","split_files":{"ACC_Q1_STAGE_TOTALS":"TASK_214_ACC_Q1_STAGE_TOTALS.json","ACC_Q2_CLASSIFICATION_META":"TASK_214_ACC_Q2_CLASSIFICATION_META.json","ACC_Q2_CLASSIFICATION_TOP30_PARTS":["TASK_214_ACC_Q2_TOP30_01_05.json","TASK_214_ACC_Q2_TOP30_06_10.json","TASK_214_ACC_Q2_TOP30_11_15.json","TASK_214_ACC_Q2_TOP30_16_20.json","TASK_214_ACC_Q2_TOP30_21_25.json","TASK_214_ACC_Q2_TOP30_26_30.json"],"ACC_Q3_RESTS_PAYABLE":"TASK_214_ACC_Q3_RESTS_PAYABLE.json","FIN_Q3_FUNDING_SOURCES":"TASK_214_FIN_Q3_FUNDING_SOURCES.json","FIN_Q3_EDUCATION_APPLICATIONS_PARTS":["TASK_214_FIN_Q3_EDU_APPS_01_10.json","TASK_214_FIN_Q3_EDU_APPS_11_19.json"]}}
+{
+  "schema": "TASK214_CUSTODY_REHYDRATED_BOUNDED_LEDGER_PROJECTIONS_V1",
+  "task": "TASK_214",
+  "source_snapshots": {
+    "ACCOUNTING_LEDGER": {
+      "drive_id": "1hDWwZj3lvbPlZWNvOY_aNE6hthrpxnDt",
+      "snapshot_id": "64503339d8352a2f61e1ee85",
+      "content_sha256": "64503339d8352a2f61e1ee8596e9a7ab4dcd6237d1d84010682b4203992b4cb8",
+      "gzip_sha256": "5447581813677855ac8edcc70e6a90164ef1caa7799df544cc0a08d62ada25b0",
+      "row_count": 39783,
+      "tce_source_row_count": 39779,
+      "rreo_rests_row_count": 4
+    },
+    "REVENUE_LEDGER": {
+      "drive_id": "1Qwcucw5eUd18kJmg0wLqAT-EN6CuB04i",
+      "snapshot_id": "fd110fa5c0c2a2583c475a19",
+      "content_sha256": "fd110fa5c0c2a2583c475a191fef23669c9453a2dbf015a92036247c03d3b8e6",
+      "gzip_sha256": "02c644bfaf35a70a981967afdc15e0d0e548ed7df30a6da54e21435b17564847",
+      "row_count": 2286
+    }
+  },
+  "materialization_audit": {
+    "full_bounded_projection_content_sha256": "83a50df3b34172b22ddb7ddcba6ac347c0830e57dd10f6e297d37fe407e9836a",
+    "full_bounded_projection_file_sha256": "9850afd76623c2b45700bf97d2dd0a0973e54477472a5a8a2121114cf48816d6",
+    "classification_universe_sha256": "b23725c508ca1b9e8995e7d6f0df5184057f046cd96d697495fcc01d699084ec",
+    "classification_universe_group_count": 422,
+    "classification_universe_source_rows": 39779
+  },
+  "split_files": {
+    "ACC_Q1_STAGE_TOTALS": "TASK_214_ACC_Q1_STAGE_TOTALS.json",
+    "ACC_Q2_CLASSIFICATION_META": "TASK_214_ACC_Q2_CLASSIFICATION_META.json",
+    "ACC_Q2_CLASSIFICATION_TOP30_PARTS": [
+      "TASK_214_ACC_Q2_TOP30_COMPACT_01_10.json",
+      "TASK_214_ACC_Q2_TOP30_COMPACT_11_20.json",
+      "TASK_214_ACC_Q2_TOP30_COMPACT_21_30.json"
+    ],
+    "ACC_Q3_RESTS_PAYABLE": "TASK_214_ACC_Q3_RESTS_PAYABLE.json",
+    "FIN_Q3_FUNDING_SOURCES": "TASK_214_FIN_Q3_FUNDING_SOURCES.json",
+    "FIN_Q3_EDUCATION_APPLICATIONS_PARTS": [
+      "TASK_214_FIN_Q3_EDU_APPS_01_10.json",
+      "TASK_214_FIN_Q3_EDU_APPS_11_19.json"
+    ]
+  },
+  "compact_display_projection": {
+    "ACC_Q2_expense_elements": "COUNT_PLUS_FIRST_2_DETERMINISTIC_EXAMPLES_PER_GROUP",
+    "ACC_Q2_top30_preserves_full_group_identity_dimensions": true,
+    "compact_display_is_not_source_snapshot": true
+  },
+  "reevaluation": {
+    "safe_to_execute": [
+      "ACC_Q1",
+      "ACC_Q2",
+      "ACC_Q3",
+      "FIN_Q3"
+    ],
+    "remain_blocked_due_to_cross_product_identity_or_coherence": [
+      "CTRL_Q2",
+      "INFRA_Q2",
+      "PLAN_Q3",
+      "PROC_Q1",
+      "PROC_Q2",
+      "PROC_Q3"
+    ]
+  },
+  "guards": [
+    "BOUNDED_PROJECTION_NE_FULL_LEDGER_ROWS",
+    "SOURCE_GZIP_HASHES_PINNED",
+    "SOURCE_ROW_COUNTS_RECONCILE",
+    "TOP30_CLASSIFICATION_NE_FULL_CLASSIFICATION_LIST",
+    "NO_CROSS_PRODUCT_IDENTITY_CREATED",
+    "COMMITMENT_ARITHMETIC_NE_NET_EXPENDITURE",
+    "RESTS_PAYABLE_NE_CURRENT_YEAR_EXPENDITURE",
+    "REVENUE_NE_EXPENDITURE",
+    "FUNDING_SOURCE_CLASSIFICATION_NE_EXPENDITURE_DESTINATION"
+  ]
+}
