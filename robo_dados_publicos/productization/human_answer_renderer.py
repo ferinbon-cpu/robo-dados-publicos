@@ -587,6 +587,12 @@ def build_answer_card(
         cautions.add("BOUNDED_PROJECTION_NE_SOURCE_SNAPSHOT")
         cautions.add("SOURCE_SNAPSHOT_REMAINS_CANONICAL")
         cautions.add("SELECTED_PROJECTION_RANKINGS_MAY_BE_NON_EXHAUSTIVE")
+        if name == "ACCOUNTING_EDUCATION_STAGE_TOTALS":
+            cautions.add("COMMITMENT_NE_LIQUIDATION_NE_PAYMENT")
+        if name == "ACCOUNTING_RESTS_PAYABLE_SUMMARY":
+            cautions.add("RESTS_PAYABLE_NE_CURRENT_YEAR_EXPENDITURE")
+        if name == "REVENUE_EDUCATION_FUNDING_APPLICATION_SUMMARY":
+            cautions.add("REVENUE_NE_EXPENDITURE")
 
     facts = local_facts + projection_facts
     _stop(bool(facts), "TASK205_NO_FACTS")
