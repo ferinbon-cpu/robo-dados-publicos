@@ -18,7 +18,7 @@ from robo_dados_publicos.analytics.v08_censo_panel import aggregate_long_rows as
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_ANSWERABILITY = ROOT / "config/observatory_semantic_answerability.v1.json"
-CURRENT_ANSWERABILITY = ROOT / "config/observatory_semantic_answerability.v2.json"
+CURRENT_ANSWERABILITY = ROOT / "config/observatory_semantic_answerability.v3.json"
 DEFAULT_ONTOLOGY = ROOT / "config/observatory_question_ontology.v1.json"
 DEFAULT_CROSSWALK = ROOT / "config/existing_custody_product_ingestion_crosswalk.v1.json"
 DEFAULT_PRODUCTS = ROOT / "config/observatory_query_products.v1.json"
