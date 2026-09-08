@@ -157,6 +157,8 @@ class TestTask205HumanAnswerRenderer(unittest.TestCase):
                     or ref.get("provenance_ref")
                     or ref.get("document_id")
                     or ref.get("event_id")
+                    or ref.get("snapshot_id")
+                    or ref.get("content_sha256")
                     for ref in card["SOURCE_AND_PROVENANCE"]
                 )
                 for card in local_cards
