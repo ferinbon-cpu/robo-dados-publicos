@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "schema": "TASK206_OFFLINE_ANSWER_CLI_QA_V1",
+  "task": "TASK_206",
+  "issue": 656,
+  "base_main_sha": "5256b47df47bb22c43be771eed2ef8d6cb2ffd66",
+  "mode": "T0_OFFLINE_STDOUT_OBSERVATORY_ANSWER_CLI_AND_QA",
+  "default_generated_at": "2026-09-08T02:05:00+00:00",
+  "default_software_version": "0.8.0",
+  "cli": {
+    "script": "scripts/render_observatory_answer_offline.py",
+    "modes": [
+      "ONE_QUESTION",
+      "ALL_38",
+      "LIST_QUESTIONS"
+    ],
+    "one_question_flag": "--question-id",
+    "all_flag": "--all",
+    "list_flag": "--list-questions",
+    "output_channel": "STDOUT_ONLY",
+    "arbitrary_prompt_allowed": false,
+    "arbitrary_path_allowed": false,
+    "arbitrary_url_allowed": false
+  },
+  "representative_qa": [
+    {
+      "question_id": "ACC_Q1",
+      "focus": "ACCOUNTING_STAGES"
+    },
+    {
+      "question_id": "FIN_Q3",
+      "focus": "REVENUE_FUNDING"
+    },
+    {
+      "question_id": "PLAN_Q1",
+      "focus": "PLANNING_AUTHORIZATION"
+    },
+    {
+      "question_id": "NORMS_Q1",
+      "focus": "SCHOOL_NORMS"
+    },
+    {
+      "question_id": "TEACH_Q2",
+      "focus": "WORKFORCE_STOCK_AND_BONDS"
+    },
+    {
+      "question_id": "EQUITY_Q1",
+      "focus": "EQUITY_AND_TERRITORY_MISSINGNESS"
+    }
+  ],
+  "presentation_repairs": {
+    "indicator_context_visible": true,
+    "validated_equity_territory_coverage_visible": true,
+    "expected_equity_coverage": {
+      "strong_links": 64,
+      "held": 5,
+      "denominator": 69,
+      "full_network": false
+    }
+  },
+  "required_visible_guards": [
+    "COMMITMENT_NE_LIQUIDATION_NE_PAYMENT",
+    "REVENUE_NE_EXPENDITURE",
+    "PLANNING_NE_EXECUTION",
+    "NORM_NE_IMPLEMENTATION",
+    "PERSONNEL_EVENT_FLOW_NE_WORKFORCE_STOCK",
+    "TERRITORY_COVERAGE_64_OF_69_5_HELD_NE_FULL_NETWORK"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "llm": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}

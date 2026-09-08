@@ -203,6 +203,8 @@ def _local_fact_text(row: Mapping[str, Any], *, max_chars: int) -> str:
             text += f" | escopo={scope}"
         if period:
             text += f" | período={period}"
+        if row.get("context"):
+            text += f" | contexto={row.get('context')}"
         return _trim_text(text, max_chars)
 
     if row.get("metric_id") is not None:
@@ -212,6 +214,8 @@ def _local_fact_text(row: Mapping[str, Any], *, max_chars: int) -> str:
             text += f" | escopo={scope}"
         if period:
             text += f" | período={period}"
+        if row.get("context"):
+            text += f" | contexto={row.get('context')}"
         return _trim_text(text, max_chars)
 
     if row.get("document_id") is not None:
@@ -626,6 +630,33 @@ def build_answer_card(
     _stop(bool(provenance), "TASK205_NO_PROVENANCE")
 
     cautions.add("FORMATTING_ALLOWED_INFERENCE_FORBIDDEN")
+    if question_id == "TEACH_Q2":
+        cautions.add("PERSONNEL_EVENT_FLOW_NE_WORKFORCE_STOCK")
+    if question_id == "NORMS_Q1":
+        cautions.add("NORM_NE_IMPLEMENTATION")
+    if question_id.startswith("PLAN_"):
+        cautions.add("PLANNING_NE_EXECUTION")
+    if question_id == "EQUITY_Q1":
+        from robo_dados_publicos.analytics.task202_equity_missingness_aware_gate import validated_coverage
+        coverage = validated_coverage()
+        _stop(
+            coverage["strong_links"] == 64
+            and coverage["held"] == 5
+            and coverage["denominator"] == 69
+            and coverage["full_network"] is False,
+            "TASK206_EQUITY_COVERAGE",
+        )
+        facts.append(
+            {
+                "kind": "VALIDATED_COVERAGE_CONTEXT",
+                "text": (
+                    "Cobertura territorial escolar validada: "
+                    f"{coverage['strong_links']}/{coverage['denominator']} vínculos fortes; "
+                    f"{coverage['held']} escolas permanecem HELD; cobertura total da rede = não."
+                ),
+            }
+        )
+        cautions.add("TERRITORY_COVERAGE_64_OF_69_5_HELD_NE_FULL_NETWORK")
     if packet.get("projection_count", 0):
         cautions.add("ONTOLOGY_SUMMARY_RENDERABLE_NE_ARBITRARY_FULL_LEDGER_DRILLDOWN_LOCAL")
     cautions_list = sorted(cautions)[: int(contract["limits"]["max_cautions"])]
