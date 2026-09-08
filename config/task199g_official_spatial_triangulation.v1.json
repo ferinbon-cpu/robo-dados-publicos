@@ -1,0 +1,255 @@
+{
+  "version": 1,
+  "schema": "TASK199G_OFFICIAL_SPATIAL_TRIANGULATION_V1",
+  "task": "TASK_199G",
+  "issue": 628,
+  "base_main_sha": "074c5415d9b71312692a4e034ff5a020406358b3",
+  "mode": "T0_OFFLINE_MULTI_ANCHOR_OFFICIAL_SPATIAL_TRIANGULATION",
+  "scope": {
+    "municipality": "Limeira",
+    "ibge_code": "3526902",
+    "network": "MUNICIPAL",
+    "active_school_denominator_2025": 69
+  },
+  "sources": {
+    "sme_current_directory": {
+      "authority": "SECRETARIA_MUNICIPAL_EDUCACAO_LIMEIRA",
+      "url": "https://sme.limeira.sp.gov.br/listagem_ue.php?tipo=M",
+      "observed_date": "2026-09-07",
+      "drive_derived_id": "1j82mtwkcW52t9nLo5o3YMUHcIBc1jetV",
+      "drive_derived_sha256": "26af4e00eec7617100d300c2d9dfb9781a2101e492e4e163b4b9407109f8a83c"
+    },
+    "pml_education_service_card": {
+      "authority": "PREFEITURA_MUNICIPAL_LIMEIRA",
+      "url": "https://www.limeira.sp.gov.br/carta-de-servico-educacao",
+      "observed_date": "2026-09-07"
+    },
+    "pml_municipal_properties": {
+      "authority": "PREFEITURA_MUNICIPAL_LIMEIRA",
+      "url": "https://www.limeira.sp.gov.br/proprios-municipais-carta-de-servicos",
+      "observed_date": "2026-09-07"
+    },
+    "pml_elections_2026": {
+      "authority": "PREFEITURA_MUNICIPAL_LIMEIRA",
+      "url": "https://www.limeira.sp.gov.br/imprensa/noticias/geral/eleicoes-2026-saiba-quais-escolas-terao-mudanca-no-local-de-votacao-em-limeira",
+      "published_date": "2026-09-01"
+    },
+    "chamber_ary_2016": {
+      "authority": "CAMARA_MUNICIPAL_LIMEIRA",
+      "url": "https://consulta.limeira.sp.leg.br/Documentos/Pesquisa/79?Modulo=8&Pagina=862&Pesquisa=Avancada&Situacao=484",
+      "document": "INDICACAO_355_2016",
+      "claim": "CENTRO_INFANTIL_PREFEITO_ARY_LEVY_PEREIRA_AT_RUA_ADEMAR_MARCOLINO_SN_JARDIM_GLORIA"
+    },
+    "cnefe": {
+      "authority": "IBGE_CENSO_2022",
+      "drive_csv_id": "1pqAYHvs9RTfHAymDJaR9QgVvIe8RBT2h",
+      "archive_sha256": "ab73250df889effcb01ddc2d060bddd3252e995468e97ef93b048564763626a7",
+      "csv_sha256": "8adb17d18a8c0a4de9e6d48b31ed63f74e0bfde27f11f63154c17456d35218b3"
+    },
+    "basic_sector_zip_sha256": "ec04624286233d699ebe69c7b9625744a1cfdfc8352126f30245bdef5e9bdc63",
+    "income_sector_zip_sha256": "141c83e7635674e7e2c941e55f98811e538fcbf2e1e1125b0aa7892c260f4a23",
+    "income_dictionary_sha256": "fea6e2b2439eeb167c6fa9c136ed7cb13ebcb06f4c875d634e3e2578c668a48d"
+  },
+  "promotions": [
+    {
+      "codigo_inep": "35470600",
+      "school": "CEIEF Rafael Affonso Leite",
+      "method": "E_CURRENT_OFFICIAL_FRONTAGE_LANDMARK_PLUS_NAMED_CNEFE_SAME_SECTOR",
+      "current_claim": "RUA_ANTONIO_ALVES_DE_OLIVEIRA_SN_IN_FRONT_OF_250_JD_PRESIDENTE_DUTRA",
+      "cnefe_named": {
+        "code": "222923668",
+        "sector": "352690205000136P",
+        "lat": -22.574023,
+        "lon": -47.377727,
+        "street": "MARIO RUDGE RAMOS PARADA",
+        "number": 0
+      },
+      "cnefe_landmark": {
+        "street": "ANTONIO ALVES DE OLIVEIRA",
+        "number": 250,
+        "row_count": 64,
+        "unique_sector": "352690205000136P",
+        "representative_lat": -22.574441,
+        "representative_lon": -47.376921
+      },
+      "anchor_distance_m": 94.9,
+      "sector_id": "352690205000136",
+      "sector_population_2022": 492,
+      "responsible_income_mean_nominal_monthly_brl": 2701.26,
+      "responsible_income_median_nominal_monthly_brl": 2200,
+      "V06004_sector_percentile_unweighted": 45.4
+    },
+    {
+      "codigo_inep": "35656823",
+      "school": "EMEIEF Alfredo Christiano Stahlberg (Rural)",
+      "method": "E_CURRENT_RURAL_KM_LOCALITY_PLUS_EXACT_CNEFE_KM_AND_NAMED_SCHOOL_SAME_SECTOR",
+      "current_claim": "VIA_MARTIM_LUTERO_KM_10_SITIO_SANTA_ROSA_FRADES",
+      "cnefe_named": {
+        "code": "201788590",
+        "sector": "352690205000652P",
+        "street": "LIM 253 MARTIM LUTERO",
+        "number": 9,
+        "locality": "DOS FRADES",
+        "lat": -22.575025,
+        "lon": -47.289198
+      },
+      "cnefe_exact_km": {
+        "code": "201788586",
+        "sector": "352690205000652P",
+        "street": "LIM 253 MARTIM LUTERO",
+        "number": 10,
+        "locality": "DOS FRADES",
+        "lat": -22.575589,
+        "lon": -47.286674
+      },
+      "anchor_distance_m": 266.6,
+      "sector_id": "352690205000652",
+      "sector_population_2022": 331,
+      "responsible_income_mean_nominal_monthly_brl": 3338.11,
+      "responsible_income_median_nominal_monthly_brl": 2400,
+      "V06004_sector_percentile_unweighted": 68.8
+    },
+    {
+      "codigo_inep": "35217924",
+      "school": "EMEIEF José Levy Sobrinho, Major",
+      "method": "E_NEWER_OFFICIAL_EXACT_ADDRESS_PLUS_EXACT_NAMED_CNEFE",
+      "superseded_sme_number": 3,
+      "current_claim": "RUA_FRANCISCO_BENEDITO_GONCALVES_DE_OLIVEIRA_38_JARDIM_ESTEVES",
+      "cnefe_named": {
+        "code": "53492390",
+        "sector": "352690205000094P",
+        "street": "FRANCISCO G DE OLIVEIRA",
+        "number": 38,
+        "locality": "JARDIM ESTEVES",
+        "lat": -22.578946,
+        "lon": -47.409
+      },
+      "sector_id": "352690205000094",
+      "sector_population_2022": 539,
+      "responsible_income_mean_nominal_monthly_brl": 3602.48,
+      "responsible_income_median_nominal_monthly_brl": 2700,
+      "V06004_sector_percentile_unweighted": 74.9
+    },
+    {
+      "codigo_inep": "35217992",
+      "school": "EMEIEF Martim Lutero (Rural)",
+      "method": "E_CURRENT_RURAL_KM_LOCALITY_PLUS_EXACT_CNEFE_KM_AND_NAMED_SCHOOL_SAME_SECTOR",
+      "current_claim": "VIA_MARTIM_LUTERO_KM_3_BAIRRO_DOS_PIRES_DO_MEIO_DE_CIMA",
+      "cnefe_named": {
+        "code": "53685416",
+        "sector": "352690205000375P",
+        "street": "MARTINHO LUTERO",
+        "number": 0,
+        "locality": "DOS PIRES DE CIMA",
+        "lat": -22.570079,
+        "lon": -47.340946
+      },
+      "cnefe_exact_km_candidates_same_sector": [
+        {
+          "code": "53685419",
+          "sector": "352690205000375P",
+          "number": 3,
+          "lat": -22.570702,
+          "lon": -47.343268
+        },
+        {
+          "code": "100015807",
+          "sector": "352690205000375P",
+          "number": 3,
+          "lat": -22.569704,
+          "lon": -47.345101
+        }
+      ],
+      "max_anchor_distance_m": 428.7,
+      "sector_id": "352690205000375",
+      "sector_population_2022": 295,
+      "responsible_income_mean_nominal_monthly_brl": 2688.15,
+      "responsible_income_median_nominal_monthly_brl": 2500,
+      "V06004_sector_percentile_unweighted": 44.8
+    },
+    {
+      "codigo_inep": "35223359",
+      "school": "CI Ary Levy Pereira, Prefeito",
+      "method": "E_HISTORICAL_NAMED_SAME_SITE_PLUS_UNIQUE_CNEFE_MUNICIPAL_CRECHE",
+      "current_claim": "RUA_ADEMAR_MARCOLINO_215_JARDIM_GLORIA",
+      "historical_claim": "CENTRO_INFANTIL_PREFEITO_ARY_LEVY_PEREIRA_RUA_ADEMAR_MARCOLINO_SN_JARDIM_GLORIA",
+      "cnefe_generic": {
+        "code": "53616986",
+        "sector": "352690205000554P",
+        "street": "ADEMAR MARCOLINO",
+        "number": 0,
+        "locality": "JARDIM GLORIA",
+        "establishment": "CRECHE MUNICIPAL",
+        "lat": -22.583971,
+        "lon": -47.377179,
+        "matching_generic_creche_count_on_street": 1
+      },
+      "sector_id": "352690205000554",
+      "sector_population_2022": 331,
+      "responsible_income_mean_nominal_monthly_brl": 2342.31,
+      "responsible_income_median_nominal_monthly_brl": 1800,
+      "V06004_sector_percentile_unweighted": 29
+    }
+  ],
+  "crosswalk": {
+    "before_strong_links": 59,
+    "after_strong_links": 64,
+    "coverage_rate": 0.927536,
+    "held_after": 5,
+    "full_network_link": false
+  },
+  "held_after": [
+    "35208437",
+    "35286229",
+    "35004773",
+    "35099569",
+    "35241885"
+  ],
+  "expected_product": {
+    "product_name": "TERRITORY_PROFILE",
+    "row_count": 267,
+    "municipal_rows": 11,
+    "school_metric_rows": 256,
+    "school_links": 64,
+    "metrics_per_school": 4,
+    "capabilities": [
+      "CENSUS_SECTOR_CONTEXT",
+      "MUNICIPAL_DEMOGRAPHY",
+      "OFFICIAL_INCOME_DICTIONARY",
+      "SCHOOL_TO_SECTOR_LINK_PARTIAL",
+      "SCHOOL_TO_SECTOR_LINK_COVERAGE_64_OF_69",
+      "SECTOR_INCOME_CONTEXT"
+    ]
+  },
+  "expected_answerability": {
+    "counts": {
+      "MATERIALIZED_ANSWERABLE": 37,
+      "MATERIALIZED_PARTIAL": 1
+    },
+    "equity_q1": "MATERIALIZED_PARTIAL",
+    "equity_remaining_gap": "TERRITORY_PROFILE::CAPABILITY:SCHOOL_TO_SECTOR_LINK_FULL_NETWORK",
+    "status_change_count": 0
+  },
+  "guards": [
+    "MULTI_ANCHOR_REQUIRED_FOR_PREVIOUSLY_CONFLICTING_CASES",
+    "NEWER_OFFICIAL_EXACT_ADDRESS_MAY_RESOLVE_STALE_DIRECTORY_NUMBER_ONLY_WITH_EXACT_NAMED_CNEFE",
+    "RURAL_KM_REQUIRES_CURRENT_OFFICIAL_LOCALITY_AND_CNEFE_NAMED_SCHOOL_SAME_SECTOR",
+    "FRONTAGE_LANDMARK_REQUIRES_NAMED_CNEFE_AND_ALL_EXACT_LANDMARK_ROWS_SAME_SECTOR",
+    "HISTORICAL_GENERIC_CRECHE_BRIDGE_REQUIRES_NAMED_OFFICIAL_SAME_STREET_AND_UNIQUE_CNEFE_MUNICIPAL_CRECHE",
+    "ISMAEL_MAURICIO_RAQUEL_NEUSA_THERESA_REMAIN_HELD",
+    "SINGLE_SIDED_NE_PROMOTION",
+    "NAME_ONLY_NE_PROMOTION",
+    "FUZZY_ONLY_NE_PROMOTION",
+    "64_OF_69_NE_FULL_NETWORK",
+    "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
+    "MISSING_NE_ZERO"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
