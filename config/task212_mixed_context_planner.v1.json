@@ -82,6 +82,18 @@
       "ACCOUNTING_LEDGER": "METADATA_ONLY_CURRENTLY",
       "REVENUE_LEDGER": "METADATA_ONLY_CURRENTLY"
     },
+    "recipe_consumed_facets": {
+      "FIN_Q3": [
+        "FINANCIAMENTO_FUNDEB"
+      ],
+      "INFRA_Q2": [
+        "INFRAESTRUTURA"
+      ],
+      "TEACH_Q2": [
+        "DOCENTES"
+      ]
+    },
+    "unconsumed_requested_facets_are_context_incompatible": true,
     "period_semantic_granularity_must_match_for_arithmetic": true,
     "period_prefix_match_creates_equivalent_period": false
   },
