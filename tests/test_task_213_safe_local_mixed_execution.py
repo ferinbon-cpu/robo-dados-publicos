@@ -212,8 +212,8 @@ class TestTask213SafeLocalMixedExecution(unittest.TestCase):
         self.assertNotIn("'kind': 'WORKFORCE_STOCK'", encoded)
         self.assertNotIn("842 professores", encoded)
 
-    def test_task212_equity_plan_allows_parallel_2022_territory_for_2025_school_metrics(self):
-        got = self.plan("desigualdade por contexto social no Rafael Affonso Leite em 2025")
+    def test_task212_equity_plan_allows_parallel_2022_territory_without_collapsing_metric_periods(self):
+        got = self.plan("desigualdade por contexto social no Rafael Affonso Leite")
         self.assertEqual(got["question_id"], "EQUITY_Q1")
         self.assertEqual(got["planning_state"], "READY_FOR_SAFE_EXECUTOR_DESIGN")
         territory = next(row for row in got["signals"] if row["product"] == "TERRITORY_PROFILE")
@@ -224,8 +224,8 @@ class TestTask213SafeLocalMixedExecution(unittest.TestCase):
         self.assertEqual(territory["context_inventory"]["observed_periods"], ["2022"])
         self.assertFalse(territory["context_inventory"]["requested_year_relabelled"])
 
-    def test_equity_q1_linked_school_2025_keeps_school_and_territory_periods_separate(self):
-        got = self.execute("desigualdade por contexto social no Rafael Affonso Leite em 2025")
+    def test_equity_q1_linked_school_keeps_native_metric_and_territory_periods_separate(self):
+        got = self.execute("desigualdade por contexto social no Rafael Affonso Leite")
         self.assertEqual(got["state"], "ANSWERED_CONTEXTUALLY")
         self.assertEqual(got["question_id"], "EQUITY_Q1")
         school_metrics = [
@@ -236,7 +236,15 @@ class TestTask213SafeLocalMixedExecution(unittest.TestCase):
             {row["metric_id"] for row in school_metrics},
             {"PPI_SHARE", "INSE", "SPECIAL_EDUCATION_ENROLLMENT"},
         )
-        self.assertTrue(all(row["period"] == "2025" for row in school_metrics))
+        by_metric_period = {row["metric_id"]: row["period"] for row in school_metrics}
+        self.assertEqual(
+            by_metric_period,
+            {
+                "PPI_SHARE": "2025",
+                "INSE": "2023",
+                "SPECIAL_EDUCATION_ENROLLMENT": "2025",
+            },
+        )
         territory = [
             row for row in got["NUMBER_OR_FACT"]
             if row["kind"] == "TERRITORY_METRIC"
@@ -247,18 +255,26 @@ class TestTask213SafeLocalMixedExecution(unittest.TestCase):
         self.assertTrue(
             all(row["period_role"] == "PARALLEL_TERRITORIAL_CONTEXT_PERIOD" for row in territory)
         )
-        self.assertEqual(set(got["TIME_REFERENCE"]), {"2025", "2022"})
+        self.assertEqual(set(got["TIME_REFERENCE"]), {"2022", "2023", "2025"})
         self.assertIn("SECTOR_INCOME_NE_STUDENT_HOUSEHOLD_INCOME", got["CAUTION_OR_LIMIT"])
 
+    def test_equity_q1_explicit_2025_fails_closed_because_inse_2025_is_not_materialized(self):
+        got = self.execute("desigualdade por contexto social no Rafael Affonso Leite em 2025")
+        self.assertEqual(got["question_id"], "EQUITY_Q1")
+        self.assertEqual(got["state"], "EXPLICIT_CONTEXT_GAP")
+        self.assertIn("TASK212_PLANNER_GATE_ENFORCED", got["CAUTION_OR_LIMIT"])
+        self.assertNotIn("EQUITY_SCHOOL_OR_NETWORK_METRIC", str(got))
+        self.assertNotIn("TERRITORY_METRIC", str(got))
+
     def test_equity_q1_held_school_preserves_explicit_missingness_without_weak_sector(self):
-        plan = self.plan("desigualdade por contexto social no Ismael Pereira Lago em 2025")
+        plan = self.plan("desigualdade por contexto social no Ismael Pereira Lago")
         self.assertEqual(plan["question_id"], "EQUITY_Q1")
         self.assertEqual(plan["planning_state"], "READY_FOR_SAFE_EXECUTOR_DESIGN")
         self.assertEqual(
             plan["join_plan"]["status"],
             "SAFE_WITH_EXPLICIT_TERRITORY_MISSINGNESS",
         )
-        got = self.execute("desigualdade por contexto social no Ismael Pereira Lago em 2025")
+        got = self.execute("desigualdade por contexto social no Ismael Pereira Lago")
         self.assertEqual(got["state"], "ANSWERED_CONTEXTUALLY")
         missing = [
             row for row in got["NUMBER_OR_FACT"]
