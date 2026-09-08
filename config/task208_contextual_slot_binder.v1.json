@@ -47,6 +47,21 @@
     "INFRAESTRUTURA": ["infraestrutura", "obra", "obras", "reforma", "reformas", "equipamento", "equipamentos"],
     "FINANCIAMENTO_FUNDEB": ["fundeb", "financiamento", "recursos da educacao"]
   },
+  "contextual_route_bridges": {
+    "FIN_Q1": {
+      "required_all": ["quanto", "educacao"],
+      "required_any": ["gasto", "gastou", "gasta", "despesa"]
+    },
+    "NORMS_Q2": {
+      "required_any": ["norma", "normas", "regra", "regras"],
+      "required_facets": ["MATRICULA"]
+    },
+    "NETWORK_Q3": {
+      "requires_resolved_school": true,
+      "requires_comparison_marker": true,
+      "requires_network_marker": true
+    }
+  },
   "broad_school_profile": {
     "phrases": ["como esta", "como vai", "situacao da escola", "situacao do"],
     "default_question_id": "NETWORK_Q3",
