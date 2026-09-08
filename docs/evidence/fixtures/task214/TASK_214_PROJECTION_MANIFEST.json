@@ -24,7 +24,11 @@
     "full_bounded_projection_file_sha256": "9850afd76623c2b45700bf97d2dd0a0973e54477472a5a8a2121114cf48816d6",
     "classification_universe_sha256": "b23725c508ca1b9e8995e7d6f0df5184057f046cd96d697495fcc01d699084ec",
     "classification_universe_group_count": 422,
-    "classification_universe_source_rows": 39779
+    "classification_universe_source_rows": 39779,
+    "eti_source_rows": 7,
+    "eti_direct_transfer_net_brl": "3606418.18",
+    "eti_financial_remuneration_net_brl": "85724.69",
+    "eti_all_linked_net_brl": "3692142.87"
   },
   "split_files": {
     "ACC_Q1_STAGE_TOTALS": "TASK_214_ACC_Q1_STAGE_TOTALS.json",
@@ -39,7 +43,8 @@
     "FIN_Q3_EDUCATION_APPLICATIONS_PARTS": [
       "TASK_214_FIN_Q3_EDU_APPS_01_10.json",
       "TASK_214_FIN_Q3_EDU_APPS_11_19.json"
-    ]
+    ],
+    "FIN_Q3_ETI_ROWS": "TASK_214_FIN_Q3_ETI_ROWS.json"
   },
   "compact_display_projection": {
     "ACC_Q2_expense_elements": "COUNT_PLUS_FIRST_2_DETERMINISTIC_EXAMPLES_PER_GROUP",
