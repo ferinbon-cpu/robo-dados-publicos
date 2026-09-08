@@ -260,6 +260,7 @@
     "TEACH_Q1": {
       "domain_id": "TEACHERS_WORKFORCE",
       "phrases": [
+        "formacao e o esforco dos professores",
         "formacao e esforco dos professores",
         "formacao adequada dos docentes",
         "regularidade docente",
@@ -682,6 +683,7 @@
     "NORMS_Q2": {
       "domain_id": "NORMS_SCHOOL_FUNCTIONING",
       "phrases": [
+        "normas mudaram calendario e matricula",
         "normas calendario matricula jornada",
         "mudou o calendario",
         "regra de matricula",
@@ -832,6 +834,7 @@
     "CTRL_Q1": {
       "domain_id": "TRANSPARENCY_CONTROL",
       "phrases": [
+        "fontes estao desatualizadas ou bloqueadas",
         "fontes completas bloqueadas ou desatualizadas",
         "fontes desatualizadas",
         "fontes bloqueadas",
