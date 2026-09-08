@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "schema": "TASK214_CUSTODY_LEDGER_PROJECTIONS_V1",
+  "task": "TASK_214",
+  "issue": 672,
+  "base_main_sha": "e7df99d92e9b177bf6fc372fb8a8067f670216ed",
+  "mode": "T0_OFFLINE_CUSTODY_REHYDRATED_BOUNDED_LEDGER_EXECUTION",
+  "upstream_executor": "TASK213_SAFE_LOCAL_MIXED_EXECUTION_V1",
+  "output_schema": "OBSERVATORY_CONTEXTUAL_ANSWER_V1",
+  "projection_schema": "TASK214_CUSTODY_REHYDRATED_BOUNDED_LEDGER_PROJECTIONS_V1",
+  "source_snapshots": {
+    "ACCOUNTING_LEDGER": {
+      "drive_id": "1hDWwZj3lvbPlZWNvOY_aNE6hthrpxnDt",
+      "snapshot_id": "64503339d8352a2f61e1ee85",
+      "content_sha256": "64503339d8352a2f61e1ee8596e9a7ab4dcd6237d1d84010682b4203992b4cb8",
+      "gzip_sha256": "5447581813677855ac8edcc70e6a90164ef1caa7799df544cc0a08d62ada25b0",
+      "row_count": 39783,
+      "tce_source_row_count": 39779,
+      "rreo_rests_row_count": 4
+    },
+    "REVENUE_LEDGER": {
+      "drive_id": "1Qwcucw5eUd18kJmg0wLqAT-EN6CuB04i",
+      "snapshot_id": "fd110fa5c0c2a2583c475a19",
+      "content_sha256": "fd110fa5c0c2a2583c475a191fef23669c9453a2dbf015a92036247c03d3b8e6",
+      "gzip_sha256": "02c644bfaf35a70a981967afdc15e0d0e548ed7df30a6da54e21435b17564847",
+      "row_count": 2286
+    }
+  },
+  "fixture": {
+    "manifest_path": "docs/evidence/fixtures/task214/TASK_214_PROJECTION_MANIFEST.json",
+    "projection_content_sha256": "83a50df3b34172b22ddb7ddcba6ac347c0830e57dd10f6e297d37fe407e9836a",
+    "original_materialized_file_sha256": "9850afd76623c2b45700bf97d2dd0a0973e54477472a5a8a2121114cf48816d6",
+    "split_files_are_transport_only": true
+  },
+  "promoted_questions": [
+    "ACC_Q1",
+    "ACC_Q2",
+    "ACC_Q3",
+    "FIN_Q3"
+  ],
+  "semantic_blockers": {
+    "CTRL_Q2": "NO_PROVEN_CROSS_SOURCE_IDENTITY_FOR_CORROBORATION",
+    "INFRA_Q2": "NO_STRUCTURED_SCHOOL_IDENTITY_IN_ACCOUNTING_LEDGER",
+    "PLAN_Q3": "NO_PROVEN_PLANNING_ACTION_TO_ACCOUNTING_CROSSWALK",
+    "PROC_Q1": "NO_PROVEN_JOM_TO_TCE_PROCUREMENT_IDENTITY",
+    "PROC_Q2": "NO_PROVEN_JOM_TO_TCE_PROCUREMENT_IDENTITY",
+    "PROC_Q3": "NO_PROVEN_JOM_TO_TCE_PROCUREMENT_IDENTITY"
+  },
+  "period_support": {
+    "ACC_Q1": {
+      "year": 2026,
+      "max_observed_month": 7,
+      "modes": [
+        "YEAR",
+        "YEAR_TO_MONTH",
+        "MONTH"
+      ],
+      "year_means_observed_ytd_not_full_year": true
+    },
+    "ACC_Q2": {
+      "year": 2026,
+      "modes": [
+        "YEAR"
+      ],
+      "year_means_jan_jul_projection": true
+    },
+    "ACC_Q3": {
+      "year": 2026,
+      "exact_months": [
+        2,
+        4
+      ],
+      "modes": [
+        "MONTH",
+        "YEAR_TO_MONTH"
+      ],
+      "no_nearest_month": true
+    },
+    "FIN_Q3": {
+      "year": 2026,
+      "max_observed_month": 7,
+      "modes": [
+        "YEAR",
+        "YEAR_TO_MONTH",
+        "MONTH"
+      ],
+      "year_means_observed_ytd_not_full_year": true
+    }
+  },
+  "claim_boundaries": {
+    "bounded_projection_equals_full_ledger": false,
+    "source_snapshot_remains_canonical": true,
+    "source_row_counts_must_reconcile": true,
+    "top30_classification_equals_full_list": false,
+    "stage_arithmetic_equals_legal_net_expenditure": false,
+    "rests_payable_equals_current_year_expenditure": false,
+    "revenue_equals_expenditure": false,
+    "funding_source_equals_expenditure_destination": false,
+    "semantic_blocker_may_be_bypassed_by_text_similarity": false,
+    "nearest_period_substitution": false
+  },
+  "runtime_remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "llm": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
