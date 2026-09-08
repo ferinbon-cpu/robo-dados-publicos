@@ -101,7 +101,10 @@ def load_contract(path: str | Path = DEFAULT_CONTRACT) -> dict[str, Any]:
     )
     _stop(
         obj["context"]["parallel_context_period_signals"]
-        == {"EQUITY_Q1": ["TERRITORY_PROFILE"]},
+        == {
+            "EQUITY_Q1": ["TERRITORY_PROFILE"],
+            "TEACH_Q2": ["JOM_EVENT_INDEX"],
+        },
         "TASK212_PARALLEL_CONTEXT_PERIOD_SIGNALS",
     )
     _stop(
@@ -125,6 +128,10 @@ def load_contract(path: str | Path = DEFAULT_CONTRACT) -> dict[str, Any]:
     _stop(
         bounds["parallel_context_period_may_be_relabelled_as_requested_year"] is False,
         "TASK212_PARALLEL_PERIOD_RELABEL",
+    )
+    _stop(
+        bounds["parallel_jom_period_may_be_relabelled_as_workforce_stock_period"] is False,
+        "TASK212_PARALLEL_JOM_RELABEL",
     )
     _stop(
         bounds["explicit_territory_missingness_may_be_replaced_by_weak_geographic_identity"] is False,
