@@ -1,0 +1,50 @@
+{
+  "schema": "TASK205_HUMAN_ANSWER_RENDERER_EVIDENCE_V1",
+  "task": "TASK_205",
+  "issue": 654,
+  "base_main_sha": "fa6a4d8bd4c04d28986266d1ba2f079b43dbc70a",
+  "status": "CANDIDATE_PENDING_CI",
+  "input_boundary": {
+    "semantic_answerability": "38_OF_38",
+    "ontology_summary_renderability": "38_OF_38",
+    "local_record_backed": 27,
+    "bounded_source_pinned_projection_backed": 11,
+    "projection_backlog": 0
+  },
+  "output_expectation": {
+    "answer_cards": 38,
+    "markdown_renders": 38,
+    "output_card_schema": "OBSERVATORY_HUMAN_ANSWER_CARD_V1",
+    "output_render_schema": "OBSERVATORY_HUMAN_ANSWER_RENDER_V1",
+    "deterministic_hashes": true
+  },
+  "required_parts": [
+    "NUMBER_OR_FACT",
+    "TIME_REFERENCE",
+    "COMPARISON_OR_TREND",
+    "PLAIN_LANGUAGE_EXPLANATION",
+    "SOURCE_AND_PROVENANCE",
+    "CAUTION_OR_LIMIT"
+  ],
+  "semantics": {
+    "formatting_allowed_inference_forbidden": true,
+    "comparison_may_be_not_available": true,
+    "llm_used": false,
+    "numeric_invention": false,
+    "causal_effect_creation": false,
+    "source_snapshot_replaced": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "llm": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
