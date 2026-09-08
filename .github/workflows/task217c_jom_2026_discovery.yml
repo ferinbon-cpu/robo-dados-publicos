@@ -1,0 +1,113 @@
+name: TASK 217C JOM 2026 bounded discovery
+run-name: "TASK 217C JOM discovery by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-217c-jom-2026-discovery-runtime
+    paths:
+      - 'runtime_triggers/task217c_jom_2026_discovery.run'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-217c-jom-2026-discovery
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact runtime head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Validate authorization-only runtime delta
+        shell: bash
+        run: |
+          set -euo pipefail
+          AUTH=runtime/task217c_owner_authorization.json
+          test -f "$AUTH"
+          IMPL="$(python - <<'PY'
+          import json
+          print(json.load(open("runtime/task217c_owner_authorization.json", encoding="utf-8"))["implementation_sha"])
+          PY
+          )"
+          test "$(printf '%s' "$IMPL" | grep -E '^[0-9a-f]{40}$')" = "$IMPL"
+          git cat-file -e "$IMPL^{commit}"
+          git merge-base --is-ancestor "$IMPL" HEAD
+          UNEXPECTED="$(git diff --name-only "$IMPL"..HEAD | grep -Ev '^(runtime/task217c_owner_authorization.json|runtime_triggers/task217c_jom_2026_discovery.run)$' || true)"
+          test -z "$UNEXPECTED"
+          echo "TASK217C_IMPLEMENTATION_SHA=$IMPL" >> "$GITHUB_ENV"
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        shell: bash
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Execute authorized discovery only
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime_out
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          from robo_dados_publicos.research.task217c_jom_2026_discovery_runtime import (
+              LiveJournalDiscoverySource,
+              execute,
+              load_config,
+          )
+
+          cfg = load_config()
+          auth = json.loads(Path("runtime/task217c_owner_authorization.json").read_text(encoding="utf-8"))
+          result = execute(
+              cfg,
+              source=LiveJournalDiscoverySource(),
+              authorization=auth,
+              expected_implementation_sha=os.environ["TASK217C_IMPLEMENTATION_SHA"],
+              offline_test_mode=False,
+          )
+          canonical = json.dumps(result, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+          result["result_sha256"] = hashlib.sha256(canonical).hexdigest()
+          target = Path("runtime_out/task217c_sanitized_discovery_result.json")
+          target.write_text(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          print("TASK217C_STATUS=" + str(result.get("status")))
+          print("TASK217C_MONTHS=" + str((result.get("scope") or {}).get("months_complete")))
+          print("TASK217C_DOCUMENTS=" + str(result.get("document_count")))
+          print("TASK217C_INDEX_PAGES=" + str(result.get("total_index_pages")))
+          print("TASK217C_EST_REMOTE_GETS=" + str(result.get("estimated_remote_get_count")))
+          print("TASK217C_DOCUMENT_DOWNLOADS=" + str(result.get("document_download_count")))
+          if not str(result.get("status", "")).startswith("PASS_"):
+              raise SystemExit(2)
+          PY
+
+      - name: Verify sanitized-only persistence
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f runtime_out/task217c_sanitized_discovery_result.json
+          test ! -e runtime_out/raw.html
+          test ! -e runtime_out/source.pdf
+
+      - name: Upload sanitized discovery result only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-217c-jom-2026-sanitized-discovery
+          path: runtime_out/task217c_sanitized_discovery_result.json
+          if-no-files-found: error
+          retention-days: 1
