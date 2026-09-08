@@ -1,0 +1,219 @@
+{
+  "version": 1,
+  "schema": "TASK204_BOUNDED_QUERY_PROJECTIONS_V1",
+  "task": "TASK_204",
+  "issue": 652,
+  "base_main_sha": "f3eac969cfafb0988fe8123b9340b1a52dd12762",
+  "mode": "T0_OFFLINE_SOURCE_PINNED_BOUNDED_QUERY_PROJECTION",
+  "source_snapshots": {
+    "ACCOUNTING_LEDGER": {
+      "drive_id": "1hDWwZj3lvbPlZWNvOY_aNE6hthrpxnDt",
+      "manifest_drive_id": "1G25ya3gSM_oZozIAPAkXNlVMtckujEED",
+      "snapshot_id": "64503339d8352a2f61e1ee85",
+      "row_count": 39783,
+      "gzip_bytes": 7845217,
+      "gzip_sha256": "5447581813677855ac8edcc70e6a90164ef1caa7799df544cc0a08d62ada25b0",
+      "content_sha256": "64503339d8352a2f61e1ee8596e9a7ab4dcd6237d1d84010682b4203992b4cb8",
+      "verified_in_task204": true
+    },
+    "REVENUE_LEDGER": {
+      "drive_id": "1Qwcucw5eUd18kJmg0wLqAT-EN6CuB04i",
+      "manifest_drive_id": "1__JJeS5zJlynY2_VwVFhyUaLsxbdJ-14",
+      "snapshot_id": "fd110fa5c0c2a2583c475a19",
+      "row_count": 2286,
+      "gzip_bytes": 246707,
+      "gzip_sha256": "02c644bfaf35a70a981967afdc15e0d0e548ed7df30a6da54e21435b17564847",
+      "content_sha256": "fd110fa5c0c2a2583c475a191fef23669c9453a2dbf015a92036247c03d3b8e6",
+      "verified_in_task204": true
+    }
+  },
+  "projection_views": {
+    "ACCOUNTING_EDUCATION_STAGE_TOTALS": {
+      "scope": "FUNCTION_EDUCACAO_TCESP_2026",
+      "source_transaction_rows": 8224,
+      "formula": "EMPENHADO_LIQUIDO=EMPENHADO+REFORCO-ANULACAO;LIQUIDADO_AND_PAGO=SIGNED_SOURCE_SUM",
+      "through_april": {
+        "empenhado_liquido_brl": "319000956.31",
+        "liquidado_brl": "138279835.79",
+        "pago_brl": "104176664.15"
+      },
+      "through_july": {
+        "empenhado_original_brl": "337824523.73",
+        "reforco_brl": "34418997.78",
+        "anulacao_brl": "3481109.44",
+        "empenhado_liquido_brl": "368762412.07",
+        "liquidado_brl": "262452288.06",
+        "pago_brl": "227797802.44"
+      }
+    },
+    "ACCOUNTING_PROGRAM_ACTION_SUMMARY": {
+      "scope": "FUNCTION_EDUCACAO_TCESP_2026_THROUGH_JULY",
+      "distinct_program_action_pairs": 22,
+      "program_2001_totals": {
+        "program_code": "2001",
+        "program_name": "EDUCACAO QUE INCLUI E TRANSFORMA VIDAS",
+        "empenhado_liquido_brl": "361812552.63",
+        "liquidado_brl": "258326373.45",
+        "pago_brl": "223896806.58"
+      },
+      "selected_actions": [
+        {"action_code":"2010","action_name":"REMUNERACAO DE PESSOAL E OBRIGACOES PATRONAIS","empenhado_liquido_brl":"95837368.82","liquidado_brl":"83317941.52","pago_brl":"67515412.06"},
+        {"action_code":"2012","action_name":"REMUNERACAO DE PESSOAL E OBRIGACOES PATRONAIS (FUNDEB FUNDAMENTAL)","empenhado_liquido_brl":"94078002.83","liquidado_brl":"70660587.06","pago_brl":"61457132.46"},
+        {"action_code":"2011","action_name":"REMUNERACAO DE PESSOAL E OBRIGACOES PATRONAIS (FUNDEB INFANTIL)","empenhado_liquido_brl":"43508558.35","liquidado_brl":"32386266.94","pago_brl":"28484173.43"},
+        {"action_code":"2720","action_name":"ALIMENTACAO ESCOLAR","empenhado_liquido_brl":"26225933.51","liquidado_brl":"14756899.27","pago_brl":"14756899.27"},
+        {"action_code":"2670","action_name":"BOLSA CRECHE","empenhado_liquido_brl":"21426387.97","liquidado_brl":"9223019.25","pago_brl":"9223019.25"},
+        {"action_code":"2690","action_name":"TRANSPORTE ESCOLAR","empenhado_liquido_brl":"17004818.04","liquidado_brl":"4921024.92","pago_brl":"4921024.92"},
+        {"action_code":"2680","action_name":"FUNCIONAMENTO DO ENSINO FUNDAMENTAL","empenhado_liquido_brl":"9802555.00","liquidado_brl":"6376553.72","pago_brl":"6153334.93"},
+        {"action_code":"2660","action_name":"FUNCIONAMENTO DA EDUCACAO INFANTIL","empenhado_liquido_brl":"5483205.79","liquidado_brl":"3902167.45","pago_brl":"3706793.36"}
+      ],
+      "selected_actions_are_complete_list": false,
+      "caution": "SELECTED_ACTIONS_FOR_BOUNDED_RENDERING;SOURCE_SNAPSHOT_HAS_22_PROGRAM_ACTION_PAIRS"
+    },
+    "ACCOUNTING_FUNDING_APPLICATION_SUMMARY": {
+      "scope": "FUNCTION_EDUCACAO_TCESP_2026_THROUGH_JULY",
+      "distinct_funding_application_pairs": 39,
+      "selected_pairs": [
+        {"funding_source":"TRANSFERÊNCIAS E CONVÊNIOS ESTADUAIS-VINCULADOS","application_code":"0261 - EDUCAÇÃO - FUNDEB - MAGISTÉRIO","empenhado_liquido_brl":"105918043.10","liquidado_brl":"81059602.51","pago_brl":"69993486.50"},
+        {"funding_source":"TESOURO","application_code":"0220 - ENSINO FUNDAMENTAL - RECURSOS ESPECÍFICOS","empenhado_liquido_brl":"96980372.89","liquidado_brl":"75400456.50","pago_brl":"62948792.34"},
+        {"funding_source":"TESOURO","application_code":"0212 - EDUCAÇÃO INFANTIL - CRECHE","empenhado_liquido_brl":"50795443.02","liquidado_brl":"34485960.62","pago_brl":"30089997.65"},
+        {"funding_source":"TRANSFERÊNCIAS E CONVÊNIOS ESTADUAIS-VINCULADOS","application_code":"0271 - EDUCAÇÃO-FUNDEB-MAGISTÉRIO - CRECHE","empenhado_liquido_brl":"24735500.43","liquidado_brl":"19993597.72","pago_brl":"17545400.23"},
+        {"funding_source":"TESOURO","application_code":"0213 - EDUCAÇÃO INFANTIL - PRÉ-ESCOLA","empenhado_liquido_brl":"20018320.77","liquidado_brl":"15178501.90","pago_brl":"12897239.36"},
+        {"funding_source":"TRANSFERÊNCIAS E CONVÊNIOS ESTADUAIS-VINCULADOS","application_code":"0272 - EDUCAÇÃO-FUNDEB-MAGISTÉRIO - PRÉ-ESCOLA","empenhado_liquido_brl":"18773057.92","liquidado_brl":"12392669.22","pago_brl":"10938773.20"},
+        {"funding_source":"TRANSFERÊNCIAS E CONVÊNIOS FEDERAIS-VINCULADOS","application_code":"0282 - RECURSOS DO SALÁRIO EDUCAÇÃO - ENSINO FUNDAMENTAL","empenhado_liquido_brl":"7964346.02","liquidado_brl":"3652254.20","pago_brl":"3652254.20"}
+      ],
+      "selected_pairs_are_complete_list": false
+    },
+    "ACCOUNTING_EXPENSE_ELEMENT_SUMMARY": {
+      "scope": "FUNCTION_EDUCACAO_TCESP_2026_THROUGH_JULY",
+      "distinct_expense_elements": 93,
+      "selected_elements": [
+        {"expense_element":"31901101 - VENCIMENTOS E SALÁRIOS","empenhado_liquido_brl":"131438185.02","liquidado_brl":"104342712.35","pago_brl":"89206596.81"},
+        {"expense_element":"31911308 - CONTRIBUIÇÕES PREVIDENCIÁRIAS - RPPS - PESSOAL ATIVO - PLANO PREVIDENCIÁRIO - INTRA OFSS","empenhado_liquido_brl":"29006175.44","liquidado_brl":"22826532.14","pago_brl":"19392292.72"},
+        {"expense_element":"31901137 - GRATIFICAÇÃO POR TEMPO DE SERVIÇO","empenhado_liquido_brl":"20449286.55","liquidado_brl":"16678888.39","pago_brl":"14196772.85"},
+        {"expense_element":"33903007 - GÊNEROS DE ALIMENTAÇÃO","empenhado_liquido_brl":"24959077.49","liquidado_brl":"13878059.46","pago_brl":"13878059.46"},
+        {"expense_element":"33903999 - OUTROS SERVIÇOS DE TERCEIROS - PESSOA JURÍDICA","empenhado_liquido_brl":"24122495.50","liquidado_brl":"9620829.73","pago_brl":"9588104.88"},
+        {"expense_element":"31900401 - SALÁRIOS - CONTRATO TEMPORÁRIO","empenhado_liquido_brl":"13209948.23","liquidado_brl":"13065522.75","pago_brl":"9131482.94"},
+        {"expense_element":"31900418 - PROFESSORES SUBSTITUTOS / VISITANTES","empenhado_liquido_brl":"6504271.24","liquidado_brl":"6498708.32","pago_brl":"6496680.44"},
+        {"expense_element":"33503901 - TERMO DE COLABORAÇÃO","empenhado_liquido_brl":"7151743.05","liquidado_brl":"4723002.43","pago_brl":"4723002.43"},
+        {"expense_element":"33903974 - FRETES E TRANSPORTES DE ENCOMENDAS","empenhado_liquido_brl":"14885411.46","liquidado_brl":"4710867.93","pago_brl":"4710867.93"}
+      ],
+      "selected_elements_are_complete_list": false
+    },
+    "ACCOUNTING_PROCUREMENT_SUPPLIER_MODALITY_SUMMARY": {
+      "scope": "FUNCTION_EDUCACAO_FORMAL_PROCUREMENT_ROWS_2026_THROUGH_JULY",
+      "formal_procurement_rows": 1779,
+      "cnpj_rows": 1751,
+      "person_rows_redacted": 28,
+      "selected_legal_entity_groups": [
+        {"supplier_name":"NTB COMERCIAL DE ALIMENTOS LTDA","procurement_modality":"PREGÃO ELETRÔNICO","empenhado_liquido_brl":"11408700.15","liquidado_brl":"6173120.91","pago_brl":"6173120.91"},
+        {"supplier_name":"UGULINO TRANSPORTES LTDA","procurement_modality":"DISPENSA DE LICITAÇÃO","empenhado_liquido_brl":"10351701.20","liquidado_brl":"4606989.12","pago_brl":"4606989.12"},
+        {"supplier_name":"NATURALY DISTRIBUIDORA DE ALIMENTOS EIRELI-ME","procurement_modality":"PREGÃO ELETRÔNICO","empenhado_liquido_brl":"6820149.18","liquidado_brl":"3774661.59","pago_brl":"3774661.59"},
+        {"supplier_name":"G NOVA COM.DE PRODUTOS ALIMENTICIOS EIRELI ME","procurement_modality":"PREGÃO ELETRÔNICO","empenhado_liquido_brl":"2775124.36","liquidado_brl":"1409105.46","pago_brl":"1409105.46"},
+        {"supplier_name":"ELEKTRO REDES S.A.","procurement_modality":"INEXIGÍVEL","empenhado_liquido_brl":"3214000.00","liquidado_brl":"1019914.87","pago_brl":"1017798.13"},
+        {"supplier_name":"GLOBAL ATACDISTA LTDA","procurement_modality":"PREGÃO ELETRÔNICO","empenhado_liquido_brl":"961122.50","liquidado_brl":"961122.50","pago_brl":"961122.50"},
+        {"supplier_name":"RUPOLO D. INDUSTRIA DE MOVEIS LTDA","procurement_modality":"PREGÃO ELETRÔNICO","empenhado_liquido_brl":"891323.00","liquidado_brl":"891323.00","pago_brl":"891323.00"},
+        {"supplier_name":"DOC TECNOLOGIA LTDA","procurement_modality":"PREGÃO PRESENCIAL","empenhado_liquido_brl":"1894183.80","liquidado_brl":"875712.55","pago_brl":"875712.55"}
+      ],
+      "redacted_person_aggregate": {
+        "row_count": 28,
+        "empenhado_liquido_brl": "60000.00",
+        "liquidado_brl": "8000.00",
+        "pago_brl": "8000.00"
+      },
+      "person_supplier_names_or_identifiers_persisted": false
+    },
+    "ACCOUNTING_COMMITMENT_CONTROL_SUMMARY": {
+      "scope": "FUNCTION_EDUCACAO_TCESP_2026_THROUGH_JULY",
+      "rows_with_commitment_number": 8224,
+      "unique_commitment_numbers": 1139,
+      "unique_official_record_ids": 8224,
+      "source_stage_counts": {
+        "Anulação": 70,
+        "Empenhado": 1139,
+        "Reforço": 450,
+        "Valor Liquidado": 3446,
+        "Valor Pago": 3119
+      },
+      "sample_commitment_numbers": ["2026:100-2026","2026:1000-2026","2026:1001-2026","2026:1002-2026","2026:1003-2026"]
+    },
+    "ACCOUNTING_RESTS_PAYABLE_SUMMARY": {
+      "scope": "RREO_ANEXO_7",
+      "education": [
+        {"period":"2026-02","processed_balance_brl":"632369.49","nonprocessed_balance_brl":"4726335.64","total_balance_brl":"5358705.13","source_document":"ANEXO 7-RESTOS A PAGAR - LRF -MES_FEVEREIRO.pdf"},
+        {"period":"2026-04","processed_balance_brl":"308667.86","nonprocessed_balance_brl":"2701837.69","total_balance_brl":"3010505.55","source_document":"ANEXO 7 - Restos a Pagar por Poder e Orgão.pdf"}
+      ],
+      "municipal_total_except_intrabudget": [
+        {"period":"2026-02","processed_balance_brl":"26670251.53","nonprocessed_balance_brl":"59169534.90","total_balance_brl":"85839786.43"},
+        {"period":"2026-04","processed_balance_brl":"16476433.49","nonprocessed_balance_brl":"34576745.90","total_balance_brl":"51053179.39"}
+      ]
+    },
+    "REVENUE_EDUCATION_FUNDING_APPLICATION_SUMMARY": {
+      "scope": "TCESP_REVENUES_2026_JAN_JUL",
+      "net_totals": {
+        "all_entities_brl": "1297518731.15",
+        "prefeitura_brl": "1117414208.00",
+        "ipml_brl": "180104523.15",
+        "education_application_brl": "241960964.18",
+        "education_tesouro_brl": "109552581.52",
+        "education_state_transfers_brl": "119045512.07",
+        "education_federal_transfers_brl": "13362870.59",
+        "fundeb_linked_brl": "118066203.65",
+        "salario_educacao_linked_brl": "9081653.07",
+        "pnae_linked_brl": "3897285.01",
+        "pnate_linked_brl": "142163.23",
+        "eti_direct_transfer_brl": "3606418.18",
+        "eti_financial_remuneration_brl": "85724.69",
+        "eti_all_linked_brl": "3692142.87"
+      },
+      "selected_applications": [
+        {"funding_source":"02 - TRANSFERÊNCIAS E CONVÊNIOS ESTADUAIS-VINCULADOS","application_fixed":"260 - EDUCAÇÃO - FUNDEB - RECURSOS PRÓPRIOS","net_revenue_brl":"116886899.79"},
+        {"funding_source":"01 - TESOURO","application_fixed":"200 - EDUCAÇÃO - RECURSOS ESPECÍFICOS","net_revenue_brl":"109225375.12"},
+        {"funding_source":"05 - TRANSFERÊNCIAS E CONVÊNIOS FEDERAIS-VINCULADOS","application_fixed":"282 - RECURSOS DO SALÁRIO EDUCAÇÃO - ENSINO FUNDAMENTAL","net_revenue_brl":"4169500.03"},
+        {"funding_source":"05 - TRANSFERÊNCIAS E CONVÊNIOS FEDERAIS-VINCULADOS","application_fixed":"281 - RECURSOS DO SALÁRIO EDUCAÇÃO - PRÉ-ESCOLA","net_revenue_brl":"2483913.15"},
+        {"funding_source":"05 - TRANSFERÊNCIAS E CONVÊNIOS FEDERAIS-VINCULADOS","application_fixed":"280 - RECURSOS DO SALÁRIO EDUCAÇÃO - CRECHE","net_revenue_brl":"2428239.89"},
+        {"funding_source":"05 - TRANSFERÊNCIAS E CONVÊNIOS FEDERAIS-VINCULADOS","application_fixed":"285 - PNAE - ENSINO FUNDAMENTAL","net_revenue_brl":"1748547.01"}
+      ]
+    }
+  },
+  "question_projection_map": {
+    "INFRA_Q2": ["ACCOUNTING_PROGRAM_ACTION_SUMMARY"],
+    "FIN_Q1": ["ACCOUNTING_EDUCATION_STAGE_TOTALS"],
+    "FIN_Q3": ["REVENUE_EDUCATION_FUNDING_APPLICATION_SUMMARY"],
+    "PLAN_Q3": ["ACCOUNTING_PROGRAM_ACTION_SUMMARY","ACCOUNTING_FUNDING_APPLICATION_SUMMARY"],
+    "PROC_Q1": ["ACCOUNTING_PROCUREMENT_SUPPLIER_MODALITY_SUMMARY"],
+    "PROC_Q2": ["ACCOUNTING_PROCUREMENT_SUPPLIER_MODALITY_SUMMARY"],
+    "PROC_Q3": ["ACCOUNTING_PROCUREMENT_SUPPLIER_MODALITY_SUMMARY"],
+    "CTRL_Q2": ["ACCOUNTING_COMMITMENT_CONTROL_SUMMARY"],
+    "ACC_Q1": ["ACCOUNTING_EDUCATION_STAGE_TOTALS"],
+    "ACC_Q2": ["ACCOUNTING_PROGRAM_ACTION_SUMMARY","ACCOUNTING_FUNDING_APPLICATION_SUMMARY","ACCOUNTING_EXPENSE_ELEMENT_SUMMARY"],
+    "ACC_Q3": ["ACCOUNTING_RESTS_PAYABLE_SUMMARY"]
+  },
+  "expected_transition": {
+    "task203_record_backed": 27,
+    "task203_mixed": 8,
+    "task203_capability_only": 3,
+    "task204_bounded_projection_covered": 11,
+    "ontology_summary_renderable": 38,
+    "arbitrary_drilldown_full_ledger_local": false
+  },
+  "semantics": {
+    "projection_replaces_source_snapshot": false,
+    "projection_is_source_of_truth": false,
+    "source_snapshot_remains_canonical": true,
+    "capability_metadata_may_supply_numeric_value": false,
+    "bounded_projection_may_supply_pinned_derived_value": true,
+    "revenue_ne_expenditure": true,
+    "rests_payable_ne_current_year_expenditure": true,
+    "selected_rankings_are_exhaustive": false,
+    "llm_may_fill_missing_numeric_evidence": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read_during_ci": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

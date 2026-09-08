@@ -1,0 +1,69 @@
+{
+  "schema": "TASK204_BOUNDED_QUERY_PROJECTIONS_EVIDENCE_V1",
+  "task": "TASK_204",
+  "issue": 652,
+  "base_main_sha": "f3eac969cfafb0988fe8123b9340b1a52dd12762",
+  "status": "CANDIDATE_PENDING_CI",
+  "source_verification": {
+    "ACCOUNTING_LEDGER": {
+      "drive_id": "1hDWwZj3lvbPlZWNvOY_aNE6hthrpxnDt",
+      "row_count": 39783,
+      "gzip_bytes": 7845217,
+      "gzip_sha256": "5447581813677855ac8edcc70e6a90164ef1caa7799df544cc0a08d62ada25b0",
+      "content_sha256": "64503339d8352a2f61e1ee8596e9a7ab4dcd6237d1d84010682b4203992b4cb8",
+      "byte_hash_verified": true
+    },
+    "REVENUE_LEDGER": {
+      "drive_id": "1Qwcucw5eUd18kJmg0wLqAT-EN6CuB04i",
+      "row_count": 2286,
+      "gzip_bytes": 246707,
+      "gzip_sha256": "02c644bfaf35a70a981967afdc15e0d0e548ed7df30a6da54e21435b17564847",
+      "content_sha256": "fd110fa5c0c2a2583c475a191fef23669c9453a2dbf015a92036247c03d3b8e6",
+      "byte_hash_verified": true
+    }
+  },
+  "verified_anchors": {
+    "education_through_april_2026": {
+      "empenhado_liquido_brl": "319000956.31",
+      "liquidado_brl": "138279835.79",
+      "pago_brl": "104176664.15"
+    },
+    "education_through_july_2026": {
+      "empenhado_liquido_brl": "368762412.07",
+      "liquidado_brl": "262452288.06",
+      "pago_brl": "227797802.44"
+    },
+    "education_rests_april_2026_brl": "3010505.55",
+    "education_application_revenue_jan_jul_brl": "241960964.18",
+    "fundeb_linked_revenue_jan_jul_brl": "118066203.65"
+  },
+  "task203_baseline_preserved": {
+    "RECORD_BACKED": 27,
+    "MIXED_RECORD_AND_CAPABILITY": 8,
+    "CAPABILITY_ONLY": 3
+  },
+  "task204_expected_renderability": {
+    "LOCAL_RECORD_BACKED": 27,
+    "BOUNDED_SOURCE_PINNED_PROJECTION_BACKED": 11,
+    "ONTOLOGY_SUMMARY_RENDERABLE": 38
+  },
+  "bounded_projection_questions": [
+    "ACC_Q1","ACC_Q2","ACC_Q3","CTRL_Q2","FIN_Q1","FIN_Q3",
+    "INFRA_Q2","PLAN_Q3","PROC_Q1","PROC_Q2","PROC_Q3"
+  ],
+  "claim_boundaries": {
+    "semantic_answerability_remains_38_of_38": true,
+    "ontology_summary_renderable_expected_38_of_38": true,
+    "arbitrary_drilldown_full_ledger_local": false,
+    "projection_replaces_source_snapshot": false,
+    "selected_rankings_are_exhaustive": false,
+    "revenue_equals_expenditure": false,
+    "rests_payable_equals_current_year_expenditure": false,
+    "llm_numeric_fill": false
+  },
+  "privacy": {
+    "formal_procurement_person_rows": 28,
+    "person_supplier_names_or_identifiers_persisted": false,
+    "person_rows_projection": "REDACTED_AGGREGATE_ONLY"
+  }
+}
