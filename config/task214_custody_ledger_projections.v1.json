@@ -28,8 +28,16 @@
   },
   "fixture": {
     "manifest_path": "docs/evidence/fixtures/task214/TASK_214_PROJECTION_MANIFEST.json",
-    "projection_content_sha256": "83a50df3b34172b22ddb7ddcba6ac347c0830e57dd10f6e297d37fe407e9836a",
-    "original_materialized_file_sha256": "9850afd76623c2b45700bf97d2dd0a0973e54477472a5a8a2121114cf48816d6",
+    "full_bounded_projection_materialization_audit": {
+      "content_sha256": "83a50df3b34172b22ddb7ddcba6ac347c0830e57dd10f6e297d37fe407e9836a",
+      "file_sha256": "9850afd76623c2b45700bf97d2dd0a0973e54477472a5a8a2121114cf48816d6"
+    },
+    "runtime_split_projection": {
+      "classification_universe_sha256": "b23725c508ca1b9e8995e7d6f0df5184057f046cd96d697495fcc01d699084ec",
+      "classification_universe_group_count": 422,
+      "classification_universe_source_rows": 39779,
+      "acc_q2_element_display": "COUNT_PLUS_FIRST_2_DETERMINISTIC_EXAMPLES_PER_GROUP"
+    },
     "split_files_are_transport_only": true
   },
   "promoted_questions": [
