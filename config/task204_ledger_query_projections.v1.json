@@ -1,53 +1,31 @@
 {
   "base_main_sha": "f3eac969cfafb0988fe8123b9340b1a52dd12762",
   "baseline": {
-    "productization_counts": {
-      "CAPABILITY_ONLY": 3,
-      "MIXED_RECORD_AND_CAPABILITY": 8,
-      "RECORD_BACKED": 27
-    },
+    "productization_counts": {"CAPABILITY_ONLY": 3, "MIXED_RECORD_AND_CAPABILITY": 8, "RECORD_BACKED": 27},
     "query_projection_backlog_count": 11,
-    "semantic_answerability": {
-      "MATERIALIZED_ANSWERABLE": 38
-    }
+    "semantic_answerability": {"MATERIALIZED_ANSWERABLE": 38}
   },
   "claim_boundaries": {
     "capability_metadata_supplies_numeric_value": false,
     "commitment_number_projection_scope": "BROAD_CONTROL_CORROBORATION_NOT_ARBITRARY_ID_LOOKUP",
-    "dimension_projection_scope": "HIGH_CARDINALITY_DIMENSIONS_USE_TOP_N_PLUS_OTHER; NOT_ARBITRARY_DIMENSION_LOOKUP",
+    "dimension_projection_scope": "QUESTION_SCOPED_REPRESENTATIVE_ROWS_PLUS_OTHER_NOT_ARBITRARY_DIMENSION_LOOKUP",
     "projection_replaces_source_ledger": false,
     "revenue_classification_equals_expenditure_destination": false,
     "reversal_netting": false,
-    "supplier_projection_scope": "TOP_50_PLUS_OTHER_FOR_GENERIC_OBSERVATORY_QUESTIONS_NOT_ARBITRARY_SUPPLIER_LOOKUP"
+    "supplier_projection_scope": "TOP_3_PLUS_OTHER_FOR_GENERIC_OBSERVATORY_QUESTIONS_NOT_ARBITRARY_SUPPLIER_LOOKUP"
   },
   "expected_after": {
     "human_ready_count": 38,
     "query_projection_backlog_count": 0,
-    "readiness_counts": {
-      "PROJECTION_BACKED": 11,
-      "RECORD_BACKED": 27
-    }
+    "readiness_counts": {"PROJECTION_BACKED": 11, "RECORD_BACKED": 27}
   },
   "issue": 651,
   "mode": "T0_OFFLINE_BOUNDED_QUERY_PROJECTION",
   "projections": {
     "ACCOUNTING_LEDGER": {
       "path": "data/query_projections/task204_accounting_query_projection.v1.json",
-      "projection_sha256": "b9e3364147bde17ef05c57201267cd01d422b2b38be1b81fa9be959340a5160f",
-      "section_counts": {
-        "commitment_number_summary": 1,
-        "education_month_totals": 7,
-        "education_stage_totals": 1,
-        "expense_element_totals": 31,
-        "function_totals": 20,
-        "funding_application_totals": 31,
-        "month_totals": 7,
-        "program_totals": 27,
-        "rests_payable": 4,
-        "stage_totals": 1,
-        "subfunction_totals": 31,
-        "supplier_totals": 51
-      },
+      "projection_sha256": "ff3529deee766951dd549e00edd5d7d12d353f2fea99f291aa689770cbba60cd",
+      "section_counts": {"commitment_number_summary":1,"education_month_totals":3,"education_stage_totals":1,"expense_element_totals":3,"function_totals":3,"funding_application_totals":3,"month_totals":3,"program_totals":3,"rests_payable":4,"stage_totals":1,"subfunction_totals":3,"supplier_totals":4},
       "source_content_sha256": "64503339d8352a2f61e1ee8596e9a7ab4dcd6237d1d84010682b4203992b4cb8",
       "source_drive_id": "1hDWwZj3lvbPlZWNvOY_aNE6hthrpxnDt",
       "source_gzip_sha256": "5447581813677855ac8edcc70e6a90164ef1caa7799df544cc0a08d62ada25b0",
@@ -55,17 +33,8 @@
     },
     "REVENUE_LEDGER": {
       "path": "data/query_projections/task204_revenue_query_projection.v1.json",
-      "projection_sha256": "05037703714efc530847eb41889c23c5002409062c3e2e584c705c35ed6783e9",
-      "section_counts": {
-        "education_application_totals": 2,
-        "eti_totals": 2,
-        "fundeb_totals": 2,
-        "funding_policy_totals": 15,
-        "funding_source_totals": 8,
-        "month_totals": 7,
-        "revenue_category_totals": 3,
-        "revenue_type_totals": 31
-      },
+      "projection_sha256": "9ca2258f201442dd88f0fc82fb96bdce7cc1fb9f3feae46076558c9cf3bbd2b6",
+      "section_counts": {"education_application_totals":2,"fundeb_totals":2,"funding_policy_totals":15,"funding_source_totals":8},
       "source_content_sha256": "fd110fa5c0c2a2583c475a191fef23669c9453a2dbf015a92036247c03d3b8e6",
       "source_drive_id": "1Qwcucw5eUd18kJmg0wLqAT-EN6CuB04i",
       "source_gzip_sha256": "02c644bfaf35a70a981967afdc15e0d0e548ed7df30a6da54e21435b17564847",
@@ -73,27 +42,19 @@
     }
   },
   "question_projection_routes": {
-    "ACC_Q1": {"product": "ACCOUNTING_LEDGER", "sections": ["stage_totals", "month_totals"]},
-    "ACC_Q2": {"product": "ACCOUNTING_LEDGER", "sections": ["function_totals", "subfunction_totals", "program_totals", "funding_application_totals", "expense_element_totals"]},
-    "ACC_Q3": {"product": "ACCOUNTING_LEDGER", "sections": ["rests_payable"]},
-    "CTRL_Q2": {"product": "ACCOUNTING_LEDGER", "sections": ["commitment_number_summary"]},
-    "FIN_Q1": {"product": "ACCOUNTING_LEDGER", "sections": ["education_stage_totals", "education_month_totals"]},
-    "FIN_Q3": {"product": "REVENUE_LEDGER", "sections": ["funding_source_totals", "funding_policy_totals", "fundeb_totals", "education_application_totals"]},
-    "INFRA_Q2": {"product": "ACCOUNTING_LEDGER", "sections": ["function_totals", "program_totals", "supplier_totals"]},
-    "PLAN_Q3": {"product": "ACCOUNTING_LEDGER", "sections": ["program_totals", "funding_application_totals"]},
-    "PROC_Q1": {"product": "ACCOUNTING_LEDGER", "sections": ["supplier_totals"]},
-    "PROC_Q2": {"product": "ACCOUNTING_LEDGER", "sections": ["supplier_totals"]},
-    "PROC_Q3": {"product": "ACCOUNTING_LEDGER", "sections": ["supplier_totals"]}
+    "ACC_Q1":{"product":"ACCOUNTING_LEDGER","sections":["stage_totals","month_totals"]},
+    "ACC_Q2":{"product":"ACCOUNTING_LEDGER","sections":["function_totals","subfunction_totals","program_totals","funding_application_totals","expense_element_totals"]},
+    "ACC_Q3":{"product":"ACCOUNTING_LEDGER","sections":["rests_payable"]},
+    "CTRL_Q2":{"product":"ACCOUNTING_LEDGER","sections":["commitment_number_summary"]},
+    "FIN_Q1":{"product":"ACCOUNTING_LEDGER","sections":["education_stage_totals","education_month_totals"]},
+    "FIN_Q3":{"product":"REVENUE_LEDGER","sections":["funding_source_totals","funding_policy_totals","fundeb_totals","education_application_totals"]},
+    "INFRA_Q2":{"product":"ACCOUNTING_LEDGER","sections":["function_totals","program_totals","supplier_totals"]},
+    "PLAN_Q3":{"product":"ACCOUNTING_LEDGER","sections":["program_totals","funding_application_totals"]},
+    "PROC_Q1":{"product":"ACCOUNTING_LEDGER","sections":["supplier_totals"]},
+    "PROC_Q2":{"product":"ACCOUNTING_LEDGER","sections":["supplier_totals"]},
+    "PROC_Q3":{"product":"ACCOUNTING_LEDGER","sections":["supplier_totals"]}
   },
-  "remote_effects": {
-    "drive_read": false,
-    "drive_write": false,
-    "network": false,
-    "publication": false,
-    "recurrence": false,
-    "schedule": false,
-    "serving": false
-  },
+  "remote_effects": {"drive_read":false,"drive_write":false,"network":false,"publication":false,"recurrence":false,"schedule":false,"serving":false},
   "schema": "TASK204_LEDGER_QUERY_PROJECTIONS_V1",
   "task": "TASK_204",
   "version": 1
