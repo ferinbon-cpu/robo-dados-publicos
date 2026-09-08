@@ -1,0 +1,58 @@
+{
+  "task": "TASK_217A_JOM_SCHOOL_IDENTITY_BRIDGE",
+  "issue": 680,
+  "base_main_sha": "34f93eb9f89e6a3ab4231bba2ad8c38155353ad1",
+  "mode": "T0_OFFLINE_CURRENT_CORPUS_AUDIT",
+  "identity_input": {
+    "current_municipal_school_roster": 69,
+    "spatial_strong_rows": 57,
+    "spatial_held_rows": 12,
+    "spatial_hold_is_not_school_identity_hold": true,
+    "unique_exact_aliases": 224,
+    "ambiguous_aliases": 0,
+    "identity_rule": "EXACT_UNAMBIGUOUS_PINNED_SCHOOL_ALIAS_TO_INEP_ONLY"
+  },
+  "current_jom_corpus": {
+    "rows": 303,
+    "publication_min": "2026-08-14",
+    "publication_max": "2026-08-29",
+    "infrastructure_candidate_events": 14,
+    "exact_named_school_events": 0,
+    "exact_named_school_infrastructure_events": 0,
+    "generic_school_infrastructure_events": 1
+  },
+  "generic_network_evidence": {
+    "event_id": "JOEV_84b4ca10af2609ca127a",
+    "edition": 7311,
+    "publication_date": "2026-08-25",
+    "page_number": 3,
+    "meaning": "AQUISICAO_DE_PLAYGROUND_PARA_UNIDADES_ESCOLARES_DA_REDE_MUNICIPAL",
+    "school_assignment": "FORBIDDEN_GENERIC_REFERENCE"
+  },
+  "adjudication": {
+    "INFRA_Q2": "REMAINS_BLOCKED_NO_EXACT_NAMED_SCHOOL_INFRASTRUCTURE_EVENT_IN_CURRENT_CORPUS",
+    "contextual_paths_before": 33,
+    "contextual_paths_after": 33,
+    "global_absence_of_school_works_or_equipment_in_2026": false,
+    "next_required_evidence": "BOUNDED_2026_JOM_EXPANSION_AND_REDIGEST",
+    "live_expansion_authorized_here": false,
+    "consumed_task018_authorization_reused": false
+  },
+  "guards": [
+    "GENERIC_SCHOOL_REFERENCE_NE_SCHOOL_IDENTITY",
+    "INFRASTRUCTURE_TEXT_NE_SCHOOL_IDENTITY",
+    "NO_FUZZY_SCHOOL_IDENTITY",
+    "NO_SEMANTIC_SIMILARITY_SCHOOL_IDENTITY",
+    "CURRENT_303_ROWS_NE_FULL_2026_JOM",
+    "ZERO_EXACT_MATCH_NE_GLOBAL_ABSENCE"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false,
+    "llm": false
+  }
+}
