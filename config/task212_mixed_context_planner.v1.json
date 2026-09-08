@@ -99,6 +99,9 @@
     "parallel_context_period_signals": {
       "EQUITY_Q1": [
         "TERRITORY_PROFILE"
+      ],
+      "TEACH_Q2": [
+        "JOM_EVENT_INDEX"
       ]
     },
     "equity_explicit_territory_missingness_school_codes": [
@@ -139,7 +142,8 @@
     "jom_personnel_event_equals_workforce_stock": false,
     "territory_sector_income_equals_student_household_income": false,
     "parallel_context_period_may_be_relabelled_as_requested_year": false,
-    "explicit_territory_missingness_may_be_replaced_by_weak_geographic_identity": false
+    "explicit_territory_missingness_may_be_replaced_by_weak_geographic_identity": false,
+    "parallel_jom_period_may_be_relabelled_as_workforce_stock_period": false
   },
   "remote_effects": {
     "network": false,
