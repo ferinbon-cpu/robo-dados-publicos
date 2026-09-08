@@ -1,0 +1,59 @@
+{
+  "schema": "TASK203_CURRENT_BUNDLE_PRODUCTIZATION_EVIDENCE_V1",
+  "task": "TASK_203",
+  "issue": 649,
+  "base_main_sha": "10dea8a216fa1c52060c61e83977fe3a874a0554",
+  "canonical_answerability": {
+    "version": 4,
+    "question_count": 38,
+    "expected": {
+      "MATERIALIZED_ANSWERABLE": 38
+    }
+  },
+  "expected_productization_audit": {
+    "RECORD_BACKED": 27,
+    "MIXED_RECORD_AND_CAPABILITY": 8,
+    "CAPABILITY_ONLY": 3,
+    "human_ready_count": 27,
+    "query_projection_backlog_count": 11
+  },
+  "mixed_questions": [
+    "INFRA_Q2",
+    "FIN_Q1",
+    "FIN_Q3",
+    "PLAN_Q3",
+    "PROC_Q1",
+    "PROC_Q2",
+    "PROC_Q3",
+    "CTRL_Q2"
+  ],
+  "capability_only_questions": [
+    "ACC_Q1",
+    "ACC_Q2",
+    "ACC_Q3"
+  ],
+  "remote_payloads": {
+    "ACCOUNTING_LEDGER": {
+      "declared_row_count": 39783,
+      "local_row_count": 0,
+      "snapshot_drive_id": "1hDWwZj3lvbPlZWNvOY_aNE6hthrpxnDt",
+      "manifest_drive_id": "1G25ya3gSM_oZozIAPAkXNlVMtckujEED",
+      "content_sha256": "64503339d8352a2f61e1ee8596e9a7ab4dcd6237d1d84010682b4203992b4cb8"
+    },
+    "REVENUE_LEDGER": {
+      "declared_row_count": 2286,
+      "local_row_count": 0,
+      "snapshot_drive_id": "1Qwcucw5eUd18kJmg0wLqAT-EN6CuB04i",
+      "manifest_drive_id": "1__JJeS5zJlynY2_VwVFhyUaLsxbdJ-14",
+      "content_sha256": "fd110fa5c0c2a2583c475a191fef23669c9453a2dbf015a92036247c03d3b8e6"
+    }
+  },
+  "guards": [
+    "SEMANTIC_ANSWERABILITY_NE_LOCAL_RENDERABILITY_NE_HUMAN_READY_ANSWER",
+    "CAPABILITY_METADATA_NE_NUMERIC_VALUE",
+    "NO_LLM_NUMERIC_FILL",
+    "NO_TEST_HELPER_AS_CANONICAL_RUNTIME",
+    "NO_SERVING_ENABLEMENT"
+  ],
+  "status": "ASSERTED_BY_TASK203_TESTS_AND_CI_WHEN_GREEN"
+}
