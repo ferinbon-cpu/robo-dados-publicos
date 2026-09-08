@@ -241,6 +241,8 @@ def _no_school_or_facets(
     context: Mapping[str, Any],
     question_id: str,
     filters: dict[str, Any],
+    *,
+    allowed_facets: set[str] | None = None,
 ) -> dict[str, Any] | None:
     out = _task209_contract()
     if context["school"].get("status") == "RESOLVED":
@@ -252,15 +254,20 @@ def _no_school_or_facets(
             f"{question_id} não possui granularidade escolar estruturada nesta projeção contábil/fiscal.",
             out,
         )
-    if context.get("policy_service_facets"):
+    facets = set(context.get("policy_service_facets") or [])
+    allowed = set(allowed_facets or set())
+    unsupported_facets = facets - allowed
+    if unsupported_facets:
         return _unsupported(
             text,
             context,
             question_id,
             filters,
-            f"{question_id} não converte faceta textual em identidade contábil.",
+            f"{question_id} não converte as facetas {sorted(unsupported_facets)} em identidade contábil.",
             out,
         )
+    if facets and filters["POLICY_SERVICE_FACETS"]["status"] == "PENDING":
+        filters["POLICY_SERVICE_FACETS"]["status"] = "APPLIED_BY_RECIPE_SCOPE"
     return None
 
 
@@ -600,7 +607,13 @@ def _execute_fin_q3(
 ) -> dict[str, Any]:
     out=_task209_contract()
     filters=_base_filter_accounting(context)
-    stop=_no_school_or_facets(text,context,"FIN_Q3",filters)
+    stop=_no_school_or_facets(
+        text,
+        context,
+        "FIN_Q3",
+        filters,
+        allowed_facets={"FINANCIAMENTO_FUNDEB"},
+    )
     if stop is not None:
         return stop
     window=_period_window(context,supported_year=2026,max_month=7)
