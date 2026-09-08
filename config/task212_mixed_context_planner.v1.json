@@ -1,0 +1,131 @@
+{
+  "version": 1,
+  "schema": "TASK212_MIXED_CONTEXT_PLANNER_V1",
+  "task": "TASK_212",
+  "issue": 668,
+  "base_main_sha": "29c482bf18a082295a5110376f10e424b8dff2f0",
+  "mode": "T0_OFFLINE_MIXED_RECIPE_CONTEXT_PLANNING_ONLY",
+  "upstream_matrix_schema": "TASK211_EXTENDED_CONTEXT_CAPABILITY_MATRIX_V1",
+  "signal_states": [
+    "LOCAL_EXECUTABLE",
+    "METADATA_ONLY",
+    "MISSING",
+    "CONTEXT_INCOMPATIBLE"
+  ],
+  "planning_states": [
+    "UPSTREAM_CONTEXT_EXECUTOR_AVAILABLE",
+    "READY_FOR_SAFE_EXECUTOR_DESIGN",
+    "BLOCKED_METADATA_ONLY",
+    "MISSING_LOCAL_EVIDENCE",
+    "CONTEXT_INCOMPATIBLE",
+    "ROUTE_STOP_PROPAGATED"
+  ],
+  "remaining_question_ids": [
+    "ACC_Q1",
+    "ACC_Q2",
+    "ACC_Q3",
+    "CTRL_Q1",
+    "CTRL_Q2",
+    "CTRL_Q3",
+    "EQUITY_Q1",
+    "FIN_Q2",
+    "FIN_Q3",
+    "FIN_Q4",
+    "INFRA_Q2",
+    "PLAN_Q3",
+    "PROC_Q1",
+    "PROC_Q2",
+    "PROC_Q3",
+    "TEACH_Q2",
+    "TERR_Q1",
+    "TERR_Q2"
+  ],
+  "baseline_ready_for_safe_executor_design": [
+    "CTRL_Q1",
+    "CTRL_Q3",
+    "EQUITY_Q1",
+    "FIN_Q2",
+    "FIN_Q4",
+    "TEACH_Q2",
+    "TERR_Q1",
+    "TERR_Q2"
+  ],
+  "baseline_blocked_metadata_only": [
+    "ACC_Q1",
+    "ACC_Q2",
+    "ACC_Q3",
+    "CTRL_Q2",
+    "FIN_Q3",
+    "INFRA_Q2",
+    "PLAN_Q3",
+    "PROC_Q1",
+    "PROC_Q2",
+    "PROC_Q3"
+  ],
+  "payload_truth": {
+    "local_rows_present_means_candidate_local_executable": true,
+    "declared_rows_without_local_rows_means_metadata_only": true,
+    "zero_declared_and_zero_local_means_missing": true,
+    "capability_metadata_authorizes_row_filtering": false,
+    "accounting_current_expected": "METADATA_ONLY",
+    "revenue_current_expected": "METADATA_ONLY"
+  },
+  "context": {
+    "planner_supported_period_mode": "YEAR",
+    "school_product_support": {
+      "SCHOOL_INDICATOR_SERIES": "STRUCTURED_SCHOOL_CODE",
+      "TERRITORY_PROFILE": "STRUCTURED_SCHOOL_CODE_WHEN_STRONG_LINK_ROW_EXISTS",
+      "FISCAL_SERIES": "NO_SCHOOL_GRAIN",
+      "JOM_EVENT_INDEX": "NO_STRUCTURED_SCHOOL_IDENTITY",
+      "PLANNING_DOCUMENT_INDEX": "NO_STRUCTURED_SCHOOL_IDENTITY",
+      "QUERY_PRODUCT_CATALOG": "NO_SCHOOL_GRAIN",
+      "ACCOUNTING_LEDGER": "METADATA_ONLY_CURRENTLY",
+      "REVENUE_LEDGER": "METADATA_ONLY_CURRENTLY"
+    },
+    "period_semantic_granularity_must_match_for_arithmetic": true,
+    "period_prefix_match_creates_equivalent_period": false
+  },
+  "join_safety": {
+    "weak_join_can_create_identity": false,
+    "weak_keys": [
+      "AMOUNT",
+      "DATE_PROXIMITY",
+      "OBJECT_TEXT",
+      "HISTORY_TEXT",
+      "SEMANTIC_SIMILARITY"
+    ],
+    "exact_year_is_contextual_alignment_not_identity": true,
+    "exact_school_code_can_support_structured_school_territory_alignment": true,
+    "fin_q2_mode": "SAFE_RATIO_ALIGNMENT",
+    "fin_q2_requirements": [
+      "MUNICIPAL_OR_NETWORK_COMPATIBLE_SCOPE",
+      "EXACT_ANNUAL_PERIOD",
+      "NUMERATOR_DENOMINATOR_PERIOD_SEMANTICS_MATCH"
+    ],
+    "teach_q2_mode": "PARALLEL_EVIDENCE_ONLY",
+    "equity_q1_mode": "EXACT_SCHOOL_CODE_OR_PARALLEL_CONTEXT",
+    "fin_q4_mode": "SAME_PRODUCT_SERIES_ALIGNMENT"
+  },
+  "claim_boundaries": {
+    "planner_computes_numeric_answer": false,
+    "planner_promotes_execution_class": false,
+    "metadata_only_equals_local_payload": false,
+    "municipal_numerator_may_be_divided_by_school_denominator": false,
+    "partial_period_equals_annual_period": false,
+    "jom_personnel_event_equals_workforce_stock": false,
+    "territory_sector_income_equals_student_household_income": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "llm": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
