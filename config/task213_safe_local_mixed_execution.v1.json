@@ -1,0 +1,155 @@
+{
+  "version": 1,
+  "schema": "TASK213_SAFE_LOCAL_MIXED_EXECUTION_V1",
+  "task": "TASK_213",
+  "issue": 670,
+  "base_main_sha": "4ffc4eb24aefe9ca1887a400313825e406922f00",
+  "mode": "T0_OFFLINE_SAFE_LOCAL_MIXED_RECIPE_EXECUTION",
+  "upstream_executor": "TASK211_DOCUMENT_EVENT_CONTEXT_EXECUTION_V1",
+  "planner": "TASK212_MIXED_CONTEXT_PLANNER_V1",
+  "output_schema": "OBSERVATORY_CONTEXTUAL_ANSWER_V1",
+  "execution_class": "SAFE_LOCAL_MIXED_RECIPE",
+  "promoted_questions": [
+    "CTRL_Q1",
+    "CTRL_Q3",
+    "EQUITY_Q1",
+    "FIN_Q2",
+    "FIN_Q4",
+    "TEACH_Q2",
+    "TERR_Q1",
+    "TERR_Q2"
+  ],
+  "metadata_blocked_questions": [
+    "ACC_Q1",
+    "ACC_Q2",
+    "ACC_Q3",
+    "CTRL_Q2",
+    "FIN_Q3",
+    "INFRA_Q2",
+    "PLAN_Q3",
+    "PROC_Q1",
+    "PROC_Q2",
+    "PROC_Q3"
+  ],
+  "no_context_execution_allowed_for_promoted_questions": true,
+  "planner_gate": {
+    "required_state": "READY_FOR_SAFE_EXECUTOR_DESIGN",
+    "bypass_allowed": false,
+    "numeric_answer_without_planner_approval": false
+  },
+  "fin_q2": {
+    "period_mode": "YEAR",
+    "numerator_product": "FISCAL_SERIES",
+    "numerator_metric": "EDUCATION_EXPENDITURE",
+    "denominator_product": "SCHOOL_INDICATOR_SERIES",
+    "denominator_metric": "BASIC_EDUCATION_ENROLLMENT",
+    "denominator_scope_level": "NETWORK",
+    "denominator_network": "MUNICIPAL",
+    "ratio_unit": "BRL_PER_ENROLLMENT",
+    "rounding": "DECIMAL_HALF_UP_2",
+    "exact_annual_period_required": true,
+    "school_context_supported": false
+  },
+  "fin_q4": {
+    "product": "FISCAL_SERIES",
+    "nominal_metric": "EDUCATION_EXPENDITURE",
+    "real_metric": "REAL_EDUCATION_EXPENDITURE",
+    "exact_annual_period_only": true,
+    "no_period_mode": "ALL_COMMON_ANNUAL_PERIODS",
+    "first_to_last_trend_rounding": "DECIMAL_HALF_UP_2"
+  },
+  "teach_q2": {
+    "school_product": "SCHOOL_INDICATOR_SERIES",
+    "jom_product": "JOM_EVENT_INDEX",
+    "stock_period": "2025",
+    "scope_level": "NETWORK",
+    "network": "MUNICIPAL",
+    "required_metrics": [
+      "STAFF_COUNT",
+      "EMPLOYMENT_BOND"
+    ],
+    "jom_mode": "PARALLEL_EVIDENCE_ONLY",
+    "bond_counts_additive": false,
+    "current_sme_snapshot_substitution_allowed": false,
+    "school_context_supported": false
+  },
+  "equity_q1": {
+    "school_product": "SCHOOL_INDICATOR_SERIES",
+    "territory_product": "TERRITORY_PROFILE",
+    "required_school_metrics": [
+      "PPI_SHARE",
+      "INSE",
+      "SPECIAL_EDUCATION_ENROLLMENT"
+    ],
+    "territory_period": "2022",
+    "school_link": "EXACT_STRUCTURED_SCHOOL_CODE_ONLY",
+    "held_codes": [
+      "35208437",
+      "35286229",
+      "35004773",
+      "35099569",
+      "35241885"
+    ],
+    "strong_links": 64,
+    "active_school_denominator": 69,
+    "held": 5,
+    "sector_income_equals_student_household_income": false,
+    "school_sector_equals_student_catchment": false
+  },
+  "territory": {
+    "product": "TERRITORY_PROFILE",
+    "period": "2022",
+    "strong_links": 64,
+    "active_school_denominator": 69,
+    "held": 5,
+    "exact_school_code_only": true,
+    "supported_school_metrics": [
+      "SECTOR_POPULATION",
+      "SECTOR_RESPONSIBLE_INCOME_MEAN",
+      "SECTOR_RESPONSIBLE_INCOME_MEDIAN",
+      "SECTOR_RESPONSIBLE_INCOME_MEAN_PERCENTILE"
+    ]
+  },
+  "control": {
+    "catalog_product": "QUERY_PRODUCT_CATALOG",
+    "metadata_only_products": [
+      "ACCOUNTING_LEDGER",
+      "REVENUE_LEDGER"
+    ],
+    "strength_enum": [
+      "LOCAL_VALIDATED_ROWS",
+      "LOCAL_READY_WITH_CAUTION_ROWS",
+      "METADATA_ONLY_REMOTE_SNAPSHOT",
+      "LOCAL_DERIVED_CATALOG"
+    ],
+    "catalog_readiness_equals_source_truth_strength": false,
+    "generated_at_proves_source_freshness": false
+  },
+  "claim_boundaries": {
+    "task213_executes_only_planner_approved_context": true,
+    "mixed_executor_replaces_upstream_20": false,
+    "metadata_blocked_10_promoted": false,
+    "weak_join_can_create_identity": false,
+    "partial_period_equals_annual_period": false,
+    "municipal_numerator_may_use_school_denominator": false,
+    "bond_categories_additive": false,
+    "jom_event_equals_workforce_stock": false,
+    "sector_income_equals_student_household_income": false,
+    "territory_period_may_be_relabelled_to_school_metric_period": false,
+    "catalog_readiness_equals_local_payload": false,
+    "caller_generated_at_equals_source_update_time": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "llm": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
