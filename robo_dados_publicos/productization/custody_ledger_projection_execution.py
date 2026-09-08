@@ -111,9 +111,11 @@ def load_projection() -> dict[str, Any]:
         "TASK_214_FIN_Q3_EDU_APPS_11_19.json",
     ):
         apps.extend(_load_json(FIXTURE_DIR / name))
+    eti = _load_json(FIXTURE_DIR / "TASK_214_FIN_Q3_ETI_ROWS.json")
     views["FIN_Q3_REVENUE_SOURCES"] = {
         **fin,
         "education_application_totals": apps,
+        "eti_rows": eti,
     }
     return {
         **manifest,
@@ -137,6 +139,13 @@ def validate_contract(path: str | Path = DEFAULT_CONTRACT) -> dict[str, Any]:
     _stop(by_stage["Anulação"][1:] == [684, "65259446.13"], "TASK214_ANULACAO")
     _stop(by_stage["Valor Liquidado"][1:] == [16460, "1024476679.69"], "TASK214_LIQUIDADO")
     _stop(by_stage["Valor Pago"][1:] == [14922, "921567699.04"], "TASK214_PAGO")
+    edu_stages = _sum_stage_rows(acc1["education_function_by_month_source_stage"], 1, 7)
+    _stop(edu_stages["Empenhado"]["amount_brl"] == "337824523.73", "TASK214_EDU_EMPENHADO")
+    _stop(edu_stages["Reforço"]["amount_brl"] == "34418997.78", "TASK214_EDU_REFORCO")
+    _stop(edu_stages["Anulação"]["amount_brl"] == "3481109.44", "TASK214_EDU_ANULACAO")
+    _stop(edu_stages["Valor Liquidado"]["amount_brl"] == "262452288.06", "TASK214_EDU_LIQUIDADO")
+    _stop(edu_stages["Valor Pago"]["amount_brl"] == "227797802.44", "TASK214_EDU_PAGO")
+    _stop(_commitment_arithmetic(edu_stages) == "368762412.07", "TASK214_EDU_ARITHMETIC")
 
     acc2 = projection["views"]["ACC_Q2_CLASSIFICATION_TOP30"]
     _stop(acc2["meta"]["classification_universe_group_count"] == 422, "TASK214_ACC2_GROUPS")
@@ -171,6 +180,38 @@ def validate_contract(path: str | Path = DEFAULT_CONTRACT) -> dict[str, Any]:
     _stop(signals["broad_education_application_net_brl"] == "241960964.18", "TASK214_FIN_EDU")
     _stop(signals["fundeb_linked_net_brl"] == "118066203.65", "TASK214_FIN_FUNDEB")
     _stop(signals["eti_all_linked_net_brl"] == "3692142.87", "TASK214_FIN_ETI")
+    _stop(
+        sum(int(row["source_row_count"]) for row in fin["funding_source_totals"]) == 2286,
+        "TASK214_FIN_SOURCE_ROW_RECONCILE",
+    )
+    _stop(
+        sum(int(row["source_row_count"]) for row in fin["education_application_totals"]) == 351,
+        "TASK214_FIN_APP_ROW_RECONCILE",
+    )
+    full_edu = sum((Decimal(row["amount_sum_brl"]) for row in fin["education_application_totals"]), Decimal("0"))
+    full_fundeb = sum(
+        (Decimal(row["amount_sum_brl"]) for row in fin["education_application_totals"] if row["fundeb_classification_any"]),
+        Decimal("0"),
+    )
+    eti = fin["eti_rows"]
+    _stop(eti["covered_source_rows"] == 7 and len(eti["rows"]) == 7, "TASK214_FIN_ETI_ROWS")
+    full_eti = sum((Decimal(row["amount_brl"]) for row in eti["rows"]), Decimal("0"))
+    direct_eti = sum(
+        (Decimal(row["amount_brl"]) for row in eti["rows"] if row["eti_direct_transfer"]),
+        Decimal("0"),
+    )
+    interest_eti = sum(
+        (Decimal(row["amount_brl"]) for row in eti["rows"] if row["eti_financial_remuneration"]),
+        Decimal("0"),
+    )
+    _stop(f"{full_edu:.2f}" == "241960964.18", "TASK214_FIN_EDU_RECOMPUTE")
+    _stop(f"{full_fundeb:.2f}" == "118066203.65", "TASK214_FIN_FUNDEB_RECOMPUTE")
+    _stop(f"{full_eti:.2f}" == "3692142.87", "TASK214_FIN_ETI_RECOMPUTE")
+    _stop(f"{direct_eti:.2f}" == "3606418.18", "TASK214_FIN_ETI_DIRECT")
+    _stop(f"{interest_eti:.2f}" == "85724.69", "TASK214_FIN_ETI_INTEREST")
+    _stop(eti["all_linked_net_brl"] == "3692142.87", "TASK214_FIN_ETI_PIN")
+    _stop(eti["direct_transfer_net_brl"] == "3606418.18", "TASK214_FIN_ETI_DIRECT_PIN")
+    _stop(eti["financial_remuneration_net_brl"] == "85724.69", "TASK214_FIN_ETI_INTEREST_PIN")
 
     return {
         "schema": "TASK214_CUSTODY_LEDGER_PROJECTIONS_VALIDATION_V1",
@@ -581,7 +622,31 @@ def _execute_fin_q3(
         })
     apps=view["education_application_totals"]
     fundeb=sum((_month_value(row,start,end) for row in apps if row["fundeb_classification_any"]),Decimal("0"))
-    eti=sum((_month_value(row,start,end) for row in apps if row["eti_classification_any"]),Decimal("0"))
+    eti_rows=view["eti_rows"]["rows"]
+    eti=sum(
+        (
+            Decimal(row["amount_brl"])
+            for row in eti_rows
+            if start <= int(row["revenue_month"]) <= end
+        ),
+        Decimal("0"),
+    )
+    eti_direct=sum(
+        (
+            Decimal(row["amount_brl"])
+            for row in eti_rows
+            if row["eti_direct_transfer"] and start <= int(row["revenue_month"]) <= end
+        ),
+        Decimal("0"),
+    )
+    eti_interest=sum(
+        (
+            Decimal(row["amount_brl"])
+            for row in eti_rows
+            if row["eti_financial_remuneration"] and start <= int(row["revenue_month"]) <= end
+        ),
+        Decimal("0"),
+    )
     broad_edu=sum((_month_value(row,start,end) for row in apps),Decimal("0"))
     _mark(filters,"PERIOD","GRANULARITY")
     facts=[
@@ -598,11 +663,14 @@ def _execute_fin_q3(
             "period":f"2026-{start:02d}" if start==end else f"2026-01..2026-{end:02d}",
             "fundeb_linked_brl":f"{fundeb:.2f}",
             "eti_linked_brl":f"{eti:.2f}",
+            "eti_direct_transfer_brl":f"{eti_direct:.2f}",
+            "eti_financial_remuneration_brl":f"{eti_interest:.2f}",
             "broad_education_application_brl":f"{broad_edu:.2f}",
             "fundeb_is_revenue_classification_not_expenditure_identity":True,
             "text":(
                 f"Aplicações de receita ligadas ao FUNDEB: R$ {fundeb:.2f}; "
-                f"ETI: R$ {eti:.2f}; conjunto amplo de aplicações educacionais: R$ {broad_edu:.2f}."
+                f"ETI: R$ {eti:.2f} (transferência direta R$ {eti_direct:.2f}; remuneração financeira R$ {eti_interest:.2f}); "
+                f"conjunto amplo de aplicações educacionais: R$ {broad_edu:.2f}."
             ),
         },
     ]
@@ -617,12 +685,14 @@ def _execute_fin_q3(
                 "education_application_source_rows":view["education_application_source_rows"],
                 "funding_source_category_count":len(view["funding_source_totals"]),
                 "education_application_category_count":len(apps),
+                "eti_source_rows_reconciled":len(eti_rows),
             },
         ],
         cautions=[
             "REVENUE_NE_EXPENDITURE",
             "FUNDING_SOURCE_CLASSIFICATION_NE_EXPENDITURE_DESTINATION",
             "FUNDEB_REVENUE_CLASSIFICATION_NE_FUNDEB_EXPENDITURE",
+            "ETI_DIRECT_TRANSFER_NE_ETI_FINANCIAL_REMUNERATION",
             "OBSERVED_JAN_JUL_2026_NE_FULL_YEAR_2026",
         ],
         contract=out,
