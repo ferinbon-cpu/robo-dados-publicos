@@ -1,0 +1,919 @@
+{
+  "version": 1,
+  "schema": "TASK207_NATURAL_LANGUAGE_ROUTER_V1",
+  "task": "TASK_207",
+  "issue": 658,
+  "base_main_sha": "143c11cb22cf38c801ab4595e112d02f972aa306",
+  "mode": "T0_OFFLINE_DETERMINISTIC_TEXT_TO_CANONICAL_QUESTION_ROUTER",
+  "normalization": {
+    "unicode_nfkd": true,
+    "strip_diacritics": true,
+    "casefold": true,
+    "non_alphanumeric_to_space": true,
+    "collapse_whitespace": true
+  },
+  "scoring": {
+    "exact_canonical_question_score": 100,
+    "phrase_weight": 8,
+    "term_weight": 2,
+    "negative_term_penalty": 3,
+    "low_confidence_min_score": 5,
+    "single_route_min_score": 8,
+    "single_route_min_margin": 4,
+    "compound_route_min_score_each": 8,
+    "compound_requires_phrase_match_each": true,
+    "max_compound_routes": 2,
+    "ambiguity_margin_lt": 4,
+    "confidence_score_divisor": 16,
+    "confidence_margin_divisor": 8
+  },
+  "compound_markers": [
+    " e ",
+    " tambem ",
+    " alem disso ",
+    " junto com ",
+    " mais "
+  ],
+  "route_states": [
+    "ROUTED",
+    "AMBIGUOUS",
+    "LOW_CONFIDENCE_STOP"
+  ],
+  "exact_canonical_text_self_route": true,
+  "question_routes": {
+    "NETWORK_Q1": {
+      "domain_id": "NETWORK_ENROLLMENT",
+      "phrases": [
+        "quantos alunos",
+        "quantas turmas",
+        "quantas escolas",
+        "alunos turmas escolas",
+        "tamanho da rede"
+      ],
+      "terms": [
+        "alunos",
+        "turmas",
+        "escolas",
+        "matriculas",
+        "rede"
+      ],
+      "negative_terms": [
+        "tempo integral",
+        "comparar"
+      ]
+    },
+    "NETWORK_Q2": {
+      "domain_id": "NETWORK_ENROLLMENT",
+      "phrases": [
+        "tempo integral",
+        "matriculas mudaram",
+        "evolucao das matriculas",
+        "etapas de ensino",
+        "matriculas etapas tempo integral"
+      ],
+      "terms": [
+        "matriculas",
+        "etapas",
+        "integral",
+        "evolucao",
+        "mudaram"
+      ],
+      "negative_terms": [
+        "comparar escola"
+      ]
+    },
+    "NETWORK_Q3": {
+      "domain_id": "NETWORK_ENROLLMENT",
+      "phrases": [
+        "comparar escola com a rede",
+        "escola versus rede",
+        "escola se compara a rede",
+        "comparacao escola rede"
+      ],
+      "terms": [
+        "comparar",
+        "comparacao",
+        "escola",
+        "rede"
+      ],
+      "negative_terms": [
+        "quantos alunos",
+        "tempo integral"
+      ]
+    },
+    "INFRA_Q1": {
+      "domain_id": "SCHOOLS_INFRASTRUCTURE",
+      "phrases": [
+        "infraestrutura da escola",
+        "recursos da escola",
+        "acessibilidade da escola",
+        "computadores na escola",
+        "estrutura escolar"
+      ],
+      "terms": [
+        "infraestrutura",
+        "recursos",
+        "acessibilidade",
+        "computadores",
+        "quadra",
+        "internet",
+        "estrutura"
+      ],
+      "negative_terms": [
+        "obra",
+        "reforma"
+      ]
+    },
+    "INFRA_Q2": {
+      "domain_id": "SCHOOLS_INFRASTRUCTURE",
+      "phrases": [
+        "obras nas escolas",
+        "reformas nas escolas",
+        "equipamentos nas escolas",
+        "manutencao predial",
+        "escolas receberam obras"
+      ],
+      "terms": [
+        "obras",
+        "reformas",
+        "equipamentos",
+        "manutencao",
+        "predial",
+        "escolas"
+      ],
+      "negative_terms": [
+        "acessibilidade"
+      ]
+    },
+    "LEARN_Q1": {
+      "domain_id": "LEARNING_FLOW",
+      "phrases": [
+        "ideb saeb saresp",
+        "como esta o ideb",
+        "resultados do saeb",
+        "resultados do saresp"
+      ],
+      "terms": [
+        "ideb",
+        "saeb",
+        "saresp",
+        "resultado",
+        "aprendizagem"
+      ],
+      "negative_terms": [
+        "aprovacao reprovacao",
+        "abandono"
+      ]
+    },
+    "LEARN_Q2": {
+      "domain_id": "LEARNING_FLOW",
+      "phrases": [
+        "aprendizagem ou fluxo",
+        "mudanca veio de aprendizagem",
+        "proficiencia e aprovacao",
+        "ideb mudou por aprendizagem"
+      ],
+      "terms": [
+        "aprendizagem",
+        "fluxo",
+        "proficiencia",
+        "aprovacao",
+        "ideb",
+        "mudanca"
+      ],
+      "negative_terms": [
+        "abandono",
+        "distorcao"
+      ]
+    },
+    "LEARN_Q3": {
+      "domain_id": "LEARNING_FLOW",
+      "phrases": [
+        "aprovacao reprovacao abandono distorcao",
+        "fluxo escolar",
+        "distorcao idade serie",
+        "taxa de abandono"
+      ],
+      "terms": [
+        "aprovacao",
+        "reprovacao",
+        "abandono",
+        "distorcao",
+        "fluxo",
+        "idade",
+        "serie"
+      ],
+      "negative_terms": [
+        "saeb",
+        "saresp"
+      ]
+    },
+    "EQUITY_Q1": {
+      "domain_id": "EQUITY_INCLUSION",
+      "phrases": [
+        "desigualdade por raca renda e territorio",
+        "desigualdade por contexto social",
+        "raca cor e territorio",
+        "ppi inse",
+        "vulnerabilidade territorial"
+      ],
+      "terms": [
+        "desigualdade",
+        "raca",
+        "cor",
+        "renda",
+        "territorio",
+        "inse",
+        "ppi",
+        "vulnerabilidade",
+        "deficiencia",
+        "contexto"
+      ],
+      "negative_terms": [
+        "aee"
+      ]
+    },
+    "EQUITY_Q2": {
+      "domain_id": "EQUITY_INCLUSION",
+      "phrases": [
+        "como esta o aee",
+        "educacao especial e aee",
+        "sala de recursos",
+        "inclusao e aee",
+        "distribuicao do aee"
+      ],
+      "terms": [
+        "aee",
+        "educacao especial",
+        "inclusao",
+        "deficiencia",
+        "sala",
+        "recursos"
+      ],
+      "negative_terms": [
+        "raca",
+        "inse",
+        "territorio"
+      ]
+    },
+    "TEACH_Q1": {
+      "domain_id": "TEACHERS_WORKFORCE",
+      "phrases": [
+        "formacao e esforco dos professores",
+        "formacao adequada dos docentes",
+        "regularidade docente",
+        "esforco docente",
+        "adequacao docente"
+      ],
+      "terms": [
+        "formacao",
+        "adequada",
+        "regularidade",
+        "esforco",
+        "docente",
+        "professores",
+        "afd",
+        "ird"
+      ],
+      "negative_terms": [
+        "efetivos",
+        "temporarios",
+        "clt",
+        "vinculos",
+        "quantos"
+      ]
+    },
+    "TEACH_Q2": {
+      "domain_id": "TEACHERS_WORKFORCE",
+      "phrases": [
+        "quantos professores efetivos temporarios e clt",
+        "vinculos dos professores",
+        "quadro de professores",
+        "quantos profissionais",
+        "professores efetivos e temporarios"
+      ],
+      "terms": [
+        "professores",
+        "profissionais",
+        "vinculos",
+        "efetivos",
+        "temporarios",
+        "clt",
+        "quadro",
+        "contratados"
+      ],
+      "negative_terms": [
+        "formacao",
+        "regularidade",
+        "esforco",
+        "afd",
+        "ird"
+      ]
+    },
+    "FIN_Q1": {
+      "domain_id": "FINANCING",
+      "phrases": [
+        "quanto limeira gastou com educacao",
+        "quanto limeira gasta com educacao",
+        "gasto com educacao",
+        "despesa com educacao",
+        "quanto gasta na educacao"
+      ],
+      "terms": [
+        "quanto",
+        "gasto",
+        "gasta",
+        "gastou",
+        "educacao",
+        "despesa"
+      ],
+      "negative_terms": [
+        "por aluno",
+        "fundeb",
+        "transferencias",
+        "nominal",
+        "inflacao"
+      ]
+    },
+    "FIN_Q2": {
+      "domain_id": "FINANCING",
+      "phrases": [
+        "quanto por aluno",
+        "gasto por aluno",
+        "despesa por estudante",
+        "custo por aluno",
+        "quanto se gasta por aluno"
+      ],
+      "terms": [
+        "aluno",
+        "estudante",
+        "por aluno",
+        "gasto",
+        "custo",
+        "despesa"
+      ],
+      "negative_terms": [
+        "fundeb",
+        "transferencias",
+        "empenhado",
+        "liquidado",
+        "pago"
+      ]
+    },
+    "FIN_Q3": {
+      "domain_id": "FINANCING",
+      "phrases": [
+        "quanto veio do fundeb",
+        "fundeb e transferencias",
+        "recursos proprios e transferencias",
+        "origem do dinheiro da educacao",
+        "receitas do fundeb"
+      ],
+      "terms": [
+        "fundeb",
+        "recursos proprios",
+        "transferencias",
+        "receitas",
+        "receita",
+        "origem",
+        "dinheiro"
+      ],
+      "negative_terms": [
+        "empenhado",
+        "liquidado",
+        "pago",
+        "por aluno",
+        "inflacao"
+      ]
+    },
+    "FIN_Q4": {
+      "domain_id": "FINANCING",
+      "phrases": [
+        "valor nominal e real",
+        "gasto nominal e real",
+        "gasto real com inflacao",
+        "corrigido pela inflacao",
+        "evolucao real do gasto"
+      ],
+      "terms": [
+        "nominal",
+        "real",
+        "inflacao",
+        "corrigido",
+        "evolucao",
+        "valores"
+      ],
+      "negative_terms": [
+        "fundeb",
+        "por aluno"
+      ]
+    },
+    "PLAN_Q1": {
+      "domain_id": "PLANNING_BUDGET",
+      "phrases": [
+        "ppa ldo loa",
+        "o que o ppa prometeu",
+        "o que a loa autorizou",
+        "planejamento orcamentario",
+        "ppa ldo e loa"
+      ],
+      "terms": [
+        "ppa",
+        "ldo",
+        "loa",
+        "prometeu",
+        "autorizou",
+        "planejamento",
+        "orcamento"
+      ],
+      "negative_terms": [
+        "execucao",
+        "coerente"
+      ]
+    },
+    "PLAN_Q2": {
+      "domain_id": "PLANNING_BUDGET",
+      "phrases": [
+        "programas acoes metas dotacoes",
+        "quais metas do ppa",
+        "dotacoes da educacao",
+        "acoes orcamentarias",
+        "programas e metas"
+      ],
+      "terms": [
+        "programas",
+        "acoes",
+        "metas",
+        "dotacoes",
+        "ppa",
+        "orcamentarias"
+      ],
+      "negative_terms": [
+        "execucao",
+        "coerente"
+      ]
+    },
+    "PLAN_Q3": {
+      "domain_id": "PLANNING_BUDGET",
+      "phrases": [
+        "planejamento e execucao",
+        "prometeu e executou",
+        "previsto versus executado",
+        "orcamento previsto e gasto",
+        "planejado versus executado"
+      ],
+      "terms": [
+        "planejamento",
+        "execucao",
+        "executado",
+        "previsto",
+        "coerente",
+        "gasto"
+      ],
+      "negative_terms": [
+        "metas dotacoes"
+      ]
+    },
+    "ACC_Q1": {
+      "domain_id": "ACCOUNTING_EXECUTION",
+      "phrases": [
+        "empenhado liquidado e pago",
+        "quanto foi empenhado",
+        "quanto foi liquidado",
+        "quanto foi pago",
+        "estagios da despesa"
+      ],
+      "terms": [
+        "empenhado",
+        "liquidado",
+        "pago",
+        "pagamento",
+        "liquidacao",
+        "empenho"
+      ],
+      "negative_terms": [
+        "restos",
+        "ficha",
+        "dotacao",
+        "aplicacao"
+      ]
+    },
+    "ACC_Q2": {
+      "domain_id": "ACCOUNTING_EXECUTION",
+      "phrases": [
+        "ficha dotacao fonte e aplicacao",
+        "qual fonte do gasto",
+        "qual ficha orcamentaria",
+        "codigo de aplicacao",
+        "elemento de despesa"
+      ],
+      "terms": [
+        "ficha",
+        "dotacao",
+        "fonte",
+        "aplicacao",
+        "elemento",
+        "programa",
+        "acao",
+        "classificacao"
+      ],
+      "negative_terms": [
+        "restos",
+        "pago liquidado"
+      ]
+    },
+    "ACC_Q3": {
+      "domain_id": "ACCOUNTING_EXECUTION",
+      "phrases": [
+        "restos a pagar",
+        "tem restos a pagar",
+        "rap processados",
+        "rap nao processados",
+        "saldo de restos"
+      ],
+      "terms": [
+        "restos",
+        "rap",
+        "processados",
+        "nao processados",
+        "saldo"
+      ],
+      "negative_terms": [
+        "empenhado liquidado pago",
+        "ficha dotacao"
+      ]
+    },
+    "PROC_Q1": {
+      "domain_id": "PROCUREMENT_CONTRACTS",
+      "phrases": [
+        "o que a prefeitura esta comprando",
+        "compras da prefeitura",
+        "o que foi licitado",
+        "objeto da licitacao",
+        "o que esta comprando"
+      ],
+      "terms": [
+        "comprando",
+        "compras",
+        "licitado",
+        "licitacao",
+        "objeto",
+        "aquisicao"
+      ],
+      "negative_terms": [
+        "fornecedor",
+        "aditivo"
+      ]
+    },
+    "PROC_Q2": {
+      "domain_id": "PROCUREMENT_CONTRACTS",
+      "phrases": [
+        "quem fornece",
+        "qual fornecedor",
+        "valor do contrato",
+        "por quanto tempo",
+        "empresa contratada",
+        "quem e o fornecedor"
+      ],
+      "terms": [
+        "fornecedor",
+        "fornece",
+        "empresa",
+        "contratada",
+        "contrato",
+        "valor",
+        "vigencia"
+      ],
+      "negative_terms": [
+        "aditivo",
+        "apostilamento"
+      ]
+    },
+    "PROC_Q3": {
+      "domain_id": "PROCUREMENT_CONTRACTS",
+      "phrases": [
+        "aditivo apostilamento nova licitacao",
+        "houve aditivo",
+        "houve apostilamento",
+        "prorrogacao contratual",
+        "nova licitacao"
+      ],
+      "terms": [
+        "aditivo",
+        "apostilamento",
+        "prorrogacao",
+        "licitacao",
+        "alteracao contratual"
+      ],
+      "negative_terms": [
+        "quem fornece"
+      ]
+    },
+    "PERS_Q1": {
+      "domain_id": "PERSONNEL_MANAGEMENT",
+      "phrases": [
+        "nomeacoes concursos processos seletivos",
+        "quem foi nomeado",
+        "concurso da educacao",
+        "processo seletivo",
+        "nomeacoes e exoneracoes"
+      ],
+      "terms": [
+        "nomeacoes",
+        "nomeacao",
+        "exoneracoes",
+        "exoneracao",
+        "concurso",
+        "processo seletivo",
+        "selecao"
+      ],
+      "negative_terms": [
+        "vinculos",
+        "formacao docente"
+      ]
+    },
+    "PERS_Q2": {
+      "domain_id": "PERSONNEL_MANAGEMENT",
+      "phrases": [
+        "cargos e funcoes",
+        "quais cargos da educacao",
+        "funcoes gratificadas",
+        "cargos da rede",
+        "diretor ade professor"
+      ],
+      "terms": [
+        "cargos",
+        "funcoes",
+        "funcao",
+        "diretor",
+        "ade",
+        "secretario",
+        "coordenador"
+      ],
+      "negative_terms": [
+        "nomeacao concurso",
+        "vinculos"
+      ]
+    },
+    "NORMS_Q1": {
+      "domain_id": "NORMS_SCHOOL_FUNCTIONING",
+      "phrases": [
+        "normas mudaram o funcionamento",
+        "nova norma escolar",
+        "resolucao da educacao",
+        "decreto sobre escola",
+        "normas das escolas"
+      ],
+      "terms": [
+        "normas",
+        "norma",
+        "resolucao",
+        "decreto",
+        "regra",
+        "funcionamento",
+        "escolas"
+      ],
+      "negative_terms": [
+        "politica publica"
+      ]
+    },
+    "NORMS_Q2": {
+      "domain_id": "NORMS_SCHOOL_FUNCTIONING",
+      "phrases": [
+        "normas calendario matricula jornada",
+        "mudou o calendario",
+        "regra de matricula",
+        "atribuicao de classes",
+        "transporte escolar alimentacao inclusao gestao"
+      ],
+      "terms": [
+        "calendario",
+        "matricula",
+        "jornada",
+        "atribuicao",
+        "transporte",
+        "alimentacao",
+        "inclusao",
+        "gestao",
+        "norma",
+        "regra"
+      ],
+      "negative_terms": [
+        "politica publica"
+      ]
+    },
+    "POLICY_Q1": {
+      "domain_id": "PUBLIC_POLICIES",
+      "phrases": [
+        "politicas criadas alteradas regulamentadas",
+        "nova politica publica",
+        "regulamentacao de politica",
+        "politica foi criada",
+        "politica foi alterada"
+      ],
+      "terms": [
+        "politica",
+        "politicas",
+        "criada",
+        "alterada",
+        "regulamentada",
+        "regulamentacao"
+      ],
+      "negative_terms": [
+        "calendario matricula"
+      ]
+    },
+    "POLICY_Q2": {
+      "domain_id": "PUBLIC_POLICIES",
+      "phrases": [
+        "metas publico recursos e unidades da politica",
+        "quem atende a politica",
+        "metas da politica",
+        "recursos da politica",
+        "unidades vinculadas"
+      ],
+      "terms": [
+        "metas",
+        "publico",
+        "beneficiarios",
+        "recursos",
+        "unidades",
+        "politica",
+        "vinculados"
+      ],
+      "negative_terms": [
+        "ppa ldo loa"
+      ]
+    },
+    "JOM_Q1": {
+      "domain_id": "JOURNAL_EVENT_RADAR",
+      "phrases": [
+        "o que saiu no jornal oficial",
+        "jornal oficial da educacao",
+        "publicacoes do jornal oficial",
+        "o que saiu no diario oficial"
+      ],
+      "terms": [
+        "jornal oficial",
+        "diario oficial",
+        "publicacoes",
+        "publicado",
+        "educacao"
+      ],
+      "negative_terms": [
+        "evento financeiro normativo"
+      ]
+    },
+    "JOM_Q2": {
+      "domain_id": "JOURNAL_EVENT_RADAR",
+      "phrases": [
+        "eventos financeiros normativos administrativos operacionais",
+        "atos administrativos recentes",
+        "eventos do jornal oficial",
+        "eventos normativos e administrativos"
+      ],
+      "terms": [
+        "eventos",
+        "financeiros",
+        "normativos",
+        "administrativos",
+        "operacionais",
+        "atos",
+        "jornal"
+      ],
+      "negative_terms": [
+        "o que saiu"
+      ]
+    },
+    "TERR_Q1": {
+      "domain_id": "TERRITORY_CONTEXT",
+      "phrases": [
+        "contexto demografico e socioeconomico",
+        "populacao e renda do territorio",
+        "dados do ibge",
+        "contexto socioeconomico do territorio"
+      ],
+      "terms": [
+        "demografico",
+        "socioeconomico",
+        "populacao",
+        "renda",
+        "territorio",
+        "ibge",
+        "contexto"
+      ],
+      "negative_terms": [
+        "comparar territorios"
+      ]
+    },
+    "TERR_Q2": {
+      "domain_id": "TERRITORY_CONTEXT",
+      "phrases": [
+        "comparacoes territoriais",
+        "comparar bairros",
+        "comparar setores censitarios",
+        "comparacao entre territorios",
+        "quais territorios comparar"
+      ],
+      "terms": [
+        "comparacoes",
+        "comparar",
+        "bairros",
+        "setores",
+        "territorios",
+        "territorial"
+      ],
+      "negative_terms": [
+        "populacao renda"
+      ]
+    },
+    "CTRL_Q1": {
+      "domain_id": "TRANSPARENCY_CONTROL",
+      "phrases": [
+        "fontes completas bloqueadas ou desatualizadas",
+        "fontes desatualizadas",
+        "fontes bloqueadas",
+        "status das fontes",
+        "qual fonte esta atrasada"
+      ],
+      "terms": [
+        "fontes",
+        "completas",
+        "bloqueadas",
+        "desatualizadas",
+        "status",
+        "atrasada"
+      ],
+      "negative_terms": [
+        "tce corrobora",
+        "forca evidencia"
+      ]
+    },
+    "CTRL_Q2": {
+      "domain_id": "TRANSPARENCY_CONTROL",
+      "phrases": [
+        "o que o tce corrobora",
+        "controles corroboram",
+        "auditoria do tce",
+        "reconciliacao com tce",
+        "demais controles corroboram"
+      ],
+      "terms": [
+        "tce",
+        "controles",
+        "corrobora",
+        "corroboram",
+        "auditoria",
+        "reconciliacao"
+      ],
+      "negative_terms": [
+        "fontes desatualizadas",
+        "forca evidencia"
+      ]
+    },
+    "CTRL_Q3": {
+      "domain_id": "TRANSPARENCY_CONTROL",
+      "phrases": [
+        "forca da evidencia",
+        "qualidade da evidencia",
+        "evidencia forte ou fraca",
+        "grau de evidencia"
+      ],
+      "terms": [
+        "forca",
+        "qualidade",
+        "evidencia",
+        "forte",
+        "fraca",
+        "grau"
+      ],
+      "negative_terms": [
+        "fontes bloqueadas",
+        "tce corrobora"
+      ]
+    }
+  },
+  "hard_guards": [
+    "TEXT_ROUTE_NE_TRUTH_SOURCE",
+    "ROUTING_SCORE_NE_NUMERIC_EVIDENCE",
+    "AMBIGUITY_MUST_REMAIN_VISIBLE",
+    "LOW_CONFIDENCE_MUST_STOP",
+    "EXACT_CANONICAL_TEXT_SELF_ROUTES",
+    "NO_EMBEDDING_OR_LLM_REQUIRED",
+    "ROUTED_IDS_MUST_EXIST_IN_CURRENT_38",
+    "ROUTER_MAY_CALL_RENDERER_ONLY_AFTER_ROUTE_GATE"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "llm": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
