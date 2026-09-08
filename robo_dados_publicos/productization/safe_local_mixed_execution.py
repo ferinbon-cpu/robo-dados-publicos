@@ -110,6 +110,19 @@ def load_contract(path: str | Path = DEFAULT_CONTRACT) -> dict[str, Any]:
         "TASK213_EQUITY_COVERAGE",
     )
     _stop(
+        obj["equity_q1"]["no_period_resolution"]
+        == "LATEST_EXACT_ROW_PER_REQUIRED_METRIC_WITH_NATIVE_PERIOD",
+        "TASK213_EQUITY_PERIOD_RESOLUTION",
+    )
+    _stop(
+        obj["equity_q1"]["explicit_year_requires_all_required_metrics_in_exact_year"] is True,
+        "TASK213_EQUITY_EXACT_YEAR",
+    )
+    _stop(
+        obj["equity_q1"]["nearest_period_substitution"] is False,
+        "TASK213_EQUITY_NO_NEAREST",
+    )
+    _stop(
         set(obj["equity_q1"]["held_codes"])
         == {"35208437", "35286229", "35004773", "35099569", "35241885"},
         "TASK213_EQUITY_HELD",
@@ -132,6 +145,7 @@ def load_contract(path: str | Path = DEFAULT_CONTRACT) -> dict[str, Any]:
         "territory_period_may_be_relabelled_to_school_metric_period",
         "catalog_readiness_equals_local_payload",
         "caller_generated_at_equals_source_update_time",
+        "equity_metric_periods_may_be_collapsed_to_single_year",
     ):
         _stop(bounds[key] is False, f"TASK213_BOUNDARY_{key}")
     _stop(bounds["task213_executes_only_planner_approved_context"] is True, "TASK213_PLANNER_BOUNDARY")
@@ -739,26 +753,41 @@ def _metric_rows_for_scope(
     return rows
 
 
-def _complete_metric_period(
+def _select_required_metric_rows(
     rows: list[dict[str, Any]],
     metric_ids: set[str],
     requested_year: str | None,
-) -> tuple[str | None, list[dict[str, Any]]]:
-    by_period: dict[str, dict[str, list[dict[str, Any]]]] = {}
+) -> tuple[list[dict[str, Any]], list[str]]:
+    by_metric: dict[str, list[dict[str, Any]]] = {
+        metric_id: [] for metric_id in metric_ids
+    }
     for row in rows:
-        by_period.setdefault(str(row["period"]), {}).setdefault(
-            str(row["indicator_id"]), []
-        ).append(row)
-    complete = []
-    for period, metrics in by_period.items():
-        if set(metrics) == metric_ids and all(len(items) == 1 for items in metrics.values()):
-            complete.append(period)
-    complete.sort()
-    selected = requested_year or (complete[-1] if complete else None)
-    if selected is None or selected not in complete:
-        return None, []
-    ordered = [by_period[selected][metric][0] for metric in sorted(metric_ids)]
-    return selected, ordered
+        metric_id = str(row.get("indicator_id") or "")
+        if metric_id in by_metric:
+            by_metric[metric_id].append(row)
+
+    selected: list[dict[str, Any]] = []
+    for metric_id in sorted(metric_ids):
+        candidates = by_metric[metric_id]
+        if requested_year is not None:
+            candidates = [
+                row for row in candidates
+                if str(row.get("period") or "") == requested_year
+            ]
+        if not candidates:
+            return [], []
+        candidates.sort(key=lambda row: (str(row.get("period") or ""), _canonical_json(row)))
+        if requested_year is None:
+            latest_period = str(candidates[-1].get("period") or "")
+            candidates = [
+                row for row in candidates
+                if str(row.get("period") or "") == latest_period
+            ]
+        if len(candidates) != 1:
+            return [], []
+        selected.append(candidates[0])
+    periods = sorted({str(row.get("period") or "") for row in selected})
+    return selected, periods
 
 
 def _territory_school_rows(
@@ -842,12 +871,12 @@ def _execute_equity_q1(
         metric_ids=metric_ids,
         school_code=school_code,
     )
-    selected_period, selected_metrics = _complete_metric_period(
+    selected_metrics, metric_periods = _select_required_metric_rows(
         metric_rows,
         metric_ids,
         year,
     )
-    if selected_period is None:
+    if not selected_metrics:
         return _planner_blocked(
             text=text,
             context=context,
@@ -955,7 +984,7 @@ def _execute_equity_q1(
         question_id="EQUITY_Q1",
         filter_accounting=filters,
         facts=facts,
-        time_reference=[selected_period, "2022"],
+        time_reference=sorted(set([*metric_periods, "2022"])),
         comparisons=[],
         provenance=provenance,
         cautions=cautions,
