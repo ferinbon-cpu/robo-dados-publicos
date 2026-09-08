@@ -1,0 +1,8 @@
+{
+  "schema": "TASK217C_RUNTIME_TRIGGER_V1",
+  "task": "TASK_217C",
+  "implementation_sha": "993f8a07516bae641461221959552e6e2950a8d1",
+  "authorization": "runtime/task217c_owner_authorization.json",
+  "operation": "BOUNDED_2026_JOM_MONTHLY_DISCOVERY_READ_ONLY",
+  "attempt_count": 1
+}
