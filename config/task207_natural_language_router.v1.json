@@ -25,7 +25,8 @@
     "max_compound_routes": 2,
     "ambiguity_margin_lt": 4,
     "confidence_score_divisor": 16,
-    "confidence_margin_divisor": 8
+    "confidence_margin_divisor": 8,
+    "ambiguity_candidate_min_score": 2
   },
   "compound_markers": [
     " e ",
@@ -313,6 +314,7 @@
     "FIN_Q1": {
       "domain_id": "FINANCING",
       "phrases": [
+        "quanto gastou com educacao",
         "quanto limeira gastou com educacao",
         "quanto limeira gasta com educacao",
         "gasto com educacao",
