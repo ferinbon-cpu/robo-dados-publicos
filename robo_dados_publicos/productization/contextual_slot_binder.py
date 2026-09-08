@@ -424,6 +424,7 @@ def extract_policy_service_facets(
 def _task207_route_with_school_bridge(
     text: str,
     school: Mapping[str, Any],
+    facets: list[str],
     *,
     contract: Mapping[str, Any],
 ) -> dict[str, Any]:
@@ -436,10 +437,60 @@ def _task207_route_with_school_bridge(
             "task207": route,
         }
 
+    normalized = normalize_text(text)
+    has_comparison = any(
+        _contains(normalized, marker)
+        for marker in contract["comparison_markers"]
+    )
+    has_network = any(
+        _contains(normalized, marker)
+        for marker in contract["network_markers"]
+    )
+
+    network_bridge = contract["contextual_route_bridges"]["NETWORK_Q3"]
+    if (
+        school.get("status") == "RESOLVED"
+        and network_bridge["requires_resolved_school"]
+        and has_comparison
+        and network_bridge["requires_comparison_marker"]
+        and has_network
+        and network_bridge["requires_network_marker"]
+    ):
+        return {
+            "origin": "TASK208_CONTEXTUAL_BRIDGE:NETWORK_Q3",
+            "state": "ROUTED",
+            "selected_question_ids": ["NETWORK_Q3"],
+            "task207": route,
+        }
+
+    fin_bridge = contract["contextual_route_bridges"]["FIN_Q1"]
+    if (
+        all(_contains(normalized, term) for term in fin_bridge["required_all"])
+        and any(_contains(normalized, term) for term in fin_bridge["required_any"])
+    ):
+        return {
+            "origin": "TASK208_CONTEXTUAL_BRIDGE:FIN_Q1",
+            "state": "ROUTED",
+            "selected_question_ids": ["FIN_Q1"],
+            "task207": route,
+        }
+
+    norms_bridge = contract["contextual_route_bridges"]["NORMS_Q2"]
+    if (
+        all(facet in facets for facet in norms_bridge["required_facets"])
+        and any(_contains(normalized, term) for term in norms_bridge["required_any"])
+    ):
+        return {
+            "origin": "TASK208_CONTEXTUAL_BRIDGE:NORMS_Q2",
+            "state": "ROUTED",
+            "selected_question_ids": ["NORMS_Q2"],
+            "task207": route,
+        }
+
     broad_profile = (
         school.get("status") == "RESOLVED"
         and any(
-            _contains(normalize_text(text), phrase)
+            _contains(normalized, phrase)
             for phrase in contract["broad_school_profile"]["phrases"]
         )
     )
@@ -459,7 +510,6 @@ def _task207_route_with_school_bridge(
         "selected_question_ids": [],
         "task207": route,
     }
-
 
 def _granularity(
     text: str,
@@ -563,6 +613,7 @@ def bind_context(
         route = _task207_route_with_school_bridge(
             text,
             school,
+            facets,
             contract=contract,
         )
         state = (
