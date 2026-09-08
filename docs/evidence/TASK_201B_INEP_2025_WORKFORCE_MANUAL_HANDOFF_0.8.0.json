@@ -1,0 +1,117 @@
+{
+  "schema": "TASK201B_INEP_2025_WORKFORCE_MANUAL_HANDOFF_V1",
+  "task": "TASK_201B",
+  "source": {
+    "handoff": "USER_SUPPLIED_OFFICIAL_INEP_PACKAGE",
+    "official_package_basename": "sinopse_estatistica_censo_escolar_2025.zip",
+    "zip_sha256": "a8a41fcd487e98dc26c9107dfd92f403641983b2737d50497bac3e47b4f051c8",
+    "zip_bytes": 232142480,
+    "xlsx_member_basename": "Sinopse_Estatistica_da_Educação_Basica_2025_V2.xlsx",
+    "xlsx_sha256": "af3a0f13731214730c4baa362bfc542c526c8c81d31c48e699919623c491462c",
+    "xlsx_md5": "07461C4FD19E120EF31945AF8A3D0625",
+    "xlsx_bytes": 198910563,
+    "official_manifest_md5_verified": true,
+    "source_family": "CENSO_ESCOLAR"
+  },
+  "scope": {
+    "year": 2025,
+    "municipality": "Limeira",
+    "state": "SP",
+    "municipality_code": "3526902",
+    "network_target": "MUNICIPAL"
+  },
+  "staff_count": {
+    "metric_id": "STAFF_COUNT",
+    "semantic": "UNIQUE_DOCENTES_IN_EFFECTIVE_CLASSROOM_TEACHING_WITHIN_MUNICIPAL_DEPENDENCY",
+    "value": 1280,
+    "unit": "COUNT",
+    "source_sheet": "2.2",
+    "source_row": 3608,
+    "public_network_total": 2169,
+    "municipality_all_dependencies_total": 3113
+  },
+  "employment_bonds": {
+    "metric_id": "EMPLOYMENT_BOND",
+    "semantic": "UNIQUE_DOCENTES_WITHIN_EACH_FUNCTIONAL_BOND_AND_MUNICIPAL_DEPENDENCY",
+    "source_sheet": "2.6",
+    "source_row": 3607,
+    "categories": [
+      {
+        "bond_id": "CONCURSADO_EFETIVO_ESTAVEL",
+        "label": "Concursado/efetivo/estável",
+        "value": 681,
+        "unit": "COUNT"
+      },
+      {
+        "bond_id": "CONTRATO_TEMPORARIO",
+        "label": "Contrato Temporário",
+        "value": 291,
+        "unit": "COUNT"
+      },
+      {
+        "bond_id": "CONTRATO_TERCEIRIZADO",
+        "label": "Contrato terceirizado",
+        "value": 0,
+        "unit": "COUNT"
+      },
+      {
+        "bond_id": "CONTRATO_CLT",
+        "label": "Contrato CLT",
+        "value": 400,
+        "unit": "COUNT"
+      }
+    ],
+    "sum_of_category_counts": 1372,
+    "network_unique_docentes": 1280,
+    "additivity": "NON_ADDITIVE",
+    "non_additivity_reason": "SAME_DOCENTE_MAY_HAVE_MORE_THAN_ONE_FUNCTIONAL_BOND; INEP_COUNTS_ONCE_WITHIN_EACH_BOND_DEPENDENCY_CELL"
+  },
+  "sme_current_context": {
+    "period": "2026-09-07",
+    "source_family": "MUNICIPAL_REPORTS",
+    "source_url": "https://sme.limeira.sp.gov.br/contratado_classe.php",
+    "source_sha256": "eff80717acfdef9fa9ee1086e4538d795f013f6b5b4153fda2215feb328a7b26",
+    "workflow_run": 34164903116,
+    "artifact_id": 10033823661,
+    "assignment_rows": 843,
+    "unique_contracted_teachers": 842,
+    "people_with_multiple_assignment_rows": 1,
+    "distinct_school_label_count": 72,
+    "role_counts": {
+      "ARTE": 93,
+      "EDUCAÇÃO ESPECIAL": 188,
+      "EDUCAÇÃO FÍSICA": 74,
+      "EDUCAÇÃO INFANTIL": 229,
+      "ENSINO FUNDAMENTAL": 259
+    },
+    "person_level_output": false,
+    "caution": "CURRENT_OPERATIONAL_CONTRACTED_TEACHER_SNAPSHOT_NE_2025_CENSUS_TOTAL_OR_BOND_COUNTS"
+  },
+  "answerability_intent": {
+    "target_question": "TEACH_Q2",
+    "required_signals": [
+      "STAFF_COUNT",
+      "EMPLOYMENT_BOND"
+    ],
+    "before": {
+      "MATERIALIZED_ANSWERABLE": 36,
+      "MATERIALIZED_PARTIAL": 2
+    },
+    "desired_after": {
+      "MATERIALIZED_ANSWERABLE": 37,
+      "MATERIALIZED_PARTIAL": 1
+    },
+    "remaining_partial": [
+      "EQUITY_Q1"
+    ]
+  },
+  "guards": [
+    "STAFF_COUNT_RESTRICTED_TO_DOCENTES_NOT_ALL_EDUCATION_WORKERS",
+    "BOND_CATEGORY_COUNTS_NON_ADDITIVE",
+    "NO_PERSON_LEVEL_DATA",
+    "EXPLICIT_ZERO_FOR_OUTSOURCED_IS_SOURCE_VALUE",
+    "YEAR_2025_ONLY_FOR_INEP_CANONICAL_ROWS",
+    "2025_INEP_NE_2026_SME_SNAPSHOT",
+    "MANUAL_HANDOFF_SHA_PINNED"
+  ]
+}

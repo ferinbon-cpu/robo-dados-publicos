@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "schema": "TASK201B_INEP_WORKFORCE_MATERIALIZATION_V1",
+  "task": "TASK_201B",
+  "parent_issue": 639,
+  "base_main_sha": "c997529f76c817b3d11232475918c5e4e3d9f0a5",
+  "mode": "USER_HANDOFF_OFFICIAL_INEP_AGGREGATE_MATERIALIZATION",
+  "source": {
+    "family": "CENSO_ESCOLAR",
+    "year": 2025,
+    "municipality": "Limeira",
+    "state": "SP",
+    "municipality_code": "3526902",
+    "zip_sha256": "a8a41fcd487e98dc26c9107dfd92f403641983b2737d50497bac3e47b4f051c8",
+    "zip_bytes": 232142480,
+    "xlsx_basename": "Sinopse_Estatistica_da_Educação_Basica_2025_V2.xlsx",
+    "xlsx_sha256": "af3a0f13731214730c4baa362bfc542c526c8c81d31c48e699919623c491462c",
+    "xlsx_md5": "07461C4FD19E120EF31945AF8A3D0625",
+    "xlsx_bytes": 198910563,
+    "official_manifest_md5_verified": true
+  },
+  "staff_count": {
+    "sheet": "2.2",
+    "row": 3608,
+    "value": 1280,
+    "unit": "COUNT",
+    "semantic": "UNIQUE_DOCENTES_IN_EFFECTIVE_CLASSROOM_TEACHING_WITHIN_MUNICIPAL_DEPENDENCY",
+    "public_network_total": 2169,
+    "municipality_all_dependencies_total": 3113
+  },
+  "employment_bonds": {
+    "sheet": "2.6",
+    "row": 3607,
+    "semantic": "UNIQUE_DOCENTES_WITHIN_EACH_FUNCTIONAL_BOND_AND_MUNICIPAL_DEPENDENCY",
+    "categories": [
+      {
+        "id": "CONCURSADO_EFETIVO_ESTAVEL",
+        "value": 681
+      },
+      {
+        "id": "CONTRATO_TEMPORARIO",
+        "value": 291
+      },
+      {
+        "id": "CONTRATO_TERCEIRIZADO",
+        "value": 0
+      },
+      {
+        "id": "CONTRATO_CLT",
+        "value": 400
+      }
+    ],
+    "category_count": 4,
+    "category_sum": 1372,
+    "additive": false
+  },
+  "sme_current_context": {
+    "period": "2026-09-07",
+    "live_run_id": 34164903116,
+    "artifact_id": 10033823661,
+    "source_url": "https://sme.limeira.sp.gov.br/contratado_classe.php",
+    "source_sha256": "eff80717acfdef9fa9ee1086e4538d795f013f6b5b4153fda2215feb328a7b26",
+    "assignment_rows": 843,
+    "unique_contracted_teachers": 842,
+    "distinct_school_labels": 72,
+    "people_with_multiple_assignment_rows": 1,
+    "role_counts": {
+      "ARTE": 93,
+      "EDUCAÇÃO ESPECIAL": 188,
+      "EDUCAÇÃO FÍSICA": 74,
+      "EDUCAÇÃO INFANTIL": 229,
+      "ENSINO FUNDAMENTAL": 259
+    },
+    "canonical_staff_count": false,
+    "comparison_to_inep_2025": "FORBIDDEN_DIFFERENT_PERIOD_AND_SOURCE_SEMANTICS"
+  },
+  "answerability": {
+    "prior_current_config": "config/observatory_semantic_answerability.v2.json",
+    "current_config": "config/observatory_semantic_answerability.v3.json",
+    "before": {
+      "MATERIALIZED_ANSWERABLE": 36,
+      "MATERIALIZED_PARTIAL": 2
+    },
+    "after": {
+      "MATERIALIZED_ANSWERABLE": 37,
+      "MATERIALIZED_PARTIAL": 1
+    },
+    "changed_questions": [
+      "TEACH_Q2"
+    ],
+    "remaining_partial": [
+      "EQUITY_Q1"
+    ]
+  },
+  "guards": [
+    "STAFF_COUNT_RESTRICTED_TO_DOCENTES_NOT_ALL_EDUCATION_WORKERS",
+    "DOCENTE_IS_EFFECTIVE_CLASSROOM_TEACHING_AT_CENSUS_REFERENCE_DATE",
+    "BOND_CATEGORY_COUNTS_NON_ADDITIVE",
+    "SAME_DOCENTE_MAY_APPEAR_IN_MULTIPLE_BOND_CATEGORIES",
+    "DOES_NOT_INCLUDE_COMPLEMENTARY_ACTIVITY_OR_AEE_CLASS_TEACHERS",
+    "DOES_NOT_INCLUDE_EARLY_CHILDHOOD_EDUCATION_AUXILIARIES",
+    "EXPLICIT_ZERO_OUTSOURCED_IS_SOURCE_VALUE",
+    "2025_INEP_NE_2026_SME_SNAPSHOT",
+    "NO_PERSON_LEVEL_DATA",
+    "V1_V2_ANSWERABILITY_PRESERVED",
+    "V3_REQUIRES_STAFF_COUNT_AND_EMPLOYMENT_BOND"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
