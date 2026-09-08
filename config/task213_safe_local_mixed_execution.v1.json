@@ -94,7 +94,10 @@
     "active_school_denominator": 69,
     "held": 5,
     "sector_income_equals_student_household_income": false,
-    "school_sector_equals_student_catchment": false
+    "school_sector_equals_student_catchment": false,
+    "no_period_resolution": "LATEST_EXACT_ROW_PER_REQUIRED_METRIC_WITH_NATIVE_PERIOD",
+    "explicit_year_requires_all_required_metrics_in_exact_year": true,
+    "nearest_period_substitution": false
   },
   "territory": {
     "product": "TERRITORY_PROFILE",
@@ -137,7 +140,8 @@
     "sector_income_equals_student_household_income": false,
     "territory_period_may_be_relabelled_to_school_metric_period": false,
     "catalog_readiness_equals_local_payload": false,
-    "caller_generated_at_equals_source_update_time": false
+    "caller_generated_at_equals_source_update_time": false,
+    "equity_metric_periods_may_be_collapsed_to_single_year": false
   },
   "remote_effects": {
     "network": false,
