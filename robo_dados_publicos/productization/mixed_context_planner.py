@@ -90,6 +90,19 @@ def load_contract(path: str | Path = DEFAULT_CONTRACT) -> dict[str, Any]:
         obj["join_safety"]["weak_join_can_create_identity"] is False,
         "TASK212_WEAK_JOIN_GUARD",
     )
+    consumed = obj["context"]["recipe_consumed_facets"]
+    _stop(
+        consumed == {
+            "FIN_Q3": ["FINANCIAMENTO_FUNDEB"],
+            "INFRA_Q2": ["INFRAESTRUTURA"],
+            "TEACH_Q2": ["DOCENTES"],
+        },
+        "TASK212_RECIPE_CONSUMED_FACETS",
+    )
+    _stop(
+        obj["context"]["unconsumed_requested_facets_are_context_incompatible"] is True,
+        "TASK212_UNCONSUMED_FACET_GUARD",
+    )
     bounds = obj["claim_boundaries"]
     _stop(bounds["planner_computes_numeric_answer"] is False, "TASK212_NUMERIC_GUARD")
     _stop(bounds["planner_promotes_execution_class"] is False, "TASK212_PROMOTION_GUARD")
@@ -246,9 +259,11 @@ def _metric_period_field(product_name: str) -> str:
 
 def _context_incompatible_reason(
     *,
+    question_id: str,
     product_name: str,
     signal: Mapping[str, Any],
     context: Mapping[str, Any],
+    contract: Mapping[str, Any],
 ) -> str | None:
     school_code = _requested_school(context)
     if school_code is not None:
@@ -266,8 +281,17 @@ def _context_incompatible_reason(
     if _has_non_year_period(context):
         return "TASK212_PLANNER_SUPPORTS_EXACT_YEAR_ONLY"
 
-    if _requested_facets(context):
-        return "TASK212_MIXED_RECIPE_FACET_PLANNING_NOT_YET_GENERALIZED"
+    requested_facets = set(_requested_facets(context))
+    consumed_facets = set(
+        str(x)
+        for x in contract["context"]["recipe_consumed_facets"].get(question_id, [])
+    )
+    unconsumed_facets = sorted(requested_facets - consumed_facets)
+    if unconsumed_facets:
+        return (
+            "TASK212_UNCONSUMED_CONTEXT_FACETS:"
+            + ",".join(unconsumed_facets)
+        )
 
     return None
 
@@ -443,10 +467,12 @@ def _planning_range_contains(value: Any, year: int) -> bool:
 
 def _signal_plan(
     *,
+    question_id: str,
     signal_index: int,
     signal: Mapping[str, Any],
     product: Mapping[str, Any],
     context: Mapping[str, Any],
+    contract: Mapping[str, Any],
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     product_name = str(signal["product"])
     payload = _payload_state(product)
@@ -491,9 +517,11 @@ def _signal_plan(
         )
 
     incompatible = _context_incompatible_reason(
+        question_id=question_id,
         product_name=product_name,
         signal=signal,
         context=context,
+        contract=contract,
     )
     if incompatible is not None:
         return (
@@ -749,10 +777,12 @@ def plan_question(
     for index, signal in enumerate(recipe["signals"], start=1):
         product = products[str(signal["product"])]
         plan, selected = _signal_plan(
+            question_id=question_id,
             signal_index=index,
             signal=signal,
             product=product,
             context=context,
+            contract=contract,
         )
         signal_plans.append(plan)
         signal_rows.append(selected)
