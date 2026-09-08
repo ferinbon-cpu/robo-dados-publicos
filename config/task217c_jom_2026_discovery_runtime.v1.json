@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "schema": "TASK217C_JOM_2026_DISCOVERY_RUNTIME_V1",
+  "task": "TASK_217C",
+  "issue": 680,
+  "base_main_sha": "ea16982dfe0333870fde23531848520c0263b492",
+  "mode": "T0_IMPLEMENTED_LIVE_DISABLED_UNTIL_EXACT_OWNER_AUTHORIZATION",
+  "runtime_branch": "task-217c-jom-2026-discovery-runtime",
+  "authorization_file": "runtime/task217c_owner_authorization.json",
+  "trigger_file": "runtime_triggers/task217c_jom_2026_discovery.run",
+  "scope": {
+    "source": "LIMEIRA_JORNAL_OFICIAL",
+    "start_date": "2026-01-01",
+    "end_date": "2026-09-08",
+    "months": [1,2,3,4,5,6,7,8,9]
+  },
+  "discovery": {
+    "max_pages_per_month": 5,
+    "max_total_index_pages": 45,
+    "max_remote_get_count": 90,
+    "automatic_retry": false,
+    "document_downloads": 0,
+    "raw_html_persisted": false
+  },
+  "authorization": {
+    "required_task": "TASK_217C_LIVE_AUTHORIZATION",
+    "required_operation": "BOUNDED_2026_JOM_MONTHLY_DISCOVERY_READ_ONLY",
+    "implementation_branch": "main",
+    "attempt_count": 1,
+    "owner_authorized": true,
+    "task018_authorization_reused": false,
+    "document_downloads_authorized": false,
+    "drive_write_authorized": false,
+    "serving_authorized": false,
+    "publication_authorized": false,
+    "promotion_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_authorized": false
+  },
+  "persistence": {
+    "sanitized_discovery_artifact": true,
+    "artifact_retention_days": 1,
+    "raw_html_artifact": false,
+    "raw_pdf_artifact": false,
+    "drive_write": false
+  },
+  "remote_effects_before_authorization": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
