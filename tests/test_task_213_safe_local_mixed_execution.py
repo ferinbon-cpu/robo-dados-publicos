@@ -163,6 +163,21 @@ class TestTask213SafeLocalMixedExecution(unittest.TestCase):
         self.assertEqual(Decimal(trend["real_change_pct"]), Decimal("38.91"))
         self.assertNotIn("2026", got["TIME_REFERENCE"])
 
+    def test_task212_teach_plan_keeps_jom_as_parallel_period_evidence(self):
+        got = self.plan("quantos profissionais e vínculos existem em 2025?")
+        self.assertEqual(got["question_id"], "TEACH_Q2")
+        self.assertEqual(got["planning_state"], "READY_FOR_SAFE_EXECUTOR_DESIGN")
+        jom = next(row for row in got["signals"] if row["product"] == "JOM_EVENT_INDEX")
+        self.assertEqual(
+            jom["context_inventory"]["period_role"],
+            "PARALLEL_CONTEXT_PERIOD",
+        )
+        self.assertFalse(jom["context_inventory"]["requested_year_relabelled"])
+        self.assertTrue(
+            any(period.startswith("2026") for period in jom["context_inventory"]["observed_periods"])
+        )
+        self.assertEqual(got["join_plan"]["mode"], "PARALLEL_EVIDENCE_ONLY")
+
     def test_teach_q2_2025_returns_stock_bonds_and_parallel_jom_only(self):
         got = self.execute("quantos profissionais e vínculos existem em 2025?")
         self.assertEqual(got["state"], "ANSWERED_CONTEXTUALLY")
