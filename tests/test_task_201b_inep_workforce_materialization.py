@@ -62,24 +62,19 @@ def full_products(*, with_task201b: bool):
         "rows": [],
         "capabilities": t186["revenue_ledger"]["capabilities"],
     }
+    task196 = build_task196_products(
+        generated_at=GENERATED_AT,
+        software_version=SOFTWARE_VERSION,
+    )
     if with_task201b:
         school = build_task201b_school_indicator(
             generated_at=GENERATED_AT,
             software_version=SOFTWARE_VERSION,
         )["SCHOOL_INDICATOR_SERIES"]
     else:
-        task196 = build_task196_products(
-            generated_at=GENERATED_AT,
-            software_version=SOFTWARE_VERSION,
-        )
         school = task196["SCHOOL_INDICATOR_SERIES"]
-        substantive["FISCAL_SERIES"] = task196["FISCAL_SERIES"]
     substantive["SCHOOL_INDICATOR_SERIES"] = school
-    if "FISCAL_SERIES" not in substantive:
-        substantive["FISCAL_SERIES"] = build_task196_products(
-            generated_at=GENERATED_AT,
-            software_version=SOFTWARE_VERSION,
-        )["FISCAL_SERIES"]
+    substantive["FISCAL_SERIES"] = task196["FISCAL_SERIES"]
     territory = build_task199f_territory_profile(
         generated_at=GENERATED_AT,
         software_version=SOFTWARE_VERSION,
