@@ -100,6 +100,11 @@ def load_contract(path: str | Path = DEFAULT_CONTRACT) -> dict[str, Any]:
         "TASK212_RECIPE_CONSUMED_FACETS",
     )
     _stop(
+        obj["context"]["parallel_context_period_signals"]
+        == {"EQUITY_Q1": ["TERRITORY_PROFILE"]},
+        "TASK212_PARALLEL_CONTEXT_PERIOD_SIGNALS",
+    )
+    _stop(
         obj["context"]["unconsumed_requested_facets_are_context_incompatible"] is True,
         "TASK212_UNCONSUMED_FACET_GUARD",
     )
@@ -112,6 +117,10 @@ def load_contract(path: str | Path = DEFAULT_CONTRACT) -> dict[str, Any]:
         "TASK212_CROSS_GRAIN_RATIO",
     )
     _stop(bounds["partial_period_equals_annual_period"] is False, "TASK212_PARTIAL_ANNUAL")
+    _stop(
+        bounds["parallel_context_period_may_be_relabelled_as_requested_year"] is False,
+        "TASK212_PARALLEL_PERIOD_RELABEL",
+    )
     _stop(all(v is False for v in obj["remote_effects"].values()), "TASK212_REMOTE")
     return obj
 
@@ -377,10 +386,12 @@ def _product_period_value(product_name: str, row: Mapping[str, Any]) -> Any:
 
 
 def _filter_product_rows(
+    question_id: str,
     product_name: str,
     product: Mapping[str, Any],
     signal: Mapping[str, Any],
     context: Mapping[str, Any],
+    contract: Mapping[str, Any],
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     rows = [dict(row) for row in product.get("rows", [])]
     criteria = dict(signal.get("row_criteria") or {})
@@ -413,11 +424,21 @@ def _filter_product_rows(
         ]
 
     year = _requested_year(context)
-    if year is not None and product_name in {
-        "JOM_EVENT_INDEX",
-        "PLANNING_DOCUMENT_INDEX",
-        "TERRITORY_PROFILE",
-    }:
+    parallel_period_products = set(
+        str(x)
+        for x in contract["context"]["parallel_context_period_signals"].get(
+            question_id, []
+        )
+    )
+    if (
+        year is not None
+        and product_name not in parallel_period_products
+        and product_name in {
+            "JOM_EVENT_INDEX",
+            "PLANNING_DOCUMENT_INDEX",
+            "TERRITORY_PROFILE",
+        }
+    ):
         rows = [
             row for row in rows
             if _period_year(_product_period_value(product_name, row)) == year
@@ -454,6 +475,12 @@ def _filter_product_rows(
                 if _product_period_value(product_name, row) not in (None, "")
             }
         ),
+        "period_role": (
+            "PARALLEL_CONTEXT_PERIOD"
+            if product_name in parallel_period_products
+            else "REQUEST_CONTEXT_PERIOD"
+        ),
+        "requested_year_relabelled": False,
         "recipe_signal_satisfied_in_context": satisfied,
     }
 
@@ -543,10 +570,12 @@ def _signal_plan(
         )
     elif signal["kind"] == "PRODUCT":
         selected, inventory = _filter_product_rows(
+            question_id,
             product_name,
             product,
             signal,
             context,
+            contract,
         )
     else:
         raise Task212PlannerStop(f"TASK212_UNKNOWN_SIGNAL_KIND:{signal['kind']}")
