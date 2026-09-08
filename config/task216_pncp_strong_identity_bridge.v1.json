@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "schema": "TASK216_PNCP_STRONG_IDENTITY_BRIDGE_V1",
+  "task": "TASK_216",
+  "issue": 676,
+  "base_main_sha": "3104bde110f24398c27c9bdf609fdb01d1989bae",
+  "mode": "T1_BOUNDED_PNCP_STRONG_IDENTITY_DISCOVERY_WITH_OFFLINE_ADJUDICATION",
+  "authorization": {
+    "source_record": "config/task161_pncp_manual_publication_sweep_evidence_guards.v1.json",
+    "scope": "PNCP_LIVE_READ_DISCOVERY_ONLY",
+    "standing_authorization_reused": true,
+    "mutations_allowed": false
+  },
+  "sources": {
+    "jom_fixture": "docs/evidence/fixtures/TASK_184_JOM_303_VALIDATED_EVENTS.jsonl",
+    "jom_expected_rows": 303,
+    "tce_identity_fixture": "docs/evidence/fixtures/task216/TASK_216_TCE_JOM_SUPPLIER_COMMITMENT_IDENTITY_INDEX.json",
+    "tce_identity_expected_rows": 140,
+    "tce_identity_expected_suppliers": 31,
+    "tce_rows_sha256": "d544bec0719a48ea33a2e06ca9232c95d8a96f34b7bcac64350ac842caa2fca6"
+  },
+  "pncp": {
+    "endpoint": "https://pncp.gov.br/api/consulta/v1/contratos",
+    "cnpjOrgao": "45132495000140",
+    "dataInicial": "20260101",
+    "dataFinal": "20260908",
+    "tamanhoPagina": 500,
+    "maxPaginas": 10,
+    "timeoutSeconds": 60,
+    "maxBytesPerPage": 20000000,
+    "retryMax": 0,
+    "redirectsMax": 0
+  },
+  "jom_anchor_rules": {
+    "event_types": [
+      "EDITAL",
+      "ATA_REGISTRO_PRECOS",
+      "CONTRATO",
+      "TERMO_ADITIVO_CONTRATO"
+    ],
+    "complete_process_regex": "^\\\\d{1,3}(?:\\\\.\\\\d{3})*/\\\\d{4}$",
+    "complete_contract_regex": "^\\\\d+/\\\\d{4}$",
+    "cleanup": "TRIM_AND_TRAILING_PERIOD_COMMA_SEMICOLON_ONLY",
+    "incomplete_identifiers_may_anchor": false,
+    "cnpj_alone_may_anchor": false
+  },
+  "pncp_identity_rules": {
+    "process_field": "processo",
+    "contract_or_commitment_field": "numeroContratoEmpenho",
+    "purchase_control_field": "numeroControlePNCPCompra",
+    "record_control_field": "numeroControlePNCP",
+    "type_name_field": "tipoContratoNome",
+    "supplier_cnpj_fields": [
+      "niFornecedor",
+      "fornecedor.niFornecedor"
+    ],
+    "typed_empenho_requires_type_name_token": "EMPENHO",
+    "typed_contract_requires_type_name_token": "CONTRATO",
+    "exact_process_anchor_allowed": true,
+    "exact_complete_contract_anchor_allowed_only_for_typed_contract": true,
+    "sibling_relation_requires_exact_purchase_control": true
+  },
+  "tce_bridge_rules": {
+    "pncp_commitment_canonicalization": "TYPED_EMPENHO_ONLY_NUMBER_YEAR_TO_YEAR_COLON_NUMBER",
+    "tce_commitment_canonicalization": "YEAR_COLON_NUMBER_DASH_YEAR_TO_YEAR_COLON_NUMBER",
+    "supplier_cnpj_must_match": true,
+    "official_record_id_preserved": true,
+    "amount_not_identity": true,
+    "date_not_identity": true,
+    "text_not_identity": true
+  },
+  "persistence": {
+    "rawPayloadGit": false,
+    "rawPayloadDrive": false,
+    "rawPayloadWorkflowArtifact": false,
+    "sanitizedResultWorkflowArtifact": true,
+    "artifactRetentionDays": 1
+  },
+  "promotion_policy": {
+    "require_end_to_end_chain": true,
+    "candidate_questions": [
+      "PROC_Q1",
+      "PROC_Q2",
+      "PROC_Q3",
+      "CTRL_Q2"
+    ],
+    "no_chain_means_no_promotion": true,
+    "partial_chain_ne_full_question_coverage": true
+  },
+  "runtime_remote_effects": {
+    "network": "PNCP_READ_ONLY_DURING_RUNTIME_WORKFLOW",
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false,
+    "llm": false
+  }
+}
