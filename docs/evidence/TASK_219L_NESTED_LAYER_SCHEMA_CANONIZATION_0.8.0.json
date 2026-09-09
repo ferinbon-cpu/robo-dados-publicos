@@ -1,0 +1,67 @@
+{
+  "task":"TASK_219L_NESTED_LAYER_SCHEMA_CANONIZATION",
+  "issue":713,
+  "parent_issue":691,
+  "canonical_date":"2026-09-09",
+  "base_main_sha":"4ef5fa00b5ffd893d87d1372c5ce887d7f15ea3d",
+  "runtime":{
+    "run_id":34408714626,
+    "job_id":102657820909,
+    "execution_head_sha":"d7fd55740be7509d6f76ad3fa46aa265e6517b08",
+    "artifact_id":10126367373,
+    "artifact_zip_sha256":"b8b74608ae83d8b2beed4c33c7e1243abd2a09a7af08c12044b945f3b7eabc20",
+    "artifact_member_sha256":"a7e57edde161a052a56c7c1ae90a08050df40698c9cad50769097e49728f80ed",
+    "executed_workflow_blob_sha":"cabe8beb044af91a64e01df600bb5bfa6f9910e6",
+    "historical_workflow_blob_sha":"cabe8beb044af91a64e01df600bb5bfa6f9910e6",
+    "historical_source_exact_blob_match":true,
+    "workflow_removed_after_run":true,
+    "workflow_removal_commit":"894b2971acbec1652ae6f5879604c2b7e312a65b"
+  },
+  "nested_adjudication":{
+    "all_eight_layer_envelopes_valid_in_request":true,
+    "all_eight_layer_envelopes_valid_in_response":true,
+    "request_filterarea_empty_in_all_eight":true,
+    "request_info_opaque_text_count":7,
+    "request_info_query_like_count":1,
+    "response_info_query_like_count":8,
+    "response_filterarea_query_like_count":6,
+    "response_filterarea_empty_count":2,
+    "safe_structural_identifier_count":0,
+    "explicit_accounting_structural_terms_found":[],
+    "accounting_structural_candidate_count":0,
+    "accounting_structural_candidate_ordinals":[],
+    "expense_layer_identity_proven":false
+  },
+  "query_like_reclassification":{
+    "raw_runtime_parser_label":"QUERY_STRING",
+    "canonical_label":"QUERY_LIKE_DELIMITED_WITHOUT_SAFE_KEYS",
+    "reason":"parse_qsl observed ampersand/equal-delimited pairs, but zero nested keys survived the bounded safe structural-identifier policy in every such field. Therefore a named query-string contract is not proven.",
+    "query_contract_proven":false,
+    "nested_key_names_proven":false
+  },
+  "scientific_gain":{
+    "new_protocol_fact":"Server-populated info is delimiter-rich/query-like in all eight returned LayerInfo envelopes; filterarea is similarly populated in six of eight responses, while request filterarea is empty in all eight.",
+    "new_shape_fact":"The eight layers differ strongly in pair counts and size buckets, including ordinal 7 with the largest returned info structure, but size/ordinal are explicitly non-identity signals.",
+    "negative_result":"No safe nested structural identifier and no explicit accounting-domain structural term was exposed under the bounded schema-only policy.",
+    "engineering_consequence":"Do not identify an expense layer from ordinal, size or delimiter counts. The next safe route must correlate each automatically loaded LayerInfo envelope to its browser DOM container using non-value hashes/structural bindings, then inspect only structural accessibility/control metadata; visible labels or interactive queries remain separately gated."
+  },
+  "fail_closed":{
+    "awsgetcontentareas_is_proven_accounting_endpoint":false,
+    "nested_query_contract_proven":false,
+    "expense_layer_identity_proven":false,
+    "direct_query_contract_proven":false,
+    "commitment_3286_2026_queried":false,
+    "contract_45_2026_identity_proven":false,
+    "payment_attribution_proven":false,
+    "question_promotion_performed":false,
+    "contextual_paths_before":34,
+    "contextual_paths_after":34,
+    "remaining_blockers":["CTRL_Q2","PROC_Q1","PROC_Q2","PROC_Q3"]
+  },
+  "authorization_consumption":{
+    "task219l_scope_complete":true,
+    "authorization_exhausted_for_future_network":true,
+    "new_authorization_required_for_DOM_layer_binding_or_visible_label_capture_or_any_interactive_or_direct_query":true
+  },
+  "next_action":"FUTURE_PASSIVE_ONLY: correlate the eight page-generated LayerInfo envelopes to DOM containers by one-way hashes/structural bindings and inspect structural DOM/accessibility metadata; do not infer Despesas from ordinal 7 size and do not query Empenho 3286-2026 yet."
+}
