@@ -72,7 +72,32 @@
       "INFRAESTRUTURA"
     ],
     "municipality_list_returns_only_proven_named_school_events": true,
-    "school_zero_match_is_scoped_jom_gap_not_real_world_absence": true
+    "school_zero_match_is_scoped_jom_gap_not_real_world_absence": true,
+    "school_scoped_route_bridge": {
+      "requires_resolved_school": true,
+      "only_when_upstream_has_no_selected_question": true,
+      "required_event_any": [
+        "recebeu",
+        "receberam",
+        "teve",
+        "tiveram",
+        "ganhou",
+        "ganharam",
+        "contrato",
+        "contratacao",
+        "contratação"
+      ],
+      "required_infrastructure_any": [
+        "obra",
+        "obras",
+        "reforma",
+        "reformas",
+        "equipamento",
+        "equipamentos",
+        "manutencao",
+        "manutenção"
+      ]
+    }
   },
   "claim_boundaries": {
     "jom_publication_equals_physical_completion": false,
