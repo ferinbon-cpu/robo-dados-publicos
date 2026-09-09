@@ -1,0 +1,38 @@
+{
+  "task": "TASK_218_INFRA_Q2_CONTEXTUAL_EXECUTION",
+  "issue": 680,
+  "status": "CANDIDATE_PENDING_CI",
+  "base_main_sha": "aac5abef7e72233a4667ff570ec9af5ae8c41287",
+  "promotion": {
+    "question_id": "INFRA_Q2",
+    "before": "NOT_YET_CONTEXT_EXECUTABLE",
+    "after": "ANSWERED_CONTEXTUALLY_WITH_BOUNDED_JOM_NAMED_SCHOOL_EVIDENCE",
+    "contextual_coverage_before": "33/38",
+    "contextual_coverage_after": "34/38"
+  },
+  "scope_closure": {
+    "official_documents": 99,
+    "content_complete_through": "2026-09-08",
+    "uncovered_documents": 0,
+    "task217g_run_id": 34301761917,
+    "task217g_artifact_id": 10085210743,
+    "task217g_result_sha256": "c37e87017acef66634f7cccf60df917d841741bf5f021159c09d8329178447d9"
+  },
+  "proven_named_school": {
+    "school_code": "35295061",
+    "school_name": "CEIEF Arlindo de Salvo, Prof.",
+    "event_id": "JOEV_fab1a3c79f589f7ccc18",
+    "contract_number": "42/2026",
+    "process_number": "22.687/2024",
+    "published_value_brl": "71000.00",
+    "claim": "Official JOM evidence proves the school is the named object of a maintenance contract; it does not prove physical completion."
+  },
+  "retained_blockers": ["CTRL_Q2","PROC_Q1","PROC_Q2","PROC_Q3"],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false
+  }
+}
