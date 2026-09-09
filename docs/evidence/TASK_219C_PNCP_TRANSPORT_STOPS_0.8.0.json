@@ -1,0 +1,57 @@
+{
+  "task": "TASK_219C_TRANSPORT_STOP_CANONIZATION",
+  "issue": 691,
+  "canonical_date": "2026-09-09",
+  "repository": "ferinbon-cpu/robo-dados-publicos",
+  "attempts": [
+    {
+      "task": "TASK_219C",
+      "implementation_sha": "f08b55d7044fa00bac80537bd647c934b1d60bf8",
+      "runtime_head_sha": "3dc1721e34379f050b23849a1d68a3ff06c0e65d",
+      "run_id": 34364890448,
+      "artifact_id": 10109452715,
+      "artifact_zip_sha256": "c7065330f8cd970f0bf5dc02463f3b865e38dcfa69bcf62a8c0370fdf984bad2",
+      "sanitized_result_sha256": "4dcced3a9f00cb3f558f640c406f0964b8c7bd2bdd2d768d3113178be6e9f3a4",
+      "authorization_token": 4,
+      "result": "STOP_PARTITION_SOURCE_TRANSPORT_OR_HTTP_OR_JSON_UNAVAILABLE",
+      "failed_partition": "2026-01",
+      "request_count": 1,
+      "http_status": null,
+      "transport_error": "TRANSPORT_ERROR:TimeoutError:The read operation timed out",
+      "bytes_received": 0
+    },
+    {
+      "task": "TASK_219C2",
+      "implementation_sha": "071ea533040f804bf58f77fd327268d413abedf5",
+      "runtime_head_sha": "a7908b0380cf77458f8fa3af992ba5fef21ae945",
+      "run_id": 34366442822,
+      "artifact_id": 10110094502,
+      "artifact_zip_sha256": "01b7815eb7e6564685c41b385483442d216d0e41063d0c6274f9ba78248f08d7",
+      "sanitized_result_sha256": "164a421a29d056c6fff6efc2392b744782167440d6bba74324b7a90a51ef2510",
+      "authorization_token": 5,
+      "result": "STOP_PARTITION_SOURCE_TRANSPORT_OR_HTTP_OR_JSON_UNAVAILABLE",
+      "failed_partition": "2026-01A",
+      "request_count": 1,
+      "http_status": 504,
+      "transport_error": "HTTP_ERROR_504",
+      "bytes_received": 0
+    }
+  ],
+  "adjudication": {
+    "scientific_effect": "NONE",
+    "partial_pncp_identity_inference": false,
+    "pncp_absence_inference": false,
+    "procurement_absence_inference": false,
+    "endpoint_transport_currently_reliable": false,
+    "retry_same_authorization_allowed": false,
+    "next_token_index_if_future_live_read": 6,
+    "authorization_tokens_remaining": 5,
+    "contextual_paths_before": 34,
+    "contextual_paths_after": 34
+  },
+  "pivot": {
+    "task": 220,
+    "reason": "PROC_Q1_Q3_CAN_BE_EVALUATED_FROM_DIRECT_JOM_PRIMARY_PUBLICATION_WITHOUT_FALSE_ACCOUNTING_CORROBORATION",
+    "tce_control_question_remains_separate": true
+  }
+}
