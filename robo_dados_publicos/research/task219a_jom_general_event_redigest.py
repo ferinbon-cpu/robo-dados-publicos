@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import hashlib
 import json
 import re
@@ -14,13 +15,8 @@ from robo_dados_publicos.research.task216_pncp_strong_identity_bridge import (
     load_config as load_task216_config,
     normalize_admin_identifier,
 )
-from robo_dados_publicos.research.task217c_jom_2026_discovery_runtime import (
-    LiveJournalDiscoverySource,
-)
 from robo_dados_publicos.research.task217d_jom_school_infra_redigest import (
     LiveDocumentSource,
-    reconstruct_discovery,
-    select_new_documents,
 )
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -29,18 +25,6 @@ DEFAULT_CONFIG = ROOT / "config/task219a_jom_general_event_redigest.v1.json"
 
 class Task219AStop(RuntimeError):
     pass
-
-
-class DiscoverySource(Protocol):
-    network_capable: bool
-
-    def discover_month(
-        self,
-        year: int,
-        month: int,
-        *,
-        max_pages: int,
-    ) -> dict[str, Any]: ...
 
 
 class DocumentSource(Protocol):
@@ -91,6 +75,17 @@ def load_config(path: str | Path = DEFAULT_CONFIG) -> dict[str, Any]:
     _stop(discovery["existing_event_rows"] == 303, "TASK219A_EXISTING_ROWS")
     _stop(len(discovery["existing_editions"]) == 12, "TASK219A_EXISTING_EDITIONS")
     _stop(discovery["new_document_count"] == 87, "TASK219A_NEW_DOCUMENTS")
+    _stop(
+        discovery["pinned_target_fixture"]
+        == "docs/evidence/fixtures/task219/TASK_219A_CANONICAL_87_DOCUMENT_TARGETS.csv",
+        "TASK219A_TARGET_FIXTURE",
+    )
+    _stop(
+        discovery["pinned_target_fixture_git_blob_sha"]
+        == "766069f41ae785010d91de888bc71b3dd504a1a9",
+        "TASK219A_TARGET_FIXTURE_BLOB",
+    )
+    _stop(discovery["rediscovery_required"] is False, "TASK219A_REDISCOVERY_GUARD")
 
     prior = obj["prior_recovery_budget_evidence"]
     observed_sum = (
@@ -110,9 +105,9 @@ def load_config(path: str | Path = DEFAULT_CONFIG) -> dict[str, Any]:
 
     network = obj["network"]
     _stop(network["allowed_document_host"] == "ecrie.com.br", "TASK219A_HOST")
-    _stop(network["max_index_remote_get_count"] == 18, "TASK219A_INDEX_GETS")
+    _stop(network["max_index_remote_get_count"] == 0, "TASK219A_INDEX_GETS")
     _stop(network["max_document_get_attempt_count"] == 87, "TASK219A_DOCUMENT_GETS")
-    _stop(network["max_total_remote_get_count"] == 105, "TASK219A_TOTAL_GETS")
+    _stop(network["max_total_remote_get_count"] == 87, "TASK219A_TOTAL_GETS")
     _stop(
         network["max_index_remote_get_count"]
         + network["max_document_get_attempt_count"]
@@ -159,6 +154,76 @@ def load_config(path: str | Path = DEFAULT_CONFIG) -> dict[str, Any]:
     _stop(obj["promotion"]["runtime_may_promote"] is False, "TASK219A_PROMOTION")
     _stop(all(v is False for v in obj["pre_authorization_remote_effects"].values()), "TASK219A_T0_EFFECT")
     return obj
+
+
+def _git_blob_sha1(data: bytes) -> str:
+    header = f"blob {len(data)}\0".encode("ascii")
+    return hashlib.sha1(header + data).hexdigest()
+
+
+def load_pinned_targets(
+    config_path: str | Path = DEFAULT_CONFIG,
+) -> list[dict[str, Any]]:
+    cfg = load_config(config_path)
+    discovery = cfg["canonical_discovery"]
+    path = ROOT / discovery["pinned_target_fixture"]
+    data = path.read_bytes()
+    _stop(
+        _git_blob_sha1(data) == discovery["pinned_target_fixture_git_blob_sha"],
+        "TASK219A_TARGET_FIXTURE_HASH",
+    )
+    with path.open("r", encoding="utf-8", newline="") as handle:
+        reader = csv.DictReader(handle)
+        _stop(
+            reader.fieldnames
+            == ["edition", "publication_date", "source_id", "document_url"],
+            "TASK219A_TARGET_FIXTURE_COLUMNS",
+        )
+        rows = [dict(row) for row in reader]
+
+    _stop(len(rows) == 87, "TASK219A_PINNED_TARGET_COUNT")
+    editions: list[int] = []
+    out: list[dict[str, Any]] = []
+    for row in rows:
+        edition = int(row["edition"])
+        editions.append(edition)
+        _stop(
+            row["source_id"] == f"LIMEIRA_JO_{edition:05d}",
+            "TASK219A_PINNED_SOURCE_ID",
+        )
+        _stop(
+            re.fullmatch(r"2026-\d{2}-\d{2}", row["publication_date"] or "") is not None,
+            "TASK219A_PINNED_PUBLICATION_DATE",
+        )
+        parsed = urlparse(row["document_url"])
+        _stop(parsed.scheme == "https", "TASK219A_PINNED_URL_HTTPS")
+        _stop(
+            (parsed.hostname or "").lower() == cfg["network"]["allowed_document_host"],
+            "TASK219A_PINNED_URL_HOST",
+        )
+        _stop(parsed.path.lower().endswith(".pdf"), "TASK219A_PINNED_URL_PDF")
+        out.append(
+            {
+                "edition": edition,
+                "publication_date": row["publication_date"],
+                "source_id": row["source_id"],
+                "document_url": row["document_url"],
+            }
+        )
+
+    _stop(len(set(editions)) == 87, "TASK219A_PINNED_TARGET_DUPLICATE")
+    _stop(
+        not set(editions).intersection(discovery["existing_editions"]),
+        "TASK219A_PINNED_EXISTING_OVERLAP",
+    )
+    task217d = _load(ROOT / discovery["task217d_config"])
+    expected = {
+        int(edition)
+        for partition in task217d["partitions"].values()
+        for edition in partition
+    }
+    _stop(set(editions) == expected, "TASK219A_PINNED_TARGET_IDENTITY_DRIFT")
+    return out
 
 
 def _read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -320,6 +385,7 @@ def validate_live_authorization(
         "canonical_discovery_result_sha256": cfg["canonical_discovery"]["result_sha256"],
         "max_index_remote_get_count": cfg["network"]["max_index_remote_get_count"],
         "max_document_get_attempt_count": cfg["network"]["max_document_get_attempt_count"],
+        "pinned_target_fixture_git_blob_sha": cfg["canonical_discovery"]["pinned_target_fixture_git_blob_sha"],
         "max_total_remote_get_count": cfg["network"]["max_total_remote_get_count"],
         "max_bytes_per_document": cfg["network"]["max_bytes_per_document"],
         "max_aggregate_document_bytes": cfg["network"]["max_aggregate_document_bytes"],
@@ -329,7 +395,7 @@ def validate_live_authorization(
         "task217f_authorization_reused": False,
         "task217g_authorization_reused": False,
         "document_downloads_authorized": True,
-        "rediscovery_authorized": True,
+        "rediscovery_authorized": False,
         "drive_write_authorized": False,
         "serving_authorized": False,
         "publication_authorized": False,
@@ -377,7 +443,6 @@ def _validate_download(
 def execute_general_redigest(
     config: Mapping[str, Any],
     *,
-    discovery_source: DiscoverySource,
     document_source: DocumentSource,
     authorization: Mapping[str, Any] | None,
     expected_implementation_sha: str,
@@ -386,8 +451,6 @@ def execute_general_redigest(
 ) -> dict[str, Any]:
     cfg = dict(config)
     if offline_test_mode:
-        if getattr(discovery_source, "network_capable", True):
-            return {"status": "STOP_OFFLINE_TEST_DISCOVERY_NETWORK_CAPABLE", "complete_scope": False}
         if getattr(document_source, "network_capable", True):
             return {"status": "STOP_OFFLINE_TEST_DOCUMENT_NETWORK_CAPABLE", "complete_scope": False}
         if not authorization or authorization.get("synthetic_test_only") is not True:
@@ -399,24 +462,16 @@ def execute_general_redigest(
         )
         if auth["status"] != "PASS_LIVE_AUTHORIZATION":
             return {**auth, "complete_scope": False}
-        if not getattr(discovery_source, "network_capable", False):
-            return {"status": "STOP_LIVE_DISCOVERY_SOURCE_NOT_NETWORK_CAPABLE", "complete_scope": False}
         if not getattr(document_source, "network_capable", False):
             return {"status": "STOP_LIVE_DOCUMENT_SOURCE_NOT_NETWORK_CAPABLE", "complete_scope": False}
 
     try:
-        discovery = reconstruct_discovery(discovery_source)
-        documents = select_new_documents(discovery)
-        _stop(
-            discovery["estimated_remote_get_count"]
-            == int(cfg["network"]["max_index_remote_get_count"]),
-            "TASK219A_DISCOVERY_GET_COUNT",
-        )
+        documents = load_pinned_targets()
         _stop(len(documents) == 87, "TASK219A_SELECTED_DOCUMENT_COUNT")
     except Exception as exc:
         return {
             "schema": "TASK219A_GENERAL_EVENT_REDIGEST_RESULT_V1",
-            "status": "STOP_DISCOVERY_RECONSTRUCTION",
+            "status": "STOP_PINNED_TARGET_VALIDATION",
             "complete_scope": False,
             "error_class": type(exc).__name__,
             "stop_code": str(exc),
@@ -519,7 +574,7 @@ def execute_general_redigest(
     document_results.sort(key=lambda row: int(row.get("edition") or 0))
     failures.sort(key=lambda row: int(row.get("edition") or 0))
 
-    total_remote_gets = int(discovery["estimated_remote_get_count"]) + attempt_count
+    total_remote_gets = attempt_count
     _stop(
         total_remote_gets <= int(cfg["network"]["max_total_remote_get_count"]),
         "TASK219A_TOTAL_REMOTE_GET_BUDGET",
@@ -548,13 +603,14 @@ def execute_general_redigest(
         ),
         "complete_scope": complete,
         "canonical_discovery_result_sha256": cfg["canonical_discovery"]["result_sha256"],
-        "discovered_document_count": discovery["document_count"],
+        "discovered_document_count": cfg["canonical_discovery"]["document_count"],
         "excluded_existing_document_count": 12,
         "target_document_count": 87,
-        "estimated_index_remote_get_count": discovery["estimated_remote_get_count"],
+        "pinned_target_fixture_git_blob_sha": cfg["canonical_discovery"]["pinned_target_fixture_git_blob_sha"],
+        "index_remote_get_count": 0,
         "document_get_attempt_count": attempt_count,
         "validated_download_count": validated_download_count,
-        "estimated_total_remote_get_count": total_remote_gets,
+        "total_remote_get_count": total_remote_gets,
         "aggregate_document_bytes": aggregate_bytes,
         "document_results": document_results,
         "failures": failures,
@@ -676,11 +732,11 @@ def validate_offline_carrier(
 
 __all__ = [
     "LiveDocumentSource",
-    "LiveJournalDiscoverySource",
     "Task219AStop",
     "execute_general_redigest",
     "extract_strong_anchors",
     "load_config",
+    "load_pinned_targets",
     "process_document_general",
     "validate_live_authorization",
     "validate_offline_carrier",
