@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "schema": "TASK219F_JOM_CONTRACT_RECOVERY_V1",
+  "task": "TASK_219F",
+  "issue": 701,
+  "parent_issue": 691,
+  "base_main_sha": "c6f81b1b082b61b369966bb95033965494a65d3f",
+  "mode": "OFFLINE_RECOVERY_AND_INERT_MUNICIPAL_PRIMARY_BRIDGE",
+  "source_artifact": {
+    "run_id": 34354027245,
+    "artifact_id": 10105583802,
+    "artifact_name": "task-219a-jom-general-events-sanitized",
+    "artifact_zip_sha256": "599c9329f40de5b040b331ada17224614d197a332c12844f523e4a0d9d1aa35d",
+    "events_sha256": "5ca4bf1411f6b8bfa6ad2b8fdede9937f495458963439fa579d40caa7d988c5b"
+  },
+  "fixture": {
+    "path": "docs/evidence/fixtures/task219/TASK_219F_JOM_EVENT_083E_CONTRACT_RECOVERY_SOURCE.json",
+    "git_blob_sha": "dde88c98d9cea11654c067720d5d085cf09facb9",
+    "canonical_row_sha256": "79f41181d9d04272c5790c9bb49c9e5e78bb778c450d2395404ab8e8314dfa40"
+  },
+  "expected_event": {
+    "event_id": "JOEV_083e522d4145e4d27580",
+    "event_type": "CONTRATO",
+    "edition": 7210,
+    "page_number": 4,
+    "publication_date": "2026-03-27",
+    "source_id": "LIMEIRA_JO_07210",
+    "source_sha256": "6d0f093f8851c71f477b3eb08439be22222fe9d3f09be32f1d5dd72b27211cb1",
+    "structured_contract_number": "45/",
+    "recovered_contract_number": "45/2026",
+    "bidding_modality": "PREGÃO ELETRÔNICO",
+    "bidding_number": "10/2026",
+    "process_number": "902.281/2025",
+    "contractor": "Med Doctor Acessórios Ltda",
+    "cnpj": "37457979000131",
+    "object_text": "Contratação de empresa especializada em locação de sistema de endoscopia",
+    "value_brl": "210000.00"
+  },
+  "recovery_policy": {
+    "required_label": "CONTRATO",
+    "exact_label_regex": "(?i)\\bCONTRATO\\s+N[ºO°.]?\\s*:?\\s*(\\d{1,9})\\s*/\\s*((?:19|20)\\d{2})\\b",
+    "structured_prefix_must_agree": true,
+    "single_label_scoped_reference_required": true,
+    "other_slash_references_ignored_for_contract_recovery": true,
+    "historical_event_id_must_be_preserved": true,
+    "generic_journal_parser_migration_allowed": false
+  },
+  "municipal_bridge": {
+    "source_id": "LIMEIRA_CONTRATOS",
+    "authority": "Prefeitura Municipal de Limeira",
+    "search_url": "https://serv42.limeira.sp.gov.br/ncweb/cns_contratos_web_mestre/",
+    "resolver": "robo_dados_publicos.reconciliation.resolvers.LimeiraContractsResolver",
+    "query": {
+      "task_id": "RECTASK_TASK219F_CONTRACT45_2026",
+      "origin_event_id": "JOEV_083e522d4145e4d27580",
+      "target_source": "LIMEIRA_CONTRATOS",
+      "task_type": "FIND_CONTRACT_RECORD",
+      "match_keys": {
+        "year": 2026,
+        "contract_number": "45/2026",
+        "cnpj": "37457979000131",
+        "contractor": "Med Doctor Acessórios Ltda"
+      },
+      "search_hints": {
+        "process_number": "902.281/2025",
+        "bidding_number": "10/2026",
+        "object_text": "Contratação de empresa especializada em locação de sistema de endoscopia",
+        "value_brl": "210000.00"
+      },
+      "identity_rule": "Exact normalized contract 45/2026 plus exact CNPJ and supplier agreement are required for a municipal MATCH_CANDIDATE. Process, bidding, object and amount are corroborating only."
+    },
+    "candidate_required_signals": [
+      "CONTRACT_NUMBER_YEAR_NORMALIZED",
+      "CNPJ",
+      "SUPPLIER_NAME"
+    ],
+    "max_http_requests_future": 3,
+    "same_origin_only_future": true,
+    "live_execution_implemented": false,
+    "live_execution_authorized": false,
+    "fresh_owner_authorization_required": true,
+    "authorization_reuse_allowed": false
+  },
+  "scientific_state": {
+    "contextual_paths_before": 34,
+    "contextual_paths_after": 34,
+    "canonical_questions_total": 38,
+    "remaining_blockers": ["CTRL_Q2", "PROC_Q1", "PROC_Q2", "PROC_Q3"],
+    "question_promotion_allowed": false
+  },
+  "outputs": {
+    "evidence": "docs/evidence/TASK_219F_JOM_CONTRACT_45_2026_RECOVERY_0.8.0.json"
+  },
+  "remote_effects": {
+    "pncp_network": false,
+    "municipal_contract_network": false,
+    "tce_network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "promotion": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
