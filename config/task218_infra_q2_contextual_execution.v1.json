@@ -7,7 +7,9 @@
   "mode": "T0_OFFLINE_CANONICAL_JOM_SCHOOL_INFRASTRUCTURE_CONTEXT_EXECUTION",
   "upstream_executor": "TASK215_CONTEXTUAL_EXECUTION_V6",
   "output_schema": "OBSERVATORY_CONTEXTUAL_ANSWER_V1",
-  "promoted_questions": ["INFRA_Q2"],
+  "promoted_questions": [
+    "INFRA_Q2"
+  ],
   "contextual_coverage": {
     "canonical_questions_total": 38,
     "before": 33,
@@ -66,7 +68,9 @@
     "year_semantics": "BOUNDED_YEAR_TO_OBSERVED_DATE_2026_09_08",
     "school_filter_supported": true,
     "other_periods_nearest_substitution": false,
-    "policy_service_facets_supported": false,
+    "policy_service_facets_supported": [
+      "INFRAESTRUTURA"
+    ],
     "municipality_list_returns_only_proven_named_school_events": true,
     "school_zero_match_is_scoped_jom_gap_not_real_world_absence": true
   },
