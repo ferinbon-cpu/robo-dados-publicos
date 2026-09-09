@@ -1,0 +1,145 @@
+{
+  "task": "TASK_219E_PNCP_TRANSPORT_INCIDENT_CANONIZATION",
+  "issue": 699,
+  "parent_issue": 691,
+  "canonical_date": "2026-09-09",
+  "canonical_transport_label": "PNCP_TRANSPORT_OR_EDGE_UNAVAILABLE_FOR_CURRENT_ATTEMPT_NOT_DATA_ABSENCE",
+  "historical_observations": [
+    {
+      "id": "TASK168B_COMPLETE_759",
+      "endpoint": "https://pncp.gov.br/api/consulta/v1/contratos",
+      "response_states": ["VALID_JSON_RESPONSE", "VALID_JSON_RESPONSE"],
+      "exact_scope_complete": true,
+      "no_match_semantically_eligible": true,
+      "meaning": "A bounded negative result can be scientific because all required pages were valid and the exact scope was exhaustive."
+    },
+    {
+      "id": "TASK216_ATTEMPT1_200_200_200_502",
+      "endpoint": "https://pncp.gov.br/api/consulta/v1/contratos",
+      "response_states": [
+        "VALID_JSON_RESPONSE",
+        "VALID_JSON_RESPONSE",
+        "VALID_JSON_RESPONSE",
+        "TRANSPORT_OR_EDGE_UNAVAILABLE"
+      ],
+      "exact_scope_complete": false,
+      "no_match_semantically_eligible": false,
+      "meaning": "The final 502 makes the attempt incomplete and scientifically incapable of proving absence."
+    },
+    {
+      "id": "TASK216B_COMPLETE_1933",
+      "endpoint": "https://pncp.gov.br/api/consulta/v1/contratos",
+      "total_records": 1933,
+      "total_gets": 10,
+      "exact_scope_complete": true,
+      "meaning": "The same endpoint family completed successfully under a partitioned transport shape one day before the later zero-byte timeout."
+    },
+    {
+      "id": "TASK219C_ZERO_BYTE_TIMEOUT",
+      "endpoint": "https://pncp.gov.br/api/consulta/v1/contratos",
+      "response_states": ["TRANSPORT_OR_EDGE_UNAVAILABLE"],
+      "exact_scope_complete": false,
+      "no_match_semantically_eligible": false,
+      "bytes_received": 0,
+      "scientific_effect": "NONE",
+      "absence_inference": false,
+      "meaning": "A zero-byte timeout is transport evidence only, never data absence."
+    }
+  ],
+  "supporting_operator_observations": [
+    {
+      "date": "2026-09-09",
+      "surface": "narrow_daily_publication_lookup",
+      "observed_status_family": [503, 504],
+      "raw_artifact_persisted": false,
+      "evidence_role": "SUPPORTING_ONLY_NOT_CANONICAL_TRANSPORT_PROOF",
+      "classified_states": [
+        "TRANSPORT_OR_EDGE_UNAVAILABLE",
+        "TRANSPORT_OR_EDGE_UNAVAILABLE"
+      ],
+      "can_prove_absence": false
+    },
+    {
+      "date": "2026-09-09",
+      "surface": "unit_lookup_following_pncp_redirect",
+      "observed_status_family": [504],
+      "raw_artifact_persisted": false,
+      "evidence_role": "SUPPORTING_ONLY_NOT_CANONICAL_TRANSPORT_PROOF",
+      "classified_states": ["TRANSPORT_OR_EDGE_UNAVAILABLE"],
+      "can_prove_absence": false
+    }
+  ],
+  "external_diagnostic_leads": [
+    {
+      "kind": "OFFICIAL_DOCUMENTATION",
+      "url": "https://pncp.gov.br/manual/pt-br/latest/",
+      "fact": "PNCP integration manual v2.6 is current and dated 2026-08-31",
+      "role": "DIAGNOSTIC_CONTEXT_NOT_RUNTIME_TRUTH"
+    },
+    {
+      "kind": "OFFICIAL_MAINTENANCE_NOTICE",
+      "url": "https://www.gov.br/pncp/pt-br/central-de-conteudo/copy_of_2026/no-8-26-indisponibilidade-programada-nos-ambientes-de-producao-e-treinamento-do-pncp-dia-31-8-26",
+      "fact": "Production and training deployment was scheduled for 2026-08-31",
+      "role": "TEMPORAL_CONTEXT_NOT_CAUSAL_PROOF"
+    },
+    {
+      "kind": "GOVERNMENT_PUBLIC_REPORT",
+      "url": "https://dados.gov.br/dados/conjuntos-dados/compras-publicas-do-governo-federal",
+      "fact": "Public discussion reports intermittent 504 Gateway Timeout and ECONNABORTED on PNCP Consulta publication endpoint even with page size 10",
+      "role": "INDEPENDENT_HISTORICAL_SIGNAL_NOT_CURRENT_INCIDENT_PROOF"
+    },
+    {
+      "kind": "COMMUNITY_GITHUB_REPORT",
+      "url": "https://github.com/Mcp-Brasil/mcp-brasil/issues/23",
+      "fact": "Independent 2026 report of failures across PNCP publication, contracts and PCA consulta endpoints",
+      "role": "COMMUNITY_DIAGNOSTIC_LEAD_ONLY"
+    }
+  ],
+  "adjudication": {
+    "same_endpoint_has_recent_success_and_failure": true,
+    "endpoint_deprecation_proven": false,
+    "rate_limit_proven": false,
+    "waf_or_asn_filtering_proven": false,
+    "backend_outage_proven": false,
+    "current_transport_or_edge_unavailability_proven_by_canonical_runtime": true,
+    "transport_failure_can_be_reinterpreted_as_no_match": false,
+    "secondary_or_portal_evidence_can_replace_primary_identity_proof": false,
+    "question_promotion_performed": false,
+    "contextual_paths_before": 34,
+    "contextual_paths_after": 34,
+    "canonical_questions_total": 38,
+    "remaining_blockers": ["CTRL_Q2", "PROC_Q1", "PROC_Q2", "PROC_Q3"]
+  },
+  "future_controlled_probe": {
+    "implemented": false,
+    "executed": false,
+    "fresh_owner_authorization_required": true,
+    "authorization_reuse_allowed": false,
+    "same_resource_required_across_origins": true,
+    "candidate_origins": [
+      "GITHUB_ACTIONS",
+      "SEPARATELY_CONTROLLED_NON_CLOUD_OR_BRAZILIAN_EGRESS"
+    ],
+    "measurements": [
+      "dns_resolution",
+      "tcp_connect",
+      "tls_handshake",
+      "time_to_first_byte",
+      "http_status",
+      "bytes_received",
+      "content_type"
+    ],
+    "proxy_or_mirror_may_be_primary_evidence": false
+  },
+  "next_action": "PRIMARY_MUNICIPAL_OR_TCE_IDENTITY_ROUTE_NOW; CONTROLLED_MULTI_ORIGIN_PNCP_PROBE_ONLY_LATER_WITH_FRESH_AUTHORIZATION",
+  "remote_effects": {
+    "pncp_network": false,
+    "tce_network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "promotion": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
