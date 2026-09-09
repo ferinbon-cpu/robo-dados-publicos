@@ -96,6 +96,43 @@ class TestTask217JomSchoolIdentityBridge(unittest.TestCase):
             )
         )
 
+    def test_abstract_uses_of_infrastructure_words_are_not_physical_infrastructure(self):
+        cases = [
+            "Escola e ampliação do objeto investigatório.",
+            "Escola e construção do conhecimento.",
+            "Rede municipal e manutenção de registros pedagógicos.",
+        ]
+        for idx, text in enumerate(cases):
+            got = classify_event_school_identity(
+                {
+                    "event_id": f"SYNTHETIC_ABSTRACT_{idx}",
+                    "edition": 9999,
+                    "publication_date": "2026-01-01",
+                    "page_number": 1,
+                    "source_sha256": "a" * 64,
+                    "object_text": text,
+                    "excerpt_redacted": None,
+                }
+            )
+            self.assertFalse(got["infrastructure_candidate"], text)
+            self.assertEqual(got["infrastructure_markers"], [], text)
+
+    def test_true_physical_maintenance_remains_infrastructure(self):
+        got = classify_event_school_identity(
+            {
+                "event_id": "SYNTHETIC_PHYSICAL",
+                "edition": 9999,
+                "publication_date": "2026-01-01",
+                "page_number": 1,
+                "source_sha256": "a" * 64,
+                "object_text": "Manutenção do reservatório de água do CEIEF Prof. Arlindo de Salvo.",
+                "excerpt_redacted": None,
+            }
+        )
+        self.assertTrue(got["infrastructure_candidate"])
+        self.assertIn("manutencao", got["infrastructure_markers"])
+        self.assertEqual(got["resolved_school"]["school_code"], "35295061")
+
     def test_near_spelling_does_not_create_identity(self):
         got = classify_event_school_identity(
             {
