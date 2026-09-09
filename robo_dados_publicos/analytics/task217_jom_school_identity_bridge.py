@@ -32,6 +32,30 @@ def _contains(text: str, phrase: str) -> bool:
     return f" {normalize_text(phrase)} " in f" {normalize_text(text)} "
 
 
+def _alias_has_school_context(field_text: str, alias: str, cfg: Mapping[str, Any]) -> bool:
+    """Require a school/unit anchor near the exact alias.
+
+    Exact person/place names alone are insufficient because Limeira has non-school
+    entities that share names with municipal schools (for example streets and a
+    stadium). This is a deterministic disambiguation guard, not fuzzy matching.
+    """
+    tokens = normalize_text(field_text).split()
+    alias_tokens = normalize_text(alias).split()
+    if not tokens or not alias_tokens or len(alias_tokens) > len(tokens):
+        return False
+    window = int(cfg["school_identity"]["school_context_window_tokens"])
+    anchors = [normalize_text(x) for x in cfg["school_identity"]["school_context_anchors"]]
+    for start in range(0, len(tokens) - len(alias_tokens) + 1):
+        if tokens[start : start + len(alias_tokens)] != alias_tokens:
+            continue
+        lo = max(0, start - window)
+        hi = min(len(tokens), start + len(alias_tokens) + window)
+        local = " ".join(tokens[lo:hi])
+        if any(_contains(local, anchor) for anchor in anchors):
+            return True
+    return False
+
+
 def load_config(path: str | Path = DEFAULT_CONFIG) -> dict[str, Any]:
     obj = json.loads(Path(path).read_text(encoding="utf-8"))
     _stop(obj.get("schema") == "TASK217_JOM_SCHOOL_IDENTITY_BRIDGE_V1", "TASK217_SCHEMA")
@@ -161,6 +185,8 @@ def classify_event_school_identity(
         for alias, schools in alias_index.items():
             if f" {alias} " not in padded:
                 continue
+            if not _alias_has_school_context(field_text, alias, cfg):
+                continue
             for school in schools:
                 hit = school_hits.setdefault(
                     school["school_code"],
@@ -171,7 +197,13 @@ def classify_event_school_identity(
                         "matches": [],
                     },
                 )
-                hit["matches"].append({"field": field, "alias": alias})
+                hit["matches"].append(
+                    {
+                        "field": field,
+                        "alias": alias,
+                        "school_context_guard": "PASS_NEARBY_SCHOOL_ANCHOR",
+                    }
+                )
 
     combined_text = " ".join(normalize_text(event.get(field)) for field in accepted_fields)
     infrastructure_markers = [
@@ -208,6 +240,8 @@ def classify_event_school_identity(
         "infrastructure_markers": sorted(infrastructure_markers),
         "school_identity_created_by_fuzzy_matching": False,
         "infrastructure_text_created_school_identity": False,
+        "contextual_school_anchor_required": True,
+        "bare_alias_created_school_identity": False,
     }
 
 
