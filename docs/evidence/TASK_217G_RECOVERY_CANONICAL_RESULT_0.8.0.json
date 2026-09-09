@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "schema": "TASK217G_RECOVERY_CANONICAL_RESULT_V1",
+  "task": "TASK_217G_CANONIZATION",
+  "issue": 680,
+  "implementation_sha": "aac5abef7e72233a4667ff570ec9af5ae8c41287",
+  "runtime_head_sha": "055094b5ee5d66c2aff5c7e56c0cdce45ea25128",
+  "run_id": 34301761917,
+  "run_conclusion": "success",
+  "artifact": {
+    "id": 10085210743,
+    "name": "task-217g-jom-4-recovery-sanitized",
+    "zip_sha256": "2c277c5424def821d122c518e188597dd1af6a08eb4f5009f6bc7d8d6d8ab3fd",
+    "json_sha256": "141bfdbaafc754d56e249b56f2ef3f6c98ea9000e82b6b1292396b54d7b7aa58",
+    "embedded_result_sha256": "c37e87017acef66634f7cccf60df917d841741bf5f021159c09d8329178447d9"
+  },
+  "result": {
+    "status": "PASS_COMPLETE_4_OVERSIZED_DOCUMENT_RECOVERY",
+    "complete_scope": true,
+    "target_document_count": 4,
+    "document_get_attempt_count": 4,
+    "validated_download_count": 4,
+    "aggregate_document_bytes": 419211007,
+    "failure_count": 0,
+    "page_candidate_count": 17,
+    "resolved_exact_school_infrastructure_event_count": 0,
+    "generic_unassigned_school_infrastructure_event_count": 0,
+    "target_editions": [7243,7253,7270,7287]
+  },
+  "guards": {
+    "rediscovery_performed": false,
+    "raw_pdf_persisted": false,
+    "raw_page_text_persisted": false,
+    "drive_write_count": 0,
+    "serving_write_count": 0,
+    "publication_count": 0,
+    "promotion_performed_by_runtime": false,
+    "canonization_required": true
+  },
+  "scientific_interpretation": "The final four oversized official Jornal editions were all validated and processed. They add no new exact named-school infrastructure event. Combined with TASK 217D/F recovery, the bounded 2026-01-01 through 2026-09-08 JOM document scope is content-complete."
+}
