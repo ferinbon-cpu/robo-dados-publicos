@@ -1,0 +1,174 @@
+{
+  "version": 1,
+  "schema": "TASK219C2_PNCP_HALFMONTH_EXACT_IDENTITY_FALLBACK_V1",
+  "task": "TASK_219C2",
+  "issue": 691,
+  "base_main_sha": "f08b55d7044fa00bac80537bd647c934b1d60bf8",
+  "parent_task": "TASK_219C",
+  "first_runtime": {
+    "run_id": 34364890448,
+    "head_sha": "3dc1721e34379f050b23849a1d68a3ff06c0e65d",
+    "artifact_id": 10109452715,
+    "artifact_zip_sha256": "c7065330f8cd970f0bf5dc02463f3b865e38dcfa69bcf62a8c0370fdf984bad2",
+    "result_sha256": "4dcced3a9f00cb3f558f640c406f0964b8c7bd2bdd2d768d3113178be6e9f3a4",
+    "status": "STOP_PARTITION_SOURCE_TRANSPORT_OR_HTTP_OR_JSON_UNAVAILABLE",
+    "failed_partition": "2026-01",
+    "failed_page": 1,
+    "remote_get_count": 1,
+    "bytes_received": 0,
+    "transport_error": "TRANSPORT_ERROR:TimeoutError:The read operation timed out",
+    "scientific_effect": "NONE",
+    "authorization_reuse_allowed": false
+  },
+  "inputs": {
+    "parent_config": "config/task219c_pncp_exact_identity_bridge.v1.json",
+    "combined_identity_index": "docs/evidence/fixtures/task219/TASK_219B_FULL_99_EDITION_STRONG_IDENTITY_INDEX.json",
+    "expected_anchor_rows": 449,
+    "expected_unique_identities": 303
+  },
+  "source": {
+    "endpoint": "https://pncp.gov.br/api/consulta/v1/contratos",
+    "cnpjOrgao": "45132495000140",
+    "tamanhoPagina": 250,
+    "maxPaginasPerPartition": 3,
+    "maxTotalRemoteGets": 54,
+    "timeoutSeconds": 120,
+    "maxBytesPerPage": 12000000,
+    "retryMax": 0,
+    "redirectsMax": 0
+  },
+  "partitions": [
+    {
+      "id": "2026-01A",
+      "dataInicial": "20260101",
+      "dataFinal": "20260115"
+    },
+    {
+      "id": "2026-01B",
+      "dataInicial": "20260116",
+      "dataFinal": "20260131"
+    },
+    {
+      "id": "2026-02A",
+      "dataInicial": "20260201",
+      "dataFinal": "20260214"
+    },
+    {
+      "id": "2026-02B",
+      "dataInicial": "20260215",
+      "dataFinal": "20260228"
+    },
+    {
+      "id": "2026-03A",
+      "dataInicial": "20260301",
+      "dataFinal": "20260315"
+    },
+    {
+      "id": "2026-03B",
+      "dataInicial": "20260316",
+      "dataFinal": "20260331"
+    },
+    {
+      "id": "2026-04A",
+      "dataInicial": "20260401",
+      "dataFinal": "20260415"
+    },
+    {
+      "id": "2026-04B",
+      "dataInicial": "20260416",
+      "dataFinal": "20260430"
+    },
+    {
+      "id": "2026-05A",
+      "dataInicial": "20260501",
+      "dataFinal": "20260515"
+    },
+    {
+      "id": "2026-05B",
+      "dataInicial": "20260516",
+      "dataFinal": "20260531"
+    },
+    {
+      "id": "2026-06A",
+      "dataInicial": "20260601",
+      "dataFinal": "20260615"
+    },
+    {
+      "id": "2026-06B",
+      "dataInicial": "20260616",
+      "dataFinal": "20260630"
+    },
+    {
+      "id": "2026-07A",
+      "dataInicial": "20260701",
+      "dataFinal": "20260715"
+    },
+    {
+      "id": "2026-07B",
+      "dataInicial": "20260716",
+      "dataFinal": "20260731"
+    },
+    {
+      "id": "2026-08A",
+      "dataInicial": "20260801",
+      "dataFinal": "20260815"
+    },
+    {
+      "id": "2026-08B",
+      "dataInicial": "20260816",
+      "dataFinal": "20260831"
+    },
+    {
+      "id": "2026-09A",
+      "dataInicial": "20260901",
+      "dataFinal": "20260904"
+    },
+    {
+      "id": "2026-09B",
+      "dataInicial": "20260905",
+      "dataFinal": "20260908"
+    }
+  ],
+  "completeness": {
+    "exact_scope": [
+      "20260101",
+      "20260908"
+    ],
+    "partitions_required": 18,
+    "all_partitions_required": true,
+    "page_count_stability_required": true,
+    "record_count_reconciliation_required": true,
+    "any_partition_failure_stops_global_adjudication": true,
+    "no_partition_overlap": true,
+    "no_partition_gap": true
+  },
+  "persistence": {
+    "rawPayloadGit": false,
+    "rawPayloadDrive": false,
+    "rawPayloadWorkflowArtifact": false,
+    "sanitizedResultWorkflowArtifact": true,
+    "artifactRetentionDays": 1
+  },
+  "promotion_policy": {
+    "runtime_auto_promotion": false,
+    "end_to_end_chain_claim_allowed": false,
+    "contextual_paths_before": 34,
+    "contextual_paths_after_runtime": 34
+  },
+  "runtime": {
+    "branch": "task-219c2-pncp-halfmonth-runtime",
+    "authorization_path": "runtime/task219c2_owner_authorization.json",
+    "trigger_path": "runtime_triggers/task219c2_pncp_halfmonth.run",
+    "artifact_name": "task-219c2-pncp-halfmonth-sanitized"
+  },
+  "remote_effects": {
+    "pncp_read_only": true,
+    "tce_network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "promotion": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
