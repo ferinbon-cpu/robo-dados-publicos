@@ -1,0 +1,151 @@
+name: TASK 219C PNCP exact identity bridge
+run-name: "TASK 219C PNCP exact identity by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-219c-pncp-303-identity-runtime
+    paths:
+      - 'runtime_triggers/task219c_pncp_exact_identity.run'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-219c-pncp-exact-identity
+  cancel-in-progress: false
+
+jobs:
+  bridge:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+
+    steps:
+      - name: Checkout exact runtime head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Validate authorization-only runtime delta
+        shell: bash
+        run: |
+          set -euo pipefail
+          AUTH=runtime/task219c_owner_authorization.json
+          TRIGGER=runtime_triggers/task219c_pncp_exact_identity.run
+          test -f "$AUTH"
+          test -f "$TRIGGER"
+          IMPL="$(python - <<'PY'
+          import json
+          print(json.load(open("runtime/task219c_owner_authorization.json", encoding="utf-8"))["implementation_sha"])
+          PY
+          )"
+          test "$(printf '%s' "$IMPL" | grep -E '^[0-9a-f]{40}$')" = "$IMPL"
+          git cat-file -e "$IMPL^{commit}"
+          git merge-base --is-ancestor "$IMPL" HEAD
+          UNEXPECTED="$(git diff --name-only "$IMPL"..HEAD | grep -Ev '^(runtime/task219c_owner_authorization.json|runtime_triggers/task219c_pncp_exact_identity.run)$' || true)"
+          test -z "$UNEXPECTED"
+          echo "TASK219C_IMPLEMENTATION_SHA=$IMPL" >> "$GITHUB_ENV"
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        shell: bash
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Execute authorized bounded PNCP exact-identity discovery
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf runtime_out
+          mkdir -p runtime_out
+          set +e
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          from robo_dados_publicos.research.task219c_pncp_exact_identity_bridge import (
+              LivePncpSource,
+              execute,
+              load_config,
+          )
+
+          cfg = load_config()
+          auth = json.loads(
+              Path("runtime/task219c_owner_authorization.json").read_text(encoding="utf-8")
+          )
+          result = execute(
+              cfg,
+              source=LivePncpSource(),
+              authorization=auth,
+              expected_implementation_sha=os.environ["TASK219C_IMPLEMENTATION_SHA"],
+          )
+          result["implementation_sha"] = os.environ["TASK219C_IMPLEMENTATION_SHA"]
+          canonical = json.dumps(
+              result,
+              ensure_ascii=False,
+              sort_keys=True,
+              separators=(",", ":"),
+          ).encode("utf-8")
+          result["result_sha256"] = hashlib.sha256(canonical).hexdigest()
+
+          target = Path("runtime_out/task219c_sanitized_result.json")
+          target.write_text(
+              json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          counts = (result.get("identity") or {}).get("counts") or {}
+          print("TASK219C_STATUS=" + str(result.get("status")))
+          print("TASK219C_COMPLETE=" + str(result.get("complete_all_partitions")))
+          print("TASK219C_TOTAL_RECORDS=" + str(result.get("total_records_across_partitions")))
+          print("TASK219C_REMOTE_GETS=" + str(len(result.get("requests") or [])))
+          print("TASK219C_MATCHED_IDENTITIES=" + str(counts.get("matched_identity_count")))
+          print("TASK219C_MATCHED_PROCESSES=" + str(counts.get("matched_process_identity_count")))
+          print("TASK219C_MATCHED_CONTRACTS=" + str(counts.get("matched_contract_identity_count")))
+          print("TASK219C_CONFLICTS=" + str(counts.get("conflict_identity_count")))
+          print("TASK219C_PURCHASE_IDS=" + str(counts.get("matched_purchase_id_count")))
+          print("TASK219C_TCE_CANDIDATES=" + str(counts.get("typed_empenho_tce_candidate_count")))
+          raise SystemExit(
+              0
+              if result.get("complete_all_partitions") is True
+              and str(result.get("status", "")).startswith("EXHAUSTIVE_COMPLETE_")
+              else 2
+          )
+          PY
+          RC=$?
+          echo "TASK219C_EXEC_RC=$RC" >> "$GITHUB_ENV"
+          exit 0
+
+      - name: Verify sanitized-only persistence
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f runtime_out/task219c_sanitized_result.json
+          test "$(find runtime_out -maxdepth 1 -type f | wc -l)" -eq 1
+          test -z "$(find runtime_out -type f \( -name '*raw*' -o -name '*page*' -o -name '*response*' \) -print)"
+
+      - name: Upload sanitized result only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-219c-pncp-exact-identity-sanitized
+          path: runtime_out/task219c_sanitized_result.json
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Enforce fail-closed completion after artifact upload
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${TASK219C_EXEC_RC:-2}" = "0"
