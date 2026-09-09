@@ -57,6 +57,10 @@ class TestTask218InfraQ2ContextualExecution(unittest.TestCase):
         self.assertEqual(event["published_value_brl"], "71000.00")
         self.assertIn("não a conclusão física", event["text"])
         self.assertEqual(got["TIME_REFERENCE"], ["JOM 2026-01-01..2026-09-08"])
+        self.assertEqual(
+            got["filter_accounting"]["POLICY_SERVICE_FACETS"]["status"],
+            "APPLIED_INTRINSIC_INFRASTRUCTURE_SCOPE",
+        )
         self.assertIn("CONTRACT_NE_COMPLETED_WORK", got["CAUTION_OR_LIMIT"])
         self.assertIn("PROVEN_NAMED_SCHOOL_SET_NE_ALL_REAL_WORLD_INFRASTRUCTURE", got["CAUTION_OR_LIMIT"])
 
