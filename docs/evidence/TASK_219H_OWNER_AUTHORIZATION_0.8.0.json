@@ -1,0 +1,12 @@
+{
+  "task":"TASK_219H_OWNER_AUTHORIZATION",
+  "issue":705,
+  "authorized_main_sha":"afc2f5bd3243d6ff72a7b47192808d69fd88a74f",
+  "owner_instruction":"Autorizacaoparw o próximo grande salto completo",
+  "scope":"COMPLETE_TASK219H_TCESP_EXACT_SUPPLIER_BRIDGE",
+  "max_source_gets":2,
+  "retry":0,
+  "allowed_host":"transparencia.tce.sp.gov.br",
+  "includes":["design","one_live_read","artifact_inspection","offline_adjudication","workflow_removal","ci_merge","closure"],
+  "excludes":["pncp","municipal_contract_portal","drive","unrelated_sources","recurrence","second_live_query"]
+}
