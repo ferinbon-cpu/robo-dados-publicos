@@ -1,0 +1,140 @@
+name: TASK 219A JOM 87-document general-event redigest
+run-name: "TASK 219A JOM general events by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-219a-jom-general-events-runtime
+    paths:
+      - 'runtime_triggers/task219a_jom_general_event_redigest.run'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-219a-jom-general-event-redigest
+  cancel-in-progress: false
+
+jobs:
+  redigest:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+
+    steps:
+      - name: Checkout exact runtime head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Validate authorization-only runtime delta
+        shell: bash
+        run: |
+          set -euo pipefail
+          AUTH=runtime/task219a_owner_authorization.json
+          test -f "$AUTH"
+          IMPL="$(python - <<'PY'
+          import json
+          print(json.load(open("runtime/task219a_owner_authorization.json", encoding="utf-8"))["implementation_sha"])
+          PY
+          )"
+          test "$(printf '%s' "$IMPL" | grep -E '^[0-9a-f]{40}$')" = "$IMPL"
+          git cat-file -e "$IMPL^{commit}"
+          git merge-base --is-ancestor "$IMPL" HEAD
+          UNEXPECTED="$(git diff --name-only "$IMPL"..HEAD | grep -Ev '^(runtime/task219a_owner_authorization.json|runtime_triggers/task219a_jom_general_event_redigest.run)$' || true)"
+          test -z "$UNEXPECTED"
+          echo "TASK219A_IMPLEMENTATION_SHA=$IMPL" >> "$GITHUB_ENV"
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        shell: bash
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Execute authorized 87-document general-event redigest
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf runtime_out
+          mkdir -p runtime_out
+          set +e
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          from robo_dados_publicos.research.task219a_jom_general_event_redigest import (
+              LiveDocumentSource,
+              LiveJournalDiscoverySource,
+              execute_general_redigest,
+              load_config,
+              write_sanitized_bundle,
+          )
+
+          cfg = load_config()
+          auth = json.loads(
+              Path("runtime/task219a_owner_authorization.json").read_text(encoding="utf-8")
+          )
+          result = execute_general_redigest(
+              cfg,
+              discovery_source=LiveJournalDiscoverySource(),
+              document_source=LiveDocumentSource(),
+              authorization=auth,
+              expected_implementation_sha=os.environ["TASK219A_IMPLEMENTATION_SHA"],
+              offline_test_mode=False,
+          )
+          manifest = write_sanitized_bundle(result, Path("runtime_out"))
+          counts = result.get("counts") or {}
+          print("TASK219A_STATUS=" + str(result.get("status")))
+          print("TASK219A_COMPLETE_SCOPE=" + str(result.get("complete_scope")))
+          print("TASK219A_TARGETS=" + str(result.get("target_document_count")))
+          print("TASK219A_VALIDATED_DOWNLOADS=" + str(result.get("validated_download_count")))
+          print("TASK219A_FAILURES=" + str(counts.get("failure_count")))
+          print("TASK219A_NEW_EVENTS=" + str(counts.get("new_event_count")))
+          print("TASK219A_PROCUREMENT_EVENTS=" + str(counts.get("procurement_shaped_event_count")))
+          print("TASK219A_STRONG_ANCHORS=" + str(counts.get("strong_anchor_count")))
+          print("TASK219A_STRONG_ANCHOR_EVENTS=" + str(counts.get("strong_anchor_event_count")))
+          print("TASK219A_BUNDLE_SHA256=" + str(manifest.get("bundle_sha256")))
+          raise SystemExit(
+              0
+              if result.get("status") == "PASS_COMPLETE_87_DOCUMENT_GENERAL_EVENT_REDIGEST"
+              else 2
+          )
+          PY
+          RC=$?
+          echo "TASK219A_EXEC_RC=$RC" >> "$GITHUB_ENV"
+          exit 0
+
+      - name: Verify sanitized-only persistence
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -d runtime_out
+          EXPECTED="$(printf '%s\n'             task219a_event_semantics_sanitized.jsonl             task219a_events_gold_sanitized.jsonl             task219a_manifest.json             task219a_strong_identity_anchors.jsonl | sort)"
+          ACTUAL="$(find runtime_out -maxdepth 1 -type f -printf '%f\n' | sort)"
+          test "$ACTUAL" = "$EXPECTED"
+          test -z "$(find runtime_out -type f \( -name '*.pdf' -o -name '*pages_silver*' -o -name '*chunks_rag*' -o -name '*accounting_query_tasks*' \) -print)"
+
+      - name: Upload sanitized event corpus only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-219a-jom-general-events-sanitized
+          path: runtime_out/
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Enforce fail-closed completion after artifact upload
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${TASK219A_EXEC_RC:-2}" = "0"
