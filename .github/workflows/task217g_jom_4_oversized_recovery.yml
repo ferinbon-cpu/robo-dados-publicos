@@ -1,0 +1,123 @@
+name: TASK 217G JOM 4 oversized-document recovery
+run-name: "TASK 217G JOM recovery by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-217g-jom-4-recovery-runtime
+    paths:
+      - 'runtime_triggers/task217g_jom_4_recovery.run'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-217g-jom-4-recovery
+  cancel-in-progress: false
+
+jobs:
+  recover:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - name: Checkout exact runtime head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Validate authorization-only runtime delta
+        shell: bash
+        run: |
+          set -euo pipefail
+          AUTH=runtime/task217g_owner_authorization.json
+          test -f "$AUTH"
+          IMPL="$(python - <<'PY'
+          import json
+          print(json.load(open("runtime/task217g_owner_authorization.json", encoding="utf-8"))["implementation_sha"])
+          PY
+          )"
+          test "$(printf '%s' "$IMPL" | grep -E '^[0-9a-f]{40}$')" = "$IMPL"
+          git cat-file -e "$IMPL^{commit}"
+          git merge-base --is-ancestor "$IMPL" HEAD
+          UNEXPECTED="$(git diff --name-only "$IMPL"..HEAD | grep -Ev '^(runtime/task217g_owner_authorization.json|runtime_triggers/task217g_jom_4_recovery.run)$' || true)"
+          test -z "$UNEXPECTED"
+          echo "TASK217G_IMPLEMENTATION_SHA=$IMPL" >> "$GITHUB_ENV"
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        shell: bash
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Execute authorized 4-document recovery
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime_out
+          set +e
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          from robo_dados_publicos.research.task217d_jom_school_infra_redigest import LiveDocumentSource
+          from robo_dados_publicos.research.task217g_jom_4_oversized_recovery import execute_recovery, load_config
+
+          cfg = load_config()
+          auth = json.loads(Path("runtime/task217g_owner_authorization.json").read_text(encoding="utf-8"))
+          result = execute_recovery(
+              cfg,
+              document_source=LiveDocumentSource(),
+              authorization=auth,
+              expected_implementation_sha=os.environ["TASK217G_IMPLEMENTATION_SHA"],
+              offline_test_mode=False,
+          )
+          canonical = json.dumps(result, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+          result["result_sha256"] = hashlib.sha256(canonical).hexdigest()
+          target = Path("runtime_out/task217g_sanitized_recovery_result.json")
+          target.write_text(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          print("TASK217G_STATUS=" + str(result.get("status")))
+          print("TASK217G_COMPLETE_SCOPE=" + str(result.get("complete_scope")))
+          print("TASK217G_TARGETS=" + str(result.get("target_document_count")))
+          print("TASK217G_VALIDATED_DOWNLOADS=" + str(result.get("validated_download_count")))
+          print("TASK217G_FAILURES=" + str((result.get("counts") or {}).get("failure_count")))
+          print("TASK217G_PAGE_CANDIDATES=" + str((result.get("counts") or {}).get("page_candidate_count")))
+          print("TASK217G_EXACT_EVENTS=" + str((result.get("counts") or {}).get("resolved_exact_school_infrastructure_event_count")))
+          print("TASK217G_GENERIC_EVENTS=" + str((result.get("counts") or {}).get("generic_unassigned_school_infrastructure_event_count")))
+          raise SystemExit(0 if result.get("status") == "PASS_COMPLETE_4_OVERSIZED_DOCUMENT_RECOVERY" else 2)
+          PY
+          RC=$?
+          echo "TASK217G_EXEC_RC=$RC" >> "$GITHUB_ENV"
+          exit 0
+
+      - name: Verify sanitized-only persistence
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f runtime_out/task217g_sanitized_recovery_result.json
+          test ! -e runtime_out/source.pdf
+          test ! -e runtime_out/raw.html
+          test ! -e runtime_out/pages_silver.jsonl
+
+      - name: Upload sanitized recovery result only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-217g-jom-4-recovery-sanitized
+          path: runtime_out/task217g_sanitized_recovery_result.json
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Enforce fail-closed completion after artifact upload
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${TASK217G_EXEC_RC:-2}" = "0"
