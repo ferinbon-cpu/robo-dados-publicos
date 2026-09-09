@@ -8,12 +8,15 @@
     "existing_general_event_editions": 12,
     "existing_general_event_rows": 303,
     "new_documents_to_redigest": 87,
-    "canonical_discovery_sha256": "7c31c9791793c889a8c76e27bcf0d6b6b26f23a3b6bec07fbd95d8c1fba29510"
+    "canonical_discovery_sha256": "7c31c9791793c889a8c76e27bcf0d6b6b26f23a3b6bec07fbd95d8c1fba29510",
+    "pinned_target_fixture": "docs/evidence/fixtures/task219/TASK_219A_CANONICAL_87_DOCUMENT_TARGETS.csv",
+    "pinned_target_fixture_git_blob_sha": "766069f41ae785010d91de888bc71b3dd504a1a9",
+    "rediscovery": false
   },
   "network_boundary": {
-    "index_gets_max": 18,
+    "index_gets_max": 0,
     "document_gets_max": 87,
-    "total_gets_max": 105,
+    "total_gets_max": 87,
     "max_bytes_per_document": 262144000,
     "aggregate_bytes_max": 4294967296,
     "automatic_retry": false
@@ -41,7 +44,12 @@
   },
   "promotion": {
     "runtime_may_promote": false,
-    "candidate_questions": ["PROC_Q1","PROC_Q2","PROC_Q3","CTRL_Q2"],
+    "candidate_questions": [
+      "PROC_Q1",
+      "PROC_Q2",
+      "PROC_Q3",
+      "CTRL_Q2"
+    ],
     "coverage_before": "34/38",
     "coverage_after_carrier": "34/38"
   }
