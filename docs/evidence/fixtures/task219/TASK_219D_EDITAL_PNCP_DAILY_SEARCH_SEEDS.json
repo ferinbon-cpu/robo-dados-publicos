@@ -1,0 +1,684 @@
+{
+  "endpoint": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao",
+  "guards": {
+    "exact_identity_match_required_after_retrieval": true,
+    "publication_date_is_identity": false,
+    "supplier_is_identity": false
+  },
+  "identity_grain": [
+    "modality_id",
+    "bidding_number",
+    "bidding_year"
+  ],
+  "schema": "TASK219D_EDITAL_PNCP_DAILY_SEARCH_SEEDS_V1",
+  "search_scope_grain": [
+    "modality_id",
+    "publication_date"
+  ],
+  "seed_count": 35,
+  "seeds": [
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_7e769ec0c5f073738fa7"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-01-24",
+      "target_identities": [
+        {
+          "bidding_number": 10,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_1f27994f95cbb14207b0"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-02-12",
+      "target_identities": [
+        {
+          "bidding_number": 14,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_4e2b9573bb7c4ec999e8",
+        "JOEV_5c722ea5a4966df40bf0"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-02-14",
+      "target_identities": [
+        {
+          "bidding_number": 17,
+          "bidding_year": 2026,
+          "modality_id": 6
+        },
+        {
+          "bidding_number": 18,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 2
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_a023a2a38f3429c60dd9"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-02-24",
+      "target_identities": [
+        {
+          "bidding_number": 19,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_1c61b217949f483953b7"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-02-27",
+      "target_identities": [
+        {
+          "bidding_number": 22,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_2b8e95226f1c41f34975",
+        "JOEV_2e4608cc40c66992a802",
+        "JOEV_aa387bf0784ff3b22641"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-02-28",
+      "target_identities": [
+        {
+          "bidding_number": 17,
+          "bidding_year": 2026,
+          "modality_id": 6
+        },
+        {
+          "bidding_number": 23,
+          "bidding_year": 2026,
+          "modality_id": 6
+        },
+        {
+          "bidding_number": 188,
+          "bidding_year": 2024,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 3
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_9606dcbdef0447ec609c",
+        "JOEV_b786b446802ee00eafec"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-03-17",
+      "target_identities": [
+        {
+          "bidding_number": 36,
+          "bidding_year": 2026,
+          "modality_id": 6
+        },
+        {
+          "bidding_number": 37,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 2
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_53120560411a2dcf9716",
+        "JOEV_f813314599d000678928"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-03-20",
+      "target_identities": [
+        {
+          "bidding_number": 38,
+          "bidding_year": 2026,
+          "modality_id": 6
+        },
+        {
+          "bidding_number": 39,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 2
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_b79775deae5ad4a641ef"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-03-21",
+      "target_identities": [
+        {
+          "bidding_number": 40,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_7742a4856a7a2f24de42"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-03-24",
+      "target_identities": [
+        {
+          "bidding_number": 41,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_740d312de2ecea30cdc6",
+        "JOEV_b82681f0c6467fe9c476"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-03-26",
+      "target_identities": [
+        {
+          "bidding_number": 42,
+          "bidding_year": 2026,
+          "modality_id": 6
+        },
+        {
+          "bidding_number": 43,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 2
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_72a25db0976de45dc51a",
+        "JOEV_a2bf986814b95f30dcf1"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-04-16",
+      "target_identities": [
+        {
+          "bidding_number": 48,
+          "bidding_year": 2026,
+          "modality_id": 6
+        },
+        {
+          "bidding_number": 49,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 2
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_ec9624cd397fe843e932"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-04-18",
+      "target_identities": [
+        {
+          "bidding_number": 43,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_9c9f4bf3165e1dab93b9"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-04-24",
+      "target_identities": [
+        {
+          "bidding_number": 51,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_0689d3db80e97dbcd812"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-04-29",
+      "target_identities": [
+        {
+          "bidding_number": 52,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_2d913318534a24499714",
+        "JOEV_5e24d228a1943318cac0",
+        "JOEV_b30dba371e40c0be46c8"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-05-20",
+      "target_identities": [
+        {
+          "bidding_number": 65,
+          "bidding_year": 2026,
+          "modality_id": 6
+        },
+        {
+          "bidding_number": 66,
+          "bidding_year": 2026,
+          "modality_id": 6
+        },
+        {
+          "bidding_number": 67,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 3
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_c88926bcf94d42f6fffa"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-05-21",
+      "target_identities": [
+        {
+          "bidding_number": 64,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_a0aef8830b53e911d095"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-05-23",
+      "target_identities": [
+        {
+          "bidding_number": 69,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_23080d84736b1173f119"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-05-26",
+      "target_identities": [
+        {
+          "bidding_number": 53,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_0b1bf28012b796bbe70f",
+        "JOEV_7e98b22f8efb50325044",
+        "JOEV_988c72d482f15ad85811"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-05-27",
+      "target_identities": [
+        {
+          "bidding_number": 70,
+          "bidding_year": 2026,
+          "modality_id": 6
+        },
+        {
+          "bidding_number": 71,
+          "bidding_year": 2026,
+          "modality_id": 6
+        },
+        {
+          "bidding_number": 72,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 3
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_ca1c64e608d3b507421b"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-05-28",
+      "target_identities": [
+        {
+          "bidding_number": 68,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_e128613c8667ea94c408",
+        "JOEV_fa756c678003a91b9248"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-05-30",
+      "target_identities": [
+        {
+          "bidding_number": 75,
+          "bidding_year": 2026,
+          "modality_id": 6
+        },
+        {
+          "bidding_number": 76,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 2
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_e4819a8cbe1b13a2baf9"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-06-17",
+      "target_identities": [
+        {
+          "bidding_number": 59,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_43ecd7b178cb8fc2a944"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-06-19",
+      "target_identities": [
+        {
+          "bidding_number": 87,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_2ce0063a499bc78c12c3"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-06-26",
+      "target_identities": [
+        {
+          "bidding_number": 93,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_d2163173940335ec635b",
+        "JOEV_d55f0494cbfe0c0342d1"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-06-27",
+      "target_identities": [
+        {
+          "bidding_number": 90,
+          "bidding_year": 2026,
+          "modality_id": 6
+        },
+        {
+          "bidding_number": 95,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 2
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_8457322d2f9d20f529d1"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-07-17",
+      "target_identities": [
+        {
+          "bidding_number": 110,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_0e65d69f1862d4bf83c4"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-07-24",
+      "target_identities": [
+        {
+          "bidding_number": 112,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_f066be813b5a0bcb2849"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-07-25",
+      "target_identities": [
+        {
+          "bidding_number": 115,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_bb7478e3ffaa4c529243"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-07-29",
+      "target_identities": [
+        {
+          "bidding_number": 116,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_9323f52429303510ff51",
+        "JOEV_93d29deb99068a968b5c"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-08-22",
+      "target_identities": [
+        {
+          "bidding_number": 134,
+          "bidding_year": 2026,
+          "modality_id": 6
+        },
+        {
+          "bidding_number": 135,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 2
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_18bd02faa97e4f491f9c",
+        "JOEV_60d1a5a0eed86ed445d0"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-08-25",
+      "target_identities": [
+        {
+          "bidding_number": 136,
+          "bidding_year": 2026,
+          "modality_id": 6
+        },
+        {
+          "bidding_number": 138,
+          "bidding_year": 2026,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 2
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_6b2ce4268e4f4d0fbdd1",
+        "JOEV_8615e79f0c5cf4ac3567",
+        "JOEV_b6bf5b0235e7c1de45d1",
+        "JOEV_bfa8c56fd00e4e7b1f7e"
+      ],
+      "modality_id": 6,
+      "publication_date": "2026-09-05",
+      "target_identities": [
+        {
+          "bidding_number": 145,
+          "bidding_year": 2026,
+          "modality_id": 6
+        },
+        {
+          "bidding_number": 146,
+          "bidding_year": 2026,
+          "modality_id": 6
+        },
+        {
+          "bidding_number": 188,
+          "bidding_year": 2024,
+          "modality_id": 6
+        }
+      ],
+      "target_identity_count": 3
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_4ef7ea0276bb4024d5fa"
+      ],
+      "modality_id": 8,
+      "publication_date": "2026-06-20",
+      "target_identities": [
+        {
+          "bidding_number": 209,
+          "bidding_year": 2026,
+          "modality_id": 8
+        }
+      ],
+      "target_identity_count": 1
+    },
+    {
+      "date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+      "jom_edital_event_ids": [
+        "JOEV_07357f03181c3f43831c"
+      ],
+      "modality_id": 8,
+      "publication_date": "2026-08-27",
+      "target_identities": [
+        {
+          "bidding_number": 326,
+          "bidding_year": 2026,
+          "modality_id": 8
+        }
+      ],
+      "target_identity_count": 1
+    }
+  ]
+}
