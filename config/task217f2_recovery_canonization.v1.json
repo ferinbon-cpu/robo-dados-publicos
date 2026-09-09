@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "schema": "TASK217F2_RECOVERY_CANONIZATION_V1",
+  "task": "TASK_217F2",
+  "issue": 680,
+  "base_main_sha": "9b16ecc53defa128ad1ba050d2213c3ed01e1c7b",
+  "runtime": {
+    "implementation_sha": "9b16ecc53defa128ad1ba050d2213c3ed01e1c7b",
+    "runtime_head_sha": "91115e8d5fcf1fe1b5f5dd8a59774742e74392a5",
+    "run_id": 34299660362,
+    "run_conclusion": "failure_fail_closed",
+    "artifact_id": 10084545954,
+    "artifact_zip_sha256": "e3a3506697e25e02b80955c0a8fe68c245fbc0d0d0fc3fcaf0df6ef0dfc166ba",
+    "artifact_json_sha256": "ab44c9e2f256fe83f751a837a559129ab91fc5cfbc7e39e4ee97ecae54a7ee47",
+    "embedded_result_sha256": "64ee897c321d45cd9ef7aa780320c57526af09e9cb81fd2800168cef6ae282f8"
+  },
+  "observed": {
+    "status": "PARTIAL_12_DOCUMENT_RECOVERY_NO_ABSENCE_INFERENCE",
+    "target_document_count": 12,
+    "document_get_attempt_count": 12,
+    "validated_download_count": 8,
+    "failure_count": 4,
+    "aggregate_document_bytes": 305771910,
+    "page_candidate_count_before_semantic_guard": 22,
+    "raw_generic_event_count_before_semantic_guard": 3,
+    "resolved_exact_school_infrastructure_event_count": 0
+  },
+  "failures": [
+    {"edition":7243,"stop_code":"TASK217F_DOCUMENT_BYTES"},
+    {"edition":7253,"stop_code":"TASK217F_DOCUMENT_BYTES"},
+    {"edition":7270,"stop_code":"TASK217F_DOCUMENT_BYTES"},
+    {"edition":7287,"stop_code":"TASK217F_DOCUMENT_BYTES"}
+  ],
+  "successfully_recovered_editions": [7265,7271,7294,7316,7317,7318,7319,7320],
+  "semantic_adjudication": {
+    "raw_generic_events": 3,
+    "physical_school_infrastructure_generic_events_after_guard": 0,
+    "rejected_abstract_phrases": [
+      "ampliacao do objeto",
+      "construcao do conhecimento",
+      "manutencao de registros"
+    ],
+    "true_named_school_event_from_task217e_still_valid": {
+      "event_id": "JOEV_fab1a3c79f589f7ccc18",
+      "school_code": "35295061",
+      "school_name": "CEIEF Arlindo de Salvo, Prof.",
+      "contract_number": "42/2026"
+    }
+  },
+  "answerability": {
+    "INFRA_Q2": "BLOCKED_FOUR_OVERSIZED_DOCUMENTS_UNCOVERED",
+    "contextual_paths_before": 33,
+    "contextual_paths_after": 33,
+    "full_scope_required": true
+  },
+  "next_task": "TASK_217G_BOUNDED_4_OVERSIZED_DOCUMENT_RECOVERY_REQUIRES_SEPARATE_AUTHORIZATION"
+}

@@ -32,6 +32,25 @@ def _contains(text: str, phrase: str) -> bool:
     return f" {normalize_text(phrase)} " in f" {normalize_text(text)} "
 
 
+def infrastructure_markers_for_text(
+    text: str,
+    *,
+    config_path: str | Path = DEFAULT_CONFIG,
+) -> list[str]:
+    """Return physical-infrastructure markers after deterministic abstract-usage exclusions."""
+    cfg = load_config(config_path)
+    normalized = normalize_text(text)
+    out = []
+    exclusions = cfg.get("infrastructure_marker_exclusions", {})
+    for marker in cfg["infrastructure_markers"]:
+        if not _contains(normalized, marker):
+            continue
+        if any(_contains(normalized, phrase) for phrase in exclusions.get(marker, [])):
+            continue
+        out.append(marker)
+    return sorted(out)
+
+
 def _alias_has_school_context(field_text: str, alias: str, cfg: Mapping[str, Any]) -> bool:
     """Require a school/unit anchor near the exact alias.
 
@@ -206,9 +225,10 @@ def classify_event_school_identity(
                 )
 
     combined_text = " ".join(normalize_text(event.get(field)) for field in accepted_fields)
-    infrastructure_markers = [
-        marker for marker in cfg["infrastructure_markers"] if _contains(combined_text, marker)
-    ]
+    infrastructure_markers = infrastructure_markers_for_text(
+        combined_text,
+        config_path=config_path,
+    )
     generic_markers = [
         marker for marker in cfg["generic_school_references"] if _contains(combined_text, marker)
     ]

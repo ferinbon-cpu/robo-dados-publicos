@@ -109,5 +109,16 @@
     "schedule": false,
     "recurrence": false,
     "llm": false
+  },
+  "infrastructure_marker_exclusions": {
+    "ampliacao": [
+      "ampliacao do objeto"
+    ],
+    "construcao": [
+      "construcao do conhecimento"
+    ],
+    "manutencao": [
+      "manutencao de registros"
+    ]
   }
 }
