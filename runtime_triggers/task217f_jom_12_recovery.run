@@ -1,0 +1,8 @@
+{
+  "schema": "TASK217F_RUNTIME_TRIGGER_V1",
+  "task": "TASK_217F",
+  "implementation_sha": "9b16ecc53defa128ad1ba050d2213c3ed01e1c7b",
+  "authorization": "runtime/task217f_owner_authorization.json",
+  "operation": "BOUNDED_12_DOCUMENT_JOM_RECOVERY_FOR_SCHOOL_INFRASTRUCTURE",
+  "attempt_count": 1
+}
