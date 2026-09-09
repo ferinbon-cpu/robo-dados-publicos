@@ -70,6 +70,10 @@ def load_contract(path: str | Path = DEFAULT_CONTRACT) -> dict[str, Any]:
     _stop(events[0]["school_code"] == "35295061", "TASK218_SCHOOL_CODE")
     _stop(events[0]["contract_number"] == "42/2026", "TASK218_CONTRACT_NUMBER")
     _stop(events[0]["published_value_brl"] == "71000.00", "TASK218_VALUE")
+    _stop(
+        obj["execution"]["policy_service_facets_supported"] == ["INFRAESTRUTURA"],
+        "TASK218_FACET_SCOPE",
+    )
     bounds = obj["claim_boundaries"]
     _stop(all(value is False for value in bounds.values()), "TASK218_CLAIM_BOUNDARIES")
     _stop(all(value is False for value in obj["remote_effects"].values()), "TASK218_REMOTE_EFFECTS")
