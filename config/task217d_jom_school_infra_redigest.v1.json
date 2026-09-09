@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "schema": "TASK217D_JOM_SCHOOL_INFRA_REDIGEST_V1",
+  "task": "TASK_217D",
+  "issue": 680,
+  "base_main_sha": "3951b2178006a136102cf62f21699f0a6608cfd8",
+  "mode": "T0_IMPLEMENTED_LIVE_DISABLED_UNTIL_SEPARATE_OWNER_AUTHORIZATION",
+  "canonical_discovery": {
+    "config": "config/task217c_discovery_canonization.v1.json",
+    "result_sha256": "7c31c9791793c889a8c76e27bcf0d6b6b26f23a3b6bec07fbd95d8c1fba29510",
+    "document_count": 99,
+    "existing_editions": [7304,7305,7306,7307,7308,7309,7310,7311,7312,7313,7314,7315],
+    "new_document_count": 87
+  },
+  "partitions": {
+    "2026-01": [7161,7162,7163,7164,7165,7166,7167,7168,7169,7170,7171,7172],
+    "2026-02": [7179,7180,7181,7182,7183,7184,7185,7186,7187,7188,7189,7190],
+    "2026-03": [7201,7202,7203,7204,7205,7206,7207,7208,7209,7210,7211,7212],
+    "2026-04": [7221,7222,7223,7224,7225,7226,7227,7228,7229,7230,7231,7232],
+    "2026-05": [7242,7243,7244,7245,7246,7247,7248,7249,7250,7251,7252,7253],
+    "2026-06": [7262,7263,7264,7265,7266,7267,7268,7269,7270,7271,7272,7273],
+    "2026-07": [7283,7284,7287,7288,7289,7290,7291,7292,7293,7294],
+    "2026-09": [7316,7317,7318,7319,7320]
+  },
+  "network": {
+    "allowed_document_host": "ecrie.com.br",
+    "max_index_pages_per_month": 5,
+    "max_index_remote_get_count": 18,
+    "max_document_download_count": 87,
+    "max_total_remote_get_count": 105,
+    "max_bytes_per_document": 52428800,
+    "max_aggregate_document_bytes": 1073741824,
+    "automatic_retry": false,
+    "redirect_identity_must_end_on_allowed_host": true
+  },
+  "processing": {
+    "processor": "JournalPdfProcessor",
+    "stage_bronze": false,
+    "plan_reconciliation": false,
+    "emit_semantic_facets": false,
+    "stop_statuses_include": ["STOP_OCR_REQUIRED"],
+    "continue_other_documents_after_document_failure": true,
+    "raw_pdf_persisted": false,
+    "raw_page_text_persisted": false,
+    "candidate_excerpt_max_chars": 600
+  },
+  "identity": {
+    "school_bridge": "config/task217_jom_school_identity_bridge.v1.json",
+    "page_screening_creates_identity": false,
+    "structured_event_exact_school_identity_required_for_positive_promotion": true,
+    "generic_network_reference_creates_school_identity": false,
+    "fuzzy_identity": false
+  },
+  "runtime": {
+    "branch": "task-217d-jom-redigest-runtime",
+    "authorization_file": "runtime/task217d_owner_authorization.json",
+    "trigger_file": "runtime_triggers/task217d_jom_redigest.run",
+    "artifact_name": "task-217d-jom-school-infra-sanitized-redigest",
+    "artifact_retention_days": 1,
+    "timeout_minutes": 120
+  },
+  "authorization": {
+    "live_authorized": false,
+    "required_task": "TASK_217D_LIVE_AUTHORIZATION",
+    "required_operation": "BOUNDED_87_DOCUMENT_JOM_REDIGEST_FOR_SCHOOL_INFRASTRUCTURE",
+    "exact_implementation_sha_required": true,
+    "task018_authorization_reuse_allowed": false,
+    "document_downloads_authorized_by_default": false,
+    "drive_write_authorized": false,
+    "serving_authorized": false,
+    "publication_authorized": false,
+    "promotion_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_authorized": false
+  },
+  "promotion": {
+    "candidate_question": "INFRA_Q2",
+    "runtime_may_promote": false,
+    "canonization_required": true,
+    "requires_at_least_one_exact_named_school_structured_infrastructure_event": true,
+    "page_candidate_without_structured_event_ne_promotion": true,
+    "partial_redigest_ne_absence": true
+  },
+  "pre_authorization_remote_effects": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
