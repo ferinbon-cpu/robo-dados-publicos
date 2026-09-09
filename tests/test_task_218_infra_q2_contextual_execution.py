@@ -67,7 +67,7 @@ class TestTask218InfraQ2ContextualExecution(unittest.TestCase):
 
     def test_exact_other_school_is_scoped_gap_not_absence_claim(self):
         got = self.execute(
-            "quais escolas receberam obras reformas ou equipamentos em 2026",
+            "minha escola recebeu obras reformas ou equipamentos em 2026",
             context_school_code="35470600",
         )
         self.assertEqual(got["state"], "EXPLICIT_CONTEXT_GAP")
@@ -80,9 +80,16 @@ class TestTask218InfraQ2ContextualExecution(unittest.TestCase):
 
     def test_exact_arlindo_school_filter_returns_positive_event(self):
         got = self.execute(
-            "quais escolas receberam obras reformas ou equipamentos em 2026",
+            "minha escola recebeu obras reformas ou equipamentos em 2026",
             context_school_code="35295061",
         )
+        self.assertEqual(got["state"], "ANSWERED_CONTEXTUALLY")
+        event = next(row for row in got["NUMBER_OR_FACT"] if row["kind"] == "PROVEN_NAMED_SCHOOL_INFRASTRUCTURE_EVENT")
+        self.assertEqual(event["school_code"], "35295061")
+        self.assertEqual(got["filter_accounting"]["SCHOOL"]["status"], "APPLIED_EXACT_SCHOOL_CODE")
+
+    def test_explicit_school_name_in_text_resolves_without_personal_context(self):
+        got = self.execute("CEIEF Arlindo de Salvo recebeu obras reformas ou equipamentos em 2026")
         self.assertEqual(got["state"], "ANSWERED_CONTEXTUALLY")
         event = next(row for row in got["NUMBER_OR_FACT"] if row["kind"] == "PROVEN_NAMED_SCHOOL_INFRASTRUCTURE_EVENT")
         self.assertEqual(event["school_code"], "35295061")
