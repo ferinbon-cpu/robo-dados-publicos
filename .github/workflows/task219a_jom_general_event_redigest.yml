@@ -72,7 +72,6 @@ jobs:
 
           from robo_dados_publicos.research.task219a_jom_general_event_redigest import (
               LiveDocumentSource,
-              LiveJournalDiscoverySource,
               execute_general_redigest,
               load_config,
               write_sanitized_bundle,
@@ -84,7 +83,6 @@ jobs:
           )
           result = execute_general_redigest(
               cfg,
-              discovery_source=LiveJournalDiscoverySource(),
               document_source=LiveDocumentSource(),
               authorization=auth,
               expected_implementation_sha=os.environ["TASK219A_IMPLEMENTATION_SHA"],
@@ -95,6 +93,8 @@ jobs:
           print("TASK219A_STATUS=" + str(result.get("status")))
           print("TASK219A_COMPLETE_SCOPE=" + str(result.get("complete_scope")))
           print("TASK219A_TARGETS=" + str(result.get("target_document_count")))
+          print("TASK219A_INDEX_REMOTE_GETS=" + str(result.get("index_remote_get_count")))
+          print("TASK219A_TOTAL_REMOTE_GETS=" + str(result.get("total_remote_get_count")))
           print("TASK219A_VALIDATED_DOWNLOADS=" + str(result.get("validated_download_count")))
           print("TASK219A_FAILURES=" + str(counts.get("failure_count")))
           print("TASK219A_NEW_EVENTS=" + str(counts.get("new_event_count")))
