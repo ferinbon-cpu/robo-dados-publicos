@@ -14,6 +14,7 @@ from robo_dados_publicos.productization.contextual_slot_binder import bind_conte
 from robo_dados_publicos.productization.proven_cross_product_execution import (
     execute_contextual_query_v6,
 )
+from robo_dados_publicos.productization.natural_language_router import normalize_text
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CONTRACT = ROOT / "config/task218_infra_q2_contextual_execution.v1.json"
@@ -74,6 +75,19 @@ def load_contract(path: str | Path = DEFAULT_CONTRACT) -> dict[str, Any]:
         obj["execution"]["policy_service_facets_supported"] == ["INFRAESTRUTURA"],
         "TASK218_FACET_SCOPE",
     )
+    bridge = obj["execution"]["school_scoped_route_bridge"]
+    _stop(bridge["requires_resolved_school"] is True, "TASK218_BRIDGE_SCHOOL")
+    _stop(bridge["only_when_upstream_has_no_selected_question"] is True, "TASK218_BRIDGE_ROUTE")
+    _stop(
+        set(bridge["required_event_any"])
+        == {"recebeu", "receberam", "teve", "tiveram", "ganhou", "ganharam", "contrato", "contratacao", "contratação"},
+        "TASK218_BRIDGE_EVENT_TERMS",
+    )
+    _stop(
+        set(bridge["required_infrastructure_any"])
+        == {"obra", "obras", "reforma", "reformas", "equipamento", "equipamentos", "manutencao", "manutenção"},
+        "TASK218_BRIDGE_INFRA_TERMS",
+    )
     bounds = obj["claim_boundaries"]
     _stop(all(value is False for value in bounds.values()), "TASK218_CLAIM_BOUNDARIES")
     _stop(all(value is False for value in obj["remote_effects"].values()), "TASK218_REMOTE_EFFECTS")
@@ -120,6 +134,34 @@ def validate_contract(path: str | Path = DEFAULT_CONTRACT) -> dict[str, Any]:
         "drive_write": False,
         "llm": False,
     }
+
+
+def _contains(normalized_text: str, phrase: str) -> bool:
+    needle = normalize_text(phrase)
+    return f" {needle} " in f" {normalized_text} "
+
+
+def _school_scoped_infra_q2_bridge(
+    text: str,
+    context: Mapping[str, Any],
+    contract: Mapping[str, Any],
+) -> bool:
+    bridge = contract["execution"]["school_scoped_route_bridge"]
+    if context.get("school", {}).get("status") != "RESOLVED":
+        return False
+    if list(context.get("selected_question_ids") or []):
+        return False
+    if context.get("state") != "ROUTE_STOP_PROPAGATED":
+        return False
+    requested_facets = set(context.get("policy_service_facets") or [])
+    if requested_facets and not requested_facets.issubset({"INFRAESTRUTURA"}):
+        return False
+    normalized = normalize_text(text)
+    has_event = any(_contains(normalized, term) for term in bridge["required_event_any"])
+    has_infrastructure = any(
+        _contains(normalized, term) for term in bridge["required_infrastructure_any"]
+    )
+    return has_event and has_infrastructure
 
 
 def _infra_q2(
@@ -291,7 +333,8 @@ def execute_contextual_query_v7(
         reference_date=reference_date,
         context_school_code=context_school_code,
     )
-    if context.get("state") != "CONTEXT_BOUND":
+    bridge_to_infra_q2 = _school_scoped_infra_q2_bridge(text, context, contract)
+    if context.get("state") != "CONTEXT_BOUND" and not bridge_to_infra_q2:
         return execute_contextual_query_v6(
             text,
             generated_at=generated_at,
@@ -299,6 +342,8 @@ def execute_contextual_query_v7(
             reference_date=reference_date,
             context_school_code=context_school_code,
         )
+    if bridge_to_infra_q2:
+        return _infra_q2(text=text, context=context, contract=contract)
     qids = list(context.get("selected_question_ids") or [])
     if len(qids) != 1 or qids[0] != "INFRA_Q2":
         return execute_contextual_query_v6(
