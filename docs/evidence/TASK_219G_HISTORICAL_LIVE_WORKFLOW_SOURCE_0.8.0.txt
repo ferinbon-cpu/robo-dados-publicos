@@ -1,0 +1,218 @@
+name: TASK 219G bounded municipal contract 45 2026 live once
+run-name: "TASK 219G contract 45/2026 municipal query by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-219g-contract45-municipal-live
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-219g-contract45-municipal-live-once
+  cancel-in-progress: false
+
+jobs:
+  bounded-readonly-query:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Execute exactly one bounded municipal contract query
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+          from http.cookiejar import CookieJar
+          from urllib.parse import urlparse
+          from urllib.request import HTTPRedirectHandler, HTTPCookieProcessor, build_opener
+
+          from robo_dados_publicos.reconciliation.resolvers import LimeiraContractsResolver
+
+          ALLOWED_HOST = "serv42.limeira.sp.gov.br"
+          MAX_REQUESTS = 3
+          BASE_MAIN_SHA = "aa86c2c60640cbb99d54b873c456662fc6ed8b98"
+          RESOLVER_BLOB_SHA = "1ed22e4036c50b2f8e84fc7a9311a9431b87fcff"
+          ORIGIN_SEED_BLOB_SHA = "19fe535cac4ec86efeec5316b127b015066bcbde"
+
+          task = {
+              "task_id": "RECTASK_TASK219G_CONTRACT45_2026",
+              "target_source": "LIMEIRA_CONTRATOS",
+              "task_type": "FIND_CONTRACT_RECORD",
+              "status": "READY_SEARCH",
+              "match_keys": {
+                  "year": 2026,
+                  "contract_number": "45/2026",
+                  "cnpj": "37457979000131",
+                  "contractor": "Med Doctor Acessórios Ltda",
+              },
+              "search_hints": {
+                  "process_number": "902.281/2025",
+                  "bidding_number": "10/2026",
+                  "object_text": "Contratação de empresa especializada em locação de sistema de endoscopia",
+                  "value_brl": "210000.00",
+              },
+          }
+
+          class SameOriginRedirectHandler(HTTPRedirectHandler):
+              def redirect_request(self, req, fp, code, msg, headers, newurl):
+                  host = (urlparse(newurl).hostname or "").lower()
+                  if host != ALLOWED_HOST:
+                      raise RuntimeError("STOP_TASK219G_REDIRECT_ORIGIN_OUTSIDE_ALLOWLIST")
+                  return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+          class BoundedResolver(LimeiraContractsResolver):
+              def __init__(self):
+                  super().__init__()
+                  self.request_log = []
+                  self._opener = build_opener(
+                      HTTPCookieProcessor(CookieJar()),
+                      SameOriginRedirectHandler(),
+                  )
+
+              def _request(self, url, *, method="GET", params=None):
+                  if len(self.request_log) >= MAX_REQUESTS:
+                      raise RuntimeError("STOP_TASK219G_HTTP_BUDGET_EXCEEDED")
+                  parsed = urlparse(url)
+                  host = (parsed.hostname or "").lower()
+                  if parsed.scheme != "https" or host != ALLOWED_HOST:
+                      raise RuntimeError("STOP_TASK219G_ORIGIN_OUTSIDE_ALLOWLIST")
+                  entry = {
+                      "ordinal": len(self.request_log) + 1,
+                      "method": method.upper(),
+                      "scheme": parsed.scheme,
+                      "host": host,
+                      "path": parsed.path,
+                      "submitted_field_names": sorted((params or {}).keys()),
+                  }
+                  self.request_log.append(entry)
+                  try:
+                      raw, meta = super()._request(url, method=method, params=params)
+                      result_host = (urlparse(meta.get("url") or url).hostname or "").lower()
+                      if result_host != ALLOWED_HOST:
+                          raise RuntimeError("STOP_TASK219G_RESPONSE_ORIGIN_OUTSIDE_ALLOWLIST")
+                      entry.update({
+                          "http_status": meta.get("http_status"),
+                          "content_type": meta.get("content_type"),
+                          "bytes_received": len(raw),
+                          "result_host": result_host,
+                          "result_path": urlparse(meta.get("url") or url).path,
+                      })
+                      return raw, meta
+                  except Exception as exc:
+                      entry.update({
+                          "error_type": type(exc).__name__,
+                          "error": str(exc)[:300],
+                      })
+                      raise
+
+          resolver = BoundedResolver()
+          out = {
+              "task": "TASK_219G_BOUNDED_MUNICIPAL_CONTRACT45_QUERY",
+              "issue": 703,
+              "base_main_sha": BASE_MAIN_SHA,
+              "execution_head_sha": os.environ.get("GITHUB_SHA"),
+              "resolver_blob_sha": RESOLVER_BLOB_SHA,
+              "origin_seed_blob_sha": ORIGIN_SEED_BLOB_SHA,
+              "selected_task_id": task["task_id"],
+              "max_http_requests": MAX_REQUESTS,
+              "retry": 0,
+              "allowed_host": ALLOWED_HOST,
+              "query_identity": {
+                  "year": 2026,
+                  "contract_number": "45/2026",
+                  "cnpj": "37457979000131",
+                  "contractor": "Med Doctor Acessórios Ltda",
+              },
+              "hard_boundaries": {
+                  "pncp_requests": 0,
+                  "tce_requests": 0,
+                  "drive_requests": 0,
+                  "state_registry_writes": 0,
+                  "queue_writes": 0,
+                  "serving_writes": 0,
+                  "publications": 0,
+                  "question_promotions": 0,
+              },
+          }
+
+          try:
+              result = resolver.resolve(task)
+              payload = result.to_dict()
+              allowed = {
+                  "MATCH_CANDIDATE",
+                  "NO_MATCH",
+                  "STOP_CONTRACT_FORM_UNPROVEN",
+                  "STOP_MISSING_CONTRACT_OR_SUPPLIER_KEY",
+                  "STOP_CONTRACT_RELAY_ORIGIN_UNPROVEN",
+                  "STOP_CONTRACT_RESULT_SCHEMA_UNPROVEN",
+              }
+              if payload["status"] not in allowed:
+                  raise RuntimeError("STOP_TASK219G_UNEXPECTED_RESOLVER_STATUS")
+              out["resolver_result"] = payload
+              out["result"] = "PASS_TASK219G_BOUNDED_REMOTE_EXECUTION_RECORDED"
+          except Exception as exc:
+              out["resolver_result"] = {
+                  "status": "STOP_TASK219G_REMOTE_EXECUTION",
+                  "error_type": type(exc).__name__,
+                  "error": str(exc)[:500],
+                  "candidates": [],
+              }
+              out["result"] = "STOP_TASK219G_REMOTE_EXECUTION_RECORDED"
+
+          out["request_count"] = len(resolver.request_log)
+          out["requests"] = resolver.request_log
+          if out["request_count"] > MAX_REQUESTS:
+              raise SystemExit("STOP_TASK219G_HTTP_BUDGET_EXCEEDED")
+
+          candidate_summaries = []
+          for candidate in out["resolver_result"].get("candidates") or []:
+              canonical = json.dumps(candidate, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+              candidate_summaries.append({
+                  "sha256": hashlib.sha256(canonical.encode("utf-8")).hexdigest(),
+                  "match_signals": candidate.get("match_signals") or [],
+                  "row_index": candidate.get("row_index"),
+              })
+          out["candidate_summaries"] = candidate_summaries
+
+          target = Path("runtime/task219g_result.json")
+          target.write_text(
+              json.dumps(out, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          canonical = json.dumps(out, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n"
+          print(json.dumps({
+              "result": out["result"],
+              "resolver_status": out["resolver_result"]["status"],
+              "candidate_count": len(out["resolver_result"].get("candidates") or []),
+              "candidate_summaries": candidate_summaries,
+              "request_count": out["request_count"],
+              "request_statuses": [x.get("http_status") for x in out["requests"]],
+              "canonical_sha256": hashlib.sha256(canonical.encode("utf-8")).hexdigest(),
+          }, ensure_ascii=False, sort_keys=True))
+          PY
+
+      - name: Upload sanitized bounded evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-219g-contract45-municipal-evidence
+          path: runtime/task219g_result.json
+          if-no-files-found: error
+          retention-days: 1
