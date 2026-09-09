@@ -25,7 +25,7 @@ For each successfully processed edition, JournalPdfProcessor runs in temporary s
 
 - Bronze persistence disabled;
 - reconciliation planning disabled;
-- semantic facets enabled.
+- processor semantic/accounting emission disabled; semantic classification is derived after event parsing.
 
 Only these derived products may leave temporary storage:
 
