@@ -1,0 +1,30 @@
+{
+  "task": "TASK_219G_OWNER_AUTHORIZATION",
+  "issue": 703,
+  "authorized_at": "2026-09-09",
+  "canonical_main_sha_at_authorization": "aa86c2c60640cbb99d54b873c456662fc6ed8b98",
+  "owner_instruction": "Autorizado. A autorização vale até completar",
+  "interpreted_scope": "COMPLETE_EXACT_TASK219G_MUNICIPAL_CONTRACT_45_2026_BRIDGE_ONLY",
+  "source": "LIMEIRA_CONTRATOS",
+  "allowed_host": "serv42.limeira.sp.gov.br",
+  "max_http_requests": 3,
+  "retry": 0,
+  "same_origin_only": true,
+  "includes": [
+    "carrier_preparation",
+    "one_live_execution",
+    "artifact_inspection",
+    "offline_canonization",
+    "temporary_workflow_removal",
+    "ci_merge_and_issue_closure"
+  ],
+  "excludes": [
+    "pncp_network",
+    "tce_network",
+    "drive_network",
+    "other_sources",
+    "recurrence",
+    "schedule",
+    "scope_widening"
+  ]
+}
