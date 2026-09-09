@@ -1,0 +1,11 @@
+{
+  "schema": "TASK219A_RUNTIME_TRIGGER_V2",
+  "task": "TASK_219A",
+  "implementation_sha": "ec433bd1014f3d027bd0e6d699a0d7f3b43a2f68",
+  "authorization": "runtime/task219a_owner_authorization.json",
+  "operation": "BOUNDED_PINNED_87_DOCUMENT_JOM_GENERAL_EVENT_REDIGEST",
+  "attempt_count": 1,
+  "authorization_token_index": 3,
+  "rediscovery": false,
+  "target_count": 87
+}
