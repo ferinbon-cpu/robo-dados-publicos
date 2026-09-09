@@ -81,6 +81,16 @@ class TestTask217BJom2026ExpansionDesign(unittest.TestCase):
         self.assertIn("unidades escolares", generic["generic_school_markers"])
         self.assertFalse(generic["page_screening_created_school_identity"])
 
+    def test_page_screening_rejects_abstract_infrastructure_word_uses(self):
+        for text in (
+            "Escola e ampliação do objeto investigatório.",
+            "Escola e construção do conhecimento.",
+            "Rede municipal e manutenção de registros.",
+        ):
+            got = screen_page_text(text)
+            self.assertFalse(got["candidate_page"], text)
+            self.assertEqual(got["infrastructure_markers"], [], text)
+
     def test_event_level_adjudication_can_resolve_exact_school_but_never_auto_promotes(self):
         got = adjudicate_event_rows(
             [
