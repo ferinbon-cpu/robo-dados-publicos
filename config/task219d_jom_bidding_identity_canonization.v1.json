@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "schema": "TASK219D_JOM_BIDDING_IDENTITY_CANONIZATION_V1",
+  "task": "TASK_219D",
+  "issue": 691,
+  "base_main_sha": "071ea533040f804bf58f77fd327268d413abedf5",
+  "source_artifact": {
+    "run_id": 34354027245,
+    "artifact_id": 10105583802,
+    "artifact_name": "task-219a-jom-general-events-sanitized",
+    "artifact_zip_sha256": "599c9329f40de5b040b331ada17224614d197a332c12844f523e4a0d9d1aa35d",
+    "events_sha256": "5ca4bf1411f6b8bfa6ad2b8fdede9937f495458963439fa579d40caa7d988c5b"
+  },
+  "legacy_fixture": "docs/evidence/fixtures/TASK_184_JOM_303_VALIDATED_EVENTS.jsonl",
+  "legacy_fixture_sha256": "1afd82853402d2ea6db7ad28fb6564de4a4ab28570c16ea9c7e4e0366cb5c733",
+  "rules": {
+    "allowed_event_types": [
+      "EDITAL",
+      "ATA_REGISTRO_PRECOS",
+      "CONTRATO",
+      "TERMO_ADITIVO_CONTRATO"
+    ],
+    "modality_map": {
+      "PREGÃO ELETRÔNICO": 6,
+      "PREGAO ELETRONICO": 6,
+      "DISPENSA": 8,
+      "INEXIGIBILIDADE": 9
+    },
+    "complete_bidding_number_regex": "^0*(\\d+)/(20\\d{2})$",
+    "identity_grain": [
+      "modality_id",
+      "bidding_number",
+      "bidding_year"
+    ],
+    "supplier_is_identity": false,
+    "date_is_identity": false,
+    "object_text_is_identity": false,
+    "semantic_similarity_is_identity": false,
+    "edital_publication_date_may_scope_search_only": true
+  },
+  "expected": {
+    "new_anchor_rows": 246,
+    "new_unique_identities": 130,
+    "new_unique_by_modality": {
+      "6": 117,
+      "8": 10,
+      "9": 3
+    },
+    "legacy_anchor_rows": 28,
+    "legacy_unique_identities": 21,
+    "legacy_unique_by_modality": {
+      "6": 17,
+      "8": 3,
+      "9": 1
+    },
+    "overlap_unique_identities": 8,
+    "new_only_unique_identities": 122,
+    "combined_unique_identities": 143,
+    "combined_unique_by_modality": {
+      "6": 126,
+      "8": 13,
+      "9": 4
+    },
+    "new_edital_rows": 48,
+    "new_edital_identity_keys": 44,
+    "new_search_seed_count": 32,
+    "legacy_edital_identity_keys": 5,
+    "combined_edital_identity_keys": 49,
+    "combined_search_seed_count": 35
+  },
+  "outputs": {
+    "new_anchor_fixture": "docs/evidence/fixtures/task219/TASK_219D_NEW_87_BIDDING_IDENTITY_ANCHORS.jsonl",
+    "combined_index": "docs/evidence/fixtures/task219/TASK_219D_FULL_99_EDITION_BIDDING_IDENTITY_INDEX.json",
+    "search_seeds": "docs/evidence/fixtures/task219/TASK_219D_EDITAL_PNCP_DAILY_SEARCH_SEEDS.json",
+    "evidence": "docs/evidence/TASK_219D_JOM_BIDDING_IDENTITY_CANONIZATION_0.8.0.json"
+  },
+  "remote_effects": {
+    "public_source_network": false,
+    "pncp_network": false,
+    "tce_network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "promotion": false
+  }
+}
