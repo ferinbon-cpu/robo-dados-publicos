@@ -1,0 +1,18 @@
+{
+  "task":"TASK_219I_OWNER_AUTHORIZATION",
+  "issue":707,
+  "authorized_main_sha":"36927b31ce455c1479b380edc90ef429c51b55db",
+  "owner_instruction":"prossiga",
+  "scope":"COMPLETE_TASK219I_PASSIVE_TDA_BROWSER_NETWORK_INSPECTION",
+  "start_url":"https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+  "browser_sessions":1,
+  "manual_navigations":1,
+  "clicks":0,
+  "typing":0,
+  "form_submissions":0,
+  "authentication":false,
+  "endpoint_guessing":false,
+  "retry":0,
+  "includes":["design","one_passive_browser_session","sanitized_network_capture","offline_adjudication","workflow_removal","ci_merge","closure"],
+  "excludes":["pncp","tcesp","municipal_contract_portal","drive","commitment_lookup","discovered_endpoint_direct_query","recurrence","second_navigation"]
+}
