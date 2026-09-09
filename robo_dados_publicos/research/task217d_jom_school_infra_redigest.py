@@ -203,22 +203,50 @@ def screen_derived_rows(
             }
         )
     adjudicated = adjudicate_event_rows([dict(row) for row in event_rows])
+    event_by_id = {str(row.get("event_id")): row for row in event_rows}
+
+    def enrich(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        out = []
+        for row in rows:
+            source = event_by_id.get(str(row.get("event_id"))) or {}
+            terms = list(row.get("infrastructure_markers") or [])
+            resolved = row.get("resolved_school") or {}
+            if resolved.get("school_name"):
+                terms.append(str(resolved["school_name"]))
+            terms.extend(row.get("generic_school_markers") or [])
+            out.append(
+                {
+                    **row,
+                    "event_type": source.get("event_type"),
+                    "organ": source.get("organ"),
+                    "act_number": source.get("act_number"),
+                    "contract_number": source.get("contract_number"),
+                    "process_number": source.get("process_number"),
+                    "source_url": source.get("source_url"),
+                    "evidence_excerpt_redacted": _bounded_excerpt(
+                        str(source.get("excerpt_redacted") or ""),
+                        terms,
+                        excerpt_max_chars,
+                    ),
+                    "raw_object_text_persisted": False,
+                }
+            )
+        return out
+
+    exact_events = enrich(
+        adjudicated["resolved_exact_school_infrastructure_events"]
+    )
+    generic_events = enrich(
+        adjudicated["generic_unassigned_school_infrastructure_events"]
+    )
     return {
         "page_candidates": page_candidates,
-        "resolved_exact_school_infrastructure_events": adjudicated[
-            "resolved_exact_school_infrastructure_events"
-        ],
-        "generic_unassigned_school_infrastructure_events": adjudicated[
-            "generic_unassigned_school_infrastructure_events"
-        ],
+        "resolved_exact_school_infrastructure_events": exact_events,
+        "generic_unassigned_school_infrastructure_events": generic_events,
         "counts": {
             "page_candidate_count": len(page_candidates),
-            "resolved_exact_school_infrastructure_count": adjudicated[
-                "resolved_exact_school_infrastructure_count"
-            ],
-            "generic_unassigned_school_infrastructure_count": adjudicated[
-                "generic_unassigned_school_infrastructure_count"
-            ],
+            "resolved_exact_school_infrastructure_count": len(exact_events),
+            "generic_unassigned_school_infrastructure_count": len(generic_events),
         },
     }
 
@@ -392,6 +420,7 @@ def execute_redigest(
     cfg = dict(config)
     aggregate_bytes = 0
     download_count = 0
+    document_get_attempt_count = 0
     document_results = []
     failures = []
 
@@ -399,6 +428,11 @@ def execute_redigest(
         edition = int(item["edition"])
         partition_id = partition_id_for_edition(edition)
         try:
+            document_get_attempt_count += 1
+            _stop(
+                document_get_attempt_count <= int(cfg["network"]["max_document_download_count"]),
+                "TASK217D_DOWNLOAD_ATTEMPT_BUDGET",
+            )
             data, meta = document_source.get(
                 str(item["document_url"]),
                 int(cfg["network"]["max_bytes_per_document"]),
@@ -487,7 +521,12 @@ def execute_redigest(
         "discovered_document_count": discovery["document_count"],
         "excluded_existing_document_count": len(cfg["canonical_discovery"]["existing_editions"]),
         "target_document_count": len(documents),
+        "document_get_attempt_count": document_get_attempt_count,
         "document_download_count": download_count,
+        "estimated_total_remote_get_count": (
+            int(discovery.get("estimated_remote_get_count") or 0)
+            + document_get_attempt_count
+        ),
         "aggregate_document_bytes": aggregate_bytes,
         "document_results": document_results,
         "failures": failures,
@@ -509,6 +548,11 @@ def execute_redigest(
         "promotion_performed": False,
         "absence_inference_allowed": False,
         "canonization_required": bool(exact_events) or complete,
+        "remote_get_budget_respected": (
+            int(discovery.get("estimated_remote_get_count") or 0)
+            + document_get_attempt_count
+            <= int(cfg["network"]["max_total_remote_get_count"])
+        ),
     }
 
 
