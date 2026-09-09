@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "schema": "TASK219A_JOM_GENERAL_EVENT_REDIGEST_V1",
+  "task": "TASK_219A",
+  "issue": 691,
+  "base_main_sha": "8eee468c934362db5e8633ecee56d60c896a1d41",
+  "mode": "T0_IMPLEMENTED_LIVE_DISABLED_UNTIL_SEPARATE_OWNER_AUTHORIZATION",
+  "canonical_discovery": {
+    "task217c_config": "config/task217c_discovery_canonization.v1.json",
+    "task217d_config": "config/task217d_jom_school_infra_redigest.v1.json",
+    "result_sha256": "7c31c9791793c889a8c76e27bcf0d6b6b26f23a3b6bec07fbd95d8c1fba29510",
+    "document_count": 99,
+    "existing_event_fixture": "docs/evidence/fixtures/TASK_184_JOM_303_VALIDATED_EVENTS.jsonl",
+    "existing_event_rows": 303,
+    "existing_editions": [7304,7305,7306,7307,7308,7309,7310,7311,7312,7313,7314,7315],
+    "new_document_count": 87
+  },
+  "prior_recovery_budget_evidence": {
+    "task217d_aggregate_document_bytes": 1140496939,
+    "task217f_aggregate_document_bytes": 305771910,
+    "task217g_aggregate_document_bytes": 419211007,
+    "overlap_inclusive_upper_bound_bytes": 1865479856,
+    "new_aggregate_cap_bytes": 4294967296,
+    "upper_bound_below_new_cap": true,
+    "interpretation": "The sum intentionally does not subtract overlap between recovery stages, so it is a conservative observed upper bound rather than an estimate of unique bytes."
+  },
+  "network": {
+    "allowed_document_host": "ecrie.com.br",
+    "max_index_remote_get_count": 18,
+    "max_document_get_attempt_count": 87,
+    "max_total_remote_get_count": 105,
+    "max_bytes_per_document": 262144000,
+    "max_aggregate_document_bytes": 4294967296,
+    "automatic_retry": false,
+    "redirect_identity_must_end_on_allowed_host": true
+  },
+  "processing": {
+    "processor": "JournalPdfProcessor",
+    "stage_bronze": false,
+    "plan_reconciliation": false,
+    "emit_semantic_facets": true,
+    "persist_events_gold_sanitized": true,
+    "persist_event_semantics_sanitized": true,
+    "persist_strong_identity_anchors": true,
+    "persist_accounting_query_tasks": false,
+    "raw_pdf_persisted": false,
+    "raw_page_text_persisted": false,
+    "rag_chunks_persisted": false,
+    "continue_after_document_failure": true,
+    "specific_stop_codes_preserved": true
+  },
+  "strong_identity": {
+    "task216_config": "config/task216_pncp_strong_identity_bridge.v1.json",
+    "allowed_event_types": ["EDITAL","ATA_REGISTRO_PRECOS","CONTRATO","TERMO_ADITIVO_CONTRATO"],
+    "complete_process_regex": "^\\d{1,3}(?:\\.\\d{3})*/\\d{4}$",
+    "complete_contract_regex": "^\\d+/\\d{4}$",
+    "cnpj_alone_may_anchor": false,
+    "amount_may_anchor": false,
+    "date_may_anchor": false,
+    "object_text_may_anchor": false,
+    "semantic_similarity_may_anchor": false
+  },
+  "runtime": {
+    "branch": "task-219a-jom-general-events-runtime",
+    "authorization_file": "runtime/task219a_owner_authorization.json",
+    "trigger_file": "runtime_triggers/task219a_jom_general_event_redigest.run",
+    "artifact_name": "task-219a-jom-general-events-sanitized",
+    "artifact_retention_days": 1,
+    "timeout_minutes": 180
+  },
+  "authorization": {
+    "live_authorized": false,
+    "required_task": "TASK_219A_LIVE_AUTHORIZATION",
+    "required_operation": "BOUNDED_87_DOCUMENT_JOM_GENERAL_EVENT_REDIGEST",
+    "exact_implementation_sha_required": true,
+    "task217d_authorization_reuse_allowed": false,
+    "task217f_authorization_reuse_allowed": false,
+    "task217g_authorization_reuse_allowed": false,
+    "document_downloads_authorized_by_default": false,
+    "rediscovery_authorized_by_default": false,
+    "drive_write_authorized": false,
+    "serving_authorized": false,
+    "publication_authorized": false,
+    "promotion_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_authorized": false
+  },
+  "promotion": {
+    "candidate_questions": ["PROC_Q1","PROC_Q2","PROC_Q3","CTRL_Q2"],
+    "runtime_may_promote": false,
+    "canonization_required": true,
+    "partial_redigest_ne_absence": true,
+    "strong_anchor_ne_end_to_end_identity_chain": true,
+    "pncp_bridge_requires_later_separate_task": true
+  },
+  "pre_authorization_remote_effects": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
