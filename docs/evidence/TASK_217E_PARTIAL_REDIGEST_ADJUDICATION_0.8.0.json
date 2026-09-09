@@ -1,0 +1,37 @@
+{
+  "task": "TASK_217E_PARTIAL_REDIGEST_CANONICAL_ADJUDICATION",
+  "issue": 680,
+  "status": "PASS_PARTIAL_RESULT_ADJUDICATED_NO_PROMOTION",
+  "run_id": 34294353045,
+  "implementation_sha": "14c7e945265d838f9f41486f5d75f52abe1baa3a",
+  "runtime_head_sha": "20eaaedd8062dacc274da69013587fe7796dcf26",
+  "artifact_id": 10082830047,
+  "artifact_zip_sha256": "7dcd51d825030dd8d1a1acaa578f9b85804b7460cc0981ef59355ca68b000ff3",
+  "embedded_result_sha256": "03df596dd9e6de883bd7a7420444960be58738a65399b0038bbbd2ce7792e1ec",
+  "observed": {
+    "documents_targeted": 87,
+    "downloads_validated": 80,
+    "failures": 12,
+    "page_candidates": 56,
+    "raw_exact_alias_infrastructure_events": 7,
+    "adjudicated_true_school_events": 1,
+    "adjudicated_homonym_false_positives": 6,
+    "generic_network_events": 1
+  },
+  "proven_school_event": {
+    "event_id": "JOEV_fab1a3c79f589f7ccc18",
+    "school_code": "35295061",
+    "school_name": "CEIEF Arlindo de Salvo, Prof.",
+    "publication_date": "2026-03-25",
+    "edition": 7208,
+    "page": 42,
+    "contract": "42/2026",
+    "process": "22.687/2024",
+    "claim": "Manutenção do reservatório de água da unidade; valor publicado R$ 71.000,00."
+  },
+  "answerability": {
+    "INFRA_Q2": "REMAINS_BLOCKED_BECAUSE_QUESTION_IS_EXHAUSTIVE_AND_12_DOCUMENTS_ARE_UNCOVERED",
+    "coverage": "33/38"
+  },
+  "guard_added": "EXACT_ALIAS_REQUIRES_NEARBY_SCHOOL_OR_UNIT_CONTEXT"
+}

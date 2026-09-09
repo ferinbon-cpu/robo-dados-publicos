@@ -23,15 +23,40 @@
     "strong_spatial_rows": 57,
     "spatial_held_rows": 12,
     "spatial_hold_does_not_revoke_school_identity": true,
-    "accepted_fields": ["object_text", "excerpt_redacted"],
-    "prefixes": ["ceief", "emeief", "emei", "emef", "ci", "escola municipal"],
+    "accepted_fields": [
+      "object_text",
+      "excerpt_redacted"
+    ],
+    "prefixes": [
+      "ceief",
+      "emeief",
+      "emei",
+      "emef",
+      "ci",
+      "escola municipal"
+    ],
     "minimum_alias_tokens": 2,
     "minimum_alias_chars": 7,
     "expected_unique_alias_count": 224,
     "expected_ambiguous_alias_count": 0,
     "fuzzy_matching_creates_identity": false,
     "semantic_similarity_creates_identity": false,
-    "address_only_creates_identity": false
+    "address_only_creates_identity": false,
+    "contextual_school_anchor_required": true,
+    "school_context_window_tokens": 8,
+    "school_context_anchors": [
+      "ceief",
+      "emeief",
+      "emeif",
+      "emei",
+      "emef",
+      "escola",
+      "escola municipal",
+      "unidade escolar",
+      "ci"
+    ],
+    "bare_person_or_place_alias_creates_identity": false,
+    "street_or_stadium_homonym_creates_identity": false
   },
   "infrastructure_markers": [
     "obra",
@@ -62,7 +87,9 @@
     "infrastructure_candidate_count": 14,
     "exact_school_infrastructure_count": 0,
     "generic_school_infrastructure_count": 1,
-    "generic_school_infrastructure_event_ids": ["JOEV_84b4ca10af2609ca127a"]
+    "generic_school_infrastructure_event_ids": [
+      "JOEV_84b4ca10af2609ca127a"
+    ]
   },
   "promotion_policy": {
     "candidate_question": "INFRA_Q2",

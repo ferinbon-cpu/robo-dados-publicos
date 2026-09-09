@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "schema": "TASK217E_PARTIAL_REDIGEST_ADJUDICATION_V1",
+  "task": "TASK_217E",
+  "issue": 680,
+  "base_main_sha": "14c7e945265d838f9f41486f5d75f52abe1baa3a",
+  "runtime": {
+    "implementation_sha": "14c7e945265d838f9f41486f5d75f52abe1baa3a",
+    "runtime_head_sha": "20eaaedd8062dacc274da69013587fe7796dcf26",
+    "run_id": 34294353045,
+    "run_conclusion": "failure_fail_closed",
+    "artifact_id": 10082830047,
+    "artifact_zip_sha256": "7dcd51d825030dd8d1a1acaa578f9b85804b7460cc0981ef59355ca68b000ff3",
+    "artifact_json_file_sha256": "8846494063a4ee84b3894a97bcfe51cf83402369e9368cf7b1f8373536adb57b",
+    "embedded_result_sha256": "03df596dd9e6de883bd7a7420444960be58738a65399b0038bbbd2ce7792e1ec"
+  },
+  "observed": {
+    "status": "PARTIAL_DOCUMENT_FAILURES_NO_ABSENCE_INFERENCE",
+    "target_documents": 87,
+    "document_get_attempt_count": 87,
+    "document_download_count": 80,
+    "processed_document_result_count": 87,
+    "failure_count": 12,
+    "page_candidate_count": 56,
+    "raw_exact_alias_infrastructure_event_count": 7,
+    "generic_unassigned_school_infrastructure_event_count": 1,
+    "estimated_total_remote_get_count": 105,
+    "aggregate_document_bytes_accounted": 1140496939,
+    "raw_pdf_persisted": false,
+    "raw_page_text_persisted": false
+  },
+  "manual_deterministic_adjudication": {
+    "true_named_school_infrastructure_event_count": 1,
+    "rejected_non_school_homonym_event_count": 6,
+    "true_events": [
+      {
+        "event_id": "JOEV_fab1a3c79f589f7ccc18",
+        "edition": 7208,
+        "publication_date": "2026-03-25",
+        "page_number": 42,
+        "source_sha256": "8690426e585284dc7f072a6069735abcde9d4dcc89994290f8ef79fdb59369d0",
+        "school_code": "35295061",
+        "school_name": "CEIEF Arlindo de Salvo, Prof.",
+        "event_type": "CONTRATO",
+        "contract_number": "42/2026",
+        "process_number": "22.687/2024",
+        "evidence": "Contratação de empresa especializada para manutenção do reservatório de água do CEIEF Prof. Arlindo de Salvo; valor publicado R$ 71.000,00.",
+        "adjudication": "TRUE_SCHOOL_INFRASTRUCTURE_EVENT_EXACT_CONTEXT"
+      }
+    ],
+    "rejected_events": [
+      {
+        "event_id": "JOEV_1066de9f9ae23974a6e6",
+        "edition": 7162,
+        "matched_school_name": "EMEIEF José Levy Sobrinho, Major",
+        "actual_context": "Estádio Major José Levy Sobrinho (Limeirão)",
+        "adjudication": "REJECT_NON_SCHOOL_STADIUM_HOMONYM"
+      },
+      {
+        "event_id": "JOEV_0d501f56bf7b89f6afa1",
+        "edition": 7184,
+        "matched_school_name": "EMEIEF José Levy Sobrinho, Major",
+        "actual_context": "Estádio Major José Levy Sobrinho",
+        "adjudication": "REJECT_NON_SCHOOL_STADIUM_HOMONYM"
+      },
+      {
+        "event_id": "JOEV_55a9f71357c35fcef621",
+        "edition": 7184,
+        "matched_school_name": "EMEIEF José Levy Sobrinho, Major",
+        "actual_context": "Estádio Major José Levy Sobrinho",
+        "adjudication": "REJECT_NON_SCHOOL_STADIUM_HOMONYM"
+      },
+      {
+        "event_id": "JOEV_29c05b4bbdc4881bfa78",
+        "edition": 7189,
+        "matched_school_name": "EMEIEF José Carvalho Ferreira, Dr.",
+        "actual_context": "Rua Dr. José Carvalho Ferreira, 509",
+        "adjudication": "REJECT_NON_SCHOOL_STREET_HOMONYM"
+      },
+      {
+        "event_id": "JOEV_97b0d05f129932686c8a",
+        "edition": 7189,
+        "matched_school_name": "EMEIEF José Carvalho Ferreira, Dr.",
+        "actual_context": "Rua Dr. José Carvalho Ferreira, 509",
+        "adjudication": "REJECT_NON_SCHOOL_STREET_HOMONYM"
+      },
+      {
+        "event_id": "JOEV_b3b7e78e781f5e408de7",
+        "edition": 7202,
+        "matched_school_name": "EMEIEF José Carvalho Ferreira, Dr.",
+        "actual_context": "Rua Dr. José Carvalho Ferreira, 509",
+        "adjudication": "REJECT_NON_SCHOOL_STREET_HOMONYM"
+      }
+    ]
+  },
+  "generic_network_evidence": [
+    {
+      "event_id": "JOEV_89ebd95613b10c7f07b6",
+      "edition": 7272,
+      "publication_date": "2026-06-27",
+      "page_number": 23,
+      "contract_number": "91/2026",
+      "process_number": "900.837/2026",
+      "evidence": "Contratação de serviços para limpeza de caixas d'água em escolas municipais; valor publicado R$ 36.080,00.",
+      "school_assignment": "FORBIDDEN_GENERIC_REFERENCE"
+    }
+  ],
+  "uncovered_documents": [
+    {"edition":7243,"publication_date":"2026-05-16","source_id":"LIMEIRA_JO_07243","url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_15052026170037.pdf"},
+    {"edition":7253,"publication_date":"2026-05-30","source_id":"LIMEIRA_JO_07253","url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_29052026170754.pdf"},
+    {"edition":7265,"publication_date":"2026-06-18","source_id":"LIMEIRA_JO_07265","url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_17062026164426.pdf"},
+    {"edition":7270,"publication_date":"2026-06-25","source_id":"LIMEIRA_JO_07270","url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_24062026170131.pdf"},
+    {"edition":7271,"publication_date":"2026-06-26","source_id":"LIMEIRA_JO_07271","url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_25062026173303.pdf"},
+    {"edition":7287,"publication_date":"2026-07-22","source_id":"LIMEIRA_JO_07287","url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_21072026165841.pdf"},
+    {"edition":7294,"publication_date":"2026-07-31","source_id":"LIMEIRA_JO_07294","url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_30072026170335.pdf"},
+    {"edition":7316,"publication_date":"2026-09-01","source_id":"LIMEIRA_JO_07316","url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_31082026165329.pdf"},
+    {"edition":7317,"publication_date":"2026-09-02","source_id":"LIMEIRA_JO_07317","url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_01092026164049.pdf"},
+    {"edition":7318,"publication_date":"2026-09-03","source_id":"LIMEIRA_JO_07318","url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_02092026164717.pdf"},
+    {"edition":7319,"publication_date":"2026-09-04","source_id":"LIMEIRA_JO_07319","url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_03092026201301.pdf"},
+    {"edition":7320,"publication_date":"2026-09-05","source_id":"LIMEIRA_JO_07320","url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_04092026165229.pdf"}
+  ],
+  "failure_semantics": {
+    "per_edition_stop_code_preserved_in_task217d_artifact": false,
+    "only_error_class_preserved": "Task217DStop",
+    "individual_failure_cause_may_be_inferred": false,
+    "recovery_must_not_assume_all_12_share_one_cause": true
+  },
+  "answerability": {
+    "question_id": "INFRA_Q2",
+    "question": "Quais escolas receberam obras, reformas ou equipamentos?",
+    "positive_partial_evidence_exists": true,
+    "complete_scope_required": true,
+    "status": "BLOCKED_PARTIAL_SCOPE_12_DOCUMENTS_UNCOVERED",
+    "contextual_paths_before": 33,
+    "contextual_paths_after": 33
+  },
+  "next_task": "TASK_217F_BOUNDED_12_DOCUMENT_RECOVERY_REQUIRES_SEPARATE_AUTHORIZATION"
+}

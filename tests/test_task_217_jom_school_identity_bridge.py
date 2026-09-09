@@ -41,6 +41,61 @@ class TestTask217JomSchoolIdentityBridge(unittest.TestCase):
         self.assertIn("reforma", got["infrastructure_markers"])
         self.assertFalse(got["infrastructure_text_created_school_identity"])
 
+    def test_stadium_homonym_does_not_create_school_identity(self):
+        got = classify_event_school_identity(
+            {
+                "event_id": "SYNTHETIC_STADIUM",
+                "edition": 9999,
+                "publication_date": "2026-01-01",
+                "page_number": 1,
+                "source_sha256": "a" * 64,
+                "object_text": "Manutenção das cadeiras do Estádio Major José Levy Sobrinho.",
+                "excerpt_redacted": None,
+            }
+        )
+        self.assertEqual(got["school_identity_status"], "NO_SCHOOL_REFERENCE")
+        self.assertIsNone(got["resolved_school"])
+        self.assertTrue(got["infrastructure_candidate"])
+        self.assertFalse(got["bare_alias_created_school_identity"])
+
+    def test_street_homonym_does_not_create_school_identity(self):
+        got = classify_event_school_identity(
+            {
+                "event_id": "SYNTHETIC_STREET",
+                "edition": 9999,
+                "publication_date": "2026-01-01",
+                "page_number": 1,
+                "source_sha256": "a" * 64,
+                "object_text": "Reforma de sala em imóvel localizado na Rua Dr. José Carvalho Ferreira, 509.",
+                "excerpt_redacted": None,
+            }
+        )
+        self.assertEqual(got["school_identity_status"], "NO_SCHOOL_REFERENCE")
+        self.assertIsNone(got["resolved_school"])
+        self.assertTrue(got["infrastructure_candidate"])
+
+    def test_true_school_context_still_resolves_arlindo_de_salvo(self):
+        got = classify_event_school_identity(
+            {
+                "event_id": "SYNTHETIC_ARLINDO",
+                "edition": 7208,
+                "publication_date": "2026-03-25",
+                "page_number": 42,
+                "source_sha256": "a" * 64,
+                "object_text": "Contratação de empresa especializada para manutenção do reservatório de água do CEIEF Prof. Arlindo de Salvo.",
+                "excerpt_redacted": None,
+            }
+        )
+        self.assertEqual(got["school_identity_status"], "RESOLVED_EXACT_SCHOOL")
+        self.assertEqual(got["resolved_school"]["school_code"], "35295061")
+        self.assertTrue(got["infrastructure_candidate"])
+        self.assertTrue(
+            all(
+                match["school_context_guard"] == "PASS_NEARBY_SCHOOL_ANCHOR"
+                for match in got["resolved_school"]["matches"]
+            )
+        )
+
     def test_near_spelling_does_not_create_identity(self):
         got = classify_event_school_identity(
             {
