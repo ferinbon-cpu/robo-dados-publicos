@@ -1,0 +1,8 @@
+{
+  "schema": "TASK217D_RUNTIME_TRIGGER_V1",
+  "task": "TASK_217D",
+  "implementation_sha": "14c7e945265d838f9f41486f5d75f52abe1baa3a",
+  "authorization": "runtime/task217d_owner_authorization.json",
+  "operation": "BOUNDED_87_DOCUMENT_JOM_REDIGEST_FOR_SCHOOL_INFRASTRUCTURE",
+  "attempt_count": 1
+}
