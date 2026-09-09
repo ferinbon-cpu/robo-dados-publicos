@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "schema": "TASK219E_PNCP_DAILY_BIDDING_BRIDGE_V1",
+  "task": "TASK_219E",
+  "issue": 691,
+  "base_main_sha": "89afe7f7e3e95bca106fa537829e716bed52682e",
+  "input": {
+    "search_seeds": "docs/evidence/fixtures/task219/TASK_219D_EDITAL_PNCP_DAILY_SEARCH_SEEDS.json",
+    "search_seeds_sha256": "ede77b34c875689364917d97c5c40a85260954020ef687d9378a09fdf9f2611b",
+    "seed_count": 35,
+    "edital_identity_count": 49,
+    "combined_identity_count": 143
+  },
+  "source": {
+    "endpoint": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao",
+    "cnpj": "45132495000140",
+    "expectedMunicipio": "Limeira",
+    "expectedUf": "SP",
+    "tamanhoPagina": 50,
+    "maxPaginasPerSeed": 3,
+    "maxTotalRemoteGets": 105,
+    "timeoutSeconds": 25,
+    "maxBytesPerPage": 10000000,
+    "retryMax": 0,
+    "redirectsMax": 0
+  },
+  "identity": {
+    "required": [
+      "modalidadeId",
+      "numeroCompra_numeric",
+      "anoCompra"
+    ],
+    "numeroCompra_regex": "^0*(\\d+)$",
+    "exact_single_numeroControlePNCP_required": true,
+    "publication_date_is_identity": false,
+    "supplier_is_identity": false,
+    "process_is_identity": false,
+    "amount_is_identity": false,
+    "object_text_is_identity": false,
+    "semantic_similarity_is_identity": false
+  },
+  "persistence": {
+    "rawPayloadGit": false,
+    "rawPayloadDrive": false,
+    "rawPayloadWorkflowArtifact": false,
+    "sanitizedResultWorkflowArtifact": true,
+    "artifactRetentionDays": 1
+  },
+  "promotion": {
+    "runtime_auto_promotion": false,
+    "end_to_end_chain_claim_allowed": false,
+    "contextual_paths_before": 34,
+    "contextual_paths_after_runtime": 34
+  },
+  "runtime": {
+    "branch": "task-219e-pncp-daily-bidding-runtime",
+    "authorization_path": "runtime/task219e_owner_authorization.json",
+    "trigger_path": "runtime_triggers/task219e_pncp_daily_bidding.run",
+    "artifact_name": "task-219e-pncp-daily-bidding-sanitized"
+  },
+  "remote_effects": {
+    "pncp_read_only": true,
+    "tce_network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "promotion": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
