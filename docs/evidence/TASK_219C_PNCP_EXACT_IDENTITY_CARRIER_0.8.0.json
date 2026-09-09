@@ -1,0 +1,64 @@
+{
+  "task": "TASK_219C_PNCP_EXACT_IDENTITY_CARRIER",
+  "issue": 691,
+  "repository": "ferinbon-cpu/robo-dados-publicos",
+  "base_main_sha": "1ddf27f9d46054ce9f9dc50494db62e2851b2717",
+  "upstream": {
+    "task219b_pr": 694,
+    "task219b_merge_sha": "1ddf27f9d46054ce9f9dc50494db62e2851b2717",
+    "combined_anchor_rows": 449,
+    "combined_unique_identities": 303,
+    "process_identities": 195,
+    "contract_identities": 108,
+    "new_unique_identities_vs_task216": 261
+  },
+  "prior_pncp_complete_scope": {
+    "task": "TASK_216B",
+    "run_id": 34273403423,
+    "artifact_id": 10074741092,
+    "data_inicial": "20260101",
+    "data_final": "20260908",
+    "partition_count": 9,
+    "total_records": 1933,
+    "total_gets": 10,
+    "scientific_result": "NO_END_TO_END_CHAIN_WITH_OLD_42_UNIQUE_JOM_IDENTITIES"
+  },
+  "carrier": {
+    "config": "config/task219c_pncp_exact_identity_bridge.v1.json",
+    "module": "robo_dados_publicos/research/task219c_pncp_exact_identity_bridge.py",
+    "tests": "tests/test_task_219c_pncp_exact_identity_bridge.py",
+    "workflow": ".github/workflows/task219c_pncp_exact_identity.yml",
+    "runtime_branch": "task-219c-pncp-303-identity-runtime",
+    "max_total_remote_gets": 18,
+    "retry_max": 0,
+    "redirects_max": 0
+  },
+  "identity_adjudication": {
+    "exact_process_requires_single_purchase_control": true,
+    "process_supplier_conflict_blocks_identity": false,
+    "exact_contract_requires_typed_contract_and_single_purchase_control": true,
+    "contract_supplier_conflict_blocks_identity": true,
+    "cnpj_alone_is_identity": false,
+    "amount_similarity_is_identity": false,
+    "date_proximity_is_identity": false,
+    "object_text_is_identity": false,
+    "semantic_similarity_is_identity": false
+  },
+  "runtime_guards": {
+    "fresh_authorization_required": true,
+    "authorization_reuse_allowed": false,
+    "raw_payload_persistence": false,
+    "tce_network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "promotion": false
+  },
+  "scientific_state": {
+    "end_to_end_jom_pncp_tce_chain_proven": false,
+    "contextual_paths_before": 34,
+    "contextual_paths_after_carrier": 34,
+    "canonical_questions_total": 38,
+    "remaining_blockers": ["CTRL_Q2", "PROC_Q1", "PROC_Q2", "PROC_Q3"]
+  }
+}
