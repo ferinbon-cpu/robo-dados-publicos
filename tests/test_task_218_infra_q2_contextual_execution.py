@@ -95,6 +95,13 @@ class TestTask218InfraQ2ContextualExecution(unittest.TestCase):
         self.assertEqual(event["school_code"], "35295061")
         self.assertEqual(got["filter_accounting"]["SCHOOL"]["status"], "APPLIED_EXACT_SCHOOL_CODE")
 
+    def test_school_scoped_bridge_does_not_capture_static_infrastructure_profile(self):
+        got = self.execute(
+            "como está a infraestrutura da minha escola em 2026",
+            context_school_code="35295061",
+        )
+        self.assertNotEqual(got.get("question_id"), "INFRA_Q2")
+
     def test_other_year_is_not_substituted(self):
         got = self.execute("quais escolas receberam obras reformas ou equipamentos em 2025")
         self.assertEqual(got["question_id"], "INFRA_Q2")
