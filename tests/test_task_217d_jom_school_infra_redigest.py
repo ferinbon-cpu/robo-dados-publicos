@@ -106,11 +106,15 @@ class TestTask217DJomSchoolInfraRedigest(unittest.TestCase):
         got = screen_derived_rows(pages, events)
         self.assertEqual(got["counts"]["page_candidate_count"], 2)
         self.assertEqual(got["counts"]["resolved_exact_school_infrastructure_count"], 1)
-        self.assertEqual(
-            got["resolved_exact_school_infrastructure_events"][0]["resolved_school"]["school_code"],
-            "35470600",
-        )
+        exact = got["resolved_exact_school_infrastructure_events"][0]
+        self.assertEqual(exact["resolved_school"]["school_code"], "35470600")
+        self.assertEqual(exact["event_type"], "CONTRATO")
+        self.assertIn("Rafael Affonso Leite", exact["evidence_excerpt_redacted"])
+        self.assertFalse(exact["raw_object_text_persisted"])
         self.assertEqual(got["counts"]["generic_unassigned_school_infrastructure_count"], 1)
+        generic = got["generic_unassigned_school_infrastructure_events"][0]
+        self.assertEqual(generic["event_type"], "EDITAL")
+        self.assertFalse(generic["raw_object_text_persisted"])
         self.assertTrue(all(row["page_screening_created_school_identity"] is False for row in got["page_candidates"]))
 
     def test_task018_authorization_is_rejected_and_exact_live_contract_is_required(self):
