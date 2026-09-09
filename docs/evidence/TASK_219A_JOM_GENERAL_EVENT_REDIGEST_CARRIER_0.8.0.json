@@ -1,0 +1,48 @@
+{
+  "task": "TASK_219A_JOM_GENERAL_EVENT_REDIGEST_CARRIER",
+  "issue": 691,
+  "base_main_sha": "8eee468c934362db5e8633ecee56d60c896a1d41",
+  "tier": "T0_IMPLEMENTED_LIVE_DISABLED",
+  "scope": {
+    "canonical_jom_documents": 99,
+    "existing_general_event_editions": 12,
+    "existing_general_event_rows": 303,
+    "new_documents_to_redigest": 87,
+    "canonical_discovery_sha256": "7c31c9791793c889a8c76e27bcf0d6b6b26f23a3b6bec07fbd95d8c1fba29510"
+  },
+  "network_boundary": {
+    "index_gets_max": 18,
+    "document_gets_max": 87,
+    "total_gets_max": 105,
+    "max_bytes_per_document": 262144000,
+    "aggregate_bytes_max": 4294967296,
+    "automatic_retry": false
+  },
+  "budget_evidence": {
+    "prior_overlap_inclusive_bytes": 1865479856,
+    "prior_overlap_inclusive_bytes_below_new_cap": true
+  },
+  "persistence": {
+    "sanitized_events": true,
+    "sanitized_semantics": true,
+    "strong_identity_anchors": true,
+    "raw_pdf": false,
+    "raw_page_text": false,
+    "rag_chunks": false,
+    "drive": false
+  },
+  "identity_guards": {
+    "complete_process_or_contract_only": true,
+    "cnpj_alone": false,
+    "amount": false,
+    "date": false,
+    "object_text": false,
+    "semantic_similarity": false
+  },
+  "promotion": {
+    "runtime_may_promote": false,
+    "candidate_questions": ["PROC_Q1","PROC_Q2","PROC_Q3","CTRL_Q2"],
+    "coverage_before": "34/38",
+    "coverage_after_carrier": "34/38"
+  }
+}
