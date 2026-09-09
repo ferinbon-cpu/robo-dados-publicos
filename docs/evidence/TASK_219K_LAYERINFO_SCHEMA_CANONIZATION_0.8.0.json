@@ -1,0 +1,83 @@
+{
+  "task":"TASK_219K_LAYERINFO_SCHEMA_CANONIZATION",
+  "issue":711,
+  "parent_issue":691,
+  "canonical_date":"2026-09-09",
+  "base_main_sha":"f12998d64b2b95a2021d4c0da6250eb80900002c",
+  "runtime":{
+    "run_id":34407092854,
+    "job_id":102652564343,
+    "execution_head_sha":"4c9909afd30e8a8ff7ff34fcaaf0c6c282e2e671",
+    "artifact_id":10125750801,
+    "artifact_zip_sha256":"7f351a5a3a467653c0c96877ea36ccd6f580631d4dfa0e98aeaacba3e89aa015",
+    "artifact_member_sha256":"c37f8eef93ecb48c51672e4273a1a447963604ef5c9cacb679897e0e418cad89",
+    "executed_workflow_blob_sha":"fbfe325368e18a3afa862aa4aa0edcda3bc77d3d",
+    "historical_workflow_blob_sha":"fbfe325368e18a3afa862aa4aa0edcda3bc77d3d",
+    "historical_source_exact_blob_match":true,
+    "workflow_removed_after_run":true,
+    "workflow_removal_commit":"ebd671fce47228e182f72f76e902fb002938a7dc"
+  },
+  "layerinfo_adjudication":{
+    "serialization_proven":"JSON",
+    "top_level_shape":"LIST_LENGTH_1_OF_OBJECT",
+    "stable_schema_across_eight_calls":true,
+    "stable_key_set_across_eight_calls":true,
+    "key_count":17,
+    "keys":[
+      "changetitle","env","filter","filterarea","id","info","isdebug","isduplic",
+      "ispreview","maindebugid","newdebugid","perf","refreshtime","runafter",
+      "showfilter","title","updatemain"
+    ],
+    "type_only_schema_sha256":"e3140f95037307092e53805ee1cfc7a7b21caab8ebb03675281623537ef28d1b",
+    "info_field_is_text":true,
+    "filterarea_field_is_text":true,
+    "info_internal_serialization_proven":false,
+    "filterarea_internal_serialization_proven":false,
+    "raw_scalar_values_persisted":false
+  },
+  "response_adjudication":{
+    "serialization_proven":"JSON",
+    "declared_mime_type_is_misleading_for_payload_class":true,
+    "declared_mime_type":"text/html",
+    "actual_top_level_shape":"LIST_LENGTH_1_OF_OBJECT",
+    "same_17_keys_as_request":true,
+    "same_field_types_as_request":true,
+    "request_response_type_only_schema_equal":true,
+    "type_only_schema_sha256":"e3140f95037307092e53805ee1cfc7a7b21caab8ebb03675281623537ef28d1b",
+    "all_eight_http_200":true,
+    "all_eight_utf8":true,
+    "unique_body_hash_count":8,
+    "unique_full_schema_hash_count_due_to_text_length_buckets":5
+  },
+  "protocol_interpretation":{
+    "proven_fact":"The public page posts a JSON LayerInfo list containing one 17-field object and receives a JSON list with the same 17-field typed object shape.",
+    "safe_inference":"This is consistent with a stateful LayerInfo round-trip protocol where text fields such as info/filterarea carry varying content while control fields preserve the surrounding envelope.",
+    "not_proven":"No field value, module identity, accounting semantics, filter value, commitment number, procurement number or direct-call replay contract is proven."
+  },
+  "scientific_gain":{
+    "outer_transport_known":true,
+    "inner_layerinfo_json_schema_known":true,
+    "response_json_schema_known":true,
+    "request_response_typed_schema_equivalence_known":true,
+    "next_unknowns":["info internal encoding/schema","filterarea internal encoding/schema","which layer corresponds to expense/accounting UI"],
+    "engineering_consequence":"Do not replay or synthesize LayerInfo. A future separately authorized passive session should classify only the nested serialization/schema of info and filterarea and correlate schema-only differences across the eight automatically loaded layers."
+  },
+  "fail_closed":{
+    "awsgetcontentareas_is_proven_accounting_endpoint":false,
+    "direct_query_contract_proven":false,
+    "expense_layer_identity_proven":false,
+    "commitment_3286_2026_queried":false,
+    "contract_45_2026_identity_proven":false,
+    "payment_attribution_proven":false,
+    "question_promotion_performed":false,
+    "contextual_paths_before":34,
+    "contextual_paths_after":34,
+    "remaining_blockers":["CTRL_Q2","PROC_Q1","PROC_Q2","PROC_Q3"]
+  },
+  "authorization_consumption":{
+    "task219k_scope_complete":true,
+    "authorization_exhausted_for_future_network":true,
+    "new_authorization_required_for_nested_info_filterarea_schema_capture_or_any_interactive_or_direct_query":true
+  },
+  "next_action":"FUTURE_PASSIVE_ONLY: classify nested info/filterarea serialization and schema without values; correlate the eight layer envelopes structurally; do not replay LayerInfo or query Empenho 3286-2026 yet."
+}

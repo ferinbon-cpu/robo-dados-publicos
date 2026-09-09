@@ -1,0 +1,603 @@
+name: TASK 219K passive LayerInfo schema capture once
+run-name: "TASK 219K LayerInfo schema capture by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-219k-layerinfo-schema-passive
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-219k-layerinfo-schema-passive-once
+  cancel-in-progress: false
+
+jobs:
+  passive-schema-capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Install browser driver library
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check --no-input "selenium==4.35.0"
+          command -v google-chrome || command -v chromium || command -v chromium-browser
+
+      - name: Capture schema-only LayerInfo and response encoding
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime
+          python - <<'PY'
+          import ast
+          import base64
+          import hashlib
+          import json
+          import math
+          import os
+          import re
+          import time
+          import xml.etree.ElementTree as ET
+          from collections import Counter
+          from html.parser import HTMLParser
+          from urllib.parse import parse_qsl, urlparse
+
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+
+          START = "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418"
+          HOST = "transparencia.limeira.sp.gov.br"
+          TARGET_PATH = "/awsgetcontentareas.aspx"
+          WAIT_SECONDS = 8
+          MAX_DEPTH = 12
+          MAX_KEYS = 300
+          MAX_XML_TAGS = 300
+
+          SAFE_KEY_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_.:\-]{0,119}$")
+          B64_RE = re.compile(r"^[A-Za-z0-9+/\r\n=_-]{16,}$")
+
+          def scalar_class(v):
+              if v is None:
+                  return "NULL"
+              if isinstance(v, bool):
+                  return "BOOL"
+              if isinstance(v, int) and not isinstance(v, bool):
+                  return "INT"
+              if isinstance(v, float):
+                  return "DECIMAL"
+              if isinstance(v, str):
+                  return "TEXT"
+              return type(v).__name__.upper()
+
+          def length_bucket(n):
+              if n == 0: return "0"
+              if n <= 4: return "1-4"
+              if n <= 16: return "5-16"
+              if n <= 64: return "17-64"
+              if n <= 256: return "65-256"
+              if n <= 1024: return "257-1024"
+              if n <= 4096: return "1025-4096"
+              return "4097+"
+
+          def sanitize_key(k):
+              s = str(k)
+              if SAFE_KEY_RE.fullmatch(s):
+                  return s
+              return "UNSAFE_KEY_SHA256_" + hashlib.sha256(s.encode("utf-8", errors="replace")).hexdigest()[:16]
+
+          def schema_only(obj, depth=0):
+              if depth >= MAX_DEPTH:
+                  return {"type":"DEPTH_LIMIT"}
+              if isinstance(obj, dict):
+                  keys = sorted(obj.keys(), key=lambda x: str(x))
+                  truncated = len(keys) > MAX_KEYS
+                  keys = keys[:MAX_KEYS]
+                  return {
+                      "type":"OBJECT",
+                      "key_count":len(obj),
+                      "keys_truncated":truncated,
+                      "fields":{sanitize_key(k):schema_only(obj[k], depth+1) for k in keys},
+                  }
+              if isinstance(obj, (list, tuple)):
+                  schemas = [schema_only(x, depth+1) for x in obj[:100]]
+                  canonical = [json.dumps(x, ensure_ascii=False, sort_keys=True, separators=(",",":")) for x in schemas]
+                  unique = sorted(set(canonical))
+                  return {
+                      "type":"LIST",
+                      "length":len(obj),
+                      "sample_truncated":len(obj)>100,
+                      "unique_element_schema_count":len(unique),
+                      "element_schemas":[json.loads(x) for x in unique[:20]],
+                  }
+              t = scalar_class(obj)
+              out = {"type":t}
+              if isinstance(obj, str):
+                  out["length_bucket"] = length_bucket(len(obj))
+              return out
+
+          def schema_digest(schema):
+              raw = json.dumps(schema, ensure_ascii=False, sort_keys=True, separators=(",",":")).encode("utf-8")
+              return hashlib.sha256(raw).hexdigest()
+
+          def all_keys_from_schema(schema):
+              out = set()
+              def walk(x):
+                  if not isinstance(x, dict):
+                      return
+                  if x.get("type") == "OBJECT":
+                      fields = x.get("fields") or {}
+                      out.update(fields.keys())
+                      for child in fields.values():
+                          walk(child)
+                  elif x.get("type") == "LIST":
+                      for child in x.get("element_schemas") or []:
+                          walk(child)
+              walk(schema)
+              return sorted(out)
+
+          def xml_schema(root):
+              tags = Counter()
+              attrs = Counter()
+              max_depth = 0
+              def walk(el, depth=0):
+                  nonlocal max_depth
+                  max_depth = max(max_depth, depth)
+                  tags[sanitize_key(el.tag)] += 1
+                  for k in el.attrib:
+                      attrs[sanitize_key(k)] += 1
+                  for ch in list(el):
+                      walk(ch, depth+1)
+              walk(root)
+              return {
+                  "type":"XML",
+                  "root_tag":sanitize_key(root.tag),
+                  "tag_counts":dict(sorted(tags.items())[:MAX_XML_TAGS]),
+                  "attribute_name_counts":dict(sorted(attrs.items())[:MAX_XML_TAGS]),
+                  "max_depth":max_depth,
+              }
+
+          def lexical_keys(text):
+              found = set()
+              patterns = [
+                  r'["\']([A-Za-z_][A-Za-z0-9_.:\-]{0,119})["\']\s*:',
+                  r'(?<![A-Za-z0-9_])([A-Za-z_][A-Za-z0-9_.:\-]{0,119})\s*[:=]'
+              ]
+              for pat in patterns:
+                  for m in re.finditer(pat, text[:200000]):
+                      found.add(m.group(1))
+                      if len(found) >= 300:
+                          return sorted(found)
+              return sorted(found)
+
+          def try_base64(text):
+              s = "".join((text or "").split())
+              if len(s) < 16 or len(s) % 4 not in {0,2,3} or not B64_RE.fullmatch(s):
+                  return None
+              pad = "=" * ((4 - len(s) % 4) % 4)
+              for alt in (False, True):
+                  try:
+                      raw = base64.urlsafe_b64decode(s + pad) if alt else base64.b64decode(s + pad, validate=False)
+                  except Exception:
+                      continue
+                  if not raw:
+                      continue
+                  printable = sum((32 <= b <= 126) or b in (9,10,13) for b in raw) / max(1,len(raw))
+                  return {"decoded_bytes":len(raw),"printable_ratio_bucket":round(printable,1),"raw":raw}
+              return None
+
+          def parse_structured_text(text, allow_query=True, allow_base64=True):
+              s = text or ""
+              stripped = s.strip()
+
+              try:
+                  obj = json.loads(stripped)
+                  sch = schema_only(obj)
+                  return {
+                      "encoding_family":"JSON",
+                      "schema":sch,
+                      "schema_sha256":schema_digest(sch),
+                      "all_keys":all_keys_from_schema(sch),
+                  }
+              except Exception:
+                  pass
+
+              try:
+                  obj = ast.literal_eval(stripped)
+                  if isinstance(obj, (dict,list,tuple)):
+                      sch = schema_only(obj)
+                      return {
+                          "encoding_family":"PYTHON_LITERAL_SAFE",
+                          "schema":sch,
+                          "schema_sha256":schema_digest(sch),
+                          "all_keys":all_keys_from_schema(sch),
+                      }
+              except Exception:
+                  pass
+
+              try:
+                  root = ET.fromstring(stripped)
+                  sch = xml_schema(root)
+                  return {
+                      "encoding_family":"XML",
+                      "schema":sch,
+                      "schema_sha256":schema_digest(sch),
+                      "all_keys":sorted(set(sch["tag_counts"]) | set(sch["attribute_name_counts"])),
+                  }
+              except Exception:
+                  pass
+
+              if allow_query and "=" in stripped:
+                  try:
+                      pairs = parse_qsl(stripped, keep_blank_values=True, strict_parsing=False)
+                  except Exception:
+                      pairs = []
+                  if len(pairs) >= 2:
+                      keys = [sanitize_key(k) for k,_ in pairs]
+                      sch = {
+                          "type":"QUERY_STRING",
+                          "pair_count":len(pairs),
+                          "key_names_ordered":keys[:300],
+                          "unique_key_names":sorted(set(keys))[:300],
+                          "value_type_classes":Counter(
+                              "EMPTY" if v=="" else
+                              "INT" if re.fullmatch(r"-?\d+",v or "") else
+                              "DECIMAL" if re.fullmatch(r"-?\d+[.,]\d+",v or "") else
+                              "TEXT"
+                              for _,v in pairs
+                          )
+                      }
+                      sch["value_type_classes"] = dict(sorted(sch["value_type_classes"].items()))
+                      return {
+                          "encoding_family":"QUERY_STRING",
+                          "schema":sch,
+                          "schema_sha256":schema_digest(sch),
+                          "all_keys":sch["unique_key_names"],
+                      }
+
+              if allow_base64:
+                  b = try_base64(stripped)
+                  if b:
+                      raw = b.pop("raw")
+                      text2 = None
+                      for enc in ("utf-8","utf-16","latin-1"):
+                          try:
+                              text2 = raw.decode(enc)
+                              break
+                          except Exception:
+                              continue
+                      nested = parse_structured_text(text2, allow_query=True, allow_base64=False) if text2 is not None else None
+                      sch = {
+                          "type":"BASE64_WRAPPER",
+                          "decoded_bytes":b["decoded_bytes"],
+                          "printable_ratio_bucket":b["printable_ratio_bucket"],
+                          "nested_encoding_family": nested.get("encoding_family") if nested else "UNCLASSIFIED",
+                          "nested_schema": nested.get("schema") if nested else None,
+                      }
+                      return {
+                          "encoding_family":"BASE64_WRAPPER",
+                          "schema":sch,
+                          "schema_sha256":schema_digest(sch),
+                          "all_keys":nested.get("all_keys",[]) if nested else [],
+                      }
+
+              m = re.match(r"^\s*([A-Za-z_$][A-Za-z0-9_$.]*)\s*=\s*(.+?)\s*;?\s*$", stripped, re.S)
+              if not m:
+                  m = re.match(r"^\s*([A-Za-z_$][A-Za-z0-9_$.]*)\s*\((.*)\)\s*;?\s*$", stripped, re.S)
+              if m:
+                  nested = parse_structured_text(m.group(2), allow_query=False, allow_base64=True)
+                  sch = {
+                      "type":"JAVASCRIPT_WRAPPER",
+                      "wrapper_name":sanitize_key(m.group(1)),
+                      "nested_encoding_family":nested.get("encoding_family"),
+                      "nested_schema":nested.get("schema"),
+                  }
+                  return {
+                      "encoding_family":"JAVASCRIPT_WRAPPER",
+                      "schema":sch,
+                      "schema_sha256":schema_digest(sch),
+                      "all_keys":nested.get("all_keys",[]),
+                  }
+
+              keys = lexical_keys(stripped)
+              sch = {
+                  "type":"OPAQUE_TEXT",
+                  "length_bucket":length_bucket(len(stripped)),
+                  "lexical_key_names":keys,
+                  "lexical_key_count":len(keys),
+              }
+              return {
+                  "encoding_family":"OPAQUE_TEXT_WITH_LEXICAL_KEYS" if keys else "OPAQUE_TEXT",
+                  "schema":sch,
+                  "schema_sha256":schema_digest(sch),
+                  "all_keys":keys,
+              }
+
+          class HTMLTagParser(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.tags=Counter(); self.attrs=Counter()
+              def handle_starttag(self, tag, attrs):
+                  self.tags[sanitize_key(tag.lower())]+=1
+                  for k,_ in attrs:
+                      self.attrs[sanitize_key((k or "").lower())]+=1
+
+          def decode_body(body, base64_encoded):
+              if base64_encoded:
+                  try:
+                      return base64.b64decode((body or "").encode("ascii"), validate=False)
+                  except Exception:
+                      return b""
+              return (body or "").encode("utf-8")
+
+          def encoding_class(raw):
+              if raw.startswith(b"\xef\xbb\xbf"):
+                  return "UTF8_BOM"
+              if raw.startswith(b"\xff\xfe") or raw.startswith(b"\xfe\xff"):
+                  return "UTF16_BOM"
+              if raw.startswith(b"\x1f\x8b"):
+                  return "GZIP_MAGIC"
+              if len(raw)>=2 and raw[0]==0x78 and raw[1] in (0x01,0x5e,0x9c,0xda):
+                  return "ZLIB_MAGIC"
+              try:
+                  raw.decode("utf-8")
+                  return "UTF8"
+              except Exception:
+                  pass
+              try:
+                  raw.decode("utf-16")
+                  return "UTF16_COMPATIBLE"
+              except Exception:
+                  pass
+              try:
+                  raw.decode("latin-1")
+                  nul = raw.count(b"\x00")/max(1,len(raw))
+                  return "LATIN1_TEXTLIKE" if nul < 0.05 else "BINARY_OR_MULTIBYTE"
+              except Exception:
+                  return "BINARY"
+
+          def response_structure(raw, mime):
+              out = {
+                  "body_bytes":len(raw),
+                  "body_sha256":hashlib.sha256(raw).hexdigest(),
+                  "encoding_class":encoding_class(raw),
+                  "magic_hex_prefix":raw[:4].hex(),
+              }
+              text = None
+              for enc in ("utf-8-sig","utf-16","latin-1"):
+                  try:
+                      text = raw.decode(enc)
+                      out["decoded_with"] = enc.upper()
+                      break
+                  except Exception:
+                      continue
+              if text is None:
+                  out["serialization_family"]="BINARY_UNCLASSIFIED"
+                  return out
+
+              structured = parse_structured_text(text, allow_query=True, allow_base64=True)
+              out["serialization_family"] = structured["encoding_family"]
+              out["schema"] = structured["schema"]
+              out["schema_sha256"] = structured["schema_sha256"]
+              out["all_keys"] = structured["all_keys"]
+
+              if structured["encoding_family"].startswith("OPAQUE_TEXT") and "html" in (mime or "").lower():
+                  hp = HTMLTagParser()
+                  try:
+                      hp.feed(text)
+                  except Exception:
+                      pass
+                  if hp.tags:
+                      html_s = {
+                          "type":"HTML_LITERAL",
+                          "tag_counts":dict(sorted(hp.tags.items())[:300]),
+                          "attribute_name_counts":dict(sorted(hp.attrs.items())[:300]),
+                      }
+                      out["html_literal_schema"] = html_s
+                      out["html_literal_schema_sha256"] = schema_digest(html_s)
+              return out
+
+          options = Options()
+          options.add_argument("--headless=new")
+          options.add_argument("--no-sandbox")
+          options.add_argument("--disable-dev-shm-usage")
+          options.add_argument("--disable-background-networking")
+          options.add_argument("--disable-default-apps")
+          options.add_argument("--disable-sync")
+          options.add_argument("--disable-component-update")
+          options.add_argument("--disable-domain-reliability")
+          options.add_argument("--metrics-recording-only")
+          options.add_argument("--safebrowsing-disable-auto-update")
+          options.add_argument("--disable-features=OptimizationHints,MediaRouter")
+          options.add_argument("--window-size=1280,800")
+          options.set_capability("goog:loggingPrefs", {"performance":"ALL"})
+
+          out = {
+              "task":"TASK_219K_LAYERINFO_SCHEMA_PASSIVE",
+              "issue":711,
+              "base_main_sha":"f12998d64b2b95a2021d4c0da6250eb80900002c",
+              "execution_head_sha":os.environ.get("GITHUB_SHA"),
+              "boundary":{
+                  "browser_sessions":1,
+                  "manual_navigations":1,
+                  "clicks":0,
+                  "typing":0,
+                  "form_submissions":0,
+                  "manual_fetch_xhr":0,
+                  "direct_endpoint_calls":0,
+                  "retry":0,
+                  "raw_layerinfo_values_persisted":False,
+                  "response_text_persisted":False,
+                  "raw_har_persisted":False,
+              },
+              "target":{"host":HOST,"path":TARGET_PATH,"method":"POST","outer_field":"LayerInfo"},
+              "layerinfo_requests":[],
+              "responses":[],
+              "hard_boundaries":{
+                  "layerinfo_replay":0,
+                  "layerinfo_synthesis":0,
+                  "commitment_lookup":0,
+                  "pncp":0,
+                  "tcesp":0,
+                  "municipal_contract_portal":0,
+                  "drive":0,
+                  "promotion":0,
+              },
+          }
+
+          driver = None
+          try:
+              driver = webdriver.Chrome(options=options)
+              driver.set_page_load_timeout(35)
+              driver.execute_cdp_cmd("Network.enable", {})
+              driver.get(START)
+              time.sleep(WAIT_SECONDS)
+
+              request_meta = {}
+              response_meta = {}
+              ordered = []
+              for entry in driver.get_log("performance"):
+                  try:
+                      msg = json.loads(entry["message"])["message"]
+                  except Exception:
+                      continue
+                  method = msg.get("method")
+                  params = msg.get("params") or {}
+                  if method == "Network.requestWillBeSent":
+                      rid = params.get("requestId")
+                      req = params.get("request") or {}
+                      if not rid:
+                          continue
+                      u = urlparse(req.get("url") or "")
+                      if (u.hostname or "").lower()==HOST and u.path==TARGET_PATH and (req.get("method") or "").upper()=="POST":
+                          request_meta[rid] = {
+                              "post_hint":req.get("postData"),
+                              "initiator_type":((params.get("initiator") or {}).get("type")),
+                          }
+                          if rid not in ordered:
+                              ordered.append(rid)
+                  elif method == "Network.responseReceived":
+                      rid = params.get("requestId")
+                      resp = params.get("response") or {}
+                      if rid:
+                          response_meta[rid] = {
+                              "http_status":resp.get("status"),
+                              "mime_type":resp.get("mimeType"),
+                              "protocol":resp.get("protocol"),
+                          }
+
+              layer_schema_hashes=[]
+              layer_key_sets=[]
+              response_families=[]
+              for idx,rid in enumerate(ordered,1):
+                  raw_post = (request_meta.get(rid) or {}).get("post_hint")
+                  if raw_post is None:
+                      try:
+                          raw_post = driver.execute_cdp_cmd("Network.getRequestPostData", {"requestId":rid}).get("postData","")
+                      except Exception:
+                          raw_post = ""
+                  pairs = parse_qsl(raw_post or "", keep_blank_values=True, strict_parsing=False)
+                  layer_values = [v for k,v in pairs if k=="LayerInfo"]
+                  if len(layer_values) != 1:
+                      layer_result = {
+                          "ordinal":idx,
+                          "status":"STOP_LAYERINFO_OUTER_FIELD_COUNT",
+                          "outer_field_count":len(layer_values),
+                      }
+                  else:
+                      classified = parse_structured_text(layer_values[0], allow_query=True, allow_base64=True)
+                      layer_result = {
+                          "ordinal":idx,
+                          "status":"PASS_SCHEMA_ONLY",
+                          "encoding_family":classified["encoding_family"],
+                          "schema":classified["schema"],
+                          "schema_sha256":classified["schema_sha256"],
+                          "all_keys":classified["all_keys"],
+                          "raw_value_persisted":False,
+                      }
+                      layer_schema_hashes.append(classified["schema_sha256"])
+                      layer_key_sets.append(json.dumps(classified["all_keys"], ensure_ascii=False, separators=(",",":")))
+                  out["layerinfo_requests"].append(layer_result)
+
+                  rmeta = response_meta.get(rid) or {}
+                  response_result = {
+                      "ordinal":idx,
+                      "http_status":rmeta.get("http_status"),
+                      "mime_type":rmeta.get("mime_type"),
+                      "protocol":rmeta.get("protocol"),
+                      "body_capture_status":"NOT_ATTEMPTED",
+                  }
+                  try:
+                      body = driver.execute_cdp_cmd("Network.getResponseBody", {"requestId":rid})
+                      raw = decode_body(body.get("body",""), bool(body.get("base64Encoded")))
+                      struct = response_structure(raw, rmeta.get("mime_type"))
+                      response_result.update(struct)
+                      response_result["body_capture_status"]="PASS_SCHEMA_ONLY"
+                      response_families.append(struct.get("serialization_family"))
+                  except Exception as exc:
+                      response_result["body_capture_status"]="STOP_BODY_UNAVAILABLE"
+                      response_result["error_type"]=type(exc).__name__
+                  out["responses"].append(response_result)
+
+              out["summary"] = {
+                  "target_request_count":len(ordered),
+                  "layerinfo_schema_capture_count":sum(1 for x in out["layerinfo_requests"] if x.get("status")=="PASS_SCHEMA_ONLY"),
+                  "layerinfo_unique_schema_hash_count":len(set(layer_schema_hashes)),
+                  "layerinfo_all_same_schema":len(set(layer_schema_hashes))==1 if layer_schema_hashes else False,
+                  "layerinfo_unique_key_set_count":len(set(layer_key_sets)),
+                  "response_capture_count":sum(1 for x in out["responses"] if x.get("body_capture_status")=="PASS_SCHEMA_ONLY"),
+                  "response_serialization_families":dict(sorted(Counter(response_families).items())),
+                  "response_unique_schema_hash_count":len({x.get("schema_sha256") for x in out["responses"] if x.get("schema_sha256")}),
+              }
+              out["page"] = {
+                  "final_host":(urlparse(driver.current_url).hostname or "").lower(),
+                  "final_path":urlparse(driver.current_url).path,
+                  "title":(driver.title or "")[:300],
+              }
+              out["status"]="PASS_TASK219K_SCHEMA_ONLY_CAPTURE"
+          except Exception as exc:
+              out["status"]="STOP_TASK219K_BROWSER_CAPTURE"
+              out["error_type"]=type(exc).__name__
+          finally:
+              if driver is not None:
+                  try:
+                      driver.quit()
+                  except Exception:
+                      pass
+
+          with open("runtime/task219k_result.json","w",encoding="utf-8") as f:
+              json.dump(out,f,ensure_ascii=False,indent=2,sort_keys=True)
+              f.write("\n")
+
+          print(json.dumps({
+              "status":out["status"],
+              "target_request_count":(out.get("summary") or {}).get("target_request_count"),
+              "layerinfo_schema_capture_count":(out.get("summary") or {}).get("layerinfo_schema_capture_count"),
+              "layerinfo_unique_schema_hash_count":(out.get("summary") or {}).get("layerinfo_unique_schema_hash_count"),
+              "layerinfo_unique_key_set_count":(out.get("summary") or {}).get("layerinfo_unique_key_set_count"),
+              "layerinfo_encoding_families":dict(sorted(Counter(x.get("encoding_family") for x in out.get("layerinfo_requests",[]) if x.get("encoding_family")).items())),
+              "response_capture_count":(out.get("summary") or {}).get("response_capture_count"),
+              "response_serialization_families":(out.get("summary") or {}).get("response_serialization_families"),
+          },ensure_ascii=False,sort_keys=True))
+          PY
+
+      - name: Upload schema-only evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-219k-layerinfo-schema-evidence
+          path: runtime/task219k_result.json
+          if-no-files-found: error
+          retention-days: 1
