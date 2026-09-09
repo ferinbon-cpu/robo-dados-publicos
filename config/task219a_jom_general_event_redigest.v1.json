@@ -26,7 +26,10 @@
       7314,
       7315
     ],
-    "new_document_count": 87
+    "new_document_count": 87,
+    "pinned_target_fixture": "docs/evidence/fixtures/task219/TASK_219A_CANONICAL_87_DOCUMENT_TARGETS.csv",
+    "pinned_target_fixture_git_blob_sha": "766069f41ae785010d91de888bc71b3dd504a1a9",
+    "rediscovery_required": false
   },
   "prior_recovery_budget_evidence": {
     "task217d_aggregate_document_bytes": 1140496939,
@@ -39,9 +42,9 @@
   },
   "network": {
     "allowed_document_host": "ecrie.com.br",
-    "max_index_remote_get_count": 18,
+    "max_index_remote_get_count": 0,
     "max_document_get_attempt_count": 87,
-    "max_total_remote_get_count": 105,
+    "max_total_remote_get_count": 87,
     "max_bytes_per_document": 262144000,
     "max_aggregate_document_bytes": 4294967296,
     "automatic_retry": false,
@@ -90,7 +93,7 @@
   "authorization": {
     "live_authorized": false,
     "required_task": "TASK_219A_LIVE_AUTHORIZATION",
-    "required_operation": "BOUNDED_87_DOCUMENT_JOM_GENERAL_EVENT_REDIGEST",
+    "required_operation": "BOUNDED_PINNED_87_DOCUMENT_JOM_GENERAL_EVENT_REDIGEST",
     "exact_implementation_sha_required": true,
     "task217d_authorization_reuse_allowed": false,
     "task217f_authorization_reuse_allowed": false,
@@ -115,7 +118,8 @@
     "canonization_required": true,
     "partial_redigest_ne_absence": true,
     "strong_anchor_ne_end_to_end_identity_chain": true,
-    "pncp_bridge_requires_later_separate_task": true
+    "pncp_bridge_requires_later_separate_task": true,
+    "pinned_target_identity_must_match_task217d_partitions": true
   },
   "pre_authorization_remote_effects": {
     "network": false,
