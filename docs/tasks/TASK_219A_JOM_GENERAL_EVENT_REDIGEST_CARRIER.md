@@ -6,13 +6,13 @@ This task does **not** join procurement records and cannot promote any question.
 
 ## Network boundary
 
-The carrier reconstructs the exact TASK 217C discovery and requires the canonical result hash to match. It then excludes editions 7304–7315 and downloads exactly the remaining 87 documents.
+The carrier uses a repository-pinned CSV derived from the exact TASK 217C canonical discovery. The fixture contains the exact 87 editions not represented by editions 7304–7315 and is validated against the TASK 217D partition identities before any network access.
 
 Maximum remote work:
 
-- 18 index GETs;
-- 87 PDF GET attempts;
-- 105 remote GETs total;
+- 0 index GETs;
+- 87 exact PDF GET attempts;
+- 87 remote GETs total;
 - no retry;
 - 250 MiB per document;
 - 4 GiB aggregate.
@@ -46,4 +46,4 @@ CNPJ alone, amount, date, object text and semantic similarity are explicitly for
 
 A strong JOM anchor is **not** an end-to-end procurement identity chain. PNCP/TCE joining, if justified by the new corpus, is a later separately governed task.
 
-The runtime is inert on main and requires a fresh authorization pinned to the final merged implementation SHA.
+The runtime is inert on main and requires a fresh authorization pinned to the final merged implementation SHA. Rediscovery is forbidden: the live operation may only fetch the 87 exact pinned PDF URLs.
