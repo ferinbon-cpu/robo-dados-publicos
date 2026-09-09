@@ -1,0 +1,258 @@
+name: TASK 219I passive TDA browser inspection once
+run-name: "TASK 219I passive TDA browser inspection by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-219i-tda-passive-browser-inspection
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-219i-tda-passive-browser-inspection-once
+  cancel-in-progress: false
+
+jobs:
+  passive-browser-observation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Install browser driver library
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check --no-input "selenium==4.35.0"
+          command -v google-chrome || command -v chromium || command -v chromium-browser
+
+      - name: Observe one passive public browser session
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime
+          python - <<'PY'
+          import json
+          import os
+          import time
+          from collections import Counter
+          from urllib.parse import urlparse, parse_qsl
+
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+
+          START = "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418"
+          PRIMARY_HOST = "transparencia.limeira.sp.gov.br"
+          AUTHORITY_SUFFIX = ".limeira.sp.gov.br"
+          WAIT_SECONDS = 8
+
+          def sanitize_url(url):
+              try:
+                  p = urlparse(url)
+              except Exception:
+                  return {"scheme": None, "host": None, "path": None, "query_present": False, "query_keys": []}
+              keys = []
+              if p.query:
+                  try:
+                      keys = sorted({k for k, _ in parse_qsl(p.query, keep_blank_values=True) if k})
+                  except Exception:
+                      keys = []
+              return {
+                  "scheme": p.scheme,
+                  "host": (p.hostname or "").lower() or None,
+                  "path": p.path or "/",
+                  "query_present": bool(p.query),
+                  "query_keys": keys,
+              }
+
+          def same_authority(host):
+              host = (host or "").lower()
+              return host == PRIMARY_HOST or host.endswith(AUTHORITY_SUFFIX)
+
+          options = Options()
+          options.add_argument("--headless=new")
+          options.add_argument("--no-sandbox")
+          options.add_argument("--disable-dev-shm-usage")
+          options.add_argument("--disable-background-networking")
+          options.add_argument("--disable-default-apps")
+          options.add_argument("--disable-sync")
+          options.add_argument("--disable-component-update")
+          options.add_argument("--disable-domain-reliability")
+          options.add_argument("--metrics-recording-only")
+          options.add_argument("--safebrowsing-disable-auto-update")
+          options.add_argument("--disable-features=OptimizationHints,MediaRouter")
+          options.add_argument("--window-size=1280,800")
+          options.set_capability("goog:loggingPrefs", {"performance": "ALL"})
+
+          out = {
+              "task": "TASK_219I_PASSIVE_TDA_BROWSER_INSPECTION",
+              "issue": 707,
+              "base_main_sha": "36927b31ce455c1479b380edc90ef429c51b55db",
+              "execution_head_sha": os.environ.get("GITHUB_SHA"),
+              "start_url": sanitize_url(START),
+              "browser_sessions": 1,
+              "manual_navigations": 1,
+              "clicks": 0,
+              "typing": 0,
+              "form_submissions": 0,
+              "manual_fetch_xhr": 0,
+              "retry": 0,
+              "response_bodies_persisted": False,
+              "raw_har_persisted": False,
+              "query_values_persisted": False,
+              "observed_requests": [],
+              "candidate_machine_routes": [],
+              "hard_boundaries": {
+                  "pncp": 0,
+                  "tcesp": 0,
+                  "municipal_contract_portal": 0,
+                  "drive": 0,
+                  "commitment_lookup": 0,
+                  "discovered_endpoint_direct_query": 0,
+                  "publication": 0,
+                  "promotion": 0,
+              },
+          }
+
+          driver = None
+          try:
+              driver = webdriver.Chrome(options=options)
+              driver.set_page_load_timeout(35)
+              driver.get(START)
+              time.sleep(WAIT_SECONDS)
+
+              final_url = driver.current_url
+              out["page"] = {
+                  "final_url": sanitize_url(final_url),
+                  "title": (driver.title or "")[:300],
+                  "form_count": len(driver.find_elements("tag name", "form")),
+                  "input_count": len(driver.find_elements("tag name", "input")),
+                  "anchor_count": len(driver.find_elements("tag name", "a")),
+              }
+
+              reqs = {}
+              responses = {}
+              for entry in driver.get_log("performance"):
+                  try:
+                      msg = json.loads(entry["message"])["message"]
+                  except Exception:
+                      continue
+                  method = msg.get("method")
+                  params = msg.get("params") or {}
+                  if method == "Network.requestWillBeSent":
+                      req = params.get("request") or {}
+                      rid = params.get("requestId")
+                      if not rid:
+                          continue
+                      u = sanitize_url(req.get("url") or "")
+                      reqs[rid] = {
+                          "method": req.get("method"),
+                          "resource_type": params.get("type"),
+                          "initiator_type": ((params.get("initiator") or {}).get("type")),
+                          "url": u,
+                      }
+                  elif method == "Network.responseReceived":
+                      rid = params.get("requestId")
+                      if not rid:
+                          continue
+                      resp = params.get("response") or {}
+                      responses[rid] = {
+                          "http_status": resp.get("status"),
+                          "mime_type": resp.get("mimeType"),
+                          "from_disk_cache": bool(resp.get("fromDiskCache")),
+                          "from_service_worker": bool(resp.get("fromServiceWorker")),
+                      }
+
+              rows = []
+              candidates = []
+              for rid, req in reqs.items():
+                  row = dict(req)
+                  row.update(responses.get(rid) or {})
+                  host = (row.get("url") or {}).get("host")
+                  row["same_authority"] = same_authority(host)
+                  rows.append(row)
+
+                  method = (row.get("method") or "").upper()
+                  rtype = row.get("resource_type")
+                  mime = (row.get("mime_type") or "").lower()
+                  path = ((row.get("url") or {}).get("path") or "").lower()
+                  static_ext = any(path.endswith(x) for x in (".js", ".css", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".woff", ".woff2", ".ico"))
+                  data_ext = any(path.endswith(x) for x in (".json", ".csv", ".xlsx", ".xls", ".xml"))
+                  api_marker = any(token in path for token in ("/api/", "json", "dados", "data", "consulta", "service", "servico", "config"))
+                  machine_mime = any(token in mime for token in ("application/json", "text/csv", "application/xml", "text/xml", "spreadsheet"))
+                  login_barrier = any(token in path for token in ("login", "logout", "signin", "session"))
+                  acceptable = (
+                      row["same_authority"]
+                      and method == "GET"
+                      and not static_ext
+                      and not login_barrier
+                      and (
+                          machine_mime
+                          or data_ext
+                          or (rtype in {"XHR", "Fetch"} and api_marker and "text/html" not in mime)
+                      )
+                  )
+                  if acceptable:
+                      candidates.append(row)
+
+              rows.sort(key=lambda x: (
+                  ((x.get("url") or {}).get("host") or ""),
+                  ((x.get("url") or {}).get("path") or ""),
+                  x.get("method") or "",
+                  x.get("resource_type") or "",
+              ))
+              candidates.sort(key=lambda x: (
+                  ((x.get("url") or {}).get("host") or ""),
+                  ((x.get("url") or {}).get("path") or ""),
+              ))
+
+              out["observed_requests"] = rows[:300]
+              out["observed_request_count"] = len(rows)
+              out["truncated_request_metadata"] = len(rows) > 300
+              out["host_counts"] = dict(sorted(Counter(((r.get("url") or {}).get("host") or "UNKNOWN") for r in rows).items()))
+              out["resource_type_counts"] = dict(sorted(Counter((r.get("resource_type") or "UNKNOWN") for r in rows).items()))
+              out["candidate_machine_routes"] = candidates
+              out["candidate_machine_route_count"] = len(candidates)
+              out["status"] = "PASS_PASSIVE_BROWSER_OBSERVATION"
+          except Exception as exc:
+              out["status"] = "STOP_TASK219I_BROWSER_OBSERVATION"
+              out["error_type"] = type(exc).__name__
+              out["error"] = str(exc)[:500]
+          finally:
+              if driver is not None:
+                  try:
+                      driver.quit()
+                  except Exception:
+                      pass
+
+          with open("runtime/task219i_result.json", "w", encoding="utf-8") as f:
+              json.dump(out, f, ensure_ascii=False, indent=2, sort_keys=True)
+              f.write("\n")
+
+          print(json.dumps({
+              "status": out["status"],
+              "final_url": (out.get("page") or {}).get("final_url"),
+              "observed_request_count": out.get("observed_request_count"),
+              "candidate_machine_route_count": out.get("candidate_machine_route_count"),
+              "host_counts": out.get("host_counts"),
+          }, ensure_ascii=False, sort_keys=True))
+          PY
+
+      - name: Upload sanitized passive evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-219i-tda-passive-browser-evidence
+          path: runtime/task219i_result.json
+          if-no-files-found: error
+          retention-days: 1
