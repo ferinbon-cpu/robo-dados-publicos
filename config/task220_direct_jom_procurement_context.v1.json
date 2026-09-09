@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "schema": "TASK220_DIRECT_JOM_PROCUREMENT_CONTEXT_V1",
+  "task": "TASK_220",
+  "issue": 697,
+  "base_main_sha": "071ea533040f804bf58f77fd327268d413abedf5",
+  "bounded_scope": {
+    "start_date": "2026-01-01",
+    "end_date": "2026-09-08",
+    "official_document_count": 99,
+    "legacy_document_count": 12,
+    "new_document_count": 87,
+    "completed_calendar_year_claim": false
+  },
+  "sources": {
+    "legacy_fixture": "docs/evidence/fixtures/TASK_184_JOM_303_VALIDATED_EVENTS.jsonl",
+    "legacy_fixture_sha256": "1afd82853402d2ea6db7ad28fb6564de4a4ab28570c16ea9c7e4e0366cb5c733",
+    "legacy_event_count": 303,
+    "new_runtime_run_id": 34354027245,
+    "new_runtime_artifact_id": 10105583802,
+    "new_runtime_artifact_name": "task-219a-jom-general-events-sanitized",
+    "new_runtime_zip_sha256": "599c9329f40de5b040b331ada17224614d197a332c12844f523e4a0d9d1aa35d",
+    "new_events_sha256": "5ca4bf1411f6b8bfa6ad2b8fdede9937f495458963439fa579d40caa7d988c5b",
+    "new_semantics_sha256": "7a1e191e944f66bbf129ad96b912c4cbb3b074ac0ae3ddd61b68ac5390dfb8b6",
+    "new_event_count": 2408
+  },
+  "direct_procurement_filter": {
+    "require_semantic_evidence_layer": "PROCUREMENT_CONTRACT",
+    "allowed_event_types": [
+      "CONTRATO",
+      "ATA_REGISTRO_PRECOS",
+      "EDITAL",
+      "TERMO_ADITIVO_CONTRATO",
+      "APOSTILAMENTO"
+    ],
+    "edital_requires_object_and_procurement_identifier": true,
+    "procurement_identifier_fields": [
+      "bidding_modality",
+      "bidding_number",
+      "process_number"
+    ]
+  },
+  "q1": {
+    "event_types": [
+      "CONTRATO",
+      "ATA_REGISTRO_PRECOS",
+      "EDITAL"
+    ],
+    "require_object_text": true,
+    "claim_semantic": "DIRECT_OFFICIAL_PUBLICATION_OF_PROCUREMENT_OBJECT",
+    "payment_or_execution_claim": false
+  },
+  "q2": {
+    "event_types": [
+      "CONTRATO"
+    ],
+    "require_fields": [
+      "contractor",
+      "value_brl",
+      "term_text"
+    ],
+    "claim_semantic": "DIRECT_OFFICIAL_CONTRACT_PUBLICATION_WITH_SUPPLIER_VALUE_TERM",
+    "value_is_payment": false,
+    "contract_publication_proves_payment": false
+  },
+  "q3": {
+    "change_event_types": [
+      "TERMO_ADITIVO_CONTRATO",
+      "APOSTILAMENTO"
+    ],
+    "new_tender_event_types": [
+      "EDITAL"
+    ],
+    "claim_semantic": "DIRECT_OFFICIAL_PUBLICATION_OF_CHANGE_OR_NEW_TENDER_EVENT",
+    "relationship_between_events_requires_explicit_reference": true
+  },
+  "outputs": {
+    "fixture": "docs/evidence/fixtures/task220/TASK_220_FULL_99_JOM_DIRECT_PROCUREMENT_EVENTS.jsonl",
+    "materialization_evidence": "docs/evidence/TASK_220_JOM_PROCUREMENT_MATERIALIZATION_0.8.0.json"
+  },
+  "hard_boundaries": {
+    "jom_publication_ne_payment": true,
+    "jom_contract_ne_accounting_execution": true,
+    "value_ne_paid_amount": true,
+    "no_cross_source_identity_in_this_task": true,
+    "cnpj_alone_not_cross_source_identity": true,
+    "amount_date_text_not_cross_source_identity": true,
+    "ctrl_q2_remains_blocked": true,
+    "no_public_source_network": true,
+    "no_drive_write": true,
+    "no_serving_write": true,
+    "no_publication_write": true
+  }
+}
