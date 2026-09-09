@@ -1,0 +1,30 @@
+{
+  "version":1,
+  "schema":"TASK219H_TCESP_CONTRACT45_BRIDGE_V1",
+  "task":"TASK_219H",
+  "issue":705,
+  "parent_issue":691,
+  "base_main_sha":"afc2f5bd3243d6ff72a7b47192808d69fd88a74f",
+  "source":{
+    "authority":"Tribunal de Contas do Estado de Sao Paulo",
+    "panel_url":"https://transparencia.tce.sp.gov.br/municipio/limeira/2026",
+    "allowed_host":"transparencia.tce.sp.gov.br",
+    "resource_link_text":"Despesa Detalhada",
+    "year":2026
+  },
+  "seed":{
+    "event_id":"JOEV_083e522d4145e4d27580",
+    "contract_number":"45/2026",
+    "process_number":"902.281/2025",
+    "bidding_number":"10/2026",
+    "bidding_modality":"PREGÃO ELETRÔNICO",
+    "supplier_cnpj":"37457979000131",
+    "supplier_name":"Med Doctor Acessórios Ltda"
+  },
+  "runtime":{"max_source_gets":2,"retry":0,"same_host_only":true},
+  "strong_identity":{
+    "supplier_cnpj_alone_is_identity":false,
+    "amount_date_object_similarity_are_identity":false,
+    "explicit_typed_contract_process_or_bidding_reference_required":true
+  }
+}
