@@ -8,6 +8,7 @@ from pathlib import Path
 from robo_dados_publicos.research.task219a_jom_general_event_redigest import (
     extract_strong_anchors,
     load_config,
+    load_pinned_targets,
     validate_live_authorization,
     validate_offline_carrier,
     write_sanitized_bundle,
@@ -21,9 +22,9 @@ class TestTask219AJomGeneralEventRedigest(unittest.TestCase):
         self.assertEqual(cfg["canonical_discovery"]["new_document_count"], 87)
         self.assertEqual(cfg["canonical_discovery"]["existing_event_rows"], 303)
         self.assertEqual(len(cfg["canonical_discovery"]["existing_editions"]), 12)
-        self.assertEqual(cfg["network"]["max_index_remote_get_count"], 18)
+        self.assertEqual(cfg["network"]["max_index_remote_get_count"], 0)
         self.assertEqual(cfg["network"]["max_document_get_attempt_count"], 87)
-        self.assertEqual(cfg["network"]["max_total_remote_get_count"], 105)
+        self.assertEqual(cfg["network"]["max_total_remote_get_count"], 87)
         self.assertEqual(cfg["network"]["max_bytes_per_document"], 262144000)
         self.assertEqual(cfg["network"]["max_aggregate_document_bytes"], 4294967296)
         self.assertFalse(cfg["network"]["automatic_retry"])
@@ -32,6 +33,13 @@ class TestTask219AJomGeneralEventRedigest(unittest.TestCase):
         self.assertFalse(cfg["processing"]["raw_pdf_persisted"])
         self.assertFalse(cfg["processing"]["raw_page_text_persisted"])
         self.assertFalse(cfg["processing"]["rag_chunks_persisted"])
+
+    def test_pinned_targets_are_exact_87_and_match_task217d_scope(self):
+        rows = load_pinned_targets()
+        self.assertEqual(len(rows), 87)
+        self.assertEqual(len({row["edition"] for row in rows}), 87)
+        self.assertTrue(all(row["document_url"].startswith("https://ecrie.com.br/") for row in rows))
+        self.assertFalse(any(7304 <= row["edition"] <= 7315 for row in rows))
 
     def test_prior_recovery_bytes_form_conservative_bound_below_new_cap(self):
         cfg = load_config()
@@ -49,7 +57,7 @@ class TestTask219AJomGeneralEventRedigest(unittest.TestCase):
         got = validate_offline_carrier()
         self.assertEqual(got["status"], "PASS")
         self.assertEqual(got["target_document_count"], 87)
-        self.assertEqual(got["max_total_remote_get_count"], 105)
+        self.assertEqual(got["max_total_remote_get_count"], 87)
         self.assertTrue(got["prior_upper_bound_below_cap"])
         self.assertFalse(got["live_authorized"])
         self.assertFalse(got["network"])
@@ -142,9 +150,10 @@ class TestTask219AJomGeneralEventRedigest(unittest.TestCase):
             "source": "LIMEIRA_JORNAL_OFICIAL",
             "operation": cfg["authorization"]["required_operation"],
             "canonical_discovery_result_sha256": cfg["canonical_discovery"]["result_sha256"],
-            "max_index_remote_get_count": 18,
+            "max_index_remote_get_count": 0,
             "max_document_get_attempt_count": 87,
-            "max_total_remote_get_count": 105,
+            "pinned_target_fixture_git_blob_sha": cfg["canonical_discovery"]["pinned_target_fixture_git_blob_sha"],
+            "max_total_remote_get_count": 87,
             "max_bytes_per_document": 262144000,
             "max_aggregate_document_bytes": 4294967296,
             "attempt_count": 1,
@@ -153,7 +162,7 @@ class TestTask219AJomGeneralEventRedigest(unittest.TestCase):
             "task217f_authorization_reused": False,
             "task217g_authorization_reused": False,
             "document_downloads_authorized": True,
-            "rediscovery_authorized": True,
+            "rediscovery_authorized": False,
             "drive_write_authorized": False,
             "serving_authorized": False,
             "publication_authorized": False,
