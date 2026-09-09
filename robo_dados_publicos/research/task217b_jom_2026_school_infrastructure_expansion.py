@@ -8,6 +8,7 @@ from urllib.parse import urlparse
 from robo_dados_publicos.analytics.task217_jom_school_identity_bridge import (
     build_alias_index,
     classify_event_school_identity,
+    infrastructure_markers_for_text,
     load_config as load_identity_config,
     normalize_text,
 )
@@ -217,10 +218,10 @@ def screen_page_text(
         if f" {alias} " in f" {normalized} ":
             school_codes.update(row["school_code"] for row in schools)
 
-    infrastructure_markers = [
-        marker for marker in identity_cfg["infrastructure_markers"]
-        if _contains_phrase(normalized, marker)
-    ]
+    infrastructure_markers = infrastructure_markers_for_text(
+        normalized,
+        config_path=ROOT / cfg["identity"]["task217a_config"],
+    )
     generic_school_markers = [
         marker for marker in identity_cfg["generic_school_references"]
         if _contains_phrase(normalized, marker)
