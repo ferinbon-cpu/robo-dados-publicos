@@ -26,7 +26,7 @@
       "DISPENSA": 8,
       "INEXIGIBILIDADE": 9
     },
-    "complete_bidding_number_regex": "^0*(\\\\d+)/(20\\\\d{2})$",
+    "complete_bidding_number_regex": "^0*(\\d+)/(20\\d{2})$",
     "identity_grain": [
       "modality_id",
       "bidding_number",
