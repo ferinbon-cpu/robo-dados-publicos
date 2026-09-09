@@ -40,6 +40,7 @@ class TestTask218InfraQ2ContextualExecution(unittest.TestCase):
         self.assertEqual(got["bounded_jom_document_count"], 99)
         self.assertTrue(got["bounded_jom_content_scope_complete"])
         self.assertEqual(got["proven_named_school_event_count"], 1)
+        self.assertEqual(cfg["execution"]["policy_service_facets_supported"], ["INFRAESTRUTURA"])
         self.assertFalse(got["network"])
         self.assertFalse(got["drive_write"])
 
