@@ -61,7 +61,17 @@ class FakeSource:
                 "niFornecedor": "04491116000121",
             }]
         else:
-            data = []
+            return (
+                {
+                    "http_status": 204,
+                    "bytes_received": 0,
+                    "content_type": None,
+                    "sha256": None,
+                    "transport_error": None,
+                    "url": url,
+                },
+                None,
+            )
         return (
             {
                 "http_status": 200,
@@ -74,7 +84,7 @@ class FakeSource:
             {
                 "data": data,
                 "totalRegistros": len(data),
-                "totalPaginas": 1 if data else 0,
+                "totalPaginas": 1,
                 "numeroPagina": 1,
             },
         )
