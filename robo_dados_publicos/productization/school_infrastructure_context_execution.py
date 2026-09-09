@@ -141,14 +141,18 @@ def _infra_q2(
         filters["PERIOD"]["status"] = "APPLIED_TO_BOUNDED_YEAR_TO_DATE_SCOPE"
 
     if filters["POLICY_SERVICE_FACETS"]["status"] == "PENDING":
-        return _unsupported(
-            text,
-            context,
-            "INFRA_Q2",
-            filters,
-            "A evidência INFRA_Q2 está classificada como infraestrutura escolar, mas não possui subdivisão segura pelas demais facetas de política/serviço.",
-            out,
-        )
+        requested_facets = set(context.get("policy_service_facets") or [])
+        supported_facets = set(contract["execution"]["policy_service_facets_supported"])
+        if not requested_facets.issubset(supported_facets):
+            return _unsupported(
+                text,
+                context,
+                "INFRA_Q2",
+                filters,
+                "INFRA_Q2 aceita apenas a faceta intrínseca INFRAESTRUTURA; nenhuma outra faceta é aproximada.",
+                out,
+            )
+        filters["POLICY_SERVICE_FACETS"]["status"] = "APPLIED_INTRINSIC_INFRASTRUCTURE_SCOPE"
 
     if filters["GRANULARITY"]["status"] == "PENDING":
         filters["GRANULARITY"]["status"] = "APPLIED"
