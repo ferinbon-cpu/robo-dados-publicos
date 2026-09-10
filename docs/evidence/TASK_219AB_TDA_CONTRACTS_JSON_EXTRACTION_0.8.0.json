@@ -1,0 +1,114 @@
+{
+  "schema": "TASK219AB_TDA_CONTRACTS_JSON_EXTRACTION_V1",
+  "task": "TASK_219AB",
+  "issue": 746,
+  "canonical_date": "2026-09-10",
+  "base_main_sha": "f53deb08789384a2f64f1ec856714a3189595882",
+  "status": "PASS_OFFICIAL_TDA_CONTRACTS_MACHINE_READABLE_EXTRACTION",
+  "supersedes_for_machine_readable_contract_row_provenance": "OFFICIAL_TDA_CONTRACTS_UI_EXACT_FILTER_OBSERVATION in TASK_219AA",
+  "does_not_rewrite_historical_task219aa": true,
+  "source": {
+    "authority": "Prefeitura Municipal de Limeira",
+    "portal": "TDA - Transparencia de Dados Abertos",
+    "route": "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+    "area": "LAI - Contratos - Detalhe",
+    "operator_acquisition": true,
+    "acquisition_control": "THREE_BARS_EXTRACTION_MENU",
+    "json_icon_inside_extraction_panel": true,
+    "black_cloud_icon_was_source": false,
+    "clarification": "The JSON was obtained from the three-bars extraction control for Contratos > Detalhe, not from the black cloud icon."
+  },
+  "artifact": {
+    "outer_filename": "guestuser_LAI_-_Contratos_-_Detalhe._377482b6abb14a61b0a41152332e2109.zip",
+    "outer_sha256": "16f40d099b5234116ccd264202cdea127de7c5d36abbfb81a38d513e51a7c0b9",
+    "outer_bytes": 814,
+    "inner_filename": "guestuser_lai_-_contratos_-_detalhe._377482b6abb14a61b0a41152332e2109.json",
+    "inner_sha256": "7a7a995c9d41c83889da5eb422c92643e309b89485d3c109f291313fc2633b9b",
+    "inner_bytes": 1503,
+    "text_encoding_observed": "Windows-1252 compatible",
+    "raw_zip_committed": false,
+    "raw_json_committed": false,
+    "bounded_structured_facts_only": true
+  },
+  "export_metadata": {
+    "Origem": "LAI - Contratos - Detalhe..",
+    "DataExportacao": "10/09/2026 18:57:44",
+    "Usuario": "Convidado",
+    "Status": "OK"
+  },
+  "filters": {
+    "Ano Contrato": "2026",
+    "Tipo de Contrato": "(Todos)",
+    "Mes": "(Todos)",
+    "Nro Contrato": "45",
+    "Ranking": "Top 500",
+    "Ordenar por": "Nro Contrato",
+    "Fornecedor": "",
+    "Objeto / Finalidade": "",
+    "Nro Processo Adm (CPL)": "",
+    "Nro CNPJ/CPF": "",
+    "Gestor / Fiscal": ""
+  },
+  "row_semantics": {
+    "raw_valores_row_count": 2,
+    "summary_total_row_count": 1,
+    "data_row_count": 1,
+    "summary_row_is_contract": false,
+    "data_row_selection_rule": "nonblank Ano plus nonblank Nro SIAM (Fiscalizadores) and nonblank CNPJ/CPF"
+  },
+  "summary_row": {
+    "Valor Contratado": "210000.00",
+    "Valor Empenhado": "174999.99",
+    "Valor Processado": "35000.00",
+    "Valor Pago": "35000.00"
+  },
+  "contract_row": {
+    "Ano": "2026",
+    "Nro SIAM (Fiscalizadores)": "0000000045",
+    "normalized_contract_number": "45/2026",
+    "Tipo": "Fornecimento de Servicos",
+    "CNPJ/CPF": "37.457.979/0001-31",
+    "supplier_cnpj_digits": "37457979000131",
+    "Fornecedor": "Med Doctor Acessorios Ltda",
+    "Data Inicial": "13/04/2026",
+    "Data final": "12/04/2027",
+    "Valor Contratado": "210000.00",
+    "Valor Empenhado": "174999.99",
+    "Valor Processado": "35000.00",
+    "Valor Pago": "35000.00",
+    "Objeto Contrato": "LOCACAO DE SISTEMA DE ENDOSCOPIA",
+    "Modalidade e Nro Processo Licitatorio": "Pregao Eletronico (E00010/2026)",
+    "typed_procurement_identifier": "E00010/2026",
+    "Nro Processo Adm": "902281"
+  },
+  "identity_role": {
+    "contract_number_filter_plus_single_data_row": true,
+    "machine_readable_tda_contract_row_proven": true,
+    "typed_procurement_identifier_proven_in_contract_row": true,
+    "strong_bridge_to_task219aa_empenhado_export_key": "E00010/2026",
+    "supplier_cnpj_is_primary_identity_edge": false,
+    "amount_is_primary_identity_edge": false,
+    "object_text_is_primary_identity_edge": false,
+    "weak_join_used": false
+  },
+  "claim_boundaries": {
+    "summary_row_equals_second_contract": false,
+    "nro_siam_alone_proves_legal_contract_number_format": false,
+    "process_adm_ui_902281_alone_proves_formatted_902_281_2025": false,
+    "machine_readable_contract_row_equals_payment_completion": false,
+    "contracted_equals_committed": false,
+    "committed_equals_processed": false,
+    "processed_equals_contract_completed": false,
+    "one_contract_equals_exhaustive_procurement_inventory": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition_by_robot": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
