@@ -1,0 +1,112 @@
+{
+  "task": "TASK_219U_CURRENT_SESSION_LIVE_DESPESA_DOM_CANONIZATION",
+  "issue": 732,
+  "parent_issue": 691,
+  "canonical_date": "2026-09-10",
+  "base_main_sha": "30db2414069565f8572aad1b32dd96d9cad5cd09",
+  "runtime": {
+    "run_id": 34488422242,
+    "job_id": 102908568030,
+    "execution_head_sha": "1fe2c764cf03aa3b1e295a7e3c2b1f9b3ba3ea38",
+    "artifact_id": 10156669499,
+    "artifact_zip_sha256": "d6026162ad106c2d28767e497af17c386a8c22cade834214ec1908de972e46ba",
+    "artifact_size_bytes": 1765,
+    "artifact_member_sha256": "5112e2744cb23926373ac5d8c9bec0320ac6f92e1585645d9badee50accdf4c4",
+    "executed_workflow_blob_sha": "d6e5b32e795a4941577ef7dc19b1d33598b93aba",
+    "historical_workflow_blob_sha": "d6e5b32e795a4941577ef7dc19b1d33598b93aba",
+    "historical_source_exact_blob_match": true,
+    "workflow_removed_after_run": true,
+    "workflow_removal_commit": "e604be7864d89c893ea6b1799593d74cc725e99f",
+    "single_runtime_run_count_after_removal": 1
+  },
+  "same_session_identity": {
+    "portal_state_read": true,
+    "area_count": 8,
+    "unique_Despesa_match": true,
+    "AreaName": "Despesa",
+    "AreaOrigin": "2_92_guestuser_207_6_DSL0_VIS1343",
+    "AreaId": "d10761cb41dc4ce5942ead9b39f54c66DSA6",
+    "AreaType": "content",
+    "session_scoped_AreaId_rule_respected": true
+  },
+  "live_dom_adjudication": {
+    "current_session_root_exists": true,
+    "root_tag": "div",
+    "root_class": "chart selected",
+    "root_contains_rendered_public_expense_summary": true,
+    "tag_counts": {
+      "div": 30,
+      "img": 4,
+      "script": 4,
+      "style": 5,
+      "table": 1,
+      "tbody": 1,
+      "td": 4,
+      "tr": 4
+    },
+    "explicit_anchor_count": 0,
+    "explicit_button_count": 0,
+    "form_count": 0,
+    "explicit_href_count": 0,
+    "explicit_onclick_count": 0,
+    "accepted_explicit_action_count": 0,
+    "root_listener_count": 0,
+    "inline_script_count": 4
+  },
+  "delegation_boundary": {
+    "document_listener_count": 26,
+    "window_listener_count": 8,
+    "document_click_listener_count": 3,
+    "window_click_listener_count": 1,
+    "generic_listener_presence_promotes_action": false,
+    "listener_source_or_inline_script_semantics_inspected": false,
+    "reason_unresolved": "The live Despesa subtree exposes no accepted explicit HTML action, while four inline scripts and delegated click listeners exist outside the root. TASK 219U did not persist or inspect script bodies/handler source semantics, so universal action absence is not proven."
+  },
+  "action_adjudication": {
+    "carrier_official_action_absence_flag": true,
+    "carrier_absence_flag_is_canonical": false,
+    "runtime_carrier_provisional_absence_flag": "SUPERSEDED_BY_CANONIZATION",
+    "official_explicit_action_contract_proven": false,
+    "official_action_ambiguity_proven": false,
+    "universal_action_absence_proven": false,
+    "safe_result": "CURRENT_SESSION_LIVE_DESPESA_DOM_PROVEN_AS_CHART_WITH_NO_EXPLICIT_HTML_ACTION_DELEGATED_SCRIPT_ACTION_SEMANTICS_STILL_UNPROVEN"
+  },
+  "major_scientific_gain": {
+    "stale_AreaId_DOM_problem": "RESOLVED",
+    "current_session_live_root_problem": "RESOLVED",
+    "post_render_DOM_shape": "PROVEN_CHART_CONTAINER",
+    "detached_pre_script_DOM_uncertainty": "RESOLVED_BY_LIVE_DOM_OBSERVATION",
+    "new_single_gargalo": "semantic mapping of the four inline chart scripts and delegated click handlers to any official Despesa drill-down action",
+    "next_safe_question": "Do the already-loaded inline scripts or delegated click-handler sources explicitly bind the current-session Despesa chart to a public GeneXus/portal action, route, or parameter?"
+  },
+  "next_safe_route": {
+    "step_1": "Read the current-session Despesa AreaId as before.",
+    "step_2": "Read only source text already loaded in memory for the four inline scripts and the exact delegated click handlers structurally associated with the chart/document/window.",
+    "step_3": "Persist only function names, selector strings, route/action identifiers, short public parameters, source hashes and bounded proving snippets; do not persist full script bodies.",
+    "step_4": "Do not execute handlers or click the chart until one unique official action is proven."
+  },
+  "fail_closed": {
+    "browser_sessions": 1,
+    "clicks": 0,
+    "typing": 0,
+    "form_submissions": 0,
+    "manual_fetch_xhr": 0,
+    "direct_endpoint_calls": 0,
+    "portal_action_triggers": 0,
+    "layerinfo_replay": 0,
+    "retries": 0,
+    "commitment_3286_2026_queried": false,
+    "contract_45_2026_identity_proven": false,
+    "payment_attribution_proven": false,
+    "question_promotion_performed": false,
+    "coverage_after": 34,
+    "remaining_blockers": ["CTRL_Q2", "PROC_Q1", "PROC_Q2", "PROC_Q3"]
+  },
+  "authorization_consumption": {
+    "task219u_scope_complete": true,
+    "authorized_browser_session_consumed": true,
+    "no_second_browser_session_used": true,
+    "authorization_exhausted_for_future_network": true,
+    "new_authorization_required_for_delegated_script_semantic_capture_or_any_interactive_query": true
+  }
+}
