@@ -1,0 +1,71 @@
+{
+  "task":"TASK_219R_CURRENT_DESPESA_ACTION_CONTRACT_CANONIZATION",
+  "issue":725,
+  "parent_issue":691,
+  "canonical_date":"2026-09-10",
+  "base_main_sha":"fdd12c6f6406f73f9734209dc55bdf06f2ae12b9",
+  "runtime":{
+    "run_id":34432594528,
+    "job_id":102731038700,
+    "execution_head_sha":"75e5ba996285f1cba963c6fd0c0e296d8d6aa86b",
+    "artifact_id":10135033287,
+    "artifact_zip_sha256":"99f4682db21a96ab65d690a2136e845a196618029163f4d28aecfe11251cc060",
+    "artifact_member_sha256":"b0296358df8125ac907205376dcb93999a9ee93e1e92e110f11e9945a43ddf9c",
+    "executed_workflow_blob_sha":"ddef0935aa33a745bcc008036de01dab2e45142d",
+    "historical_workflow_blob_sha":"ddef0935aa33a745bcc008036de01dab2e45142d",
+    "historical_source_exact_blob_match":true,
+    "workflow_removed_after_run":true,
+    "workflow_removal_commit":"9c2df8aea46d3cae5a1c31cc008b10ca1082353b"
+  },
+  "binding_adjudication":{
+    "current_session_portal_state_read":true,
+    "unique_Despesa_state_match":true,
+    "selector":{
+      "AreaName":"Despesa",
+      "AreaOrigin":"2_92_guestuser_207_6_DSL0_VIS1343"
+    },
+    "current_session_AreaId":"d56383cbd82e47c39282ff168768bb58DSA6",
+    "automatic_request_count":8,
+    "matching_LayerInfo_request_count":1,
+    "request_response_id_equal":true,
+    "current_session_despesa_response_binding_proven":true
+  },
+  "action_adjudication":{
+    "python_html_entity_decoder_exposed_interactive_nodes":false,
+    "interactive_node_count":0,
+    "official_action_count_under_that_decoder":0,
+    "official_action_contract_proven":false,
+    "official_action_absence_proven":false,
+    "why_absence_is_not_proven":"TASK 219L canonically classifies all returned info fields as QUERY_LIKE_DELIMITED_WITHOUT_SAFE_KEYS, while TASK 219M proves the public client applies its own unescapeHTML(v.info) before rendering. TASK 219R used Python html.unescape, which is not proven equivalent to the client function.",
+    "safe_result":"DESPESA_LAYERINFO_RESPONSE_EXACTLY_BOUND_BUT_CLIENT_INFO_DECODER_CONTRACT_STILL_REQUIRED"
+  },
+  "scientific_gain":{
+    "stale_AreaId_bug_eliminated":true,
+    "same_session_current_AreaId_selection_operationally_proven":true,
+    "exact_Despesa_response_retrieval_proven":true,
+    "next_unknown_reduced_to":"client-side unescapeHTML transformation / rendering contract for the exact Despesa v.info",
+    "next_safe_question":"What exact transformation does the public client unescapeHTML apply to the same-session Despesa v.info, and does its transformed output expose one official navigation/action contract?"
+  },
+  "fail_closed":{
+    "clicks":0,
+    "typing":0,
+    "form_submissions":0,
+    "manual_fetch_xhr":0,
+    "direct_endpoint_calls":0,
+    "portal_action_triggers":0,
+    "layerinfo_replay":0,
+    "retries":0,
+    "commitment_3286_2026_queried":false,
+    "contract_45_2026_identity_proven":false,
+    "payment_attribution_proven":false,
+    "question_promotion_performed":false,
+    "coverage_after":34,
+    "remaining_blockers":["CTRL_Q2","PROC_Q1","PROC_Q2","PROC_Q3"]
+  },
+  "authorization_consumption":{
+    "task219r_single_session_scope_complete":true,
+    "authorization_exhausted_for_future_network":true,
+    "new_authorization_required_for_client_unescapeHTML_runtime_capture_or_any_interactive_query":true
+  },
+  "next_action":"FUTURE_PASSIVE_DECODER: in one fresh session, resolve current Despesa AreaId exactly as TASK 219R, select the same-session response, invoke/read only the already-loaded public client unescapeHTML transformation on v.info in memory, persist transformation family and sanitized interactive/action metadata only; execute no action."
+}
