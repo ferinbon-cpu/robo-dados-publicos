@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "schema": "TASK219AA_TDA_STRONG_PROCUREMENT_BRIDGE_V1",
+  "task": "TASK_219AA",
+  "issue": 744,
+  "parent_issue": 691,
+  "base_main_sha": "beeb45082b41828a84d0858bc43e606856934260",
+  "mode": "T0_OFFLINE_OPERATOR_PROVIDED_OFFICIAL_TDA_CANONIZATION_AND_CTRL_Q2_EXECUTION",
+  "upstream_executor": "TASK218_CONTEXTUAL_EXECUTION_V7",
+  "output_schema": "OBSERVATORY_CONTEXTUAL_ANSWER_V1",
+  "promoted_questions": ["CTRL_Q2"],
+  "contextual_coverage": {
+    "canonical_questions_total": 38,
+    "before": 34,
+    "after": 35
+  },
+  "retained_semantic_blockers": {
+    "PROC_Q1": "BROAD_2026_PROCUREMENT_CONTENT_NOT_PRODUCTIZED_BY_ONE_STRONG_CHAIN",
+    "PROC_Q2": "BROAD_2026_SUPPLIER_VALUE_TERM_CONTENT_NOT_PRODUCTIZED_BY_ONE_STRONG_CHAIN",
+    "PROC_Q3": "BROAD_2026_ADDITIVE_APOSTILAMENTO_LICITATION_CONTENT_NOT_PRODUCTIZED_BY_ONE_STRONG_CHAIN"
+  },
+  "evidence_fixture": "docs/evidence/TASK_219AA_TDA_STRONG_PROCUREMENT_BRIDGE_CANONIZATION_0.8.0.json",
+  "supported_scope": {
+    "municipality": "Limeira",
+    "year": 2026,
+    "school_context_supported": false,
+    "claim_mode": "BOUNDED_PROVEN_CONTROL_CORROBORATION_EXAMPLE",
+    "exhaustive_procurement_claim": false
+  },
+  "identity_policy": {
+    "strong_edge": "EXACT_TYPED_MUNICIPAL_PROCUREMENT_IDENTIFIER_E00010_2026",
+    "contract_document_identifier": "45/2026",
+    "administrative_process_identifier": "902.281/2025",
+    "legal_bidding_identifier": "10/2026",
+    "tda_typed_procurement_identifier": "E00010/2026",
+    "tda_commitment_identifier": "03286-01",
+    "supplier_cnpj_is_identity_edge": false,
+    "amount_is_identity_edge": false,
+    "date_is_identity_edge": false,
+    "object_text_is_identity_edge": false,
+    "semantic_similarity_is_identity_edge": false
+  },
+  "execution": {
+    "ctrl_q2_supported_year": 2026,
+    "returns_one_proven_chain_not_exhaustive_inventory": true,
+    "current_tda_contract_amount_brl": "210000.00",
+    "current_tda_committed_amount_brl": "174999.99",
+    "current_tda_processed_amount_brl": "35000.00",
+    "current_tda_paid_amount_brl": "35000.00",
+    "older_tcesp_snapshot_paid_amount_brl": "17500.00",
+    "older_tcesp_snapshot_through_month": 7,
+    "current_tda_paid_amount_may_replace_historical_tcesp_snapshot": false
+  },
+  "claim_boundaries": {
+    "one_chain_equals_all_municipal_procurement": false,
+    "contract_value_equals_commitment": false,
+    "commitment_equals_processed": false,
+    "processed_equals_contract_completion": false,
+    "payment_equals_contract_completion": false,
+    "older_tcesp_snapshot_difference_equals_source_conflict": false,
+    "tda_commitment_format_equals_tcesp_commitment_format_without_proof": false,
+    "weak_join_allowed": false,
+    "raw_operator_artifacts_committed": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "llm": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
