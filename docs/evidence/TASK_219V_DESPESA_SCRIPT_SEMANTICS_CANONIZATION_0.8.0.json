@@ -1,0 +1,65 @@
+{
+  "task": "TASK_219V_DESPESA_SCRIPT_SEMANTICS_CANONIZATION",
+  "issue": 734,
+  "parent_issue": 691,
+  "canonical_date": "2026-09-10",
+  "base_main_sha": "7a625973cac03d820f6a729e4da7e09c129c7350",
+  "runtime": {
+    "run_id": 34491183990,
+    "job_id": 102918018247,
+    "execution_head_sha": "ed16b08a1c9ec95e31af12314b21e6de7f940857",
+    "artifact_id": 10157827789,
+    "artifact_zip_sha256": "73977a50d1284c0e21122ce62fecbf29544828ce4b306cce453fa541fcfd47ef",
+    "executed_workflow_blob_sha": "84d13902537abef55a999205819333ff1e12f282"
+  },
+  "same_session_despesa": {
+    "AreaName": "Despesa",
+    "AreaOrigin": "2_92_guestuser_207_6_DSL0_VIS1343",
+    "runtime_AreaId": "40ab32d70d2e4b2d8969c9ccca138c67DSA6",
+    "AreaId_is_session_scoped": true
+  },
+  "script_semantics": {
+    "inline_script_count": 4,
+    "inline_script_length_each": 787,
+    "visual_selectors": [
+      ".temp06_1_<AreaId>",
+      ".temp06_2_<AreaId>",
+      ".temp06_3_<AreaId>",
+      ".temp06_4_<AreaId>"
+    ],
+    "each_registers_click_handler": true,
+    "each_click_handler_executes_same_link_variable": true,
+    "link_variable_contract": "doLink('<CURRENT_SESSION_AreaId>**##**V1343[vl]')",
+    "all_four_scripts_converge_to_same_contract": true,
+    "generic_document_window_click_listeners_supply_no_competing_contract": true
+  },
+  "action_adjudication": {
+    "unique_official_despesa_navigation_contract_proven": true,
+    "kind": "doLink",
+    "parameter_template": "<CURRENT_SESSION_AreaId>**##**V1343[vl]",
+    "current_session_AreaId_must_be_resolved_fresh_before_execution": true,
+    "number_of_unique_contracts": 1,
+    "number_of_visual_bindings_to_same_contract": 4,
+    "action_executed_in_TASK219V": false
+  },
+  "fail_closed": {
+    "browser_sessions": 1,
+    "clicks": 0,
+    "typing": 0,
+    "form_submissions": 0,
+    "manual_fetch_xhr": 0,
+    "direct_endpoint_calls": 0,
+    "portal_action_triggers": 0,
+    "layerinfo_replay": 0,
+    "retries": 0,
+    "empenho_3286_2026_queried": false,
+    "contract_45_2026_identity_proven": false,
+    "payment_attribution_proven": false,
+    "coverage_after": 34
+  },
+  "next_gate": {
+    "authorized_sequence_position": "LEAP_2_OF_3_AVAILABLE",
+    "safe_action": "in one new clean session resolve current Despesa AreaId and invoke exactly doLink('<AreaId>**##**V1343[vl]') once, then capture only the resulting public detailed interface and automatic network metadata",
+    "no_other_action_may_be_executed": true
+  }
+}
