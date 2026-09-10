@@ -1,0 +1,106 @@
+{
+  "task": "TASK_219U_CURRENT_SESSION_LIVE_DESPESA_DOM_PAYLOAD",
+  "issue": 732,
+  "parent_issue": 691,
+  "base_main_sha": "30db2414069565f8572aad1b32dd96d9cad5cd09",
+  "execution_head_sha": "1fe2c764cf03aa3b1e295a7e3c2b1f9b3ba3ea38",
+  "run_id": 34488422242,
+  "job_id": 102908568030,
+  "artifact_id": 10156669499,
+  "artifact_zip_sha256": "d6026162ad106c2d28767e497af17c386a8c22cade834214ec1908de972e46ba",
+  "artifact_size_bytes": 1765,
+  "artifact_member": "task219u_result.json",
+  "artifact_member_sha256": "5112e2744cb23926373ac5d8c9bec0320ac6f92e1585645d9badee50accdf4c4",
+  "artifact_member_size_bytes": 9985,
+  "status": "PASS_TASK219U_LIVE_DOM_INSPECTED",
+  "boundary": {
+    "browser_sessions": 1,
+    "manual_navigations": 1,
+    "clicks": 0,
+    "typing": 0,
+    "form_submissions": 0,
+    "manual_fetch_xhr": 0,
+    "direct_endpoint_calls": 0,
+    "portal_action_triggers": 0,
+    "layerinfo_replay": 0,
+    "layerinfo_synthesis": 0,
+    "retries": 0,
+    "commitment_lookup": 0,
+    "raw_page_source_persisted": false,
+    "raw_inner_html_persisted": false,
+    "raw_har_persisted": false,
+    "inline_script_bodies_persisted": false
+  },
+  "portal_state": {
+    "portal_read": true,
+    "area_count": 8,
+    "target_match_count": 1,
+    "area_names": [
+      "Exercício",
+      "Receita",
+      "Despesa",
+      "WhatsApp",
+      "Resumo",
+      "Estatística de Acessos",
+      "Acesso Rápido",
+      ""
+    ]
+  },
+  "current_despesa": {
+    "layer_index": 1,
+    "area_index": 3,
+    "AreaId": "d10761cb41dc4ce5942ead9b39f54c66DSA6",
+    "AreaName": "Despesa",
+    "AreaOrigin": "2_92_guestuser_207_6_DSL0_VIS1343",
+    "AreaType": "content",
+    "same_session_selector": true
+  },
+  "live_dom": {
+    "root_exists": true,
+    "root_tag": "div",
+    "root_class": "chart selected",
+    "root_text": "Fixado Total: 2.020.477.277,21 Empenhado: 1.561.516.224,05 Percentual empenhado sobre o total fixado: 77,28% Processado: 1.047.875.694,24 Percentual processado",
+    "tag_counts": {
+      "div": 30,
+      "img": 4,
+      "script": 4,
+      "style": 5,
+      "table": 1,
+      "tbody": 1,
+      "td": 4,
+      "tr": 4
+    },
+    "explicit_anchor_count": 0,
+    "explicit_button_count": 0,
+    "form_count": 0,
+    "explicit_href_count": 0,
+    "explicit_onclick_count": 0,
+    "accepted_explicit_action_count": 0,
+    "root_event_listener_count": 0,
+    "inline_script_count": 4,
+    "inline_script_lengths": [787, 787, 787, 787],
+    "inline_script_bodies_persisted": false
+  },
+  "delegated_listener_metadata": {
+    "document_listener_count": 26,
+    "window_listener_count": 8,
+    "document_click_listener_count": 3,
+    "window_click_listener_count": 1,
+    "root_listener_count": 0,
+    "listener_presence_can_promote_action": false,
+    "listeners_executed": false,
+    "listener_source_semantics_persisted": false
+  },
+  "runtime_provisional_adjudication": {
+    "explicit_action_occurrences": 0,
+    "unique_explicit_action_count": 0,
+    "official_action_contract_proven": false,
+    "official_action_ambiguous": false,
+    "official_action_absence_proven_by_carrier_rule": true,
+    "action_executed": false
+  },
+  "carrier_rule_qualification": {
+    "official_action_absence_proven_by_carrier_rule_is_canonical": false,
+    "reason": "The current-session live Despesa subtree has no accepted explicit HTML action, but four inline scripts plus delegated click listeners exist on document/window. TASK 219U intentionally did not inspect their source semantics or execute them, so universal action absence is not proven."
+  }
+}
