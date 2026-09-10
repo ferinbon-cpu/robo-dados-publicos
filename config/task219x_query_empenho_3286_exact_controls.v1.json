@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "schema": "TASK219X_QUERY_EMPENHO_3286_EXACT_CONTROLS_V1",
+  "task": "TASK_219X",
+  "issue": 738,
+  "parent_issue": 691,
+  "base_main_sha": "72c03422ad43f9ced6162d0fe68188f4d22bba64",
+  "authorization_sequence": "LEAP_3_OF_3",
+  "query": {
+    "target_area_name": "Empenhado",
+    "year": "2026",
+    "commitment_number": "3286",
+    "number_input_name": "Nro Empenho",
+    "required_filter_function": "submmitApply",
+    "fresh_same_session_area_ids_only": true
+  },
+  "top_level_navigation": {
+    "area_name": "Despesa",
+    "area_origin": "2_92_guestuser_207_6_DSL0_VIS1343",
+    "action_kind": "doLink",
+    "parameter_template": "<CURRENT_SESSION_AreaId>**##**V1343[vl]",
+    "four_inline_bindings_must_revalidate": true
+  },
+  "strong_identity_rule": {
+    "direct_contract_literal": "45/2026",
+    "exact_process_literal": "902.281/2025",
+    "either_one_is_sufficient_only_inside_exact_3286_2026_municipal_result_or_its_uniquely_bound_detail": true,
+    "corroboration_only": [
+      "Pregão Eletrônico 10/2026",
+      "Med Doctor Acessórios Ltda",
+      "CNPJ 37.457.979/0001-31",
+      "object wording",
+      "amounts",
+      "dates",
+      "semantic similarity"
+    ]
+  },
+  "interaction_policy": {
+    "browser_sessions": 1,
+    "initial_navigation": 1,
+    "top_level_doLink_invocations": 1,
+    "controlled_query_field_assignments_max": 2,
+    "same_area_filter_invocations_max": 1,
+    "same_record_detail_drilldowns_max": 1,
+    "manual_fetch_xhr": 0,
+    "direct_endpoint_calls": 0,
+    "layerinfo_replay": 0,
+    "retries": 0
+  },
+  "persistence": {
+    "raw_page_source": false,
+    "raw_har": false,
+    "full_html": false,
+    "hidden_values": false,
+    "control_values": false,
+    "cookies_tokens": false,
+    "target_rows_only": true,
+    "bounded_public_match_snippets_only": true,
+    "max_row_chars": 1600,
+    "max_snippet_chars": 320
+  },
+  "preexisting_documentary_seeds": {
+    "jom_contract": "45/2026",
+    "jom_process": "902.281/2025",
+    "jom_bidding": "10/2026",
+    "supplier_cnpj_digits": "37457979000131",
+    "tce_commitment": "3286-2026",
+    "tce_committed_brl": "174999.99",
+    "tce_liquidated_brl": "17500.00",
+    "tce_paid_brl": "17500.00"
+  },
+  "coverage_before": 34,
+  "candidate_questions_if_end_to_end_identity_is_proven": [
+    "CTRL_Q2",
+    "PROC_Q1",
+    "PROC_Q2",
+    "PROC_Q3"
+  ]
+}
