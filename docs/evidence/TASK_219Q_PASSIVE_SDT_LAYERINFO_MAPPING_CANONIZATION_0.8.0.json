@@ -1,0 +1,87 @@
+{
+  "task":"TASK_219Q_PASSIVE_SDT_LAYERINFO_MAPPING_CANONIZATION",
+  "issue":723,
+  "parent_issue":691,
+  "canonical_date":"2026-09-09",
+  "base_main_sha":"41c8744b278ad1072138cd62e3ed1c6ab221241f",
+  "runtime":{
+    "run_id":34427037950,
+    "job_id":102714370807,
+    "execution_head_sha":"f07efd0f711b4d0dabeb7edece90ed69d415d60c",
+    "artifact_id":10133051856,
+    "artifact_zip_sha256":"42d6425d66709a5d48cce550c973afdec145b22ea0053ee166eef39b009cd824",
+    "artifact_member_sha256":"794c559421f7fb22906a2add293791ddd748f5e15ce8a96f261385d00eb6df41",
+    "executed_workflow_blob_sha":"329e1e633759f6c7627ed93627d9939174144969",
+    "historical_workflow_blob_sha":"329e1e633759f6c7627ed93627d9939174144969",
+    "historical_source_exact_blob_match":true,
+    "workflow_removed_after_run":true,
+    "workflow_removal_commit":"f1f06a03f58a5d675a2108182f6c03c1fbef430b"
+  },
+  "adjudication":{
+    "portal_and_refresh_state_both_read":true,
+    "automatic_call_count":8,
+    "all_eight_areas_exactly_claim_one_request":true,
+    "all_eight_requests_exactly_claim_one_area":true,
+    "all_eight_request_response_ids_equal":true,
+    "current_session_AreaId_equals_LayerInfoId":true,
+    "despesa_mapping_proven":true,
+    "despesa_AreaName":"Despesa",
+    "despesa_AreaOrigin":"2_92_guestuser_207_6_DSL0_VIS1343",
+    "despesa_current_session_AreaId":"89edf10f97084b6988c50aeb868f6067DSA6",
+    "despesa_current_session_LayerInfoId":"89edf10f97084b6988c50aeb868f6067DSA6",
+    "identity_basis":[
+      "current vSDT_TDAPORTAL/vAREASTOREFRESH both identify the area as Despesa",
+      "the current AreaOrigin appears exactly in only that automatic LayerInfo request at $.info",
+      "the current AreaId appears exactly in that request at $.id and $.info",
+      "the response LayerInfo.id equals the request LayerInfo.id"
+    ]
+  },
+  "cross_session_correction":{
+    "TASK219N_full_AreaId":"0e1483cd46954696a3e9b01c5be19e23DSA6",
+    "TASK219Q_full_AreaId":"89edf10f97084b6988c50aeb868f6067DSA6",
+    "full_AreaId_stable_across_sessions":false,
+    "observed_changing_component":"32-character layer/session prefix",
+    "observed_stable_area_suffix":"DSA6",
+    "observed_stable_AreaOrigin":"2_92_guestuser_207_6_DSL0_VIS1343",
+    "TASK219P_distinct_identifier_layer_conclusion":"SUPERSEDED",
+    "corrected_model":"Within one session, SDT AreaId and request/response LayerInfo.id are equal. Across sessions, the 32-character prefix changes, so a full AreaId captured in an earlier browser session must never be reused as a future identity literal.",
+    "safe_runtime_selector":"Read the current session vSDT_TDAPORTAL; identify Despesa by explicit AreaName plus stable full AreaOrigin; then use that same-session current AreaId as the LayerInfo.id."
+  },
+  "protocol_gain":{
+    "AreaId_is_present_in_request_id":true,
+    "AreaId_is_also_present_in_request_info":true,
+    "AreaOrigin_is_present_in_request_info":true,
+    "request_response_same_id_round_trip":true,
+    "mapping_table_needed_between_namespaces":false,
+    "session_refresh_of_identifier_prefix_must_be_respected":true
+  },
+  "conditional_response_inspection":{
+    "performed":false,
+    "reason":"The single-use workflow's conditional branch referenced TASK219N's stale full AreaId before TASK219Q revealed session-prefix churn. The session had already ended when this was known. A retry/second session was outside authorization.",
+    "does_not_reduce_mapping_proof":true
+  },
+  "fail_closed":{
+    "clicks":0,
+    "typing":0,
+    "form_submissions":0,
+    "manual_fetch_xhr":0,
+    "direct_endpoint_calls":0,
+    "portal_action_triggers":0,
+    "layerinfo_replay":0,
+    "retries":0,
+    "commitment_3286_2026_queried":false,
+    "official_despesa_action_contract_proven":false,
+    "contract_45_2026_identity_proven":false,
+    "payment_attribution_proven":false,
+    "question_promotion_performed":false,
+    "coverage_after":34,
+    "remaining_blockers":["CTRL_Q2","PROC_Q1","PROC_Q2","PROC_Q3"]
+  },
+  "authorization_consumption":{
+    "task219q_scope_complete_for_single_session_mapping":true,
+    "single_authorized_browser_session_consumed":true,
+    "authorization_exhausted_for_future_network":true,
+    "new_authorization_required_for_current_session_Despesa_info_action_capture_or_any_interactive_query":true
+  },
+  "next_action":"FUTURE_CURRENT_SESSION_CAPTURE: read current vSDT_TDAPORTAL first, select AreaName=Despesa plus exact AreaOrigin 2_92_guestuser_207_6_DSL0_VIS1343, obtain the current session AreaId, then select the automatic response whose LayerInfo.id equals that same-session AreaId and inspect its info for official actions. Never pin the full AreaId across sessions."
+}
