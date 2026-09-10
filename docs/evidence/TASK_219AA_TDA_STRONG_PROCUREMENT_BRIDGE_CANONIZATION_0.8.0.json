@@ -1,0 +1,228 @@
+{
+  "schema": "TASK219AA_TDA_STRONG_PROCUREMENT_BRIDGE_CANONIZATION_V1",
+  "task": "TASK_219AA",
+  "issue": 744,
+  "parent_issue": 691,
+  "canonical_date": "2026-09-10",
+  "base_main_sha": "beeb45082b41828a84d0858bc43e606856934260",
+  "status": "PASS_STRONG_MUNICIPAL_CONTRACT_TO_COMMITMENT_IDENTITY",
+  "source_route": "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+  "operator_evidence_policy": {
+    "raw_files_committed": false,
+    "binary_artifacts_remain_outside_git": true,
+    "repo_persists_sha256_and_bounded_structured_facts_only": true,
+    "manual_ui_observation_is_not_negative_exhaustive_evidence": true
+  },
+  "operator_artifacts": [
+    {
+      "kind": "OFFICIAL_TDA_CONTRACT_DOCUMENT_PDF",
+      "filename": "00000-=contrato_45_2026.pdf",
+      "sha256": "1c202a188bd3a2a6dc0babc0d29e8c56594462f80b1e64df2c551b5b3be7f5a3",
+      "bytes": 11912627,
+      "download_context": "TDA Contracts module, exact Ano Contrato=2026 and Nro Contrato=45, Documents control",
+      "bounded_facts": {
+        "contract_number": "45/2026",
+        "administrative_process": "902.281/2025",
+        "bidding_modality": "Pregão Eletrônico",
+        "bidding_number": "10/2026",
+        "supplier_name": "Med Doctor Acessórios Ltda",
+        "supplier_cnpj": "37457979000131",
+        "object": "CONTRATAÇÃO DE EMPRESA ESPECIALIZADA EM LOCAÇÃO DE SISTEMA DE ENDOSCOPIA",
+        "monthly_quantity": 12,
+        "monthly_price_brl": "17500.00",
+        "contract_total_brl": "210000.00",
+        "jom_reproduction_page": 21,
+        "jom_edition": 7210,
+        "jom_publication_date": "2026-03-27"
+      }
+    },
+    {
+      "kind": "OFFICIAL_TDA_EMPENHADO_XLSX_EXPORT",
+      "filename": "guestuser_LAI_-_Empenhado_(Extração_de_Dados)_7f578fa65f4e4ca2bf315d4df1dd8ae7.xlsx",
+      "sha256": "08c10cb019f93ec408b4b8d30afa5474594a13a36d030e988a1503007c175735",
+      "bytes": 7329,
+      "download_context": "TDA Despesa Empenhado extraction, CPF/CNPJ=37457979000131, 2026 date scope",
+      "row_count": 1,
+      "bounded_row": {
+        "commitment_number": "03286-01",
+        "procurement_process_typed": "E00010/2026",
+        "supplier_name": "Med Doctor Acessorios Ltda",
+        "supplier_cnpj": "37457979000131",
+        "commitment_date": "2026-03-06",
+        "description": "LOCACAO DE SISTEMA DE ENDOSCOPIA",
+        "bidding_modality": "Pregao Eletronico",
+        "committed_original_brl": "174999.99",
+        "commitment_reversal_brl": "0.00",
+        "commitment_balance_brl": "174999.99",
+        "processed_brl": "35000.00",
+        "paid_brl": "35000.00"
+      }
+    },
+    {
+      "kind": "OFFICIAL_TDA_DETAIL_EMPENHO_XLSX_EXPORT",
+      "filename": "guestuser_LAI_-_Detalhe_Empenho_eec3bd9e4ee04d49bdf1566e562b08e3.xlsx",
+      "sha256": "1ed530c19958cc27b19ed5b418e4482cdd1c53fcdf7b8689029ba2ac62c1d2f3",
+      "bytes": 6712,
+      "download_context": "TDA Detalhe Empenho extraction, Exercício=2026, Nro Empenho=03286-01",
+      "row_count": 1,
+      "bounded_row": {
+        "commitment_number": "03286-01",
+        "description": "LOCACAO DE SISTEMA DE ENDOSCOPIA",
+        "function": "Saude",
+        "subfunction": "Assistencia Hospitalar e Ambulatorial",
+        "bidding_modality": "Pregao Eletronico",
+        "supplier_name": "Med Doctor Acessorios Ltda",
+        "supplier_cnpj": "37457979000131"
+      },
+      "does_not_expose_contract_or_process_number": true
+    },
+    {
+      "kind": "OFFICIAL_TDA_CONTRACTS_UI_EXACT_FILTER_OBSERVATION",
+      "sha256": "e4fd5c623c0ab009e265c39935651d8c2202c561e9b9f61a57ca9bd323cdd6b2",
+      "filter": {"Ano Contrato": "2026", "Nro Contrato": "45"},
+      "visible_row_count": 1,
+      "bounded_row": {
+        "contract_number_filter_identity": "45/2026",
+        "supplier_name": "Med Doctor Acessorios Ltda",
+        "supplier_cnpj": "37457979000131",
+        "contracted_brl": "210000.00",
+        "committed_brl": "174999.99",
+        "processed_brl": "35000.00",
+        "paid_brl": "35000.00",
+        "object": "LOCACAO DE SISTEMA DE ENDOSCOPIA",
+        "modality_and_procurement_process": "Pregao Eletronico (E00010/2026)",
+        "administrative_process_ui": "902281"
+      },
+      "contracts_export_modal_returned_no_rows": true,
+      "export_modal_no_rows_is_not_absence_evidence": true
+    },
+    {
+      "kind": "OFFICIAL_TDA_PROCESSADO_PAGO_UI_DRILLDOWN",
+      "sha256": [
+        "25c0d8baf76871a4317a46c6d3b41a0bb9307c9348355f3fc882759bdc3d44f1",
+        "f481f45d5803ddfd92357a42958deacfc672bea217195ea4d49821e902334e08"
+      ],
+      "commitment_number": "03286-01",
+      "processed_documents": [
+        {
+          "document_type": "Nota Fiscal",
+          "document_number": "0000000059",
+          "liquidation_date": "2026-07-06",
+          "due_date": "2026-07-27",
+          "liquidated_brl": "17500.00",
+          "payment_order": "10071-01",
+          "payment_date": "2026-07-27",
+          "paid_brl": "17500.00"
+        },
+        {
+          "document_type": "Nota Fiscal",
+          "document_number": "0000000074",
+          "liquidation_date": "2026-08-10",
+          "due_date": "2026-08-25",
+          "liquidated_brl": "17500.00",
+          "payment_order": "11818-01",
+          "payment_date": "2026-08-25",
+          "paid_brl": "17500.00"
+        }
+      ],
+      "processed_total_brl": "35000.00",
+      "paid_total_brl": "35000.00"
+    }
+  ],
+  "canonical_jom_seed": {
+    "event_id": "JOEV_083e522d4145e4d27580",
+    "contract_number": "45/2026",
+    "administrative_process": "902.281/2025",
+    "bidding_number": "10/2026",
+    "supplier_cnpj": "37457979000131",
+    "contract_total_brl": "210000.00",
+    "edition": 7210,
+    "publication_date": "2026-03-27"
+  },
+  "identity_graph": {
+    "edges": [
+      {
+        "from": "JOM_CONTRACT_45_2026",
+        "to": "OFFICIAL_CONTRACT_PDF_45_2026",
+        "strength": "CONTRACT_IDENTITY",
+        "keys": ["45/2026", "902.281/2025", "10/2026"]
+      },
+      {
+        "from": "OFFICIAL_CONTRACT_PDF_45_2026",
+        "to": "TDA_CONTRACTS_ROW_2026_45",
+        "strength": "CONTRACT_IDENTITY",
+        "keys": ["45/2026"],
+        "method": "exact TDA year+contract-number filter; one visible row; Documents control returned the exact official Contract 45/2026 PDF"
+      },
+      {
+        "from": "TDA_CONTRACTS_ROW_2026_45",
+        "to": "TDA_EMPENHADO_ROW_03286_01",
+        "strength": "PROCUREMENT_PROCESS_IDENTITY",
+        "keys": ["E00010/2026"],
+        "method": "exact typed municipal procurement identifier appears in Contract row as Pregao Eletronico (E00010/2026) and in official Empenhado export as Nro Processo=E00010/2026"
+      }
+    ],
+    "strong_contract_to_commitment_identity_proven": true,
+    "weak_join_used": false,
+    "supplier_cnpj_role": "CONSISTENCY_CHECK_AFTER_STRONG_EDGE",
+    "amount_role": "CONSISTENCY_CHECK_AFTER_STRONG_EDGE",
+    "object_text_role": "CONSISTENCY_CHECK_AFTER_STRONG_EDGE"
+  },
+  "current_execution": {
+    "contract_number": "45/2026",
+    "commitment_number_tda": "03286-01",
+    "contracted_brl": "210000.00",
+    "committed_brl": "174999.99",
+    "processed_brl": "35000.00",
+    "paid_brl": "35000.00",
+    "payment_document_count_observed": 2,
+    "latest_observed_payment_date": "2026-08-25",
+    "claim": "CURRENT_TDA_BOUNDED_EXECUTION_FOR_PROVEN_CONTRACT_COMMITMENT_CHAIN"
+  },
+  "historical_tcesp_reconciliation": {
+    "upstream_evidence": "docs/evidence/TASK_219H_TCESP_CONTRACT45_BRIDGE_CANONIZATION_0.8.0.json",
+    "source_scope": "Jan-Jul 2026",
+    "tcesp_commitment_number": "3286-2026",
+    "supplier_cnpj": "37457979000131",
+    "committed_brl": "174999.99",
+    "liquidated_brl": "17500.00",
+    "paid_brl": "17500.00",
+    "exact_tda_to_tcesp_commitment_format_identity_claim": false,
+    "interpretation": "TCESP is independent accounting corroboration for the same supplier/object/accounting seed through July. The municipal TDA strong bridge is sufficient to attribute its own current R$35,000 processed/paid total to Contract 45/2026; the differing later TDA total does not rewrite the historical Jan-Jul TCESP snapshot."
+  },
+  "promotion": {
+    "question_id": "CTRL_Q2",
+    "before": "NOT_YET_CONTEXT_EXECUTABLE",
+    "after": "ANSWERED_CONTEXTUALLY_FOR_BOUNDED_PROVEN_CORROBORATION",
+    "contextual_paths_before": 34,
+    "contextual_paths_after": 35,
+    "reason": "At least one exact cross-source contract→procurement-process→commitment chain is now proven without weak identity joins."
+  },
+  "not_promoted": {
+    "question_ids": ["PROC_Q1", "PROC_Q2", "PROC_Q3"],
+    "reason": "One strong contract chain cannot answer the broader 2026 procurement inventory/supplier-term/additive questions. TASK 220 remains the correct productization path."
+  },
+  "claim_boundaries": {
+    "one_chain_equals_exhaustive_procurement": false,
+    "contracted_equals_committed": false,
+    "committed_equals_processed": false,
+    "paid_equals_contract_completed": false,
+    "contract_execution_percentage_inferred": false,
+    "tda_35000_rewrites_historical_tcesp_17500": false,
+    "tda_commitment_number_equals_tcesp_commitment_number_without_format_proof": false,
+    "weak_identity_join_used": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "llm": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
