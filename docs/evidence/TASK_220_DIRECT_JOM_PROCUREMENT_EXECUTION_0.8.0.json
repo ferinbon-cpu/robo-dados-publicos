@@ -79,9 +79,9 @@
       "publication_date": "2026-08-15",
       "page_number": 49,
       "supplier_cnpj": "04063331000121",
-      "object_text": "Eventual aquisição de materiais odontológicos para atender os consultórios dentários das unidades de saúde do Município de Limeira",
+      "object_text": "Eventual aquisição de materiai s odontológicos para atender os consultórios dentários das unidades de saúde do Município de Limeira",
       "source": "TASK_184_JOM_303_VALIDATED_EVENTS",
-      "claim_semantics": "DIRECT_JOM_PROCUREMENT_OBJECT"
+      "claim_semantics": "DIRECT_JOM_PROCUREMENT_OBJECT_EXACT_RETAINED_TEXT"
     },
     {
       "event_id": "JOEV_07357f03181c3f43831c",
