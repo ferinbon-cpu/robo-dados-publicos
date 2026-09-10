@@ -1,0 +1,207 @@
+{
+  "schema": "TASK220_DIRECT_JOM_PROCUREMENT_EXECUTION_EVIDENCE_V2",
+  "task": "TASK_220",
+  "issue": 697,
+  "canonical_date": "2026-09-10",
+  "base_main_sha": "f53deb08789384a2f64f1ec856714a3189595882",
+  "status": "PASS_BOUNDED_DIRECT_JOM_PROCUREMENT_EXECUTION_EVIDENCE",
+  "scope": {
+    "municipality": "Limeira",
+    "start_date": "2026-01-01",
+    "observed_through_date": "2026-09-08",
+    "official_document_count": 99,
+    "legacy_document_count": 12,
+    "new_document_count": 87,
+    "content_processing_scope_complete": true,
+    "full_calendar_year_claim": false,
+    "exhaustive_purchase_inventory_claim": false
+  },
+  "corpus": {
+    "legacy": {
+      "source": "docs/evidence/fixtures/TASK_184_JOM_303_VALIDATED_EVENTS.jsonl",
+      "sha256": "1afd82853402d2ea6db7ad28fb6564de4a4ab28570c16ea9c7e4e0366cb5c733",
+      "event_rows": 303,
+      "procurement_shaped_rows": 138,
+      "structured_cnpj_procurement_rows": 46,
+      "publication_min": "2026-08-14",
+      "publication_max": "2026-08-29",
+      "event_type_counts": {
+        "EDITAL": 81,
+        "PORTARIA": 79,
+        "DECRETO": 66,
+        "ATA_REGISTRO_PRECOS": 32,
+        "CONTRATO": 20,
+        "LEI": 8,
+        "CONVENIO": 8,
+        "TERMO_ADITIVO_CONTRATO": 5,
+        "RESOLUCAO": 4
+      }
+    },
+    "new_87": {
+      "source_canonization": "docs/evidence/TASK_219B_FULL_2026_JOM_STRONG_IDENTITY_CANONIZATION_0.8.0.json",
+      "source_runtime_run_id": 34354027245,
+      "sanitized_event_rows": 2408,
+      "procurement_shaped_rows": 940,
+      "procurement_shaped_rows_with_cnpj": 343,
+      "strong_anchor_rows": 395,
+      "strong_anchor_event_count": 330,
+      "complete_documents": 87,
+      "failure_count": 0,
+      "sanitized_events_sha256": "5ca4bf1411f6b8bfa6ad2b8fdede9937f495458963439fa579d40caa7d988c5b",
+      "artifact_expired_after_canonization": true,
+      "artifact_reacquisition_performed": false
+    },
+    "combined": {
+      "parsed_event_rows": 2711,
+      "procurement_shaped_event_rows": 1078,
+      "row_semantics": "PUBLICATION_EVENT_ROWS_NE_UNIQUE_PURCHASES_OR_CONTRACTS",
+      "detailed_content_for_all_1078_rows_rehydrated_in_task220": false
+    }
+  },
+  "proc_q1_direct_object_examples": [
+    {
+      "event_id": "JOEV_019179608e26b6ca746a",
+      "event_type": "ATA_REGISTRO_PRECOS",
+      "edition": 7308,
+      "publication_date": "2026-08-20",
+      "page_number": 8,
+      "process_number": "904.868/2025",
+      "bidding_modality": "PREGÃO ELETRÔNICO",
+      "bidding_number": "49/2026",
+      "object_text": "Eventual aquisição de mobiliário",
+      "source": "TASK_184_JOM_303_VALIDATED_EVENTS",
+      "claim_semantics": "DIRECT_JOM_PROCUREMENT_OBJECT"
+    },
+    {
+      "event_id": "JOEV_05ed3926ffe8382b2afe",
+      "event_type": "ATA_REGISTRO_PRECOS",
+      "edition": 7305,
+      "publication_date": "2026-08-15",
+      "page_number": 49,
+      "supplier_cnpj": "04063331000121",
+      "object_text": "Eventual aquisição de materiais odontológicos para atender os consultórios dentários das unidades de saúde do Município de Limeira",
+      "source": "TASK_184_JOM_303_VALIDATED_EVENTS",
+      "claim_semantics": "DIRECT_JOM_PROCUREMENT_OBJECT"
+    },
+    {
+      "event_id": "JOEV_07357f03181c3f43831c",
+      "event_type": "EDITAL",
+      "edition": 7313,
+      "publication_date": "2026-08-27",
+      "page_number": 18,
+      "bidding_modality": "DISPENSA",
+      "bidding_number": "326/2026",
+      "object_text": "Contratação de empresa para reforma do prédio do CASM - Centro de Atenção à Saúde da Mulher",
+      "source": "TASK_184_JOM_303_VALIDATED_EVENTS",
+      "claim_semantics": "DIRECT_JOM_PROCUREMENT_OBJECT_AND_NEW_TENDER_EVENT"
+    },
+    {
+      "event_id": "JOEV_fab1a3c79f589f7ccc18",
+      "event_type": "CONTRATO",
+      "edition": 7208,
+      "publication_date": "2026-03-25",
+      "page_number": 42,
+      "contract_number": "42/2026",
+      "process_number": "22.687/2024",
+      "published_value_brl": "71000.00",
+      "object_text": "Contratação de empresa especializada para manutenção do reservatório de água do CEIEF Prof. Arlindo de Salvo",
+      "source": "TASK_218_INFRA_Q2_CONTEXTUAL_EXECUTION",
+      "claim_semantics": "DIRECT_JOM_PROCUREMENT_OBJECT_NE_PHYSICAL_COMPLETION"
+    },
+    {
+      "event_id": "JOEV_083e522d4145e4d27580",
+      "event_type": "CONTRATO",
+      "edition": 7210,
+      "publication_date": "2026-03-27",
+      "page_number": 4,
+      "contract_number": "45/2026",
+      "process_number": "902.281/2025",
+      "bidding_modality": "PREGÃO ELETRÔNICO",
+      "bidding_number": "10/2026",
+      "supplier_name": "Med Doctor Acessórios Ltda",
+      "supplier_cnpj": "37457979000131",
+      "object_text": "Contratação de empresa especializada em locação de sistema de endoscopia",
+      "published_value_brl": "210000.00",
+      "source": "TASK_219F_JOM_CONTRACT_45_2026_RECOVERY",
+      "claim_semantics": "DIRECT_JOM_PROCUREMENT_OBJECT"
+    }
+  ],
+  "proc_q2_same_publication_supplier_value_term": [
+    {
+      "event_id": "JOEV_083e522d4145e4d27580",
+      "edition": 7210,
+      "publication_date": "2026-03-27",
+      "page_number": 4,
+      "contract_number": "45/2026",
+      "process_number": "902.281/2025",
+      "bidding_modality": "PREGÃO ELETRÔNICO",
+      "bidding_number": "10/2026",
+      "supplier_name": "Med Doctor Acessórios Ltda",
+      "supplier_cnpj": "37457979000131",
+      "object_text": "Contratação de empresa especializada em locação de sistema de endoscopia",
+      "published_value_brl": "210000.00",
+      "published_term_text": "12 meses contados a partir da data indicada na ordem de serviço",
+      "term_basis": "Official Contract 45/2026 PDF downloaded from the TDA Documents control contains the appended reproduction of JOM edition 7210 page 4 with explicit PRAZO: 12 meses; raw PDF not committed.",
+      "operator_pdf_sha256": "1c202a188bd3a2a6dc0babc0d29e8c56594462f80b1e64df2c551b5b3be7f5a3",
+      "same_publication_fields_required": ["supplier_name", "published_value_brl", "published_term_text"],
+      "same_publication_fields_present": true,
+      "claim_semantics": "DIRECT_JOM_CONTRACT_PUBLICATION_WITH_SUPPLIER_VALUE_TERM_NE_PAYMENT"
+    }
+  ],
+  "proc_q3_direct_change_or_new_tender": {
+    "proven_change_signal": {
+      "event_type": "TERMO_ADITIVO_CONTRATO",
+      "legacy_validated_count": 5,
+      "scope_of_count": "TASK_184 validated 303-event corpus, 2026-08-14..2026-08-29",
+      "claim": "At least five validated contract-addendum publication events exist in the retained detailed JOM corpus."
+    },
+    "proven_new_tender_example": {
+      "event_id": "JOEV_07357f03181c3f43831c",
+      "event_type": "EDITAL",
+      "edition": 7313,
+      "publication_date": "2026-08-27",
+      "page_number": 18,
+      "bidding_modality": "DISPENSA",
+      "bidding_number": "326/2026",
+      "object_text": "Contratação de empresa para reforma do prédio do CASM - Centro de Atenção à Saúde da Mulher",
+      "claim": "Direct JOM publication proves a new procurement notice; it does not prove award, contract, delivery or payment."
+    },
+    "apostilamento_status": "NOT_PROVEN_OR_DISPROVEN_FOR_FULL_99_DOCUMENT_SCOPE_FROM_RETAINED_DETAILED_FIXTURES",
+    "absence_inference_allowed": false,
+    "cross_event_relationship_inference_allowed": false
+  },
+  "promotion": {
+    "questions": ["PROC_Q1", "PROC_Q2", "PROC_Q3"],
+    "before": 35,
+    "after": 38,
+    "canonical_questions_total": 38,
+    "remaining_semantic_blockers": [],
+    "promotion_semantics": "CONTEXT_EXECUTABLE_WITH_BOUNDED_DIRECT_JOM_FACTS_AND_EXPLICIT_SCOPE_CAVEATS"
+  },
+  "claim_boundaries": {
+    "jom_publication_equals_payment": false,
+    "jom_contract_equals_accounting_execution": false,
+    "published_value_equals_paid_value": false,
+    "procurement_shaped_row_equals_unique_purchase": false,
+    "bounded_scope_equals_full_calendar_year": false,
+    "sample_examples_equal_exhaustive_inventory": false,
+    "supplier_cnpj_amount_date_object_create_cross_source_identity": false,
+    "missing_apostilamento_detail_proves_absence": false,
+    "change_event_relationship_inferred_without_explicit_reference": false,
+    "current_tda_values_used_in_proc_q_answers": false,
+    "tcesp_values_used_in_proc_q_answers": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "llm": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}
