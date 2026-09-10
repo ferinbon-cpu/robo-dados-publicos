@@ -1,0 +1,90 @@
+{
+  "task":"TASK_219S_CLIENT_DECODER_CANONIZATION",
+  "issue":727,
+  "parent_issue":691,
+  "canonical_date":"2026-09-10",
+  "base_main_sha":"d2bf447e124732f4700d5c948f8c53b0a80ace0a",
+  "runtime":{
+    "run_id":34478265183,
+    "job_id":102874304014,
+    "execution_head_sha":"2d86401d00f9397ba24254fdd7f12d32669088ea",
+    "artifact_id":10152447866,
+    "artifact_zip_sha256":"58b73b4dc98d617ae139cacb3e552756af799eefd50d549549cfbabc9afffcba",
+    "artifact_member_sha256":"3ca6ec45734d2d02db9c18fb4ef106b2ecf43fe1541523aade747f30c7bfa6e1",
+    "executed_workflow_blob_sha":"eedf1a0cd2f61ba54a776c16a4ba4d6b70df4c35",
+    "historical_workflow_blob_sha":"eedf1a0cd2f61ba54a776c16a4ba4d6b70df4c35",
+    "historical_source_exact_blob_match":true,
+    "executed_carrier_blob_sha":"d8537b03082707cee958c6a82550a7ea8cbccbb8",
+    "workflow_removed_after_run":true,
+    "workflow_removal_commit":"d780ae84e46161221887aa93e8b8e4431c03c23b"
+  },
+  "same_session_binding_adjudication":{
+    "current_session_portal_state_read":true,
+    "unique_Despesa_state_match":true,
+    "AreaName":"Despesa",
+    "AreaOrigin":"2_92_guestuser_207_6_DSL0_VIS1343",
+    "current_session_AreaId":"159c60a8cace44f89c165511a12a724eDSA6",
+    "automatic_request_count":8,
+    "matching_LayerInfo_request_count":1,
+    "selected_info_length":11305,
+    "selected_info_sha256":"51cd1a5e70b65fb7b4fb7cb87719b9f81aaa08a08b953b7d59b26e2070b0aab8",
+    "current_session_despesa_response_binding_proven":true
+  },
+  "decoder_adjudication":{
+    "runtime_global_unescapeHTML_function_found":false,
+    "runtime_global_candidate_count":0,
+    "archived_public_script_unescapeHTML_literal_count":0,
+    "previous_unescapeHTML_function_shorthand":"SUPERSEDED",
+    "actual_public_client_decoder_contract_proven":true,
+    "actual_decoder_expression":"$('<textarea />').html(v.info).text()",
+    "actual_decoder_source_path":"/aportalclientjs.aspx",
+    "actual_decoder_source_sha256":"f8ce8973c88faad20b81649ed0151e56f1de06347b3bb47993a0da9892bc8cd6",
+    "actual_decoder_line":680,
+    "content_injection_contract":"$('#' + v.id).empty(); $('#' + v.id).append(html)",
+    "content_injection_lines":[683,684],
+    "perf_uses_same_textarea_entity_decode":true,
+    "filterarea_uses_same_textarea_entity_decode":true,
+    "runafter_is_separate_from_decoder":true,
+    "runafter_execution":"eval(v.runafter) when v.runafter.length > 0",
+    "runafter_line":770
+  },
+  "scientific_correction":{
+    "incorrect_model":"A callable public-client function named unescapeHTML transforms v.info.",
+    "correct_model":"appendAreasWS itself performs browser/jQuery HTML-entity decoding with a temporary textarea: $('<textarea />').html(v.info).text(), then injects the resulting string into the current v.id container with jQuery append().",
+    "why_TASK219S_runtime_stopped_before_transformation":"The carrier intentionally required a callable unescapeHTML function under the predeclared hypothesis; the function does not exist, so it produced no transformed output. The exact implementation was then recovered offline from the already-canonical TASK 219M source artifact without any second portal session.",
+    "python_html_unescape_equivalence_to_textarea_decoder_proven":false,
+    "official_action_contract_proven":false,
+    "official_action_absence_proven":false
+  },
+  "next_runtime_rule":{
+    "step_1":"Read current-session vSDT_TDAPORTAL and identify Despesa by AreaName + exact stable AreaOrigin.",
+    "step_2":"Use that same-session AreaId to select the unique automatic LayerInfo response.",
+    "step_3":"Inside the already-loaded page, reproduce the exact source expression $('<textarea />').html(v.info).text() on that selected v.info in memory.",
+    "step_4":"Parse the resulting string in a detached DOM and persist only sanitized links/buttons/forms/action bindings.",
+    "step_5":"Do not execute any action until a unique explicit official action contract is canonized."
+  },
+  "fail_closed":{
+    "browser_sessions":1,
+    "clicks":0,
+    "typing":0,
+    "form_submissions":0,
+    "manual_fetch_xhr":0,
+    "direct_endpoint_calls":0,
+    "portal_action_triggers":0,
+    "layerinfo_replay":0,
+    "retries":0,
+    "commitment_3286_2026_queried":false,
+    "contract_45_2026_identity_proven":false,
+    "payment_attribution_proven":false,
+    "question_promotion_performed":false,
+    "coverage_after":34,
+    "remaining_blockers":["CTRL_Q2","PROC_Q1","PROC_Q2","PROC_Q3"]
+  },
+  "authorization_consumption":{
+    "task219s_scope_complete":true,
+    "authorized_browser_session_consumed":true,
+    "no_second_browser_session_used":true,
+    "authorization_exhausted_for_future_network":true,
+    "new_authorization_required_for_exact_textarea_decoder_runtime_application_or_any_interactive_query":true
+  }
+}
