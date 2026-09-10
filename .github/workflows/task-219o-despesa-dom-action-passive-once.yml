@@ -1,0 +1,232 @@
+name: TASK 219O passive Despesa DOM action once
+run-name: "TASK 219O DSA6 action discovery by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-219o-despesa-dom-action-passive
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-219o-despesa-dom-action-passive-once
+  cancel-in-progress: false
+
+jobs:
+  passive-action-discovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Install Selenium
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check --no-input "selenium==4.35.0"
+
+      - name: Inspect exact Despesa subtree without interaction
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime
+          python - <<'PY'
+          import hashlib, json, os, re, time
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+
+          START="https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418"
+          HOST="transparencia.limeira.sp.gov.br"
+          TARGET="0e1483cd46954696a3e9b01c5be19e23DSA6"
+
+          options=Options()
+          for arg in (
+              "--headless=new","--no-sandbox","--disable-dev-shm-usage",
+              "--disable-background-networking","--disable-default-apps","--disable-sync",
+              "--disable-component-update","--disable-domain-reliability","--metrics-recording-only",
+              "--safebrowsing-disable-auto-update","--disable-features=OptimizationHints,MediaRouter",
+              "--window-size=1280,900"
+          ):
+              options.add_argument(arg)
+
+          out={
+              "task":"TASK_219O_DSA6_DOM_ACTION_PASSIVE",
+              "issue":719,
+              "base_main_sha":"db01f08586c0fa929f640c5f647f0f9ac933240c",
+              "execution_head_sha":os.environ.get("GITHUB_SHA"),
+              "boundary":{
+                  "browser_sessions":1,"manual_navigations":1,"clicks":0,"typing":0,
+                  "form_submissions":0,"manual_fetch_xhr":0,"portal_action_triggers":0,
+                  "layerinfo_replay":0,"direct_endpoint_calls":0,"retries":0,
+                  "full_inner_html_persisted":False,"full_page_source_persisted":False,
+                  "raw_har_persisted":False
+              },
+              "target":{"AreaId":TARGET,"AreaName":"Despesa","AreaOrigin":"2_92_guestuser_207_6_DSL0_VIS1343"},
+              "nodes":[],
+              "actions":[],
+              "status":"RUNNING"
+          }
+
+          def safe_text(v,limit=240):
+              if v is None: return None
+              s=re.sub(r"\s+"," ",str(v)).strip()
+              if not s: return ""
+              if len(s)>limit:
+                  return {"sha256":hashlib.sha256(s.encode("utf-8",errors="replace")).hexdigest(),"length":len(s)}
+              return s
+
+          driver=None
+          try:
+              driver=webdriver.Chrome(options=options)
+              driver.set_page_load_timeout(35)
+              driver.get(START)
+              time.sleep(8)
+
+              js=r"""
+                const root=document.getElementById(arguments[0]);
+                if(!root) return {found:false};
+                const all=[root,...root.querySelectorAll('*')].slice(0,500);
+                const interesting=all.filter(el=>{
+                  const tag=(el.tagName||'').toLowerCase();
+                  if(['a','button','form','input','select','textarea'].includes(tag)) return true;
+                  if(el.hasAttribute('onclick')||el.hasAttribute('href')||el.hasAttribute('role')) return true;
+                  for(const a of el.attributes||[]) if(a.name.startsWith('data-')) return true;
+                  const cls=(el.getAttribute('class')||'').toLowerCase();
+                  if(/btn|button|link|click|card|tile|atalho|acesso|menu/.test(cls)) return true;
+                  return false;
+                });
+                const rows=interesting.map((el,idx)=>{
+                  const attrs={};
+                  for(const a of el.attributes||[]){
+                    const n=a.name;
+                    if(['id','class','name','type','title','aria-label','href','onclick','role','rel','target'].includes(n) || n.startsWith('data-')){
+                      attrs[n]=a.value;
+                    }
+                  }
+                  const r=el.getBoundingClientRect();
+                  return {
+                    ordinal:idx+1,
+                    tag:(el.tagName||'').toLowerCase(),
+                    attrs,
+                    text:(el.innerText||el.textContent||''),
+                    visible:!!(r.width||r.height),
+                    child_count:el.children?el.children.length:0
+                  };
+                });
+                return {
+                  found:true,
+                  root_tag:(root.tagName||'').toLowerCase(),
+                  root_child_count:root.children.length,
+                  descendant_count:root.querySelectorAll('*').length,
+                  rows
+                };
+              """
+              data=driver.execute_script(js,TARGET)
+              out["subtree"]={
+                  "found":bool(data.get("found")),
+                  "root_tag":data.get("root_tag"),
+                  "root_child_count":data.get("root_child_count"),
+                  "descendant_count":data.get("descendant_count")
+              }
+
+              counts={}
+              for row in data.get("rows",[]):
+                  tag=row.get("tag")
+                  counts[tag]=counts.get(tag,0)+1
+                  attrs={}
+                  for k,v in (row.get("attrs") or {}).items():
+                      attrs[k]=safe_text(v,240)
+                  text=safe_text(row.get("text"),120)
+                  rec={
+                      "ordinal":row.get("ordinal"),
+                      "tag":tag,
+                      "visible":bool(row.get("visible")),
+                      "child_count":row.get("child_count"),
+                      "attrs":attrs,
+                      "text":text
+                  }
+                  out["nodes"].append(rec)
+
+                  href=(row.get("attrs") or {}).get("href")
+                  onclick=(row.get("attrs") or {}).get("onclick")
+                  data_attrs={k:v for k,v in (row.get("attrs") or {}).items() if k.startswith("data-")}
+                  action=None
+                  if href:
+                      absolute=urljoin(START,href)
+                      u=urlparse(absolute)
+                      if href.startswith("#") or ((u.hostname or "").lower()==HOST and u.scheme in ("http","https")):
+                          action={"kind":"HREF","href":safe_text(href,240),"absolute_host":u.hostname,"absolute_path":u.path,"query":safe_text(u.query,240)}
+                  if onclick:
+                      patterns=[
+                        ("doPortalAction",r"doPortalAction\s*\(\s*['\"]([^'\"]+)['\"]\s*,\s*['\"]([^'\"]*)['\"]\s*\)"),
+                        ("doLink",r"doLink\s*\(\s*['\"]([^'\"]+)['\"]\s*\)"),
+                        ("doAreaLink",r"doAreaLink\s*\(\s*['\"]([^'\"]+)['\"]\s*\)"),
+                      ]
+                      for kind,pat in patterns:
+                          m=re.search(pat,onclick,re.I)
+                          if m:
+                              action={"kind":kind,"args":[safe_text(x,240) for x in m.groups()],"onclick":safe_text(onclick,240)}
+                              break
+                      if action is None and any(x.lower() in onclick.lower() for x in ("portalaction","dolink","doarealink","gx.","event")):
+                          action={"kind":"ONCLICK_IDENTIFIER","onclick":safe_text(onclick,240)}
+                  if action is None and data_attrs:
+                      joined=" ".join(f"{k}={v}" for k,v in data_attrs.items())
+                      if any(x in joined.lower() for x in ("action","link","event","portal","area")):
+                          action={"kind":"DATA_ACTION","data":{k:safe_text(v,240) for k,v in data_attrs.items()}}
+                  if action:
+                      action["node_ordinal"]=row.get("ordinal")
+                      action["tag"]=tag
+                      action["text"]=text
+                      action["attrs"]={k:attrs.get(k) for k in ("id","class","name","title","aria-label","role") if k in attrs}
+                      out["actions"].append(action)
+
+              out["summary"]={
+                  "interesting_node_count":len(out["nodes"]),
+                  "tag_counts":dict(sorted(counts.items())),
+                  "action_count":len(out["actions"]),
+                  "action_kinds":sorted({x.get("kind") for x in out["actions"]}),
+                  "unique_action":len(out["actions"])==1
+              }
+              out["page"]={
+                  "final_host":(urlparse(driver.current_url).hostname or "").lower(),
+                  "final_path":urlparse(driver.current_url).path,
+                  "title":(driver.title or "")[:200]
+              }
+              out["status"]="PASS_TASK219O_PASSIVE_ACTION_DISCOVERY"
+          except Exception as exc:
+              out["status"]="STOP_TASK219O_BROWSER_CAPTURE"
+              out["error_type"]=type(exc).__name__
+          finally:
+              if driver:
+                  try: driver.quit()
+                  except Exception: pass
+
+          Path("runtime/task219o_result.json").write_text(json.dumps(out,ensure_ascii=False,indent=2,sort_keys=True)+"\n",encoding="utf-8")
+          print(json.dumps({
+              "status":out["status"],
+              "subtree":out.get("subtree"),
+              "summary":out.get("summary"),
+              "actions":out.get("actions")
+          },ensure_ascii=False,sort_keys=True))
+          PY
+
+      - name: Upload sanitized action evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-219o-despesa-action-evidence
+          path: runtime/task219o_result.json
+          if-no-files-found: error
+          retention-days: 1
