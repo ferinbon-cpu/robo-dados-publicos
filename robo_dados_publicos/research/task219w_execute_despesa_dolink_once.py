@@ -5,7 +5,7 @@ import os
 import re
 import time
 from pathlib import Path
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, parse_qsl, urlparse
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -120,7 +120,8 @@ def public_interface(driver) -> dict:
       const labels=[];
       if(el.id){ for(const lab of document.querySelectorAll('label[for="'+CSS.escape(el.id)+'"]')) labels.push(safe(lab.textContent)); }
       const parentLabel=el.closest('label'); if(parentLabel) labels.push(safe(parentLabel.textContent));
-      rows.push({index:i+1,tag,type,attrs,labels:[...new Set(labels)].slice(0,5),text:(type==='hidden'?null:safe(el.textContent||el.value||'',160))});
+      const isControl=['input','select','textarea'].includes(tag);
+      rows.push({index:i+1,tag,type,attrs,labels:[...new Set(labels)].slice(0,5),text:isControl?null:safe(el.textContent||'',160)});
     }
     const bodyText=safe(document.body ? document.body.innerText : '',12000);
     return {title:safe(document.title,200), nodes:rows, bodyText};
@@ -129,6 +130,7 @@ def public_interface(driver) -> dict:
 
 def sanitize_network(logs: list[dict]) -> list[dict]:
     rows = []
+    safe_key = re.compile(r"^[A-Za-z0-9_.\[\]-]{1,80}$")
     for entry in logs:
         try:
             msg = json.loads(entry["message"])["message"]
@@ -141,15 +143,15 @@ def sanitize_network(logs: list[dict]) -> list[dict]:
         if (u.hostname or "").lower() != HOST:
             continue
         method = str(req.get("method") or "").upper()
-        row = {"method": method, "path": u.path, "query_keys": sorted(parse_qs(u.query, keep_blank_values=True).keys())}
+        row = {"method": method, "path": u.path, "query_keys": sorted(k for k in parse_qs(u.query, keep_blank_values=True).keys() if safe_key.fullmatch(k))}
         if method == "POST":
             post = req.get("postData") or ""
             try:
-                row["post_keys"] = sorted(parse_qs(post, keep_blank_values=True).keys())
+                keys = [k for k, _ in parse_qsl(post, keep_blank_values=True) if safe_key.fullmatch(k)]
+                row["post_keys"] = sorted(set(keys))[:80]
             except Exception:
                 row["post_keys"] = []
         rows.append(row)
-    # stable de-dup
     out=[]; seen=set()
     for r in rows:
         key=json.dumps(r,sort_keys=True,ensure_ascii=False)
@@ -199,7 +201,6 @@ def run() -> dict:
         if not validation.get("ok") or validation.get("doLink_type") != "function":
             out["status"] = "STOP_CANONICAL_DOLINK_CONTRACT_NOT_REVALIDATED"; return out
 
-        # Clear all pre-action performance events, then execute the proven loaded public action exactly once.
         driver.get_log("performance")
         before_url = driver.current_url
         result = driver.execute_script("return window.doLink(arguments[0]);", expected)
@@ -227,7 +228,6 @@ def run() -> dict:
             "public_text_excerpt": short(body, 1200),
         }
         out["automatic_network"] = sanitize_network(logs)
-        # Conservative signal only: exact query contract is not promoted here without explicit field/action evidence.
         nodes = iface.get("nodes") or []
         empenho_nodes=[]
         for n in nodes:
