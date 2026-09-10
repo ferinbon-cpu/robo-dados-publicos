@@ -1,0 +1,115 @@
+{
+  "task": "TASK_219T_EXACT_TEXTAREA_DECODER_CANONIZATION",
+  "issue": 729,
+  "parent_issue": 691,
+  "canonical_date": "2026-09-10",
+  "base_main_sha": "92370c3b27520854a993560ca7a80fba094700b5",
+  "runtime": {
+    "run_id": 34485958452,
+    "job_id": 102900169628,
+    "execution_head_sha": "4abf82b41bd2cd4b00b010e9247c8168d50db3df",
+    "artifact_id": 10155617848,
+    "artifact_zip_sha256": "e7f1d44cd8afa8db290fb0139c5f505069ce29158530b5d6e2b48ab60b4abf1a",
+    "artifact_size_bytes": 1611,
+    "executed_workflow_blob_sha": "9b1b4a616770ef0816a941bb001e805b7190d824",
+    "historical_workflow_blob_sha": "9b1b4a616770ef0816a941bb001e805b7190d824",
+    "historical_source_exact_blob_match": true,
+    "workflow_removed_after_run": true,
+    "workflow_removal_commit": "4357ee33df128f5c4efd33d8405a9423c7e3cd8b"
+  },
+  "same_session_binding_adjudication": {
+    "current_session_portal_state_read": true,
+    "unique_Despesa_state_match": true,
+    "AreaName": "Despesa",
+    "AreaOrigin": "2_92_guestuser_207_6_DSL0_VIS1343",
+    "current_session_AreaId": "6aa0e2f44c2340988888297491c30038DSA6",
+    "automatic_request_count": 8,
+    "matching_LayerInfo_request_count": 1,
+    "request_response_id_equal": true,
+    "current_session_despesa_response_binding_proven": true
+  },
+  "decoder_adjudication": {
+    "actual_decoder_expression": "$('\u003ctextarea /\u003e').html(v.info).text()",
+    "decoder_source_proven_by_TASK219S": true,
+    "jquery_available": true,
+    "jquery_version": "3.2.1",
+    "decoder_executed_inside_loaded_public_page": true,
+    "decoder_input_type": "string",
+    "decoder_input_length": 11305,
+    "decoder_input_sha256": "9a0c8549684e8735fde8537f4e5e7dcf9dba2e44bf6d03814dd155e3be41bab4",
+    "decoder_output_type": "string",
+    "decoder_output_length": 9313,
+    "decoder_output_sha256": "d23b729e8bb56d325d73d0ed8ace53127a15e4916800b729e74faad68c057f84",
+    "exact_public_client_decoder_runtime_application_proven": true,
+    "python_html_unescape_is_no_longer_needed_as_model": true
+  },
+  "decoded_structure_adjudication": {
+    "serialization": "HTML_LIKE",
+    "all_tag_count": 52,
+    "tag_counts": {
+      "div": 29,
+      "img": 4,
+      "script": 4,
+      "style": 5,
+      "table": 1,
+      "tbody": 1,
+      "td": 4,
+      "tr": 4
+    },
+    "script_count": 4,
+    "form_count_in_inert_DOM": 0,
+    "interactive_node_count_in_inert_DOM": 0,
+    "explicit_action_count_in_inert_DOM": 0,
+    "runafter_present": false,
+    "plain_text_length": 6684,
+    "accounting_literal_count_sum": 0
+  },
+  "action_adjudication": {
+    "official_action_contract_proven": false,
+    "official_action_ambiguity_proven": false,
+    "official_action_absence_proven": false,
+    "runtime_carrier_provisional_absence_flag": "SUPERSEDED_BY_CANONIZATION",
+    "reason": "The exact decoder output is real HTML but contains four script elements. TASK 219T intentionally parsed it in an inert detached template that did not execute scripts or handlers. Therefore zero interactive nodes in that inert DOM does not establish absence from the normally rendered post-script DOM.",
+    "safe_result": "EXACT_DESPESA_DECODER_PROVEN_HTML_BASE_HAS_NO_INLINE_INTERACTIVE_SURFACE_POST_RENDER_ACTION_SURFACE_STILL_UNPROVEN"
+  },
+  "major_scientific_gain": {
+    "same_session_response_selection_problem": "RESOLVED",
+    "decoder_contract_problem": "RESOLVED",
+    "decoded_serialization_problem": "RESOLVED_HTML_LIKE",
+    "new_single_gargalo": "normally rendered current-session Despesa DOM after the client injects decoded HTML and automatic page scripts/bindings have completed",
+    "TASK219O_stale_DOM_probe_model": "SUPERSEDED",
+    "why_TASK219O_is_superseded": "TASK 219O searched for a prior-session full AreaId. TASK 219Q proved the full prefix changes each browser session. The next DOM probe must obtain the current-session Despesa AreaId first, then inspect that exact live node after normal automatic rendering.",
+    "next_safe_question": "After the public client has automatically rendered the exact current-session Despesa area, what links/buttons/forms/delegated action attributes exist inside or are structurally bound to the live DOM node whose id equals that same-session AreaId?"
+  },
+  "next_runtime_rule": {
+    "step_1": "Read current-session vSDT_TDAPORTAL and identify Despesa by AreaName plus exact AreaOrigin.",
+    "step_2": "Use the current-session AreaId only; never reuse a full AreaId from an earlier session.",
+    "step_3": "Allow normal page-load automatic rendering to complete without manual interaction.",
+    "step_4": "Inspect the live DOM node with id equal to that same-session AreaId and its descendants, plus read-only event/listener attributes if accessible without invoking them.",
+    "step_5": "Persist only sanitized public action/form/control metadata and execute nothing until a unique official action is canonized."
+  },
+  "fail_closed": {
+    "browser_sessions": 1,
+    "clicks": 0,
+    "typing": 0,
+    "form_submissions": 0,
+    "manual_fetch_xhr": 0,
+    "direct_endpoint_calls": 0,
+    "portal_action_triggers": 0,
+    "layerinfo_replay": 0,
+    "retries": 0,
+    "commitment_3286_2026_queried": false,
+    "contract_45_2026_identity_proven": false,
+    "payment_attribution_proven": false,
+    "question_promotion_performed": false,
+    "coverage_after": 34,
+    "remaining_blockers": ["CTRL_Q2", "PROC_Q1", "PROC_Q2", "PROC_Q3"]
+  },
+  "authorization_consumption": {
+    "task219t_scope_complete": true,
+    "authorized_browser_session_consumed": true,
+    "no_second_browser_session_used": true,
+    "authorization_exhausted_for_future_network": true,
+    "new_authorization_required_for_current_session_live_DOM_action_capture_or_any_interactive_query": true
+  }
+}
