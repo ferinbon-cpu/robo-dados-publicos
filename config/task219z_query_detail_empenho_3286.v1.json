@@ -5,7 +5,9 @@
   "issue": 742,
   "parent_issue": 691,
   "derived_from_task219y_head": "6b456b74833e8da796fd647eb58fcc75da218a54",
+  "canonical_task219y_merge_sha": "462cdb2a1e2241f7d77888f93684b2a864bdb5c7",
   "authorization_sequence": "LEAP_3_OF_3_CURRENT_AUTHORIZATION",
+  "live_authorization_consumed": true,
   "target": {
     "AreaName": "Detalhe do Empenho",
     "AreaOrigin": "2_92_guestuser_200_8_DSL0_VIS706",
