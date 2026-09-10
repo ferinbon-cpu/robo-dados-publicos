@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "schema": "TASK219T_EXACT_TEXTAREA_DECODER_DESPESA_V1",
+  "task": "TASK_219T",
+  "issue": 729,
+  "parent_issue": 691,
+  "base_main_sha": "92370c3b27520854a993560ca7a80fba094700b5",
+  "source": {
+    "start_url": "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+    "host": "transparencia.limeira.sp.gov.br",
+    "automatic_route": "/awsgetcontentareas.aspx",
+    "portal_state_control": "vSDT_TDAPORTAL",
+    "decoder_source_path": "/aportalclientjs.aspx",
+    "decoder_expression": "$(\u0027<textarea />\u0027).html(v.info).text()"
+  },
+  "despesa_selector": {
+    "AreaName": "Despesa",
+    "AreaOrigin": "2_92_guestuser_207_6_DSL0_VIS1343",
+    "requires_unique_match": true,
+    "same_session_AreaId_required": true
+  },
+  "response_selection": {
+    "request_LayerInfo_id_equals_same_session_AreaId": true,
+    "response_LayerInfo_id_equals_same_session_AreaId": true,
+    "exact_match_only": true
+  },
+  "decoder_policy": {
+    "requires_loaded_jquery": true,
+    "exact_expression_only": true,
+    "detached_template_parse": true,
+    "execute_scripts": false,
+    "execute_handlers": false,
+    "raw_input_persisted": false,
+    "raw_output_persisted": false
+  },
+  "action_proof": {
+    "accepted": [
+      "same_host_or_relative_href",
+      "doPortalAction",
+      "doLink",
+      "doAreaLink",
+      "same_host_explicit_form_action_with_unique_submit"
+    ],
+    "unique_explicit_action_required": true,
+    "css_position_icon_text_similarity_never_promotes": true
+  },
+  "persistence_policy": {
+    "max_public_text_chars": 160,
+    "max_public_attribute_chars": 240,
+    "full_page_source": false,
+    "raw_har": false,
+    "cookies_tokens": false,
+    "raw_info": false,
+    "full_transformed_html": false,
+    "inline_script_bodies": false
+  },
+  "network_policy": {
+    "browser_sessions": 1,
+    "initial_navigation": 1,
+    "clicks": 0,
+    "typing": 0,
+    "form_submissions": 0,
+    "manual_fetch_xhr": 0,
+    "direct_endpoint_calls": 0,
+    "portal_action_triggers": 0,
+    "layerinfo_replay": 0,
+    "retries": 0
+  },
+  "scientific_state": {
+    "coverage_before": 34,
+    "remaining_blockers": ["CTRL_Q2", "PROC_Q1", "PROC_Q2", "PROC_Q3"]
+  }
+}
