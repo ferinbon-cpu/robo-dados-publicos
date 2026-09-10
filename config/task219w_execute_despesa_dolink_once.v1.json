@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "schema": "TASK219W_EXECUTE_DESPESA_DOLINK_ONCE_V1",
+  "task": "TASK_219W",
+  "issue": 736,
+  "parent_issue": 691,
+  "base_main_sha": "83d1389249368ed3f65c7be029e0d0d78e881e26",
+  "proven_upstream_action": {
+    "kind": "doLink",
+    "parameter_template": "<CURRENT_SESSION_AreaId>**##**V1343[vl]",
+    "fresh_same_session_AreaId_required": true,
+    "revalidate_four_inline_bindings_before_execution": true
+  },
+  "execution_policy": {
+    "browser_sessions": 1,
+    "initial_navigation": 1,
+    "doLink_invocations": 1,
+    "element_clicks": 0,
+    "typing": 0,
+    "form_submissions": 0,
+    "manual_fetch_xhr": 0,
+    "direct_endpoint_calls": 0,
+    "retries": 0,
+    "empenho_lookup": 0
+  },
+  "capture": {
+    "post_action_public_interface": true,
+    "automatic_network_paths_methods_post_key_names": true,
+    "hidden_values": false,
+    "cookies_tokens": false,
+    "raw_har": false,
+    "raw_page_source": false,
+    "full_html": false
+  },
+  "authorization_sequence": "LEAP_2_OF_3"
+}
