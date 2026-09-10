@@ -1,0 +1,45 @@
+{
+  "task":"TASK_219O_DSA6_DOM_ACTION_CANONIZATION",
+  "issue":719,
+  "parent_issue":691,
+  "authorization_slot":"1_OF_2",
+  "canonical_date":"2026-09-09",
+  "base_main_sha":"db01f08586c0fa929f640c5f647f0f9ac933240c",
+  "runtime":{
+    "run_id":34421742752,
+    "job_id":102698455275,
+    "execution_head_sha":"c0da6aff2ff557e73752bb94fc4afe9ac5591e53",
+    "artifact_id":10131149993,
+    "artifact_zip_sha256":"c21ce8333e3e15fa6049a4fbb7cda885d964c9b860488d943700ecbd51fa3d3a",
+    "artifact_member_sha256":"15113b51ec77632313108616f47d8292f1bb6abb636848505c6f618e5c7f3a05",
+    "executed_workflow_blob_sha":"7c1afad70c03420b88339a90844a054b4225a325",
+    "historical_workflow_blob_sha":"7c1afad70c03420b88339a90844a054b4225a325",
+    "historical_source_exact_blob_match":true,
+    "workflow_removed_after_run":true,
+    "workflow_removal_commit":"4def440591d89416e53cc4bbad1ba1a36debcfa4"
+  },
+  "adjudication":{
+    "upstream_despesa_area_identity_remains_proven":true,
+    "top_level_DOM_node_with_exact_AreaId_found":false,
+    "official_action_found_inside_exact_top_level_subtree":false,
+    "action_contract_proven":false,
+    "interpretation":"The GeneXus state identifies DSA6 as Despesa, but the exact AreaId is not present as a stable top-level DOM node after load. Therefore DOM-subtree inspection is not a valid route to the action contract in this page state.",
+    "non_inference":"Do not conclude that the Despesa content/action is absent. TASK 219M already proved server-returned LayerInfo content is dynamically injected; the next route must capture the specific automatic response object whose id equals DSA6 and inspect its returned info structurally."
+  },
+  "fail_closed":{
+    "expense_area_identity_proven":true,
+    "expense_area_action_contract_proven":false,
+    "expense_area_opened_or_triggered":false,
+    "commitment_3286_2026_queried":false,
+    "contract_45_2026_identity_proven":false,
+    "payment_attribution_proven":false,
+    "question_promotion_performed":false,
+    "coverage_after":34
+  },
+  "authorization_consumption":{
+    "slot_1_of_2_complete":true,
+    "slot_2_of_2_remains_authorized":true,
+    "slot_2_scope":"capture exact automatic DSA6 LayerInfo response content structurally and follow a unique official public action only if proven within the same bounded workflow"
+  },
+  "next_action":"TASK_219P: in one clean browser session, identify the automatic awsgetcontentareas response object with id exactly DSA6, decode only that v.info in memory, extract public links/actions/forms. If and only if one unique official action is proven, execute that exact action once and capture the resulting public navigation/request contract. Do not guess."
+}
