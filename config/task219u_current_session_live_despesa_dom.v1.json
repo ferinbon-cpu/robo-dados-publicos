@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "schema": "TASK219U_CURRENT_SESSION_LIVE_DESPESA_DOM_V1",
+  "task": "TASK_219U",
+  "issue": 732,
+  "parent_issue": 691,
+  "base_main_sha": "30db2414069565f8572aad1b32dd96d9cad5cd09",
+  "source": {
+    "start_url": "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+    "host": "transparencia.limeira.sp.gov.br",
+    "portal_state_control": "vSDT_TDAPORTAL"
+  },
+  "despesa_selector": {
+    "AreaName": "Despesa",
+    "AreaOrigin": "2_92_guestuser_207_6_DSL0_VIS1343",
+    "requires_unique_match": true,
+    "same_session_AreaId_required": true
+  },
+  "inspection": {
+    "target": "live DOM node whose id equals current-session Despesa AreaId",
+    "allow_normal_automatic_rendering": true,
+    "read_descendants": true,
+    "read_event_listener_metadata": true,
+    "execute_event_listener": false,
+    "execute_scripts_manually": false
+  },
+  "action_proof": {
+    "accepted": [
+      "same_host_or_relative_href",
+      "doPortalAction",
+      "doLink",
+      "doAreaLink",
+      "same_host_or_relative_explicit_form_action_with_unique_submit"
+    ],
+    "unique_explicit_action_required": true,
+    "generic_listener_presence_never_promotes": true,
+    "css_position_icon_text_similarity_never_promotes": true
+  },
+  "persistence_policy": {
+    "max_public_text_chars": 160,
+    "max_public_attribute_chars": 240,
+    "full_page_source": false,
+    "full_inner_html": false,
+    "raw_har": false,
+    "cookies_tokens": false,
+    "inline_script_bodies": false,
+    "long_opaque_values": false
+  },
+  "network_policy": {
+    "browser_sessions": 1,
+    "initial_navigation": 1,
+    "clicks": 0,
+    "typing": 0,
+    "form_submissions": 0,
+    "manual_fetch_xhr": 0,
+    "direct_endpoint_calls": 0,
+    "portal_action_triggers": 0,
+    "layerinfo_replay": 0,
+    "layerinfo_synthesis": 0,
+    "retries": 0,
+    "commitment_lookup": 0
+  },
+  "scientific_state": {
+    "coverage_before": 34,
+    "remaining_blockers": ["CTRL_Q2", "PROC_Q1", "PROC_Q2", "PROC_Q3"]
+  }
+}
