@@ -1,0 +1,226 @@
+{
+  "schema": "EDUCATION_TRIAL_BALANCE_2025_09_V1",
+  "task": "TASK_224",
+  "issue": 759,
+  "depends_on": ["TASK_221", "TASK_222", "TASK_223"],
+  "source": {
+    "md_01_3_id": "DOC-066",
+    "logical_id": "BALANCETE-EDUC-2025-09",
+    "title": "Balancete_Mes_Setembro_2025_Educacao.pdf",
+    "issuer": "Prefeitura Municipal de Limeira",
+    "system": "CN-SIFPM / CONAM",
+    "document_heading": "BALANCETE SINTETICO DA DESPESA LIQUIDADA POR ELEMENTO",
+    "orgao_inicial": "15.00.00 SECRETARIA DE EDUCACAO",
+    "orgao_final": "15.06.00 FUNDO MANUT. DESENVOL. EDUCACAO BASICA",
+    "reference_month": "2025-09",
+    "pages": 3,
+    "source_identity": "TITLE_AND_DOCUMENT_CONTENT_MATCH_MD_01_3_DOC_066;BYTE_HASH_NOT_PROVEN_IN_THIS_TASK",
+    "value_pages": [1, 2],
+    "page_3_role": "MENU_SYSTEM_FOOTER_NO_ACCOUNTING_VALUES"
+  },
+  "scope": "SCOPED_EXACT_TOTALS_AND_SELECTED_ELEMENTS_NOT_COMPLETE_LEDGER",
+  "currency": "BRL",
+  "unit": "cents",
+  "column_semantics": [
+    "liquidated_month",
+    "liquidated_ytd",
+    "committed_ytd",
+    "to_liquidate",
+    "appropriation",
+    "balance"
+  ],
+  "totals": {
+    "PERSONNEL_AND_SOCIAL_CHARGES": {
+      "source_page": 1,
+      "liquidated_month": 2887911328,
+      "liquidated_ytd": 24002178322,
+      "committed_ytd": 24778884684,
+      "to_liquidate": 776706362,
+      "appropriation": 36806464821,
+      "balance": 12027580137
+    },
+    "OTHER_CURRENT_EXPENSES": {
+      "source_page": 2,
+      "liquidated_month": 926084190,
+      "liquidated_ytd": 7093748913,
+      "committed_ytd": 9504478484,
+      "to_liquidate": 2410729571,
+      "appropriation": 13869829641,
+      "balance": 4365351157
+    },
+    "CURRENT_EXPENSES": {
+      "source_page": 2,
+      "liquidated_month": 3813995518,
+      "liquidated_ytd": 31095927235,
+      "committed_ytd": 34283363168,
+      "to_liquidate": 3187435933,
+      "appropriation": 50676394462,
+      "balance": 16393031294
+    },
+    "INVESTMENTS": {
+      "source_page": 2,
+      "liquidated_month": 33704240,
+      "liquidated_ytd": 359616207,
+      "committed_ytd": 530329752,
+      "to_liquidate": 170713545,
+      "appropriation": 1028597916,
+      "balance": 498268164
+    },
+    "DEBT_AMORTIZATION": {
+      "source_page": 2,
+      "liquidated_month": 22491875,
+      "liquidated_ytd": 217100520,
+      "committed_ytd": 282000000,
+      "to_liquidate": 64899480,
+      "appropriation": 283600000,
+      "balance": 1600000
+    },
+    "CAPITAL_EXPENSES": {
+      "source_page": 2,
+      "liquidated_month": 56196115,
+      "liquidated_ytd": 576716727,
+      "committed_ytd": 812329752,
+      "to_liquidate": 235613025,
+      "appropriation": 1312197916,
+      "balance": 499868164
+    },
+    "GENERAL_BUDGET_EXPENSE": {
+      "source_page": 2,
+      "liquidated_month": 3870191633,
+      "liquidated_ytd": 31672643962,
+      "committed_ytd": 35095692920,
+      "to_liquidate": 3423048958,
+      "appropriation": 51988592378,
+      "balance": 16892899458
+    }
+  },
+  "selected_elements": [
+    {
+      "economic_code": "3.1.90.04.00",
+      "description": "contratacao por tempo determinado",
+      "source_page": 1,
+      "liquidated_month": 465355030,
+      "liquidated_ytd": 3160269455,
+      "committed_ytd": 3597600123,
+      "to_liquidate": 437330668,
+      "appropriation": 5540900000,
+      "balance": 1943299877
+    },
+    {
+      "economic_code": "3.1.90.11.00",
+      "description": "vencimentos e vantagens fixas - pessoal",
+      "source_page": 1,
+      "liquidated_month": 1760020153,
+      "liquidated_ytd": 15487737938,
+      "committed_ytd": 15668947022,
+      "to_liquidate": 181209084,
+      "appropriation": 23195024821,
+      "balance": 7526077799
+    },
+    {
+      "economic_code": "3.1.91.13.00",
+      "description": "obrigacoes patronais - intra ofss",
+      "source_page": 1,
+      "liquidated_month": 489300205,
+      "liquidated_ytd": 4220357257,
+      "committed_ytd": 4348184422,
+      "to_liquidate": 127827165,
+      "appropriation": 5966200000,
+      "balance": 1618015578
+    },
+    {
+      "economic_code": "3.3.90.30.00",
+      "description": "material de consumo",
+      "source_page": 1,
+      "liquidated_month": 205058941,
+      "liquidated_ytd": 1918775156,
+      "committed_ytd": 2493394526,
+      "to_liquidate": 574619370,
+      "appropriation": 3264647051,
+      "balance": 771252525
+    },
+    {
+      "economic_code": "3.3.90.39.00",
+      "description": "outros servicos de terceiros - pessoa juridica",
+      "source_page": 1,
+      "liquidated_month": 248481737,
+      "liquidated_ytd": 1865394556,
+      "committed_ytd": 3553326647,
+      "to_liquidate": 1687932091,
+      "appropriation": 5685578840,
+      "balance": 2132252193
+    },
+    {
+      "economic_code": "3.3.90.40.00",
+      "description": "servicos tecnologia informacao e comunicacao",
+      "source_page": 1,
+      "liquidated_month": 19583450,
+      "liquidated_ytd": 126945693,
+      "committed_ytd": 201259616,
+      "to_liquidate": 74313923,
+      "appropriation": 269090000,
+      "balance": 67830384
+    },
+    {
+      "economic_code": "3.3.90.46.00",
+      "description": "auxilio alimentacao",
+      "source_page": 1,
+      "liquidated_month": 233837235,
+      "liquidated_ytd": 1955915493,
+      "committed_ytd": 1958368533,
+      "to_liquidate": 2453040,
+      "appropriation": 2906500000,
+      "balance": 948131467
+    },
+    {
+      "economic_code": "3.3.90.49.00",
+      "description": "auxilio transporte",
+      "source_page": 1,
+      "liquidated_month": 29786272,
+      "liquidated_ytd": 240555108,
+      "committed_ytd": 240658162,
+      "to_liquidate": 103054,
+      "appropriation": 339300000,
+      "balance": 98641838
+    },
+    {
+      "economic_code": "4.4.90.51.00",
+      "description": "obras e instalacoes",
+      "source_page": 2,
+      "liquidated_month": 15298850,
+      "liquidated_ytd": 76789722,
+      "committed_ytd": 247503267,
+      "to_liquidate": 170713545,
+      "appropriation": 539497916,
+      "balance": 291994649
+    },
+    {
+      "economic_code": "4.4.90.52.00",
+      "description": "equipamentos e material permanente",
+      "source_page": 2,
+      "liquidated_month": 18405390,
+      "liquidated_ytd": 82826485,
+      "committed_ytd": 82826485,
+      "to_liquidate": 0,
+      "appropriation": 288900000,
+      "balance": 206073515
+    }
+  ],
+  "diagnostic_identities": [
+    "liquidated_ytd + to_liquidate == committed_ytd",
+    "committed_ytd + balance == appropriation",
+    "CURRENT_EXPENSES + CAPITAL_EXPENSES == GENERAL_BUDGET_EXPENSE"
+  ],
+  "guards": [
+    "PARTIAL_MONTHLY_POSITION_NE_ANNUAL_CLOSING",
+    "APPROPRIATION_NE_FREE_CASH",
+    "BALANCE_NE_SAVINGS_OR_FREE_RESOURCE",
+    "COMMITTED_NE_LIQUIDATED_NE_PAID",
+    "NO_WAGE_RAISE_AFFORDABILITY_INFERENCE",
+    "NO_EITI_ATTRIBUTION_FROM_EDUCATION_TOTAL",
+    "SOURCE_SPECIFIC_SEMANTICS_MUST_BE_PRESERVED",
+    "PRIMARY_SOURCE_PRECEDES_MD_01_2_OR_DERIVED_NOTE"
+  ],
+  "canonical_contextual_coverage": {"answerable":38,"total":38,"changed_by_this_task":false},
+  "remote_effects": {"new_source_network":false,"drive_write":false,"serving":false,"publication":false,"schedule":false,"recurrence":false}
+}

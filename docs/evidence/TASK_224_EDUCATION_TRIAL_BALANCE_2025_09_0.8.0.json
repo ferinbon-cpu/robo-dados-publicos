@@ -1,0 +1,49 @@
+{
+  "schema": "TASK224_EDUCATION_TRIAL_BALANCE_2025_09_EVIDENCE_V1",
+  "task": "TASK_224",
+  "issue": 759,
+  "status": "CANDIDATE_EXACT_SOURCE_TOTALS_AND_SELECTED_ELEMENTS_MATERIALIZED",
+  "source": {
+    "md_01_3_id": "DOC-066",
+    "logical_id": "BALANCETE-EDUC-2025-09",
+    "title": "Balancete_Mes_Setembro_2025_Educacao.pdf",
+    "issuer": "Prefeitura Municipal de Limeira",
+    "system": "CN-SIFPM / CONAM",
+    "reference_month": "2025-09",
+    "pages": 3,
+    "accounting_values_pages": [1, 2],
+    "identity_strength": "TITLE_AND_CONTENT_MATCH_WITH_MD_01_3_MANIFEST_BYTE_HASH_NOT_PROVEN"
+  },
+  "source_direct_general_total_brl": {
+    "liquidated_month": "38701916.33",
+    "liquidated_ytd": "316726439.62",
+    "committed_ytd": "350956929.20",
+    "to_liquidate": "34230489.58",
+    "appropriation": "519885923.78",
+    "balance": "168928994.58"
+  },
+  "diagnostic_checks": {
+    "liquidated_ytd_plus_to_liquidate_equals_committed_ytd": true,
+    "committed_ytd_plus_balance_equals_appropriation": true,
+    "current_plus_capital_equals_general_for_all_six_columns": true,
+    "diagnostic_only_not_new_source_values": true
+  },
+  "selected_element_count": 10,
+  "non_claims": [
+    "NO_ANNUAL_CLOSING_CLAIM",
+    "NO_FREE_CASH_CLAIM_FROM_APPROPRIATION_OR_BALANCE",
+    "NO_SAVINGS_CLAIM_FROM_BALANCE",
+    "NO_WAGE_RAISE_AFFORDABILITY_CLAIM",
+    "NO_EITI_FINANCIAL_ATTRIBUTION",
+    "NO_PAID_STAGE_INFERENCE_FROM_THIS_BALANCE",
+    "NO_COMPLETE_LEDGER_PARSE_CLAIM"
+  ],
+  "source_precedence": [
+    "EXACT_BALANCETE_SOURCE",
+    "STRUCTURED_OFFICIAL_SOURCE_WHEN_QUESTION_REQUIRES_ITS_SPECIFIC_SEMANTICS",
+    "MD_01_2_DERIVED_DOSSIER",
+    "DERIVED_TECHNICAL_NOTE"
+  ],
+  "canonical_contextual_coverage": "38/38_UNCHANGED",
+  "remote_effects": false
+}
