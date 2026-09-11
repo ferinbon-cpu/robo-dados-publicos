@@ -1,0 +1,175 @@
+{
+  "schema": "RREO_2026_B1_B2_INCREMENTAL_V1",
+  "task": "TASK_230",
+  "issue": 775,
+  "base_main_sha": "821be175fbc0a461b681be4612683ede010d0d56",
+  "classification": "INCREMENTAL_EXISTING_CUSTODY_MATERIALIZATION",
+  "scope": {
+    "municipality": "Limeira/SP",
+    "periods": ["2026-02", "2026-04"],
+    "period_semantics": "CUMULATIVE_BIMESTER_POSITION",
+    "currency": "BRL",
+    "money_representation": "INTEGER_CENTS",
+    "percent_representation": "INTEGER_BASIS_POINTS",
+    "contextual_coverage": "38/38_UNCHANGED"
+  },
+  "document_audit": [
+    {"doc_id":"DOC-041","annex":1,"period":"2026-04","status":"PRIMARY_CORROBORATION_NOT_PROMOTED","reason":"aggregate budget totals promoted from Annex14; detailed execution overlaps stronger canonical ledgers"},
+    {"doc_id":"DOC-043","annex":1,"period":"2026-02","status":"PRIMARY_CORROBORATION_NOT_PROMOTED","reason":"aggregate budget totals promoted from Annex14; detailed execution overlaps stronger canonical ledgers"},
+    {"doc_id":"DOC-044","annex":12,"period":"2026-04","status":"DETAIL_SUPPORT_FOR_PROMOTED_SUMMARY","reason":"Annex14 health constitutional summary promoted; detailed health table retained as source support"},
+    {"doc_id":"DOC-045","annex":12,"period":"2026-02","status":"DETAIL_SUPPORT_FOR_PROMOTED_SUMMARY","reason":"Annex14 health constitutional summary promoted; detailed health table retained as source support"},
+    {"doc_id":"DOC-046","annex":14,"period":"2026-04","status":"PROMOTED_SUMMARY_SERIES","reason":"compact official cross-domain bimonthly position"},
+    {"doc_id":"DOC-047","annex":14,"period":"2026-02","status":"PROMOTED_SUMMARY_SERIES_NEW_PERIOD","reason":"new earlier official bimonthly position"},
+    {"doc_id":"DOC-048","annex":2,"period":"2026-04","status":"PARTIALLY_CANONICAL_TASK190","reason":"TASK190 already preserves Education function contextual total; no full-table duplication"},
+    {"doc_id":"DOC-050","annex":2,"period":"2026-02","status":"NEW_PERIOD_DETAIL_CANDIDATE_NOT_PROMOTED","reason":"useful subfunction detail but outside bounded summary promotion in this task"},
+    {"doc_id":"DOC-052","annex":3,"period":"2026-04","status":"PRIMARY_CORROBORATION_TASK229","reason":"RCL values reconcile to canonical RGF/TASK229 definitions where identical"},
+    {"doc_id":"DOC-053","annex":3,"period":"2026-02","status":"DETAIL_SUPPORT_FOR_PROMOTED_SUMMARY","reason":"B1 RCL promoted through Annex14; detailed RCL annex retained as source support"},
+    {"doc_id":"DOC-055","annex":4,"period":"2026-04","status":"DETAIL_SUPPORT_FOR_PROMOTED_SUMMARY","reason":"RPPS summary promoted from Annex14 without duplicating detailed table"},
+    {"doc_id":"DOC-056","annex":4,"period":"2026-02","status":"DETAIL_SUPPORT_FOR_PROMOTED_SUMMARY","reason":"RPPS summary promoted from Annex14 without duplicating detailed table"},
+    {"doc_id":"DOC-059","annex":6,"period":"2026-04","status":"DETAIL_SUPPORT_FOR_PROMOTED_SUMMARY","reason":"primary and nominal result summary promoted from Annex14"},
+    {"doc_id":"DOC-060","annex":6,"period":"2026-02","status":"DETAIL_SUPPORT_AND_B1_FISCAL_CONFIRMATION","reason":"B1 detailed results independently confirm Annex14; selected DCL retained as detail"},
+    {"doc_id":"DOC-061","annex":7,"period":"2026-04","status":"FULLY_CANONICAL_TASK188","reason":"do not double count Restos a Pagar facts already materialized"},
+    {"doc_id":"DOC-062","annex":7,"period":"2026-02","status":"FULLY_CANONICAL_TASK188","reason":"do not double count Restos a Pagar facts already materialized"},
+    {"doc_id":"DOC-063","annex":8,"period":"2026-04","status":"FULLY_CANONICAL_TASK190","reason":"official MDE/FUNDEB Jan-Apr already materialized"},
+    {"doc_id":"DOC-064","annex":8,"period":"2026-02","status":"PROMOTED_NEW_PERIOD_EDUCATION_DETAIL","reason":"new official B1 MDE/FUNDEB observation"}
+  ],
+  "annex14_summary_series": [
+    {
+      "period": "2026-02",
+      "source_doc_id": "DOC-047",
+      "source_title": "ANEXO 14-DEM. SIMPLIFICADO RREO - LRF -FEVEREIRO.pdf",
+      "direct_primary_recheck": true,
+      "budget_execution": {
+        "revenue_realized_cents": 32750625117,
+        "expense_committed_cents": 151605225133,
+        "expense_liquidated_cents": 20368294413,
+        "expense_paid_cents": 12729375180,
+        "budget_surplus_cents": 12382330704
+      },
+      "rcl": {
+        "rcl_cents": 176906103437,
+        "rcl_adjusted_debt_cents": 175618120774,
+        "rcl_adjusted_personnel_cents": 174640006463
+      },
+      "rpps": {
+        "capitalization": {"revenue_cents":3278070773,"committed_cents":9354301700,"liquidated_cents":1452061834,"paid_cents":728688354,"result_cents":1826008939},
+        "distribution": {"revenue_cents":1671426411,"committed_cents":1358642731,"liquidated_cents":197220094,"paid_cents":100014825,"result_cents":1474206317}
+      },
+      "fiscal_results": {
+        "primary_without_rpps_above_line_cents": 1436445490,
+        "nominal_without_rpps_below_line_cents": 17607272866
+      },
+      "rests_payable_summary": {
+        "total_registered_cents": 25568041809,
+        "total_cancelled_cents": 126761753,
+        "total_paid_cents": 16402796250,
+        "total_balance_cents": 9038483806,
+        "executive_processed_balance_cents": 2667025153,
+        "scope_guard": "ANEXO14_RESTS_SCOPE_NE_ANEXO7_SCOPE"
+      },
+      "constitutional_tracking": {
+        "mde_value_cents": 5110511649,
+        "mde_applied_pct_bp": 2431,
+        "fundeb_professionals_value_cents": 2532192060,
+        "fundeb_professionals_pct_bp": 7703,
+        "health_asps_value_cents": 2827115701,
+        "health_asps_pct_bp": 1344
+      }
+    },
+    {
+      "period": "2026-04",
+      "source_doc_id": "DOC-046",
+      "source_title": "ANEXO 14 - Demonstrativo Simplificado dos Relatórios Resumidos da Execução Orçamentaria.pdf",
+      "direct_primary_recheck": true,
+      "budget_execution": {
+        "revenue_realized_cents": 73725583852,
+        "expense_committed_cents": 156988651443,
+        "expense_liquidated_cents": 52941559688,
+        "expense_paid_cents": 45378600706,
+        "budget_surplus_cents": 20784024164
+      },
+      "rcl": {
+        "rcl_cents": 179379027526,
+        "rcl_adjusted_debt_cents": 178068078807,
+        "rcl_adjusted_personnel_cents": 177088538889
+      },
+      "rpps": {
+        "capitalization": {"revenue_cents":5649988934,"committed_cents":9356479931,"liquidated_cents":2966126451,"paid_cents":2964652096,"result_cents":2683862483},
+        "distribution": {"revenue_cents":2987081608,"committed_cents":1359455575,"liquidated_cents":407225363,"paid_cents":404862645,"result_cents":2579856245}
+      },
+      "fiscal_results": {
+        "primary_without_rpps_above_line_cents": 8558002562,
+        "nominal_without_rpps_below_line_cents": 26103602090
+      },
+      "rests_payable_summary": {
+        "total_registered_cents": 25568041809,
+        "total_cancelled_cents": 855152954,
+        "total_paid_cents": 19240978964,
+        "total_balance_cents": 5471909891,
+        "executive_processed_balance_cents": 1647643349,
+        "scope_guard": "ANEXO14_RESTS_SCOPE_NE_ANEXO7_SCOPE"
+      },
+      "constitutional_tracking": {
+        "mde_value_cents": 11598284060,
+        "mde_applied_pct_bp": 2427,
+        "fundeb_professionals_value_cents": 6261748385,
+        "fundeb_professionals_pct_bp": 8867,
+        "health_asps_value_cents": 6769965809,
+        "health_asps_pct_bp": 1416
+      }
+    }
+  ],
+  "education_b1_detail": {
+    "period": "2026-02",
+    "source_doc_id": "DOC-064",
+    "source_title": "ANEXO 8-DEM. RECEITAS E DESPESAS- MANUT.DESENV.ENSINO JAN A FEV.pdf",
+    "direct_primary_recheck": true,
+    "tax_result_revenue_realized_cents": 21024250100,
+    "fundeb_received_cents": 3288218433,
+    "fundeb_available_resources_cents": 3392970541,
+    "fundeb_expense_committed_cents": 11985309856,
+    "fundeb_expense_liquidated_cents": 2532192060,
+    "fundeb_expense_paid_cents": 1236420327,
+    "basic_education_professionals_committed_cents": 11985309856,
+    "basic_education_professionals_liquidated_cents": 2532192060,
+    "basic_education_professionals_paid_cents": 1236420327,
+    "vaar_principal_realized_cents": 0,
+    "vaar_financial_income_realized_cents": 901180
+  },
+  "fiscal_b1_detail": {
+    "period": "2026-02",
+    "source_doc_id": "DOC-060",
+    "source_title": "ANEXO 6-DEM. RESULTADO PRIMARIO E NOMINAL RREO - LRF -FEVEREIRO.pdf",
+    "direct_primary_recheck": true,
+    "primary_revenue_total_realized_cents": 31448434330,
+    "primary_result_without_rpps_above_line_cents": 1436445490,
+    "nominal_result_without_rpps_below_line_cents": 17607272866,
+    "net_consolidated_debt_at_bimester_cents": 9633640055
+  },
+  "reconciliation": [
+    {"metric":"B1_PRIMARY_RESULT","summary_doc":"DOC-047","detail_doc":"DOC-060","value_cents":1436445490,"status":"EXACT_MATCH"},
+    {"metric":"B1_NOMINAL_RESULT_BELOW_LINE","summary_doc":"DOC-047","detail_doc":"DOC-060","value_cents":17607272866,"status":"EXACT_MATCH"},
+    {"metric":"B1_FUNDEB_PROFESSIONALS_VALUE","summary_doc":"DOC-047","detail_doc":"DOC-064","value_cents":2532192060,"status":"EXACT_MATCH"},
+    {"metric":"B2_RCL","summary_doc":"DOC-046","canonical_task":"TASK_229","value_cents":179379027526,"status":"EXACT_MATCH"},
+    {"metric":"B2_RCL_ADJUSTED_DEBT","summary_doc":"DOC-046","canonical_task":"TASK_229","value_cents":178068078807,"status":"EXACT_MATCH"},
+    {"metric":"B2_RCL_ADJUSTED_PERSONNEL","summary_doc":"DOC-046","canonical_task":"TASK_229","value_cents":177088538889,"status":"EXACT_MATCH"},
+    {"metric":"B1_EXECUTIVE_PROCESSED_RP_BALANCE","summary_doc":"DOC-047","canonical_task":"TASK_188","value_cents":2667025153,"status":"EXACT_COMPONENT_MATCH_ONLY"},
+    {"metric":"B2_EXECUTIVE_PROCESSED_RP_BALANCE","summary_doc":"DOC-046","canonical_task":"TASK_188","value_cents":1647643349,"status":"EXACT_COMPONENT_MATCH_ONLY"}
+  ],
+  "guards": [
+    "SAME_FACT_DIFFERENT_ANNEX_NE_NEW_FACT",
+    "CUMULATIVE_BIMESTER_NE_MONTHLY_FLOW",
+    "ANEXO14_SUMMARY_NE_DETAILED_ANNEX",
+    "RREO_ANEXO8_MDE_NE_ANEXO2_FUNCTION_EDUCATION",
+    "RESTS_PAYABLE_SUMMARY_NE_SECOND_COUNT",
+    "ANEXO14_RESTS_SCOPE_NE_ANEXO7_SCOPE",
+    "PARTIAL_COMPONENT_MATCH_NE_FULL_STATEMENT_EQUALITY",
+    "PRIMARY_CORROBORATION_NE_NEW_CONTEXTUAL_COVERAGE",
+    "CONSTITUTIONAL_PERCENT_PARTIAL_PERIOD_NE_ANNUAL_COMPLIANCE",
+    "RPPS_RESULT_NE_FREE_CASH",
+    "NOMINAL_RESULT_NE_BUDGET_SURPLUS",
+    "COMMITTED_NE_LIQUIDATED_NE_PAID",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "remote_effects": {"network":false,"drive_write":false,"serving":false,"publication":false,"schedule":false,"recurrence":false}
+}
