@@ -1,0 +1,142 @@
+{
+  "schema": "RGF_2026_Q1_PRIMARY_V1",
+  "task": "TASK_229",
+  "issue": 773,
+  "classification": "PRIMARY_SOURCE_AUTHORITY_UPGRADE",
+  "scope": {
+    "municipality": "Limeira/SP",
+    "report": "RELATORIO_DE_GESTAO_FISCAL",
+    "reference_period": "2026_Q1_JAN_APR_WITH_PERSONNEL_TRAILING_12M_MAY2025_APR2026",
+    "currency": "BRL",
+    "money_representation": "INTEGER_CENTS",
+    "percent_representation": "INTEGER_BASIS_POINTS",
+    "contextual_coverage": "38/38_UNCHANGED",
+    "new_fact_claim": false
+  },
+  "sources": [
+    {"source_doc_id":"DOC-042","annex":1,"title":"ANEXO 1 - Despesas com Pessoal.pdf","period":"MAI/2025-ABR/2026","direct_primary_recheck":true,"identity":"TITLE_CONTENT_AND_MD_01_3B_MAPPING;BYTE_HASH_NOT_PROVEN"},
+    {"source_doc_id":"DOC-049","annex":2,"title":"ANEXO 2 - Dívida Consolidada Líquida.pdf","period":"ABR/2026 - 1o quadrimestre","direct_primary_recheck":true,"identity":"TITLE_CONTENT_AND_MD_01_3B_MAPPING;BYTE_HASH_NOT_PROVEN"},
+    {"source_doc_id":"DOC-051","annex":3,"title":"ANEXO 3 - Garantias e Contragratantias.pdf","period":"JAN-ABR/2026 - 1o quadrimestre","direct_primary_recheck":true,"identity":"TITLE_CONTENT_AND_MD_01_3B_MAPPING;BYTE_HASH_NOT_PROVEN"},
+    {"source_doc_id":"DOC-054","annex":4,"title":"ANEXO 4 - Operação de Credito.pdf","period":"JAN-ABR/2026 - 1o quadrimestre","direct_primary_recheck":true,"identity":"TITLE_CONTENT_AND_MD_01_3B_MAPPING;BYTE_HASH_NOT_PROVEN"},
+    {"source_doc_id":"DOC-057","annex":5,"title":"ANEXO 5 - Demonstrativo de Disponibilidade e Restos a Pagar.pdf","period":"JAN-ABR/2026","publication_status":"FORA_DO_PERIODO_DE_PUBLICACAO_SOMENTE_ACOMPANHAMENTO","direct_primary_recheck":true,"identity":"TITLE_CONTENT_AND_MD_01_3B_MAPPING;BYTE_HASH_NOT_PROVEN"},
+    {"source_doc_id":"DOC-058","annex":6,"title":"ANEXO 6 - Demonstrativo simplificado do relatorio de Gestão Fiscal.pdf","period":"JAN-ABR/2026 - 1o quadrimestre","direct_primary_recheck":true,"identity":"TITLE_CONTENT_AND_MD_01_3B_MAPPING;BYTE_HASH_NOT_PROVEN"}
+  ],
+  "domains": {
+    "PERSONNEL_LRF": {
+      "detail_source_doc_id": "DOC-042",
+      "summary_source_doc_id": "DOC-058",
+      "gross_personnel_last_12m_cents": 87174952277,
+      "active_personnel_last_12m_cents": 67393431557,
+      "wages_advantages_variable_last_12m_cents": 56646468118,
+      "employer_obligations_last_12m_cents": 10746963439,
+      "inactive_and_pensioners_last_12m_cents": 19722260592,
+      "rcl_cents": 179379027526,
+      "rcl_adjusted_personnel_cents": 177088538889,
+      "dtp_cents": 66859452913,
+      "dtp_pct_bp": 3775,
+      "maximum_limit_cents": 95627811000,
+      "maximum_limit_pct_bp": 5400,
+      "prudential_limit_cents": 90846420450,
+      "prudential_limit_pct_bp": 5130,
+      "alert_limit_cents": 86065029900,
+      "alert_limit_pct_bp": 4860,
+      "semantic_guard": "GROSS_PERSONNEL_EXPENSE_NE_LRF_DTP"
+    },
+    "CONSOLIDATED_DEBT": {
+      "detail_source_doc_id": "DOC-049",
+      "summary_source_doc_id": "DOC-058",
+      "consolidated_debt_cents": 35284117881,
+      "contractual_debt_cents": 30255350483,
+      "financing_cents": 25495965123,
+      "social_security_contribution_installments_cents": 4752850471,
+      "other_debts_cents": 5028767398,
+      "deductions_cents": 34146807050,
+      "gross_cash_availability_cents": 34681231583,
+      "processed_restos_a_pagar_cents": 2618628984,
+      "refundable_deposits_and_linked_values_cents": 128956577,
+      "other_financial_assets_cents": 2213161028,
+      "net_consolidated_debt_cents": 1137310831,
+      "rcl_adjusted_debt_cents": 178068078807,
+      "consolidated_debt_pct_bp": 1981,
+      "net_consolidated_debt_pct_bp": 63,
+      "senate_limit_cents": 213681694568,
+      "senate_limit_pct_bp": 12000,
+      "alert_limit_cents": 192313525111,
+      "alert_limit_pct_bp": 10800
+    },
+    "GUARANTEES": {
+      "detail_source_doc_id": "DOC-051",
+      "summary_source_doc_id": "DOC-058",
+      "guarantees_granted_cents": 0,
+      "guarantees_pct_bp": 0,
+      "rcl_adjusted_debt_cents": 178068078807,
+      "senate_limit_cents": 39174977337,
+      "senate_limit_pct_bp": 2200,
+      "alert_limit_cents": 35257479603,
+      "alert_limit_pct_bp": 1980
+    },
+    "CREDIT_OPERATIONS": {
+      "detail_source_doc_id": "DOC-054",
+      "summary_source_doc_id": "DOC-058",
+      "credit_operations_reference_quadrimester_cents": 0,
+      "credit_operations_year_to_date_cents": 0,
+      "amount_considered_for_limit_cents": 0,
+      "rcl_adjusted_debt_cents": 178068078807,
+      "general_limit_cents": 28490892609,
+      "general_limit_pct_bp": 1600,
+      "revenue_anticipation_operations_cents": 0,
+      "revenue_anticipation_limit_cents": 12464765516,
+      "revenue_anticipation_limit_pct_bp": 700,
+      "semantic_guard": "ZERO_CREDIT_OPERATIONS_NE_ZERO_DEBT"
+    },
+    "CASH_AVAILABILITY_MONITORING": {
+      "source_doc_id": "DOC-057",
+      "publication_status": "FORA_DO_PERIODO_DE_PUBLICACAO_SOMENTE_ACOMPANHAMENTO",
+      "rows": [
+        {"resource_group":"TOTAL_NON_LINKED","gross_cash_cents":10629694602,"liquid_cash_before_nonprocessed_rp_cents":7611812421,"liquid_cash_after_nonprocessed_rp_cents":7611812421},
+        {"resource_group":"TOTAL_LINKED_EXCEPT_RPPS","gross_cash_cents":23162782819,"liquid_cash_before_nonprocessed_rp_cents":20798365938,"liquid_cash_after_nonprocessed_rp_cents":20798365938},
+        {"resource_group":"LINKED_EDUCATION","gross_cash_cents":4664352024,"prior_liquidated_unpaid_rp_cents":61094313,"other_financial_obligations_cents":189995337,"liquid_cash_before_nonprocessed_rp_cents":4413262374,"liquid_cash_after_nonprocessed_rp_cents":4413262374},
+        {"resource_group":"FUNDEB_TRANSFERS","gross_cash_cents":2681179600,"partial_row_only":true},
+        {"resource_group":"TOTAL","gross_cash_cents":33994336152,"liquidated_unpaid_rp_cents":2617232984,"other_financial_obligations_cents":2461495057,"public_consorcio_financial_obligations_cents":983898541,"liquid_cash_before_nonprocessed_rp_cents":27931709570,"liquid_cash_after_nonprocessed_rp_cents":27931709570}
+      ],
+      "semantic_guards": ["CASH_AVAILABILITY_NE_BUDGET_AUTHORIZATION","LINKED_EDUCATION_CASH_NE_FREE_EDUCATION_MONEY","RGF_ANEXO5_ACOMPANHAMENTO_NE_FINAL_PUBLISHED_PERIOD"]
+    },
+    "SIMPLIFIED_PRIMARY_SUMMARY": {
+      "source_doc_id": "DOC-058",
+      "rcl_cents": 179379027526,
+      "rcl_adjusted_debt_cents": 178068078807,
+      "rcl_adjusted_personnel_cents": 177088538889,
+      "dtp_cents": 66859452913,
+      "dtp_pct_bp": 3775,
+      "net_consolidated_debt_cents": 1137310831,
+      "net_consolidated_debt_pct_bp": 63,
+      "guarantees_granted_cents": 0,
+      "credit_operations_cents": 0,
+      "revenue_anticipation_operations_cents": 0
+    }
+  },
+  "cross_annex_reconciliation": [
+    {"metric":"DTP","detail_doc":"DOC-042","summary_doc":"DOC-058","value_cents":66859452913,"status":"EXACT_MATCH"},
+    {"metric":"RCL_ADJUSTED_PERSONNEL","detail_doc":"DOC-042","summary_doc":"DOC-058","value_cents":177088538889,"status":"EXACT_MATCH"},
+    {"metric":"NET_CONSOLIDATED_DEBT","detail_doc":"DOC-049","summary_doc":"DOC-058","value_cents":1137310831,"status":"EXACT_MATCH"},
+    {"metric":"RCL_ADJUSTED_DEBT","detail_doc":"DOC-049","summary_doc":"DOC-058","value_cents":178068078807,"status":"EXACT_MATCH"},
+    {"metric":"GUARANTEES_GRANTED","detail_doc":"DOC-051","summary_doc":"DOC-058","value_cents":0,"status":"EXACT_MATCH"},
+    {"metric":"CREDIT_OPERATIONS","detail_doc":"DOC-054","summary_doc":"DOC-058","value_cents":0,"status":"EXACT_MATCH"}
+  ],
+  "guards": [
+    "PRIMARY_SOURCE_UPGRADE_NE_NEW_FACT",
+    "GROSS_PERSONNEL_EXPENSE_NE_LRF_DTP",
+    "FORMAL_LRF_MARGIN_NE_FREE_CASH",
+    "CASH_AVAILABILITY_NE_BUDGET_AUTHORIZATION",
+    "LINKED_EDUCATION_CASH_NE_FREE_EDUCATION_MONEY",
+    "RGF_ANEXO5_ACOMPANHAMENTO_NE_FINAL_PUBLISHED_PERIOD",
+    "DEBT_HEADROOM_NE_SPENDING_AUTHORIZATION",
+    "ZERO_CREDIT_OPERATIONS_NE_ZERO_DEBT",
+    "PERCENT_LIMIT_NE_AVAILABLE_PERCENT_TO_SPEND",
+    "NO_DOUBLE_COUNT_WITH_MD_01_2_DERIVED_LAYER",
+    "PARTIAL_FUNDEB_ROW_NE_FULL_FUNDEB_CASH_POSITION",
+    "BYTE_HASH_NOT_PROVEN_NE_HASHED_SOURCE_IDENTITY",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "remote_effects": {"new_source_network":false,"drive_write":false,"serving":false,"publication":false,"schedule":false,"recurrence":false}
+}
