@@ -1,0 +1,18 @@
+{
+  "task": "TASK_238",
+  "issue": 796,
+  "canonical_base": {
+    "branch": "main",
+    "sha": "d678e521a6a3290ea1b51163a9433954e815fa07",
+    "source_merge": "PR #793 / TASK 237",
+    "post_merge_validation": {
+      "offline_ci_run_number": 1804,
+      "offline_ci_conclusion": "success",
+      "unit_tests": "success",
+      "historical_regression": "success"
+    }
+  },
+  "branch_policy": "TASK238 branch must originate directly from this green canonical main SHA.",
+  "branch": "task238-jom-direct-bounded-close",
+  "contextual_coverage": "38/38_UNCHANGED"
+}
