@@ -52,10 +52,18 @@
       "journal_edition": 7107,
       "official_pdf_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_29102025164233.pdf",
       "source_role": "PRIMARY_CURRICULAR_NORMATIVE_ACT",
-      "text_status": "PRIMARY_IDENTITY_TITLE_AND_OPENING_RECITALS_RECOVERED_FULL_ARTICLE_TEXT_NOT_YET_MATERIALIZED",
+      "text_status": "PRIMARY_IDENTITY_TITLE_OPENING_RECITALS_AND_ART8_EXACT_TEXT_RECOVERED_REMAINDER_NOT_FULLY_MATERIALIZED",
       "binary_custody_status": "NOT_CUSTODIED_NO_BYTE_HASH",
       "title_proven": "Institui a disciplina extracurricular de Linguagens e Tecnologias e o respectivo currículo na Rede Municipal de Ensino de Limeira.",
       "publication_start_page": 6,
+      "publication_end_page": 11,
+      "text_recovery": {
+        "method": "BOUNDED_LIVE_BROWSER_READ_OF_OFFICIAL_PDF",
+        "recovered_at": "2026-09-11",
+        "primary_pdf_identity_proven": true,
+        "binary_bytes_custodied": false,
+        "article_outline_is_not_exact_article_text": true
+      },
       "joint_authorities": [
         "Secretaria Municipal de Educação",
         "Conselho Municipal de Educação"
@@ -70,10 +78,12 @@
       ],
       "article_8": {
         "existence_and_relevance_proven_by_later_decree": true,
-        "exact_text_materialized": false,
-        "status": "EXACT_ARTICLE_TEXT_NOT_RECOVERED_IN_TASK236",
-        "allowed_claim": "Decreto nº 289/2025 expressly cites this act, especially art. 8º, while changing the 2026 workload-confirmation window for Art and Physical Education specialists.",
-        "forbidden_claim": "Do not reconstruct the wording or standalone legal effect of art. 8º from the later decree."
+        "exact_text_materialized": true,
+        "page": 9,
+        "status": "EXACT_ARTICLE_TEXT_RECOVERED_FROM_PRIMARY_OFFICIAL_PDF",
+        "exact_text": "Art. 8º Em função da inclusão da disciplina Linguagens e Tecnologias na jornada regular de aulas, ficam ajustadas as horas-aula semanais destinadas às disciplinas de Cultura Corporal e Movimento (Educação Infantil), Arte e Educação Física (Ensino Fundamental), passando a contemplar 2 (duas) horas/aula semanais em cada componente curricular.",
+        "allowed_claim": "Art. 8º proves the workload adjustment caused by inclusion of Linguagens e Tecnologias: Cultura Corporal e Movimento in Educação Infantil and Arte/Educação Física in Ensino Fundamental pass to 2 weekly class-hours in each component, within the article's stated scopes.",
+        "forbidden_claim": "Do not use art. 8º to resolve the TASK235 LT formation-proof timing divergence; do not reconstruct exact wording of other Deliberação articles from an outline or later cross-reference."
       }
     },
     {
@@ -176,6 +186,8 @@
   "global_guards": [
     "AUTHORITY_CHAIN_NE_AMENDMENT_CHAIN",
     "DELIB_ARTICLE_TEXT_NE_PROVEN_UNTIL_PRIMARY_TEXT_RECOVERED",
+    "DELIB_ART8_PAGE_PROVENANCE_REQUIRED",
+    "DELIB_OTHER_ARTICLES_NE_EXACT_TEXT_UNLESS_SEPARATELY_RECOVERED",
     "DECREE289_CROSS_REFERENCE_TO_DELIB_ART8_MUST_BE_PRESERVED",
     "DECREE289_CROSS_REFERENCE_NE_FULL_TEXT_OF_DELIB_ART8",
     "OPERATIONAL_PAGE_NE_NORMATIVE_AMENDMENT",
@@ -189,7 +201,8 @@
     "chain_nodes": 5,
     "official_journal_primary_nodes": 4,
     "current_operational_nodes": 1,
-    "deliberation_article_8_exact_text_materialized": false,
+    "deliberation_article_8_exact_text_materialized": true,
+    "deliberation_publication_page_span_proven": true,
     "lt_formation_timing_divergence_open": true,
     "binary_hashes_claimed": 0,
     "contextual_coverage": "38/38_UNCHANGED"
