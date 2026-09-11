@@ -1,0 +1,304 @@
+{
+  "version": 1,
+  "schema": "TASK199H_PUBLIC_GEOPIXEL_POINT_IN_POLYGON_V1",
+  "task": "TASK_199H",
+  "issue": 628,
+  "base_main_sha": "f0ab72b6a001e9c2e074c473066977da5f6ed995",
+  "mode": "T0_OFFLINE_CANONICALIZATION_OF_EPHEMERAL_OFFICIAL_READS",
+  "scope": {
+    "municipality": "Limeira",
+    "ibge_code": "3526902",
+    "network": "MUNICIPAL",
+    "active_school_denominator_2025": 69,
+    "target": "CLOSE_FINAL_FIVE_HELD_SCHOOL_TO_2022_CENSUS_SECTOR_LINKS"
+  },
+  "sources": {
+    "limeira_geopixel": {
+      "authority": "PREFEITURA_MUNICIPAL_LIMEIRA",
+      "public_viewer": "https://limeira.geopixel.com.br/geopixelcidades3/",
+      "configuration_url": "https://limeira.geopixel.com.br/geopixelcidades3/configurations.json",
+      "configuration_sha256": "7e91395faef1b827518df8d85555b0d0992ba1508ea40d4b2e3bf63a954a5ceb",
+      "frontend_bundle_url": "https://limeira.geopixel.com.br/geopixelcidades3/assets/index-Dp9ZDG-S.js",
+      "frontend_bundle_sha256": "ebb776c3de11c8db56afa0ec1a7c5488fd11c5661054ecb6d914bd8d0931ecc1",
+      "server_path": "https://limeira.geopixel.com.br/geopixelcidades3_server",
+      "public_access_contract": {
+        "anonymous_login_route": "/public/anonymousLogin",
+        "profile_inventory_route": "/authentication/getProfiles",
+        "profile_id": 2,
+        "profile_name": "Público",
+        "profile_selection_route": "/authentication/setCurrentProfile?profileId=2",
+        "runtime_theme_route": "/themes/getThemeByProfile?profileId=2",
+        "credentials_required": false,
+        "registration_required": false,
+        "token_persisted": false
+      },
+      "school_theme": {
+        "theme_id": 1234,
+        "theme_name": "Escola Municipal",
+        "wms_url": "https://limeira.geopixel.com.br/geoserver-limeira/limeira/wms",
+        "layer": "limeira:escola_municipal_limeira",
+        "table": "escola_municipal_limeira",
+        "geometry_column": "geom",
+        "primary_key": "gid",
+        "search_attribute_id": 632,
+        "search_attribute_type": "Nome",
+        "quick_search_route": "/data/quickSearch?themeId=1234&value=<NAME>&queryExpiredData=false",
+        "srid_route": "/data/srid?themeId=1234",
+        "source_srid": 3857
+      }
+    },
+    "ibge_sector_geometry": {
+      "authority": "IBGE_CENSO_2022",
+      "url": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/malha_com_atributos/setores/gpkg/UF/SP/SP_setores_CD2022.gpkg",
+      "bytes": 182128640,
+      "sha256": "07affc966f82292d6f9a359adccc49e69ed55d2075936ef6d1e9c346b29a04bc",
+      "feature_table": "SP_setores_CD2022",
+      "sector_code_field": "CD_SETOR",
+      "geometry_column": "geom",
+      "geometry_type": "POLYGON",
+      "srs_id": 4674,
+      "limeira_sector_rows": 735,
+      "parsed_sector_rows": 735,
+      "geometry_parse_errors": 0
+    },
+    "basic_sector": {
+      "authority": "IBGE_CENSO_2022",
+      "zip_sha256": "ec04624286233d699ebe69c7b9625744a1cfdfc8352126f30245bdef5e9bdc63",
+      "limeira_csv_drive_id": "1CY4k_-gSkv8YzcwolWLEsITz-Vzy0zGz",
+      "limeira_csv_sha256": "bfe95785a028be048fbd1ee77cbef98c84a31e9cba9bf9fd6f073dff37ccaff3"
+    },
+    "income_sector": {
+      "authority": "IBGE_CENSO_2022",
+      "zip_sha256": "141c83e7635674e7e2c941e55f98811e538fcbf2e1e1125b0aa7892c260f4a23",
+      "limeira_csv_drive_id": "1JlUPvcY-oVtvAcUn7NIEEzVE2TG_ETP7",
+      "limeira_csv_sha256": "cbd1d2fc2234fddccb4858f64866d72572b4119010adb319866f0655864f5e3c",
+      "dictionary_sha256": "fea6e2b2439eeb167c6fa9c136ed7cb13ebcb06f4c875d634e3e2578c668a48d",
+      "numeric_v06004_sector_count": 718,
+      "percentile_rule": "ROUND_1DP(COUNT_NUMERIC_V06004_LE_VALUE / 718 * 100)",
+      "missing_marker": "X"
+    }
+  },
+  "ephemeral_probe_runs": [
+    {
+      "run_id": 34657331525,
+      "role": "DECLARED_CONFIGURATIONS_JSON_AND_PUBLIC_ROUTE_CONTRACT"
+    },
+    {
+      "run_id": 34657474076,
+      "role": "ANONYMOUS_PUBLIC_PROFILE_INVENTORY"
+    },
+    {
+      "run_id": 34657577322,
+      "role": "PUBLIC_RUNTIME_THEME_INVENTORY"
+    },
+    {
+      "run_id": 34657738217,
+      "role": "INITIAL_FIVE_HELD_PUBLIC_LAYER_QUERIES"
+    },
+    {
+      "run_id": 34657846719,
+      "role": "EWKB_POINT_RECOVERY_AND_NAME_VARIANTS"
+    },
+    {
+      "run_id": 34658013353,
+      "role": "OFFICIAL_IBGE_GPKG_POINT_IN_POLYGON"
+    }
+  ],
+  "promotions": [
+    {
+      "codigo_inep": "35208437",
+      "school": "EMEIEF Ismael Pereira Lago, Pastor",
+      "method": "H_CURRENT_OFFICIAL_GEOPIXEL_POINT_IN_OFFICIAL_IBGE_2022_POLYGON",
+      "geoportal": {
+        "gid": 49,
+        "returned_name": "EMEIEF - Ismael Pereira Lago, Pastor",
+        "returned_address": "Av Luis Vaz De Camoes 330 Jd Caieira",
+        "lon": -47.44221918395775,
+        "lat": -22.56221889274754,
+        "identity_rule": "EXACT_SINGLE_NAMED_FEATURE"
+      },
+      "point_in_polygon": {
+        "sector_id": "352690205000447",
+        "match_count": 1,
+        "on_boundary": false
+      },
+      "sector_population_2022": 481,
+      "income": {
+        "status": "NUMERIC",
+        "responsible_income_mean_nominal_monthly_brl": 2701.31,
+        "responsible_income_median_nominal_monthly_brl": 2000,
+        "V06004_sector_percentile_unweighted": 45.5
+      }
+    },
+    {
+      "codigo_inep": "35286229",
+      "school": "EMEIEF Maurício Sebastião Ferreira, Padre",
+      "method": "H_CURRENT_OFFICIAL_GEOPIXEL_POINT_IN_OFFICIAL_IBGE_2022_POLYGON",
+      "geoportal": {
+        "gid": 67,
+        "returned_name": "EMEIEF - Maurício Sebastião Ferreira, Padre",
+        "returned_address": "R: João Pompeu Filho, 571 Jardim Do Lago",
+        "lon": -47.42359146537795,
+        "lat": -22.607998943052685,
+        "identity_rule": "EXACT_SINGLE_NAMED_FEATURE"
+      },
+      "point_in_polygon": {
+        "sector_id": "352690205000913",
+        "match_count": 1,
+        "on_boundary": false
+      },
+      "sector_population_2022": 4,
+      "income": {
+        "status": "OFFICIAL_X_MISSING",
+        "V06001": "X",
+        "V06002": "X",
+        "V06003": "X",
+        "V06004": "X",
+        "V06005": "X",
+        "V06006": "X"
+      }
+    },
+    {
+      "codigo_inep": "35004773",
+      "school": "EMEIEF Raquel Aparecida Gonçalves Franceschi, Profa.",
+      "method": "H_CURRENT_OFFICIAL_GEOPIXEL_POINT_IN_OFFICIAL_IBGE_2022_POLYGON",
+      "geoportal": {
+        "gid": 76,
+        "returned_name": "EMEIEF - Raquel Ap. Gonçalves Franceschi, Prof ª",
+        "returned_address": "Rua Sebastião Teixeira, 200, Residencial Rubi",
+        "lon": -47.42800455870972,
+        "lat": -22.61613584039013,
+        "identity_rule": "UNIQUE_RAQUEL_QUERY_PLUS_RETURNED_NAMED_FEATURE_AND_CURRENT_ADDRESS"
+      },
+      "point_in_polygon": {
+        "sector_id": "352690205000850",
+        "match_count": 1,
+        "on_boundary": false
+      },
+      "sector_population_2022": 569,
+      "income": {
+        "status": "NUMERIC",
+        "responsible_income_mean_nominal_monthly_brl": 1292.38,
+        "responsible_income_median_nominal_monthly_brl": 1280,
+        "V06004_sector_percentile_unweighted": 0.6
+      }
+    },
+    {
+      "codigo_inep": "35099569",
+      "school": "CI Neusa Francisco Correa da Silva",
+      "method": "H_CURRENT_OFFICIAL_GEOPIXEL_POINT_IN_OFFICIAL_IBGE_2022_POLYGON",
+      "geoportal": {
+        "gid": 26,
+        "returned_name": "CI - Neusa Francisco Correa da Silva",
+        "returned_address": "Rua Olivia Sacco Iaquinta, S/N - Vila Labak",
+        "lon": -47.375594422497144,
+        "lat": -22.56150560013331,
+        "identity_rule": "EXACT_SINGLE_NAMED_FEATURE_CURRENT_GEOPORTAL_SITE"
+      },
+      "conflict_preserved": "CURRENT_SME_DIRECTORY_MARIO_ALVES_FERRAZ_185_DIFFERS_FROM_CURRENT_MUNICIPAL_GEOPORTAL_OLIVIA_SACCO_IAQUINTA_SN;CURRENT_GEOPORTAL_POINT_USED_ONLY_AS_CURRENT_NAMED_SITE_AND_2022_SECTOR_GEOGRAPHY_CONTEXT",
+      "point_in_polygon": {
+        "sector_id": "352690205000593",
+        "match_count": 1,
+        "on_boundary": false
+      },
+      "sector_population_2022": 559,
+      "income": {
+        "status": "NUMERIC",
+        "responsible_income_mean_nominal_monthly_brl": 2058.32,
+        "responsible_income_median_nominal_monthly_brl": 1500,
+        "V06004_sector_percentile_unweighted": 15.3
+      }
+    },
+    {
+      "codigo_inep": "35241885",
+      "school": "EMEI Theresa Veronesi D Andrea",
+      "method": "H_CURRENT_OFFICIAL_GEOPIXEL_POINT_IN_OFFICIAL_IBGE_2022_POLYGON",
+      "geoportal": {
+        "gid": 80,
+        "returned_name": "EMEI - Theresa Veronesi D'Andrea",
+        "returned_address": "Rua Manoel Rato, 25, Jardim Parque Novo Mundo",
+        "lon": -47.39943489231738,
+        "lat": -22.598737108288702,
+        "identity_rule": "NAMED_NON_EXTENSION_FEATURE_MATCHES_CURRENT_MANOEL_RATO_25"
+      },
+      "extension_excluded": {
+        "gid": 38,
+        "returned_name": "EMEI - Theresa Veronesi D'Andrea (Extensão)",
+        "returned_address": "Rua Senador Vergueiro, 1309, Centro",
+        "lon": -47.407418339584524,
+        "lat": -22.56881213228995,
+        "reason": "EXPLICIT_EXTENSION_NOT_MAIN_UNIT"
+      },
+      "point_in_polygon": {
+        "sector_id": "352690205000232",
+        "match_count": 1,
+        "on_boundary": false
+      },
+      "sector_population_2022": 565,
+      "income": {
+        "status": "NUMERIC",
+        "responsible_income_mean_nominal_monthly_brl": 2743.13,
+        "responsible_income_median_nominal_monthly_brl": 2450,
+        "V06004_sector_percentile_unweighted": 47.2
+      }
+    }
+  ],
+  "crosswalk": {
+    "before_strong_links": 64,
+    "after_strong_links": 69,
+    "coverage_rate": 1.0,
+    "held_after": 0,
+    "full_network_link": true
+  },
+  "expected_product": {
+    "product_name": "TERRITORY_PROFILE",
+    "row_count": 284,
+    "municipal_rows": 11,
+    "school_metric_rows": 273,
+    "school_links": 69,
+    "new_school_metric_rows": 17,
+    "income_missing_school_codes": [
+      "35286229"
+    ],
+    "capabilities": [
+      "CENSUS_SECTOR_CONTEXT",
+      "MUNICIPAL_DEMOGRAPHY",
+      "OFFICIAL_INCOME_DICTIONARY",
+      "SCHOOL_TO_SECTOR_LINK_COVERAGE_69_OF_69",
+      "SCHOOL_TO_SECTOR_LINK_FULL_NETWORK",
+      "SCHOOL_TO_SECTOR_LINK_SUBSTANTIAL_COVERAGE_WITH_EXPLICIT_MISSINGNESS",
+      "SECTOR_INCOME_CONTEXT",
+      "SECTOR_INCOME_MISSINGNESS_EXPLICIT"
+    ]
+  },
+  "expected_answerability": {
+    "counts": {
+      "MATERIALIZED_ANSWERABLE": 38
+    },
+    "status_change_count": 0,
+    "equity_q1": "MATERIALIZED_ANSWERABLE"
+  },
+  "guards": [
+    "PUBLIC_ANONYMOUS_ACCESS_NE_CREDENTIAL_LOGIN",
+    "TOKEN_NEVER_PERSISTED",
+    "CURRENT_OFFICIAL_SCHOOL_POINT_REQUIRED",
+    "OFFICIAL_IBGE_2022_SECTOR_POLYGON_REQUIRED",
+    "POINT_MUST_HAVE_EXACTLY_ONE_INTERIOR_SECTOR_MATCH",
+    "BOUNDARY_POINT_NE_AUTOMATIC_PROMOTION",
+    "CURRENT_2026_SCHOOL_SITE_MAPPED_TO_2022_CENSUS_GEOGRAPHY_NE_PROOF_OF_2022_SCHOOL_SITE",
+    "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
+    "SECTOR_INCOME_NE_STUDENT_OR_ENROLLED_HOUSEHOLD_INCOME",
+    "NEUSA_ADDRESS_CONFLICT_MUST_REMAIN_EXPLICIT",
+    "THERESA_EXTENSION_MUST_NOT_REPLACE_MAIN_UNIT",
+    "OFFICIAL_X_MISSING_NE_ZERO",
+    "FULL_NETWORK_GEOGRAPHIC_LINK_NE_COMPLETE_INCOME_DATA"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
