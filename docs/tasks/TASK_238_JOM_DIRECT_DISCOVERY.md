@@ -42,11 +42,13 @@ A edição 7146 já havia sido inspecionada diretamente na TASK 237 com `target_
 
 A edição 7172 pôde ser contextualizada independentemente: o hit de `Diretor de Escola` aparece na Portaria IPML nº 014/2026, ato de aposentadoria, e não constitui modificador demonstrado da Resolução SME nº 08/2025.
 
+A edição **7163** também foi resolvida por inspeção direta do PDF oficial de 58 páginas. O hit amplo de `formação` corresponde a **“FORMAÇÃO ESPORTIVA DA MODALIDADE ATLETISMO”**, em Termo de Fomento. No documento não foram localizados `Linguagens`, `08/2025`, `PSS 04/2025` ou `primeiro semestre`, portanto esse hit não corresponde ao modificador procurado.
+
 ## Gate restante
 
-Restam apenas cinco edições para inspeção primária focalizada:
+Restam apenas quatro edições para inspeção primária focalizada:
 
-`7142, 7150, 7151, 7163, 7168`.
+`7142, 7150, 7151, 7168`.
 
 Até que esse gate seja concluído:
 
@@ -57,6 +59,6 @@ Até que esse gate seja concluído:
 
 ## Próximo passo
 
-Adquirir ou obter representação textual primária confiável dessas cinco edições e buscar os alvos LT/PSS/Resolução/prazo. TinyFish não é requisito do caminho principal; navegador-agente fica apenas como fallback caso a fonte oficial imponha interação que não possa ser reproduzida diretamente.
+Adquirir ou obter representação textual primária confiável dessas quatro edições e buscar os alvos LT/PSS/Resolução/prazo. TinyFish não é requisito do caminho principal; navegador-agente fica apenas como fallback caso a fonte oficial imponha interação que não possa ser reproduzida diretamente.
 
 A cobertura contextual permanece **38/38**.
