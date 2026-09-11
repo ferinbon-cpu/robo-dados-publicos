@@ -1,0 +1,185 @@
+{
+  "schema": "COCEM_2025_GOVERNANCE_REPRESENTATION_V1",
+  "task": "TASK_225",
+  "issue": 761,
+  "depends_on": ["TASK_221", "TASK_222", "TASK_223", "TASK_224"],
+  "source": {
+    "md_01_3_id": "DOC-105",
+    "title": "XIII COCEM 2025- REGIMENTO FINALIZADO.pdf",
+    "document_title": "REGIMENTO INTERNO - XIII Conferência Conjunta de Educação Municipal (COCEM)",
+    "pages": 11,
+    "convokers": ["Secretaria Municipal de Educação de Limeira", "Conselho Municipal de Educação"],
+    "conference_dates": ["2025-10-24", "2025-10-25"],
+    "conference_place": "Teatro Nair Bello",
+    "preconference_window": {"start":"2025-09-11","end":"2025-10-03"},
+    "source_identity": "TITLE_AND_CONTENT_MATCH_MD_01_3_DOC_105;BYTE_HASH_NOT_PROVEN_IN_THIS_TASK"
+  },
+  "theme": {
+    "source_page": 1,
+    "article": "Art. 2º, I",
+    "text": "Carreira do Magistério e o Processo de Indução de Resultados Educacionais"
+  },
+  "axes": [
+    {"source_page":1,"article":"Art. 2º, II, a","text":"Carreira do Magistério"},
+    {"source_page":1,"article":"Art. 2º, II, b","text":"Financiamento e Indução de Resultados na Educação"}
+  ],
+  "key_rules": [
+    {
+      "id":"COCEM-RULE-001",
+      "source_pages":[2,3],
+      "article":"Art. 5º, I",
+      "rule":"Lists categories of delegates natos, including SME leadership, municipal school directors, ADEs, CME titular members, organizing commission, three representatives of each listed worker entity, Education Commission councillors, SME department directors, CACS-FUNDEB, CAE, FME and state-network supervisors."
+    },
+    {
+      "id":"COCEM-RULE-002",
+      "source_page":2,
+      "article":"Art. 5º, II",
+      "rule":"Municipal-network teachers are elected by peers in school units; Annex II uses one representative for each ten classes from Berçário I through 5º ano and EJA."
+    },
+    {
+      "id":"COCEM-RULE-003",
+      "source_page":3,
+      "article":"Art. 5º, IV",
+      "rule":"Invited authorities and interested/invited civil-society members who are not delegates have no vote in plenary deliberations."
+    },
+    {
+      "id":"COCEM-RULE-004",
+      "source_page":3,
+      "article":"Art. 6º",
+      "rule":"SME provides point abono to its professionals participating as delegates upon proof of 100 percent attendance on both event days."
+    },
+    {
+      "id":"COCEM-RULE-005",
+      "source_pages":[3,4],
+      "article":"Art. 7º",
+      "rule":"Pre-conferences are in-person and non-deliberative; they study reference materials, elect/indicate delegates and prepare propositions within the defined period and submission rules."
+    },
+    {
+      "id":"COCEM-RULE-006",
+      "source_page":4,
+      "article":"Art. 8º",
+      "rule":"The conference is chaired by the Municipal Education Secretary, the CME President and designated representatives; it is in-person and deliberates proposals debated and approved by the plenary."
+    },
+    {
+      "id":"COCEM-RULE-007",
+      "source_pages":[5,6],
+      "article":"Art. 11",
+      "rule":"Proposals are presented by a school-unit/segment representative, debated after participant registration and approved when they obtain simple majority."
+    },
+    {
+      "id":"COCEM-RULE-008",
+      "source_page":6,
+      "article":"Art. 12",
+      "rule":"The organizing commission prepares the final minutes considering proposals, referrals and decisions approved by the plenary."
+    },
+    {
+      "id":"COCEM-RULE-009",
+      "source_page":6,
+      "article":"Art. 14",
+      "rule":"Organization and realization expenses are charged to budget appropriations assigned to the Municipal Education Secretariat; no monetary amount is stated in this article."
+    }
+  ],
+  "representation_rule": {
+    "source_page": 2,
+    "article": "Art. 5º, II",
+    "teacher_delegate_basis": "1 representative per 10 classes",
+    "scope": "Berçário I through 5º ano and EJA as stated in the regulation",
+    "annex": "Anexo II",
+    "annex_pages": [9,10]
+  },
+  "annex_ii_summary": {
+    "school_units": 69,
+    "teacher_delegate_slots": 111,
+    "derived_from_printed_rows": true,
+    "attendance_or_actual_delegate_count": false
+  },
+  "annex_ii_units": [
+    {"source_page":9,"source_name":"CEIEF ARLINDO DE SALVO, PROF","teacher_delegate_slots":3},
+    {"source_page":9,"source_name":"CEIEF DEOVALDO TEIXEIRA DE CARVALHO, PROF","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CEIEF FLORA DE CASTRO RODRIGUES, PROFª","teacher_delegate_slots":2},
+    {"source_page":9,"source_name":"CEIEF JAMILE CARAM DE SOUZA DIAS, PROFª","teacher_delegate_slots":3},
+    {"source_page":9,"source_name":"CEIEF MARIA PAULINA RODRIGUES PROVINCIATTO, PROFª","teacher_delegate_slots":2},
+    {"source_page":9,"source_name":"CEIEF MARIO COVAS, GOVERNADOR","teacher_delegate_slots":3},
+    {"source_page":9,"source_name":"CEIEF RAFAEL AFFONSO LEITE","teacher_delegate_slots":3},
+    {"source_page":9,"source_name":"CI ALDELENA BARALDI FONSECA SANTOS, PROFª","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI ARY LEVY PEREIRA, PREFEITO","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI CAROLINA GUILHERMINA SCHNOOR BOHIANZA","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI CAROLINE PARDO CAMPOS FREIRE","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI CÉLIA REGINA SCIARRA, PROFª","teacher_delegate_slots":2},
+    {"source_page":9,"source_name":"CI CLAUDINOR JOSÉ CARDOSO JR","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI DINAH BERTOLINI DE MORAES","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI FÁBIO FRANCO DE OLIVEIRA","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI IRENE GOMES BORTOLAN","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI JOÃO ARI CASON","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI JONAS PEREIRA BRITO","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI JOSÉ EDUARDO VOIGT SAMPAIO","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI JOSÉ REINALDO RIBEIRO BRUGNARO","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI LIA MAURA MATTOS SILVEIRA","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI LUCILIA RAMOS DA SILVA FORSTER, PROFª","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI LUCINDA TANK KUHL","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI MARCIA HELENA BALDOVE BETTONI, PROFª","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI MARIA JOSÉ DE JESUS SILVA, IRMÃ","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI MARIANA SELEGHIN PEREIRA, PROFª","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI MURILO LEMOS MENDES DA SILVA","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI NEUSA FRANCISCO CORREA DA SILVA","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI ORLANDA GRISI ROCCO","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI STELLA REGINA FURLAN","teacher_delegate_slots":2},
+    {"source_page":9,"source_name":"CI VILMA TEREZINHA MARRAFON COPPI","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"CI WALDIMIR JORGE SCHINOR, VEREADOR","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"EMEI CÉLIO SAMPAIO SILVA, PROF.","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"EMEI MARIA WILMA BUCK BERTAIA, PROFª","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"EMEI MERCEDES STUCHI DUARTE DE MATTOS, PROFª","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"EMEI THERESA VERONESI D'ANDREA","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"EMEIEF ALDO JOSÉ KUHL, PROF.","teacher_delegate_slots":2},
+    {"source_page":9,"source_name":"EMEIEF ALFREDO CHRISTIANO STAHLBERG - RURAL - VIN","teacher_delegate_slots":1},
+    {"source_page":9,"source_name":"EMEIEF ARACY NOGUEIRA GUIMARÃES","teacher_delegate_slots":2},
+    {"source_page":10,"source_name":"EMEIEF ARY GOMES DE CASTRO, TENENTE AVIADOR","teacher_delegate_slots":1},
+    {"source_page":10,"source_name":"EMEIEF BENEDICTA DE TOLEDO, PROFª","teacher_delegate_slots":2},
+    {"source_page":10,"source_name":"EMEIEF CASSIANA MARIA SOARES LENCI,PROFª","teacher_delegate_slots":2},
+    {"source_page":10,"source_name":"EMEIEF CLARA MONZONI LANG, PROFª","teacher_delegate_slots":2},
+    {"source_page":10,"source_name":"EMEIEF CRESO ASSUMPÇÃO COIMBRA,PROF.","teacher_delegate_slots":1},
+    {"source_page":10,"source_name":"EMEIEF EGLE MARIA CIARROCHI. PROFª","teacher_delegate_slots":2},
+    {"source_page":10,"source_name":"EMEIEF EVANGELINA MAURO, PROFª","teacher_delegate_slots":2},
+    {"source_page":10,"source_name":"EMEIEF ISMAEL PEREIRA LAGO, PASTOR","teacher_delegate_slots":2},
+    {"source_page":10,"source_name":"EMEIEF JOSÉ CARVALHO FERREIRA, DR.","teacher_delegate_slots":1},
+    {"source_page":10,"source_name":"EMEIEF JOSÉ JUSTINO CASTILHO, PROF.","teacher_delegate_slots":2},
+    {"source_page":10,"source_name":"EMEIEF JOSÉ LEVY SOBRINHO, MAJOR","teacher_delegate_slots":3},
+    {"source_page":10,"source_name":"EMEIEF JOSÉ PAULINO ARAÚJO VARGAS, PROF.","teacher_delegate_slots":2},
+    {"source_page":10,"source_name":"EMEIEF JOSÉ ROBERTO BRAZ, PROF.","teacher_delegate_slots":1},
+    {"source_page":10,"source_name":"EMEIEF LAÉRCIO CORTE, DEPUTADO","teacher_delegate_slots":1},
+    {"source_page":10,"source_name":"EMEIEF LIMEIRA","teacher_delegate_slots":2},
+    {"source_page":10,"source_name":"EMEIEF MARCIA APª DELLA COLETTA SILLMANN, PROFª","teacher_delegate_slots":2},
+    {"source_page":10,"source_name":"EMEIEF MARIA APPª DE LUCA MOORE, PROFª","teacher_delegate_slots":5},
+    {"source_page":10,"source_name":"EMEIEF MARIA APª DEGASPARE, PROFª","teacher_delegate_slots":2},
+    {"source_page":10,"source_name":"EMEIEF MARIA APª MACHADO JULIANELLI-Dª MARIZINHA","teacher_delegate_slots":3},
+    {"source_page":10,"source_name":"EMEIEF MARIA MADALENA VASCONCELLOS DA SILVA, PROFª","teacher_delegate_slots":3},
+    {"source_page":10,"source_name":"EMEIEF MARIA THEREZA SILVEIRA DE BARROS CAMARGO","teacher_delegate_slots":2},
+    {"source_page":10,"source_name":"EMEIEF MARIO DE SOUZA QUEIROZ FILHO","teacher_delegate_slots":1},
+    {"source_page":10,"source_name":"EMEIEF MARTIM LUTERO - RURAL","teacher_delegate_slots":1},
+    {"source_page":10,"source_name":"EMEIEF MAURÍCIO SEBASTIÃO FERREIRA, PADRE","teacher_delegate_slots":3},
+    {"source_page":10,"source_name":"EMEIEF MAURO SÉRGIO VIEIRA, VEREADOR","teacher_delegate_slots":1},
+    {"source_page":10,"source_name":"EMEIEF NESTOR MARTINS LINO, PROF","teacher_delegate_slots":2},
+    {"source_page":10,"source_name":"EMEIEF NOEDIR TADEU SANTINI, PROF","teacher_delegate_slots":1},
+    {"source_page":10,"source_name":"EMEIEF PRADA","teacher_delegate_slots":1},
+    {"source_page":10,"source_name":"EMEIEF RAQUEL APARECIDA GONÇALVES FRANCESCHI, PROFª","teacher_delegate_slots":2},
+    {"source_page":10,"source_name":"EMEIEF WALDEMAR LUCATO, DR","teacher_delegate_slots":3}
+  ],
+  "privacy": {
+    "annex_i_contains_blank_cpf_field": true,
+    "personal_cpf_values_present": false,
+    "personal_data_materialized": false,
+    "policy": "NO_PERSONAL_DELEGATE_IDENTIFIERS"
+  },
+  "guards": [
+    "DELEGATE_SLOTS_NE_ACTUAL_ATTENDANCE",
+    "REGULATION_NE_FINAL_MINUTES_OR_IMPLEMENTATION",
+    "PROPOSAL_PRESENTED_NE_PROPOSAL_APPROVED",
+    "SIMPLE_MAJORITY_NE_UNANIMITY",
+    "BUDGET_APPROPRIATION_SOURCE_NE_AMOUNT_SPENT",
+    "NO_PERSONAL_DELEGATE_IDENTIFIERS",
+    "COCEM_2025_RULES_NE_OTHER_EDITION_RULES",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "canonical_contextual_coverage": {"answerable":38,"total":38,"changed_by_this_task":false},
+  "remote_effects": {"new_source_network":false,"drive_write":false,"serving":false,"publication":false,"schedule":false,"recurrence":false}
+}
