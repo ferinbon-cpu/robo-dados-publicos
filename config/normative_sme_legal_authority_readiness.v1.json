@@ -1,0 +1,257 @@
+{
+  "schema": "NORMATIVE_SME_LEGAL_AUTHORITY_READINESS_V1",
+  "task": "TASK_232",
+  "issue": 780,
+  "base_main_sha": "67db6f592bed768f9a6aa7bc27d5558a0d96adaf",
+  "source": {
+    "coverage_config": "config/normative_sme_legal_coverage.v1.json",
+    "derived_corpus": "Cerebro_Normativo_Gestao_Escolar_Limeira_v3_0_ESPELHO_SME_LEGAL.md",
+    "source_role": "DERIVED_RAG_GUIDE_WITH_INTEGRATED_SOURCE_TEXTS",
+    "rule": "INTEGRADO_CORPUS_MEANS_TEXT_PRESENT_NOT_CURRENT_VIGENCY_PROVEN"
+  },
+  "scope": {
+    "integrated_menu_items": 11,
+    "logical_source_packages": 8,
+    "contextual_coverage": "38/38_UNCHANGED",
+    "remote_acquisition": false
+  },
+  "source_packages": [
+    {
+      "source_package_id": "PKG-LC41-1991",
+      "name": "Lei Complementar 41/1991 - Estatuto dos Funcionarios Publicos Municipais",
+      "source_role": "PRIMARY_NORMATIVE_TEXT",
+      "identity": "LC_41_1991_Estatuto_Funcionarios.pdf",
+      "extraction_status": "PDF_TEXT_OK",
+      "pages": 25,
+      "vigency_status": "NOT_REVALIDATED_CURRENTLY",
+      "authority_note": "Integrated text contains multiple amendment/cross-reference markers; presence of the text does not prove a complete current consolidation."
+    },
+    {
+      "source_package_id": "PKG-LC461-2009",
+      "name": "Lei Complementar 461/2009 - Estatuto do Magisterio Publico Municipal",
+      "source_role": "PRIMARY_NORMATIVE_TEXT",
+      "identity": "LC_461_2009_Estatuto_Magisterio.pdf",
+      "extraction_status": "PDF_TEXT_OK",
+      "pages": 32,
+      "vigency_status": "NOT_REVALIDATED_CURRENTLY",
+      "authority_note": "Integrated text records later inclusions/amendments; current consolidated vigency is not established by corpus presence alone."
+    },
+    {
+      "source_package_id": "PKG-GESTAO-LEGAL-I",
+      "name": "Gestao Legal I - Apresentacao e Eixos 1 a 17",
+      "source_role": "OPERATIONAL_GUIDANCE",
+      "identity": "EXACT_MULTI_FILE_PACKAGE",
+      "extraction_status": "INTEGRATED_MULTI_FORMAT_WITH_OCR_WHERE_NEEDED",
+      "pages": null,
+      "vigency_status": "NOT_REVALIDATED_CURRENTLY",
+      "authority_note": "Operational/self-evaluation guidance can cite underlying rules but is not itself equivalent to a law, decree or resolution."
+    },
+    {
+      "source_package_id": "PKG-PPP-2022",
+      "name": "Projeto Politico Pedagogico - Parte 1 e Parte 2",
+      "source_role": "TRAINING_MATERIAL",
+      "identity": "EXACT_TWO_DOCUMENT_PACKAGE",
+      "known_member": "apresentacao-ppp-parte-2-25-05-22.PDF",
+      "extraction_status": "PDF_TEXT_OK",
+      "pages": null,
+      "vigency_status": "NOT_REVALIDATED_CURRENTLY",
+      "authority_note": "Supervision/training material organizes PPP practice and references legislation; it is not standalone normative authority."
+    },
+    {
+      "source_package_id": "PKG-LEI6089-2018",
+      "name": "Lei Municipal 6089/2018 - Sistema Municipal de Ensino",
+      "source_role": "PRIMARY_NORMATIVE_TEXT",
+      "identity": "Lei Municipal nº 6089-18 - Dispõe sobre a organização do Sistema Municipal de Ensino.pdf",
+      "extraction_status": "OCR_OK_SOURCE_SCAN",
+      "pages": 26,
+      "vigency_status": "NOT_REVALIDATED_CURRENTLY",
+      "authority_note": "OCR is incorporated for search/use, but sensitive decisions require comparison with the official publication/image and later amendments."
+    },
+    {
+      "source_package_id": "PKG-VICE-DIRETOR",
+      "name": "Vice-Diretor - Resolucao, IS-DRH nº 1 e termo de opcao",
+      "source_role": "ADMINISTRATIVE_INSTRUCTION",
+      "identity": "EXACT_MULTI_DOCUMENT_PACKAGE",
+      "extraction_status": "INTEGRATED_CORPUS",
+      "pages": null,
+      "vigency_status": "NOT_REVALIDATED_CURRENTLY",
+      "authority_note": "The package contains administrative/normative material but its current act chain is not revalidated in this task."
+    },
+    {
+      "source_package_id": "PKG-CONSELHO-CICLO-2022",
+      "name": "Conselho de Ciclo e seus documentos oficiais - formacao SME",
+      "source_role": "TRAINING_MATERIAL",
+      "identity": "formacao-conselho-de-ciclo.PDF",
+      "extraction_status": "PDF_TEXT_OK",
+      "pages": 61,
+      "vigency_status": "NOT_REVALIDATED_CURRENTLY",
+      "authority_note": "Training material from Equipe de Supervisao SME, June 2022; cited legal bases must be checked at their primary sources for decisive use."
+    },
+    {
+      "source_package_id": "PKG-RECEBIMENTO-SERVIDORES",
+      "name": "Declaracoes e termos de recebimento/orientacao de servidores",
+      "source_role": "ONBOARDING_RECORD_TEMPLATE",
+      "identity": "EXACT_MULTI_DOCUMENT_PACKAGE",
+      "extraction_status": "INTEGRATED_CORPUS",
+      "pages": null,
+      "vigency_status": "NOT_REVALIDATED_CURRENTLY",
+      "authority_note": "Templates/records for ingressing staff document orientation and acknowledgement; they are not general normative acts."
+    }
+  ],
+  "items": [
+    {
+      "id": "SMELEGAL-011",
+      "item": "Estatuto do Funcionario Publico Municipal",
+      "source_package_id": "PKG-LC41-1991",
+      "source_role": "PRIMARY_NORMATIVE_TEXT",
+      "source_identity_status": "EXACT_DOCUMENT_IDENTITY",
+      "extraction_status": "PDF_TEXT_OK",
+      "vigency_status": "NOT_REVALIDATED_CURRENTLY",
+      "decision_use": "SOURCE_TEXT_USABLE_WITH_VIGENCY_GUARD",
+      "overlaps_with": []
+    },
+    {
+      "id": "SMELEGAL-012",
+      "item": "Estatuto do Magisterio Municipal",
+      "source_package_id": "PKG-LC461-2009",
+      "source_role": "PRIMARY_NORMATIVE_TEXT",
+      "source_identity_status": "EXACT_DOCUMENT_IDENTITY",
+      "extraction_status": "PDF_TEXT_OK",
+      "vigency_status": "NOT_REVALIDATED_CURRENTLY",
+      "decision_use": "SOURCE_TEXT_USABLE_WITH_VIGENCY_GUARD",
+      "overlaps_with": []
+    },
+    {
+      "id": "SMELEGAL-014",
+      "item": "Gestao Legal I - Apresentacao e Eixos 1 a 17",
+      "source_package_id": "PKG-GESTAO-LEGAL-I",
+      "source_role": "OPERATIONAL_GUIDANCE",
+      "source_identity_status": "EXACT_PACKAGE_IDENTITY",
+      "extraction_status": "INTEGRATED_MULTI_FORMAT_WITH_OCR_WHERE_NEEDED",
+      "vigency_status": "NOT_REVALIDATED_CURRENTLY",
+      "decision_use": "CONTEXT_ONLY_NOT_STANDALONE_LEGAL_AUTHORITY",
+      "overlaps_with": ["SMELEGAL-028"]
+    },
+    {
+      "id": "SMELEGAL-028",
+      "item": "Conselho de Escola",
+      "source_package_id": "PKG-GESTAO-LEGAL-I",
+      "source_role": "OPERATIONAL_GUIDANCE",
+      "source_identity_status": "DERIVED_SUBSET_OF_PACKAGE",
+      "extraction_status": "INTEGRATED_AS_GESTAO_LEGAL_EIXO_5",
+      "vigency_status": "NOT_REVALIDATED_CURRENTLY",
+      "decision_use": "CONTEXT_ONLY_NOT_STANDALONE_LEGAL_AUTHORITY",
+      "overlaps_with": ["SMELEGAL-014"]
+    },
+    {
+      "id": "SMELEGAL-045",
+      "item": "Projeto Politico Pedagogico",
+      "source_package_id": "PKG-PPP-2022",
+      "source_role": "TRAINING_MATERIAL",
+      "source_identity_status": "EXACT_PACKAGE_IDENTITY",
+      "extraction_status": "PDF_TEXT_OK",
+      "vigency_status": "NOT_REVALIDATED_CURRENTLY",
+      "decision_use": "CONTEXT_ONLY_NOT_STANDALONE_LEGAL_AUTHORITY",
+      "overlaps_with": ["SMELEGAL-061"]
+    },
+    {
+      "id": "SMELEGAL-054",
+      "item": "Sistema Municipal",
+      "source_package_id": "PKG-LEI6089-2018",
+      "source_role": "PRIMARY_NORMATIVE_TEXT",
+      "source_identity_status": "EXACT_DOCUMENT_IDENTITY",
+      "extraction_status": "OCR_OK_SOURCE_SCAN",
+      "vigency_status": "NOT_REVALIDATED_CURRENTLY",
+      "decision_use": "SOURCE_TEXT_USABLE_WITH_VIGENCY_GUARD",
+      "overlaps_with": []
+    },
+    {
+      "id": "SMELEGAL-056",
+      "item": "Vice-diretor",
+      "source_package_id": "PKG-VICE-DIRETOR",
+      "source_role": "ADMINISTRATIVE_INSTRUCTION",
+      "source_identity_status": "EXACT_PACKAGE_IDENTITY",
+      "extraction_status": "INTEGRATED_CORPUS",
+      "vigency_status": "NOT_REVALIDATED_CURRENTLY",
+      "decision_use": "CONTEXT_ONLY_NOT_STANDALONE_LEGAL_AUTHORITY",
+      "overlaps_with": ["SMELEGAL-065"]
+    },
+    {
+      "id": "SMELEGAL-061",
+      "item": "Projeto Politico Pedagogico (PPP)",
+      "source_package_id": "PKG-PPP-2022",
+      "source_role": "TRAINING_MATERIAL",
+      "source_identity_status": "EXACT_PACKAGE_IDENTITY",
+      "extraction_status": "PDF_TEXT_OK",
+      "vigency_status": "NOT_REVALIDATED_CURRENTLY",
+      "decision_use": "CONTEXT_ONLY_NOT_STANDALONE_LEGAL_AUTHORITY",
+      "overlaps_with": ["SMELEGAL-045"]
+    },
+    {
+      "id": "SMELEGAL-062",
+      "item": "Conselho de Ciclo",
+      "source_package_id": "PKG-CONSELHO-CICLO-2022",
+      "source_role": "TRAINING_MATERIAL",
+      "source_identity_status": "EXACT_DOCUMENT_IDENTITY",
+      "extraction_status": "PDF_TEXT_OK",
+      "vigency_status": "NOT_REVALIDATED_CURRENTLY",
+      "decision_use": "CONTEXT_ONLY_NOT_STANDALONE_LEGAL_AUTHORITY",
+      "overlaps_with": []
+    },
+    {
+      "id": "SMELEGAL-064",
+      "item": "Declaracao de Recebimento de Servidores",
+      "source_package_id": "PKG-RECEBIMENTO-SERVIDORES",
+      "source_role": "ONBOARDING_RECORD_TEMPLATE",
+      "source_identity_status": "EXACT_PACKAGE_IDENTITY",
+      "extraction_status": "INTEGRATED_CORPUS",
+      "vigency_status": "NOT_REVALIDATED_CURRENTLY",
+      "decision_use": "CONTEXT_ONLY_NOT_STANDALONE_LEGAL_AUTHORITY",
+      "overlaps_with": []
+    },
+    {
+      "id": "SMELEGAL-065",
+      "item": "Instrucao de Servico nº 1: Vice-Diretor",
+      "source_package_id": "PKG-VICE-DIRETOR",
+      "source_role": "ADMINISTRATIVE_INSTRUCTION",
+      "source_identity_status": "DERIVED_SUBSET_OF_PACKAGE",
+      "extraction_status": "INTEGRATED_CORPUS",
+      "vigency_status": "NOT_REVALIDATED_CURRENTLY",
+      "decision_use": "CONTEXT_ONLY_NOT_STANDALONE_LEGAL_AUTHORITY",
+      "overlaps_with": ["SMELEGAL-056"]
+    }
+  ],
+  "summary": {
+    "primary_normative_menu_items": 3,
+    "context_only_menu_items": 8,
+    "current_vigency_proven_items": 0,
+    "distinct_logical_source_packages": 8,
+    "next_official_vigency_targets": [
+      "PKG-LC41-1991",
+      "PKG-LC461-2009",
+      "PKG-LEI6089-2018",
+      "PKG-VICE-DIRETOR"
+    ]
+  },
+  "guards": [
+    "INTEGRADO_CORPUS_NE_CURRENT_VIGENCY_PROOF",
+    "TRAINING_MATERIAL_NE_NORMATIVE_ACT",
+    "OPERATIONAL_GUIDANCE_NE_LAW",
+    "ADMINISTRATIVE_TEMPLATE_NE_GENERAL_NORM",
+    "OCR_NE_OFFICIAL_PUBLICATION",
+    "MENU_ITEM_NE_DISTINCT_SOURCE_PACKAGE",
+    "DUPLICATE_MENU_ENTRY_NE_NEW_AUTHORITY",
+    "EMBEDDED_AMENDMENT_REFERENCES_NE_COMPLETE_CURRENT_CONSOLIDATION",
+    "SOURCE_TEXT_PRESENT_NE_NO_LATER_AMENDMENT",
+    "NO_GENERIC_OTHER_NETWORK_RULE_INVENTION",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "remote_effects": {
+    "source_network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
