@@ -1,0 +1,191 @@
+{
+  "version": 2,
+  "schema": "EXISTING_CUSTODY_CORPUS_REGISTRY_V2",
+  "task": "TASK_221_EXISTING_CUSTODY_DIGEST_V2",
+  "issue": 753,
+  "base_main_sha": "5e7bab5dae2bf7c8b64e087acb8165f67c95af62",
+  "scope": "GENERAL_MUNICIPAL_PUBLIC_DATA_OBSERVATORY",
+  "mode": "T0_EXISTING_CUSTODY_DIGEST_REFRESH_NO_NEW_SOURCE_ACQUISITION",
+  "canonical_contextual_coverage": {
+    "answerable": 38,
+    "total": 38,
+    "changed_by_this_task": false
+  },
+  "guards": [
+    "SYNTHESIS_NE_LEGAL_PROOF",
+    "OCR_NE_NUMERIC_TRUTH",
+    "WORKBOOK_CLOSED_NE_RUNTIME_FULLY_MATERIALIZED",
+    "MISSING_NE_ZERO",
+    "CORPUS_TRANSCRIPTION_NE_STRUCTURED_NUMERIC_SOURCE_BY_DEFAULT",
+    "PERSONNEL_RAW_ROWS_NOT_INGESTED_BY_THIS_TASK",
+    "OFFICIAL_DOCUMENT_PRECEDENCE",
+    "F01_F02_ALREADY_PROCESSED_NE_PENDING_BECAUSE_OF_FOLDER_LOCATION"
+  ],
+  "assets": [
+    {
+      "id": "BASE_MESTRA_LIMEIRA_V05",
+      "title": "BASE_MESTRA_LIMEIRA_V05.xlsx",
+      "custody": "DISCOVERED_AND_READABLE_IN_USER_LIBRARY",
+      "role": "CANONICAL_STRUCTURED_SCHOOL_INDICATOR_BASE",
+      "sha256": "4d352dc55537240a4c1ffb3c37337e9c029577ab611f851f2ec925d0178b9eda",
+      "robot_digest_status": "PARTIALLY_MATERIALIZED",
+      "materialized_evidence": [
+        "TASK_180_40_SCHOOL_2025_SEED_VIA_V08",
+        "TASK_181_NETWORK_SERIES_2007_2025"
+      ],
+      "remaining_boundary": "BINARY_WORKBOOK_IMPORT_NOT_CLAIMED_COMPLETE",
+      "numeric_precedence_rank": 1
+    },
+    {
+      "id": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
+      "title": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08.xlsx",
+      "custody": "DISCOVERED_AND_READABLE_IN_USER_LIBRARY",
+      "role": "AUDITABLE_OPERATIONAL_EXTENSION",
+      "sha256_xlsx": "0516868e06685aebe8254b11ca6488ef26b03dea61f927ff637840cf2a21e865",
+      "sha256_sqlite": "7365bae889e866c5547089eac52a611c7b3e4a989d9f5bb601fff90eca54955b",
+      "source_workbook_status": "CLOSED_FOR_CENSO_2025_TNR_ATU_HAD_AS_RECORDED_IN_V08",
+      "robot_digest_status": "PARTIALLY_MATERIALIZED",
+      "materialized_evidence": [
+        "TASK_180_798_LONG_ROWS_FROM_01_ESCOLAS_40",
+        "TASK_182_48_CENSO_AGGREGATE_ROWS"
+      ],
+      "not_fully_materialized_in_robot": [
+        "81_CENSO_69_2018_25_FULL_552_ROW_PANEL",
+        "59_ATU_AI40_ANNUAL_FULL_ROWSET",
+        "60_HAD_AI40_ANNUAL_FULL_ROWSET",
+        "TNR_2011_2025_FULL_SCHOOL_YEAR_ROWSET"
+      ],
+      "transfer_guard": "PARTIAL_SEARCH_SNIPPETS_MUST_NOT_RECONSTRUCT_COMPLETE_ROWSETS",
+      "numeric_precedence_rank": 2
+    },
+    {
+      "id": "MD_01_3_CORPUS",
+      "title": "md_01_3_indice_corpus_documental_transcrito_limeira.md",
+      "custody": "DISCOVERED_AND_READABLE_IN_USER_LIBRARY",
+      "role": "DOCUMENT_CORPUS_AND_MIGRATION_MANIFEST",
+      "robot_digest_status": "INDEX_DISCOVERED_NOT_ROWLEVEL_INGESTED",
+      "readiness": "READY_FOR_BOUNDED_DOCUMENT_INDEX_DIGEST",
+      "inventory": {
+        "source_files_found": 228,
+        "unique_documents": 194,
+        "duplicates_ignored": 34,
+        "status_ok": 191,
+        "status_sem_texto": 3,
+        "document_id_range": "DOC-001..DOC-194"
+      },
+      "category_counts": {
+        "FOLHA_HOLERITES": 70,
+        "FUNDEB_25_EDUCACAO": 50,
+        "QUADRO_FUNCIONARIOS": 22,
+        "RREO_LRF": 18,
+        "RECEITA_DESPESA_MENSAL": 10,
+        "BALANCOS_PRESTACAO_CONTAS": 9,
+        "RGF_LRF": 6,
+        "LOA_LDO_PPA_LEGISLACAO_ORCAMENTARIA": 5,
+        "AUDIENCIAS_METAS_FISCAIS": 1,
+        "BALANCETE_EDUCACAO": 1,
+        "CARGOS_SALARIOS": 1,
+        "COCEM_MATERIAL_INSTITUCIONAL": 1
+      },
+      "known_sem_texto_examples": [
+        "DOC-065",
+        "DOC-100",
+        "DOC-102"
+      ],
+      "privacy_boundary": "NO_HOLERITE_OR_PERSONNEL_ROWLEVEL_REPLICATION_IN_TASK_221",
+      "numeric_boundary": "TRANSCRIPTION_CAN_LOCATE_EVIDENCE_BUT_DOES_NOT_AUTOMATICALLY_OVERRIDE_OFFICIAL_STRUCTURED_SOURCES",
+      "fiscal_precedence_rank": 2
+    },
+    {
+      "id": "CEREBRO_NORMATIVO_GESTAO_ESCOLAR_LIMEIRA_V3",
+      "title": "Cerebro_Normativo_Gestao_Escolar_Limeira_v3_0_ESPELHO_SME_LEGAL.md",
+      "custody": "DISCOVERED_AND_READABLE_IN_USER_LIBRARY",
+      "supersedes_registry_reference": "CEREBRO_NORMATIVO_GESTAO_ESCOLAR_LIMEIRA_V0_1",
+      "role": "DERIVED_RAG_GUIDE_AUDITABLE_SME_LEGAL_COVERAGE_MAP",
+      "robot_digest_status": "READY_FOR_DOCUMENT_INDEX_DIGEST",
+      "coverage_status_enum": [
+        "INTEGRADO_CORPUS",
+        "PARCIAL",
+        "PENDENTE_CORPUS_INTEGRAL",
+        "LACUNA_CONFIRMADA"
+      ],
+      "confirmed_gap_example": "RH_IS_04_VALE_ALIMENTACAO",
+      "priority_future_completion": [
+        "RH_IS_03_TRANSFERENCIA_SERVIDOR",
+        "RH_IS_04_VALE_ALIMENTACAO",
+        "DOCUMENTACAO_ESCOLAR_CLASSIFICACAO_HISTORICO_RECLASSIFICACAO_REGULARIZACAO",
+        "REGULAMENTACOES_MUNICIPAIS_PENDENTES",
+        "CME_AND_COUNCIL_HISTORICAL_ARCHIVES"
+      ],
+      "normative_precedence_rank": 3,
+      "constraints": [
+        "SYNTHESIS_NE_LEGAL_PROOF",
+        "OFFICIAL_DOCUMENT_PRECEDENCE",
+        "INTEGRADO_CORPUS_NE_CURRENT_VIGENCY_PROOF",
+        "PARCIAL_OR_PENDING_OR_GAP_MUST_BE_DECLARED",
+        "OCR_NE_NUMERIC_TRUTH"
+      ]
+    },
+    {
+      "id": "MD_01_2_BASE_UNIFICADA_FISCAL_ORCAMENTARIA_LIMEIRA",
+      "title": "MD_01.2 — Base Unificada Fiscal-Orçamentaria da Educacao Municipal de Limeira/SP",
+      "custody": "DISCOVERED_AND_READABLE_IN_USER_LIBRARY",
+      "role": "DERIVED_FISCAL_BUDGET_TECHNICAL_DOSSIER",
+      "robot_digest_status": "PARTIAL_STRUCTURED_EXTRACTION",
+      "readiness": [
+        "READY_FOR_DOCUMENT_INDEX",
+        "READY_FOR_PARTIAL_STRUCTURED_EXTRACTION"
+      ],
+      "fiscal_precedence_rank": 3
+    }
+  ],
+  "already_processed_do_not_reingest_by_folder_name": [
+    "F01_PPA_LDO_LOA_2026",
+    "F02_MDE_FUNDEB_2026_PILOT",
+    "F02_LOCAL_MONITORING_2026_JAN_MAY"
+  ],
+  "precedence": {
+    "school_numeric": [
+      "BASE_MESTRA_LIMEIRA_V05",
+      "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
+      "OFFICIAL_SOURCE_REOPEN_IF_NEW_DERIVATION_REQUIRED"
+    ],
+    "normative": [
+      "EXACT_OFFICIAL_NORMATIVE_DOCUMENT_WITH_CURRENT_VIGENCY_CHECK",
+      "EXACT_TRANSCRIBED_DOCUMENT_WITH_PROVEN_SOURCE_IDENTITY",
+      "CEREBRO_NORMATIVO_GESTAO_ESCOLAR_LIMEIRA_V3",
+      "FREE_INTERPRETATION"
+    ],
+    "fiscal": [
+      "OFFICIAL_STRUCTURED_TCE_SIOPE_SICONFI_FUNDEB_TDA_PNCP",
+      "EXACT_UNDERLYING_DOCUMENT_OR_MD_01_3_CORPUS",
+      "MD_01_2_TABLES_WITH_PERIOD_SOURCE_AND_SEMANTIC_ROLE",
+      "MD_01_2_INTERPRETATION"
+    ]
+  },
+  "next_digest_queue": [
+    {
+      "priority": 1,
+      "target": "MD_01_3_DOCUMENT_INDEX_METADATA",
+      "scope": "194_DOCUMENT_MANIFEST_WITHOUT_PERSONNEL_RAW_ROWS"
+    },
+    {
+      "priority": 2,
+      "target": "NORMATIVE_V3_COVERAGE_MATRIX_DOCUMENT_INDEX",
+      "scope": "STATUS_AND_SOURCE_LOCATORS_ONLY_UNLESS_PRIMARY_SOURCE_ALREADY_CANONICAL"
+    },
+    {
+      "priority": 3,
+      "target": "V08_FULL_ROW_TRANSFER_PATH",
+      "scope": "BINARY_OR_COMPLETE_ROW_STREAM_REQUIRED_BEFORE_FULL_PANEL_CLAIM"
+    }
+  ],
+  "remote_effects": {
+    "new_source_network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
