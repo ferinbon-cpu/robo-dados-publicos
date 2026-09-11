@@ -1,0 +1,134 @@
+{
+  "schema": "LT_FORMATION_TIMING_JOM_DIRECT_DISCOVERY_V2",
+  "task": "TASK_238",
+  "issue": 794,
+  "base_main_sha": "96f4a0c81b6b358b9c57019b27bd2e4cc7706efd",
+  "verified_at": "2026-09-11",
+  "snapshot_bound": true,
+  "target": {
+    "divergence_id": "LT_FORMATION_TIMING_DIVERGENCE",
+    "domain": "Linguagens e Tecnologias",
+    "school_year": 2026,
+    "window_start": "2025-12-17",
+    "window_end": "2026-01-31",
+    "contextual_coverage": "38/38_UNCHANGED"
+  },
+  "upstream_inventory_gate": "config/lt_formation_timing_jom_window_inventory.v1.json",
+  "methodological_correction": {
+    "superseded_duplicate_pr": 797,
+    "superseded_duplicate_issue": 796,
+    "salvaged_finding": "The official bounded identity inventory is editions 7140 through 7172 inclusive, 33 editions.",
+    "rejected_overclaim": "Official archive text-search silence or lack of term crossing does not by itself prove absence in primary PDF content.",
+    "search_semantics": "DISCOVERY_TRIAGE_ONLY_NOT_PRIMARY_CONTENT_PROOF",
+    "content_semantics": "PRIMARY_DOCUMENT_INSPECTION_REQUIRED_TO_CLEAR_CANDIDATE"
+  },
+  "bounded_identity_inventory": {
+    "status": "PASS_COMPLETE_BOUNDED_IDENTITY_INVENTORY",
+    "first_edition": 7140,
+    "last_edition": 7172,
+    "edition_count": 33,
+    "sequence_contiguous": true,
+    "content_inspection_complete": false,
+    "terminal_bounded_negative_result_allowed": false,
+    "manifest": [
+      {"edition":7140,"publication_date":"2025-12-17"},
+      {"edition":7141,"publication_date":"2025-12-17"},
+      {"edition":7142,"publication_date":"2025-12-18"},
+      {"edition":7143,"publication_date":"2025-12-19"},
+      {"edition":7144,"publication_date":"2025-12-19"},
+      {"edition":7145,"publication_date":"2025-12-20"},
+      {"edition":7146,"publication_date":"2025-12-23"},
+      {"edition":7147,"publication_date":"2025-12-23"},
+      {"edition":7148,"publication_date":"2025-12-24"},
+      {"edition":7149,"publication_date":"2025-12-30"},
+      {"edition":7150,"publication_date":"2025-12-31"},
+      {"edition":7151,"publication_date":"2026-01-06"},
+      {"edition":7152,"publication_date":"2026-01-07"},
+      {"edition":7153,"publication_date":"2026-01-08"},
+      {"edition":7154,"publication_date":"2026-01-09"},
+      {"edition":7155,"publication_date":"2026-01-10"},
+      {"edition":7156,"publication_date":"2026-01-12"},
+      {"edition":7157,"publication_date":"2026-01-13"},
+      {"edition":7158,"publication_date":"2026-01-14"},
+      {"edition":7159,"publication_date":"2026-01-15"},
+      {"edition":7160,"publication_date":"2026-01-16"},
+      {"edition":7161,"publication_date":"2026-01-17"},
+      {"edition":7162,"publication_date":"2026-01-20"},
+      {"edition":7163,"publication_date":"2026-01-21"},
+      {"edition":7164,"publication_date":"2026-01-22"},
+      {"edition":7165,"publication_date":"2026-01-23"},
+      {"edition":7166,"publication_date":"2026-01-24"},
+      {"edition":7167,"publication_date":"2026-01-27"},
+      {"edition":7168,"publication_date":"2026-01-28"},
+      {"edition":7169,"publication_date":"2026-01-29"},
+      {"edition":7170,"publication_date":"2026-01-30"},
+      {"edition":7171,"publication_date":"2026-01-30"},
+      {"edition":7172,"publication_date":"2026-01-31"}
+    ]
+  },
+  "official_archive_triage": {
+    "interface": "https://www.limeira.sp.gov.br/jornaloficial/",
+    "query_parameters_observed": ["dataDe","dataAte","numeroEdicao","busca"],
+    "zero_hit_terms": [
+      "Linguagens e Tecnologias",
+      "Linguagens",
+      "Tecnologias",
+      "PSS 04/2025",
+      "Resolução SME",
+      "Resolução nº 08",
+      "Resolução 08/2025",
+      "primeiro semestre",
+      "parágrafo 5º"
+    ],
+    "broad_hits": [
+      {"term":"08/2025","editions":[7151,7142]},
+      {"term":"formação","editions":[7168,7163]},
+      {"term":"artigo 11","editions":[7146]},
+      {"term":"Diretor de Escola","editions":[7172,7150]}
+    ],
+    "absence_inference_allowed": false
+  },
+  "candidate_ledger": [
+    {"edition":7142,"trigger":"08/2025","status":"PRIMARY_CONTENT_PENDING"},
+    {"edition":7151,"trigger":"08/2025","status":"PRIMARY_CONTENT_PENDING"},
+    {"edition":7168,"trigger":"formação","status":"PRIMARY_CONTENT_PENDING"},
+    {"edition":7150,"trigger":"Diretor de Escola","status":"PRIMARY_CONTENT_PENDING"},
+    {"edition":7146,"trigger":"artigo 11","status":"CLEARED_BY_TASK237_DIRECT_PRIMARY_NO_TARGET_HIT"},
+    {
+      "edition":7163,
+      "trigger":"formação",
+      "status":"CLEARED_BY_DIRECT_PRIMARY_CONTEXT",
+      "context":"The official 58-page PDF contains the broad hit as 'FORMAÇÃO ESPORTIVA DA MODALIDADE ATLETISMO' in a Termo de Fomento; no Linguagens, 08/2025, PSS 04/2025 or primeiro semestre target text was located.",
+      "source_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_20012026164423.pdf"
+    },
+    {
+      "edition":7172,
+      "trigger":"Diretor de Escola",
+      "status":"CLEARED_BY_INDEPENDENT_PRIMARY_CONTEXT",
+      "context":"IPML Portaria 014/2026 retirement act for a Director de Escola, unrelated to an amendment of Resolução SME 08/2025.",
+      "source_url":"https://www.ipml.com.br/site/sites/default/files/imce/segurados-aposentados/aposentadorias/2026/01_janeiro/14_-_silmara_maria_barana_-_portaria_14.pdf"
+    }
+  ],
+  "result": {
+    "inventory_closed": true,
+    "discovery_triage_complete": true,
+    "primary_content_closed": false,
+    "pending_primary_editions": [7142,7150,7151,7168],
+    "modifier_candidate_established": false,
+    "bounded_negative_result": false,
+    "audit_state": "COMPLETE_BOUNDED_INVENTORY_CONTENT_INSPECTION_PENDING",
+    "divergence_status": "OPEN_UNRESOLVED",
+    "required_next_evidence": "Acquire and inspect the primary content of editions 7142, 7150, 7151 and 7168 for the LT/PSS/Resolução timing target."
+  },
+  "global_guards": [
+    "INDEX_SEARCH_NE_PRIMARY_CONTENT_INSPECTION",
+    "ZERO_HIT_NE_PRIMARY_CONTENT_ABSENCE",
+    "COMPLETE_INVENTORY_NE_COMPLETE_CONTENT_INSPECTION",
+    "TRANSPORT_FAILURE_NE_LEGAL_ABSENCE",
+    "OPERATIONAL_PAGE_NE_NORMATIVE_AMENDMENT",
+    "PRIMARY_EXACT_TEXT_GT_CURRENT_OPERATIONAL_PAGE_FOR_NORMATIVE_WORDING",
+    "NO_CANDIDATE_ESTABLISHED_NE_NO_MODIFIER_EXISTS",
+    "LT_FORMATION_TIMING_DIVERGENCE_REMAINS_OPEN_UNLESS_EXACT_PRIMARY_MODIFIER_FOUND",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ]
+}
