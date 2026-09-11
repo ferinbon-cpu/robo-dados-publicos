@@ -1,0 +1,89 @@
+{
+  "schema": "LT_FORMATION_TIMING_MODIFIER_BOUNDED_AUDIT_V1",
+  "task": "TASK_237",
+  "issue": 792,
+  "base_main_sha": "53b9f3f8140bd2136ef80bb8d9ff4916151d2175",
+  "verified_at": "2026-09-11",
+  "snapshot_bound": true,
+  "target": {
+    "divergence_id": "LT_FORMATION_TIMING_DIVERGENCE",
+    "upstream_config": "config/linguagens_tecnologias_normative_authority_chain.v1.json",
+    "upstream_status_required": "OPEN_UNRESOLVED",
+    "question": "Whether an exact later official act changes, retifies, complements or operationalizes the PSS 04/2025 proof timing for formação em Linguagens e Tecnologias after Resolução SME nº 08/2025.",
+    "contextual_coverage": "38/38_UNCHANGED"
+  },
+  "bounded_window": {
+    "start_date": "2025-12-17",
+    "end_date": "2026-01-31",
+    "official_archive_url": "https://www.limeira.sp.gov.br/jornaloficial/",
+    "filtered_archive_url": "https://www.limeira.sp.gov.br/jornaloficial/?dataDe=17%2F12%2F2025&dataAte=31%2F01%2F2026&numeroEdicao=&busca=",
+    "official_index_total_items_observed": 33,
+    "total_items_semantics": "Count returned by the official archive for the bounded date filter; it is not by itself proof that every PDF body has been inspected."
+  },
+  "search_targets": [
+    "Resolução SME nº 08/2025",
+    "art. 11 §5º(b)",
+    "PSS 04/2025",
+    "formação em Linguagens e Tecnologias",
+    "retificação",
+    "alteração",
+    "instrução",
+    "comunicado",
+    "esclarecimento",
+    "ao longo do 1º semestre letivo de 2026"
+  ],
+  "execution": {
+    "status": "SEARCH_IN_PROGRESS",
+    "browser_run_id": "4fc0515a-cc80-4448-ba93-2916d8d8e910",
+    "browser_run_terminal": false,
+    "official_archive_route_proven": true,
+    "official_filtered_count_proven": true,
+    "complete_window_inspection_proven": false,
+    "candidate_ledger_final": false,
+    "bounded_negative_result_allowed": false,
+    "progress_observations_non_exhaustive": {
+      "editions_seen_during_browser_progress": [7142, 7151, 7172, 7171, 7170, 7169, 7168, 7166],
+      "meaning": "Progress-only observations from the live browser run; this list MUST NOT be represented as the complete set of editions inspected."
+    }
+  },
+  "current_evidence": {
+    "operational_page_position": "The current SME operational page attributes the first-semester-2026 formation-proof wording to Resolução SME nº 08/2025, art. 11 §5º(b), without exposing a later modifier reference.",
+    "primary_text_position": "TASK235/TASK236 preserve the primary published wording and keep the formation-proof timing divergence open.",
+    "general_index_searches": "Exact web/index searches did not surface a concrete later modifier candidate; this is not absence proof.",
+    "current_result": "NO_FINAL_RESULT_WHILE_SEARCH_IN_PROGRESS"
+  },
+  "result_semantics": {
+    "candidate_found": "Only an exact official primary publication that changes, retifies, complements or operationalizes the relevant timing can resolve or narrow the divergence.",
+    "bounded_negative": "NO_CANDIDATE_LOCATED_IN_BOUNDED_WINDOW means only no candidate was located in the completed inspected window.",
+    "search_failure": "Portal timeout, indexing failure or search failure is not amendment/repeal/absence proof.",
+    "operational_page": "Current operational wording is evidence of workflow but is not by itself a normative amendment instrument."
+  },
+  "global_guards": [
+    "SEARCH_IN_PROGRESS_NE_BOUNDED_NEGATIVE_RESULT",
+    "PARTIAL_EDITION_PROGRESS_NE_COMPLETE_WINDOW_INSPECTION",
+    "NO_CANDIDATE_LOCATED_NE_NO_MODIFIER_EXISTS",
+    "SEARCH_FAILURE_NE_NO_MODIFIER_EXISTS",
+    "OPERATIONAL_PAGE_NE_NORMATIVE_AMENDMENT",
+    "PRIMARY_TEXT_GT_OPERATIONAL_PAGE_FOR_NORMATIVE_WORDING",
+    "LT_FORMATION_TIMING_DIVERGENCE_REMAINS_OPEN_UNLESS_EXACT_MODIFIER_FOUND",
+    "NO_BINARY_HASH_INVENTION",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "summary": {
+    "official_archive_window_items": 33,
+    "search_terminal": false,
+    "bounded_negative_final": false,
+    "exact_modifier_candidates_final": null,
+    "lt_formation_timing_divergence_open": true,
+    "binary_hashes_claimed": 0,
+    "contextual_coverage": "38/38_UNCHANGED"
+  },
+  "remote_effects": {
+    "source_network_read_only": true,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
