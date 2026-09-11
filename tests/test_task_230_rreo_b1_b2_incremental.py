@@ -1,4 +1,5 @@
 import json
+from decimal import Decimal
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,6 +16,10 @@ def load(path):
 
 def series_by_period(cfg):
     return {row["period"]: row for row in cfg["annex14_summary_series"]}
+
+
+def brl_string_to_cents(value):
+    return int(Decimal(value) * 100)
 
 
 def test_exact_18_document_audit_and_no_coverage_change():
@@ -119,11 +124,11 @@ def test_rests_payable_only_component_match_not_full_statement_equality():
     obs = {row["observation_key"]: row for row in t188["observations"]}
     s = series_by_period(cfg)
 
-    assert s["2026-02"]["rests_payable_summary"]["executive_processed_balance_cents"] == int(round(float(obs["2026-02:MUNICIPIO_TOTAL"]["processed"]["balance_brl"]) * 100))
-    assert s["2026-04"]["rests_payable_summary"]["executive_processed_balance_cents"] == int(round(float(obs["2026-04:MUNICIPIO_TOTAL"]["processed"]["balance_brl"]) * 100))
+    assert s["2026-02"]["rests_payable_summary"]["executive_processed_balance_cents"] == brl_string_to_cents(obs["2026-02:MUNICIPIO_TOTAL"]["processed"]["balance_brl"])
+    assert s["2026-04"]["rests_payable_summary"]["executive_processed_balance_cents"] == brl_string_to_cents(obs["2026-04:MUNICIPIO_TOTAL"]["processed"]["balance_brl"])
 
-    assert s["2026-02"]["rests_payable_summary"]["total_balance_cents"] != int(round(float(obs["2026-02:MUNICIPIO_TOTAL"]["total_balance_brl"]) * 100))
-    assert s["2026-04"]["rests_payable_summary"]["total_balance_cents"] != int(round(float(obs["2026-04:MUNICIPIO_TOTAL"]["total_balance_brl"]) * 100))
+    assert s["2026-02"]["rests_payable_summary"]["total_balance_cents"] != brl_string_to_cents(obs["2026-02:MUNICIPIO_TOTAL"]["total_balance_brl"])
+    assert s["2026-04"]["rests_payable_summary"]["total_balance_cents"] != brl_string_to_cents(obs["2026-04:MUNICIPIO_TOTAL"]["total_balance_brl"])
     assert "PARTIAL_COMPONENT_MATCH_NE_FULL_STATEMENT_EQUALITY" in cfg["guards"]
 
 
