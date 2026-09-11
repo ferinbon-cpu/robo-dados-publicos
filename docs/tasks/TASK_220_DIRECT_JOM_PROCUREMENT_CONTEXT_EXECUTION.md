@@ -28,6 +28,10 @@ The executor can answer with direct procurement objects preserved in canonical J
 
 It explicitly states that these are bounded examples and not an exhaustive 2026 inventory.
 
+## Source-text custody
+
+Canonical source fields preserve the retained JOM extraction literally. Human-readable cleanup, when needed, is stored separately as a display field and never replaces the canonical `object_text`. The validator continues to compare the canonical field byte-for-byte with the retained source fixture. This separation is what caught and corrected the CASM normalization mismatch during CI.
+
 ## PROC_Q2
 
 The strongest same-publication case is Contract 45/2026, JOM edition 7210. The same official publication/contract record establishes:
