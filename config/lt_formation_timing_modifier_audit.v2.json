@@ -1,0 +1,144 @@
+{
+  "schema": "LT_FORMATION_TIMING_MODIFIER_AUDIT_V2",
+  "task": "TASK_238",
+  "issue": 796,
+  "base_main_sha": "d678e521a6a3290ea1b51163a9433954e815fa07",
+  "verified_at": "2026-09-11",
+  "snapshot_bound": true,
+  "supersedes_for_current_bounded_state": "config/lt_formation_timing_modifier_audit.v1.json",
+  "target": {
+    "divergence_id": "LT_FORMATION_TIMING_DIVERGENCE",
+    "domain": "Linguagens e Tecnologias",
+    "school_year": 2026,
+    "question": "Was a later official Jornal act located in the bounded window that changes, rectifies, complements or operationalizes the PSS 04/2025 timing for presenting LT formation proof?",
+    "contextual_coverage": "38/38_UNCHANGED"
+  },
+  "authority_baseline": {
+    "primary_normative_source": "Resolução SME nº 08, de 09 de dezembro de 2025",
+    "primary_config": "config/education_assignment_resolution_08_2025_primary.v1.json",
+    "primary_publication_date": "2025-12-16",
+    "primary_journal_edition": 7139,
+    "current_operational_source": "Official SME 2026 indication/assignment page",
+    "authority_rule": "CURRENT_OPERATIONAL_PAGE_DOES_NOT_BY_ITSELF_AMEND_PRIMARY_NORMATIVE_TEXT"
+  },
+  "direct_archive_interface": {
+    "official_host": "https://limeira.sp.gov.br",
+    "path": "/jornaloficial/",
+    "method": "GET",
+    "query_parameters": [
+      "dataDe",
+      "dataAte",
+      "numeroEdicao",
+      "busca"
+    ],
+    "template": "https://limeira.sp.gov.br/jornaloficial/?dataDe={DD%2FMM%2FYYYY}&dataAte={DD%2FMM%2FYYYY}&numeroEdicao={optional}&busca={term}",
+    "status": "PROVEN_REPRODUCIBLE_OFFICIAL_ARCHIVE_SEARCH"
+  },
+  "bounded_window": {
+    "start_date": "2025-12-17",
+    "end_date": "2026-01-31",
+    "first_edition": 7140,
+    "last_edition": 7172,
+    "edition_count": 33,
+    "edition_sequence_contiguous": true,
+    "full_window_closed": true,
+    "terminal_bounded_negative_result_allowed": true
+  },
+  "edition_manifest": [
+    {"edition": 7140, "publication_date": "2025-12-17"},
+    {"edition": 7141, "publication_date": "2025-12-17"},
+    {"edition": 7142, "publication_date": "2025-12-18"},
+    {"edition": 7143, "publication_date": "2025-12-19"},
+    {"edition": 7144, "publication_date": "2025-12-19"},
+    {"edition": 7145, "publication_date": "2025-12-20"},
+    {"edition": 7146, "publication_date": "2025-12-23"},
+    {"edition": 7147, "publication_date": "2025-12-23"},
+    {"edition": 7148, "publication_date": "2025-12-24"},
+    {"edition": 7149, "publication_date": "2025-12-30"},
+    {"edition": 7150, "publication_date": "2025-12-31"},
+    {"edition": 7151, "publication_date": "2026-01-06"},
+    {"edition": 7152, "publication_date": "2026-01-07"},
+    {"edition": 7153, "publication_date": "2026-01-08"},
+    {"edition": 7154, "publication_date": "2026-01-09"},
+    {"edition": 7155, "publication_date": "2026-01-10"},
+    {"edition": 7156, "publication_date": "2026-01-12"},
+    {"edition": 7157, "publication_date": "2026-01-13"},
+    {"edition": 7158, "publication_date": "2026-01-14"},
+    {"edition": 7159, "publication_date": "2026-01-15"},
+    {"edition": 7160, "publication_date": "2026-01-16"},
+    {"edition": 7161, "publication_date": "2026-01-17"},
+    {"edition": 7162, "publication_date": "2026-01-20"},
+    {"edition": 7163, "publication_date": "2026-01-21"},
+    {"edition": 7164, "publication_date": "2026-01-22"},
+    {"edition": 7165, "publication_date": "2026-01-23"},
+    {"edition": 7166, "publication_date": "2026-01-24"},
+    {"edition": 7167, "publication_date": "2026-01-27"},
+    {"edition": 7168, "publication_date": "2026-01-28"},
+    {"edition": 7169, "publication_date": "2026-01-29"},
+    {"edition": 7170, "publication_date": "2026-01-30"},
+    {"edition": 7171, "publication_date": "2026-01-30"},
+    {"edition": 7172, "publication_date": "2026-01-31"}
+  ],
+  "search_matrix": [
+    {"term": "Linguagens e Tecnologias", "result_count": 0, "candidate_editions": []},
+    {"term": "Linguagens", "result_count": 0, "candidate_editions": []},
+    {"term": "Tecnologias", "result_count": 0, "candidate_editions": []},
+    {"term": "PSS 04/2025", "result_count": 0, "candidate_editions": []},
+    {"term": "Resolução SME", "result_count": 0, "candidate_editions": []},
+    {"term": "Resolução nº 08", "result_count": 0, "candidate_editions": []},
+    {"term": "Resolução 08/2025", "result_count": 0, "candidate_editions": []},
+    {"term": "primeiro semestre", "result_count": 0, "candidate_editions": []},
+    {"term": "parágrafo 5º", "result_count": 0, "candidate_editions": []},
+    {"term": "08/2025", "result_count": 2, "candidate_editions": [7151, 7142], "classification": "BROAD_FALSE_POSITIVE_SET_NO_LT_PSS_OR_SME_CROSSING"},
+    {"term": "formação", "result_count": 2, "candidate_editions": [7168, 7163], "classification": "BROAD_FALSE_POSITIVE_SET_NO_LINGUAGENS_TECNOLOGIAS_PSS_OR_SME_CROSSING"},
+    {"term": "artigo 11", "result_count": 1, "candidate_editions": [7146], "classification": "FALSE_POSITIVE_ALREADY_DIRECTLY_INSPECTED_IN_TASK237"},
+    {"term": "Diretor de Escola", "result_count": 2, "candidate_editions": [7172, 7150], "classification": "BROAD_FALSE_POSITIVE_SET_NO_LT_PSS_OR_RESOLUTION_CROSSING"}
+  ],
+  "transport_notes": {
+    "legacy_browser_scan": "TASK237 TinyFish bulk scan stalled and is not needed to close this bounded state.",
+    "direct_pdf_fetch_for_new_broad_hits": "target_unreachable observed",
+    "legal_semantics": "Transport failure is not used as negative legal evidence; bounded closure rests on the reproducible official archive enumeration and independent official text-search matrix plus TASK237 direct-primary subset."
+  },
+  "candidate_ledger": [
+    {"edition": 7151, "trigger": "08/2025", "modifier_candidate": false, "reason": "No crossing with Linguagens, Tecnologias, PSS 04/2025, Resolução SME, Resolução nº 08, Resolução 08/2025 or primeiro semestre."},
+    {"edition": 7142, "trigger": "08/2025", "modifier_candidate": false, "reason": "No crossing with Linguagens, Tecnologias, PSS 04/2025, Resolução SME, Resolução nº 08, Resolução 08/2025 or primeiro semestre."},
+    {"edition": 7168, "trigger": "formação", "modifier_candidate": false, "reason": "No crossing with Linguagens, Tecnologias, PSS 04/2025 or Resolução SME."},
+    {"edition": 7163, "trigger": "formação", "modifier_candidate": false, "reason": "No crossing with Linguagens, Tecnologias, PSS 04/2025 or Resolução SME."},
+    {"edition": 7146, "trigger": "artigo 11", "modifier_candidate": false, "reason": "TASK237 direct primary inspection already recorded target_hit=false for this official edition."},
+    {"edition": 7172, "trigger": "Diretor de Escola", "modifier_candidate": false, "reason": "No crossing with LT, PSS or Resolução target terms."},
+    {"edition": 7150, "trigger": "Diretor de Escola", "modifier_candidate": false, "reason": "No crossing with LT, PSS or Resolução target terms."}
+  ],
+  "result": {
+    "modifier_candidate_established": false,
+    "bounded_negative_result": true,
+    "bounded_result_code": "NO_CANDIDATE_LOCATED_IN_BOUNDED_WINDOW",
+    "audit_state": "BOUNDED_WINDOW_COMPLETE_NO_MODIFIER_CANDIDATE_LOCATED",
+    "divergence_status": "OPEN_UNRESOLVED",
+    "allowed_claim": "No official modifier candidate was located in the complete 17/12/2025–31/01/2026 Jornal Oficial bounded window through the reproducible official archive enumeration/search recorded here.",
+    "forbidden_claims": [
+      "No modifier exists anywhere.",
+      "The Resolução was never altered after 31/01/2026.",
+      "The operational page legally amended the Resolução.",
+      "No other official publication channel or later date could contain relevant evidence."
+    ],
+    "required_next_evidence": "Only expand beyond this bounded window or another official publication channel if resolving the remaining normative-versus-operational divergence requires it."
+  },
+  "global_guards": [
+    "NO_CANDIDATE_LOCATED_IN_BOUNDED_WINDOW_NE_NO_MODIFIER_EXISTS",
+    "BOUNDED_NEGATIVE_NE_UNIVERSAL_LEGAL_ABSENCE",
+    "OPERATIONAL_PAGE_NE_NORMATIVE_AMENDMENT",
+    "PRIMARY_EXACT_TEXT_GT_CURRENT_OPERATIONAL_PAGE_FOR_NORMATIVE_WORDING",
+    "LT_FORMATION_TIMING_DIVERGENCE_REMAINS_OPEN_UNLESS_EXACT_MODIFIER_FOUND",
+    "TRANSPORT_FAILURE_NE_LEGAL_ABSENCE",
+    "NO_BINARY_HASH_INVENTION",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "remote_effects": {
+    "source_network_read_only": true,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
