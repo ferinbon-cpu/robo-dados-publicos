@@ -1,0 +1,205 @@
+{
+  "schema": "LINGUAGENS_TECNOLOGIAS_NORMATIVE_AUTHORITY_CHAIN_V1",
+  "task": "TASK_236",
+  "issue": 790,
+  "base_main_sha": "8558c712a36b3daa96c0823d872a1b271447d7e9",
+  "verified_at": "2026-09-11",
+  "snapshot_bound": true,
+  "target": {
+    "domain": "Linguagens e Tecnologias",
+    "network": "Rede Municipal de Ensino de Limeira",
+    "school_year_operationalization": 2026,
+    "purpose": "Bounded official-authority chain from curriculum structuring to 2026 assignment operation",
+    "contextual_coverage": "38/38_UNCHANGED"
+  },
+  "chain_semantics": {
+    "type": "AUTHORITY_AND_IMPLEMENTATION_CHAIN_NOT_AUTOMATIC_AMENDMENT_CHAIN",
+    "meaning": "The sequence proves institutional/curricular/implementation relationships only where an official source explicitly supports them. A later operational source does not silently amend an earlier normative act.",
+    "date_order_required": true
+  },
+  "nodes": [
+    {
+      "order": 1,
+      "id": "LT-PORTARIA-SME-26-2025",
+      "act": "Portaria SME nº 26, de 23 de setembro de 2025",
+      "act_date": "2025-09-23",
+      "publication_date": "2025-09-24",
+      "journal_edition": 7081,
+      "official_pdf_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_23092025170009.pdf",
+      "source_role": "PRIMARY_ADMINISTRATIVE_PREPARATORY_ACT",
+      "text_status": "PRIMARY_TEXT_PARTIALLY_RECOVERED",
+      "binary_custody_status": "NOT_CUSTODIED_NO_BYTE_HASH",
+      "proven_rules": [
+        {
+          "article": "Art. 1º",
+          "page": 14,
+          "rule": "Designa Comissão Mista formada por técnicos indicados pela Secretaria Municipal de Educação e por membros do Conselho Municipal de Educação para estruturar e regulamentar o Currículo de Linguagens e Tecnologias da Rede Municipal de Ensino de Limeira."
+        }
+      ],
+      "background_recitals_proven": [
+        "Relates the curriculum initiative to BNCC digital competences.",
+        "Relates technology curriculum implementation to VAAR compliance/quality-equity indicators.",
+        "States the objective of developing digital competences, critical thinking, problem solving and digital citizenship."
+      ],
+      "guard": "NO_UNSEEN_PORTARIA_ARTICLE_RECONSTRUCTION"
+    },
+    {
+      "order": 2,
+      "id": "LT-DELIB-CONJUNTA-001-2025",
+      "act": "Deliberação Conjunta CME/SME nº 001, de 28 de outubro de 2025",
+      "act_date": "2025-10-28",
+      "publication_date": "2025-10-30",
+      "journal_edition": 7107,
+      "official_pdf_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_29102025164233.pdf",
+      "source_role": "PRIMARY_CURRICULAR_NORMATIVE_ACT",
+      "text_status": "PRIMARY_IDENTITY_TITLE_AND_OPENING_RECITALS_RECOVERED_FULL_ARTICLE_TEXT_NOT_YET_MATERIALIZED",
+      "binary_custody_status": "NOT_CUSTODIED_NO_BYTE_HASH",
+      "title_proven": "Institui a disciplina extracurricular de Linguagens e Tecnologias e o respectivo currículo na Rede Municipal de Ensino de Limeira.",
+      "publication_start_page": 6,
+      "joint_authorities": [
+        "Secretaria Municipal de Educação",
+        "Conselho Municipal de Educação"
+      ],
+      "opening_legal_basis_proven": [
+        "Lei Complementar nº 972/2025",
+        "Lei Municipal nº 6.089/2018",
+        "LDB art. 26",
+        "PNE 2014 Meta 7 / Estratégia 7.12",
+        "Plano Municipal de Educação",
+        "BNCC Competência Geral nº 5"
+      ],
+      "article_8": {
+        "existence_and_relevance_proven_by_later_decree": true,
+        "exact_text_materialized": false,
+        "status": "EXACT_ARTICLE_TEXT_NOT_RECOVERED_IN_TASK236",
+        "allowed_claim": "Decreto nº 289/2025 expressly cites this act, especially art. 8º, while changing the 2026 workload-confirmation window for Art and Physical Education specialists.",
+        "forbidden_claim": "Do not reconstruct the wording or standalone legal effect of art. 8º from the later decree."
+      }
+    },
+    {
+      "order": 3,
+      "id": "LT-DECRETO-289-2025",
+      "act": "Decreto nº 289, de 4 de novembro de 2025",
+      "act_date": "2025-11-04",
+      "publication_date": "2025-11-05",
+      "journal_edition": 7111,
+      "official_pdf_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_04112025180943.pdf",
+      "source_role": "PRIMARY_EXECUTIVE_IMPLEMENTATION_MODIFIER",
+      "text_status": "PRIMARY_TEXT_RECOVERED_FOR_RELEVANT_PROVISIONS",
+      "binary_custody_status": "NOT_CUSTODIED_NO_BYTE_HASH",
+      "modifies": "Decreto nº 259, de 30 de setembro de 2025",
+      "explicit_cross_reference": {
+        "act": "Deliberação Conjunta CME/SME nº 001, de 28 de outubro de 2025",
+        "specific_reference": "art. 8º",
+        "relationship": "EXPRESS_OFFICIAL_CROSS_REFERENCE"
+      },
+      "proven_rule": {
+        "article": "Art. 1º, inserting §4º into Decreto 259/2025",
+        "rule": "Estabelece excepcionalmente novo período de 6 e 7 de novembro de 2025 para confirmação ou alteração da jornada de trabalho dos Professores Especialistas de Arte e Educação Física para o ano letivo de 2026."
+      },
+      "guard": "DECREE289_CROSS_REFERENCE_NE_FULL_TEXT_OF_DELIB_ART8"
+    },
+    {
+      "order": 4,
+      "id": "LT-RESOLUCAO-SME-08-2025",
+      "act": "Resolução SME nº 08, de 9 de dezembro de 2025",
+      "act_date": "2025-12-09",
+      "publication_date": "2025-12-16",
+      "journal_edition": 7139,
+      "source_role": "PRIMARY_2026_ASSIGNMENT_OPERATIONALIZATION_NORM",
+      "canonical_config": "config/education_assignment_resolution_08_2025_primary.v1.json",
+      "text_status": "FULL_34_ARTICLE_INDEX_AND_ANNEX_BOUNDEDLY_MATERIALIZED_BY_TASK235",
+      "relationship_to_lt": [
+        "Defines LT inside workload composition and assignment for 2026.",
+        "Connects Art/Physical Education specialist workload completion with LT and extracurricular workshops.",
+        "Creates LT/workshop qualification-proof requirements in the PSS 04/2025 assignment flow."
+      ],
+      "guard": "USE_TASK235_EXACT_ARTICLE_PAGE_PROVENANCE_FOR_NORMATIVE_WORDING"
+    },
+    {
+      "order": 5,
+      "id": "LT-SME-OPERATIONAL-PAGE-2026",
+      "act": "Página operacional de indicação/atribuição SME 2026",
+      "snapshot_date": "2026-09-11",
+      "url": "https://sme.limeira.sp.gov.br/indicacao_atribuicao_ps0.php",
+      "source_role": "OFFICIAL_CURRENT_OPERATIONAL_WORKFLOW",
+      "text_status": "CURRENT_OPERATIONAL_PAGE_BOUNDEDLY_MATERIALIZED_BY_TASK234",
+      "authority_limit": "PROVES_CURRENT_WEB_WORKFLOW_WHERE_OBSERVED_BUT_DOES_NOT_BY_ITSELF_AMEND_PRIMARY_NORMATIVE_TEXT",
+      "canonical_config": "config/education_assignment_2026_authority.v1.json"
+    }
+  ],
+  "relationship_edges": [
+    {
+      "from": "LT-PORTARIA-SME-26-2025",
+      "to": "LT-DELIB-CONJUNTA-001-2025",
+      "relationship": "PREPARATORY_GOVERNANCE_TO_FORMAL_CURRICULAR_INSTITUTION",
+      "proof_strength": "BOUNDED_SEMANTIC_SEQUENCE",
+      "not_claimed": "The Portaria is not asserted to amend or enact the Deliberação."
+    },
+    {
+      "from": "LT-DELIB-CONJUNTA-001-2025",
+      "to": "LT-DECRETO-289-2025",
+      "relationship": "EXPLICITLY_CITED_BY_LATER_IMPLEMENTATION_DECREE",
+      "proof_strength": "EXACT_OFFICIAL_CROSS_REFERENCE_TO_ART8"
+    },
+    {
+      "from": "LT-DECRETO-289-2025",
+      "to": "LT-RESOLUCAO-SME-08-2025",
+      "relationship": "2026_WORKLOAD_PREPARATION_TO_ASSIGNMENT_NORM",
+      "proof_strength": "CHRONOLOGICAL_AND_SUBJECT_ALIGNMENT",
+      "not_claimed": "No direct amendment relationship between Decreto 289 and Resolução SME 08 is inferred."
+    },
+    {
+      "from": "LT-RESOLUCAO-SME-08-2025",
+      "to": "LT-SME-OPERATIONAL-PAGE-2026",
+      "relationship": "PRIMARY_ASSIGNMENT_NORM_TO_CURRENT_OPERATIONAL_WORKFLOW",
+      "proof_strength": "OPERATIONAL_PAGE_CITES_RESOLUTION",
+      "not_claimed": "The current page is not an amendment instrument."
+    }
+  ],
+  "task235_divergence": {
+    "id": "LT_FORMATION_TIMING_DIVERGENCE",
+    "status": "OPEN_UNRESOLVED",
+    "primary_resolution_position": "TASK235 records Art. 11 §5(b) as tying PSS 04/2025 LT/workshop proof to indication/upload, with missing proof annulling indication.",
+    "current_operational_position": "TASK234 records the current SME page as allowing LT formation proof to be presented to the school director during the first semester of 2026.",
+    "task236_search_result": "NO_EXACT_LATER_MODIFIER_WITH_FIRST_SEMESTER_WORDING_ESTABLISHED_IN_THIS_TASK",
+    "search_failure_meaning": "NO_REPEAL_OR_AMENDMENT_INFERENCE_ALLOWED",
+    "chain_effect": "THE_AUTHORITY_CHAIN_DOES_NOT_RESOLVE_THE_DIVERGENCE",
+    "required_next_evidence": "Exact official later act, retification, resolution, instruction or equivalent modifier containing the changed proof timing."
+  },
+  "authority_precedence": [
+    "EXACT_PRIMARY_NORMATIVE_TEXT_WITH_ARTICLE_PROVENANCE",
+    "EXACT_PRIMARY_OFFICIAL_CROSS_REFERENCE",
+    "OFFICIAL_CURRENT_OPERATIONAL_PAGE_FOR_OBSERVED_WORKFLOW",
+    "DERIVED_SUMMARY_OR_SEMANTIC_SEQUENCE"
+  ],
+  "global_guards": [
+    "AUTHORITY_CHAIN_NE_AMENDMENT_CHAIN",
+    "DELIB_ARTICLE_TEXT_NE_PROVEN_UNTIL_PRIMARY_TEXT_RECOVERED",
+    "DECREE289_CROSS_REFERENCE_TO_DELIB_ART8_MUST_BE_PRESERVED",
+    "DECREE289_CROSS_REFERENCE_NE_FULL_TEXT_OF_DELIB_ART8",
+    "OPERATIONAL_PAGE_NE_NORMATIVE_AMENDMENT",
+    "LT_FORMATION_TIMING_DIVERGENCE_REMAINS_OPEN_UNLESS_EXACT_MODIFIER_FOUND",
+    "SEARCH_FAILURE_NE_NO_MODIFIER_EXISTS",
+    "PRIMARY_TEXT_GT_DERIVED_SUMMARY",
+    "NO_BINARY_HASH_INVENTION",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "summary": {
+    "chain_nodes": 5,
+    "official_journal_primary_nodes": 4,
+    "current_operational_nodes": 1,
+    "deliberation_article_8_exact_text_materialized": false,
+    "lt_formation_timing_divergence_open": true,
+    "binary_hashes_claimed": 0,
+    "contextual_coverage": "38/38_UNCHANGED"
+  },
+  "remote_effects": {
+    "source_network_read_only": true,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
