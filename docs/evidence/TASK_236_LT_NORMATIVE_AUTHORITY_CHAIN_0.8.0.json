@@ -1,0 +1,74 @@
+{
+  "task": "TASK_236",
+  "issue": 790,
+  "evidence_type": "BOUNDED_NORMATIVE_AUTHORITY_CHAIN",
+  "verified_at": "2026-09-11",
+  "chain": [
+    {
+      "order": 1,
+      "act": "Portaria SME nº 26, de 23/09/2025",
+      "publication": "Jornal Oficial edição 7081, 24/09/2025",
+      "proof": "Art. 1º designa Comissão Mista SME+CME para estruturar e regulamentar o Currículo de Linguagens e Tecnologias da Rede Municipal de Ensino de Limeira.",
+      "authority_role": "PRIMARY_ADMINISTRATIVE_PREPARATORY_ACT"
+    },
+    {
+      "order": 2,
+      "act": "Deliberação Conjunta CME/SME nº 001, de 28/10/2025",
+      "publication": "Jornal Oficial edição 7107, 30/10/2025",
+      "proof": "Identidade e título oficiais recuperados: institui a disciplina extracurricular de Linguagens e Tecnologias e o respectivo currículo na Rede Municipal de Ensino de Limeira.",
+      "authority_role": "PRIMARY_CURRICULAR_NORMATIVE_ACT",
+      "article_8_exact_text": "NOT_RECOVERED_IN_TASK236"
+    },
+    {
+      "order": 3,
+      "act": "Decreto nº 289, de 04/11/2025",
+      "publication": "Jornal Oficial edição 7111, 05/11/2025",
+      "proof": "Cita expressamente a Deliberação Conjunta CME/SME nº 001/2025, em especial o art. 8º, e reabre 6-7/11/2025 para confirmação/alteração de jornada de especialistas de Arte e Educação Física para 2026.",
+      "authority_role": "PRIMARY_EXECUTIVE_IMPLEMENTATION_MODIFIER"
+    },
+    {
+      "order": 4,
+      "act": "Resolução SME nº 08, de 09/12/2025",
+      "publication": "Jornal Oficial edição 7139, 16/12/2025",
+      "proof": "TASK235 materializou 34 artigos + Anexo I, incluindo LT na composição/atribuição 2026.",
+      "authority_role": "PRIMARY_2026_ASSIGNMENT_OPERATIONALIZATION_NORM"
+    },
+    {
+      "order": 5,
+      "act": "Página operacional SME de indicação/atribuição 2026",
+      "publication": "snapshot 11/09/2026",
+      "proof": "Evidência do workflow corrente observado; não é instrumento de alteração normativa.",
+      "authority_role": "OFFICIAL_CURRENT_OPERATIONAL_WORKFLOW"
+    }
+  ],
+  "bounded_findings": {
+    "portaria26_mixed_working_group_proven": true,
+    "deliberation_identity_and_title_proven": true,
+    "deliberation_article8_exact_text_proven": false,
+    "decree289_explicit_article8_cross_reference_proven": true,
+    "resolution08_primary_materialization_reused": true,
+    "current_operational_page_lower_normative_authority": true,
+    "task235_lt_formation_timing_divergence_resolved": false
+  },
+  "divergence_status": {
+    "id": "LT_FORMATION_TIMING_DIVERGENCE",
+    "status": "OPEN_UNRESOLVED",
+    "reason": "No exact later official modifying act containing the current page's first-semester proof timing was established in this task.",
+    "guard": "SEARCH_FAILURE_NE_NO_MODIFIER_EXISTS"
+  },
+  "source_custody": {
+    "binary_hashes_claimed": 0,
+    "reason": "Exact official journal URLs/identities are recorded, but direct PDF-byte custody was not established for the preparatory/curricular/decree sources in this task."
+  },
+  "guards": [
+    "AUTHORITY_CHAIN_NE_AMENDMENT_CHAIN",
+    "DELIB_ARTICLE_TEXT_NE_PROVEN_UNTIL_PRIMARY_TEXT_RECOVERED",
+    "DECREE289_CROSS_REFERENCE_TO_DELIB_ART8_MUST_BE_PRESERVED",
+    "OPERATIONAL_PAGE_NE_NORMATIVE_AMENDMENT",
+    "LT_FORMATION_TIMING_DIVERGENCE_REMAINS_OPEN_UNLESS_EXACT_MODIFIER_FOUND",
+    "SEARCH_FAILURE_NE_NO_MODIFIER_EXISTS",
+    "NO_BINARY_HASH_INVENTION",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "contextual_coverage": "38/38_UNCHANGED"
+}
