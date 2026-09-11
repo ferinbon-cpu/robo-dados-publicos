@@ -91,10 +91,16 @@
   "candidate_ledger": [
     {"edition":7142,"trigger":"08/2025","status":"PRIMARY_CONTENT_PENDING"},
     {"edition":7151,"trigger":"08/2025","status":"PRIMARY_CONTENT_PENDING"},
-    {"edition":7163,"trigger":"formação","status":"PRIMARY_CONTENT_PENDING"},
     {"edition":7168,"trigger":"formação","status":"PRIMARY_CONTENT_PENDING"},
     {"edition":7150,"trigger":"Diretor de Escola","status":"PRIMARY_CONTENT_PENDING"},
     {"edition":7146,"trigger":"artigo 11","status":"CLEARED_BY_TASK237_DIRECT_PRIMARY_NO_TARGET_HIT"},
+    {
+      "edition":7163,
+      "trigger":"formação",
+      "status":"CLEARED_BY_DIRECT_PRIMARY_CONTEXT",
+      "context":"The official 58-page PDF contains the broad hit as 'FORMAÇÃO ESPORTIVA DA MODALIDADE ATLETISMO' in a Termo de Fomento; no Linguagens, 08/2025, PSS 04/2025 or primeiro semestre target text was located.",
+      "source_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_20012026164423.pdf"
+    },
     {
       "edition":7172,
       "trigger":"Diretor de Escola",
@@ -107,12 +113,12 @@
     "inventory_closed": true,
     "discovery_triage_complete": true,
     "primary_content_closed": false,
-    "pending_primary_editions": [7142,7150,7151,7163,7168],
+    "pending_primary_editions": [7142,7150,7151,7168],
     "modifier_candidate_established": false,
     "bounded_negative_result": false,
     "audit_state": "COMPLETE_BOUNDED_INVENTORY_CONTENT_INSPECTION_PENDING",
     "divergence_status": "OPEN_UNRESOLVED",
-    "required_next_evidence": "Acquire and inspect the primary content of editions 7142, 7150, 7151, 7163 and 7168 for the LT/PSS/Resolução timing target."
+    "required_next_evidence": "Acquire and inspect the primary content of editions 7142, 7150, 7151 and 7168 for the LT/PSS/Resolução timing target."
   },
   "global_guards": [
     "INDEX_SEARCH_NE_PRIMARY_CONTENT_INSPECTION",
