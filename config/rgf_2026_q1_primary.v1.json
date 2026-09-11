@@ -47,10 +47,12 @@
       "summary_source_doc_id": "DOC-058",
       "consolidated_debt_cents": 35284117881,
       "contractual_debt_cents": 30255350483,
+      "loans_cents": 6534889,
       "financing_cents": 25495965123,
       "social_security_contribution_installments_cents": 4752850471,
       "other_debts_cents": 5028767398,
       "deductions_cents": 34146807050,
+      "cash_availability_after_obligations_cents": 31933646022,
       "gross_cash_availability_cents": 34681231583,
       "processed_restos_a_pagar_cents": 2618628984,
       "refundable_deposits_and_linked_values_cents": 128956577,
@@ -84,6 +86,8 @@
       "rcl_adjusted_debt_cents": 178068078807,
       "general_limit_cents": 28490892609,
       "general_limit_pct_bp": 1600,
+      "alert_limit_cents": 25641803348,
+      "alert_limit_pct_bp": 1440,
       "revenue_anticipation_operations_cents": 0,
       "revenue_anticipation_limit_cents": 12464765516,
       "revenue_anticipation_limit_pct_bp": 700,
@@ -92,14 +96,24 @@
     "CASH_AVAILABILITY_MONITORING": {
       "source_doc_id": "DOC-057",
       "publication_status": "FORA_DO_PERIODO_DE_PUBLICACAO_SOMENTE_ACOMPANHAMENTO",
+      "column_semantics": {
+        "b":"LIQUIDATED_UNPAID_RP_PRIOR_EXERCISES",
+        "c":"LIQUIDATED_UNPAID_RP_CURRENT_EXERCISE",
+        "d":"COMMITTED_UNLIQUIDATED_RP_PRIOR_EXERCISES",
+        "e":"OTHER_FINANCIAL_OBLIGATIONS",
+        "f":"CONSORTIUM_FINANCIAL_INSUFFICIENCY",
+        "g":"LIQUID_CASH_BEFORE_CURRENT_NONPROCESSED_RP",
+        "h":"CURRENT_EXERCISE_COMMITTED_UNLIQUIDATED_RP",
+        "i":"CANCELLED_UNLIQUIDATED_COMMITMENTS_NOT_REGISTERED_DUE_TO_FINANCIAL_INSUFFICIENCY"
+      },
       "rows": [
-        {"resource_group":"TOTAL_NON_LINKED","gross_cash_cents":10629694602,"liquid_cash_before_nonprocessed_rp_cents":7611812421,"liquid_cash_after_nonprocessed_rp_cents":7611812421},
-        {"resource_group":"TOTAL_LINKED_EXCEPT_RPPS","gross_cash_cents":23162782819,"liquid_cash_before_nonprocessed_rp_cents":20798365938,"liquid_cash_after_nonprocessed_rp_cents":20798365938},
-        {"resource_group":"LINKED_EDUCATION","gross_cash_cents":4664352024,"prior_liquidated_unpaid_rp_cents":61094313,"other_financial_obligations_cents":189995337,"liquid_cash_before_nonprocessed_rp_cents":4413262374,"liquid_cash_after_nonprocessed_rp_cents":4413262374},
-        {"resource_group":"FUNDEB_TRANSFERS","gross_cash_cents":2681179600,"partial_row_only":true},
-        {"resource_group":"TOTAL","gross_cash_cents":33994336152,"liquidated_unpaid_rp_cents":2617232984,"other_financial_obligations_cents":2461495057,"public_consorcio_financial_obligations_cents":983898541,"liquid_cash_before_nonprocessed_rp_cents":27931709570,"liquid_cash_after_nonprocessed_rp_cents":27931709570}
+        {"resource_group":"TOTAL_NON_LINKED","gross_cash_cents":10629694602,"prior_liquidated_unpaid_rp_cents":2293207217,"current_liquidated_unpaid_rp_cents":0,"prior_committed_unliquidated_rp_cents":724674964,"other_financial_obligations_cents":0,"consortium_financial_insufficiency_cents":0,"liquid_cash_before_current_nonprocessed_rp_cents":7611812421,"current_committed_unliquidated_rp_cents":0,"cancelled_unliquidated_commitments_cents":0,"liquid_cash_after_current_nonprocessed_rp_cents":7611812421},
+        {"resource_group":"TOTAL_LINKED_EXCEPT_RPPS","gross_cash_cents":23162782819,"prior_liquidated_unpaid_rp_cents":324025767,"current_liquidated_unpaid_rp_cents":0,"prior_committed_unliquidated_rp_cents":1736820093,"other_financial_obligations_cents":303571021,"consortium_financial_insufficiency_cents":0,"liquid_cash_before_current_nonprocessed_rp_cents":20798365938,"current_committed_unliquidated_rp_cents":0,"cancelled_unliquidated_commitments_cents":0,"liquid_cash_after_current_nonprocessed_rp_cents":20798365938},
+        {"resource_group":"LINKED_EDUCATION","gross_cash_cents":4664352024,"prior_liquidated_unpaid_rp_cents":61094313,"current_liquidated_unpaid_rp_cents":0,"prior_committed_unliquidated_rp_cents":189995337,"other_financial_obligations_cents":0,"consortium_financial_insufficiency_cents":0,"liquid_cash_before_current_nonprocessed_rp_cents":4413262374,"current_committed_unliquidated_rp_cents":0,"cancelled_unliquidated_commitments_cents":0,"liquid_cash_after_current_nonprocessed_rp_cents":4413262374},
+        {"resource_group":"FUNDEB_TRANSFERS","gross_cash_cents":2681179600,"prior_liquidated_unpaid_rp_cents":0,"current_liquidated_unpaid_rp_cents":0,"prior_committed_unliquidated_rp_cents":0,"other_financial_obligations_cents":0,"consortium_financial_insufficiency_cents":0,"liquid_cash_before_current_nonprocessed_rp_cents":2681179600,"current_committed_unliquidated_rp_cents":0,"cancelled_unliquidated_commitments_cents":0,"liquid_cash_after_current_nonprocessed_rp_cents":2681179600},
+        {"resource_group":"TOTAL","gross_cash_cents":33994336152,"prior_liquidated_unpaid_rp_cents":2617232984,"current_liquidated_unpaid_rp_cents":0,"prior_committed_unliquidated_rp_cents":2461495057,"other_financial_obligations_cents":983898541,"consortium_financial_insufficiency_cents":0,"liquid_cash_before_current_nonprocessed_rp_cents":27931709570,"current_committed_unliquidated_rp_cents":0,"cancelled_unliquidated_commitments_cents":0,"liquid_cash_after_current_nonprocessed_rp_cents":27931709570}
       ],
-      "semantic_guards": ["CASH_AVAILABILITY_NE_BUDGET_AUTHORIZATION","LINKED_EDUCATION_CASH_NE_FREE_EDUCATION_MONEY","RGF_ANEXO5_ACOMPANHAMENTO_NE_FINAL_PUBLISHED_PERIOD"]
+      "semantic_guards": ["CASH_AVAILABILITY_NE_BUDGET_AUTHORIZATION","LINKED_EDUCATION_CASH_NE_FREE_EDUCATION_MONEY","FUNDEB_CASH_NE_FUNDEB_AVAILABLE_FOR_NEW_SPENDING","RGF_ANEXO5_ACOMPANHAMENTO_NE_FINAL_PUBLISHED_PERIOD"]
     },
     "SIMPLIFIED_PRIMARY_SUMMARY": {
       "source_doc_id": "DOC-058",
@@ -129,12 +143,12 @@
     "FORMAL_LRF_MARGIN_NE_FREE_CASH",
     "CASH_AVAILABILITY_NE_BUDGET_AUTHORIZATION",
     "LINKED_EDUCATION_CASH_NE_FREE_EDUCATION_MONEY",
+    "FUNDEB_CASH_NE_FUNDEB_AVAILABLE_FOR_NEW_SPENDING",
     "RGF_ANEXO5_ACOMPANHAMENTO_NE_FINAL_PUBLISHED_PERIOD",
     "DEBT_HEADROOM_NE_SPENDING_AUTHORIZATION",
     "ZERO_CREDIT_OPERATIONS_NE_ZERO_DEBT",
     "PERCENT_LIMIT_NE_AVAILABLE_PERCENT_TO_SPEND",
     "NO_DOUBLE_COUNT_WITH_MD_01_2_DERIVED_LAYER",
-    "PARTIAL_FUNDEB_ROW_NE_FULL_FUNDEB_CASH_POSITION",
     "BYTE_HASH_NOT_PROVEN_NE_HASHED_SOURCE_IDENTITY",
     "NO_CONTEXTUAL_COVERAGE_CHANGE"
   ],
