@@ -1,0 +1,9 @@
+{
+  "task": "TASK_231",
+  "canonical_base_sha": "2a72e996db45d4e7ab423c7578e50fd38bd77da9",
+  "canonical_base_task": "TASK_230",
+  "post_merge_ci_run": 1786,
+  "post_merge_ci_run_id": 34593255967,
+  "post_merge_ci_conclusion": "success",
+  "purpose": "Pin the stable post-TASK230 main used to build TASK231 without stacked history."
+}
