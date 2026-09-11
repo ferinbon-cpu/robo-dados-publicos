@@ -1,0 +1,236 @@
+{
+  "schema": "NORMATIVE_OFFICIAL_AUTHORITY_SNAPSHOT_V1",
+  "task": "TASK_233",
+  "issue": 782,
+  "verified_at": "2026-09-11",
+  "base_main_sha": "95332a476e0a4cf8bd9b6cb638fcbbfb71e5c81e",
+  "snapshot_bound": true,
+  "jurisdiction": "Limeira/SP",
+  "authority_precedence": [
+    "OFFICIAL_CURRENT_CONSOLIDATED_OR_STATUS_SOURCE",
+    "OFFICIAL_PUBLICATION_OR_LEGISLATIVE_TRACE",
+    "EXISTING_CUSTODY_PRIMARY_TEXT",
+    "DERIVED_RAG_GUIDE_OR_TRAINING_MATERIAL"
+  ],
+  "packages": [
+    {
+      "source_package_id": "PKG-LC41-1991",
+      "norm": "Lei Complementar nº 41/1991",
+      "official_status": "IN_FORCE_OFFICIAL_SNAPSHOT",
+      "official_status_text": "Em vigor",
+      "official_sources": [
+        {
+          "system": "CAMARA_MUNICIPAL_LIMEIRA_CONSULTA",
+          "url": "https://consulta.limeira.sp.leg.br/Documentos/Documento/4937",
+          "role": "OFFICIAL_NORM_RECORD",
+          "observed": "Lei Complementar Nº 41; Data 20/06/1991; Situacao Em vigor; Estatuto dos Funcionarios Publicos do Municipio de Limeira."
+        },
+        {
+          "system": "LEGISLACAO_DIGITAL_LIMEIRA",
+          "url": "https://legislacao.limeira.sp.leg.br/?Ano=1991&AnoFinal=&Ordernacao=NumeroAnoCrescente&Pagina=1&Pesquisa=Simples&TipoId=24",
+          "role": "OFFICIAL_STATUS_INDEX",
+          "observed": "Lei complementar nº 41/1991; Situacao Em vigor."
+        }
+      ],
+      "current_modifiers_or_related_acts": [
+        {
+          "act": "Lei Complementar nº 1.017/2026",
+          "date": "2026-04-07",
+          "relationship": "DIRECT_STRUCTURAL_AMENDMENT",
+          "official_status": "Em vigor",
+          "url": "https://legislacao.limeira.sp.leg.br/Limeira-SP/LeisComplementares/1017-2026?Export=Pdf",
+          "effect_proven": "Adds paragraph 3 to article 50 of LC 41, allowing exceptionally two abonadas in one month while preserving the annual maximum of 12."
+        }
+      ],
+      "derived_corpus_relation": "TASK232_PRIMARY_TEXT_PRESENT_BUT_OFFICIAL_CURRENT_SOURCE_PREVAILS",
+      "unresolved_components": [],
+      "guards": [
+        "BASE_LAW_IN_FORCE_NE_UNCHANGED_SINCE_ORIGINAL",
+        "CURRENT_STATUS_IS_SNAPSHOT_DATE_BOUND"
+      ]
+    },
+    {
+      "source_package_id": "PKG-LC461-2009",
+      "norm": "Lei Complementar nº 461/2009",
+      "official_status": "IN_FORCE_OFFICIAL_SNAPSHOT_WITH_RECENT_AMENDMENTS",
+      "official_status_text": "Em vigor",
+      "official_sources": [
+        {
+          "system": "CAMARA_MUNICIPAL_LIMEIRA_CONSULTA",
+          "url": "https://consulta.limeira.sp.leg.br/Normas/Exibir/2820",
+          "role": "OFFICIAL_NAVIGABLE_CONSOLIDATED_TEXT",
+          "observed": "Current navigable text of LC 461 with amendment links and consolidated provisions."
+        },
+        {
+          "system": "LEGISLACAO_DIGITAL_LIMEIRA",
+          "url": "https://legislacao.limeira.sp.leg.br/limeira-sp?Ano=2009&AnoFinal=&ClassificacaoId=0&Data=&DataFinal=&EmentaAssunto=&IniciativaEntidadeId=0&IniciativaTipoId=0&NoTexto=false&Numero=461&NumeroFinal=&Ordernacao=MaisRelevante&Pagina=1&Pesquisa=Avancada&SituacaoId=0&TipoId=0",
+          "role": "OFFICIAL_STATUS_INDEX",
+          "observed": "Lei complementar nº 461/2009; Situacao Em vigor."
+        }
+      ],
+      "current_primary_rules_selected": {
+        "vice_director": {
+          "legal_role": "Posto de trabalho de suporte pedagogico",
+          "selection_rule": "After school-unit choice among titular teachers in exercise in the municipal network, with Conselho de Escola approval, SME indication and mayoral designation act.",
+          "minimum_qualification": "Graduation in Pedagogy with full licensure or postgraduate qualification in Education with the required pedagogical common base.",
+          "minimum_experience": "At least 3 years of effective exercise in a teaching position/function and/or pedagogical support in official education.",
+          "authority_source_url": "https://consulta.limeira.sp.leg.br/Normas/Exibir/2820"
+        }
+      },
+      "current_modifiers_or_related_acts": [
+        {
+          "act": "Lei Complementar nº 949/2024",
+          "date": "2024-02-29",
+          "relationship": "DIRECT_STRUCTURAL_AMENDMENT",
+          "official_status": "Em vigor",
+          "url": "https://legislacao.limeira.sp.leg.br/Limeira-SP/LeisComplementares/949-2024",
+          "effect_proven": "Alters LC 461 to provide salary amplitude for pedagogical-support professionals."
+        },
+        {
+          "act": "Lei Complementar nº 987/2025",
+          "date": "2025-10-02",
+          "relationship": "DIRECT_STRUCTURAL_AMENDMENT",
+          "official_status": "Em vigor",
+          "url": "https://legislacao.limeira.sp.leg.br/Limeira-SP/LeisComplementares/987-2025",
+          "effect_proven": "Official index identifies it as an in-force act altering provisions of LC 461."
+        },
+        {
+          "act": "Lei Complementar nº 1.014/2026",
+          "date": "2026-03-24",
+          "relationship": "REMUNERATION_REVIEW_RELATED_ACT",
+          "official_status": "Em vigor",
+          "url": "https://legislacao.limeira.sp.leg.br/Limeira-SP/LeisComplementares/1014-2026?Export=Pdf",
+          "effect_proven": "Authorizes the 2026 annual general salary review for municipal teachers and pedagogical-support staff covered by LC 461; it is not classified here as a structural statute amendment."
+        },
+        {
+          "act": "Lei Complementar nº 1.027/2026",
+          "date_published_as_reported_by_official_process": "2026-09-05",
+          "relationship": "DIRECT_STRUCTURAL_AMENDMENT_WITH_OFFICIAL_PUBLICATION_TRACE",
+          "official_status": "ENACTED_AND_PUBLISHED_OFFICIAL_PROCESS_TRACE",
+          "proposal_url": "https://consulta.limeira.sp.leg.br/Documentos/Documento/432278",
+          "proposal_label_status": "Aprovado",
+          "later_process_events": [
+            "Prefeitura response recorded 2026-09-08: Promulgado e Sancionado.",
+            "Departamento Legislativo recorded that Lei Complementar nº 1.027 was published on 2026-09-05 in Jornal Oficial edition 7320, pages 13-22."
+          ],
+          "effect_proven": "Originating PLC 21/2026 alters LC 461 and LC 745, including transformation of Agente de Desenvolvimento Educacional into Supervisor de Ensino and definition of Professor Coordenador duties.",
+          "index_status": "LEGISLACAO_DIGITAL_SPECIFIC_1027_RECORD_NOT_ESTABLISHED_IN_THIS_SNAPSHOT",
+          "index_guard": "INDEX_LAG_NE_NONEXISTENCE_WHEN_OFFICIAL_PUBLICATION_TRACE_EXISTS"
+        }
+      ],
+      "derived_corpus_relation": "OFFICIAL_CURRENT_CONSOLIDATED_TEXT_OVERRIDES_DERIVED_OR_OLD_COPIES_FOR_CURRENT_RULE",
+      "unresolved_components": [],
+      "guards": [
+        "APPROVED_BILL_NE_ENACTED_LAW",
+        "OFFICIAL_CONSOLIDATED_TEXT_GT_DERIVED_CORPUS_FOR_CURRENT_RULE",
+        "BASE_LAW_IN_FORCE_NE_UNCHANGED_SINCE_ORIGINAL",
+        "REMUNERATION_REVIEW_ACT_NE_STRUCTURAL_STATUTE_AMENDMENT",
+        "LC1027_2026_MODIFIES_LC461",
+        "INDEX_LAG_NE_NONEXISTENCE_WHEN_OFFICIAL_PUBLICATION_TRACE_EXISTS",
+        "CURRENT_STATUS_IS_SNAPSHOT_DATE_BOUND"
+      ]
+    },
+    {
+      "source_package_id": "PKG-LEI6089-2018",
+      "norm": "Lei Ordinaria nº 6.089/2018",
+      "official_status": "IN_FORCE_OFFICIAL_SNAPSHOT",
+      "official_status_text": "Em vigor",
+      "official_sources": [
+        {
+          "system": "LEGISLACAO_DIGITAL_LIMEIRA",
+          "url": "https://legislacao.limeira.sp.leg.br/limeira-sp?Ano=2018&AnoFinal=&ClassificacaoId=3494&Data=&DataFinal=&EmentaAssunto=&Export=Pdf&IniciativaEntidadeId=0&IniciativaTipoId=0&NoTexto=false&Numero=&NumeroFinal=&Ordernacao=MaisRelevante&Pagina=1&Pesquisa=Avancada&SituacaoId=3438&TipoId=23",
+          "role": "OFFICIAL_STATUS_INDEX",
+          "observed": "Lei Ordinaria nº 6.089/2018; Data 02/10/2018; Situacao Em vigor; organizes the Sistema Municipal de Ensino."
+        },
+        {
+          "system": "LEGISLACAO_DIGITAL_LIMEIRA",
+          "url": "https://legislacao.limeira.sp.leg.br/Limeira-SP/LeisOrdinarias/6089-2018/Arquivos/1",
+          "role": "OFFICIAL_ARCHIVED_TEXT",
+          "observed": "Official archived text of Lei 6.089/2018."
+        }
+      ],
+      "current_modifiers_or_related_acts": [],
+      "modifier_search_conclusion": "NO_SPECIFIC_LATER_AMENDMENT_PROMOTED_IN_THIS_TASK; THIS_IS_NOT_A_CLAIM_THAT_NONE_EXISTS",
+      "derived_corpus_relation": "OFFICIAL_STATUS_AND_TEXT_OVERRIDE_OCR_DERIVED_COPY_FOR_CURRENT_AUTHORITY",
+      "unresolved_components": [],
+      "guards": [
+        "BASE_LAW_IN_FORCE_NE_UNCHANGED_SINCE_ORIGINAL",
+        "CURRENT_STATUS_IS_SNAPSHOT_DATE_BOUND"
+      ]
+    },
+    {
+      "source_package_id": "PKG-VICE-DIRETOR",
+      "norm": "Vice-Diretor current framework and legacy local administrative package",
+      "official_status": "SPLIT_AUTHORITY_CURRENT_FRAMEWORK_VERIFIED_LEGACY_ADMIN_STATUS_UNRESOLVED",
+      "official_status_text": null,
+      "current_primary_legal_framework": {
+        "source_package_id": "PKG-LC461-2009",
+        "source_url": "https://consulta.limeira.sp.leg.br/Normas/Exibir/2820",
+        "status": "VERIFIED_CURRENT_PRIMARY_FRAMEWORK",
+        "authority_precedence": "CURRENT_OFFICIAL_LC461_FRAMEWORK_GT_LEGACY_DERIVED_ADMIN_PACKAGE",
+        "verified_dimensions": [
+          "LEGAL_ROLE",
+          "SELECTION_CHAIN",
+          "MINIMUM_QUALIFICATION",
+          "MINIMUM_EXPERIENCE",
+          "JOURNEY_AND_SELECTED_ATTRIBUTIONS_PRESENT_IN_OFFICIAL_TEXT"
+        ]
+      },
+      "legacy_local_admin_package": {
+        "components": [
+          "old local Resolution referenced in derived corpus",
+          "IS-DRH nº 1 referenced in derived corpus",
+          "termo de opcao referenced in derived corpus"
+        ],
+        "current_official_status": "UNRESOLVED",
+        "search_failure_meaning": "NO_REPEAL_OR_VIGENCY_INFERENCE_ALLOWED",
+        "decision_use": "CONTEXT_ONLY_UNTIL_EXACT_CURRENT_OFFICIAL_TRACE_FOUND"
+      },
+      "current_modifiers_or_related_acts": [
+        "LC949_2024",
+        "LC987_2025",
+        "LC1014_2026_RELATED_REMUNERATION",
+        "LC1027_2026_STRUCTURAL_AMENDMENT_PUBLICATION_TRACE"
+      ],
+      "derived_corpus_relation": "LEGACY_PACKAGE_RETAINED_FOR_CONTEXT_NOT_CURRENT_RULE_AUTHORITY",
+      "unresolved_components": [
+        "CURRENT_OFFICIAL_STATUS_OF_OLD_RESOLUTION",
+        "CURRENT_OFFICIAL_STATUS_OF_IS_DRH_01",
+        "CURRENT_OFFICIAL_STATUS_OF_OLD_OPTION_TERM"
+      ],
+      "guards": [
+        "OLD_ADMIN_INSTRUCTION_NE_CURRENT_UNLESS_OFFICIAL_TRACE_FOUND",
+        "NO_REPEAL_INFERENCE_FROM_SEARCH_FAILURE",
+        "OFFICIAL_CONSOLIDATED_TEXT_GT_DERIVED_CORPUS_FOR_CURRENT_RULE",
+        "CURRENT_STATUS_IS_SNAPSHOT_DATE_BOUND"
+      ]
+    }
+  ],
+  "global_guards": [
+    "APPROVED_BILL_NE_ENACTED_LAW",
+    "OFFICIAL_CONSOLIDATED_TEXT_GT_DERIVED_CORPUS_FOR_CURRENT_RULE",
+    "BASE_LAW_IN_FORCE_NE_UNCHANGED_SINCE_ORIGINAL",
+    "OLD_ADMIN_INSTRUCTION_NE_CURRENT_UNLESS_OFFICIAL_TRACE_FOUND",
+    "CURRENT_STATUS_IS_SNAPSHOT_DATE_BOUND",
+    "NO_REPEAL_INFERENCE_FROM_SEARCH_FAILURE",
+    "LC1027_2026_MODIFIES_LC461",
+    "INDEX_LAG_NE_NONEXISTENCE_WHEN_OFFICIAL_PUBLICATION_TRACE_EXISTS",
+    "REMUNERATION_REVIEW_ACT_NE_STRUCTURAL_STATUTE_AMENDMENT",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "summary": {
+    "target_packages": 4,
+    "base_norms_officially_in_force": 3,
+    "split_authority_packages": 1,
+    "legacy_admin_packages_current_status_unresolved": 1,
+    "contextual_coverage": "38/38_UNCHANGED"
+  },
+  "remote_effects": {
+    "source_network_read_only": true,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
