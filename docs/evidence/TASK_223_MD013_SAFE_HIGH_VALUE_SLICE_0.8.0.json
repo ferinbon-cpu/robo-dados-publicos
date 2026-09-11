@@ -1,0 +1,59 @@
+{
+  "schema": "TASK223_MD013_SAFE_HIGH_VALUE_SLICE_EVIDENCE_V1",
+  "task": "TASK_223",
+  "issue": 757,
+  "source": "md_01_3_indice_corpus_documental_transcrito_limeira.md",
+  "status": "CANDIDATE_SAFE_HIGH_VALUE_DOCUMENT_SLICE_MATERIALIZED",
+  "observed_corpus": {
+    "source_files": 228,
+    "unique_documents": 194,
+    "duplicates_ignored": 34,
+    "ok": 191,
+    "sem_texto": 3
+  },
+  "safe_partition": {
+    "eligible": 101,
+    "excluded_personnel_or_payroll": 93,
+    "eligible_id_ranges": ["DOC-003..DOC-066", "DOC-068..DOC-101", "DOC-103..DOC-105"],
+    "excluded_id_ranges": ["DOC-001..DOC-002", "DOC-067", "DOC-102", "DOC-106..DOC-194"]
+  },
+  "eligible_family_counts": {
+    "FUNDEB_25_EDUCACAO": 50,
+    "RREO_LRF": 18,
+    "RECEITA_DESPESA_MENSAL": 10,
+    "BALANCOS_PRESTACAO_CONTAS": 9,
+    "RGF_LRF": 6,
+    "LOA_LDO_PPA_LEGISLACAO_ORCAMENTARIA": 5,
+    "AUDIENCIAS_METAS_FISCAIS": 1,
+    "BALANCETE_EDUCACAO": 1,
+    "COCEM_MATERIAL_INSTITUCIONAL": 1
+  },
+  "privacy_exclusions": {
+    "FOLHA_HOLERITES": 70,
+    "QUADRO_FUNCIONARIOS": 22,
+    "CARGOS_SALARIOS": 1,
+    "rowlevel_content_copied": false
+  },
+  "sem_texto_handling": {
+    "DOC-065": "PRESERVE_SEM_TEXTO_NO_INVENTORY",
+    "DOC-100": "PRESERVE_HISTORICAL_SEM_TEXTO_USE_F01_CANONICAL_JOM_CHAIN_FOR_OPERATIONAL_CONTENT",
+    "DOC-102": "EXCLUDED_PERSONNEL_FAMILY_PRESERVE_SEM_TEXTO_IN_SOURCE_HISTORY"
+  },
+  "next_targets": ["DOC-066", "DOC-105"],
+  "non_claims": [
+    "NO_ROWLEVEL_PAYROLL_INGESTION",
+    "NO_ROWLEVEL_STAFF_INGESTION",
+    "NO_NUMERIC_PROMOTION_FROM_TRANSCRIPTION",
+    "NO_SEM_TEXTO_AS_ZERO",
+    "NO_F01_F02_REINGEST",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "remote_effects": {
+    "new_source_network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
