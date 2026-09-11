@@ -23,6 +23,10 @@ class Task238JomDirectDiscoveryTests(unittest.TestCase):
         expected = "96f4a0c81b6b358b9c57019b27bd2e4cc7706efd"
         self.assertEqual(self.cfg["base_main_sha"], expected)
         self.assertEqual(self.evidence["canonical_base_sha"], expected)
+        self.assertEqual(
+            self.cfg["clearance_wave2_base_main_sha"],
+            "771ef3db2e8356be88bc8f76d3691e41ab24e9c5",
+        )
         self.assertEqual(self.cfg["issue"], 794)
 
     def test_exact_bounded_manifest_is_7140_through_7172(self):
@@ -62,16 +66,26 @@ class Task238JomDirectDiscoveryTests(unittest.TestCase):
         self.assertEqual(hits["artigo 11"], [7146])
         self.assertEqual(hits["Diretor de Escola"], [7172, 7150])
 
-    def test_only_four_primary_candidates_remain_pending(self):
+    def test_only_three_primary_candidates_remain_pending(self):
         ledger = self.cfg["candidate_ledger"]
         pending = sorted(
             row["edition"] for row in ledger if row["status"] == "PRIMARY_CONTENT_PENDING"
         )
-        self.assertEqual(pending, [7142, 7150, 7151, 7168])
+        self.assertEqual(pending, [7142, 7151, 7168])
         self.assertEqual(
             self.cfg["result"]["pending_primary_editions"],
-            [7142, 7150, 7151, 7168],
+            [7142, 7151, 7168],
         )
+
+    def test_7150_is_cleared_by_primary_ipml_retirement_context(self):
+        ledger = {row["edition"]: row for row in self.cfg["candidate_ledger"]}
+        row = ledger[7150]
+        self.assertEqual(row["status"], "CLEARED_BY_IPML_PRIMARY_RETIREMENT_CONTEXT")
+        self.assertEqual(row["primary_act"], "Portaria IPML nº 244/2025")
+        self.assertEqual(row["jom_page"], "50/56")
+        self.assertIn("retirement", row["context"])
+        self.assertIn("Diretor de Escola", row["context"])
+        self.assertTrue(row["source_url"].startswith("https://www.ipml.com.br/"))
 
     def test_primary_or_independent_context_clearances_are_explicit(self):
         ledger = {row["edition"]: row for row in self.cfg["candidate_ledger"]}
@@ -90,6 +104,18 @@ class Task238JomDirectDiscoveryTests(unittest.TestCase):
             "CLEARED_BY_INDEPENDENT_PRIMARY_CONTEXT",
         )
         self.assertTrue(ledger[7172]["source_url"].startswith("https://www.ipml.com.br/"))
+
+    def test_failed_browser_run_is_not_negative_evidence(self):
+        transport = self.evidence["transport_audit"]
+        self.assertEqual(
+            transport["tinyfish_terminal_status"],
+            "FAILED_BROWSER_SESSION_CLOSED_AFTER_RETRIES",
+        )
+        self.assertFalse(transport["tinyfish_used_as_negative_evidence"])
+        self.assertEqual(
+            transport["policy_after_failure"],
+            "DIRECT_OR_STATIC_PRIMARY_SOURCES_ONLY_FOR_THIS_JOM_AUDIT",
+        )
 
     def test_divergence_and_bounded_negative_remain_fail_closed(self):
         result = self.cfg["result"]
