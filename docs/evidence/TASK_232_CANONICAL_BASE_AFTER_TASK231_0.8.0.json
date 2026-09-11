@@ -1,0 +1,17 @@
+{
+  "schema": "TASK_232_CANONICAL_BASE_PIN_V1",
+  "task": "TASK_232",
+  "issue": 780,
+  "canonical_base": {
+    "branch": "main",
+    "sha": "67db6f592bed768f9a6aa7bc27d5558a0d96adaf",
+    "source_merge": "PR #779 / TASK 231",
+    "post_merge_ci": {
+      "run_number": 1788,
+      "run_id": 34595561113,
+      "conclusion": "success"
+    }
+  },
+  "branch_rule": "TASK_232_CREATED_DIRECTLY_FROM_THIS_VERIFIED_MAIN_SHA",
+  "contextual_coverage": "38/38_UNCHANGED"
+}
