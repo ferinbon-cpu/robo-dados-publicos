@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+# Ephemeral read-only probe. This comment intentionally triggers the corrected
+# branch workflow after PYTHONPATH was fixed; it does not alter probe semantics.
 import argparse
 import hashlib
 import json
