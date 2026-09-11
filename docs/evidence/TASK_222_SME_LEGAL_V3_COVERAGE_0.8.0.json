@@ -1,0 +1,46 @@
+{
+  "schema": "TASK222_SME_LEGAL_V3_COVERAGE_EVIDENCE_V1",
+  "task": "TASK_222",
+  "issue": 755,
+  "base_main_sha": "2a9dbbf96e0f53146d6c86d64f69a23ff5e82587",
+  "status": "CANDIDATE_V3_COVERAGE_MATRIX_MATERIALIZED",
+  "source": {
+    "title": "Cerebro_Normativo_Gestao_Escolar_Limeira_v3_0_ESPELHO_SME_LEGAL.md",
+    "surface": "USER_FILE_LIBRARY_READABLE_REPRESENTATION",
+    "source_statement": "v3.0 transforms v2.1 into an auditable SME Legal mirror with item-level coverage status",
+    "binary_hash_available": false
+  },
+  "materialization": {
+    "items": 74,
+    "groups": 11,
+    "status_counts": {
+      "INTEGRADO_CORPUS": 11,
+      "PARCIAL": 28,
+      "PENDENTE_CORPUS_INTEGRAL": 34,
+      "LACUNA_CONFIRMADA": 1
+    },
+    "confirmed_gap": "Instrução de Serviço nº 4: Vale Alimentação",
+    "coverage_config": "config/normative_sme_legal_coverage.v1.json"
+  },
+  "interpretive_boundary": {
+    "coverage_map_is_primary_legal_source": false,
+    "integrated_corpus_proves_current_vigency": false,
+    "ocr_is_numeric_truth": false,
+    "partial_pending_gap_can_be_silently_filled": false,
+    "official_current_norm_precedence": true
+  },
+  "canonical_contextual_coverage": {
+    "before": "38/38",
+    "after": "38/38",
+    "changed": false
+  },
+  "next_frontier": "LINK_INTEGRADO_CORPUS_ITEMS_TO_EXACT_PRIMARY_SOURCES_ALREADY_IN_CUSTODY_WHERE_PROVEN",
+  "remote_effects": {
+    "new_source_network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
