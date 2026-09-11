@@ -1,0 +1,43 @@
+{
+  "task": "TASK_238",
+  "issue": 794,
+  "evidence_type": "DIRECT_OFFICIAL_JOM_DISCOVERY_WITH_SEPARATE_CONTENT_GATE",
+  "verified_at": "2026-09-11",
+  "canonical_base_sha": "96f4a0c81b6b358b9c57019b27bd2e4cc7706efd",
+  "superseded_duplicate_work": {
+    "issue": 796,
+    "pr": 797,
+    "reused": ["33-edition bounded manifest", "official archive triage matrix"],
+    "not_reused": "bounded negative/content closure inferred from index search alone"
+  },
+  "bounded_window": {
+    "start": "2025-12-17",
+    "end": "2026-01-31",
+    "first_edition": 7140,
+    "last_edition": 7172,
+    "edition_count": 33,
+    "identity_inventory_complete": true,
+    "primary_content_complete": false
+  },
+  "triage": {
+    "semantics": "DISCOVERY_ONLY",
+    "pending_primary_editions": [7142,7150,7151,7163,7168],
+    "cleared": [
+      {"edition":7146,"basis":"TASK237 direct official PDF inspection recorded target_hit=false"},
+      {"edition":7172,"basis":"Independent primary context is IPML Portaria 014/2026 retirement act for a Director de Escola"}
+    ]
+  },
+  "conclusion": {
+    "state": "COMPLETE_BOUNDED_INVENTORY_CONTENT_INSPECTION_PENDING",
+    "bounded_negative": false,
+    "modifier_candidate_established": false,
+    "lt_divergence_status": "OPEN_UNRESOLVED",
+    "allowed_claim": "The complete bounded edition inventory and official search triage are known, but five primary documents still require content inspection before any bounded-negative conclusion.",
+    "forbidden_claims": [
+      "No modifier was published in the bounded window.",
+      "Zero search results prove absence from every PDF.",
+      "The operational SME page amended the primary Resolution."
+    ]
+  },
+  "contextual_coverage": "38/38_UNCHANGED"
+}
