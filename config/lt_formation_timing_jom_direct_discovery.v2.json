@@ -3,6 +3,7 @@
   "task": "TASK_238",
   "issue": 794,
   "base_main_sha": "96f4a0c81b6b358b9c57019b27bd2e4cc7706efd",
+  "clearance_wave2_base_main_sha": "771ef3db2e8356be88bc8f76d3691e41ab24e9c5",
   "verified_at": "2026-09-11",
   "snapshot_bound": true,
   "target": {
@@ -92,7 +93,15 @@
     {"edition":7142,"trigger":"08/2025","status":"PRIMARY_CONTENT_PENDING"},
     {"edition":7151,"trigger":"08/2025","status":"PRIMARY_CONTENT_PENDING"},
     {"edition":7168,"trigger":"formação","status":"PRIMARY_CONTENT_PENDING"},
-    {"edition":7150,"trigger":"Diretor de Escola","status":"PRIMARY_CONTENT_PENDING"},
+    {
+      "edition":7150,
+      "trigger":"Diretor de Escola",
+      "status":"CLEARED_BY_IPML_PRIMARY_RETIREMENT_CONTEXT",
+      "context":"IPML Portaria nº 244/2025 grants retirement to Carla Kalid dos Santos Fernandes in the effective post of Diretor de Escola. The source itself identifies page 50 of 56 of JOM edition 7150, dated 31/12/2025. This explains the broad 'Diretor de Escola' hit as previdenciary content, unrelated to LT/PSS/Resolução SME nº 08/2025.",
+      "source_url":"https://www.ipml.com.br/site/sites/default/files/imce/segurados-aposentados/aposentadorias/2025/12_dezembro/244_-_carla_kalid_dos_santos_fernandes_-_portaria_244.pdf",
+      "primary_act":"Portaria IPML nº 244/2025",
+      "jom_page":"50/56"
+    },
     {"edition":7146,"trigger":"artigo 11","status":"CLEARED_BY_TASK237_DIRECT_PRIMARY_NO_TARGET_HIT"},
     {
       "edition":7163,
@@ -113,12 +122,12 @@
     "inventory_closed": true,
     "discovery_triage_complete": true,
     "primary_content_closed": false,
-    "pending_primary_editions": [7142,7150,7151,7168],
+    "pending_primary_editions": [7142,7151,7168],
     "modifier_candidate_established": false,
     "bounded_negative_result": false,
     "audit_state": "COMPLETE_BOUNDED_INVENTORY_CONTENT_INSPECTION_PENDING",
     "divergence_status": "OPEN_UNRESOLVED",
-    "required_next_evidence": "Acquire and inspect the primary content of editions 7142, 7150, 7151 and 7168 for the LT/PSS/Resolução timing target."
+    "required_next_evidence": "Acquire and inspect the primary content of editions 7142, 7151 and 7168 for the LT/PSS/Resolução timing target."
   },
   "global_guards": [
     "INDEX_SEARCH_NE_PRIMARY_CONTENT_INSPECTION",
