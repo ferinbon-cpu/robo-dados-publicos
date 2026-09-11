@@ -1,0 +1,131 @@
+{
+  "schema": "TASK221_EXISTING_CUSTODY_DIGEST_V2_EVIDENCE_V1",
+  "task": "TASK_221",
+  "issue": 753,
+  "base_main_sha": "5e7bab5dae2bf7c8b64e087acb8165f67c95af62",
+  "status": "CANDIDATE_EXISTING_CUSTODY_REGISTRY_REFRESH_NO_COVERAGE_CHANGE",
+  "source_discovery": {
+    "md_01_3": {
+      "title": "md_01_3_indice_corpus_documental_transcrito_limeira.md",
+      "created_at": "2026-06-27T02:59:07Z",
+      "source_surface": "USER_FILE_LIBRARY_READABLE_REPRESENTATION",
+      "binary_hash_available_to_task": false,
+      "observed_inventory": {
+        "source_files": 228,
+        "unique_documents": 194,
+        "duplicates_ignored": 34,
+        "ok": 191,
+        "sem_texto": 3,
+        "first_id": "DOC-001",
+        "last_id": "DOC-194"
+      },
+      "control_files_declared_by_source": [
+        "manifesto_documentos_unicos.csv",
+        "meta/duplicatas_ignoradas.csv",
+        "meta/erros_extracao.txt"
+      ],
+      "observed_sem_texto_ids": [
+        "DOC-065",
+        "DOC-100",
+        "DOC-102"
+      ],
+      "high_value_examples": [
+        {
+          "id": "DOC-066",
+          "category": "BALANCETE_EDUCACAO",
+          "name": "Balancete_Mes_Setembro_2025_Educacao.pdf"
+        },
+        {
+          "id": "DOC-067",
+          "category": "CARGOS_SALARIOS",
+          "name": "Cargos e Salarios - Mai2026.pdf"
+        },
+        {
+          "id": "DOC-098",
+          "category": "LOA_LDO_PPA",
+          "name": "Lei Municipal 7.141/2025 - LDO 2026"
+        },
+        {
+          "id": "DOC-099",
+          "category": "LOA_LDO_PPA",
+          "name": "Lei Municipal 7.213/2025 e Anexos - PPA 2026-2029"
+        },
+        {
+          "id": "DOC-100",
+          "category": "LOA_LDO_PPA",
+          "name": "Lei Municipal 7.223/2025 e Anexos - LOA 2026",
+          "status": "sem_texto"
+        },
+        {
+          "id": "DOC-105",
+          "category": "COCEM_MATERIAL_INSTITUCIONAL",
+          "name": "XIII COCEM 2025- REGIMENTO FINALIZADO.pdf"
+        }
+      ],
+      "privacy_decision": "INDEX_METADATA_ONLY_FOR_PAYROLL_AND_PERSONNEL_FAMILIES_IN_TASK_221"
+    },
+    "normative_v3": {
+      "title": "Cerebro_Normativo_Gestao_Escolar_Limeira_v3_0_ESPELHO_SME_LEGAL.md",
+      "source_surface": "USER_FILE_LIBRARY_READABLE_REPRESENTATION",
+      "binary_hash_available_to_task": false,
+      "relationship": "V3_TRANSFORMS_V2_1_INTO_AUDITABLE_SME_LEGAL_COVERAGE_MIRROR",
+      "coverage_statuses": [
+        "INTEGRADO_CORPUS",
+        "PARCIAL",
+        "PENDENTE_CORPUS_INTEGRAL",
+        "LACUNA_CONFIRMADA"
+      ],
+      "observed_integrated_examples": [
+        "ESTATUTO_FUNCIONARIO_PUBLICO_MUNICIPAL",
+        "ESTATUTO_MAGISTERIO_MUNICIPAL",
+        "GESTAO_LEGAL_EIXOS_1_A_17",
+        "CONSELHO_DE_ESCOLA",
+        "PROJETO_POLITICO_PEDAGOGICO",
+        "SISTEMA_MUNICIPAL",
+        "VICE_DIRETOR"
+      ],
+      "observed_confirmed_gap": "RH_INSTRUCAO_SERVICO_04_VALE_ALIMENTACAO",
+      "priority_completion_list_present": true,
+      "vigency_guard": "V3_COVERAGE_STATUS_DOES_NOT_BY_ITSELF_PROVE_CURRENT_VIGENCY"
+    },
+    "v08": {
+      "title": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08.xlsx",
+      "source_surface": "USER_FILE_LIBRARY_READABLE_REPRESENTATION",
+      "workbook_declares_closed": [
+        "CENSO_ESCOLAR_2025_PANEL_2018_2025",
+        "TNR_SCHOOL_YEAR_2011_2025",
+        "ATU_SCHOOL_YEAR_2007_2025",
+        "HAD_SCHOOL_YEAR_2010_2025"
+      ],
+      "robot_full_runtime_materialization": false,
+      "reason": "TASK_182_TRANSFER_BOUNDARY_STILL_APPLIES_FOR_COMPLETE_ROWSETS"
+    }
+  },
+  "historical_registry_corrections": [
+    {
+      "asset": "MD_01_3_CORPUS",
+      "from": "REFERENCED_BY_CORPUS_BUT_BASE_FILE_NOT_CURRENTLY_RUNTIME_ACCESSIBLE",
+      "to": "DISCOVERED_AND_READABLE_IN_USER_LIBRARY"
+    },
+    {
+      "asset": "CEREBRO_NORMATIVO_GESTAO_ESCOLAR_LIMEIRA",
+      "from": "V0_1_DISCOVERED_CURRENT_SEARCH",
+      "to": "V3_0_ESPELHO_SME_LEGAL_DISCOVERED"
+    }
+  ],
+  "non_claims": [
+    "NO_FULL_MD_01_3_ROWLEVEL_INGESTION",
+    "NO_PAYROLL_ROWLEVEL_REPLICATION",
+    "NO_NUMERIC_PROMOTION_FROM_OCR",
+    "NO_NORMATIVE_VIGENCY_INFERENCE_FROM_SYNTHESIS",
+    "NO_COMPLETE_V08_PANEL_RECONSTRUCTION_FROM_SEARCH_SNIPPETS",
+    "NO_CHANGE_TO_CANONICAL_38_OF_38_CONTEXTUAL_COVERAGE",
+    "NO_F01_F02_REINGEST"
+  ],
+  "next_bounded_digest": {
+    "target": "MD_01_3_DOCUMENT_INDEX_METADATA",
+    "why": "BASE_FILE_NOW_DISCOVERED_AND_MANIFEST_HAS_COMPLETE_DOC_ID_RANGE_AND_FAMILY_COUNTS",
+    "rowlevel_personnel_allowed": false,
+    "numeric_promotion_allowed": false
+  }
+}
