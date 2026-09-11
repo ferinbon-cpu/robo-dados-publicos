@@ -1,0 +1,76 @@
+name: TASK199H Limeira Geo public probe TEMP
+
+on:
+  push:
+    branches:
+      - task199h-limeira-geo-public-probe
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task199h-limeira-geo-public-probe-temp
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    name: Probe public Limeira Geo endpoints read-only
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONPATH: "."
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Execute bounded public GeoPortal probe
+        run: python scripts/_tmp_task199h_limeira_geo_public_probe.py
+
+      - name: Emit compact audit summary
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('probe-output/task199h_limeira_geo_public_probe.json')
+          if not p.exists():
+              print(json.dumps({'status':'STOP_NO_PROBE_OUTPUT'}))
+              raise SystemExit(0)
+          d = json.loads(p.read_text(encoding='utf-8'))
+          out = {
+              'schema': d.get('schema'),
+              'status': d.get('status'),
+              'auth_attempted': d.get('auth_attempted'),
+              'registration_attempted': d.get('registration_attempted'),
+              'post_requests': d.get('post_requests'),
+              'write_requests': d.get('write_requests'),
+              'seed_responses': d.get('seed_responses'),
+              'declared_assets': d.get('declared_assets'),
+              'candidate_endpoints': d.get('candidate_endpoints'),
+              'candidate_endpoint_responses': d.get('candidate_endpoint_responses'),
+              'next_step': d.get('next_step'),
+          }
+          print('TASK199H_GEO_PROBE_SUMMARY_BEGIN')
+          print(json.dumps(out, ensure_ascii=False, indent=2))
+          print('TASK199H_GEO_PROBE_SUMMARY_END')
+          PY
+
+      - name: Publish immutable probe artifact
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task199h-limeira-geo-public-probe-${{ github.run_id }}
+          path: probe-output/
+          if-no-files-found: warn
+          retention-days: 7
