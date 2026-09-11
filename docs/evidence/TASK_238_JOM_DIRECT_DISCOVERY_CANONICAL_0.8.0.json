@@ -4,6 +4,7 @@
   "evidence_type": "DIRECT_OFFICIAL_JOM_DISCOVERY_WITH_SEPARATE_CONTENT_GATE",
   "verified_at": "2026-09-11",
   "canonical_base_sha": "96f4a0c81b6b358b9c57019b27bd2e4cc7706efd",
+  "clearance_wave2_base_main_sha": "771ef3db2e8356be88bc8f76d3691e41ab24e9c5",
   "superseded_duplicate_work": {
     "issue": 796,
     "pr": 797,
@@ -21,19 +22,30 @@
   },
   "triage": {
     "semantics": "DISCOVERY_ONLY",
-    "pending_primary_editions": [7142,7150,7151,7168],
+    "pending_primary_editions": [7142,7151,7168],
     "cleared": [
       {"edition":7146,"basis":"TASK237 direct official PDF inspection recorded target_hit=false"},
+      {
+        "edition":7150,
+        "basis":"Primary IPML Portaria nº 244/2025, page 50/56 of JOM edition 7150, grants retirement to Carla Kalid dos Santos Fernandes in the effective post of Diretor de Escola; this is previdenciary content unrelated to LT/PSS/Resolução SME 08/2025.",
+        "source_url":"https://www.ipml.com.br/site/sites/default/files/imce/segurados-aposentados/aposentadorias/2025/12_dezembro/244_-_carla_kalid_dos_santos_fernandes_-_portaria_244.pdf"
+      },
       {"edition":7163,"basis":"Direct official 58-page PDF inspection: broad 'formação' hit is FORMAÇÃO ESPORTIVA DA MODALIDADE ATLETISMO; LT/PSS/08-2025/primeiro-semestre targets not located."},
       {"edition":7172,"basis":"Independent primary context is IPML Portaria 014/2026 retirement act for a Director de Escola"}
     ]
+  },
+  "transport_audit": {
+    "tinyfish_bounded_retry_run_id":"940196ac-0a38-43ea-8f42-12a70e363e84",
+    "tinyfish_terminal_status":"FAILED_BROWSER_SESSION_CLOSED_AFTER_RETRIES",
+    "tinyfish_used_as_negative_evidence":false,
+    "policy_after_failure":"DIRECT_OR_STATIC_PRIMARY_SOURCES_ONLY_FOR_THIS_JOM_AUDIT"
   },
   "conclusion": {
     "state": "COMPLETE_BOUNDED_INVENTORY_CONTENT_INSPECTION_PENDING",
     "bounded_negative": false,
     "modifier_candidate_established": false,
     "lt_divergence_status": "OPEN_UNRESOLVED",
-    "allowed_claim": "The complete bounded edition inventory and official search triage are known, and direct primary inspection has reduced the unresolved content set to four editions: 7142, 7150, 7151 and 7168.",
+    "allowed_claim": "The complete bounded edition inventory and official search triage are known, and primary inspection/context has reduced the unresolved content set to three editions: 7142, 7151 and 7168.",
     "forbidden_claims": [
       "No modifier was published in the bounded window.",
       "Zero search results prove absence from every PDF.",
