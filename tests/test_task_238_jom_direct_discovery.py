@@ -62,23 +62,29 @@ class Task238JomDirectDiscoveryTests(unittest.TestCase):
         self.assertEqual(hits["artigo 11"], [7146])
         self.assertEqual(hits["Diretor de Escola"], [7172, 7150])
 
-    def test_only_five_primary_candidates_remain_pending(self):
+    def test_only_four_primary_candidates_remain_pending(self):
         ledger = self.cfg["candidate_ledger"]
         pending = sorted(
             row["edition"] for row in ledger if row["status"] == "PRIMARY_CONTENT_PENDING"
         )
-        self.assertEqual(pending, [7142, 7150, 7151, 7163, 7168])
+        self.assertEqual(pending, [7142, 7150, 7151, 7168])
         self.assertEqual(
             self.cfg["result"]["pending_primary_editions"],
-            [7142, 7150, 7151, 7163, 7168],
+            [7142, 7150, 7151, 7168],
         )
 
-    def test_7146_and_7172_have_explicit_non_index_clearance_basis(self):
+    def test_primary_or_independent_context_clearances_are_explicit(self):
         ledger = {row["edition"]: row for row in self.cfg["candidate_ledger"]}
         self.assertEqual(
             ledger[7146]["status"],
             "CLEARED_BY_TASK237_DIRECT_PRIMARY_NO_TARGET_HIT",
         )
+        self.assertEqual(
+            ledger[7163]["status"],
+            "CLEARED_BY_DIRECT_PRIMARY_CONTEXT",
+        )
+        self.assertIn("FORMAÇÃO ESPORTIVA", ledger[7163]["context"])
+        self.assertTrue(ledger[7163]["source_url"].startswith("https://ecrie.com.br/"))
         self.assertEqual(
             ledger[7172]["status"],
             "CLEARED_BY_INDEPENDENT_PRIMARY_CONTEXT",
