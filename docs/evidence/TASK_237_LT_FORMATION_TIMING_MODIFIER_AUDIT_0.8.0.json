@@ -1,0 +1,51 @@
+{
+  "task": "TASK_237",
+  "issue": 792,
+  "evidence_type": "BOUNDED_SEARCH_STATE_WITH_INCOMPLETE_TRANSPORT",
+  "verified_at": "2026-09-11",
+  "canonical_base_sha": "53b9f3f8140bd2136ef80bb8d9ff4916151d2175",
+  "primary_divergence": {
+    "id": "LT_FORMATION_TIMING_DIVERGENCE",
+    "status": "OPEN_UNRESOLVED",
+    "primary_source": "Resolução SME nº 08/2025, Art. 11 §5(b), TASK235 page provenance",
+    "operational_source": "Current official SME 2026 assignment page",
+    "conflict": "Primary materialization ties PSS LT/workshop proof to the indication/upload flow; current operational page permits presenting LT formation to the school director during the first semester of 2026 while citing the same provision."
+  },
+  "search_window": {
+    "start": "2025-12-17",
+    "end": "2026-01-31",
+    "closed": false
+  },
+  "browser_evidence": {
+    "run_id": "4fc0515a-cc80-4448-ba93-2916d8d8e910",
+    "state": "SCAN_INCOMPLETE_TRANSPORT_STALL",
+    "stalled_step": 81,
+    "stalled_on_edition": 7166,
+    "observed_inspections": [7172, 7171, 7170, 7169, 7168, 7166],
+    "modifier_candidate_established": false
+  },
+  "direct_primary_inspection": {
+    "status": "PARTIAL",
+    "checked_editions": [7141, 7143, 7144, 7145, 7146, 7148, 7149],
+    "target_hits": [],
+    "official_host": "ecrie.com.br"
+  },
+  "indexed_discovery": {
+    "status": "NO_INDEXED_CANDIDATE_LOCATED",
+    "exact_later_modifier_established": false,
+    "meaning": "Discovery-layer silence only; not proof of legal absence."
+  },
+  "transport_blockers_observed": [
+    "TinyFish browser session remained running without progress at step 81",
+    "TinyFish search/fetch rate limits were reached during fallback discovery",
+    "Some direct fetch attempts returned target_unreachable/portal access blocking"
+  ],
+  "conclusion": {
+    "state": "OPEN_UNRESOLVED_INCOMPLETE_BOUNDED_SCAN",
+    "bounded_negative": false,
+    "no_modifier_exists_claim_allowed": false,
+    "operational_page_amends_norm_claim_allowed": false,
+    "next_step": "Acquire or discover a reproducible direct Jornal archive interface and close the missing editions before any bounded-negative conclusion."
+  },
+  "contextual_coverage": "38/38_UNCHANGED"
+}
