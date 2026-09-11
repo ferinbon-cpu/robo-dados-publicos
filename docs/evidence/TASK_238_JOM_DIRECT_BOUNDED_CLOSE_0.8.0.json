@@ -1,0 +1,93 @@
+{
+  "task": "TASK_238",
+  "issue": 796,
+  "evidence_type": "DIRECT_OFFICIAL_JORNAL_ARCHIVE_BOUNDED_CLOSE",
+  "verified_at": "2026-09-11",
+  "canonical_base_sha": "d678e521a6a3290ea1b51163a9433954e815fa07",
+  "prior_state": {
+    "task": "TASK_237",
+    "audit_state": "OPEN_UNRESOLVED_INCOMPLETE_BOUNDED_SCAN",
+    "reason": "TinyFish bulk scan stalled and direct fallback covered only a subset."
+  },
+  "official_archive": {
+    "page": "https://limeira.sp.gov.br/jornaloficial/",
+    "january_2026_page": "https://limeira.sp.gov.br/jornaloficial/?ano=2026&mes=1",
+    "query_contract": "?dataDe=<DD/MM/YYYY>&dataAte=<DD/MM/YYYY>&numeroEdicao=<optional>&busca=<term>",
+    "contract_status": "PROVEN_BY_SUBMITTED_OFFICIAL_FORM_AND_REPLAYABLE_GET",
+    "bounded_window": {
+      "start": "2025-12-17",
+      "end": "2026-01-31",
+      "edition_first": 7140,
+      "edition_last": 7172,
+      "edition_count": 33,
+      "january_2026_archive_count": 22,
+      "closed": true
+    }
+  },
+  "enumeration_provenance": [
+    {
+      "fact": "Edition 7140 is dated 17/12/2025 and starts the post-7139 bounded window.",
+      "official_pdf": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_16122025174446.pdf"
+    },
+    {
+      "fact": "Edition 7141 is also dated 17/12/2025.",
+      "official_pdf": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_17122025141927.pdf"
+    },
+    {
+      "fact": "Official January 2026 archive reports 22 editions and ends at 7172 on 31/01/2026.",
+      "official_archive_url": "https://limeira.sp.gov.br/jornaloficial/?ano=2026&mes=1"
+    }
+  ],
+  "zero_hit_searches": [
+    "Linguagens e Tecnologias",
+    "Linguagens",
+    "Tecnologias",
+    "PSS 04/2025",
+    "Resolução SME",
+    "Resolução nº 08",
+    "Resolução 08/2025",
+    "primeiro semestre",
+    "parágrafo 5º"
+  ],
+  "broad_hit_ledger": [
+    {
+      "term": "08/2025",
+      "editions": [7151, 7142],
+      "classification": "NOT_MODIFIER_CANDIDATES",
+      "basis": "No crossing with any LT/PSS/Resolução-SME target search."
+    },
+    {
+      "term": "formação",
+      "editions": [7168, 7163],
+      "classification": "NOT_MODIFIER_CANDIDATES",
+      "basis": "No crossing with Linguagens, Tecnologias, PSS 04/2025 or Resolução SME."
+    },
+    {
+      "term": "artigo 11",
+      "editions": [7146],
+      "classification": "NOT_MODIFIER_CANDIDATE",
+      "basis": "TASK237 already directly inspected this official PDF and recorded target_hit=false."
+    },
+    {
+      "term": "Diretor de Escola",
+      "editions": [7172, 7150],
+      "classification": "NOT_MODIFIER_CANDIDATES",
+      "basis": "No crossing with LT/PSS/Resolução target searches."
+    }
+  ],
+  "transport_observation": {
+    "new_broad_candidate_direct_pdf_fetch": "target_unreachable",
+    "used_as_negative_evidence": false,
+    "meaning": "The bounded conclusion does not depend on successful binary fetches of these broad false positives."
+  },
+  "conclusion": {
+    "bounded_result_code": "NO_CANDIDATE_LOCATED_IN_BOUNDED_WINDOW",
+    "state": "BOUNDED_WINDOW_COMPLETE_NO_MODIFIER_CANDIDATE_LOCATED",
+    "bounded_negative": true,
+    "universal_no_modifier_claim_allowed": false,
+    "operational_page_amends_norm_claim_allowed": false,
+    "lt_divergence_status": "OPEN_UNRESOLVED",
+    "allowed_claim": "No official modifier candidate was located in the complete Jornal Oficial window from 17/12/2025 through 31/01/2026."
+  },
+  "contextual_coverage": "38/38_UNCHANGED"
+}
