@@ -1,0 +1,102 @@
+{
+  "schema": "LT_FORMATION_TIMING_JOM_WINDOW_INVENTORY_V1",
+  "task": "TASK_238",
+  "issue": 794,
+  "base_main_sha": "d678e521a6a3290ea1b51163a9433954e815fa07",
+  "verified_at": "2026-09-11",
+  "snapshot_bound": true,
+  "objective": "Replace the stalled browser audit with the repository's existing deterministic Jornal Oficial monthly discovery contract, without making any PDF-content or legal-absence claim from index metadata.",
+  "target": {
+    "divergence_id": "LT_FORMATION_TIMING_DIVERGENCE",
+    "window_start": "2025-12-17",
+    "window_end": "2026-01-31",
+    "contextual_coverage": "38/38_UNCHANGED"
+  },
+  "existing_discovery_implementation": {
+    "module": "robo_dados_publicos/journal/official.py",
+    "class": "JornalOficialLimeira",
+    "method": "discover_month",
+    "modern_index": "https://www.limeira.sp.gov.br/jornaloficial",
+    "url_generation": "?ano=YYYY&mes=M",
+    "pagination_policy": "ONLY_SERVER_DECLARED_SAME_ORIGIN_SAME_PATH_LINKS",
+    "document_route_policy": "ONLY_LINKS_DECLARED_BY_OFFICIAL_INDEX_HTML",
+    "url_guessing": false,
+    "robots_aware": true,
+    "target_month_filter": true,
+    "reported_total_reconciliation": true,
+    "partial_discovery_fail_closed": true
+  },
+  "runtime_reuse": {
+    "prior_runtime": "robo_dados_publicos/research/task217c_jom_2026_discovery_runtime.py",
+    "prior_canonical_result": "docs/evidence/TASK_217C_JOM_2026_DISCOVERY_CANONICAL_RESULT_0.8.0.json",
+    "prior_target_csv": "docs/evidence/fixtures/task219/TASK_219A_CANONICAL_87_DOCUMENT_TARGETS.csv",
+    "task238_builder": "robo_dados_publicos/research/task238_lt_modifier_jom_window.py"
+  },
+  "official_month_listing_observations": {
+    "2025-12": {
+      "reported_total_items_full_month": 23,
+      "bounded_window_editions_observed": [7141, 7142, 7143, 7144, 7145, 7146, 7147, 7148, 7149, 7150],
+      "bounded_window_count": 10
+    },
+    "2026-01": {
+      "reported_total_items_full_month": 22,
+      "canonical_routes_already_pinned_for_editions": [7161, 7162, 7163, 7164, 7165, 7166, 7167, 7168, 7169, 7170, 7171, 7172],
+      "canonical_routes_count": 12,
+      "earlier_month_rows_not_yet_route_materialized_count": 10,
+      "early_january_identity_example_officially_indexed": {"edition": 7153, "publication_date": "2026-01-08"}
+    }
+  },
+  "known_official_document_routes": {
+    "count": 19,
+    "december_task237_direct_primary": [7141, 7143, 7144, 7145, 7146, 7148, 7149],
+    "january_task219_canonical_csv": [7161, 7162, 7163, 7164, 7165, 7166, 7167, 7168, 7169, 7170, 7171, 7172],
+    "december_known_identity_route_gaps": [7142, 7147, 7150],
+    "early_january_route_rows_still_to_materialize": 10,
+    "total_route_gaps_before_fresh_month_discovery": 13
+  },
+  "content_state": {
+    "task237_direct_primary_no_hit_editions": [7141, 7143, 7144, 7145, 7146, 7148, 7149],
+    "task237_browser_observed_editions": [7172, 7171, 7170, 7169, 7168, 7166],
+    "browser_scan_status": "SCAN_INCOMPLETE_TRANSPORT_STALL",
+    "direct_fetch_of_known_january_ecrie_urls_currently": "TARGET_UNREACHABLE",
+    "full_window_content_closed": false,
+    "modifier_candidate_established": false,
+    "divergence_status": "OPEN_UNRESOLVED"
+  },
+  "task238_inventory_gate": {
+    "required_months": [[2025, 12], [2026, 1]],
+    "max_pages_per_month": 8,
+    "month_status_required": "PASS_DISCOVERY",
+    "reported_total_must_equal_parsed_count": true,
+    "document_url_https_required": true,
+    "allowed_document_hosts": ["ecrie.com.br", "www.limeira.sp.gov.br", "limeira.sp.gov.br"],
+    "duplicate_edition_forbidden": true,
+    "duplicate_source_id_forbidden": true,
+    "content_downloads_in_inventory_gate": 0,
+    "absence_inference_allowed": false
+  },
+  "authorization_boundary": {
+    "live_discovery_implemented": true,
+    "live_discovery_executed_by_this_commit": false,
+    "pdf_downloads_authorized_by_inventory_commit": false,
+    "drive_writes": false,
+    "serving": false,
+    "publication": false,
+    "promotion": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "global_guards": [
+    "INDEX_IDENTITY_NE_PDF_CONTENT",
+    "DISCOVERED_URL_NE_DOWNLOADED_SOURCE",
+    "PARTIAL_DISCOVERY_NE_COMPLETE_MONTH",
+    "REPORTED_TOTAL_MISMATCH_NE_COMPLETE_MONTH",
+    "TARGET_UNREACHABLE_NE_NO_TARGET_TERM",
+    "NO_INDEXED_CANDIDATE_NE_NO_MODIFIER_EXISTS",
+    "COMPLETE_WINDOW_INVENTORY_NE_COMPLETE_CONTENT_INSPECTION",
+    "NO_URL_GUESSING",
+    "NO_BINARY_HASH_INVENTION",
+    "LT_FORMATION_TIMING_DIVERGENCE_REMAINS_OPEN_UNLESS_EXACT_PRIMARY_MODIFIER_FOUND",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ]
+}
