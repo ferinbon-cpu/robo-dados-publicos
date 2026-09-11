@@ -1,0 +1,193 @@
+{
+  "schema": "MD_01_3_SAFE_HIGH_VALUE_SLICE_V1",
+  "task": "TASK_223",
+  "issue": 757,
+  "depends_on": {
+    "task": "TASK_222",
+    "head_sha": "a2d1d300d94e5309b8232339601b15bf8f4489cc"
+  },
+  "source": {
+    "title": "md_01_3_indice_corpus_documental_transcrito_limeira.md",
+    "role": "DOCUMENT_CORPUS_AND_MIGRATION_MANIFEST",
+    "source_files_found": 228,
+    "unique_documents": 194,
+    "duplicates_ignored": 34,
+    "status_ok": 191,
+    "status_sem_texto": 3,
+    "document_id_range": "DOC-001..DOC-194"
+  },
+  "partition": {
+    "eligible_high_value_public_institutional": 101,
+    "excluded_personnel_or_payroll": 93,
+    "total": 194,
+    "partition_complete": true
+  },
+  "eligibility_rule": {
+    "included_id_ranges": [
+      "DOC-003..DOC-066",
+      "DOC-068..DOC-101",
+      "DOC-103..DOC-105"
+    ],
+    "excluded_id_ranges": [
+      "DOC-001..DOC-002",
+      "DOC-067",
+      "DOC-102",
+      "DOC-106..DOC-194"
+    ],
+    "reason": "Exclude payroll, staff-count and positions/pay artifacts from raw operational ingestion; retain fiscal, budgetary, accountability, education-finance and institutional documents."
+  },
+  "eligible_families": {
+    "FUNDEB_25_EDUCACAO": {
+      "count": 50,
+      "ids": ["DOC-020..DOC-040", "DOC-068..DOC-096"],
+      "default_status": "ok"
+    },
+    "RREO_LRF": {
+      "count": 18,
+      "ids": ["DOC-041", "DOC-043..DOC-048", "DOC-050", "DOC-052..DOC-053", "DOC-055..DOC-056", "DOC-059..DOC-064"],
+      "default_status": "ok"
+    },
+    "RECEITA_DESPESA_MENSAL": {
+      "count": 10,
+      "ids": ["DOC-003", "DOC-004", "DOC-007", "DOC-008", "DOC-011", "DOC-012", "DOC-014", "DOC-015", "DOC-018", "DOC-019"],
+      "default_status": "ok"
+    },
+    "BALANCOS_PRESTACAO_CONTAS": {
+      "count": 9,
+      "ids": ["DOC-005", "DOC-006", "DOC-009", "DOC-010", "DOC-013", "DOC-016", "DOC-017", "DOC-103", "DOC-104"],
+      "default_status": "ok"
+    },
+    "RGF_LRF": {
+      "count": 6,
+      "ids": ["DOC-042", "DOC-049", "DOC-051", "DOC-054", "DOC-057", "DOC-058"],
+      "default_status": "ok"
+    },
+    "LOA_LDO_PPA_LEGISLACAO_ORCAMENTARIA": {
+      "count": 5,
+      "ids": ["DOC-097", "DOC-098", "DOC-099", "DOC-100", "DOC-101"],
+      "status_exceptions": {"DOC-100": "sem_texto"}
+    },
+    "AUDIENCIAS_METAS_FISCAIS": {
+      "count": 1,
+      "ids": ["DOC-065"],
+      "status_exceptions": {"DOC-065": "sem_texto"}
+    },
+    "BALANCETE_EDUCACAO": {
+      "count": 1,
+      "ids": ["DOC-066"],
+      "default_status": "ok"
+    },
+    "COCEM_MATERIAL_INSTITUCIONAL": {
+      "count": 1,
+      "ids": ["DOC-105"],
+      "default_status": "ok"
+    }
+  },
+  "excluded_families": {
+    "FOLHA_HOLERITES": {
+      "count": 70,
+      "ids": ["DOC-106..DOC-175"],
+      "policy": "NO_RAW_ROWLEVEL_INGESTION"
+    },
+    "QUADRO_FUNCIONARIOS": {
+      "count": 22,
+      "ids": ["DOC-001", "DOC-002", "DOC-102", "DOC-176..DOC-194"],
+      "policy": "NO_RAW_ROWLEVEL_INGESTION_IN_TASK_223",
+      "status_exceptions": {"DOC-102": "sem_texto"}
+    },
+    "CARGOS_SALARIOS": {
+      "count": 1,
+      "ids": ["DOC-067"],
+      "policy": "SEPARATE_PURPOSE_MINIMIZATION_SCHEMA_REQUIRED"
+    }
+  },
+  "exact_high_value_locators": [
+    {"id":"DOC-003","family":"RECEITA_DESPESA_MENSAL","name":"01 - Janeiro_despesa.pdf","status":"ok"},
+    {"id":"DOC-004","family":"RECEITA_DESPESA_MENSAL","name":"01 - Janeiro_receita.pdf","status":"ok"},
+    {"id":"DOC-005","family":"BALANCOS_PRESTACAO_CONTAS","name":"01-Balanço Orçamentário do Exercício de 2024.pdf","status":"ok"},
+    {"id":"DOC-006","family":"BALANCOS_PRESTACAO_CONTAS","name":"01-Balanço Orçamentário do Exercício de 2025.pdf","status":"ok"},
+    {"id":"DOC-007","family":"RECEITA_DESPESA_MENSAL","name":"02 - Fevereiro_despesa.pdf","status":"ok"},
+    {"id":"DOC-008","family":"RECEITA_DESPESA_MENSAL","name":"02 - Fevereiro_receita.pdf","status":"ok"},
+    {"id":"DOC-009","family":"BALANCOS_PRESTACAO_CONTAS","name":"02-Balanço Financeiro do Exercício de 2024.pdf","status":"ok"},
+    {"id":"DOC-010","family":"BALANCOS_PRESTACAO_CONTAS","name":"02-Balanço Financeiro do Exercício de 2025.pdf","status":"ok"},
+    {"id":"DOC-011","family":"RECEITA_DESPESA_MENSAL","name":"03 - Março_despesa.pdf","status":"ok"},
+    {"id":"DOC-012","family":"RECEITA_DESPESA_MENSAL","name":"03 - Março_receita.pdf","status":"ok"},
+    {"id":"DOC-013","family":"BALANCOS_PRESTACAO_CONTAS","name":"03-Demonstrativo das Variações Patrimoniais do Exercício de 2024.pdf","status":"ok"},
+    {"id":"DOC-014","family":"RECEITA_DESPESA_MENSAL","name":"04 -Abril_despesas.pdf","status":"ok"},
+    {"id":"DOC-015","family":"RECEITA_DESPESA_MENSAL","name":"04 -Abril_receita.pdf","status":"ok"},
+    {"id":"DOC-016","family":"BALANCOS_PRESTACAO_CONTAS","name":"04-Balanço Patrimonial do Exercício de 2024.pdf","status":"ok"},
+    {"id":"DOC-017","family":"BALANCOS_PRESTACAO_CONTAS","name":"04-Balanço Patrimonial do Exercício de 2025.pdf","status":"ok"},
+    {"id":"DOC-018","family":"RECEITA_DESPESA_MENSAL","name":"05 - Maio_despesa.pdf","status":"ok"},
+    {"id":"DOC-019","family":"RECEITA_DESPESA_MENSAL","name":"05 - Maio_receita.pdf","status":"ok"},
+    {"id":"DOC-041","family":"RREO_LRF","name":"ANEXO 1 - Balanço Orçamentário(2).pdf","status":"ok"},
+    {"id":"DOC-042","family":"RGF_LRF","name":"ANEXO 1 - Despesas com Pessoal(2).pdf","status":"ok"},
+    {"id":"DOC-043","family":"RREO_LRF","name":"ANEXO 1-BALANÇO ORÇAMENTÁRIO - LRF -MES_FEVEREIRO(2).pdf","status":"ok"},
+    {"id":"DOC-044","family":"RREO_LRF","name":"ANEXO 12 - Ações e Serviços Públicos da Saúde.pdf","status":"ok"},
+    {"id":"DOC-045","family":"RREO_LRF","name":"ANEXO 12-DEM.SAUDE - LRF -MES_FEVEREIRO.pdf","status":"ok"},
+    {"id":"DOC-046","family":"RREO_LRF","name":"ANEXO 14 - Demonstrativo Simplificado dos Relatórios Resumidos da Execução Orçamentaria.pdf","status":"ok"},
+    {"id":"DOC-047","family":"RREO_LRF","name":"ANEXO 14-DEM. SIMPLIFICADO RREO - LRF -FEVEREIRO.pdf","status":"ok"},
+    {"id":"DOC-048","family":"RREO_LRF","name":"ANEXO 2 - Despesas por Função e Subfunção(2).pdf","status":"ok"},
+    {"id":"DOC-049","family":"RGF_LRF","name":"ANEXO 2 - Dívida Consolidada Líquida(2).pdf","status":"ok"},
+    {"id":"DOC-050","family":"RREO_LRF","name":"ANEXO 2-DEM. DESPESA POR FUNÇÖES - LRF -MES_FEVEREIRO(1).pdf","status":"ok"},
+    {"id":"DOC-051","family":"RGF_LRF","name":"ANEXO 3 - Garantias e Contragratantias(1).pdf","status":"ok"},
+    {"id":"DOC-052","family":"RREO_LRF","name":"ANEXO 3 - Receita Corrente Líquida(1).pdf","status":"ok"},
+    {"id":"DOC-053","family":"RREO_LRF","name":"ANEXO 3-REC.CORRENTE LIQUIDA - LRF -FEVEREIRO(1).pdf","status":"ok"},
+    {"id":"DOC-054","family":"RGF_LRF","name":"ANEXO 4 - Operação de Credito(1).pdf","status":"ok"},
+    {"id":"DOC-055","family":"RREO_LRF","name":"ANEXO 4 - Receitas e Despesas Previdenciárias do RPP(1).pdf","status":"ok"},
+    {"id":"DOC-056","family":"RREO_LRF","name":"ANEXO 4-DEM. PREVIDENCIA - LRF -MES_FEVEREIRO(1).pdf","status":"ok"},
+    {"id":"DOC-057","family":"RGF_LRF","name":"ANEXO 5 - Demonstrativo de Disponibilidade e Restos a Pagar(1).pdf","status":"ok"},
+    {"id":"DOC-058","family":"RGF_LRF","name":"ANEXO 6 - Demonstrativo simplificado do relatorio de Gestão Fiscal(1).pdf","status":"ok"},
+    {"id":"DOC-059","family":"RREO_LRF","name":"ANEXO 6 - Resultados Primário e Nominal.pdf","status":"ok"},
+    {"id":"DOC-060","family":"RREO_LRF","name":"ANEXO 6-DEM. RESULTADO PRIMARIO E NOMINAL RREO - LRF -FEVEREIRO.pdf","status":"ok"},
+    {"id":"DOC-061","family":"RREO_LRF","name":"ANEXO 7 - Restos a Pagar por Poder e Orgão.pdf","status":"ok"},
+    {"id":"DOC-062","family":"RREO_LRF","name":"ANEXO 7-RESTOS A PAGAR - LRF -MES_FEVEREIRO.pdf","status":"ok"},
+    {"id":"DOC-063","family":"RREO_LRF","name":"ANEXO 8 - Manutenção e Desenvolvimento do Ensino.pdf","status":"ok"},
+    {"id":"DOC-064","family":"RREO_LRF","name":"ANEXO 8-DEM. RECEITAS E DESPESAS- MANUT.DESENV.ENSINO JAN A FEV.pdf","status":"ok"},
+    {"id":"DOC-065","family":"AUDIENCIAS_METAS_FISCAIS","name":"Apresentacao_audiencia_publica.pdf","status":"sem_texto"},
+    {"id":"DOC-066","family":"BALANCETE_EDUCACAO","name":"Balancete_Mes_Setembro_2025_Educacao.pdf","status":"ok"},
+    {"id":"DOC-097","family":"LOA_LDO_PPA_LEGISLACAO_ORCAMENTARIA","name":"Lei de Diretrizes Orçamentárias (2026).pdf","status":"ok"},
+    {"id":"DOC-098","family":"LOA_LDO_PPA_LEGISLACAO_ORCAMENTARIA","name":"Lei Municipal n° 7.141, 02_07_2025 - Período 2026.pdf","status":"ok"},
+    {"id":"DOC-099","family":"LOA_LDO_PPA_LEGISLACAO_ORCAMENTARIA","name":"Lei Municipal nº 7.213_25 e Anexos - PPA - Período (2026 - 2029).pdf","status":"ok"},
+    {"id":"DOC-100","family":"LOA_LDO_PPA_LEGISLACAO_ORCAMENTARIA","name":"Lei Municipal nº 7.223_25 e Anexos - LOA - Período 2026.pdf","status":"sem_texto","operational_content_status":"SUPERSEDED_FOR_CONTENT_BY_F01_CANONICAL_JOM_CHAIN"},
+    {"id":"DOC-101","family":"LOA_LDO_PPA_LEGISLACAO_ORCAMENTARIA","name":"Lei Orçamentária Anual (2026).pdf","status":"ok"},
+    {"id":"DOC-103","family":"BALANCOS_PRESTACAO_CONTAS","name":"Prestação de contas 2024.pdf","status":"ok"},
+    {"id":"DOC-104","family":"BALANCOS_PRESTACAO_CONTAS","name":"Prestação de contas 2025.pdf","status":"ok"},
+    {"id":"DOC-105","family":"COCEM_MATERIAL_INSTITUCIONAL","name":"XIII COCEM 2025- REGIMENTO FINALIZADO.pdf","status":"ok"}
+  ],
+  "fundeb_portal_locator_policy": {
+    "document_count": 50,
+    "ids_are_exact": true,
+    "filenames_remain_in_source_manifest": true,
+    "copy_all_filenames_into_runtime_config": false,
+    "reason": "The deterministic ID ranges and source manifest preserve exact locators without duplicating repetitive opaque portal filenames."
+  },
+  "guards": [
+    "PERSONNEL_RAW_ROWS_NOT_INGESTED",
+    "SEM_TEXTO_NE_EMPTY_OR_ZERO",
+    "TRANSCRIPTION_NE_STRUCTURED_NUMERIC_TRUTH",
+    "F01_F02_OVERLAP_MUST_NOT_BE_REINGESTED_AS_NEW_FACT",
+    "MISSING_NE_ZERO",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "next_incremental_targets": [
+    {
+      "priority": 1,
+      "id": "DOC-066",
+      "name": "Balancete_Mes_Setembro_2025_Educacao.pdf",
+      "reason": "Education-specific granular accounting source with high incremental value."
+    },
+    {
+      "priority": 2,
+      "id": "DOC-105",
+      "name": "XIII COCEM 2025- REGIMENTO FINALIZADO.pdf",
+      "reason": "Institutional/governance source not equivalent to fiscal structured APIs."
+    },
+    {
+      "priority": 3,
+      "family": "BALANCOS_PRESTACAO_CONTAS",
+      "reason": "Historical financial context after deduplication against already structured sources."
+    }
+  ],
+  "canonical_contextual_coverage": {"answerable":38,"total":38,"changed_by_this_task":false},
+  "remote_effects": {"new_source_network":false,"drive_write":false,"serving":false,"publication":false,"schedule":false,"recurrence":false}
+}
