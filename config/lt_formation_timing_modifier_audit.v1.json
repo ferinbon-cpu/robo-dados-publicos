@@ -1,0 +1,107 @@
+{
+  "schema": "LT_FORMATION_TIMING_MODIFIER_AUDIT_V1",
+  "task": "TASK_237",
+  "issue": 792,
+  "base_main_sha": "53b9f3f8140bd2136ef80bb8d9ff4916151d2175",
+  "verified_at": "2026-09-11",
+  "snapshot_bound": true,
+  "target": {
+    "divergence_id": "LT_FORMATION_TIMING_DIVERGENCE",
+    "domain": "Linguagens e Tecnologias",
+    "school_year": 2026,
+    "question": "Was a later official act located that changes, retifies, complements or operationalizes the PSS 04/2025 timing for presenting LT formation proof?",
+    "contextual_coverage": "38/38_UNCHANGED"
+  },
+  "authority_baseline": {
+    "primary_normative_source": "Resolução SME nº 08, de 09 de dezembro de 2025",
+    "primary_config": "config/education_assignment_resolution_08_2025_primary.v1.json",
+    "primary_publication_date": "2025-12-16",
+    "primary_journal_edition": 7139,
+    "primary_position": "Art. 11 §5(b), pp. 175-176, as canonized by TASK235: PSS 04/2025 LT/workshop proof belongs to the indication/upload flow and absence of proof annuls indication.",
+    "current_operational_source": "Official SME 2026 indication/assignment page",
+    "current_operational_position": "The current official web workflow says LT formation may be presented to the school director during the first semester of 2026 while citing the same Art. 11 §5(b).",
+    "authority_rule": "CURRENT_OPERATIONAL_PAGE_DOES_NOT_BY_ITSELF_AMEND_PRIMARY_NORMATIVE_TEXT"
+  },
+  "bounded_window": {
+    "start_date": "2025-12-17",
+    "end_date": "2026-01-31",
+    "full_window_closed": false,
+    "terminal_negative_result_allowed": false,
+    "reason_not_closed": "The browser scan stalled before completing the bounded window and direct-source fallback has not yet covered every edition in the window."
+  },
+  "browser_scan": {
+    "provider": "TinyFish",
+    "run_id": "4fc0515a-cc80-4448-ba93-2916d8d8e910",
+    "status": "SCAN_INCOMPLETE_TRANSPORT_STALL",
+    "last_observed_step": 81,
+    "last_observed_action": "Check Edition 7166 for keywords",
+    "last_observed_edition": 7166,
+    "remained_running_without_progress_across_repeated_waits": true,
+    "editions_observed_as_individually_inspected": [7172, 7171, 7170, 7169, 7168, 7166],
+    "candidate_established": false,
+    "legal_absence_inference_allowed": false
+  },
+  "direct_official_fallback": {
+    "status": "PARTIAL_DIRECT_PRIMARY_INSPECTION",
+    "editions": [
+      {"edition": 7141, "publication_date": "2025-12-17", "official_pdf_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_17122025141927.pdf", "target_hit": false},
+      {"edition": 7143, "publication_date": "2025-12-19", "official_pdf_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_18122025173410.pdf", "target_hit": false},
+      {"edition": 7144, "publication_date": "2025-12-19", "official_pdf_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_19122025135333.pdf", "target_hit": false, "edition_variant": "extra"},
+      {"edition": 7145, "publication_date": "2025-12-20", "official_pdf_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_19122025171009.pdf", "target_hit": false},
+      {"edition": 7146, "publication_date": "2025-12-23", "official_pdf_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_22122025175037.pdf", "target_hit": false},
+      {"edition": 7148, "publication_date": "2025-12-24", "official_pdf_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_23122025174443.pdf", "target_hit": false},
+      {"edition": 7149, "publication_date": "2025-12-30", "official_pdf_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_29122025182017.pdf", "target_hit": false}
+    ],
+    "all_listed_urls_are_official_ecrie": true,
+    "binary_hashes_claimed": 0,
+    "full_window_closed_by_fallback": false
+  },
+  "indexed_discovery": {
+    "status": "NO_INDEXED_CANDIDATE_LOCATED",
+    "queries_included": [
+      "exact current operational first-semester wording",
+      "Resolução SME nº 08 + retificação",
+      "PSS 04/2025 + formação em Linguagens e Tecnologias",
+      "Art. 11 §5(b) + Linguagens e Tecnologias",
+      "primeiro semestre letivo de 2026"
+    ],
+    "later_official_modifier_candidate_located": false,
+    "original_edition_7139_continued_to_surface": true,
+    "legal_absence_inference_allowed": false
+  },
+  "candidate_ledger": [],
+  "result": {
+    "modifier_candidate_established": false,
+    "bounded_negative_result": false,
+    "audit_state": "OPEN_UNRESOLVED_INCOMPLETE_BOUNDED_SCAN",
+    "divergence_status": "OPEN_UNRESOLVED",
+    "allowed_claim": "No exact later modifier has been established by the completed discovery work and partial primary-edition inspection recorded here; the bounded window is not fully closed.",
+    "forbidden_claims": [
+      "No modifier exists.",
+      "The Resolução was not altered after publication.",
+      "The operational page legally amended the Resolução.",
+      "The full 17/12/2025-31/01/2026 Jornal window was exhaustively checked."
+    ],
+    "required_next_evidence": "Complete the bounded Jornal window through a reproducible direct archive interface or an independently complete edition-by-edition primary-source scan."
+  },
+  "global_guards": [
+    "NO_CANDIDATE_ESTABLISHED_NE_NO_MODIFIER_EXISTS",
+    "NO_INDEXED_CANDIDATE_LOCATED_NE_NO_MODIFIER_EXISTS",
+    "SCAN_INCOMPLETE_TRANSPORT_STALL_NE_BOUNDED_NEGATIVE_RESULT",
+    "PARTIAL_PRIMARY_SCAN_NE_FULL_WINDOW_CLOSED",
+    "OPERATIONAL_PAGE_NE_NORMATIVE_AMENDMENT",
+    "PRIMARY_EXACT_TEXT_GT_CURRENT_OPERATIONAL_PAGE_FOR_NORMATIVE_WORDING",
+    "LT_FORMATION_TIMING_DIVERGENCE_REMAINS_OPEN_UNLESS_EXACT_MODIFIER_FOUND",
+    "RATE_LIMIT_403_TIMEOUT_NE_LEGAL_ABSENCE",
+    "NO_BINARY_HASH_INVENTION",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "remote_effects": {
+    "source_network_read_only": true,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
