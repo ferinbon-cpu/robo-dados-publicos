@@ -1,0 +1,117 @@
+{
+  "schema": "LT_FORMATION_TIMING_JOM_WINDOW_INVENTORY_V2",
+  "task": "TASK_238",
+  "issue": 794,
+  "base_main_sha": "96f4a0c81b6b358b9c57019b27bd2e4cc7706efd",
+  "verified_at": "2026-09-11",
+  "snapshot_bound": true,
+  "supersedes_for_current_inventory_state": "config/lt_formation_timing_jom_window_inventory.v1.json",
+  "correction_to_v1": {
+    "v1_bounded_december_first_edition": 7141,
+    "correct_bounded_december_first_edition": 7140,
+    "reason": "Official Jornal queries by 17/12/2025 and by numeroEdicao=7140 both return edition 7140 dated 17/12/2025, alongside edition 7141 on the same date.",
+    "v1_bounded_window_count_implicit": 32,
+    "correct_bounded_window_count": 33
+  },
+  "target": {
+    "divergence_id": "LT_FORMATION_TIMING_DIVERGENCE",
+    "window_start": "2025-12-17",
+    "window_end": "2026-01-31",
+    "contextual_coverage": "38/38_UNCHANGED"
+  },
+  "discovery_provenance": {
+    "official_index": "https://limeira.sp.gov.br/jornaloficial/",
+    "monthly_contract": "?ano=YYYY&mes=M",
+    "edition_contract": "?numeroEdicao=N",
+    "mechanism_used_for_this_reconciliation": "OFFICIAL_INDEX_PER_EDITION_GET_RECONCILIATION",
+    "repository_discover_month_runtime_executed_for_this_snapshot": false,
+    "url_guessing": false,
+    "document_routes_accepted_only_when_emitted_by_official_index": true,
+    "december_reported_total_items": 23,
+    "january_reported_total_items": 22,
+    "monthly_total_reconciled": true
+  },
+  "monthly_inventories": {
+    "2025-12": {
+      "reported_total_items": 23,
+      "count": 23,
+      "editions": [
+        {"edition":7128,"publication_date":"2025-12-02","source_id":"LIMEIRA_JO_07128","logical_key":"limeira/jornal_oficial/edicao/7128","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7128","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_01122025165840.pdf"},
+        {"edition":7129,"publication_date":"2025-12-03","source_id":"LIMEIRA_JO_07129","logical_key":"limeira/jornal_oficial/edicao/7129","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7129","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_02122025163444.pdf"},
+        {"edition":7130,"publication_date":"2025-12-04","source_id":"LIMEIRA_JO_07130","logical_key":"limeira/jornal_oficial/edicao/7130","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7130","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_03122025213609.pdf"},
+        {"edition":7131,"publication_date":"2025-12-05","source_id":"LIMEIRA_JO_07131","logical_key":"limeira/jornal_oficial/edicao/7131","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7131","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_04122025214256.pdf"},
+        {"edition":7132,"publication_date":"2025-12-06","source_id":"LIMEIRA_JO_07132","logical_key":"limeira/jornal_oficial/edicao/7132","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7132","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_05122025221103.pdf"},
+        {"edition":7133,"publication_date":"2025-12-09","source_id":"LIMEIRA_JO_07133","logical_key":"limeira/jornal_oficial/edicao/7133","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7133","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_08122025171056.pdf"},
+        {"edition":7134,"publication_date":"2025-12-10","source_id":"LIMEIRA_JO_07134","logical_key":"limeira/jornal_oficial/edicao/7134","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7134","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_09122025204434.pdf"},
+        {"edition":7135,"publication_date":"2025-12-11","source_id":"LIMEIRA_JO_07135","logical_key":"limeira/jornal_oficial/edicao/7135","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7135","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_10122025201514.pdf"},
+        {"edition":7136,"publication_date":"2025-12-12","source_id":"LIMEIRA_JO_07136","logical_key":"limeira/jornal_oficial/edicao/7136","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7136","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_11122025183606.pdf"},
+        {"edition":7137,"publication_date":"2025-12-12","source_id":"LIMEIRA_JO_07137","logical_key":"limeira/jornal_oficial/edicao/7137","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7137","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_12122025160717.pdf"},
+        {"edition":7138,"publication_date":"2025-12-13","source_id":"LIMEIRA_JO_07138","logical_key":"limeira/jornal_oficial/edicao/7138","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7138","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_12122025175445.pdf"},
+        {"edition":7139,"publication_date":"2025-12-16","source_id":"LIMEIRA_JO_07139","logical_key":"limeira/jornal_oficial/edicao/7139","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7139","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_15122025182852.pdf"},
+        {"edition":7140,"publication_date":"2025-12-17","source_id":"LIMEIRA_JO_07140","logical_key":"limeira/jornal_oficial/edicao/7140","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7140","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_16122025174446.pdf"},
+        {"edition":7141,"publication_date":"2025-12-17","source_id":"LIMEIRA_JO_07141","logical_key":"limeira/jornal_oficial/edicao/7141","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7141","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_17122025141927.pdf"},
+        {"edition":7142,"publication_date":"2025-12-18","source_id":"LIMEIRA_JO_07142","logical_key":"limeira/jornal_oficial/edicao/7142","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7142","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_17122025183058.pdf"},
+        {"edition":7143,"publication_date":"2025-12-19","source_id":"LIMEIRA_JO_07143","logical_key":"limeira/jornal_oficial/edicao/7143","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7143","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_18122025173410.pdf"},
+        {"edition":7144,"publication_date":"2025-12-19","source_id":"LIMEIRA_JO_07144","logical_key":"limeira/jornal_oficial/edicao/7144","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7144","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_19122025135333.pdf"},
+        {"edition":7145,"publication_date":"2025-12-20","source_id":"LIMEIRA_JO_07145","logical_key":"limeira/jornal_oficial/edicao/7145","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7145","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_19122025171009.pdf"},
+        {"edition":7146,"publication_date":"2025-12-23","source_id":"LIMEIRA_JO_07146","logical_key":"limeira/jornal_oficial/edicao/7146","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7146","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_22122025175037.pdf"},
+        {"edition":7147,"publication_date":"2025-12-23","source_id":"LIMEIRA_JO_07147","logical_key":"limeira/jornal_oficial/edicao/7147","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7147","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_23122025100127.pdf"},
+        {"edition":7148,"publication_date":"2025-12-24","source_id":"LIMEIRA_JO_07148","logical_key":"limeira/jornal_oficial/edicao/7148","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7148","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_23122025174443.pdf"},
+        {"edition":7149,"publication_date":"2025-12-30","source_id":"LIMEIRA_JO_07149","logical_key":"limeira/jornal_oficial/edicao/7149","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7149","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_29122025182017.pdf"},
+        {"edition":7150,"publication_date":"2025-12-31","source_id":"LIMEIRA_JO_07150","logical_key":"limeira/jornal_oficial/edicao/7150","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7150","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_30122025170408.pdf"}
+      ]
+    },
+    "2026-01": {
+      "reported_total_items": 22,
+      "count": 22,
+      "editions": [
+        {"edition":7151,"publication_date":"2026-01-06","source_id":"LIMEIRA_JO_07151","logical_key":"limeira/jornal_oficial/edicao/7151","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7151","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_05012026203147.pdf"},
+        {"edition":7152,"publication_date":"2026-01-07","source_id":"LIMEIRA_JO_07152","logical_key":"limeira/jornal_oficial/edicao/7152","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7152","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_06012026163902.pdf"},
+        {"edition":7153,"publication_date":"2026-01-08","source_id":"LIMEIRA_JO_07153","logical_key":"limeira/jornal_oficial/edicao/7153","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7153","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_07012026205232.pdf"},
+        {"edition":7154,"publication_date":"2026-01-09","source_id":"LIMEIRA_JO_07154","logical_key":"limeira/jornal_oficial/edicao/7154","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7154","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_08012026174631.pdf"},
+        {"edition":7155,"publication_date":"2026-01-10","source_id":"LIMEIRA_JO_07155","logical_key":"limeira/jornal_oficial/edicao/7155","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7155","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_09012026165912.pdf"},
+        {"edition":7156,"publication_date":"2026-01-12","source_id":"LIMEIRA_JO_07156","logical_key":"limeira/jornal_oficial/edicao/7156","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7156","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_12012026160645.pdf"},
+        {"edition":7157,"publication_date":"2026-01-13","source_id":"LIMEIRA_JO_07157","logical_key":"limeira/jornal_oficial/edicao/7157","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7157","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_12012026164849.pdf"},
+        {"edition":7158,"publication_date":"2026-01-14","source_id":"LIMEIRA_JO_07158","logical_key":"limeira/jornal_oficial/edicao/7158","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7158","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_13012026163834.pdf"},
+        {"edition":7159,"publication_date":"2026-01-15","source_id":"LIMEIRA_JO_07159","logical_key":"limeira/jornal_oficial/edicao/7159","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7159","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_14012026170937.pdf"},
+        {"edition":7160,"publication_date":"2026-01-16","source_id":"LIMEIRA_JO_07160","logical_key":"limeira/jornal_oficial/edicao/7160","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7160","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_15012026171611.pdf"},
+        {"edition":7161,"publication_date":"2026-01-17","source_id":"LIMEIRA_JO_07161","logical_key":"limeira/jornal_oficial/edicao/7161","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7161","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_16012026163716.pdf"},
+        {"edition":7162,"publication_date":"2026-01-20","source_id":"LIMEIRA_JO_07162","logical_key":"limeira/jornal_oficial/edicao/7162","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7162","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_19012026164920.pdf"},
+        {"edition":7163,"publication_date":"2026-01-21","source_id":"LIMEIRA_JO_07163","logical_key":"limeira/jornal_oficial/edicao/7163","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7163","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_20012026164423.pdf"},
+        {"edition":7164,"publication_date":"2026-01-22","source_id":"LIMEIRA_JO_07164","logical_key":"limeira/jornal_oficial/edicao/7164","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7164","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_21012026164544.pdf"},
+        {"edition":7165,"publication_date":"2026-01-23","source_id":"LIMEIRA_JO_07165","logical_key":"limeira/jornal_oficial/edicao/7165","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7165","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_22012026180941.pdf"},
+        {"edition":7166,"publication_date":"2026-01-24","source_id":"LIMEIRA_JO_07166","logical_key":"limeira/jornal_oficial/edicao/7166","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7166","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_23012026164718.pdf"},
+        {"edition":7167,"publication_date":"2026-01-27","source_id":"LIMEIRA_JO_07167","logical_key":"limeira/jornal_oficial/edicao/7167","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7167","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_26012026164113.pdf"},
+        {"edition":7168,"publication_date":"2026-01-28","source_id":"LIMEIRA_JO_07168","logical_key":"limeira/jornal_oficial/edicao/7168","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7168","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_27012026163638.pdf"},
+        {"edition":7169,"publication_date":"2026-01-29","source_id":"LIMEIRA_JO_07169","logical_key":"limeira/jornal_oficial/edicao/7169","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7169","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_28012026163925.pdf"},
+        {"edition":7170,"publication_date":"2026-01-30","source_id":"LIMEIRA_JO_07170","logical_key":"limeira/jornal_oficial/edicao/7170","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7170","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_29012026185449.pdf"},
+        {"edition":7171,"publication_date":"2026-01-30","source_id":"LIMEIRA_JO_07171","logical_key":"limeira/jornal_oficial/edicao/7171","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7171","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_30012026162358.pdf"},
+        {"edition":7172,"publication_date":"2026-01-31","source_id":"LIMEIRA_JO_07172","logical_key":"limeira/jornal_oficial/edicao/7172","source_page":"https://limeira.sp.gov.br/jornaloficial/?numeroEdicao=7172","document_url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_30012026165256.pdf"}
+      ]
+    }
+  },
+  "bounded_window_inventory": {
+    "status": "PASS_COMPLETE_BOUNDED_WINDOW_INVENTORY_RECONCILED",
+    "first_edition": 7140,
+    "last_edition": 7172,
+    "document_count": 33,
+    "editions_contiguous": true,
+    "exact_official_routes_materialized": 33,
+    "route_gaps": 0,
+    "content_inspection_performed": false,
+    "modifier_candidate_established": false,
+    "absence_inference_allowed": false,
+    "divergence_status": "OPEN_UNRESOLVED",
+    "next_step": "SEPARATE_BOUNDED_PRIMARY_DOCUMENT_CONTENT_INSPECTION_OR_OFFICIAL_FULL_TEXT_SEARCH_AUDIT"
+  },
+  "global_guards": [
+    "OFFICIAL_INDEX_IDENTITY_NE_PDF_CONTENT",
+    "COMPLETE_WINDOW_INVENTORY_NE_COMPLETE_CONTENT_INSPECTION",
+    "REPOSITORY_RUNTIME_NOT_EXECUTED_NE_RUNTIME_EXECUTED",
+    "TARGET_UNREACHABLE_NE_NO_TARGET_TERM",
+    "NO_URL_GUESSING",
+    "NO_BINARY_HASH_INVENTION",
+    "LT_FORMATION_TIMING_DIVERGENCE_REMAINS_OPEN_UNLESS_EXACT_PRIMARY_MODIFIER_FOUND",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ]
+}
