@@ -42,18 +42,27 @@ class TestTask236LTNormativeAuthorityChain(unittest.TestCase):
         self.assertIn("estruturar e regulamentar", node["proven_rules"][0]["rule"])
         self.assertEqual(node["guard"], "NO_UNSEEN_PORTARIA_ARTICLE_RECONSTRUCTION")
 
-    def test_deliberation_identity_is_primary_but_article8_text_is_not_materialized(self):
+    def test_deliberation_article8_is_exactly_materialized_from_primary_pdf(self):
         node = self.nodes["LT-DELIB-CONJUNTA-001-2025"]
         self.assertEqual(node["journal_edition"], 7107)
         self.assertEqual(node["source_role"], "PRIMARY_CURRICULAR_NORMATIVE_ACT")
         self.assertIn("Institui a disciplina extracurricular", node["title_proven"])
         self.assertEqual(node["publication_start_page"], 6)
+        self.assertEqual(node["publication_end_page"], 11)
+        self.assertTrue(node["text_recovery"]["primary_pdf_identity_proven"])
+        self.assertFalse(node["text_recovery"]["binary_bytes_custodied"])
+        self.assertTrue(node["text_recovery"]["article_outline_is_not_exact_article_text"])
         art8 = node["article_8"]
         self.assertTrue(art8["existence_and_relevance_proven_by_later_decree"])
-        self.assertFalse(art8["exact_text_materialized"])
-        self.assertEqual(art8["status"], "EXACT_ARTICLE_TEXT_NOT_RECOVERED_IN_TASK236")
-        self.assertIn("Do not reconstruct", art8["forbidden_claim"])
-        self.assertFalse(self.obj["summary"]["deliberation_article_8_exact_text_materialized"])
+        self.assertTrue(art8["exact_text_materialized"])
+        self.assertEqual(art8["page"], 9)
+        self.assertEqual(art8["status"], "EXACT_ARTICLE_TEXT_RECOVERED_FROM_PRIMARY_OFFICIAL_PDF")
+        self.assertTrue(art8["exact_text"].startswith("Art. 8º Em função da inclusão"))
+        self.assertIn("2 (duas) horas/aula semanais", art8["exact_text"])
+        self.assertIn("Cultura Corporal e Movimento", art8["exact_text"])
+        self.assertIn("Arte e Educação Física", art8["exact_text"])
+        self.assertTrue(self.obj["summary"]["deliberation_article_8_exact_text_materialized"])
+        self.assertTrue(self.obj["summary"]["deliberation_publication_page_span_proven"])
 
     def test_decree_289_preserves_exact_cross_reference(self):
         node = self.nodes["LT-DECRETO-289-2025"]
@@ -97,7 +106,10 @@ class TestTask236LTNormativeAuthorityChain(unittest.TestCase):
     def test_current_operational_page_is_lower_authority(self):
         node = self.nodes["LT-SME-OPERATIONAL-PAGE-2026"]
         self.assertEqual(node["source_role"], "OFFICIAL_CURRENT_OPERATIONAL_WORKFLOW")
-        self.assertIn("does not by itself amend", node["authority_limit"])
+        self.assertEqual(
+            node["authority_limit"],
+            "PROVES_CURRENT_WEB_WORKFLOW_WHERE_OBSERVED_BUT_DOES_NOT_BY_ITSELF_AMEND_PRIMARY_NORMATIVE_TEXT",
+        )
         precedence = self.obj["authority_precedence"]
         self.assertLess(
             precedence.index("EXACT_PRIMARY_NORMATIVE_TEXT_WITH_ARTICLE_PROVENANCE"),
@@ -118,6 +130,7 @@ class TestTask236LTNormativeAuthorityChain(unittest.TestCase):
         )
         self.assertTrue(self.prior["summary"]["lt_timing_divergence_open"])
         self.assertTrue(self.obj["summary"]["lt_formation_timing_divergence_open"])
+        self.assertIn("Do not use art. 8º", self.nodes["LT-DELIB-CONJUNTA-001-2025"]["article_8"]["forbidden_claim"])
 
     def test_no_binary_hash_is_invented(self):
         self.assertEqual(self.obj["summary"]["binary_hashes_claimed"], 0)
@@ -129,6 +142,8 @@ class TestTask236LTNormativeAuthorityChain(unittest.TestCase):
         required = {
             "AUTHORITY_CHAIN_NE_AMENDMENT_CHAIN",
             "DELIB_ARTICLE_TEXT_NE_PROVEN_UNTIL_PRIMARY_TEXT_RECOVERED",
+            "DELIB_ART8_PAGE_PROVENANCE_REQUIRED",
+            "DELIB_OTHER_ARTICLES_NE_EXACT_TEXT_UNLESS_SEPARATELY_RECOVERED",
             "DECREE289_CROSS_REFERENCE_TO_DELIB_ART8_MUST_BE_PRESERVED",
             "DECREE289_CROSS_REFERENCE_NE_FULL_TEXT_OF_DELIB_ART8",
             "OPERATIONAL_PAGE_NE_NORMATIVE_AMENDMENT",
