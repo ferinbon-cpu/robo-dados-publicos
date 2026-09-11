@@ -1,0 +1,108 @@
+{
+  "schema": "TASK_232_NORMATIVE_AUTHORITY_READINESS_EVIDENCE_V1",
+  "task": "TASK_232",
+  "issue": 780,
+  "canonical_base_sha": "67db6f592bed768f9a6aa7bc27d5558a0d96adaf",
+  "evidence_mode": "EXISTING_CUSTODY_ONLY_NO_REMOTE_ACQUISITION",
+  "inputs": [
+    {
+      "path": "config/normative_sme_legal_coverage.v1.json",
+      "role": "CANONICAL_74_ITEM_COVERAGE_MATRIX",
+      "fact": "Exactly 11 items are INTEGRADO_CORPUS."
+    },
+    {
+      "title": "Cerebro_Normativo_Gestao_Escolar_Limeira_v3_0_ESPELHO_SME_LEGAL.md",
+      "role": "DERIVED_RAG_GUIDE_WITH_INTEGRATED_CORPUS",
+      "fact": "The source itself defines INTEGRADO_CORPUS as text/OCR incorporated and requires official checking when current vigency or later amendments matter."
+    }
+  ],
+  "verified_source_evidence": [
+    {
+      "source_package_id": "PKG-LC461-2009",
+      "identity": "LC_461_2009_Estatuto_Magisterio.pdf",
+      "pages": 32,
+      "method": "PDF pdftotext",
+      "status": "OK",
+      "authority_class": "PRIMARY_NORMATIVE_TEXT",
+      "vigency_conclusion": "NOT_REVALIDATED_CURRENTLY"
+    },
+    {
+      "source_package_id": "PKG-LC41-1991",
+      "identity": "LC_41_1991_Estatuto_Funcionarios.pdf",
+      "pages": 25,
+      "method": "PDF pdftotext",
+      "status": "OK",
+      "authority_class": "PRIMARY_NORMATIVE_TEXT",
+      "vigency_conclusion": "NOT_REVALIDATED_CURRENTLY",
+      "note": "Integrated text exposes multiple later-law references; no complete current consolidation is inferred."
+    },
+    {
+      "source_package_id": "PKG-LEI6089-2018",
+      "identity": "Lei Municipal nº 6089-18 - Dispõe sobre a organização do Sistema Municipal de Ensino.pdf",
+      "pages": 26,
+      "method": "OCR",
+      "status": "OCR_OK_SOURCE_SCAN",
+      "authority_class": "PRIMARY_NORMATIVE_TEXT",
+      "vigency_conclusion": "NOT_REVALIDATED_CURRENTLY",
+      "note": "OCR supports retrieval but does not replace the official publication/image for sensitive use."
+    },
+    {
+      "source_package_id": "PKG-CONSELHO-CICLO-2022",
+      "identity": "formacao-conselho-de-ciclo.PDF",
+      "pages": 61,
+      "method": "PDF pdftotext",
+      "status": "OK",
+      "authority_class": "TRAINING_MATERIAL",
+      "printed_context": "Equipe de Supervisao SME; Junho/2022",
+      "vigency_conclusion": "NOT_APPLICABLE_AS_STANDALONE_NORMATIVE_PROOF"
+    },
+    {
+      "source_package_id": "PKG-PPP-2022",
+      "identity": "PPP Parte 1 + PPP Parte 2",
+      "known_member": "apresentacao-ppp-parte-2-25-05-22.PDF",
+      "known_member_pages": 24,
+      "known_member_method": "PDF pdftotext",
+      "authority_class": "TRAINING_MATERIAL",
+      "vigency_conclusion": "NOT_APPLICABLE_AS_STANDALONE_NORMATIVE_PROOF"
+    }
+  ],
+  "logical_deduplication": {
+    "menu_items": 11,
+    "logical_source_packages": 8,
+    "overlap_groups": [
+      {
+        "ids": ["SMELEGAL-014", "SMELEGAL-028"],
+        "reason": "Conselho de Escola is integrated through Gestao Legal I Eixo 5."
+      },
+      {
+        "ids": ["SMELEGAL-045", "SMELEGAL-061"],
+        "reason": "Both menu entries resolve to the same PPP Part 1 + Part 2 package."
+      },
+      {
+        "ids": ["SMELEGAL-056", "SMELEGAL-065"],
+        "reason": "Vice-Diretor and IS nº 1 belong to the same local administrative package."
+      }
+    ]
+  },
+  "result": {
+    "primary_normative_menu_items": 3,
+    "context_only_menu_items": 8,
+    "current_vigency_proven_items": 0,
+    "official_vigency_followup_targets": 4,
+    "contextual_coverage": "38/38_UNCHANGED"
+  },
+  "interpretation_boundary": [
+    "INTEGRATED_TEXT_IS_NOT_CURRENT_VIGENCY_PROOF",
+    "MENU_TAXONOMY_IS_NOT_SOURCE_TAXONOMY",
+    "TRAINING_AND_OPERATIONAL_MATERIAL_MAY_CITE_RULES_BUT_ARE_NOT_AUTOMATICALLY_THE_RULES",
+    "CURRENT_VIGENCY_REQUIRES_A_SEPARATE_OFFICIAL_SOURCE_CHECK"
+  ],
+  "remote_effects": {
+    "source_network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
