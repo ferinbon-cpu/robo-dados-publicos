@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-# Ephemeral read-only probe. This comment intentionally triggers the corrected
-# branch workflow after PYTHONPATH was fixed; it does not alter probe semantics.
+# Ephemeral read-only probe for the final TASK 238 primary-content candidates.
 import argparse
 import hashlib
 import json
@@ -9,6 +8,7 @@ import re
 import unicodedata
 from io import BytesIO
 from pathlib import Path
+from urllib.parse import urlencode
 
 from pypdf import PdfReader
 
@@ -22,20 +22,27 @@ TARGETS = {
 }
 
 ALLOWED_HOSTS = ["ecrie.com.br", "www.limeira.sp.gov.br", "limeira.sp.gov.br"]
-MAXIMUM_BYTES = 80_000_000
+MAXIMUM_BYTES = 300_000_000
 
 SEARCH_TERMS = [
     "08/2025",
+    "04/2025",
     "formação",
     "Linguagens e Tecnologias",
     "Linguagens",
     "Tecnologias",
     "PSS 04/2025",
+    "PSS",
+    "Processo Seletivo Simplificado",
     "Resolução SME",
     "Resolução nº 08",
     "Resolução 08/2025",
+    "Resolução",
     "primeiro semestre",
+    "primeiro semestre letivo de 2026",
     "parágrafo 5º",
+    "artigo 11",
+    "comprovante",
     "Secretaria Municipal de Educação",
 ]
 
@@ -67,24 +74,70 @@ def extract_pdf(data: bytes) -> tuple[int, list[dict], list[str]]:
     for index, page in enumerate(reader.pages, start=1):
         try:
             text = page.extract_text() or ""
-        except Exception as exc:  # item-local and fail-closed in output
+        except Exception as exc:
             text = ""
             errors.append(f"page_{index}:{type(exc).__name__}:{exc}")
         pages.append({"pdf_page": index, "text": text})
     return len(reader.pages), pages, errors
 
 
+def row_from_discovered(edition: dict) -> dict:
+    return {
+        "source_id": edition["source_id"],
+        "logical_key": edition["logical_key"],
+        "file_name": edition.get("file_name"),
+        "url": edition["document_url"],
+        "publication_date": edition["publication_date"],
+        "allowed_hosts": list(ALLOWED_HOSTS),
+        "edition": edition["edition"],
+        "source_page_url": edition["source_page_url"],
+        "archive_class": edition["archive_class"],
+    }
+
+
 def discover_targets(adapter: JornalSourceAdapter) -> tuple[dict[int, dict], dict]:
     rows_by_edition: dict[int, dict] = {}
-    telemetry = {}
+    telemetry: dict[str, dict] = {}
+
+    # Reuse the canonical month discovery first.
     for year, month in ((2025, 12), (2026, 1)):
         family = {"year": year, "month": month, "allowed_hosts": ALLOWED_HOSTS}
         rows, tel = adapter.discover(family, maximum_pages=8)
-        telemetry[f"{year:04d}-{month:02d}"] = tel
+        telemetry[f"month:{year:04d}-{month:02d}"] = tel
         for row in rows:
             edition = int(row["edition"])
             if edition in TARGETS:
                 rows_by_edition[edition] = row
+
+    # The monthly January surface can omit early-month rows when the official
+    # page does not expose a usable reported-total/pagination signal. Recover
+    # edition 7151 through the already-proven official archive GET contract,
+    # filtering by exact date and exact edition. No document URL is synthesized.
+    if 7151 not in rows_by_edition:
+        query = urlencode(
+            {
+                "dataDe": "06/01/2026",
+                "dataAte": "06/01/2026",
+                "numeroEdicao": "7151",
+                "busca": "",
+            }
+        )
+        filtered_url = f"https://www.limeira.sp.gov.br/jornaloficial/?{query}"
+        report = adapter.journal.discover_page(filtered_url, archive_class="modern-filtered")
+        telemetry["filtered:7151"] = {
+            "status": report.get("status"),
+            "requested_url": report.get("requested_url"),
+            "final_url": report.get("final_url"),
+            "count": report.get("count"),
+            "reported_total_items": report.get("reported_total_items"),
+            "declared_links_count": report.get("declared_links_count"),
+        }
+        exact = [row for row in (report.get("editions") or []) if int(row["edition"]) == 7151]
+        if len(exact) == 1:
+            rows_by_edition[7151] = row_from_discovered(exact[0])
+        elif len(exact) > 1:
+            raise RuntimeError("STOP_DUPLICATE_FILTERED_EDITION_7151")
+
     return rows_by_edition, telemetry
 
 
@@ -100,11 +153,14 @@ def inspect_one(adapter: JornalSourceAdapter, edition: int, row: dict) -> dict:
     try:
         data, fetch = adapter.get(row["url"], maximum_bytes=MAXIMUM_BYTES)
         out["fetch"] = fetch
-        out["bytes"] = len(data)
-        out["sha256"] = hashlib.sha256(data).hexdigest()
+        out["bytes_read"] = len(data)
         if len(data) > MAXIMUM_BYTES:
             out["status"] = "STOP_OVERSIZE"
+            out["prefix_bytes"] = len(data)
+            out["prefix_sha256"] = hashlib.sha256(data).hexdigest()
             return out
+        out["bytes"] = len(data)
+        out["sha256"] = hashlib.sha256(data).hexdigest()
         if not data.startswith(b"%PDF"):
             out["status"] = "STOP_NOT_PDF_MAGIC"
             return out
@@ -143,7 +199,7 @@ def main() -> int:
 
     adapter = JornalSourceAdapter()
     result = {
-        "schema": "TASK238_JOM_PRIMARY_PROBE_WAVE3_V1",
+        "schema": "TASK238_JOM_PRIMARY_PROBE_WAVE3_V2",
         "mode": "READ_ONLY_EPHEMERAL_GITHUB_ACTIONS_PROBE",
         "target_editions": sorted(TARGETS),
         "maximum_bytes_per_document": MAXIMUM_BYTES,
@@ -177,8 +233,6 @@ def main() -> int:
     target = out_dir / "task238_jom_primary_probe_wave3.json"
     target.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps({"status": result["status"], "output": str(target)}, ensure_ascii=False))
-    # Preserve the report even when the probe is partial; the workflow remains
-    # successful so artifact upload always occurs. Evidence semantics stay in JSON.
     return 0
 
 
