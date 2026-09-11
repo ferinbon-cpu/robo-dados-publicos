@@ -1,0 +1,10 @@
+{
+  "schema": "TASK223_CANONICAL_BASE_PIN_V1",
+  "task": "TASK_223",
+  "issue": 757,
+  "base_main_sha": "c31cc15997c8b0968de73dae682ebadd5b3f93c0",
+  "base_contains": ["TASK_221", "TASK_222"],
+  "head_purpose": "MD_01_3_SAFE_HIGH_VALUE_SLICE_ONLY",
+  "contextual_coverage": "38/38_UNCHANGED",
+  "remote_effects": false
+}
