@@ -1,0 +1,55 @@
+{
+  "task": "TASK_237",
+  "issue": 792,
+  "evidence_type": "BOUNDED_OFFICIAL_JORNAL_MODIFIER_AUDIT_CHECKPOINT",
+  "verified_at": "2026-09-11",
+  "canonical_base": "53b9f3f8140bd2136ef80bb8d9ff4916151d2175",
+  "target_divergence": "LT_FORMATION_TIMING_DIVERGENCE",
+  "official_archive": {
+    "url": "https://www.limeira.sp.gov.br/jornaloficial/",
+    "bounded_filtered_url": "https://www.limeira.sp.gov.br/jornaloficial/?dataDe=17%2F12%2F2025&dataAte=31%2F01%2F2026&numeroEdicao=&busca=",
+    "start_date": "2025-12-17",
+    "end_date": "2026-01-31",
+    "total_items_observed": 33,
+    "total_items_source": "Official archive filtered page",
+    "pagination_behavior": "Archive pagination uses form state/POST for additional result pages; the stable filtered URL proves the date filter and total count but not full PDF-body inspection."
+  },
+  "live_browser_execution": {
+    "run_id": "4fc0515a-cc80-4448-ba93-2916d8d8e910",
+    "status_at_checkpoint": "SEARCH_IN_PROGRESS",
+    "terminal_result_available": false,
+    "progress_examples_only": [7142, 7151, 7172, 7171, 7170, 7169, 7168, 7166],
+    "progress_list_complete": false
+  },
+  "secondary_discovery": {
+    "exact_web_index_search_candidate_found": false,
+    "official_archive_route_and_parameters_discovered": true,
+    "archive_parameters": {
+      "dataDe": "DD/MM/YYYY start date",
+      "dataAte": "DD/MM/YYYY end date",
+      "numeroEdicao": "optional edition number",
+      "busca": "optional text search"
+    },
+    "negative_search_semantics": "No candidate surfaced through index discovery; this is not proof that no modifying act exists."
+  },
+  "authority_state": {
+    "primary_resolution": "Resolução SME nº 08/2025 remains the exact primary normative text materialized by TASK235.",
+    "current_operational_page": "Current SME workflow page attributes first-semester-2026 formation proof timing to art. 11 §5º(b) but is not itself an amendment instrument.",
+    "task236_chain": "The LT authority chain and exact Deliberação art. 8 do not resolve formation-proof timing.",
+    "divergence_status": "OPEN_UNRESOLVED"
+  },
+  "result_at_checkpoint": {
+    "status": "NO_FINAL_RESULT_WHILE_SEARCH_IN_PROGRESS",
+    "candidate_count_final": null,
+    "bounded_negative_final": false,
+    "complete_window_inspection_proven": false
+  },
+  "guards": [
+    "SEARCH_IN_PROGRESS_NE_BOUNDED_NEGATIVE_RESULT",
+    "PARTIAL_EDITION_PROGRESS_NE_COMPLETE_WINDOW_INSPECTION",
+    "NO_CANDIDATE_LOCATED_NE_NO_MODIFIER_EXISTS",
+    "SEARCH_FAILURE_NE_NO_MODIFIER_EXISTS",
+    "OPERATIONAL_PAGE_NE_NORMATIVE_AMENDMENT",
+    "NO_BINARY_HASH_INVENTION"
+  ]
+}
