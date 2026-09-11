@@ -1,0 +1,140 @@
+{
+  "task": "TASK_238",
+  "issue": 794,
+  "evidence_type": "BOUNDED_PRIMARY_JOM_CONTENT_CLOSURE",
+  "verified_at": "2026-09-11",
+  "base_main_sha": "760fbaa52defbb27c2d25dfa9cc98465a1e3ca55",
+  "bounded_window": {
+    "start": "2025-12-17",
+    "end": "2026-01-31",
+    "first_edition": 7140,
+    "last_edition": 7172,
+    "edition_count": 33,
+    "identity_inventory_complete": true,
+    "primary_content_gate_complete": true
+  },
+  "runtime": {
+    "mode": "EPHEMERAL_READ_ONLY_GITHUB_ACTIONS_PROBE",
+    "workflow_run_id": 34651289623,
+    "artifact_id": 10284047484,
+    "probe_schema": "TASK238_JOM_PRIMARY_PROBE_WAVE3_V2",
+    "status": "PASS_PROBE_ALL_TARGETS_INSPECTED",
+    "repository_write": false,
+    "drive_write": false,
+    "url_guessing": false,
+    "discovery_contract": "official JOM-declared routes only; edition 7151 additionally resolved through the official exact-date + numeroEdicao filter",
+    "tinyfish_used_for_primary_closure": false
+  },
+  "primary_inspections": [
+    {
+      "edition": 7142,
+      "publication_date": "2025-12-18",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_17122025183058.pdf",
+      "source_page_url": "https://www.limeira.sp.gov.br/jornaloficial/?ano=2025&mes=12",
+      "bytes": 141361660,
+      "sha256": "4c90b13d6ba6360a142e3c287ce45a65e2a47fa52068cad9847420baf9791ced",
+      "pdf_page_count": 243,
+      "extraction_errors": [],
+      "trigger": "08/2025",
+      "trigger_hit_count": 3,
+      "trigger_contexts": [
+        {"pdf_page": 73, "classification": "UNRELATED_STATISTICAL_DATE", "context": "Cadastro Único figure/data referring to August 2025."},
+        {"pdf_page": 180, "classification": "UNRELATED_NUMERIC_SUBSTRING", "context": "Administrative Portaria nº 2.508/2025; the broad term crosses the act number, not Resolução SME nº 08/2025."},
+        {"pdf_page": 228, "classification": "UNRELATED_NUMERIC_SUBSTRING", "context": "Notificação de Fiscalização de Obras nº 208/2025; unrelated to SME/LT/PSS."}
+      ],
+      "exact_target_hits": {
+        "Linguagens e Tecnologias": 0,
+        "PSS 04/2025": 0,
+        "Resolução SME": 0,
+        "Resolução nº 08": 0,
+        "Resolução 08/2025": 0,
+        "primeiro semestre": 0
+      },
+      "status": "CLEARED_BY_COMPLETE_PRIMARY_PDF_INSPECTION"
+    },
+    {
+      "edition": 7151,
+      "publication_date": "2026-01-06",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_05012026203147.pdf",
+      "source_page_url": "https://www.limeira.sp.gov.br/jornaloficial/?dataDe=06%2F01%2F2026&dataAte=06%2F01%2F2026&numeroEdicao=7151&busca=",
+      "bytes": 44002985,
+      "sha256": "ec298a6cff290723c97d24c291e36ef2c2044713b0fc5082b4560329e1d1dab8",
+      "pdf_page_count": 125,
+      "extraction_errors": [],
+      "trigger": "08/2025",
+      "trigger_hit_count": 3,
+      "trigger_contexts": [
+        {"pdf_page": 76, "classification": "UNRELATED_TAX_PERIOD", "context": "Tax/ISSQN administrative matter referring to the period 10/2020 through 08/2025."},
+        {"pdf_page": 117, "classification": "UNRELATED_SOCIAL_ASSISTANCE_TRANSFER", "context": "SEPROSOM social-assistance partnership/transfer material; no LT/PSS/Resolução SME target context."},
+        {"pdf_page": 125, "classification": "UNRELATED_CMDCA_TERM", "context": "CMDCA/SEPROSOM Termo nº 08/2025 for project 'Pequenos Inventores', unrelated to SME/LT/PSS."}
+      ],
+      "exact_target_hits": {
+        "Linguagens e Tecnologias": 0,
+        "PSS 04/2025": 0,
+        "Resolução SME": 0,
+        "Resolução nº 08": 0,
+        "Resolução 08/2025": 0,
+        "primeiro semestre": 0
+      },
+      "status": "CLEARED_BY_COMPLETE_PRIMARY_PDF_INSPECTION"
+    },
+    {
+      "edition": 7168,
+      "publication_date": "2026-01-28",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_27012026163638.pdf",
+      "source_page_url": "https://www.limeira.sp.gov.br/jornaloficial/?ano=2026&mes=1",
+      "bytes": 11091327,
+      "sha256": "bb224c0c975e26989bab6932726ae6aa900d729a1a3344ecc6316ca578140d09",
+      "pdf_page_count": 70,
+      "extraction_errors": [],
+      "trigger": "formação",
+      "trigger_hit_count": 17,
+      "trigger_context_summary": [
+        "Municipal digital-government policy uses formação/capacitação in generic technology context.",
+        "Sports partnership terms use formação esportiva.",
+        "SME pages 36-61 contain the retified Escola em Tempo Integral 2026 extracurricular-workshop accreditation notice, including formação de banda e fanfarra and formação acadêmica of workshop professionals.",
+        "The SME notice contains 'linguagens artísticas', not the exact target 'Linguagens e Tecnologias'."
+      ],
+      "exact_target_hits": {
+        "Linguagens e Tecnologias": 0,
+        "PSS 04/2025": 0,
+        "Resolução SME": 0,
+        "Resolução nº 08": 0,
+        "Resolução 08/2025": 0,
+        "primeiro semestre": 0
+      },
+      "related_but_non_target_hits": {
+        "Linguagens": [36, 37],
+        "Tecnologias": [3, 6, 7]
+      },
+      "status": "CLEARED_BY_COMPLETE_PRIMARY_PDF_INSPECTION"
+    }
+  ],
+  "reconciled_candidate_ledger": {
+    "candidate_editions": [7142, 7146, 7150, 7151, 7163, 7168, 7172],
+    "cleared_editions": [7142, 7146, 7150, 7151, 7163, 7168, 7172],
+    "pending_editions": [],
+    "modifier_candidate_established": false
+  },
+  "conclusion": {
+    "bounded_negative_result": true,
+    "state": "BOUNDED_WINDOW_COMPLETE_NO_MODIFIER_CANDIDATE_LOCATED",
+    "allowed_claim": "Across the complete 33-edition window from 17/12/2025 through 31/01/2026, the official JOM inventory, search triage and primary inspection of every broad candidate produced no candidate act modifying the LT formation-timing wording of Resolução SME nº 08/2025.",
+    "divergence_status": "OPEN_UNRESOLVED",
+    "forbidden_claims": [
+      "No modifier exists outside the bounded window.",
+      "No modifier exists anywhere.",
+      "The operational SME page itself amended Resolução SME nº 08/2025.",
+      "A search-index zero hit alone proves legal absence."
+    ]
+  },
+  "method_guards": [
+    "BOUNDED_NEGATIVE_NE_GLOBAL_NONEXISTENCE",
+    "PRIMARY_INSPECTION_REQUIRED_FOR_CANDIDATE_CLEARANCE",
+    "INDEX_SEARCH_NE_PRIMARY_CONTENT_INSPECTION",
+    "TRANSPORT_FAILURE_NE_LEGAL_ABSENCE",
+    "OPERATIONAL_PAGE_NE_NORMATIVE_AMENDMENT"
+  ],
+  "runtime_policy": "Prefer direct/reproducible official HTTP and repository runtimes; use browser-agent/TinyFish only when indispensable and never treat transport failure as negative evidence.",
+  "contextual_coverage": "38/38_UNCHANGED"
+}
