@@ -1,0 +1,104 @@
+{
+  "schema": "TASK_233_OFFICIAL_NORMATIVE_AUTHORITY_EVIDENCE_V1",
+  "task": "TASK_233",
+  "issue": 782,
+  "verified_at": "2026-09-11",
+  "canonical_base_sha": "95332a476e0a4cf8bd9b6cb638fcbbfb71e5c81e",
+  "evidence_mode": "OFFICIAL_WEB_READ_ONLY_PLUS_EXISTING_CUSTODY",
+  "official_sources": [
+    {
+      "id": "LC41_CURRENT",
+      "authority": "Camara Municipal de Limeira",
+      "url": "https://consulta.limeira.sp.leg.br/Documentos/Documento/4937",
+      "observed": "Lei Complementar Nº 41; 20/06/1991; Situacao Em vigor; Estatuto dos Funcionarios Publicos do Municipio de Limeira."
+    },
+    {
+      "id": "LC1017_2026",
+      "authority": "Legislacao Digital de Limeira",
+      "url": "https://legislacao.limeira.sp.leg.br/Limeira-SP/LeisComplementares/1017-2026?Export=Pdf",
+      "observed": "LC 1.017/2026 altera o art. 50 da LC 41 e acrescenta paragrafo 3; entra em vigor na data da publicacao."
+    },
+    {
+      "id": "LC461_CURRENT",
+      "authority": "Camara Municipal de Limeira",
+      "url": "https://consulta.limeira.sp.leg.br/Normas/Exibir/2820",
+      "observed": "Official navigable LC 461 text with consolidated/current amendment links; Vice-Diretor is a pedagogical-support work post and current provisions expose selection, qualification, experience, journey and duties."
+    },
+    {
+      "id": "LC461_STATUS",
+      "authority": "Legislacao Digital de Limeira",
+      "url": "https://legislacao.limeira.sp.leg.br/limeira-sp?Ano=2009&AnoFinal=&ClassificacaoId=0&Data=&DataFinal=&EmentaAssunto=&IniciativaEntidadeId=0&IniciativaTipoId=0&NoTexto=false&Numero=461&NumeroFinal=&Ordernacao=MaisRelevante&Pagina=1&Pesquisa=Avancada&SituacaoId=0&TipoId=0",
+      "observed": "Lei complementar nº 461/2009; Situacao Em vigor."
+    },
+    {
+      "id": "LC949_2024",
+      "authority": "Legislacao Digital de Limeira",
+      "url": "https://legislacao.limeira.sp.leg.br/Limeira-SP/LeisComplementares/949-2024",
+      "observed": "LC 949/2024 is listed Em vigor and alters LC 461 to provide salary amplitude for pedagogical-support professionals."
+    },
+    {
+      "id": "LC987_2025",
+      "authority": "Legislacao Digital de Limeira",
+      "url": "https://legislacao.limeira.sp.leg.br/Limeira-SP/LeisComplementares/987-2025",
+      "observed": "LC 987/2025 is listed Em vigor and alters provisions of LC 461."
+    },
+    {
+      "id": "LC1014_2026",
+      "authority": "Legislacao Digital de Limeira",
+      "url": "https://legislacao.limeira.sp.leg.br/Limeira-SP/LeisComplementares/1014-2026?Export=Pdf",
+      "observed": "LC 1.014/2026 provides annual general salary review for teachers and pedagogical-support staff covered by LC 461; treated as remuneration-related, not a structural-statute amendment by default."
+    },
+    {
+      "id": "PLC21_TO_LC1027_2026",
+      "authority": "Camara Municipal de Limeira",
+      "url": "https://consulta.limeira.sp.leg.br/Documentos/Documento/432278",
+      "observed": "PLC 21/2026 page label remains Aprovado, while later official process entries record Promulgado e Sancionado and report publication as Lei Complementar nº 1.027 on 05/09/2026, Jornal Oficial edition 7320, pages 13-22. Originating subject alters LC 461 and LC 745, including transformation of Agente de Desenvolvimento Educacional into Supervisor de Ensino and definition of Professor Coordenador duties."
+    },
+    {
+      "id": "LEI6089_STATUS",
+      "authority": "Legislacao Digital de Limeira",
+      "url": "https://legislacao.limeira.sp.leg.br/limeira-sp?Ano=2018&AnoFinal=&ClassificacaoId=3494&Data=&DataFinal=&EmentaAssunto=&Export=Pdf&IniciativaEntidadeId=0&IniciativaTipoId=0&NoTexto=false&Numero=&NumeroFinal=&Ordernacao=MaisRelevante&Pagina=1&Pesquisa=Avancada&SituacaoId=3438&TipoId=23",
+      "observed": "Lei Ordinaria nº 6.089/2018; 02/10/2018; Situacao Em vigor; organiza o Sistema Municipal de Ensino."
+    },
+    {
+      "id": "LEI6089_TEXT",
+      "authority": "Legislacao Digital de Limeira",
+      "url": "https://legislacao.limeira.sp.leg.br/Limeira-SP/LeisOrdinarias/6089-2018/Arquivos/1",
+      "observed": "Official archived text of Lei 6.089/2018."
+    }
+  ],
+  "vice_director_current_rule_evidence": {
+    "source": "LC461_CURRENT",
+    "verified_points": [
+      "Vice-Diretor de Escola is a pedagogical-support work post.",
+      "Selection is after school-unit choice among titular teachers in exercise in the municipal network, with Conselho de Escola approval, SME indication and mayoral designation act.",
+      "Qualification requires Pedagogy full licensure or postgraduate qualification in Education with pedagogical common base.",
+      "Minimum experience is at least 3 years of effective exercise in teaching and/or pedagogical support in official education."
+    ],
+    "legacy_admin_packet_status": "CURRENT_OFFICIAL_STATUS_UNRESOLVED"
+  },
+  "temporal_corrections": [
+    {
+      "subject": "LC1027_2026",
+      "correction": "Do not stop at proposal label Aprovado. Later official process entries prove sanction/promulgation and reported publication."
+    },
+    {
+      "subject": "LC1027_2026_INDEX",
+      "correction": "Failure to establish a specific Legislation Digital record in this snapshot does not negate the official publication trace."
+    }
+  ],
+  "result": {
+    "base_norms_officially_in_force": 3,
+    "official_current_primary_vice_director_framework": true,
+    "legacy_vice_director_admin_package_status": "UNRESOLVED",
+    "contextual_coverage": "38/38_UNCHANGED"
+  },
+  "remote_effects": {
+    "source_network_read_only": true,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
