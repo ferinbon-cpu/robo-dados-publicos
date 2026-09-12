@@ -1,0 +1,43 @@
+{
+  "schema": "SIOPE_2025_SEMANTIC_COMPARABILITY_V1",
+  "task": "TASK_241",
+  "issue": 809,
+  "tier": "T0_OFFLINE_EXISTING_EVIDENCE_ONLY",
+  "canonical_date": "2026-09-12",
+  "base_main_sha": "2d898e99bd8681ec6f020430bead20df7ac3d370",
+  "financial_inputs_10_of_10": {
+    "status": "PARTIAL",
+    "proven_comparable": 0,
+    "partial": 10,
+    "not_proven": 0,
+    "non_comparable": 0,
+    "reason": "Current 2025 alias-to-concept semantics are proven and historical continuity is strongly corroborated, but TASK010N records that the historical 2016-2024 proof was not pinned under the same year-versioned semantic standard."
+  },
+  "financial_gold_metrics_1_to_6": {
+    "status": "PARTIAL",
+    "proven_comparable": 0,
+    "partial": 6,
+    "not_proven": 0,
+    "non_comparable": 0,
+    "gold_authorized": false
+  },
+  "per_capita_gold_metrics_7_to_8": {
+    "status": "NON_COMPARABLE",
+    "proven_comparable": 0,
+    "partial": 0,
+    "not_proven": 0,
+    "non_comparable": 2,
+    "num_popu_2025_allowed": false,
+    "required_route": "IBGE_HOMOGENEOUS_DENOMINATOR_REBASE_2016_2025",
+    "historical_gold_rewrite_authorized": false
+  },
+  "global_status": "PARTIAL",
+  "decision": "PARTIAL_FINANCIAL_CONTINUITY_HISTORICAL_VERSIONING_GAP_PER_CAPITA_REQUIRES_IBGE_REBASE",
+  "gold_2025_authorized": false,
+  "closed_annual_series": "2016-2024",
+  "release_0_8_0": "CANDIDATE",
+  "next_gates": [
+    "HISTORICAL_FINANCIAL_SEMANTIC_VERSIONED_BRIDGE_2016_2024",
+    "IBGE_POPULATION_DENOMINATOR_REBASE_CONTRACT_2016_2025"
+  ]
+}
