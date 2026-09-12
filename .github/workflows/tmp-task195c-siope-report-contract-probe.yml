@@ -1,0 +1,27 @@
+name: TMP TASK195C SIOPE report contract probe
+
+on:
+  push:
+    branches:
+      - task195c-siope-report-contract-probe
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run bounded read-only probe
+        run: python scripts/tmp_task195c_siope_report_contract_probe.py
+      - name: Upload sanitized probe
+        uses: actions/upload-artifact@v4
+        with:
+          name: task195c-siope-report-contract-probe
+          path: tmp/task195c_siope_report_contract_probe.json
+          if-no-files-found: error
