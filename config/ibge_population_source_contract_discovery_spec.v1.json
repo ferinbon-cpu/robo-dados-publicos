@@ -1,0 +1,94 @@
+{
+  "schema": "IBGE_POPULATION_SOURCE_CONTRACT_DISCOVERY_SPEC_V1",
+  "task": "TASK_243",
+  "issue": 813,
+  "design_only": true,
+  "execution_authorized": false,
+  "remote_collection_authorized": false,
+  "authority_required": "IBGE",
+  "target_geography": {
+    "municipality": "Limeira",
+    "uf": "SP",
+    "ibge_code_7": "3526902"
+  },
+  "target_years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+  "purpose": "HOMOGENEOUS_POPULATION_DENOMINATOR_FOR_NEW_SIOPE_PER_CAPITA_REBASED_SERIES",
+  "discovery_questions": [
+    "What official IBGE product provides or authoritatively defines municipality population observations for every required year?",
+    "What exact population concept is measured in each year?",
+    "What is the reference date/year for each value and how does it differ from publication date?",
+    "Which years are census counts and which are estimates or revisions?",
+    "Did methodology, territorial basis, or revision policy change over 2016-2025?",
+    "Can one official series be used homogeneously, or is an explicit adapter/rebase contract required across product regimes?",
+    "What stable municipality identifier is used by the source and how does it map to IBGE code 3526902?"
+  ],
+  "candidate_product_policy": {
+    "preselected_product": null,
+    "sidra_assumed": false,
+    "ibge_cidades_assumed": false,
+    "annual_estimates_assumed": false,
+    "census_assumed_for_non_census_years": false,
+    "rule": "Select only after official documentation proves product identity, concept, temporal coverage and revision semantics."
+  },
+  "required_contract_fields": [
+    "authority",
+    "official_product_name",
+    "official_product_or_api_url",
+    "population_concept",
+    "unit",
+    "geographic_grain",
+    "municipality_identifier_field",
+    "limeira_identifier_value",
+    "reference_date_or_year_rule",
+    "publication_date_rule",
+    "census_vs_estimate_classification_rule",
+    "revision_or_vintage_rule",
+    "methodology_change_rule",
+    "coverage_start",
+    "coverage_end",
+    "machine_readable_access_or_official_download",
+    "provenance_or_hash_strategy"
+  ],
+  "required_series_fields_per_year": [
+    "year",
+    "population_value",
+    "population_classification",
+    "reference_date_or_year",
+    "publication_date",
+    "source_product_version_or_vintage",
+    "municipality_identifier",
+    "source_location",
+    "status"
+  ],
+  "year_status_enum": [
+    "PROVEN_COMPARABLE",
+    "PARTIAL",
+    "NOT_PROVEN",
+    "NON_COMPARABLE"
+  ],
+  "acceptance_rule": "All 2016-2025 denominator observations must be supported by one homogeneous official concept or by an explicit, proven adapter/rebase across documented product/method regimes; silent mixing is forbidden.",
+  "rejection_rules": [
+    "single 2025 estimate is not a 2016-2025 series",
+    "2022 census count cannot be copied to other years",
+    "publication year cannot silently substitute for reference year",
+    "Census and estimates cannot be mixed without explicit contract",
+    "missing year cannot be imputed silently",
+    "historical NUM_POPU values cannot be treated as IBGE-compatible by inference"
+  ],
+  "result_identity": "SIOPE_PER_CAPITA_IBGE_REBASED_2016_2025",
+  "historical_preservation": {
+    "historical_gold_original_mutable": false,
+    "rebased_series_is_separate_product": true
+  },
+  "guards": [
+    "NO_REMOTE_EXECUTION_BY_THIS_SPEC",
+    "NO_NUM_POPU_REUSE",
+    "NO_IMPUTATION",
+    "NO_HISTORICAL_GOLD_REWRITE",
+    "NO_GOLD_2025_CALCULATION",
+    "NO_2025_SERIES_INCLUSION",
+    "NO_RELEASE_PROMOTION",
+    "NO_DRIVE_WRITE",
+    "NO_SCHEDULE_OR_RECURRENCE"
+  ]
+}
