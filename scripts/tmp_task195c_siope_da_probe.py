@@ -23,7 +23,7 @@ SAFE_FIELDS = [
 
 def get(url: str, limit: int):
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 TASK195C-readonly-odata-probe", "Accept": "application/json, application/xml;q=0.9, */*;q=0.1"})
-    with urllib.request.urlopen(req, timeout=45) as r:
+    with urllib.request.urlopen(req, timeout=60) as r:
         final = r.geturl()
         if urllib.parse.urlparse(final).hostname != "www.fnde.gov.br":
             raise RuntimeError(f"unexpected redirect host: {final}")
@@ -60,8 +60,9 @@ def discover_function(meta: bytes):
 
 def build_url():
     signature = "Despesas_Siope(Ano_Consulta=@Ano_Consulta,Num_Peri=@Num_Peri,Sig_UF=@Sig_UF)"
-    # Preserve %20 whitespace because prior official handoff proved '+' breaks this OData parser.
-    filt = "COD_MUNI%20eq%20352690%20and%20IDN_CLAS%20eq%20%27DA%27"
+    # TASK195 observed that this resource succeeded with %09 token whitespace;
+    # request only the exact municipality and filter IDN_CLAS=DA locally.
+    filt = "COD_MUNI%09eq%09352690"
     return (
         f"{BASE}/{signature}?@Ano_Consulta=2025&@Num_Peri=6&@Sig_UF=%27SP%27"
         f"&$filter={filt}&$format=json"
@@ -70,9 +71,10 @@ def build_url():
 
 def main():
     result = {
-        "schema": "TASK195C_SIOPE_DA_OFFICIAL_ODATA_PROBE_V1",
+        "schema": "TASK195C_SIOPE_DA_OFFICIAL_ODATA_PROBE_V2",
         "mode": "READ_ONLY_GET_OFFICIAL_FNDE_NO_AUTH_NO_RETRY",
-        "target": "Despesas_Siope Limeira 2025/P6 IDN_CLAS=DA",
+        "target": "Despesas_Siope Limeira 2025/P6; municipality filter remote; IDN_CLAS=DA local",
+        "transport": "TASK195_PROVEN_DESPESAS_PERCENT09_TOKEN_WHITESPACE",
         "guards": {
             "get_requests_max": 2,
             "post_requests": 0,
@@ -93,16 +95,28 @@ def main():
     rows = payload.get("value")
     if not isinstance(rows, list):
         raise RuntimeError("official OData response missing value list")
-    sanitized = []
-    for row in rows:
-        sanitized.append({k: row.get(k) for k in SAFE_FIELDS if k in row})
+    nextlink = "@odata.nextLink" in payload
+    all_sanitized = [{k: row.get(k) for k in SAFE_FIELDS if k in row} for row in rows]
+    da_rows = [row for row in all_sanitized if row.get("IDN_CLAS") == "DA"]
     result["query"] = {
         "url": url,
         **{k: v for k, v in data.items() if k != "data"},
         "row_count": len(rows),
-        "nextlink_present": "@odata.nextLink" in payload,
-        "rows": sanitized,
+        "nextlink_present": nextlink,
+        "da_row_count": len(da_rows),
+        "da_rows": da_rows,
+        "class_counts": {},
     }
+    for row in all_sanitized:
+        cls = row.get("IDN_CLAS")
+        result["query"]["class_counts"][str(cls)] = result["query"]["class_counts"].get(str(cls), 0) + 1
+    if nextlink:
+        result["classification"] = "PARTIAL_RESPONSE_NEXTLINK_PRESENT_NO_ABSENCE_CLAIM"
+    elif da_rows:
+        result["classification"] = "COMPLETE_MUNICIPAL_RESPONSE_DA_ROWS_LOCATED"
+    else:
+        result["classification"] = "COMPLETE_MUNICIPAL_RESPONSE_NO_DA_ROWS_LOCATED"
+
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps({
@@ -111,7 +125,10 @@ def main():
         "query_sha256": result["query"]["sha256"],
         "row_count": result["query"]["row_count"],
         "nextlink_present": result["query"]["nextlink_present"],
-        "rows": sanitized,
+        "class_counts": result["query"]["class_counts"],
+        "da_row_count": result["query"]["da_row_count"],
+        "da_rows": da_rows,
+        "classification": result["classification"],
     }, ensure_ascii=False, indent=2))
     return 0
 
