@@ -1,0 +1,90 @@
+{
+  "schema": "SIOPE_HISTORICAL_FINANCIAL_SEMANTIC_ACQUISITION_SPEC_V1",
+  "task": "TASK_242",
+  "issue": 812,
+  "design_only": true,
+  "execution_authorized": false,
+  "remote_collection_authorized": false,
+  "target": "OFFICIAL_PUBLIC_CONTRACT_TEMPORAL_ALIAS_TO_CONCEPT_EVIDENCE_2016_2024",
+  "authority": "FNDE_SIOPE_OR_OFFICIAL_OLINDA_CONTRACT",
+  "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+  "regime_periods": {
+    "2016": 1,
+    "2017": 6,
+    "2018": 6,
+    "2019": 6,
+    "2020": 6,
+    "2021": 6,
+    "2022": 6,
+    "2023": 6,
+    "2024": 6
+  },
+  "aliases": [
+    "VAL_RECE_PREV_ATUA",
+    "VAL_RECE_REAL",
+    "VAL_DESP_DOTA_ATUA",
+    "VAL_DESP_EMPE",
+    "VAL_DESP_LIQU",
+    "VAL_DESP_PAGA",
+    "VL_DESP_DOTA_ATUA_EDU",
+    "VL_DESP_EMPE_EDU",
+    "VL_DESP_LIQU_EDU",
+    "VL_DESP_PAGA_EDU"
+  ],
+  "evidence_requirements_per_alias_or_version_range": [
+    "official source authority",
+    "artifact or public-contract identity",
+    "source version or explicit temporal applicability",
+    "literal alias or authoritative field-identity mapping",
+    "official concept definition",
+    "unit",
+    "scope",
+    "aggregation boundary",
+    "budget/execution stage where applicable",
+    "effective version/date range",
+    "support location or machine-readable field",
+    "content hash when a binary/static artifact is acquired"
+  ],
+  "acceptable_proof_routes": [
+    {
+      "priority": 1,
+      "route": "OFFICIAL_PUBLIC_CONTRACT_OR_METADATA_WITH_TEMPORAL_RANGE",
+      "description": "One or more authoritative FNDE/Olinda contract artifacts directly map aliases/fields to concepts and state an applicability range that covers every relevant interval."
+    },
+    {
+      "priority": 2,
+      "route": "OFFICIAL_VERSIONED_DOCUMENT_CHAIN",
+      "description": "Versioned official manuals, dictionaries, metadata or field documentation collectively create an unbroken semantic chain across 2016-2024."
+    },
+    {
+      "priority": 3,
+      "route": "OFFICIAL_CHANGELOG_PLUS_SEMANTIC_ANCHORS",
+      "description": "Authoritative version/change history proves no relevant semantic change between documented alias-to-concept anchors."
+    }
+  ],
+  "escalation": {
+    "source_internal_identity": "NOT_REQUIRED_BY_DEFAULT",
+    "trigger": "POSITIVE_EVIDENCE_PUBLIC_CONTRACT_INSUFFICIENT_FOR_REQUIRED_SEMANTIC_CLAIM",
+    "forbidden_automatic_actions": [
+      "CML_XML_DELPHI_REVERSE_ENGINEERING",
+      "BACKEND_FORMULA_RECONSTRUCTION",
+      "CAPTCHA_BYPASS",
+      "AUTHENTICATED_PRIVATE_ACCESS"
+    ]
+  },
+  "acceptance_rule": "Every alias used by a metric must have continuous proven semantic applicability across 2016-2024 and compatibility with the proven 2025 concept before that metric may become PROVEN_COMPARABLE.",
+  "partial_rule": "Any unresolved year/version interval keeps the affected alias and every dependent metric PARTIAL.",
+  "negative_evidence_rule": "A documented semantic change may classify an alias/metric NON_COMPARABLE unless an explicit adapter/rebase contract is proven.",
+  "storage_policy": {
+    "raw_artifact": "IMMUTABLE_OUTSIDE_OR_CREATE_ONLY_CUSTODY_AS_APPLICABLE",
+    "repository": "SANITIZED_EVIDENCE_HASH_PROVENANCE_SUPPORT_ONLY",
+    "drive_write_authorized": false
+  },
+  "guards": [
+    "NO_REMOTE_EXECUTION_BY_THIS_SPEC",
+    "NO_GOLD_2025_CALCULATION",
+    "NO_2025_SERIES_INCLUSION",
+    "NO_RELEASE_PROMOTION",
+    "NO_SCHEDULE_OR_RECURRENCE"
+  ]
+}

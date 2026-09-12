@@ -1,0 +1,162 @@
+{
+  "evidence_schema": "TASK_242_SIOPE_HISTORICAL_FINANCIAL_SEMANTIC_VERSIONING_V1",
+  "software_version": "0.8.0",
+  "task": "TASK_242",
+  "issue": 812,
+  "canonical_date": "2026-09-12",
+  "base_main_sha": "620464182c911415f885fac64ce789e10c9e7c50",
+  "tier": "T0_OFFLINE_EXISTING_EVIDENCE_ONLY",
+  "scope": {
+    "system": "SIOPE",
+    "municipality": "Limeira",
+    "uf": "SP",
+    "historical_years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+    "target_year": 2025,
+    "financial_input_count": 10,
+    "financial_gold_metric_count": 6
+  },
+  "entry_state": {
+    "task241_global_status": "PARTIAL",
+    "financial_inputs_10_of_10": "PARTIAL",
+    "financial_gold_metrics_1_to_6": "PARTIAL",
+    "B2_2025": "PROVEN_10_OF_10_ALIAS_TO_CONCEPT",
+    "gold_2025": "BLOCKED_NOT_CALCULATED",
+    "closed_annual_series": "2016-2024",
+    "release_0_8_0": "CANDIDATE"
+  },
+  "proof_standard": {
+    "preferred_standard": "P1_UNIFORM_PUBLIC_CONTRACT_STANDARD_IF_TEMPORAL_APPLICABILITY_PROVEN",
+    "source_internal_identity_required_by_default": false,
+    "basis": "TASK_010N_R_SIOPE_PROOF_STANDARD_RECONCILIATION",
+    "rule": "Official public-contract evidence may prove operational semantic identity without CML/XML/Delphi/backend identity if alias-to-concept semantics and temporal applicability are explicit enough.",
+    "source_internal_escalation_rule": "Escalate only if positive evidence demonstrates that public-contract evidence is insufficient for the required semantic claim."
+  },
+  "repo_resident_evidence": {
+    "historical_contract": {
+      "source": "docs/evidence/TASK_010N_SIOPE_2016_2025_CONTRACT_CONTINUITY_AUDIT_0.8.0.json",
+      "resource_all_years": "Dados_Gerais_Siope",
+      "endpoint_contract_same_family": true,
+      "2016_period": 1,
+      "2017_2024_period": 6,
+      "schema_name": "DADOS_GERAIS_SIOPE_52_FIELDS",
+      "field_count": 52,
+      "gold_inputs_present_by_historical_pipeline_contract": true,
+      "exact_fields_pinned_per_year": false,
+      "observed_types_versioned": false,
+      "semantic_evidence": "ARITHMETIC_FORMULA_AND_ALIAS_NAMES_ONLY",
+      "alias_identity": "NO_EQUIVALENT_EXPLICIT_BRIDGE_VERSIONED",
+      "positive_break_search": "NO_POSITIVE_BREAK_EVIDENCE_FOUND"
+    },
+    "fnde_dictionary_2019": {
+      "authority": "FNDE",
+      "source": "Dicionario de Dados SIOPE 2019 / Dados Consolidados",
+      "financial_concepts_defined": 10,
+      "current_odata_aliases_explicitly_mapped": false,
+      "temporal_applicability_2016_2024_explicitly_proven": false,
+      "role": "OFFICIAL_SEMANTIC_ANCHOR_NOT_LONGITUDINAL_ALIAS_CONTRACT"
+    },
+    "fnde_tutorial_2024": {
+      "authority": "FNDE",
+      "source": "Tutorial Basico SIOPE 2024 v2",
+      "dados_gerais_boundaries": ["Receita total do Municipio", "Despesa total do Municipio", "Despesa com Educacao (Funcao 12)"],
+      "mde_separate": true,
+      "current_alias_mapping": false,
+      "historical_temporal_coverage": false,
+      "role": "CURRENT_CATEGORY_BOUNDARY_CORROBORATION"
+    },
+    "metadata_2025": {
+      "artifact": "Metadados_Mun_2025.zip",
+      "sha256": "41511c141e1af025ae2b565085583d6a3ab7b4577862f8ebdc308605101c1e5b",
+      "concept_stages": ["PA", "RR", "DA", "DE", "DL", "DP"],
+      "education_root_separate": true,
+      "historical_applicability_2016_2024": "NOT_PROVEN"
+    },
+    "current_b2_2025": {
+      "source": "docs/evidence/TASK_195C_SIOPE_FUNCAO12_ALIAS_BRIDGE_0.8.0.json",
+      "status": "PROVEN_10_OF_10_ALIAS_TO_CONCEPT",
+      "scope": "2025_CURRENT_ALIAS_SEMANTICS_ONLY",
+      "time_series_continuity_by_itself": false
+    }
+  },
+  "year_regime_matrix": [
+    {"year":2016,"period":1,"structural_contract":"PROVEN","semantic_temporal_contract":"NOT_PINNED_EQUIVALENT_STANDARD","status":"PARTIAL"},
+    {"year":2017,"period":6,"structural_contract":"PROVEN","semantic_temporal_contract":"NOT_PINNED_EQUIVALENT_STANDARD","status":"PARTIAL"},
+    {"year":2018,"period":6,"structural_contract":"PROVEN","semantic_temporal_contract":"NOT_PINNED_EQUIVALENT_STANDARD","status":"PARTIAL"},
+    {"year":2019,"period":6,"structural_contract":"PROVEN","semantic_temporal_contract":"OFFICIAL_2019_CONCEPT_ANCHOR_NO_EXPLICIT_PUBLIC_ALIAS_MAPPING","status":"PARTIAL"},
+    {"year":2020,"period":6,"structural_contract":"PROVEN","semantic_temporal_contract":"NOT_PINNED_EQUIVALENT_STANDARD","status":"PARTIAL"},
+    {"year":2021,"period":6,"structural_contract":"PROVEN","semantic_temporal_contract":"NOT_PINNED_EQUIVALENT_STANDARD","status":"PARTIAL"},
+    {"year":2022,"period":6,"structural_contract":"PROVEN","semantic_temporal_contract":"NOT_PINNED_EQUIVALENT_STANDARD","status":"PARTIAL"},
+    {"year":2023,"period":6,"structural_contract":"PROVEN","semantic_temporal_contract":"NOT_PINNED_EQUIVALENT_STANDARD","status":"PARTIAL"},
+    {"year":2024,"period":6,"structural_contract":"PROVEN","semantic_temporal_contract":"OFFICIAL_UI_CATEGORY_BOUNDARY_ONLY_NO_LONGITUDINAL_ALIAS_MAPPING","status":"PARTIAL"}
+  ],
+  "financial_inputs": [
+    {"alias":"VAL_RECE_PREV_ATUA","concept":"Receita total - Previsao Atualizada","status":"PARTIAL"},
+    {"alias":"VAL_RECE_REAL","concept":"Receita total - Receitas Realizadas","status":"PARTIAL"},
+    {"alias":"VAL_DESP_DOTA_ATUA","concept":"Despesa consolidada - Dotacao Atualizada","status":"PARTIAL"},
+    {"alias":"VAL_DESP_EMPE","concept":"Despesa consolidada - Despesas Empenhadas","status":"PARTIAL"},
+    {"alias":"VAL_DESP_LIQU","concept":"Despesa consolidada - Despesas Liquidadas","status":"PARTIAL"},
+    {"alias":"VAL_DESP_PAGA","concept":"Despesa consolidada - Despesas Pagas","status":"PARTIAL"},
+    {"alias":"VL_DESP_DOTA_ATUA_EDU","concept":"Educacao Funcao 12 - Dotacao Atualizada","status":"PARTIAL"},
+    {"alias":"VL_DESP_EMPE_EDU","concept":"Educacao Funcao 12 - Despesas Empenhadas","status":"PARTIAL"},
+    {"alias":"VL_DESP_LIQU_EDU","concept":"Educacao Funcao 12 - Despesas Liquidadas","status":"PARTIAL"},
+    {"alias":"VL_DESP_PAGA_EDU","concept":"Educacao Funcao 12 - Despesas Pagas","status":"PARTIAL"}
+  ],
+  "financial_metrics_1_to_6": [
+    {"id":"receita_realizada_sobre_previsao_atualizada_pct","status":"PARTIAL"},
+    {"id":"despesa_paga_sobre_dotacao_atualizada_pct","status":"PARTIAL"},
+    {"id":"despesa_educacao_paga_sobre_dotacao_atualizada_educacao_pct","status":"PARTIAL"},
+    {"id":"participacao_educacao_na_despesa_empenhada_pct","status":"PARTIAL"},
+    {"id":"participacao_educacao_na_despesa_liquidada_pct","status":"PARTIAL"},
+    {"id":"participacao_educacao_na_despesa_paga_pct","status":"PARTIAL"}
+  ],
+  "offline_decision": {
+    "status": "PARTIAL",
+    "code": "STOP_HISTORICAL_FINANCIAL_SEMANTIC_PROMOTION_PRIMARY_TEMPORAL_PUBLIC_CONTRACT_EVIDENCE_REQUIRED",
+    "financial_inputs_proven_comparable": 0,
+    "financial_inputs_partial": 10,
+    "financial_metrics_proven_comparable": 0,
+    "financial_metrics_partial": 6,
+    "public_contract_path_exhausted_offline": true,
+    "source_internal_identity_required": false,
+    "remote_acquisition_required_for_next_evidence": true,
+    "remote_acquisition_authorized": false,
+    "gold_2025_authorized": false
+  },
+  "missing_evidence_class": {
+    "name": "OFFICIAL_PUBLIC_CONTRACT_TEMPORAL_ALIAS_TO_CONCEPT_EVIDENCE_2016_2024",
+    "must_prove": [
+      "exact public alias or authoritative field identity",
+      "official concept",
+      "unit",
+      "scope and aggregation boundary",
+      "budget/execution stage where applicable",
+      "temporal/version applicability covering every interval from 2016 through 2024"
+    ],
+    "acceptable_routes": [
+      "official public-contract documentation or metadata with explicit version/range applicability covering 2016-2024",
+      "official versioned documents/metadata sufficient to construct a continuous semantic chain across all regimes",
+      "official version history/changelog combined with authoritative semantic anchors proving no relevant field-semantic change"
+    ],
+    "not_required_by_default": [
+      "CML/XML/Delphi reverse engineering",
+      "backend aggregation formula reconstruction"
+    ]
+  },
+  "next_gate": "BOUNDED_OFFICIAL_PUBLIC_CONTRACT_TEMPORAL_EVIDENCE_ACQUISITION_REQUIRES_EXPLICIT_AUTHORIZATION",
+  "guards": {
+    "same_alias_name_used_as_continuity_proof": false,
+    "same_formula_used_as_continuity_proof": false,
+    "absence_of_positive_break_used_as_proof": false,
+    "dictionary_2019_used_as_full_2016_2024_temporal_proof": false,
+    "tutorial_2024_used_as_full_historical_proof": false,
+    "task195c_current_b2_used_as_historical_proof": false,
+    "source_internal_identity_made_mandatory_without_evidence": false,
+    "remote_source_collection": false,
+    "gold_2025_computed": false,
+    "gold_2025_authorized": false,
+    "series_2025_included": false,
+    "release_promoted": false,
+    "drive_write": false,
+    "schedule_or_recurrence": false
+  }
+}

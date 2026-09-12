@@ -1,0 +1,34 @@
+{
+  "schema": "SIOPE_HISTORICAL_FINANCIAL_SEMANTIC_VERSIONING_V1",
+  "task": "TASK_242",
+  "issue": 812,
+  "tier": "T0_OFFLINE_EXISTING_EVIDENCE_ONLY",
+  "canonical_date": "2026-09-12",
+  "base_main_sha": "620464182c911415f885fac64ce789e10c9e7c50",
+  "years": "2016-2024",
+  "target_2025_b2": "PROVEN_10_OF_10_ALIAS_TO_CONCEPT",
+  "public_contract_proof_standard": "P1_ALLOWED_IF_TEMPORAL_APPLICABILITY_PROVEN",
+  "source_internal_identity_required_by_default": false,
+  "financial_inputs": {
+    "count": 10,
+    "proven_comparable": 0,
+    "partial": 10,
+    "not_proven": 0,
+    "non_comparable": 0
+  },
+  "financial_metrics_1_to_6": {
+    "count": 6,
+    "proven_comparable": 0,
+    "partial": 6,
+    "not_proven": 0,
+    "non_comparable": 0,
+    "gold_authorized": false
+  },
+  "offline_result": "STOP_HISTORICAL_FINANCIAL_SEMANTIC_PROMOTION_PRIMARY_TEMPORAL_PUBLIC_CONTRACT_EVIDENCE_REQUIRED",
+  "missing_evidence_class": "OFFICIAL_PUBLIC_CONTRACT_TEMPORAL_ALIAS_TO_CONCEPT_EVIDENCE_2016_2024",
+  "remote_acquisition_authorized": false,
+  "gold_2025_authorized": false,
+  "closed_annual_series": "2016-2024",
+  "release_0_8_0": "CANDIDATE",
+  "next_gate": "BOUNDED_OFFICIAL_PUBLIC_CONTRACT_TEMPORAL_EVIDENCE_ACQUISITION_REQUIRES_EXPLICIT_AUTHORIZATION"
+}
