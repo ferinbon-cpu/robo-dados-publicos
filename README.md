@@ -7,7 +7,8 @@ Consolidação em software das capacidades metodológicas validadas no projeto R
 **Software ativo:** 0.7.0 ACTIVE  
 **Candidata corrente:** 0.8.0 CANDIDATE  
 **Série anual SIOPE fechada:** 2016–2024  
-**Próximo gate:** TASK 241 — comparabilidade semântica 2016–2025  
+**Comparabilidade 2016–2025:** PARTIAL — TASK 241  
+**Próximos gates:** ponte semântica financeira histórica 2016–2024 + rebase populacional IBGE 2016–2025  
 **Dependências externas:** `pypdf==6.10.0` e `reportlab==5.0.0`  
 **Python:** 3.11+
 
@@ -23,9 +24,13 @@ No SIOPE 2025, os três blockers B1/B2/B3 foram resolvidos dentro de seus limite
 - B2 `PROVEN_10_OF_10_ALIAS_TO_CONCEPT`: os dez aliases financeiros estão ligados aos conceitos oficiais aplicáveis. A fórmula interna de agregação do backend continua `NOT_PROVEN`; a diferença de R$ 1.000 observada não foi transformada em regra inventada.
 - B3 `PROVEN_DYNAMIC_EFFECTIVE_SELECTION_RULE_WITH_PINNED_LIMEIRA_RECEIPT`: o FNDE confirmou que a declaração vigente é a última transmitida e recepcionada com sucesso e que a consulta pública de recibos mostra essa transmissão. Aplicada à observação já pinada de Limeira, a declaração anual efetiva é o recibo `428477-6` na fotografia de `2026-08-30`. Isso é estado dinâmico: uma retificação futura bem-sucedida substitui a anterior e exige nova observação.
 
-A comparabilidade semântica 2016–2025 continua `UNKNOWN_REQUIRES_TASK241`. As seis métricas Gold puramente financeiras e as duas métricas per capita serão avaliadas separadamente. As métricas per capita não podem reutilizar `NUM_POPU` como denominador; a TASK 241 deve decidir a rota IBGE/rebase histórico. Gold 2025 permanece `BLOCKED_NOT_CALCULATED`, e a série anual fechada permanece **2016–2024**.
+A TASK 241 auditou a comparabilidade semântica 2016–2025 e canonizou `PARTIAL`. Os **10/10 inputs financeiros** têm continuidade fortemente corroborada, mas permanecem `PARTIAL` porque a própria auditoria histórica TASK010N registra que o período 2016–2024 não foi pinado sob o mesmo padrão semântico versionado agora exigido para 2025. Consequentemente, as **6/6 métricas Gold financeiras** também permanecem `PARTIAL` e **não estão autorizadas para cálculo Gold 2025**.
 
-Os contratos correntes são `config/release_0_8_0_readiness.v2.json` e `config/siope_2025_gold_prerequisites.v2.json`. Os arquivos v1 e a evidência TASK 011 permanecem preservados como snapshots históricos do momento em que os protocolos FNDE ainda estavam pendentes.
+As métricas per capita **7–8** são `NON_COMPARABLE` no contrato atual: o denominador histórico era `NUM_POPU`, enquanto B1 determinou que esse campo não deve ser usado como população analítica de 2025. A rota correta é construir uma **nova série comparável com denominador IBGE homogêneo para 2016–2025**, preservando o Gold histórico original como histórico, sem reescrita retroativa.
+
+Gold 2025 permanece `BLOCKED_NOT_CALCULATED`, e a série anual fechada permanece **2016–2024**. Os próximos gates correntes são `HISTORICAL_FINANCIAL_SEMANTIC_VERSIONED_BRIDGE_2016_2024` e `IBGE_POPULATION_DENOMINATOR_REBASE_CONTRACT_2016_2025`.
+
+Os contratos correntes passam a ser `config/release_0_8_0_readiness.v3.json`, `config/siope_2025_gold_prerequisites.v3.json` e `config/siope_2025_semantic_comparability.v1.json`. Os arquivos v1/v2 e as evidências anteriores permanecem preservados como snapshots históricos do que era conhecido em cada momento.
 
 Consulte **[`STATUS_0.8.0.md`](STATUS_0.8.0.md)** para o estado canônico corrente e os gates restantes.
 
@@ -47,7 +52,7 @@ python3 main.py sources-validate --source-config config/sources.example.json
 
 O SIOPE/FNDE para Limeira/SP permanece o piloto da 0.8.0. Gates bounded demonstraram aquisição, Bronze/Silver, série histórica, Gold histórico e estrutura recente de 2025. Cada evidência conserva o limite do contrato que a produziu; nenhuma delas autoriza implicitamente rerun, recorrência, schedule, Gold 2025 ou publicação.
 
-O gargalo corrente é **comparabilidade semântica 2016–2025**, formalizada na **TASK 241 / issue #809**. Para métricas 1–6, o gate deve reconciliar campo a campo e fórmula a fórmula a continuidade dos conceitos financeiros. Para métricas 7–8, deve resolver o denominador populacional por fonte oficial IBGE e decidir se uma série comparável exige rebase histórico. B1+B2+B3 resolvidos não promovem comparabilidade por inferência.
+A TASK 241 mostrou que o gargalo agora se divide em duas trilhas independentes. Para métricas 1–6, falta pinagem **histórica e versionada** suficiente para elevar a continuidade financeira de `PARTIAL` a `PROVEN_COMPARABLE`; mesma família, mesmos nomes, mesma fórmula e ausência de ruptura conhecida são evidência corroborativa, não prova suficiente. Para métricas 7–8, o contrato atual é `NON_COMPARABLE` por depender de `NUM_POPU`; a solução correta é um contrato IBGE/rebase homogêneo 2016–2025, sem reescrever o Gold histórico original.
 
 ## M6 — Saída mínima de produto
 
@@ -112,7 +117,11 @@ Enquanto a 0.8.0 estiver como `CANDIDATE`, o preflight com `--require-oauth` per
 - snapshot histórico ≠ estado corrente;
 - estado efetivo dinâmico ≠ imutabilidade futura;
 - B1+B2+B3 resolvidos ≠ comparabilidade provada;
-- comparabilidade parcial ≠ autorização de Gold integral;
+- mesmo nome de campo ≠ continuidade semântica;
+- mesma fórmula ≠ continuidade semântica;
+- ausência de ruptura conhecida ≠ prova de continuidade;
+- comparabilidade parcial ≠ autorização de Gold;
+- rebase per capita ≠ reescrita do Gold histórico;
 - elegibilidade para recorrência ≠ autorização de agenda.
 
 ## Drive
