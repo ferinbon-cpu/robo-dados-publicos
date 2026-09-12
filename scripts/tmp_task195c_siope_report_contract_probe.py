@@ -88,8 +88,15 @@ def fetch(url: str):
         }
 
 
+def clean_snippet(value: str) -> str:
+    value = html.unescape(value)
+    value = re.sub(r"[ \t]+", " ", value)
+    value = re.sub(r"\n\s*\n+", "\n", value)
+    return value.strip()[:6000]
+
+
 def inspect_html(base_url: str, data: bytes):
-    text = data.decode("utf-8", errors="replace")
+    text = data.decode("iso-8859-1", errors="replace")
     p = Parser()
     p.feed(text)
     joined = "\n".join(p.text_parts)
@@ -104,6 +111,20 @@ def inspect_html(base_url: str, data: bytes):
             clean = re.sub(r"\s+", " ", html.unescape(raw)).strip()
             if clean:
                 lines.append(clean[:1000])
+
+    inline_blocks = re.findall(r"<script(?![^>]*\bsrc\s*=)[^>]*>(.*?)</script>", text, flags=re.I | re.S)
+    inline_control_flow = []
+    for block in inline_blocks:
+        low = block.lower()
+        if any(k in low for k in ["function", "acao", "pesquisar", "atualizar", "grecaptcha", "submit"]):
+            inline_control_flow.append(clean_snippet(block))
+
+    phase_lines = []
+    for m in re.finditer(r"<input[^>]+name=[\"']ordenar[\"'][^>]*>[^<]*(?:<br\s*/?>)?", text, flags=re.I):
+        start = max(0, m.start() - 120)
+        end = min(len(text), m.end() + 160)
+        phase_lines.append(clean_snippet(text[start:end]))
+
     scripts = [urllib.parse.urljoin(base_url, src) for src in p.scripts]
     scripts = [u for u in scripts if urllib.parse.urlparse(u).hostname in ALLOWED_HOSTS][:MAX_SCRIPTS]
     return {
@@ -111,12 +132,14 @@ def inspect_html(base_url: str, data: bytes):
         "script_urls": scripts,
         "text_markers": {m: (m.lower() in joined.lower()) for m in markers},
         "interesting_lines": lines[:120],
+        "inline_control_flow": inline_control_flow[:20],
+        "phase_control_snippets": phase_lines[:20],
     }
 
 
 def main():
     result = {
-        "schema": "TASK195C_SIOPE_REPORT_CONTRACT_PROBE_V1",
+        "schema": "TASK195C_SIOPE_REPORT_CONTRACT_PROBE_V2",
         "mode": "READ_ONLY_GET_NO_AUTH_NO_FORM_SUBMISSION",
         "roots": [],
         "scripts": [],
@@ -166,8 +189,8 @@ def main():
     OUT.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps({
         "roots": [{k: v for k, v in x.items() if k != "html"} for x in result["roots"]],
-        "forms": [x.get("html", {}).get("forms", []) for x in result["roots"]],
-        "script_count": len(result["scripts"]),
+        "control_flow": [x.get("html", {}).get("inline_control_flow", []) for x in result["roots"]],
+        "phases": [x.get("html", {}).get("phase_control_snippets", []) for x in result["roots"]],
         "output": str(OUT),
     }, ensure_ascii=False, indent=2))
     return 0
