@@ -1,0 +1,141 @@
+{
+  "evidence_schema": "TASK_243_IBGE_POPULATION_DENOMINATOR_REBASE_V1",
+  "software_version": "0.8.0",
+  "task": "TASK_243",
+  "issue": 813,
+  "canonical_date": "2026-09-12",
+  "base_main_sha": "620464182c911415f885fac64ce789e10c9e7c50",
+  "tier": "T0_OFFLINE_EXISTING_EVIDENCE_ONLY",
+  "scope": {
+    "municipality": "Limeira",
+    "uf": "SP",
+    "ibge_code_7": "3526902",
+    "siope_municipality_code": 352690,
+    "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "target_metrics": [
+      "despesa_total_paga_por_habitante",
+      "despesa_educacao_paga_por_habitante"
+    ]
+  },
+  "entry_state": {
+    "task241_per_capita_status": "NON_COMPARABLE",
+    "num_popu_2025": "FORBIDDEN_FOR_ANALYTICAL_POPULATION_USE",
+    "historical_num_popu_compatibility": "NOT_PROVEN",
+    "historical_gold_rewrite_authorized": false,
+    "gold_2025": "BLOCKED_NOT_CALCULATED",
+    "closed_annual_series": "2016-2024",
+    "release_0_8_0": "CANDIDATE"
+  },
+  "repo_resident_ibge_evidence": {
+    "territorial_foundation": {
+      "path": "config/ibge_limeira_territorial_foundation.v1.json",
+      "municipality_identity_proven": true,
+      "ibge_code_7": "3526902",
+      "official_ibge_cidades_observation": {
+        "population_census_2022": 291869,
+        "population_estimate_2025": 301292,
+        "status": "OFFICIAL_WEB_OBSERVED_RAW_BYTES_NOT_CAPTURED"
+      },
+      "planned_source_families_include": ["IBGE_CIDADES", "IBGE_CENSO_2022", "IBGE_SIDRA"],
+      "annual_population_series_2016_2025_materialized": false,
+      "denominator_product_contract_materialized": false
+    },
+    "fnde_num_popu_disposition": {
+      "path": "docs/evidence/TASK_010N_R_E_M6_SIOPE_NUM_POPU_FNDE_DISPOSITION_0.8.0.json",
+      "recommended_population_source": "OFFICIAL_IBGE_BASES_DIRECTLY",
+      "recommended_treatment_of_num_popu": "DISREGARD",
+      "specific_ibge_product_selected_by_fnde": false,
+      "specific_reference_rule_selected_by_fnde": false
+    },
+    "historical_gold_contract": {
+      "path": "docs/references/M7_SIOPE_LIMEIRA_GOLD_ARITHMETIC_SCOPE_0.8.0.md",
+      "historical_per_capita_denominator": "NUM_POPU",
+      "historical_values_preserved": true,
+      "rebased_series_exists": false
+    },
+    "ibge_other_products": {
+      "territory_and_census_sector_assets_exist": true,
+      "official_ipca_use_exists_elsewhere": true,
+      "these_assets_prove_population_denominator_contract": false
+    }
+  },
+  "offline_discovery_result": {
+    "status": "SOURCE_CONTRACT_NOT_PINNED",
+    "annual_population_values_2016_2025_materialized": 0,
+    "single_year_population_observations_available": [2022, 2025],
+    "single_year_observations_sufficient_for_rebase": false,
+    "sidra_assumed": false,
+    "census_assumed_for_all_years": false,
+    "annual_estimates_assumed": false,
+    "remote_acquisition_required_for_next_evidence": true,
+    "remote_acquisition_authorized": false,
+    "rebased_per_capita_calculation_authorized": false
+  },
+  "required_source_contract": {
+    "authority": "IBGE",
+    "product_name": "NOT_PINNED",
+    "population_concept": "NOT_PINNED",
+    "unit": "persons",
+    "geographic_grain": "municipality",
+    "limeira_identity": {
+      "name": "Limeira",
+      "uf": "SP",
+      "ibge_code_7": "3526902"
+    },
+    "required_years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "must_distinguish": [
+      "reference_year_or_date",
+      "publication_date",
+      "census_count_vs_population_estimate",
+      "preliminary_vs_final_or_revised_value",
+      "source_product_version_or_vintage"
+    ],
+    "revision_policy_required": true,
+    "method_change_policy_required": true,
+    "no_silent_interpolation": true,
+    "no_silent_imputation": true
+  },
+  "rebased_series_contract": {
+    "identity": "SIOPE_PER_CAPITA_IBGE_REBASED_2016_2025",
+    "role": "NEW_COMPARABLE_DERIVED_SERIES_NOT_HISTORICAL_GOLD_REWRITE",
+    "financial_numerators": {
+      "despesa_total_paga_por_habitante": "VAL_DESP_PAGA",
+      "despesa_educacao_paga_por_habitante": "VL_DESP_PAGA_EDU"
+    },
+    "population_denominator": "OFFICIAL_IBGE_CONTRACT_PENDING",
+    "historical_gold_original_preserved": true,
+    "historical_gold_mutation_authorized": false,
+    "calculation_authorized": false
+  },
+  "decision": {
+    "status": "PARTIAL",
+    "code": "STOP_IBGE_REBASE_SOURCE_CONTRACT_NOT_PINNED",
+    "metrics_7_to_8_current_contract": "NON_COMPARABLE",
+    "source_contract_discovery_complete_offline": true,
+    "population_series_acquisition_needed": true,
+    "population_series_acquisition_authorized": false,
+    "rebased_series_authorized": false,
+    "gold_2025_authorized": false,
+    "series_2016_2025_authorized": false,
+    "release_promotion_authorized": false
+  },
+  "next_gate": "BOUNDED_OFFICIAL_IBGE_POPULATION_SOURCE_CONTRACT_AND_SERIES_ACQUISITION_REQUIRES_EXPLICIT_AUTHORIZATION",
+  "guards": {
+    "num_popu_used_as_2025_denominator": false,
+    "historical_num_popu_compatibility_inferred": false,
+    "ibge_2025_estimate_used_as_full_historical_series": false,
+    "census_2022_count_reused_for_other_years": false,
+    "sidra_product_assumed": false,
+    "reference_year_equated_to_publication_year": false,
+    "census_and_estimate_mixed_without_contract": false,
+    "imputation_performed": false,
+    "historical_gold_rewritten": false,
+    "rebased_series_calculated": false,
+    "gold_2025_computed": false,
+    "series_2025_included": false,
+    "release_promoted": false,
+    "remote_source_collection": false,
+    "drive_write": false,
+    "schedule_or_recurrence": false
+  }
+}

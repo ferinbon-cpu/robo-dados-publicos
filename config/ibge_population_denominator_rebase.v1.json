@@ -1,0 +1,34 @@
+{
+  "schema": "IBGE_POPULATION_DENOMINATOR_REBASE_V1",
+  "task": "TASK_243",
+  "issue": 813,
+  "tier": "T0_OFFLINE_EXISTING_EVIDENCE_ONLY",
+  "canonical_date": "2026-09-12",
+  "base_main_sha": "620464182c911415f885fac64ce789e10c9e7c50",
+  "municipality": {
+    "name": "Limeira",
+    "uf": "SP",
+    "ibge_code_7": "3526902",
+    "siope_code": 352690
+  },
+  "years": "2016-2025",
+  "target_metrics": [
+    "despesa_total_paga_por_habitante",
+    "despesa_educacao_paga_por_habitante"
+  ],
+  "source_contract_status": "SOURCE_CONTRACT_NOT_PINNED",
+  "annual_population_series_materialized": false,
+  "single_year_observations": {
+    "2022_census": 291869,
+    "2025_estimate": 301292,
+    "sufficient_for_rebase": false
+  },
+  "historical_num_popu_compatible": "NOT_PROVEN",
+  "num_popu_2025_allowed": false,
+  "rebased_series_identity": "SIOPE_PER_CAPITA_IBGE_REBASED_2016_2025",
+  "rebased_series_calculation_authorized": false,
+  "historical_gold_rewrite_authorized": false,
+  "remote_acquisition_authorized": false,
+  "decision": "STOP_IBGE_REBASE_SOURCE_CONTRACT_NOT_PINNED",
+  "next_gate": "BOUNDED_OFFICIAL_IBGE_POPULATION_SOURCE_CONTRACT_AND_SERIES_ACQUISITION_REQUIRES_EXPLICIT_AUTHORIZATION"
+}
