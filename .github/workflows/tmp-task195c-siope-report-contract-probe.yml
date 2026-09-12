@@ -17,11 +17,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Run bounded read-only probe
+      - name: Inspect official report contract
         run: python scripts/tmp_task195c_siope_report_contract_probe.py
-      - name: Upload sanitized probe
+      - name: Run bounded DA OData probe
+        run: python scripts/tmp_task195c_siope_da_probe.py
+      - name: Upload sanitized probes
         uses: actions/upload-artifact@v4
         with:
           name: task195c-siope-report-contract-probe
-          path: tmp/task195c_siope_report_contract_probe.json
+          path: |
+            tmp/task195c_siope_report_contract_probe.json
+            tmp/task195c_siope_da_probe.json
           if-no-files-found: error
