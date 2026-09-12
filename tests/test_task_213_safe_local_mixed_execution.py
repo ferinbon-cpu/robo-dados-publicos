@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 from decimal import Decimal
+from contextlib import contextmanager
 import unittest
+from unittest.mock import patch
 
 from robo_dados_publicos.productization.document_event_context_execution import (
     execute_contextual_query_v3,
@@ -22,6 +24,18 @@ SOFTWARE_VERSION = "0.8.0"
 
 
 class TestTask213SafeLocalMixedExecution(unittest.TestCase):
+    @contextmanager
+    def historical_territory(self):
+        from robo_dados_publicos.analytics.current_observatory_bundle import build_current_products
+        from robo_dados_publicos.analytics.task202_equity_missingness_aware_gate import build_task202_territory_profile
+        from robo_dados_publicos.analytics.task184_local_bundle import _with_catalog
+        kw = dict(generated_at=GENERATED_AT, software_version=SOFTWARE_VERSION)
+        products = build_current_products(**kw)
+        products["TERRITORY_PROFILE"] = build_task202_territory_profile(**kw)
+        products = _with_catalog({k: v for k, v in products.items() if k != "QUERY_PRODUCT_CATALOG"}, **kw)
+        with patch("robo_dados_publicos.productization.mixed_context_planner.build_current_products", return_value=products), patch("robo_dados_publicos.productization.safe_local_mixed_execution.build_current_products", return_value=products):
+            yield
+
     def execute(self, text: str, **kwargs):
         return execute_contextual_query_v4(
             text,
@@ -267,14 +281,15 @@ class TestTask213SafeLocalMixedExecution(unittest.TestCase):
         self.assertNotIn("TERRITORY_METRIC", str(got))
 
     def test_equity_q1_held_school_preserves_explicit_missingness_without_weak_sector(self):
-        plan = self.plan("desigualdade por contexto social no Ismael Pereira Lago")
+        with self.historical_territory():
+            plan = self.plan("desigualdade por contexto social no Ismael Pereira Lago")
+            got = self.execute("desigualdade por contexto social no Ismael Pereira Lago")
         self.assertEqual(plan["question_id"], "EQUITY_Q1")
         self.assertEqual(plan["planning_state"], "READY_FOR_SAFE_EXECUTOR_DESIGN")
         self.assertEqual(
             plan["join_plan"]["status"],
             "SAFE_WITH_EXPLICIT_TERRITORY_MISSINGNESS",
         )
-        got = self.execute("desigualdade por contexto social no Ismael Pereira Lago")
         self.assertEqual(got["state"], "ANSWERED_CONTEXTUALLY")
         missing = [
             row for row in got["NUMBER_OR_FACT"]
@@ -302,7 +317,8 @@ class TestTask213SafeLocalMixedExecution(unittest.TestCase):
         self.assertEqual(got["TIME_REFERENCE"], ["2022"])
 
     def test_terr_q1_held_school_is_explicit_gap_not_weak_geocoding(self):
-        got = self.execute("contexto socioeconomico do territorio do Ismael Pereira Lago")
+        with self.historical_territory():
+            got = self.execute("contexto socioeconomico do territorio do Ismael Pereira Lago")
         self.assertEqual(got["question_id"], "TERR_Q1")
         self.assertEqual(got["state"], "EXPLICIT_CONTEXT_GAP")
         self.assertIn("TASK212_PLANNER_GATE_ENFORCED", got["CAUTION_OR_LIMIT"])

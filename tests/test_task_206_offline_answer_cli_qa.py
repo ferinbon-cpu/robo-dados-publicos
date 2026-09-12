@@ -98,13 +98,15 @@ class TestTask206OfflineAnswerCliQa(unittest.TestCase):
         self.assertIn("400", facts)
         self.assertIn("PERSONNEL_EVENT_FLOW_NE_WORKFORCE_STOCK", card["CAUTION_OR_LIMIT"])
 
-    def test_equity_answer_now_exposes_partial_territory_coverage(self):
+    def test_equity_answer_exposes_current_geography_and_income_missingness(self):
         card = build_answer_card("EQUITY_Q1", self.products)
         facts = "\n".join(row["text"] for row in card["NUMBER_OR_FACT"])
-        self.assertIn("64/69", facts)
-        self.assertIn("5 escolas permanecem HELD", facts)
+        self.assertIn("69/69", facts)
+        self.assertIn("0 escolas permanecem HELD", facts)
+        self.assertIn("Renda setorial numérica disponível para 68 escolas", facts)
+        self.assertIn("1 com X explícito do IBGE", facts)
         self.assertIn(
-            "TERRITORY_COVERAGE_64_OF_69_5_HELD_NE_FULL_NETWORK",
+            "FULL_NETWORK_GEOGRAPHY_NE_COMPLETE_INCOME_FOR_EVERY_SECTOR",
             card["CAUTION_OR_LIMIT"],
         )
 

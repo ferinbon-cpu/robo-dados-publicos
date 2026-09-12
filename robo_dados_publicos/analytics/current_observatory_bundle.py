@@ -23,8 +23,8 @@ from robo_dados_publicos.analytics.task200a_jom_personnel_redigest import (
 from robo_dados_publicos.analytics.task201b_inep_workforce_materialization import (
     build_task201b_school_indicator,
 )
-from robo_dados_publicos.analytics.task202_equity_missingness_aware_gate import (
-    build_task202_territory_profile,
+from robo_dados_publicos.analytics.current_territory import (
+    build_current_territory_profile,
 )
 
 
@@ -111,7 +111,7 @@ def build_current_products(
     generated_at: str,
     software_version: str,
 ) -> dict[str, dict[str, Any]]:
-    """Assemble the post-TASK202 canonical observatory bundle without test helpers."""
+    """Assemble current products, including the validated TASK199H territory."""
     _stop(bool(generated_at), "CURRENT_BUNDLE_GENERATED_AT")
     _stop(bool(software_version), "CURRENT_BUNDLE_SOFTWARE_VERSION")
 
@@ -158,7 +158,7 @@ def build_current_products(
                 generated_at=generated_at,
                 software_version=software_version,
             ),
-            "TERRITORY_PROFILE": build_task202_territory_profile(
+            "TERRITORY_PROFILE": build_current_territory_profile(
                 generated_at=generated_at,
                 software_version=software_version,
             ),
