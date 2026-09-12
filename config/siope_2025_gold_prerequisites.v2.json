@@ -1,0 +1,43 @@
+{
+  "schema": "SIOPE_2025_GOLD_PREREQUISITES_V2",
+  "tier": "T0_OFFLINE",
+  "canonical_date": "2026-09-12",
+  "base_main_sha": "07952f63c6ec86a5dd9ce316cc2516c8e4225580",
+  "scope": {
+    "year": 2025,
+    "period": 6,
+    "period_label": "Annual",
+    "uf": "SP",
+    "municipality": "Limeira",
+    "municipality_code": 352690
+  },
+  "prerequisites": {
+    "B1_NUM_POPU": "RESOLVED_BY_EXCLUSION_FROM_ANALYTICAL_POPULATION_SEMANTICS",
+    "B2_FINANCIAL_ALIAS_BRIDGE": "PROVEN_10_OF_10_ALIAS_TO_CONCEPT",
+    "B3_EFFECTIVE_ANNUAL_DECLARATION": "PROVEN_DYNAMIC_EFFECTIVE_SELECTION_RULE_WITH_PINNED_LIMEIRA_RECEIPT",
+    "SEMANTIC_COMPARABILITY": "UNKNOWN_REQUIRES_TASK241"
+  },
+  "metric_scope": {
+    "financial_metrics_1_to_6": "NOT_AUTHORIZED_UNTIL_SEMANTIC_COMPARABILITY_GATE",
+    "per_capita_metrics_7_to_8": "BLOCKED_NUM_POPU_EXCLUDED_IBGE_REBASE_ROUTE_REQUIRED"
+  },
+  "population_denominator_route": "USE_OFFICIAL_IBGE_SOURCE_WITH_EXPLICIT_REFERENCE_PERIOD_TASK241_DECISION_PENDING",
+  "context_only": {
+    "year_2025": "PROVEN_STRUCTURAL_RECENT",
+    "VALID_ANNUAL_SUBMISSION": "PROVEN",
+    "CURRENTLY_EFFECTIVE_DECLARATION": "PROVEN_RECEIPT_428477-6_AT_PINNED_OBSERVATION_2026-08-30",
+    "financial_aliases_proven_alias_to_concept": "10/10"
+  },
+  "decision": "STOP_GOLD_2025_SEMANTIC_COMPARABILITY_NOT_PROVEN",
+  "gold_2025_calculated": false,
+  "closed_annual_series": "2016-2024",
+  "release_0_8_0": "CANDIDATE",
+  "supersedes_for_current_reading": "config/siope_2025_gold_prerequisites.v1.json",
+  "historical_v1_preserved": true,
+  "effects": {
+    "network_calls": 0,
+    "drive_calls": 0,
+    "writes": 0,
+    "gold_arithmetic": 0
+  }
+}
