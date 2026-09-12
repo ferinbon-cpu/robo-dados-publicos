@@ -16,14 +16,14 @@ MAX_DATA = 4_000_000
 EXPECTED_PARAMS = [("Ano_Consulta", "Edm.Int32"), ("Num_Peri", "Edm.Int32"), ("Sig_UF", "Edm.String")]
 SAFE_FIELDS = [
     "TIPO", "NUM_ANO", "NUM_PERI", "COD_UF", "SIG_UF", "COD_MUNI", "NOM_MUNI",
-    "NOM_PAST", "TIP_PASTA", "COD_EXIB", "COD_EXIB_FORMATADO", "COD_FONTE",
+    "NOM_PAST", "TIP_PASTA", "COD_PAST", "COD_EXIB", "COD_EXIB_FORMATADO", "COD_FONTE",
     "NOM_ITEM", "IDN_CLAS", "NOM_COLU", "NUM_NIVE", "NUM_ORDE", "VAL_DECL",
 ]
 
 
 def get(url: str, limit: int):
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 TASK195C-readonly-odata-probe", "Accept": "application/json, application/xml;q=0.9, */*;q=0.1"})
-    with urllib.request.urlopen(req, timeout=60) as r:
+    with urllib.request.urlopen(req, timeout=90) as r:
         final = r.geturl()
         if urllib.parse.urlparse(final).hostname != "www.fnde.gov.br":
             raise RuntimeError(f"unexpected redirect host: {final}")
@@ -60,21 +60,21 @@ def discover_function(meta: bytes):
 
 def build_url():
     signature = "Despesas_Siope(Ano_Consulta=@Ano_Consulta,Num_Peri=@Num_Peri,Sig_UF=@Sig_UF)"
-    # TASK195 observed that this resource succeeded with %09 token whitespace;
-    # request only the exact municipality and filter IDN_CLAS=DA locally.
-    filt = "COD_MUNI%09eq%09352690"
+    # Replicate byte-for-byte the filter syntax preserved by TASK195 from the successful
+    # owner-mediated official URL: TIPO='Municipal' AND COD_MUNI=352690, with %09 whitespace.
+    filt = "TIPO%09eq%09%27Municipal%27%09and%09COD_MUNI%09eq%09352690"
     return (
         f"{BASE}/{signature}?@Ano_Consulta=2025&@Num_Peri=6&@Sig_UF=%27SP%27"
-        f"&$filter={filt}&$format=json"
+        f"&$format=json&$filter={filt}"
     )
 
 
 def main():
     result = {
-        "schema": "TASK195C_SIOPE_DA_OFFICIAL_ODATA_PROBE_V2",
+        "schema": "TASK195C_SIOPE_DA_OFFICIAL_ODATA_PROBE_V3",
         "mode": "READ_ONLY_GET_OFFICIAL_FNDE_NO_AUTH_NO_RETRY",
-        "target": "Despesas_Siope Limeira 2025/P6; municipality filter remote; IDN_CLAS=DA local",
-        "transport": "TASK195_PROVEN_DESPESAS_PERCENT09_TOKEN_WHITESPACE",
+        "target": "Replicate TASK195 proven Despesas_Siope Limeira 2025/P6 transport; inspect DA locally",
+        "transport": "EXACT_TASK195_PROVEN_FILTER_TIPO_MUNICIPAL_AND_COD_MUNI_WITH_PERCENT09",
         "guards": {
             "get_requests_max": 2,
             "post_requests": 0,
