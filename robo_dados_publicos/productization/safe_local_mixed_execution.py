@@ -9,6 +9,9 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from robo_dados_publicos.analytics.current_observatory_bundle import build_current_products
+from robo_dados_publicos.analytics.current_territory import (
+    coverage_context, coverage_fact, coverage_caution, income_missingness_facts,
+)
 from robo_dados_publicos.productization.context_aware_execution import (
     _base_filter_accounting,
     _finalize,
@@ -906,6 +909,7 @@ def _execute_equity_q1(
         provenance.append(_row_ref("SCHOOL_INDICATOR_SERIES", row))
 
     territory = products["TERRITORY_PROFILE"]
+    coverage = coverage_context(territory)
     held = set(contract["equity_q1"]["held_codes"])
     if school_code is not None:
         territory_rows = _territory_school_rows(territory, school_code)
@@ -922,9 +926,9 @@ def _execute_equity_q1(
                     "school_name": school_info.get("school_name"),
                     "status": "HELD_NO_STRONG_SCHOOL_TO_SECTOR_LINK",
                     "weak_substitution_performed": False,
-                    "network_coverage": "64_OF_69_STRONG_LINKS",
+                    "network_coverage": f"{coverage['strong_links']}_OF_{coverage['denominator']}_STRONG_LINKS",
                     "text": (
-                        "A escola está entre as 5 unidades mantidas como missingness territorial explícita: "
+                        f"A escola está entre as {coverage['held']} unidades mantidas como missingness territorial explícita: "
                         "nenhum setor foi atribuído por aproximação fraca."
                     ),
                 }
@@ -943,17 +947,10 @@ def _execute_equity_q1(
         for row in territory_rows:
             facts.append(_territory_fact(row, period_role="PARALLEL_TERRITORIAL_CONTEXT_PERIOD"))
             provenance.append(_row_ref("TERRITORY_PROFILE", row))
-        facts.append(
-            {
-                "kind": "TERRITORY_LINK_COVERAGE",
-                "strong_school_links": 64,
-                "active_school_denominator": 69,
-                "held": 5,
-                "full_network_link": False,
-                "text": "Cobertura escola→setor: 64 de 69 ligações fortes; 5 unidades permanecem explicitamente sem setor adjudicado.",
-            }
-        )
+        facts.append(coverage_fact(territory))
         territory_status = "MUNICIPAL_CONTEXT_PLUS_EXPLICIT_COVERAGE"
+
+    facts.extend(income_missingness_facts(territory, school_code))
 
     _mark_applied(filters, "SCHOOL", "PERIOD", "GRANULARITY")
     provenance.extend([
@@ -975,7 +972,7 @@ def _execute_equity_q1(
         "SCHOOL_LOCATION_SECTOR_NE_STUDENT_CATCHMENT",
         "TERRITORY_2022_NE_SCHOOL_INDICATOR_PERIOD",
         "EQUITY_CONTEXT_NE_CAUSAL_EXPLANATION",
-        "PARTIAL_64_OF_69_NETWORK_WITH_EXPLICIT_MISSINGNESS",
+        coverage_caution(coverage),
     ]
     return _finalize(
         state="ANSWERED_CONTEXTUALLY",
@@ -1102,16 +1099,8 @@ def _execute_territory(
                     "Comparações quantitativas são válidas entre setores no mesmo V06004/2022; não constituem ranking de alunos ou bairros sem identidade estruturada."
                 )
     if school_code is None:
-        facts.append(
-            {
-                "kind": "TERRITORY_LINK_COVERAGE",
-                "strong_school_links": contract["territory"]["strong_links"],
-                "active_school_denominator": contract["territory"]["active_school_denominator"],
-                "held": contract["territory"]["held"],
-                "full_network_link": False,
-                "text": "Ligação escola→setor: 64/69 fortes; 5 mantidas sem adjudicação.",
-            }
-        )
+        facts.append(coverage_fact(territory))
+    facts.extend(income_missingness_facts(territory, school_code))
     _mark_applied(filters, "SCHOOL", "PERIOD", "GRANULARITY")
     provenance.extend([
         _product_provenance(
@@ -1140,7 +1129,7 @@ def _execute_territory(
             "SECTOR_INCOME_NE_STUDENT_HOUSEHOLD_INCOME",
             "SCHOOL_LOCATION_SECTOR_NE_STUDENT_CATCHMENT",
             "SECTOR_COMPARISON_NE_CAUSAL_EXPLANATION",
-            "PARTIAL_64_OF_69_SCHOOL_LINK_COVERAGE",
+            coverage_caution(coverage_context(territory)),
             "NO_WEAK_GEOGRAPHIC_SUBSTITUTION",
         ],
         contract=out,

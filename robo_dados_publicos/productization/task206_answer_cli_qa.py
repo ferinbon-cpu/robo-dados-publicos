@@ -108,10 +108,12 @@ def representative_qa(
             _stop("vínculo" in facts.casefold(), "TASK206_QA_TEACH_BOND_LABEL")
 
         elif qid == "EQUITY_Q1":
-            _stop("64/69" in facts, "TASK206_QA_EQUITY_COVERAGE")
-            _stop("5 escolas permanecem HELD" in facts, "TASK206_QA_EQUITY_HELD")
+            from robo_dados_publicos.analytics.current_territory import coverage_context, coverage_caution
+            coverage = coverage_context(products["TERRITORY_PROFILE"])
+            _stop(f"{coverage['strong_links']}/{coverage['denominator']}" in facts, "TASK206_QA_EQUITY_COVERAGE")
+            _stop(f"{coverage['held']} escolas permanecem HELD" in facts, "TASK206_QA_EQUITY_HELD")
             _stop(
-                "TERRITORY_COVERAGE_64_OF_69_5_HELD_NE_FULL_NETWORK"
+                coverage_caution(coverage)
                 in card["CAUTION_OR_LIMIT"],
                 "TASK206_QA_EQUITY_GUARD",
             )

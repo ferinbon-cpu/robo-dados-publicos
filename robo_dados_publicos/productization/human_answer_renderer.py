@@ -637,26 +637,12 @@ def build_answer_card(
     if question_id.startswith("PLAN_"):
         cautions.add("PLANNING_NE_EXECUTION")
     if question_id == "EQUITY_Q1":
-        from robo_dados_publicos.analytics.task202_equity_missingness_aware_gate import validated_coverage
-        coverage = validated_coverage()
-        _stop(
-            coverage["strong_links"] == 64
-            and coverage["held"] == 5
-            and coverage["denominator"] == 69
-            and coverage["full_network"] is False,
-            "TASK206_EQUITY_COVERAGE",
-        )
-        facts.append(
-            {
-                "kind": "VALIDATED_COVERAGE_CONTEXT",
-                "text": (
-                    "Cobertura territorial escolar validada: "
-                    f"{coverage['strong_links']}/{coverage['denominator']} vínculos fortes; "
-                    f"{coverage['held']} escolas permanecem HELD; cobertura total da rede = não."
-                ),
-            }
-        )
-        cautions.add("TERRITORY_COVERAGE_64_OF_69_5_HELD_NE_FULL_NETWORK")
+        from robo_dados_publicos.analytics.current_territory import coverage_context, coverage_fact, coverage_caution
+        territory = products["TERRITORY_PROFILE"]
+        fact = coverage_fact(territory)
+        fact["kind"] = "VALIDATED_COVERAGE_CONTEXT"
+        facts.append(fact)
+        cautions.add(coverage_caution(coverage_context(territory)))
     if packet.get("projection_count", 0):
         cautions.add("ONTOLOGY_SUMMARY_RENDERABLE_NE_ARBITRARY_FULL_LEDGER_DRILLDOWN_LOCAL")
     cautions_list = sorted(cautions)[: int(contract["limits"]["max_cautions"])]
