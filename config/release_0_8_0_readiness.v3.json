@@ -1,0 +1,28 @@
+{
+  "schema": "RELEASE_0_8_0_READINESS_V3",
+  "tier": "T0_OFFLINE",
+  "canonical_date": "2026-09-12",
+  "base_main_sha": "2d898e99bd8681ec6f020430bead20df7ac3d370",
+  "resolved_predecessors": {
+    "B1_NUM_POPU": "RESOLVED_BY_EXCLUSION_FROM_ANALYTICAL_POPULATION_SEMANTICS",
+    "B2_FINANCIAL_ALIAS_BRIDGE": "PROVEN_10_OF_10_ALIAS_TO_CONCEPT",
+    "B3_EFFECTIVE_DECLARATION": "PROVEN_DYNAMIC_EFFECTIVE_SELECTION_RULE_WITH_PINNED_LIMEIRA_RECEIPT"
+  },
+  "semantic_comparability": {
+    "global_status": "PARTIAL",
+    "financial_inputs_10_of_10": "PARTIAL_HISTORICAL_YEAR_VERSIONED_SEMANTIC_BRIDGE_MISSING",
+    "financial_metrics_1_to_6": "PARTIAL_NOT_AUTHORIZED",
+    "per_capita_metrics_7_to_8": "NON_COMPARABLE_UNDER_NUM_POPU_REQUIRES_IBGE_REBASE"
+  },
+  "open_gates": {
+    "HISTORICAL_FINANCIAL_SEMANTIC_VERSIONING": "OPEN",
+    "IBGE_PER_CAPITA_REBASE": "OPEN",
+    "B4_GOLD_2025": "BLOCKED_BY_TASK241_PARTIAL_COMPARABILITY",
+    "B5_SERIES_2016_2025": "BLOCKED_BY_B4"
+  },
+  "release_0_8_0": "CANDIDATE",
+  "decision": "KEEP_0_8_0_CANDIDATE_TASK241_PARTIAL_COMPARABILITY",
+  "readiness_effect": "EVALUATION_ONLY_NO_PUBLICATION_DEPLOYMENT_SCHEDULE_OR_RECURRENCE",
+  "supersedes_for_current_reading": "config/release_0_8_0_readiness.v2.json",
+  "historical_v2_preserved": true
+}
