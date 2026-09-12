@@ -1,0 +1,27 @@
+name: TMP TASK195C SIOPE DA OData probe
+
+on:
+  push:
+    branches:
+      - task195c-siope-report-contract-probe
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run bounded official DA probe
+        run: python scripts/tmp_task195c_siope_da_probe.py
+      - name: Upload sanitized DA probe
+        uses: actions/upload-artifact@v4
+        with:
+          name: task195c-siope-da-probe
+          path: tmp/task195c_siope_da_probe.json
+          if-no-files-found: error
