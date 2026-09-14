@@ -18,6 +18,10 @@ NEXT = "BOUNDED_OFFICIAL_IBGE_POPULATION_SOURCE_CONTRACT_AND_SERIES_ACQUISITION_
 PASS = "PASS_TASK243_SOURCE_CONTRACT_NOT_PINNED_FAIL_CLOSED"
 YEARS = list(range(2016, 2026))
 METRICS = {"despesa_total_paga_por_habitante", "despesa_educacao_paga_por_habitante"}
+HISTORICAL_GOLD_DENOMINATOR_FORMULAS = (
+    "`despesa_total_paga_por_habitante` = `VAL_DESP_PAGA / NUM_POPU`.",
+    "`despesa_educacao_paga_por_habitante` = `VL_DESP_PAGA_EDU / NUM_POPU`.",
+)
 
 
 def load(path):
@@ -163,7 +167,7 @@ def validate_objects(evidence, contract, discovery, task241, b1, territory, gold
          preservation.get("rebased_series_is_separate_product") is True,
          "historical preservation drift")
 
-    stop("NUM_POPU" in gold_scope_text and "por habitante" in gold_scope_text,
+    stop(all(formula in gold_scope_text for formula in HISTORICAL_GOLD_DENOMINATOR_FORMULAS),
          "historical Gold denominator evidence missing")
     guards = evidence.get("guards", {})
     stop(guards and all(value is False for value in guards.values()), "TASK243 guard violated")
