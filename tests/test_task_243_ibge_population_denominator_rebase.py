@@ -44,6 +44,14 @@ class Task243IbgePopulationDenominatorRebaseTests(unittest.TestCase):
     def test_current_snapshot_passes(self):
         self.assertEqual(self.run_gate(), GATE.PASS)
 
+    def test_rejects_missing_historical_gold_denominator_formula(self):
+        mutated = self.gold_scope_text.replace(
+            "`despesa_educacao_paga_por_habitante` = `VL_DESP_PAGA_EDU / NUM_POPU`.",
+            "`despesa_educacao_paga_por_habitante` = `VL_DESP_PAGA_EDU / OUTRO_DENOMINADOR`.",
+        )
+        with self.assertRaises(ValueError):
+            self.run_gate(gold_scope_text=mutated)
+
     def test_rejects_num_popu_reuse(self):
         evidence = copy.deepcopy(self.evidence)
         evidence["guards"]["num_popu_used_as_2025_denominator"] = True
