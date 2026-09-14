@@ -4,7 +4,7 @@
   "task": "TASK_243",
   "issue": 813,
   "canonical_date": "2026-09-12",
-  "base_main_sha": "620464182c911415f885fac64ce789e10c9e7c50",
+  "base_main_sha": "3b05ae48d3c79aebac9453f62cdd021dcf00ab5c",
   "tier": "T0_OFFLINE_EXISTING_EVIDENCE_ONLY",
   "scope": {
     "municipality": "Limeira",
