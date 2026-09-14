@@ -16,6 +16,9 @@ Este é o estado canônico corrente da `0.8.0 CANDIDATE`. Ele consolida a evidê
 - **Métricas financeiras Gold 1–6:** `6/6 PARTIAL`.
 - **Métricas per capita Gold 7–8:** `2/2 NON_COMPARABLE` sob o contrato `NUM_POPU`.
 - **Gold 2025:** `BLOCKED_NOT_CALCULATED`.
+
+Gold 2025 permanece bloqueado e não calculado.
+
 - **Inclusão de 2025 na série:** não autorizada.
 - **Promoção da 0.8.0:** não autorizada.
 
