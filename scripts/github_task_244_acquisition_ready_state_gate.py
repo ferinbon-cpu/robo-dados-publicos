@@ -47,6 +47,7 @@ def validate_objects(evidence, readiness, gold, task242, task243):
     stop(readiness.get("semantic_comparability", {}).get("global_status") == "PARTIAL", "readiness comparability promoted")
     stop(readiness.get("next_evidence_gates", {}).get("FINANCIAL_1_TO_6") == FIN, "readiness financial route drift")
     stop(readiness.get("next_evidence_gates", {}).get("PER_CAPITA_7_TO_8") == IBGE, "readiness IBGE route drift")
+    stop(readiness.get("release_0_8_0") == "CANDIDATE", "readiness release promoted")
     auth = readiness.get("authorization_state", {})
     stop(auth.get("user_authorized_big_jump_on_2026_09_14") is True, "bounded acquisition authorization missing")
     stop(auth.get("gold_calculation_authorized") is False, "Gold authorization leaked")
