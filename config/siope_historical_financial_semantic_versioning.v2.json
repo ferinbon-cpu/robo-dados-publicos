@@ -1,0 +1,144 @@
+{
+  "schema": "SIOPE_HISTORICAL_FINANCIAL_SEMANTIC_VERSIONING_V2",
+  "task": "TASK_245",
+  "base_main_sha": "e4ecf87afba21717844db5b28415f13d52e1e48c",
+  "canonical_date": "2026-09-15",
+  "tier": "T0_OFFLINE_VALIDATION_OF_BOUNDED_PUBLIC_ACQUISITION",
+  "evidence_path": "docs/evidence/TASK_245_SIOPE_OFFICIAL_TEMPORAL_CONTRACT_ACQUISITION_0.8.0.json",
+  "support_path": "docs/evidence/TASK_245_SIOPE_OFFICIAL_TEMPORAL_CONTRACT_ACQUISITION_0.8.0.support.json",
+  "support_sha256": "0f291dea5a9394ce9c025593af44417703adbcf17b59d9b265b7a204e679495c",
+  "aliases": [
+    "VAL_RECE_PREV_ATUA",
+    "VAL_RECE_REAL",
+    "VAL_DESP_DOTA_ATUA",
+    "VAL_DESP_EMPE",
+    "VAL_DESP_LIQU",
+    "VAL_DESP_PAGA",
+    "VL_DESP_DOTA_ATUA_EDU",
+    "VL_DESP_EMPE_EDU",
+    "VL_DESP_LIQU_EDU",
+    "VL_DESP_PAGA_EDU"
+  ],
+  "historical_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "reference_year": 2025,
+  "required_dimensions": [
+    "field_identity",
+    "concept",
+    "unit",
+    "scope",
+    "stage",
+    "aggregation",
+    "period"
+  ],
+  "metric_inputs": {
+    "receita_realizada_sobre_previsao_atualizada_pct": [
+      "VAL_RECE_REAL",
+      "VAL_RECE_PREV_ATUA"
+    ],
+    "despesa_paga_sobre_dotacao_atualizada_pct": [
+      "VAL_DESP_PAGA",
+      "VAL_DESP_DOTA_ATUA"
+    ],
+    "despesa_educacao_paga_sobre_dotacao_atualizada_educacao_pct": [
+      "VL_DESP_PAGA_EDU",
+      "VL_DESP_DOTA_ATUA_EDU"
+    ],
+    "participacao_educacao_na_despesa_empenhada_pct": [
+      "VL_DESP_EMPE_EDU",
+      "VAL_DESP_EMPE"
+    ],
+    "participacao_educacao_na_despesa_liquidada_pct": [
+      "VL_DESP_LIQU_EDU",
+      "VAL_DESP_LIQU"
+    ],
+    "participacao_educacao_na_despesa_paga_pct": [
+      "VL_DESP_PAGA_EDU",
+      "VAL_DESP_PAGA"
+    ]
+  },
+  "reviewed_temporal_claims": [
+    {
+      "id": "ANNUAL_PERIOD_2016",
+      "source_id": "DICTIONARY_2019",
+      "dimension": "period",
+      "aliases": [
+        "VAL_RECE_PREV_ATUA",
+        "VAL_RECE_REAL",
+        "VAL_DESP_DOTA_ATUA",
+        "VAL_DESP_EMPE",
+        "VAL_DESP_LIQU",
+        "VAL_DESP_PAGA",
+        "VL_DESP_DOTA_ATUA_EDU",
+        "VL_DESP_EMPE_EDU",
+        "VL_DESP_LIQU_EDU",
+        "VL_DESP_PAGA_EDU"
+      ],
+      "years": [
+        2016
+      ],
+      "value": {
+        "period": 1,
+        "role": "ANNUAL"
+      }
+    },
+    {
+      "id": "ANNUAL_PERIOD_2017_2024",
+      "source_id": "DICTIONARY_2019",
+      "dimension": "period",
+      "aliases": [
+        "VAL_RECE_PREV_ATUA",
+        "VAL_RECE_REAL",
+        "VAL_DESP_DOTA_ATUA",
+        "VAL_DESP_EMPE",
+        "VAL_DESP_LIQU",
+        "VAL_DESP_PAGA",
+        "VL_DESP_DOTA_ATUA_EDU",
+        "VL_DESP_EMPE_EDU",
+        "VL_DESP_LIQU_EDU",
+        "VL_DESP_PAGA_EDU"
+      ],
+      "years": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "value": {
+        "period": 6,
+        "role": "ANNUAL"
+      }
+    }
+  ],
+  "reviewed_positive_target_breaks": [],
+  "decision": "PARTIAL",
+  "preserved_state": {
+    "release_0_7_0": "ACTIVE",
+    "release_0_8_0": "CANDIDATE",
+    "closed_annual_series": "2016-2024",
+    "gold_2025": "BLOCKED_NOT_CALCULATED",
+    "financial_metrics_1_to_6": "PARTIAL",
+    "per_capita_metrics_7_to_8": "NON_COMPARABLE",
+    "gold_authorized": false,
+    "series_inclusion_authorized": false,
+    "release_promotion_authorized": false,
+    "historical_rewrite_authorized": false
+  },
+  "automatic_future_acquisition_authorized": false,
+  "supersedes_for_current_financial_evidence_reading": "config/siope_historical_financial_semantic_versioning.v1.json",
+  "historical_v1_and_tasks241_242_244_preserved": true,
+  "acceptance_rule": "Every required dimension must have reviewed primary temporal evidence for every alias/year; positive target breaks override partial coverage. Missing cells cannot be filled from field-name similarity, publication dates, software version numbers or absent changelog entries."
+}
