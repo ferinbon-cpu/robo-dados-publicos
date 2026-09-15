@@ -52,6 +52,8 @@ As duas auditorias offline estão concluídas. Portanto, os próximos passos nã
 
 Objetivo: obter evidência pública primária FNDE/SIOPE suficiente para provar ou rejeitar continuidade semântica dos dez inputs financeiros nos regimes 2016–2024, incluindo identidade do campo/alias, conceito, unidade, fronteira de agregação, estágio orçamentário quando aplicável e vigência temporal/versionada.
 
+**TASK245 — aquisição documental de 15/09/2026: PARTIAL.** Oito artefatos oficiais foram adquiridos e pinados por SHA-256. O catálogo associa o dicionário de 2019 aos consolidados 2008–2016/2017/2018/2019; a documentação Olinda v1 expõe os dez aliases com descrições vazias. Restam três proposições delimitadas por input: correspondência temporal dos campos, unidade/escala e continuidade das fronteiras de agregação. A especificação do menor documento oficial capaz de fechá-las está em `docs/tasks/TASK_245_SIOPE_TEMPORAL_CONTRACT_FINDINGS.md`. Os dez inputs e as seis métricas permanecem PARTIAL; B2/2025 e os snapshots anteriores estão preservados.
+
 ### B — métricas per capita 7–8
 
 `BOUNDED_OFFICIAL_IBGE_POPULATION_SOURCE_CONTRACT_AND_SERIES_ACQUISITION_REQUIRES_EXPLICIT_AUTHORIZATION`
@@ -67,9 +69,10 @@ Para leitura do estado atual, prevalecem:
 - `config/release_0_8_0_readiness.v4.json`;
 - `config/siope_2025_gold_prerequisites.v4.json`;
 - `config/siope_2025_semantic_comparability.v1.json`;
-- `config/siope_historical_financial_semantic_versioning.v1.json`;
+- `config/siope_historical_financial_semantic_versioning.v2.json` (resultado documental TASK245; v1 histórica preservada);
 - `config/ibge_population_denominator_rebase.v1.json`;
 - `docs/evidence/TASK_244_POST_TASK242_TASK243_ACQUISITION_READY_STATE_0.8.0.json`.
+- `docs/evidence/TASK_245_SIOPE_OFFICIAL_TEMPORAL_CONTRACT_ACQUISITION_0.8.0.json` (resultado da aquisição financeira; sem promoção de readiness ou Gold).
 
 Os arquivos v1–v3 de readiness/Gold e as evidências TASK005–TASK243 permanecem snapshots históricos e não devem ser reescritos retrospectivamente.
 
@@ -81,7 +84,7 @@ B2 ✅ RESOLVIDO
 B3 ✅ RESOLVIDO
 TASK242 auditoria offline ✅ concluída
 TASK243 auditoria offline ✅ concluída
-financeiro 1–6 ⚠ PARTIAL → aquisição oficial FNDE/SIOPE autorizada neste salto
+financeiro 1–6 ⚠ PARTIAL → TASK245: três proposições públicas temporais delimitadas
 per capita 7–8 ⛔ NON_COMPARABLE → aquisição oficial IBGE autorizada neste salto
 Gold 2025 ⛔ BLOCKED_NOT_CALCULATED
 série fechada = 2016–2024
