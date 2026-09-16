@@ -1,0 +1,62 @@
+{
+  "absence_inference_allowed": false,
+  "baseline": {
+    "september_editions": [7316, 7317, 7318, 7319, 7320],
+    "through_date": "2026-09-08",
+    "total_document_count": 99
+  },
+  "baseline_verified": true,
+  "delta_count": 4,
+  "delta_editions": [
+    {
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_08092026164608.pdf",
+      "edition": 7321,
+      "logical_key": "limeira/jornal_oficial/edicao/7321",
+      "publication_date": "2026-09-09",
+      "source_id": "LIMEIRA_JO_07321"
+    },
+    {
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_09092026164228.pdf",
+      "edition": 7322,
+      "logical_key": "limeira/jornal_oficial/edicao/7322",
+      "publication_date": "2026-09-10",
+      "source_id": "LIMEIRA_JO_07322"
+    },
+    {
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_10092026192416.pdf",
+      "edition": 7323,
+      "logical_key": "limeira/jornal_oficial/edicao/7323",
+      "publication_date": "2026-09-11",
+      "source_id": "LIMEIRA_JO_07323"
+    },
+    {
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_11092026183505.pdf",
+      "edition": 7324,
+      "logical_key": "limeira/jornal_oficial/edicao/7324",
+      "publication_date": "2026-09-12",
+      "source_id": "LIMEIRA_JO_07324"
+    }
+  ],
+  "document_download_count": 0,
+  "drive_write_count": 0,
+  "estimated_remote_get_count": 2,
+  "future_editions_inference_allowed": false,
+  "index_pages_fetched": 1,
+  "next_step": "CANONIZE_LIVE_DELTA_BEFORE_ANY_DOCUMENT_DOWNLOAD_OR_RECURRENCE_PROMOTION",
+  "observed_month_count": 9,
+  "observed_window_complete": true,
+  "promotion_performed": false,
+  "publication_count": 0,
+  "recurrence_performed": false,
+  "result_sha256": "28701eb442dee5bc74e34fe9c7c5a21cec27ffcbae680fe0988ef4a64c978b6d",
+  "schedule_performed": false,
+  "schema": "TASK247_JOM_ROLLING_DISCOVERY_RESULT_V1",
+  "scope": {
+    "end_date": "2026-09-16",
+    "month": 9,
+    "start_date": "2026-09-09",
+    "year": 2026
+  },
+  "serving_write_count": 0,
+  "status": "PASS_JOM_ROLLING_DELTA_DISCOVERY"
+}
