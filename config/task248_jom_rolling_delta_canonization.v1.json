@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "schema": "TASK248_JOM_ROLLING_DELTA_CANONIZATION_V1",
+  "task": "TASK_248",
+  "issue": 823,
+  "base_main_sha": "3c3b59606ecafbd48fe634ef850543ac03c72bdc",
+  "source_task": "TASK_247",
+  "runtime": {
+    "run_id": 35151868669,
+    "head_sha": "cbaa17bb14a90bf171c10f090e9f596896120368",
+    "implementation_sha": "3c3b59606ecafbd48fe634ef850543ac03c72bdc",
+    "artifact_id": 10469402153,
+    "artifact_name": "task-247-jom-rolling-sanitized-discovery",
+    "artifact_zip_sha256": "bea443dcec80cd271e6902c3f16cdf0ee65dea0468a90a5d35d14b013ccdbb7f",
+    "result_sha256": "28701eb442dee5bc74e34fe9c7c5a21cec27ffcbae680fe0988ef4a64c978b6d",
+    "conclusion": "success"
+  },
+  "sanitized_result": "docs/evidence/TASK_248_JOM_ROLLING_DELTA_SANITIZED_RESULT_0.8.0.json",
+  "prior_baseline": {
+    "canonical_result": "docs/evidence/TASK_217C_JOM_2026_DISCOVERY_CANONICAL_RESULT_0.8.0.json",
+    "canonical_status": "PASS_COMPLETE_DISCOVERY_CANONIZED",
+    "through_date": "2026-09-08",
+    "document_count": 99,
+    "september_editions": [7316, 7317, 7318, 7319, 7320]
+  },
+  "delta": {
+    "status": "PASS_JOM_ROLLING_DELTA_DISCOVERY",
+    "start_date": "2026-09-09",
+    "authorized_end_date": "2026-09-16",
+    "count": 4,
+    "editions": [7321, 7322, 7323, 7324],
+    "publication_dates": ["2026-09-09", "2026-09-10", "2026-09-11", "2026-09-12"],
+    "index_pages": 1,
+    "estimated_remote_gets": 2,
+    "document_downloads": 0
+  },
+  "canonized_state": {
+    "status": "PASS_JOM_ROLLING_DELTA_CANONIZED",
+    "known_identity_count": 103,
+    "latest_observed_publication_date": "2026-09-12",
+    "observed_window_end": "2026-09-16",
+    "september_known_editions": [7316, 7317, 7318, 7319, 7320, 7321, 7322, 7323, 7324],
+    "identity_only": true,
+    "document_content_proven": false,
+    "absence_inference_allowed": false,
+    "future_editions_inference_allowed": false
+  },
+  "guards": [
+    "DISCOVERY_IDENTITY_NE_DOCUMENT_CONTENT",
+    "OBSERVED_WINDOW_NE_FINAL_ABSENCE",
+    "LATE_PUBLICATION_OR_BACKFILL_REMAINS_POSSIBLE",
+    "NO_PDF_DOWNLOAD",
+    "NO_DRIVE_WRITE",
+    "NO_SERVING_WRITE",
+    "NO_PUBLICATION",
+    "NO_PROMOTION",
+    "NO_SCHEDULE",
+    "NO_RECURRENCE",
+    "HISTORICAL_TASK217C_SNAPSHOT_MUST_NOT_BE_REWRITTEN"
+  ],
+  "remote_effects_of_canonization": {
+    "source_network": false,
+    "document_download": false,
+    "drive_write": false,
+    "serving_write": false,
+    "publication": false,
+    "promotion": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}
