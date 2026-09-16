@@ -1,0 +1,168 @@
+{
+  "schema": "TASK246_IBGE_POPULATION_EVIDENCE_V1",
+  "task": "TASK_246",
+  "issue": 819,
+  "canonical_date": "2026-09-16",
+  "base_main_sha": "5b5bf747ece811e4c95fd57d9dfc1cc7d745aeaa",
+  "artifact_sha256": {
+    "docs/evidence/TASK_246_IBGE_MUNICIPAL_POPULATION_2016_2025_0.8.0.support.json": "bc4778a469088ef0e475ab5f115738e9b60a188497cd83feece694b4818788ca",
+    "config/ibge_municipal_population_2016_2025.v1.json": "919bc82bc84b16889eee49c8e3f68359a7d4056f8d0817d6492a3636be62b0f1",
+    "config/ibge_municipal_population_acquisition.v1.json": "d51bf845c78173e292e925baae38528140a62e0d7fbfcce663db88a4fa65ed2d"
+  },
+  "decision": {
+    "status": "NOT_COMPARABLE",
+    "observed_reference_years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2024,
+      2025
+    ],
+    "missing_reference_years": [
+      2023
+    ],
+    "projection_revisions": [
+      2013,
+      2018,
+      2024
+    ],
+    "positive_incompatibilities": [
+      "OFFICIAL_SAME_REVISION_RULE_VIOLATED",
+      "CENSUS_AND_ADJUSTED_ESTIMATES_WITHOUT_OFFICIAL_ADAPTER"
+    ],
+    "homogeneous_denominator_eligible": false
+  },
+  "minimum_closing_evidence": {
+    "artifact_status": "REQUIRED_CONTENT_SPECIFICATION_NOT_LOCATED_DOCUMENT",
+    "authority": "IBGE",
+    "municipality_ibge_code": "3526902",
+    "preferred_artifact": "Extrato municipal oficial harmonizado 2016-2025, acompanhado da nota de revisão/retropolação que define conceito, referência anual, mesma revisão de projeções, território comum e vintage de cada observação.",
+    "alternative_artifact": "Contrato oficial de adaptação entre revisões 2013/2018/2024 e Censo 2022, com todos os inputs anuais necessários. Método genérico sem outputs/inputs municipais não fecha a lacuna.",
+    "requirements": [
+      {
+        "id": "R1_REBASE",
+        "years": [
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "boundaries": [
+          "2017/2018",
+          "2021/2022",
+          "2022/2024"
+        ],
+        "proposition": "Harmonização municipal explícita entre regimes, incluindo unidade e referência comuns; preservar os valores publicados como produtos históricos distintos."
+      },
+      {
+        "id": "R2_TRUE_2023",
+        "years": [
+          2023
+        ],
+        "proposition": "Observação municipal efetivamente referida a 2023 dentro do contrato harmonizado; TCU 2023/Censo 2022 não a satisfaz."
+      },
+      {
+        "id": "R3_TERRITORY",
+        "years": [
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "specific_window": [
+          "2024-05-01",
+          "2025-04-30"
+        ],
+        "proposition": "Base territorial comum ou adaptação oficial; resolver efeito da atualização de Limeira registrada no Anexo 1 de 2025, inclusive remanejamento ou sua ausência, sem inferir impacto zero."
+      }
+    ],
+    "per_capita_authorization_granted_by_document": false
+  },
+  "preserved_state": {
+    "release_0_7_0": "ACTIVE",
+    "release_0_8_0": "CANDIDATE",
+    "closed_annual_series": "2016-2024",
+    "gold_2025": "BLOCKED_NOT_CALCULATED",
+    "financial_metrics_1_to_6": "PARTIAL",
+    "per_capita_metrics_7_to_8": "NON_COMPARABLE",
+    "gold_authorized": false,
+    "series_inclusion_authorized": false,
+    "release_promotion_authorized": false,
+    "historical_rewrite_authorized": false,
+    "per_capita_calculation_authorized": false,
+    "num_popu_reuse_authorized": false,
+    "automatic_future_acquisition_authorized": false
+  },
+  "effects": {
+    "official_artifacts_acquired": 34,
+    "acquisition_attempts": 38,
+    "observed_reference_years": 9,
+    "per_capita_calculations": 0,
+    "gold_calculations": 0,
+    "drive_writes": 0,
+    "external_publication": 0,
+    "recurrence_created": 0
+  },
+  "historical_snapshots": [
+    {
+      "path": "config/ibge_population_denominator_rebase.v1.json",
+      "sha256": "c078ed5b34c88b1dd9ec82baf9bab1bc5caa3f7a0cb95e479f2cc130efcd3fec"
+    },
+    {
+      "path": "config/ibge_population_source_contract_discovery_spec.v1.json",
+      "sha256": "27c009db173b3df50e1fdbe224f786197935c51aaee1afde654c0808d04dc3ba"
+    },
+    {
+      "path": "docs/evidence/TASK_243_IBGE_POPULATION_DENOMINATOR_REBASE_0.8.0.json",
+      "sha256": "671658129deb3c4a530f689f477c609f30d88e1237ae79c8c168649297587699"
+    },
+    {
+      "path": "docs/evidence/TASK_244_POST_TASK242_TASK243_ACQUISITION_READY_STATE_0.8.0.json",
+      "sha256": "3b82d957fb5e37f3fe5259437224ee213989855960655759b0775f4cc4c81d74"
+    },
+    {
+      "path": "config/release_0_8_0_readiness.v4.json",
+      "sha256": "08fb9693e18f0faab87acfe80926d8fc053f53dfb87bfdc8a9b1aca1afc59e15"
+    },
+    {
+      "path": "config/siope_2025_gold_prerequisites.v4.json",
+      "sha256": "c03798c3522ab747f516154cd1f9fa6748f8835941e67a49a196ba9d9144d9a0"
+    },
+    {
+      "path": "config/siope_historical_financial_semantic_versioning.v2.json",
+      "sha256": "b6480cb6217bbdc1ea9a80bf60b2c3c7a4ba927b5d41cd810af8403af086eabf"
+    },
+    {
+      "path": "docs/evidence/TASK_245_SIOPE_OFFICIAL_TEMPORAL_CONTRACT_ACQUISITION_0.8.0.json",
+      "sha256": "9b5af29c4308882fb3da006fda5b7821e9e0a0e4ee88b46091cc7aef8005e2b5"
+    },
+    {
+      "path": "docs/evidence/TASK_245_SIOPE_OFFICIAL_TEMPORAL_CONTRACT_ACQUISITION_0.8.0.support.json",
+      "sha256": "0f291dea5a9394ce9c025593af44417703adbcf17b59d9b265b7a204e679495c"
+    }
+  ],
+  "raw_custody": {
+    "archive_name": "TASK246_IBGE_FONTES_OFICIAIS_2026-09-16.zip",
+    "archive_sha256": "4a1aff5cf5094901e48c8d647fabdf74b239ef24cbfea237489997c6792fee1e",
+    "bytes": 5311916,
+    "source_artifact_count": 34,
+    "raw_binaries_committed_to_repository": false,
+    "decoded_api_snapshots_committed": 7
+  }
+}
