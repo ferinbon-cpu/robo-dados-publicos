@@ -1,0 +1,87 @@
+{
+  "schema": "TASK248_JOM_LIVE_DELTA_CANONICAL_RESULT_V1",
+  "task": "TASK_248",
+  "issue": 824,
+  "status": "PASS_JOM_ROLLING_DELTA_CANONIZED",
+  "implementation_sha": "3c3b59606ecafbd48fe634ef850543ac03c72bdc",
+  "runtime_branch": "task-247-jom-rolling-discovery-runtime",
+  "runtime_head_sha": "cbaa17bb14a90bf171c10f090e9f596896120368",
+  "workflow_run_id": 35151868669,
+  "workflow_conclusion": "success",
+  "source_result": {
+    "schema": "TASK247_JOM_ROLLING_DISCOVERY_RESULT_V1",
+    "status": "PASS_JOM_ROLLING_DELTA_DISCOVERY",
+    "result_sha256": "28701eb442dee5bc74e34fe9c7c5a21cec27ffcbae680fe0988ef4a64c978b6d",
+    "artifact_id": 10469402153,
+    "artifact_name": "task-247-jom-rolling-sanitized-discovery",
+    "artifact_zip_sha256": "bea443dcec80cd271e6902c3f16cdf0ee65dea0468a90a5d35d14b013ccdbb7f",
+    "artifact_retention_days": 1
+  },
+  "baseline": {
+    "through_date": "2026-09-08",
+    "total_document_count": 99,
+    "september_editions": [7316, 7317, 7318, 7319, 7320],
+    "baseline_verified": true
+  },
+  "scope": {
+    "year": 2026,
+    "month": 9,
+    "start_date": "2026-09-09",
+    "end_date": "2026-09-16",
+    "observed_window_complete": true,
+    "absence_inference_allowed": false,
+    "future_editions_inference_allowed": false
+  },
+  "delta_count": 4,
+  "delta_editions": [
+    {
+      "edition": 7321,
+      "publication_date": "2026-09-09",
+      "source_id": "LIMEIRA_JO_07321",
+      "logical_key": "limeira/jornal_oficial/edicao/7321",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_08092026164608.pdf"
+    },
+    {
+      "edition": 7322,
+      "publication_date": "2026-09-10",
+      "source_id": "LIMEIRA_JO_07322",
+      "logical_key": "limeira/jornal_oficial/edicao/7322",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_09092026164228.pdf"
+    },
+    {
+      "edition": 7323,
+      "publication_date": "2026-09-11",
+      "source_id": "LIMEIRA_JO_07323",
+      "logical_key": "limeira/jornal_oficial/edicao/7323",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_10092026192416.pdf"
+    },
+    {
+      "edition": 7324,
+      "publication_date": "2026-09-12",
+      "source_id": "LIMEIRA_JO_07324",
+      "logical_key": "limeira/jornal_oficial/edicao/7324",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_11092026183505.pdf"
+    }
+  ],
+  "execution": {
+    "index_pages_fetched": 1,
+    "estimated_remote_get_count": 2,
+    "document_download_count": 0,
+    "drive_write_count": 0,
+    "serving_write_count": 0,
+    "publication_count": 0,
+    "promotion_performed": false,
+    "recurrence_performed": false,
+    "schedule_performed": false
+  },
+  "canonical_boundary": {
+    "metadata_identity_only": true,
+    "pdf_contents_proven": false,
+    "document_ingestion_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_authorized": false,
+    "serving_authorized": false,
+    "release_promotion_authorized": false
+  },
+  "next_step": "SEPARATE_GATE_FOR_BOUNDED_PDF_ACQUISITION_AND_REDIGEST_OR_SEPARATE_RECURRENCE_POLICY_CHANGE"
+}
