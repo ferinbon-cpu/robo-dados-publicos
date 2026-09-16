@@ -1,0 +1,49 @@
+{
+  "task": "TASK_247_JOM_ROLLING_DISCOVERY_CARRIER",
+  "issue": 821,
+  "base_main_sha": "4180c9784a9583a5e3394f13f60678e6100c5bf0",
+  "status": "OFFLINE_CARRIER_READY_LIVE_BLOCKED",
+  "purpose": "Bridge the canonized 2026 JOM discovery baseline into a bounded rolling delta-discovery primitive without enabling recurrence or persistence.",
+  "baseline": {
+    "canonical_evidence": "docs/evidence/TASK_217C_JOM_2026_DISCOVERY_CANONICAL_RESULT_0.8.0.json",
+    "canonical_status": "PASS_COMPLETE_DISCOVERY_CANONIZED",
+    "canonical_document_count": 99,
+    "canonical_through_date": "2026-09-08",
+    "september_baseline_count": 5,
+    "september_editions": [7316, 7317, 7318, 7319, 7320]
+  },
+  "rolling_scope": {
+    "start_date": "2026-09-09",
+    "end_date": "2026-09-16",
+    "year": 2026,
+    "month": 9,
+    "max_index_pages": 5,
+    "max_estimated_remote_get_count": 10,
+    "document_download_count": 0
+  },
+  "remote_effects": {
+    "source_network": false,
+    "document_download": false,
+    "drive_write": false,
+    "serving_write": false,
+    "publication": false,
+    "promotion": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "live_boundary": {
+    "separate_owner_authorization_required": true,
+    "exact_merged_implementation_sha_required": true,
+    "runtime_branch": "task-247-jom-rolling-discovery-runtime",
+    "sanitized_artifact_only": true,
+    "artifact_retention_days": 1
+  },
+  "interpretation": {
+    "historical_monthly_discovery_missing": false,
+    "rolling_delta_bridge_missing_before_task247": true,
+    "successful_delta_ne_pdf_content_proof": true,
+    "successful_delta_ne_future_absence_proof": true,
+    "successful_delta_ne_recurrence_authorization": true
+  },
+  "next_gate": "EXACT_OWNER_AUTHORIZED_LIVE_DELTA_DISCOVERY_ON_MERGED_TASK247_SHA"
+}

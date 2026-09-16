@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "schema": "TASK247_JOM_ROLLING_DISCOVERY_V1",
+  "task": "TASK_247",
+  "issue": 821,
+  "base_main_sha": "4180c9784a9583a5e3394f13f60678e6100c5bf0",
+  "mode": "T0_IMPLEMENTED_LIVE_DISABLED_UNTIL_EXACT_OWNER_AUTHORIZATION",
+  "implementation_branch": "main",
+  "runtime_branch": "task-247-jom-rolling-discovery-runtime",
+  "authorization_file": "runtime/task247_owner_authorization.json",
+  "trigger_file": "runtime_triggers/task247_jom_rolling_discovery.run",
+  "baseline": {
+    "canonical_evidence": "docs/evidence/TASK_217C_JOM_2026_DISCOVERY_CANONICAL_RESULT_0.8.0.json",
+    "canonical_status": "PASS_COMPLETE_DISCOVERY_CANONIZED",
+    "sanitized_result_sha256": "7c31c9791793c889a8c76e27bcf0d6b6b26f23a3b6bec07fbd95d8c1fba29510",
+    "through_date": "2026-09-08",
+    "total_document_count": 99,
+    "september_count": 5,
+    "september_editions": [7316, 7317, 7318, 7319, 7320],
+    "partition_contract": "config/task217d_jom_school_infra_redigest.v1.json"
+  },
+  "source": {
+    "family": "LIMEIRA_JORNAL_OFICIAL",
+    "official_index": "https://www.limeira.sp.gov.br/jornaloficial",
+    "allowed_document_hosts": ["ecrie.com.br"]
+  },
+  "scope": {
+    "year": 2026,
+    "month": 9,
+    "start_date": "2026-09-09",
+    "end_date": "2026-09-16"
+  },
+  "discovery": {
+    "max_pages_per_month": 5,
+    "max_remote_get_count": 10,
+    "automatic_retry": false,
+    "document_downloads": 0,
+    "raw_html_persisted": false,
+    "raw_pdf_persisted": false
+  },
+  "authorization": {
+    "required_task": "TASK_247_LIVE_AUTHORIZATION",
+    "required_operation": "BOUNDED_JOM_ROLLING_DELTA_DISCOVERY_READ_ONLY",
+    "attempt_count": 1,
+    "owner_authorized": true,
+    "document_downloads_authorized": false,
+    "drive_write_authorized": false,
+    "serving_authorized": false,
+    "publication_authorized": false,
+    "promotion_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_authorized": false
+  },
+  "persistence": {
+    "sanitized_discovery_artifact": true,
+    "artifact_retention_days": 1,
+    "raw_html_artifact": false,
+    "raw_pdf_artifact": false,
+    "drive_write": false,
+    "serving_write": false,
+    "publication": false
+  },
+  "guards": [
+    "TASK217C_BASELINE_MUST_REMAIN_PRESENT",
+    "BACKFILL_BEFORE_DELTA_START_IS_DRIFT",
+    "PARTIAL_MONTH_DISCOVERY_IS_STOP",
+    "DUPLICATE_EDITION_OR_SOURCE_IS_STOP",
+    "DOCUMENT_ROUTE_MUST_BE_DECLARED_HTTPS_ECRIE",
+    "NO_PDF_DOWNLOAD",
+    "NO_DRIVE_WRITE",
+    "NO_SERVING_WRITE",
+    "NO_PUBLICATION",
+    "NO_PROMOTION",
+    "NO_SCHEDULE",
+    "NO_RECURRENCE",
+    "OBSERVED_DELTA_NE_FUTURE_ABSENCE_INFERENCE"
+  ]
+}
