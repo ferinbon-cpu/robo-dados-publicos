@@ -134,3 +134,11 @@ Nenhuma seta representa promoção automática.
 ## 8. Próximo marco
 
 As aquisições TASK245/246 produziram decisões auditáveis: financeiro `PARTIAL`, denominador IBGE adquirido `NOT_COMPARABLE` sob um único contrato direto. O próximo marco exige o conteúdo oficial específico delimitado em cada evidência: G1/G2/G3 financeiros e série municipal harmonizada/adaptada com referência 2023 e território provados. Qualquer cálculo per capita permanece uma etapa separada com autorização própria. **Gold 2025 permanece bloqueado**.
+
+## 9. Jornal Oficial — rolling discovery TASK247/TASK248
+
+A TASK247 materializou um carrier bounded de descoberta incremental do Jornal Oficial e executou uma única prova live read-only vinculada ao `main` `3c3b59606ecafbd48fe634ef850543ac03c72bdc`. O GitHub Actions run `35151868669` terminou `success` e retornou `PASS_JOM_ROLLING_DELTA_DISCOVERY`.
+
+A TASK248 canoniza esse resultado como `PASS_JOM_ROLLING_DELTA_CANONIZED`: a baseline permaneceu válida até 08/09/2026 e foram observadas quatro novas identidades oficiais na janela 09/09–16/09/2026 — edições **7321, 7322, 7323 e 7324**, publicadas respectivamente em **09, 10, 11 e 12/09/2026**. A execução consumiu uma página de índice e dois GETs remotos estimados, com **0 downloads de PDF, 0 writes Drive, 0 writes serving, 0 publicação, 0 promoção, 0 recurrence e 0 schedule**.
+
+A prova é exclusivamente de identidade/rota documental. Conteúdo dos PDFs, eventos semânticos, ingestão Bronze/Drive, serving e recorrência continuam etapas separadas e não autorizadas por esta canonização. Evidência: `docs/evidence/TASK_248_JOM_LIVE_DELTA_CANONICAL_RESULT_0.8.0.json`.
