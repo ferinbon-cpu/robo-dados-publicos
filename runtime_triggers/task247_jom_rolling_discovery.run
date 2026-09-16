@@ -1,0 +1,6 @@
+TASK_247_LIVE_AUTHORIZATION
+operation=BOUNDED_JOM_ROLLING_DELTA_DISCOVERY_READ_ONLY
+implementation_sha=3c3b59606ecafbd48fe634ef850543ac03c72bdc
+scope=2026-09-09..2026-09-16
+max_remote_get_count=10
+attempt_count=1
