@@ -1,0 +1,243 @@
+{
+  "schema": "IBGE_MUNICIPAL_POPULATION_2016_2025_V1",
+  "task": "TASK_246",
+  "issue": 819,
+  "base_main_sha": "5b5bf747ece811e4c95fd57d9dfc1cc7d745aeaa",
+  "authority": "IBGE",
+  "municipality_ibge_code": "3526902",
+  "municipality_name": "Limeira",
+  "uf": "SP",
+  "years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "scope": "DIRECT_COMPARISON_OF_ACQUIRED_AS_PUBLISHED_MUNICIPAL_OBSERVATIONS_UNDER_ONE_HOMOGENEOUS_CONTRACT",
+  "products": {
+    "6579": {
+      "name": "Estimativas de População",
+      "variable": "9324",
+      "variable_name": "População residente estimada",
+      "unit": "Pessoas",
+      "territory": "N6",
+      "classifications": [],
+      "reference_rule": "JULY_1_OF_REFERENCE_YEAR",
+      "selected_reference_years": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2024,
+        2025
+      ],
+      "url": "https://sidra.ibge.gov.br/tabela/6579"
+    },
+    "4714": {
+      "name": "Censo Demográfico",
+      "variable": "93",
+      "variable_name": "População residente",
+      "unit": "Pessoas",
+      "territory": "N6",
+      "classifications": [],
+      "reference_rule": "2022-08-01",
+      "selected_reference_years": [
+        2022
+      ],
+      "url": "https://sidra.ibge.gov.br/tabela/4714"
+    }
+  },
+  "candidate_comparison": [
+    {
+      "candidate": "Estimativas municipais / SIDRA 6579",
+      "source_ids": [
+        "METADATA6579",
+        "PERIODS6579"
+      ],
+      "selection": "EIGHT_REFERENCE_YEAR_OBSERVATIONS_ONLY",
+      "reason": "Melhor produto anual municipal encontrado; 2022/2023 ausentes e revisões de projeção distintas impedem adotá-lo como cadeia homogênea completa."
+    },
+    {
+      "candidate": "Censo Demográfico / SIDRA 4714",
+      "source_ids": [
+        "METADATA4714",
+        "PERIODS4714",
+        "CLARIFICATION2025"
+      ],
+      "selection": "2022_OBSERVATION_IN_SEPARATE_REGIME",
+      "reason": "População residente censitária com referência agosto de 2022, diferente das estimativas ajustadas de julho."
+    },
+    {
+      "candidate": "Relação TCU/DOU 2023",
+      "source_ids": [
+        "TCU2023_MUNICIPAL",
+        "TCU2023_MUNICIPAL_PDF"
+      ],
+      "selection": "SUPPLEMENTAL_PUBLICATION_NOT_REFERENCE_2023",
+      "reason": "População Censo 2022 sobre malha 2023; não preenche a observação anual 2023."
+    },
+    {
+      "candidate": "Projeções revisão 2024 (2000-2070)",
+      "source_ids": [
+        "CLARIFICATION2025",
+        "METHODOLOGY2025"
+      ],
+      "selection": "NOT_A_MUNICIPAL_RETROSPECTIVE_OUTPUT",
+      "reason": "Projeções fornecem insumos Brasil/UF. Seus totais e bases ajustadas não equivalem a série municipal anual retrospectiva de Limeira."
+    }
+  ],
+  "regimes": [
+    {
+      "id": "ESTIMATE_PROJECTION_2013",
+      "years": [
+        2016,
+        2017
+      ],
+      "projection_revision": 2013,
+      "proof_claims": [
+        "PROJECTION_2013"
+      ],
+      "notes": "Estimativas municipais, referência julho; regime definido pela projeção 2013, não pela data de republicação do arquivo."
+    },
+    {
+      "id": "ESTIMATE_PROJECTION_2018",
+      "years": [
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "projection_revision": 2018,
+      "proof_claims": [
+        "PROJECTION_2018_TO_2020",
+        "PROJECTION_2018_IN_2021"
+      ],
+      "notes": "Projeção revisão 2018; censos 2000/2010. A nota 2021 explicita não incorporar efeitos da pandemia."
+    },
+    {
+      "id": "CENSUS_2022",
+      "years": [
+        2022
+      ],
+      "projection_revision": null,
+      "proof_claims": [
+        "CENSUS_REFERENCE",
+        "CENSUS_PRODUCT_SCOPE"
+      ],
+      "notes": "Censo 2022, população residente, referência 1º de agosto; não é estimativa municipal de julho."
+    },
+    {
+      "id": "ESTIMATE_PROJECTION_2024",
+      "years": [
+        2024,
+        2025
+      ],
+      "projection_revision": 2024,
+      "proof_claims": [
+        "PROJECTION_2024_IN_2024",
+        "PROJECTION_2024_IN_2025"
+      ],
+      "notes": "Revisão 2024, censos 2010/2022 ajustados. Comparação 2024/2025 também depende de esclarecimento territorial de Limeira."
+    }
+  ],
+  "archive_editions": {
+    "2016": "estimativa_TCU_2016_20170614.ods",
+    "2017": "POP2017_20220905.ods",
+    "2018": "POP2018_20220905.ods",
+    "2019": "POP2019_20220905.ods",
+    "2020": "POP2020_20220905.ods",
+    "2021": "POP2021_20240624.ods",
+    "2024": "POP2024_20241230.ods",
+    "2025": "POP2025_20260828.ods",
+    "2022": "SIDRA4714 snapshot 2026-09-16; numeric corroboration POP_TCU_2023_Municipios_POP2022_Malha2023.ods"
+  },
+  "reviewed_comparison_rules": {
+    "same_projection_revision_required": true,
+    "unadjusted_census_estimate_direct_growth_rejected": true,
+    "source_id": "CLARIFICATION2025",
+    "locator": "PDF p.3, itens c-d",
+    "official_harmonizing_adapter_acquired": false
+  },
+  "territory": {
+    "stable_municipality_identifier_proven": true,
+    "stable_boundary_over_2016_2025_proven": false,
+    "limeira_update_recorded_2024_2025": true,
+    "population_transfer_impact": null
+  },
+  "minimum_closing_evidence": {
+    "artifact_status": "REQUIRED_CONTENT_SPECIFICATION_NOT_LOCATED_DOCUMENT",
+    "authority": "IBGE",
+    "municipality_ibge_code": "3526902",
+    "preferred_artifact": "Extrato municipal oficial harmonizado 2016-2025, acompanhado da nota de revisão/retropolação que define conceito, referência anual, mesma revisão de projeções, território comum e vintage de cada observação.",
+    "alternative_artifact": "Contrato oficial de adaptação entre revisões 2013/2018/2024 e Censo 2022, com todos os inputs anuais necessários. Método genérico sem outputs/inputs municipais não fecha a lacuna.",
+    "requirements": [
+      {
+        "id": "R1_REBASE",
+        "years": [
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "boundaries": [
+          "2017/2018",
+          "2021/2022",
+          "2022/2024"
+        ],
+        "proposition": "Harmonização municipal explícita entre regimes, incluindo unidade e referência comuns; preservar os valores publicados como produtos históricos distintos."
+      },
+      {
+        "id": "R2_TRUE_2023",
+        "years": [
+          2023
+        ],
+        "proposition": "Observação municipal efetivamente referida a 2023 dentro do contrato harmonizado; TCU 2023/Censo 2022 não a satisfaz."
+      },
+      {
+        "id": "R3_TERRITORY",
+        "years": [
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "specific_window": [
+          "2024-05-01",
+          "2025-04-30"
+        ],
+        "proposition": "Base territorial comum ou adaptação oficial; resolver efeito da atualização de Limeira registrada no Anexo 1 de 2025, inclusive remanejamento ou sua ausência, sem inferir impacto zero."
+      }
+    ],
+    "per_capita_authorization_granted_by_document": false
+  },
+  "no_inference_rules": [
+    "SAME_AIBI_FORMULA_NE_SAME_PROJECTION_INPUTS",
+    "SAME_VALUE_NE_SAME_SEMANTIC_VINTAGE",
+    "PUBLICATION_YEAR_NE_REFERENCE_YEAR",
+    "MUNICIPAL_CODE_IDENTITY_NE_BOUNDARY_STABILITY",
+    "CENSUS_ANCHOR_HARMONIZATION_NE_ANNUAL_RETROPOLATION",
+    "NO_NUM_POPU_REUSE",
+    "NO_IMPUTATION",
+    "NO_PER_CAPITA_CALCULATION"
+  ]
+}

@@ -60,6 +60,8 @@ Objetivo: obter evidência pública primária FNDE/SIOPE suficiente para provar 
 
 Objetivo: identificar e pinar o contrato oficial IBGE do denominador e uma cadeia 2016–2025 com conceito, município, período de referência, publicação/vintage, revisão e mudanças metodológicas explícitos. Mistura silenciosa de Censo e estimativas, imputação ou reaproveitamento de `NUM_POPU` permanecem proibidos.
 
+**TASK246 — aquisição documental de 16/09/2026: NOT_COMPARABLE sob um único contrato direto 2016–2025.** O IBGE condiciona comparação de estimativas municipais à mesma revisão das projeções; a cadeia adquirida atravessa as revisões 2013, 2018 e 2024 e o Censo 2022. Há nove referências anuais oficiais, com 2023 explicitamente ausente: a relação TCU 2023 publica população censitária de 2022. O anexo de 2025 registra atualização territorial de Limeira em 2024–2025, sem discriminar seu impacto populacional. Foram pinados 34 artefatos e um inventário auditável, sem criar série de denominadores comparáveis. O artefato necessário para superar o bloqueio é uma série municipal oficial harmonizada, ou adaptação oficial com todos os inputs, incluindo referência real em 2023 e território comum. Ver `docs/tasks/TASK_246_IBGE_POPULATION_FINDINGS.md`. Nenhum cálculo per capita foi autorizado ou realizado.
+
 Em **14/09/2026**, o usuário autorizou o grande salto completo, incluindo essas duas aquisições oficiais em modo bounded/read-only. Essa autorização **não** autoriza Gold 2025, cálculo da série rebased, inclusão de 2025, publicação, deploy, recorrência ou promoção da release.
 
 ## 5. Contratos correntes
@@ -70,9 +72,12 @@ Para leitura do estado atual, prevalecem:
 - `config/siope_2025_gold_prerequisites.v4.json`;
 - `config/siope_2025_semantic_comparability.v1.json`;
 - `config/siope_historical_financial_semantic_versioning.v2.json` (resultado documental TASK245; v1 histórica preservada);
-- `config/ibge_population_denominator_rebase.v1.json`;
+- `config/ibge_population_denominator_rebase.v2.json` (resultado TASK246; v1 histórica preservada);
+- `config/ibge_municipal_population_2016_2025.v1.json`;
+- `config/ibge_municipal_population_acquisition.v1.json`;
 - `docs/evidence/TASK_244_POST_TASK242_TASK243_ACQUISITION_READY_STATE_0.8.0.json`.
 - `docs/evidence/TASK_245_SIOPE_OFFICIAL_TEMPORAL_CONTRACT_ACQUISITION_0.8.0.json` (resultado da aquisição financeira; sem promoção de readiness ou Gold).
+- `docs/evidence/TASK_246_IBGE_MUNICIPAL_POPULATION_2016_2025_0.8.0.json` (resultado IBGE; inventário não habilita denominador homogêneo ou razão per capita).
 
 Os arquivos v1–v3 de readiness/Gold e as evidências TASK005–TASK243 permanecem snapshots históricos e não devem ser reescritos retrospectivamente.
 
@@ -85,7 +90,7 @@ B3 ✅ RESOLVIDO
 TASK242 auditoria offline ✅ concluída
 TASK243 auditoria offline ✅ concluída
 financeiro 1–6 ⚠ PARTIAL → TASK245: três proposições públicas temporais delimitadas
-per capita 7–8 ⛔ NON_COMPARABLE → aquisição oficial IBGE autorizada neste salto
+per capita 7–8 ⛔ NON_COMPARABLE → TASK246: cadeia IBGE NOT_COMPARABLE; harmonização oficial pendente
 Gold 2025 ⛔ BLOCKED_NOT_CALCULATED
 série fechada = 2016–2024
 0.8.0 = CANDIDATE
@@ -128,4 +133,4 @@ Nenhuma seta representa promoção automática.
 
 ## 8. Próximo marco
 
-O próximo marco só ocorre quando cada aquisição produzir uma decisão auditável. A trilha financeira pode resultar em `PROVEN_COMPARABLE`, `PARTIAL`, `NOT_PROVEN` ou `NON_COMPARABLE` por input/métrica. A trilha IBGE deve primeiro provar o contrato temporal do denominador antes de qualquer cálculo per capita. Até lá, **Gold 2025 permanece bloqueado**.
+As aquisições TASK245/246 produziram decisões auditáveis: financeiro `PARTIAL`, denominador IBGE adquirido `NOT_COMPARABLE` sob um único contrato direto. O próximo marco exige o conteúdo oficial específico delimitado em cada evidência: G1/G2/G3 financeiros e série municipal harmonizada/adaptada com referência 2023 e território provados. Qualquer cálculo per capita permanece uma etapa separada com autorização própria. **Gold 2025 permanece bloqueado**.
