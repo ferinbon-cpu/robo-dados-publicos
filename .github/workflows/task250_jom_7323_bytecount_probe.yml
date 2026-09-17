@@ -1,0 +1,107 @@
+name: TASK 250 JOM 7323 byte-count probe
+run-name: "TASK 250 JOM 7323 byte-count probe by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-250-jom-7323-bytecount-probe-runtime
+    paths:
+      - 'runtime_triggers/task250_jom_7323_bytecount_probe.run'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-250-jom-7323-bytecount-probe
+  cancel-in-progress: false
+
+jobs:
+  diagnose-7323:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact runtime head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Validate authorization-only runtime delta
+        shell: bash
+        run: |
+          set -euo pipefail
+          AUTH=runtime/task250_owner_authorization.json
+          test -f "$AUTH"
+          IMPL="$(python - <<'PY'
+          import json
+          print(json.load(open("runtime/task250_owner_authorization.json", encoding="utf-8"))["implementation_sha"])
+          PY
+          )"
+          test "$(printf '%s' "$IMPL" | grep -E '^[0-9a-f]{40}$')" = "$IMPL"
+          git cat-file -e "$IMPL^{commit}"
+          git merge-base --is-ancestor "$IMPL" HEAD
+          UNEXPECTED="$(git diff --name-only "$IMPL"..HEAD | grep -Ev '^(runtime/task250_owner_authorization.json|runtime_triggers/task250_jom_7323_bytecount_probe.run)$' || true)"
+          test -z "$UNEXPECTED"
+          echo "TASK250_IMPLEMENTATION_SHA=$IMPL" >> "$GITHUB_ENV"
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        shell: bash
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Execute exact authorized 7323 diagnostic GET
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime_out
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+          from robo_dados_publicos.research.task250_jom_7323_bytecount_probe import LiveProbeSource, execute, load_config
+
+          cfg = load_config()
+          auth = json.loads(Path("runtime/task250_owner_authorization.json").read_text(encoding="utf-8"))
+          result = execute(
+              cfg,
+              source=LiveProbeSource(),
+              authorization=auth,
+              expected_implementation_sha=os.environ["TASK250_IMPLEMENTATION_SHA"],
+              offline_test_mode=False,
+          )
+          canonical = json.dumps(result, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+          result["result_sha256"] = hashlib.sha256(canonical).hexdigest()
+          target = Path("runtime_out/task250_sanitized_bytecount_diagnostic.json")
+          target.write_text(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          print("TASK250_STATUS=" + str(result.get("status")))
+          print("TASK250_OUTCOME=" + str((result.get("diagnostic") or {}).get("byte_count_outcome")))
+          print("TASK250_SOURCE_GETS=" + str(result.get("source_gets")))
+          print("TASK250_DRIVE_WRITES=" + str(result.get("drive_write_count")))
+          print("TASK250_RAW_PDF_PERSISTED=" + str(result.get("raw_pdf_persisted")))
+          if result.get("status") != "PASS_TASK250_7323_BYTECOUNT_DIAGNOSTIC":
+              raise SystemExit(2)
+          PY
+
+      - name: Verify sanitized-only persistence
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f runtime_out/task250_sanitized_bytecount_diagnostic.json
+          test "$(find runtime_out -type f | wc -l)" -eq 1
+          test -z "$(find runtime_out -type f -name '*.pdf' -print)"
+
+      - name: Upload sanitized diagnostic only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-250-jom-7323-bytecount-diagnostic-sanitized
+          path: runtime_out/task250_sanitized_bytecount_diagnostic.json
+          if-no-files-found: error
+          retention-days: 1
