@@ -1,0 +1,48 @@
+{
+  "base_main_sha": "dc672da310bb60973f7894ed91566f908d8bfa25",
+  "downstream": {
+    "bronze": false,
+    "gold": false,
+    "ocr": false,
+    "promotion": false,
+    "publication": false,
+    "recurrence": false,
+    "schedule": false,
+    "semantic_parser": false,
+    "serving": false,
+    "silver": false
+  },
+  "implementation": {
+    "alternate_url_discovery": false,
+    "automatic_retry": false,
+    "exact_source_gets_max": 4,
+    "pdf_validation": true,
+    "positive_page_count": true,
+    "redirects": false,
+    "sha256": true
+  },
+  "input_queue": "config/task248_jom_bounded_ingestion_queue.v1.json",
+  "issue": 830,
+  "live_execution_performed": false,
+  "next_gate": "MERGE_IMPLEMENTATION_THEN_EXACT_SHA_BOUND_OWNER_AUTHORIZED_RUNTIME_ATTEMPT",
+  "persistence": {
+    "artifact_retention_days": 1,
+    "drive_write": false,
+    "raw_pdf_persisted": false,
+    "sanitized_result_only": true
+  },
+  "scope": {
+    "document_count": 4,
+    "editions": [
+      7321,
+      7322,
+      7323,
+      7324
+    ]
+  },
+  "source_family": "LIMEIRA_JORNAL_OFICIAL",
+  "source_hashes_known": false,
+  "source_page_counts_known": false,
+  "status": "T1_IMPLEMENTED_LIVE_DISABLED_UNTIL_EXACT_OWNER_AUTHORIZATION",
+  "task": "TASK_249"
+}
