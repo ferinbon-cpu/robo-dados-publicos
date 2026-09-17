@@ -1,0 +1,165 @@
+name: TASK 252 JOM 7321-7324 hash-pinned general-event redigest
+run-name: "TASK 252 JOM 7321-7324 redigest by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-252-jom-7321-7324-general-redigest-runtime
+    paths:
+      - 'runtime_triggers/task252_jom_7321_7324_general_redigest.run'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-252-jom-7321-7324-general-redigest
+  cancel-in-progress: false
+
+jobs:
+  redigest:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+
+    steps:
+      - name: Checkout exact runtime head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Validate exact one-shot authorization delta
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_RUN_ATTEMPT}" = "1"
+          AUTH=runtime/task252_owner_authorization.json
+          test -f "$AUTH"
+          IMPL="$(python - <<'PY'
+          import json
+          print(json.load(open("runtime/task252_owner_authorization.json", encoding="utf-8"))["implementation_sha"])
+          PY
+          )"
+          test "$(printf '%s' "$IMPL" | grep -E '^[0-9a-f]{40}$')" = "$IMPL"
+          git cat-file -e "$IMPL^{commit}"
+          git merge-base --is-ancestor "$IMPL" HEAD
+          UNEXPECTED="$(git diff --name-only "$IMPL"..HEAD | grep -Ev '^(runtime/task252_owner_authorization.json|runtime_triggers/task252_jom_7321_7324_general_redigest.run)$' || true)"
+          test -z "$UNEXPECTED"
+          echo "TASK252_IMPLEMENTATION_SHA=$IMPL" >> "$GITHUB_ENV"
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        shell: bash
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Execute exact authorized hash-pinned four-document redigest
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf runtime_out
+          mkdir -p runtime_out
+          set +e
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          from robo_dados_publicos.research.task252_jom_7321_7324_general_event_redigest import (
+              LivePinnedPdfSource,
+              execute_general_redigest,
+              load_canonical_evidence,
+              load_config,
+          )
+
+          out = Path("runtime_out")
+          cfg = load_config()
+          evidence = load_canonical_evidence()
+          auth = json.loads(Path("runtime/task252_owner_authorization.json").read_text(encoding="utf-8"))
+          result = execute_general_redigest(
+              cfg,
+              evidence,
+              document_source=LivePinnedPdfSource(),
+              authorization=auth,
+              expected_implementation_sha=os.environ["TASK252_IMPLEMENTATION_SHA"],
+              offline_test_mode=False,
+          )
+
+          events = result.pop("events", [])
+          semantics = result.pop("semantics", [])
+          anchors = result.pop("strong_anchors", [])
+
+          def write_jsonl(path, rows):
+              text = "".join(json.dumps(row, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n" for row in rows)
+              path.write_text(text, encoding="utf-8")
+              return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+          hashes = {
+              "events_gold_sanitized_sha256": write_jsonl(out / "task252_events_gold_sanitized.jsonl", events),
+              "event_semantics_sanitized_sha256": write_jsonl(out / "task252_event_semantics_sanitized.jsonl", semantics),
+              "strong_identity_anchors_sha256": write_jsonl(out / "task252_strong_identity_anchors.jsonl", anchors),
+          }
+          manifest = {
+              "schema": "TASK252_SANITIZED_BUNDLE_MANIFEST_V1",
+              "result": result,
+              "file_sha256": hashes,
+          }
+          canonical = json.dumps(manifest, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+          manifest["bundle_sha256"] = hashlib.sha256(canonical).hexdigest()
+          (out / "task252_manifest.json").write_text(
+              json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+
+          counts = result.get("counts") or {}
+          print("TASK252_STATUS=" + str(result.get("status")))
+          print("TASK252_COMPLETE_SCOPE=" + str(result.get("complete_scope")))
+          print("TASK252_SOURCE_GETS=" + str(result.get("source_gets")))
+          print("TASK252_AGGREGATE_BYTES=" + str(result.get("aggregate_document_bytes")))
+          print("TASK252_EVENTS=" + str(counts.get("event_count")))
+          print("TASK252_SEMANTICS=" + str(counts.get("semantic_count")))
+          print("TASK252_STRONG_ANCHORS=" + str(counts.get("strong_anchor_count")))
+          print("TASK252_BUNDLE_SHA256=" + str(manifest.get("bundle_sha256")))
+          raise SystemExit(0 if result.get("status") == "PASS_COMPLETE_4_DOCUMENT_GENERAL_EVENT_REDIGEST" else 2)
+          PY
+          RC=$?
+          echo "TASK252_EXEC_RC=$RC" >> "$GITHUB_ENV"
+          exit 0
+
+      - name: Verify sanitized-only persistence
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -d runtime_out
+          EXPECTED="$(printf '%s\n' \
+            task252_event_semantics_sanitized.jsonl \
+            task252_events_gold_sanitized.jsonl \
+            task252_manifest.json \
+            task252_strong_identity_anchors.jsonl | sort)"
+          ACTUAL="$(find runtime_out -maxdepth 1 -type f -printf '%f\n' | sort)"
+          test "$ACTUAL" = "$EXPECTED"
+          test -z "$(find runtime_out -type f \( -name '*.pdf' -o -name '*pages_silver*' -o -name '*chunks_rag*' -o -name '*accounting_query_tasks*' \) -print)"
+
+      - name: Upload sanitized derived corpus only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-252-jom-7321-7324-general-redigest-sanitized
+          path: runtime_out/
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Enforce fail-closed completion after artifact upload
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${TASK252_EXEC_RC:-2}" = "0"
