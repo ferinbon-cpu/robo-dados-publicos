@@ -1,0 +1,106 @@
+{
+  "authorization": {
+    "attempt_count": 1,
+    "bronze_authorized": false,
+    "drive_write_authorized": false,
+    "exact_implementation_sha_required": true,
+    "gold_authorized": false,
+    "ocr_authorized": false,
+    "promotion_authorized": false,
+    "publication_authorized": false,
+    "recurrence_authorized": false,
+    "required_operation": "EXACT_2_JOM_7323_7324_OVERSIZED_PDF_GETS_SANITIZED_METADATA_ONLY",
+    "required_task": "TASK_251_LIVE_AUTHORIZATION",
+    "schedule_authorized": false,
+    "semantic_parser_authorized": false,
+    "serving_authorized": false,
+    "silver_authorized": false,
+    "task249_authorization_reuse_allowed": false,
+    "task250_authorization_reuse_allowed": false
+  },
+  "base_main_sha": "40ce45d28ed18af0a2ce24d6bd2d651b87a5a2c5",
+  "canonical_evidence": "docs/evidence/TASK_251_TASK250_OVERSIZE_CANONICAL_0.8.0.json",
+  "guards": [
+    "TASK250_CANONICAL_EVIDENCE_MUST_VALIDATE",
+    "TARGETS_EXACTLY_7323_7324",
+    "NO_REDOWNLOAD_7321_7322",
+    "MAX_TWO_SOURCE_GETS",
+    "STREAMING_250_MIB_CAP_PER_DOCUMENT",
+    "MAX_500_MIB_AGGREGATE",
+    "NO_REDIRECT",
+    "NO_RETRY",
+    "NO_ALTERNATE_URL_DISCOVERY",
+    "PDF_SIGNATURE_REQUIRED",
+    "TRANSPORT_STAT_HASH_CONSISTENCY_REQUIRED",
+    "PAGE_COUNT_MUST_BE_POSITIVE",
+    "NO_RAW_PDF_PERSISTENCE",
+    "NO_DRIVE_WRITE",
+    "NO_DOWNSTREAM_PROMOTION",
+    "NO_SCHEDULE",
+    "NO_RECURRENCE"
+  ],
+  "issue": 835,
+  "limits": {
+    "alternate_url_discovery": false,
+    "automatic_retry": false,
+    "max_aggregate_pdf_bytes": 524288000,
+    "max_pdf_bytes_each": 262144000,
+    "max_source_gets": 2,
+    "redirects": false
+  },
+  "mode": "T1_READONLY_IMPLEMENTED_LIVE_DISABLED_UNTIL_EXACT_OWNER_AUTHORIZATION",
+  "next_gate": "SEPARATE_OWNER_AUTHORIZATION_REQUIRED_FOR_LIVE_2_DOCUMENT_RECOVERY",
+  "persistence": {
+    "artifact_retention_days": 1,
+    "drive_write": false,
+    "publication": false,
+    "raw_pdf_artifact": false,
+    "raw_pdf_repository": false,
+    "sanitized_result_artifact": true,
+    "serving_write": false
+  },
+  "runtime": {
+    "artifact_name": "task-251-jom-7323-7324-oversized-recovery-sanitized",
+    "authorization_file": "runtime/task251_owner_authorization.json",
+    "branch": "task-251-jom-7323-7324-oversized-recovery-runtime",
+    "trigger_file": "runtime_triggers/task251_jom_7323_7324_oversized_recovery.run"
+  },
+  "schema": "TASK251_JOM_7323_7324_OVERSIZED_RECOVERY_V1",
+  "source": {
+    "allowed_document_hosts": [
+      "ecrie.com.br"
+    ],
+    "family": "LIMEIRA_JORNAL_OFICIAL"
+  },
+  "targets": [
+    {
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_10092026192416.pdf",
+      "edition": 7323,
+      "logical_key": "limeira/jornal_oficial/edicao/7323",
+      "publication_date": "2026-09-11",
+      "source_id": "LIMEIRA_JO_07323"
+    },
+    {
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_11092026183505.pdf",
+      "edition": 7324,
+      "logical_key": "limeira/jornal_oficial/edicao/7324",
+      "publication_date": "2026-09-12",
+      "source_id": "LIMEIRA_JO_07324"
+    }
+  ],
+  "task": "TASK_251",
+  "validation": {
+    "accepted_content_types": [
+      "application/pdf",
+      "application/octet-stream"
+    ],
+    "final_url_must_equal_requested": true,
+    "http_status_exact": 200,
+    "page_count_positive": true,
+    "pdf_signature_required": true,
+    "sha256_required": true,
+    "streaming_byte_cap_enforced": true,
+    "transport_stat_bytes_must_match": true
+  },
+  "version": 1
+}
