@@ -1,0 +1,5 @@
+TASK249_RUNTIME_TRIGGER_V1
+implementation_sha=0d2edb5e75bdd2cea1214e57905ad470e7dcb282
+issue=830
+scope=7321,7322,7323,7324
+mode=single_attempt_read_only
