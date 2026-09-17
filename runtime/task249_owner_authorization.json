@@ -22,6 +22,9 @@
   "schedule": false,
   "recurrence": false,
   "owner_authorized": true,
-  "consumed": false,
+  "consumed": true,
+  "consumed_run_id": 35174078683,
+  "consumed_run_number": 1,
+  "consumed_result": "STOP_TASK249_SOURCE_BYTE_COUNT_INVALID",
   "authorization_context": "User explicitly said 'prossiga' immediately after the TASK248 checkpoint identified the next gate as bounded acquisition of JOM editions 7321-7324."
 }
