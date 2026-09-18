@@ -1,0 +1,14 @@
+{
+  "schema": "TASK265_PRELIVE_ITEMS_ROUTE_EVIDENCE_V1",
+  "task": "TASK_265",
+  "issue": 863,
+  "task264_status": "8_OF_8_EXPLICIT_JOM_PNCP_IDS_CURRENTLY_RESOLVED_EXACTLY",
+  "known_detail_route_current": "https://pncp.gov.br/api/consulta/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}",
+  "documented_items_route": "https://pncp.gov.br/api/pncp/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}/itens",
+  "adjudication": {
+    "items_route_current_operational_state": "UNPROVEN_NOT_YET_PROBED",
+    "silent_detail_route_migration_applied_to_items": false,
+    "absence_inference_allowed": false
+  },
+  "next_gate": "OWNER_AUTHORIZED_TOKEN_9_SINGLE_DOCUMENTED_PNCP_ITEMS_ROUTE_PROBE_645_ON_MERGED_TASK265_SHA"
+}
