@@ -1,0 +1,39 @@
+{
+  "schema": "TASK272_PRELIVE_SEVEN_HISTORY_V26_SAFE_V1",
+  "task": "TASK_272",
+  "issue": 879,
+  "source_task271_status": "PNCP_HISTORY_645_3_EVENTS_CANONIZED_PROCUREMENT_PLUS_2_DOCUMENT_INCLUSIONS",
+  "target_controls": [
+    "45132495000140-1-000646/2026",
+    "45132495000140-1-000639/2026",
+    "45132495000140-1-000648/2026",
+    "45132495000140-1-000655/2026",
+    "45132495000140-1-000653/2026",
+    "45132495000140-1-000654/2026",
+    "45132495000140-1-000069/2026"
+  ],
+  "safe_projection": [
+    "categoriaLogManutencao",
+    "categoriaLogManutencaoNome",
+    "compraAno",
+    "compraOrgaoCnpj",
+    "compraSequencial",
+    "documentoSequencial",
+    "documentoTipo",
+    "documentoTitulo",
+    "itemNumero",
+    "itemResultadoNumero",
+    "itemResultadoSequencial",
+    "justificativa",
+    "logManutencaoDataInclusao",
+    "tipoLogManutencao",
+    "tipoLogManutencaoNome"
+  ],
+  "excluded_fields": [
+    "usuarioNome"
+  ],
+  "live_state": "NOT_EXECUTED",
+  "standing_owner_authorization_interpretation": "NARROW_HISTORY_8OF8_COMPLETION_ONLY",
+  "max_remote_get_count": 7,
+  "next_gate": "RUN_ONLY_AFTER_MERGED_TASK272_SHA_IS_BOUND_IN_RUNTIME_AUTHORIZATION"
+}
