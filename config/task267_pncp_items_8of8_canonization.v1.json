@@ -1,0 +1,13 @@
+{
+  "schema": "TASK267_PNCP_ITEMS_8OF8_CANONIZATION_V1",
+  "task": "TASK_267",
+  "issue": 867,
+  "base_main_sha": "845ba1fddba37fb2f1cc5ca98a05bc6a63b21d87",
+  "evidence": "docs/evidence/TASK_267_PNCP_ITEMS_8OF8_CANONICAL_0.8.0.json",
+  "expected_control_count": 8,
+  "expected_total_items": 40,
+  "expected_matches": 7,
+  "expected_mismatches": 1,
+  "network_authorized": false,
+  "next_gate": "FRESH_EXPLICIT_OWNER_AUTHORIZATION_REQUIRED_FOR_ANY_ADDITIONAL_SOURCE_NETWORK"
+}
