@@ -1,0 +1,19 @@
+{
+  "schema":"TASK261_THREE_500_REOBSERVE_V1","task":"TASK_261","issue":855,
+  "base_main_sha":"2aebd9601241de10e6c7295263777ad3c620b2e4",
+  "source_task260":{"run_id":35301380230,"job_id":105464549392,"artifact_id":10529847805,
+    "artifact_zip_sha256":"a115ba67c78d22a793dcbae51876218cbba60601dba905150765b70ad29d3239",
+    "artifact_file_sha256":"f99b62391411cd43a2715ffb241167e1b10024136bdbeb76287fc9c03f91ab3a",
+    "result_sha256":"094346279b6f4b0d0a4276b19ef3b7f63b653dd20fde8b6192f26ef8539ead4f",
+    "resolved_controls":["45132495000140-1-000645/2026","45132495000140-1-000655/2026","45132495000140-1-000653/2026","45132495000140-1-000069/2026"]},
+  "targets":[
+    {"control":"45132495000140-1-000639/2026","url":"https://pncp.gov.br/api/consulta/v1/orgaos/45132495000140/compras/2026/639","prior_http":500,"prior_body_bytes":341,"prior_body_sha256":"fdfe33979247d7ed88e1913d09ff9fae838bfacad23a24e70397ebac11b1732f"},
+    {"control":"45132495000140-1-000648/2026","url":"https://pncp.gov.br/api/consulta/v1/orgaos/45132495000140/compras/2026/648","prior_http":500,"prior_body_bytes":341,"prior_body_sha256":"47a9eb5401f067967b6b2ad028b3b0310fbcbe93510757eb5144e3b73c1693c8"},
+    {"control":"45132495000140-1-000654/2026","url":"https://pncp.gov.br/api/consulta/v1/orgaos/45132495000140/compras/2026/654","prior_http":500,"prior_body_bytes":341,"prior_body_sha256":"bbaa4768981db53b0f0ce535f9ab74bbb82f01ff04e502259fa9d34d33e297c4"}],
+  "probe":{"max_remote_get_count":3,"max_body_bytes_per_target":65536,"connect_timeout_seconds":15,"max_time_seconds_per_target":60,
+    "retry":false,"follow_redirects":false,"alternate_url_discovery":false,"raw_body_persistence":false},
+  "runtime":{"branch":"task-261-pncp-three-reobserve-runtime","authorization_file":"runtime/task261_owner_authorization.json",
+    "trigger_file":"runtime_triggers/task261_pncp_three_reobserve.run","artifact_name":"task-261-pncp-three-reobserve-sanitized"},
+  "authorization":{"authorization_token_index":6,"authorization_token_budget":10,"attempt_count":1},
+  "next_gate":"OWNER_AUTHORIZED_TOKEN_6_EXACT_THREE_PNCP_OFFICIAL_ROUTE_REOBSERVATION_ON_MERGED_TASK261_SHA"
+}
