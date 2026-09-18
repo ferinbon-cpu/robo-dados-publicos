@@ -1,0 +1,40 @@
+{
+  "schema": "TASK264_JOM_PNCP_8OF8_CANONICAL_RESULT_V1",
+  "task": "TASK_264",
+  "issue": 861,
+  "status": "8_OF_8_EXPLICIT_JOM_PNCP_IDS_CURRENTLY_RESOLVED_EXACTLY",
+  "counts": {
+    "jom_literal_controls": 8,
+    "pncp_exact_resolved": 8,
+    "unresolved": 0,
+    "controls_with_transient_prior_failure": 1
+  },
+  "route": "https://pncp.gov.br/api/consulta/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}",
+  "resolved_controls": [
+    "45132495000140-1-000646/2026",
+    "45132495000140-1-000639/2026",
+    "45132495000140-1-000645/2026",
+    "45132495000140-1-000648/2026",
+    "45132495000140-1-000655/2026",
+    "45132495000140-1-000653/2026",
+    "45132495000140-1-000654/2026",
+    "45132495000140-1-000069/2026"
+  ],
+  "adjudication": {
+    "direct_cross_system_identity_bridge_proven": true,
+    "identity_basis": "COMPLETE_PNCP_CONTROL_PRINTED_IN_OFFICIAL_JOM_AND_EXACTLY_RETURNED_BY_CURRENT_PNCP_DETAIL",
+    "descriptive_similarity_required": false,
+    "jom_admin_process_to_pncp_processo_equivalence_proven": false,
+    "pncp_to_tce_chain_proven": false,
+    "payment_or_execution_proven": false,
+    "compliance_proven": false,
+    "task263_648_prior_failures_classified_as_transient_source_unavailability": true
+  },
+  "provenance": {
+    "task259_result_sha256": "c62671a633ef0b0e10a611045107d12e42ec4f4481b531f522ca4bcab5d8ce8f",
+    "task260_result_sha256": "094346279b6f4b0d0a4276b19ef3b7f63b653dd20fde8b6192f26ef8539ead4f",
+    "task261_result_sha256": "2171f654f981d87bbae042420ed97bef358dd16dd9806baa15886dda0527a700",
+    "task263_result_sha256": "6bf10cfa6c72507d20582a9245e314cc9f7fbeaa64071ab97e8087d0325a8feb"
+  },
+  "next_gate": "OPTIONAL_SEPARATE_PNCP_ITEMS_OR_HISTORY_GATE_ONLY_IF_DOCUMENTED_AND_OWNER_AUTHORIZED"
+}
