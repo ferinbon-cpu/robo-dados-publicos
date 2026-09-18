@@ -1,0 +1,36 @@
+{
+  "schema": "TASK270_PRELIVE_HISTORY_V26_SAFE_645_V1",
+  "task": "TASK_270",
+  "issue": 875,
+  "source_task269_status": "PNCP_HISTORY_645_HTTP200_3_EVENTS_SCHEMA_V2_6_OBSERVED_ALLOWLIST_DRIFT_CONFIRMED",
+  "target_control": "45132495000140-1-000645/2026",
+  "prior_observation": {
+    "http_code": 200,
+    "event_count": 3,
+    "observed_schema_key_count": 16,
+    "semantic_values_sufficient": false
+  },
+  "safe_projection": [
+    "categoriaLogManutencao",
+    "categoriaLogManutencaoNome",
+    "compraAno",
+    "compraOrgaoCnpj",
+    "compraSequencial",
+    "documentoSequencial",
+    "documentoTipo",
+    "documentoTitulo",
+    "itemNumero",
+    "itemResultadoNumero",
+    "itemResultadoSequencial",
+    "justificativa",
+    "logManutencaoDataInclusao",
+    "tipoLogManutencao",
+    "tipoLogManutencaoNome"
+  ],
+  "excluded_fields": [
+    "usuarioNome"
+  ],
+  "privacy_reason": "MINIMIZE_PERSONAL_DATA_RETENTION",
+  "live_state": "NOT_AUTHORIZED_NOT_EXECUTED",
+  "next_gate": "OWNER_AUTHORIZED_SINGLE_PNCP_HISTORY_V26_SAFE_SEMANTIC_REOBSERVATION_645_ON_MERGED_TASK270_SHA"
+}
