@@ -1,0 +1,113 @@
+{
+  "schema": "TASK272_SEVEN_HISTORY_V26_SAFE_CARRIER_V1",
+  "task": "TASK_272",
+  "issue": 879,
+  "base_main_sha": "c981574fea0462ef2acd9c9c708048b8722356ea",
+  "source_task271": {
+    "evidence": "docs/evidence/TASK_271_HISTORY_645_SEMANTIC_CANONICAL_0.8.0.json",
+    "required_status": "PNCP_HISTORY_645_3_EVENTS_CANONIZED_PROCUREMENT_PLUS_2_DOCUMENT_INCLUSIONS"
+  },
+  "targets": [
+    {
+      "control": "45132495000140-1-000646/2026",
+      "cnpj": "45132495000140",
+      "ano": 2026,
+      "sequencial": 646,
+      "url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/646/historico"
+    },
+    {
+      "control": "45132495000140-1-000639/2026",
+      "cnpj": "45132495000140",
+      "ano": 2026,
+      "sequencial": 639,
+      "url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/639/historico"
+    },
+    {
+      "control": "45132495000140-1-000648/2026",
+      "cnpj": "45132495000140",
+      "ano": 2026,
+      "sequencial": 648,
+      "url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/648/historico"
+    },
+    {
+      "control": "45132495000140-1-000655/2026",
+      "cnpj": "45132495000140",
+      "ano": 2026,
+      "sequencial": 655,
+      "url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/655/historico"
+    },
+    {
+      "control": "45132495000140-1-000653/2026",
+      "cnpj": "45132495000140",
+      "ano": 2026,
+      "sequencial": 653,
+      "url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/653/historico"
+    },
+    {
+      "control": "45132495000140-1-000654/2026",
+      "cnpj": "45132495000140",
+      "ano": 2026,
+      "sequencial": 654,
+      "url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/654/historico"
+    },
+    {
+      "control": "45132495000140-1-000069/2026",
+      "cnpj": "45132495000140",
+      "ano": 2026,
+      "sequencial": 69,
+      "url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/69/historico"
+    }
+  ],
+  "safe_projection": [
+    "categoriaLogManutencao",
+    "categoriaLogManutencaoNome",
+    "compraAno",
+    "compraOrgaoCnpj",
+    "compraSequencial",
+    "documentoSequencial",
+    "documentoTipo",
+    "documentoTitulo",
+    "itemNumero",
+    "itemResultadoNumero",
+    "itemResultadoSequencial",
+    "justificativa",
+    "logManutencaoDataInclusao",
+    "tipoLogManutencao",
+    "tipoLogManutencaoNome"
+  ],
+  "excluded_projection_fields": [
+    "usuarioNome"
+  ],
+  "probe": {
+    "max_remote_get_count": 7,
+    "max_gets_per_target": 1,
+    "connect_timeout_seconds": 15,
+    "max_time_seconds_per_target": 75,
+    "max_body_bytes_per_target": 1048576,
+    "retry": false,
+    "follow_redirects": false,
+    "alternate_url_discovery": false,
+    "pagination": false,
+    "raw_body_persistence": false,
+    "traverse_exposed_links": false
+  },
+  "runtime": {
+    "branch": "task-272-pncp-history-seven-safe-runtime",
+    "authorization_file": "runtime/task272_owner_authorization.json",
+    "trigger_file": "runtime_triggers/task272_pncp_history_seven_safe.run",
+    "artifact_name": "task-272-pncp-history-seven-safe-sanitized"
+  },
+  "authorization": {
+    "mode": "BOUNDED_STANDING_OWNER_HISTORY_COMPLETION_FRANCHISE",
+    "owner_phrase": "Prossiga autorizado até compltar tudo",
+    "required_operation": "EXACT_7_REMAINING_PNCP_HISTORY_V26_SAFE_SNAPSHOT",
+    "exact_implementation_sha_required": true,
+    "prior_10_token_franchise_reused": false,
+    "source_network_authorized_by_default": false
+  },
+  "exit_states": [
+    "SEVEN_REMAINING_HISTORY_CONTROLS_RESOLVED_SAFE",
+    "BOUNDED_MIXED_HISTORY_RESULT_WITH_EXACT_UNRESOLVED_TARGETS"
+  ],
+  "next_gate": "OFFLINE_CANONIZE_COMPLETE_8OF8_HISTORY_SNAPSHOT"
+}
