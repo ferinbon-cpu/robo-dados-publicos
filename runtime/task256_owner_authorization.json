@@ -22,7 +22,24 @@
   "promotion_authorized": false,
   "recurrence_authorized": false,
   "schedule_authorized": false,
-  "consumed": false,
+  "consumed": true,
   "authorization_token_index": 1,
-  "authorization_token_budget": 10
+  "authorization_token_budget": 10,
+  "consumed_by": {
+    "run_id": 35298949213,
+    "job_id": 105457283125,
+    "runtime_head_sha": "e409b257153462c69033f93c90abd0bf71d468ea",
+    "artifact_id": 10528693183,
+    "artifact_zip_sha256": "ecfef3022fbf9673665b044ceb308afd2a7f3d9d7bd34f20b417c36640199fa6",
+    "artifact_file_sha256": "0d3ded727ceecf60f85d3335b8d7f866a6f3fe26327b127d0033e762c23c1050",
+    "result_sha256": "4687efcfa59911f3b77a916901842a31315b279aa2040c592f1dc3e9fb4c394e",
+    "outcome": "REDIRECT_STATUS_WITHOUT_LOCATION",
+    "http_code": 301,
+    "curl_exit_code": 0,
+    "remote_ip": "189.9.176.245",
+    "time_total": 0.912151,
+    "source_get_count": 1
+  },
+  "next_remote_request_requires_new_authorization_token": true,
+  "authorization_tokens_remaining": 9
 }
