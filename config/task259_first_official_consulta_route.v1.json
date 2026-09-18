@@ -1,0 +1,13 @@
+{
+ "schema":"TASK259_FIRST_OFFICIAL_CONSULTA_ROUTE_V1","task":"TASK_259","issue":851,
+ "base_main_sha":"f229fe365f111f85622021d5d230d626987ea65e",
+ "route_template":"https://pncp.gov.br/api/consulta/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}",
+ "target":{"control":"45132495000140-1-000646/2026","cnpj":"45132495000140","ano":2026,"sequencial":646,
+ "url":"https://pncp.gov.br/api/consulta/v1/orgaos/45132495000140/compras/2026/646"},
+ "probe":{"max_remote_get_count":1,"max_body_bytes":1048576,"connect_timeout_seconds":15,"max_time_seconds":90,
+ "retry":false,"follow_redirects":false,"alternate_url_discovery":false,"raw_body_persistence":false},
+ "runtime":{"branch":"task-259-pncp-first-official-consulta-runtime","authorization_file":"runtime/task259_owner_authorization.json",
+ "trigger_file":"runtime_triggers/task259_pncp_first_official_consulta.run","artifact_name":"task-259-pncp-first-official-consulta-sanitized"},
+ "authorization":{"authorization_token_index":4,"authorization_token_budget":10,"attempt_count":1},
+ "next_gate":"OWNER_AUTHORIZED_TOKEN_4_SINGLE_PNCP_OFFICIAL_CONSULTA_ROUTE_FIRST_CONTROL_RESOLUTION_ON_MERGED_TASK259_SHA"
+}
