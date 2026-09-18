@@ -23,7 +23,24 @@
   "promotion_authorized": false,
   "recurrence_authorized": false,
   "schedule_authorized": false,
-  "consumed": false,
+  "consumed": true,
   "authorization_basis": "fresh owner 'Prossiga' issued after merged TASK268 implementation SHA existed",
-  "prior_10_token_franchise_reused": false
+  "prior_10_token_franchise_reused": false,
+  "consumed_by": {
+    "run_id": 35369727241,
+    "job_id": 105680578686,
+    "runtime_head_sha": "9ca07c79587926a1c96d81e42a2ac9977fa86a8a",
+    "artifact_id": 10557930744,
+    "artifact_zip_sha256": "e8476b4ae48dfaa88d98cb788b91e16b4f0301c1e39d280e638e1b3d522baeb3",
+    "artifact_file_sha256": "8d8ea2814710103928eb264bc98964132c6af315132ec014a59cdf11406eb613",
+    "result_sha256": "cc1bbb769a4052bb037d4a9f6d3f188a83c306927590548128e1c9ad82b19de3",
+    "outcome": "DOCUMENTED_HISTORY_ROUTE_HTTP200_LIST",
+    "http_code": 200,
+    "event_count": 3,
+    "body_bytes": 1552,
+    "body_sha256": "560dc8450bf96bc7222bdb665dcff8b4453e75c5124df388932e5f095dfce15d",
+    "source_get_count": 1,
+    "observed_schema_drift_from_task167_history_allow": true
+  },
+  "next_remote_request_requires_new_explicit_owner_authorization": true
 }
