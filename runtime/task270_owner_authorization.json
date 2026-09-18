@@ -24,7 +24,31 @@
   "promotion_authorized": false,
   "recurrence_authorized": false,
   "schedule_authorized": false,
-  "consumed": false,
+  "consumed": true,
   "authorization_basis": "Owner explicitly said 'Prossiga autorizado até compltar tudo' after merged TASK270 SHA existed",
-  "authorization_scope_note": "This record authorizes only the exact TASK270 gate; future post-merge gates remain subject to their own contract."
+  "authorization_scope_note": "This record authorizes only the exact TASK270 gate; future post-merge gates remain subject to their own contract.",
+  "consumed_by": {
+    "run_id": 35398805436,
+    "job_id": 105773699099,
+    "runtime_head_sha": "8206e60d9e796c5f2941d3f471c457c7f432324e",
+    "artifact_id": 10570096946,
+    "artifact_zip_sha256": "320bde193cd4c583ab99f61934086c86e4fe994a271576a54cf8174bc53bc112",
+    "outcome": "HISTORY_V26_SAFE_HTTP200_LIST",
+    "http_code": 200,
+    "event_count": 3,
+    "source_get_count": 1,
+    "semantic_summary": {
+      "procurement_inclusion_events": 1,
+      "contract_document_inclusion_events": 2,
+      "result_events_observed": 0,
+      "document_titles": [
+        "edital202-26anexo1.pdf",
+        "\"edital202-26pre147-26reservatorio.pdf\""
+      ]
+    },
+    "excluded_fields": [
+      "usuarioNome"
+    ]
+  },
+  "next_remote_request_requires_bounded_contract": true
 }
