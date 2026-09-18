@@ -1,0 +1,63 @@
+{
+  "schema": "TASK264_JOM_PNCP_8OF8_CANONIZATION_V1",
+  "task": "TASK_264",
+  "issue": 861,
+  "base_main_sha": "a7f18e7c3b0821e82a60dc5ddb2039ac885e3245",
+  "source_task253": {
+    "evidence": "docs/evidence/TASK_253_JOM_PNCP_EXPLICIT_CONTROL_CANONIZATION_0.8.0.json",
+    "expected_controls": 8
+  },
+  "source_remote_proofs": {
+    "task259": {
+      "run_id": 35300705819,
+      "job_id": 105462527528,
+      "artifact_id": 10529707007,
+      "result_sha256": "c62671a633ef0b0e10a611045107d12e42ec4f4481b531f522ca4bcab5d8ce8f"
+    },
+    "task260": {
+      "run_id": 35301380230,
+      "job_id": 105464549392,
+      "artifact_id": 10529847805,
+      "result_sha256": "094346279b6f4b0d0a4276b19ef3b7f63b653dd20fde8b6192f26ef8539ead4f"
+    },
+    "task261": {
+      "run_id": 35350939794,
+      "job_id": 105618649405,
+      "artifact_id": 10549653935,
+      "result_sha256": "2171f654f981d87bbae042420ed97bef358dd16dd9806baa15886dda0527a700"
+    },
+    "task263": {
+      "run_id": 35352898376,
+      "job_id": 105625061851,
+      "artifact_id": 10550917086,
+      "result_sha256": "6bf10cfa6c72507d20582a9245e314cc9f7fbeaa64071ab97e8087d0325a8feb"
+    }
+  },
+  "canonical_fixture": "docs/evidence/fixtures/task264/TASK_264_JOM_PNCP_8OF8_IDENTITY.jsonl",
+  "identity_contract": {
+    "cnpj": "45132495000140",
+    "year": 2026,
+    "expected_unique_controls": 8,
+    "require_exact_control": true,
+    "require_exact_cnpj": true,
+    "require_exact_year": true,
+    "require_exact_sequence": true,
+    "semantic_similarity_allowed": false,
+    "object_text_identity_allowed": false,
+    "jom_admin_process_equals_pncp_processo": false
+  },
+  "status": "8_OF_8_EXPLICIT_JOM_PNCP_IDS_CURRENTLY_RESOLVED_EXACTLY",
+  "effects": {
+    "network": false,
+    "drive": false,
+    "bronze": false,
+    "silver": false,
+    "gold": false,
+    "serving": false,
+    "publication": false,
+    "tce": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "next_gate": "OPTIONAL_SEPARATE_PNCP_ITEMS_OR_HISTORY_GATE_ONLY_IF_DOCUMENTED_AND_OWNER_AUTHORIZED"
+}
