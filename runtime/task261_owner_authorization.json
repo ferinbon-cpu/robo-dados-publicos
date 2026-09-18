@@ -27,5 +27,24 @@
   "promotion_authorized": false,
   "recurrence_authorized": false,
   "schedule_authorized": false,
-  "consumed": false
+  "consumed": true,
+  "consumed_by": {
+    "run_id": 35350939794,
+    "job_id": 105618649405,
+    "runtime_head_sha": "71999c40767998f6fb49b26c86635069038cfca7",
+    "artifact_id": 10549653935,
+    "artifact_zip_sha256": "2e13acb03905b10ed5ddbf59e59454740d56c4c49923b6a12f36d2171061ec73",
+    "artifact_file_sha256": "716de8d430c490dee95eb5d021d45f0700a2c69c1c2e5aa5d13908ba250fc4d1",
+    "result_sha256": "2171f654f981d87bbae042420ed97bef358dd16dd9806baa15886dda0527a700",
+    "outcome": "PARTIAL_OR_UNRESOLVED_THREE_REOBSERVATIONS",
+    "resolved_count": 2,
+    "unresolved_count": 1,
+    "source_get_count": 3,
+    "unresolved_control": "45132495000140-1-000648/2026",
+    "unresolved_http_code": 500,
+    "diagnostic_class": "SQLTransientConnectionException",
+    "diagnostic_message": "HikariPool-1 connection unavailable; request timed out after 30001ms"
+  },
+  "next_remote_request_requires_new_authorization_token": true,
+  "authorization_tokens_remaining": 4
 }
