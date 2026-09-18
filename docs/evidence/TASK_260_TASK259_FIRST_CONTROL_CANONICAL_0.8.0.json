@@ -1,0 +1,59 @@
+{
+  "schema": "TASK260_TASK259_FIRST_CONTROL_CANONICAL_V1",
+  "task": "TASK_260",
+  "issue": 853,
+  "task259": {
+    "run_id": 35300705819,
+    "job_id": 105462527528,
+    "artifact_id": 10529707007,
+    "artifact_zip_sha256": "4bb7d50cc6c189ba7a1712b106e39104fdcdaf2130df99d961ce149b789048de",
+    "artifact_file_sha256": "b35182c0d4794a42c03c8a1dc533e577b8afd5300f2f005f5163424853f2870f",
+    "result_sha256": "c62671a633ef0b0e10a611045107d12e42ec4f4481b531f522ca4bcab5d8ce8f",
+    "first_control": "45132495000140-1-000646/2026",
+    "first_outcome": "EXACT_CONTROL_RESOLVED",
+    "first_http_code": 200
+  },
+  "route_template_proven_by_task258": true,
+  "route_operationally_proven_by_task259": true,
+  "transformed_targets": [
+    {
+      "control": "45132495000140-1-000639/2026",
+      "sequencial": 639,
+      "url": "https://pncp.gov.br/api/consulta/v1/orgaos/45132495000140/compras/2026/639"
+    },
+    {
+      "control": "45132495000140-1-000645/2026",
+      "sequencial": 645,
+      "url": "https://pncp.gov.br/api/consulta/v1/orgaos/45132495000140/compras/2026/645"
+    },
+    {
+      "control": "45132495000140-1-000648/2026",
+      "sequencial": 648,
+      "url": "https://pncp.gov.br/api/consulta/v1/orgaos/45132495000140/compras/2026/648"
+    },
+    {
+      "control": "45132495000140-1-000655/2026",
+      "sequencial": 655,
+      "url": "https://pncp.gov.br/api/consulta/v1/orgaos/45132495000140/compras/2026/655"
+    },
+    {
+      "control": "45132495000140-1-000653/2026",
+      "sequencial": 653,
+      "url": "https://pncp.gov.br/api/consulta/v1/orgaos/45132495000140/compras/2026/653"
+    },
+    {
+      "control": "45132495000140-1-000654/2026",
+      "sequencial": 654,
+      "url": "https://pncp.gov.br/api/consulta/v1/orgaos/45132495000140/compras/2026/654"
+    },
+    {
+      "control": "45132495000140-1-000069/2026",
+      "sequencial": 69,
+      "url": "https://pncp.gov.br/api/consulta/v1/orgaos/45132495000140/compras/2026/69"
+    }
+  ],
+  "first_control_excluded_from_batch": true,
+  "expected_batch_get_count": 7,
+  "absence_inference_allowed": false,
+  "next_gate": "OWNER_AUTHORIZED_TOKEN_5_EXACT_SEVEN_PNCP_OFFICIAL_CONSULTA_CONTROL_RESOLUTION_ON_MERGED_TASK260_SHA"
+}
