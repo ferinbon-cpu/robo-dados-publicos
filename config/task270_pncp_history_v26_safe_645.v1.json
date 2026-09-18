@@ -1,0 +1,74 @@
+{
+  "schema": "TASK270_PNCP_HISTORY_V26_SAFE_SEMANTIC_CARRIER_V1",
+  "task": "TASK_270",
+  "issue": 875,
+  "base_main_sha": "2a010aae4b3e2a0dfa9326e06e0910eaa8ea68b6",
+  "source_task269": {
+    "evidence": "docs/evidence/TASK_269_PNCP_HISTORY_SCHEMA_DRIFT_CANONICAL_0.8.0.json",
+    "required_status": "PNCP_HISTORY_645_HTTP200_3_EVENTS_SCHEMA_V2_6_OBSERVED_ALLOWLIST_DRIFT_CONFIRMED"
+  },
+  "source_task268": {
+    "run_id": 35369727241,
+    "artifact_id": 10557930744,
+    "event_count": 3,
+    "body_sha256": "560dc8450bf96bc7222bdb665dcff8b4453e75c5124df388932e5f095dfce15d"
+  },
+  "target": {
+    "control": "45132495000140-1-000645/2026",
+    "cnpj": "45132495000140",
+    "ano": 2026,
+    "sequencial": 645,
+    "requested_url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/645/historico"
+  },
+  "safe_projection": [
+    "categoriaLogManutencao",
+    "categoriaLogManutencaoNome",
+    "compraAno",
+    "compraOrgaoCnpj",
+    "compraSequencial",
+    "documentoSequencial",
+    "documentoTipo",
+    "documentoTitulo",
+    "itemNumero",
+    "itemResultadoNumero",
+    "itemResultadoSequencial",
+    "justificativa",
+    "logManutencaoDataInclusao",
+    "tipoLogManutencao",
+    "tipoLogManutencaoNome"
+  ],
+  "excluded_projection_fields": [
+    "usuarioNome"
+  ],
+  "identity_validation": {
+    "compraOrgaoCnpj": "45132495000140",
+    "compraAno": 2026,
+    "compraSequencial": 645,
+    "validate_when_present": true
+  },
+  "probe": {
+    "max_remote_get_count": 1,
+    "connect_timeout_seconds": 15,
+    "max_time_seconds": 75,
+    "max_body_bytes": 1048576,
+    "retry": false,
+    "follow_redirects": false,
+    "alternate_url_discovery": false,
+    "raw_body_persistence": false,
+    "traverse_exposed_links": false
+  },
+  "runtime": {
+    "branch": "task-270-pncp-history-v26-safe-645-runtime",
+    "authorization_file": "runtime/task270_owner_authorization.json",
+    "trigger_file": "runtime_triggers/task270_pncp_history_v26_safe_645.run",
+    "artifact_name": "task-270-pncp-history-v26-safe-645-sanitized"
+  },
+  "authorization": {
+    "required_task": "TASK_270_LIVE_AUTHORIZATION",
+    "required_operation": "EXACT_1_PNCP_HISTORY_V26_SAFE_SEMANTIC_REOBSERVATION_645",
+    "exact_implementation_sha_required": true,
+    "prior_authorization_reuse_allowed": false,
+    "source_network_authorized_by_default": false
+  },
+  "next_gate": "OWNER_AUTHORIZED_SINGLE_PNCP_HISTORY_V26_SAFE_SEMANTIC_REOBSERVATION_645_ON_MERGED_TASK270_SHA"
+}
