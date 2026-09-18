@@ -1,0 +1,144 @@
+{
+  "schema": "TASK267_PNCP_ITEMS_8OF8_CANONICAL_V1",
+  "task": "TASK_267",
+  "issue": 867,
+  "status": "8_OF_8_PNCP_CONTROLS_HAVE_CURRENT_ITEMS_HTTP200_LIST",
+  "sources": {
+    "task265": {
+      "run_id": 35355223863,
+      "job_id": 105632816755,
+      "artifact_id": 10551441646,
+      "artifact_zip_sha256": "a6ac363c9cc3bd9ee31e8aebb643a8564f3e73520f34eba73593278d7a436dd0",
+      "artifact_file_sha256": "06a5e8f51e8403362c29a8fa32daeed9715d2b744688b67a3b02ea1fcf9b7705",
+      "result_sha256": "c1eb566c0903513714e38423dadb77fc5ca557f56308c84d03f55c27faf64980"
+    },
+    "task266": {
+      "run_id": 35356083180,
+      "job_id": 105635651468,
+      "artifact_id": 10551603283,
+      "artifact_zip_sha256": "d8ecbe5a046e8c16e635b409bfb9ec71343b381d0832cfa8b3c58655824379b8",
+      "artifact_file_sha256": "2337b6c473164ed4a23fe3570c921ecbfd364e56811d6e175e2f757626dcc06c",
+      "result_sha256": "440d693a02f26147ca5e4d951343469348a97a534d11c09879e7354a76bfe887"
+    }
+  },
+  "route_template": "https://pncp.gov.br/api/pncp/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}/itens",
+  "totals": {
+    "control_count": 8,
+    "total_item_count": 40,
+    "http200_list_count": 8,
+    "detail_value_sum_match_count": 7,
+    "detail_value_sum_mismatch_count": 1
+  },
+  "controls": [
+    {
+      "control": "45132495000140-1-000645/2026",
+      "item_count": 1,
+      "body_bytes": 1157,
+      "body_sha256": "9b621ae1b1f50554aa8ba55cb677f748a5bc86582d13357704875611d8deaee7",
+      "items_value_sum": 24537,
+      "detail_valor_total_estimado": 24537,
+      "difference": 0,
+      "matches_detail_estimated_value": true
+    },
+    {
+      "control": "45132495000140-1-000646/2026",
+      "item_count": 9,
+      "body_bytes": 16845,
+      "body_sha256": "9da45adf1b566721341957c83c0c3b1ae2e72514739856b33af09b3f2a9d7a87",
+      "items_value_sum": 167825.13,
+      "detail_valor_total_estimado": 167825.13,
+      "difference": 0,
+      "matches_detail_estimated_value": true
+    },
+    {
+      "control": "45132495000140-1-000639/2026",
+      "item_count": 1,
+      "body_bytes": 1204,
+      "body_sha256": "1828dba7396e8f3a2200040caae3419c8a1a23569e57efa3f7863ea967e89cb9",
+      "items_value_sum": 407357.69,
+      "detail_valor_total_estimado": 407357.69,
+      "difference": 0,
+      "matches_detail_estimated_value": true
+    },
+    {
+      "control": "45132495000140-1-000648/2026",
+      "item_count": 1,
+      "body_bytes": 1278,
+      "body_sha256": "2ed5ba47573bd7ad4a01bd9fd0e8390e8aa99f1b4721e33f5872a6adf40fbc51",
+      "items_value_sum": 23000.04,
+      "detail_valor_total_estimado": 23000.04,
+      "difference": 0,
+      "matches_detail_estimated_value": true
+    },
+    {
+      "control": "45132495000140-1-000655/2026",
+      "item_count": 8,
+      "body_bytes": 11732,
+      "body_sha256": "d7b2066cb021909f479ec10fcd0b8a24f95afdc367a53f817597887e27221b89",
+      "items_value_sum": 22604.98,
+      "detail_valor_total_estimado": 22604.98,
+      "difference": 0,
+      "matches_detail_estimated_value": true
+    },
+    {
+      "control": "45132495000140-1-000653/2026",
+      "item_count": 10,
+      "body_bytes": 10954,
+      "body_sha256": "e6856803449265cfc66bc49f0520c20bd67126558ea01874deae0f60bffadeb5",
+      "items_value_sum": 657.71,
+      "detail_valor_total_estimado": 17579.33,
+      "difference": -16921.62,
+      "matches_detail_estimated_value": false
+    },
+    {
+      "control": "45132495000140-1-000654/2026",
+      "item_count": 1,
+      "body_bytes": 1083,
+      "body_sha256": "566e7fe1ee92887a605ed511263f9b8a7e998c4a6c4a5befe13a3389c0184619",
+      "items_value_sum": 488151.36,
+      "detail_valor_total_estimado": 488151.36,
+      "difference": 0,
+      "matches_detail_estimated_value": true
+    },
+    {
+      "control": "45132495000140-1-000069/2026",
+      "item_count": 9,
+      "body_bytes": 9901,
+      "body_sha256": "9d4d83b876638a66c0b8069eb7b6324656d690fe0944e34620d05c56a5e9950a",
+      "items_value_sum": 14281793.94,
+      "detail_valor_total_estimado": 14281793.94,
+      "difference": 0,
+      "matches_detail_estimated_value": true
+    }
+  ],
+  "diagnostic": {
+    "mismatch_control": "45132495000140-1-000653/2026",
+    "items_value_sum": 657.71,
+    "detail_valor_total_estimado": 17579.33,
+    "difference": -16921.62,
+    "status": "OPEN_DIAGNOSTIC_NO_CAUSE_INFERRED"
+  },
+  "authorization": {
+    "tokens_granted": 10,
+    "tokens_consumed": 10,
+    "tokens_remaining": 0,
+    "next_source_network_requires_fresh_explicit_owner_authorization": true
+  },
+  "epistemic_limits": {
+    "item_sum_mismatch_is_error_proof": false,
+    "item_sum_mismatch_cause_proven": false,
+    "pncp_to_tce_chain_proven": false,
+    "payment_or_execution_proven": false,
+    "history_queried": false
+  },
+  "effects": {
+    "network": false,
+    "drive": false,
+    "bronze": false,
+    "silver": false,
+    "gold": false,
+    "serving": false,
+    "publication": false,
+    "tce": false
+  }
+}
