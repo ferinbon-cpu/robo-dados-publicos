@@ -31,5 +31,26 @@
   "promotion_authorized": false,
   "recurrence_authorized": false,
   "schedule_authorized": false,
-  "consumed": false
+  "consumed": true,
+  "consumed_by": {
+    "run_id": 35301380230,
+    "job_id": 105464549392,
+    "runtime_head_sha": "707ccecb9ee4a689c752b7befd6b4ad380cf0396",
+    "artifact_id": 10529847805,
+    "artifact_zip_sha256": "a115ba67c78d22a793dcbae51876218cbba60601dba905150765b70ad29d3239",
+    "artifact_file_sha256": "f99b62391411cd43a2715ffb241167e1b10024136bdbeb76287fc9c03f91ab3a",
+    "result_sha256": "094346279b6f4b0d0a4276b19ef3b7f63b653dd20fde8b6192f26ef8539ead4f",
+    "outcome": "PARTIAL_SEVEN_CONTROL_RESOLUTION",
+    "resolved_count": 4,
+    "unresolved_count": 3,
+    "source_get_count": 7,
+    "unresolved_controls": [
+      "45132495000140-1-000639/2026",
+      "45132495000140-1-000648/2026",
+      "45132495000140-1-000654/2026"
+    ],
+    "unresolved_http_code": 500
+  },
+  "next_remote_request_requires_new_authorization_token": true,
+  "authorization_tokens_remaining": 5
 }
