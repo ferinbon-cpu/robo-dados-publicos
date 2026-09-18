@@ -1,0 +1,14 @@
+{
+ "schema":"TASK259_PNCP_ROUTE_MIGRATION_CANONICAL_V1","task":"TASK_259","issue":851,
+ "task258":{"run_id":35300062700,"job_id":105460638632,"artifact_id":10529257061,
+ "artifact_zip_sha256":"3c46f67939fb807b187c9bd85147632ad6972b857a29a920089d714762468f50",
+ "artifact_file_sha256":"02a2f58e04e5f177f5cf0c8574af9815e44634b860de6a8d6141704b16c25997",
+ "result_sha256":"cf4921318e83b1d667d386a8f1a171170080c68c09b8b57411f632ad262689dc",
+ "body_sha256":"3693aaadfe0464e4f956b3d51555796010955515ea11b38dfdcedd82d223057d",
+ "message":"Este endpoint foi movido para: https://pncp.gov.br/api/consulta/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}"},
+ "route_template_proven":true,
+ "first_url":"https://pncp.gov.br/api/consulta/v1/orgaos/45132495000140/compras/2026/646",
+ "first_control":"45132495000140-1-000646/2026",
+ "remaining_seven_not_yet_transformed_for_live_use":true,
+ "next_gate":"OWNER_AUTHORIZED_TOKEN_4_SINGLE_PNCP_OFFICIAL_CONSULTA_ROUTE_FIRST_CONTROL_RESOLUTION_ON_MERGED_TASK259_SHA"
+}
