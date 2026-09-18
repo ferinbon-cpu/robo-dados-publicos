@@ -24,5 +24,23 @@
   "promotion_authorized": false,
   "recurrence_authorized": false,
   "schedule_authorized": false,
-  "consumed": false
+  "consumed": true,
+  "consumed_by": {
+    "run_id": 35351938029,
+    "job_id": 105621900836,
+    "runtime_head_sha": "f315064787ff7897f38562e86c5ea735c9c406d8",
+    "artifact_id": 10550360466,
+    "artifact_zip_sha256": "fa9483cf3b422b55a90637b27d71e4a1bb8f51dfa811784e2ba9c61c35f8c4ed",
+    "artifact_file_sha256": "603b8bb30811ff2da412c9cb2db6d619244bbbb466b65f4b10529c453743f3bb",
+    "result_sha256": "5596adaf4de296a9b6faa296218ac779893c49606d1b4840fdabb55c976dc3a9",
+    "outcome": "FINAL_CONTROL_STILL_UNRESOLVED",
+    "http_code": 503,
+    "content_type": "text/html",
+    "body_bytes": 107,
+    "body_sha256": "839488ebc08446a096a893996ed23eac321ac166724cd8c5d9092057834d2d79",
+    "json_error": "JSONDecodeError",
+    "source_get_count": 1
+  },
+  "next_remote_request_requires_new_authorization_token": true,
+  "authorization_tokens_remaining": 3
 }
