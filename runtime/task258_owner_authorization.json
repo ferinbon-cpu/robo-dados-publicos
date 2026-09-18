@@ -24,5 +24,21 @@
   "promotion_authorized": false,
   "recurrence_authorized": false,
   "schedule_authorized": false,
-  "consumed": false
+  "consumed": true,
+  "consumed_by": {
+    "run_id": 35300062700,
+    "job_id": 105460638632,
+    "runtime_head_sha": "f1a401f98c7d5d3ed8c1c92484bccc941e7f1d2c",
+    "artifact_id": 10529257061,
+    "artifact_zip_sha256": "3c46f67939fb807b187c9bd85147632ad6972b857a29a920089d714762468f50",
+    "artifact_file_sha256": "02a2f58e04e5f177f5cf0c8574af9815e44634b860de6a8d6141704b16c25997",
+    "result_sha256": "cf4921318e83b1d667d386a8f1a171170080c68c09b8b57411f632ad262689dc",
+    "body_sha256": "3693aaadfe0464e4f956b3d51555796010955515ea11b38dfdcedd82d223057d",
+    "body_bytes": 273,
+    "http_code": 301,
+    "source_get_count": 1,
+    "official_route_template": "https://pncp.gov.br/api/consulta/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}"
+  },
+  "authorization_tokens_remaining": 7,
+  "next_remote_request_requires_new_authorization_token": true
 }
