@@ -43,7 +43,23 @@
   "promotion_authorized": false,
   "recurrence_authorized": false,
   "schedule_authorized": false,
-  "consumed": false,
+  "consumed": true,
   "authorization_basis": "Standing owner authorization narrowly applied to fixed HISTORY 8/8 completion franchise",
-  "prior_10_token_franchise_reused": false
+  "prior_10_token_franchise_reused": false,
+  "consumed_by": {
+    "run_id": 35399947848,
+    "job_id": 105777303559,
+    "runtime_head_sha": "d6acc480da43b7fbd59667de5ddeed70421a2e35",
+    "artifact_id": 10569138974,
+    "artifact_zip_sha256": "782c2871edb927c99bf0c98ea546e6bdad475deedda5c15008819748f48bd39a",
+    "artifact_file_sha256": "a82528721175049c93d321313f52a255afffa39396d372dc6432136ab78508ed",
+    "result_sha256": "890749299670a07c71f17590843da4d54733e13f946081003b25e5d259967332",
+    "outcome": "SEVEN_REMAINING_HISTORY_CONTROLS_RESOLVED_SAFE",
+    "resolved_count": 7,
+    "unresolved_count": 0,
+    "source_get_count": 7,
+    "total_event_count": 46
+  },
+  "history_completion_franchise_consumed": true,
+  "next_remote_request_requires_separate_bounded_frontier_contract": true
 }
