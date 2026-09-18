@@ -1,0 +1,50 @@
+{
+  "schema": "TASK257_TASK256_HTTP301_CANONICAL_V1",
+  "task": "TASK_257",
+  "issue": 847,
+  "status": "CANONICAL_TASK256_HTTP301_WITHOUT_CURL_REDIRECT_URL",
+  "task256": {
+    "implementation_sha": "43a7325883597b19a2988d9a62f9cf4f97dfd287",
+    "runtime_head_sha": "e409b257153462c69033f93c90abd0bf71d468ea",
+    "consumed_runtime_head_sha": "839259f4b15693682c5fc83bd73f88d78ec67faa",
+    "run_id": 35298949213,
+    "job_id": 105457283125,
+    "artifact_id": 10528693183,
+    "artifact_zip_sha256": "ecfef3022fbf9673665b044ceb308afd2a7f3d9d7bd34f20b417c36640199fa6",
+    "artifact_file_sha256": "0d3ded727ceecf60f85d3335b8d7f866a6f3fe26327b127d0033e762c23c1050",
+    "result_sha256": "4687efcfa59911f3b77a916901842a31315b279aa2040c592f1dc3e9fb4c394e",
+    "result_status": "PASS_TASK256_SINGLE_CURL_NOFOLLOW_DIAGNOSTIC_OBSERVED",
+    "outcome": "REDIRECT_STATUS_WITHOUT_LOCATION",
+    "http_code": 301,
+    "curl_exit_code": 0,
+    "redirect_url": null,
+    "url_effective": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/646",
+    "remote_ip": "189.9.176.245",
+    "remote_port": 443,
+    "time_namelookup": 0.288943,
+    "time_connect": 0.440892,
+    "time_appconnect": 0.597814,
+    "time_starttransfer": 0.912063,
+    "time_total": 0.912151,
+    "size_download": 273,
+    "source_get_count": 1,
+    "response_body_persisted": false,
+    "remaining_seven_targets_queried": false,
+    "absence_inference_allowed": false,
+    "authorization_token_index": 1,
+    "authorization_consumed": true
+  },
+  "prior_observations": {
+    "task254": "HTTP_3XX_REDIRECT_STATUS_WITH_LOCATION_NOT_PERSISTED",
+    "task255": "URL_ERROR_TIMEOUT_WITHOUT_HTTP_STATUS"
+  },
+  "untouched_target_count": 7,
+  "adjudication": {
+    "http_301_proven_for_task256_run": true,
+    "transport_path_healthy_for_task256_run": true,
+    "redirect_destination_proven": false,
+    "pncp_record_absence_proven": false,
+    "remaining_seven_behavior_proven": false
+  },
+  "next_gate": "OWNER_AUTHORIZED_TOKEN_2_SINGLE_PNCP_NOFOLLOW_RAW_LOCATION_HEADER_CAPTURE_ON_MERGED_TASK257_SHA"
+}
