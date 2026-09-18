@@ -37,12 +37,12 @@
     "traverse_exposed_links": false
   },
   "history_allow": [
-    "sequencialHistorico",
     "dataHoraEvento",
     "dataPublicacaoPncp",
+    "justificativa",
+    "sequencialHistorico",
     "situacaoCompraId",
-    "situacaoCompraNome",
-    "justificativa"
+    "situacaoCompraNome"
   ],
   "runtime": {
     "branch": "task-268-pncp-history-probe-645-runtime",
