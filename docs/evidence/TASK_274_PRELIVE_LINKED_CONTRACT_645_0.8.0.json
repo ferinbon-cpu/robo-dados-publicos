@@ -1,0 +1,20 @@
+{
+  "schema": "TASK274_PRELIVE_LINKED_CONTRACT_645_V1",
+  "task": "TASK_274",
+  "issue": 883,
+  "target_purchase_control": "45132495000140-1-000645/2026",
+  "manual_version": "2.6",
+  "documented_endpoint": "/v1/orgaos/{cnpj}/contratos/contratacao/{anoContratacao}/{sequencialContratacao}",
+  "privacy_exclusions": [
+    "usuarioNome",
+    "tipoPessoa",
+    "niFornecedor",
+    "nomeRazaoSocialFornecedor",
+    "tipoPessoaSubContratada",
+    "niFornecedorSubContratado",
+    "nomeFornecedorSubContratado",
+    "informacaoComplementar"
+  ],
+  "live_state": "NOT_EXECUTED",
+  "next_gate": "RUN_ONLY_AFTER_MERGED_TASK274_SHA_BOUND_IN_RUNTIME_AUTHORIZATION"
+}
