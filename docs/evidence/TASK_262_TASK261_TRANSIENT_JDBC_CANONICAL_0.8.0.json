@@ -1,0 +1,14 @@
+{
+ "schema":"TASK262_TASK261_TRANSIENT_JDBC_CANONICAL_V1","task":"TASK_262","issue":857,
+ "task261":{"run_id":35350939794,"job_id":105618649405,"artifact_id":10549653935,
+  "artifact_zip_sha256":"2e13acb03905b10ed5ddbf59e59454740d56c4c49923b6a12f36d2171061ec73",
+  "artifact_file_sha256":"716de8d430c490dee95eb5d021d45f0700a2c69c1c2e5aa5d13908ba250fc4d1",
+  "result_sha256":"2171f654f981d87bbae042420ed97bef358dd16dd9806baa15886dda0527a700"},
+ "newly_resolved":["45132495000140-1-000639/2026","45132495000140-1-000654/2026"],
+ "only_unresolved":"45132495000140-1-000648/2026",
+ "diagnostic":{"http_code":500,"status":500,"error":"Internal Server Error","error_class":"java.sql.SQLTransientConnectionException",
+  "message":"Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30001ms.",
+  "path":"/pncp-consulta/v1/orgaos/45132495000140/compras/2026/648"},
+ "adjudication":{"transient_backend_failure_proven_for_task261_observation":true,"record_absence_proven":false,"seven_of_eight_controls_exactly_resolved":true},
+ "next_gate":"OWNER_AUTHORIZED_TOKEN_7_SINGLE_PNCP_FINAL_CONTROL_648_RESOLUTION_ON_MERGED_TASK262_SHA"
+}
