@@ -1,0 +1,89 @@
+{
+  "schema": "TASK254_PNCP_EXACT_8_CONTROL_RESOLUTION_CARRIER_V1",
+  "task": "TASK_254",
+  "issue": 841,
+  "status": "READY_INERT_EXACT_8_PNCP_DETAIL_CARRIER_LIVE_NOT_AUTHORIZED",
+  "base_main_sha": "4c3013eba2a091c294fcdea44705077e95c7302d",
+  "source_task253": {
+    "evidence": "docs/evidence/TASK_253_JOM_PNCP_EXPLICIT_CONTROL_CANONIZATION_0.8.0.json",
+    "status": "PASS_TASK252_CANONIZED_AND_8_EXPLICIT_PNCP_CONTROLS_MATERIALIZED",
+    "anchor_fixture": "docs/evidence/fixtures/task253/TASK_253_EXPLICIT_PNCP_CONTROL_ANCHORS.jsonl",
+    "anchor_fixture_sha256": "db946b80913ebb892168b5406fd8b5cc274a282ef1f81827d6ba29a2a8f0e7b3",
+    "direct_control_count": 8,
+    "remote_resolution_before_task254": "UNPROVEN_NOT_QUERIED"
+  },
+  "carrier": {
+    "config": "config/task254_pncp_exact_8_control_resolution.v1.json",
+    "module": "robo_dados_publicos/research/task254_pncp_exact_8_control_resolution.py",
+    "gate": "scripts/github_task_254_pncp_exact_8_control_resolution_gate.py",
+    "tests": "tests/test_task_254_pncp_exact_8_control_resolution.py",
+    "workflow": ".github/workflows/task254_pncp_exact_8_control_resolution.yml",
+    "runtime_branch": "task-254-pncp-exact-8-control-resolution-runtime",
+    "authorization_file": "runtime/task254_owner_authorization.json",
+    "trigger_file": "runtime_triggers/task254_pncp_exact_8_control_resolution.run"
+  },
+  "exact_targets": [
+    {"control":"45132495000140-1-000646/2026","url":"https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/646"},
+    {"control":"45132495000140-1-000639/2026","url":"https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/639"},
+    {"control":"45132495000140-1-000645/2026","url":"https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/645"},
+    {"control":"45132495000140-1-000648/2026","url":"https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/648"},
+    {"control":"45132495000140-1-000655/2026","url":"https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/655"},
+    {"control":"45132495000140-1-000653/2026","url":"https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/653"},
+    {"control":"45132495000140-1-000654/2026","url":"https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/654"},
+    {"control":"45132495000140-1-000069/2026","url":"https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/69"}
+  ],
+  "request_contract": {
+    "endpoint_family": "PNCP_PUBLIC_RESOURCE_DETAIL",
+    "detail_gets_max": 8,
+    "total_remote_gets_max": 8,
+    "gets_per_target_max": 1,
+    "preflight_gets": 0,
+    "pagination": false,
+    "publication_search": false,
+    "other_routes": false,
+    "automatic_retry": false,
+    "redirect_following": false,
+    "alternate_url_discovery": false
+  },
+  "identity_contract": {
+    "http_200_requires_exact_numeroControlePNCP": true,
+    "http_200_requires_exact_anoCompra": true,
+    "http_200_requires_exact_sequencialCompra": true,
+    "http_200_requires_exact_orgao_cnpj": true,
+    "identity_drift": "STOP_FAIL_CLOSED",
+    "processo_required_for_identity": false,
+    "object_text_is_identity": false,
+    "supplier_is_identity": false,
+    "semantic_similarity_is_identity": false
+  },
+  "unavailability_contract": {
+    "http_404_ne_global_absence": true,
+    "http_503_ne_no_data": true,
+    "http_504_ne_no_data": true,
+    "transport_failure_ne_no_data": true,
+    "absence_inference_allowed": false,
+    "bounded_observation_may_complete_with_unresolved_targets": true
+  },
+  "effects": {
+    "live_pncp_gets_authorized_by_this_evidence": false,
+    "source_network_before_new_owner_authorization": false,
+    "raw_payload_persisted": false,
+    "drive_write": false,
+    "bronze": false,
+    "silver": false,
+    "gold": false,
+    "serving": false,
+    "publication": false,
+    "promotion": false,
+    "tce_network": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "epistemic_limit": {
+    "carrier_readiness_ne_remote_resolution": true,
+    "pncp_detail_resolution_ne_tce_identity": true,
+    "pncp_detail_resolution_ne_payment_proof": true,
+    "pncp_detail_resolution_ne_financial_identity": true
+  },
+  "next_gate": "OWNER_AUTHORIZED_EXACT_8_PNCP_DETAIL_GETS_ON_MERGED_TASK254_SHA"
+}
