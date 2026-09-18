@@ -1,0 +1,56 @@
+{
+  "schema": "TASK273_HISTORY_8OF8_CANONIZATION_V1",
+  "task": "TASK_273",
+  "issue": 881,
+  "base_main_sha": "4e3895a8ad82fd1630d3b45fa623c10c94f61006",
+  "source_task271": {
+    "evidence": "docs/evidence/TASK_271_HISTORY_645_SEMANTIC_CANONICAL_0.8.0.json",
+    "status": "PNCP_HISTORY_645_3_EVENTS_CANONIZED_PROCUREMENT_PLUS_2_DOCUMENT_INCLUSIONS"
+  },
+  "source_task272": {
+    "implementation_sha": "4e3895a8ad82fd1630d3b45fa623c10c94f61006",
+    "run_id": 35399947848,
+    "job_id": 105777303559,
+    "runtime_head_sha": "d6acc480da43b7fbd59667de5ddeed70421a2e35",
+    "artifact_id": 10569138974,
+    "artifact_zip_sha256": "782c2871edb927c99bf0c98ea546e6bdad475deedda5c15008819748f48bd39a",
+    "artifact_file_sha256": "a82528721175049c93d321313f52a255afffa39396d372dc6432136ab78508ed",
+    "result_sha256": "890749299670a07c71f17590843da4d54733e13f946081003b25e5d259967332",
+    "resolved_count": 7,
+    "unresolved_count": 0,
+    "event_count": 46
+  },
+  "expected": {
+    "controls": 8,
+    "events": 49,
+    "categories": {
+      "Documento de Contratação": 31,
+      "Contratação": 9,
+      "Item de Contratação": 9
+    },
+    "types": {
+      "Inclusão": 39,
+      "Retificação": 10
+    },
+    "document_types": {
+      "Outros Documentos": 20,
+      "Edital": 10,
+      "Projeto Básico": 1
+    },
+    "item_reference_events": 9,
+    "result_reference_events": 0
+  },
+  "fixture": "docs/evidence/fixtures/task273/TASK_273_HISTORY_8OF8_SUMMARY.jsonl",
+  "status": "PNCP_HISTORY_8OF8_RESOLVED_49_EVENTS_CANONIZED_NO_RESULT_REFERENCES_OBSERVED",
+  "boundaries": {
+    "result_reference_zero_is_permanent_absence_claim": false,
+    "award_proven": false,
+    "contract_proven": false,
+    "payment_proven": false,
+    "execution_proven": false,
+    "pncp_to_tce_proven": false,
+    "network": false,
+    "document_traversal": false,
+    "persist_usuario_nome": false
+  }
+}
