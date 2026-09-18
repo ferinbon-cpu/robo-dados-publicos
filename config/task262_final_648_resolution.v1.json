@@ -1,0 +1,18 @@
+{
+  "schema":"TASK262_FINAL_648_RESOLUTION_V1","task":"TASK_262","issue":857,
+  "base_main_sha":"8ffaf91de7dccb50a86c71495bf07241f5b5766b",
+  "source_task261":{"run_id":35350939794,"job_id":105618649405,"artifact_id":10549653935,
+    "artifact_zip_sha256":"2e13acb03905b10ed5ddbf59e59454740d56c4c49923b6a12f36d2171061ec73",
+    "artifact_file_sha256":"716de8d430c490dee95eb5d021d45f0700a2c69c1c2e5aa5d13908ba250fc4d1",
+    "result_sha256":"2171f654f981d87bbae042420ed97bef358dd16dd9806baa15886dda0527a700",
+    "resolved_count":2,"unresolved_count":1},
+  "target":{"control":"45132495000140-1-000648/2026","url":"https://pncp.gov.br/api/consulta/v1/orgaos/45132495000140/compras/2026/648",
+    "prior_http":500,"prior_body_bytes":341,"prior_body_sha256":"cd95dd6a15bec6c6f737c1c8aad4d0165a07a7b025c1a8c00c1482cd09659081",
+    "prior_error_class":"java.sql.SQLTransientConnectionException"},
+  "probe":{"max_remote_get_count":1,"max_body_bytes":65536,"connect_timeout_seconds":15,"max_time_seconds":60,
+    "retry":false,"follow_redirects":false,"alternate_url_discovery":false,"raw_body_persistence":false},
+  "runtime":{"branch":"task-262-pncp-final-648-runtime","authorization_file":"runtime/task262_owner_authorization.json",
+    "trigger_file":"runtime_triggers/task262_pncp_final_648.run","artifact_name":"task-262-pncp-final-648-sanitized"},
+  "authorization":{"authorization_token_index":7,"authorization_token_budget":10,"attempt_count":1},
+  "next_gate":"OWNER_AUTHORIZED_TOKEN_7_SINGLE_PNCP_FINAL_CONTROL_648_RESOLUTION_ON_MERGED_TASK262_SHA"
+}
