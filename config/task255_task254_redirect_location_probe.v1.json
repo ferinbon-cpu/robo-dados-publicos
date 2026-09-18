@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "schema": "TASK255_TASK254_REDIRECT_LOCATION_PROBE_V1",
+  "task": "TASK_255",
+  "issue": 843,
+  "base_main_sha": "5dbb0a3a8dc68cc286a1b6933dfbea94e7cab9d2",
+  "mode": "T1_READONLY_IMPLEMENTED_LIVE_DISABLED_UNTIL_EXACT_OWNER_AUTHORIZATION",
+  "source_task254": {
+    "implementation_sha": "5dbb0a3a8dc68cc286a1b6933dfbea94e7cab9d2",
+    "runtime_head_sha": "3267b12c8d63c2557097203a29c426bf9daf9ebf",
+    "run_id": 35296079277,
+    "job_id": 105448761103,
+    "artifact_id": 10527683320,
+    "artifact_name": "task-254-pncp-exact-8-control-resolution-sanitized",
+    "artifact_zip_sha256": "3238e7eb162833d821f8116c36460278584f18f2fb3afa31c5c92b78393344fc",
+    "result_sha256": "d408b5c4d98b40d3c7e6b9d90c94c2180b6f31bea56c7502190189beda645e0c",
+    "status": "STOP_TASK254_FAIL_CLOSED",
+    "stop_code": "TASK254_REDIRECT_STATUS_OBSERVED",
+    "source_get_count": 1,
+    "aggregate_response_bytes": 0,
+    "raw_payload_persisted": false,
+    "drive_write_count": 0,
+    "absence_inference_allowed": false,
+    "remaining_targets_not_requested": 7
+  },
+  "probe": {
+    "control": "45132495000140-1-000646/2026",
+    "requested_url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/646",
+    "method": "GET",
+    "timeout_seconds": 60,
+    "max_body_bytes": 1000000,
+    "max_remote_get_count": 1,
+    "retry": false,
+    "follow_redirects": false,
+    "alternate_url_discovery": false,
+    "capture": [
+      "http_status",
+      "location",
+      "content_type",
+      "bytes_received",
+      "body_sha256"
+    ],
+    "require_absolute_https_location_on_3xx": true,
+    "infer_remaining_target_urls": false
+  },
+  "runtime": {
+    "branch": "task-255-pncp-redirect-location-probe-runtime",
+    "authorization_file": "runtime/task255_owner_authorization.json",
+    "trigger_file": "runtime_triggers/task255_pncp_redirect_location_probe.run",
+    "artifact_name": "task-255-pncp-redirect-location-probe-sanitized",
+    "artifact_retention_days": 1,
+    "timeout_minutes": 10
+  },
+  "authorization": {
+    "required_task": "TASK_255_LIVE_AUTHORIZATION",
+    "required_operation": "EXACT_1_TASK254_FIRST_TARGET_NOFOLLOW_REDIRECT_LOCATION_PROBE",
+    "exact_implementation_sha_required": true,
+    "attempt_count": 1,
+    "source_network_authorized_by_default": false,
+    "prior_authorization_reuse_allowed": false,
+    "drive_write_authorized": false,
+    "publication_authorized": false,
+    "serving_authorized": false,
+    "promotion_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_authorized": false
+  },
+  "effects": {
+    "pncp_network_before_authorization": false,
+    "raw_payload_persistence": false,
+    "drive_write": false,
+    "bronze": false,
+    "silver": false,
+    "gold": false,
+    "serving": false,
+    "publication": false,
+    "promotion": false,
+    "tce_network": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "next_gate": "OWNER_AUTHORIZED_SINGLE_NOFOLLOW_PNCP_REDIRECT_LOCATION_PROBE_ON_MERGED_TASK255_SHA"
+}
