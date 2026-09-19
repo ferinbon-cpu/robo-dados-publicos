@@ -1,0 +1,10 @@
+{
+  "schema": "TASK281_PRELIVE_PNCP_ITEMS645_RECOVERY_V1",
+  "task": "TASK_281",
+  "issue": 898,
+  "target_url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/645/itens",
+  "prior_state": "DUAL_HTTP503_SAME_RUN",
+  "live_state": "NOT_AUTHORIZED_NOT_EXECUTED",
+  "automatic_retry": false,
+  "next_gate": "FRESH_POST_MERGE_OWNER_AUTHORIZATION_REQUIRED"
+}
