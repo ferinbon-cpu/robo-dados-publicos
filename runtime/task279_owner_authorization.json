@@ -28,5 +28,22 @@
   "promotion_authorized": false,
   "recurrence_authorized": false,
   "schedule_authorized": false,
-  "consumed": false
+  "consumed": true,
+  "consumed_by": {
+    "run_id": 35476247399,
+    "job_id": 105985880814,
+    "runtime_head_sha": "5eae9e22d48fab6e472af1819581603c9ec9479c",
+    "artifact_id": 10593584157,
+    "artifact_zip_sha256": "bb737de4c0563794295796e5e15e88549ae56e1172235ee73c3681fdcf7a23f2",
+    "artifact_file_sha256": "703037574e3d0d4c2acb8d3ac336790289816f48d8ee16c168bbabb506b6068b",
+    "result_sha256": "2e5e43a6d280cc45693b66e7cf17bcf1a242c2cfc41b15fa7b6efbc5426e8818",
+    "health_http_code": 503,
+    "target_http_code": 503,
+    "shared_body_sha256": "839488ebc08446a096a893996ed23eac321ac166724cd8c5d9092057834d2d79",
+    "shared_body_bytes": 107,
+    "shared_content_type": "text/html",
+    "source_get_count": 2,
+    "outcome": "PAIRED_HEALTH_AMBIGUOUS"
+  },
+  "next_remote_request_requires_source_recovery_gate": true
 }
