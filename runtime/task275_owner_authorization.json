@@ -26,6 +26,18 @@
   "promotion_authorized": false,
   "recurrence_authorized": false,
   "schedule_authorized": false,
-  "consumed": false,
-  "authorization_basis": "owner said Prossiga autorizado after TASK274 unresolved observation; bound post-merge to TASK275 SHA"
+  "consumed": true,
+  "authorization_basis": "owner said Prossiga autorizado after TASK274 unresolved observation; bound post-merge to TASK275 SHA",
+  "consumed_by": {
+    "run_id": 35409758593,
+    "job_id": 105806844055,
+    "runtime_head_sha": "90a77893eb7a521e1c408121004848af4cc40f63",
+    "artifact_id": 10573770673,
+    "artifact_zip_sha256": "e9fabcc44f452226741d238f3a81f89a0a8a4101168b184e615b75fb0c98db16",
+    "outcome": "LINKED_CONTRACT_ROUTE_HTTP400_SAFE_DIAGNOSTIC_CAPTURED",
+    "http_code": 400,
+    "diagnostic_message": "Required request parameter 'pagina' for method parameter type Integer is not present",
+    "source_get_count": 1
+  },
+  "next_remote_request_requires_new_merged_carrier": true
 }
