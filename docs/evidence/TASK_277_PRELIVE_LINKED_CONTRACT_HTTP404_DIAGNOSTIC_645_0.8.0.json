@@ -1,0 +1,50 @@
+{
+  "schema": "TASK277_PRELIVE_LINKED_CONTRACT_HTTP404_DIAGNOSTIC_645_V1",
+  "task": "TASK_277",
+  "issue": 889,
+  "source_task276": {
+    "http_code": 404,
+    "json_shape": "OBJECT",
+    "body_bytes": 232,
+    "body_sha256": "6474bab4622fa89d7deda4420a07cbe655ab687af641711bd0280432f774bf45",
+    "response_keys": [
+      "error",
+      "message",
+      "path",
+      "status",
+      "timestamp"
+    ],
+    "absence_inference": false
+  },
+  "target_url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/contratos/contratacao/2026/645?pagina=1&tamanhoPagina=50",
+  "diagnostic_projection": {
+    "allowed_scalar_fields": [
+      "detail",
+      "error",
+      "instance",
+      "message",
+      "path",
+      "requestId",
+      "status",
+      "timestamp",
+      "title"
+    ],
+    "max_string_chars": 500,
+    "unknown_scalar_values_persisted": false,
+    "key_inventory_persisted": true
+  },
+  "privacy_exclusions": [
+    "usuarioNome",
+    "tipoPessoa",
+    "niFornecedor",
+    "nomeRazaoSocialFornecedor",
+    "tipoPessoaSubContratada",
+    "niFornecedorSubContratado",
+    "nomeFornecedorSubContratado",
+    "informacaoComplementar",
+    "trace",
+    "stackTrace"
+  ],
+  "live_state": "NOT_EXECUTED",
+  "next_gate": "CANONIZE_404_MEANING_OR_HTTP200_PAGE_RESULT"
+}
