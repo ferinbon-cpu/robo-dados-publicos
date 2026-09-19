@@ -28,6 +28,27 @@
   "promotion_authorized": false,
   "recurrence_authorized": false,
   "schedule_authorized": false,
-  "consumed": false,
-  "authorization_basis": "owner said Prossiga autorizado; bound after merged TASK276 SHA"
+  "consumed": true,
+  "authorization_basis": "owner said Prossiga autorizado; bound after merged TASK276 SHA",
+  "consumed_by": {
+    "run_id": 35410277332,
+    "job_id": 105808366823,
+    "runtime_head_sha": "3e9aec66366f6dc8270562f33a91b035cd954385",
+    "artifact_id": 10574326201,
+    "artifact_zip_sha256": "17ba313a8994802ca08ec8714639efe80de43563c70972b2cb5e776b32385616",
+    "artifact_file_sha256": "6890c190e6e116b4d7f408a6efd6d7e38b1f296dd8e7861a3987b4c24031bd3a",
+    "result_sha256": "902e778722d02e99a294030ac5aabee385548b6e135ee7ba2cb345353aeb81ab",
+    "body_sha256": "6474bab4622fa89d7deda4420a07cbe655ab687af641711bd0280432f774bf45",
+    "outcome": "LINKED_CONTRACT_PAGE1_UNRESOLVED",
+    "http_code": 404,
+    "response_keys": [
+      "error",
+      "message",
+      "path",
+      "status",
+      "timestamp"
+    ],
+    "source_get_count": 1
+  },
+  "next_remote_request_requires_new_merged_carrier": true
 }
