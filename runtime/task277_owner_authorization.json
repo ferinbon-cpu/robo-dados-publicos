@@ -28,6 +28,23 @@
   "promotion_authorized": false,
   "recurrence_authorized": false,
   "schedule_authorized": false,
-  "consumed": false,
-  "authorization_basis": "Owner explicitly authorized a grande salto after TASK277 merged"
+  "consumed": true,
+  "authorization_basis": "Owner explicitly authorized a grande salto after TASK277 merged",
+  "consumed_by": {
+    "run_id": 35475646049,
+    "job_id": 105984323950,
+    "runtime_head_sha": "3cb28de081d904d9ba8f9690f3a4e07dda5644f1",
+    "artifact_id": 10594144410,
+    "artifact_zip_sha256": "090aa5999b341757bf424799942b7d7d9c650aeb04364d4aa8f35e554f02311e",
+    "artifact_file_sha256": "25a44b330fc1ff84d4d8aac732357d0cb6bfb3af80fca734faa59053ce86ef93",
+    "result_sha256": "e967d3115b429de41f274bbefc208ceefecef8afc55a89ae129a1823680cfa98",
+    "http_code": 503,
+    "content_type": "text/html",
+    "body_bytes": 107,
+    "body_sha256": "839488ebc08446a096a893996ed23eac321ac166724cd8c5d9092057834d2d79",
+    "json_shape": "OTHER",
+    "outcome": "LINKED_CONTRACT_PAGE1_UNRESOLVED",
+    "source_get_count": 1
+  },
+  "next_remote_request_requires_separate_bounded_carrier": true
 }
