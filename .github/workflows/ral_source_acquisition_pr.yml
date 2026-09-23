@@ -1,0 +1,122 @@
+name: RAL source acquisition PR
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install readers
+        run: python -m pip install --quiet pandas openpyxl xlrd
+      - name: Download official sources
+        shell: bash
+        run: |
+          set -euxo pipefail
+          mkdir -p /tmp/ral_sources
+          curl -fL --retry 3 --retry-delay 3 -A "Mozilla/5.0" "https://download.inep.gov.br/informacoes_estatisticas/indicadores_educacionais/2025/IED_2025_ESCOLAS.zip" -o /tmp/ral_sources/IED_2025_ESCOLAS.zip
+          curl -fL --retry 3 --retry-delay 3 -A "Mozilla/5.0" "https://dados.educacao.sp.gov.br/sites/default/files/Microdados%20de%20Alunos%20-%20SARESP_Provao%20-%202023_3.zip" -o /tmp/ral_sources/SARESP_2023.zip
+          sha256sum /tmp/ral_sources/*.zip > /tmp/ral_sources/SHA256SUMS.txt
+      - name: Extract target records
+        shell: bash
+        run: |
+          python - <<'PY'
+          import csv, json, re, zipfile, unicodedata
+          from pathlib import Path
+          from collections import deque
+          import pandas as pd
+          from openpyxl import load_workbook
+
+          root=Path("/tmp/ral_sources")
+          out={"sources":{
+            "ied":"https://download.inep.gov.br/informacoes_estatisticas/indicadores_educacionais/2025/IED_2025_ESCOLAS.zip",
+            "saresp":"https://dados.educacao.sp.gov.br/sites/default/files/Microdados%20de%20Alunos%20-%20SARESP_Provao%20-%202023_3.zip"
+          }}
+
+          # IED: preserve header context plus the exact Rafael row.
+          idir=root/"ied"; idir.mkdir()
+          with zipfile.ZipFile(root/"IED_2025_ESCOLAS.zip") as z: z.extractall(idir)
+          out["ied_files"]=[str(p.relative_to(idir)) for p in idir.rglob("*") if p.is_file()]
+          im=[]
+          for p in idir.rglob("*"):
+            if p.suffix.lower() not in (".xlsx",".xlsm"): continue
+            wb=load_workbook(p, read_only=True, data_only=True)
+            for ws in wb.worksheets:
+              prev=deque(maxlen=18)
+              for rn,row in enumerate(ws.iter_rows(values_only=True),1):
+                vals=list(row); txt=["" if v is None else str(v) for v in vals]
+                joined=" | ".join(txt).upper()
+                digits=[re.sub(r"\D","",t) for t in txt]
+                if "RAFAEL AFFONSO LEITE" in joined or "35470600" in digits:
+                  im.append({"file":str(p.relative_to(idir)),"sheet":ws.title,"row":rn,
+                             "context":[{"row":n,"values":v} for n,v in prev],
+                             "target":vals})
+                prev.append((rn,vals))
+          out["ied_matches"]=im
+
+          # SARESP: isolate CIE 470600, then summarize score-like columns by grade/subject.
+          sdir=root/"saresp"; sdir.mkdir()
+          with zipfile.ZipFile(root/"SARESP_2023.zip") as z: z.extractall(sdir)
+          allcsv=list(sdir.rglob("*.csv"))
+          out["saresp_files"]=[str(p.relative_to(sdir)) for p in allcsv]
+          initial=[p for p in allcsv if "INICIAIS" in unicodedata.normalize("NFKD",p.name).encode("ascii","ignore").decode().upper()]
+          summaries=[]
+          for p in (initial or allcsv):
+            sample=p.read_bytes()[:250000]
+            enc="latin1"
+            for e in ("utf-8-sig","cp1252","latin1"):
+              try: sample.decode(e); enc=e; break
+              except UnicodeDecodeError: pass
+            st=sample.decode(enc,errors="replace")
+            try: sep=csv.Sniffer().sniff(st,delimiters=";,|\t").delimiter
+            except Exception: sep=";"
+            hits=[]; columns=None
+            for ch in pd.read_csv(p,sep=sep,encoding=enc,dtype=str,chunksize=75000,low_memory=False):
+              if columns is None: columns=list(ch.columns)
+              norm={c:unicodedata.normalize("NFKD",str(c)).encode("ascii","ignore").decode().upper() for c in ch.columns}
+              sc=[c for c,n in norm.items() if any(k in n for k in ("CODESC","COD_ESC","CODIGO_ESC","CIE","NOMESC","NOME_ESC","ESCOLA"))]
+              mask=pd.Series(False,index=ch.index)
+              for c in sc:
+                s=ch[c].fillna("").astype(str).str.strip()
+                d=s.str.replace(r"\D","",regex=True).str.lstrip("0")
+                mask |= d.eq("470600")
+                mask |= s.str.upper().str.contains("RAFAEL AFFONSO LEITE",regex=False)
+              if mask.any(): hits.append(ch.loc[mask].copy())
+            if not hits:
+              summaries.append({"file":str(p.relative_to(sdir)),"columns":columns,"school_rows":0})
+              continue
+            df=pd.concat(hits,ignore_index=True)
+            norm={c:unicodedata.normalize("NFKD",str(c)).encode("ascii","ignore").decode().upper() for c in df.columns}
+            grade=[c for c,n in norm.items() if any(k in n for k in ("SERIE","ANO_ESC","ANO/SERIE","ANO_SERIE"))]
+            subj=[c for c,n in norm.items() if any(k in n for k in ("DISCIPL","COMPONENT","AREA_CONHEC"))]
+            score=[c for c,n in norm.items() if any(k in n for k in ("PROFIC","PONTUAC","NOTA"))]
+            for c in score: df[c+"__NUM"]=pd.to_numeric(df[c].str.replace(",",".",regex=False),errors="coerce")
+            nums=[c+"__NUM" for c in score]
+            group=grade[:2]+subj[:1]
+            stats=[]
+            if nums:
+              if group:
+                g=df.groupby(group,dropna=False)[nums].agg(["count","mean","min","max"]).reset_index()
+              else:
+                g=df[nums].agg(["count","mean","min","max"]).T.reset_index()
+              stats=json.loads(g.to_json(orient="records",force_ascii=False))
+            summaries.append({
+              "file":str(p.relative_to(sdir)),"school_rows":len(df),"columns":columns,
+              "grade_values":{c:sorted(df[c].dropna().astype(str).unique().tolist())[:100] for c in grade},
+              "subject_values":{c:sorted(df[c].dropna().astype(str).unique().tolist())[:100] for c in subj},
+              "score_columns":score,"group_stats":stats
+            })
+          out["saresp_summaries"]=summaries
+          out["sha256s"]=(root/"SHA256SUMS.txt").read_text()
+          Path("ral_source_results.json").write_text(json.dumps(out,ensure_ascii=False,indent=2,default=str),encoding="utf-8")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ral-source-results
+          path: ral_source_results.json
