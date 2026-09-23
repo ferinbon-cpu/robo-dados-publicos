@@ -1,0 +1,147 @@
+name: RAL source acquisition v2
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  ied:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --quiet openpyxl
+      - name: Acquire IED with protocol fallbacks
+        shell: bash
+        run: |
+          set -u
+          URL_HTTPS="https://download.inep.gov.br/informacoes_estatisticas/indicadores_educacionais/2025/IED_2025_ESCOLAS.zip"
+          URL_HTTP="http://download.inep.gov.br/informacoes_estatisticas/indicadores_educacionais/2025/IED_2025_ESCOLAS.zip"
+          rm -f /tmp/ied.zip
+          curl -4 --http1.1 -fL --connect-timeout 20 --max-time 120 -A "Mozilla/5.0" "$URL_HTTPS" -o /tmp/ied.zip || true
+          if [ ! -s /tmp/ied.zip ]; then
+            wget -4 --timeout=30 --tries=2 -O /tmp/ied.zip "$URL_HTTPS" || true
+          fi
+          if [ ! -s /tmp/ied.zip ]; then
+            curl -4 --http1.1 -fL --connect-timeout 20 --max-time 120 -A "Mozilla/5.0" "$URL_HTTP" -o /tmp/ied.zip || true
+          fi
+          if [ ! -s /tmp/ied.zip ]; then
+            echo '{"status":"download_failed"}' > ied_result.json
+            exit 0
+          fi
+          python - <<'PY'
+          import json,re,zipfile,hashlib
+          from pathlib import Path
+          from collections import deque
+          from openpyxl import load_workbook
+          z=Path("/tmp/ied.zip")
+          root=Path("/tmp/iedx"); root.mkdir(exist_ok=True)
+          with zipfile.ZipFile(z) as a:a.extractall(root)
+          out={"status":"downloaded","sha256":hashlib.sha256(z.read_bytes()).hexdigest(),"files":[],"matches":[]}
+          for p in root.rglob("*"):
+            if p.is_file(): out["files"].append(str(p.relative_to(root)))
+            if p.suffix.lower() not in (".xlsx",".xlsm"): continue
+            wb=load_workbook(p,read_only=True,data_only=True)
+            for ws in wb.worksheets:
+              prev=deque(maxlen=20)
+              for rn,row in enumerate(ws.iter_rows(values_only=True),1):
+                vals=list(row); txt=["" if v is None else str(v) for v in vals]
+                digits=[re.sub(r"\D","",t) for t in txt]
+                if "RAFAEL AFFONSO LEITE" in " | ".join(txt).upper() or "35470600" in digits:
+                  out["matches"].append({"file":str(p.relative_to(root)),"sheet":ws.title,"row":rn,
+                    "context":[{"row":n,"values":v} for n,v in prev],"target":vals})
+                prev.append((rn,vals))
+          Path("ied_result.json").write_text(json.dumps(out,ensure_ascii=False,indent=2,default=str))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ral-ied-result
+          path: ied_result.json
+
+  saresp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --quiet pandas
+      - name: Acquire SARESP 2023
+        shell: bash
+        run: |
+          set -u
+          URL="https://dados.educacao.sp.gov.br/sites/default/files/Microdados%20de%20Alunos%20-%20SARESP_Provao%20-%202023_3.zip"
+          rm -f /tmp/s.zip
+          curl -4 --http1.1 -fL --connect-timeout 20 --max-time 180 -A "Mozilla/5.0" -e "https://dados.educacao.sp.gov.br/" "$URL" -o /tmp/s.zip || true
+          if [ ! -s /tmp/s.zip ]; then
+            wget -4 --timeout=30 --tries=2 --referer="https://dados.educacao.sp.gov.br/" -O /tmp/s.zip "$URL" || true
+          fi
+          if [ ! -s /tmp/s.zip ]; then
+            echo '{"status":"download_failed"}' > saresp_result.json
+            exit 0
+          fi
+          python - <<'PY'
+          import csv,json,re,zipfile,unicodedata,hashlib
+          from pathlib import Path
+          import pandas as pd
+          z=Path("/tmp/s.zip"); root=Path("/tmp/sx"); root.mkdir(exist_ok=True)
+          with zipfile.ZipFile(z) as a:a.extractall(root)
+          out={"status":"downloaded","sha256":hashlib.sha256(z.read_bytes()).hexdigest(),"files":[],"matches":[]}
+          csvs=list(root.rglob("*.csv")); out["files"]=[str(p.relative_to(root)) for p in csvs]
+          initials=[p for p in csvs if "INICIAIS" in unicodedata.normalize("NFKD",p.name).encode("ascii","ignore").decode().upper()]
+          for p in (initials or csvs):
+            b=p.read_bytes()[:250000]; enc="latin1"
+            for e in ("utf-8-sig","cp1252","latin1"):
+              try:b.decode(e);enc=e;break
+              except:pass
+            s=b.decode(enc,errors="replace")
+            try:sep=csv.Sniffer().sniff(s,delimiters=";,|\t").delimiter
+            except:sep=";"
+            hits=[]; cols=None
+            for ch in pd.read_csv(p,sep=sep,encoding=enc,dtype=str,chunksize=50000,low_memory=False):
+              if cols is None:cols=list(ch.columns)
+              norm={c:unicodedata.normalize("NFKD",str(c)).encode("ascii","ignore").decode().upper() for c in ch.columns}
+              school=[c for c,n in norm.items() if any(k in n for k in ("CODESC","COD_ESC","CODIGO_ESC","CIE","NOMESC","NOME_ESC","ESCOLA"))]
+              mask=pd.Series(False,index=ch.index)
+              for c in school:
+                ss=ch[c].fillna("").astype(str).str.strip()
+                dd=ss.str.replace(r"\D","",regex=True).str.lstrip("0")
+                mask |= dd.eq("470600")
+                mask |= ss.str.upper().str.contains("RAFAEL AFFONSO LEITE",regex=False)
+              if mask.any():hits.append(ch.loc[mask].copy())
+            if not hits:
+              out["matches"].append({"file":str(p.relative_to(root)),"rows":0,"columns":cols})
+              continue
+            df=pd.concat(hits,ignore_index=True)
+            norm={c:unicodedata.normalize("NFKD",str(c)).encode("ascii","ignore").decode().upper() for c in df.columns}
+            grade=[c for c,n in norm.items() if any(k in n for k in ("SERIE","ANO_ESC","ANO/SERIE","ANO_SERIE"))]
+            subj=[c for c,n in norm.items() if any(k in n for k in ("DISCIPL","COMPONENT","AREA_CONHEC"))]
+            score=[c for c,n in norm.items() if any(k in n for k in ("PROFIC","PONTUAC","NOTA"))]
+            sample=df.head(10).fillna("").to_dict(orient="records")
+            stats={}
+            for c in score:
+              num=pd.to_numeric(df[c].astype(str).str.replace(",",".",regex=False),errors="coerce")
+              if num.notna().any():stats[c]={"n":int(num.notna().sum()),"mean":float(num.mean()),"min":float(num.min()),"max":float(num.max())}
+            group_stats=[]
+            gcols=grade[:1]+subj[:1]
+            if gcols and score:
+              tmp=df.copy()
+              numeric=[]
+              for c in score:
+                nc=c+"__NUM"; tmp[nc]=pd.to_numeric(tmp[c].astype(str).str.replace(",",".",regex=False),errors="coerce")
+                if tmp[nc].notna().any():numeric.append(nc)
+              if numeric:
+                g=tmp.groupby(gcols,dropna=False)[numeric].agg(["count","mean","min","max"]).reset_index()
+                group_stats=json.loads(g.to_json(orient="records",force_ascii=False))
+            out["matches"].append({"file":str(p.relative_to(root)),"rows":len(df),"columns":cols,
+              "grade_values":{c:sorted(df[c].dropna().astype(str).unique().tolist())[:50] for c in grade},
+              "subject_values":{c:sorted(df[c].dropna().astype(str).unique().tolist())[:50] for c in subj},
+              "score_columns":score,"overall_score_stats":stats,"group_stats":group_stats,"sample_rows":sample})
+          Path("saresp_result.json").write_text(json.dumps(out,ensure_ascii=False,indent=2,default=str))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ral-saresp-result
+          path: saresp_result.json
