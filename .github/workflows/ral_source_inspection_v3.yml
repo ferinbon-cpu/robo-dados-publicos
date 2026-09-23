@@ -1,0 +1,86 @@
+name: RAL source inspection v3
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --quiet openpyxl
+      - name: Inspect official IED headers and current SP resource metadata
+        shell: bash
+        run: |
+          set -u
+          python - <<'PY'
+          import json,subprocess,zipfile,re
+          from pathlib import Path
+          from openpyxl import load_workbook
+
+          out={}
+          # IED official, same fallbacks proven in v2
+          urls=[
+            "https://download.inep.gov.br/informacoes_estatisticas/indicadores_educacionais/2025/IED_2025_ESCOLAS.zip",
+            "http://download.inep.gov.br/informacoes_estatisticas/indicadores_educacionais/2025/IED_2025_ESCOLAS.zip"
+          ]
+          p=Path("/tmp/ied.zip")
+          for u in urls:
+            if p.exists(): p.unlink()
+            commands=[
+              ["curl","-4","--http1.1","-fL","--connect-timeout","20","--max-time","180","-A","Mozilla/5.0",u,"-o",str(p)],
+              ["wget","-4","--timeout=30","--tries=2","-O",str(p),u],
+            ]
+            for cmd in commands:
+              try: subprocess.run(cmd,check=True)
+              except Exception: pass
+              if p.exists() and p.stat().st_size>1000: break
+            if p.exists() and p.stat().st_size>1000: break
+          if p.exists() and p.stat().st_size>1000:
+            d=Path("/tmp/iedx"); d.mkdir(exist_ok=True)
+            with zipfile.ZipFile(p) as z:z.extractall(d)
+            x=next(d.rglob("*.xlsx"))
+            wb=load_workbook(x,read_only=True,data_only=True)
+            ws=wb["ESCOLAS"]
+            rows={}
+            for rn in range(1,16):
+              rows[str(rn)]=list(next(ws.iter_rows(min_row=rn,max_row=rn,values_only=True)))
+            target=None
+            for rn,row in enumerate(ws.iter_rows(min_row=10,values_only=True),start=10):
+              vals=list(row); digs=[re.sub(r"\D","",str(v or "")) for v in vals]
+              if "35470600" in digs:
+                target={"row":rn,"values":vals};break
+            out["ied"]={"status":"ok","rows_1_15":rows,"target":target}
+          else:
+            out["ied"]={"status":"download_failed"}
+
+          # Current Dados Abertos SP CKAN metadata; no large data download yet.
+          api="https://dadosabertos.sp.gov.br/api/3/action/package_show?id=saresp-microdados"
+          q=Path("/tmp/package.json")
+          ok=False
+          for cmd in [
+            ["curl","-4","--http1.1","-fL","--connect-timeout","20","--max-time","90","-A","Mozilla/5.0",api,"-o",str(q)],
+            ["wget","-4","--timeout=30","--tries=2","-O",str(q),api],
+          ]:
+            try: subprocess.run(cmd,check=True)
+            except Exception: pass
+            if q.exists() and q.stat().st_size>100: ok=True;break
+          if ok:
+            try:
+              j=json.loads(q.read_text())
+              rr=j.get("result",{}).get("resources",[])
+              out["sp_ckan"]={"status":"ok","resources":[{k:r.get(k) for k in ["id","name","format","url","last_modified","size","datastore_active"]} for r in rr]}
+            except Exception as e: out["sp_ckan"]={"status":"parse_failed","error":str(e),"sample":q.read_text(errors="replace")[:2000]}
+          else:
+            out["sp_ckan"]={"status":"download_failed"}
+
+          Path("ral_inspection_v3.json").write_text(json.dumps(out,ensure_ascii=False,indent=2,default=str),encoding="utf-8")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ral-inspection-v3
+          path: ral_inspection_v3.json
