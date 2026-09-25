@@ -92,7 +92,8 @@
     "supplier_identifier_is_expense_record_id": false,
     "unique_official_detail_ids": 39779,
     "unscoped_colliding_key_count": 682,
-    "unscoped_collisions_sha256": "bf2fc1132e046686b233337c51ad44fa8946caf514fad73d3d3401c52df77efb"
+    "unscoped_collisions_sha256": "bf2fc1132e046686b233337c51ad44fa8946caf514fad73d3d3401c52df77efb",
+    "raw_supplier_identifiers_persisted": false
   },
   "negative_control": {
     "claim": "TDA_03286_01_EQUALS_TCESP_3286_2026_IN_THE_SAME_ENTITY",
@@ -119,8 +120,7 @@
           "reference_month": 3,
           "source_row_sha256": "479ad693a2a431b565356367210f317b11da6ffe32ac2bb6511bf7daab7e7205",
           "source_stage": "Empenhado",
-          "stage": "COMMITMENT",
-          "supplier_token": "CNPJ - PESSOA JURÍDICA - 37457979000131"
+          "stage": "COMMITMENT"
         },
         {
           "ledger_year": 2026,
@@ -129,8 +129,7 @@
           "reference_month": 7,
           "source_row_sha256": "e7dcd861c0f84cf835926af52d675b5fef0d423b1311ba25659bee82c32844f1",
           "source_stage": "Valor Liquidado",
-          "stage": "LIQUIDATION",
-          "supplier_token": "CNPJ - PESSOA JURÍDICA - 37457979000131"
+          "stage": "LIQUIDATION"
         },
         {
           "ledger_year": 2026,
@@ -139,8 +138,7 @@
           "reference_month": 7,
           "source_row_sha256": "a93ebe7429fdcba212fa10f8d1b4f9549cc04fb862e5d02dbcc0771785051b47",
           "source_stage": "Valor Pago",
-          "stage": "PAYMENT",
-          "supplier_token": "CNPJ - PESSOA JURÍDICA - 37457979000131"
+          "stage": "PAYMENT"
         }
       ],
       "payment_attribution_authorized": false,
@@ -339,5 +337,16 @@
       "same_process_literal": false,
       "status": "UNRESOLVED"
     }
-  ]
+  ],
+  "execution_class": "T0_OFFLINE_REPLAY",
+  "effects_scope": "TASK282_LIBRARY_AND_REPLAY_RUNTIME_ONLY_NOT_RESEARCH_ACQUISITION",
+  "research_acquisition": {
+    "authorization_basis": "OWNER_WORK_ASTRA_PROMPT_EXPLICITLY_REQUESTED_PUBLIC_DOCUMENTATION_RESEARCH",
+    "public_documentation_http_reads_manifested": 12,
+    "drive_context_reads_occurred": true,
+    "pncp_operational_gets": 0,
+    "new_tce_ledger_gets": 0,
+    "source_mutations": 0,
+    "publication": false
+  }
 }
