@@ -400,6 +400,31 @@
       "implementation_pr_merged": 376,
       "implementation_merge_sha": "48c2f7624dba3f46b61f09659f15d798b836c0ef",
       "policy_finalization_evidence": "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json"
+    },
+    {
+      "id": "TASK282_PNCP_TCE_OFFLINE_IDENTITY",
+      "script": "robo_dados_publicos/research/task282_pncp_tce_bridge_audit.py",
+      "contract": "config/task282_pncp_tce_offline_identity.v1.json",
+      "tier": "T0_OFFLINE",
+      "auto_allowed": false,
+      "credential_capability": "NONE",
+      "effects": {
+        "source_network": false,
+        "drive_reads": false,
+        "drive_writes": false,
+        "publication": false
+      },
+      "current_triggers": [],
+      "invocation_surface": "MANUAL_CLI_OR_CI_TEST_ONLY",
+      "workflow_added": false,
+      "schedule": false,
+      "recurrence": false,
+      "remote_materialization_authorized": false,
+      "blockers": [
+        "NO_AUTOMATIC_EXECUTION_SURFACE",
+        "NO_REMOTE_EFFECTS_AUTHORIZED",
+        "FUTURE_AUTOMATION_REQUIRES_SEPARATE_POLICY_REVIEW"
+      ]
     }
   ],
   "agentic_work": {
