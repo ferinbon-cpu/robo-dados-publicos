@@ -57,6 +57,10 @@
     "task219ab_contract_json": {
       "path": "docs/evidence/TASK_219AB_TDA_CONTRACTS_JSON_EXTRACTION_0.8.0.json",
       "sha256": "9fadb4e726eeafc8cc984c8dab9e7d7baf0d0ace597d482de85a697f64491e0d"
+    },
+    "collision_ranges": {
+      "path": "docs/evidence/fixtures/task282/TASK_282_COLLISION_RANGES.json",
+      "sha256": "51fe4a248072244fc6bda1a5e860ccbc66ee125263eab5c07987f68c188f22ee"
     }
   },
   "remaining_edges": [
@@ -101,14 +105,23 @@
     }
   ],
   "execution_class": "T0_OFFLINE_REPLAY",
-  "effects_scope": "TASK282_LIBRARY_AND_REPLAY_RUNTIME_ONLY_NOT_RESEARCH_ACQUISITION",
-  "research_acquisition": {
-    "authorization_basis": "OWNER_WORK_ASTRA_PROMPT_EXPLICITLY_REQUESTED_PUBLIC_DOCUMENTATION_RESEARCH",
-    "public_documentation_http_reads_manifested": 12,
-    "drive_context_reads_occurred": true,
-    "pncp_operational_gets": 0,
-    "new_tce_ledger_gets": 0,
-    "source_mutations": 0,
-    "publication": false
+  "effects_scope": "TASK282_LIBRARY_AND_REPLAY_RUNTIME_ONLY",
+  "repo_local_reproducibility": {
+    "collision_witness_path": "docs/evidence/fixtures/task282/TASK_282_COLLISION_RANGES.json",
+    "collision_witness_sha256": "51fe4a248072244fc6bda1a5e860ccbc66ee125263eab5c07987f68c188f22ee",
+    "collision_count": 682,
+    "interval_count": 20,
+    "source_row_count_inherited_from_task187": 39779,
+    "scoped_commitment_count_extended_replay_observed": 6956,
+    "canonical_claim": "NUMBER_YEAR_ALONE_IS_NOT_A_SAFE_ACCOUNTING_IDENTITY_ACROSS_ENTITIES"
+  },
+  "extended_custodied_replay": {
+    "required_for_ci": false,
+    "source_contract": "config/task187_tcesp_rich_expenses_2026.v1.json",
+    "source_mode": "OWNER_SUPPLIED_OFFICIAL_ZIP_OFFLINE",
+    "source_csv_sha256": "87b640aa9d854832bdd66b452d8532043e9f27bc12ec638ee77dcb5d8001f152",
+    "source_csv_drive_id_inherited_from_task187": true,
+    "observed_result": "39779_ROWS_6956_SCOPED_KEYS_682_COLLISIONS",
+    "role": "EXTENDED_VERIFICATION_NOT_MERGE_GATE"
   }
 }
