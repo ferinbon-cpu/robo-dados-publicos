@@ -60,7 +60,7 @@
     },
     "collision_ranges": {
       "path": "docs/evidence/fixtures/task282/TASK_282_COLLISION_RANGES.json",
-      "sha256": "8b68906054238156e2a3ef8f5514ee4a7c8bf89da45327babe4ef707a8ff13f0"
+      "sha256": "1bc4738282eb5bc6a014193769fd4deb366bd729c40e963aebfc4cc4653557c2"
     }
   },
   "remaining_edges": [
@@ -98,11 +98,12 @@
   "effects_scope": "TASK282_LIBRARY_AND_REPLAY_RUNTIME_ONLY",
   "repo_local_reproducibility": {
     "collision_witness_path": "docs/evidence/fixtures/task282/TASK_282_COLLISION_RANGES.json",
-    "collision_witness_sha256": "8b68906054238156e2a3ef8f5514ee4a7c8bf89da45327babe4ef707a8ff13f0",
-    "collision_count": 682,
+    "collision_witness_sha256": "1bc4738282eb5bc6a014193769fd4deb366bd729c40e963aebfc4cc4653557c2",
     "interval_count": 20,
     "source_row_count_inherited_from_task187": 39779,
-    "canonical_claim": "NUMBER_YEAR_ALONE_IS_NOT_A_SAFE_ACCOUNTING_IDENTITY_ACROSS_ENTITIES"
+    "canonical_claim": "NUMBER_YEAR_ALONE_IS_NOT_A_SAFE_ACCOUNTING_IDENTITY_ACROSS_ENTITIES",
+    "collision_witness_count": 682,
+    "exhaustive_source_collision_count_claimed": false
   },
   "extended_custodied_replay": {
     "required_for_ci": false,
