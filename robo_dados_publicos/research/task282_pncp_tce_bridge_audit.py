@@ -30,6 +30,13 @@ def load_config() -> dict:
         "drive_writes": 0, "publication": False, "task281_consumed": False,
     }, "OFFLINE_RUNTIME_EFFECTS_REQUIRED")
     require(config["procurement_promotion_allowed"] is False, "PROMOTION_FORBIDDEN")
+    require("collision_ranges" in config["pinned_repository_inputs"],
+            "COLLISION_WITNESS_PIN_MISSING")
+    collision_pin = config["pinned_repository_inputs"]["collision_ranges"]
+    require(collision_pin["path"] == config["repo_local_reproducibility"]["collision_witness_path"],
+            "COLLISION_WITNESS_PATH_DRIFT")
+    require(collision_pin["sha256"] == config["repo_local_reproducibility"]["collision_witness_sha256"],
+            "COLLISION_WITNESS_SHA_DRIFT")
     for spec in config["pinned_repository_inputs"].values():
         pinned_file(spec)
     return config
@@ -57,6 +64,9 @@ def collision_witness_audit(config: dict | None = None) -> dict:
             "COLLISION_WITNESS_INTERVAL_COUNT")
     entities = witness["entity_codes"]
     require(len(entities) == len(set(entities)) == 3, "COLLISION_ENTITY_CODES")
+    fixture = json.loads(pinned_file(config["pinned_repository_inputs"]["real_fixture"]))
+    fixture_entities = {record["expected"]["ds_orgao"] for record in fixture["records"]}
+    require(fixture_entities.issubset(set(entities)), "COLLISION_FIXTURE_ENTITY_DRIFT")
 
     expanded: list[tuple[int, int, tuple[int, ...]]] = []
     for item in witness["ranges"]:
