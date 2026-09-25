@@ -53,11 +53,9 @@ Mudança de fornecedor dentro da mesma chave é tratada como STOP, não como tra
 O gate de merge usa somente arquivos presentes no repositório:
 
 - contrato TASK187;
-- evidências TASK219AA/AB e TASK219H;
-- sementes TASK264;
+- evidências TASK219AA/AB;
 - fixture minimizada TASK282;
-- contraexemplo direto de colisão entre entidades na fixture minimizada;
-- carrier TASK281 apenas para provar que ele permanece independente/inativo.
+- contraexemplo direto de colisão entre entidades na própria fixture.
 
 O CSV bruto de 17 MB não é necessário para executar, testar ou revisar a TASK282. A custódia e o SHA do ledger permanecem metadados herdados da TASK187; o gate desta task usa apenas arquivos versionados no repositório.
 
@@ -84,7 +82,7 @@ python main.py selftest
 python -m robo_dados_publicos.research.task282_pncp_tce_bridge_audit
 ```
 
-O último comando valida somente o witness repo-local de colisões, sem alegação de exaustividade do ledger.
+O último comando valida somente a fixture repo-local: o contraexemplo `1-2026` em duas entidades e o controle negativo 3286/2026, sem alegação de exaustividade do ledger.
 
 Nenhum comando da TASK282 realiza fetch, Drive write, publicação ou consumo da TASK281.
 
@@ -93,3 +91,8 @@ Nenhum comando da TASK282 realiza fetch, Drive write, publicação ou consumo da
 O próximo trabalho deve permanecer focado no caso 45/2026: localizar ou materializar um testemunho oficial que explique a equivalência entre `03286-01` e `3286/2026`, com entidade e exercício explícitos. Até lá, a ponte TDA → TCE permanece aberta.
 
 Qualquer investigação de fonte externa posterior deve ser tratada em tarefa e gate próprios; ela não faz parte desta implementação T0.
+
+
+## Superfície de automação
+
+A TASK282 não adiciona workflow, schedule ou trigger. O script é manual/CI-test-only sob a política T0 existente. Qualquer automação futura exige task/PR separada e alteração própria da política de automação.
