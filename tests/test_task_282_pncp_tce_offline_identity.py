@@ -1,7 +1,9 @@
 from copy import deepcopy
+import ast
 import hashlib
 import json
 from pathlib import Path
+import re
 import socket
 import tempfile
 import unittest
@@ -10,18 +12,25 @@ from unittest.mock import patch
 from robo_dados_publicos.reconciliation.accounting_identity import (
     AccountingIdentityStop, CommitmentKey, digest, index_rows,
     namespace_collisions, resolve_accounting_cohort, row_key,
+    supplier_fingerprint,
 )
 from robo_dados_publicos.research import task282_pncp_tce_bridge_audit as audit_module
 
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "docs/evidence/fixtures/task282/TASK_282_REAL_ACCOUNTING_ROWS.json"
+MANIFEST = ROOT / "docs/evidence/TASK_282_OFFICIAL_BRIDGE_DOCUMENTATION_0.8.0.json"
 
 
 class Task282OfflineIdentityTests(unittest.TestCase):
     def setUp(self):
         self.fixture = json.loads(FIXTURE.read_text(encoding="utf-8"))
-        self.rows = [r["row"] for r in self.fixture["records"]]
+        self.rows = []
+        for record in self.fixture["records"]:
+            row = dict(record["expected"])
+            row["identificador_despesa"] = record["synthetic_supplier_marker"]
+            row["historico_despesa"] = ""
+            self.rows.append(row)
         self.prefecture = "PREFEITURA MUNICIPAL DE LIMEIRA"
         self.key = CommitmentKey("Limeira", self.prefecture, 2026, "3286")
 
@@ -38,6 +47,8 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         self.assertEqual(result["individual_liquidation_payment_pairing"], "UNRESOLVED")
         self.assertFalse(result["payment_attribution_authorized"])
         self.assertEqual(result["amount_allocation"], "NOT_CALCULATED")
+        self.assertTrue(all("supplier" not in key
+                            for obs in result["observations"] for key in obs))
 
     def test_real_number_collision_is_partitioned_by_entity(self):
         index = index_rows(self.rows)
@@ -87,7 +98,7 @@ class Task282OfflineIdentityTests(unittest.TestCase):
 
     def test_supplier_conflict_fails_and_same_supplier_does_not_join_entities(self):
         rows = [deepcopy(r) for r in self.rows if row_key(r) == self.key]
-        rows[-1]["identificador_despesa"] = "CNPJ - PESSOA JURÍDICA - 00000000000000"
+        rows[-1]["identificador_despesa"] = "DIFFERENT_SYNTHETIC_SUPPLIER"
         with self.assertRaisesRegex(AccountingIdentityStop, "CONFLICTING_SUPPLIER"):
             index_rows(rows)
         rows = [deepcopy(self.rows[0]), deepcopy(self.rows[0])]
@@ -95,13 +106,19 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         rows[1]["ds_orgao"] = "OTHER_ENTITY"
         self.assertEqual(len(index_rows(rows)), 2)
 
-    def test_supplier_letters_leading_zeroes_and_masked_cpf_are_not_erased(self):
+    def test_supplier_value_is_fingerprinted_and_never_persisted(self):
         row = deepcopy(self.rows[0])
-        for token in ["CNPJ - PESSOA JURÍDICA - 00ABCD12345678", "PESSOA FÍSICA - 123456"]:
-            row["identificador_despesa"] = token
+        values = ["PUBLIC-SUPPLIER-00ABCD12345678", "MASKED-PERSON-123456"]
+        fingerprints = []
+        for value in values:
+            row["identificador_despesa"] = value
+            fingerprints.append(supplier_fingerprint(row))
             result = resolve_accounting_cohort(index_rows([row]), row_key(row))
-            self.assertEqual(result["observations"][0]["supplier_token"], token)
+            serialized = json.dumps(result, ensure_ascii=False)
+            self.assertNotIn(value, serialized)
+            self.assertNotIn("supplier_fingerprint", serialized)
             self.assertEqual(result["procurement_identity"], "UNRESOLVED")
+        self.assertNotEqual(fingerprints[0], fingerprints[1])
 
     def test_unknown_stage_or_missing_id_fails(self):
         for field, value in [("tp_despesa", "Paid?"), ("id_despesa_detalhe", ""),
@@ -145,15 +162,60 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         with self.assertRaisesRegex(AccountingIdentityStop, "PURCHASE_IDENTITY_DRIFT"):
             audit_module.target_gaps(seeds, "2026-07-31", self.rows)
 
-    def test_frozen_result_matches_real_negative_fixture(self):
+    def test_frozen_result_preserves_real_cohort_without_supplier_identity(self):
         result = json.loads((ROOT / "docs/evidence/TASK_282_PNCP_TCE_OFFLINE_AUDIT_0.8.0.json").read_text())
-        self.assertEqual(result["negative_control"]["result"],
-                         resolve_accounting_cohort(index_rows(self.rows), self.key))
+        observations = result["negative_control"]["result"]["observations"]
+        self.assertEqual([r["official_detail_id"] for r in observations],
+                         ["667130190", "678095929", "678117536"])
+        self.assertEqual([r["stage"] for r in observations],
+                         ["COMMITMENT", "LIQUIDATION", "PAYMENT"])
+        self.assertTrue(all("supplier_token" not in r and "supplier_fingerprint_sha256" not in r
+                            for r in observations))
         self.assertEqual(result["ledger"]["unscoped_colliding_key_count"], 682)
         self.assertEqual(result["ledger"]["row_count"], 39779)
         self.assertEqual(result["negative_control"]["municipal_chain"],
                          "PROVEN_TASK219AA_TASK219AB_PRESERVED")
         self.assertFalse(result["production_identity_promoted"])
+
+    def test_fixture_is_minimized_and_contains_no_raw_supplier_or_amount(self):
+        raw = FIXTURE.read_text(encoding="utf-8")
+        fixture = json.loads(raw)
+        self.assertEqual(fixture["schema"], "TASK282_MINIMIZED_ACCOUNTING_FIXTURE_V2")
+        self.assertFalse(fixture["privacy"]["raw_supplier_identifier_persisted"])
+        self.assertNotIn("identificador_despesa", raw)
+        self.assertNotIn("vl_despesa", raw)
+        self.assertNotIn("ds_despesa", raw)
+        self.assertNotIn("historico_despesa", raw)
+        self.assertIsNone(re.search(r"(?<!\d)\d{11}(?!\d)|(?<!\d)\d{14}(?!\d)", raw))
+
+    def test_replay_modules_do_not_import_network_clients(self):
+        blocked = {"requests", "urllib", "http", "aiohttp", "socket"}
+        paths = [
+            ROOT / "robo_dados_publicos/research/task282_pncp_tce_bridge_audit.py",
+            ROOT / "robo_dados_publicos/reconciliation/accounting_identity.py",
+        ]
+        for path in paths:
+            tree = ast.parse(path.read_text(encoding="utf-8"))
+            imported = set()
+            for node in ast.walk(tree):
+                if isinstance(node, ast.Import):
+                    imported.update(alias.name.split(".")[0] for alias in node.names)
+                elif isinstance(node, ast.ImportFrom) and node.module:
+                    imported.add(node.module.split(".")[0])
+            self.assertTrue(blocked.isdisjoint(imported), (path, imported & blocked))
+
+    def test_research_acquisition_is_disclosed_separately_from_t0_replay(self):
+        config = audit_module.load_config()
+        acquisition = config["research_acquisition"]
+        self.assertEqual(config["execution_class"], "T0_OFFLINE_REPLAY")
+        self.assertTrue(acquisition["drive_context_reads_occurred"])
+        self.assertEqual(acquisition["public_documentation_http_reads_manifested"], 12)
+        self.assertEqual(acquisition["pncp_operational_gets"], 0)
+        self.assertEqual(acquisition["new_tce_ledger_gets"], 0)
+        manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        self.assertEqual(manifest["authorization_basis"],
+                         "OWNER_WORK_ASTRA_PROMPT_EXPLICITLY_REQUESTED_PUBLIC_DOCUMENTATION_RESEARCH")
+        self.assertEqual(manifest["operational_effects"]["pncp_gets"], 0)
 
 
 if __name__ == "__main__":
