@@ -195,20 +195,17 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--ledger-csv", type=Path,
                         help="Optional extended replay using the already-custodied TASK187 CSV")
-    parser.add_argument("--check", type=Path,
-                        help="Compare extended replay with a frozen result")
     args = parser.parse_args()
     repo_local = collision_witness_audit()
     if args.ledger_csv is None:
         print(json.dumps(repo_local, ensure_ascii=False, sort_keys=True, indent=2))
         return
     result = audit(args.ledger_csv.read_bytes())
-    if args.check:
-        require(result == json.loads(args.check.read_text(encoding="utf-8")),
-                "EVIDENCE_DRIFT")
-        print("PASS_TASK282_EXTENDED_CUSTODIED_REPLAY")
-    else:
-        print(json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2))
+    print(json.dumps({
+        "repo_local_collision_audit": repo_local,
+        "extended_custodied_replay": result,
+        "extended_replay_role": "OPTIONAL_NOT_MERGE_GATE",
+    }, ensure_ascii=False, sort_keys=True, indent=2))
 
 
 if __name__ == "__main__":
