@@ -83,7 +83,7 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         self.assertFalse(config["procurement_promotion_allowed"])
         self.assertEqual(
             [r["official_detail_id"] for r in result["observations"]],
-            ["667130190", "678095929", "678117536"],
+            ["900003286", "900003287", "900003288"],
         )
         self.assertEqual(
             [r["stage"] for r in result["observations"]],
@@ -96,6 +96,9 @@ class Task282OfflineIdentityTests(unittest.TestCase):
 
     def test_fixture_supplier_identifiers_are_explicitly_synthetic(self):
         self.assertTrue(self.fixture["privacy"]["synthetic_supplier_identifiers_only"])
+        self.assertTrue(self.fixture["privacy"]["official_detail_ids_synthetic"])
+        self.assertFalse(self.fixture["provenance"]["raw_source_redistributed_here"])
+        self.assertEqual(self.fixture["provenance"]["license_status"], "NOT_ASSERTED_BY_TASK282")
         for row in self.rows:
             self.assertRegex(row["identificador_despesa"], r"^FIXTURE_SUPPLIER_[A-Z]+$")
         raw = FIXTURE.read_text(encoding="utf-8")
@@ -203,7 +206,7 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         a = resolve_accounting_cohort(index_rows(self.rows), self.key)
         b = resolve_accounting_cohort(index_rows(list(reversed(self.rows))), self.key)
         self.assertEqual(a, b)
-        row = next(r for r in self.rows if r["id_despesa_detalhe"] == "667130190")
+        row = next(r for r in self.rows if r["id_despesa_detalhe"] == "900003286")
         self.assertEqual(a["observations"][0]["source_row_sha256"], digest(row))
 
     def test_all_pinned_repository_inputs_match_their_sha256(self):
@@ -265,7 +268,10 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         gate = matches[0]
         self.assertEqual(gate["tier"], "T0_OFFLINE")
         self.assertFalse(gate["auto_allowed"])
-        self.assertEqual(gate["current_triggers"], [])
+        self.assertEqual(gate["current_triggers"], ["pull_request:main", "push:main"])
+        self.assertEqual(gate["workflow"], ".github/workflows/ci-offline.yml")
+        self.assertTrue(gate["validation_only"])
+        self.assertFalse(gate["task_runtime_auto_execution"])
         self.assertEqual(gate["credential_capability"], "NONE")
         self.assertEqual(
             gate["script"],
