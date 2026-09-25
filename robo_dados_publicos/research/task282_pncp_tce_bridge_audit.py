@@ -32,10 +32,27 @@ def load_config() -> dict:
     config = json.loads(CONFIG.read_text(encoding="utf-8"))
     require(config["schema"] == "TASK282_PNCP_TCE_OFFLINE_IDENTITY_V1", "CONFIG_SCHEMA")
     require(config["issue"] == 901, "CONFIG_ISSUE")
+    require(config["execution_class"] == "T0_OFFLINE_REPLAY", "EXECUTION_CLASS")
+    require(config["effects_scope"] ==
+            "TASK282_LIBRARY_AND_REPLAY_RUNTIME_ONLY_NOT_RESEARCH_ACQUISITION",
+            "EFFECTS_SCOPE")
     require(config["effects"] == {
         "pncp_requests": 0, "tce_requests": 0, "drive_reads": 0,
         "drive_writes": 0, "publication": False, "task281_consumed": False,
-    }, "OFFLINE_EFFECTS_REQUIRED")
+    }, "OFFLINE_RUNTIME_EFFECTS_REQUIRED")
+    acquisition = config["research_acquisition"]
+    require(acquisition["authorization_basis"] ==
+            "OWNER_WORK_ASTRA_PROMPT_EXPLICITLY_REQUESTED_PUBLIC_DOCUMENTATION_RESEARCH",
+            "RESEARCH_AUTHORIZATION_BASIS")
+    require(acquisition["public_documentation_http_reads_manifested"] == 12,
+            "DOCUMENTATION_READ_COUNT")
+    require(acquisition["drive_context_reads_occurred"] is True,
+            "DRIVE_CONTEXT_READS_MUST_BE_DISCLOSED")
+    require(acquisition["pncp_operational_gets"] == 0 and
+            acquisition["new_tce_ledger_gets"] == 0 and
+            acquisition["source_mutations"] == 0 and
+            acquisition["publication"] is False,
+            "RESEARCH_ACQUISITION_BOUNDARY")
     require(config["procurement_promotion_allowed"] is False, "PROMOTION_FORBIDDEN")
     for spec in config["pinned_repository_inputs"].values():
         pinned_file(spec)
@@ -83,10 +100,21 @@ def audit(csv_bytes: bytes) -> dict:
     rows = parse_csv_bytes(csv_bytes)
     fixture = json.loads(pinned_file(config["pinned_repository_inputs"]["real_fixture"]))
     require(fixture["source_csv_sha256"] == config["ledger"]["csv_sha256"], "FIXTURE_SOURCE_DRIFT")
+    require(fixture["schema"] == "TASK282_MINIMIZED_ACCOUNTING_FIXTURE_V2",
+            "FIXTURE_SCHEMA")
+    require(fixture["privacy"] == {
+        "raw_supplier_identifier_persisted": False,
+        "amount_persisted": False,
+        "expense_description_persisted": False,
+        "history_text_persisted": False,
+    }, "FIXTURE_PRIVACY")
     for record in fixture["records"]:
         ordinal = record["csv_record_ordinal_1based"]
         require(type(ordinal) is int and 1 <= ordinal <= len(rows), "FIXTURE_ORDINAL")
-        require(record["row"] == rows[ordinal - 1], "FIXTURE_ROW_DRIFT")
+        actual = rows[ordinal - 1]
+        expected = record["expected"]
+        require(all(actual.get(field) == value for field, value in expected.items()),
+                "FIXTURE_ROW_DRIFT")
     index = index_rows(rows)
     collisions = namespace_collisions(index)
     seeds = [json.loads(line) for line in pinned_file(
@@ -99,7 +127,11 @@ def audit(csv_bytes: bytes) -> dict:
     return {
         "schema": "TASK282_PNCP_TCE_OFFLINE_AUDIT_RESULT_V1",
         "base_main_sha": config["base_main_sha"], "issue": config["issue"],
-        "effects": config["effects"], "status": "UNRESOLVED",
+        "execution_class": config["execution_class"],
+        "effects_scope": config["effects_scope"],
+        "effects": config["effects"],
+        "research_acquisition": config["research_acquisition"],
+        "status": "UNRESOLVED",
         "ledger": {
             "csv_sha256": config["ledger"]["csv_sha256"],
             "row_count": len(rows), "unique_official_detail_ids": len(rows),
