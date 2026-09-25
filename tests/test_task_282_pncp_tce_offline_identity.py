@@ -1,10 +1,14 @@
 from copy import deepcopy
+from contextlib import ExitStack
 import ast
 import hashlib
 import json
 from pathlib import Path
+import http.client
 import re
 import socket
+import subprocess
+import urllib.request
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -22,6 +26,20 @@ FIXTURE = ROOT / "docs/evidence/fixtures/task282/TASK_282_REAL_ACCOUNTING_ROWS.j
 COLLISIONS = ROOT / "docs/evidence/fixtures/task282/TASK_282_COLLISION_RANGES.json"
 
 
+def block_network_and_processes():
+    stack = ExitStack()
+    denied = AssertionError("NETWORK_OR_SUBPROCESS_FORBIDDEN")
+    stack.enter_context(patch.object(socket.socket, "connect", side_effect=denied))
+    stack.enter_context(patch.object(socket.socket, "connect_ex", side_effect=denied))
+    stack.enter_context(patch.object(socket, "create_connection", side_effect=denied))
+    stack.enter_context(patch.object(urllib.request, "urlopen", side_effect=denied))
+    stack.enter_context(patch.object(http.client.HTTPConnection, "request", side_effect=denied))
+    stack.enter_context(patch.object(http.client.HTTPSConnection, "request", side_effect=denied))
+    stack.enter_context(patch.object(subprocess, "run", side_effect=denied))
+    stack.enter_context(patch.object(subprocess, "Popen", side_effect=denied))
+    return stack
+
+
 class Task282OfflineIdentityTests(unittest.TestCase):
     def setUp(self):
         self.fixture = json.loads(FIXTURE.read_text(encoding="utf-8"))
@@ -35,7 +53,7 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         self.key = CommitmentKey("Limeira", self.prefecture, 2026, "3286")
 
     def test_real_negative_control_has_three_stages_but_no_procurement_identity(self):
-        with patch.object(socket, "socket", side_effect=AssertionError("NETWORK_FORBIDDEN")):
+        with block_network_and_processes():
             config = audit_module.load_config()
             result = resolve_accounting_cohort(index_rows(self.rows), self.key)
         self.assertFalse(config["procurement_promotion_allowed"])
@@ -112,11 +130,13 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         fingerprints = []
         for value in values:
             row["identificador_despesa"] = value
-            fingerprints.append(supplier_fingerprint(row))
+            fingerprint = supplier_fingerprint(row)
+            fingerprints.append(fingerprint)
             result = resolve_accounting_cohort(index_rows([row]), row_key(row))
             serialized = json.dumps(result, ensure_ascii=False)
             self.assertNotIn(value, serialized)
             self.assertNotIn("supplier_fingerprint", serialized)
+            self.assertNotIn(fingerprint, serialized)
             self.assertEqual(result["procurement_identity"], "UNRESOLVED")
         self.assertNotEqual(fingerprints[0], fingerprints[1])
 
@@ -182,7 +202,7 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         self.assertIsNone(re.search(r"(?<!\d)\d{11}(?!\d)|(?<!\d)\d{14}(?!\d)", raw))
 
     def test_replay_modules_do_not_import_network_clients(self):
-        blocked = {"requests", "urllib", "http", "aiohttp", "socket"}
+        blocked = {"requests", "urllib", "http", "aiohttp", "socket", "subprocess", "ftplib", "smtplib"}
         paths = [
             ROOT / "robo_dados_publicos/research/task282_pncp_tce_bridge_audit.py",
             ROOT / "robo_dados_publicos/reconciliation/accounting_identity.py",
@@ -198,13 +218,28 @@ class Task282OfflineIdentityTests(unittest.TestCase):
             self.assertTrue(blocked.isdisjoint(imported), (path, imported & blocked))
 
     def test_repo_local_collision_witness_is_runtime_no_network(self):
-        with patch.object(socket, "socket", side_effect=AssertionError("NETWORK_FORBIDDEN")):
+        with block_network_and_processes():
             result = audit_module.collision_witness_audit()
         self.assertEqual(result["status"], "PASS_TASK282_REPO_LOCAL_COLLISION_WITNESS")
         self.assertEqual(result["collision_witness_count"], 682)
         self.assertEqual(result["interval_count"], 20)
         self.assertEqual(result["canonical_claim"],
                          "NUMBER_YEAR_ALONE_IS_NOT_A_SAFE_ACCOUNTING_IDENTITY_ACROSS_ENTITIES")
+
+    def test_collision_witness_is_explicitly_pinned_and_drift_fails(self):
+        config = audit_module.load_config()
+        pin = config["pinned_repository_inputs"]["collision_ranges"]
+        self.assertEqual(pin["path"], config["repo_local_reproducibility"]["collision_witness_path"])
+        self.assertEqual(pin["sha256"], config["repo_local_reproducibility"]["collision_witness_sha256"])
+        bad = deepcopy(config)
+        bad["pinned_repository_inputs"]["collision_ranges"]["sha256"] = "0" * 64
+        with self.assertRaisesRegex(AccountingIdentityStop, "PINNED_SOURCE_DRIFT"):
+            audit_module.collision_witness_audit(bad)
+
+    def test_collision_witness_entities_cover_fixture_entities(self):
+        witness = json.loads(COLLISIONS.read_text(encoding="utf-8"))
+        fixture_entities = {record["expected"]["ds_orgao"] for record in self.fixture["records"]}
+        self.assertTrue(fixture_entities.issubset(set(witness["entity_codes"])))
 
     def test_collision_witness_is_small_minimized_and_self_consistent(self):
         raw = COLLISIONS.read_text(encoding="utf-8")
