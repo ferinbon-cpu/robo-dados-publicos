@@ -1,5 +1,5 @@
 {
-  "schema": "TASK282_PNCP_TCE_OFFLINE_AUDIT_RESULT_V2",
+  "schema": "TASK282_PNCP_TCE_OFFLINE_AUDIT_RESULT_V3",
   "issue": 901,
   "base_main_sha": "69954f7532da1457c040b745b1a9551cc3551d18",
   "status": "UNRESOLVED",
@@ -19,15 +19,6 @@
     "row_count": 39779,
     "custody_is_preexisting": true,
     "new_source_fetch_required_for_task282": false
-  },
-  "repo_local_collision_witness": {
-    "path": "docs/evidence/fixtures/task282/TASK_282_COLLISION_RANGES.json",
-    "sha256": "672c1db638f4b747f437e8eb7b5fb1a217cfabde46f622b541d97cd8c2d81874",
-    "interval_count": 20,
-    "entity_count": 3,
-    "canonical_claim": "NUMBER_YEAR_ALONE_IS_NOT_A_SAFE_ACCOUNTING_IDENTITY_ACROSS_ENTITIES",
-    "collision_witness_count": 682,
-    "exhaustive_source_collision_count_claimed": false
   },
   "negative_control": {
     "contract": "45/2026",
@@ -93,5 +84,20 @@
   ],
   "production_identity_promoted": false,
   "full_ledger_extended_replay_is_merge_gate": false,
-  "external_research_report_is_merge_input": false
+  "external_research_report_is_merge_input": false,
+  "repo_local_identity_proof": {
+    "fixture": "docs/evidence/fixtures/task282/TASK_282_REAL_ACCOUNTING_ROWS.json",
+    "fixture_sha256": "019f3dbaa60462e97acf565d8aa5ca5ba575b931c21681af9aff62943cc9d377",
+    "proof_kind": "DIRECT_FIXTURE_COUNTEREXAMPLE",
+    "collision": {
+      "number": "1",
+      "original_year": 2026,
+      "entities": [
+        "PREFEITURA MUNICIPAL DE LIMEIRA",
+        "INSTITUTO DE PREVIDÊNCIA MUNICIPAL DE LIMEIRA"
+      ]
+    },
+    "canonical_claim": "NUMBER_YEAR_ALONE_IS_NOT_A_SAFE_ACCOUNTING_IDENTITY_ACROSS_ENTITIES",
+    "exhaustive_source_collision_count_claimed": false
+  }
 }
