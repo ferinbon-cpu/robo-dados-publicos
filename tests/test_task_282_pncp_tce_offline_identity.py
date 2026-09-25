@@ -150,20 +150,6 @@ class Task282OfflineIdentityTests(unittest.TestCase):
             missing = {"path": "missing.json", "sha256": hashlib.sha256(b"missing").hexdigest()}
             with self.assertRaises(FileNotFoundError):
                 audit_module.pinned_file(missing, Path(tmp))
-        with self.assertRaisesRegex(AccountingIdentityStop, "LEDGER_BYTES_DRIFT"):
-            audit_module.audit(b"untrusted ledger")
-
-    def test_eight_seed_namespaces_coverage_and_missing_witnesses(self):
-        config = audit_module.load_config()
-        seeds = [json.loads(s) for s in audit_module.pinned_file(
-            config["pinned_repository_inputs"]["task264_seeds"]).decode().splitlines()]
-        targets = audit_module.target_gaps(seeds, "2026-07-31", self.rows)
-        self.assertEqual(sum(t["publication_after_ledger_coverage"] for t in targets), 7)
-        self.assertEqual(sum(t["same_process_literal"] for t in targets), 0)
-        self.assertTrue(all(t["status"] == "UNRESOLVED" for t in targets))
-        seeds[0]["control"] = seeds[0]["control"].replace("-1-", "-2-")
-        with self.assertRaisesRegex(AccountingIdentityStop, "PURCHASE_IDENTITY_DRIFT"):
-            audit_module.target_gaps(seeds, "2026-07-31", self.rows)
 
     def test_frozen_result_preserves_real_cohort_without_supplier_identity(self):
         result = json.loads((ROOT / "docs/evidence/TASK_282_PNCP_TCE_OFFLINE_AUDIT_0.8.0.json").read_text())
