@@ -253,6 +253,18 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         self.assertNotIn("vl_despesa", raw)
         self.assertNotIn("historico_despesa", raw)
 
+    def test_all_pinned_repository_inputs_match_their_sha256(self):
+        config = audit_module.load_config()
+        for name, spec in config["pinned_repository_inputs"].items():
+            payload = (ROOT / spec["path"]).read_bytes()
+            self.assertEqual(hashlib.sha256(payload).hexdigest(), spec["sha256"], name)
+
+    def test_evidence_base_sha_matches_task_contract_base(self):
+        config = audit_module.load_config()
+        evidence = json.loads((ROOT / "docs/evidence/TASK_282_PNCP_TCE_OFFLINE_AUDIT_0.8.0.json").read_text())
+        self.assertEqual(evidence["base_main_sha"], config["base_main_sha"])
+        self.assertEqual(config["base_main_sha"], "69954f7532da1457c040b745b1a9551cc3551d18")
+
     def test_supplier_change_within_same_scoped_commitment_is_fail_closed(self):
         rows = [deepcopy(r) for r in self.rows if row_key(r) == self.key]
         rows[1]["identificador_despesa"] = "TRANSFER_OR_NOVATION_REQUIRES_EXPLICIT_WITNESS"
