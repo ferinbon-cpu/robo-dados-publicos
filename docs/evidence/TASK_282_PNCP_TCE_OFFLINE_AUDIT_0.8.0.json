@@ -34,19 +34,19 @@
     },
     "frozen_minimized_observations": [
       {
-        "official_detail_id": "667130190",
+        "source_anchor": "TASK219H_TCESP_3286_2026_COMMITMENT",
         "source_stage": "Empenhado",
         "stage": "COMMITMENT",
         "reference_month": 3
       },
       {
-        "official_detail_id": "678095929",
+        "source_anchor": "TASK219H_TCESP_3286_2026_LIQUIDATION",
         "source_stage": "Valor Liquidado",
         "stage": "LIQUIDATION",
         "reference_month": 7
       },
       {
-        "official_detail_id": "678117536",
+        "source_anchor": "TASK219H_TCESP_3286_2026_PAYMENT",
         "source_stage": "Valor Pago",
         "stage": "PAYMENT",
         "reference_month": 7
@@ -87,7 +87,7 @@
   "external_research_report_is_merge_input": false,
   "repo_local_identity_proof": {
     "fixture": "docs/evidence/fixtures/task282/TASK_282_REAL_ACCOUNTING_ROWS.json",
-    "fixture_sha256": "019f3dbaa60462e97acf565d8aa5ca5ba575b931c21681af9aff62943cc9d377",
+    "fixture_sha256": "c239e48b80d181bd1d22c572804371dca58ca68c2f1a9d42aac61b8853d965fe",
     "proof_kind": "DIRECT_FIXTURE_COUNTEREXAMPLE",
     "collision": {
       "number": "1",
@@ -98,6 +98,8 @@
       ]
     },
     "canonical_claim": "NUMBER_YEAR_ALONE_IS_NOT_A_SAFE_ACCOUNTING_IDENTITY_ACROSS_ENTITIES",
-    "exhaustive_source_collision_count_claimed": false
+    "exhaustive_source_collision_count_claimed": false,
+    "record_ids_synthetic": true,
+    "provenance_reference": "config/task187_tcesp_rich_expenses_2026.v1.json + TASK219H historical evidence"
   }
 }
