@@ -10,13 +10,13 @@ A conclusão continua `UNRESOLVED`: esta task **não** liga uma compra a um empe
 
 Número + ano de empenho não é uma chave segura entre entidades.
 
-A TASK187 já registra, em contrato versionado, o CSV oficial de despesas de Limeira/2026 como material previamente fornecido pelo owner e custodiado create-only. A TASK282 materializa no próprio repositório apenas o derivado mínimo necessário para revisar o novo achado: 682 colisões número/ano entre órgãos, codificadas em 20 intervalos e sem fornecedor, valor, objeto ou histórico.
+A TASK187 já registra, em contrato versionado, o CSV oficial de despesas de Limeira/2026 como material previamente fornecido pelo owner e custodiado create-only. A TASK282 materializa no próprio repositório apenas o derivado mínimo necessário para revisar o novo achado: 682 testemunhos materializados de colisão número/ano entre órgãos, codificadas em 20 intervalos e sem fornecedor, valor, objeto ou histórico.
 
 Arquivo canônico:
 
 `docs/evidence/fixtures/task282/TASK_282_COLLISION_RANGES.json`
 
-A partir desse arquivo qualquer CI/revisor pode reproduzir, sem Drive e sem rede, que existem 682 números/anos presentes em pelo menos duas entidades. Portanto a chave futura deve incluir, no mínimo, município, entidade, exercício original e número.
+A partir desse arquivo qualquer CI/revisor pode reproduzir, sem Drive e sem rede, que existem pelo menos 682 testemunhos materializados de números/anos presentes em pelo menos duas entidades. Portanto a chave futura deve incluir, no mínimo, município, entidade, exercício original e número.
 
 ## Chave contábil
 
@@ -90,7 +90,7 @@ python main.py selftest
 python -m robo_dados_publicos.research.task282_pncp_tce_bridge_audit
 ```
 
-O último comando valida somente o witness repo-local de colisões.
+O último comando valida somente o witness repo-local de colisões, sem alegação de exaustividade do ledger.
 
 Verificação estendida opcional, quando os bytes já custodiados da TASK187 estiverem disponíveis localmente:
 
