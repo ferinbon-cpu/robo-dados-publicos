@@ -1,352 +1,96 @@
 {
+  "schema": "TASK282_PNCP_TCE_OFFLINE_AUDIT_RESULT_V2",
+  "issue": 901,
   "base_main_sha": "69954f7532da1457c040b745b1a9551cc3551d18",
+  "status": "UNRESOLVED",
+  "execution_class": "T0_OFFLINE_REPLAY",
   "effects": {
+    "pncp_requests": 0,
+    "tce_requests": 0,
     "drive_reads": 0,
     "drive_writes": 0,
-    "pncp_requests": 0,
     "publication": false,
-    "task281_consumed": false,
-    "tce_requests": 0
+    "task281_consumed": false
   },
-  "individual_liquidation_to_payment_edge_proven": false,
-  "issue": 901,
-  "ledger": {
-    "collision_samples": [
-      {
-        "entities": [
-          "CÂMARA MUNICIPAL DE LIMEIRA",
-          "INSTITUTO DE PREVIDÊNCIA MUNICIPAL DE LIMEIRA",
-          "PREFEITURA MUNICIPAL DE LIMEIRA"
-        ],
-        "municipality": "Limeira",
-        "number": "1",
-        "original_year": 2026
-      },
-      {
-        "entities": [
-          "CÂMARA MUNICIPAL DE LIMEIRA",
-          "INSTITUTO DE PREVIDÊNCIA MUNICIPAL DE LIMEIRA",
-          "PREFEITURA MUNICIPAL DE LIMEIRA"
-        ],
-        "municipality": "Limeira",
-        "number": "10",
-        "original_year": 2026
-      },
-      {
-        "entities": [
-          "CÂMARA MUNICIPAL DE LIMEIRA",
-          "INSTITUTO DE PREVIDÊNCIA MUNICIPAL DE LIMEIRA",
-          "PREFEITURA MUNICIPAL DE LIMEIRA"
-        ],
-        "municipality": "Limeira",
-        "number": "100",
-        "original_year": 2026
-      },
-      {
-        "entities": [
-          "CÂMARA MUNICIPAL DE LIMEIRA",
-          "INSTITUTO DE PREVIDÊNCIA MUNICIPAL DE LIMEIRA",
-          "PREFEITURA MUNICIPAL DE LIMEIRA"
-        ],
-        "municipality": "Limeira",
-        "number": "101",
-        "original_year": 2026
-      },
-      {
-        "entities": [
-          "CÂMARA MUNICIPAL DE LIMEIRA",
-          "INSTITUTO DE PREVIDÊNCIA MUNICIPAL DE LIMEIRA",
-          "PREFEITURA MUNICIPAL DE LIMEIRA"
-        ],
-        "municipality": "Limeira",
-        "number": "102",
-        "original_year": 2026
-      }
-    ],
-    "coverage_end": "2026-07-31",
+  "source_task187": {
+    "contract": "config/task187_tcesp_rich_expenses_2026.v1.json",
+    "mode": "OWNER_SUPPLIED_OFFICIAL_ZIP_OFFLINE",
     "csv_sha256": "87b640aa9d854832bdd66b452d8532043e9f27bc12ec638ee77dcb5d8001f152",
-    "entity_row_counts": {
-      "CÂMARA MUNICIPAL DE LIMEIRA": 2582,
-      "INSTITUTO DE PREVIDÊNCIA MUNICIPAL DE LIMEIRA": 791,
-      "PREFEITURA MUNICIPAL DE LIMEIRA": 36406
-    },
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7
-    ],
     "row_count": 39779,
-    "scoped_commitment_count": 6956,
-    "source_stage_counts": {
-      "Anulação": 684,
-      "Empenhado": 6956,
-      "Reforço": 757,
-      "Valor Liquidado": 16460,
-      "Valor Pago": 14922
-    },
-    "supplier_conflicts_within_scoped_commitment": 0,
-    "supplier_identifier_is_expense_record_id": false,
-    "unique_official_detail_ids": 39779,
-    "unscoped_colliding_key_count": 682,
-    "unscoped_collisions_sha256": "bf2fc1132e046686b233337c51ad44fa8946caf514fad73d3d3401c52df77efb",
-    "raw_supplier_identifiers_persisted": false
+    "custody_is_preexisting": true,
+    "new_source_fetch_required_for_task282": false
+  },
+  "repo_local_collision_witness": {
+    "path": "docs/evidence/fixtures/task282/TASK_282_COLLISION_RANGES.json",
+    "sha256": "8b68906054238156e2a3ef8f5514ee4a7c8bf89da45327babe4ef707a8ff13f0",
+    "interval_count": 20,
+    "collision_count": 682,
+    "entity_count": 3,
+    "canonical_claim": "NUMBER_YEAR_ALONE_IS_NOT_A_SAFE_ACCOUNTING_IDENTITY_ACROSS_ENTITIES"
   },
   "negative_control": {
-    "claim": "TDA_03286_01_EQUALS_TCESP_3286_2026_IN_THE_SAME_ENTITY",
     "contract": "45/2026",
     "jom_process": "902.281/2025",
-    "missing_proposition": "OFFICIAL_CROSS_SYSTEM_COMMITMENT_NAMESPACE_EQUIVALENCE",
     "municipal_chain": "PROVEN_TASK219AA_TASK219AB_PRESERVED",
-    "result": {
-      "accounting_status": "OBSERVED_SCOPED_COHORT",
-      "amount_allocation": "NOT_CALCULATED",
-      "event_date_semantics": "NOT_INFERRED_FROM_DT_EMISSAO_DESPESA",
-      "individual_liquidation_payment_pairing": "UNRESOLVED",
-      "key": {
-        "entity": "PREFEITURA MUNICIPAL DE LIMEIRA",
-        "municipality": "Limeira",
-        "number": "3286",
-        "original_year": 2026
-      },
-      "observations": [
-        {
-          "ledger_year": 2026,
-          "modifier": null,
-          "official_detail_id": "667130190",
-          "reference_month": 3,
-          "source_row_sha256": "479ad693a2a431b565356367210f317b11da6ffe32ac2bb6511bf7daab7e7205",
-          "source_stage": "Empenhado",
-          "stage": "COMMITMENT"
-        },
-        {
-          "ledger_year": 2026,
-          "modifier": null,
-          "official_detail_id": "678095929",
-          "reference_month": 7,
-          "source_row_sha256": "e7dcd861c0f84cf835926af52d675b5fef0d423b1311ba25659bee82c32844f1",
-          "source_stage": "Valor Liquidado",
-          "stage": "LIQUIDATION"
-        },
-        {
-          "ledger_year": 2026,
-          "modifier": null,
-          "official_detail_id": "678117536",
-          "reference_month": 7,
-          "source_row_sha256": "a93ebe7429fdcba212fa10f8d1b4f9549cc04fb862e5d02dbcc0771785051b47",
-          "source_stage": "Valor Pago",
-          "stage": "PAYMENT"
-        }
-      ],
-      "payment_attribution_authorized": false,
-      "procurement_identity": "UNRESOLVED",
-      "reason": "MISSING_OFFICIAL_PROCUREMENT_TO_COMMITMENT_WITNESS"
-    },
+    "tda_typed_procurement": "E00010/2026",
     "tda_commitment": "03286-01",
-    "tda_typed_procurement": "E00010/2026"
+    "tcesp_candidate_key": {
+      "municipality": "Limeira",
+      "entity": "PREFEITURA MUNICIPAL DE LIMEIRA",
+      "original_year": 2026,
+      "number": "3286"
+    },
+    "frozen_minimized_observations": [
+      {
+        "official_detail_id": "667130190",
+        "source_stage": "Empenhado",
+        "stage": "COMMITMENT",
+        "reference_month": 3
+      },
+      {
+        "official_detail_id": "678095929",
+        "source_stage": "Valor Liquidado",
+        "stage": "LIQUIDATION",
+        "reference_month": 7
+      },
+      {
+        "official_detail_id": "678117536",
+        "source_stage": "Valor Pago",
+        "stage": "PAYMENT",
+        "reference_month": 7
+      }
+    ],
+    "claim": "TDA_03286_01_EQUALS_TCESP_3286_2026_IN_THE_SAME_ENTITY",
+    "status": "UNRESOLVED",
+    "missing_proposition": "OFFICIAL_CROSS_SYSTEM_COMMITMENT_NAMESPACE_EQUIVALENCE",
+    "payment_attribution_authorized": false,
+    "individual_liquidation_payment_pairing": "UNRESOLVED"
   },
-  "production_identity_promoted": false,
   "remaining_edges": [
     {
-      "already_proven": "CONTRACT_45_2026_TO_TDA_03286_01_VIA_E00010_2026",
       "edge": "TDA_TO_TCESP_COMMITMENT_NAMESPACE",
-      "prohibited": "DROP_TDA_SUFFIX_01_OR_INFER_YEAR_FROM_NUMBER_WITHOUT_SEMANTIC_PROOF",
+      "status": "UNRESOLVED",
       "required": "OFFICIAL_DOCUMENT_BINDING_03286_01_TO_NUMBER_3286_ORIGINAL_YEAR_2026_AND_SAME_ISSUING_ENTITY",
-      "status": "UNRESOLVED"
+      "prohibited": "DROP_TDA_SUFFIX_01_OR_INFER_YEAR_FROM_NUMBER_WITHOUT_SEMANTIC_PROOF"
     },
     {
-      "accepted_witness_routes": [
-        "OFFICIAL_MUNICIPAL_DOCUMENT_EXPLICIT_PURCHASE_OR_CONTRACT_AND_COMMITMENT_RELATION",
-        "AUDESP_EDITAL_AJUSTE_EMPENHO_REAL_RECORDS_WITH_ENTITY_CROSSWALK",
-        "PNCP_TYPED_EMISSION_OR_CONTRACT_EMPENHO_RECORD_ALREADY_IN_CUSTODY"
-      ],
       "edge": "PURCHASE_TO_COMMITMENT",
+      "status": "UNRESOLVED",
       "insufficient": [
         "SAME_SUPPLIER",
         "SAME_OBJECT",
         "SAME_VALUE",
         "NEAR_DATE",
-        "ONE_CANDIDATE",
-        "SCHEMA_EXISTS"
-      ],
-      "status": "UNRESOLVED"
-    },
-    {
-      "edge": "ENTITY_CROSSWALK",
-      "required": "OFFICIAL_RELATION_PNCP_CNPJ_AND_AUDESP_MUNICIPIO_ENTIDADE_AND_CSV_DS_ORGAO",
-      "status": "UNRESOLVED"
+        "ONE_CANDIDATE"
+      ]
     },
     {
       "edge": "LIQUIDATION_TO_INDIVIDUAL_PAYMENT",
-      "required": "OFFICIAL_DOCUMENT_OR_EVENT_FOREIGN_KEY_NOT_JUST_SHARED_COMMITMENT",
-      "status": "UNRESOLVED"
-    },
-    {
-      "edge": "NEW_AUDESP_REAL_RECORD_PUBLIC_ACCESS",
-      "required": "ACTUAL_PUBLIC_OR_AUTHORIZED_CUSTODIED_RECORD_NOT_TRANSMISSION_SCHEMA_OR_PILOT_EXAMPLE",
-      "status": "UNRESOLVED"
+      "status": "UNRESOLVED",
+      "required": "OFFICIAL_DOCUMENT_OR_EVENT_FOREIGN_KEY_NOT_JUST_SHARED_COMMITMENT"
     }
   ],
-  "schema": "TASK282_PNCP_TCE_OFFLINE_AUDIT_RESULT_V1",
-  "status": "UNRESOLVED",
-  "targets": [
-    {
-      "absence_or_future_execution_inference_allowed": false,
-      "closing_date_in_detail": "2026-10-02",
-      "jom_event_id": "JOEV_8f8754dfbfc05878d785",
-      "jom_process": "905.475/2025",
-      "literal_history_occurrences": {
-        "jom_process": 0,
-        "pncp_control": 0
-      },
-      "missing_proposition": "THIS_PURCHASE_HAS_THIS_SCOPED_COMMITMENT",
-      "pncp_process": "E00023",
-      "publication_after_ledger_coverage": false,
-      "publication_date_in_detail": "2026-02-27",
-      "purchase_control": "45132495000140-1-000069/2026",
-      "required_witness": "OFFICIAL_TYPED_RELATION_WITH_ENTITY_ORIGINAL_YEAR_AND_COMMITMENT_NUMBER",
-      "same_process_literal": false,
-      "status": "UNRESOLVED"
-    },
-    {
-      "absence_or_future_execution_inference_allowed": false,
-      "closing_date_in_detail": "2026-09-28",
-      "jom_event_id": "JOEV_47797e6662ee84edf7d5",
-      "jom_process": "901.052/2026",
-      "literal_history_occurrences": {
-        "jom_process": 0,
-        "pncp_control": 0
-      },
-      "missing_proposition": "THIS_PURCHASE_HAS_THIS_SCOPED_COMMITMENT",
-      "pncp_process": "N00017",
-      "publication_after_ledger_coverage": true,
-      "publication_date_in_detail": "2026-09-08",
-      "purchase_control": "45132495000140-1-000639/2026",
-      "required_witness": "OFFICIAL_TYPED_RELATION_WITH_ENTITY_ORIGINAL_YEAR_AND_COMMITMENT_NUMBER",
-      "same_process_literal": false,
-      "status": "UNRESOLVED"
-    },
-    {
-      "absence_or_future_execution_inference_allowed": false,
-      "closing_date_in_detail": "2026-09-25",
-      "jom_event_id": "JOEV_8d2a59003b72d8f7143b",
-      "jom_process": "900.714/2026",
-      "literal_history_occurrences": {
-        "jom_process": 0,
-        "pncp_control": 0
-      },
-      "missing_proposition": "THIS_PURCHASE_HAS_THIS_SCOPED_COMMITMENT",
-      "pncp_process": "E00147",
-      "publication_after_ledger_coverage": true,
-      "publication_date_in_detail": "2026-09-08",
-      "purchase_control": "45132495000140-1-000645/2026",
-      "required_witness": "OFFICIAL_TYPED_RELATION_WITH_ENTITY_ORIGINAL_YEAR_AND_COMMITMENT_NUMBER",
-      "same_process_literal": false,
-      "status": "UNRESOLVED"
-    },
-    {
-      "absence_or_future_execution_inference_allowed": false,
-      "closing_date_in_detail": "2026-10-02",
-      "jom_event_id": "JOEV_42190c8d64aba4e7eb73",
-      "jom_process": "901.191/2026",
-      "literal_history_occurrences": {
-        "jom_process": 0,
-        "pncp_control": 0
-      },
-      "missing_proposition": "THIS_PURCHASE_HAS_THIS_SCOPED_COMMITMENT",
-      "pncp_process": "E00149",
-      "publication_after_ledger_coverage": true,
-      "publication_date_in_detail": "2026-09-08",
-      "purchase_control": "45132495000140-1-000646/2026",
-      "required_witness": "OFFICIAL_TYPED_RELATION_WITH_ENTITY_ORIGINAL_YEAR_AND_COMMITMENT_NUMBER",
-      "same_process_literal": false,
-      "status": "UNRESOLVED"
-    },
-    {
-      "absence_or_future_execution_inference_allowed": false,
-      "closing_date_in_detail": "2026-10-05",
-      "jom_event_id": "JOEV_a767beafee7893bef596",
-      "jom_process": "900.565/2026",
-      "literal_history_occurrences": {
-        "jom_process": 0,
-        "pncp_control": 0
-      },
-      "missing_proposition": "THIS_PURCHASE_HAS_THIS_SCOPED_COMMITMENT",
-      "pncp_process": "E00150",
-      "publication_after_ledger_coverage": true,
-      "publication_date_in_detail": "2026-09-09",
-      "purchase_control": "45132495000140-1-000648/2026",
-      "required_witness": "OFFICIAL_TYPED_RELATION_WITH_ENTITY_ORIGINAL_YEAR_AND_COMMITMENT_NUMBER",
-      "same_process_literal": false,
-      "status": "UNRESOLVED"
-    },
-    {
-      "absence_or_future_execution_inference_allowed": false,
-      "closing_date_in_detail": "2026-09-29",
-      "jom_event_id": "JOEV_3ec226703aa04de0ce0b",
-      "jom_process": "905.025/2025",
-      "literal_history_occurrences": {
-        "jom_process": 0,
-        "pncp_control": 0
-      },
-      "missing_proposition": "THIS_PURCHASE_HAS_THIS_SCOPED_COMMITMENT",
-      "pncp_process": "E00152",
-      "publication_after_ledger_coverage": true,
-      "publication_date_in_detail": "2026-09-11",
-      "purchase_control": "45132495000140-1-000653/2026",
-      "required_witness": "OFFICIAL_TYPED_RELATION_WITH_ENTITY_ORIGINAL_YEAR_AND_COMMITMENT_NUMBER",
-      "same_process_literal": false,
-      "status": "UNRESOLVED"
-    },
-    {
-      "absence_or_future_execution_inference_allowed": false,
-      "closing_date_in_detail": "2026-09-29",
-      "jom_event_id": "JOEV_7968dd1c3891f0ff8e71",
-      "jom_process": "900.992/2026",
-      "literal_history_occurrences": {
-        "jom_process": 0,
-        "pncp_control": 0
-      },
-      "missing_proposition": "THIS_PURCHASE_HAS_THIS_SCOPED_COMMITMENT",
-      "pncp_process": "E00151",
-      "publication_after_ledger_coverage": true,
-      "publication_date_in_detail": "2026-09-11",
-      "purchase_control": "45132495000140-1-000654/2026",
-      "required_witness": "OFFICIAL_TYPED_RELATION_WITH_ENTITY_ORIGINAL_YEAR_AND_COMMITMENT_NUMBER",
-      "same_process_literal": false,
-      "status": "UNRESOLVED"
-    },
-    {
-      "absence_or_future_execution_inference_allowed": false,
-      "closing_date_in_detail": "2026-10-06",
-      "jom_event_id": "JOEV_0e2d6e30e163e88e78d7",
-      "jom_process": "901.161/2026",
-      "literal_history_occurrences": {
-        "jom_process": 0,
-        "pncp_control": 0
-      },
-      "missing_proposition": "THIS_PURCHASE_HAS_THIS_SCOPED_COMMITMENT",
-      "pncp_process": "E00154",
-      "publication_after_ledger_coverage": true,
-      "publication_date_in_detail": "2026-09-11",
-      "purchase_control": "45132495000140-1-000655/2026",
-      "required_witness": "OFFICIAL_TYPED_RELATION_WITH_ENTITY_ORIGINAL_YEAR_AND_COMMITMENT_NUMBER",
-      "same_process_literal": false,
-      "status": "UNRESOLVED"
-    }
-  ],
-  "execution_class": "T0_OFFLINE_REPLAY",
-  "effects_scope": "TASK282_LIBRARY_AND_REPLAY_RUNTIME_ONLY_NOT_RESEARCH_ACQUISITION",
-  "research_acquisition": {
-    "authorization_basis": "OWNER_WORK_ASTRA_PROMPT_EXPLICITLY_REQUESTED_PUBLIC_DOCUMENTATION_RESEARCH",
-    "public_documentation_http_reads_manifested": 12,
-    "drive_context_reads_occurred": true,
-    "pncp_operational_gets": 0,
-    "new_tce_ledger_gets": 0,
-    "source_mutations": 0,
-    "publication": false
-  }
+  "production_identity_promoted": false,
+  "full_ledger_extended_replay_is_merge_gate": false,
+  "external_research_report_is_merge_input": false
 }
