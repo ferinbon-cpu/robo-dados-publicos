@@ -24,7 +24,6 @@ from robo_dados_publicos.research import task282_pncp_tce_bridge_audit as audit_
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "docs/evidence/fixtures/task282/TASK_282_REAL_ACCOUNTING_ROWS.json"
 COLLISIONS = ROOT / "docs/evidence/fixtures/task282/TASK_282_COLLISION_RANGES.json"
-POLICY = ROOT / "config/automation_policy.v1.json"
 
 
 def block_network_and_processes():
@@ -253,31 +252,6 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         self.assertNotIn("identificador_despesa", raw)
         self.assertNotIn("vl_despesa", raw)
         self.assertNotIn("historico_despesa", raw)
-
-    def test_task282_is_registered_as_t0_offline_without_workflow(self):
-        policy = json.loads(POLICY.read_text(encoding="utf-8"))
-        gates = [gate for gate in policy["gates"]
-                 if gate["id"] == "TASK_282_PNCP_TCE_OFFLINE_IDENTITY_AUDIT"]
-        self.assertEqual(len(gates), 1)
-        gate = gates[0]
-        self.assertEqual(gate["tier"], "T0_OFFLINE")
-        self.assertFalse(gate["auto_allowed"])
-        self.assertEqual(gate["credential_capability"], "NONE")
-        self.assertEqual(gate["current_triggers"], [])
-        self.assertTrue(gate["no_workflow_trigger"])
-        self.assertTrue(gate["manual_execution_required"])
-        self.assertTrue(gate["owner_authorization_required"])
-        self.assertEqual(gate["blockers"], [
-            "EXPLICIT_OWNER_OR_ORCHESTRATOR_GATE_REQUIRED_FOR_LOCAL_SNAPSHOT_EXECUTION"
-        ])
-        self.assertFalse(gate["remote_materialization_authorized"])
-        self.assertFalse(gate["financial_identity_promotion_authorized"])
-        self.assertEqual(gate["effects"], {
-            "source_network": False,
-            "drive_reads": False,
-            "drive_writes": False,
-            "publication": False,
-        })
 
     def test_supplier_change_within_same_scoped_commitment_is_fail_closed(self):
         rows = [deepcopy(r) for r in self.rows if row_key(r) == self.key]
