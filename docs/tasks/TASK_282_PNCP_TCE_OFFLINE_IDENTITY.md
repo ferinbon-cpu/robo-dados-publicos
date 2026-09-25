@@ -10,13 +10,13 @@ A conclusão continua `UNRESOLVED`: esta task **não** liga uma compra a um empe
 
 Número + ano de empenho não é uma chave segura entre entidades.
 
-A TASK187 já registra, em contrato versionado, o CSV oficial de despesas de Limeira/2026 como material previamente fornecido pelo owner e custodiado create-only. A TASK282 materializa no próprio repositório apenas o derivado mínimo necessário para revisar o novo achado: 682 testemunhos materializados de colisão número/ano entre órgãos, codificadas em 20 intervalos e sem fornecedor, valor, objeto ou histórico.
+A TASK187 já registra, em contrato versionado, o CSV oficial de despesas de Limeira/2026 como material previamente fornecido pelo owner e custodiado create-only. A TASK282 materializa no próprio repositório apenas o derivado mínimo necessário para revisar o novo achado: 682 pares número-ano com colisão entre entidades, representados compactamente em 20 intervalos, codificadas em 20 intervalos e sem fornecedor, valor, objeto ou histórico.
 
 Arquivo canônico:
 
 `docs/evidence/fixtures/task282/TASK_282_COLLISION_RANGES.json`
 
-A partir desse arquivo qualquer CI/revisor pode reproduzir, sem Drive e sem rede, que existem pelo menos 682 testemunhos materializados de números/anos presentes em pelo menos duas entidades. Portanto a chave futura deve incluir, no mínimo, município, entidade, exercício original e número.
+A partir desse arquivo qualquer CI/revisor pode reproduzir, sem Drive e sem rede, que existem 682 pares número-ano representados pelos 20 intervalos e associados a pelo menos duas entidades. Portanto a chave futura deve incluir, no mínimo, município, entidade, exercício original e número.
 
 ## Chave contábil
 
@@ -102,4 +102,4 @@ Qualquer investigação de fonte externa posterior deve ser tratada em tarefa e 
 
 ## Registro de automação
 
-A TASK282 está registrada em `config/automation_policy.v1.json` como `T0_OFFLINE`, sem credenciais, sem workflow próprio, sem triggers remotos e com superfície `DIRECT_CLI_OR_CI_TEST_ONLY`. O registro também proíbe materialização remota e promoção de identidade financeira.
+A TASK282 está registrada em `config/automation_policy.v1.json` como `T0_OFFLINE`, sem credenciais, sem workflow próprio, sem triggers remotos e com superfície `DIRECT_CLI_OR_CI_TEST_ONLY`. O gate é fail-closed: `auto_allowed=false`, execução manual obrigatória e autorização explícita do owner/orquestrador. O registro também proíbe materialização remota e promoção de identidade financeira.
