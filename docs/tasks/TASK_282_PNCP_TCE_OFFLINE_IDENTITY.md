@@ -65,7 +65,7 @@ O gate de merge usa somente arquivos presentes no repositório:
 - witness compacto das 682 colisões;
 - carrier TASK281 apenas para provar que ele permanece independente/inativo.
 
-O replay integral dos 17 MB do CSV TASK187 é **opcional** e não faz parte do gate de merge. Quando o arquivo já custodiado é fornecido localmente, `--ledger-csv` executa uma verificação estendida; o comando não baixa o CSV e não contém cliente de rede.
+O CSV bruto de 17 MB não é necessário para executar, testar ou revisar a TASK282. A custódia e o SHA do ledger continuam pertencendo ao contrato histórico TASK187; esta task consome apenas o witness mínimo versionado.
 
 ## Invariantes
 
@@ -91,13 +91,6 @@ python -m robo_dados_publicos.research.task282_pncp_tce_bridge_audit
 ```
 
 O último comando valida somente o witness repo-local de colisões, sem alegação de exaustividade do ledger.
-
-Verificação estendida opcional, quando os bytes já custodiados da TASK187 estiverem disponíveis localmente:
-
-```bash
-python -m robo_dados_publicos.research.task282_pncp_tce_bridge_audit \
-  --ledger-csv /caminho/local/despesas-limeira-2026.csv
-```
 
 Nenhum comando da TASK282 realiza fetch, Drive write, publicação ou consumo da TASK281.
 
