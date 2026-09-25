@@ -406,7 +406,7 @@
       "script": "robo_dados_publicos/research/task282_pncp_tce_bridge_audit.py",
       "contract": "config/task282_pncp_tce_offline_identity.v1.json",
       "tier": "T0_OFFLINE",
-      "auto_allowed": true,
+      "auto_allowed": false,
       "credential_capability": "NONE",
       "effects": {
         "source_network": false,
@@ -417,11 +417,13 @@
       "current_triggers": [],
       "invocation_surface": "DIRECT_CLI_OR_CI_TEST_ONLY",
       "no_workflow_trigger": true,
-      "manual_execution_required": false,
-      "owner_authorization_required": false,
+      "manual_execution_required": true,
+      "owner_authorization_required": true,
       "remote_materialization_authorized": false,
       "financial_identity_promotion_authorized": false,
-      "blockers": []
+      "blockers": [
+        "EXPLICIT_OWNER_OR_ORCHESTRATOR_GATE_REQUIRED_FOR_LOCAL_SNAPSHOT_EXECUTION"
+      ]
     }
   ],
   "agentic_work": {
