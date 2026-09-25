@@ -13,38 +13,16 @@
   },
   "procurement_promotion_allowed": false,
   "ledger": {
-    "source_url": "https://transparencia.tce.sp.gov.br/sites/default/files/csv/despesas-limeira-2026.zip",
-    "zip_sha256": "e696c40b1af0e68efca01e8f819cd26c62a3f62881692e0da33d867604d4d11b",
+    "source_contract": "config/task187_tcesp_rich_expenses_2026.v1.json",
     "csv_sha256": "87b640aa9d854832bdd66b452d8532043e9f27bc12ec638ee77dcb5d8001f152",
     "fiscal_year": 2026,
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7
-    ],
     "coverage_end": "2026-07-31",
-    "coverage_semantics": "OBSERVED_REFERENCE_MONTHS_NOT_CERTIFIED_COMPLETE_DELIVERY"
+    "custody_inherited_from_task187": true
   },
   "pinned_repository_inputs": {
-    "task264_seeds": {
-      "path": "docs/evidence/fixtures/task264/TASK_264_JOM_PNCP_8OF8_IDENTITY.jsonl",
-      "sha256": "319ebfb939928d383f584e3f94525fd2e2d6df74bdad45a7d8d7359e39be6884"
-    },
     "task187_contract": {
       "path": "config/task187_tcesp_rich_expenses_2026.v1.json",
       "sha256": "b47b1683c305d847397eaf4943fa35bfe5b0751952035be032d05817a0ff720b"
-    },
-    "task219h_negative": {
-      "path": "docs/evidence/TASK_219H_TCESP_CONTRACT45_BRIDGE_CANONIZATION_0.8.0.json",
-      "sha256": "5f91832182d43dcbcdd8156d1d9b23b0e1c91bccd2410d558ce4314bbfe22888"
-    },
-    "task281_carrier": {
-      "path": "config/task281_pncp_items645_recovery.v1.json",
-      "sha256": "d2dfa22af4cbc79f0d3cbce00954232a880dcf94fc4157ed78d84683ff1d6a19"
     },
     "real_fixture": {
       "path": "docs/evidence/fixtures/task282/TASK_282_REAL_ACCOUNTING_ROWS.json",
@@ -104,12 +82,5 @@
     "canonical_claim": "NUMBER_YEAR_ALONE_IS_NOT_A_SAFE_ACCOUNTING_IDENTITY_ACROSS_ENTITIES",
     "collision_witness_count": 682,
     "exhaustive_source_collision_count_claimed": false
-  },
-  "extended_custodied_replay": {
-    "required_for_ci": false,
-    "source_contract": "config/task187_tcesp_rich_expenses_2026.v1.json",
-    "source_mode": "OWNER_SUPPLIED_OFFICIAL_ZIP_OFFLINE",
-    "source_csv_sha256": "87b640aa9d854832bdd66b452d8532043e9f27bc12ec638ee77dcb5d8001f152",
-    "role": "OPTIONAL_EXTENDED_VERIFICATION_NOT_CANONICAL_MERGE_GATE"
   }
 }
