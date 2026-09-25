@@ -268,6 +268,14 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         self.assertEqual(gate["current_triggers"], [])
         self.assertEqual(gate["credential_capability"], "NONE")
         self.assertEqual(
+            gate["script"],
+            "robo_dados_publicos/research/task282_pncp_tce_bridge_audit.py",
+        )
+        self.assertEqual(
+            gate["contract"],
+            "config/task282_pncp_tce_offline_identity.v1.json",
+        )
+        self.assertEqual(
             gate["effects"],
             {
                 "source_network": False,
@@ -281,8 +289,8 @@ class Task282OfflineIdentityTests(unittest.TestCase):
 
     def test_supplier_conflict_exception_does_not_leak_raw_or_fingerprint(self):
         rows = [deepcopy(r) for r in self.rows if row_key(r) == self.key]
-        secret = "LOW-ENTROPY-SUPPLIER-SECRET"
-        rows[1]["identificador_despesa"] = secret
+        marker = "FIXTURE_SUPPLIER_CONFLICT_MARKER"
+        rows[1]["identificador_despesa"] = marker
         fingerprint = supplier_fingerprint(rows[1])
         try:
             index_rows(rows)
@@ -290,7 +298,7 @@ class Task282OfflineIdentityTests(unittest.TestCase):
             message = str(exc)
         else:
             self.fail("Expected fail-closed supplier conflict")
-        self.assertNotIn(secret, message)
+        self.assertNotIn(marker, message)
         self.assertNotIn(fingerprint, message)
         self.assertEqual(message, "CONFLICTING_SUPPLIER_WITHIN_SCOPED_COMMITMENT")
 
