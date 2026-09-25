@@ -1,4 +1,4 @@
-"""Validate TASK282 repo-local collision evidence only; no network or remote effects."""
+"""Validate TASK282 repo-local accounting identity evidence only; no network or remote effects."""
 
 from __future__ import annotations
 
@@ -6,7 +6,13 @@ import hashlib
 import json
 from pathlib import Path
 
-from robo_dados_publicos.reconciliation.accounting_identity import require
+from robo_dados_publicos.reconciliation.accounting_identity import (
+    CommitmentKey,
+    index_rows,
+    namespace_collisions,
+    require,
+    resolve_accounting_cohort,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 CONFIG = ROOT / "config/task282_pncp_tce_offline_identity.v1.json"
@@ -30,78 +36,85 @@ def load_config() -> dict:
         "drive_writes": 0, "publication": False, "task281_consumed": False,
     }, "OFFLINE_RUNTIME_EFFECTS_REQUIRED")
     require(config["procurement_promotion_allowed"] is False, "PROMOTION_FORBIDDEN")
-    require("collision_ranges" in config["pinned_repository_inputs"],
-            "COLLISION_WITNESS_PIN_MISSING")
-    collision_pin = config["pinned_repository_inputs"]["collision_ranges"]
-    require(collision_pin["path"] == config["repo_local_reproducibility"]["collision_witness_path"],
-            "COLLISION_WITNESS_PATH_DRIFT")
-    require(collision_pin["sha256"] == config["repo_local_reproducibility"]["collision_witness_sha256"],
-            "COLLISION_WITNESS_SHA_DRIFT")
     for spec in config["pinned_repository_inputs"].values():
         pinned_file(spec)
     return config
 
 
-def collision_witness_audit(config: dict | None = None) -> dict:
+def load_fixture(config: dict | None = None) -> dict:
     config = config or load_config()
-    witness = json.loads(pinned_file(config["pinned_repository_inputs"]["collision_ranges"]))
-    require(witness["schema"] == "TASK282_COLLISION_RANGES_V3", "COLLISION_WITNESS_SCHEMA")
-    require(witness["source_csv_sha256"] == config["ledger"]["csv_sha256"],
-            "COLLISION_WITNESS_SOURCE")
-    require(
-        witness["source_row_count_inherited_from_task187"]
-        == config["repo_local_reproducibility"]["source_row_count_inherited_from_task187"],
-        "COLLISION_WITNESS_ROW_COUNT",
-    )
-    require(
-        witness["collision_witness_count"]
-        == config["repo_local_reproducibility"]["collision_witness_count"],
-        "COLLISION_WITNESS_COUNT",
-    )
-    require(witness["exhaustive_source_collision_count_claimed"] is False,
-            "NO_EXHAUSTIVE_COLLISION_CLAIM")
-    require(len(witness["ranges"]) == config["repo_local_reproducibility"]["interval_count"],
-            "COLLISION_WITNESS_INTERVAL_COUNT")
-    entities = witness["entity_codes"]
-    require(len(entities) == len(set(entities)) == 3, "COLLISION_ENTITY_CODES")
     fixture = json.loads(pinned_file(config["pinned_repository_inputs"]["real_fixture"]))
-    fixture_entities = {record["expected"]["ds_orgao"] for record in fixture["records"]}
-    require(fixture_entities.issubset(set(entities)), "COLLISION_FIXTURE_ENTITY_DRIFT")
+    require(fixture["schema"] == "TASK282_MINIMIZED_ACCOUNTING_FIXTURE_V3",
+            "FIXTURE_SCHEMA")
+    require(fixture["privacy"] == {
+        "raw_supplier_identifier_persisted": False,
+        "synthetic_supplier_identifiers_only": True,
+        "amount_persisted": False,
+        "expense_description_persisted": False,
+        "history_text_persisted": False,
+    }, "FIXTURE_PRIVACY")
+    require(fixture["source_csv_sha256"] == config["ledger"]["csv_sha256"],
+            "FIXTURE_SOURCE_DRIFT")
+    return fixture
 
-    expanded: list[tuple[int, int, tuple[int, ...]]] = []
-    for item in witness["ranges"]:
-        year, start, end, codes = item["y"], item["a"], item["b"], tuple(item["e"])
-        require(type(year) is int and 1900 <= year <= 2099, "COLLISION_YEAR")
-        require(type(start) is int and type(end) is int and 1 <= start <= end,
-                "COLLISION_RANGE")
-        require(len(codes) >= 2 and len(codes) == len(set(codes)),
-                "COLLISION_ENTITY_CARDINALITY")
-        require(all(type(code) is int and 0 <= code < len(entities) for code in codes),
-                "COLLISION_ENTITY_CODE")
-        expanded.extend((year, number, codes) for number in range(start, end + 1))
 
-    require(len(expanded) == witness["collision_witness_count"], "COLLISION_EXPANSION_COUNT")
-    require(len({(year, number) for year, number, _ in expanded}) == len(expanded),
-            "COLLISION_DUPLICATE_NUMBER_YEAR")
+def fixture_rows(config: dict | None = None) -> list[dict]:
+    fixture = load_fixture(config)
+    rows = [dict(record["row"]) for record in fixture["records"]]
+    require(all(row.get("identificador_despesa", "").startswith("FIXTURE_SUPPLIER_")
+                for row in rows), "FIXTURE_SUPPLIER_MUST_BE_SYNTHETIC")
+    return rows
+
+
+def repo_local_identity_audit(config: dict | None = None) -> dict:
+    config = config or load_config()
+    rows = fixture_rows(config)
+    index = index_rows(rows)
+    collisions = namespace_collisions(index)
+    proof = config["repo_local_reproducibility"]
+    expected_entities = sorted(proof["colliding_entities"])
+    matching = [
+        collision for collision in collisions
+        if collision["number"] == proof["colliding_number"]
+        and collision["original_year"] == proof["colliding_original_year"]
+        and sorted(collision["entities"]) == expected_entities
+    ]
+    require(len(matching) == 1, "DIRECT_COLLISION_COUNTEREXAMPLE_MISSING")
+
+    candidate = resolve_accounting_cohort(
+        index,
+        CommitmentKey("Limeira", "PREFEITURA MUNICIPAL DE LIMEIRA", 2026, "3286"),
+    )
+    require([obs["stage"] for obs in candidate["observations"]]
+            == ["COMMITMENT", "LIQUIDATION", "PAYMENT"],
+            "NEGATIVE_CONTROL_STAGE_DRIFT")
+    require(candidate["procurement_identity"] == "UNRESOLVED",
+            "PROCUREMENT_IDENTITY_MUST_REMAIN_UNRESOLVED")
+    require(candidate["payment_attribution_authorized"] is False,
+            "PAYMENT_ATTRIBUTION_MUST_REMAIN_BLOCKED")
 
     return {
-        "schema": "TASK282_REPO_LOCAL_COLLISION_AUDIT_V1",
-        "status": "PASS_TASK282_REPO_LOCAL_COLLISION_WITNESS",
-        "source_csv_sha256": witness["source_csv_sha256"],
-        "source_row_count_inherited_from_task187":
-            witness["source_row_count_inherited_from_task187"],
-        "collision_witness_count": len(expanded),
-        "exhaustive_source_collision_count_claimed": False,
-        "interval_count": len(witness["ranges"]),
-        "entity_codes": entities,
+        "schema": "TASK282_REPO_LOCAL_IDENTITY_AUDIT_V2",
+        "status": "PASS_TASK282_REPO_LOCAL_IDENTITY_AUDIT",
+        "collision_counterexample": matching[0],
         "canonical_claim":
             "NUMBER_YEAR_ALONE_IS_NOT_A_SAFE_ACCOUNTING_IDENTITY_ACROSS_ENTITIES",
+        "exhaustive_source_collision_count_claimed": False,
+        "negative_control": {
+            "key": candidate["key"],
+            "stages": [obs["stage"] for obs in candidate["observations"]],
+            "official_detail_ids":
+                [obs["official_detail_id"] for obs in candidate["observations"]],
+            "procurement_identity": candidate["procurement_identity"],
+            "payment_attribution_authorized":
+                candidate["payment_attribution_authorized"],
+        },
     }
 
 
 def main() -> None:
     print(json.dumps(
-        collision_witness_audit(),
+        repo_local_identity_audit(),
         ensure_ascii=False,
         sort_keys=True,
         indent=2,
