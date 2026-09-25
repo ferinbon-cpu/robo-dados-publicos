@@ -235,5 +235,15 @@
     "path": "docs/Model/RecuperarContratoDTO.md",
     "blob_sha": "8a2712d0d6589d41825e9257358cbe4d3ffa0473",
     "role": "TECHNICAL_CORROBORATION_ONLY_NOT_CANONICAL_SEMANTICS"
-  }
+  },
+  "authorization_basis": "OWNER_WORK_ASTRA_PROMPT_EXPLICITLY_REQUESTED_PUBLIC_DOCUMENTATION_RESEARCH",
+  "research_acquisition_class": "PUBLIC_DOCUMENTATION_RESEARCH_NOT_OPERATIONAL_SOURCE_EXECUTION",
+  "drive_context_reads_occurred": true,
+  "operational_effects": {
+    "pncp_gets": 0,
+    "new_tce_ledger_gets": 0,
+    "source_mutations": 0,
+    "publication": false
+  },
+  "timestamp_note": "retrieved_at records the actual 2026-09-20/21 UTC acquisition instants; they are historical relative to the current project date and are not synthetic future timestamps."
 }
