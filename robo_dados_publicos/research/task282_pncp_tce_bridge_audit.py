@@ -49,10 +49,10 @@ def load_config() -> dict:
 def collision_witness_audit(config: dict | None = None) -> dict:
     config = config or load_config()
     witness = json.loads(pinned_file(config["pinned_repository_inputs"]["collision_ranges"]))
-    require(witness["schema"] == "TASK282_COLLISION_RANGES_V1", "COLLISION_WITNESS_SCHEMA")
+    require(witness["schema"] == "TASK282_COLLISION_RANGES_V2", "COLLISION_WITNESS_SCHEMA")
     require(witness["source_csv_sha256"] == config["ledger"]["csv_sha256"],
             "COLLISION_WITNESS_SOURCE")
-    require(witness["source_row_count"] == config["repo_local_reproducibility"]["source_row_count_inherited_from_task187"],
+    require(witness["source_row_count_inherited_from_task187"] == config["repo_local_reproducibility"]["source_row_count_inherited_from_task187"],
             "COLLISION_WITNESS_ROW_COUNT")
     require(witness["collision_count"] == config["repo_local_reproducibility"]["collision_count"],
             "COLLISION_WITNESS_COUNT")
@@ -79,9 +79,7 @@ def collision_witness_audit(config: dict | None = None) -> dict:
         "schema": "TASK282_REPO_LOCAL_COLLISION_AUDIT_V1",
         "status": "PASS_TASK282_REPO_LOCAL_COLLISION_WITNESS",
         "source_csv_sha256": witness["source_csv_sha256"],
-        "source_row_count_inherited_from_task187": witness["source_row_count"],
-        "scoped_commitment_count_extended_replay_observed":
-            witness["scoped_commitment_count_observed"],
+        "source_row_count_inherited_from_task187": witness["source_row_count_inherited_from_task187"],
         "collision_count": len(expanded),
         "interval_count": len(witness["ranges"]),
         "entity_codes": entities,
