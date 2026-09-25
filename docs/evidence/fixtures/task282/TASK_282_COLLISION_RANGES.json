@@ -1,1 +1,35 @@
-{"collision_witness_count":682,"entity_codes":["CÂMARA MUNICIPAL DE LIMEIRA","INSTITUTO DE PREVIDÊNCIA MUNICIPAL DE LIMEIRA","PREFEITURA MUNICIPAL DE LIMEIRA"],"exhaustive_source_collision_count_claimed":false,"municipality":"Limeira","ranges":[{"a":1,"b":128,"e":[0,1,2],"y":2026},{"a":129,"b":139,"e":[0,2],"y":2026},{"a":142,"b":238,"e":[0,2],"y":2026},{"a":240,"b":252,"e":[0,2],"y":2026},{"a":254,"b":268,"e":[0,2],"y":2026},{"a":273,"b":285,"e":[0,2],"y":2026},{"a":288,"b":296,"e":[0,2],"y":2026},{"a":298,"b":309,"e":[0,2],"y":2026},{"a":311,"b":359,"e":[0,2],"y":2026},{"a":367,"b":369,"e":[0,2],"y":2026},{"a":371,"b":391,"e":[0,2],"y":2026},{"a":393,"b":419,"e":[0,2],"y":2026},{"a":422,"b":493,"e":[0,2],"y":2026},{"a":496,"b":499,"e":[0,2],"y":2026},{"a":501,"b":544,"e":[0,2],"y":2026},{"a":546,"b":554,"e":[0,2],"y":2026},{"a":560,"b":562,"e":[0,2],"y":2026},{"a":564,"b":633,"e":[0,2],"y":2026},{"a":635,"b":709,"e":[0,2],"y":2026},{"a":711,"b":717,"e":[0,2],"y":2026}],"schema":"TASK282_COLLISION_RANGES_V3","source_csv_sha256":"87b640aa9d854832bdd66b452d8532043e9f27bc12ec638ee77dcb5d8001f152","source_row_count_inherited_from_task187":39779}
+{
+  "collision_witness_count": 682,
+  "entity_codes": [
+    "CÂMARA MUNICIPAL DE LIMEIRA",
+    "INSTITUTO DE PREVIDÊNCIA MUNICIPAL DE LIMEIRA",
+    "PREFEITURA MUNICIPAL DE LIMEIRA"
+  ],
+  "exhaustive_source_collision_count_claimed": false,
+  "municipality": "Limeira",
+  "ranges": [
+    {"a": 1, "b": 128, "e": [0, 1, 2], "y": 2026},
+    {"a": 129, "b": 139, "e": [0, 2], "y": 2026},
+    {"a": 142, "b": 238, "e": [0, 2], "y": 2026},
+    {"a": 240, "b": 252, "e": [0, 2], "y": 2026},
+    {"a": 254, "b": 268, "e": [0, 2], "y": 2026},
+    {"a": 273, "b": 285, "e": [0, 2], "y": 2026},
+    {"a": 288, "b": 296, "e": [0, 2], "y": 2026},
+    {"a": 298, "b": 309, "e": [0, 2], "y": 2026},
+    {"a": 311, "b": 359, "e": [0, 2], "y": 2026},
+    {"a": 367, "b": 369, "e": [0, 2], "y": 2026},
+    {"a": 371, "b": 391, "e": [0, 2], "y": 2026},
+    {"a": 393, "b": 419, "e": [0, 2], "y": 2026},
+    {"a": 422, "b": 493, "e": [0, 2], "y": 2026},
+    {"a": 496, "b": 499, "e": [0, 2], "y": 2026},
+    {"a": 501, "b": 544, "e": [0, 2], "y": 2026},
+    {"a": 546, "b": 554, "e": [0, 2], "y": 2026},
+    {"a": 560, "b": 562, "e": [0, 2], "y": 2026},
+    {"a": 564, "b": 633, "e": [0, 2], "y": 2026},
+    {"a": 635, "b": 709, "e": [0, 2], "y": 2026},
+    {"a": 711, "b": 717, "e": [0, 2], "y": 2026}
+  ],
+  "schema": "TASK282_COLLISION_RANGES_V3",
+  "source_csv_sha256": "87b640aa9d854832bdd66b452d8532043e9f27bc12ec638ee77dcb5d8001f152",
+  "source_row_count_inherited_from_task187": 39779
+}
