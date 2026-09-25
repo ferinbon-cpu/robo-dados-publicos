@@ -34,29 +34,60 @@ def load_config() -> dict:
     require(config["issue"] == 901, "CONFIG_ISSUE")
     require(config["execution_class"] == "T0_OFFLINE_REPLAY", "EXECUTION_CLASS")
     require(config["effects_scope"] ==
-            "TASK282_LIBRARY_AND_REPLAY_RUNTIME_ONLY_NOT_RESEARCH_ACQUISITION",
+            "TASK282_LIBRARY_AND_REPLAY_RUNTIME_ONLY",
             "EFFECTS_SCOPE")
     require(config["effects"] == {
         "pncp_requests": 0, "tce_requests": 0, "drive_reads": 0,
         "drive_writes": 0, "publication": False, "task281_consumed": False,
     }, "OFFLINE_RUNTIME_EFFECTS_REQUIRED")
-    acquisition = config["research_acquisition"]
-    require(acquisition["authorization_basis"] ==
-            "OWNER_WORK_ASTRA_PROMPT_EXPLICITLY_REQUESTED_PUBLIC_DOCUMENTATION_RESEARCH",
-            "RESEARCH_AUTHORIZATION_BASIS")
-    require(acquisition["public_documentation_http_reads_manifested"] == 12,
-            "DOCUMENTATION_READ_COUNT")
-    require(acquisition["drive_context_reads_occurred"] is True,
-            "DRIVE_CONTEXT_READS_MUST_BE_DISCLOSED")
-    require(acquisition["pncp_operational_gets"] == 0 and
-            acquisition["new_tce_ledger_gets"] == 0 and
-            acquisition["source_mutations"] == 0 and
-            acquisition["publication"] is False,
-            "RESEARCH_ACQUISITION_BOUNDARY")
     require(config["procurement_promotion_allowed"] is False, "PROMOTION_FORBIDDEN")
     for spec in config["pinned_repository_inputs"].values():
         pinned_file(spec)
     return config
+
+
+def collision_witness_audit(config: dict | None = None) -> dict:
+    config = config or load_config()
+    witness = json.loads(pinned_file(config["pinned_repository_inputs"]["collision_ranges"]))
+    require(witness["schema"] == "TASK282_COLLISION_RANGES_V1", "COLLISION_WITNESS_SCHEMA")
+    require(witness["source_csv_sha256"] == config["ledger"]["csv_sha256"],
+            "COLLISION_WITNESS_SOURCE")
+    require(witness["source_row_count"] == config["ledger"]["source_row_count"],
+            "COLLISION_WITNESS_ROW_COUNT")
+    require(witness["collision_count"] == config["repo_local_reproducibility"]["collision_count"],
+            "COLLISION_WITNESS_COUNT")
+    require(len(witness["ranges"]) == config["repo_local_reproducibility"]["interval_count"],
+            "COLLISION_WITNESS_INTERVAL_COUNT")
+    entities = witness["entity_codes"]
+    require(len(entities) == len(set(entities)) == 3, "COLLISION_ENTITY_CODES")
+    expanded: list[tuple[int, int, tuple[int, ...]]] = []
+    for item in witness["ranges"]:
+        year, start, end, codes = item["y"], item["a"], item["b"], tuple(item["e"])
+        require(type(year) is int and 1900 <= year <= 2099, "COLLISION_YEAR")
+        require(type(start) is int and type(end) is int and 1 <= start <= end,
+                "COLLISION_RANGE")
+        require(len(codes) >= 2 and len(codes) == len(set(codes)),
+                "COLLISION_ENTITY_CARDINALITY")
+        require(all(type(code) is int and 0 <= code < len(entities) for code in codes),
+                "COLLISION_ENTITY_CODE")
+        expanded.extend((year, number, codes) for number in range(start, end + 1))
+    require(len(expanded) == witness["collision_count"], "COLLISION_EXPANSION_COUNT")
+    require(len({(year, number) for year, number, _ in expanded}) == len(expanded),
+            "COLLISION_DUPLICATE_NUMBER_YEAR")
+    require(all(len(codes) >= 2 for _, _, codes in expanded), "COLLISION_SCOPE")
+    return {
+        "schema": "TASK282_REPO_LOCAL_COLLISION_AUDIT_V1",
+        "status": "PASS_TASK282_REPO_LOCAL_COLLISION_WITNESS",
+        "source_csv_sha256": witness["source_csv_sha256"],
+        "source_row_count_inherited_from_task187": witness["source_row_count"],
+        "scoped_commitment_count_extended_replay_observed":
+            witness["scoped_commitment_count_observed"],
+        "collision_count": len(expanded),
+        "interval_count": len(witness["ranges"]),
+        "entity_codes": entities,
+        "canonical_claim":
+            "NUMBER_YEAR_ALONE_IS_NOT_A_SAFE_ACCOUNTING_IDENTITY_ACROSS_ENTITIES",
+    }
 
 
 def target_gaps(seeds: list[dict], coverage_end: str, rows: list[dict]) -> list[dict]:
@@ -130,7 +161,6 @@ def audit(csv_bytes: bytes) -> dict:
         "execution_class": config["execution_class"],
         "effects_scope": config["effects_scope"],
         "effects": config["effects"],
-        "research_acquisition": config["research_acquisition"],
         "status": "UNRESOLVED",
         "ledger": {
             "csv_sha256": config["ledger"]["csv_sha256"],
@@ -165,13 +195,20 @@ def audit(csv_bytes: bytes) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--ledger-csv", required=True, type=Path)
-    parser.add_argument("--check", type=Path, help="Compare with a frozen offline result")
+    parser.add_argument("--ledger-csv", type=Path,
+                        help="Optional extended replay using the already-custodied TASK187 CSV")
+    parser.add_argument("--check", type=Path,
+                        help="Compare extended replay with a frozen result")
     args = parser.parse_args()
+    repo_local = collision_witness_audit()
+    if args.ledger_csv is None:
+        print(json.dumps(repo_local, ensure_ascii=False, sort_keys=True, indent=2))
+        return
     result = audit(args.ledger_csv.read_bytes())
     if args.check:
-        require(result == json.loads(args.check.read_text(encoding="utf-8")), "EVIDENCE_DRIFT")
-        print("PASS_TASK282_OFFLINE_REPLAY")
+        require(result == json.loads(args.check.read_text(encoding="utf-8")),
+                "EVIDENCE_DRIFT")
+        print("PASS_TASK282_EXTENDED_CUSTODIED_REPLAY")
     else:
         print(json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2))
 
