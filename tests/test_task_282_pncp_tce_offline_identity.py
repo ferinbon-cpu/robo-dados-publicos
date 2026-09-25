@@ -24,6 +24,7 @@ from robo_dados_publicos.reconciliation.accounting_identity import (
     supplier_fingerprint,
 )
 from robo_dados_publicos.research import task282_pncp_tce_bridge_audit as audit_module
+from robo_dados_publicos.automation.policy import load_policy, validate_policy
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -292,6 +293,19 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         )
         self.assertFalse(gate["workflow_added"])
         self.assertFalse(gate["remote_materialization_authorized"])
+
+    def test_repository_automation_policy_validator_accepts_task282_gate(self):
+        policy = load_policy(ROOT)
+        result = validate_policy(policy)
+        self.assertEqual(result["status"], "PASS_AUTOMATION_POLICY")
+        gate = next(
+            row for row in policy["gates"]
+            if row["id"] == "TASK282_PNCP_TCE_OFFLINE_IDENTITY"
+        )
+        self.assertEqual(gate["workflow"], ".github/workflows/ci-offline.yml")
+        self.assertTrue(gate["validation_only"])
+        self.assertFalse(gate["task_runtime_auto_execution"])
+        self.assertFalse(gate["auto_allowed"])
 
     def test_supplier_conflict_exception_does_not_leak_raw_or_fingerprint(self):
         rows = [deepcopy(r) for r in self.rows if row_key(r) == self.key]
