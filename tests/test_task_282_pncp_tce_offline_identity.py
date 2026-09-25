@@ -19,7 +19,7 @@ from robo_dados_publicos.research import task282_pncp_tce_bridge_audit as audit_
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "docs/evidence/fixtures/task282/TASK_282_REAL_ACCOUNTING_ROWS.json"
-MANIFEST = ROOT / "docs/evidence/TASK_282_OFFICIAL_BRIDGE_DOCUMENTATION_0.8.0.json"
+COLLISIONS = ROOT / "docs/evidence/fixtures/task282/TASK_282_COLLISION_RANGES.json"
 
 
 class Task282OfflineIdentityTests(unittest.TestCase):
@@ -147,6 +147,9 @@ class Task282OfflineIdentityTests(unittest.TestCase):
             path.write_bytes(b"changed")
             with self.assertRaisesRegex(AccountingIdentityStop, "PINNED_SOURCE_DRIFT"):
                 audit_module.pinned_file(spec, Path(tmp))
+            missing = {"path": "missing.json", "sha256": hashlib.sha256(b"missing").hexdigest()}
+            with self.assertRaises(FileNotFoundError):
+                audit_module.pinned_file(missing, Path(tmp))
         with self.assertRaisesRegex(AccountingIdentityStop, "LEDGER_BYTES_DRIFT"):
             audit_module.audit(b"untrusted ledger")
 
@@ -171,8 +174,10 @@ class Task282OfflineIdentityTests(unittest.TestCase):
                          ["COMMITMENT", "LIQUIDATION", "PAYMENT"])
         self.assertTrue(all("supplier_token" not in r and "supplier_fingerprint_sha256" not in r
                             for r in observations))
-        self.assertEqual(result["ledger"]["unscoped_colliding_key_count"], 682)
-        self.assertEqual(result["ledger"]["row_count"], 39779)
+        local = audit_module.collision_witness_audit()
+        self.assertEqual(local["collision_count"], 682)
+        self.assertEqual(local["interval_count"], 20)
+        self.assertEqual(local["source_row_count_inherited_from_task187"], 39779)
         self.assertEqual(result["negative_control"]["municipal_chain"],
                          "PROVEN_TASK219AA_TASK219AB_PRESERVED")
         self.assertFalse(result["production_identity_promoted"])
@@ -204,18 +209,32 @@ class Task282OfflineIdentityTests(unittest.TestCase):
                     imported.add(node.module.split(".")[0])
             self.assertTrue(blocked.isdisjoint(imported), (path, imported & blocked))
 
-    def test_research_acquisition_is_disclosed_separately_from_t0_replay(self):
-        config = audit_module.load_config()
-        acquisition = config["research_acquisition"]
-        self.assertEqual(config["execution_class"], "T0_OFFLINE_REPLAY")
-        self.assertTrue(acquisition["drive_context_reads_occurred"])
-        self.assertEqual(acquisition["public_documentation_http_reads_manifested"], 12)
-        self.assertEqual(acquisition["pncp_operational_gets"], 0)
-        self.assertEqual(acquisition["new_tce_ledger_gets"], 0)
-        manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
-        self.assertEqual(manifest["authorization_basis"],
-                         "OWNER_WORK_ASTRA_PROMPT_EXPLICITLY_REQUESTED_PUBLIC_DOCUMENTATION_RESEARCH")
-        self.assertEqual(manifest["operational_effects"]["pncp_gets"], 0)
+    def test_repo_local_collision_witness_is_runtime_no_network(self):
+        with patch.object(socket, "socket", side_effect=AssertionError("NETWORK_FORBIDDEN")):
+            result = audit_module.collision_witness_audit()
+        self.assertEqual(result["status"], "PASS_TASK282_REPO_LOCAL_COLLISION_WITNESS")
+        self.assertEqual(result["collision_count"], 682)
+        self.assertEqual(result["interval_count"], 20)
+        self.assertEqual(result["canonical_claim"],
+                         "NUMBER_YEAR_ALONE_IS_NOT_A_SAFE_ACCOUNTING_IDENTITY_ACROSS_ENTITIES")
+
+    def test_collision_witness_is_small_minimized_and_self_consistent(self):
+        raw = COLLISIONS.read_text(encoding="utf-8")
+        witness = json.loads(raw)
+        self.assertEqual(witness["schema"], "TASK282_COLLISION_RANGES_V2")
+        self.assertEqual(witness["collision_count"], 682)
+        self.assertEqual(
+            sum(item["b"] - item["a"] + 1 for item in witness["ranges"]), 682)
+        self.assertNotIn("identificador_despesa", raw)
+        self.assertNotIn("vl_despesa", raw)
+        self.assertNotIn("historico_despesa", raw)
+
+    def test_supplier_change_within_same_scoped_commitment_is_fail_closed(self):
+        rows = [deepcopy(r) for r in self.rows if row_key(r) == self.key]
+        rows[1]["identificador_despesa"] = "TRANSFER_OR_NOVATION_REQUIRES_EXPLICIT_WITNESS"
+        with self.assertRaisesRegex(AccountingIdentityStop,
+                                    "CONFLICTING_SUPPLIER_WITHIN_SCOPED_COMMITMENT"):
+            index_rows(rows)
 
 
 if __name__ == "__main__":
