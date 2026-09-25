@@ -2,7 +2,7 @@
 
 TASK282 • Issue #901 • base main `69954f7532da1457c040b745b1a9551cc3551d18`.
 
-A rota mais curta para um primeiro vínculo com o TCE é completar a prova de identidade de um empenho municipal já conhecido. O contrato 45/2026 já está ligado ao processo licitatório E00010/2026 e ao empenho TDA `03286-01` pelas TASK219AA e TASK219AB. Falta provar, com documento oficial, a equivalência desse identificador com `3286-2026` na entidade contábil correta do TCE. Retirar zeros e o sufixo `-01` seria uma hipótese, não uma prova.
+A rota mais curta para um primeiro vínculo com o TCE é completar a prova de identidade de um empenho municipal já conhecido. A pesquisa de documentação pública oficial desta task foi explicitamente solicitada pelo owner no Work/Astra; ela é registrada separadamente do replay e da biblioteca T0/offline. O contrato 45/2026 já está ligado ao processo licitatório E00010/2026 e ao empenho TDA `03286-01` pelas TASK219AA e TASK219AB. Falta provar, com documento oficial, a equivalência desse identificador com `3286-2026` na entidade contábil correta do TCE. Retirar zeros e o sufixo `-01` seria uma hipótese, não uma prova.
 
 Existe também o desenho oficial de uma rota potencialmente escalável que dispensa `linked-contract`: AUDESP Edital → Ajuste → Empenho de Contrato. O layout permite descrever as relações necessárias; não demonstra que os registros de Limeira estejam disponíveis publicamente. A conclusão da ponte PNCP–TCE permanece **UNRESOLVED / EVIDENCIA_INSUFICIENTE**.
 
@@ -84,7 +84,7 @@ A rota municipal é prioritária para um piloto maduro. A Nova Fase IV é a melh
 
 ## 6 Falsos positivos demonstrados
 
-O replay do CSV custodiado confirmou 39.779 observações, 6.956 chaves completas de empenho e **682 números/anos compartilhados por mais de um órgão**. O empenho 1/2026 aparece em Prefeitura, Câmara e Instituto de Previdência. A fixture mínima usa duas dessas entidades e três observações do caso 3286; não publica dados pessoais do exemplo da Câmara.
+O replay do CSV custodiado confirmou 39.779 observações, 6.956 chaves completas de empenho e **682 números/anos compartilhados por mais de um órgão**. O replay e a biblioteca não fazem rede; a aquisição anterior de 12 documentos públicos oficiais é uma etapa de pesquisa separada e explicitamente registrada no manifesto de proveniência. O empenho 1/2026 aparece em Prefeitura, Câmara e Instituto de Previdência. A fixture mínima usa duas dessas entidades e três observações do caso 3286; não publica dados pessoais do exemplo da Câmara.
 
 Os oito pares processo JOM/processo PNCP divergem literalmente. Exemplo: processo administrativo 900.714/2026, edital 202/2026, `numeroCompra=00147`, `processo=E00147` e sequencial PNCP 645 são cinco identificadores com papéis diferentes. Uma regra que remove pontuação não resolve esses papéis.
 
@@ -120,11 +120,11 @@ O resolvedor entregue não calcula total contratual, não soma estágios e não 
 
 ## 10 Fixtures testes e reprodução
 
-Foram incluídos cinco registros reais mínimos, com ordinal no CSV original, hash do arquivo e hash por linha. A amostra separa dois órgãos com empenho 1/2026 e preserva os três estágios de 3286/2026. O replay completo usa o arquivo já custodiado da TASK187; não busca uma versão atual na rede.
+Foi incluída uma fixture minimizada com cinco âncoras reais por ordinal e apenas os campos contábeis necessários para reproduzir namespace, estágio e colisão. CNPJ/CPF, valor, descrição da despesa e histórico textual não são persistidos na fixture. Marcadores sintéticos de fornecedor exercitam apenas a regra de consistência. No replay completo, o identificador bruto do fornecedor é usado transitoriamente para detectar contradição dentro da coorte, mas não é emitido no resultado. O replay usa o arquivo já custodiado da TASK187 e não busca uma versão atual na rede.
 
-Os testes cobrem colisão, ausência de entidade, município/ano divergentes, número sem ano, sintaxe TDA não suportada, zeros, letras em identificadores de fornecedor, CPF truncado sem promoção, ID duplicado, conflito de fornecedor, estágio desconhecido, anulação sem estágio, ordenação determinística, bytes alterados, classe PNCP trocada e invariantes de não atribuição.
+Os testes cobrem colisão, ausência de entidade, município/ano divergentes, número sem ano, sintaxe TDA não suportada, ID duplicado, conflito de fornecedor, estágio desconhecido, anulação sem estágio, ordenação determinística, bytes alterados, classe PNCP trocada, invariantes de não atribuição, minimização da fixture, ausência de clientes de rede no replay e separação explícita entre pesquisa documental autorizada e runtime T0.
 
-Validação local: 15 testes TASK282, suíte completa de 4.138 testes, selftest 109/109, replay integral e os três gates exigidos por AGENTS.md aprovados; compileall sem erro. O PR permanece sujeito à CI e à revisão externa, sem autoaprovação.
+A revisão DeepSeek inicial do head 650521ff identificou um falso positivo de sintaxe causado pela própria redação/sanitização do contexto e também pontos válidos de governança/minimização. A revisão foi respondida no código: o identificador bruto do fornecedor deixou de ser persistido, a fixture foi minimizada, a aquisição documental passou a ser explicitamente separada do replay T0 e foram adicionados testes de ausência de cliente de rede e de proveniência. O head corrigido deve passar novamente pela CI e pela revisão DeepSeek antes de qualquer merge.
 
 ```bash
 python -m robo_dados_publicos.research.task282_pncp_tce_bridge_audit \
@@ -163,4 +163,4 @@ Ainda não há um endpoint de download documental unitário identificado para a 
 
 ## Limites da implementação
 
-O código é uma biblioteca offline e um comando de replay, sem workflow novo, sem fetch e sem persistência automática. O arquivo de evidência é um resultado de pesquisa submetido à revisão, não promoção de release ou identidade de compra. TASK219AA/AB, TASK281 e snapshots históricos permanecem preservados. CI e a revisão externa exigida por AGENTS.md continuam sendo condições do PR; não há self-merge.
+O código executável entregue é uma biblioteca offline e um comando de replay, sem workflow novo, sem fetch e sem persistência automática. Isso não apaga a fase anterior de pesquisa: 12 leituras HTTP de documentação pública oficial e leituras de contexto no Drive ocorreram sob a solicitação explícita do owner e estão declaradas separadamente no manifesto. O arquivo de evidência é um resultado de pesquisa submetido à revisão, não promoção de release ou identidade de compra. TASK219AA/AB, TASK281 e snapshots históricos permanecem preservados. CI e a revisão externa exigida por AGENTS.md continuam sendo condições do PR; não há self-merge.
