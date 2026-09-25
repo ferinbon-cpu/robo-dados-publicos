@@ -167,7 +167,7 @@ class Task282OfflineIdentityTests(unittest.TestCase):
 
     def test_frozen_result_preserves_real_cohort_without_supplier_identity(self):
         result = json.loads((ROOT / "docs/evidence/TASK_282_PNCP_TCE_OFFLINE_AUDIT_0.8.0.json").read_text())
-        observations = result["negative_control"]["result"]["observations"]
+        observations = result["negative_control"]["frozen_minimized_observations"]
         self.assertEqual([r["official_detail_id"] for r in observations],
                          ["667130190", "678095929", "678117536"])
         self.assertEqual([r["stage"] for r in observations],
@@ -180,7 +180,9 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         self.assertEqual(local["source_row_count_inherited_from_task187"], 39779)
         self.assertEqual(result["negative_control"]["municipal_chain"],
                          "PROVEN_TASK219AA_TASK219AB_PRESERVED")
+        self.assertFalse(result["negative_control"]["payment_attribution_authorized"])
         self.assertFalse(result["production_identity_promoted"])
+        self.assertFalse(result["full_ledger_extended_replay_is_merge_gate"])
 
     def test_fixture_is_minimized_and_contains_no_raw_supplier_or_amount(self):
         raw = FIXTURE.read_text(encoding="utf-8")
