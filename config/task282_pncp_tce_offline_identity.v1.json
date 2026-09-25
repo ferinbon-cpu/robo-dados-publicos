@@ -81,5 +81,11 @@
     ],
     "canonical_claim": "NUMBER_YEAR_ALONE_IS_NOT_A_SAFE_ACCOUNTING_IDENTITY_ACROSS_ENTITIES",
     "exhaustive_source_collision_count_claimed": false
+  },
+  "automation_surface": {
+    "workflow_added": false,
+    "current_triggers": [],
+    "invocation_surface": "MANUAL_CLI_OR_CI_TEST_ONLY",
+    "automation_policy_change_required_before_future_workflow": true
   }
 }
