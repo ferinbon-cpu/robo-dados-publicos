@@ -96,3 +96,17 @@ Qualquer investigação de fonte externa posterior deve ser tratada em tarefa e 
 ## Superfície de automação
 
 A TASK282 não adiciona workflow, schedule ou trigger. Ela agora possui um gate explícito em `config/automation_policy.v1.json` com tier `T0_OFFLINE`, `auto_allowed=false`, credencial `NONE`, zero efeitos remotos e `current_triggers=[]`. O script permanece manual/CI-test-only. Qualquer automação futura exige task/PR e revisão de política separadas.
+
+
+## Registro na política
+
+Gate: `TASK282_PNCP_TCE_OFFLINE_IDENTITY`.
+
+- tier: `T0_OFFLINE`;
+- `auto_allowed=false`;
+- credencial: `NONE`;
+- triggers: nenhum;
+- workflow novo: nenhum;
+- efeitos remotos: nenhum.
+
+Esse registro não habilita execução automática. Qualquer workflow futuro exige mudança de política separada.
