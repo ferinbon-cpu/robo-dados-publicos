@@ -26,7 +26,7 @@
     },
     "real_fixture": {
       "path": "docs/evidence/fixtures/task282/TASK_282_REAL_ACCOUNTING_ROWS.json",
-      "sha256": "3a34453546fde7490410c049f297b0bb39f0b93682127d7456649f03510dab21"
+      "sha256": "019f3dbaa60462e97acf565d8aa5ca5ba575b931c21681af9aff62943cc9d377"
     },
     "task219aa_municipal_chain": {
       "path": "docs/evidence/TASK_219AA_TDA_STRONG_PROCUREMENT_BRIDGE_CANONIZATION_0.8.0.json",
@@ -35,10 +35,6 @@
     "task219ab_contract_json": {
       "path": "docs/evidence/TASK_219AB_TDA_CONTRACTS_JSON_EXTRACTION_0.8.0.json",
       "sha256": "9fadb4e726eeafc8cc984c8dab9e7d7baf0d0ace597d482de85a697f64491e0d"
-    },
-    "collision_ranges": {
-      "path": "docs/evidence/fixtures/task282/TASK_282_COLLISION_RANGES.json",
-      "sha256": "672c1db638f4b747f437e8eb7b5fb1a217cfabde46f622b541d97cd8c2d81874"
     }
   },
   "remaining_edges": [
@@ -75,12 +71,15 @@
   "execution_class": "T0_OFFLINE_REPLAY",
   "effects_scope": "TASK282_LIBRARY_AND_REPLAY_RUNTIME_ONLY",
   "repo_local_reproducibility": {
-    "collision_witness_path": "docs/evidence/fixtures/task282/TASK_282_COLLISION_RANGES.json",
-    "collision_witness_sha256": "672c1db638f4b747f437e8eb7b5fb1a217cfabde46f622b541d97cd8c2d81874",
-    "interval_count": 20,
-    "source_row_count_inherited_from_task187": 39779,
+    "proof_source": "docs/evidence/fixtures/task282/TASK_282_REAL_ACCOUNTING_ROWS.json",
+    "proof_kind": "DIRECT_FIXTURE_COUNTEREXAMPLE",
+    "colliding_number": "1",
+    "colliding_original_year": 2026,
+    "colliding_entities": [
+      "PREFEITURA MUNICIPAL DE LIMEIRA",
+      "INSTITUTO DE PREVIDÊNCIA MUNICIPAL DE LIMEIRA"
+    ],
     "canonical_claim": "NUMBER_YEAR_ALONE_IS_NOT_A_SAFE_ACCOUNTING_IDENTITY_ACROSS_ENTITIES",
-    "collision_witness_count": 682,
     "exhaustive_source_collision_count_claimed": false
   }
 }
