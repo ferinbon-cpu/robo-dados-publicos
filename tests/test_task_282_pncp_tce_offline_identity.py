@@ -252,6 +252,48 @@ class Task282OfflineIdentityTests(unittest.TestCase):
                     imported.add(node.module.split(".")[0])
             self.assertTrue(blocked.isdisjoint(imported), (path, imported & blocked))
 
+
+    def test_task282_is_registered_as_manual_only_t0_gate(self):
+        policy = json.loads(
+            (ROOT / "config/automation_policy.v1.json").read_text(encoding="utf-8")
+        )
+        matches = [
+            gate for gate in policy["gates"]
+            if gate["id"] == "TASK282_PNCP_TCE_OFFLINE_IDENTITY"
+        ]
+        self.assertEqual(len(matches), 1)
+        gate = matches[0]
+        self.assertEqual(gate["tier"], "T0_OFFLINE")
+        self.assertFalse(gate["auto_allowed"])
+        self.assertEqual(gate["current_triggers"], [])
+        self.assertEqual(gate["credential_capability"], "NONE")
+        self.assertEqual(
+            gate["effects"],
+            {
+                "source_network": False,
+                "drive_reads": False,
+                "drive_writes": False,
+                "publication": False,
+            },
+        )
+        self.assertFalse(gate["workflow_added"])
+        self.assertFalse(gate["remote_materialization_authorized"])
+
+    def test_supplier_conflict_exception_does_not_leak_raw_or_fingerprint(self):
+        rows = [deepcopy(r) for r in self.rows if row_key(r) == self.key]
+        secret = "LOW-ENTROPY-SUPPLIER-SECRET"
+        rows[1]["identificador_despesa"] = secret
+        fingerprint = supplier_fingerprint(rows[1])
+        try:
+            index_rows(rows)
+        except AccountingIdentityStop as exc:
+            message = str(exc)
+        else:
+            self.fail("Expected fail-closed supplier conflict")
+        self.assertNotIn(secret, message)
+        self.assertNotIn(fingerprint, message)
+        self.assertEqual(message, "CONFLICTING_SUPPLIER_WITHIN_SCOPED_COMMITMENT")
+
     def test_evidence_and_config_pin_same_base(self):
         config = audit_module.load_config()
         evidence = json.loads(
