@@ -58,11 +58,11 @@ def row_key(row: Mapping[str, str]) -> CommitmentKey:
     )
 
 
-def supplier_token(row: Mapping[str, str]) -> str:
-    # Keep type, leading zeroes and letters. Masked CPF is never a strong person ID.
-    token = str(row.get("identificador_despesa") or "").strip()
-    require(bool(token), "MISSING_SUPPLIER_TOKEN")
-    return token
+def supplier_fingerprint(row: Mapping[str, str]) -> str:
+    """Hash the raw supplier field for consistency checks without persisting the identifier."""
+    value = str(row.get("identificador_despesa") or "").strip()
+    require(bool(value), "MISSING_SUPPLIER_TOKEN")
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()
 
 
 STAGES = {
@@ -95,11 +95,12 @@ def index_rows(rows: Sequence[Mapping[str, str]]) -> dict[CommitmentKey, list[di
             "official_detail_id": official_id,
             "ledger_year": int(ledger_year), "reference_month": int(month),
             "source_stage": stage, "stage": STAGES[stage][0],
-            "modifier": STAGES[stage][1], "supplier_token": supplier_token(row),
+            "modifier": STAGES[stage][1],
+            "_supplier_fingerprint": supplier_fingerprint(row),
             "source_row_sha256": digest(dict(row)),
         })
     for observations in index.values():
-        require(len({r["supplier_token"] for r in observations}) == 1,
+        require(len({r["_supplier_fingerprint"] for r in observations}) == 1,
                 "CONFLICTING_SUPPLIER_WITHIN_SCOPED_COMMITMENT")
         observations.sort(key=lambda r: int(r["official_detail_id"]))
     return dict(index)
@@ -110,10 +111,14 @@ def resolve_accounting_cohort(
 ) -> dict:
     require(isinstance(key, CommitmentKey), "EXPLICIT_SCOPED_KEY_REQUIRED")
     observations = index.get(key, [])
+    public_observations = [
+        {field: value for field, value in observation.items() if not field.startswith("_")}
+        for observation in observations
+    ]
     return {
         "key": key.as_dict(),
         "accounting_status": "OBSERVED_SCOPED_COHORT" if observations else "UNRESOLVED",
-        "observations": observations,
+        "observations": public_observations,
         "procurement_identity": "UNRESOLVED",
         "reason": "MISSING_OFFICIAL_PROCUREMENT_TO_COMMITMENT_WITNESS",
         "payment_attribution_authorized": False,
