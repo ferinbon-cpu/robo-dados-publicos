@@ -67,8 +67,6 @@ O gate de merge usa somente arquivos presentes no repositório:
 
 O replay integral dos 17 MB do CSV TASK187 é **opcional** e não faz parte do gate de merge. Quando o arquivo já custodiado é fornecido localmente, `--ledger-csv` executa uma verificação estendida; o comando não baixa o CSV e não contém cliente de rede.
 
-A pesquisa ampla realizada em Work/Astra está preservada no documento do Drive `INVESTIGACAO_PONTE_PNCP_TCE_GRANDE_SALTO_V01`, mas **não é entrada canônica deste PR e não autoriza efeitos remotos**.
-
 ## Invariantes
 
 - fornecedor, objeto, valor, data próxima ou candidato único não criam identidade;
@@ -107,4 +105,4 @@ Nenhum comando da TASK282 realiza fetch, Drive write, publicação ou consumo da
 
 O próximo trabalho deve permanecer focado no caso 45/2026: localizar ou materializar um testemunho oficial que explique a equivalência entre `03286-01` e `3286/2026`, com entidade e exercício explícitos. Até lá, a ponte TDA → TCE permanece aberta.
 
-A pesquisa de rotas alternativas e documentação externa permanece no relatório do Drive e deve virar tarefas separadas somente quando houver contrato/gate apropriado.
+Qualquer investigação de fonte externa posterior deve ser tratada em tarefa e gate próprios; ela não faz parte desta implementação T0.
