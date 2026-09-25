@@ -99,3 +99,7 @@ Nenhum comando da TASK282 realiza fetch, Drive write, publicação ou consumo da
 O próximo trabalho deve permanecer focado no caso 45/2026: localizar ou materializar um testemunho oficial que explique a equivalência entre `03286-01` e `3286/2026`, com entidade e exercício explícitos. Até lá, a ponte TDA → TCE permanece aberta.
 
 Qualquer investigação de fonte externa posterior deve ser tratada em tarefa e gate próprios; ela não faz parte desta implementação T0.
+
+## Registro de automação
+
+A TASK282 está registrada em `config/automation_policy.v1.json` como `T0_OFFLINE`, sem credenciais, sem workflow próprio, sem triggers remotos e com superfície `DIRECT_CLI_OR_CI_TEST_ONLY`. O registro também proíbe materialização remota e promoção de identidade financeira.
