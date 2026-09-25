@@ -5,11 +5,8 @@ import hashlib
 import json
 from pathlib import Path
 import http.client
-import http.client
 import re
 import socket
-import subprocess
-import urllib.request
 import subprocess
 import urllib.request
 import tempfile
@@ -264,10 +261,15 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         self.assertEqual(len(gates), 1)
         gate = gates[0]
         self.assertEqual(gate["tier"], "T0_OFFLINE")
-        self.assertTrue(gate["auto_allowed"])
+        self.assertFalse(gate["auto_allowed"])
         self.assertEqual(gate["credential_capability"], "NONE")
         self.assertEqual(gate["current_triggers"], [])
         self.assertTrue(gate["no_workflow_trigger"])
+        self.assertTrue(gate["manual_execution_required"])
+        self.assertTrue(gate["owner_authorization_required"])
+        self.assertEqual(gate["blockers"], [
+            "EXPLICIT_OWNER_OR_ORCHESTRATOR_GATE_REQUIRED_FOR_LOCAL_SNAPSHOT_EXECUTION"
+        ])
         self.assertFalse(gate["remote_materialization_authorized"])
         self.assertFalse(gate["financial_identity_promotion_authorized"])
         self.assertEqual(gate["effects"], {
