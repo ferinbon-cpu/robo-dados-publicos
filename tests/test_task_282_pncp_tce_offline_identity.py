@@ -175,7 +175,7 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         self.assertTrue(all("supplier_token" not in r and "supplier_fingerprint_sha256" not in r
                             for r in observations))
         local = audit_module.collision_witness_audit()
-        self.assertEqual(local["collision_count"], 682)
+        self.assertEqual(local["collision_witness_count"], 682)
         self.assertEqual(local["interval_count"], 20)
         self.assertEqual(local["source_row_count_inherited_from_task187"], 39779)
         self.assertEqual(result["negative_control"]["municipal_chain"],
@@ -215,7 +215,7 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         with patch.object(socket, "socket", side_effect=AssertionError("NETWORK_FORBIDDEN")):
             result = audit_module.collision_witness_audit()
         self.assertEqual(result["status"], "PASS_TASK282_REPO_LOCAL_COLLISION_WITNESS")
-        self.assertEqual(result["collision_count"], 682)
+        self.assertEqual(result["collision_witness_count"], 682)
         self.assertEqual(result["interval_count"], 20)
         self.assertEqual(result["canonical_claim"],
                          "NUMBER_YEAR_ALONE_IS_NOT_A_SAFE_ACCOUNTING_IDENTITY_ACROSS_ENTITIES")
@@ -223,8 +223,9 @@ class Task282OfflineIdentityTests(unittest.TestCase):
     def test_collision_witness_is_small_minimized_and_self_consistent(self):
         raw = COLLISIONS.read_text(encoding="utf-8")
         witness = json.loads(raw)
-        self.assertEqual(witness["schema"], "TASK282_COLLISION_RANGES_V2")
-        self.assertEqual(witness["collision_count"], 682)
+        self.assertEqual(witness["schema"], "TASK282_COLLISION_RANGES_V3")
+        self.assertEqual(witness["collision_witness_count"], 682)
+        self.assertFalse(witness["exhaustive_source_collision_count_claimed"])
         self.assertEqual(
             sum(item["b"] - item["a"] + 1 for item in witness["ranges"]), 682)
         self.assertNotIn("identificador_despesa", raw)
