@@ -10,13 +10,7 @@ A conclusão continua `UNRESOLVED`: esta task **não** liga uma compra a um empe
 
 Número + ano de empenho não é uma chave segura entre entidades.
 
-A TASK187 já registra, em contrato versionado, o CSV oficial de despesas de Limeira/2026 como material previamente fornecido pelo owner e custodiado create-only. A TASK282 materializa no próprio repositório apenas o derivado mínimo necessário para revisar o novo achado: 682 pares número-ano com colisão entre entidades, representados compactamente em 20 intervalos, codificadas em 20 intervalos e sem fornecedor, valor, objeto ou histórico.
-
-Arquivo canônico:
-
-`docs/evidence/fixtures/task282/TASK_282_COLLISION_RANGES.json`
-
-A partir desse arquivo qualquer CI/revisor pode reproduzir, sem Drive e sem rede, que existem 682 pares número-ano representados pelos 20 intervalos e associados a pelo menos duas entidades. Portanto a chave futura deve incluir, no mínimo, município, entidade, exercício original e número.
+A prova canônica desta task é menor e totalmente repo-local: a fixture minimizada contém o mesmo empenho `1-2026` em duas entidades diferentes — Prefeitura Municipal de Limeira e Instituto de Previdência Municipal de Limeira. Esse único contraexemplo real já demonstra que número + ano não identifica de forma segura um empenho entre entidades. Portanto a chave futura deve incluir, no mínimo, município, entidade, exercício original e número.
 
 ## Chave contábil
 
@@ -62,10 +56,10 @@ O gate de merge usa somente arquivos presentes no repositório:
 - evidências TASK219AA/AB e TASK219H;
 - sementes TASK264;
 - fixture minimizada TASK282;
-- witness compacto das 682 colisões;
+- contraexemplo direto de colisão entre entidades na fixture minimizada;
 - carrier TASK281 apenas para provar que ele permanece independente/inativo.
 
-O CSV bruto de 17 MB não é necessário para executar, testar ou revisar a TASK282. A custódia e o SHA do ledger continuam pertencendo ao contrato histórico TASK187; esta task consome apenas o witness mínimo versionado.
+O CSV bruto de 17 MB não é necessário para executar, testar ou revisar a TASK282. A custódia e o SHA do ledger permanecem metadados herdados da TASK187; o gate desta task usa apenas arquivos versionados no repositório.
 
 ## Invariantes
 
