@@ -44,15 +44,24 @@ def load_config() -> dict:
 def load_fixture(config: dict | None = None) -> dict:
     config = config or load_config()
     fixture = json.loads(pinned_file(config["pinned_repository_inputs"]["real_fixture"]))
-    require(fixture["schema"] == "TASK282_MINIMIZED_ACCOUNTING_FIXTURE_V3",
+    require(fixture["schema"] == "TASK282_MINIMIZED_ACCOUNTING_FIXTURE_V4",
             "FIXTURE_SCHEMA")
     require(fixture["privacy"] == {
         "raw_supplier_identifier_persisted": False,
         "synthetic_supplier_identifiers_only": True,
+        "official_detail_ids_synthetic": True,
         "amount_persisted": False,
         "expense_description_persisted": False,
         "history_text_persisted": False,
     }, "FIXTURE_PRIVACY")
+    provenance = fixture["provenance"]
+    require(provenance["authority"].startswith("Tribunal de Contas"), "FIXTURE_AUTHORITY")
+    require(provenance["source_contract"] ==
+            "config/task187_tcesp_rich_expenses_2026.v1.json", "FIXTURE_SOURCE_CONTRACT")
+    require(provenance["raw_source_redistributed_here"] is False,
+            "RAW_SOURCE_REDISTRIBUTION_FORBIDDEN")
+    require(provenance["license_status"] == "NOT_ASSERTED_BY_TASK282",
+            "FIXTURE_LICENSE_MUST_NOT_BE_INVENTED")
     require(fixture["source_csv_sha256"] == config["ledger"]["csv_sha256"],
             "FIXTURE_SOURCE_DRIFT")
     return fixture
