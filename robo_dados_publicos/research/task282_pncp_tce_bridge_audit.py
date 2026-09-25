@@ -52,7 +52,7 @@ def collision_witness_audit(config: dict | None = None) -> dict:
     require(witness["schema"] == "TASK282_COLLISION_RANGES_V1", "COLLISION_WITNESS_SCHEMA")
     require(witness["source_csv_sha256"] == config["ledger"]["csv_sha256"],
             "COLLISION_WITNESS_SOURCE")
-    require(witness["source_row_count"] == config["ledger"]["source_row_count"],
+    require(witness["source_row_count"] == config["repo_local_reproducibility"]["source_row_count_inherited_from_task187"],
             "COLLISION_WITNESS_ROW_COUNT")
     require(witness["collision_count"] == config["repo_local_reproducibility"]["collision_count"],
             "COLLISION_WITNESS_COUNT")
