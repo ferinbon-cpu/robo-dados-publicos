@@ -86,6 +86,8 @@
     "workflow_added": false,
     "current_triggers": [],
     "invocation_surface": "MANUAL_CLI_OR_CI_TEST_ONLY",
-    "automation_policy_change_required_before_future_workflow": true
+    "automation_policy_change_required_before_future_workflow": true,
+    "policy_gate_id": "TASK282_PNCP_TCE_OFFLINE_IDENTITY",
+    "registered_in_policy": true
   }
 }
