@@ -44,7 +44,7 @@ Sem testemunho oficial dessa equivalência:
 
 ## Minimização
 
-A fixture da TASK282 não persiste CNPJ/CPF, valor, descrição da despesa ou histórico textual. O identificador de fornecedor pode ser usado transitoriamente pelo resolvedor apenas para detectar contradição dentro da mesma chave contábil; somente um fingerprint interno é comparado e ele é removido antes da saída pública.
+A fixture da TASK282 não persiste CNPJ/CPF reais, valor, descrição da despesa ou histórico textual. Os identificadores de observação (`id_despesa_detalhe`) e de fornecedor são sintéticos; a proveniência aponta para o contrato TASK187 e para a evidência histórica TASK219H. O identificador de fornecedor pode ser usado transitoriamente pelo resolvedor apenas para detectar contradição dentro da mesma chave contábil; somente um fingerprint interno é comparado e ele é removido antes da saída pública.
 
 Mudança de fornecedor dentro da mesma chave é tratada como STOP, não como transferência/novação implícita. Uma transferência válida exigiria relação oficial explícita e contrato próprio de dados.
 
@@ -95,7 +95,7 @@ Qualquer investigação de fonte externa posterior deve ser tratada em tarefa e 
 
 ## Superfície de automação
 
-A TASK282 não adiciona workflow, schedule ou trigger. Ela agora possui um gate explícito em `config/automation_policy.v1.json` com tier `T0_OFFLINE`, `auto_allowed=false`, credencial `NONE`, zero efeitos remotos e `current_triggers=[]`. O script permanece manual/CI-test-only. Qualquer automação futura exige task/PR e revisão de política separadas.
+A TASK282 não adiciona workflow, schedule ou trigger. Ela agora possui um gate explícito em `config/automation_policy.v1.json` com tier `T0_OFFLINE`, `auto_allowed=false`, credencial `NONE` e zero efeitos remotos. O workflow `ci-offline.yml` aparece apenas como superfície de validação em `pull_request:main` e `push:main`; `task_runtime_auto_execution=false`. O script permanece manual/CI-test-only. Qualquer automação futura exige task/PR e revisão de política separadas.
 
 
 ## Registro na política
@@ -105,7 +105,8 @@ Gate: `TASK282_PNCP_TCE_OFFLINE_IDENTITY`.
 - tier: `T0_OFFLINE`;
 - `auto_allowed=false`;
 - credencial: `NONE`;
-- triggers: nenhum;
+- superfície de validação: `ci-offline.yml` em PR/push de main;
+- execução automática da TASK282: bloqueada;
 - workflow novo: nenhum;
 - efeitos remotos: nenhum.
 
