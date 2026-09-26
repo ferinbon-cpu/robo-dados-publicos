@@ -269,9 +269,14 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         gate = matches[0]
         self.assertEqual(gate["tier"], "T0_OFFLINE")
         self.assertFalse(gate["auto_allowed"])
-        self.assertEqual(gate["current_triggers"], ["pull_request:main", "push:main"])
-        self.assertEqual(gate["workflow"], ".github/workflows/ci-offline.yml")
+        self.assertEqual(gate["current_triggers"], [])
+        self.assertEqual(gate["validation_workflow"], ".github/workflows/ci-offline.yml")
+        self.assertEqual(
+            gate["validation_triggers"], ["pull_request:main", "push:main"]
+        )
         self.assertTrue(gate["validation_only"])
+        self.assertTrue(gate["no_workflow_trigger"])
+        self.assertTrue(gate["manual_execution_required"])
         self.assertFalse(gate["task_runtime_auto_execution"])
         self.assertEqual(gate["credential_capability"], "NONE")
         self.assertEqual(
@@ -297,13 +302,18 @@ class Task282OfflineIdentityTests(unittest.TestCase):
     def test_repository_automation_policy_validator_accepts_task282_gate(self):
         policy = load_policy(ROOT)
         result = validate_policy(policy)
-        self.assertEqual(result["status"], "PASS_AUTOMATION_POLICY")
+        self.assertEqual(result["status"], "PASS_AUTOMATION_POLICY_STRUCTURE")
         gate = next(
             row for row in policy["gates"]
             if row["id"] == "TASK282_PNCP_TCE_OFFLINE_IDENTITY"
         )
-        self.assertEqual(gate["workflow"], ".github/workflows/ci-offline.yml")
+        self.assertEqual(gate["current_triggers"], [])
+        self.assertEqual(gate["validation_workflow"], ".github/workflows/ci-offline.yml")
+        self.assertEqual(
+            gate["validation_triggers"], ["pull_request:main", "push:main"]
+        )
         self.assertTrue(gate["validation_only"])
+        self.assertTrue(gate["no_workflow_trigger"])
         self.assertFalse(gate["task_runtime_auto_execution"])
         self.assertFalse(gate["auto_allowed"])
 
