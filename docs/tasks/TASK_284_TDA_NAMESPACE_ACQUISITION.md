@@ -22,3 +22,7 @@ Um filtro `3286` que retorne `03286-01` não demonstra, sozinho, a convenção c
 Obter da Prefeitura a Nota de Empenho original ou o extrato de integração TDA/CN-SIFPM → AUDESP que contenha a relação `03286-01` → `numeroEmpenho=3286`, `anoEmpenho=2026`, entidade Prefeitura de Limeira. Não há URL unitária do documento comprovada. O ponto de entrada oficial acima é um controle de aquisição, não uma URL presumida de download.
 
 Alternativamente, custodiar as remessas reais `Empenho de Contrato` e `Ajuste`, com o mesmo `codigoContrato`, código oficial de município/entidade e referência ao Contrato 45/2026, mais o identificador municipal de origem ou sua regra oficial. O schema AUDESP não contém a regra de remoção de `-01`; ele apenas restringe a gramática de destino. Um exemplo de outro contrato não resolve esta identidade.
+
+## Resultado da sessão autorizada
+
+`STOP_AREA_IDENTITY_NOT_PROVEN_BEFORE_TOP_ACTION`. A página oficial carregou e os quatro bindings inline da área Despesa reproduziram o mesmo destino. A identidade AreaOrigin não pôde ser comprovada na superfície DOM disponível. Por isso houve 1 navegação, 0 aberturas de área, 0 consultas, 0 retries e 0 PNCP. Não é consulta negativa nem ausência de empenho. A contagem HTTP total de subrecursos não é exposta pelo navegador. Evidência sanitizada: `docs/evidence/TASK_284_TDA_NAMESPACE_ACQUISITION_0.8.0.json`. Autorização desta sessão consumida; nenhum executor reutilizável ou retry foi habilitado.

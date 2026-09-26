@@ -18,6 +18,13 @@ ROOT = Path(__file__).resolve().parents[2]
 def load_contract() -> dict:
     data = json.loads((ROOT / "config/task284_tda_namespace_acquisition.v1.json").read_text())
     require(data["schema"] == "TASK284_TDA_NAMESPACE_ACQUISITION_V1", "TASK284_SCHEMA")
+    require(data["issue"] == 907 and data["tier"] == "T1_REMOTE_READONLY", "TASK284_IDENTITY")
+    require(data["owner_authorization"] == "EXPLICIT_OWNER_PROMPT_2026_09_26" and data["execution"] == "MANUAL_BROWSER_ONLY_AFTER_PREFLIGHT", "TASK284_AUTHORIZATION")
+    require(data["start_url"] == "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418", "TASK284_START_URL")
+    require(data["query"] == {"year": "2026", "number": "3286"}, "TASK284_QUERY")
+    require(data["top_area"] == {"name": "Despesa", "origin": "2_92_guestuser_207_6_DSL0_VIS1343"}, "TASK284_TOP_AREA")
+    require(data["detail_area"] == {"name": "Detalhe do Empenho", "origin": "2_92_guestuser_200_8_DSL0_VIS706"}, "TASK284_DETAIL_AREA")
+    require(data["task281_consumed"] is False, "TASK284_TASK281")
     require(data["automatic_execution_allowed"] is False, "TASK284_AUTOMATION")
     require(data["limits"] == {"browser_sessions": 1, "initial_navigations": 1, "top_area_actions": 1, "target_queries": 1, "retries": 0, "lateral_actions": 0, "pncp_requests": 0, "pagination": 0, "batch": 0, "direct_endpoint_requests": 0, "source_writes": 0}, "TASK284_LIMITS")
     require(data["capture"] == {"raw_html": False, "har": False, "cookies": False, "tokens": False, "hidden_values": False, "control_values": False, "only_sanitized_observations_and_hashes": True}, "TASK284_CAPTURE")

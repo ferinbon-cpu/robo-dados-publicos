@@ -1,10 +1,30 @@
-from copy import deepcopy
+import hashlib
+import json
+from pathlib import Path
 import unittest
+from unittest.mock import patch
+from copy import deepcopy
 from robo_dados_publicos.research.task283_tda_tce_namespace_dossier import Task283Stop
 from robo_dados_publicos.research.task284_tda_binding_gate import load_contract, validate_binding
 
 
 class Task284BindingTests(unittest.TestCase):
+    def test_consumed_gate_records_no_query_and_does_not_infer_absence(self):
+        root = Path(__file__).resolve().parents[1]
+        evidence = json.loads((root / "docs/evidence/TASK_284_TDA_NAMESPACE_ACQUISITION_0.8.0.json").read_text())
+        self.assertEqual(evidence["status"], "STOP_AREA_IDENTITY_NOT_PROVEN_BEFORE_TOP_ACTION")
+        self.assertEqual(evidence["counts"]["target_queries"], 0)
+        self.assertEqual(evidence["counts"]["top_area_actions"], 0)
+        self.assertEqual(evidence["counts"]["retries"], 0)
+        self.assertFalse(evidence["interpretation"]["commitment_existence_tested"])
+        self.assertFalse(evidence["interpretation"]["query_negative_result"])
+        self.assertTrue(evidence["authorization_consumed"])
+        self.assertFalse(evidence["new_session_or_retry_authorized_by_this_record"])
+        payload = json.dumps(evidence["sanitized_observation"], sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()
+        self.assertEqual(hashlib.sha256(payload).hexdigest(), evidence["sanitized_observation_sha256"])
+        contract_bytes = (root / "config/task284_tda_namespace_acquisition.v1.json").read_bytes()
+        self.assertEqual(hashlib.sha256(contract_bytes).hexdigest(), evidence["contract_sha256"])
+
     def binding(self):
         return {"area_name": "Detalhe do Empenho", "area_origin": "2_92_guestuser_200_8_DSL0_VIS706", "area_id": "SYNTHETIC_DSA8", "area_count": 1, "filter_id": "AREAFILTER_SYNTHETIC_DSA8", "number_id": "FILTEREDIT_SYNTHETIC_DSA8_epn", "number_count": 1, "number_label": "Nro Empenho", "year_id": "FILTERCOMBO_SYNTHETIC_DSA8_exe", "year_count": 1, "year_label": "Exercício", "year_2026_option_count": 1, "controls_inside_filter": True, "submit_count": 1, "submit_visible": True, "submit_handler": "submmitApply('AREAFILTER_SYNTHETIC_DSA8');", "numeric_query_3286_explicitly_supported": True}
 
@@ -13,6 +33,14 @@ class Task284BindingTests(unittest.TestCase):
         self.assertFalse(c["automatic_execution_allowed"])
         self.assertEqual(c["limits"]["pncp_requests"], 0)
         self.assertFalse(c["task281_consumed"])
+
+    def test_contract_target_and_authorization_drift_stop(self):
+        original = load_contract()
+        for key, value in {"start_url": "https://pncp.gov.br/", "query": {"year": "2025", "number": "3286"}, "owner_authorization": "", "tier": "T0_OFFLINE", "task281_consumed": True}.items():
+            with self.subTest(key=key):
+                data = deepcopy(original); data[key] = value
+                with patch.object(Path, "read_text", return_value=json.dumps(data)):
+                    with self.assertRaises(Task283Stop): load_contract()
 
     def test_unique_binding_is_only_query_permission_not_identity(self):
         r = validate_binding(self.binding())
