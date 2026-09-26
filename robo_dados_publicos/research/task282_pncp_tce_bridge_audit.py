@@ -62,7 +62,7 @@ def load_fixture(config: dict | None = None) -> dict:
             "RAW_SOURCE_REDISTRIBUTION_FORBIDDEN")
     require(provenance["license_status"] == "NOT_ASSERTED_BY_TASK282",
             "FIXTURE_LICENSE_MUST_NOT_BE_INVENTED")
-    require(fixture["source_csv_sha256"] == config["ledger"]["csv_sha256"],
+    require(provenance["source_csv_sha256"] == config["ledger"]["csv_sha256"],
             "FIXTURE_SOURCE_DRIFT")
     return fixture
 
