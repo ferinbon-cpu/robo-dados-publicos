@@ -112,6 +112,30 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         self.assertNotIn("ds_despesa", raw)
         self.assertIsNone(re.search(r"(?<!\d)\d{11}(?!\d)|(?<!\d)\d{14}(?!\d)", raw))
 
+    def test_public_evidence_minimization_boundary_is_explicit(self):
+        evidence = json.loads(
+            (ROOT / "docs/evidence/TASK_282_PNCP_TCE_OFFLINE_AUDIT_0.8.0.json")
+            .read_text(encoding="utf-8")
+        )
+        minimization = evidence["repo_local_identity_proof"]["data_minimization"]
+        self.assertEqual(
+            minimization["fixture_class"],
+            "MINIMIZED_PUBLIC_EVIDENCE_NOT_FULLY_SYNTHETIC",
+        )
+        self.assertTrue(minimization["public_institution_names_preserved"])
+        self.assertTrue(minimization["public_accounting_keys_preserved"])
+        self.assertFalse(minimization["personal_supplier_identifiers_persisted"])
+        self.assertTrue(minimization["official_detail_ids_synthetic"])
+        self.assertFalse(minimization["amounts_persisted"])
+        self.assertFalse(minimization["free_text_history_persisted"])
+        self.assertEqual(
+            minimization["basis"],
+            "CONTRIBUTING_RULE_3_PUBLIC_EVIDENCE_WITH_PROVENANCE_AND_REDISTRIBUTION_LIMITS",
+        )
+        raw = FIXTURE.read_text(encoding="utf-8")
+        self.assertIn("PREFEITURA MUNICIPAL DE LIMEIRA", raw)
+        self.assertIn("1-2026", raw)
+
     def test_supplier_raw_value_and_exact_fingerprint_never_leave_public_result(self):
         row = deepcopy(self.rows[0])
         for value in ["PUBLIC-SUPPLIER-00ABCD12345678", "MASKED-PERSON-123456"]:
