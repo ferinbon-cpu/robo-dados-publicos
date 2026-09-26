@@ -46,6 +46,8 @@ Sem testemunho oficial dessa equivalência:
 
 A fixture da TASK282 não persiste CNPJ/CPF reais, valor, descrição da despesa ou histórico textual. Os identificadores de observação (`id_despesa_detalhe`) e de fornecedor são sintéticos; a proveniência aponta para o contrato TASK187 e para a evidência histórica TASK219H. O identificador de fornecedor pode ser usado transitoriamente pelo resolvedor apenas para detectar contradição dentro da mesma chave contábil; somente um fingerprint interno é comparado e ele é removido antes da saída pública.
 
+A fixture é **minimizada, não integralmente sintética**. Permanecem reais somente os identificadores institucionais públicos e as chaves contábeis necessárias para demonstrar o contraexemplo de namespace (município, nome do órgão, exercício, número e estágio). Isso segue a regra 3 de `CONTRIBUTING.md`: fixtures sintéticas são preferidas, enquanto dados públicos usados como evidência são admitidos quando a proveniência e os limites de redistribuição estão claros. Nomes de órgãos públicos não são tratados como identificadores pessoais; dados de fornecedor/pessoa, valores e texto livre foram removidos ou substituídos.
+
 Mudança de fornecedor dentro da mesma chave é tratada como STOP, não como transferência/novação implícita. Uma transferência válida exigiria relação oficial explícita e contrato próprio de dados.
 
 ## Reprodutibilidade
