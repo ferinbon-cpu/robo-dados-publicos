@@ -62,5 +62,8 @@
     "object_match_is_identity": false,
     "value_match_is_identity": false,
     "single_candidate_is_identity": false
-  }
+  },
+  "recovered_source_inspection": "docs/evidence/TASK_283_RECOVERED_SOURCE_INSPECTION_0.8.0.json",
+  "witness_acceptance": "CLOSED_UNTIL_REVIEWED_SOURCE_ADAPTER",
+  "witness_claim_dictionary_is_not_proof": true
 }

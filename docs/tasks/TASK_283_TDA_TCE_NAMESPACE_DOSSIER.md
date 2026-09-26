@@ -62,6 +62,8 @@ O testemunho deve registrar:
 
 A mera coincidência entre fornecedor, objeto, valor, data, modalidade ou candidato único nunca satisfaz o contrato.
 
+**Correção de integridade de 26/09/2026:** os quatro valores declarados em um dicionário, mesmo acompanhados de URL oficial e SHA-256 bem formado, não demonstram a relação na fonte. A implementação anterior aceitava esse dicionário como prova; agora toda tentativa termina em `WITNESS_SOURCE_ADAPTER_NOT_IMPLEMENTED`. Não existe adaptador positivo aprovado. Uma futura promoção exige patch revisado com bytes pinados, proveniência oficial, extração determinística e prova da relação, incluindo a semântica do sufixo quando a rota for uma convenção. O contrato não dispõe de flag para habilitar prova.
+
 ## Heurísticas bloqueadas
 
 A TASK283 rejeita explicitamente:
@@ -103,9 +105,23 @@ Isso significa:
 
 ## Acervo e pesquisa pública
 
-Em 26/09/2026, a busca no Drive pelos nomes exatos dos três artefatos operacionais preservados na TASK219AA não localizou os binários. Isso não invalida os hashes ou fatos bounded já canonizados.
+As buscas no Drive não localizaram os binários. Em 26/09/2026, os três originais foram recuperados do acervo do proprietário e seus SHA-256 conferidos integralmente com a TASK219AA. O registro novo é `docs/evidence/TASK_283_RECOVERED_SOURCE_INSPECTION_0.8.0.json`; os snapshots históricos e os arquivos de origem não foram alterados. Binários, identificadores privados do acervo, fornecedor e valores não foram adicionados ao repositório.
+
+O XLSX Empenhado preserva `Plan1!A20=03286-01`, `B20=E00010/2026` e o contexto `C2=Limeira - Prefeitura`. O Detalhe preserva o filtro `C2=2026`, `C3=03286-01` e o resultado `A6=03286-01`. Os dois arquivos têm uma planilha visível, sem linhas/colunas ocultas, fórmulas, nomes definidos ou relações externas. Nenhuma célula contém o número contábil isolado `3286` ou `3286-2026`. Os metadados OOXML não têm timestamps de criação/modificação: não usar defaults de bibliotecas como datas da fonte. O PDF do contrato não define o sufixo.
+
+Replay local dos dois originais, sem rede ou escrita:
+
+```bash
+python -m robo_dados_publicos.research.task283_archive_inspection \
+  --empenhado /caminho/ao/export-empenhado.xlsx \
+  --detail /caminho/ao/export-detalhe.xlsx
+```
+
+O replay confere os hashes antes de interpretar OOXML e emite somente inventário e células permitidas. Os testes usam bytes sintéticos identificados como tais; jamais tratam a fixture como testemunho oficial.
 
 A documentação pública do Portal da Transparência do TCE-SP descreve `nr_empenho` como "Número do empenho" e exemplifica o padrão `44-2015`, mas não fornece uma regra para interpretar o sufixo municipal `-01`. Portanto essa documentação não fecha a aresta.
+
+O schema oficial AUDESP `empenho-JSONSchemaeExemplo_1.zip`, recuperado no estudo anterior, exige `numeroEmpenho` no padrão `^[1-9][0-9]{0,34}$`. Isso define a gramática de destino, não uma transformação do TDA. O modelo oficial 2026 v02, aba `Empenho de Contrato`, B4:H9, liga município, entidade, `codigoContrato`, `numeroEmpenho` e `anoEmpenho`; G8:G9 preveem validação indicativa no balancete da entidade, conta 5.2.2.9.2.01.01. Falta a remessa concreta e o mapeamento oficial do identificador municipal. O exemplo genérico do schema não é um registro de Limeira.
 
 ## Execução
 
@@ -120,9 +136,9 @@ A saída corrente deve permanecer `UNRESOLVED_MISSING_OFFICIAL_NAMESPACE_WITNESS
 
 Uma aquisição live posterior deve ser uma operação separada, bounded e materializada antes da execução. Prioridades:
 
-1. recuperar um dos artefatos oficiais TDA já hashados;
-2. localizar nota de empenho/exportação oficial que mostre a representação contábil completa;
-3. localizar documentação oficial da Prefeitura/TDA que explique o significado de `NNNNN-SS`;
-4. alternativamente, localizar registro AUDESP que relacione ajuste/contrato ao empenho com entidade e exercício.
+1. TASK284 / issue #907: uma sessão fresca no portal oficial, com binding único provado antes de uma consulta do exercício 2026 e empenho 3286; parar em ambiguidade;
+2. obter Nota de Empenho original ou extrato de integração do sistema municipal que vincule `03286-01`, número contábil 3286, exercício original 2026 e Prefeitura de Limeira; a mera resposta a um filtro numérico não basta;
+3. alternativamente, obter documentação oficial da convenção aplicável à versão municipal, explicando zeros e `-01`;
+4. rota AUDESP: remessa `Empenho de Contrato` desse par número/ano, remessa `Ajuste` que ligue `codigoContrato` ao Contrato 45/2026, identificação oficial dos códigos município/entidade e crosswalk de origem preservando `03286-01`. Não presumir que `45/2026` seja o `codigoContrato`.
 
 A task não deve voltar ao PNCP nem repetir descoberta de fornecedor/contrato.

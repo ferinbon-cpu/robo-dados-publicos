@@ -94,10 +94,33 @@ class Task283NamespaceDossierTests(unittest.TestCase):
             "tce_entity": "PREFEITURA MUNICIPAL DE LIMEIRA",
         }
 
-    def test_only_complete_official_witness_can_prove_namespace(self):
-        result = task283.validate_witness(self.positive_witness(), self.config)
-        self.assertEqual(result["status"], "PROVEN_OFFICIAL_NAMESPACE_WITNESS")
-        self.assertFalse(result["payment_attribution_authorized"])
+    def test_self_asserted_official_witness_cannot_prove_namespace(self):
+        # Regression: the old implementation accepted this invented source/hash.
+        with self.assertRaisesRegex(task283.Task283Stop, "WITNESS_SOURCE_ADAPTER_NOT_IMPLEMENTED"):
+            task283.validate_witness(self.positive_witness(), self.config)
+
+    def test_authentic_hash_and_official_url_do_not_prove_the_relation(self):
+        witness = self.positive_witness()
+        witness["source_locator"] = "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418"
+        witness["source_sha256"] = "1ed530c19958cc27b19ed5b418e4482cdd1c53fcdf7b8689029ba2ac62c1d2f3"
+        for function in (task283.validate_witness, task283.build_dossier):
+            with self.subTest(function=function.__name__):
+                with self.assertRaisesRegex(task283.Task283Stop, "WITNESS_SOURCE_ADAPTER_NOT_IMPLEMENTED"):
+                    function(witness)
+
+    def test_injected_adapter_config_cannot_enable_proof(self):
+        config = deepcopy(self.config)
+        config["positive_witness_contract"]["approved_source_adapters"] = ["self_asserted"]
+        with self.assertRaisesRegex(task283.Task283Stop, "WITNESS_SOURCE_ADAPTER_NOT_IMPLEMENTED"):
+            task283.build_dossier(self.positive_witness(), config)
+
+    def test_suffix_mutations_never_prove_identity(self):
+        for value in ("03286-02", "03286", "3286-01", "03286-1", "3286-2026"):
+            with self.subTest(value=value):
+                witness = self.positive_witness()
+                witness["tda_commitment"] = value
+                with self.assertRaisesRegex(task283.Task283Stop, "WITNESS_VALUE_MISMATCH_TDA_COMMITMENT"):
+                    task283.validate_witness(witness)
 
     def test_witness_missing_any_identity_field_fails_closed(self):
         for field in self.config["positive_witness_contract"]["required_fields"]:

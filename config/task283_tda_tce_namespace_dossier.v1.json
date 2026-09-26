@@ -55,6 +55,16 @@
       "VALUE_MATCH",
       "NEAR_DATE",
       "SINGLE_CANDIDATE"
+    ],
+    "acceptance_mode": "CLOSED_UNTIL_REVIEWED_SOURCE_ADAPTER",
+    "approved_source_adapters": [],
+    "required_future_adapter_checks": [
+      "SOURCE_BYTES_SHA256_MATCH",
+      "PINNED_OFFICIAL_PROVENANCE",
+      "DETERMINISTIC_FIELD_EXTRACTION",
+      "EXPLICIT_RELATION_NOT_COOCCURRENCE",
+      "EXACT_ENTITY_AND_ORIGINAL_YEAR",
+      "SUFFIX_SEMANTICS_IF_CONVENTION_ROUTE"
     ]
   },
   "pinned_repository_inputs": {

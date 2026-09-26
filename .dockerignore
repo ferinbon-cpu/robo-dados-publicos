@@ -1,7 +1,0 @@
-.git
-__pycache__
-*.pyc
-runtime/*.sqlite
-runtime/*.json
-runtime/*.txt
-*.zip

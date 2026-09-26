@@ -46,6 +46,15 @@ def load_config() -> dict[str, Any]:
     )
     require(data.get("live_acquisition_authorized_by_this_contract") is False, "LIVE_NOT_BLOCKED")
     require(data.get("payment_attribution_authorized") is False, "PAYMENT_NOT_BLOCKED")
+    require(
+        data["positive_witness_contract"].get("acceptance_mode")
+        == "CLOSED_UNTIL_REVIEWED_SOURCE_ADAPTER",
+        "WITNESS_ACCEPTANCE_MODE",
+    )
+    require(
+        data["positive_witness_contract"].get("approved_source_adapters") == [],
+        "WITNESS_ADAPTER_NOT_IMPLEMENTED",
+    )
     return data
 
 
@@ -189,14 +198,12 @@ def validate_witness(
         not any(bool(witness.get(marker)) for marker in contract["heuristics_forbidden"]),
         "WITNESS_HEURISTIC_FORBIDDEN",
     )
-    return {
-        "status": "PROVEN_OFFICIAL_NAMESPACE_WITNESS",
-        "payment_attribution_authorized": False,
-        "witness": {
-            field: witness[field]
-            for field in contract["required_fields"] + contract["provenance_required_fields"]
-        },
-    }
+    # These checks validate a CLAIM, never its official origin or meaning.
+    # No recovered source currently contains the four-field namespace relation.
+    # A caller-supplied URL/hash/dictionary (even with authentic source bytes)
+    # must not promote identity. A later reviewed patch must implement an
+    # adapter for a pinned official witness and verify the relation in its bytes.
+    raise Task283Stop("WITNESS_SOURCE_ADAPTER_NOT_IMPLEMENTED")
 
 
 def build_dossier(

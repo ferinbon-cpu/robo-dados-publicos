@@ -435,7 +435,8 @@
       "manual_execution_required": true,
       "task_runtime_auto_execution": false
     },
-    {"id":"TASK283_TDA_TCE_NAMESPACE_DOSSIER","tier":"T0_OFFLINE","auto_allowed":false,"effects":{"source_network":false,"drive_reads":false,"drive_writes":false,"publication":false},"current_triggers":[],"workflow_added":false,"validation_workflow":".github/workflows/ci-offline.yml","validation_triggers":["pull_request:main","push:main"],"validation_only":true,"no_workflow_trigger":true,"manual_execution_required":true,"task_runtime_auto_execution":false}
+    {"id":"TASK283_TDA_TCE_NAMESPACE_DOSSIER","tier":"T0_OFFLINE","auto_allowed":false,"effects":{"source_network":false,"drive_reads":false,"drive_writes":false,"publication":false},"current_triggers":[],"workflow_added":false,"validation_workflow":".github/workflows/ci-offline.yml","validation_triggers":["pull_request:main","push:main"],"validation_only":true,"no_workflow_trigger":true,"manual_execution_required":true,"task_runtime_auto_execution":false},
+    {"id":"TASK284_TDA_NAMESPACE_ACQUISITION","tier":"T1_REMOTE_READONLY","auto_allowed":false,"credential_capability":"PUBLIC_BROWSER_NO_AUTH","effects":{"source_network":true,"drive_reads":false,"drive_writes":false,"publication":false},"current_triggers":[],"workflow_added":false,"no_workflow_trigger":true,"manual_execution_required":true,"owner_authorization_required":true,"task_runtime_auto_execution":false,"contract":"config/task284_tda_namespace_acquisition.v1.json","blockers":["AUTOMATIC_EXECUTION_NOT_AUTHORIZED","FRESH_EXACT_FORM_BINDING_REQUIRED"]}
   ],
   "agentic_work": {
     "allowed_without_remote_data_authorization": [
