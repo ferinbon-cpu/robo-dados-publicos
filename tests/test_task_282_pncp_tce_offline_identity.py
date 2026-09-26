@@ -24,7 +24,12 @@ from robo_dados_publicos.reconciliation.accounting_identity import (
     supplier_fingerprint,
 )
 from robo_dados_publicos.research import task282_pncp_tce_bridge_audit as audit_module
-from robo_dados_publicos.automation.policy import load_policy, validate_policy
+from robo_dados_publicos.automation.policy import (
+    AutomationPolicyError,
+    evaluate_gate,
+    load_policy,
+    validate_policy,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -176,6 +181,8 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         key = next(iter(index))
         self.assertEqual((key.number, key.original_year), ("3286", 2025))
         self.assertEqual(index[key][0]["ledger_year"], 2026)
+        row["nr_empenho"] = "0001-2026"
+        self.assertEqual(row_key(row).number, "1")
         row["nr_empenho"] = "3286-2027"
         with self.assertRaisesRegex(AccountingIdentityStop, "COMMITMENT_AFTER_LEDGER_YEAR"):
             index_rows([row])
@@ -316,6 +323,45 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         self.assertTrue(gate["no_workflow_trigger"])
         self.assertFalse(gate["task_runtime_auto_execution"])
         self.assertFalse(gate["auto_allowed"])
+        decision = evaluate_gate(policy, "TASK282_PNCP_TCE_OFFLINE_IDENTITY")
+        self.assertEqual(decision["decision"], "BLOCK")
+        self.assertEqual(decision["reason"], "POLICY_AUTO_ALLOWED_FALSE")
+
+    def test_validation_only_gate_semantics_fail_closed(self):
+        base = load_policy(ROOT)
+        cases = [
+            ("auto_allowed", True, "STOP_VALIDATION_ONLY_AUTO_ENABLED"),
+            ("current_triggers", ["push:main"], "STOP_VALIDATION_ONLY_RUNTIME_TRIGGER"),
+            ("workflow_added", True, "STOP_VALIDATION_ONLY_WORKFLOW_ADDED"),
+            (
+                "task_runtime_auto_execution",
+                True,
+                "STOP_VALIDATION_ONLY_RUNTIME_AUTO_EXECUTION",
+            ),
+            ("no_workflow_trigger", False, "STOP_VALIDATION_ONLY_NO_WORKFLOW_TRIGGER_FLAG"),
+            ("manual_execution_required", False, "STOP_VALIDATION_ONLY_MANUAL_EXECUTION_FLAG"),
+        ]
+        for field, value, code in cases:
+            with self.subTest(field=field):
+                policy = deepcopy(base)
+                gate = next(
+                    row for row in policy["gates"]
+                    if row["id"] == "TASK282_PNCP_TCE_OFFLINE_IDENTITY"
+                )
+                gate[field] = value
+                with self.assertRaisesRegex(AutomationPolicyError, code):
+                    validate_policy(policy)
+
+        policy = deepcopy(base)
+        gate = next(
+            row for row in policy["gates"]
+            if row["id"] == "TASK282_PNCP_TCE_OFFLINE_IDENTITY"
+        )
+        gate["workflow"] = ".github/workflows/ci-offline.yml"
+        with self.assertRaisesRegex(
+            AutomationPolicyError, "STOP_VALIDATION_ONLY_RUNTIME_WORKFLOW_BOUND"
+        ):
+            validate_policy(policy)
 
     def test_supplier_conflict_exception_does_not_leak_raw_or_fingerprint(self):
         rows = [deepcopy(r) for r in self.rows if row_key(r) == self.key]
