@@ -1,0 +1,66 @@
+{
+  "schema": "TASK283_TDA_TCE_NAMESPACE_DOSSIER_RESULT_V1",
+  "task": "TASK_283",
+  "issue": 904,
+  "depends_on_pr": 902,
+  "stacked_base_head": "e5c04fb7491eb497b7fc8d38e42b6811d7b2b1bd",
+  "status": "UNRESOLVED_MISSING_OFFICIAL_NAMESPACE_WITNESS",
+  "execution_class": "T0_OFFLINE_REPLAY",
+  "effects": {
+    "pncp_requests": 0,
+    "tda_requests": 0,
+    "tce_requests": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "publication": false
+  },
+  "municipal_chain": {
+    "contract": "45/2026",
+    "typed_procurement": "E00010/2026",
+    "tda_commitment": "03286-01",
+    "status": "PROVEN"
+  },
+  "tce_candidate": {
+    "commitment": "3286-2026",
+    "key": {
+      "municipality": "Limeira",
+      "entity": "PREFEITURA MUNICIPAL DE LIMEIRA",
+      "original_year": 2026,
+      "number": "3286"
+    },
+    "status": "OBSERVED_SCOPED_COHORT"
+  },
+  "namespace_edge": {
+    "from": "03286-01",
+    "to": "3286-2026",
+    "status": "UNRESOLVED_MISSING_OFFICIAL_NAMESPACE_WITNESS",
+    "heuristic_normalization_allowed": false,
+    "missing": [
+      "OFFICIAL_EXPLICIT_EQUIVALENCE_OR_NAMESPACE_RULE",
+      "ENTITY_AND_ORIGINAL_YEAR_BOUND_TO_THE_EQUIVALENCE"
+    ]
+  },
+  "historical_query_audit": {
+    "TASK219X": "NOT_EXECUTED",
+    "TASK219Y": "NOT_EXECUTED",
+    "TASK219Z": "NOT_EXECUTED_STOP_EXACT_DETAIL_SUBMIT_BINDING_NOT_UNIQUE",
+    "conclusion": "NO_PRIOR_TASK_QUERIED_EMPENHO_3286_2026_IN_THE_TDA_DETAIL_FORM"
+  },
+  "repository_evidence_adjudication": {
+    "TASK219AA_exact_tda_to_tcesp_format_identity_claim": false,
+    "TASK219H_jom_to_tcesp_procurement_identity_proven": false,
+    "TASK282_status": "UNRESOLVED",
+    "positive_namespace_witness_present": false
+  },
+  "payment_attribution_authorized": false,
+  "live_acquisition_authorized": false,
+  "next_required_evidence": "OFFICIAL_TDA_TCE_NAMESPACE_WITNESS_WITH_ENTITY_AND_ORIGINAL_YEAR",
+  "claim_boundaries": {
+    "drop_suffix_01": false,
+    "infer_year_from_date": false,
+    "supplier_match_is_identity": false,
+    "object_match_is_identity": false,
+    "value_match_is_identity": false,
+    "single_candidate_is_identity": false
+  }
+}

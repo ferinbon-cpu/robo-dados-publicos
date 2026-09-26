@@ -1,0 +1,115 @@
+{
+  "schema": "TASK282_PNCP_TCE_OFFLINE_AUDIT_RESULT_V3",
+  "issue": 901,
+  "base_main_sha": "69954f7532da1457c040b745b1a9551cc3551d18",
+  "status": "UNRESOLVED",
+  "execution_class": "T0_OFFLINE_REPLAY",
+  "effects": {
+    "pncp_requests": 0,
+    "tce_requests": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "publication": false,
+    "task281_consumed": false
+  },
+  "source_task187": {
+    "contract": "config/task187_tcesp_rich_expenses_2026.v1.json",
+    "mode": "OWNER_SUPPLIED_OFFICIAL_ZIP_OFFLINE",
+    "csv_sha256": "87b640aa9d854832bdd66b452d8532043e9f27bc12ec638ee77dcb5d8001f152",
+    "row_count": 39779,
+    "custody_is_preexisting": true,
+    "new_source_fetch_required_for_task282": false
+  },
+  "negative_control": {
+    "contract": "45/2026",
+    "jom_process": "902.281/2025",
+    "municipal_chain": "PROVEN_TASK219AA_TASK219AB_PRESERVED",
+    "tda_typed_procurement": "E00010/2026",
+    "tda_commitment": "03286-01",
+    "tcesp_candidate_key": {
+      "municipality": "Limeira",
+      "entity": "PREFEITURA MUNICIPAL DE LIMEIRA",
+      "original_year": 2026,
+      "number": "3286"
+    },
+    "frozen_minimized_observations": [
+      {
+        "source_anchor": "TASK219H_TCESP_3286_2026_COMMITMENT",
+        "source_stage": "Empenhado",
+        "stage": "COMMITMENT",
+        "reference_month": 3
+      },
+      {
+        "source_anchor": "TASK219H_TCESP_3286_2026_LIQUIDATION",
+        "source_stage": "Valor Liquidado",
+        "stage": "LIQUIDATION",
+        "reference_month": 7
+      },
+      {
+        "source_anchor": "TASK219H_TCESP_3286_2026_PAYMENT",
+        "source_stage": "Valor Pago",
+        "stage": "PAYMENT",
+        "reference_month": 7
+      }
+    ],
+    "claim": "TDA_03286_01_EQUALS_TCESP_3286_2026_IN_THE_SAME_ENTITY",
+    "status": "UNRESOLVED",
+    "missing_proposition": "OFFICIAL_CROSS_SYSTEM_COMMITMENT_NAMESPACE_EQUIVALENCE",
+    "payment_attribution_authorized": false,
+    "individual_liquidation_payment_pairing": "UNRESOLVED"
+  },
+  "remaining_edges": [
+    {
+      "edge": "TDA_TO_TCESP_COMMITMENT_NAMESPACE",
+      "status": "UNRESOLVED",
+      "required": "OFFICIAL_DOCUMENT_BINDING_03286_01_TO_NUMBER_3286_ORIGINAL_YEAR_2026_AND_SAME_ISSUING_ENTITY",
+      "prohibited": "DROP_TDA_SUFFIX_01_OR_INFER_YEAR_FROM_NUMBER_WITHOUT_SEMANTIC_PROOF"
+    },
+    {
+      "edge": "PURCHASE_TO_COMMITMENT",
+      "status": "UNRESOLVED",
+      "insufficient": [
+        "SAME_SUPPLIER",
+        "SAME_OBJECT",
+        "SAME_VALUE",
+        "NEAR_DATE",
+        "ONE_CANDIDATE"
+      ]
+    },
+    {
+      "edge": "LIQUIDATION_TO_INDIVIDUAL_PAYMENT",
+      "status": "UNRESOLVED",
+      "required": "OFFICIAL_DOCUMENT_OR_EVENT_FOREIGN_KEY_NOT_JUST_SHARED_COMMITMENT"
+    }
+  ],
+  "production_identity_promoted": false,
+  "full_ledger_extended_replay_is_merge_gate": false,
+  "external_research_report_is_merge_input": false,
+  "repo_local_identity_proof": {
+    "fixture": "docs/evidence/fixtures/task282/TASK_282_REAL_ACCOUNTING_ROWS.json",
+    "fixture_sha256": "c239e48b80d181bd1d22c572804371dca58ca68c2f1a9d42aac61b8853d965fe",
+    "proof_kind": "DIRECT_FIXTURE_COUNTEREXAMPLE",
+    "collision": {
+      "number": "1",
+      "original_year": 2026,
+      "entities": [
+        "PREFEITURA MUNICIPAL DE LIMEIRA",
+        "INSTITUTO DE PREVIDÊNCIA MUNICIPAL DE LIMEIRA"
+      ]
+    },
+    "canonical_claim": "NUMBER_YEAR_ALONE_IS_NOT_A_SAFE_ACCOUNTING_IDENTITY_ACROSS_ENTITIES",
+    "exhaustive_source_collision_count_claimed": false,
+    "record_ids_synthetic": true,
+    "provenance_reference": "config/task187_tcesp_rich_expenses_2026.v1.json + TASK219H historical evidence",
+    "data_minimization": {
+      "fixture_class": "MINIMIZED_PUBLIC_EVIDENCE_NOT_FULLY_SYNTHETIC",
+      "public_institution_names_preserved": true,
+      "public_accounting_keys_preserved": true,
+      "personal_supplier_identifiers_persisted": false,
+      "official_detail_ids_synthetic": true,
+      "amounts_persisted": false,
+      "free_text_history_persisted": false,
+      "basis": "CONTRIBUTING_RULE_3_PUBLIC_EVIDENCE_WITH_PROVENANCE_AND_REDISTRIBUTION_LIMITS"
+    }
+  }
+}

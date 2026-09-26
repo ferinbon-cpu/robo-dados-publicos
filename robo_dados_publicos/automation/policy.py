@@ -88,6 +88,44 @@ def validate_policy(policy: dict[str, Any]) -> dict[str, Any]:
         if tier in MANUAL_ONLY_TIERS:
             _require(auto_allowed is False, f"STOP_MANUAL_TIER_AUTO_ENABLED_{gate_id}")
 
+        if gate.get("validation_only") is True:
+            _require(auto_allowed is False, f"STOP_VALIDATION_ONLY_AUTO_ENABLED_{gate_id}")
+            _require(
+                gate.get("current_triggers") == [],
+                f"STOP_VALIDATION_ONLY_RUNTIME_TRIGGER_{gate_id}",
+            )
+            _require(
+                gate.get("workflow_added") is False,
+                f"STOP_VALIDATION_ONLY_WORKFLOW_ADDED_{gate_id}",
+            )
+            _require(
+                "workflow" not in gate,
+                f"STOP_VALIDATION_ONLY_RUNTIME_WORKFLOW_BOUND_{gate_id}",
+            )
+            _require(
+                gate.get("task_runtime_auto_execution") is False,
+                f"STOP_VALIDATION_ONLY_RUNTIME_AUTO_EXECUTION_{gate_id}",
+            )
+            _require(
+                gate.get("no_workflow_trigger") is True,
+                f"STOP_VALIDATION_ONLY_NO_WORKFLOW_TRIGGER_FLAG_{gate_id}",
+            )
+            _require(
+                gate.get("manual_execution_required") is True,
+                f"STOP_VALIDATION_ONLY_MANUAL_EXECUTION_FLAG_{gate_id}",
+            )
+            validation_workflow = gate.get("validation_workflow")
+            _require(
+                isinstance(validation_workflow, str) and bool(validation_workflow),
+                f"STOP_VALIDATION_ONLY_WORKFLOW_MISSING_{gate_id}",
+            )
+            validation_triggers = gate.get("validation_triggers")
+            _require(
+                isinstance(validation_triggers, list) and bool(validation_triggers)
+                and all(isinstance(item, str) and bool(item) for item in validation_triggers),
+                f"STOP_VALIDATION_ONLY_TRIGGERS_INVALID_{gate_id}",
+            )
+
         if auto_allowed:
             _require(tier in AUTO_ALLOWED_TIERS, f"STOP_AUTO_TIER_NOT_ELIGIBLE_{gate_id}")
             _require(effects.get("drive_writes", effects.get("drive_write_count", 0)) in (False, 0), f"STOP_AUTO_DRIVE_WRITE_{gate_id}")
