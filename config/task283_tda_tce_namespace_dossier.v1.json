@@ -37,6 +37,11 @@
       "tce_original_year": 2026,
       "tce_entity": "PREFEITURA MUNICIPAL DE LIMEIRA"
     },
+    "provenance_required_fields": [
+      "authority_class",
+      "source_locator",
+      "source_sha256"
+    ],
     "allowed_authority_classes": [
       "PREFEITURA_MUNICIPAL_DE_LIMEIRA",
       "TCESP",
