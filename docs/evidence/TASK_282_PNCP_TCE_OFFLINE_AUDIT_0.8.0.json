@@ -100,6 +100,16 @@
     "canonical_claim": "NUMBER_YEAR_ALONE_IS_NOT_A_SAFE_ACCOUNTING_IDENTITY_ACROSS_ENTITIES",
     "exhaustive_source_collision_count_claimed": false,
     "record_ids_synthetic": true,
-    "provenance_reference": "config/task187_tcesp_rich_expenses_2026.v1.json + TASK219H historical evidence"
+    "provenance_reference": "config/task187_tcesp_rich_expenses_2026.v1.json + TASK219H historical evidence",
+    "data_minimization": {
+      "fixture_class": "MINIMIZED_PUBLIC_EVIDENCE_NOT_FULLY_SYNTHETIC",
+      "public_institution_names_preserved": true,
+      "public_accounting_keys_preserved": true,
+      "personal_supplier_identifiers_persisted": false,
+      "official_detail_ids_synthetic": true,
+      "amounts_persisted": false,
+      "free_text_history_persisted": false,
+      "basis": "CONTRIBUTING_RULE_3_PUBLIC_EVIDENCE_WITH_PROVENANCE_AND_REDISTRIBUTION_LIMITS"
+    }
   }
 }
