@@ -169,12 +169,12 @@ def validate_witness(
         }
 
     require(isinstance(witness, dict), "WITNESS_NOT_OBJECT")
+    for field in contract["provenance_required_fields"]:
+        require(bool(witness.get(field)), f"WITNESS_PROVENANCE_MISSING_{field.upper()}")
     require(
         witness.get("authority_class") in contract["allowed_authority_classes"],
         "WITNESS_AUTHORITY_NOT_ALLOWED",
     )
-    for field in contract["provenance_required_fields"]:
-        require(bool(witness.get(field)), f"WITNESS_PROVENANCE_MISSING_{field.upper()}")
     require(
         bool(re.fullmatch(r"[0-9a-f]{64}", str(witness["source_sha256"]))),
         "WITNESS_SOURCE_SHA256",
