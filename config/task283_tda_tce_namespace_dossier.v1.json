@@ -1,0 +1,93 @@
+{
+  "schema": "TASK283_TDA_TCE_NAMESPACE_DOSSIER_V1",
+  "task": "TASK_283",
+  "issue": 904,
+  "depends_on_pr": 902,
+  "stacked_base_head": "e5c04fb7491eb497b7fc8d38e42b6811d7b2b1bd",
+  "execution_class": "T0_OFFLINE_REPLAY",
+  "effects": {
+    "pncp_requests": 0,
+    "tda_requests": 0,
+    "tce_requests": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "publication": false
+  },
+  "target": {
+    "contract": "45/2026",
+    "typed_procurement": "E00010/2026",
+    "tda_commitment": "03286-01",
+    "tce_key": {
+      "municipality": "Limeira",
+      "entity": "PREFEITURA MUNICIPAL DE LIMEIRA",
+      "original_year": 2026,
+      "number": "3286"
+    }
+  },
+  "positive_witness_contract": {
+    "required_fields": [
+      "tda_commitment",
+      "tce_number",
+      "tce_original_year",
+      "tce_entity"
+    ],
+    "required_values": {
+      "tda_commitment": "03286-01",
+      "tce_number": "3286",
+      "tce_original_year": 2026,
+      "tce_entity": "PREFEITURA MUNICIPAL DE LIMEIRA"
+    },
+    "provenance_required_fields": [
+      "authority_class",
+      "source_locator",
+      "source_sha256"
+    ],
+    "allowed_authority_classes": [
+      "PREFEITURA_MUNICIPAL_DE_LIMEIRA",
+      "TCESP",
+      "AUDESP"
+    ],
+    "heuristics_forbidden": [
+      "DROP_SUFFIX_01",
+      "INFER_YEAR_FROM_DATE",
+      "SUPPLIER_MATCH",
+      "OBJECT_MATCH",
+      "VALUE_MATCH",
+      "NEAR_DATE",
+      "SINGLE_CANDIDATE"
+    ]
+  },
+  "pinned_repository_inputs": {
+    "task219aa": {
+      "path": "docs/evidence/TASK_219AA_TDA_STRONG_PROCUREMENT_BRIDGE_CANONIZATION_0.8.0.json",
+      "git_blob_sha": "0c1cd21118a86b03e974a85291d8d5e4a72fe483"
+    },
+    "task219ab": {
+      "path": "docs/evidence/TASK_219AB_TDA_CONTRACTS_JSON_EXTRACTION_0.8.0.json",
+      "git_blob_sha": "7c4cc47b7d1cdca9f3c72ea8c9455b8affc500fc"
+    },
+    "task219h": {
+      "path": "docs/evidence/TASK_219H_TCESP_CONTRACT45_BRIDGE_CANONIZATION_0.8.0.json",
+      "git_blob_sha": "6d505d9ced2d6f0376a6fc4144cc2481119544a4"
+    },
+    "task219x": {
+      "path": "docs/evidence/TASK_219X_EMPENHADO_AREA_NEGATIVE_CANONIZATION_0.8.0.json",
+      "git_blob_sha": "0b801a7b992c30f340a92e8ba0b5d10aaadbb887"
+    },
+    "task219y": {
+      "path": "docs/evidence/TASK_219Y_AREAFILTER_QUERY_CONTROL_MAPPING_CANONIZATION_0.8.0.json",
+      "git_blob_sha": "935439a6d17d98beb5b4da7393c667fafd9baaa1"
+    },
+    "task219z": {
+      "path": "docs/evidence/TASK_219Z_DETAIL_QUERY_GATE_NEGATIVE_CANONIZATION_0.8.0.json",
+      "git_blob_sha": "f457d51284373609b0d9eaba074186335361b0ae"
+    },
+    "task282": {
+      "path": "docs/evidence/TASK_282_PNCP_TCE_OFFLINE_AUDIT_0.8.0.json",
+      "git_blob_sha": "12b555359b5637ca9f0b62ea3b200f88d2a7e4bd"
+    }
+  },
+  "expected_current_result": "UNRESOLVED_MISSING_OFFICIAL_NAMESPACE_WITNESS",
+  "payment_attribution_authorized": false,
+  "live_acquisition_authorized_by_this_contract": false
+}

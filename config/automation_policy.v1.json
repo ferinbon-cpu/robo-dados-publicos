@@ -434,7 +434,8 @@
       "no_workflow_trigger": true,
       "manual_execution_required": true,
       "task_runtime_auto_execution": false
-    }
+    },
+    {"id":"TASK283_TDA_TCE_NAMESPACE_DOSSIER","tier":"T0_OFFLINE","auto_allowed":false,"effects":{"source_network":false,"drive_reads":false,"drive_writes":false,"publication":false},"current_triggers":[],"workflow_added":false,"validation_workflow":".github/workflows/ci-offline.yml","validation_triggers":["pull_request:main","push:main"],"validation_only":true,"no_workflow_trigger":true,"manual_execution_required":true,"task_runtime_auto_execution":false}
   ],
   "agentic_work": {
     "allowed_without_remote_data_authorization": [
