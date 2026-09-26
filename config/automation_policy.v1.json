@@ -434,6 +434,41 @@
       "no_workflow_trigger": true,
       "manual_execution_required": true,
       "task_runtime_auto_execution": false
+    },
+    {
+      "id": "TASK283_TDA_TCE_NAMESPACE_DOSSIER",
+      "script": "robo_dados_publicos/research/task283_tda_tce_namespace_dossier.py",
+      "contract": "config/task283_tda_tce_namespace_dossier.v1.json",
+      "tier": "T0_OFFLINE",
+      "auto_allowed": false,
+      "credential_capability": "NONE",
+      "effects": {
+        "source_network": false,
+        "drive_reads": false,
+        "drive_writes": false,
+        "publication": false
+      },
+      "current_triggers": [],
+      "invocation_surface": "MANUAL_CLI_OR_CI_TEST_ONLY",
+      "workflow_added": false,
+      "schedule": false,
+      "recurrence": false,
+      "remote_materialization_authorized": false,
+      "blockers": [
+        "DEPENDS_ON_TASK282_MERGE",
+        "NO_AUTOMATIC_EXECUTION_SURFACE",
+        "NO_REMOTE_EFFECTS_AUTHORIZED",
+        "LIVE_ACQUISITION_REQUIRES_SEPARATE_GATE"
+      ],
+      "validation_workflow": ".github/workflows/ci-offline.yml",
+      "validation_triggers": [
+        "pull_request:main",
+        "push:main"
+      ],
+      "validation_only": true,
+      "no_workflow_trigger": true,
+      "manual_execution_required": true,
+      "task_runtime_auto_execution": false
     }
   ],
   "agentic_work": {
