@@ -414,11 +414,8 @@
         "drive_writes": false,
         "publication": false
       },
-      "current_triggers": [
-        "pull_request:main",
-        "push:main"
-      ],
-      "invocation_surface": "CI_VALIDATION_ONLY_PLUS_MANUAL_CLI",
+      "current_triggers": [],
+      "invocation_surface": "MANUAL_CLI_OR_CI_TEST_ONLY",
       "workflow_added": false,
       "schedule": false,
       "recurrence": false,
@@ -428,8 +425,14 @@
         "NO_REMOTE_EFFECTS_AUTHORIZED",
         "FUTURE_AUTOMATION_REQUIRES_SEPARATE_POLICY_REVIEW"
       ],
-      "workflow": ".github/workflows/ci-offline.yml",
+      "validation_workflow": ".github/workflows/ci-offline.yml",
+      "validation_triggers": [
+        "pull_request:main",
+        "push:main"
+      ],
       "validation_only": true,
+      "no_workflow_trigger": true,
+      "manual_execution_required": true,
       "task_runtime_auto_execution": false
     }
   ],
