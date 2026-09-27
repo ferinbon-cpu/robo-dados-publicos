@@ -1,0 +1,178 @@
+{
+  "version": 1,
+  "schema": "TASK181_BASE_V05_NETWORK_SERIES_V1",
+  "task": "TASK_181_BASE_V05_NETWORK_SERIES",
+  "mode": "T0_OFFLINE_USER_LIBRARY_MEDIATED_SANITIZED_SERIES",
+  "source": {
+    "asset_id": "BASE_MESTRA_LIMEIRA_V05",
+    "filename": "BASE_MESTRA_LIMEIRA_V05.xlsx",
+    "sha256": "4d352dc55537240a4c1ffb3c37337e9c029577ab611f851f2ec925d0178b9eda",
+    "sheet": "Series Rede",
+    "extraction_mode": "USER_LIBRARY_MEDIATED_SANITIZED_SEED_NOT_BINARY_IMPORT",
+    "binary_import_complete": false,
+    "period_start": 2007,
+    "period_end": 2025
+  },
+  "fixture": {
+    "path": "docs/evidence/fixtures/TASK_181_BASE_V05_SERIES_REDE_SANITIZED.csv",
+    "expected_year_rows": 19,
+    "expected_columns_ex_year": 20,
+    "expected_school_indicator_non_null": 171,
+    "expected_school_indicator_missing": 133,
+    "expected_fiscal_non_null": 38,
+    "expected_fiscal_missing": 0,
+    "expected_deferred_non_null": 16,
+    "expected_deferred_missing": 22
+  },
+  "scope": {
+    "scope_level": "NETWORK",
+    "scope_id": "LIMEIRA_MUNICIPAL_NETWORK_PRIMARY_YEARS",
+    "network": "MUNICIPAL",
+    "entity_id": "3526902",
+    "caution": "HISTORICAL_NETWORK_USES_EFFECTIVE_UNIVERSE_OF_EACH_YEAR;PUBLIC_NETWORK_NE_MUNICIPAL_NETWORK;SIMPLE_SCHOOL_MEAN_NE_OFFICIAL_MUNICIPAL_MEAN"
+  },
+  "school_indicator_map": {
+    "Ideb": {
+      "indicator_id": "IDEB",
+      "indicator_name": "Ideb da rede",
+      "unit": "INDEX",
+      "source_family": "IDEB"
+    },
+    "Ideb LP": {
+      "indicator_id": "IDEB_LP_PROFICIENCY",
+      "indicator_name": "Proficiência de Língua Portuguesa associada ao Ideb",
+      "unit": "SCORE",
+      "source_family": "IDEB"
+    },
+    "Ideb MAT": {
+      "indicator_id": "IDEB_MATH_PROFICIENCY",
+      "indicator_name": "Proficiência de Matemática associada ao Ideb",
+      "unit": "SCORE",
+      "source_family": "IDEB"
+    },
+    "DSU %": {
+      "indicator_id": "DSU",
+      "indicator_name": "Docentes com curso superior",
+      "unit": "PERCENT",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "TNR %": {
+      "indicator_id": "TNR",
+      "indicator_name": "Taxa de não resposta / indicador TNR conforme Base V05",
+      "unit": "PERCENT",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "Aprovação %": {
+      "indicator_id": "APPROVAL_RATE",
+      "indicator_name": "Taxa de aprovação",
+      "unit": "PERCENT",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "Reprovação %": {
+      "indicator_id": "FAILURE_RATE",
+      "indicator_name": "Taxa de reprovação",
+      "unit": "PERCENT",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "Abandono %": {
+      "indicator_id": "DROPOUT_RATE",
+      "indicator_name": "Taxa de abandono",
+      "unit": "PERCENT",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "Saeb LP — micro": {
+      "indicator_id": "SAEB_LP",
+      "indicator_name": "Saeb Língua Portuguesa — microdados",
+      "unit": "SCORE",
+      "source_family": "SAEB"
+    },
+    "Saeb MAT — micro": {
+      "indicator_id": "SAEB_MATH",
+      "indicator_name": "Saeb Matemática — microdados",
+      "unit": "SCORE",
+      "source_family": "SAEB"
+    },
+    "SARESP A+A LP %": {
+      "indicator_id": "SARESP_A_PLUS_A_LP_SHARE",
+      "indicator_name": "SARESP Adequado+Avançado Língua Portuguesa",
+      "unit": "PERCENT",
+      "source_family": "SARESP"
+    },
+    "SARESP A+A MAT %": {
+      "indicator_id": "SARESP_A_PLUS_A_MATH_SHARE",
+      "indicator_name": "SARESP Adequado+Avançado Matemática",
+      "unit": "PERCENT",
+      "source_family": "SARESP"
+    },
+    "SARESP média oficial LP": {
+      "indicator_id": "SARESP_OFFICIAL_LP_MEAN",
+      "indicator_name": "SARESP média oficial municipal Língua Portuguesa",
+      "unit": "SCORE",
+      "source_family": "SARESP"
+    },
+    "SARESP média oficial MAT": {
+      "indicator_id": "SARESP_OFFICIAL_MATH_MEAN",
+      "indicator_name": "SARESP média oficial municipal Matemática",
+      "unit": "SCORE",
+      "source_family": "SARESP"
+    },
+    "SARESP média simples escolas LP": {
+      "indicator_id": "SARESP_SIMPLE_SCHOOL_LP_MEAN",
+      "indicator_name": "SARESP média simples das escolas — Língua Portuguesa",
+      "unit": "SCORE",
+      "source_family": "SARESP"
+    },
+    "SARESP média simples escolas MAT": {
+      "indicator_id": "SARESP_SIMPLE_SCHOOL_MATH_MEAN",
+      "indicator_name": "SARESP média simples das escolas — Matemática",
+      "unit": "SCORE",
+      "source_family": "SARESP"
+    }
+  },
+  "fiscal_map": {
+    "SIOPE MDE %": {
+      "metric_id": "SIOPE_MDE_SHARE",
+      "metric_name": "Percentual SIOPE MDE",
+      "unit": "PERCENT",
+      "source_family": "SIOPE",
+      "stage_semantic": "EDUCATION_FINANCE_INDICATOR"
+    },
+    "SIOPE FUNDEB remuneração %": {
+      "metric_id": "SIOPE_FUNDEB_REMUNERATION_SHARE",
+      "metric_name": "Percentual SIOPE FUNDEB remuneração",
+      "unit": "PERCENT",
+      "source_family": "SIOPE",
+      "stage_semantic": "EDUCATION_FINANCE_INDICATOR"
+    }
+  },
+  "deferred_source_role_review": {
+    "Remuneração média bruta": {
+      "status": "DEFERRED_SOURCE_ROLE_REVIEW",
+      "reason": "UNDERLYING_SOURCE_ROLE_NOT_PINNED_IN_TASK181"
+    },
+    "Remuneração 40h": {
+      "status": "DEFERRED_SOURCE_ROLE_REVIEW",
+      "reason": "UNDERLYING_SOURCE_ROLE_NOT_PINNED_IN_TASK181"
+    }
+  },
+  "quality": {
+    "quality_status": "READY_WITH_CAUTION",
+    "caution": "USER_LIBRARY_MEDIATED_EXTRACTION_FROM_PINNED_BASE_V05_SERIES_REDE;VERIFY_AGAINST_BINARY_ON_AUTOMATED_IMPORT",
+    "blank_is_zero": false,
+    "published_zero_is_observed_zero": true,
+    "simple_school_mean_equals_official_mean": false
+  },
+  "provenance": {
+    "school_locator_template": "FILE_LIBRARY:BASE_MESTRA_LIMEIRA_V05.xlsx#Series Rede:{year}:{source_column}",
+    "fiscal_locator_template": "FILE_LIBRARY:BASE_MESTRA_LIMEIRA_V05.xlsx#Series Rede:{year}:{source_column}"
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

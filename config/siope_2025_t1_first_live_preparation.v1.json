@@ -1,0 +1,79 @@
+{
+  "schema": "SIOPE_2025_T1_FIRST_LIVE_PREPARATION_V1",
+  "task": "TASK_004A",
+  "task_phase": "OFFLINE_PREPARATION_ONLY",
+  "tier_design_target": "T1_REMOTE_READONLY",
+  "current_task_execution_tier": "T0_OFFLINE",
+  "base_main_sha": "232bd69c456c4e0035fecf73473d9e7356f52c1d",
+  "live_execution_authorized_by_task_004a": false,
+  "source_get_authorized_by_task_004a": false,
+  "future_batch_execution_authorized": false,
+  "authorization": {
+    "required": true,
+    "fixed_artifact_path": "config/siope_2025_t1_first_live_authorization.v1.json",
+    "template_path": "config/siope_2025_t1_first_live_authorization.template.v1.json",
+    "artifact_must_be_absent_in_task_004a": true,
+    "approval_kind": "OWNER_EXPLICIT_SINGLE_BOUNDED_RUN",
+    "one_shot_required": true,
+    "max_live_runs": 1,
+    "authorized_base_sha_required": true,
+    "current_parent_must_equal_authorized_base_sha": true,
+    "only_authorization_artifact_may_change_after_authorized_base_sha": true,
+    "expiry_required": true
+  },
+  "target": {
+    "year": 2025,
+    "state": "SP",
+    "municipality_code": 352690,
+    "municipality_name": "Limeira"
+  },
+  "request_contract": {
+    "method": "GET",
+    "host": "www.fnde.gov.br",
+    "path": "/olinda-ide/servico/DADOS_ABERTOS_SIOPE/versao/v1/odata/Dados_Gerais_Siope(Ano_Consulta=@Ano_Consulta,Num_Peri=@Num_Peri,Sig_UF=@Sig_UF)",
+    "periods": [1, 2, 3, 4, 5, 6],
+    "phase_a_request_count": 6,
+    "phase_b_period": 6,
+    "phase_b_request_count_max": 1,
+    "phase_b_precondition": "PHASE_A_PERIOD_6_OBSERVED_EXACT_IDENTITY",
+    "maximum_source_get_count": 7,
+    "maximum_requests_per_period": 1,
+    "timeout_seconds": 60,
+    "max_response_bytes": 262144,
+    "max_attempts": 1,
+    "retry_authorized": false,
+    "follow_redirects": false,
+    "pagination_authorized": false,
+    "follow_nextlink": false
+  },
+  "semantic_guards": {
+    "year_status": "UNPROVEN_RECENT",
+    "annual_period_status": "CANDIDATE_NOT_PROVEN",
+    "resource_status": "UNPROVEN_FOR_2025",
+    "annual_closure_status": "UNKNOWN",
+    "metric_status_required": "UNKNOWN",
+    "promote_2025_to_proven": false,
+    "include_2026_authorized": false,
+    "gold_calculation_authorized": false,
+    "compliance_claims_authorized": false
+  },
+  "workflow": {
+    "path": ".github/workflows/siope-2025-t1-first-live-discovery.yml",
+    "manual_trigger_only": true,
+    "allowed_triggers": ["workflow_dispatch"],
+    "permissions": {
+      "contents": "read"
+    },
+    "authorization_checked_before_transport": true,
+    "live_source_reachable_without_authorization_artifact": false
+  },
+  "effects_task_004a": {
+    "source_get_count": 0,
+    "drive_read_count": 0,
+    "drive_write_count": 0,
+    "response_persistence": false,
+    "bronze_silver_gold_creation": false,
+    "publication": false
+  },
+  "next_gate": "TASK_004B_OWNER_AUTHORIZATION_AND_SINGLE_LIVE_RUN"
+}

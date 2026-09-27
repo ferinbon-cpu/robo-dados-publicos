@@ -1,0 +1,146 @@
+{
+  "schema": "SIOPE_2025_OFFICIAL_ALIAS_DOCUMENTARY_DISCOVERY_DESIGN_V1",
+  "task": "TASK_009E",
+  "issue": 221,
+  "tier": "T0_OFFLINE",
+  "software_version": "0.8.0",
+  "starting_main_sha": "9c20f078b68891334aac7abe8b3074c54a374149",
+  "current_effects": {
+    "source_get_count": 0,
+    "drive_read_count": 0,
+    "drive_write_count": 0,
+    "persistence": false,
+    "publication": false,
+    "remote_execution_authorized": false,
+    "live_workflow_added": false
+  },
+  "repo_resident_baseline": {
+    "historical_dictionary_definition_coverage": "10_OF_11_FINANCIAL_INPUT_CONCEPTS",
+    "current_2025_alias_identity_proven_count": 0,
+    "current_2025_alias_identity_required_count": 11,
+    "num_popu_definition_status": "NOT_PROVEN_OFFICIAL_PRIMARY_DEFINITION_AND_VINTAGE",
+    "official_2025_metadata_package_status": "PROVEN_PUBLISHED_BY_FNDE",
+    "official_2025_metadata_package_content_status": "NOT_INSPECTED",
+    "sharepoint_resolved_route_status": "OBSERVED_HTTP_401_NOT_PUBLIC_ANONYMOUSLY_PROVEN",
+    "antonieta_artifact_route_status": "UNPROVEN_BEYOND_AUTHENTICATION_BOUNDARY"
+  },
+  "discovery_questions": [
+    {
+      "id": "S1_NUM_POPU",
+      "question": "WHAT_IS_NUM_POPU_AND_WHAT_SOURCE_AND_VINTAGE_RULE_APPLIES_TO_THE_CURRENT_SIOPE_RESOURCE",
+      "required_proof": [
+        "OFFICIAL_PRIMARY_FIELD_DEFINITION",
+        "OFFICIAL_PRIMARY_POPULATION_SOURCE_RULE",
+        "OFFICIAL_PRIMARY_VINTAGE_OR_REFERENCE_DATE_RULE",
+        "APPLICABILITY_TO_CURRENT_OR_2025_REGIME_EXPLICIT_OR_DETERMINISTICALLY_BRIDGED"
+      ]
+    },
+    {
+      "id": "S2_FINANCIAL_ALIAS_BRIDGE",
+      "question": "HOW_DO_CURRENT_2025_ODATA_ALIASES_MAP_TO_THE_10_OFFICIAL_FINANCIAL_CONCEPTS",
+      "required_aliases": [
+        "VAL_RECE_PREV_ATUA",
+        "VAL_RECE_REAL",
+        "VAL_DESP_DOTA_ATUA",
+        "VAL_DESP_EMPE",
+        "VAL_DESP_LIQU",
+        "VAL_DESP_PAGA",
+        "VL_DESP_DOTA_ATUA_EDU",
+        "VL_DESP_EMPE_EDU",
+        "VL_DESP_LIQU_EDU",
+        "VL_DESP_PAGA_EDU"
+      ],
+      "required_proof": [
+        "OFFICIAL_PRIMARY_CURRENT_ALIAS_OR_LAYOUT_REFERENCE",
+        "FIELD_BY_FIELD_MAPPING_TO_OFFICIAL_CONCEPTS",
+        "APPLICABILITY_TO_2025_OR_CURRENT_REGIME"
+      ]
+    }
+  ],
+  "future_t1_template": {
+    "authorized": false,
+    "execution_model": "HUMAN_OR_ASSISTANT_BOUNDED_DOCUMENTARY_DISCOVERY_ONLY_AFTER_EXPLICIT_OWNER_AUTHORIZATION",
+    "allowed_authorities": ["FNDE"],
+    "allowed_hosts": [
+      "www.gov.br",
+      "gov.br",
+      "www.fnde.gov.br",
+      "fnde.gov.br"
+    ],
+    "allowed_methods": ["GET"],
+    "maximum_official_document_opens": 12,
+    "maximum_distinct_official_urls": 12,
+    "maximum_attempts_per_url": 1,
+    "retry_authorized": false,
+    "authentication_authorized": false,
+    "cookies_authorized": false,
+    "oauth_authorized": false,
+    "credential_use_authorized": false,
+    "sharepoint_401_route_reuse_authorized": false,
+    "antonieta_login_authorized": false,
+    "limeira_financial_data_query_authorized": false,
+    "municipality_parameter_authorized": false,
+    "year_period_data_parameter_authorized": false,
+    "binary_package_download_authorized": false,
+    "source_data_collection_authorized": false,
+    "gold_computation_authorized": false,
+    "semantic_promotion_in_same_execution_authorized": false,
+    "closure_promotion_in_same_execution_authorized": false,
+    "publication_authorized": false,
+    "drive_access_authorized": false
+  },
+  "admissible_evidence": {
+    "authority_required": "FNDE_OFFICIAL_PRIMARY",
+    "classes": [
+      "CURRENT_OR_2025_OFFICIAL_DATA_DICTIONARY",
+      "CURRENT_OR_2025_OFFICIAL_METADATA_OR_LAYOUT_DOCUMENTATION",
+      "OFFICIAL_TECHNICAL_MANUAL_WITH_FIELD_DEFINITIONS",
+      "OFFICIAL_DATA_PORTAL_DOCUMENTATION_EXPLICITLY_DEFINING_ALIAS",
+      "OFFICIAL_RELEASE_OR_SCHEMA_DOCUMENT_EXPLICITLY_BRIDGING_CURRENT_ALIAS_TO_HISTORICAL_FIELD"
+    ],
+    "must_record": [
+      "source_url",
+      "authority",
+      "document_title_or_page_identity",
+      "applicability_period_or_version_if_stated",
+      "normalized_claim",
+      "claim_scope",
+      "limitations",
+      "provider_hash_if_available"
+    ],
+    "not_sufficient_alone": [
+      "FIELD_NAME_SIMILARITY",
+      "THIRD_PARTY_IMPLEMENTATION",
+      "SEARCH_RESULT_SNIPPET_WITHOUT_OFFICIAL_SOURCE_OPEN",
+      "HISTORICAL_2019_DEFINITION_WITHOUT_CURRENT_BRIDGE",
+      "CURRENT_52_FIELD_SCHEMA_PRESENCE_WITHOUT_DEFINITION",
+      "PACKAGE_EXISTENCE_WITHOUT_CONTENT_OR_LAYOUT"
+    ]
+  },
+  "blocked_targets_and_actions": [
+    "https://fnde.sharepoint.com/sites/SIOPE/Documentos%20Compartilhados/Metadados_Mun_2025.zip",
+    "AUTOMATE_GOV_BR_LOGIN",
+    "USE_OR_CAPTURE_CREDENTIALS_COOKIES_OAUTH_SESSION",
+    "SYNTHESIZE_DOWNLOAD_URL",
+    "RETRY_ALREADY_NEGATIVE_SHAREPOINT_ROUTE",
+    "QUERY_LIMEIRA_FINANCIAL_RECORDS",
+    "PROMOTE_ALIAS_IDENTITY_FROM_NAME_SIMILARITY",
+    "PROMOTE_NUM_POPU_WITHOUT_SOURCE_AND_VINTAGE",
+    "PROMOTE_2025_SEMANTIC_COMPARABILITY",
+    "PROMOTE_2025_ANNUAL_CLOSURE",
+    "COMPUTE_OR_PERSIST_GOLD_2025",
+    "EXPAND_CLOSED_ANNUAL_SERIES_TO_2025",
+    "PROMOTE_2026"
+  ],
+  "semantic_guards": {
+    "year_2025_status": "PROVEN_STRUCTURAL_RECENT",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_metrics_status": "UNKNOWN",
+    "closed_annual_series_first_year": 2016,
+    "closed_annual_series_last_year": 2024,
+    "year_2026_status": "UNPROVEN_CURRENT_YEAR"
+  },
+  "decision": "DESIGN_READY_REMOTE_DISCOVERY_NOT_AUTHORIZED",
+  "next_gate": "TASK_009E_L_SEPARATE_OWNER_AUTHORIZATION_FOR_BOUNDED_OFFICIAL_DOCUMENTARY_DISCOVERY"
+}

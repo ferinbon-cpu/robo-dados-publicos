@@ -1,0 +1,38 @@
+name: CI M7 OLINDA LOCATION HASH ODATA SIDE
+
+on:
+  pull_request:
+    paths:
+      - 'config/source_expansion.siope_official_olinda_api_application_hash_routing_contract_association_diagnostics_review.json'
+      - 'config/source_expansion.siope_official_olinda_api_application_location_hash_odata_side_diagnostics_design.json'
+      - 'config/source_expansion.siope_official_olinda_api_application_location_hash_odata_side_diagnostics.json'
+      - 'docs/evidence/M7_SIOPE_OFFICIAL_OLINDA_API_APPLICATION_HASH_ROUTING_CONTRACT_ASSOCIATION_DIAGNOSTICS_RUN_1_0.8.0.json'
+      - 'robo_dados_publicos/sources/siope_official_olinda_api_application_hash_routing_contract_association_diagnostics_review.py'
+      - 'robo_dados_publicos/sources/siope_official_olinda_api_application_location_hash_odata_side_diagnostics_design.py'
+      - 'robo_dados_publicos/sources/siope_official_olinda_api_application_location_hash_odata_side_diagnostics.py'
+      - 'scripts/github_siope_official_olinda_api_application_hash_routing_contract_association_diagnostics_review_gate.py'
+      - 'scripts/github_siope_official_olinda_api_application_location_hash_odata_side_diagnostics_design_gate.py'
+      - 'scripts/github_siope_official_olinda_api_application_location_hash_odata_side_diagnostics_gate.py'
+      - '.github/workflows/siope-official-olinda-api-application-location-hash-odata-side-diagnostics-gate.yml'
+      - '.github/workflows/ci-m7-olinda-location-hash-odata-side.yml'
+      - 'tests/test_m7_siope_official_olinda_api_application_location_hash_odata_side_diagnostics.py'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          check-latest: false
+      - run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - run: python scripts/github_siope_official_olinda_api_application_hash_routing_contract_association_diagnostics_review_gate.py
+      - run: python scripts/github_siope_official_olinda_api_application_location_hash_odata_side_diagnostics_design_gate.py
+      - run: python scripts/github_siope_official_olinda_api_application_location_hash_odata_side_diagnostics_gate.py --dry-run
+      - run: python -m unittest tests.test_m7_siope_official_olinda_api_application_location_hash_odata_side_diagnostics -v

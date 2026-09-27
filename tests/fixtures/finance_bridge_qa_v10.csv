@@ -1,0 +1,13 @@
+﻿test_id,description,result
+Q01,LOA 2026 é Lei 7.223/2025,PASS
+Q02,PPA possui Programa 2001,PASS
+Q03,Indicador EITI está no Programa 2001 do PPA,PASS
+Q04,LOA também usa Programa 2001,PASS
+Q05,Mesma identificação programática PPA→LOA,PASS
+Q06,Programa 2001 na LOA contém Transporte Escolar,PASS
+Q07,Programa 2001 na LOA contém Alimentação Escolar,PASS
+Q08,Programa 2001 é granularidade heterogênea/ampla,PASS
+Q09,Não atribuir orçamento total do Programa 2001 à EITI,PASS
+Q10,Ação/dotação explicitamente EITI ainda não validada,PASS
+Q11,Execução financeira EITI ainda não conhecida,PASS
+Q12,Ausência de match em busca parcial não é prova de inexistência,PASS

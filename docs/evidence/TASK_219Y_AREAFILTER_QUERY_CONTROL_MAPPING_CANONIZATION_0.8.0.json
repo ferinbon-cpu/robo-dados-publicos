@@ -1,0 +1,110 @@
+{
+  "task": "TASK_219Y_AREAFILTER_QUERY_CONTROL_MAPPING_CANONIZATION",
+  "issue": 740,
+  "parent_issue": 691,
+  "canonical_date": "2026-09-10",
+  "derived_from_task219x_head": "9aacd04ecc58d0b6d8b5f31cf9612c6c753420e8",
+  "canonical_parent_after_task219x_merge": "c8f2e3c04ab46b3ffe83bd2355788e6bfc2429f2",
+  "authorization_sequence": "LEAP_2_OF_3_CURRENT_AUTHORIZATION",
+  "runtime": {
+    "run_id": 34505884408,
+    "job_id": 102967848245,
+    "execution_head_sha": "f89f027097b22a60bf2d59f7f833f53655473c59",
+    "artifact_id": 10163804630,
+    "artifact_zip_sha256": "4a027b7eae07178da1f040b854e049b6704bcb20d78bba4cf880783a54bea2ce",
+    "artifact_retention_days": 1,
+    "executed_workflow_blob_sha": "960f286f79c98478e0e795656cd9622edd621959"
+  },
+  "boundary": {
+    "browser_sessions": 1,
+    "initial_navigations": 1,
+    "top_level_doLink_invocations": 1,
+    "query_field_assignments": 0,
+    "filter_invocations": 0,
+    "result_clicks": 0,
+    "manual_fetch_xhr": 0,
+    "direct_endpoint_calls": 0,
+    "layerinfo_replay": 0,
+    "retries": 0,
+    "Empenho_3286_2026_queried": false
+  },
+  "architecture_proven": {
+    "detailed_area_count": 17,
+    "content_container_pattern": "<AreaId>",
+    "filter_container_pattern": "AREAFILTER_<AreaId>",
+    "filter_roots_exist_for_Empenhado_Processado_Pago_Detalhe": true,
+    "query_controls_can_live_in_filter_root_separate_from_content_result_root": true
+  },
+  "target_area_mappings": [
+    {
+      "AreaName": "Empenhado",
+      "AreaOrigin": "2_92_guestuser_200_5_DSL0_VIS704",
+      "runtime_AreaId": "02c335a09e974006a8fdbc49ceae3593DSA5",
+      "filter_root_exists": true,
+      "Nro_Empenho_count": 0,
+      "Exercicio_2026_count": 0,
+      "complete_query_control_pair": false
+    },
+    {
+      "AreaName": "Processado",
+      "AreaOrigin": "2_92_guestuser_200_6_DSL0_VIS698",
+      "runtime_AreaId": "02c335a09e974006a8fdbc49ceae3593DSA6",
+      "filter_root_exists": true,
+      "Nro_Empenho_count": 1,
+      "Nro_Empenho_id_pattern": "FILTEREDIT_<AreaId>_epn",
+      "Exercicio_2026_count": 1,
+      "Exercicio_id_pattern": "FILTERCOMBO_<AreaId>_exe",
+      "select_count_in_filter": 3,
+      "text_input_count_in_filter": 3,
+      "complete_query_control_pair": true
+    },
+    {
+      "AreaName": "Pago",
+      "AreaOrigin": "2_92_guestuser_200_7_DSL0_VIS699",
+      "runtime_AreaId": "02c335a09e974006a8fdbc49ceae3593DSA7",
+      "filter_root_exists": true,
+      "Nro_Empenho_count": 1,
+      "Nro_Empenho_id_pattern": "FILTEREDIT_<AreaId>_epn",
+      "Exercicio_2026_count": 1,
+      "Exercicio_id_pattern": "FILTERCOMBO_<AreaId>_exe",
+      "select_count_in_filter": 2,
+      "text_input_count_in_filter": 6,
+      "complete_query_control_pair": true
+    },
+    {
+      "AreaName": "Detalhe do Empenho",
+      "AreaOrigin": "2_92_guestuser_200_8_DSL0_VIS706",
+      "runtime_AreaId": "02c335a09e974006a8fdbc49ceae3593DSA8",
+      "filter_root_exists": true,
+      "Nro_Empenho_count": 1,
+      "Nro_Empenho_id_pattern": "FILTEREDIT_<AreaId>_epn",
+      "Exercicio_2026_count": 1,
+      "Exercicio_id_pattern": "FILTERCOMBO_<AreaId>_exe",
+      "select_count_in_filter": 1,
+      "text_input_count_in_filter": 1,
+      "complete_query_control_pair": true,
+      "minimal_exact_pair_for_commitment_lookup": true
+    }
+  ],
+  "submmitApply_signature_correction": {
+    "prior_same_AreaId_only_rule_rejected": true,
+    "observed_filter_root_example_area": "Acesso Rápido",
+    "observed_button_id_pattern": "BUTTON_<AreaId>",
+    "observed_onclick_template": "submmitApply('AREAFILTER_<AreaId>');",
+    "direct_AreaId_argument_also_observed_elsewhere": true,
+    "direct_AreaId_example_area": "LAI - Onde estamos aplicando seu dinheiro",
+    "conclusion": "submmitApply argument convention is area-structure-dependent; absence of submmitApply(<AreaId>) inside a filter root does not prove absence of its filter action"
+  },
+  "scientific_adjudication": {
+    "Empenhado_is_commitment_query_form": false,
+    "Processado_filter_has_query_pair": true,
+    "Pago_filter_has_query_pair": true,
+    "Detalhe_do_Empenho_filter_has_exact_minimal_query_pair": true,
+    "exact_Detalhe_do_Empenho_submit_binding_proven": false,
+    "query_contract_fully_proven": false,
+    "contract_45_2026_to_empenho_3286_2026_proven": false,
+    "payment_attribution_proven": false,
+    "coverage_after": 34,
+    "next_gate": "fresh session: map document-wide BUTTON/submmitApply bindings to the exact current Detalhe do Empenho AreaId/filter root; if one unique binding is proven, execute 2026 + 3286 once under the same task"
+  }
+}

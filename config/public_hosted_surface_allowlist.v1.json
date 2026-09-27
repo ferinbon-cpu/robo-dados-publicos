@@ -1,0 +1,36 @@
+{
+  "schema": "ROBO_DADOS_PUBLICOS_PUBLIC_HOSTED_SURFACE_ALLOWLIST_V1",
+  "entries": [
+    {
+      "surface": "actions_artifact",
+      "resource_id": "9670498410",
+      "entry": "product/report.pdf",
+      "bytes": 21854,
+      "sha256": "1e66378b20b0662f21557ab0b3011ad07b61e89c9879bd8c31a783b4a7221b77",
+      "classification": "PUBLIC_DERIVED_SIOPE_REPORT",
+      "review_evidence": [
+        "9-page generated ReportLab PDF; no attachments, forms, annotations, or encryption",
+        "rendered and text-extracted during public-readiness review",
+        "content is the SIOPE Limeira 2016-2024 descriptive product with arithmetic provenance hashes",
+        "no credential signatures, OAuth material, personal email, or Drive file identifiers found"
+      ],
+      "public_distribution_review": "ACCEPTED_EXACT_ARTIFACT"
+    },
+    {
+      "surface": "actions_artifact",
+      "resource_id": "9672319372",
+      "entry": "product/report.pdf",
+      "bytes": 21854,
+      "sha256": "31aadfd44448061aefcbc76903e3f910f14b7f8b6e46ae60dbfdc683143225d9",
+      "classification": "PUBLIC_DERIVED_SIOPE_REPORT",
+      "review_evidence": [
+        "9-page generated ReportLab PDF; no attachments, forms, annotations, or encryption",
+        "rendered and text-extracted during public-readiness review",
+        "content is the SIOPE Limeira 2016-2024 descriptive product with arithmetic provenance hashes",
+        "no credential signatures, OAuth material, personal email, or Drive file identifiers found",
+        "text differs from artifact 9670498410 only in the generated-at timestamp"
+      ],
+      "public_distribution_review": "ACCEPTED_EXACT_ARTIFACT"
+    }
+  ]
+}

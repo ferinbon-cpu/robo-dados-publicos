@@ -1,0 +1,14 @@
+[
+  {"id":"o1","title":"limeira_jornal_oficial_edicao_7314.pdf","mime_type":"application/pdf","in_authorized_scope":true,"content_hydrated":false,"expected_route":"AUTO_INGEST","expected_family":"JORNAL_OFICIAL"},
+  {"id":"o2","title":"Contrato 51-2025 Prefeitura de Limeira.pdf","mime_type":"application/pdf","in_authorized_scope":true,"content_hydrated":false,"expected_route":"REVIEW","expected_family":"MUNICIPAL_CONTRACTS"},
+  {"id":"o3","title":"TCE_SP_DESPESAS_2026.zip","mime_type":"application/zip","in_authorized_scope":true,"content_hydrated":false,"expected_route":"REVIEW","expected_family":"TCE_SP_EXPENSES"},
+  {"id":"o4","title":"TDA_LIMEIRA_export_2026.csv","mime_type":"text/csv","in_authorized_scope":true,"content_hydrated":false,"expected_route":"REVIEW","expected_family":"TDA_LIMEIRA"},
+  {"id":"o5","title":"SIAVE Limeira Projeto de Lei 94-2026.pdf","mime_type":"application/pdf","in_authorized_scope":true,"content_hydrated":false,"expected_route":"REVIEW","expected_family":null},
+  {"id":"o6","title":"Parecer CME 002-2024.pdf","mime_type":"application/pdf","in_authorized_scope":true,"content_hydrated":false,"expected_route":"REVIEW","expected_family":"CME"},
+  {"id":"o7","title":"Decreto 118-2024 Limeira.pdf","mime_type":"application/pdf","in_authorized_scope":true,"content_hydrated":false,"expected_route":"REVIEW","expected_family":"MUNICIPAL_LEGISLATION"},
+  {"id":"o8","title":"FUNDEB_LIMEIRA_2026_01.pdf","mime_type":"application/pdf","in_authorized_scope":true,"content_hydrated":false,"expected_route":"AUTO_INGEST","expected_family":"FUNDEB"},
+  {"id":"o9","title":"PPA 2026-2029 Lei 7213-2025.pdf","mime_type":"application/pdf","in_authorized_scope":true,"content_hydrated":false,"expected_route":"REVIEW","expected_family":"PPA"},
+  {"id":"o10","title":"SOURCE_JOM_7119_2025-11-15_PPA_7213_2025.pdf","mime_type":"application/pdf","in_authorized_scope":true,"content_hydrated":false,"expected_route":"REVIEW","expected_family":null},
+  {"id":"o11","title":"foto_evento_escolar.pdf","mime_type":"application/pdf","in_authorized_scope":true,"content_hydrated":false,"expected_route":"QUARANTINE","expected_family":null},
+  {"id":"o12","title":"Jornal Oficial Limeira 7315.pdf","mime_type":"application/pdf","in_authorized_scope":true,"content_hydrated":true,"expected_route":"QUARANTINE","expected_family":null}
+]

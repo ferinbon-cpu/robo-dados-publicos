@@ -1,0 +1,55 @@
+{
+  "schema": "F02_KNOWN_FAMILY_BATCH_MANIFEST_V1",
+  "mode": "MANUAL_SUPERVISED_INGEST",
+  "batch_id": "SYNTHETIC_RREO_ALIGNED_EXAMPLE",
+  "batch_kind": "RREO_ALIGNED",
+  "reference_period": {
+    "start": "2099-01-01",
+    "end": "2099-04-30"
+  },
+  "sources": [
+    {
+      "source_id": "SYNTH_RREO",
+      "family": "RREO_MDE",
+      "role": "SYNTHETIC_OFFICIAL_PRIMARY",
+      "drive_file_id": "synthetic-drive-rreo",
+      "expected_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "expected_bytes": 100,
+      "expected_pages": 2,
+      "snapshot_path": "runtime/f02/synthetic/rreo.pdf"
+    },
+    {
+      "source_id": "SYNTH_FUNDEB",
+      "family": "FUNDEB_LOCAL",
+      "role": "SYNTHETIC_LOCAL_MONITORING",
+      "drive_file_id": "synthetic-drive-fundeb",
+      "expected_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "expected_bytes": 101,
+      "expected_pages": 1,
+      "snapshot_path": "runtime/f02/synthetic/fundeb.pdf"
+    },
+    {
+      "source_id": "SYNTH_MDE",
+      "family": "MDE_25_LOCAL",
+      "role": "SYNTHETIC_AUXILIARY_LOCAL",
+      "drive_file_id": "synthetic-drive-mde",
+      "expected_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "expected_bytes": 102,
+      "expected_pages": 1,
+      "snapshot_path": "runtime/f02/synthetic/mde.pdf"
+    }
+  ],
+  "remote_effects_authorized": {
+    "bronze_write": false,
+    "silver_write": false,
+    "gold_write": false,
+    "serving": false,
+    "publication": false,
+    "site": false,
+    "overwrite": false,
+    "delete": false,
+    "move": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

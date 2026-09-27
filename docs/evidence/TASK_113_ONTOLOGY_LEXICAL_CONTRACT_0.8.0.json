@@ -1,0 +1,38 @@
+{
+  "task": "TASK_113",
+  "version": "0.8.0",
+  "mode": "T0_OFFLINE_ONTOLOGY_A_B_C_LEXICAL_CONTRACT",
+  "issue": 423,
+  "decision": "PENDING_REVIEW",
+  "source_sha256": "685a621a2f5fa8859e4b7f8518627c1523a2fbc5f3402ff48d4aa7573300113d",
+  "source_page_count": 80,
+  "source_basis": [
+    "docs/evidence/TASK_055A_F01_EITI_TERMINOLOGY_ONTOLOGY_0.8.0.json",
+    "docs/evidence/TASK_112_REAL_PPA_OCR_RESULT_0.8.0.json"
+  ],
+  "allowed_families": [
+    "A_CANONICAL_POLICY_IDENTIFIERS",
+    "B_LOCAL_PLANNING_AND_NORMATIVE_ALIASES",
+    "C_OPERATIONAL_OFFER_AND_JOURNEY_SIGNALS"
+  ],
+  "forbidden_families": [
+    "D_FINANCING_AND_INDUCTION_SIGNALS",
+    "E_ACCOUNTING_AND_PLANNING_LINKAGE_KEYS"
+  ],
+  "future_live_authorized": false,
+  "automatic_promotion": false,
+  "remote_effects": {
+    "source_network": false,
+    "source_read": false,
+    "ocr": false,
+    "drive_read": false,
+    "drive_write": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}

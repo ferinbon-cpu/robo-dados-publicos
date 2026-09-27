@@ -1,0 +1,51 @@
+{
+  "task": "TASK_032_BUDGET_JOURNAL_BOUNDED_ACQUISITION",
+  "version": "0.8.0",
+  "base_sha": "16dca9bc796654500afb512b792e3d9101c4c909",
+  "mode": "T0_OFFLINE_IMPLEMENTATION_LIVE_DISABLED_BY_DEFAULT",
+  "implementation": {
+    "exact_source_urls": 3,
+    "expected_editions": [7024, 7119, 7127],
+    "expected_pages": [79, 107, 631],
+    "target_folder_id": "1CdL4T1CVIPqNph3f5xHbiU8KgxgPpkl5",
+    "source_get_limit": 3,
+    "drive_inventory_limit": 1,
+    "drive_create_limit": 3,
+    "drive_readback_limit": 3,
+    "redirects_allowed": false,
+    "automatic_retry": false,
+    "automatic_cleanup": false,
+    "overwrite": false,
+    "replace": false,
+    "delete": false
+  },
+  "validation": {
+    "http_200": true,
+    "exact_final_url": true,
+    "content_type_pdf": true,
+    "pdf_signature": true,
+    "max_bytes": true,
+    "sha256": true,
+    "exact_page_count": true,
+    "all_sources_before_write": true,
+    "all_target_names_absent_before_write": true,
+    "readback_bytes_sha256_pages": true
+  },
+  "downstream": {
+    "ocr": false,
+    "parser": false,
+    "bronze": false,
+    "silver": false,
+    "gold": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "live_authorization_embedded": false,
+  "live_execution_performed": false,
+  "drive_mutation_performed": false,
+  "source_hashes_known": false,
+  "custody_status": "PENDING_LIVE_AUTHORIZED_PROOF",
+  "next_boundary": "Merge only after CI. Then require fresh owner authorization pinned to the exact merged implementation SHA before any source GET or Drive create-only write."
+}

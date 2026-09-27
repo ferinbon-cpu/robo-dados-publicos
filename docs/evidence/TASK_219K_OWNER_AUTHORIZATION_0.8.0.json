@@ -1,0 +1,19 @@
+{
+  "task":"TASK_219K_OWNER_AUTHORIZATION",
+  "issue":711,
+  "authorized_main_sha":"f12998d64b2b95a2021d4c0da6250eb80900002c",
+  "owner_instruction":"autorizado para completar o proximo grande salto completo",
+  "scope":"COMPLETE_TASK219K_PASSIVE_LAYERINFO_SCHEMA_AND_RESPONSE_ENCODING",
+  "browser_sessions":1,
+  "manual_navigations":1,
+  "clicks":0,
+  "typing":0,
+  "form_submissions":0,
+  "manual_fetch_xhr":0,
+  "direct_endpoint_calls":0,
+  "retry":0,
+  "raw_layerinfo_values_persisted":false,
+  "response_text_persisted":false,
+  "includes":["design","one_passive_browser_session","layerinfo_schema_only","response_encoding_only","offline_adjudication","workflow_removal","ci_merge","closure"],
+  "excludes":["layerinfo_replay","layerinfo_synthesis","commitment_lookup","pncp","tcesp","drive","municipal_contract_portal","authentication","endpoint_guessing","recurrence","second_browser_session"]
+}

@@ -1,0 +1,161 @@
+{
+  "version": 1,
+  "schema": "TASK188_RREO_RESTS_PAYABLE_2026_V1",
+  "task": "TASK_188_RREO_RESTS_PAYABLE_MATERIALIZATION",
+  "mode": "OWNER_FILE_LIBRARY_OFFLINE_MATERIALIZATION",
+  "jurisdiction": "Limeira/SP",
+  "source_role": "ACCOUNTING_EXECUTION_PRIMARY",
+  "sources": [
+    {
+      "source_id": "RREO_2026_B1_ANEXO_07",
+      "authority": "Municipio de Limeira / CN-SIFPM",
+      "document": "ANEXO 7-RESTOS A PAGAR - LRF -MES_FEVEREIRO.pdf",
+      "file_library_id": "file_000000007e9c720ea7d90afbce06fe16",
+      "period": "2026-02",
+      "reference": "JANEIRO a FEVEREIRO 2026 / BIMESTRE JANEIRO-FEVEREIRO",
+      "evidence_scope": "OFFICIAL_RREO_ANEXO_7_AGGREGATE"
+    },
+    {
+      "source_id": "RREO_2026_B2_ANEXO_07",
+      "authority": "Municipio de Limeira / CN-SIFPM",
+      "document": "ANEXO 7 - Restos a Pagar por Poder e Orgão.pdf",
+      "file_library_id": "file_000000006a5871f5a24f1d593d30a59e",
+      "period": "2026-04",
+      "reference": "JANEIRO a ABRIL 2026 / BIMESTRE MARCO-ABRIL",
+      "evidence_scope": "OFFICIAL_RREO_ANEXO_7_AGGREGATE"
+    }
+  ],
+  "observations": [
+    {
+      "observation_key": "2026-02:MUNICIPIO_TOTAL",
+      "source_id": "RREO_2026_B1_ANEXO_07",
+      "event_month": 2,
+      "scope_type": "MUNICIPAL_TOTAL_EXCEPT_INTRABUDGET",
+      "scope_name": "RESTOS A PAGAR (EXCETO INTRAORCAM.) (I)",
+      "processed": {
+        "prior_years_inscribed_brl": "32531443.86",
+        "dec_2025_inscribed_brl": "77191436.00",
+        "paid_brl": "83052628.33",
+        "cancelled_brl": "0.00",
+        "balance_brl": "26670251.53"
+      },
+      "nonprocessed": {
+        "prior_years_inscribed_brl": "11262859.28",
+        "dec_2025_inscribed_brl": "113968284.18",
+        "liquidated_brl": "78915987.88",
+        "paid_brl": "64793991.03",
+        "cancelled_brl": "1267617.53",
+        "balance_brl": "59169534.90"
+      },
+      "total_balance_brl": "85839786.43"
+    },
+    {
+      "observation_key": "2026-02:SECRETARIA_EDUCACAO",
+      "source_id": "RREO_2026_B1_ANEXO_07",
+      "event_month": 2,
+      "scope_type": "ORGAN",
+      "scope_name": "SECRETARIA DE EDUCACAO",
+      "policy_domain_hints": [
+        "EDUCATION"
+      ],
+      "processed": {
+        "prior_years_inscribed_brl": "470238.15",
+        "dec_2025_inscribed_brl": "26897598.01",
+        "paid_brl": "26735466.67",
+        "cancelled_brl": "0.00",
+        "balance_brl": "632369.49"
+      },
+      "nonprocessed": {
+        "prior_years_inscribed_brl": "429605.70",
+        "dec_2025_inscribed_brl": "7898937.02",
+        "liquidated_brl": "2620321.87",
+        "paid_brl": "3003194.62",
+        "cancelled_brl": "599012.46",
+        "balance_brl": "4726335.64"
+      },
+      "total_balance_brl": "5358705.13"
+    },
+    {
+      "observation_key": "2026-04:MUNICIPIO_TOTAL",
+      "source_id": "RREO_2026_B2_ANEXO_07",
+      "event_month": 4,
+      "scope_type": "MUNICIPAL_TOTAL_EXCEPT_INTRABUDGET",
+      "scope_name": "RESTOS A PAGAR (EXCETO INTRAORCAM.) (I)",
+      "processed": {
+        "prior_years_inscribed_brl": "32531443.86",
+        "dec_2025_inscribed_brl": "77191436.00",
+        "paid_brl": "93246446.37",
+        "cancelled_brl": "0.00",
+        "balance_brl": "16476433.49"
+      },
+      "nonprocessed": {
+        "prior_years_inscribed_brl": "11262859.28",
+        "dec_2025_inscribed_brl": "113968284.18",
+        "liquidated_brl": "91812724.37",
+        "paid_brl": "82102868.02",
+        "cancelled_brl": "8551529.54",
+        "balance_brl": "34576745.90"
+      },
+      "total_balance_brl": "51053179.39"
+    },
+    {
+      "observation_key": "2026-04:SECRETARIA_EDUCACAO",
+      "source_id": "RREO_2026_B2_ANEXO_07",
+      "event_month": 4,
+      "scope_type": "ORGAN",
+      "scope_name": "SECRETARIA DE EDUCACAO",
+      "policy_domain_hints": [
+        "EDUCATION"
+      ],
+      "processed": {
+        "prior_years_inscribed_brl": "470238.15",
+        "dec_2025_inscribed_brl": "26897598.01",
+        "paid_brl": "27059168.30",
+        "cancelled_brl": "0.00",
+        "balance_brl": "308667.86"
+      },
+      "nonprocessed": {
+        "prior_years_inscribed_brl": "429605.70",
+        "dec_2025_inscribed_brl": "7898937.02",
+        "liquidated_brl": "3211313.36",
+        "paid_brl": "3663316.39",
+        "cancelled_brl": "1963388.64",
+        "balance_brl": "2701837.69"
+      },
+      "total_balance_brl": "3010505.55"
+    }
+  ],
+  "tcesp_granular_enrichment": {
+    "source_id": "TCESP_LIMEIRA_2026_RESTOS",
+    "exact_url": "https://transparencia.tce.sp.gov.br/sites/default/files/dados/planilhas/restos/limeira-2026.zip",
+    "task172_observed_record_count": 7425,
+    "task172_observed_zip_bytes": 237773,
+    "task172_observed_zip_sha256": "889eaa71d87e935903c39417af951dacb7078a39f010271853cd075e13f04e01",
+    "task172_member": "limeira-2026.zip.csv",
+    "current_task188_transport_status": "SOURCE_TRANSPORT_UNAVAILABLE_NOT_NO_DATA",
+    "raw_payload_currently_custodied": false,
+    "materialization_role": "FUTURE_GRANULAR_ENRICHMENT_NOT_REQUIRED_FOR_ACC_Q3_AGGREGATE_ANSWERABILITY"
+  },
+  "arithmetic_guards": [
+    "PROCESSED_BALANCE_EQUALS_PRIOR_PLUS_DEC2025_MINUS_PAID_MINUS_CANCELLED",
+    "NONPROCESSED_BALANCE_EQUALS_PRIOR_PLUS_DEC2025_MINUS_PAID_MINUS_CANCELLED",
+    "TOTAL_BALANCE_EQUALS_PROCESSED_PLUS_NONPROCESSED",
+    "LIQUIDATED_NONPROCESSED_IS_INFORMATIONAL_NOT_SUBTRACTED_AGAIN_FROM_BALANCE",
+    "ORGAN_NE_FUNCTION_NE_POLICY_IDENTITY"
+  ],
+  "semantic_guards": [
+    "RESTS_PAYABLE_NE_CURRENT_YEAR_EXPENDITURE",
+    "PROCESSED_NE_NONPROCESSED",
+    "RREO_AGGREGATE_NE_TCESP_GRANULAR_TRANSACTION",
+    "SECRETARIA_EDUCACAO_NE_SPECIFIC_EDUCATION_POLICY_IDENTITY",
+    "SOURCE_TRANSPORT_FAILURE_NE_NO_DATA"
+  ],
+  "remote_effects": {
+    "source_network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

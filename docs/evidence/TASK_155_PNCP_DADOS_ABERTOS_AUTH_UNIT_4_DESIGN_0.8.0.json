@@ -1,0 +1,21 @@
+{
+  "task":"TASK_155_PNCP_DADOS_ABERTOS_AUTH_UNIT_4",
+  "issue":522,
+  "mode":"T0_OFFLINE_OFFICIAL_LINK_CLICK_DESIGN_ONLY",
+  "base_sha":"2ca4cfddaa33245e39268c4ca35d9d4d7697bcb0",
+  "authorization_unit_index":4,
+  "remaining_units_before_execution":7,
+  "future_click_invocations_max":1,
+  "source_web_ref":"turn141163view0",
+  "source_link_id":12,
+  "source_link_label":"Dados Abertos",
+  "future_search_queries":0,
+  "future_web_open_invocations":0,
+  "future_retry":0,
+  "future_followup_clicks":0,
+  "future_direct_download_invocations":0,
+  "negative_exhaustive_conclusion_allowed":false,
+  "pncp_no_match_allowed":false,
+  "remaining_units_after_invocation":6,
+  "result":"PASS_TASK155_DADOS_ABERTOS_CLICK_DESIGNED_NOT_EXECUTED"
+}

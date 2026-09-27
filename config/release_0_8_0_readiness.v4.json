@@ -1,0 +1,38 @@
+{
+  "schema": "RELEASE_0_8_0_READINESS_V4",
+  "task": "TASK_244",
+  "issue": 816,
+  "tier": "T0_CURRENT_STATE_RECONCILIATION",
+  "canonical_date": "2026-09-14",
+  "base_main_sha": "094595b1ba8dd9d82596b918b621a2ae939aa204",
+  "resolved_predecessors": {
+    "B1_NUM_POPU": "RESOLVED_BY_EXCLUSION_FROM_ANALYTICAL_POPULATION_SEMANTICS",
+    "B2_FINANCIAL_ALIAS_BRIDGE": "PROVEN_10_OF_10_ALIAS_TO_CONCEPT",
+    "B3_EFFECTIVE_DECLARATION": "PROVEN_DYNAMIC_EFFECTIVE_SELECTION_RULE_WITH_PINNED_LIMEIRA_RECEIPT",
+    "TASK242_OFFLINE_AUDIT": "COMPLETE_PRIMARY_TEMPORAL_PUBLIC_CONTRACT_EVIDENCE_REQUIRED",
+    "TASK243_OFFLINE_AUDIT": "COMPLETE_IBGE_SOURCE_CONTRACT_NOT_PINNED"
+  },
+  "semantic_comparability": {
+    "global_status": "PARTIAL",
+    "financial_inputs_10_of_10": "PARTIAL_HISTORICAL_TEMPORAL_PUBLIC_CONTRACT_EVIDENCE_REQUIRED",
+    "financial_metrics_1_to_6": "PARTIAL_NOT_AUTHORIZED",
+    "per_capita_metrics_7_to_8": "NON_COMPARABLE_UNDER_NUM_POPU_REQUIRES_IBGE_REBASE"
+  },
+  "next_evidence_gates": {
+    "FINANCIAL_1_TO_6": "BOUNDED_OFFICIAL_PUBLIC_CONTRACT_TEMPORAL_EVIDENCE_ACQUISITION_REQUIRES_EXPLICIT_AUTHORIZATION",
+    "PER_CAPITA_7_TO_8": "BOUNDED_OFFICIAL_IBGE_POPULATION_SOURCE_CONTRACT_AND_SERIES_ACQUISITION_REQUIRES_EXPLICIT_AUTHORIZATION"
+  },
+  "authorization_state": {
+    "user_authorized_big_jump_on_2026_09_14": true,
+    "authorization_scope": "BOUNDED_READ_ONLY_OFFICIAL_SOURCE_ACQUISITION_FOR_THE_TWO_CANONICAL_NEXT_GATES",
+    "gold_calculation_authorized": false,
+    "series_inclusion_authorized": false,
+    "release_promotion_authorized": false
+  },
+  "gold_2025": "BLOCKED_NOT_CALCULATED",
+  "closed_annual_series": "2016-2024",
+  "release_0_8_0": "CANDIDATE",
+  "decision": "ACQUISITION_READY_TWO_BOUNDED_OFFICIAL_GATES_NO_GOLD",
+  "supersedes_for_current_reading": "config/release_0_8_0_readiness.v3.json",
+  "historical_v3_preserved": true
+}

@@ -1,0 +1,185 @@
+{
+  "version": 1,
+  "schema": "TASK161_PNCP_MANUAL_PUBLICATION_SWEEP_EVIDENCE_GUARDS_V1",
+  "task": "TASK_161_PNCP_MANUAL_PUBLICATION_SWEEP_EVIDENCE_GUARDS",
+  "issue": 534,
+  "base_sha": "f8e92da2d602b817807b63a8355d9ca2622590d0",
+  "mode": "T0_OFFLINE_SANITIZED_EVIDENCE_AND_FAIL_CLOSED_GUARDS",
+  "authorization": {
+    "owner_instruction_exact": "Autorizado pn p irrestrito",
+    "issued_after_task_160_closure": true,
+    "scope": "PNCP_LIVE_READ_DISCOVERY_ONLY",
+    "metering": "UNMETERED_WITHIN_PNCP_SCOPE_UNTIL_REVOKED_OR_SUPERSEDED",
+    "mutations_allowed": false,
+    "drive_writes_allowed": false,
+    "non_pncp_live_sources_allowed": false
+  },
+  "source_scope": {
+    "registry": "PNCP",
+    "endpoint": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao",
+    "expected_cnpj": "45132495000140",
+    "expected_razao_social": "MUNICIPIO DE LIMEIRA",
+    "expected_municipio": "Limeira",
+    "expected_uf": "SP",
+    "expected_ibge": "3526902",
+    "publication_date_initial": "2025-11-28",
+    "publication_date_final": "2026-09-04",
+    "page_size": 50,
+    "date_axis": "dataPublicacaoPncp"
+  },
+  "manual_owner_relay": {
+    "source_role": "PRIMARY_OFFICIAL_API_RESPONSE_RELAYED_BY_OWNER",
+    "raw_json_git": false,
+    "raw_json_drive": false,
+    "sanitized_summary_git": true,
+    "relay_does_not_consume_robot_live_authorization": true
+  },
+  "complete_scopes": [
+    {
+      "modality_id": 6,
+      "modality_name": "Pregao - Eletronico",
+      "total_records": 181,
+      "total_pages": 4,
+      "pages_observed": 4,
+      "exhaustive_within_exact_scope": true,
+      "explicit_eiti_match_count": 0
+    },
+    {
+      "modality_id": 8,
+      "modality_name": "Dispensa",
+      "total_records": 434,
+      "total_pages": 9,
+      "pages_observed": 9,
+      "exhaustive_within_exact_scope": true,
+      "explicit_eiti_match_count": 0
+    },
+    {
+      "modality_id": 12,
+      "modality_name": "Credenciamento",
+      "total_records": 5,
+      "total_pages": 1,
+      "pages_observed": 1,
+      "exhaustive_within_exact_scope": true,
+      "explicit_eiti_match_count": 0
+    }
+  ],
+  "incomplete_scopes": [
+    {
+      "modality_id": 9,
+      "modality_name": "Inexigibilidade",
+      "discovery_mode": "INDEXED_AND_DOCUMENTARY_ENRICHMENT",
+      "exhaustive_within_exact_scope": false,
+      "pncp_no_match_allowed": false,
+      "negative_exhaustive_conclusion_allowed": false,
+      "strongest_education_lead": "AQUISICAO DE PASSE ESCOLAR",
+      "strongest_lead_estimated_value_brl": 3816720.0,
+      "stable_pncp_id_status": "NOT_YET_RECOVERED",
+      "max_status_without_stable_id": "DISCOVERY_LEAD"
+    }
+  ],
+  "selected_evidence_ledger": [
+    {
+      "numeroControlePNCP": "45132495000140-1-000013/2026",
+      "anoCompra": 2026,
+      "sequencialCompra": 13,
+      "processo": "S00001",
+      "modality_id": 8,
+      "raw_object": "CONTRATACAO TRANSPORTE ESCOLAR - EMERGENCIAL",
+      "estimated_value_brl": 5039990.0,
+      "tier": "EDUCATION_RELEVANT",
+      "eiti_proven": false
+    },
+    {
+      "numeroControlePNCP": "45132495000140-1-000487/2026",
+      "anoCompra": 2026,
+      "sequencialCompra": 487,
+      "processo": "E00109",
+      "modality_id": 6,
+      "raw_object": "FORNECIMENTO, IMPLANTAO E SUPORTE DE SOLUCAO INTEGRADA - GESTAO EDUCACIONAL",
+      "estimated_value_brl": 5607040.0,
+      "tier": "EDUCATION_RELEVANT",
+      "eiti_proven": false
+    },
+    {
+      "numeroControlePNCP": "45132495000140-1-000588/2026",
+      "anoCompra": 2026,
+      "sequencialCompra": 588,
+      "processo": "S00324",
+      "modality_id": 8,
+      "raw_object": "AQUISICAO DE PREMIOS PARA PREMIACAO ALUNOS DO CONCURSO LITERARIO",
+      "estimated_value_brl": 17900.0,
+      "homologated_value_brl": 7637.0,
+      "tier": "EDUCATION_RELEVANT",
+      "eiti_proven": false
+    },
+    {
+      "numeroControlePNCP": "45132495000140-1-000584/2026",
+      "anoCompra": 2026,
+      "sequencialCompra": 584,
+      "processo": "S00322",
+      "modality_id": 8,
+      "raw_object": "PRESTACAO DE SERVICO DE IMPLANTACAO E EXECUCAO DE PROJETO ESPORTIVO PILOTO",
+      "estimated_value_brl": 65000.0,
+      "tier": "GENERAL",
+      "discovery_interest": "SEMANTIC_LEAD_ONLY",
+      "eiti_proven": false
+    }
+  ],
+  "evidence_ladder": [
+    "GENERAL",
+    "EDUCATION_RELEVANT",
+    "EITI_CANDIDATE",
+    "EITI_CORROBORATED",
+    "EITI_PROVEN"
+  ],
+  "promotion_rules": {
+    "education_relevant_is_not_eiti_proven": true,
+    "explicit_eiti_terms_or_primary_linkage_required_for_eiti_promotion": true,
+    "stable_administrative_id_required_before_correlated_promotion": true,
+    "financial_identity_requires_documentary_linkage": true,
+    "transaction_identity_requires_documentary_linkage": true,
+    "supplier_identity_requires_documentary_linkage": true
+  },
+  "identity_guard": {
+    "required_fields": [
+      "cnpj",
+      "municipio",
+      "uf"
+    ],
+    "platform_or_domain_match_is_insufficient": true,
+    "wrong_municipality_action": "REJECT_SOURCE_WITH_ENTITY_IDENTITY_MISMATCH",
+    "known_rejected_example": {
+      "document_hint": "PCA 2026 - EDUCACAO",
+      "actual_municipality": "Itupeva",
+      "expected_municipality": "Limeira",
+      "classification": "ENTITY_IDENTITY_MISMATCH",
+      "must_not_enter_limeira_evidence_graph": true
+    }
+  },
+  "pagination_guard": {
+    "exhaustive_requires_all_pages_observed": true,
+    "exhaustive_requires_total_records_and_total_pages_metadata": true,
+    "partial_page_result_cannot_create_no_match": true,
+    "indexed_search_cannot_create_exhaustive_no_match": true
+  },
+  "transport_guard": {
+    "tool_layer_failure_is_not_source_no_match": true,
+    "dns_failure_is_not_source_no_match": true,
+    "http_transport_failure_is_not_source_no_match": true,
+    "required_failure_semantics": "SOURCE_TRANSPORT_UNAVAILABLE"
+  },
+  "anomaly_policy": {
+    "preserve_raw_source_values": true,
+    "silent_repair_forbidden": true,
+    "legal_basis_object_mismatch_flag": "OBJECT_LEGAL_BASIS_MISMATCH",
+    "reference_text_staleness_flag": "REFERENCE_TEXT_STALENESS",
+    "suspicious_date_flag": "SOURCE_DATA_ANOMALY"
+  },
+  "global_epistemic_state": {
+    "explicit_eiti_match_in_complete_modalities_6_8_12": false,
+    "eiti_financial_identity_proven": false,
+    "eiti_transaction_identity_proven": false,
+    "eiti_supplier_identity_proven": false,
+    "global_pncp_no_match_created": false
+  }
+}

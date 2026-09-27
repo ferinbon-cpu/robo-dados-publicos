@@ -1,0 +1,341 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.1.0",
+  "files": [
+    {
+      "path": ".env.example",
+      "bytes": 160,
+      "sha256": "e1f80cc5631f57b1a4ededcf47c86455e18f1fe3ddcafde5f0f5baac38b5ada7"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 121,
+      "sha256": "65bc61de7a379dd7a2592172a14867a2d90c796e29a7743c8f936b1167ec65c3"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1830,
+      "sha256": "8cba6bf755da7b99947f4b8b4cc122f59f9fc1dbb420109017b5cf4e3131d414"
+    },
+    {
+      "path": "config/default.json",
+      "bytes": 252,
+      "sha256": "7b430665948dfb178e763d56ab75b81c0adb834ed10129d19739e0d56fb10f4a"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "bytes": 513,
+      "sha256": "b02e3a4ae3ece9e4f8a2657992f515c944814b471581e9d192a90622a03ebd88"
+    },
+    {
+      "path": "docs/MIGRATION_MATRIX.md",
+      "bytes": 1111,
+      "sha256": "22e3192b5d50902012734604e345d82cace5f5939a30afd0d8e7afa3cbd53a1c"
+    },
+    {
+      "path": "docs/RELEASE_NOTES_V01.md",
+      "bytes": 664,
+      "sha256": "22d35e2eae78b27cd1e372322316c9633a4c31de20302e978c7ef9a95d1380d0"
+    },
+    {
+      "path": "docs/SECURITY.md",
+      "bytes": 429,
+      "sha256": "8dc5c54f65bb6b0cdb2e42efee0461d2d973c4d168238d6c1ec516adbe598ffa"
+    },
+    {
+      "path": "main.py",
+      "bytes": 98,
+      "sha256": "91cc4b3fd4c39e5adfdc3ed808492de1eb565ada13a4544230d7970db1cee294"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 539,
+      "sha256": "922984b0e1c1eb5dbb6449402be5070ec68a680a53674baa94ac6b4213cb846a"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 43,
+      "sha256": "87864d0c4503b6ebea6460c0b635e91b74c802e951b9d2ca528179bf633359a6"
+    },
+    {
+      "path": "robo_dados_publicos/__init__.py",
+      "bytes": 22,
+      "sha256": "91447944015cec709e8aa7655f7e9d64e1e4508e7023a57fe3746911c0fc6fed"
+    },
+    {
+      "path": "robo_dados_publicos/accounting/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "robo_dados_publicos/accounting/identity.py",
+      "bytes": 778,
+      "sha256": "65ac23fca6efa61875ed6e87a870eef91a0cbc2981bece212caa21ed72f391ec"
+    },
+    {
+      "path": "robo_dados_publicos/analytics/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "robo_dados_publicos/analytics/siope.py",
+      "bytes": 836,
+      "sha256": "f6e6d7b0316ce85d17c0b8f893d2fdecc832d4ac4b44de8629b59880091c297f"
+    },
+    {
+      "path": "robo_dados_publicos/answers/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "robo_dados_publicos/answers/contracts.py",
+      "bytes": 514,
+      "sha256": "f0ffde8d46e320baa1b49dbc695c1ae10fa39a81850cfe22b5254bbac89741f8"
+    },
+    {
+      "path": "robo_dados_publicos/cli.py",
+      "bytes": 3046,
+      "sha256": "e60b8c1cd2812344ea1a574d75365cd3bfff4f2c2490b5dc3e0eee6e1a63e8e2"
+    },
+    {
+      "path": "robo_dados_publicos/core/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "robo_dados_publicos/core/config.py",
+      "bytes": 637,
+      "sha256": "887f0055b19090a2dfa64b62d99a20d451761dd5ec76eb7048657054c1f0a953"
+    },
+    {
+      "path": "robo_dados_publicos/core/exceptions.py",
+      "bytes": 206,
+      "sha256": "87382282a6044ed582606069545cb84e3d806d819155e14e03ea42fc0c0538cf"
+    },
+    {
+      "path": "robo_dados_publicos/core/models.py",
+      "bytes": 585,
+      "sha256": "8acc926ae1d0df54414fdde3139f2a75e262d1c2e582b3f6ce84ca40782e416c"
+    },
+    {
+      "path": "robo_dados_publicos/evidence/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "robo_dados_publicos/evidence/graph.py",
+      "bytes": 1072,
+      "sha256": "ad214d9c136aedab95e71fbbd316c71a1d242fc2d87e69d52a3f8ec0650296b9"
+    },
+    {
+      "path": "robo_dados_publicos/incremental/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "robo_dados_publicos/incremental/planner.py",
+      "bytes": 299,
+      "sha256": "46a34af9f22353303099c6b32ba9430dfad50dc7d61a22dc90341abb2a7fd460"
+    },
+    {
+      "path": "robo_dados_publicos/ingest/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "robo_dados_publicos/ingest/gates.py",
+      "bytes": 1264,
+      "sha256": "f592158186c1830335d4bb49b48531330945d171999cc1abcf8916b78796a562"
+    },
+    {
+      "path": "robo_dados_publicos/orchestration/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "robo_dados_publicos/orchestration/engine.py",
+      "bytes": 832,
+      "sha256": "82fafd8d78944112f36475a534f5c52c9714a4e6e381cf809257a5039695103c"
+    },
+    {
+      "path": "robo_dados_publicos/policy/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "robo_dados_publicos/policy/identity.py",
+      "bytes": 462,
+      "sha256": "1b14e91cb8f4e608a8a6dbde0240051a5bc8aa3086821f2173cad1c8fc4500a5"
+    },
+    {
+      "path": "robo_dados_publicos/qa/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "robo_dados_publicos/qa/regression.py",
+      "bytes": 8815,
+      "sha256": "3e46f6c1f8451123e6da6e9bd5fdccac17f2ae8766975106d37d17aa1ce34866"
+    },
+    {
+      "path": "robo_dados_publicos/router/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "robo_dados_publicos/router/rules.py",
+      "bytes": 993,
+      "sha256": "f3595ad0fb2cf7feebdf3885d4759f7c07bdd0f27699c9c02fc69ae02bc46d45"
+    },
+    {
+      "path": "robo_dados_publicos/schema/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "robo_dados_publicos/schema/tnr.py",
+      "bytes": 1289,
+      "sha256": "615bcc6d241d2d98b391a95fa63cec526b1b0583a1656bbe3f18824722d037a3"
+    },
+    {
+      "path": "robo_dados_publicos/state/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "robo_dados_publicos/state/registry.py",
+      "bytes": 2738,
+      "sha256": "9a34b12b9e0759755499f47864a2ac8684fd77d414bb5b9ba38e59a63a78a5e4"
+    },
+    {
+      "path": "robo_dados_publicos/storage/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "robo_dados_publicos/storage/hashing.py",
+      "bytes": 259,
+      "sha256": "717d579cd3900331120fc47d8f673c074ed72bae7062fcda1aa121a352c0d343"
+    },
+    {
+      "path": "robo_dados_publicos/temporal/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "robo_dados_publicos/temporal/rules.py",
+      "bytes": 1150,
+      "sha256": "38dca7ea2e071472e012747cc0db55f7468adab74cd1409114cecdb4edd64f41"
+    },
+    {
+      "path": "runtime/clean_venv_selftest.json",
+      "bytes": 73,
+      "sha256": "ff087f558dcb652d3c5ac29a444af466ad369d9bd57efcf71926d78660849c5a"
+    },
+    {
+      "path": "runtime/ingest_first.json",
+      "bytes": 156,
+      "sha256": "29971c5ffeab6eda11792bef3cc02e84592d8ffc1113e574849f6a9b0c182612"
+    },
+    {
+      "path": "runtime/ingest_second.json",
+      "bytes": 150,
+      "sha256": "741edf7c746ae0cabc8d9fb8a65faa39eb5c0b430e5aeb0d0f5a4928e4b889be"
+    },
+    {
+      "path": "runtime/ingest_status.json",
+      "bytes": 419,
+      "sha256": "bc93195c9ba19801d5acdd69755904e86fa1b322195b7923292dcc80618ca010"
+    },
+    {
+      "path": "runtime/selftest.txt",
+      "bytes": 4329,
+      "sha256": "c149bc6c304e0f3ba0fca97bbd9945b04fdeb7d7f8867d2d0c549cbfd170c8a0"
+    },
+    {
+      "path": "runtime/status.json",
+      "bytes": 419,
+      "sha256": "39c1646c1316c4fe3197eb9c38b19804c5ac3ca44fbc7fea464331e2bf2b4ee8"
+    },
+    {
+      "path": "runtime/unittest.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/fixtures/architecture_qa_v11.csv",
+      "bytes": 1415,
+      "sha256": "6c8fde2a59387a2f989333d2e23fc0273106259bdb26db56ef56975ae1f64d73"
+    },
+    {
+      "path": "tests/fixtures/edges_v08.csv",
+      "bytes": 2615,
+      "sha256": "cdd9dbdaf736f1f438c3c6b7a65302c40d2c5d66ccf4548d553ad076549ed64d"
+    },
+    {
+      "path": "tests/fixtures/end_to_end_v09.csv",
+      "bytes": 1412,
+      "sha256": "53ed586cede8977b3defcf85dc39506256691ab0792d48189b5b8f8bd0522bb9"
+    },
+    {
+      "path": "tests/fixtures/finance_bridge_qa_v10.csv",
+      "bytes": 701,
+      "sha256": "99e1db16c7164365322724b7b933f730f48d8fdde409b1b5c49bd442e805ea83"
+    },
+    {
+      "path": "tests/fixtures/fixture_manifest.json",
+      "bytes": 1743,
+      "sha256": "15bbef6090274f3db413e75440eca16171a4f2ae18d17cdb81ae6d5ca8e2bef5"
+    },
+    {
+      "path": "tests/fixtures/fti_installments_v16.csv",
+      "bytes": 222,
+      "sha256": "63a396f22b502581e4b6282882c2d88c7162020c65fa81d61df4452006696308"
+    },
+    {
+      "path": "tests/fixtures/fundeb_mensal_v15.csv",
+      "bytes": 1435,
+      "sha256": "7e820ccd6844d6a5a310ce4fa10b6d30defcd45e451399e2b60ff608db797250"
+    },
+    {
+      "path": "tests/fixtures/graph_qa_v08.csv",
+      "bytes": 723,
+      "sha256": "385a6aacbb83b18053ae24e57938d1f550c272bc9b4c06c25148bf16edf0b922"
+    },
+    {
+      "path": "tests/fixtures/hybrid_gold_v07.csv",
+      "bytes": 1036,
+      "sha256": "7ac674917bd6ecc591a93e207b470331fe46e6b920a16cdc42422bbf17a57d01"
+    },
+    {
+      "path": "tests/fixtures/reconciliation_v17.csv",
+      "bytes": 1184,
+      "sha256": "46ef94fa9a2c8ac8ef03a6ebb4c945518f00a7b41d3de30d826c365f1a5ea922"
+    },
+    {
+      "path": "tests/fixtures/siope_2010.csv",
+      "bytes": 11950,
+      "sha256": "fd5a16a836373e14b58aa582c0741cca1646f02349a07b32ca396472b3c36bae"
+    },
+    {
+      "path": "tests/fixtures/siope_2010_duplicate.csv",
+      "bytes": 11950,
+      "sha256": "fd5a16a836373e14b58aa582c0741cca1646f02349a07b32ca396472b3c36bae"
+    },
+    {
+      "path": "tests/fixtures/siope_silver_v04.csv",
+      "bytes": 123435,
+      "sha256": "f0d5031c90298b206b2b7143fee86393bcef88a016e0593b7fc3db49aacc159a"
+    },
+    {
+      "path": "tests/test_core.py",
+      "bytes": 975,
+      "sha256": "5acf2fbab95dd62697685624436bf7dbf063143fd3b93870b9b59d77a8cd55c6"
+    },
+    {
+      "path": "tests/test_regression.py",
+      "bytes": 500,
+      "sha256": "06dad8fa23aa03eef072c4b5339cdbec105316645c8fe9d480cd2f9303a930cc"
+    }
+  ]
+}

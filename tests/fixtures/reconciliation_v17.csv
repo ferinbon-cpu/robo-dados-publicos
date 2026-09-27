@@ -1,0 +1,5 @@
+﻿reconciliation_id,equation,left_centavos,right_centavos,difference_centavos,status,interpretation,caution
+R17-001,out+nov+dez 2025,103395281,103395281,0,EXACT,O saldo financeiro 2607004 em 31/12/2025 coincide exatamente com as três parcelas federais recebidas até dezembro.,Compatibilidade exata não substitui razão analítica da despesa para provar ausência de gasto durante 2025.
+R17-002,saldo 31/12/2025 + jan/2026,121641507,121641507,0,EXACT,A soma fecha exatamente o total do fomento transitório destinado a Limeira.,Total recebido não é orçamento total da EITI municipal.
+R17-003,4% x ingressos SIOPE 1B,131567339,131567339,0,EXACT_AFTER_CURRENCY_ROUNDING,O mínimo de 4% do SIOPE é reproduzível a partir do total de ingressos do 1º bimestre.,"No mesmo demonstrativo, o aplicado em Fomento ETI era R$ 0,00."
+R17-004,"R$3.423.955,92 / 4%",8559889800,8570556877,10667077,UNRESOLVED_BASE_DIFFERENCE,"O lançamento de maio implica base de R$85.598.898,00, mas o FUNDEB Transparente registra R$85.705.568,77 recebidos até maio.","A diferença de R$106.670,77 não foi reconciliada; não afirmar que o lançamento é exatamente 4% do total consolidado recebido."

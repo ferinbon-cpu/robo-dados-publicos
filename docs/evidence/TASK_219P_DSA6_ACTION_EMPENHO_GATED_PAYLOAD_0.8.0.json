@@ -1,0 +1,35 @@
+{
+  "task":"TASK_219P_DSA6_ACTION_EMPENHO_GATED_PAYLOAD",
+  "issue":721,
+  "authorization_slot":"2_OF_2",
+  "base_main_sha":"d56053b75700fa0836bd071fe2d28ec474cd5128",
+  "execution_head_sha":"0d9eded227b55e29ba0cea06f9f2c779718928a8",
+  "run_id":34422554312,
+  "job_id":102700927782,
+  "artifact_id":10131457417,
+  "artifact_zip_sha256":"6078d840ddb4da0367adde798cdfb5c7272fcfc3c12621f770ade45d58cdb99b",
+  "artifact_member":"task219p_result.json",
+  "artifact_member_sha256":"2f8a7f5f0886c5da0e4eeff017fb13b56692c72b8b419bfb264dd6c209214a65",
+  "artifact_member_bytes":763,
+  "automatic_capture":{
+    "awsgetcontentareas_request_count":8,
+    "exact_returned_id_equal_to_AreaId_DSA6_count":0,
+    "selection_policy":"EXACT_EQUALITY_ONLY"
+  },
+  "interactions_executed":{
+    "official_despesa_action":0,
+    "text_entry":0,
+    "query_submit":0,
+    "commitment_lookup":0
+  },
+  "static_offline_context_from_TASK219M":{
+    "generated_client_event":"MAINDIVPORTALCTL.DIVCLICKED",
+    "event_inputs":["ClickedDivId","ClickedDivValue"],
+    "relevant_controls":[
+      "vAREASTOREFRESH","vAREAID","vTHISAREAID","vTHISAREAORIGIN",
+      "vAREANAME","vVPORTALACTION","vVPORTALACTIONPARM",
+      "vAUXPORTALACTIONPARM","vAREALINK","vLAYERLINK"
+    ],
+    "interpretation":"The generated client has explicit mediator state between portal Area objects and rendered/action identifiers; direct equality between AreaId and returned LayerInfo.id is not established."
+  }
+}

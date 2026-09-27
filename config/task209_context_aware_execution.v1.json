@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "schema": "TASK209_CONTEXT_AWARE_EXECUTION_V1",
+  "task": "TASK_209",
+  "issue": 662,
+  "base_main_sha": "9ad955e876184ef999d3a88c0ff26e377384d1e3",
+  "mode": "T0_OFFLINE_BOUNDED_CONTEXT_AWARE_QUERY_EXECUTION",
+  "upstream_context_schema": "TASK208_CONTEXT_BIND_RESULT_V1",
+  "output_schema": "OBSERVATORY_CONTEXTUAL_ANSWER_V1",
+  "render_schema": "OBSERVATORY_CONTEXTUAL_ANSWER_RENDER_V1",
+  "states": [
+    "ANSWERED_CONTEXTUALLY",
+    "EXPLICIT_CONTEXT_GAP",
+    "UNSUPPORTED_CONTEXT_COMBINATION",
+    "BINDING_STOP",
+    "LEGACY_UNCONTEXTUALIZED_PASSTHROUGH"
+  ],
+  "supported_contextual_questions": {
+    "FIN_Q1": {
+      "execution": "TASK204_ACCOUNTING_EDUCATION_STAGE_TOTALS_EXACT_PERIOD",
+      "headline_stage": "LIQUIDATED_TO_DATE",
+      "supported_year": 2026,
+      "supported_year_to_month": {
+        "4": "through_april",
+        "7": "through_july"
+      },
+      "projection_view": "ACCOUNTING_EDUCATION_STAGE_TOTALS"
+    },
+    "NETWORK_Q3": {
+      "execution": "SCHOOL_INDICATOR_SERIES_SCHOOL_VS_NETWORK",
+      "product": "SCHOOL_INDICATOR_SERIES",
+      "metrics": ["IDEB", "APPROVAL_RATE"],
+      "school_scope_level": "SCHOOL",
+      "network_scope_level": "NETWORK",
+      "network": "MUNICIPAL",
+      "period_resolution_without_explicit_period": "LATEST_COMMON_PERIOD_PER_METRIC"
+    },
+    "NORMS_Q2": {
+      "execution": "PLANNING_DOCUMENT_INDEX_EXACT_CONTEXT_FILTER",
+      "product": "PLANNING_DOCUMENT_INDEX",
+      "required_evidence_role": "PRIMARY_NORMATIVE",
+      "required_quality_status": "VALIDATED",
+      "required_policy_domain": "EDUCATION"
+    }
+  },
+  "policy_facet_topics": {
+    "MATRICULA": ["ENROLLMENT", "ENROLLMENT_CALENDAR"],
+    "CALENDARIO": ["SCHOOL_CALENDAR", "ENROLLMENT_CALENDAR"],
+    "JORNADA": ["HOURS_SHIFT", "CLASS_ASSIGNMENT"],
+    "AEE": ["SPECIAL_EDUCATION_AEE"],
+    "TRANSPORTE": ["SCHOOL_TRANSPORT"],
+    "ALIMENTACAO": ["SCHOOL_MEALS"],
+    "TEMPO_INTEGRAL": ["FULL_TIME_EDUCATION"],
+    "DOCENTES": ["CLASS_ASSIGNMENT"],
+    "INFRAESTRUTURA": ["INFRASTRUCTURE_MAINTENANCE"],
+    "FINANCIAMENTO_FUNDEB": []
+  },
+  "claim_boundaries": {
+    "context_gap_means_global_absence": false,
+    "context_gap_means_no_matching_evidence_in_current_materialized_corpus": true,
+    "unsupported_context_may_snap_to_nearest_period": false,
+    "school_comparison_may_create_causal_explanation": false,
+    "normative_act_equals_implementation": false,
+    "projection_replaces_source_snapshot": false,
+    "source_snapshot_remains_canonical": true
+  },
+  "required_filter_accounting": [
+    "SCHOOL",
+    "PERIOD",
+    "POLICY_SERVICE_FACETS",
+    "GRANULARITY"
+  ],
+  "legacy_passthrough": {
+    "allowed_only_when_no_context_filter_is_requested": true,
+    "renderer": "TASK205"
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "llm": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}

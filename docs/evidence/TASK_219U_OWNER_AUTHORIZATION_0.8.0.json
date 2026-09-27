@@ -1,0 +1,50 @@
+{
+  "task": "TASK_219U_OWNER_AUTHORIZATION",
+  "issue": 732,
+  "authorized_main_sha": "30db2414069565f8572aad1b32dd96d9cad5cd09",
+  "owner_instruction": "Autorizado proximo grande salto",
+  "scope": "COMPLETE_TASK219U_CURRENT_SESSION_LIVE_DESPESA_DOM_PASSIVE_INSPECTION",
+  "browser_sessions": 1,
+  "manual_navigations": 1,
+  "clicks": 0,
+  "typing": 0,
+  "form_submissions": 0,
+  "manual_fetch_xhr": 0,
+  "direct_endpoint_calls": 0,
+  "portal_action_triggers": 0,
+  "layerinfo_replay": 0,
+  "layerinfo_synthesis": 0,
+  "retries": 0,
+  "commitment_lookup": 0,
+  "stable_despesa_selector": {
+    "AreaName": "Despesa",
+    "AreaOrigin": "2_92_guestuser_207_6_DSL0_VIS1343"
+  },
+  "includes": [
+    "one_passive_browser_session",
+    "current_session_Despesa_AreaId_resolution",
+    "normal_automatic_render_completion",
+    "live_DOM_subtree_structure",
+    "sanitized_explicit_action_form_control_map",
+    "read_only_event_listener_metadata",
+    "canonization",
+    "live_workflow_removal",
+    "offline_tests",
+    "ci_merge",
+    "closure"
+  ],
+  "excludes": [
+    "click_or_execute_action",
+    "query_empenho_3286_2026",
+    "manual_api_call",
+    "endpoint_guessing",
+    "handler_source_semantic_mining_beyond_this_capture",
+    "inline_script_body_persistence",
+    "fuzzy_identity",
+    "authentication_injection",
+    "pncp",
+    "tcesp",
+    "drive",
+    "municipal_contract_portal"
+  ]
+}

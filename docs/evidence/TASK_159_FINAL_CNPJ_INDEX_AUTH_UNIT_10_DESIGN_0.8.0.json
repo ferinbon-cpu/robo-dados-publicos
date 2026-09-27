@@ -1,0 +1,14 @@
+{
+  "task": "TASK_159_FINAL_CNPJ_INDEX_AUTH_UNIT_10",
+  "issue": 530,
+  "base_sha": "51c78392e8dbd572f5e4cf2c60ea91860bcc4ec7",
+  "authorization_unit_index": 10,
+  "remaining_units_before_execution": 1,
+  "future_search_invocations_max": 1,
+  "future_query": "45132495000140",
+  "domain": "pncp.gov.br",
+  "future_result_opens": 0,
+  "future_retry": 0,
+  "remaining_units_after_invocation": 0,
+  "result": "PASS_TASK159_FINAL_CNPJ_SEARCH_DESIGNED_NOT_EXECUTED"
+}

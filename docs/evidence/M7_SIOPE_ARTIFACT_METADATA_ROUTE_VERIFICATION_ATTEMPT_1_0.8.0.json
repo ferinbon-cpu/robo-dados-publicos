@@ -1,0 +1,32 @@
+{
+  "run_id": 32840507830,
+  "job_id": 97778725606,
+  "artifact_id": 9560290393,
+  "artifact_sha256": "8c91bc2f0a9794c16092f43942698ec7843dc555c37830dfd32f97c9f2f0a0bf",
+  "head_sha": "5402451589b087b0c7c4aafa8510c13c1908394e",
+  "status": "PASS_M7_SIOPE_ARTIFACT_METADATA_ROUTE_VERIFICATION_GATE",
+  "metadata_route_status": "VERIFIED_200_JSON_EXACT_OBSERVED_ROUTE",
+  "metadata_url": "https://www.fnde.gov.br/plataforma-antonieta-de-barros-api/products/data-products/20/artifact-metadata",
+  "network_method": "GET",
+  "network_request_count_logical": 1,
+  "response_status": 200,
+  "response_content_type": "application/json",
+  "response_byte_count": 118,
+  "top_level_keys": ["lastUpdated", "name", "path", "size"],
+  "artifact_path_observed": true,
+  "observed_candidate": {
+    "field_path": "$.path",
+    "path_without_query": "exports/SIOPE/",
+    "query_keys": [],
+    "value_kind": "RELATIVE_OR_STORAGE_PATH"
+  },
+  "raw_metadata_persisted": false,
+  "response_body_persisted": false,
+  "download_candidate_requested": false,
+  "artifact_downloaded": false,
+  "collection_authorized": false,
+  "processing_authorized": false,
+  "recurrence_authorized": false,
+  "schedule_enabled": false,
+  "next_gate": "M7_SIOPE_ARTIFACT_DOWNLOAD_RUNTIME_ROUTE_PROBE_0_8_0"
+}

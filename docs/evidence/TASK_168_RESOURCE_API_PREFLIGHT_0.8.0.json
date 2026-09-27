@@ -1,0 +1,35 @@
+{
+  "task": "TASK_168_PNCP_RESOURCE_API_RECOVERY",
+  "phase": "RESOURCE_API_PREFLIGHT",
+  "issue": 548,
+  "pr": 549,
+  "base_main_sha": "3fb5c88ba3754cc0d29b6c7d06ab3d8a86119d77",
+  "execution": {
+    "run_id": 34001171742,
+    "job_id": 101400187470,
+    "execution_head_sha": "8a5d0b795e6c37b105e63b39d02782c9bb96cd2e",
+    "workflow_conclusion": "success",
+    "artifact_id": 9979523321,
+    "artifact_digest": "sha256:ae7f98c627522373806d861cac74380d22d2fa1a78fdf91eee389911a5cab84e",
+    "sanitized_result_sha256": "17534b163ef9e2a441043a14c7072e9d322ae93849e6b6289e9be27746d44e27",
+    "raw_payload_persisted": false
+  },
+  "preflight": {
+    "url": "https://pncp.gov.br/api/pncp/v1/modalidades?statusAtivo=true",
+    "http_status": 503,
+    "bytes_received": 0,
+    "transport_error": "HTTP_ERROR_503",
+    "status": "SOURCE_TRANSPORT_OR_HTTP_OR_JSON_UNAVAILABLE"
+  },
+  "request_count": 1,
+  "target_routes_attempted": 0,
+  "pncp_no_data_created": false,
+  "adjudication": {
+    "resource_api_health": "UNAVAILABLE_FROM_THIS_EXECUTION",
+    "target_specific_absence_proven": false,
+    "stable_ids_from_task166_remain_proven": true,
+    "eiti_financial_identity_status": "UNKNOWN",
+    "eiti_transaction_identity_status": "UNKNOWN"
+  },
+  "next_action": "USE_OFFICIAL_PNCP_API_CONSULTA_V1_CONTRATOS_AS_MACHINE_READABLE_FALLBACK_WITH_COMPLETE_PAGINATION_AND_EXACT_NUMERO_CONTROLE_PNCP_COMPRA_MATCHING"
+}

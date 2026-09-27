@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "schema": "TASK219G_MUNICIPAL_CONTRACT45_LIVE_V1",
+  "task": "TASK_219G",
+  "issue": 703,
+  "parent_issue": 691,
+  "base_main_sha": "aa86c2c60640cbb99d54b873c456662fc6ed8b98",
+  "authorization_path": "docs/evidence/TASK_219G_OWNER_AUTHORIZATION_0.8.0.json",
+  "source": {
+    "source_id": "LIMEIRA_CONTRATOS",
+    "authority": "Prefeitura Municipal de Limeira",
+    "allowed_host": "serv42.limeira.sp.gov.br",
+    "search_url": "https://serv42.limeira.sp.gov.br/ncweb/cns_contratos_web_mestre/",
+    "resolver_path": "robo_dados_publicos/reconciliation/resolvers.py",
+    "resolver_git_blob_sha": "1ed22e4036c50b2f8e84fc7a9311a9431b87fcff",
+    "resolver_class": "LimeiraContractsResolver"
+  },
+  "origin_seed": {
+    "path": "docs/evidence/TASK_219F_JOM_CONTRACT_45_2026_RECOVERY_0.8.0.json",
+    "git_blob_sha": "19fe535cac4ec86efeec5316b127b015066bcbde",
+    "event_id": "JOEV_083e522d4145e4d27580"
+  },
+  "query": {
+    "task_id": "RECTASK_TASK219G_CONTRACT45_2026",
+    "target_source": "LIMEIRA_CONTRATOS",
+    "task_type": "FIND_CONTRACT_RECORD",
+    "status": "READY_SEARCH",
+    "match_keys": {
+      "year": 2026,
+      "contract_number": "45/2026",
+      "cnpj": "37457979000131",
+      "contractor": "Med Doctor Acessórios Ltda"
+    },
+    "search_hints": {
+      "process_number": "902.281/2025",
+      "bidding_number": "10/2026",
+      "object_text": "Contratação de empresa especializada em locação de sistema de endoscopia",
+      "value_brl": "210000.00"
+    }
+  },
+  "live_policy": {
+    "max_http_requests": 3,
+    "retry": 0,
+    "same_origin_only": true,
+    "workflow_branch": "task-219g-contract45-municipal-live",
+    "workflow_path": ".github/workflows/task-219g-contract45-municipal-live-once.yml",
+    "historical_workflow_path": "docs/evidence/TASK_219G_HISTORICAL_LIVE_WORKFLOW_SOURCE_0.8.0.txt",
+    "artifact_name": "task-219g-contract45-municipal-evidence",
+    "artifact_retention_days": 1
+  },
+  "candidate_policy": {
+    "required_signals": [
+      "CONTRACT_NUMBER_YEAR_NORMALIZED",
+      "CNPJ",
+      "SUPPLIER_NAME"
+    ],
+    "candidate_is_identity_proof": false,
+    "process_bidding_object_value_are_corroborating_only": true
+  },
+  "transport_semantics": {
+    "timeout_or_connection_error_is_no_match": false,
+    "http_408_429_5xx_is_no_match": false,
+    "uninterpretable_form_result_is_no_match": false
+  }
+}

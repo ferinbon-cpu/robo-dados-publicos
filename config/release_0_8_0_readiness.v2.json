@@ -1,0 +1,21 @@
+{
+  "schema": "RELEASE_0_8_0_READINESS_V2",
+  "tier": "T0_OFFLINE",
+  "canonical_date": "2026-09-12",
+  "base_main_sha": "07952f63c6ec86a5dd9ce316cc2516c8e4225580",
+  "resolved_predecessors": {
+    "B1_NUM_POPU": "RESOLVED_BY_EXCLUSION_FROM_ANALYTICAL_POPULATION_SEMANTICS",
+    "B2_FINANCIAL_ALIAS_BRIDGE": "PROVEN_10_OF_10_ALIAS_TO_CONCEPT",
+    "B3_EFFECTIVE_DECLARATION": "PROVEN_DYNAMIC_EFFECTIVE_SELECTION_RULE_WITH_PINNED_LIMEIRA_RECEIPT"
+  },
+  "open_gates": {
+    "SEMANTIC_COMPARABILITY": "UNKNOWN_REQUIRES_TASK241",
+    "B4_GOLD_2025": "BLOCKED_BY_SEMANTIC_COMPARABILITY",
+    "B5_SERIES_2016_2025": "BLOCKED_BY_B4"
+  },
+  "release_0_8_0": "CANDIDATE",
+  "decision": "KEEP_0_8_0_CANDIDATE_COMPARABILITY_AND_GOLD_REMAIN",
+  "readiness_effect": "EVALUATION_ONLY_NO_PUBLICATION_DEPLOYMENT_SCHEDULE_OR_RECURRENCE",
+  "supersedes_for_current_reading": "config/release_0_8_0_readiness.v1.json",
+  "historical_v1_preserved": true
+}

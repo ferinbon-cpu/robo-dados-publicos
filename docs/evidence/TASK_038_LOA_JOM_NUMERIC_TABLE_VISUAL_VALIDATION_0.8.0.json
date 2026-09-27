@@ -1,0 +1,91 @@
+{
+  "task": "TASK_038_LOA_JOM_NUMERIC_TABLE_VISUAL_VALIDATION",
+  "mode": "T2_DIRECT_VISUAL_VALIDATION_FROM_EXACT_SOURCE_RENDER",
+  "base_sha": "742843abf24ba8b5a64d445e6600edebd3fd9a4a",
+  "authorization": {
+    "owner_authorized": true,
+    "owner_message": "Autorizado prossiga",
+    "authorized_against_sha": "742843abf24ba8b5a64d445e6600edebd3fd9a4a",
+    "scope": ["DIRECT_VISUAL_VALIDATION_PAGES_480_481","ARITHMETIC_CROSSCHECK","RECORD_DERIVED_EVIDENCE","PREPARE_SILVER_CANDIDATE_ONLY"],
+    "forbidden": ["PUBLIC_SOURCE_GET","DRIVE_WRITE","NEW_OCR","FULL_DOCUMENT_OCR","BRONZE","SILVER","GOLD","SERVING","PUBLICATION","LLM_NUMERIC_RECONSTRUCTION","SILENT_TEXT_CORRECTION"]
+  },
+  "source": {
+    "filename": "SOURCE_JOM_7127_2025-11-29_LOA_7223_2025.pdf",
+    "drive_file_id": "1bRpmMxacX16P1tJBvam-55OOPTYuQnIA",
+    "sha256": "37ea54d85cc5428622b296881a279a17e1aeefd7574576e7a3414443bbee64c4",
+    "bytes": 66119594,
+    "total_pdf_pages": 631,
+    "validated_pages": [480,481],
+    "source_status": "CUSTODY_READBACK_VERIFIED"
+  },
+  "visual_basis": {
+    "render_carried_forward_from_task_037": true,
+    "render_tool": "PyMuPDF",
+    "render_version": "1.26.7",
+    "dpi": 300,
+    "page_image_sha256": {"480":"39be4e0320364441f8e8a18013afe2d44c676c14386ab2082c17ebc615bc5642","481":"1c15c05e2f430655d2d00fc3e502e509f31459b241b6f478447ea61cee398058"},
+    "validation_method": "DIRECT_VISUAL_READ_OF_RENDERED_SOURCE_PAGE_NOT_OCR_TEXT"
+  },
+  "page_480": {
+    "title": "DEMONSTRATIVO DAS TRANSFERENCIAS FINANCEIRAS",
+    "units": "R$ 1,00",
+    "rows": [
+      {"entity_origin":"PREFEITURA MUNICIPAL","entity_destination":"CAMARA MUNICIPAL","purpose":"DUODECIMO","fte":"01","application_code":"1100000","amount_brl":"45933000.00"},
+      {"entity_origin":"PREFEITURA MUNICIPAL","entity_destination":"CEPROSOM-CENTRO PROMOCAO SOCIAL","purpose":"ASSISTENCIA SOCIAL","fte":"01","application_code":"5100000","amount_brl":"80598000.00"},
+      {"entity_origin":"PREFEITURA MUNICIPAL","entity_destination":"CEPROSOM-CENTRO PROMOCAO SOCIAL","purpose":"ASSISTENCIA SOCIAL","fte":"03","application_code":"5000014","amount_brl":"611000.00"},
+      {"entity_origin":"PREFEITURA MUNICIPAL","entity_destination":"CEPROSOM-CENTRO PROMOCAO SOCIAL","purpose":"ASSISTENCIA SOCIAL (EMENDAS IMPOSITIVAS)","fte":"08","application_code":"5000068","amount_brl":"300000.00"},
+      {"entity_origin":"PREFEITURA MUNICIPAL","entity_destination":"CEPROSOM-CENTRO PROMOCAO SOCIAL","purpose":"ASSISTENCIA SOCIAL (EMENDAS IMPOSITIVAS)","fte":"08","application_code":"5000069","amount_brl":"86000.00"},
+      {"entity_origin":"PREFEITURA MUNICIPAL","entity_destination":"CEPROSOM-CENTRO PROMOCAO SOCIAL","purpose":"ASSISTENCIA SOCIAL (EMENDAS IMPOSITIVAS)","fte":"08","application_code":"5000070","amount_brl":"392000.00"},
+      {"entity_origin":"PREFEITURA MUNICIPAL","entity_destination":"CEPROSOM-CENTRO PROMOCAO SOCIAL","purpose":"ASSISTENCIA SOCIAL (EMENDAS IMPOSITIVAS)","fte":"08","application_code":"5000071","amount_brl":"160000.00"},
+      {"entity_origin":"PREFEITURA MUNICIPAL","entity_destination":"CEPROSOM-CENTRO PROMOCAO SOCIAL","purpose":"ASSISTENCIA SOCIAL (EMENDAS IMPOSITIVAS)","fte":"08","application_code":"5000072","amount_brl":"200000.00"},
+      {"entity_origin":"PREFEITURA MUNICIPAL","entity_destination":"CEPROSOM-CENTRO PROMOCAO SOCIAL","purpose":"ASSISTENCIA SOCIAL (EMENDAS IMPOSITIVAS)","fte":"08","application_code":"5000073","amount_brl":"100000.00"},
+      {"entity_origin":"PREFEITURA MUNICIPAL","entity_destination":"CEPROSOM-CENTRO PROMOCAO SOCIAL","purpose":"ASSISTENCIA SOCIAL (EMENDAS IMPOSITIVAS)","fte":"08","application_code":"5000074","amount_brl":"220000.00"}
+    ],
+    "rows_sha256": "287ba956b97b6edb1b5e7d53a0f5ce61e21f15ef1c9e1e46cdfe5d4d1bd970e2",
+    "printed_total_brl": "128600000.00",
+    "computed_total_brl": "128600000.00",
+    "row_sum_matches_printed_total": true,
+    "status": "VISUALLY_VALIDATED_NUMERIC_TABLE"
+  },
+  "page_481": {
+    "title": "DEMONSTRATIVO DA COMPATIBILIDADE DA PROGRAMACAO DO ORCAMENTO COM AS METAS DE RESULTADOS FISCAIS",
+    "legal_reference": "LC No. 101/2000, Art.5, inciso I",
+    "units": "R$ milhares medios/2025",
+    "rows": [
+      {"specification":"Receita Total","ldo_current_r_thousands":2232690,"ldo_pct_rcl":"122.7746","loa_current_r_thousands":2303934,"loa_pct_rcl":"120.7037"},
+      {"specification":"Receitas Primarias (I)","ldo_current_r_thousands":1814973,"ldo_pct_rcl":"99.8045","loa_current_r_thousands":1889811,"loa_pct_rcl":"99.0077"},
+      {"specification":"Despesa Total","ldo_current_r_thousands":2232690,"ldo_pct_rcl":"122.7746","loa_current_r_thousands":2303934,"loa_pct_rcl":"120.7037"},
+      {"specification":"Despesas Primarias (II)","ldo_current_r_thousands":1796996,"ldo_pct_rcl":"98.8160","loa_current_r_thousands":1877684,"loa_pct_rcl":"98.3724"},
+      {"specification":"Resultado Primario (I - II)","ldo_current_r_thousands":17977,"ldo_pct_rcl":"0.9885","loa_current_r_thousands":14352,"loa_pct_rcl":"0.7519"},
+      {"specification":"Resultado Nominal","ldo_current_r_thousands":54447,"ldo_pct_rcl":"2.9940","loa_current_r_thousands":54447,"loa_pct_rcl":"2.8525"},
+      {"specification":"Divida Publica Consolidada","ldo_current_r_thousands":454275,"ldo_pct_rcl":"24.9804","loa_current_r_thousands":454275,"loa_pct_rcl":"23.7996"},
+      {"specification":"Divida Consolidada Liquida","ldo_current_r_thousands":374313,"ldo_pct_rcl":"20.5833","loa_current_r_thousands":374313,"loa_pct_rcl":"19.6104"},
+      {"specification":"Receitas Primarias Advindas de PPP (IV)","ldo_current_r_thousands":0,"ldo_pct_rcl":"0.0000","loa_current_r_thousands":0,"loa_pct_rcl":"0.0000"},
+      {"specification":"Despesas Primarias Advindas de PPP (V)","ldo_current_r_thousands":0,"ldo_pct_rcl":"0.0000","loa_current_r_thousands":0,"loa_pct_rcl":"0.0000"},
+      {"specification":"Impacto do saldo das PPP (VI) = (IV - V)","ldo_current_r_thousands":0,"ldo_pct_rcl":"0.0000","loa_current_r_thousands":0,"loa_pct_rcl":"0.0000"}
+    ],
+    "rows_sha256": "6354e5f4a2ff34c62fa3e4a7f9f9d6ceda8a1db29fb5cdedf673c0b47d5fe368",
+    "rcl_consistency_check": {
+      "method": "IMPLIED_RCL_FROM_EACH_NONZERO_VALUE_PERCENT_PAIR",
+      "ldo_implied_rcl_median_thousands": 1818527.62605,
+      "ldo_max_abs_deviation_from_median_thousands": 86.43566,
+      "loa_implied_rcl_median_thousands": 1908751.185016,
+      "loa_max_abs_deviation_from_median_thousands": 13.278344,
+      "tolerance_thousands": 100.0,
+      "within_tolerance": true,
+      "note": "Consistency diagnostic only; does not create a new source value."
+    },
+    "status": "VISUALLY_VALIDATED_NUMERIC_TABLE"
+  },
+  "policy": {
+    "visual_validation_is_source_page_based": true,
+    "ocr_used_as_numeric_source_truth": false,
+    "numeric_values_now_visually_verified_for_pages_480_481": true,
+    "financial_identity_eiti": "EVIDENCIA_INSUFICIENTE",
+    "silent_character_repair": false,
+    "llm_numeric_reconstruction": false
+  },
+  "effects": {"public_source_get":0,"drive_read":0,"drive_write":0,"new_ocr_pages":0,"bronze":0,"silver":0,"gold":0,"serving":0,"publication":0},
+  "promotion": {"bronze":false,"silver":false,"gold":false,"serving":false,"publication":false,"f01_status":"NOT_SILVER","silver_candidate_prepared":true},
+  "result": "PASS_VISUAL_NUMERIC_VALIDATION_SILVER_CANDIDATE_ONLY_NOT_PROMOTED"
+}

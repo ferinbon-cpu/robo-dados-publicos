@@ -1,0 +1,104 @@
+{
+  "evidence_schema": "TASK195C_SIOPE_FUNCAO12_ALIAS_BRIDGE_EVIDENCE_V1",
+  "software_version": "0.8.0",
+  "task": "TASK_195C",
+  "issue": 623,
+  "base_main_sha": "dc7dbc94979bdad2b02eebd449a801cdcebe5f67",
+  "tier": "T0_CANONICALIZE_BOUNDED_PRIMARY_DOCUMENTARY_AND_PRIOR_OPERATIONAL_EVIDENCE",
+  "target": "VL_DESP_DOTA_ATUA_EDU",
+  "findings": [
+    {
+      "id": "FNDE_DICTIONARY_CONSOLIDATED_EDUCATION_FIELDS",
+      "authority": "FNDE",
+      "source": "https://www.fnde.gov.br/phocadownload/sistemas/siope/Manuais/DICIONARIO%20DE%20DADOS%20SIOPE%202019.pdf",
+      "primary": true,
+      "binary_hash_claimed": false,
+      "statement": "The official Dados Consolidados field family separately defines updated budget, committed, liquidated and paid expenditure with education, including VL_DOTACAO_ATUALIZADA_EDUCACAO as the value of updated budget expenditure with education."
+    },
+    {
+      "id": "FNDE_TUTORIAL_CURRENT_UI_SEMANTIC_BOUNDARY",
+      "authority": "FNDE",
+      "source": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/media/Tutorial_Bsico_Siope_2024_v2.pdf",
+      "primary": true,
+      "binary_hash_claimed": false,
+      "statement": "Printed page 21 shows Dados Gerais with separate tabs Receita total do Município, Despesa total do Município and Despesa com Educação (Função 12); printed page 25 shows Demonstrativo da Função Educação as a separate screen; MDE is a separate guide on printed page 23."
+    },
+    {
+      "id": "CURRENT_2025_METADATA_EDUCATION_STRUCTURE",
+      "authority": "FNDE_SIOPE_METADATA_2025_USER_HANDOFF",
+      "source": "Metadados_Mun_2025.zip",
+      "primary": true,
+      "sha256": "41511c141e1af025ae2b565085583d6a3ab7b4577862f8ebdc308605101c1e5b",
+      "statement": "Current 2025 metadata version 333 / software 25.0.5.6 has a distinct Despesas com Educação root COD_PAST=27 and current DA/DE/DL/DP stage labels; MDE is represented by separate structures."
+    },
+    {
+      "id": "CURRENT_2025_ODATA_ALIAS_FAMILY",
+      "authority": "FNDE_OLINDA_SIOPE",
+      "source": "Dados_Gerais_Siope 2025/P6 exact 52-field schema already pinned in repository",
+      "primary": true,
+      "statement": "The current resource exposes a contiguous education expense field family VL_DESP_DOTA_ATUA_EDU, VL_DESP_EMPE_EDU, VL_DESP_LIQU_EDU, VL_DESP_ORCA_EDU and VL_DESP_PAGA_EDU after the total revenue/expense fields."
+    },
+    {
+      "id": "PRIOR_OPERATIONAL_RECONCILIATION",
+      "authority": "REPO_PINNED_OFFICIAL_OBSERVATIONS",
+      "source": "docs/evidence/TASK_010N_R_E_M3_SIOPE_2025_OPERATIONAL_FINANCIAL_ALIAS_BRIDGE_0.8.0.json",
+      "primary": false,
+      "statement": "Nine of ten financial aliases were already proven by exact operational reconciliation; the three executed education siblings DE/DL/DP reconcile exactly."
+    },
+    {
+      "id": "DA_VARIANCE_REINTERPRETATION",
+      "authority": "REPO_PINNED_OFFICIAL_OBSERVATIONS_PLUS_PRIMARY_SEMANTIC_BOUNDARY",
+      "source": "tests/fixtures/siope_2025_operational_financial_alias_bridge/official_observations.json",
+      "primary": false,
+      "statement": "VL_DESP_DOTA_ATUA_EDU=520399255.47 differs from RREO Anexo 8 line 33 DA=520398255.47 by 1000.00. The new primary semantic boundary proves that line 33 is not required to be the defining identity surface for the Dados Gerais Função 12 field. The 1000.00 account remains a candidate explanation only."
+    }
+  ],
+  "transport_observations": {
+    "public_report_surface": {
+      "url": "https://webservice.fnde.gov.br/siope/relatorioQuadroResumoDespesasMuni.do",
+      "run_id": 34669116999,
+      "result": "HTTP_200_PUBLIC_FORM",
+      "form_method": "POST",
+      "recaptcha_present": true
+    },
+    "inline_control_flow": {
+      "run_id": 34669189456,
+      "result": "ATUALIZAR_AND_PESQUISAR_ARE_POST_ACTIONS",
+      "form_submitted": false,
+      "captcha_bypassed": false
+    },
+    "despesas_siope_da_attempts": [
+      {"run_id": 34669276182, "outcome": "TRANSPORT_TIMEOUT", "semantic_evidence": false},
+      {"run_id": 34669352736, "outcome": "TRANSPORT_TIMEOUT", "semantic_evidence": false},
+      {"run_id": 34669441335, "outcome": "TRANSPORT_TIMEOUT_ON_EXACT_PREVIOUSLY_SUCCESSFUL_TASK195_FILTER", "semantic_evidence": false}
+    ],
+    "negative_inference_from_timeout": false,
+    "tinyfish_used": false
+  },
+  "proof_standard": {
+    "name_similarity_alone_sufficient": false,
+    "backend_formula_required_for_field_meaning": false,
+    "rreo_line_33_numeric_identity_required": false,
+    "required_chain_satisfied": [
+      "OFFICIAL_HISTORICAL_FIELD_FAMILY_AND_MEANINGS",
+      "OFFICIAL_CURRENT_UI_CATEGORY_BOUNDARY",
+      "CURRENT_2025_METADATA_CONCEPT_AND_STAGE_STRUCTURE",
+      "CURRENT_2025_ODATA_ALIAS_FAMILY",
+      "PRIOR_EXACT_OPERATIONAL_RECONCILIATION_OF_NINE_ALIASES_AND_THREE_EDU_SIBLINGS"
+    ]
+  },
+  "result": {
+    "VL_DESP_DOTA_ATUA_EDU": "PROVEN_ALIAS_TO_EDUCATION_EXPENSE_UPDATED_BUDGET_CONCEPT",
+    "canonical_concept": "DESPESA_COM_EDUCACAO_FUNCAO_12_DOTACAO_ATUALIZADA",
+    "B2_FINANCIAL_ALIAS_BRIDGE": "PROVEN_10_OF_10_ALIAS_TO_CONCEPT",
+    "backend_aggregation_formula": "NOT_PROVEN",
+    "1000_account_inclusion_rule": "NOT_PROVEN_AND_NOT_ASSERTED",
+    "RREO_LINE33_equals_alias": false,
+    "EDU_equals_MDE": false,
+    "B1_NUM_POPU": "RESOLVED_BY_EXCLUSION_FROM_ANALYTICAL_POPULATION_SEMANTICS",
+    "B3_EFFECTIVE_ANNUAL_DECLARATION": "NOT_PROVEN_EFFECTIVE_SELECTION_RULE_MISSING",
+    "gold_2025": "BLOCKED_NOT_CALCULATED",
+    "release_0_8_0": "CANDIDATE"
+  },
+  "decision": "PROVE_B2_ALIAS_SEMANTICS_WITHOUT_FORMULA_OR_RELEASE_PROMOTION"
+}

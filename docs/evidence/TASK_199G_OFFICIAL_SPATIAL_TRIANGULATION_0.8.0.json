@@ -1,0 +1,117 @@
+{
+  "schema": "TASK199G_OFFICIAL_SPATIAL_TRIANGULATION_EVIDENCE_V1",
+  "task": "TASK_199G",
+  "issue": 628,
+  "base_main_sha": "074c5415d9b71312692a4e034ff5a020406358b3",
+  "status": "PASS_FIVE_STRONG_MULTI_ANCHOR_PROMOTIONS",
+  "before": {
+    "strong_school_links": 59,
+    "held": 10,
+    "coverage_percent": 85.5,
+    "territory_rows": 247
+  },
+  "after": {
+    "strong_school_links": 64,
+    "held": 5,
+    "coverage_percent": 92.8,
+    "territory_rows": 267,
+    "full_network": false
+  },
+  "promotions": [
+    {
+      "codigo_inep": "35470600",
+      "school": "CEIEF Rafael Affonso Leite",
+      "sector_id": "352690205000136",
+      "proof": [
+        "CURRENT_PML_EDUCATION_SERVICE_CARD:ANTONIO_ALVES_DE_OLIVEIRA_IN_FRONT_OF_250",
+        "CNEFE_EXACT_250_ROWS:64_ALL_SECTOR_352690205000136P",
+        "CNEFE_NAMED_CEIEF_RAFAEL_AFONSO_LEITE:SECTOR_352690205000136P",
+        "NAMED_SCHOOL_TO_250_REPRESENTATIVE_DISTANCE_M:94.9"
+      ]
+    },
+    {
+      "codigo_inep": "35656823",
+      "school": "EMEIEF Alfredo Christiano Stahlberg (Rural)",
+      "sector_id": "352690205000652",
+      "proof": [
+        "CURRENT_SME:VIA_MARTIM_LUTERO_KM10_SITIO_SANTA_ROSA_FRADES",
+        "CNEFE_EXACT_ROUTE_NUMBER_10_DOS_FRADES:SECTOR_352690205000652P",
+        "CNEFE_NAMED_ESCOLA_MUNICIPAL_ALFREDO_C_STAHLBERG_ROUTE_NUMBER_9:SECTOR_352690205000652P",
+        "NAMED_SCHOOL_TO_EXACT_KM_ANCHOR_DISTANCE_M:266.6"
+      ],
+      "conflict_preserved": "PML_PROPRIOS_PAGE_STILL_SAYS_KM13;CURRENT_SME_DIRECTORY_USED_AS_NEWER_OPERATIONAL_ADDRESS"
+    },
+    {
+      "codigo_inep": "35217924",
+      "school": "EMEIEF José Levy Sobrinho, Major",
+      "sector_id": "352690205000094",
+      "proof": [
+        "PML_ELECTIONS_2026_PUBLISHED_2026_09_01:FRANCISCO_BENEDITO_GONCALVES_DE_OLIVEIRA_38_JARDIM_ESTEVES",
+        "CNEFE_NAMED_EMEIEF_MAJOR_JOSE_LEVY_SOBRINHO:FRANCISCO_G_DE_OLIVEIRA_38_JARDIM_ESTEVES_SECTOR_352690205000094P"
+      ],
+      "conflict_resolved": "OLDER_CURRENT_SME_DIRECTORY_NUMBER_3_SUPERSEDED_BY_NEWER_PML_EXACT_38_FOR_SAME_NAMED_SCHOOL"
+    },
+    {
+      "codigo_inep": "35217992",
+      "school": "EMEIEF Martim Lutero (Rural)",
+      "sector_id": "352690205000375",
+      "proof": [
+        "CURRENT_PML_PROPRIOS:VIA_MARTIM_LUTERO_KM3_PIRES_DO_MEIO_DE_CIMA",
+        "CNEFE_NAMED_EMEIEF_MARTIM_LUTERO:SECTOR_352690205000375P",
+        "TWO_CNEFE_ROUTE_NUMBER_3_ROWS:ALL_SECTOR_352690205000375P",
+        "MAX_NAMED_SCHOOL_TO_KM3_ANCHOR_DISTANCE_M:428.7"
+      ]
+    },
+    {
+      "codigo_inep": "35223359",
+      "school": "CI Ary Levy Pereira, Prefeito",
+      "sector_id": "352690205000554",
+      "proof": [
+        "CURRENT_SME:ADEMAR_MARCOLINO_215_JARDIM_GLORIA",
+        "CAMARA_INDICACAO_355_2016:NAMED_CENTRO_INFANTIL_PREFEITO_ARY_LEVY_PEREIRA_AT_ADEMAR_MARCOLINO_SN_JARDIM_GLORIA",
+        "CNEFE_UNIQUE_CRECHE_MUNICIPAL_ON_ADEMAR_MARCOLINO_SN_JARDIM_GLORIA:SECTOR_352690205000554P"
+      ]
+    }
+  ],
+  "held_after": [
+    {
+      "codigo_inep": "35208437",
+      "school": "EMEIEF Ismael Pereira Lago, Pastor",
+      "reason": "NUMBER_330_LIES_BETWEEN_OBSERVED_STREET_RANGES_WITH_NO_SAME_PARITY_UPPER_ANCHOR;SECTOR_BOUNDARY_AMBIGUITY"
+    },
+    {
+      "codigo_inep": "35286229",
+      "school": "EMEIEF Maurício Sebastião Ferreira, Padre",
+      "reason": "CURRENT_571_CONFIRMED_BUT_NO_SAME_PARITY_UPPER_CNEFE_ANCHOR_OR_NAMED_CNEFE_POINT"
+    },
+    {
+      "codigo_inep": "35004773",
+      "school": "EMEIEF Raquel Aparecida Gonçalves Franceschi, Profa.",
+      "reason": "CURRENT_200_CONFIRMED_BUT_CNEFE_STREET_ROWS_DUPLICATE_NUMBER_110_ACROSS_TWO_SECTORS"
+    },
+    {
+      "codigo_inep": "35099569",
+      "school": "CI Neusa Francisco Correa da Silva",
+      "reason": "CURRENT_MARIO_ALVES_FERRAZ_185_DIFFERS_FROM_2022_CNEFE_NAMED_SCHOOL_SITE;NO_OFFICIAL_RELOCATION_OR_RENAMING_BRIDGE_PROVEN"
+    },
+    {
+      "codigo_inep": "35241885",
+      "school": "EMEI Theresa Veronesi D Andrea",
+      "reason": "CURRENT_MANOEL_RATO_25_CONFIRMED_BUT_NO_SAME_PARITY_CNEFE_ANCHORS;NAMED_CNEFE_RECORD_IS_OLD_UNIT_AT_SENADOR_VERGUEIRO"
+    }
+  ],
+  "answerability": {
+    "before": "37_ANSWERABLE_1_PARTIAL_0_EXPLICIT_GAP",
+    "after": "37_ANSWERABLE_1_PARTIAL_0_EXPLICIT_GAP",
+    "equity_q1": "MATERIALIZED_PARTIAL",
+    "remaining_gap": "TERRITORY_PROFILE::CAPABILITY:SCHOOL_TO_SECTOR_LINK_FULL_NETWORK"
+  },
+  "guards": [
+    "NO_STATUS_PROMOTION_FOR_EQUITY_Q1_AT_64_OF_69",
+    "FIVE_HELD_REMAIN_EXPLICIT",
+    "NO_THIRD_PARTY_GEOCODER_CANONICAL_PROMOTION",
+    "NO_SINGLE_SIDED_EXTRAPOLATION",
+    "NO_NAME_ONLY_OR_FUZZY_ONLY_PROMOTION",
+    "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE"
+  ]
+}

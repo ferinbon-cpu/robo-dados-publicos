@@ -1,0 +1,221 @@
+{
+  "version": 1,
+  "schema": "TASK182_V08_CENSO_PANEL_V1",
+  "task": "TASK_182_V08_CENSO_AGGREGATES_AND_PANEL_CONTRACT",
+  "mode": "T0_OFFLINE_AGGREGATE_MATERIALIZATION_PLUS_FULL_PANEL_IMPORT_CONTRACT",
+  "source": {
+    "asset_id": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
+    "filename": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08.xlsx",
+    "sha256": "0516868e06685aebe8254b11ca6488ef26b03dea61f927ff637840cf2a21e865",
+    "sqlite_sha256": "7365bae889e866c5547089eac52a611c7b3e4a989d9f5bb601fff90eca54955b",
+    "panel_csv_sha256": "b8edac61a559b0e745d09cdd9e66f8ffee0090552526386dd2bc77987fc293e4",
+    "binary_import_complete": false
+  },
+  "aggregate_seed": {
+    "sheet": "88 Dashboard V08",
+    "path": "docs/evidence/fixtures/TASK_182_V08_CENSO_AGGREGATES_2018_2025_SANITIZED.csv",
+    "expected_years": [
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "expected_metric_count": 6,
+    "expected_long_rows": 48,
+    "source_family": "CENSO_ESCOLAR",
+    "quality_status": "READY_WITH_CAUTION",
+    "caution": "CADASTRAL_PRESENCE_NE_QUALITY_SUFFICIENCY_OR_PEDAGOGICAL_USE;OBSERVED_UNIVERSE_MUST_BE_DECLARED;LIBRARY_MEDIATED_EXTRACTION"
+  },
+  "aggregate_metric_map": {
+    "EE_AI40": {
+      "indicator_id": "SPECIAL_EDUCATION_ENROLLMENT",
+      "indicator_name": "Matrículas da Educação Especial — 40 escolas com anos iniciais",
+      "unit": "COUNT",
+      "scope_id": "LIMEIRA_AI40_STABLE_PANEL",
+      "scope_context": "40 primary-years schools; stable analytical subgroup 2018–2025."
+    },
+    "EE_EI": {
+      "indicator_id": "SPECIAL_EDUCATION_ENROLLMENT",
+      "indicator_name": "Matrículas da Educação Especial — Educação Infantil",
+      "unit": "COUNT",
+      "scope_id": "LIMEIRA_EI_CURRENT_UNITS_OBSERVED_YEARLY",
+      "scope_context": "Observed EI current-unit universe: 28 units in 2018–2019; 29 units in 2020–2025."
+    },
+    "Sala_AEE_AI40_pct": {
+      "indicator_id": "AEE_ROOM_AVAILABILITY_RATE",
+      "indicator_name": "Unidades com sala de AEE — 40 escolas com anos iniciais",
+      "unit": "PERCENT",
+      "scope_id": "LIMEIRA_AI40_STABLE_PANEL",
+      "scope_context": "40 primary-years schools; cadastral presence of AEE room."
+    },
+    "Sala_AEE_EI_pct": {
+      "indicator_id": "AEE_ROOM_AVAILABILITY_RATE",
+      "indicator_name": "Unidades com sala de AEE — Educação Infantil",
+      "unit": "PERCENT",
+      "scope_id": "LIMEIRA_EI_CURRENT_UNITS_OBSERVED_YEARLY",
+      "scope_context": "Observed EI current-unit universe varies by year; cadastral presence only."
+    },
+    "Banheiro_AI40_pct": {
+      "indicator_id": "ACCESSIBLE_BATHROOM_RATE",
+      "indicator_name": "Unidades com banheiro acessível — 40 escolas com anos iniciais",
+      "unit": "PERCENT",
+      "scope_id": "LIMEIRA_AI40_STABLE_PANEL",
+      "scope_context": "Cadastral presence does not measure quality or sufficiency."
+    },
+    "Banda_larga_EI_pct": {
+      "indicator_id": "BROADBAND_AVAILABILITY_RATE",
+      "indicator_name": "Unidades com banda larga — Educação Infantil",
+      "unit": "PERCENT",
+      "scope_id": "LIMEIRA_EI_CURRENT_UNITS_OBSERVED_YEARLY",
+      "scope_context": "Observed EI current-unit universe varies by year; cadastral presence only."
+    }
+  },
+  "full_panel": {
+    "sheet": "81 Censo 69 2018-25",
+    "expected_rows": 552,
+    "expected_columns": 25,
+    "years": [
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "expected_2025_units": 69,
+    "expected_2025_ai": 40,
+    "expected_2025_ei": 29,
+    "imputations": 0,
+    "reconciliation_2025": {
+      "comparisons": 240,
+      "divergences": 0
+    },
+    "runtime_row_transfer_complete": false,
+    "row_transfer_status": "SOURCE_READABLE_IN_FILE_LIBRARY_BUT_FULL_BINARY_OR_ROW_STREAM_NOT_AVAILABLE_TO_GITHUB_RUNTIME",
+    "header": [
+      "ano",
+      "codigo_inep",
+      "unidade",
+      "grupo_v06",
+      "primeiro_ano_mesmo_codigo",
+      "status",
+      "mat_bas",
+      "mat_esp",
+      "sala_aee",
+      "banheiro_acessivel",
+      "salas_utilizadas_acessiveis",
+      "banda_larga",
+      "internet",
+      "internet_alunos",
+      "tp_aee",
+      "acessibilidade_recursos_8",
+      "corrimao",
+      "elevador",
+      "pisos_tateis",
+      "vao_livre",
+      "rampas",
+      "sinal_sonoro",
+      "sinal_tatil",
+      "sinal_visual",
+      "arquivo_fonte"
+    ],
+    "long_metric_map": {
+      "mat_bas": {
+        "indicator_id": "BASIC_EDUCATION_ENROLLMENT",
+        "unit": "COUNT"
+      },
+      "mat_esp": {
+        "indicator_id": "SPECIAL_EDUCATION_ENROLLMENT",
+        "unit": "COUNT"
+      },
+      "sala_aee": {
+        "indicator_id": "AEE_ROOM_PRESENT",
+        "unit": "BINARY_FLAG"
+      },
+      "banheiro_acessivel": {
+        "indicator_id": "ACCESSIBLE_BATHROOM_PRESENT",
+        "unit": "BINARY_FLAG"
+      },
+      "salas_utilizadas_acessiveis": {
+        "indicator_id": "ACCESSIBLE_USED_ROOMS_COUNT",
+        "unit": "COUNT"
+      },
+      "banda_larga": {
+        "indicator_id": "BROADBAND_PRESENT",
+        "unit": "BINARY_FLAG"
+      },
+      "internet": {
+        "indicator_id": "INTERNET_PRESENT",
+        "unit": "BINARY_FLAG"
+      },
+      "internet_alunos": {
+        "indicator_id": "STUDENT_INTERNET_PRESENT",
+        "unit": "BINARY_FLAG"
+      },
+      "tp_aee": {
+        "indicator_id": "AEE_TYPE_FLAG",
+        "unit": "BINARY_OR_SOURCE_CODE"
+      },
+      "acessibilidade_recursos_8": {
+        "indicator_id": "ACCESSIBILITY_RESOURCES_SCORE_0_8",
+        "unit": "SCORE"
+      },
+      "corrimao": {
+        "indicator_id": "HANDRAIL_PRESENT",
+        "unit": "BINARY_FLAG"
+      },
+      "elevador": {
+        "indicator_id": "ELEVATOR_PRESENT",
+        "unit": "BINARY_FLAG"
+      },
+      "pisos_tateis": {
+        "indicator_id": "TACTILE_FLOOR_PRESENT",
+        "unit": "BINARY_FLAG"
+      },
+      "vao_livre": {
+        "indicator_id": "FREE_PASSAGE_PRESENT",
+        "unit": "BINARY_FLAG"
+      },
+      "rampas": {
+        "indicator_id": "RAMPS_PRESENT",
+        "unit": "BINARY_FLAG"
+      },
+      "sinal_sonoro": {
+        "indicator_id": "AUDIBLE_SIGNAL_PRESENT",
+        "unit": "BINARY_FLAG"
+      },
+      "sinal_tatil": {
+        "indicator_id": "TACTILE_SIGNAL_PRESENT",
+        "unit": "BINARY_FLAG"
+      },
+      "sinal_visual": {
+        "indicator_id": "VISUAL_SIGNAL_PRESENT",
+        "unit": "BINARY_FLAG"
+      }
+    },
+    "import_rules": {
+      "identity_key": "codigo_inep",
+      "source_family": "CENSO_ESCOLAR",
+      "missing_is_zero": false,
+      "source_status_preserved": true,
+      "pre_first_year_status_preserved": true,
+      "source_file_column_preserved": true,
+      "no_partial_snippet_reconstruction": true
+    }
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

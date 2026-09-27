@@ -1,0 +1,105 @@
+{
+  "task": "TASK_078_DEEPSEEK_REVIEWER_BOOTSTRAP",
+  "software_version": "0.8.0",
+  "base_main_sha": "127053f2eb3cf54f7067aeaef352d8a8daedc303",
+  "pull_request": 354,
+  "implementation_head_before_evidence": "f69ad1f4cea47595f61643b8d91464b9a63132da",
+  "scope": "OFFLINE_FIRST_MANUAL_DEEPSEEK_PR_REVIEWER_BOOTSTRAP",
+  "api_contract": {
+    "base_url": "https://api.deepseek.com",
+    "path": "/chat/completions",
+    "default_model": "deepseek-v4-flash",
+    "allowed_models": [
+      "deepseek-v4-flash",
+      "deepseek-v4-pro"
+    ],
+    "legacy_deepseek_chat_allowed": false,
+    "json_output_required": true,
+    "thinking_default": "disabled"
+  },
+  "implementation": {
+    "policy": "config/deepseek_agent_policy.v1.json",
+    "core": "robo_dados_publicos/automation/deepseek_review.py",
+    "runner": "scripts/deepseek_pr_review.py",
+    "tests": "tests/test_deepseek_review_bootstrap.py",
+    "workflow": ".github/workflows/deepseek-pr-review-bootstrap.yml",
+    "task_document": "docs/tasks/CODEX_TASK_078_DEEPSEEK_REVIEWER_BOOTSTRAP.md"
+  },
+  "security_and_governance": {
+    "default_decision": "BLOCK",
+    "workflow_dispatch_only": true,
+    "dry_run_default": true,
+    "live_confirmation_literal": "LIVE_DEEPSEEK_REVIEW",
+    "github_permissions": {
+      "contents": "read",
+      "pull_requests": "read"
+    },
+    "pull_request_auto_trigger": false,
+    "pull_request_target": false,
+    "github_comment_write": false,
+    "github_code_write": false,
+    "self_merge": false,
+    "drive_access": false,
+    "source_collection": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false,
+    "prompt_injection_boundary": "TRUSTED_REPOSITORY_POLICY_OVERRIDES_UNTRUSTED_PR_CONTENT",
+    "secret_name": "DEEPSEEK_API_KEY",
+    "secret_value_observed_by_task": false,
+    "secret_value_committed": false,
+    "secret_value_logged": false,
+    "secret_value_added_to_prompt": false
+  },
+  "first_ci_on_implementation_head": {
+    "head_sha": "f69ad1f4cea47595f61643b8d91464b9a63132da",
+    "checks_total": 5,
+    "checks_success": 5,
+    "checks_failure": 0,
+    "runs": [
+      {
+        "name": "Public readiness audit",
+        "run_id": 33710836643,
+        "conclusion": "success"
+      },
+      {
+        "name": "CI offline 0.8.0 candidate M7",
+        "run_id": 33710836682,
+        "conclusion": "success"
+      },
+      {
+        "name": "Olinda fragment-target structure",
+        "run_id": 33710836635,
+        "conclusion": "success"
+      },
+      {
+        "name": "Olinda hash routing",
+        "run_id": 33710836633,
+        "conclusion": "success"
+      },
+      {
+        "name": "Olinda loaded script signatures",
+        "run_id": 33710836644,
+        "conclusion": "success"
+      }
+    ],
+    "ci_offline_job_id": 100509643480,
+    "unit_tests_and_historical_regression_step": "success"
+  },
+  "observed_effects_during_task": {
+    "deepseek_live_api_requests": 0,
+    "github_writes_by_deepseek_integration": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "source_network_reads": 0,
+    "publications": 0,
+    "automatic_pr_comments": 0
+  },
+  "next_gate": {
+    "requires_owner_secret_provisioning": true,
+    "secret_name": "DEEPSEEK_API_KEY",
+    "then": "ONE_MANUALLY_CONFIRMED_LIVE_REVIEW_WITH_ZERO_GITHUB_DRIVE_MUTATION",
+    "automatic_pull_request_review_still_blocked": true
+  },
+  "result": "PASS_TASK078_DEEPSEEK_REVIEWER_BOOTSTRAP_OFFLINE_READY_FOR_SECRET_PROVISIONING"
+}

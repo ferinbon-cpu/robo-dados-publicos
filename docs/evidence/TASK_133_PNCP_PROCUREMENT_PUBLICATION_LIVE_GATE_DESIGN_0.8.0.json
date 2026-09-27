@@ -1,0 +1,23 @@
+{
+  "task": "TASK_133_PNCP_PROCUREMENT_PUBLICATION_LIVE_GATE_DESIGN",
+  "mode": "T0_OFFLINE_LIVE_GATE_DESIGN_ONLY",
+  "issue": 468,
+  "base_sha": "ca09484b3967e6e7820d949dc8859129d5586b24",
+  "depends_on_task132_merge_sha": "ca09484b3967e6e7820d949dc8859129d5586b24",
+  "future_exact_url": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao?dataInicial=20251128&dataFinal=20260904&codigoModalidadeContratacao=12&cnpj=45132495000140&pagina=1&tamanhoPagina=500",
+  "future_get_requests_max": 1,
+  "future_redirects_max": 0,
+  "future_retry": 0,
+  "owner_authorization_required_after_merge": true,
+  "authorized_now": false,
+  "authorization_consumed": false,
+  "live_request_executed": false,
+  "strong_policy_marker_required": true,
+  "weak_context_alone_qualifies": false,
+  "source_role": "SECONDARY_AGGREGATOR",
+  "primary_municipal_verification_required": true,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "remote_effects": 0,
+  "result": "PASS_TASK133_ONE_SHOT_LIVE_GATE_DESIGNED_NOT_AUTHORIZED_NOT_EXECUTED"
+}

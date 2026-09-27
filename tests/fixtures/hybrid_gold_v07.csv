@@ -1,0 +1,13 @@
+﻿qid,query,expected_route,period,value,expected_doc
+H01,Qual a meta do índice de alunos em educação integral para 2029?,SQL,2029,59,
+H02,Qual era o índice recente de alunos em educação integral?,SQL,recent,52,
+H03,Qual a meta para 2027?,SQL,2027,55,
+H04,Qual documento indica carga horária mínima de sete horas?,RAG,,,cme_ind_02_2021
+H05,Qual ato instituiu a política em 2024?,RAG,,,decreto_118_2024
+H06,Qual lei está em vigor em 2026 e qual a meta do PPA para 2026?,HYBRID,2026,53,lei_7366_2026
+H07,Qual norma de 2024 instituiu a política e qual a meta de 2029?,HYBRID,2029,59,decreto_118_2024
+H08,Onde está prevista a retomada do Comitê e do Fórum?,RAG,,,cme_ind_02_2021
+H09,Qual o percentual planejado para 2028?,SQL,2028,57,
+H10,Qual documento municipal de 2021 define implementação gradual até a Meta 6?,RAG,,,cme_ind_02_2021
+H11,Qual lei vigente institui a Política Municipal de EITI?,RAG,,,lei_7366_2026
+H12,Qual documento traz a meta de 2026 e qual é o percentual?,HYBRID,2026,53,ppa_7213_2025

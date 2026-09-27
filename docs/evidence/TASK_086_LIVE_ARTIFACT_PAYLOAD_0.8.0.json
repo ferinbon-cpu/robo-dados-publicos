@@ -1,0 +1,239 @@
+{
+  "base_main_sha": "44ed6cf24100317bce62252f03eeb0b1b6ab3995",
+  "candidate_summaries": [],
+  "hard_boundaries": {
+    "contract_identity_assertions": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "financial_identity_assertions": 0,
+    "publications": 0,
+    "queue_writes": 0,
+    "serving_writes": 0,
+    "state_registry_writes": 0
+  },
+  "max_http_requests": 3,
+  "pre_run_task_contract_sha": "6ce5e4b9cc8f7c20d18f383a67ae82d2993e84ec",
+  "request_count": 3,
+  "requests": [
+    {
+      "host": "serv42.limeira.sp.gov.br",
+      "method": "GET",
+      "ordinal": 1,
+      "path": "/ncweb/cns_contratos_web_mestre/",
+      "submitted_field_names": []
+    },
+    {
+      "host": "serv42.limeira.sp.gov.br",
+      "method": "POST",
+      "ordinal": 2,
+      "path": "/ncweb/cns_contratos_web_mestre/",
+      "submitted_field_names": [
+        "NM_operador",
+        "ano_ano",
+        "ano_cond",
+        "bprocessa",
+        "cc_cond",
+        "form_condicao",
+        "fornecedor_cond",
+        "nmgp_opcao",
+        "nmgp_tab_label",
+        "numero",
+        "numero_autocomp",
+        "numero_cond",
+        "objeto_cond",
+        "script_case_init",
+        "script_case_session"
+      ]
+    },
+    {
+      "host": "serv42.limeira.sp.gov.br",
+      "method": "POST",
+      "ordinal": 3,
+      "path": "/ncweb/cns_contratos_web_mestre/",
+      "submitted_field_names": [
+        "nmgp_opcao",
+        "script_case_init",
+        "script_case_session"
+      ]
+    }
+  ],
+  "resolver_result": {
+    "candidates": [],
+    "checked_at": "2026-09-03T18:07:50.929393+00:00",
+    "evidence": {
+      "form_discovery": {
+        "candidates": [
+          {
+            "action": "./",
+            "contract": {
+              "companion_field": "numero_autocomp",
+              "field": "numero",
+              "kind": "contract",
+              "score": 5,
+              "status": "FOUND_SCRIPTCASE_AUTOCOMPLETE_PAIR"
+            },
+            "index": 0,
+            "method": "post",
+            "object": {
+              "companion_field": "objeto_autocomp",
+              "field": "objeto",
+              "kind": "object",
+              "score": 4,
+              "status": "FOUND_SCRIPTCASE_AUTOCOMPLETE_PAIR"
+            },
+            "supplier": {
+              "companion_field": "fornecedor_autocomp",
+              "field": "fornecedor",
+              "kind": "supplier",
+              "score": 4,
+              "status": "FOUND_SCRIPTCASE_AUTOCOMPLETE_PAIR"
+            },
+            "year": {
+              "field": "ano_ano",
+              "kind": "year",
+              "score": 4,
+              "status": "FOUND"
+            }
+          },
+          {
+            "action": "cns_contratos_web_mestre_fim.php",
+            "contract": {
+              "kind": "contract",
+              "status": "NOT_FOUND"
+            },
+            "index": 1,
+            "method": "post",
+            "object": {
+              "kind": "object",
+              "status": "NOT_FOUND"
+            },
+            "supplier": {
+              "kind": "supplier",
+              "status": "NOT_FOUND"
+            },
+            "year": {
+              "kind": "year",
+              "status": "NOT_FOUND"
+            }
+          }
+        ],
+        "forms": 2,
+        "selected": {
+          "action": "./",
+          "contract": {
+            "companion_field": "numero_autocomp",
+            "field": "numero",
+            "kind": "contract",
+            "score": 5,
+            "status": "FOUND_SCRIPTCASE_AUTOCOMPLETE_PAIR"
+          },
+          "index": 0,
+          "method": "post",
+          "object": {
+            "companion_field": "objeto_autocomp",
+            "field": "objeto",
+            "kind": "object",
+            "score": 4,
+            "status": "FOUND_SCRIPTCASE_AUTOCOMPLETE_PAIR"
+          },
+          "supplier": {
+            "companion_field": "fornecedor_autocomp",
+            "field": "fornecedor",
+            "kind": "supplier",
+            "score": 4,
+            "status": "FOUND_SCRIPTCASE_AUTOCOMPLETE_PAIR"
+          },
+          "year": {
+            "field": "ano_ano",
+            "kind": "year",
+            "score": 4,
+            "status": "FOUND"
+          }
+        },
+        "status": "PASS_FORM_DISCOVERY"
+      },
+      "landing": {
+        "content_type": "text/html; charset=ISO-8859-1",
+        "http_status": 200,
+        "url": "https://serv42.limeira.sp.gov.br/ncweb/cns_contratos_web_mestre/"
+      },
+      "submission": {
+        "action": "https://serv42.limeira.sp.gov.br/ncweb/cns_contratos_web_mestre/",
+        "autosubmit_relay": {
+          "candidates": [
+            {
+              "action": "./",
+              "explicit_submit": true,
+              "field_names": [
+                "nmgp_opcao",
+                "script_case_init",
+                "script_case_session"
+              ],
+              "form_name": "form_ok",
+              "hidden_only": true,
+              "method": "post",
+              "scriptcase_search_relay": true
+            }
+          ],
+          "forms": 1,
+          "selected": {
+            "action": "./",
+            "explicit_submit": true,
+            "field_names": [
+              "nmgp_opcao",
+              "script_case_init",
+              "script_case_session"
+            ],
+            "form_name": "form_ok",
+            "hidden_only": true,
+            "method": "post",
+            "scriptcase_search_relay": true
+          },
+          "status": "PASS_PROVEN_AUTOSUBMIT_RELAY"
+        },
+        "http_status": 200,
+        "method": "POST",
+        "relay_followup": {
+          "action": "https://serv42.limeira.sp.gov.br/ncweb/cns_contratos_web_mestre/",
+          "http_status": 200,
+          "method": "POST",
+          "result_url": "https://serv42.limeira.sp.gov.br/ncweb/cns_contratos_web_mestre/",
+          "submitted_field_names": [
+            "nmgp_opcao",
+            "script_case_init",
+            "script_case_session"
+          ],
+          "table_rows": 16
+        },
+        "result_url": "https://serv42.limeira.sp.gov.br/ncweb/cns_contratos_web_mestre/",
+        "submitted_field_names": [
+          "NM_operador",
+          "ano_ano",
+          "ano_cond",
+          "bprocessa",
+          "cc_cond",
+          "form_condicao",
+          "fornecedor_cond",
+          "nmgp_opcao",
+          "nmgp_tab_label",
+          "numero",
+          "numero_autocomp",
+          "numero_cond",
+          "objeto_cond",
+          "script_case_init",
+          "script_case_session"
+        ],
+        "table_rows": 0
+      }
+    },
+    "notes": [
+      "Registro municipal candidato não prova execução financeira; vínculo posterior continua sujeito aos gates V16/V17."
+    ],
+    "status": "NO_MATCH",
+    "target_source": "LIMEIRA_CONTRATOS",
+    "task_id": "RECTASK_6600049d5284824e9a0a44a6"
+  },
+  "result": "PASS_TASK086_BOUNDED_REMOTE_EXECUTION_RECORDED",
+  "selected_task_id": "RECTASK_6600049d5284824e9a0a44a6",
+  "task": "TASK_086_BOUNDED_NEXT_CONTRACT_QUERY"
+}

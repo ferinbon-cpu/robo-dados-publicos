@@ -1,0 +1,41 @@
+{
+  "evidence_schema": "TASK_010N_R_E_M5_SIOPE_NUM_POPU_SOURCE_VINTAGE_PROOF_V1",
+  "software_version": "0.8.0",
+  "task": "TASK_010N-R-E-M5",
+  "base_main_sha": "0ebe0ffbb0d4ef85b3d07b4664c800ed22164567",
+  "tier": "T0_OFFLINE_REVIEW_WITH_BOUNDED_PUBLIC_DOCUMENTARY_DISCOVERY",
+  "scope": {"year": 2025, "period": 6, "municipality": "Limeira", "uf": "SP", "field": "NUM_POPU"},
+  "search_terms": ["NUM_POPU", "POPULACAO", "POPULAÇÃO", "POPULACAO_ESTIMADA", "POP_ESTIMADA", "IBGE", "ESTIMATIVA", "CENSO", "HABITANTES", "Dados_Municipio", "population", "população residente", "data de referência", "ano de referência"],
+  "offline_inventory": [
+    {"path": "docs/tasks/TASK_007_SIOPE_2025_OFFICIAL_DOCUMENTARY_PROOF.md", "sha256": "3081f0268c476b093bd2d5805e430b00da5ea3abbddc4dc17b08fe575382c27b", "finding": "Official documentary review found no primary NUM_POPU definition."},
+    {"path": "docs/tasks/TASK_008_SIOPE_2025_ALIAS_FINALITY_AUDIT.md", "sha256": "590742a5b7b306c95bdc5fc0ef042528ce8c37a73117998c808492600d220952", "finding": "Preserves the independent S1 and finality gates."},
+    {"path": "docs/tasks/TASK_010A_SIOPE_2025_METADATA_OFFLINE_INSPECTOR.md", "sha256": "0103bf8613a07889e4cf745cd851256b30f958008cb3bf002cd9129f24cedfa5", "finding": "Defines bounded inspection without semantic inference."},
+    {"path": "docs/tasks/TASK_010J_SIOPE_2025_CML_CZIP_DECODER.md", "sha256": "654083e4aa9a56f78aecd17c571455cb53fd83fef2ac8bfd56cb3f6f2159d791", "finding": "Documents deterministic decoding of the pinned 2025 metadata structures."},
+    {"path": "docs/evidence/TASK_010K_SIOPE_2025_OFFLINE_SEMANTIC_REVIEW_0.8.0.json", "sha256": "6861167287d0c7a7415fd4b214977590730b95b757ef2200aa1c81017463c6a1", "finding": "Dados_Municipio contains 5,569 rows, 5,568 NUM_POPU attributes, but no exact definition, official source, or vintage rule."},
+    {"path": "docs/tasks/TASK_010N_SIOPE_2016_2025_CONTRACT_CONTINUITY_AUDIT.md", "sha256": "9720fe83855c86e1c941d6d3db50162a0f233013e648b92d524218515f73a56c", "finding": "Structural continuity cannot substitute for semantic continuity."},
+    {"path": "docs/tasks/TASK_010N_R_SIOPE_PROOF_STANDARD_RECONCILIATION.md", "sha256": "f48c37243756e70ca5c64dc3c53210b60c321c2695ebd09601bdaa9c8165cf63", "finding": "Requires NUM_POPU source, vintage, and temporal applicability."},
+    {"path": "docs/tasks/TASK_010N_R_E_M_SIOPE_DIRECT_METADATA_STOP.md", "sha256": "de47bc0a2e4d5c8231e734309d088f971c18d92c9da9bb48491c7f693f4055a8", "finding": "Direct metadata acquisition stopped without semantic proof."},
+    {"path": "docs/evidence/TASK_010N_R_E_M2_SIOPE_EDMX_HANDOFF_AUDIT_0.8.0.json", "sha256": "72d2dbdddb74b7a24c648ccdf10583080ffae9c6b4a0c5c53ba9cd950fcbd91f", "finding": "Current official EDMX exposes NUM_POPU as Edm.Int32 but has zero annotations and descriptions."},
+    {"path": "robo_dados_publicos/sources/siope_client.py", "sha256": "1573c346c2a9f2b1a49af337a7ffb41faeda01472eb80eaa67648baf3ceeaf33", "finding": "Client transports the field and contains no population definition, source mapping, or vintage rule."},
+    {"path": "config/siope_historical_regimes.v1.json", "sha256": "86f0267095a0bc72ca08a39fad79b90afdbc607d73076e84aab83d1b3f75cd58", "finding": "Historical regime configuration contains no current source/vintage proof."}
+  ],
+  "official_documentary_sources": [
+    {"authority": "FNDE", "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/downloads", "title": "Downloads — SIOPE", "publication_or_version_date": "NOT_STATED_ON_PINNED_EVIDENCE", "artifact_sha256": null, "supports": "FNDE publishes the municipal metadata package for exercise 2025.", "does_not_support": "It does not define NUM_POPU, name its population supplier, or state a reference-year rule."},
+    {"authority": "FNDE", "url": "https://www.fnde.gov.br/phocadownload/sistemas/siope/Manuais/DICIONARIO%20DE%20DADOS%20SIOPE%202019.pdf", "title": "Dicionário de Dados SIOPE 2019", "publication_or_version_date": "2019", "artifact_sha256": null, "supports": "It defines historical SIOPE financial concepts.", "does_not_support": "No NUM_POPU definition was located, and historical publication does not prove current 2025 applicability."},
+    {"authority": "FNDE", "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/media/Tutorial_Bsico_Siope_2024_v2.pdf", "title": "Tutorial Básico SIOPE 2024 v2", "publication_or_version_date": "2024 v2", "artifact_sha256": null, "supports": "It documents the contemporary declaration workflow and Dados Gerais interface.", "does_not_support": "It supplies no NUM_POPU definition, source mapping, or vintage rule."},
+    {"authority": "FNDE", "url": "https://www.fnde.gov.br/olinda-ide/servico/DADOS_ABERTOS_SIOPE/versao/v1/odata/$metadata", "title": "DADOS_ABERTOS_SIOPE OData EDMX", "publication_or_version_date": "CURRENT_HANDOFF_AUDITED_IN_TASK_010N_R_E_M2", "artifact_sha256": "6bf6a37ef190389db9420a6e6cd26f2ec7967c8920bcf61799252a017cdb30ca", "supports": "The current contract exposes NUM_POPU as Edm.Int32.", "does_not_support": "The EDMX has no semantic annotation, population source relation, or temporal rule."}
+  ],
+  "bounded_discovery": {"attempted_on": "2026-08-30", "allowlisted_official_url_attempt_count": 3, "successful_official_artifact_download_count": 0, "result": "ENVIRONMENT_CONNECT_TUNNEL_HTTP_403", "authentication_attempt_count": 0, "siope_data_endpoint_call_count": 0, "drive_call_count": 0, "limitation": "The environment blocked direct official-site connections before an HTTP response from the source; no new source bytes or claims were obtained."},
+  "proof_results": {
+    "NUM_POPU_2025_SEMANTICS": "NOT_PROVEN_EXACT_SEMANTIC_DEFINITION_MISSING",
+    "NUM_POPU_2025_SOURCE": "NOT_PROVEN_OFFICIAL_SOURCE_MAPPING_MISSING",
+    "NUM_POPU_2025_VINTAGE": "NOT_PROVEN_REFERENCE_DATE_YEAR_VERSION_RULE_MISSING",
+    "NUM_POPU_2025_VALUE_RECONCILIATION": "NOT_PERFORMED_SOURCE_AND_VINTAGE_RULE_NOT_PROVEN",
+    "NUM_POPU_2016_2024_CONTINUITY": "NOT_PROVEN_NO_VERSIONED_HISTORICAL_SOURCE_AND_VINTAGE_RULE"
+  },
+  "observed_target": {"year": 2025, "period": 6, "municipality": "Limeira", "uf": "SP", "value_used_for_reconciliation": null, "comparison_mode": "DISABLED_UNTIL_RULE_PROVEN", "approximate_equality_accepted": false},
+  "smallest_human_mediated_artifact_needed": {"artifact": "A current official FNDE/SIOPE dictionary, layout, source mapping, or backend import/view routine that names Dados_Municipio.NUM_POPU and states its exact semantic definition, authoritative supplier, and declaration reference-date/year/version rule.", "acceptance": "All three propositions must apply explicitly to exercise 2025; only then may the already authorized Limeira 2025/P6 integer be compared by exact equality to the identified official source vintage."},
+  "canonical_state": {"release_0_7_0": "ACTIVE", "release_0_8_0": "CANDIDATE", "year_2025": "PROVEN_STRUCTURAL_RECENT", "S1_NUM_POPU": "NOT_PROVEN", "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN", "financial_aliases_proven_exact_operational": "9/10", "annual_closure_status": "UNKNOWN", "semantic_comparability_status": "UNKNOWN", "closed_annual_series": "2016-2024", "gold_2025": "UNKNOWN/BLOCKED", "year_2026": "UNPROVEN_CURRENT_YEAR"},
+  "guards": {"historical_rule_substituted_for_current": false, "field_name_semantics_inferred": false, "numerical_coincidence_used_to_invent_rule": false, "remote_writes": 0, "publication": false, "gold_computation": false},
+  "decision": "KEEP_S1_NUM_POPU_NOT_PROVEN_DEFINITION_SOURCE_VINTAGE_MISSING"
+}

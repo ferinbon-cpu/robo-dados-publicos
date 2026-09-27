@@ -1,0 +1,21 @@
+{
+  "schema": "M8_READONLY_OAUTH_PROVISIONING_CHECKPOINT_0.8.0",
+  "evidence_origin": "operator_reported_cloudshell_helper_output",
+  "environment": "google_cloud_shell_web_preview",
+  "repository": "ferinbon-cpu/robo-dados-publicos",
+  "status": "PASS_M8_READONLY_SECRETS_PROVISIONED",
+  "scope": "https://www.googleapis.com/auth/drive.readonly",
+  "scope_proof": "token_response_and_tokeninfo_exact",
+  "secret_names": [
+    "GOOGLE_DRIVE_READONLY_CLIENT_ID",
+    "GOOGLE_DRIVE_READONLY_CLIENT_SECRET",
+    "GOOGLE_DRIVE_READONLY_REFRESH_TOKEN"
+  ],
+  "secret_values_exposed": false,
+  "token_file_persistent": false,
+  "m8_executed": false,
+  "m8_no_click_authorized": false,
+  "publication_authorized": false,
+  "future_batch_execution_authorized": false,
+  "next_gate": "wire dedicated read-only secrets into the still-manual M8 workflow, prove scope again at runtime before any Drive lookup, then run the first live read-only product gate manually"
+}

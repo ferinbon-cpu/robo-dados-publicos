@@ -1,0 +1,56 @@
+{
+  "authorization": {
+    "future_execution_authorized": false,
+    "owner_instruction": "2026-09-04: prossiga",
+    "retry_authorized": false,
+    "single_use": true
+  },
+  "ephemeral_cleanup_verified": true,
+  "evidence_payload_sha256_without_self_hash": "507787613a9108147cb31e03375c4a84fd6b63e05e7ffb137b862db03e948df5",
+  "persistent_effects": {
+    "bronze_writes": 0,
+    "delete": 0,
+    "drive_network_calls": 0,
+    "gold_writes": 0,
+    "move": 0,
+    "overwrite": 0,
+    "publication_writes": 0,
+    "queue_writes": 0,
+    "rag_writes": 0,
+    "recurrence": 0,
+    "schedule": 0,
+    "serving_writes": 0,
+    "silver_writes": 0,
+    "source_network_calls": 0,
+    "state_registry_writes": 0
+  },
+  "reason": "RuntimeError:STOP_TASK091_HISTORICAL_COUNT_DRIFT",
+  "request_count": 2,
+  "requests": [
+    {
+      "host": "oauth2.googleapis.com",
+      "method": "POST",
+      "ordinal": 1,
+      "route_class": "OAUTH_TOKEN_EXCHANGE"
+    },
+    {
+      "host": "www.googleapis.com",
+      "method": "GET",
+      "ordinal": 2,
+      "route_class": "EXACT_DRIVE_MEDIA_GET"
+    }
+  ],
+  "run": {
+    "attempt": "1",
+    "head_sha": "0c777c647cefaacc9d1daba35c1cded42109c120",
+    "run_reference_sha256": "2a758c122405c700aac6e24af17bc44f9902d657de462ad13736d894fa42c476"
+  },
+  "source": {
+    "expected_bytes": 17615179,
+    "expected_sha256": "44d92a6ac948bbf43dcb3302733faac1a4ed5e592702f66c07f0c6ede4ecb73c",
+    "remote_id_redacted": true,
+    "remote_id_sha256": "c4ddf384c210c0189c8c6da932de27cdaa70f810d026060736f10c76ed99dfc5"
+  },
+  "status": "STOP_TASK091_LIVE_DRIVE_TO_EPHEMERAL_DIGEST",
+  "task": "TASK_091_LIVE_EPHEMERAL_DRIVE_DIGEST"
+}

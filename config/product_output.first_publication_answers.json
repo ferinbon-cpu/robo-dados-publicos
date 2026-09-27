@@ -1,0 +1,15 @@
+{
+  "answers": [
+    {
+      "status": "ANSWERED",
+      "DADO": "A camada de saída mínima de produto da candidata 0.7.0 passou pelo gate offline com 38/38 checks de preflight, 148/148 testes unitários, 13/13 testes específicos de produto e 109/109 regressões históricas.",
+      "CÁLCULO": "Contagens de QA registradas pelo CI do PR #15; não há cálculo substantivo sobre dados públicos neste relatório técnico.",
+      "CORRESPONDÊNCIA": "Não aplicável como identidade documental ou financeira: este artefato valida apenas a capacidade de apresentação e publicação controlada.",
+      "INTERPRETAÇÃO": "O gate demonstra que respostas estruturadas podem ser materializadas em formatos legíveis e que o CSV pode ser usado como fonte para uma Planilha Google, mantendo PDF e manifesto de integridade.",
+      "CAUTELA": "RELATÓRIO DE VALIDAÇÃO TÉCNICA. Não representa conclusão substantiva sobre orçamento, contrato, política pública, pessoa, fornecedor ou órgão. Não autoriza recorrência nem novas fontes.",
+      "FONTES": [
+        "https://github.com/ferinbon-cpu/robo-dados-publicos/pull/15"
+      ]
+    }
+  ]
+}

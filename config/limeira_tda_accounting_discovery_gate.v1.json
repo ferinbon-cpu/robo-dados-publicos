@@ -1,0 +1,148 @@
+{
+  "version": 1,
+  "schema": "LIMEIRA_TDA_ACCOUNTING_DISCOVERY_GATE_V1",
+  "task": "TASK_170_SELECT_LIMEIRA_TDA_PRIMARY_ACCOUNTING_DISCOVERY_GATE",
+  "issue": 552,
+  "base_main_sha": "547bcff812763677ac99b576d32efe6e57bd3c80",
+  "mode": "T0_OFFLINE_SOURCE_SELECTION_ONLY",
+  "objective": "Select the strongest already-versioned municipal primary accounting surface for the EITI financial-identity bridge and define a bounded future discovery gate without performing network access.",
+  "inputs": {
+    "task169_router": "config/eiti_accounting_execution_source_router.v1.json",
+    "source_registry": "config/limeira_sources_discovery.json",
+    "task169_result": "LIMEIRA_PRIMARY_TRANSPARENCY_EXPENSE_DETAIL_RANKED_FIRST",
+    "historical_live_evidence": "M4E_2026_08_22_LIMEIRA_TDA_PUBLIC_SURFACE_REDIRECTED_TO_LOGOUT_ROOT_WITHOUT_API_OR_DOWNLOAD_HINT"
+  },
+  "selected_source": {
+    "source_id": "LIMEIRA_TDA_PORTAL",
+    "authority": "MUNICIPAL_PRIMARY",
+    "role": "ACCOUNTING_EXECUTION_PRIMARY_DISCOVERY_TARGET",
+    "host": "transparencia.limeira.sp.gov.br",
+    "known_official_route": "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+    "registry_status": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN",
+    "selection_status": "SELECTED_FOR_FUTURE_BOUNDED_DISCOVERY_NOT_AUTHORIZED_LIVE",
+    "selection_reason": "Highest-ranked municipal primary surface with declared despesas and empenho/liquidacao/pagamento capability; no already-versioned municipal primary source proves a stronger policy-to-accounting stable-key capability.",
+    "declared_capabilities": [
+      "despesas",
+      "fornecedor",
+      "empenho_liquidacao_pagamento",
+      "restos_a_pagar",
+      "compras_licitacoes_contratos"
+    ]
+  },
+  "alternative_sources": [
+    {
+      "source_id": "TCE_SP_2026_BULK",
+      "role": "CONTROL_PRIMARY_CORROBORATION",
+      "decision": "NOT_SELECTED_FOR_INITIAL_POLICY_IDENTITY_DISCOVERY",
+      "reason": "Validated for transaction-event and supplier reconciliation but normalized schema lacks policy/programmatic/ficha dimensions required to discover EITI identity on its own."
+    },
+    {
+      "source_id": "LIMEIRA_JORNAL_OFICIAL",
+      "role": "MUNICIPAL_OFFICIAL_EVENTS_AND_ACTS",
+      "decision": "NOT_SELECTED_FOR_INITIAL_ACCOUNTING_DISCOVERY",
+      "reason": "Useful for acts and documentary crosswalks but not the highest-capability accounting execution surface."
+    }
+  ],
+  "authorization_boundary": {
+    "task170_network_requests": 0,
+    "task170_drive_reads": 0,
+    "task170_drive_writes": 0,
+    "task170_publication": false,
+    "live_discovery_authorized_now": false,
+    "fresh_explicit_owner_authorization_required": true,
+    "future_authorization_scope": {
+      "source": "LIMEIRA_TDA_PORTAL",
+      "host": "transparencia.limeira.sp.gov.br",
+      "purpose": "discover_explicitly_declared_public_machine_readable_accounting_route_for_eiti_financial_identity_bridge",
+      "method_family": "READ_ONLY_PUBLIC_DISCOVERY"
+    }
+  },
+  "future_live_discovery_gate": {
+    "phase": "TASK170_FUTURE_LIVE_NOT_EXECUTED",
+    "entry_route": "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+    "request_budget": {
+      "initial_entry_get_max": 1,
+      "follow_declared_machine_readable_route_max": 1,
+      "total_requests_max": 2,
+      "retry": 0,
+      "redirect_follow": 0
+    },
+    "allowed_discovery": [
+      "read_public_response_from_exact_known_official_route",
+      "extract_only_explicitly_declared_official_api_json_csv_xlsx_download_or_machine_readable_route",
+      "if_a_declared_route_is_found_follow_exactly_one_same-purpose_read-only_machine-readable_route_after_entity_and_host_validation"
+    ],
+    "direct_json_first_order": [
+      "DIRECT_OFFICIAL_JSON_API_GET_IF_EXPLICITLY_DECLARED",
+      "DIRECT_AUTHORIZED_MACHINE_READABLE_GET_IF_EXPLICITLY_DECLARED",
+      "DOCUMENTED_API_OR_DECLARED_DOWNLOAD_ROUTE",
+      "STOP_NO_DECLARED_MACHINE_READABLE_ROUTE"
+    ],
+    "forbidden_discovery": [
+      "endpoint_guessing",
+      "path_bruteforce",
+      "html_dom_reverse_engineering_beyond_declared_route_extraction",
+      "javascript_execution",
+      "internal_path_inference",
+      "form_submission",
+      "authentication",
+      "credential_use",
+      "captcha_bypass",
+      "session_emulation",
+      "login_bypass",
+      "automatic_retry"
+    ],
+    "access_barrier_semantics": {
+      "redirect_to_login_logout_root_or_session_barrier": "SOURCE_ACCESS_SURFACE_BLOCKED",
+      "transport_failure": "SOURCE_TRANSPORT_UNAVAILABLE",
+      "no_declared_machine_readable_route_in_public_surface": "STOP_NO_PUBLIC_MACHINE_READABLE_ROUTE_DECLARED",
+      "none_of_these_equal": "NO_DATA"
+    },
+    "machine_readable_route_acceptance": {
+      "all_required": [
+        "official_or_same_authority_provenance",
+        "read_only_public_access",
+        "declared_or_directly_exposed_by_official_surface",
+        "accounting_or_expense_semantics_explicit",
+        "entity_identity_validatable",
+        "schema_inspectable_before_financial_identity_promotion"
+      ]
+    }
+  },
+  "scientific_guards": {
+    "current_financial_identity": "UNKNOWN",
+    "current_transaction_identity": "UNKNOWN",
+    "current_commitment": "NOT_PROVEN",
+    "current_liquidation": "NOT_PROVEN",
+    "current_payment": "NOT_PROVEN",
+    "tda_surface_selection_promotes_identity": false,
+    "declared_capability_promotes_identity": false,
+    "tce_can_replace_unresolved_municipal_policy_identity": false,
+    "pncp_can_prove_payment": false,
+    "commitment_equals_liquidation": false,
+    "liquidation_equals_payment": false
+  },
+  "promotion_preconditions_after_future_route_discovery": {
+    "policy_financial_identity_requires": [
+      "entity_cnpj_exact",
+      "fiscal_year_exact",
+      "policy_link_basis_explicit",
+      "institutional_unit_explicit",
+      "program_or_action_explicit",
+      "stable_budget_key_explicit",
+      "amount_semantic_explicit",
+      "source_role_accounting_or_budget_primary"
+    ],
+    "weak_joins_forbidden": [
+      "program_2001_alone",
+      "unit_10_00_00_similarity",
+      "capl_2607004_alone",
+      "same_or_similar_value",
+      "chronology",
+      "semantic_similarity",
+      "pncp_purchase_or_contract_without_accounting_link"
+    ]
+  },
+  "result": "PASS_TASK170_LIMEIRA_TDA_SELECTED_FOR_FUTURE_BOUNDED_DISCOVERY_NO_LIVE_REQUEST",
+  "next_action": "AFTER_MERGE_REQUIRE_FRESH_EXPLICIT_OWNER_AUTHORIZATION_FOR_LIMEIRA_TDA_SOURCE_SCOPE_THEN_EXECUTE_ONLY_THE_BOUNDED_PUBLIC_DECLARED_ROUTE_DISCOVERY_GATE; IF_BLOCKED_OR_NO_DECLARED_MACHINE_READABLE_ROUTE_STOP_WITHOUT_ENDPOINT_GUESSING; IF_A_VALID_ROUTE_IS_PROVEN_OPEN_A_SEPARATE_SCHEMA_AND_POLICY_FINANCIAL_IDENTITY_GATE"
+}

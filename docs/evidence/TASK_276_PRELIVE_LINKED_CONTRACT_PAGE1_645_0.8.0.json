@@ -1,0 +1,39 @@
+{
+  "schema": "TASK276_PRELIVE_LINKED_CONTRACT_PAGE1_645_V1",
+  "task": "TASK_276",
+  "issue": 887,
+  "source_task275": {
+    "http_code": 400,
+    "message": "Required request parameter 'pagina' for method parameter type Integer is not present",
+    "absence_inference": false
+  },
+  "target_url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/contratos/contratacao/2026/645?pagina=1&tamanhoPagina=50",
+  "query_contract": {
+    "pagina": 1,
+    "tamanhoPagina": 50,
+    "automatic_pagination": false
+  },
+  "expected_response": {
+    "json_shape": "OBJECT",
+    "data_type": "LIST",
+    "metadata_fields": [
+      "totalRegistros",
+      "totalPaginas",
+      "numeroPagina",
+      "paginasRestantes",
+      "empty"
+    ]
+  },
+  "privacy_exclusions": [
+    "usuarioNome",
+    "tipoPessoa",
+    "niFornecedor",
+    "nomeRazaoSocialFornecedor",
+    "tipoPessoaSubContratada",
+    "niFornecedorSubContratado",
+    "nomeFornecedorSubContratado",
+    "informacaoComplementar"
+  ],
+  "live_state": "NOT_EXECUTED",
+  "next_gate": "CANONIZE_PAGE1_RESULT_AND_ONLY_IF_NEEDED_PREPARE_SEPARATE_PAGE2_GATE"
+}

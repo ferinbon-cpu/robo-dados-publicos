@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "schema": "TASK219V_DESPESA_SCRIPT_SEMANTICS_V1",
+  "task": "TASK_219V",
+  "issue": 734,
+  "parent_issue": 691,
+  "base_main_sha": "7a625973cac03d820f6a729e4da7e09c129c7350",
+  "source": "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+  "selector": {
+    "AreaName": "Despesa",
+    "AreaOrigin": "2_92_guestuser_207_6_DSL0_VIS1343",
+    "fresh_same_session_AreaId_required": true
+  },
+  "inspection": {
+    "inline_scripts_under_current_root": true,
+    "click_handlers_root_document_window": true,
+    "handler_invocation": false,
+    "full_script_persistence": false,
+    "bounded_semantic_snippets_only": true,
+    "max_snippet_chars": 240
+  },
+  "proof": {
+    "unique_explicit_mapping_required": true,
+    "generic_click_or_chart_library_is_insufficient": true,
+    "css_or_text_similarity_is_insufficient": true
+  },
+  "network_policy": {
+    "browser_sessions": 1,
+    "initial_navigation": 1,
+    "clicks": 0,
+    "typing": 0,
+    "form_submissions": 0,
+    "manual_fetch_xhr": 0,
+    "direct_endpoint_calls": 0,
+    "portal_action_triggers": 0,
+    "layerinfo_replay": 0,
+    "retries": 0,
+    "empenho_lookup": 0
+  },
+  "authorization_sequence": "LEAP_1_OF_3"
+}

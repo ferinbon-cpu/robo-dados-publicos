@@ -1,0 +1,1182 @@
+{
+  "schema": "TASK246_REVIEWED_OFFICIAL_SUPPORT_V1",
+  "sources": [
+    {
+      "id": "CENSUS_LIMEIRA",
+      "filename": "census_limeira.json",
+      "authority": "IBGE",
+      "official_url": "https://servicodados.ibge.gov.br/api/v3/agregados/4714/periodos/2022/variaveis/93?localidades=N6[3526902]",
+      "final_url": "https://servicodados.ibge.gov.br/api/v3/agregados/4714/periodos/2022/variaveis/93?localidades=N6[3526902]",
+      "retrieved_at": "2026-09-16T01:48:40.574357+00:00",
+      "http_status": 200,
+      "raw_sha256": "fa64ba4567da6af77315c109a71bb039f4bf4ec7e74af05060540b71c04b7978",
+      "bytes": 236,
+      "content_type": "application/json",
+      "http_last_modified": null,
+      "http_last_modified_is_publication_date": false,
+      "decoded_snapshot_path": "docs/evidence/task246_sources/census_limeira.json",
+      "decoded_sha256": "fa64ba4567da6af77315c109a71bb039f4bf4ec7e74af05060540b71c04b7978",
+      "wire_encoding": "identity"
+    },
+    {
+      "id": "CLARIFICATION2025",
+      "filename": "clarification2025.pdf",
+      "authority": "IBGE",
+      "official_url": "https://www.ibge.gov.br/np_download/novoportal/documentos_institucionais/Esclarecimentos_prestados_pela_DPE_estimativas_das_populacoes_municipais_20251022.pdf",
+      "final_url": "https://www.ibge.gov.br/np_download/novoportal/documentos_institucionais/Esclarecimentos_prestados_pela_DPE_estimativas_das_populacoes_municipais_20251022.pdf",
+      "retrieved_at": "2026-09-16T01:45:43.893121+00:00",
+      "http_status": 200,
+      "raw_sha256": "05a88e6e7b30979f98242ee57389a7612326e5572b61a1923f6b3f281617a85c",
+      "bytes": 306113,
+      "content_type": "application/pdf",
+      "http_last_modified": "Wed, 22 Oct 2025 15:23:38 GMT",
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "ESTIMATES2016_INDEX",
+      "filename": "estimates2016_index.html",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2016/",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2016/",
+      "retrieved_at": "2026-09-16T01:50:12.191618+00:00",
+      "http_status": 200,
+      "raw_sha256": "b304e15b84eedc1a9bcb46a7ceeb96cc94acba19dc2159cc1b96558d40d6671c",
+      "bytes": 21478,
+      "content_type": "text/html;charset=ISO-8859-1",
+      "http_last_modified": null,
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "ESTIMATES2017_INDEX",
+      "filename": "estimates2017_index.html",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2017/",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2017/",
+      "retrieved_at": "2026-09-16T01:50:12.176718+00:00",
+      "http_status": 200,
+      "raw_sha256": "c13e9b0eeb7080ab6ecc2f4b7b7b86bdeb8e9476589f1568330a4623aab68494",
+      "bytes": 21167,
+      "content_type": "text/html;charset=ISO-8859-1",
+      "http_last_modified": null,
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "ESTIMATES2018_INDEX",
+      "filename": "estimates2018_index.html",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2018/",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2018/",
+      "retrieved_at": "2026-09-16T01:50:12.191745+00:00",
+      "http_status": 200,
+      "raw_sha256": "bb8fcffa634d2a0521a8e757f33f2c1e8b5e5a6c3b6c029d4ec24d56ad13ab81",
+      "bytes": 21203,
+      "content_type": "text/html;charset=ISO-8859-1",
+      "http_last_modified": null,
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "ESTIMATES2019_INDEX",
+      "filename": "estimates2019_index.html",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2019/",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2019/",
+      "retrieved_at": "2026-09-16T01:48:40.587828+00:00",
+      "http_status": 200,
+      "raw_sha256": "63660078d0b0491a16fa983f021f54fd880966f62fb04cb1c7024cfb3499afee",
+      "bytes": 21167,
+      "content_type": "text/html;charset=ISO-8859-1",
+      "http_last_modified": null,
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "ESTIMATES2020_INDEX",
+      "filename": "estimates2020_index.html",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2020/",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2020/",
+      "retrieved_at": "2026-09-16T01:50:12.187518+00:00",
+      "http_status": 200,
+      "raw_sha256": "7bbdb835a823c73fa009860e8079def70b36c1294720c3669fdef139c5df2104",
+      "bytes": 21838,
+      "content_type": "text/html;charset=ISO-8859-1",
+      "http_last_modified": null,
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "ESTIMATES2021_INDEX",
+      "filename": "estimates2021_index.html",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2021/",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2021/",
+      "retrieved_at": "2026-09-16T01:48:40.574873+00:00",
+      "http_status": 200,
+      "raw_sha256": "2e9139b1783eab8c9932ad49b7e025dae70e0273e1a1715e9186bc224bf69dc1",
+      "bytes": 20714,
+      "content_type": "text/html;charset=ISO-8859-1",
+      "http_last_modified": null,
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "ESTIMATES2024_INDEX",
+      "filename": "estimates2024_index.html",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2024/",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2024/",
+      "retrieved_at": "2026-09-16T01:48:40.587970+00:00",
+      "http_status": 200,
+      "raw_sha256": "3eceb0bed89c11e6cba27a07de31a26f05a392c099e10e4270774cef7fa31ef8",
+      "bytes": 21647,
+      "content_type": "text/html;charset=ISO-8859-1",
+      "http_last_modified": null,
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "ESTIMATES2025_INDEX",
+      "filename": "estimates2025_index.html",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2025/",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2025/",
+      "retrieved_at": "2026-09-16T01:48:08.649122+00:00",
+      "http_status": 200,
+      "raw_sha256": "fc64b5efab8a523276f9dfe098e2deb89aca7991bd2fd59afe4fcbac04b6d56e",
+      "bytes": 22318,
+      "content_type": "text/html;charset=ISO-8859-1",
+      "http_last_modified": null,
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "ESTIMATES_INDEX",
+      "filename": "estimates_index.html",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/",
+      "retrieved_at": "2026-09-16T01:46:25.421081+00:00",
+      "http_status": 200,
+      "raw_sha256": "99ee86dd0d033d9e2110412536b0b5007fc8e4264bde9f58bc6e340e1e8f0fec",
+      "bytes": 26141,
+      "content_type": "text/html;charset=ISO-8859-1",
+      "http_last_modified": null,
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "ESTIMATES_LIMEIRA",
+      "filename": "estimates_limeira.json",
+      "authority": "IBGE",
+      "official_url": "https://servicodados.ibge.gov.br/api/v3/agregados/6579/periodos/2016|2017|2018|2019|2020|2021|2024|2025/variaveis/9324?localidades=N6[3526902]",
+      "final_url": "https://servicodados.ibge.gov.br/api/v3/agregados/6579/periodos/2016|2017|2018|2019|2020|2021|2024|2025/variaveis/9324?localidades=N6[3526902]",
+      "retrieved_at": "2026-09-16T01:48:08.648653+00:00",
+      "http_status": 200,
+      "raw_sha256": "60874663a5d67435d3ec36926647b90e59539b9581f2903f08ba771b3ca2bcc5",
+      "bytes": 359,
+      "content_type": "application/json",
+      "http_last_modified": null,
+      "http_last_modified_is_publication_date": false,
+      "decoded_snapshot_path": "docs/evidence/task246_sources/estimates_limeira.json",
+      "decoded_sha256": "60874663a5d67435d3ec36926647b90e59539b9581f2903f08ba771b3ca2bcc5",
+      "wire_encoding": "identity"
+    },
+    {
+      "id": "HISTORICAL_METHODS2020",
+      "filename": "historical_methods2020.pdf",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2020/serie_2001_2020_TCU.pdf",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2020/serie_2001_2020_TCU.pdf",
+      "retrieved_at": "2026-09-16T01:47:15.810897+00:00",
+      "http_status": 200,
+      "raw_sha256": "d4368873714a4bbed4c2d4ff9ebc260449572ceccd8ca3739e715a3cf8f52bc9",
+      "bytes": 386749,
+      "content_type": "application/pdf",
+      "http_last_modified": "Fri, 30 Oct 2020 11:32:48 GMT",
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "LIMEIRA_IDENTITY",
+      "filename": "limeira_identity.json",
+      "authority": "IBGE",
+      "official_url": "https://servicodados.ibge.gov.br/api/v1/localidades/municipios/3526902",
+      "final_url": "https://servicodados.ibge.gov.br/api/v1/localidades/municipios/3526902",
+      "retrieved_at": "2026-09-16T01:47:15.827485+00:00",
+      "http_status": 200,
+      "raw_sha256": "a82388eed7de09e59f553ba25fea3863df28ef8ae562c2f561ab017f6fdf6868",
+      "bytes": 179,
+      "content_type": "application/json; charset=utf-8",
+      "http_last_modified": null,
+      "http_last_modified_is_publication_date": false,
+      "decoded_snapshot_path": "docs/evidence/task246_sources/limeira_identity.json",
+      "decoded_sha256": "fba56db40abcbb9005c478ce9d60c46fd46bdfa310963eaada95f0c9a85b95cd",
+      "wire_encoding": "gzip"
+    },
+    {
+      "id": "METADATA4714",
+      "filename": "metadata4714.json",
+      "authority": "IBGE",
+      "official_url": "https://servicodados.ibge.gov.br/api/v3/agregados/4714/metadados",
+      "final_url": "https://servicodados.ibge.gov.br/api/v3/agregados/4714/metadados",
+      "retrieved_at": "2026-09-16T01:47:15.822250+00:00",
+      "http_status": 200,
+      "raw_sha256": "6f680bbd745e2aabe1208b8f6eac065b87fbf1b987bd039f6df5f9702d081615",
+      "bytes": 381,
+      "content_type": "application/json; charset=utf-8",
+      "http_last_modified": null,
+      "http_last_modified_is_publication_date": false,
+      "decoded_snapshot_path": "docs/evidence/task246_sources/metadata4714.json",
+      "decoded_sha256": "84f6da58f6b881c4e5b417913605f1a7e3b4b8e70bf889e07e8a4e42a2eee715",
+      "wire_encoding": "gzip"
+    },
+    {
+      "id": "METADATA6579",
+      "filename": "metadata6579.json",
+      "authority": "IBGE",
+      "official_url": "https://servicodados.ibge.gov.br/api/v3/agregados/6579/metadados",
+      "final_url": "https://servicodados.ibge.gov.br/api/v3/agregados/6579/metadados",
+      "retrieved_at": "2026-09-16T01:45:43.902330+00:00",
+      "http_status": 200,
+      "raw_sha256": "93520e06fe21ad54f216f89b81a7d5761e6032584bd70afc7f55e37d5d84ff53",
+      "bytes": 298,
+      "content_type": "application/json; charset=utf-8",
+      "http_last_modified": null,
+      "http_last_modified_is_publication_date": false,
+      "decoded_snapshot_path": "docs/evidence/task246_sources/metadata6579.json",
+      "decoded_sha256": "6172ae800a704ad21cfd4f8ae55c2864ef688d172aa305341e84b3964cf45962",
+      "wire_encoding": "gzip"
+    },
+    {
+      "id": "METHODOLOGY2021",
+      "filename": "methodology2021.pdf",
+      "authority": "IBGE",
+      "official_url": "https://biblioteca.ibge.gov.br/visualizacao/livros/liv101849.pdf",
+      "final_url": "https://biblioteca.ibge.gov.br/visualizacao/livros/liv101849.pdf",
+      "retrieved_at": "2026-09-16T01:53:13.371989+00:00",
+      "http_status": 200,
+      "raw_sha256": "dab9ba751f07695e4fa431a746afec638a159a15d1ad4c6b24beba3a44127256",
+      "bytes": 286944,
+      "content_type": "application/pdf",
+      "http_last_modified": "Fri, 27 Aug 2021 12:00:02 GMT",
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "METHODOLOGY2024",
+      "filename": "methodology2024.pdf",
+      "authority": "IBGE",
+      "official_url": "https://biblioteca.ibge.gov.br/visualizacao/livros/liv102112.pdf",
+      "final_url": "https://biblioteca.ibge.gov.br/visualizacao/livros/liv102112.pdf",
+      "retrieved_at": "2026-09-16T01:51:19.299351+00:00",
+      "http_status": 200,
+      "raw_sha256": "139e5695cc9ea3623a4b87748bf1cc0bf74c687a10ccfe5d44647d3d4e30f473",
+      "bytes": 348124,
+      "content_type": "application/pdf",
+      "http_last_modified": "Thu, 29 Aug 2024 12:01:33 GMT",
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "METHODOLOGY2025",
+      "filename": "methodology2025.pdf",
+      "authority": "IBGE",
+      "official_url": "https://biblioteca.ibge.gov.br/visualizacao/livros/liv102198.pdf",
+      "final_url": "https://biblioteca.ibge.gov.br/visualizacao/livros/liv102198.pdf",
+      "retrieved_at": "2026-09-16T01:47:15.839158+00:00",
+      "http_status": 200,
+      "raw_sha256": "cb7d145a7d1f9e65cc0f66930bf8a6966374003e76305d9a15e364960bfbd5d0",
+      "bytes": 624368,
+      "content_type": "application/pdf",
+      "http_last_modified": "Thu, 28 Aug 2025 19:17:14 GMT",
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "ORIGINAL2019",
+      "filename": "original2019.ods",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2019/estimativa_dou_2019.ods",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2019/estimativa_dou_2019.ods",
+      "retrieved_at": "2026-09-16T01:49:38.033757+00:00",
+      "http_status": 200,
+      "raw_sha256": "6c8ff8dfc14e52388511182f401c2a56878e5a1dc9d3f39f15ca552f7492ca7c",
+      "bytes": 197083,
+      "content_type": "application/vnd.oasis.opendocument.spreadsheet",
+      "http_last_modified": "Tue, 17 Sep 2019 18:40:26 GMT",
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "ORIGINAL2025",
+      "filename": "original2025.ods",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2025/estimativa_dou_2025.ods",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2025/estimativa_dou_2025.ods",
+      "retrieved_at": "2026-09-16T01:50:44.970242+00:00",
+      "http_status": 200,
+      "raw_sha256": "16e2efbb0d2a43d18994d4354b58020b7231b0e99fafb08d86f5142c17ca0a6a",
+      "bytes": 214193,
+      "content_type": "application/vnd.oasis.opendocument.spreadsheet",
+      "http_last_modified": "Mon, 01 Sep 2025 12:00:01 GMT",
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "PERIODS4714",
+      "filename": "periods4714.json",
+      "authority": "IBGE",
+      "official_url": "https://servicodados.ibge.gov.br/api/v3/agregados/4714/periodos",
+      "final_url": "https://servicodados.ibge.gov.br/api/v3/agregados/4714/periodos",
+      "retrieved_at": "2026-09-16T01:50:44.963385+00:00",
+      "http_status": 200,
+      "raw_sha256": "5898bf878122923a311be4c7fdda4990b93cac17853d398a31305d1b4cd6e754",
+      "bytes": 62,
+      "content_type": "application/json",
+      "http_last_modified": null,
+      "http_last_modified_is_publication_date": false,
+      "decoded_snapshot_path": "docs/evidence/task246_sources/periods4714.json",
+      "decoded_sha256": "5898bf878122923a311be4c7fdda4990b93cac17853d398a31305d1b4cd6e754",
+      "wire_encoding": "identity"
+    },
+    {
+      "id": "PERIODS6579",
+      "filename": "periods6579.json",
+      "authority": "IBGE",
+      "official_url": "https://servicodados.ibge.gov.br/api/v3/agregados/6579/periodos",
+      "final_url": "https://servicodados.ibge.gov.br/api/v3/agregados/6579/periodos",
+      "retrieved_at": "2026-09-16T01:46:25.407728+00:00",
+      "http_status": 200,
+      "raw_sha256": "a64fcf07c29f10eb88b3abe3ed4b67addf6900ad0525988b8f8b84fe4664c2e2",
+      "bytes": 1343,
+      "content_type": "application/json",
+      "http_last_modified": null,
+      "http_last_modified_is_publication_date": false,
+      "decoded_snapshot_path": "docs/evidence/task246_sources/periods6579.json",
+      "decoded_sha256": "a64fcf07c29f10eb88b3abe3ed4b67addf6900ad0525988b8f8b84fe4664c2e2",
+      "wire_encoding": "identity"
+    },
+    {
+      "id": "REVISED2016",
+      "filename": "revised2016.ods",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2016/estimativa_TCU_2016_20170614.ods",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2016/estimativa_TCU_2016_20170614.ods",
+      "retrieved_at": "2026-09-16T01:51:50.449738+00:00",
+      "http_status": 200,
+      "raw_sha256": "63c992a5b3668f5123e70032ee4ce4a399fd018dd6333b2b4b17ec00bdcebef9",
+      "bytes": 191402,
+      "content_type": "application/vnd.oasis.opendocument.spreadsheet",
+      "http_last_modified": "Fri, 14 Jul 2017 15:30:10 GMT",
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "REVISED2017",
+      "filename": "revised2017.ods",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2017/POP2017_20220905.ods",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2017/POP2017_20220905.ods",
+      "retrieved_at": "2026-09-16T01:51:50.446177+00:00",
+      "http_status": 200,
+      "raw_sha256": "417d71107cead0fc0a1633e902ea463560fc6902879558fbc2b0fbe8671ecf5a",
+      "bytes": 171044,
+      "content_type": "application/vnd.oasis.opendocument.spreadsheet",
+      "http_last_modified": "Mon, 05 Sep 2022 19:56:53 GMT",
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "REVISED2018",
+      "filename": "revised2018.ods",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2018/POP2018_20220905.ods",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2018/POP2018_20220905.ods",
+      "retrieved_at": "2026-09-16T01:51:50.446179+00:00",
+      "http_status": 200,
+      "raw_sha256": "01f06bad64ac57ec5b6b7c4d2de712c59daf19c1bfea473458cc67ad7546ff66",
+      "bytes": 185578,
+      "content_type": "application/vnd.oasis.opendocument.spreadsheet",
+      "http_last_modified": "Mon, 05 Sep 2022 19:57:44 GMT",
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "REVISED2019",
+      "filename": "revised2019.ods",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2019/POP2019_20220905.ods",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2019/POP2019_20220905.ods",
+      "retrieved_at": "2026-09-16T01:49:38.033756+00:00",
+      "http_status": 200,
+      "raw_sha256": "dbb10e337a0948d5f655a5e45c3321b8a1377579d362109c60dbfd532caa1efa",
+      "bytes": 188410,
+      "content_type": "application/vnd.oasis.opendocument.spreadsheet",
+      "http_last_modified": "Mon, 05 Sep 2022 19:58:14 GMT",
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "REVISED2020",
+      "filename": "revised2020.ods",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2020/POP2020_20220905.ods",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2020/POP2020_20220905.ods",
+      "retrieved_at": "2026-09-16T01:51:50.451280+00:00",
+      "http_status": 200,
+      "raw_sha256": "d42425964927f97801e658e746ff469096818826dff125fd838fc9bf3840b6cc",
+      "bytes": 194777,
+      "content_type": "application/vnd.oasis.opendocument.spreadsheet",
+      "http_last_modified": "Mon, 05 Sep 2022 19:58:45 GMT",
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "REVISED2021",
+      "filename": "revised2021.ods",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2021/POP2021_20240624.ods",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2021/POP2021_20240624.ods",
+      "retrieved_at": "2026-09-16T01:51:50.447930+00:00",
+      "http_status": 200,
+      "raw_sha256": "909da50040de6054ee2bd4a555631c83c591b72ec0c4fdb20f08a4eb881b83cb",
+      "bytes": 208689,
+      "content_type": "application/vnd.oasis.opendocument.spreadsheet",
+      "http_last_modified": "Mon, 24 Jun 2024 20:29:34 GMT",
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "REVISED2024",
+      "filename": "revised2024.ods",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2024/POP2024_20241230.ods",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2024/POP2024_20241230.ods",
+      "retrieved_at": "2026-09-16T01:51:50.469091+00:00",
+      "http_status": 200,
+      "raw_sha256": "a1a05b51982d8ac398f1069bf2f2756c13d7b785c92302146bd490c266e14664",
+      "bytes": 191994,
+      "content_type": "application/vnd.oasis.opendocument.spreadsheet",
+      "http_last_modified": "Mon, 30 Dec 2024 18:34:47 GMT",
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "REVISED2025",
+      "filename": "revised2025.ods",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2025/POP2025_20260828.ods",
+      "final_url": "https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2025/POP2025_20260828.ods",
+      "retrieved_at": "2026-09-16T01:49:38.024711+00:00",
+      "http_status": 200,
+      "raw_sha256": "748303510fb724f11a6e36b3d3ba19d1655397cacabe7dad5ba82ac11d781629",
+      "bytes": 212873,
+      "content_type": "application/vnd.oasis.opendocument.spreadsheet",
+      "http_last_modified": "Fri, 28 Aug 2026 13:40:12 GMT",
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "TCU2023_MUNICIPAL",
+      "filename": "tcu2023_municipal.ods",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Informacoes_Gerais_e_Referencia/Relacao_da_Populacao_dos_Municipios_para_publicacao_no_DOU_em_2023/POP_TCU_2023_Municipios_POP2022_Malha2023.ods",
+      "final_url": "https://ftp.ibge.gov.br/Informacoes_Gerais_e_Referencia/Relacao_da_Populacao_dos_Municipios_para_publicacao_no_DOU_em_2023/POP_TCU_2023_Municipios_POP2022_Malha2023.ods",
+      "retrieved_at": "2026-09-16T01:50:44.963945+00:00",
+      "http_status": 200,
+      "raw_sha256": "d36756308567aa3e7252778400d6c070087e498d24fce28217c01f748962d781",
+      "bytes": 200214,
+      "content_type": "application/vnd.oasis.opendocument.spreadsheet",
+      "http_last_modified": "Fri, 23 Feb 2024 13:28:49 GMT",
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "TCU2023_MUNICIPAL_PDF",
+      "filename": "tcu2023_municipal.pdf",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Informacoes_Gerais_e_Referencia/Relacao_da_Populacao_dos_Municipios_para_publicacao_no_DOU_em_2023/POP_TCU_2023_Municipios_POP2022_Malha2023.pdf",
+      "final_url": "https://ftp.ibge.gov.br/Informacoes_Gerais_e_Referencia/Relacao_da_Populacao_dos_Municipios_para_publicacao_no_DOU_em_2023/POP_TCU_2023_Municipios_POP2022_Malha2023.pdf",
+      "retrieved_at": "2026-09-16T01:50:44.965540+00:00",
+      "http_status": 200,
+      "raw_sha256": "4a231b858617faf9e22ea7616fabd90862c18d0eccdbd7c885acc6b18e912482",
+      "bytes": 2885342,
+      "content_type": "application/pdf",
+      "http_last_modified": "Fri, 23 Feb 2024 13:28:49 GMT",
+      "http_last_modified_is_publication_date": false
+    },
+    {
+      "id": "TCU2023_OFFICIAL_INDEX",
+      "filename": "tcu2023_official_index.html",
+      "authority": "IBGE",
+      "official_url": "https://ftp.ibge.gov.br/Informacoes_Gerais_e_Referencia/Relacao_da_Populacao_dos_Municipios_para_publicacao_no_DOU_em_2023/",
+      "final_url": "https://ftp.ibge.gov.br/Informacoes_Gerais_e_Referencia/Relacao_da_Populacao_dos_Municipios_para_publicacao_no_DOU_em_2023/",
+      "retrieved_at": "2026-09-16T01:49:38.023824+00:00",
+      "http_status": 200,
+      "raw_sha256": "f8f8288324da42ab42d16c57fc2d385455f3c0029862cebe0d920b49d26f06ce",
+      "bytes": 22459,
+      "content_type": "text/html;charset=ISO-8859-1",
+      "http_last_modified": null,
+      "http_last_modified_is_publication_date": false
+    }
+  ],
+  "failed_attempts": [
+    {
+      "filename": "estimates_page.html",
+      "url": "https://www.ibge.gov.br/estatisticas/sociais/populacao/9103-estimativas-de-populacao.html",
+      "retrieved_at": "2026-09-16T01:45:25.000722+00:00",
+      "authorized_task": "TASK246",
+      "error": "HTTPError",
+      "detail": "HTTP Error 403: Forbidden"
+    },
+    {
+      "filename": "tcu2023_index.html",
+      "url": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Populacao_e_domicilios_Primeiros_resultados/TCU_2023/",
+      "retrieved_at": "2026-09-16T01:48:08.651222+00:00",
+      "authorized_task": "TASK246",
+      "error": "HTTPError",
+      "detail": "HTTP Error 404: Not Found"
+    },
+    {
+      "filename": "tcu2023_page.html",
+      "url": "https://www.ibge.gov.br/estatisticas/sociais/populacao/37734-relacao-da-populacao-dos-municipios-para-publicacao-no-tcu.html",
+      "retrieved_at": "2026-09-16T01:45:43.897928+00:00",
+      "authorized_task": "TASK246",
+      "error": "HTTPError",
+      "detail": "HTTP Error 403: Forbidden"
+    },
+    {
+      "filename": "tcu2023_release.html",
+      "url": "https://agenciadenoticias.ibge.gov.br/agencia-sala-de-imprensa/2013-agencia-de-noticias/releases/37758-ibge-divulga-relacao-da-populacao-dos-municipios",
+      "retrieved_at": "2026-09-16T01:46:25.408962+00:00",
+      "authorized_task": "TASK246",
+      "error": "HTTPError",
+      "detail": "HTTP Error 403: Forbidden"
+    }
+  ],
+  "raw_custody": {
+    "archive_name": "TASK246_IBGE_FONTES_OFICIAIS_2026-09-16.zip",
+    "archive_sha256": "4a1aff5cf5094901e48c8d647fabdf74b239ef24cbfea237489997c6792fee1e",
+    "bytes": 5311916,
+    "source_artifact_count": 34,
+    "raw_binaries_committed_to_repository": false,
+    "decoded_api_snapshots_committed": 7
+  },
+  "historical_snapshots": [
+    {
+      "path": "config/ibge_population_denominator_rebase.v1.json",
+      "sha256": "c078ed5b34c88b1dd9ec82baf9bab1bc5caa3f7a0cb95e479f2cc130efcd3fec"
+    },
+    {
+      "path": "config/ibge_population_source_contract_discovery_spec.v1.json",
+      "sha256": "27c009db173b3df50e1fdbe224f786197935c51aaee1afde654c0808d04dc3ba"
+    },
+    {
+      "path": "docs/evidence/TASK_243_IBGE_POPULATION_DENOMINATOR_REBASE_0.8.0.json",
+      "sha256": "671658129deb3c4a530f689f477c609f30d88e1237ae79c8c168649297587699"
+    },
+    {
+      "path": "docs/evidence/TASK_244_POST_TASK242_TASK243_ACQUISITION_READY_STATE_0.8.0.json",
+      "sha256": "3b82d957fb5e37f3fe5259437224ee213989855960655759b0775f4cc4c81d74"
+    },
+    {
+      "path": "config/release_0_8_0_readiness.v4.json",
+      "sha256": "08fb9693e18f0faab87acfe80926d8fc053f53dfb87bfdc8a9b1aca1afc59e15"
+    },
+    {
+      "path": "config/siope_2025_gold_prerequisites.v4.json",
+      "sha256": "c03798c3522ab747f516154cd1f9fa6748f8835941e67a49a196ba9d9144d9a0"
+    },
+    {
+      "path": "config/siope_historical_financial_semantic_versioning.v2.json",
+      "sha256": "b6480cb6217bbdc1ea9a80bf60b2c3c7a4ba927b5d41cd810af8403af086eabf"
+    },
+    {
+      "path": "docs/evidence/TASK_245_SIOPE_OFFICIAL_TEMPORAL_CONTRACT_ACQUISITION_0.8.0.json",
+      "sha256": "9b5af29c4308882fb3da006fda5b7821e9e0a0e4ee88b46091cc7aef8005e2b5"
+    },
+    {
+      "path": "docs/evidence/TASK_245_SIOPE_OFFICIAL_TEMPORAL_CONTRACT_ACQUISITION_0.8.0.support.json",
+      "sha256": "0f291dea5a9394ce9c025593af44417703adbcf17b59d9b265b7a204e679495c"
+    }
+  ],
+  "document_claims": [
+    {
+      "id": "SAME_REVISION_RULE",
+      "source_id": "CLARIFICATION2025",
+      "locator": "PDF p.3, item d",
+      "reviewed_paraphrase": "O IBGE condiciona a comparação temporal de estimativas municipais à mesma revisão das projeções; alteração de limite territorial também impede comparação direta."
+    },
+    {
+      "id": "CENSUS_ESTIMATE_DISTINCTION",
+      "source_id": "CLARIFICATION2025",
+      "locator": "PDF pp.2-3, itens b-c",
+      "reviewed_paraphrase": "Censo é apuração censitária; estimativas usam parâmetros dos censos anteriores. A diferença direta Censo 2022/estimativa 2025 não mede crescimento: há ajustes das projeções das UFs distribuídos aos municípios, tendências e possíveis mudanças territoriais."
+    },
+    {
+      "id": "CENSUS_REFERENCE",
+      "source_id": "CLARIFICATION2025",
+      "locator": "PDF p.6, item j",
+      "reviewed_paraphrase": "A referência censitária é 1º de agosto de 2022."
+    },
+    {
+      "id": "PROJECTION_2013",
+      "source_id": "HISTORICAL_METHODS2020",
+      "locator": "PDF p.1, nota técnica 7 (não usar valores Brasil/UF como população municipal)",
+      "reviewed_paraphrase": "As estimativas municipais de 2013 a 2017 foram calculadas com base na projeção de 2013 para Brasil e UFs."
+    },
+    {
+      "id": "PROJECTION_2018_TO_2020",
+      "source_id": "HISTORICAL_METHODS2020",
+      "locator": "PDF p.1, nota técnica 8",
+      "reviewed_paraphrase": "As estimativas municipais de 2018 a 2020 usaram a revisão 2018 das projeções."
+    },
+    {
+      "id": "PROJECTION_2018_IN_2021",
+      "source_id": "METHODOLOGY2021",
+      "locator": "PDF pp.6-7 (impressas 4-5), Introdução e Metodologia",
+      "reviewed_paraphrase": "Estimativas 2021 usam revisão 2018, com base censitária 2000/2010; não incorporam efeitos da pandemia de COVID-19."
+    },
+    {
+      "id": "PROJECTION_2024_IN_2024",
+      "source_id": "METHODOLOGY2024",
+      "locator": "PDF pp.6,8-9 (impressas 4,6-7)",
+      "reviewed_paraphrase": "Estimativas 2024 usam revisão 2024 e bases 2010/2022 ajustadas às projeções estaduais, referência em julho, harmonização do território 2010 ao 2022 e ajustes por porte populacional. Isso não constitui série municipal anual retrospectiva 2016-2023."
+    },
+    {
+      "id": "PROJECTION_2024_IN_2025",
+      "source_id": "METHODOLOGY2025",
+      "locator": "PDF pp.6-11 (impressas 4-9)",
+      "reviewed_paraphrase": "Estimativas 2025 usam revisão 2024 e bases 2010/2022 ajustadas; AiBi preserva a estrutura matemática, mas seus insumos e ajustes não equivalem aos das revisões anteriores."
+    },
+    {
+      "id": "LIMEIRA_TERRITORIAL_UPDATE",
+      "source_id": "METHODOLOGY2025",
+      "locator": "PDF p.16 (impressa 14), Anexo 1, código 3526902",
+      "reviewed_paraphrase": "Limeira consta entre municípios com alguma atualização territorial entre 01.05.2024 e 30.04.2025, com ou sem remanejamento populacional. A lista não quantifica seu efeito populacional nem permite assumir impacto zero."
+    },
+    {
+      "id": "TCU_PUBLICATION_NOT_REFERENCE_2023",
+      "source_id": "TCU2023_MUNICIPAL",
+      "locator": "Aba Municípios, cabeçalho E4 e A3573:E3573; PDF homônimo pp.1 e 80",
+      "reviewed_paraphrase": "A relação para publicação no DOU em 2023 explicita população do Censo 2022 e malha territorial 2023; Limeira tem 291869. Ano de publicação e malha não convertem referência populacional 2022 em 2023."
+    },
+    {
+      "id": "API_PRODUCT_SCOPE",
+      "source_id": "METADATA6579",
+      "locator": "JSON id, pesquisa, nivelTerritorial, variaveis[id=9324], classificacoes; PERIODS6579",
+      "reviewed_paraphrase": "Tabela 6579, Estimativas de População, variável 9324, população residente estimada, Pessoas, município N6, sem classificações; anos 2022 e 2023 não constam da disponibilidade adquirida."
+    },
+    {
+      "id": "CENSUS_PRODUCT_SCOPE",
+      "source_id": "METADATA4714",
+      "locator": "JSON id, pesquisa, nivelTerritorial, variaveis[id=93], classificacoes; PERIODS4714",
+      "reviewed_paraphrase": "Tabela 4714, Censo Demográfico, variável 93, população residente, Pessoas, N6, sem classificações; referência disponível 2022."
+    }
+  ],
+  "document_dates": {
+    "CLARIFICATION2025": {
+      "signed_date": "2025-09-26",
+      "filename_date": "2025-10-22",
+      "dates_have_distinct_roles": true
+    },
+    "HISTORICAL_METHODS2020": {
+      "edition_year": 2020
+    },
+    "METHODOLOGY2021": {
+      "edition_year": 2021
+    },
+    "METHODOLOGY2024": {
+      "edition_year": 2024
+    },
+    "METHODOLOGY2025": {
+      "edition_year": 2025
+    },
+    "TCU2023_MUNICIPAL_PDF": {
+      "internal_version_label": "2024_02_08_POP2022_Malha2023 Municípios_TCU_31 10 2023_DPEGAB",
+      "publication_year": 2023,
+      "population_reference_year": 2022
+    }
+  },
+  "source_inconsistency": {
+    "source_id": "METHODOLOGY2025",
+    "body_locator": "PDF p.12 (impressa 10)",
+    "body_year_and_cutoff": "2024 / 30.04.2024",
+    "appendix_locator": "PDF p.16 (impressa 14)",
+    "appendix_window": [
+      "2024-05-01",
+      "2025-04-30"
+    ],
+    "handling": "Preservar o texto inconsistente. A alegação territorial usa o Anexo 1 explicitamente datado; a janela 2025 também consta em CLARIFICATION2025 p.1. Não corrigir silenciosamente a fonte."
+  },
+  "ods_extracts": {
+    "ORIGINAL2019": {
+      "sheet": "Municípios",
+      "row_1_based": 3573,
+      "columns": "A:E",
+      "identity_cells": [
+        "SP",
+        "35",
+        "26902",
+        "Limeira"
+      ],
+      "population": 306114,
+      "header_rows": [
+        [
+          "ESTIMATIVAS DA POPULAÇÃO RESIDENTE NOS MUNICÍPIOS BRASILEIROS COM DATA DE REFERÊNCIA EM 1º DE JULHO DE 2019",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "UF",
+          "COD. UF",
+          "COD. MUNIC",
+          "NOME DO MUNICÍPIO",
+          "POPULAÇÃO ESTIMADA"
+        ],
+        [
+          "RO",
+          "11",
+          "00015",
+          "Alta Floresta D'Oeste",
+          "22945"
+        ],
+        [
+          "RO",
+          "11",
+          "00023",
+          "Ariquemes",
+          "107863"
+        ]
+      ]
+    },
+    "ORIGINAL2025": {
+      "sheet": "Municípios",
+      "row_1_based": 3573,
+      "columns": "A:E",
+      "identity_cells": [
+        "SP",
+        "35",
+        "26902",
+        "Limeira"
+      ],
+      "population": 301292,
+      "header_rows": [
+        [
+          "ESTIMATIVAS DA POPULAÇÃO RESIDENTE NOS MUNICÍPIOS BRASILEIROS COM DATA DE REFERÊNCIA EM 1º DE JULHO DE 2025",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "UF",
+          "COD. UF",
+          "COD. MUNIC",
+          "NOME DO MUNICÍPIO",
+          "POPULAÇÃO ESTIMADA"
+        ],
+        [
+          "RO",
+          "11",
+          "00015",
+          "Alta Floresta D'Oeste",
+          "22787"
+        ],
+        [
+          "RO",
+          "11",
+          "00023",
+          "Ariquemes",
+          "109170"
+        ]
+      ]
+    },
+    "REVISED2016": {
+      "sheet": "Municípios",
+      "row_1_based": 3573,
+      "columns": "A:E",
+      "identity_cells": [
+        "SP",
+        "35",
+        "26902",
+        "Limeira"
+      ],
+      "population": 298701,
+      "header_rows": [
+        [
+          "ESTIMATIVAS DA POPULAÇÃO RESIDENTE NOS MUNICÍPIOS BRASILEIROS COM DATA DE REFERÊNCIA EM 1º DE JULHO DE 2016",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "UF",
+          "COD. UF",
+          "COD. MUNIC",
+          "NOME DO MUNICÍPIO",
+          "POPULAÇÃO ESTIMADA"
+        ],
+        [
+          "RO",
+          "11",
+          "00015",
+          "Alta Floresta D'Oeste",
+          "25506"
+        ],
+        [
+          "RO",
+          "11",
+          "00023",
+          "Ariquemes",
+          "105896"
+        ]
+      ]
+    },
+    "REVISED2017": {
+      "sheet": "Municípios",
+      "row_1_based": 3573,
+      "columns": "A:E",
+      "identity_cells": [
+        "SP",
+        "35",
+        "26902",
+        "Limeira"
+      ],
+      "population": 300911,
+      "header_rows": [
+        [
+          "ESTIMATIVAS DA POPULAÇÃO RESIDENTE NOS MUNICÍPIOS BRASILEIROS COM DATA DE REFERÊNCIA EM 1º DE JULHO DE 2017",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "UF",
+          "COD. UF",
+          "COD. MUNIC",
+          "NOME DO MUNICÍPIO",
+          "POPULAÇÃO ESTIMADA"
+        ],
+        [
+          "RO",
+          "11",
+          "00015",
+          "Alta Floresta D'Oeste",
+          "25437"
+        ],
+        [
+          "RO",
+          "11",
+          "00023",
+          "Ariquemes",
+          "107345"
+        ]
+      ]
+    },
+    "REVISED2018": {
+      "sheet": "Municípios",
+      "row_1_based": 3573,
+      "columns": "A:E",
+      "identity_cells": [
+        "SP",
+        "35",
+        "26902",
+        "Limeira"
+      ],
+      "population": 303682,
+      "header_rows": [
+        [
+          "ESTIMATIVAS DA POPULAÇÃO RESIDENTE NOS MUNICÍPIOS BRASILEIROS COM DATA DE REFERÊNCIA EM 1º DE JULHO DE 2018",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "UF",
+          "COD. UF",
+          "COD. MUNIC",
+          "NOME DO MUNICÍPIO",
+          "POPULAÇÃO ESTIMADA"
+        ],
+        [
+          "RO",
+          "11",
+          "00015",
+          "Alta Floresta D'Oeste",
+          "23167"
+        ],
+        [
+          "RO",
+          "11",
+          "00023",
+          "Ariquemes",
+          "106168"
+        ]
+      ]
+    },
+    "REVISED2019": {
+      "sheet": "Municípios",
+      "row_1_based": 3573,
+      "columns": "A:E",
+      "identity_cells": [
+        "SP",
+        "35",
+        "26902",
+        "Limeira"
+      ],
+      "population": 306114,
+      "header_rows": [
+        [
+          "ESTIMATIVAS DA POPULAÇÃO RESIDENTE NOS MUNICÍPIOS BRASILEIROS COM DATA DE REFERÊNCIA EM 1º DE JULHO DE 2019",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "UF",
+          "COD. UF",
+          "COD. MUNIC",
+          "NOME DO MUNICÍPIO",
+          "POPULAÇÃO ESTIMADA"
+        ],
+        [
+          "RO",
+          "11",
+          "00015",
+          "Alta Floresta D'Oeste",
+          "22945"
+        ],
+        [
+          "RO",
+          "11",
+          "00023",
+          "Ariquemes",
+          "107863"
+        ]
+      ]
+    },
+    "REVISED2020": {
+      "sheet": "Municípios",
+      "row_1_based": 3573,
+      "columns": "A:E",
+      "identity_cells": [
+        "SP",
+        "35",
+        "26902",
+        "Limeira"
+      ],
+      "population": 308482,
+      "header_rows": [
+        [
+          "ESTIMATIVAS DA POPULAÇÃO RESIDENTE NOS MUNICÍPIOS BRASILEIROS COM DATA DE REFERÊNCIA EM 1º DE JULHO DE 2020",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "UF",
+          "COD. UF",
+          "COD. MUNIC",
+          "NOME DO MUNICÍPIO",
+          "POPULAÇÃO ESTIMADA"
+        ],
+        [
+          "RO",
+          "11",
+          "00015",
+          "Alta Floresta D'Oeste",
+          "22728"
+        ],
+        [
+          "RO",
+          "11",
+          "00023",
+          "Ariquemes",
+          "109523"
+        ]
+      ]
+    },
+    "REVISED2021": {
+      "sheet": "Municípios",
+      "row_1_based": 3573,
+      "columns": "A:E",
+      "identity_cells": [
+        "SP",
+        "35",
+        "26902",
+        "Limeira"
+      ],
+      "population": 310783,
+      "header_rows": [
+        [
+          "ESTIMATIVAS DA POPULAÇÃO RESIDENTE NOS MUNICÍPIOS BRASILEIROS COM DATA DE REFERÊNCIA EM 1º DE JULHO DE 2021",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "UF",
+          "COD. UF",
+          "COD. MUNIC",
+          "NOME DO MUNICÍPIO",
+          "POPULAÇÃO ESTIMADA"
+        ],
+        [
+          "RO",
+          "11",
+          "00015",
+          "Alta Floresta D'Oeste",
+          "22516"
+        ],
+        [
+          "RO",
+          "11",
+          "00023",
+          "Ariquemes",
+          "111148"
+        ]
+      ]
+    },
+    "REVISED2024": {
+      "sheet": "MUNICÍPIOS",
+      "row_1_based": 3573,
+      "columns": "A:E",
+      "identity_cells": [
+        "SP",
+        "35",
+        "26902",
+        "Limeira"
+      ],
+      "population": 300728,
+      "header_rows": [
+        [
+          "ESTIMATIVAS DA POPULAÇÃO RESIDENTE NOS MUNICÍPIOS BRASILEIROS COM DATA DE REFERÊNCIA EM 1º DE JULHO DE 2024",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "UF",
+          "COD. UF",
+          "COD. MUNIC",
+          "NOME DO MUNICÍPIO",
+          "POPULAÇÃO ESTIMADA"
+        ],
+        [
+          "RO",
+          "11",
+          "00015",
+          "Alta Floresta D'Oeste",
+          "22853"
+        ],
+        [
+          "RO",
+          "11",
+          "00023",
+          "Ariquemes",
+          "108573"
+        ]
+      ]
+    },
+    "REVISED2025": {
+      "sheet": "Municípios",
+      "row_1_based": 3573,
+      "columns": "A:E",
+      "identity_cells": [
+        "SP",
+        "35",
+        "26902",
+        "Limeira"
+      ],
+      "population": 301292,
+      "header_rows": [
+        [
+          "ESTIMATIVAS DA POPULAÇÃO RESIDENTE NOS MUNICÍPIOS BRASILEIROS COM DATA DE REFERÊNCIA EM 1º DE JULHO DE 2025",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "UF",
+          "COD. UF",
+          "COD. MUNIC",
+          "NOME DO MUNICÍPIO",
+          "POPULAÇÃO ESTIMADA"
+        ],
+        [
+          "RO",
+          "11",
+          "00015",
+          "Alta Floresta D'Oeste",
+          "22787"
+        ],
+        [
+          "RO",
+          "11",
+          "00023",
+          "Ariquemes",
+          "109170"
+        ]
+      ]
+    },
+    "TCU2023_MUNICIPAL": {
+      "sheet": "Municípios",
+      "row_1_based": 3573,
+      "columns": "A:E",
+      "identity_cells": [
+        "SP",
+        "35",
+        "26902",
+        "Limeira"
+      ],
+      "population": 291869,
+      "header_rows": [
+        [
+          "Relação da População dos Municípios para publicação no DOU em 2023 (em cumprimento a lei complementar nº 143, de 17.07.2013, que altera o artigo 102 da lei nº 8443)",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "UF",
+          "COD. UF",
+          "COD. MUNIC",
+          "NOME DO MUNICÍPIO",
+          "POPULAÇÃO APURADA IBGE - CENSO DEMOGRÁFICO 2022 E MALHA TERRITORIAL 2023 -"
+        ],
+        [
+          "RO",
+          "11",
+          "00015",
+          "Alta Floresta D'Oeste",
+          "21494"
+        ],
+        [
+          "RO",
+          "11",
+          "00023",
+          "Ariquemes",
+          "96833"
+        ]
+      ]
+    }
+  },
+  "vintage_comparisons": [
+    {
+      "year": 2019,
+      "earlier_source": "ORIGINAL2019",
+      "later_source": "REVISED2019",
+      "earlier_population": 306114,
+      "later_population": 306114,
+      "conclusion": "SAME_LIMEIRA_VALUE_IN_IDENTIFIED_EDITION_BYTES_NOT_PROOF_OF_UNREVISED_DATASET",
+      "first_publication_bytes_authenticated_contemporaneously": false
+    },
+    {
+      "year": 2025,
+      "earlier_source": "ORIGINAL2025",
+      "later_source": "REVISED2025",
+      "earlier_population": 301292,
+      "later_population": 301292,
+      "conclusion": "SAME_LIMEIRA_VALUE_IN_IDENTIFIED_EDITION_BYTES_NOT_PROOF_OF_UNREVISED_DATASET",
+      "first_publication_bytes_authenticated_contemporaneously": false
+    }
+  ],
+  "vintage_limits": [
+    "Modificação de período no SIDRA, Last-Modified HTTP e data no nome da edição são metadados diferentes; nenhum substitui automaticamente a data de publicação original.",
+    "Edições DOU anteriores e edições posteriores coexistem no arquivo oficial. Igualdade de Limeira não prova que todos os municípios ou metadados permaneceram iguais.",
+    "Não foi adquirido um protocolo completo de substituição de vintages nem cadeia de primeira publicação para todos os anos. O snapshot corrente fica identificado por bytes, hash e retrieval.",
+    "Nenhum remanejamento populacional específico de Limeira nem decisão judicial específica foi comprovado; ausência de marcador na linha não prova ausência histórica de tais eventos.",
+    "Não se transfere a harmonização dos dois pontos censitários de base para uma alegação de reprocessamento anual municipal 2016-2023."
+  ]
+}

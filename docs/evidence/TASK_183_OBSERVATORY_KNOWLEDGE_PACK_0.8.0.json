@@ -1,0 +1,61 @@
+{
+  "task": "TASK_183_EXISTING_CUSTODY_KNOWLEDGE_PACK",
+  "issue": 577,
+  "mode": "T0_OFFLINE_FUSED_PRODUCTS_PLUS_SEMANTIC_ANSWERABILITY",
+  "base_main_sha": "ddbcd0dd072ae4eb0acdbf890efd43ad987d2cc6",
+  "fused_rows": {
+    "school_indicator_series": 1017,
+    "fiscal_series": 38,
+    "catalog_rows": 2
+  },
+  "source_blocks": {
+    "task180_school": 798,
+    "task181_school": 171,
+    "task181_fiscal": 38,
+    "task182_school": 48
+  },
+  "unique_materialized_metrics": {
+    "school": 36,
+    "fiscal": 2,
+    "total": 38
+  },
+  "semantic_ontology": {
+    "domains": 15,
+    "questions": 38,
+    "expected_status_counts": {
+      "MATERIALIZED_ANSWERABLE": 8,
+      "MATERIALIZED_PARTIAL": 4,
+      "ROUTE_READY_PRODUCT_NOT_BUNDLED": 19,
+      "SOURCE_READY_NOT_MATERIALIZED": 2,
+      "EXPLICIT_GAP": 5
+    },
+    "expected_domain_status_counts": {
+      "MATERIALIZED_PARTIAL": 7,
+      "ROUTE_READY_PRODUCT_NOT_BUNDLED": 7,
+      "EXPLICIT_GAP": 1
+    }
+  },
+  "critical_guards": [
+    "PRODUCT_PRESENCE_NE_QUESTION_ANSWERABILITY",
+    "METRIC_PERIOD_SHORTFALL_NE_TREND_ANSWERABLE",
+    "SAME_LOGICAL_KEY_CONFLICT_STOPS",
+    "MISSING_METRIC_REPORTED_EXPLICITLY",
+    "LLM_CANNOT_FILL_MISSING_NUMERIC_EVIDENCE",
+    "NONBUNDLED_JOM_ACCOUNTING_NE_MATERIALIZED",
+    "PLANNING_SOURCE_READY_NE_MATERIALIZED"
+  ],
+  "sample_packets": [
+    "LEARNING_2025",
+    "RAFAEL_EQUITY_2025",
+    "FINANCING_2025"
+  ],
+  "remote_effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  }
+}

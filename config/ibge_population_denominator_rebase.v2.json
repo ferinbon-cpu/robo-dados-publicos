@@ -1,0 +1,31 @@
+{
+  "schema": "IBGE_POPULATION_DENOMINATOR_REBASE_V2",
+  "task": "TASK_246",
+  "issue": 819,
+  "base_main_sha": "5b5bf747ece811e4c95fd57d9dfc1cc7d745aeaa",
+  "source_contract": "config/ibge_municipal_population_2016_2025.v1.json",
+  "evidence": "docs/evidence/TASK_246_IBGE_MUNICIPAL_POPULATION_2016_2025_0.8.0.json",
+  "source_contract_status": "NOT_COMPARABLE",
+  "observation_inventory_materialized": true,
+  "annual_comparable_denominator_series_materialized": false,
+  "historical_num_popu_compatible": "NOT_PROVEN",
+  "num_popu_2025_allowed": false,
+  "rebased_series_identity_reserved": "SIOPE_PER_CAPITA_IBGE_REBASED_2016_2025",
+  "decision": "STOP_IBGE_REBASE_DOCUMENTED_PRODUCT_REGIME_INCOMPATIBILITY",
+  "next_gate": "OFFICIAL_HARMONIZED_MUNICIPAL_SERIES_OR_ADAPTER_WITH_TRUE_2023_AND_TERRITORY_PROOF",
+  "preserved_state": {
+    "release_0_7_0": "ACTIVE",
+    "release_0_8_0": "CANDIDATE",
+    "closed_annual_series": "2016-2024",
+    "gold_2025": "BLOCKED_NOT_CALCULATED",
+    "financial_metrics_1_to_6": "PARTIAL",
+    "per_capita_metrics_7_to_8": "NON_COMPARABLE",
+    "gold_authorized": false,
+    "series_inclusion_authorized": false,
+    "release_promotion_authorized": false,
+    "historical_rewrite_authorized": false,
+    "per_capita_calculation_authorized": false,
+    "num_popu_reuse_authorized": false,
+    "automatic_future_acquisition_authorized": false
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "task": "TASK_217D_JOM_SCHOOL_INFRASTRUCTURE_REDIGEST_CARRIER",
+  "issue": 680,
+  "base_main_sha": "3951b2178006a136102cf62f21699f0a6608cfd8",
+  "tier": "T0_IMPLEMENTED_LIVE_DISABLED",
+  "canonical_discovery_result_sha256": "7c31c9791793c889a8c76e27bcf0d6b6b26f23a3b6bec07fbd95d8c1fba29510",
+  "scope": {
+    "official_discovered_documents": 99,
+    "existing_materialized_editions": 12,
+    "new_documents_to_redigest": 87,
+    "partitions": 8,
+    "partition_counts": {
+      "2026-01": 12,
+      "2026-02": 12,
+      "2026-03": 12,
+      "2026-04": 12,
+      "2026-05": 12,
+      "2026-06": 12,
+      "2026-07": 10,
+      "2026-09": 5
+    }
+  },
+  "runtime_boundary": {
+    "reconstruct_and_hash_check_discovery_before_pdf_download": true,
+    "max_index_remote_get_count": 18,
+    "max_document_downloads": 87,
+    "max_total_remote_get_count": 105,
+    "max_bytes_per_document": 52428800,
+    "max_aggregate_document_bytes": 1073741824,
+    "automatic_retry": false,
+    "raw_pdf_persisted": false,
+    "raw_page_text_persisted": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "promotion": false
+  },
+  "derived_output": {
+    "document_processing_summaries": true,
+    "redacted_page_candidates": true,
+    "exact_school_structured_infrastructure_events": true,
+    "generic_unassigned_structured_infrastructure_events": true,
+    "page_screening_is_not_identity": true
+  },
+  "authorization": {
+    "live_authorized": false,
+    "separate_owner_authorization_required": true,
+    "task018_reuse_forbidden": true,
+    "exact_implementation_sha_required": true
+  },
+  "answerability": {
+    "INFRA_Q2": "BLOCKED_PENDING_AUTHORIZED_REDIGEST",
+    "contextual_coverage": "33/38"
+  }
+}

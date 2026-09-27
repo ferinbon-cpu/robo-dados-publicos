@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "task": "TASK_059_DRIVE_INGESTION_CONTROLLER",
+  "mode": "T0_OFFLINE_ROUTING_CONTROLLER",
+  "jurisdiction": "Limeira/SP",
+  "purpose": "Route Drive inventory records into AUTO_INGEST, REVIEW, or QUARANTINE without reading source content.",
+  "allowed_input_surface": "DRIVE_METADATA_ONLY",
+  "content_read_authorized": false,
+  "drive_write_authorized": false,
+  "bronze_write_authorized": false,
+  "silver_write_authorized": false,
+  "gold_write_authorized": false,
+  "serving_authorized": false,
+  "publication_authorized": false,
+  "known_document_families": {
+    "PPA": ["PPA", "PLANO PLURIANUAL"],
+    "LDO": ["LDO", "DIRETRIZES ORCAMENTARIAS"],
+    "LOA": ["LOA", "ORCAMENTO ANUAL", "LEI ORCAMENTARIA"],
+    "SIOPE": ["SIOPE", "MAVS"],
+    "FUNDEB": ["FUNDEB"],
+    "RREO": ["RREO", "RELATORIO RESUMIDO DA EXECUCAO ORCAMENTARIA"],
+    "RGF": ["RGF", "RELATORIO DE GESTAO FISCAL"],
+    "MDE": ["MDE", "MANUTENCAO E DESENVOLVIMENTO DO ENSINO"],
+    "BUDGET_EXECUTION": ["BALANCETE", "DESPESA", "EMPENHO", "LIQUIDACAO", "PAGAMENTO", "EXECUCAO ORCAMENTARIA"],
+    "SAEB": ["SAEB"],
+    "SARESP": ["SARESP"],
+    "CENSO_ESCOLAR": ["CENSO ESCOLAR", "MICRODADOS CENSO"],
+    "IDEB": ["IDEB"]
+  },
+  "auto_ingest_families": ["PPA", "LDO", "LOA", "SIOPE", "FUNDEB", "RREO", "RGF", "MDE", "BUDGET_EXECUTION", "SAEB", "SARESP", "CENSO_ESCOLAR", "IDEB"],
+  "review_conditions": [
+    "MULTIPLE_FAMILY_MATCHES",
+    "KNOWN_FAMILY_UNSUPPORTED_MIME",
+    "MISSING_STABLE_FILE_ID",
+    "TITLE_TOO_GENERIC",
+    "POSSIBLE_DUPLICATE_WITHOUT_HASH"
+  ],
+  "quarantine_conditions": [
+    "UNRECOGNIZED_FAMILY",
+    "EXECUTABLE_OR_ARCHIVE_WITHOUT_EXPLICIT_FAMILY_POLICY",
+    "CONTENT_HYDRATED_DURING_METADATA_PHASE",
+    "SOURCE_OUTSIDE_AUTHORIZED_FOLDER_SCOPE",
+    "MALFORMED_METADATA"
+  ],
+  "supported_mime_types": [
+    "application/pdf",
+    "text/csv",
+    "text/plain",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "application/vnd.ms-excel",
+    "application/vnd.google-apps.spreadsheet"
+  ],
+  "routing_semantics": {
+    "AUTO_INGEST": "Eligible for a later authorized content/hash ingestion step; this routing decision itself performs no content read or write.",
+    "REVIEW": "Known or potentially useful source that requires human or rule review before content ingestion.",
+    "QUARANTINE": "Unknown, malformed, out-of-scope, or policy-violating source; no content ingestion allowed."
+  },
+  "deduplication": {
+    "metadata_key": ["file_id"],
+    "content_key_after_authorized_read": "sha256",
+    "same_title_is_not_duplicate_proof": true,
+    "same_size_is_not_duplicate_proof": true,
+    "hash_required_for_content_duplicate_claim": true
+  },
+  "handoff": {
+    "auto_ingest_requires_separate_execution_authorization": true,
+    "reuse_manual_source_integrity_rules": true,
+    "bronze_create_only": true,
+    "unknown_schema_stops_before_silver": true,
+    "promotion_never_inferred_from_routing": true
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "task": "TASK_040_LOA_SCOPED_SILVER_CREATE_ONLY_READBACK",
+  "mode": "T2_EXACT_ONE_CREATE_ONLY_SCOPED_SILVER_WITH_READBACK",
+  "base_implementation_sha": "4a6e271add0282689dc933a24387a69830f90465",
+  "one_shot_execution_branch": "task-040-loa-scoped-silver-live-once",
+  "one_shot_execution_head_sha": "db71cbb76ef7e79ac7562e27298f73b6be5da34f",
+  "runner_blob_sha": "a789d9dd65a79df298edc7aa7662015b3360d33f",
+  "workflow_blob_sha": "68b0393cd96a02f927626784ebb3ed0c643ab511",
+  "authorization": {
+    "owner_authorized": true,
+    "owner_message": "Autorizado e guarde mais 10 autorizações pra gastar futuramente",
+    "authorized_local_time": "2026-09-02T12:19:00-03:00",
+    "authorized_against_sha": "4a6e271add0282689dc933a24387a69830f90465",
+    "scope": "EXACTLY_ONE_SCOPED_SILVER_CREATE_ONLY_PLUS_ONE_READBACK",
+    "authorization_consumed": true,
+    "future_blanket_authorizations_accepted": false,
+    "future_blanket_authorizations_reason": "Each future remote or privilege-changing operation must be scoped and pinned to the reviewed implementation SHA at execution time."
+  },
+  "github_run": {
+    "run_id": 33648450680,
+    "job_id": 100308986739,
+    "event": "push",
+    "conclusion": "success",
+    "artifact_id": 9853733406,
+    "artifact_name": "task-040-sanitized-evidence",
+    "artifact_bytes": 1134,
+    "artifact_digest": "sha256:115b84e17dc569e185383debdc5f6da68b3da6092148c4b18e17ce88611cd521"
+  },
+  "target": {
+    "folder_id": "1_wl3Y90-RYKSBXUg53My5K6lxCUnIBNo",
+    "folder_name": "02_SILVER",
+    "file_name": "F01_LOA_JOM_2026_SCOPED_VALIDATED_STRUCTURE__3894ede7c67e__silver_v1.json",
+    "mime_type": "application/json"
+  },
+  "candidate": {
+    "contract": "F01_LOA_JOM_2026_SCOPED_VALIDATED_STRUCTURE_SILVER_V1",
+    "scope": "SCOPED_VALIDATED_STRUCTURE_NOT_COMPLETE_LOA_PARSE",
+    "bytes": 2664,
+    "sha256": "3894ede7c67e60d3e12795dec3964d78baf24ff350355d98f3825dd5f81caf4c",
+    "md5": "762d67dc0b1fe5824b2886892d1fef45",
+    "complete_loa_claim": false,
+    "financial_identity_eiti": "EVIDENCIA_INSUFICIENTE"
+  },
+  "effects": {
+    "public_source_get": 0,
+    "drive_inventory_requests": 1,
+    "drive_creates": 1,
+    "drive_readbacks": 1,
+    "overwrite": 0,
+    "replace": 0,
+    "delete": 0,
+    "cleanup": 0,
+    "retry": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "gold": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "readback": {
+    "verified": true,
+    "byte_identity": true,
+    "bytes": 2664,
+    "sha256": "3894ede7c67e60d3e12795dec3964d78baf24ff350355d98f3825dd5f81caf4c",
+    "md5": "762d67dc0b1fe5824b2886892d1fef45"
+  },
+  "promotion": {
+    "silver": true,
+    "silver_scope": "SCOPED_VALIDATED_STRUCTURE_NOT_COMPLETE_LOA_PARSE",
+    "gold": false,
+    "serving": false,
+    "publication": false,
+    "f01_status": "SILVER_SCOPED_PARTIAL_VALIDATED"
+  },
+  "remote_file_id_persisted": false,
+  "owner_decision_required": false,
+  "result": "PASS_TASK040_SCOPED_SILVER_CREATE_ONLY_READBACK_VERIFIED"
+}

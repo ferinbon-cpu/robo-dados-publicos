@@ -1,0 +1,50 @@
+{
+  "task": "TASK_103",
+  "version": "0.8.0",
+  "mode": "T0_OFFLINE_HISTORICAL_PPA_PRIMARY_ACQUISITION_DESIGN",
+  "result": "PENDING_REVIEW",
+  "issue": 402,
+  "branch": "task-103-historical-ppa-primary-acquisition-design",
+  "contract": "config/eiti_historical_ppa_primary_acquisition.v1.json",
+  "validator": "scripts/validate_task103_historical_ppa_acquisition_design.py",
+  "research_gap_periods": [
+    "2018-2021",
+    "2022-2025"
+  ],
+  "existing_drive_custody_observation": {
+    "folder_name": "PPA_LDO_LOA",
+    "historical_ppa_2018_2021_present": false,
+    "historical_ppa_2022_2025_present": false,
+    "ppa_2026_2029_present": true,
+    "promotes_repository_evidence": false
+  },
+  "known_primary_state": {
+    "2018-2021": {
+      "law_identity": "LEI_MUNICIPAL_5947_2017",
+      "exact_primary_pdf_candidate_versioned": false
+    },
+    "2022-2025": {
+      "law_identity": "LEI_MUNICIPAL_6659_2021",
+      "exact_primary_pdf_candidate_versioned_in_contract": true,
+      "source_bytes_acquired_by_task103": false
+    }
+  },
+  "remote_effects": {
+    "source_network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "bronze_write": false,
+    "silver_write": false,
+    "gold_write": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  },
+  "live_execution_performed": false,
+  "financial_identity_created": false,
+  "causal_effect_created": false
+}

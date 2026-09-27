@@ -1,0 +1,40 @@
+{
+  "version":1,
+  "schema":"TASK158_PNCP_INDEXED_EITI_DISCOVERY_AUTH_UNITS_V1",
+  "mode":"T0_OFFLINE_BOUNDED_INDEXED_SEARCH_GATE_ONLY",
+  "base_sha":"a9c51aa7068e86a5b46c2974e860e6490d02cf3b",
+  "issue":528,
+  "authorization":{
+    "owner_instruction":"10 tokens de autorização concedidos",
+    "owner_authorization_units_granted":10,
+    "allowed_search_unit_indices":[7,8,9],
+    "reserved_open_unit_index":10,
+    "remaining_units_before_execution":4,
+    "max_units_consumed_by_task":3,
+    "stop_early_on_relevant_candidate":true
+  },
+  "search":{
+    "domain_restriction":["pncp.gov.br"],
+    "queries":[
+      "45132495000140 \"educação integral\"",
+      "45132495000140 oficineiros oficinas",
+      "45132495000140 \"tempo integral\" contratacao"
+    ],
+    "search_invocations_max":3,
+    "one_query_per_invocation":true,
+    "result_open_invocations":0,
+    "clicks":0,
+    "retry":0,
+    "direct_download_invocations":0
+  },
+  "candidate_rule":{
+    "required_cnpj_token":"45132495000140",
+    "policy_terms":["educação integral","tempo integral","oficineiros","oficinas"],
+    "candidate_max_status":"CORROBORATED"
+  },
+  "epistemic_semantics":{
+    "negative_exhaustive_conclusion_allowed":false,
+    "pncp_no_match_allowed":false,
+    "unit_10_must_remain_unconsumed":true
+  }
+}

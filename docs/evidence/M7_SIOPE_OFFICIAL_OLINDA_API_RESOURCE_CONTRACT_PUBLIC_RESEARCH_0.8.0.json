@@ -1,0 +1,38 @@
+{
+  "gate_context": "M7_SIOPE_OFFICIAL_OLINDA_API_RESOURCE_CONTRACT_DESIGN_0_8_0",
+  "software_version": "0.8.0",
+  "observed_on": "2026-08-25",
+  "official_application_surface": {
+    "url": "https://www.fnde.gov.br/olinda-ide/servico/DADOS_ABERTOS_SIOPE/versao/v1/aplicacao",
+    "static_fetch_disposition": "OFFICIAL_PAGE_REACHABLE_BUT_STATIC_TEXT_EXPOSES_ONLY_CLIENT_TEMPLATE_PLACEHOLDERS",
+    "resource_contract_proven": false,
+    "parameter_contract_proven": false
+  },
+  "pinned_repo_runtime_observation": {
+    "service_document_collection_name": "_Dados_Gerais_Siope",
+    "disposition": "STRUCTURALLY_DECLARED_IN_OFFICIAL_SERVICE_DOCUMENT",
+    "resource_called": false
+  },
+  "recent_technical_corroboration": {
+    "url": "https://strategicprojects.github.io/tesouror/articles/siope.html",
+    "callable_pattern_resource_name": "Dados_Gerais_Siope",
+    "callable_pattern_parameters": ["Ano_Consulta", "Num_Peri", "Sig_UF"],
+    "disposition": "INDEPENDENT_TECHNICAL_CORROBORATION_NOT_OFFICIAL_RUNTIME_PROOF"
+  },
+  "contract_ambiguity": {
+    "service_document_name": "_Dados_Gerais_Siope",
+    "technical_callable_name": "Dados_Gerais_Siope",
+    "same_contract_identity_proven": false,
+    "leading_underscore_semantics_proven": false,
+    "callable_operation_kind_proven": false,
+    "safe_direct_resource_get_available": false
+  },
+  "safe_research_disposition": {
+    "do_not_compose_or_call_resource_path": true,
+    "do_not_send_query_parameters": true,
+    "do_not_send_limeira_values": true,
+    "do_not_use_head": true,
+    "prefer_passive_application_route_diagnostics": true,
+    "dynamic_xhr_fetch_must_be_blocked_before_network": true
+  }
+}

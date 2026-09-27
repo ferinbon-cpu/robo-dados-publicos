@@ -1,0 +1,183 @@
+{
+  "task": "TASK_166_PNCP_MODALITY9_DIRECT_JSON_SWEEP",
+  "issue": 544,
+  "base_main_sha": "1bcf40ba900ba069ec7c2b1197db425b3d4c861f",
+  "authorization": {
+    "scope": "PNCP_LIVE_READ_DISCOVERY_ONLY",
+    "metering": "UNMETERED_WITHIN_PNCP_SCOPE_UNTIL_REVOKED_OR_SUPERSEDED",
+    "new_per_page_authorization_required": false
+  },
+  "exact_overall_scope": {
+    "endpoint": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao",
+    "cnpj": "45132495000140",
+    "dataInicial": "20251128",
+    "dataFinal": "20260904",
+    "codigoModalidadeContratacao": 9,
+    "tamanhoPagina": 50,
+    "modality_name": "Inexigibilidade"
+  },
+  "transport_history": {
+    "full_window_attempts": [
+      {
+        "run_id": 33994839610,
+        "head_sha": "f17cd96e973747abc443a96d3eb947350de3e1d2",
+        "status": "SOURCE_TRANSPORT_UNAVAILABLE",
+        "detail": "TimeoutError before receiving bytes",
+        "request_count": 1,
+        "no_match_created": false
+      },
+      {
+        "run_id": 33994889479,
+        "head_sha": "72111a3e2b38f41416543b47c4f56f60447d73f1",
+        "status": "SOURCE_TRANSPORT_UNAVAILABLE",
+        "detail": "TimeoutError before receiving bytes",
+        "request_count": 1,
+        "no_match_created": false
+      }
+    ],
+    "lesson": "The official JSON route is valid, but the broad 10-month query can time out. Narrower direct JSON date partitions are preferred over reverse engineering."
+  },
+  "targeted_direct_json_success": {
+    "run_id": 33994973867,
+    "artifact_id": 9977767304,
+    "result_sha256": "ae8c7bfb0a0edb622f60d9fa235e4fbf047a0d14a4c88876cb953703af8f99fe",
+    "requests": [
+      {
+        "date": "20260608",
+        "http_status": 200,
+        "bytes": 1731,
+        "source_sha256": "69d2a73756552fccffd687749364cbea45e580b25b9af10c77e8d09cb2c08843"
+      },
+      {
+        "date": "20260819",
+        "http_status": 200,
+        "bytes": 1595,
+        "source_sha256": "ea3dbc4026f28fc5cdb9e4b5a2c9a29fcaa01252f7dd7e7afa666790228ec536"
+      }
+    ],
+    "resolved_targets": [
+      {
+        "target": "AQUISICAO DE PASSE ESCOLAR",
+        "anoCompra": 2026,
+        "sequencialCompra": 368,
+        "numeroControlePNCP": "45132495000140-1-000368/2026",
+        "processo": "I00055",
+        "numeroCompra": "00055",
+        "dataPublicacaoPncp": "2026-06-08T09:33:20",
+        "valorTotalEstimado": 3816720.0,
+        "valorTotalHomologado": 3816720.0,
+        "tier": "EDUCATION_RELEVANT",
+        "eiti_proven": false
+      },
+      {
+        "target": "CURSO DE CAPACITACAO",
+        "anoCompra": 2026,
+        "sequencialCompra": 593,
+        "numeroControlePNCP": "45132495000140-1-000593/2026",
+        "processo": "I00084",
+        "numeroCompra": "00084",
+        "dataPublicacaoPncp": "2026-08-19T16:32:57",
+        "valorTotalEstimado": 12400.0,
+        "valorTotalHomologado": 12400.0,
+        "tier": "GENERAL_DISCOVERY_LEAD",
+        "eiti_proven": false,
+        "note": "Chronological seq593 hypothesis is now directly proven by official PNCP JSON."
+      }
+    ]
+  },
+  "partitioned_exhaustive_result": {
+    "run_id": 33995043493,
+    "artifact_id": 9977792850,
+    "execution_head_sha": "6009550767e42e274c93885e3c4b54c32fb5450c",
+    "result_sha256": "afced4454cb9d07d3779255756fc65f3abdb70cca06ffb2756a52de4d2cb2ac9",
+    "status": "EXHAUSTIVE_COMPLETE",
+    "exhaustive_within_exact_overall_scope": true,
+    "total_records": 96,
+    "explicit_eiti_match_count": 0,
+    "keyword_education_hit_count": 6,
+    "intervals": [
+      {"start":"20251128","end":"20251130","records":1,"pages":1,"bytes":1752,"source_sha256":"e9b5dd22660dff09ecc8927bb12e9ad62598ad2e0a70d08e750d02deabd8d3a0"},
+      {"start":"20251201","end":"20251231","records":6,"pages":1,"bytes":9798,"source_sha256":"deb9b9fea614fca89124660fe9ae184f1a31d37b8377033ea63bd87f2cff4b61"},
+      {"start":"20260101","end":"20260131","records":2,"pages":1,"bytes":3244,"source_sha256":"91215bf02a14d405a042bb45466918c81386722c15cb817ab2a22d1dd57b20de"},
+      {"start":"20260201","end":"20260228","records":15,"pages":1,"bytes":24460,"source_sha256":"9f31860a2b8903706db78f2046d297f08b1082edc9fd37bd3367520c9d8ae139"},
+      {"start":"20260301","end":"20260331","records":14,"pages":1,"bytes":23007,"source_sha256":"734a318d1f2e1cf3de432d93ed77b32cc0495b9fc477b326e33a730f00414580"},
+      {"start":"20260401","end":"20260430","records":11,"pages":1,"bytes":17847,"source_sha256":"1d66ae295eb4c89163821d80784a4a2fbcac220107b6ef20c56873aff1e9ecde"},
+      {"start":"20260501","end":"20260531","records":12,"pages":1,"bytes":19850,"source_sha256":"4bbfcf016b1fcbc6d807e7cbbc89d7d0a576300c177b44aa7c61a8a7c166f85e"},
+      {"start":"20260601","end":"20260630","records":8,"pages":1,"bytes":13064,"source_sha256":"3178d6d7bdc4b40b43669caf3d74b9ebac893e2f85150ab370fc5532765b09a5"},
+      {"start":"20260701","end":"20260731","records":13,"pages":1,"bytes":21110,"source_sha256":"9595f576ae0106d058f39d06d21e6b6f407ed214639584f20305696ed4d00159"},
+      {"start":"20260801","end":"20260831","records":9,"pages":1,"bytes":14781,"source_sha256":"e15b8a74011d653c1713749effd8621e6d2c6847ccb06f9e146442a4b16f6f04"},
+      {"start":"20260901","end":"20260904","records":5,"pages":1,"bytes":8304,"source_sha256":"cd92fca174ca1c29d303e50d07ab1776c57830607615d3d29c7cb576d70a2726"}
+    ]
+  },
+  "semantic_adjudication": {
+    "validated_education_relevant": [
+      {
+        "numeroControlePNCP": "45132495000140-1-000078/2026",
+        "processo": "I00016",
+        "objetoCompra": "AQUISICAO DE PASSE ESCOLAR",
+        "valorTotalEstimado": 57000.0
+      },
+      {
+        "numeroControlePNCP": "45132495000140-1-000091/2026",
+        "processo": "I00018",
+        "objetoCompra": "ANUIDADE DA UNIAO NACIONAL DOS CONSELHEIROS MUNICIPAIS DE EDUCACAO",
+        "valorTotalEstimado": 4950.0
+      },
+      {
+        "numeroControlePNCP": "45132495000140-1-000368/2026",
+        "processo": "I00055",
+        "objetoCompra": "AQUISICAO DE PASSE ESCOLAR",
+        "valorTotalEstimado": 3816720.0
+      }
+    ],
+    "keyword_false_positives": [
+      {
+        "numeroControlePNCP": "45132495000140-1-000025/2026",
+        "processo": "I00007",
+        "objetoCompra": "CONTRATACAO SERVICO ARTISTICO MUSICAL ESCOLA DE SAMBA",
+        "reason": "The token escola is part of escola de samba and does not establish education-sector relevance."
+      },
+      {
+        "numeroControlePNCP": "45132495000140-1-000170/2026",
+        "processo": "I00030",
+        "objetoCompra": "CONTRATACAO SERVICO ARTISTICO MUSICAL ESCOLA DE SAMBA",
+        "reason": "The token escola is part of escola de samba and does not establish education-sector relevance."
+      }
+    ],
+    "unresolved_keyword_hit": {
+      "numeroControlePNCP": "45132495000140-1-000593/2026",
+      "processo": "I00084",
+      "objetoCompra": "CURSO DE CAPACITACAO",
+      "reason": "Generic training object does not identify Education, schools, students or EITI."
+    },
+    "additional_semantic_candidates": [
+      {
+        "numeroControlePNCP": "45132495000140-1-000055/2026",
+        "processo": "I00015",
+        "objetoCompra": "ANUIDADE UNDIME/SP",
+        "status": "EDUCATION_CANDIDATE_NEEDS_DOCUMENTARY_EXPANSION"
+      },
+      {
+        "numeroControlePNCP": "45132495000140-1-000764/2025",
+        "processo": "I00075",
+        "objetoCompra": "ASSINATURA DE GIBI",
+        "status": "EDUCATION_CANDIDATE_NEEDS_REQUESTING_UNIT_OR_PURPOSE"
+      }
+    ]
+  },
+  "scoped_conclusion": {
+    "id": "PNCP_PUBLICACAO_CNPJ_45132495000140_20251128_20260904_MODALIDADE_9_EXHAUSTIVE_NO_EXPLICIT_EITI_MATCH",
+    "meaning": "Among all 96 Inexigibilidade records published in the exact date scope through the official PNCP public consultation endpoint, no object explicitly states educacao integral, tempo integral, jornada ampliada, contraturno, or equivalent explicit EITI wording.",
+    "global_pncp_no_match": false,
+    "eiti_financial_identity_proven": false
+  },
+  "cumulative_complete_modalities": {
+    "6": 181,
+    "8": 434,
+    "9": 96,
+    "12": 5,
+    "total_records_screened": 716,
+    "explicit_eiti_matches": 0
+  },
+  "next_action": "TRAVERSE_STABLE_IDS_45132495000140-1-000368/2026_AND_45132495000140-1-000593/2026_TO_ITEMS_DOCUMENTS_CONTRACTS_AND_ACCOUNTING_LINKS_USING_DIRECT_MACHINE_READABLE_ROUTES_WHEN_AVAILABLE"
+}

@@ -1,0 +1,128 @@
+{
+  "task": "TASK_126_TCESP_HTML_INDEX_DISCOVERY",
+  "mode": "T1_BOUNDED_WEB_INDEX_DISCOVERY",
+  "issue": 449,
+  "base_sha": "54c17cba676421ab73f3a23aa749ebe4b5c04959",
+  "scope_control": {
+    "issue_created_before_search": true,
+    "preflight_ci_before_search": false,
+    "reason": "Read-only web-index discovery was bounded prospectively in issue #449; no retroactive CI-preflight claim is made."
+  },
+  "execution": {
+    "query_family_count": 8,
+    "search_query_count": 15,
+    "direct_open_attempts": 1,
+    "direct_open_result": "TIMEOUT_NO_PAGE_CONTENT",
+    "raw_zip_requests": 0,
+    "drive_reads": 0,
+    "ocr": 0
+  },
+  "exact_query_families": [
+    {
+      "family": "FOMENTO ETI",
+      "queries": [
+        "site:transparencia.tce.sp.gov.br despesa Limeira 2026 \"FOMENTO ETI\"",
+        "site:transparencia.tce.sp.gov.br/municipio/limeira/2026/despesas \"FOMENTO ETI\""
+      ],
+      "limeira_policy_candidates": 0
+    },
+    {
+      "family": "EDUCACAO INTEGRAL",
+      "queries": [
+        "site:transparencia.tce.sp.gov.br despesa Limeira 2026 \"EDUCAÇÃO INTEGRAL\"",
+        "site:transparencia.tce.sp.gov.br/municipio/limeira/2026/despesas \"EDUCACAO INTEGRAL\"",
+        "site:transparencia.tce.sp.gov.br/municipio/limeira/2026/despesas \"EDUCAÇÃO INTEGRAL\""
+      ],
+      "limeira_policy_candidates": 0
+    },
+    {
+      "family": "EDUCACAO EM TEMPO INTEGRAL",
+      "queries": [
+        "site:transparencia.tce.sp.gov.br despesa Limeira 2026 \"EDUCAÇÃO EM TEMPO INTEGRAL\""
+      ],
+      "limeira_policy_candidates": 0
+    },
+    {
+      "family": "TEMPO INTEGRAL",
+      "queries": [
+        "site:transparencia.tce.sp.gov.br despesa Limeira 2026 \"TEMPO INTEGRAL\"",
+        "site:transparencia.tce.sp.gov.br/municipio/limeira/2026/despesas \"TEMPO INTEGRAL\""
+      ],
+      "limeira_policy_candidates": 0
+    },
+    {
+      "family": "PROGRAMA ESCOLA EM TEMPO INTEGRAL",
+      "queries": [
+        "site:transparencia.tce.sp.gov.br despesa Limeira 2026 \"PROGRAMA ESCOLA EM TEMPO INTEGRAL\"",
+        "site:transparencia.tce.sp.gov.br/municipio/limeira/2026/despesas \"PROGRAMA ESCOLA EM TEMPO INTEGRAL\""
+      ],
+      "limeira_policy_candidates": 0
+    },
+    {
+      "family": "EITI",
+      "queries": [
+        "site:transparencia.tce.sp.gov.br despesa Limeira 2026 EITI",
+        "site:transparencia.tce.sp.gov.br/municipio/limeira/2026/despesas EITI"
+      ],
+      "limeira_policy_candidates": 0
+    },
+    {
+      "family": "2607004",
+      "queries": [
+        "site:transparencia.tce.sp.gov.br despesa Limeira 2026 2607004",
+        "site:transparencia.tce.sp.gov.br/municipio/limeira/2026/despesas 2607004"
+      ],
+      "limeira_code_candidates": 0
+    },
+    {
+      "family": "STRUCTURE_CONTROL",
+      "queries": [
+        "site:transparencia.tce.sp.gov.br \"Limeira\" 2026 \"Código de Aplicação\" despesa"
+      ],
+      "limeira_structure_controls": 3
+    }
+  ],
+  "structure_controls": [
+    {
+      "url": "https://transparencia.tce.sp.gov.br/municipio/limeira",
+      "observation": "Municipal panel exposes 2026 detailed expense file, updated 22/08/2026, approximately 2.03 MB.",
+      "classification": "STRUCTURE_CONTROL_NOT_POLICY_CANDIDATE"
+    },
+    {
+      "url": "https://transparencia.tce.sp.gov.br/municipio/limeira/2026/despesas/historico/516/3999-2026",
+      "observation": "Expense history exposes Empenhado, Valor Liquidado, Valor Pago and Anulação for a Limeira 2026 empenho.",
+      "classification": "EVENT_CHAIN_CONTROL_NOT_POLICY_CANDIDATE"
+    },
+    {
+      "url": "https://transparencia.tce.sp.gov.br/municipio/limeira/2026/despesas/detalhe/670347886",
+      "observation": "Expense detail exposes Educação, Program 2001, action description, funding source, fixed application code, subitem and history; row is generic adiantamento, not EITI evidence.",
+      "classification": "GRANULAR_SCHEMA_CONTROL_NOT_POLICY_CANDIDATE"
+    }
+  ],
+  "candidates": [],
+  "interpretation": {
+    "bounded_index_status": "NO_INDEXED_LIMEIRA_POLICY_CANDIDATE_OBSERVED",
+    "global_no_match": false,
+    "proves_no_eiti_execution": false,
+    "proves_no_2607004_record": false,
+    "search_index_may_be_incomplete": true,
+    "generic_program_2001_control_is_not_eiti_identity": true,
+    "financial_identity_changed": false,
+    "transaction_identity_changed": false
+  },
+  "next_action": {
+    "status": "DISCOVER_PRIMARY_MUNICIPAL_GRANULAR_EXECUTION_SURFACE",
+    "preferred_scope": "LIMEIRA_PRIMARY_TRANSPARENCY_OR_ACCOUNTING_DETAIL",
+    "target_fields": [
+      "EXPLICIT_POLICY_MARKER",
+      "STABLE_ACCOUNTING_IDENTIFIER",
+      "EXECUTION_DOCUMENT_OR_EVENT_ID",
+      "AMOUNT",
+      "DATE_OR_PERIOD",
+      "EXECUTION_STAGE",
+      "SOURCE_PROVENANCE"
+    ],
+    "tcesp_candidate_primary_verification_target": null
+  },
+  "result": "PASS_TASK126_BOUNDED_INDEX_NO_LIMEIRA_POLICY_CANDIDATE_NO_GLOBAL_ABSENCE_CLAIM"
+}

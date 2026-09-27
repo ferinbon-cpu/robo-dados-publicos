@@ -1,0 +1,33 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.5.8",
+  "status": "ACTIVE",
+  "milestone": "M4E_LIVE_VALIDATED_PROMOTED",
+  "promoted_from_candidate": "0.5.8",
+  "candidate_package_sha256": "d676bdc80446d2b0bc563af9a35d8a5ef63538555f210274bd044cb3068621e8",
+  "promotion_review": "PASS_USER_AUTHORIZED",
+  "qa": {
+    "unit_tests": "78/78 PASS",
+    "historical_regressions": "109/109 PASS",
+    "compileall": "PASS",
+    "secret_scan": "PASS",
+    "clean_reextraction": "PASS"
+  },
+  "live_validation": {
+    "journal_official": "PASS",
+    "municipal_contracts_resolver": "PASS",
+    "tcesp_current_schema_resolver": "PASS",
+    "reconciliation_evidence_ledger": "PASS"
+  },
+  "safety": {
+    "financial_identity_auto_promotion": "PROHIBITED",
+    "reconciliation_matches": "CANDIDATE_ONLY",
+    "unknown_schema": "STOP_OR_QUARANTINE",
+    "production_collection": "EXPLICIT_SOURCE_INVENTORY_OPT_IN"
+  },
+  "open_gates": {
+    "tda_limeira": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN",
+    "github_live_gate": "PENDING"
+  },
+  "next_action": "M4D_GITHUB_LIVE_GATE"
+}

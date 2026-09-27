@@ -1,0 +1,23 @@
+{
+  "task": "TASK_153_PNCP_API_OPEN_AUTH_UNIT_2",
+  "issue": 518,
+  "mode": "T0_OFFLINE_PARAMETERIZED_API_OPEN_DESIGN_ONLY",
+  "base_sha": "a94d705db60766e5cebb03b93d93ee9ba3a0172d",
+  "owner_authorization_units_granted": 10,
+  "authorization_unit_index": 2,
+  "remaining_units_before_execution": 9,
+  "future_web_open_invocations_max": 1,
+  "future_requested_url": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao?dataInicial=20251128&dataFinal=20260904&codigoModalidadeContratacao=12&cnpj=45132495000140&pagina=1&tamanhoPagina=50",
+  "tool_side_query_reordering_allowed": true,
+  "host_path_or_parameter_mutation_allowed": false,
+  "future_search_queries": 0,
+  "future_clicks": 0,
+  "future_retry": 0,
+  "future_followup_opens": 0,
+  "future_direct_download_invocations": 0,
+  "candidate_max_status": "CORROBORATED",
+  "negative_exhaustive_conclusion_allowed": false,
+  "pncp_no_match_allowed": false,
+  "remaining_units_after_single_invocation": 8,
+  "result": "PASS_TASK153_PARAMETERIZED_API_OPEN_DESIGNED_NOT_EXECUTED"
+}

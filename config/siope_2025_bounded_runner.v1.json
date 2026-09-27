@@ -1,0 +1,86 @@
+{
+  "schema": "SIOPE_2025_BOUNDED_RUNNER_V1",
+  "gate_id": "CODEX_TASK_003_SIOPE_2025_BOUNDED_RUNNER_T0",
+  "tier": "T0_OFFLINE",
+  "design_contract": "config/siope_2025_readonly_discovery_design.v1.json",
+  "components": {
+    "request_plan": "robo_dados_publicos/sources/siope_2025_request_plan.py",
+    "runner": "robo_dados_publicos/sources/siope_2025_bounded_runner.py",
+    "fake_transport": "robo_dados_publicos/sources/siope_2025_fake_transport.py",
+    "evidence": "robo_dados_publicos/sources/siope_2025_evidence.py",
+    "offline_cli": "scripts/run_siope_2025_bounded_offline.py",
+    "offline_gate": "scripts/github_siope_2025_bounded_runner_gate.py",
+    "live_transport": null
+  },
+  "target": {
+    "year": 2025,
+    "state": "SP",
+    "municipality_code": 352690,
+    "municipality_name": "Limeira"
+  },
+  "execution": {
+    "fake_transport_required": true,
+    "live_transport_authorized": false,
+    "stop_without_fake_transport": "STOP_LIVE_NOT_AUTHORIZED",
+    "periods": [1, 2, 3, 4, 5, 6],
+    "phase_a_request_count": 6,
+    "phase_b_period": 6,
+    "phase_b_request_count_max": 1,
+    "maximum_request_count": 7,
+    "maximum_requests_per_period": 1,
+    "timeout_seconds": 60,
+    "max_response_bytes": 262144,
+    "max_attempts": 1,
+    "retry_authorized": false,
+    "pagination_authorized": false,
+    "follow_redirects": false,
+    "follow_nextlink": false,
+    "phase_b_precondition": "PHASE_A_PERIOD_6_OBSERVED_EXACT_IDENTITY"
+  },
+  "semantic_guards": {
+    "annual_closure_status_required": "UNKNOWN",
+    "promote_2025_to_proven": false,
+    "include_2026_authorized": false,
+    "metric_status_required": "UNKNOWN",
+    "metric_ids": [
+      "receita_realizada_sobre_previsao_atualizada_pct",
+      "despesa_paga_sobre_dotacao_atualizada_pct",
+      "despesa_educacao_paga_sobre_dotacao_atualizada_educacao_pct",
+      "participacao_educacao_na_despesa_empenhada_pct",
+      "participacao_educacao_na_despesa_liquidada_pct",
+      "participacao_educacao_na_despesa_paga_pct",
+      "despesa_total_paga_por_habitante",
+      "despesa_educacao_paga_por_habitante"
+    ]
+  },
+  "effects": {
+    "source_network": false,
+    "drive_reads": false,
+    "drive_writes": false,
+    "secrets_used": false,
+    "response_persistence": false,
+    "bronze_silver_gold_creation": false,
+    "publication": false,
+    "future_batch_execution_authorized": false
+  },
+  "allowed_result_fields": [
+    "status",
+    "outcome",
+    "observed_periods",
+    "fake_request_count",
+    "source_get_count",
+    "schema_exact",
+    "annual_closure_status",
+    "promote_2025_to_proven",
+    "metric_statuses",
+    "network_called",
+    "drive_called",
+    "response_persisted",
+    "live_execution_authorized",
+    "drive_read_count",
+    "drive_write_count",
+    "publication",
+    "request_plan_evidence",
+    "observation_evidence"
+  ]
+}

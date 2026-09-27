@@ -1,0 +1,157 @@
+{
+  "schema": "TASK_010L_SIOPE_2025_ODATA_ALIAS_STATIC_BRIDGE_V1",
+  "task": "TASK_010L",
+  "issue": 243,
+  "tier": "T0_OFFLINE_STATIC",
+  "software_version": "0.8.0",
+  "base_main_sha": "f2df81c2e3a30a1848959ccb8e64666f5a740b85",
+  "decision": "KEEP_S2_NOT_PROVEN_LOCAL_STATIC_PAYLOAD_NO_LITERAL_ODATA_BRIDGE",
+  "scope": {
+    "blocker": "S2_FINANCIAL_ALIAS_BRIDGE",
+    "NUM_POPU_in_scope": false,
+    "annual_finality_in_scope": false,
+    "gold_in_scope": false,
+    "network_authorized": false,
+    "binary_execution_authorized": false
+  },
+  "installer": {
+    "filename_as_received": "Siope_2025_Anual-25.0.5.6.exe.exe",
+    "size_bytes": 29772070,
+    "sha256_recalculated": "3c85dd4195a31e67131b8e550509dc2d014ead3279bda26656192feeaac86bc2",
+    "sha256_matches_pinned": true,
+    "executed": false
+  },
+  "static_payload": {
+    "inno_payload_size_bytes": 83202202,
+    "inno_payload_sha256": "3d23992cce9138558232fd38711c1752def4ab8d6fc0a5d8921975fc709f5e78",
+    "pe_image_count": 10,
+    "main_pe": {
+      "size_bytes": 50456322,
+      "sha256": "a89aa356bf20a73c0c9f5033b1cef562afc3af1bf8e4c1dc7b80eff5dd024dc8"
+    },
+    "oauth_component": {
+      "identified_name": "libWfOAuth2.dll",
+      "size_bytes": 10264576,
+      "sha256": "ebfa7252e9866e82d2df48545900518409db74f69e81eb21e02cf4c5e6169016",
+      "product_strings": [
+        "siopebarramento.cliente",
+        "br.gov.fnde.siopebarramento.cliente"
+      ],
+      "observed_exports": [
+        "WebFormAuth_getWebFormAuth_jwtEvento",
+        "WebFormAuth_jwt",
+        "WebFormAuth_jwt2",
+        "WebFormAuth_jwtEventoLog",
+        "WebFormAuth_jwtEventoLog2"
+      ],
+      "role_assessment": "AUTHENTICATION_HELPER_OBSERVED_NO_FINANCIAL_ALIAS_BRIDGE_PROVEN"
+    }
+  },
+  "literal_search": {
+    "search_surfaces": [
+      "original_installer",
+      "statically_decompressed_inno_payload",
+      "10_carved_PE_images"
+    ],
+    "encodings": [
+      "ASCII_CASE_INSENSITIVE",
+      "UTF16LE_CASE_INSENSITIVE"
+    ],
+    "service_identifiers": {
+      "Dados_Gerais_Siope": 0,
+      "DADOS_ABERTOS_SIOPE": 0,
+      "olinda-ide": 0
+    },
+    "aliases": {
+      "VAL_RECE_PREV_ATUA": 0,
+      "VAL_RECE_REAL": 0,
+      "VAL_DESP_DOTA_ATUA": 0,
+      "VAL_DESP_EMPE": 0,
+      "VAL_DESP_LIQU": 0,
+      "VAL_DESP_PAGA": 0,
+      "VL_DESP_DOTA_ATUA_EDU": 0,
+      "VL_DESP_EMPE_EDU": 0,
+      "VL_DESP_LIQU_EDU": 0,
+      "VL_DESP_PAGA_EDU": 0
+    },
+    "interpretation": "NO_LITERAL_ALIAS_OR_DADOS_GERAIS_IDENTIFIER_IN_LOCAL_STATIC_PAYLOAD; THIS_DOES_NOT_PROVE_ABSENCE_FROM_REMOTE_BACKEND"
+  },
+  "desktop_internal_concepts": {
+    "main_pe_delphi_symbols_observed": [
+      "@Constantes@_PREV_ATUA",
+      "@Constantes@_RECE_REAL",
+      "@Constantes@_DOTA_ATUA",
+      "@Constantes@_DESP_EMPE",
+      "@Constantes@_DESP_LIQU",
+      "@Constantes@_DESP_PAGA",
+      "@Constantes@_COD_EDUCACAO"
+    ],
+    "assessment": "CURRENT_DESKTOP_CONCEPT_VOCABULARY_OBSERVED_BUT_NO_ALIAS_IDENTITY"
+  },
+  "service_layer_clues": {
+    "siopebarramento_auth_urls_observed": [
+      "https://hmg.fnde.gov.br/siopebarramento/auth-siope",
+      "https://www.fnde.gov.br/siopebarramento/auth-siope"
+    ],
+    "other_remote_data_import_urls_observed": [
+      "https://apiapex.tesouro.gov.br/aria/v1/fnde/custom/fnde_receita?",
+      "https://apiapex.tesouro.gov.br/aria/v1/fnde/custom/fnde_despesa?"
+    ],
+    "assessment": "REMOTE_SERVICE_USAGE_EXISTS_IN_DESKTOP; NO_STATIC_EVIDENCE_THAT_PUBLIC_ODATA_ALIAS_BRIDGE_IS_EMBEDDED"
+  },
+  "sql_query_assessment": {
+    "exact_alias_producing_sql_found": false,
+    "reason": "ALL_10_TARGET_ALIAS_LITERALS_ARE_ABSENT_FROM_STATIC_PAYLOAD; NO_STATIC_SELECT_AS_OR_VIEW_MAPPING_TO_THESE_NAMES_CAN_BE_PINNED",
+    "generic_firedac_sqlite_presence": true
+  },
+  "matrix": [
+    {"alias": "VAL_RECE_PREV_ATUA", "current_concept": "PA / Previsão Atualizada", "status": "PARTIAL", "mapping_mechanism": "NOT_OBSERVED"},
+    {"alias": "VAL_RECE_REAL", "current_concept": "RR / Receitas Realizadas", "status": "PARTIAL", "mapping_mechanism": "NOT_OBSERVED"},
+    {"alias": "VAL_DESP_DOTA_ATUA", "current_concept": "DA / Dotação Atualizada", "status": "PARTIAL", "mapping_mechanism": "NOT_OBSERVED"},
+    {"alias": "VAL_DESP_EMPE", "current_concept": "DE / Despesas Empenhadas", "status": "PARTIAL", "mapping_mechanism": "NOT_OBSERVED"},
+    {"alias": "VAL_DESP_LIQU", "current_concept": "DL / Despesas Liquidadas", "status": "PARTIAL", "mapping_mechanism": "NOT_OBSERVED"},
+    {"alias": "VAL_DESP_PAGA", "current_concept": "DP / Despesas Pagas", "status": "PARTIAL", "mapping_mechanism": "NOT_OBSERVED"},
+    {"alias": "VL_DESP_DOTA_ATUA_EDU", "current_concept": "education-scope DA exists; exact aggregate identity unresolved", "status": "PARTIAL", "mapping_mechanism": "NOT_OBSERVED"},
+    {"alias": "VL_DESP_EMPE_EDU", "current_concept": "education-scope DE exists; exact aggregate identity unresolved", "status": "PARTIAL", "mapping_mechanism": "NOT_OBSERVED"},
+    {"alias": "VL_DESP_LIQU_EDU", "current_concept": "education-scope DL exists; exact aggregate identity unresolved", "status": "PARTIAL", "mapping_mechanism": "NOT_OBSERVED"},
+    {"alias": "VL_DESP_PAGA_EDU", "current_concept": "education-scope DP exists; exact aggregate identity unresolved", "status": "PARTIAL", "mapping_mechanism": "NOT_OBSERVED"}
+  ],
+  "matrix_summary": {
+    "PROVEN": 0,
+    "PARTIAL": 10,
+    "AMBIGUOUS": 0,
+    "NOT_FOUND": 0,
+    "required_proven_for_S2": 10
+  },
+  "edu_guard": {
+    "EDU_equals_MDE_assumption_authorized": false,
+    "reason": "TASK_010K_PINNED_DISTINCT_CURRENT_METADATA_STRUCTURES_AND_NO_STATIC_SERIALIZER_OR_AGGREGATION_BRIDGE_WAS_OBSERVED"
+  },
+  "canonical_state": {
+    "release_0_7_0": "ACTIVE",
+    "release_0_8_0": "CANDIDATE",
+    "year_2025": "PROVEN_STRUCTURAL_RECENT",
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_metrics_status": "UNKNOWN/BLOCKED",
+    "closed_annual_series": "2016-2024",
+    "year_2026": "UNPROVEN_CURRENT_YEAR"
+  },
+  "next_evidence_classes": [
+    "OFFICIAL_ODATA_EDMX_OR_METADATA_WITH_SEMANTIC_SOURCE_MAPPING",
+    "OFFICIAL_BACKEND_SQL_VIEW_OR_SERVICE_CODE_FOR_DADOS_GERAIS_SIOPE",
+    "OFFICIAL_CURRENT_FIELD_DICTIONARY_EXPLICITLY_MAPPING_ALL_10_ALIASES",
+    "STATIC_BACKEND_OR_BARRAMENTO_MODULE_THAT_CONTAINS_THE_PUBLIC_ODATA_EXPORT_MAPPING"
+  ],
+  "prohibited_next_inferences": [
+    "ALIAS_IDENTITY_FROM_LEXICAL_SIMILARITY",
+    "EDU_EQUALS_MDE",
+    "S2_PROMOTION_WITH_FEWER_THAN_10_OF_10_PROVEN",
+    "GOLD_2025",
+    "ANNUAL_CLOSURE_PROMOTION",
+    "SERIES_EXPANSION",
+    "YEAR_2026_PROMOTION"
+  ]
+}

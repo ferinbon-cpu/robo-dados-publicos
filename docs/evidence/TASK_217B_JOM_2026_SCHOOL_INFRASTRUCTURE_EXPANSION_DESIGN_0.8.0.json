@@ -1,0 +1,57 @@
+{
+  "task": "TASK_217B_JOM_2026_SCHOOL_INFRASTRUCTURE_EXPANSION_DESIGN",
+  "issue": 680,
+  "base_main_sha": "bd5659a9be61c91a1f72ccbf4e3eaeb7e46a93f6",
+  "tier": "T0_OFFLINE",
+  "status": "OFFLINE_IMPLEMENTATION_READY_PENDING_EXACT_SHA_OWNER_AUTHORIZATION",
+  "scope": {
+    "source": "LIMEIRA_JORNAL_OFICIAL",
+    "start_date": "2026-01-01",
+    "end_date": "2026-09-08",
+    "month_partitions": 9,
+    "max_pages_per_month": 5,
+    "max_total_index_pages": 45,
+    "max_documents": 300,
+    "max_bytes_per_document": 52428800,
+    "max_aggregate_bytes": 1073741824
+  },
+  "method": {
+    "official_declared_links_only": true,
+    "robots_required": true,
+    "automatic_retry": false,
+    "alternate_url_guessing": false,
+    "incomplete_month_means_stop": true,
+    "page_screening_creates_school_identity": false,
+    "event_level_exact_task217a_identity_required": true,
+    "generic_school_reference_creates_identity": false
+  },
+  "authorization": {
+    "live_execution_authorized": false,
+    "separate_owner_authorization_required": true,
+    "exact_implementation_sha_required": true,
+    "task018_authorization_reuse_allowed": false,
+    "drive_write_authorized": false,
+    "publication_authorized": false,
+    "serving_authorized": false,
+    "promotion_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_authorized": false
+  },
+  "promotion": {
+    "candidate_question": "INFRA_Q2",
+    "runtime_can_promote": false,
+    "complete_scope_required": true,
+    "exact_named_school_infrastructure_event_required": true,
+    "post_runtime_canonization_required": true,
+    "zero_exact_match_in_complete_scope_ne_global_absence": true
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false,
+    "llm": false
+  }
+}

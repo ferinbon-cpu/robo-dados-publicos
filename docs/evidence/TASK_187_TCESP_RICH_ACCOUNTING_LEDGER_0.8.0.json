@@ -1,0 +1,179 @@
+{
+  "schema": "TASK187_TCESP_RICH_ACCOUNTING_LEDGER_EVIDENCE_V1",
+  "task": "TASK_187_TCESP_RICH_ACCOUNTING_LEDGER_2026",
+  "issue": 581,
+  "pr": 591,
+  "base_main_sha": "c185a5c1a2a15425c76c8bc350e34843da066077",
+  "status": "PASS_REAL_RICH_ACCOUNTING_LEDGER_MATERIALIZED",
+  "source": {
+    "authority": "Tribunal de Contas do Estado de Sao Paulo",
+    "intake": "OWNER_CHAT_UPLOAD",
+    "source_url": "https://transparencia.tce.sp.gov.br/sites/default/files/csv/despesas-limeira-2026.zip",
+    "zip_bytes": 2132655,
+    "zip_sha256": "e696c40b1af0e68efca01e8f819cd26c62a3f62881692e0da33d867604d4d11b",
+    "csv_member": "despesas-limeira-2026.csv",
+    "csv_bytes": 17226548,
+    "csv_sha256": "87b640aa9d854832bdd66b452d8532043e9f27bc12ec638ee77dcb5d8001f152",
+    "column_count": 23,
+    "row_count": 39779,
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "unique_official_record_ids": 39779,
+    "duplicate_official_record_ids": 0,
+    "invalid_amounts": 0,
+    "empty_expense_element_rows": 2,
+    "bronze": {
+      "zip_drive_id": "1ZzvQJiRYRPwYz44YZyNmtiqcl8ab4wYu",
+      "csv_drive_id": "13stOkNA8U50nJuz_bV2ZY2dGqQX3MG-Y",
+      "manifest_drive_id": "1X6PA5TeiimujfVUM7PnCS7HmvmjC2njV",
+      "manifest_sha256": "cf4c0ccdd2004219f86022311de19ce9f53854fef518f3fa0fbbe620710ea15a"
+    }
+  },
+  "reconciliation": {
+    "prior_task185_snapshot_id": "8c898422c61137c6a51755ec",
+    "exact_one_to_one": true,
+    "matched_rows": 39779,
+    "unmatched_prior": 0,
+    "unmatched_rich_csv": 0,
+    "projection_duplicates_prior": 0,
+    "projection_duplicates_rich_csv": 0,
+    "comparison_projection": [
+      "mes_referencia",
+      "ds_orgao",
+      "tp_despesa",
+      "nr_empenho",
+      "identificador_despesa",
+      "html_unescaped_ds_despesa",
+      "dt_emissao_despesa",
+      "vl_despesa"
+    ],
+    "normalization": "HTML_ENTITY_UNESCAPE_ON_PRIOR_JSON_SUPPLIER_NAME_ONLY",
+    "guard": "HTML_ENTITY_NORMALIZATION_ONLY_NE_WEAK_JOIN"
+  },
+  "semantic_correction": {
+    "official_record_id_field": "id_despesa_detalhe",
+    "supplier_public_id_field": "identificador_despesa",
+    "supplier_name_field": "ds_despesa",
+    "statement": "identificador_despesa is supplier identity and is not the accounting source-record identity",
+    "guard": "OFFICIAL_DETAIL_ID_NE_SUPPLIER_ID"
+  },
+  "accounting_ledger": {
+    "product_schema": "ACCOUNTING_LEDGER_V1",
+    "row_count": 39779,
+    "snapshot_id": "0fde2c8045c1b9ce2da87dc5",
+    "content_sha256": "0fde2c8045c1b9ce2da87dc5b8c6bd6cb1f6c83148b06a33e04a4b725087371c",
+    "json_sha256": "198b4eaac4010ba439da44802a21cdc314ef7cfb0351b56a05798874256b86af",
+    "json_bytes": 94284519,
+    "gzip_sha256": "5c15bf055a222d502e05e000046e89576a198b2ff84ab90186db2cb1334c725c",
+    "gzip_bytes": 7850204,
+    "snapshot_drive_id": "1FIrvaOTe2uHxtlljQg0KR9qy1WUcMXvI",
+    "manifest_drive_id": "1_sVuzDwVwJTT21tY_fBAectMsBCIyA4L",
+    "manifest_sha256": "0dca1c359cb8aaf3dd3c3cd39cf33971f66e16755684cd0fbc66fa77f73960c3",
+    "capabilities": [
+      "COMMITMENT_AMOUNTS",
+      "COMMITMENT_NUMBER",
+      "EDUCATION_CLASSIFICATION",
+      "EVENT_MONTH",
+      "EXPENSE_ELEMENT",
+      "EXPENSE_ISSUE_DATE",
+      "FUNDING_SOURCE_APPLICATION",
+      "LIQUIDATION_AMOUNTS",
+      "PAYMENT_AMOUNTS",
+      "PROGRAMMATIC_CLASSIFICATION",
+      "REVERSAL_EVENTS",
+      "SOURCE_DESCRIPTION",
+      "SUPPLIER_AMOUNT"
+    ],
+    "missing_capabilities": [
+      "EVENT_DATE",
+      "RESTS_PAYABLE"
+    ],
+    "observed_stages": [
+      "COMMITMENT",
+      "LIQUIDATION",
+      "PAYMENT",
+      "REVERSAL"
+    ]
+  },
+  "education": {
+    "function_rows": 8224,
+    "source_stage_counts": {
+      "Empenhado": 1139,
+      "Reforço": 450,
+      "Anulação": 70,
+      "Valor Liquidado": 3446,
+      "Valor Pago": 3119
+    },
+    "source_stage_amounts_brl": {
+      "Empenhado": "337824523.73",
+      "Reforço": "34418997.78",
+      "Anulação": "3481109.44",
+      "Valor Liquidado": "262452288.06",
+      "Valor Pago": "227797802.44"
+    },
+    "commitment_plus_reinforcement_brl": "372243521.51",
+    "commitment_plus_reinforcement_minus_reversal_arithmetic_brl": "368762412.07",
+    "arithmetic_guard": "COMMITMENT_ARITHMETIC_NE_NET_EXPENDITURE"
+  },
+  "eti": {
+    "explicit_specific_expense_identity_found": false,
+    "revenue_expense_link_proven": false,
+    "guard": "NO_ETI_EXPENSE_IDENTITY_FROM_REVENUE_CLASSIFICATION_OR_TEXT_SIMILARITY"
+  },
+  "answerability": {
+    "question_count": 38,
+    "before_status_counts": {
+      "EXPLICIT_GAP": 5,
+      "MATERIALIZED_ANSWERABLE": 18,
+      "MATERIALIZED_PARTIAL": 15
+    },
+    "after_status_counts": {
+      "EXPLICIT_GAP": 5,
+      "MATERIALIZED_ANSWERABLE": 20,
+      "MATERIALIZED_PARTIAL": 13
+    },
+    "changed_question_count": 2,
+    "changes": [
+      {
+        "question_id": "INFRA_Q2",
+        "before": "MATERIALIZED_PARTIAL",
+        "after": "MATERIALIZED_ANSWERABLE"
+      },
+      {
+        "question_id": "ACC_Q2",
+        "before": "MATERIALIZED_PARTIAL",
+        "after": "MATERIALIZED_ANSWERABLE"
+      }
+    ],
+    "preserved_partial": {
+      "FIN_Q1": "FISCAL_SERIES aggregate education expenditure metric signal remains incomplete",
+      "PLAN_Q3": "substantive PPA/LDO/LOA execution-link evidence remains incomplete",
+      "ACC_Q3": "RESTS_PAYABLE capability remains absent"
+    }
+  },
+  "guards": [
+    "OFFICIAL_DETAIL_ID_NE_SUPPLIER_ID",
+    "COMMITMENT_NE_LIQUIDATION_NE_PAYMENT",
+    "REINFORCEMENT_IS_COMMITMENT_MODIFIER",
+    "EXPENSE_ISSUE_DATE_NE_EVENT_DATE",
+    "PROGRAMMATIC_CLASSIFICATION_NE_POLICY_IDENTITY",
+    "AMOUNT_DATE_TEXT_NE_IDENTITY",
+    "REVENUE_NE_EXPENDITURE",
+    "NO_ETI_EXPENSE_IDENTITY_FROM_REVENUE_CLASSIFICATION"
+  ],
+  "remote_effects": {
+    "source_network_gets": 0,
+    "drive_overwrites": 0,
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "schema": "TASK217B_JOM_2026_SCHOOL_INFRA_EXPANSION_V1",
+  "task": "TASK_217B",
+  "issue": 680,
+  "base_main_sha": "bd5659a9be61c91a1f72ccbf4e3eaeb7e46a93f6",
+  "mode": "T0_OFFLINE_LIVE_CAPABILITY_DISABLED_BY_DEFAULT",
+  "scope": {
+    "municipality": "Limeira",
+    "network": "MUNICIPAL",
+    "year": 2026,
+    "start_date": "2026-01-01",
+    "end_date": "2026-09-08",
+    "months": [1,2,3,4,5,6,7,8,9]
+  },
+  "source": {
+    "family": "LIMEIRA_JORNAL_OFICIAL",
+    "official_index": "https://www.limeira.sp.gov.br/jornaloficial",
+    "allowed_index_hosts": ["www.limeira.sp.gov.br", "limeira.sp.gov.br"],
+    "allowed_document_hosts": ["ecrie.com.br"],
+    "declared_links_only": true,
+    "robots_required": true
+  },
+  "discovery": {
+    "max_pages_per_month": 5,
+    "max_total_index_pages": 45,
+    "max_documents": 300,
+    "automatic_retry": false,
+    "alternate_url_guessing": false,
+    "incomplete_month_means_stop": true
+  },
+  "documents": {
+    "max_bytes_per_document": 52428800,
+    "max_aggregate_bytes": 1073741824,
+    "raw_pdf_persist_git": false,
+    "raw_pdf_persist_workflow_artifact": false,
+    "raw_page_text_persist_git": false,
+    "sanitized_evidence_only": true
+  },
+  "identity": {
+    "task217a_config": "config/task217_jom_school_identity_bridge.v1.json",
+    "event_level_exact_school_identity_required": true,
+    "page_screening_may_create_identity": false,
+    "generic_reference_may_create_identity": false,
+    "fuzzy_matching_may_create_identity": false
+  },
+  "authorization": {
+    "live_execution_authorized": false,
+    "separate_owner_authorization_required": true,
+    "exact_implementation_sha_required": true,
+    "task018_authorization_reuse_allowed": false,
+    "required_task": "TASK_217B_LIVE_AUTHORIZATION",
+    "required_operation": "BOUNDED_2026_JOM_DISCOVERY_AND_SANITIZED_SCHOOL_INFRASTRUCTURE_REDIGEST",
+    "attempt_count": 1,
+    "drive_write_authorized": false,
+    "publication_authorized": false,
+    "serving_authorized": false,
+    "promotion_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_authorized": false
+  },
+  "promotion": {
+    "candidate_question": "INFRA_Q2",
+    "runtime_may_promote_answerability": false,
+    "requires_complete_scope": true,
+    "requires_at_least_one_exact_named_school_infrastructure_event": true,
+    "canonization_required_after_runtime": true,
+    "zero_exact_match_in_complete_scope_ne_global_absence": true
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false,
+    "llm": false
+  }
+}

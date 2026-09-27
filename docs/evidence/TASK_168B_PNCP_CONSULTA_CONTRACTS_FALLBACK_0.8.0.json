@@ -1,0 +1,69 @@
+{
+  "task": "TASK_168B_PNCP_CONSULTA_CONTRACTS_FALLBACK",
+  "issue": 548,
+  "pr": 549,
+  "base_main_sha": "3fb5c88ba3754cc0d29b6c7d06ab3d8a86119d77",
+  "execution": {
+    "run_id": 34001344851,
+    "job_id": 101400655561,
+    "execution_head_sha": "af69d48cca654a8a9fe7269aa1b42028748cc6c2",
+    "workflow_conclusion": "success",
+    "artifact_id": 9979577821,
+    "artifact_digest": "sha256:3f935ed1808ab6826d01a7f9f31c650be08ed88cd77988e8aa8058482c11a000",
+    "sanitized_result_sha256": "4c242d4f5b183744ce77c401b4017ccc5b6d03c6bf819c1288993b58426004aa",
+    "raw_payload_persisted": false
+  },
+  "exact_scope": {
+    "endpoint": "https://pncp.gov.br/api/consulta/v1/contratos",
+    "cnpjOrgao": "45132495000140",
+    "dataInicial": "20260608",
+    "dataFinal": "20260905",
+    "tamanhoPagina": 500,
+    "targets": [
+      "45132495000140-1-000368/2026",
+      "45132495000140-1-000593/2026"
+    ]
+  },
+  "requests": [
+    {
+      "pagina": 1,
+      "http_status": 200,
+      "bytes_received": 773538,
+      "content_type": "application/json",
+      "source_sha256": "b89273dbb44959fe3566442d8e20f4c40c228bff06fd35a0bf90f40909ce0cf1"
+    },
+    {
+      "pagina": 2,
+      "http_status": 200,
+      "bytes_received": 404347,
+      "content_type": "application/json",
+      "source_sha256": "04405bbb430535d4b090f37b04b8778c6917fa83cbd6b00273025462b6ab828a"
+    }
+  ],
+  "pagination": {
+    "status": "EXHAUSTIVE_COMPLETE",
+    "totalRegistros": 759,
+    "totalPaginas": 2,
+    "pages_scanned": [1, 2],
+    "exhaustive_within_exact_scope": true
+  },
+  "result": {
+    "status": "EXHAUSTIVE_COMPLETE_NO_TARGET_MATCH",
+    "target_match_count": 0,
+    "target_matches": [],
+    "scoped_conclusion": "BOUNDED_NO_LINKED_CONTRACT_MATCH_IN_EXACT_DATE_CNPJ_SCOPE"
+  },
+  "epistemic_adjudication": {
+    "meaning": "Among all 759 PNCP contracts/empenhos returned for Limeira CNPJ 45132495000140 with contract publication dates from 2026-06-08 through 2026-09-05, none has numeroControlePNCPCompra exactly equal to either TASK 166 target purchase ID.",
+    "global_pncp_contract_absence": false,
+    "future_contract_absence": false,
+    "purchase_absence": false,
+    "task166_stable_purchase_ids_remain_proven": true,
+    "pncp_no_match_created": false,
+    "payment_inference_from_pncp": "FORBIDDEN",
+    "eiti_financial_identity_proven": false,
+    "eiti_transaction_identity_proven": false,
+    "scientific_state": "PNCP_TARGET_CONTRACT_BRIDGE_BOUNDED_NEGATIVE_EITI_FINANCIAL_IDENTITY_STILL_UNKNOWN"
+  },
+  "next_action": "CLOSE_TASK168_AS_RESOURCE_API_UNAVAILABLE_PLUS_CONSULTA_CONTRACT_FALLBACK_EXHAUSTIVE_NO_TARGET_MATCH; DO_NOT_CONTINUE_SPENDING_REQUESTS_ON_THE_TWO_NON_EITI_PROVEN_TARGETS; REEVALUATE_THE_EITI_FINANCIAL_IDENTITY_BRIDGE_FROM_PRIMARY_MUNICIPAL_OR_ACCOUNTING_EVIDENCE_RATHER_THAN_WEAK_PNCP_LEADS"
+}

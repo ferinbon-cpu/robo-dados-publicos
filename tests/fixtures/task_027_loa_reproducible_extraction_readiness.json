@@ -1,0 +1,44 @@
+{
+  "official_unproven": {
+    "route": "OFFICIAL_MACHINE_READABLE_EQUIVALENT",
+    "execute": false,
+    "proofs": {
+      "OFFICIAL_ORIGIN_PROVEN": true,
+      "EXERCISE_2026_PROVEN": true,
+      "LEGAL_IDENTITY_7_223_2025_PROVEN": false,
+      "ANNEX_COMPLETENESS_PROVEN": false,
+      "STRUCTURAL_EQUIVALENCE_TO_CANONICAL_SOURCE_PROVEN": false,
+      "IMMUTABLE_HASH_AND_SIZE_RECORDED": false
+    }
+  },
+  "official_proven_synthetic": {
+    "route": "OFFICIAL_MACHINE_READABLE_EQUIVALENT",
+    "execute": false,
+    "proofs": {
+      "OFFICIAL_ORIGIN_PROVEN": true,
+      "EXERCISE_2026_PROVEN": true,
+      "LEGAL_IDENTITY_7_223_2025_PROVEN": true,
+      "ANNEX_COMPLETENESS_PROVEN": true,
+      "STRUCTURAL_EQUIVALENCE_TO_CANONICAL_SOURCE_PROVEN": true,
+      "IMMUTABLE_HASH_AND_SIZE_RECORDED": true
+    }
+  },
+  "ocr_design": {
+    "route": "DETERMINISTIC_AUDITED_OCR_OF_CANONICAL_SOURCE",
+    "execute": false,
+    "input_sha256": "bc4c8bf4b2b1e8f59e880318c37ec7f7fbd4357a85a8b46c97750444dbf01d4b",
+    "page_count": 466
+  },
+  "numeric_candidate_unreviewed": {
+    "field": "appropriation",
+    "value": 6152000,
+    "source_page": 124,
+    "validated_independently": false
+  },
+  "numeric_candidate_reviewed": {
+    "field": "appropriation",
+    "value": 6152000,
+    "source_page": 124,
+    "validated_independently": true
+  }
+}

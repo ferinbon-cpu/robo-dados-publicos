@@ -1,0 +1,17 @@
+{
+  "task": "TASK_237",
+  "canonical_base": {
+    "branch": "main",
+    "sha": "53b9f3f8140bd2136ef80bb8d9ff4916151d2175",
+    "source_merge": "PR #791 / TASK 236",
+    "post_merge_validation": {
+      "offline_ci_run_number": 1802,
+      "offline_ci_run_id": 34605374320,
+      "offline_ci_conclusion": "success",
+      "unit_tests": "success",
+      "historical_regression": "success"
+    }
+  },
+  "branch_policy": "TASK237 branch must originate directly from this green canonical main SHA.",
+  "contextual_coverage": "38/38_UNCHANGED"
+}

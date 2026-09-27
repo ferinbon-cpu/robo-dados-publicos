@@ -1,0 +1,56 @@
+{
+  "task": "TASK_219X_EMPENHADO_AREA_QUERY_CONTROL_NEGATIVE",
+  "issue": 738,
+  "parent_issue": 691,
+  "canonical_date": "2026-09-10",
+  "base_main_sha": "72c03422ad43f9ced6162d0fe68188f4d22bba64",
+  "authorization_sequence": "LEAP_1_OF_3_CURRENT_AUTHORIZATION",
+  "runtime": {
+    "run_id": 34505052957,
+    "job_id": 102965052944,
+    "execution_head_sha": "a31866d5d8168786b234d651a1c4f8ee4a615e30",
+    "artifact_id": 10163486787,
+    "artifact_zip_sha256": "e3f89a4e23cefd63b9a28b2b1de09538453595b39fb016411313e0690c231dc2",
+    "artifact_retention_days": 1,
+    "executed_workflow_blob_sha": "541d59b45ad4ca41266edd59c46bc029198b9ce2"
+  },
+  "top_level": {
+    "initial_area_count": 8,
+    "despesa_match_count": 1,
+    "four_chart_bindings_revalidated": true,
+    "top_level_doLink_invocations": 1
+  },
+  "detailed_dashboard": {
+    "area_count": 17,
+    "Empenhado_area_match_count": 1,
+    "Empenhado_runtime_AreaId": "39cff41e341c4ddaa516e8467bafb420DSA5",
+    "Empenhado_AreaOrigin": "2_92_guestuser_200_5_DSL0_VIS704",
+    "AreaId_is_session_scoped": true
+  },
+  "exact_Empenhado_subtree_control_result": {
+    "Nro_Empenho_input_count": 0,
+    "Exercicio_select_count": 0,
+    "same_AreaId_filter_node_count": 0,
+    "same_AreaId_submmitApply_script_binding_count": 0,
+    "window_submmitApply_is_callable": true,
+    "conclusion": "EMPENHADO_IS_NOT_THE_QUERY_FORM_AREA_UNDER_THE_PRECOMMITTED_SAME_AREA_CONTRACT"
+  },
+  "fail_closed_boundary": {
+    "controlled_query_field_assignments": 0,
+    "same_area_filter_invocations": 0,
+    "same_record_detail_drilldowns": 0,
+    "manual_fetch_xhr": 0,
+    "direct_endpoint_calls": 0,
+    "layerinfo_replay": 0,
+    "retries": 0,
+    "Empenho_3286_2026_queried": false
+  },
+  "scientific_adjudication": {
+    "Empenhado_area_as_query_form_rejected": true,
+    "absence_of_query_form_elsewhere_proven": false,
+    "contract_45_2026_to_empenho_3286_2026_proven": false,
+    "payment_attribution_proven": false,
+    "coverage_after": 34,
+    "next_required_step": "PASSIVELY_MAP_EXERCICIO_NRO_EMPENHO_AND_SUBMMITAPPLY_TO_THEIR_EXACT_CURRENT_SESSION_AREA_OR_AREAS_ACROSS_THE_17_AREA_DASHBOARD"
+  }
+}

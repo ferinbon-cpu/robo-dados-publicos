@@ -1,0 +1,165 @@
+{
+  "version": 1,
+  "schema": "DIRECT_JSON_FIRST_SOURCE_DISCOVERY_POLICY_V1",
+  "task": "TASK_165_DIRECT_JSON_FIRST_SOURCE_DISCOVERY",
+  "issue": 542,
+  "base_sha": "f540a23fd9210f78a9116eef366eee75e1da3487",
+  "scope": "ROBOT_WIDE_SOURCE_DISCOVERY_AND_READ_ONLY_ACQUISITION_POLICY",
+  "purpose": "Prefer direct structured source retrieval over reverse engineering when an authorized machine-readable URL is already known or can be validated directly.",
+  "strategy_order": [
+    {
+      "rank": 1,
+      "strategy": "DIRECT_OFFICIAL_JSON_OR_API_GET",
+      "when": [
+        "exact_machine_readable_url_known",
+        "read_only_method_allowed",
+        "source_scope_authorized",
+        "entity_scope_can_be_validated"
+      ]
+    },
+    {
+      "rank": 2,
+      "strategy": "DIRECT_AUTHORIZED_MACHINE_READABLE_GET",
+      "when": [
+        "machine_readable_url_known",
+        "source_is_not_primary_but_is_authorized_for_discovery",
+        "provenance_role_is_explicit"
+      ]
+    },
+    {
+      "rank": 3,
+      "strategy": "DOCUMENTED_API_OR_DECLARED_DOWNLOAD_ROUTE",
+      "when": [
+        "direct_json_url_not_yet_known",
+        "official_documentation_or_declared_link_exposes_route"
+      ]
+    },
+    {
+      "rank": 4,
+      "strategy": "HTML_DOM_JS_PATH_REVERSE_ENGINEERING_FALLBACK",
+      "when": [
+        "no_suitable_machine_readable_endpoint_known_or_available",
+        "fallback_is_within_authorized_scope"
+      ],
+      "must_record_reason": true
+    }
+  ],
+  "direct_json_preference": {
+    "prefer_over": [
+      "html_scraping",
+      "dom_reverse_engineering",
+      "javascript_asset_inspection",
+      "guessing_internal_file_paths",
+      "chronological_path_reconstruction",
+      "search_engine_snippet_reconstruction"
+    ],
+    "does_not_override": [
+      "authentication_requirements",
+      "access_control",
+      "source_terms_or_policy",
+      "host_allowlists",
+      "owner_authorization_scope",
+      "mutation_prohibitions",
+      "raw_payload_persistence_policy"
+    ]
+  },
+  "authorization_reuse": {
+    "principle": "Do not request a new owner authorization for every page or equivalent GET when an active authorization explicitly covers the same source, host, purpose and read-only operation scope.",
+    "reusable_when_all": [
+      "authorization_active",
+      "same_source_family",
+      "same_or_authorized_host",
+      "same_declared_research_purpose",
+      "method_is_read_only_GET_or_equivalent_download",
+      "query_changes_are_within_authorized_filters_or_pagination",
+      "no_mutation",
+      "authorization_not_revoked_or_superseded"
+    ],
+    "typical_reusable_variations": [
+      "page_number",
+      "page_size_within_known_valid_limit",
+      "modality_or_category_filter_within_authorized_source_scope",
+      "date_filter_within_authorized_research_window",
+      "stable_id_detail_traversal_within_same_authorized_source_family"
+    ],
+    "new_authorization_required_when_any": [
+      "new_source_family_outside_scope",
+      "new_host_outside_scope",
+      "purpose_widens_beyond_authorized_research_scope",
+      "method_changes_to_write_or_mutation",
+      "credentials_or_privileged_access_newly_required",
+      "sensitive_or_restricted_data_scope_changes",
+      "authorization_revoked",
+      "authorization_superseded_by_narrower_scope"
+    ],
+    "preferred_authorization_shape_for_future_sources": "SOURCE_SCOPE_READ_ONLY_AUTHORIZATION_WITH_CLEAR_HOST_PURPOSE_AND_BOUNDARIES_RATHER_THAN_PER_URL_AUTHORIZATION"
+  },
+  "response_validation": {
+    "must_validate_before_ingestion": [
+      "http_success_or_equivalent_transport_success",
+      "content_is_structured_json_or_declared_machine_readable_format",
+      "expected_entity_identity",
+      "expected_source_family",
+      "query_scope_or_record_scope",
+      "required_schema_or_key_presence_when_defined"
+    ],
+    "entity_mismatch_action": "ENTITY_IDENTITY_MISMATCH",
+    "schema_mismatch_action": "SOURCE_SCHEMA_MISMATCH",
+    "transport_failure_action": "SOURCE_TRANSPORT_UNAVAILABLE",
+    "transport_failure_is_no_match": false
+  },
+  "pagination": {
+    "direct_json_pagination_preferred": true,
+    "follow_metadata_when_present": [
+      "totalRegistros",
+      "totalPaginas",
+      "numeroPagina",
+      "paginasRestantes",
+      "next",
+      "cursor"
+    ],
+    "exhaustive_negative_requires_complete_pagination": true,
+    "partial_result_can_create_exhaustive_no_match": false
+  },
+  "provenance": {
+    "preserve": [
+      "exact_url_or_endpoint_template",
+      "query_parameters",
+      "retrieval_mode",
+      "source_role",
+      "entity_identity",
+      "observed_at",
+      "stable_ids_from_payload"
+    ],
+    "recommended": [
+      "sha256",
+      "byte_count",
+      "content_type",
+      "response_metadata"
+    ]
+  },
+  "raw_payload_policy": {
+    "temporary_processing_allowed_when_authorized": true,
+    "git_persistence_default": false,
+    "drive_persistence_default": false,
+    "sanitized_derived_evidence_preferred": true,
+    "persistence_requires_separate_applicable_policy": true
+  },
+  "epistemic_guards": [
+    "DIRECT_JSON_SUCCESS_CAN_PROVE_ONLY_PAYLOAD_SCOPE",
+    "DIRECT_JSON_EMPTY_RESULT_IS_NOT_GLOBAL_NO_MATCH",
+    "TRANSPORT_FAILURE_IS_NOT_NO_MATCH",
+    "PARTIAL_PAGINATION_IS_NOT_EXHAUSTIVE",
+    "SOURCE_ROLE_MUST_BE_EXPLICIT",
+    "ENTITY_IDENTITY_MUST_MATCH",
+    "RAW_ANOMALIES_ARE_PRESERVED_NOT_SILENTLY_REPAIRED"
+  ],
+  "reference_example": {
+    "source": "PNCP",
+    "authorization_record": "config/task161_pncp_manual_publication_sweep_evidence_guards.v1.json",
+    "authorization_scope": "PNCP_LIVE_READ_DISCOVERY_ONLY",
+    "authorization_metering": "UNMETERED_WITHIN_PNCP_SCOPE_UNTIL_REVOKED_OR_SUPERSEDED",
+    "endpoint": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao",
+    "lesson": "Once the official JSON endpoint and broad read-only PNCP authorization were known, pagination/filter retrieval should use the JSON endpoint directly rather than re-discovering routes or requesting authorization per page."
+  }
+}

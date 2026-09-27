@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "schema": "METHODOLOGY_DOMAIN_REGISTRY_V1",
+  "pattern": "METHODOLOGY_JSON_ENGINEERING_PATTERN_V1",
+  "domains": [
+    {
+      "domain_id": "PUBLIC_BUDGET",
+      "status": "CONFORMING",
+      "conformance_version": 1,
+      "source_task": "TASK_163_PUBLIC_BUDGET_METHODOLOGY_JSON_BRAIN",
+      "methodology_path": "config/public_budget_methodology.v1.json",
+      "observation_contract_path": "config/public_budget_observation_contract.v1.json",
+      "router_path": "config/public_budget_question_router.v1.json",
+      "validator_path": "robo_dados_publicos/research/public_budget_methodology.py",
+      "test_path": "tests/test_task_163_public_budget_methodology.py",
+      "evidence_path": "docs/evidence/TASK_163_PUBLIC_BUDGET_METHODOLOGY_JSON_BRAIN_0.8.0.json",
+      "notes": "First reference implementation of the robot-wide methodology JSON engineering pattern."
+    }
+  ],
+  "future_domain_rule": "A methodological domain that meets the pattern decision rule should be registered here once its required components validate in CI."
+}

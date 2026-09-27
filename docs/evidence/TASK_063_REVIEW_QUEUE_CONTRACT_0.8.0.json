@@ -1,0 +1,11 @@
+{
+  "task":"TASK_063_REVIEW_QUEUE_CONTRACT",
+  "base_main_sha":"49c773407e23dd148ca1958c7a33aa3e28a87b94",
+  "authorization":{"token_index":3,"scope":"OFFLINE_REVIEW_QUEUE_CONTRACT"},
+  "purpose":"Make REVIEW an ordered, auditable operational queue rather than an indefinite manual bucket.",
+  "highest_priority":"SCHEMA_DRIFT",
+  "auto_resolution_requires":["KNOWN_FAMILY","MATURITY_READY","RULE_VERSION","PROVENANCE_RECORDED"],
+  "review_is_content_authorization":false,
+  "hard_boundaries":{"source_content_reads":0,"public_network_requests":0,"drive_writes":0,"layer_writes":0,"publications":0},
+  "result":"PASS_TASK063_REVIEW_QUEUE_CONTRACT_OFFLINE_READY"
+}

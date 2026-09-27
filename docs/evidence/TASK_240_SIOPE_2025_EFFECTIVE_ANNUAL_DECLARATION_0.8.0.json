@@ -1,0 +1,103 @@
+{
+  "evidence_schema": "TASK_240_SIOPE_2025_EFFECTIVE_ANNUAL_DECLARATION_V1",
+  "software_version": "0.8.0",
+  "task": "TASK_240",
+  "issue": 806,
+  "canonical_date": "2026-09-12",
+  "base_main_sha": "ff88a34613a4b9a1e7259f1fa7f72450777f9c7e",
+  "tier": "T0_OFFLINE_OPERATOR_PROVIDED_PRIMARY_FNDE_RESPONSE",
+  "scope": {
+    "year": 2025,
+    "period": 6,
+    "period_label": "Annual",
+    "uf": "SP",
+    "municipality_code": 352690,
+    "municipality": "Limeira",
+    "system": "SIOPE",
+    "boundary": "B3_EFFECTIVE_DECLARATION_ONLY"
+  },
+  "authoritative_response": {
+    "authority": "FNDE",
+    "unit": "SEOPS",
+    "document_type": "FORMULARIO_RESPOSTA_AO_CIDADAO",
+    "fala_br_nup": "23546.111502/2026-41",
+    "sei_document_number": "5783017",
+    "filename": "SEI_5783017_Formulario_de_Resposta_ao_Cidadao.pdf",
+    "sha256": "c34866e1f9b9383eb34996ecd69874302cfd508a89d55be25be6606fad2db554",
+    "bytes": 66632,
+    "mime": "application/pdf",
+    "raw_pdf_committed": false,
+    "operator_provided": true,
+    "signed_roles_observed": [
+      {"role": "Chefe do SEOPS", "date": "2026-09-03"},
+      {"role": "Coordenador da COSIC", "date": "2026-09-03"},
+      {"role": "Coordenador-Geral da CGFSE", "date": "2026-09-08"}
+    ]
+  },
+  "task016_intake": {
+    "path": "docs/evidence/TASK_240_FNDE_B3_AUTHORITATIVE_RESPONSE_INTAKE_0.8.0.json",
+    "status": "INTAKE_COMPLETE_FOR_BLOCKER_DECISION_REVIEW",
+    "propositions_proven_explicit": "4/4",
+    "promotion_performed_by_task016": false
+  },
+  "authoritative_system_rule": {
+    "later_rectifying_declaration_supersedes_previous_for_same_entity_exercise_period": true,
+    "new_receipt_corresponds_to_rectifying_declaration": true,
+    "previous_receipt_should_not_be_used_as_proof_of_current_declaration": true,
+    "effective_declaration_selection": "LATEST_DECLARATION_TRANSMITTED_AND_RECEIVED_SUCCESSFULLY",
+    "public_receipts_surface": "ALWAYS_LATEST_SUCCESSFUL_TRANSMISSION_RECEIPT",
+    "specific_manual_or_technical_document_exists": false,
+    "implemented_siope_operating_rule_confirmed": true
+  },
+  "pinned_limeira_receipt_evidence": {
+    "source_path": "docs/evidence/TASK_010N_R_E_M7_SIOPE_2025_LIMEIRA_ANNUAL_RECEIPT_EFFECTIVE_DECLARATION_0.8.0.json",
+    "observation_date": "2026-08-30",
+    "receipt_number": "428477-6",
+    "transmission_timestamp": "09/02/2026 14:10:26",
+    "processing_timestamp": "13/02/2026 12:47",
+    "successful_delivery": "PROVEN_OFFICIAL_RECEIPT",
+    "valid_annual_submission": "PROVEN",
+    "public_surface_retifying_indicator": "Não"
+  },
+  "deterministic_application": {
+    "rule_application": "At the pinned 2026-08-30 public receipt observation, receipt 428477-6 is the currently effective 2025 Annual declaration because FNDE states that the public receipt query always presents the latest transmission received successfully for the same entity, exercise and period.",
+    "currently_effective_declaration_at_pinned_observation": "PROVEN_RECEIPT_428477-6",
+    "temporal_boundary": "PINNED_OBSERVATION_2026-08-30",
+    "immutable_finality": "NOT_ASSERTED_AND_NOT_REQUIRED",
+    "future_successful_rectification_effect": "SUPERSEDES_PRIOR_DECLARATION_AND_REQUIRES_REFRESH"
+  },
+  "b3_decision": {
+    "old_state": "NOT_PROVEN_EFFECTIVE_SELECTION_RULE_MISSING",
+    "new_state": "PROVEN_DYNAMIC_EFFECTIVE_SELECTION_RULE_WITH_PINNED_LIMEIRA_RECEIPT",
+    "selection_rule_proven": true,
+    "pinned_limeira_effective_declaration_proven": true,
+    "future_state_can_change_after_successful_rectification": true,
+    "blocker_removed": true
+  },
+  "release_gate_effect": {
+    "B1_NUM_POPU": "RESOLVED_BY_EXCLUSION_FROM_ANALYTICAL_POPULATION_SEMANTICS",
+    "B2_FINANCIAL_ALIAS_BRIDGE": "PROVEN_10_OF_10_ALIAS_TO_CONCEPT",
+    "B3_EFFECTIVE_ANNUAL_DECLARATION": "PROVEN_DYNAMIC_EFFECTIVE_SELECTION_RULE_WITH_PINNED_LIMEIRA_RECEIPT",
+    "semantic_comparability_2016_2025": "UNKNOWN_REQUIRES_SEPARATE_GATE",
+    "annual_closure_status": "EFFECTIVE_DECLARATION_PROVEN_COMPARABILITY_PENDING",
+    "closed_annual_series": "2016-2024",
+    "gold_2025": "BLOCKED_NOT_CALCULATED",
+    "release_0_8_0": "CANDIDATE",
+    "automatic_release_promotion": false
+  },
+  "guards": {
+    "raw_fnde_pdf_committed": false,
+    "historical_task011_rewritten": false,
+    "historical_m7_receipt_evidence_rewritten": false,
+    "immutable_finality_inferred": false,
+    "future_rectification_ignored": false,
+    "semantic_comparability_inferred_from_b3": false,
+    "gold_2025_computed": false,
+    "release_promoted": false,
+    "remote_source_collection": false,
+    "drive_write": false,
+    "schedule_or_recurrence": false
+  },
+  "next_gate": "SEMANTIC_COMPARABILITY_2016_2025",
+  "decision": "RESOLVE_B3_WITH_AUTHORITATIVE_DYNAMIC_SELECTION_RULE_AND_PINNED_LIMEIRA_RECEIPT"
+}

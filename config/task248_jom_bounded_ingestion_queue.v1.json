@@ -1,0 +1,86 @@
+{
+  "baseline": {
+    "september_editions": [
+      7316,
+      7317,
+      7318,
+      7319,
+      7320
+    ],
+    "through_date": "2026-09-08",
+    "total_document_count": 99
+  },
+  "canonical_live_evidence": "docs/evidence/TASK_248_JOM_LIVE_DELTA_CANONICAL_0.8.0.json",
+  "effects": {
+    "document_download": false,
+    "drive_write": false,
+    "promotion": false,
+    "publication": false,
+    "raw_html_persisted": false,
+    "raw_pdf_persisted": false,
+    "recurrence": false,
+    "schedule": false,
+    "serving_write": false,
+    "source_network": false
+  },
+  "guards": [
+    "LIVE_RESULT_MUST_MATCH_TASK247_CONTRACT",
+    "RUN_AND_ARTIFACT_PROVENANCE_PINNED",
+    "RESULT_HASH_MUST_RECOMPUTE",
+    "QUEUE_COUNT_EXACTLY_4",
+    "QUEUE_IDS_EXACTLY_7321_7322_7323_7324",
+    "NO_BASELINE_OVERLAP",
+    "NO_ABSENCE_INFERENCE",
+    "NO_PDF_DOWNLOAD",
+    "NO_SOURCE_NETWORK",
+    "NO_DRIVE_WRITE",
+    "NO_SERVING_WRITE",
+    "NO_PUBLICATION",
+    "NO_PROMOTION",
+    "NO_SCHEDULE",
+    "NO_RECURRENCE"
+  ],
+  "issue": 826,
+  "items": [
+    {
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_08092026164608.pdf",
+      "edition": 7321,
+      "logical_key": "limeira/jornal_oficial/edicao/7321",
+      "publication_date": "2026-09-09",
+      "source_id": "LIMEIRA_JO_07321"
+    },
+    {
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_09092026164228.pdf",
+      "edition": 7322,
+      "logical_key": "limeira/jornal_oficial/edicao/7322",
+      "publication_date": "2026-09-10",
+      "source_id": "LIMEIRA_JO_07322"
+    },
+    {
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_10092026192416.pdf",
+      "edition": 7323,
+      "logical_key": "limeira/jornal_oficial/edicao/7323",
+      "publication_date": "2026-09-11",
+      "source_id": "LIMEIRA_JO_07323"
+    },
+    {
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_11092026183505.pdf",
+      "edition": 7324,
+      "logical_key": "limeira/jornal_oficial/edicao/7324",
+      "publication_date": "2026-09-12",
+      "source_id": "LIMEIRA_JO_07324"
+    }
+  ],
+  "next_gate": "OWNER_AUTHORIZED_BOUNDED_DOCUMENT_INGESTION_NOT_PART_OF_TASK248",
+  "queue_count": 4,
+  "schema": "TASK248_JOM_BOUNDED_INGESTION_QUEUE_V1",
+  "source": {
+    "allowed_document_hosts": [
+      "ecrie.com.br"
+    ],
+    "family": "LIMEIRA_JORNAL_OFICIAL"
+  },
+  "status": "INERT_OFFLINE_QUEUE_READY_FOR_SEPARATE_AUTHORIZATION",
+  "task": "TASK_248",
+  "version": 1
+}

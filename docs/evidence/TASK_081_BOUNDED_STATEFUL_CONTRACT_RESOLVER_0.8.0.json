@@ -1,0 +1,113 @@
+{
+  "schema": "TASK_081_BOUNDED_STATEFUL_CONTRACT_RESOLVER_EVIDENCE_V1",
+  "task": "TASK_081_BOUNDED_STATEFUL_CONTRACT_RESOLVER",
+  "software_version": "0.8.0",
+  "base_main_sha": "1edd1e23571201513e9bd94c1bc65c3789825031",
+  "authorization": {
+    "source": "owner_chat_instruction_2026-09-03",
+    "instruction": "Prossiga com o robo entao",
+    "pre_run_task_contract_commit": "4502c552593b4e01d7c1c272e6bd1304fe034be1",
+    "pre_run_task_contract_commit_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/commit/4502c552593b4e01d7c1c272e6bd1304fe034be1",
+    "pre_run_bounded_gate_commit": "c1ffc0ca8572308936b643672e03feccd9a3c978",
+    "pre_run_bounded_gate_commit_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/commit/c1ffc0ca8572308936b643672e03feccd9a3c978",
+    "historical_gate_chain": "docs/evidence/TASK_081_PRE_RUN_GATE_CHAIN_0.8.0.json",
+    "normalized_repository_record": "docs/evidence/TASK_081_BOUNDED_STATEFUL_CONTRACT_RESOLVER_OWNER_AUTHORIZATION_0.8.0.json",
+    "normalized_record_materialized_after_execution": true,
+    "scope": "ONE_TASK_MAX_3_SAME_ORIGIN_PUBLIC_READ_ONLY_HTTP_REQUESTS_NO_REMOTE_WRITES"
+  },
+  "selected_task": {
+    "task_id": "RECTASK_39a82b72abdffa19e0dba705",
+    "origin_event_id": "JOEV_00c81f5db32efcd0414f",
+    "origin_source_id": "LIMEIRA_JO_07127",
+    "target_source": "LIMEIRA_CONTRATOS",
+    "year": 2025,
+    "contract_number": "09/2025.",
+    "cnpj": "12226306000140",
+    "process_hint": "29.185/2025."
+  },
+  "live_run": {
+    "run_id": 33760913444,
+    "run_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/actions/runs/33760913444",
+    "run_created_at": "2026-09-03T13:23:48Z",
+    "workflow_head_sha": "c1ffc0ca8572308936b643672e03feccd9a3c978",
+    "workflow_at_head_url": "https://github.com/ferinbon-cpu/robo-dados-publicos/blob/c1ffc0ca8572308936b643672e03feccd9a3c978/.github/workflows/task-081-contract-resolver-live-once.yml",
+    "workflow_head_equals_pre_run_gate_commit": true,
+    "workflow_path_at_head": ".github/workflows/task-081-contract-resolver-live-once.yml",
+    "conclusion": "success",
+    "artifact_id": 9895394661,
+    "artifact_digest": "sha256:6fcf5c5f956ee2de514bad93650483be68ef38b8f05acdbe12483881e14d5aba",
+    "artifact_result_canonical_sha256": "a375c5a55f8cd701eebdec4cc93e89663eb636b8d7e78db530ab81d7d3a6155e"
+  },
+  "remote_budget": {
+    "maximum_requests": 3,
+    "actual_requests": 3,
+    "same_origin_only": true,
+    "host": "serv42.limeira.sp.gov.br",
+    "methods": ["GET", "POST", "POST"]
+  },
+  "transport_observation": {
+    "form_discovery": "PASS_FORM_DISCOVERY",
+    "scriptcase_autocomplete_contract_pair": "FOUND_SCRIPTCASE_AUTOCOMPLETE_PAIR",
+    "autosubmit_relay": "PASS_PROVEN_AUTOSUBMIT_RELAY",
+    "relay_same_origin": true,
+    "result_table_rows": 18
+  },
+  "raw_prefilter_result": {
+    "status": "MATCH_CANDIDATE",
+    "candidate_count": 2,
+    "qualification_rule_exposed_as_insufficient": "CONTRACT_STEM_PLUS_YEAR_ALONE",
+    "candidate_summaries": [
+      {"document_class": "CONTRATOS", "number": "9/2025", "process": "30903/2024", "supplier": "ART MULTIMÍDIA - COMÉRCIO E SERVIÇOS LTDA", "expected_cnpj_observed": false, "expected_process_observed": false},
+      {"document_class": "ATAS", "number": "9/2025", "process": "24835/2024", "supplier": "FUTURA COMÉRCIO DE PRODUTOS MÉDICOS HOSPITALARES LTDA", "expected_cnpj_observed": false, "expected_process_observed": false}
+    ]
+  },
+  "semantic_audit": {
+    "raw_candidates_accepted_as_identity": 0,
+    "contract_identity_assertions": 0,
+    "financial_identity_assertions": 0,
+    "diagnosis": "FALSE_POSITIVE_QUALIFICATION_RISK_NUMBER_YEAR_COLLISION_ACROSS_UNRELATED_DOCUMENTS",
+    "corrected_interpretation": "NO_COMPATIBLE_CANDIDATE_IN_CAPTURED_RESULT",
+    "global_no_match_asserted": false
+  },
+  "offline_hardening": {
+    "policy_module": "robo_dados_publicos/reconciliation/contract_candidate_policy.py",
+    "integration": "EXPLICIT_LIMEIRA_CONTRACTS_RESOLVER_DELEGATION_NO_IMPORT_TIME_MONKEY_PATCH",
+    "automation_policy_changed": false,
+    "automation_policy_reason": "SEMANTIC_CANDIDATE_QUALIFICATION_IS_NOT_AN_AUTOMATION_GATE",
+    "requires_standalone_normalized_contract_reference": true,
+    "rejects_ambiguous_multiple_references_inside_contract_cell": true,
+    "does_not_infer_separate_cell_role_from_slash_syntax": true,
+    "rejects_date_process_filename_fragments": true,
+    "allows_surrounding_documentary_text": true,
+    "requires_exact_14_digit_cnpj_cell_when_cnpj_key_exists": true,
+    "requires_supplier_agreement_when_supplier_key_exists": true,
+    "legacy_contract_full_signal_preserved_after_proven_reference": true,
+    "object_similarity_used_for_promotion": false,
+    "repeat_live_query": false,
+    "review_hardening_remote_requests": 0,
+    "captured_live_rows_expected_candidate_count_after_policy": 0,
+    "end_to_end_synthetic_resolver_test_added": true,
+    "ci_workflow_dry_run_flag_test_added": true,
+    "ci_live_runtime_isolation_test_added": true
+  },
+  "ci_dry_run_proof": {
+    "workflow": ".github/workflows/ci-offline.yml",
+    "script": "scripts/github_siope_official_olinda_api_application_dom_structural_binding_diagnostics_gate.py",
+    "argparse_flag": "--dry-run",
+    "dispatch": "run_gate(dry=args.dry_run)",
+    "live_runtime_must_not_be_called_in_test": true
+  },
+  "hard_boundaries": {
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "state_registry_writes": 0,
+    "queue_writes": 0,
+    "serving_writes": 0,
+    "publications": 0,
+    "schedule_added": false,
+    "recurrence_added": false,
+    "automatic_contract_identity": false,
+    "automatic_financial_identity": false
+  },
+  "result": "PASS_TASK081_STATEFUL_QUERY_PROVED_AND_FALSE_POSITIVE_CANDIDATE_POLICY_HARDENED_OFFLINE"
+}

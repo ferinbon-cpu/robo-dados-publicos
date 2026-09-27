@@ -1,0 +1,95 @@
+{
+  "version": 2,
+  "schema": "TASK201_WORKFORCE_LIVE_PROBE_V2",
+  "task": "TASK_201A2_SME_WORKFORCE_DISCOVERY",
+  "mode": "T1_BOUNDED_READ_ONLY_SME_WORKFORCE_DISCOVERY",
+  "base_main_sha": "e6330c82813fe93b2b82cff9d1e3ec1559eb3fb5",
+  "authorization_issue": 639,
+  "prior_inep_probe": {
+    "run_id": 34164368084,
+    "status": "TRANSPORT_BLOCKED",
+    "error": "URLERROR_3_OF_3",
+    "retry_in_task201a2": false
+  },
+  "sources": {
+    "sme_home": {
+      "url": "https://www.sme.limeira.sp.gov.br/",
+      "allowed_hosts": [
+        "www.sme.limeira.sp.gov.br",
+        "sme.limeira.sp.gov.br"
+      ],
+      "max_http_attempts": 2
+    },
+    "sme_app_menu": {
+      "url": "https://www.sme.limeira.sp.gov.br/app/app_menu.php",
+      "allowed_hosts": [
+        "www.sme.limeira.sp.gov.br",
+        "sme.limeira.sp.gov.br"
+      ],
+      "max_http_attempts": 2
+    },
+    "sme_contracted": {
+      "url": "https://sme.limeira.sp.gov.br/contratado_classe.php",
+      "allowed_hosts": [
+        "sme.limeira.sp.gov.br",
+        "www.sme.limeira.sp.gov.br"
+      ],
+      "max_http_attempts": 2,
+      "expected_title": "PROFESSORES CONTRATADOS EM CLASSE"
+    }
+  },
+  "discovery": {
+    "allowed_href_keywords": [
+      "atrib",
+      "efetiv",
+      "docente",
+      "classe",
+      "turma",
+      "rh",
+      "professor"
+    ],
+    "same_sme_hosts_only": true,
+    "strip_query_and_fragment": true,
+    "max_paths": 50
+  },
+  "target": {
+    "required_bond_labels": [
+      "EFETIVO",
+      "CLT_PROCESSO_SELETIVO"
+    ]
+  },
+  "privacy": {
+    "person_level_input_ephemeral_only": true,
+    "raw_sme_html_persisted": false,
+    "raw_sme_html_artifact": false,
+    "names_persisted": false,
+    "cpf_persisted": false,
+    "matricula_persisted": false,
+    "person_hashes_persisted": false,
+    "aggregate_only": true
+  },
+  "output": {
+    "sanitized_json_only": true,
+    "raw_html_persisted": false,
+    "staff_count_materialized": false,
+    "employment_bond_materialized": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "guards": [
+    "OFFICIAL_SME_FIXED_URLS_ONLY",
+    "SAME_SME_HOST_REDIRECT_ONLY",
+    "MAX_TWO_HTTP_ATTEMPTS_PER_FIXED_URL",
+    "RAW_HTML_EPHEMERAL_ONLY",
+    "NO_PERSON_LEVEL_OUTPUT",
+    "ASSIGNMENT_ROWS_NE_UNIQUE_PEOPLE",
+    "CLT_CONTRACTED_NE_ALL_NON_EFFECTIVE_BONDS",
+    "INEP_TRANSPORT_BLOCKED_NOT_ZERO_NOT_RETRIED",
+    "DISCOVER_HREFS_NOT_BLIND_URL_GUESSING",
+    "NO_STAFF_OR_BOND_MATERIALIZATION_IN_TASK201A2",
+    "NO_DRIVE_WRITE_NO_SERVING_NO_PUBLICATION_NO_RECURRENCE"
+  ]
+}

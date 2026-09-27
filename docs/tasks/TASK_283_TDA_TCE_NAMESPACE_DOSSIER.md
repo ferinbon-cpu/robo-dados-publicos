@@ -136,7 +136,7 @@ A saída corrente deve permanecer `UNRESOLVED_MISSING_OFFICIAL_NAMESPACE_WITNESS
 
 Uma aquisição live posterior deve ser uma operação separada, bounded e materializada antes da execução. Prioridades:
 
-1. TASK284 / issue #907: uma sessão fresca no portal oficial, com binding único provado antes de uma consulta do exercício 2026 e empenho 3286; parar em ambiguidade;
+1. TASK284 / issue #907: a sessão autorizada terminou em `STOP_AREA_IDENTITY_NOT_PROVEN_BEFORE_TOP_ACTION`, com uma navegação e nenhuma consulta. A autorização foi consumida; consultar a evidência própria, sem repetir a sessão;
 2. obter Nota de Empenho original ou extrato de integração do sistema municipal que vincule `03286-01`, número contábil 3286, exercício original 2026 e Prefeitura de Limeira; a mera resposta a um filtro numérico não basta;
 3. alternativamente, obter documentação oficial da convenção aplicável à versão municipal, explicando zeros e `-01`;
 4. rota AUDESP: remessa `Empenho de Contrato` desse par número/ano, remessa `Ajuste` que ligue `codigoContrato` ao Contrato 45/2026, identificação oficial dos códigos município/entidade e crosswalk de origem preservando `03286-01`. Não presumir que `45/2026` seja o `codigoContrato`.

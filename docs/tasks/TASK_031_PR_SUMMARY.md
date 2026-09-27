@@ -1,0 +1,1 @@
+Primary correction: use full Jornal Oficial editions as F01 extraction originals. Keep standalone Prefeitura PDFs as complementary official copies. Do not require full equivalence before Jornal extraction. Live download/custody remains a separate next gate.

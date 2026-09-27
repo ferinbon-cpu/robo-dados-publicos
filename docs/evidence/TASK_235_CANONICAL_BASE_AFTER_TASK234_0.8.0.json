@@ -1,0 +1,17 @@
+{
+  "task": "TASK_235",
+  "canonical_base": {
+    "branch": "main",
+    "sha": "c713054506e625af7bb8d40c7b6527ce5d547497",
+    "source_merge": "PR #785 / TASK 234",
+    "post_merge_validation": {
+      "offline_ci_run_number": 1794,
+      "offline_ci_conclusion": "success",
+      "hash_routing": "success",
+      "fragment_target": "success",
+      "loaded_signatures": "success"
+    }
+  },
+  "created_for": "Ensure TASK 235 is reviewed and tested directly against the stable post-TASK234 main without stacked-branch history.",
+  "contextual_coverage": "38/38_UNCHANGED"
+}

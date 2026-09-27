@@ -1,0 +1,8 @@
+{
+  "task": "TASK_031_BUDGET_LAWS_JOURNAL_SOURCE_FIRST",
+  "status": "OFFLINE_IMPLEMENTED_PENDING_PR_CI",
+  "live_acquisition": false,
+  "drive_write": false,
+  "silver": false,
+  "gold": false
+}

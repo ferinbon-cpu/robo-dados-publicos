@@ -1,0 +1,74 @@
+{
+  "task":"TASK_219M_TDA_JS_STATIC_MINING_CANONIZATION",
+  "issue":715,
+  "parent_issue":691,
+  "canonical_date":"2026-09-09",
+  "base_main_sha":"715c2a5369452c1a79e8db4235d1b747e1638f00",
+  "runtime":{
+    "run_id":34413105966,
+    "job_id":102671808689,
+    "execution_head_sha":"c43b95a0301db4d18dc05484064bcfb3a506ebde",
+    "artifact_id":10128000020,
+    "artifact_zip_sha256":"6053ea0e936e8f4d451f11c7335a6bbdede80b04f0bc0f051ae85479f8e9278a",
+    "artifact_member_sha256":"9571188548cf0fc57c11a24b3ca91618d621b1a54d321e6a22ff16cbe3f77fab",
+    "executed_workflow_blob_sha":"f180645fc3dfce13d5db1638a4ad08865f4402df",
+    "historical_workflow_blob_sha":"f180645fc3dfce13d5db1638a4ad08865f4402df",
+    "historical_source_exact_blob_match":true,
+    "workflow_removed_after_run":true,
+    "workflow_removal_commit":"0b5ed0ac004592c4e94e8e98a8dec915af6d0ea3"
+  },
+  "static_source_adjudication":{
+    "all_six_known_scripts_http_200":true,
+    "key_transport_script":"/aportalclientjs.aspx",
+    "key_transport_script_sha256":"f8ce8973c88faad20b81649ed0151e56f1de06347b3bb47993a0da9892bc8cd6",
+    "appendAreasWS_function_proven":true,
+    "awsgetcontentareas_post_proven_by_source":true,
+    "LayerInfo_form_field_proven_by_source":true,
+    "response_parse_as_json_proven_by_source":true,
+    "LayerInfo_id_to_DOM_binding_proven_by_source":true,
+    "filterarea_DOM_binding_proven_by_source":true,
+    "title_DOM_binding_proven_by_source":true,
+    "autorefresh_reuses_area_id_proven_by_source":true,
+    "runafter_eval_behavior_proven_by_source":true
+  },
+  "client_model_adjudication":{
+    "technology":"GeneXus C# 15_0_12-126726",
+    "program":"TDA.Programs.tdaportalclient",
+    "portal_state_control":"vSDT_TDAPORTAL",
+    "portal_state_type":"SDT_TDAPortal",
+    "portal_state_top_level_structure_proven":true,
+    "area_state_type":"SDT_TDAPortal.Layer.Area",
+    "area_state_structure_proven":true,
+    "main_div_click_server_event_proven":true,
+    "specific_PortalActionHandle_to_server_event_link":"CONSISTENT_WITH_W5DIVHELPER_BRIDGE_NOT_FULLY_PROVEN_BY_STATIC_SOURCE_ALONE"
+  },
+  "major_scientific_gain":{
+    "runtime_inference_replaced_by_static_source_proof":true,
+    "dom_binding_task_is_no_longer_needed":true,
+    "new_primary_state_target":"vSDT_TDAPORTAL",
+    "reason":"The public generated client exposes a typed SDT_TDAPortal control containing Layers, while appendAreasWS proves that returned LayerInfo.id directly selects the destination DOM area. Reading the already-loaded vSDT_TDAPORTAL state is therefore a more direct route to layer/area identity than generic DOM correlation.",
+    "next_safe_question":"Does the already-loaded public vSDT_TDAPORTAL state expose Layer/Area names, IDs, origins, types or AreaLayerJson metadata sufficient to identify the Despesas area without interaction?"
+  },
+  "negative_static_result":{
+    "explicit_accounting_terms_in_six_scripts":false,
+    "expense_module_name_in_generic_scripts":false,
+    "meaning":"Module-specific identity is not embedded in the six generic/public client scripts; it is likely carried in runtime portal state or server-generated content."
+  },
+  "fail_closed":{
+    "expense_layer_identity_proven":false,
+    "direct_query_contract_for_specific_area_proven":false,
+    "commitment_3286_2026_queried":false,
+    "contract_45_2026_identity_proven":false,
+    "payment_attribution_proven":false,
+    "question_promotion_performed":false,
+    "contextual_paths_before":34,
+    "contextual_paths_after":34,
+    "remaining_blockers":["CTRL_Q2","PROC_Q1","PROC_Q2","PROC_Q3"]
+  },
+  "authorization_consumption":{
+    "task219m_scope_complete":true,
+    "authorization_exhausted_for_future_network":true,
+    "new_authorization_required_for_passive_vSDT_TDAPORTAL_state_capture_or_any_direct_or_interactive_query":true
+  },
+  "next_action":"FUTURE_PASSIVE_ONLY: read and sanitize the already-loaded vSDT_TDAPORTAL client state in one public browser session; persist layer/area schema and non-sensitive names/IDs/origins/types only. Do not POST/replay LayerInfo or query Empenho 3286-2026 yet."
+}

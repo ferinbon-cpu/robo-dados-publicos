@@ -1,0 +1,140 @@
+{
+  "task": "TASK_109",
+  "version": "0.8.0",
+  "mode": "T0_OFFLINE_VISUAL_OCR_CAPABILITY_INVENTORY",
+  "issue": 415,
+  "source_gap": "PPA_2018_2021_ONLY",
+  "observed_ci": {
+    "run_id": 33917496591,
+    "job_id": 101168021407,
+    "head_sha": "6723aee2ba5391ecff94e0fdbfaa5c779cd2bd51",
+    "inventory_marker": "TASK109_VISUAL_OCR_CAPABILITY",
+    "conclusion": "success"
+  },
+  "observed_inventory": {
+    "commands": {
+      "tesseract": null,
+      "google-chrome": "/usr/bin/google-chrome",
+      "chromium": "/usr/bin/chromium",
+      "chromedriver": "/usr/bin/chromedriver",
+      "pdftoppm": null,
+      "pdfimages": null,
+      "mutool": null,
+      "gs": null,
+      "magick": null,
+      "convert": null
+    },
+    "python_modules": {
+      "PIL": true,
+      "fitz": false,
+      "cv2": false,
+      "pytesseract": false,
+      "pdf2image": false
+    }
+  },
+  "decision": "STOP_NO_LOCAL_OCR_CHAIN_CHROME_IMAGE_ONLY_NEGATIVE",
+  "decision_reason": [
+    "NO_TESSERACT_OR_OTHER_OCR_ENGINE_OBSERVED",
+    "NO_POPPLER_GHOSTSCRIPT_OR_PYMUPDF_RENDER_CHAIN_OBSERVED",
+    "SYNTHETIC_IMAGE_ONLY_PDF_CONFIRMED_TEXT_EMPTY_BY_PYPDF",
+    "CHROME_ACCESSIBILITY_TREE_RETURNED_ZERO_STRINGS_FOR_IMAGE_ONLY_PDF",
+    "MARKER_NOT_RECOVERED_IN_AX_SOURCE_OR_BODY_INNER_TEXT"
+  ],
+  "real_source_read_authorized": false,
+  "real_source_ocr_authorized": false,
+  "package_install_authorized": "CONSUMED_PYPDF_6_10_0_SYNTHETIC_PROOF_ONLY_NO_OCR_STACK",
+  "synthetic_image_only_pdf_ocr_proof_run": true,
+  "next_boundary": "TASK_110_T0_OCR_DEPENDENCY_ROUTE_DESIGN_SEPARATE_REVIEW",
+  "remote_effects": {
+    "network": false,
+    "source_read": false,
+    "drive_read": false,
+    "drive_write": false,
+    "ocr_real_source": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  },
+  "synthetic_proof_scope": {
+    "real_source_read": false,
+    "real_source_ocr": false,
+    "source_network": false,
+    "allowed_dependency_install": [
+      "pypdf==6.10.0"
+    ],
+    "forbidden_dependency_install": [
+      "tesseract",
+      "poppler",
+      "ghostscript",
+      "imagemagick",
+      "pymupdf",
+      "opencv",
+      "pytesseract",
+      "pdf2image"
+    ],
+    "purpose": "VERIFY_IMAGE_ONLY_PDF_HAS_NO_TEXT_LAYER_AND_TEST_CHROME_ACCESSIBILITY_ONLY"
+  },
+  "synthetic_chrome_proof": {
+    "run_id": 33917837446,
+    "job_id": 101169024384,
+    "execution_head_sha": "5d886bc0d2b528a53d21a67020bd3dbeffe072b4",
+    "conclusion": "success",
+    "dependency_install": [
+      "pypdf==6.10.0"
+    ],
+    "schema": "TASK109_CHROME_IMAGE_ONLY_PDF_PROBE_V1",
+    "status": "PROBED",
+    "marker": "TASK109_IMAGE_ONLY_PDF_MARKER_48317",
+    "synthetic_png_bytes": 18356,
+    "synthetic_pdf_bytes": 18287,
+    "pdf_page_count": 1,
+    "pdf_text_empty": true,
+    "ax_string_count": 0,
+    "marker_in_ax": false,
+    "marker_in_source": false,
+    "marker_in_body_inner_text": false,
+    "source_network_requests": 0,
+    "source_reads": 0,
+    "real_source_ocr": false,
+    "preserved_source": "docs/evidence/TASK_109_EXECUTED_CHROME_IMAGE_ONLY_WORKFLOW_SOURCE_0.8.0.txt",
+    "executed_workflow_blob_sha": "04bc20abf4c5e2df8308f0fa57ecbb706fcb60a2",
+    "executed_source_proven": true
+  },
+  "explicit_inventory_workflow": {
+    "run_id": 33917458022,
+    "job_id": 101167825670,
+    "execution_head_sha": "2ab5ed645a18a4bfd36ba006ce719d3e42b75dbc",
+    "conclusion": "success",
+    "preserved_source": "docs/evidence/TASK_109_VISUAL_OCR_INVENTORY_WORKFLOW_SOURCE_0.8.0.txt",
+    "observed_system_python": {
+      "commands": {
+        "chromedriver": "/usr/bin/chromedriver",
+        "chromium": "/usr/bin/chromium",
+        "convert": null,
+        "google-chrome": "/usr/bin/google-chrome",
+        "gs": null,
+        "magick": null,
+        "mutool": null,
+        "pdfimages": null,
+        "pdftoppm": null,
+        "tesseract": null
+      },
+      "python_modules": {
+        "PIL": false,
+        "cv2": false,
+        "fitz": false,
+        "pdf2image": false,
+        "pytesseract": false
+      }
+    },
+    "source_network_requests": 0,
+    "source_reads": 0,
+    "package_installs": 0,
+    "real_source_ocr": false
+  },
+  "workflow_cleanup_required": true
+}

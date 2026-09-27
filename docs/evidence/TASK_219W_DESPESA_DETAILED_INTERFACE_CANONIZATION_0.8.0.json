@@ -1,0 +1,102 @@
+{
+  "task": "TASK_219W_DESPESA_DETAILED_INTERFACE_CANONIZATION",
+  "issue": 736,
+  "parent_issue": 691,
+  "canonical_date": "2026-09-10",
+  "base_main_sha": "83d1389249368ed3f65c7be029e0d0d78e881e26",
+  "runtime": {
+    "run_id": 34492523000,
+    "job_id": 102922620419,
+    "execution_head_sha": "173851332cdf4f3a890dcb05cee65d48ee3ee35c",
+    "artifact_id": 10158373823,
+    "artifact_zip_sha256": "8ae4a91d74c1e6b82ba2c823ea8fec164a82fcabf86e97b91d14321efcb20e06",
+    "artifact_retention_days": 1,
+    "artifact_eligible_as_canonical_evidence": false,
+    "reason_artifact_not_canonical": "the transient carrier captured one technical anti-forgery/session scalar before the sanitization defect was detected; that scalar is not copied, reused, or persisted in canonical evidence",
+    "artifact_delete_action_available_in_connector": false,
+    "executed_workflow_blob_sha": "f2d3fb1b556e99829e023919926e98df9fd9d776"
+  },
+  "carrier_sanitization_correction": {
+    "control_values_are_never_persisted_after_correction": true,
+    "opaque_post_bodies_are_not_promoted_to_post_key_names_after_correction": true,
+    "security_scalar_value_persisted_in_this_canonical_file": false,
+    "security_scalar_reused": false,
+    "historical_runtime_artifact_must_expire": true
+  },
+  "pre_action_revalidation": {
+    "fresh_despesa_AreaId": "70b55d4a98884e2590e54c1ad6ee0270DSA6",
+    "AreaId_is_session_scoped": true,
+    "four_inline_script_bindings_revalidated": true,
+    "unique_action_kind": "doLink",
+    "parameter_template": "<CURRENT_SESSION_AreaId>**##**V1343[vl]"
+  },
+  "action_execution": {
+    "proven_doLink_invocations": 1,
+    "direct_element_clicks": 0,
+    "fresh_AreaId_used": true,
+    "manual_fetch_xhr": 0,
+    "direct_endpoint_calls": 0,
+    "retries": 0
+  },
+  "post_action_portal": {
+    "url_path_changed": false,
+    "area_count_before": 8,
+    "area_count_after": 17,
+    "new_detailed_area_names_proven": [
+      "LAI - Onde estamos aplicando seu dinheiro",
+      "Empenhado/Pago por Exercício",
+      "Empenhado/Pago por Secretaria",
+      "Empenhado ou Pago por Modalidade",
+      "Previsto/Empenhado por Programa e Secretaria",
+      "Empenhado",
+      "Processado",
+      "Pago",
+      "Detalhe do Empenho"
+    ],
+    "same_page_dynamic_dashboard_proven": true
+  },
+  "explicit_query_controls_proven": {
+    "exercise_selector": {
+      "public_label": "Exercício",
+      "option_2026_present": true
+    },
+    "commitment_number_input": {
+      "name": "Nro Empenho",
+      "public_label": "Nro Empenho",
+      "type": "text",
+      "multiple_dashboard_occurrences_exist": true
+    },
+    "classification_selector": {
+      "public_label": "Classificação de Despesa",
+      "present": true
+    },
+    "date_basis_selector": {
+      "public_label": "Filtrar por:",
+      "options_include": [
+        "Data de Empenho",
+        "Data de processamento",
+        "Data de Pagamento"
+      ]
+    },
+    "exact_target_area_name_to_current_AreaId_mapping": "REQUIRES_FRESH_219X_SESSION_REVALIDATION",
+    "exact_submit_binding_for_target_area": "REQUIRES_FRESH_219X_SESSION_REVALIDATION"
+  },
+  "safe_automatic_network_summary": [
+    {"method": "POST", "path": "/tdaportalclient.aspx"},
+    {"method": "POST", "path": "/awsgetcontentareas.aspx", "known_safe_post_key": "LayerInfo"},
+    {"method": "GET", "path": "/uploads/cloud-download.png"}
+  ],
+  "scientific_adjudication": {
+    "detailed_despesa_dashboard_proven": true,
+    "explicit_Exercicio_and_Nro_Empenho_query_controls_proven": true,
+    "Empenho_3286_2026_queried": false,
+    "contract_45_2026_identity_proven": false,
+    "payment_attribution_proven": false,
+    "coverage_after": 34,
+    "leap_3_may_attempt_exact_official_empenho_query_after_same_session_target_and_submit_revalidation": true
+  },
+  "authorization_sequence": {
+    "position_completed": "LEAP_2_OF_3",
+    "next_position_available": "LEAP_3_OF_3"
+  }
+}

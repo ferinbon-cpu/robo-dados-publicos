@@ -1,0 +1,93 @@
+{
+  "schema": "TASK_088_CONTRACT_RESOLVER_READINESS_EVIDENCE_V1",
+  "task": "TASK_088_CONTRACT_RESOLVER_READINESS",
+  "software_version": "0.8.0",
+  "base_main_sha": "2a349256b54400afddae6b63817fc97fc11b4c8f",
+  "authorization": {
+    "source": "OWNER_CHAT_INSTRUCTION_2026-09-04",
+    "instruction": "Prossiga e registre no drive",
+    "interpreted_scope": "OFFLINE_RESOLVER_READINESS_CLASSIFICATION_AND_NEXT_EXECUTABLE_SELECTION",
+    "live_municipal_query_authorized_by_this_task": false
+  },
+  "source_plan": {
+    "sha256": "faf27576b5b2c3b3c542ae41eeac90c415da1d2f50b6ae8021e1c04bf246d7bc",
+    "bytes": 52843,
+    "tasks": 65,
+    "source_bytes_reused_from_task087_current_turn": true,
+    "new_drive_reads": 0
+  },
+  "consumed_task_ids": [
+    "RECTASK_39a82b72abdffa19e0dba705",
+    "RECTASK_6600049d5284824e9a0a44a6"
+  ],
+  "readiness_policy": {
+    "implementation": "LimeiraContractsResolver.has_minimum_search_key",
+    "permitted_primary_query_keys": [
+      "contract_number",
+      "contractor"
+    ],
+    "corroborating_only": [
+      "cnpj",
+      "object_text",
+      "process_number",
+      "edital_number"
+    ],
+    "broad_object_or_cnpj_only_query_forbidden": true
+  },
+  "candidates_in_plan_order": [
+    {
+      "task_id": "RECTASK_78d06bc26f825243c23375c6",
+      "task_sha256": "abf65314248db88f3d26c615281b2c8f3871efee3b1b8725e0fd5de653352287",
+      "year": 2025,
+      "cnpj": "29494115000161",
+      "edital_number": "15/2024",
+      "process_number": "903.340/2025",
+      "minimum_search_key_present": false,
+      "routing": "BLOCKED_CONNECTOR_DISCOVERY_NOT_CONSUMED"
+    },
+    {
+      "task_id": "RECTASK_bf460d6fbffa22124902553f",
+      "task_sha256": "ffbe78c55c1f9f5c2576bcbcc92da195df0048b991450bdc81613bac6988ad60",
+      "year": 2025,
+      "cnpj": "59448656000114",
+      "contract_number": "10/2025.",
+      "process_number": "32.754/2025.",
+      "minimum_search_key_present": true,
+      "routing": "NEXT_EXECUTABLE"
+    },
+    {
+      "task_id": "RECTASK_9060935fe5220f738bddfdb4",
+      "task_sha256": "2299cdbb2485cedb327b7b4d53f692e69515dac2fd7db875dac525ed894a0ebd",
+      "year": 2025,
+      "contract_number": "08/2025.",
+      "minimum_search_key_present": true,
+      "routing": "EXECUTABLE_AFTER_CURRENT_NEXT"
+    }
+  ],
+  "next_executable_task_id": "RECTASK_bf460d6fbffa22124902553f",
+  "next_executable_task_sha256": "ffbe78c55c1f9f5c2576bcbcc92da195df0048b991450bdc81613bac6988ad60",
+  "hard_boundaries": {
+    "municipal_source_requests": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "state_registry_writes": 0,
+    "queue_writes": 0,
+    "serving_writes": 0,
+    "publications": 0,
+    "contract_identity_assertions": 0,
+    "financial_identity_assertions": 0
+  },
+  "next_gate_candidate": {
+    "purpose": "ONE_BOUNDED_STATEFUL_LIMEIRA_CONTRATOS_QUERY_FOR_RECTASK_bf460d6fbffa22124902553f",
+    "maximum_http_requests": 3,
+    "same_origin_only": true,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "state_registry_writes": 0,
+    "queue_writes": 0,
+    "serving_writes": 0,
+    "publications": 0,
+    "authorized_by_task088": false
+  },
+  "result": "PASS_TASK088_INELIGIBLE_RAW_TASK_PRESERVED_AND_NEXT_EXECUTABLE_SELECTED"
+}

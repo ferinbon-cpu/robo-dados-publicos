@@ -1,0 +1,60 @@
+{
+  "task":"TASK_219S_CLIENT_UNESCAPEHTML_DESPESA_PASSIVE_PAYLOAD",
+  "issue":727,
+  "base_main_sha":"d2bf447e124732f4700d5c948f8c53b0a80ace0a",
+  "execution_head_sha":"2d86401d00f9397ba24254fdd7f12d32669088ea",
+  "run_id":34478265183,
+  "job_id":102874304014,
+  "artifact_id":10152447866,
+  "artifact_zip_sha256":"58b73b4dc98d617ae139cacb3e552756af799eefd50d549549cfbabc9afffcba",
+  "artifact_member":"task219s_result.json",
+  "artifact_member_sha256":"3ca6ec45734d2d02db9c18fb4ef106b2ecf43fe1541523aade747f30c7bfa6e1",
+  "artifact_member_bytes":3303,
+  "status":"PASS_CLIENT_DECODER_NOT_CALLABLE_OR_NO_TEXT_OUTPUT",
+  "boundary":{
+    "browser_sessions":1,
+    "manual_navigations":1,
+    "clicks":0,
+    "typing":0,
+    "form_submissions":0,
+    "manual_fetch_xhr":0,
+    "direct_endpoint_calls":0,
+    "portal_action_triggers":0,
+    "layerinfo_replay":0,
+    "layerinfo_synthesis":0,
+    "retries":0,
+    "commitment_lookup":0
+  },
+  "current_session_despesa":{
+    "AreaId":"159c60a8cace44f89c165511a12a724eDSA6",
+    "AreaName":"Despesa",
+    "AreaOrigin":"2_92_guestuser_207_6_DSL0_VIS1343",
+    "AreaType":"content",
+    "layer_index":1,
+    "area_index":3
+  },
+  "automatic_binding":{
+    "automatic_request_count":8,
+    "same_session_request_match_count":1,
+    "selected_info_length":11305,
+    "selected_info_sha256":"51cd1a5e70b65fb7b4fb7cb87719b9f81aaa08a08b953b7d59b26e2070b0aab8",
+    "selected_info_persisted":false
+  },
+  "runtime_decoder_probe":{
+    "window_unescapeHTML_callable":false,
+    "candidate_global_count":0,
+    "resolved_name":null,
+    "function_source_length":0,
+    "transformed_output_produced":false,
+    "runtime_effect":"No transformed output was inspected because the predeclared global-function hypothesis was false."
+  },
+  "post_runtime_offline_static_reconciliation":{
+    "source":"TASK 219M archived raw/aportalclientjs.aspx",
+    "unescapeHTML_literal_count":0,
+    "actual_decoder_expression":"$('<textarea />').html(v.info).text()",
+    "actual_decoder_line":680,
+    "content_append_lines":[683,684],
+    "runafter_eval_line":770,
+    "new_network_to_portal_for_reconciliation":false
+  }
+}

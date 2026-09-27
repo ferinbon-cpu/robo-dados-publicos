@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "task": "BI_005",
+  "tier": "T0_OFFLINE_IMPLEMENTATION_REVIEW",
+  "status": "PASS_BI_005_FINAL_SERVING_INTEGRATION_OFFLINE",
+  "architecture": "OPTION_3_CREATE_ONLY_SNAPSHOTS_PLUS_STABLE_SERVING_SHEET",
+  "base_main_sha": "396ef26cdb38f79be3c2512329bc9e848774d6f9",
+  "repository": "ferinbon-cpu/robo-dados-publicos",
+  "drive_root": "13_BI",
+  "parent_path": "13_BI/02_SERVING",
+  "manifest_parent_path": "13_BI/00_MANIFESTS",
+  "tabs": ["DATA", "META"],
+  "google_sheets_mime": "application/vnd.google-apps.spreadsheet",
+  "one_dataset_per_execution": true,
+  "future_live_operation_allowlist": ["CREATE_INITIAL_SERVING", "NO_CHANGE_IDEMPOTENT"],
+  "limits": {
+    "discovery_read_count": 1,
+    "spreadsheet_create_count_max": 1,
+    "logical_batch_update_count_max": 1,
+    "semantic_readback_count_max": 1,
+    "manifest_create_count_max": 1,
+    "retry_count": 0,
+    "delete_count": 0,
+    "cleanup_count": 0,
+    "looker_publication_count": 0
+  },
+  "active_authorization": null,
+  "remote_execution_authorized": false,
+  "looker_publication_authorized": false,
+  "retry_authorized": false,
+  "cleanup_authorized": false,
+  "replace_existing_authorized": false,
+  "multi_dataset_mutation_authorized": false,
+  "authorization_contract": {
+    "repository": "ferinbon-cpu/robo-dados-publicos",
+    "tier": "T3_MUTATING_OR_PUBLICATION",
+    "drive_root": "13_BI",
+    "parent_path": "13_BI/02_SERVING",
+    "task": "BI_005_BOUNDED_SERVING",
+    "scope": "SINGLE_PINNED_STABLE_SERVING_FROM_IMMUTABLE_SNAPSHOT",
+    "one_dataset_only": true,
+    "exact_sha_required": true,
+    "active_authorization_embedded": false
+  },
+  "dataset_allowlist": [
+    "BI_SIOPE_SERIES",
+    "BI_JORNAL_EVENTOS",
+    "BI_RECONCILIACAO",
+    "BI_FONTES_STATUS",
+    "BI_EXECUCOES_ROBO",
+    "BI_DICIONARIO"
+  ],
+  "dataset_pins": {
+    "BI_SIOPE_SERIES": {
+      "serving_name": "BI_SIOPE_SERIES__SERVING",
+      "row_count": 72,
+      "snapshot_id": "1caaadc1d876a265817ad5d0",
+      "canonical_matrix_sha256": "1caaadc1d876a265817ad5d0c212fe4348ecbecad9f923f57e7b180220d1b380",
+      "schema_fingerprint_sha256": "26506e5e4680447b17d0f7c096e176ad55f763742a7350d109dae9fd988bdbf9"
+    },
+    "BI_JORNAL_EVENTOS": {
+      "serving_name": "BI_JORNAL_EVENTOS__SERVING",
+      "row_count": 303,
+      "snapshot_id": "d126c0df36075f759b687c05",
+      "canonical_matrix_sha256": "d126c0df36075f759b687c0554a7dbbf5a4e4897384707a588ddc5033697f252",
+      "schema_fingerprint_sha256": "60d52f60d58785a357a7ffddefbc7a8f138c45e331e7a5af88ecf9f58a1bf1f1"
+    },
+    "BI_RECONCILIACAO": {
+      "serving_name": "BI_RECONCILIACAO__SERVING",
+      "row_count": 25,
+      "snapshot_id": "9d7a5d351b4522a3a971beca",
+      "canonical_matrix_sha256": "9d7a5d351b4522a3a971becacb3eb5ef2bc5b8ec55ad8875c02fc2f1fce811d7",
+      "schema_fingerprint_sha256": "34951d3c2ad068e81a7273340b1ebb5e683723d1aba6422da06efca1ce03d2f1"
+    },
+    "BI_FONTES_STATUS": {
+      "serving_name": "BI_FONTES_STATUS__SERVING",
+      "row_count": 6,
+      "snapshot_id": "8d42dc9e904988dfbb54c958",
+      "canonical_matrix_sha256": "8d42dc9e904988dfbb54c9586741612fb856c91fe1120846db4a8a6539313b2c",
+      "schema_fingerprint_sha256": "86a5cfbde5b93bade1a94c3b3462c1b6a65e63e651994f2fa48c3ee7f459244f"
+    },
+    "BI_EXECUCOES_ROBO": {
+      "serving_name": "BI_EXECUCOES_ROBO__SERVING",
+      "row_count": 1,
+      "snapshot_id": "56ca572e723cda8f5215d37a",
+      "canonical_matrix_sha256": "56ca572e723cda8f5215d37a44009545cba371aea321faea18801959c9f07c2d",
+      "schema_fingerprint_sha256": "2e9364176d079878aecc0b59c5e3b11f5b3d3c9e98f1afa5682b49a4b27604dd"
+    },
+    "BI_DICIONARIO": {
+      "serving_name": "BI_DICIONARIO__SERVING",
+      "row_count": 113,
+      "snapshot_id": "807757a9767c09a8786bb248",
+      "canonical_matrix_sha256": "807757a9767c09a8786bb248c69063220a3946d320d05d21d4d013911b140bdd",
+      "schema_fingerprint_sha256": "accf1b64c944f0b99a800e538b733be9bcd00bb6a92bc5b9997281e206afcbbc"
+    }
+  }
+}

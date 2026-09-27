@@ -1,0 +1,43 @@
+{
+  "software_version": "0.5.5",
+  "status": "PASS_LOCAL_CANDIDATE",
+  "compileall": "PASS",
+  "unit_tests": {
+    "tests": 59,
+    "passes": 59,
+    "failures": 0
+  },
+  "historical_regression": {
+    "tests": 109,
+    "passes": 109,
+    "failures": 0,
+    "status": "PASS"
+  },
+  "new_contracts": {
+    "tcesp_2014_2019_documented_api_resolver": "PASS_FIXTURE",
+    "tcesp_2020plus_panel_resource_discovery": "PASS_FIXTURE",
+    "tcesp_zip_csv_strict_schema_gate": "PASS_FIXTURE",
+    "tcesp_exact_cnpj_filter_and_stage_normalization": "PASS_FIXTURE",
+    "limeira_contract_form_adaptive_discovery": "PASS_FIXTURE",
+    "limeira_contract_fail_closed_before_submit": "PASS_FIXTURE",
+    "reconciliation_executor_persistence": "PASS",
+    "reconciliation_executor_dry_run_no_mutation": "PASS",
+    "version_consistency_pyproject_package": "PASS",
+    "financial_identity_not_auto_promoted": "PASS",
+    "candidate_runtime_preserves_active_0_4_0_metadata": "PASS"
+  },
+  "public_surface_evidence": {
+    "tcesp_current_limeira_panel_has_detailed_expense_download": "WEB_VERIFIED_2026-08-21",
+    "tcesp_2026_detailed_expense_href": "WEB_VERIFIED_AS_ZIP_ROUTE",
+    "tcesp_2014_2019_api_contract": "WEB_VERIFIED_OFFICIAL_DOCS",
+    "limeira_contract_search_visible_fields": "WEB_VERIFIED_YEAR_CONTRACT_DOCUMENT_TYPE_OBJECT_SUPPLIER",
+    "live_code_execution_against_public_sources": "PENDING_EXTERNAL_RUNTIME"
+  },
+  "live_gates": {
+    "tcesp_resolver_live": "PENDING_EXTERNAL_RUNTIME",
+    "limeira_contract_resolver_live": "PENDING_EXTERNAL_RUNTIME",
+    "journal_index_and_pdf": "PENDING_EXTERNAL_RUNTIME",
+    "tda_portal_probe": "PENDING_EXTERNAL_RUNTIME",
+    "github_actions": "PENDING"
+  }
+}

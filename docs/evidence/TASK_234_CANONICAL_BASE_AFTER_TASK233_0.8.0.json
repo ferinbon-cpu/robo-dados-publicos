@@ -1,0 +1,18 @@
+{
+  "schema": "TASK_234_CANONICAL_BASE_AFTER_TASK233_0_8_0",
+  "task": "TASK_234",
+  "issue": 784,
+  "canonical_base": {
+    "branch": "main",
+    "sha": "4eb147a448c5d390fa0675f5dbad7a28a7301315",
+    "source_pr": 783,
+    "source_task": "TASK_233",
+    "merge_verified": true,
+    "post_merge_offline_ci_run_number": 1792,
+    "post_merge_offline_ci_run_id": 34598111119,
+    "post_merge_offline_ci_conclusion": "success"
+  },
+  "branch_created_from_exact_base": true,
+  "contextual_coverage": "38/38_UNCHANGED",
+  "note": "TASK 234 implementation began only after the post-TASK233 main offline CI completed successfully."
+}

@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "schema": "TASK162_PNCP_MODALITY9_STABLE_ID_RECOVERY_GUARD_V1",
+  "task": "TASK_162_PNCP_MODALITY9_STABLE_ID_RECOVERY_GUARD",
+  "issue": 536,
+  "base_sha": "736dbaef5ebab100a2f4b270670fc7cb76f0fabe",
+  "authorization": {
+    "owner_instruction_exact": "Autorizado pn p irrestrito",
+    "scope": "PNCP_LIVE_READ_DISCOVERY_ONLY",
+    "mutations_allowed": false
+  },
+  "target": {
+    "cnpj": "45132495000140",
+    "modality_id": 9,
+    "modality_name": "Inexigibilidade",
+    "publication_window": ["2025-11-28", "2026-09-04"]
+  },
+  "candidate_i00084": {
+    "processo": "I00084",
+    "raw_object": "CURSO DE CAPACITACAO",
+    "publication_date": "2026-08-19",
+    "estimated_value_brl": 12400.0,
+    "modality": "Inexigibilidade",
+    "chronological_sequence_candidate": 593,
+    "candidate_basis": [
+      "sequence_592_observed_for_other_object_in_same_date_window",
+      "sequence_594_observed_as_dispensa_in_owner_relayed_official_json",
+      "i00084_publication_date_falls_between_adjacent_observed_records"
+    ],
+    "candidate_status": "UNCONFIRMED_CHRONOLOGICAL_CANDIDATE",
+    "numeroControlePNCP_confirmed": false,
+    "forbidden_promotions": [
+      "PNCP_PURCHASE_CONTROL_NUMBER",
+      "CONTRACT_LINKAGE",
+      "SUPPLIER_LINKAGE",
+      "FINANCIAL_IDENTITY",
+      "TRANSACTION_IDENTITY",
+      "EITI_CANDIDATE",
+      "EITI_CORROBORATED",
+      "EITI_PROVEN"
+    ]
+  },
+  "school_pass_lead": {
+    "raw_object": "AQUISICAO DE PASSE ESCOLAR",
+    "estimated_value_brl": 3816720.0,
+    "tier": "EDUCATION_RELEVANT",
+    "stable_pncp_purchase_id_recovered": false,
+    "eiti_proven": false,
+    "financial_identity_proven": false,
+    "transaction_identity_proven": false
+  },
+  "transport_attempt": {
+    "endpoint_family": "PNCP_PUBLIC_CONSULTATION",
+    "endpoint": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao",
+    "attempt_date": "2026-09-05",
+    "result": "DNS_RESOLUTION_FAILURE_PRE_SOURCE",
+    "source_reached": false,
+    "source_data_observed": false,
+    "required_semantics": "SOURCE_TRANSPORT_UNAVAILABLE",
+    "no_match_allowed": false,
+    "retry_does_not_change_epistemic_state_without_source_reach": true
+  },
+  "guard": {
+    "chronology_alone_cannot_confirm_stable_id": true,
+    "adjacent_sequence_gap_cannot_confirm_stable_id": true,
+    "search_index_snippet_cannot_confirm_stable_id": true,
+    "stable_id_requires_direct_source_or_exact_cross_source_identity": true,
+    "stable_id_minimum_match_fields": ["cnpj", "processo", "objeto", "publication_date"],
+    "education_relevant_is_not_eiti_proven": true,
+    "transport_failure_is_not_no_match": true
+  },
+  "next_action": "RECOVER_DIRECT_OR_EXACT_CROSS_SOURCE_STABLE_ID_FOR_I00084_AND_SCHOOL_PASS_BEFORE_ANY_IDENTITY_PROMOTION"
+}

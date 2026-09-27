@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "task": "BI_002",
+  "tier": "T0_OFFLINE_IMPLEMENTATION_REVIEW",
+  "status": "PASS_BI_002_CONTROLLED_MATERIALIZATION_IMPLEMENTATION_OFFLINE",
+  "source_contract": "config/bi/analytics_output.v1.json",
+  "architecture": "OPTION_3_CREATE_ONLY_SNAPSHOTS_PLUS_STABLE_SERVING_SHEET",
+  "future_drive_root": "13_BI",
+  "reserved_roots": [
+    "00_DOCUMENTACAO",
+    "01_BRONZE",
+    "02_SILVER",
+    "03_GOLD",
+    "04_DOCUMENTOS",
+    "05_RAG",
+    "06_BANCOS",
+    "07_LOGS",
+    "08_OUTPUTS",
+    "09_SCRIPTS",
+    "10_INBOX",
+    "11_QUARENTENA",
+    "12_SOFTWARE"
+  ],
+  "directories": [
+    "00_MANIFESTS",
+    "01_SNAPSHOTS",
+    "02_SERVING"
+  ],
+  "dataset_allowlist": [
+    "BI_SIOPE_SERIES",
+    "BI_JORNAL_EVENTOS",
+    "BI_RECONCILIACAO",
+    "BI_FONTES_STATUS",
+    "BI_EXECUCOES_ROBO",
+    "BI_DICIONARIO"
+  ],
+  "snapshot_tier": "T2_CREATE_ONLY",
+  "serving_tier": "T3_MUTATING_OR_PUBLICATION",
+  "authorization_contract": {
+    "required": true,
+    "active_authorization_embedded": false,
+    "repository": "ferinbon-cpu/robo-dados-publicos",
+    "tier": "T2_CREATE_ONLY",
+    "drive_root": "13_BI",
+    "task": "BI_002_FIRST_T2_CREATE_ONLY_MATERIALIZATION",
+    "scope": "13_BI_CREATE_ONLY_SNAPSHOTS",
+    "implementation_sha_source": "FUTURE_EXECUTOR_RUNTIME_PIN_NOT_USER_SUPPLIED",
+    "required_fields": [
+      "authorization_id",
+      "authorized",
+      "repository",
+      "tier",
+      "drive_root",
+      "task",
+      "scope",
+      "implementation_sha",
+      "consumed",
+      "test_only"
+    ]
+  },
+  "canonical_identity": {
+    "schema_bound": true,
+    "schema_fields": [
+      "name",
+      "data_type",
+      "nullable",
+      "enum",
+      "format"
+    ],
+    "primary_key_included": true,
+    "semantic_types_in_cells": true,
+    "snapshot_id_source": "canonical_matrix_sha256"
+  },
+  "create_only": true,
+  "overwrite": false,
+  "delete": false,
+  "replace": false,
+  "remote_execution_authorized": false,
+  "serving_mutation_authorized": false,
+  "looker_publication_authorized": false
+}

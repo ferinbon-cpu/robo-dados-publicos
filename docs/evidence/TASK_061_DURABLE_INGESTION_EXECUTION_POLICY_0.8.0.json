@@ -1,0 +1,29 @@
+{
+  "task": "TASK_061_DURABLE_INGESTION_EXECUTION_POLICY",
+  "base_main_sha": "dc1af303939426b7e2d134a86c22dca9c914cb9f",
+  "authorization": {
+    "source": "owner granted 10 bounded authorization tokens",
+    "token_index": 1,
+    "scope": "OFFLINE_EXECUTION_POLICY_ONLY"
+  },
+  "purpose": "Define durable fail-closed conditions that convert AUTO_INGEST routing eligibility into a separately authorized content/hash/Bronze execution.",
+  "hard_boundaries": {
+    "source_content_reads": 0,
+    "public_network_requests": 0,
+    "drive_writes": 0,
+    "bronze_writes": 0,
+    "silver_writes": 0,
+    "gold_writes": 0,
+    "serving_writes": 0,
+    "publications": 0
+  },
+  "invariants": [
+    "ROUTING_IS_NOT_EXECUTION",
+    "FOLDER_SCOPE_PLUS_AUTO_ROUTE_PLUS_KNOWN_FAMILY_REQUIRED",
+    "BRONZE_CREATE_ONLY",
+    "SCHEMA_DRIFT_STOPS_BEFORE_SILVER",
+    "GOLD_REQUIRES_SEPARATE_GATE",
+    "FINANCIAL_IDENTITY_NOT_INFERRED_FROM_DOCUMENT_MATCH"
+  ],
+  "result": "PASS_TASK061_DURABLE_EXECUTION_POLICY_OFFLINE_READY"
+}

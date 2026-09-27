@@ -1,0 +1,41 @@
+{
+  "task": "BI_004",
+  "tier": "T0_OFFLINE_IMPLEMENTATION_REVIEW",
+  "status": "PASS_BI_004_BOUNDED_FIRST_SERVING_EXECUTOR_OFFLINE",
+  "base_main_sha": "5b177c162a143e9265cec7492ab49cefda89c789",
+  "selected_dataset": "BI_SIOPE_SERIES",
+  "serving_name": "BI_SIOPE_SERIES__SERVING",
+  "selected_snapshot": {
+    "snapshot_id": "1caaadc1d876a265817ad5d0",
+    "canonical_matrix_sha256": "1caaadc1d876a265817ad5d0c212fe4348ecbecad9f923f57e7b180220d1b380",
+    "schema_fingerprint_sha256": "26506e5e4680447b17d0f7c096e176ad55f763742a7350d109dae9fd988bdbf9",
+    "row_count": 72
+  },
+  "implementation_boundary": "INJECTED_TRANSPORT_ONLY_NO_GOOGLE_CLIENT_EMBEDDED",
+  "first_live_operation_allowlist": [
+    "CREATE_INITIAL_SERVING",
+    "NO_CHANGE_IDEMPOTENT"
+  ],
+  "replace_existing_first_live": "STOP_OWNER_DECISION_REQUIRED",
+  "semantic_readback_required_after_create": true,
+  "generation_manifest_create_only_after_verified_create": true,
+  "maximum_discovery_reads": 1,
+  "maximum_spreadsheet_creates": 1,
+  "maximum_logical_batch_updates": 1,
+  "maximum_semantic_readbacks": 1,
+  "maximum_manifest_creates": 1,
+  "retry_count": 0,
+  "delete_count": 0,
+  "cleanup_count": 0,
+  "looker_publication": false,
+  "live_execution_performed": false,
+  "active_t3_authorization_embedded": false,
+  "future_t3_required": true,
+  "future_t3_must_be_pinned_to_exact_audited_implementation_sha": true,
+  "prior_t2_authorization_reusable": false,
+  "prior_cleanup_t3_authorization_reusable": false,
+  "source_snapshot_modified": false,
+  "canonical_layers_modified": false,
+  "recurrence": false,
+  "schedule": false
+}

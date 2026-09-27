@@ -1,0 +1,33 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.5.9",
+  "status": "CANDIDATE",
+  "milestone": "M4D_GITHUB_OFFLINE_READINESS",
+  "based_on_active": "0.5.8",
+  "new_capability": "Fail-closed GitHub Actions live-gate validation with immutable action pins and explicit persistence confirmation.",
+  "github_actions": {
+    "checkout": "de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+    "checkout_release": "v6.0.2",
+    "setup_python": "5fda3b95a4ea91299a34e894583c3862153e4b97",
+    "setup_python_release": "v7.0.0",
+    "python": "3.12",
+    "trigger": "workflow_dispatch_only",
+    "persistence_confirmation": "REQUIRED",
+    "schedule": "DISABLED_UNTIL_FIRST_LIVE_PASS"
+  },
+  "safety": {
+    "active_release_mutated": false,
+    "secret_values_in_repository": false,
+    "github_token_permissions": "contents:read",
+    "checkout_persist_credentials": false,
+    "financial_identity_auto_promotion": "PROHIBITED",
+    "production_collection": "EXPLICIT_SOURCE_INVENTORY_OPT_IN"
+  },
+  "gates": {
+    "offline_readiness": "PASS_84_UNIT_109_REGRESSION",
+    "github_connection": "BLOCKED_USER_ACCESS",
+    "github_live_run": "PENDING",
+    "tda_limeira": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN"
+  },
+  "next_action": "M4D_GITHUB_LIVE_GATE_0_5_9"
+}

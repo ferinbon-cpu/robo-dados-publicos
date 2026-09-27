@@ -1,0 +1,78 @@
+{
+  "task": "TASK_060_DRIVE_INBOX_METADATA_PILOT",
+  "software_version": "0.8.0",
+  "mode": "T1_EXISTING_CUSTODY_METADATA_ONLY",
+  "base_sha": "7a69652a40862d242487949d6f5b2b793f5533d6",
+  "authorization": {
+    "owner_message": "Prossiga",
+    "scope_interpretation": "RUN_TASK060_METADATA_ONLY_PILOT_ON_CANONICAL_10_INBOX_TREE",
+    "folder_selection_basis": "OBSERVATORIO_ROADMAP_DESIGNATES_10_INBOX_AS_CANONICAL_MANUAL_BATCH_ENTRY",
+    "authorization_consumed": true
+  },
+  "controller_contract": "config/drive_ingestion_controller.v2.json",
+  "scope": {
+    "root_title": "10_INBOX",
+    "root_id": "16lvKYsbW96JLoLbRGuTUohjyzndrR9r8",
+    "included_descendant_folders": [
+      {"title": "PENDENTES", "id": "1ofFcveMY7kzYsYujo5hfSM-iv6pzzcMY"},
+      {"title": "DUPLICATAS", "id": "1WnbSqyjKvdRRVhFoMaCEapAKvC5Xk2dy"},
+      {"title": "F01_PPA_LDO_LOA_2026", "id": "1CdL4T1CVIPqNph3f5xHbiU8KgxgPpkl5", "parent": "PENDENTES"}
+    ],
+    "direct_document_counts": {
+      "10_INBOX": 0,
+      "PENDENTES": 0,
+      "DUPLICATAS": 0,
+      "F01_PPA_LDO_LOA_2026": 9
+    }
+  },
+  "metadata_contract": {
+    "drive_search_item_types": ["folder", "document"],
+    "best_effort_fetch": false,
+    "metadata_requests": 8,
+    "source_content_reads": 0,
+    "content_hydration_observed": false
+  },
+  "inventory": [
+    {"id": "1bRpmMxacX16P1tJBvam-55OOPTYuQnIA", "title": "SOURCE_JOM_7127_2025-11-29_LOA_7223_2025.pdf", "route": "REVIEW", "family": null, "reason": "MULTIPLE_FAMILY_MATCHES", "matched_families": ["JORNAL_OFICIAL", "LOA"]},
+    {"id": "1ez1B_mJ428IxTIUht1AHM9-I5SCotKXj", "title": "SOURCE_JOM_7119_2025-11-15_PPA_7213_2025.pdf", "route": "REVIEW", "family": null, "reason": "MULTIPLE_FAMILY_MATCHES", "matched_families": ["JORNAL_OFICIAL", "PPA"]},
+    {"id": "1U_E1I1Lbrq5WvedrDPygFuEfQj-ouOex", "title": "SOURCE_JOM_7024_2025-07-08_LDO_7141_2025.pdf", "route": "REVIEW", "family": null, "reason": "MULTIPLE_FAMILY_MATCHES", "matched_families": ["JORNAL_OFICIAL", "LDO"]},
+    {"id": "1TNaam6RfJoucnwrV7iaJZH5eBdrLMjcjBJZnX784I-4", "title": "MANIFEST_F01_PPA_LDO_LOA_2026_V03", "route": "REVIEW", "family": null, "reason": "MULTIPLE_FAMILY_MATCHES", "matched_families": ["PPA", "LDO", "LOA"]},
+    {"id": "1zoG37Ao-h5GSzxkwlvwki8LDHzuD_DmT", "title": "SOURCE_LOA_2026_LEI_7223_2025_LIMEIRA.pdf", "route": "REVIEW", "family": "LOA", "reason": "KNOWN_FAMILY_REQUIRES_SUPERVISED_REVIEW"},
+    {"id": "1EyoQ69aaPx7u4_w7xkSg7-oWCx_vkJlX", "title": "SOURCE_LDO_2026_LEI_7141_2025_LIMEIRA.pdf", "route": "REVIEW", "family": "LDO", "reason": "KNOWN_FAMILY_REQUIRES_SUPERVISED_REVIEW"},
+    {"id": "1_rTVwimxhSXPJ-iMslSOwLWMq3r61-7vkEhXc_pgFNg", "title": "MANIFEST_F01_PPA_LDO_LOA_2026_V02", "route": "REVIEW", "family": null, "reason": "MULTIPLE_FAMILY_MATCHES", "matched_families": ["PPA", "LDO", "LOA"]},
+    {"id": "1btfxebkUxkjjVIrdsTT_W6WOSSbGCEbq", "title": "SOURCE_PPA_2026_2029_LEI_7213_2025_LIMEIRA.pdf", "route": "REVIEW", "family": "PPA", "reason": "KNOWN_FAMILY_REQUIRES_SUPERVISED_REVIEW"},
+    {"id": "1Um3vUSJ579HMrKnrDYarjolexNzmVQknjboQMzulDR4", "title": "MANIFEST_F01_PPA_LDO_LOA_2026_V01", "route": "REVIEW", "family": null, "reason": "MULTIPLE_FAMILY_MATCHES", "matched_families": ["PPA", "LDO", "LOA"]}
+  ],
+  "routing_summary": {
+    "total": 9,
+    "AUTO_INGEST": 0,
+    "REVIEW": 9,
+    "QUARANTINE": 0
+  },
+  "interpretation": {
+    "pilot_passed": true,
+    "all_review_is_expected_for_this_batch": true,
+    "reason": "The discovered batch is a supervised PPA/LDO/LOA corpus. JOM source PDFs and manifests intentionally match multiple families, while standalone PPA/LDO/LOA documents are configured REVIEW-first in v2.",
+    "no_auto_ingest_failure_inferred": true,
+    "eiti_is_not_global_filter": true,
+    "no_content_claims_made": true
+  },
+  "hard_boundaries": {
+    "source_content_reads": 0,
+    "public_source_network_requests": 0,
+    "drive_writes": 0,
+    "ocr_runs": 0,
+    "bronze_writes": 0,
+    "silver_writes": 0,
+    "gold_writes": 0,
+    "serving_writes": 0,
+    "publication_writes": 0
+  },
+  "next_gate": {
+    "name": "TASK_061_DRIVE_INGESTION_EXECUTION_POLICY_DESIGN",
+    "purpose": "Define which known families/folders may progress from routing eligibility or REVIEW into bounded authorized content/hash ingestion, without falling back to per-file owner approval.",
+    "content_read_allowed_by_task060": false,
+    "requires_new_authorization": true
+  },
+  "result": "PASS_TASK060_10_INBOX_METADATA_ONLY_PILOT_9_REVIEW_0_AUTO_0_QUARANTINE_NO_CONTENT_READ"
+}

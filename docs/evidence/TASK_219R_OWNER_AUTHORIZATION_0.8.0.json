@@ -1,0 +1,25 @@
+{
+  "task":"TASK_219R_OWNER_AUTHORIZATION",
+  "issue":725,
+  "authorized_main_sha":"fdd12c6f6406f73f9734209dc55bdf06f2ae12b9",
+  "owner_instruction":"Autorizado proximo salto",
+  "scope":"COMPLETE_TASK219R_CURRENT_SESSION_DESPESA_RESPONSE_ACTION_CONTRACT",
+  "browser_sessions":1,
+  "manual_navigations":1,
+  "clicks":0,
+  "typing":0,
+  "form_submissions":0,
+  "manual_fetch_xhr":0,
+  "direct_endpoint_calls":0,
+  "portal_action_triggers":0,
+  "layerinfo_replay":0,
+  "layerinfo_synthesis":0,
+  "retries":0,
+  "commitment_lookup":0,
+  "stable_selector":{
+    "AreaName":"Despesa",
+    "AreaOrigin":"2_92_guestuser_207_6_DSL0_VIS1343"
+  },
+  "includes":["one_passive_browser_session","current_session_AreaId_resolution","automatic_LayerInfo_response_binding","sanitized_info_structure","official_action_adjudication","workflow_removal","offline_tests","ci_merge","closure"],
+  "excludes":["execute_action","query_empenho_3286_2026","manual_api_call","endpoint_guessing","fuzzy_identity","authentication_injection","pncp","tcesp","drive","municipal_contract_portal"]
+}

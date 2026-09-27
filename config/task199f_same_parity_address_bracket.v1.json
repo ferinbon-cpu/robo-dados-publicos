@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "schema": "TASK199F_SAME_PARITY_ADDRESS_BRACKET_V1",
+  "task": "TASK_199F",
+  "issue": 628,
+  "base_main_sha": "c32fe72d3af1c1b493666c72b694b6606dcded52",
+  "mode": "T0_OFFLINE_CURRENT_SME_ADDRESS_SAME_PARITY_CNEFE_BRACKET",
+  "scope": {
+    "municipality": "Limeira",
+    "ibge_code": "3526902",
+    "network": "MUNICIPAL",
+    "active_school_denominator_2025": 69
+  },
+  "method": {
+    "name": "SAME_STREET_SAME_PARITY_BRACKET_SAME_SECTOR",
+    "requirements": [
+      "CURRENT_SME_CIE_INEP_IDENTITY_ALREADY_PROVEN_WITHIN_69_UNIT_ROSTER",
+      "EXACT_NORMALIZED_CURRENT_SME_STREET",
+      "NUMERIC_CURRENT_SME_ADDRESS",
+      "IMMEDIATE_LOWER_CNEFE_NUMBER_WITH_SAME_PARITY",
+      "IMMEDIATE_UPPER_CNEFE_NUMBER_WITH_SAME_PARITY",
+      "LOWER_AND_UPPER_CNEFE_ROWS_MAP_TO_EXACT_SAME_SECTOR"
+    ],
+    "forbidden_shortcuts": [
+      "NEAREST_ADDRESS_ONLY",
+      "OPPOSITE_SIDE_PARITY_SUBSTITUTION",
+      "SINGLE_SIDED_EXTRAPOLATION",
+      "NAME_ONLY_MATCH",
+      "FUZZY_ONLY_MATCH"
+    ]
+  },
+  "promotions": [
+    {
+      "codigo_inep": "35217864",
+      "school": "EMEIEF Ary Gomes de Castro, Tenente Aviador",
+      "sme_street": "JACOB DE GASPARI",
+      "sme_number": 220,
+      "parity": "EVEN",
+      "lower_cnefe_number": 164,
+      "upper_cnefe_number": 248,
+      "lower_sector": "352690205000812P",
+      "upper_sector": "352690205000812P",
+      "sector_id": "352690205000812",
+      "sector_population_2022": 140,
+      "responsible_income_mean_nominal_monthly_brl": 2987.84,
+      "responsible_income_median_nominal_monthly_brl": 2462,
+      "V06004_sector_percentile_unweighted": 57.5
+    },
+    {
+      "codigo_inep": "35099557",
+      "school": "CI Vilma Terezinha Marrafon Coppi",
+      "sme_street": "ARLINDA ABREU RIBEIRO",
+      "sme_number": 1175,
+      "parity": "ODD",
+      "lower_cnefe_number": 1165,
+      "upper_cnefe_number": 1189,
+      "lower_sector": "352690205000135P",
+      "upper_sector": "352690205000135P",
+      "sector_id": "352690205000135",
+      "sector_population_2022": 484,
+      "responsible_income_mean_nominal_monthly_brl": 2547.43,
+      "responsible_income_median_nominal_monthly_brl": 2150,
+      "V06004_sector_percentile_unweighted": 39.3
+    }
+  ],
+  "crosswalk": {
+    "before_strong_links": 57,
+    "after_strong_links": 59,
+    "coverage_rate": 0.855072,
+    "tier_A": 41,
+    "tier_B": 15,
+    "tier_C": 1,
+    "tier_D_same_parity_bracket": 2,
+    "held_after": 10,
+    "full_network_link": false
+  },
+  "drive_artifacts": {
+    "profile_59": {
+      "id": "1n8AifxJQYnhhoCxXMN0a2Mfg0fy4IEle",
+      "bytes": 8858,
+      "sha256": "89880ec71a00a1bc717471b335ce324a6bb9f1bf54fa6c2ad2705098f054e121"
+    },
+    "held_10": {
+      "id": "1E_gMOxkvgaQpJ_mgI8GQeu9usQxyWeqN",
+      "bytes": 2651,
+      "sha256": "e99ccaf6e091c66a3a49845a003da4402651f74cd3df6a1cf1003700f163ded6"
+    },
+    "bracket_evidence": {
+      "id": "1vbMxS_yrkDlxLiVElt3cBt3zlaOHBZcN",
+      "bytes": 522,
+      "sha256": "d8a58c1662b166fee390070f6f44ec74cded309a370743b4b8965bc35f113808"
+    },
+    "evidence": {
+      "id": "1KSwnDd3qBgL2HIEF-J8T8D0Cusny-XtT",
+      "bytes": 3010,
+      "sha256": "543cf4ff6c8da8ae29ef9fb7730fe0bbc26af9d8e9bb1238781b51051ef4dbb0"
+    }
+  },
+  "sources": {
+    "sme_current_directory": "https://sme.limeira.sp.gov.br/listagem_ue.php?tipo=M",
+    "cnefe_archive_sha256": "ab73250df889effcb01ddc2d060bddd3252e995468e97ef93b048564763626a7",
+    "basic_sector_zip_sha256": "ec04624286233d699ebe69c7b9625744a1cfdfc8352126f30245bdef5e9bdc63",
+    "income_sector_zip_sha256": "141c83e7635674e7e2c941e55f98811e538fcbf2e1e1125b0aa7892c260f4a23",
+    "income_dictionary_sha256": "fea6e2b2439eeb167c6fa9c136ed7cb13ebcb06f4c875d634e3e2578c668a48d"
+  },
+  "expected_product": {
+    "product_name": "TERRITORY_PROFILE",
+    "row_count": 247,
+    "municipal_rows": 11,
+    "school_metric_rows": 236,
+    "school_links": 59,
+    "metrics_per_school": 4,
+    "capabilities": [
+      "CENSUS_SECTOR_CONTEXT",
+      "MUNICIPAL_DEMOGRAPHY",
+      "OFFICIAL_INCOME_DICTIONARY",
+      "SCHOOL_TO_SECTOR_LINK_PARTIAL",
+      "SCHOOL_TO_SECTOR_LINK_COVERAGE_59_OF_69",
+      "SECTOR_INCOME_CONTEXT"
+    ]
+  },
+  "expected_answerability": {
+    "counts": {
+      "MATERIALIZED_ANSWERABLE": 32,
+      "MATERIALIZED_PARTIAL": 6
+    },
+    "equity_q1": "MATERIALIZED_PARTIAL",
+    "equity_remaining_gap": "TERRITORY_PROFILE::CAPABILITY:SCHOOL_TO_SECTOR_LINK_FULL_NETWORK",
+    "status_change_count": 0
+  },
+  "guards": [
+    "SAME_PARITY_BRACKET_REQUIRES_BOTH_SIDES",
+    "BRACKETING_SECTORS_MUST_MATCH_EXACTLY",
+    "OPPOSITE_SIDE_PARITY_NE_PROMOTION",
+    "SINGLE_SIDED_NE_PROMOTION",
+    "FUZZY_ONLY_NE_PROMOTION",
+    "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
+    "59_OF_69_NE_FULL_NETWORK",
+    "MISSING_NE_ZERO"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

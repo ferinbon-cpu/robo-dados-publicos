@@ -1,0 +1,65 @@
+{
+  "task": "TASK_219Z_DETAIL_QUERY_GATE_NEGATIVE_CANONIZATION",
+  "issue": 742,
+  "parent_issue": 691,
+  "canonical_date": "2026-09-10",
+  "derived_from_task219y_head": "6b456b74833e8da796fd647eb58fcc75da218a54",
+  "authorization_sequence": "LEAP_3_OF_3_CURRENT_AUTHORIZATION",
+  "runtime": {
+    "run_id": 34506413536,
+    "job_id": 102969595963,
+    "execution_head_sha": "70ee1854e584082c4bf4e6f30ead049e6aad8d57",
+    "artifact_id": 10164006788,
+    "artifact_zip_sha256": "40083e7cacfd0b26385657f0f9efe216493f0ffb6effcc64d48d3391ab8e71af",
+    "artifact_retention_days": 1,
+    "executed_workflow_blob_sha": "0f334404603b38ba39cc3cba8be683ac5f909d1f"
+  },
+  "boundary": {
+    "browser_sessions": 1,
+    "initial_navigations": 1,
+    "top_level_doLink_invocations": 1,
+    "query_field_assignments": 0,
+    "target_filter_invocations": 0,
+    "same_record_drilldowns": 0,
+    "manual_fetch_xhr": 0,
+    "direct_endpoint_calls": 0,
+    "layerinfo_replay": 0,
+    "retries": 0,
+    "Empenho_3286_2026_queried": false
+  },
+  "same_session_target": {
+    "AreaName": "Detalhe do Empenho",
+    "AreaOrigin": "2_92_guestuser_200_8_DSL0_VIS706",
+    "target_match_count": 1,
+    "runtime_AreaId": "50dc9b387ecf4b0c8041d2ecaebaac83DSA8",
+    "filter_id": "AREAFILTER_50dc9b387ecf4b0c8041d2ecaebaac83DSA8",
+    "content_root_exists": true,
+    "filter_root_exists": true
+  },
+  "gate_result": {
+    "filter_text_input_total": 1,
+    "filter_select_total": 1,
+    "semantic_Nro_Empenho_match_count": 0,
+    "semantic_Exercicio_2026_match_count": 0,
+    "exact_filter_id_submmitApply_binding_count": 0,
+    "window_submmitApply_callable": true,
+    "status": "STOP_EXACT_DETAIL_SUBMIT_BINDING_NOT_UNIQUE"
+  },
+  "cross_session_comparison_with_TASK219Y": {
+    "same_AreaName": true,
+    "same_AreaOrigin": true,
+    "same_filter_root_structural_control_counts_1_text_plus_1_select": true,
+    "TASK219Y_semantically_recognized_Nro_Empenho_and_Exercicio": true,
+    "TASK219Z_semantic_recognition_reproduced": false,
+    "interpretation": "The one-text/one-select filter structure reproduced, but the bounded public metadata/near-label recognition used by the gate did not reproduce in this session. This is cross-session interface variability or recognition-surface variability, not proof that the controls disappeared.",
+    "universal_absence_inference_allowed": false
+  },
+  "scientific_adjudication": {
+    "exact_submit_contract_proven": false,
+    "official_Empenho_3286_2026_query_executed": false,
+    "contract_45_2026_to_empenho_3286_2026_proven": false,
+    "payment_attribution_proven": false,
+    "coverage_after": 34,
+    "next_safe_gate": "Use the TASK219Y-proven generated control-id patterns FILTEREDIT_<fresh AreaId>_epn and FILTERCOMBO_<fresh AreaId>_exe as hypotheses, and passively test exact BUTTON_<fresh AreaId>/document handler semantics in a fresh authorized session before any query. Never select controls merely by first text/select position."
+  }
+}

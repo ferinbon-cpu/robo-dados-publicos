@@ -1,0 +1,64 @@
+{
+  "task":"TASK_219I_TDA_PASSIVE_BROWSER_CANONIZATION",
+  "issue":707,
+  "parent_issue":691,
+  "canonical_date":"2026-09-09",
+  "base_main_sha":"36927b31ce455c1479b380edc90ef429c51b55db",
+  "runtime":{
+    "run_id":34397753283,
+    "job_id":102621558392,
+    "execution_head_sha":"aef3ef949f40d408366cff25385fbbfa6e92d64f",
+    "artifact_id":10122191927,
+    "artifact_zip_sha256":"c81c612f87796e5509004a26f50c72b3d8c63f27b5fa2221487d9c75650ac801",
+    "artifact_member_sha256":"67edbb95b0f2c21dc433b2b8ed19bfef3f468018168ddf79ef6e87d2a1971b9a",
+    "executed_workflow_blob_sha":"488760470de4ba2c54c4e6388b4294ce6adf86ee",
+    "historical_workflow_blob_sha":"488760470de4ba2c54c4e6388b4294ce6adf86ee",
+    "historical_source_exact_blob_match":true,
+    "workflow_removed_after_run":true,
+    "workflow_removal_commit":"68c5e77b08c3203ede4eea326036ce82e9ccee0a"
+  },
+  "observation":{
+    "fresh_browser_without_injected_credentials_reached_public_tda_client":true,
+    "final_page_title":"Prefeitura Municipal de Limeira",
+    "final_page_path":"/tdaportalclient.aspx",
+    "observed_requests":111,
+    "same_host_requests":95,
+    "automatic_same_host_post_xhr_count":8,
+    "automatic_same_host_post_xhr_path":"/awsgetcontentareas.aspx",
+    "automatic_same_host_post_xhr_status":200,
+    "automatic_same_host_post_xhr_mime":"text/html",
+    "machine_readable_get_route_found":false,
+    "acceptable_machine_route_count":0,
+    "vendor_host_machine_route_found":false
+  },
+  "adjudication":{
+    "prior_raw_http_301_logout_behavior_remains_historical_fact":true,
+    "browser_level_public_surface_is_loadable_without_manual_authentication":true,
+    "raw_http_barrier_does_not_equal_browser_public_workflow_unavailable":true,
+    "awsgetcontentareas_route_family_observed_from_page_itself":true,
+    "awsgetcontentareas_is_proven_accounting_endpoint":false,
+    "awsgetcontentareas_direct_query_authorized":false,
+    "request_payload_contract_proven":false,
+    "response_schema_proven":false,
+    "commitment_3286_2026_queried":false,
+    "procurement_identity_proven":false,
+    "payment_attribution_proven":false,
+    "question_promotion_performed":false,
+    "contextual_paths_before":34,
+    "contextual_paths_after":34,
+    "remaining_blockers":["CTRL_Q2","PROC_Q1","PROC_Q2","PROC_Q3"]
+  },
+  "scientific_gain":{
+    "new_public_surface_fact":"A fresh passive browser session reaches the TDA client and the page itself automatically invokes the same-host /awsgetcontentareas.aspx route eight times via POST XHR.",
+    "new_route_seed":"/awsgetcontentareas.aspx",
+    "route_seed_method":"POST",
+    "route_seed_provenance":"AUTOMATIC_REQUEST_INITIATED_BY_PUBLIC_TDA_PAGE",
+    "route_seed_strength":"STRUCTURAL_DISCOVERY_ONLY_NOT_ACCOUNTING_IDENTITY"
+  },
+  "authorization_consumption":{
+    "task219i_scope_complete":true,
+    "authorization_exhausted_for_future_network":true,
+    "new_authorization_required_for_payload_or_response_structure_capture_or_any_direct_route_query":true
+  },
+  "next_action":"FUTURE_SEPARATELY_AUTHORIZED_PASSIVE_SESSION_MAY_CAPTURE ONLY SANITIZED FIELD NAMES/STRUCTURE OF THE AUTOMATIC /awsgetcontentareas.aspx REQUESTS; DO NOT GUESS OR DIRECTLY QUERY THE ROUTE"
+}

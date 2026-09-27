@@ -1,0 +1,14 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.5.6",
+  "status": "CANDIDATE",
+  "milestone": "M4E.6",
+  "last_active_validated": "0.4.0",
+  "promotion_gate": "M4E_LIVE_VALIDATION",
+  "qa": {
+    "unit_tests": "65/65 PASS",
+    "historical_regressions": "109/109 PASS",
+    "compileall": "PASS",
+    "secret_scan": "PASS"
+  }
+}

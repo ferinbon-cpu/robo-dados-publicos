@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "software_version": "0.8.0",
+  "run_id": 32850831457,
+  "job_id": 97811131659,
+  "artifact_id": 9564191190,
+  "artifact_digest": "sha256:a7db6746b608f0c468ae5ba0df39500fdf01a48b6cdad4ab3ee349d9ecb8d8b1",
+  "head_sha": "324dbc2225ce5850eeb9d1a9211ae952dbda7b38",
+  "workflow": "M7 SIOPE ARTIFACT DOWNLOAD EVENT DIAGNOSTICS GATE",
+  "run_number": 2,
+  "workflow_conclusion": "failure",
+  "live_step_reached": true,
+  "qa": {
+    "unit_tests_passed": 352,
+    "historical_regressions_passed": 109
+  },
+  "result_status": "STOP_M7_SIOPE_ARTIFACT_DOWNLOAD_EVENT_DIAGNOSTICS_GATE",
+  "stop_reason": "STOP_SIOPE_RUNTIME_ROUTE_PROBE_CDP_CONNECT",
+  "interpretation": "DevToolsActivePort was resolved, but the browser-level CDP websocket connection was attempted before readiness was proven. This is a local Chrome bootstrap/connectivity failure, not evidence about the SIOPE download mechanism.",
+  "safety": {
+    "artifact_downloaded": false,
+    "browser_download_denied": true,
+    "candidate_route_network_sent": false,
+    "request_body_captured": false,
+    "request_headers_captured": false,
+    "response_body_captured": false,
+    "cookies_captured": false,
+    "head_request_performed": false,
+    "remote_writes": "NONE",
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false
+  },
+  "next": "Wait for the local /json/version endpoint on the Chrome-assigned port and retry only CDP connect races before any FNDE navigation."
+}

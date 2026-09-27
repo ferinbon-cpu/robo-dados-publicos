@@ -1,0 +1,45 @@
+{
+  "schema": "ANNUAL_MUNICIPAL_ACCOUNTING_2024_2025_COMPARISON_V1",
+  "task": "TASK_228",
+  "issue": 769,
+  "baseline_year": 2024,
+  "comparison_year": 2025,
+  "currency": "BRL",
+  "money_representation": "INTEGER_CENTS",
+  "price_basis": "NOMINAL_NOT_DEFLATED",
+  "comparison_rule": "ONLY_MATCH_SAME_SEMANTIC_DOMAIN_METRIC_AND_STAGE",
+  "rows": [
+    {"semantic_domain":"PATRIMONIAL_POSITION","metric_id":"CASH_AND_CASH_EQUIVALENTS","value_2024_cents":21621814324,"value_2025_cents":28687982427,"nominal_delta_cents":7066168103,"nominal_change_pct_2024_base":"32.680736"},
+    {"semantic_domain":"PATRIMONIAL_POSITION","metric_id":"TOTAL_ASSETS","value_2024_cents":349513202659,"value_2025_cents":303751023453,"nominal_delta_cents":-45762179206,"nominal_change_pct_2024_base":"-13.093119"},
+    {"semantic_domain":"PATRIMONIAL_POSITION","metric_id":"TOTAL_LIABILITIES","value_2024_cents":174196118767,"value_2025_cents":173772024309,"nominal_delta_cents":-424094458,"nominal_change_pct_2024_base":"-0.243458"},
+    {"semantic_domain":"PATRIMONIAL_POSITION","metric_id":"LONG_TERM_PROVISIONS","value_2024_cents":88214046066,"value_2025_cents":95775161955,"nominal_delta_cents":7561115889,"nominal_change_pct_2024_base":"8.571329"},
+    {"semantic_domain":"PATRIMONIAL_POSITION","metric_id":"FINANCIAL_ASSETS","value_2024_cents":106941215640,"value_2025_cents":125768836619,"nominal_delta_cents":18827620979,"nominal_change_pct_2024_base":"17.605580"},
+    {"semantic_domain":"PATRIMONIAL_POSITION","metric_id":"FINANCIAL_LIABILITIES","value_2024_cents":25317742409,"value_2025_cents":27013990393,"nominal_delta_cents":1696247984,"nominal_change_pct_2024_base":"6.699839"},
+    {"semantic_domain":"PATRIMONIAL_POSITION","metric_id":"PATRIMONIAL_BALANCE","value_2024_cents":165797642734,"value_2025_cents":117997359705,"nominal_delta_cents":-47800283029,"nominal_change_pct_2024_base":"-28.830496"},
+    {"semantic_domain":"FINANCIAL_FLOWS","metric_id":"EDUCATION_LINKED_BUDGET_REVENUE","value_2024_cents":49368786227,"value_2025_cents":53033325975,"nominal_delta_cents":3664539748,"nominal_change_pct_2024_base":"7.422787"},
+    {"semantic_domain":"FINANCIAL_FLOWS","metric_id":"EDUCATION_LINKED_BUDGET_EXPENSE","value_2024_cents":44614787066,"value_2025_cents":44571653248,"nominal_delta_cents":-43133818,"nominal_change_pct_2024_base":"-0.096681"},
+    {"semantic_domain":"FINANCIAL_FLOWS","metric_id":"TOTAL_BUDGET_REVENUE","value_2024_cents":120167035138,"value_2025_cents":122704460870,"nominal_delta_cents":2537425732,"nominal_change_pct_2024_base":"2.111582"},
+    {"semantic_domain":"FINANCIAL_FLOWS","metric_id":"TOTAL_BUDGET_EXPENSE","value_2024_cents":146508669303,"value_2025_cents":139623117492,"nominal_delta_cents":-6885551811,"nominal_change_pct_2024_base":"-4.699757"},
+    {"semantic_domain":"FINANCIAL_FLOWS","metric_id":"NEXT_YEAR_CASH_BALANCE","value_2024_cents":111074598490,"value_2025_cents":123661270045,"nominal_delta_cents":12586671555,"nominal_change_pct_2024_base":"11.331728"},
+    {"semantic_domain":"BUDGET_EXECUTION","metric_id":"REVENUE_SUBTOTAL","stage":"realized_cents","value_2024_cents":196534570650,"value_2025_cents":207064446593,"nominal_delta_cents":10529875943,"nominal_change_pct_2024_base":"5.357773"},
+    {"semantic_domain":"BUDGET_EXECUTION","metric_id":"EXPENSE_TOTAL_WITH_REFINANCING","stage":"committed_cents","value_2024_cents":202108052547,"value_2025_cents":198881918058,"nominal_delta_cents":-3226134489,"nominal_change_pct_2024_base":"-1.596242"},
+    {"semantic_domain":"BUDGET_EXECUTION","metric_id":"EXPENSE_TOTAL_WITH_REFINANCING","stage":"liquidated_cents","value_2024_cents":192628258358,"value_2025_cents":186945017286,"nominal_delta_cents":-5683241072,"nominal_change_pct_2024_base":"-2.950367"},
+    {"semantic_domain":"BUDGET_EXECUTION","metric_id":"EXPENSE_TOTAL_WITH_REFINANCING","stage":"paid_cents","value_2024_cents":177885669567,"value_2025_cents":177693306563,"nominal_delta_cents":-192363004,"nominal_change_pct_2024_base":"-0.108139"},
+    {"semantic_domain":"BUDGET_EXECUTION","metric_id":"PRIOR_YEAR_FINANCIAL_SURPLUS_USED_FOR_ADDITIONAL_CREDITS","stage":"value_cents","value_2024_cents":7782765004,"value_2025_cents":5454214235,"nominal_delta_cents":-2328550769,"nominal_change_pct_2024_base":"-29.919325"}
+  ],
+  "non_comparable_or_withheld": [
+    {"metric":"PATRIMONIAL_RESULT","reason":"2024 DVP result and 2024 Balanço Patrimonial result row differ; no automatic reconciliation and no percent on signed result."},
+    {"metric":"NET_EQUITY","reason":"2024 statement has a display-side total anomaly; keep source row but withhold headline year-over-year comparison until statement-specific reconciliation."},
+    {"metric":"PATRIMONIAL_VARIATIONS","reason":"DVP was materialized only for 2024 in this task; no 2025 peer source in TASK 227."},
+    {"metric":"FINANCIAL_STATEMENT_TOTAL","reason":"2024 ingress/outflow printed totals differ and are preserved independently."}
+  ],
+  "guards": [
+    "SAME_METRIC_ID_ALONE_NE_COMPARABLE_UNLESS_SAME_SEMANTIC_DOMAIN_AND_STAGE",
+    "NOMINAL_DELTA_NE_REAL_CHANGE_WITHOUT_DEFLATOR",
+    "SOURCE_ANOMALY_NE_AUTOMATIC_CORRECTION",
+    "DVP_RESULT_NE_BP_RESULT_WITHOUT_RECONCILIATION",
+    "EDUCACAO_SOURCE_LABEL_NE_MDE_FUNDEB_EITI",
+    "NO_CROSS_STATEMENT_ARITHMETIC_TO_CREATE_COMPARISON",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ]
+}

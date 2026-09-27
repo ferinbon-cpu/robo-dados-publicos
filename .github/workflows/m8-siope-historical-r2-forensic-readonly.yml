@@ -1,0 +1,85 @@
+name: M8 SIOPE HISTORICAL R2 FORENSIC READONLY
+run-name: "M8 R2 immutable evidence forensic read by @${{ github.actor }}"
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: m8-siope-historical-r2-forensic-readonly
+  cancel-in-progress: false
+
+jobs:
+  forensic-readonly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      SOURCE_ARTIFACT_ID: "9684264254"
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - name: Validate manual main boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REPOSITORY" = "ferinbon-cpu/robo-dados-publicos"
+          test "$GITHUB_EVENT_NAME" = "workflow_dispatch"
+          test "$GITHUB_REF" = "refs/heads/main"
+      - name: Checkout exact dispatched main SHA
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          check-latest: false
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - name: Offline gates before credentials and remote reads
+        run: |
+          python scripts/github_preflight.py
+          python scripts/github_automation_policy_gate.py
+          python scripts/github_codex_engineer_policy_gate.py
+          python -m compileall -q .
+          python -m unittest tests.test_m8_r2_forensic_readonly -v
+          python main.py selftest
+      - name: Download pinned existing product artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api "repos/${GITHUB_REPOSITORY}/actions/artifacts/${SOURCE_ARTIFACT_ID}/zip" > "$RUNNER_TEMP/m8-source.zip"
+      - name: Prove exact readonly OAuth capability
+        env:
+          GOOGLE_DRIVE_CLIENT_ID: ${{ secrets.GOOGLE_DRIVE_READONLY_CLIENT_ID }}
+          GOOGLE_DRIVE_CLIENT_SECRET: ${{ secrets.GOOGLE_DRIVE_READONLY_CLIENT_SECRET }}
+          GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_READONLY_REFRESH_TOKEN }}
+        run: python scripts/github_m8_readonly_credential_capability_gate.py
+      - name: Run one-page inventory, worksheet metadata proof, and qualified A:Z forensics
+        id: forensic
+        shell: bash
+        env:
+          GOOGLE_DRIVE_READONLY_CLIENT_ID: ${{ secrets.GOOGLE_DRIVE_READONLY_CLIENT_ID }}
+          GOOGLE_DRIVE_READONLY_CLIENT_SECRET: ${{ secrets.GOOGLE_DRIVE_READONLY_CLIENT_SECRET }}
+          GOOGLE_DRIVE_READONLY_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_READONLY_REFRESH_TOKEN }}
+        run: |
+          set +e
+          python scripts/audit_m8_siope_historical_r2_forensic_readonly.py \
+            --artifact-zip "$RUNNER_TEMP/m8-source.zip" --output "$RUNNER_TEMP/task-013-result.json"
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+      - name: Upload sanitized forensic evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: m8-r2-forensic-readonly-${{ github.run_id }}
+          path: ${{ runner.temp }}/task-013-result.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Propagate forensic stop without masking it
+        if: ${{ always() }}
+        run: |
+          cat "$RUNNER_TEMP/task-013-result.json"
+          test '${{ steps.forensic.outputs.exit_code }}' = '0'

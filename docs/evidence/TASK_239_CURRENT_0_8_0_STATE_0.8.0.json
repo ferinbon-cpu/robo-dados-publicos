@@ -1,0 +1,72 @@
+{
+  "schema": "TASK_239_CURRENT_0_8_0_STATE_V1",
+  "task": "TASK_239",
+  "issue": 805,
+  "canonical_date": "2026-09-12",
+  "base_main_sha": "07952f63c6ec86a5dd9ce316cc2516c8e4225580",
+  "tier": "T0_OFFLINE_CURRENT_STATE_RECONCILIATION",
+  "territory": {
+    "territory_profile_rows": 284,
+    "strong_school_links": 69,
+    "network_schools": 69,
+    "held_geography": 0,
+    "schools_with_numeric_income_context": 68,
+    "schools_with_explicit_sector_income_missingness": 1,
+    "explicit_missingness_school_code": "35286229",
+    "explicit_missingness_status": "SOURCE_EXPLICIT_X",
+    "source_x_is_zero": false,
+    "contextual_answerability": "38/38"
+  },
+  "siope_2025": {
+    "year_status": "PROVEN_STRUCTURAL_RECENT",
+    "B1_NUM_POPU": "RESOLVED_BY_EXCLUSION_FROM_ANALYTICAL_POPULATION_SEMANTICS",
+    "B2_FINANCIAL_ALIAS_BRIDGE": "PROVEN_10_OF_10_ALIAS_TO_CONCEPT",
+    "B3_EFFECTIVE_ANNUAL_DECLARATION": "PROVEN_DYNAMIC_EFFECTIVE_SELECTION_RULE_WITH_PINNED_LIMEIRA_RECEIPT",
+    "VALID_ANNUAL_SUBMISSION": "PROVEN",
+    "currently_effective_receipt_at_pinned_observation": "428477-6",
+    "pinned_observation_date": "2026-08-30",
+    "future_successful_rectification_requires_refresh": true,
+    "immutable_finality_asserted": false,
+    "semantic_comparability_2016_2025": "UNKNOWN_REQUIRES_TASK241",
+    "annual_closure_status": "EFFECTIVE_DECLARATION_PROVEN_COMPARABILITY_PENDING",
+    "gold_2025": "BLOCKED_NOT_CALCULATED",
+    "closed_annual_series": "2016-2024",
+    "release_0_8_0": "CANDIDATE",
+    "year_2026": "UNPROVEN_CURRENT_YEAR"
+  },
+  "current_contracts": {
+    "release_readiness": "config/release_0_8_0_readiness.v2.json",
+    "gold_prerequisites": "config/siope_2025_gold_prerequisites.v2.json"
+  },
+  "historical_snapshots_preserved": [
+    "config/release_0_8_0_readiness.v1.json",
+    "config/siope_2025_gold_prerequisites.v1.json",
+    "docs/evidence/TASK_011_FNDE_AUTHORITATIVE_REQUESTS_PENDING_0.8.0.json"
+  ],
+  "source_evidence": {
+    "territory": "docs/evidence/TASK_199H_FULL_NETWORK_OFFICIAL_POINT_IN_POLYGON_0.8.0.json",
+    "B1": "docs/evidence/TASK_010N_R_E_M6_SIOPE_NUM_POPU_FNDE_DISPOSITION_0.8.0.json",
+    "B2": "docs/evidence/TASK_195C_SIOPE_FUNCAO12_ALIAS_BRIDGE_0.8.0.json",
+    "B3": "docs/evidence/TASK_240_SIOPE_2025_EFFECTIVE_ANNUAL_DECLARATION_0.8.0.json"
+  },
+  "next_gate": {
+    "task": "TASK_241",
+    "issue": 809,
+    "purpose": "SEMANTIC_COMPARABILITY_2016_2025"
+  },
+  "guards": {
+    "historical_snapshot_rewritten": false,
+    "source_x_treated_as_zero": false,
+    "num_popu_used_as_2025_population_denominator": false,
+    "b2_backend_formula_invented": false,
+    "b3_immutable_finality_inferred": false,
+    "semantic_comparability_inferred_from_b1_b2_b3": false,
+    "gold_2025_computed": false,
+    "year_2025_included_in_closed_series": false,
+    "release_promoted": false,
+    "remote_source_collection": false,
+    "drive_write": false,
+    "schedule_or_recurrence": false
+  },
+  "decision": "RECONCILE_CURRENT_STATE_B1_B2_B3_RESOLVED_COMPARABILITY_NEXT"
+}

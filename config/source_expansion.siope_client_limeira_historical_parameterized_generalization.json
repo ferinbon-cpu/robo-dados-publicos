@@ -1,0 +1,49 @@
+{
+  "batch_live_authorized": false,
+  "compliance_claims_authorized": false,
+  "evidence": {
+    "2021_readonly": {
+      "blob_sha": "6c13b93f4f95843f5449083527edd8b8faf895b8",
+      "path": "docs/evidence/M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2021_P6_FULL_SCHEMA_READONLY_VALIDATION_RUN_1_0.8.0.json",
+      "run_id": 33105190675
+    },
+    "2022_gold_readback": {
+      "blob_sha": "71b916f829e2aaac1c5652bd097e923f10e6dcc8",
+      "path": "docs/evidence/M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2022_P6_GOLD_DRIVE_READBACK_VERIFICATION_RUN_1_0.8.0.json",
+      "run_id": 33103337072
+    },
+    "2023_gold_readback": {
+      "blob_sha": "e344a7d01e9226b13fd4169373cd2a5fc8aedcb8",
+      "path": "docs/evidence/M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2023_P6_GOLD_DRIVE_READBACK_VERIFICATION_RUN_1_0.8.0.json",
+      "run_id": 33065919823
+    },
+    "2024_gold_readback": {
+      "blob_sha": "291dbd782e89552d8958eebcca69f04fb773d73a",
+      "path": "docs/evidence/M7_SIOPE_CLIENT_LIMEIRA_GOLD_DRIVE_READBACK_VERIFICATION_RUN_1_0.8.0.json",
+      "run_id": 33026528414
+    }
+  },
+  "full_pipeline_evidence_years": [2024, 2023, 2022],
+  "gate_id": "M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_PARAMETERIZED_GENERALIZATION_0_8_0",
+  "historical_collection_authorized": false,
+  "imputation_authorized": false,
+  "individual_year_workflow_duplication_authorized": false,
+  "max_years_per_future_batch": 5,
+  "mode": "OFFLINE_HISTORICAL_PARAMETERIZED_GENERALIZATION_REVIEW",
+  "municipality_code": 352690,
+  "municipality_name": "Limeira",
+  "network_called": false,
+  "next_gate": "M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_PARAMETERIZED_PIPELINE_DRY_RUN_0_8_0",
+  "pagination_authorized": false,
+  "parameterized_pipeline_design_authorized": true,
+  "period": 6,
+  "processing_live_authorized": false,
+  "read_only_evidence_years": [2021],
+  "recurrence_authorized": false,
+  "retry_authorized": false,
+  "schedule_enabled": false,
+  "schema_key_count": 52,
+  "software_version": "0.8.0",
+  "source_id": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
+  "uf": "SP"
+}

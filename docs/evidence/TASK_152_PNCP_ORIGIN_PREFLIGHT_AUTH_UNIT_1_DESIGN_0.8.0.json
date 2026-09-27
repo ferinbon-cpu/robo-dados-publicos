@@ -1,0 +1,22 @@
+{
+  "task": "TASK_152_PNCP_ORIGIN_PREFLIGHT_AUTH_UNIT_1",
+  "issue": 516,
+  "mode": "T0_OFFLINE_ORIGIN_PREFLIGHT_DESIGN_ONLY",
+  "base_sha": "c89293b917b131a242529bbe1a16ef28c9018005",
+  "owner_authorization_units_granted": 10,
+  "authorization_unit_index": 1,
+  "remaining_units_before_execution": 10,
+  "future_web_open_invocations_max": 1,
+  "future_origin_url": "https://pncp.gov.br/",
+  "parameterized_api_open_authorized": false,
+  "future_search_queries": 0,
+  "future_clicks": 0,
+  "future_retry": 0,
+  "future_followup_opens": 0,
+  "future_direct_download_invocations": 0,
+  "negative_exhaustive_conclusion_allowed": false,
+  "pncp_no_match_allowed": false,
+  "identity_promotion_allowed": false,
+  "remaining_units_after_single_invocation": 9,
+  "result": "PASS_TASK152_ORIGIN_PREFLIGHT_DESIGNED_NOT_EXECUTED"
+}

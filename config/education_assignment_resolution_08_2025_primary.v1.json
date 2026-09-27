@@ -1,0 +1,168 @@
+{
+  "schema": "EDUCATION_ASSIGNMENT_RESOLUTION_08_2025_PRIMARY_V1",
+  "task": "TASK_235",
+  "issue": 786,
+  "base_main_sha": "c713054506e625af7bb8d40c7b6527ce5d547497",
+  "verified_at": "2026-09-11",
+  "snapshot_bound": true,
+  "target": {
+    "sme_legal_id": "SMELEGAL-018",
+    "item": "Atribuição de Aula",
+    "school_year_scope": 2026,
+    "task234_historical_placeholder": "NOT_ACQUIRED",
+    "task235_status": "PRIMARY_OFFICIAL_PUBLICATION_IDENTITY_AND_TEXT_RECOVERED_BINARY_NOT_CUSTODIED",
+    "does_not_rewrite_historical_task234_file": true
+  },
+  "source": {
+    "act": "Resolução SME nº 08, de 09 de dezembro de 2025",
+    "publication_label": "(RETIFICAÇÃO)",
+    "title": "Dispõe sobre o processo de atribuição de classes e/ou turmas para o ano letivo de 2026 aos docentes da Secretaria Municipal de Educação de Limeira.",
+    "issuer": "Secretaria Municipal de Educação de Limeira",
+    "signatory": "Antônio Montesano Neto",
+    "official_journal": "Jornal Oficial do Município de Limeira",
+    "edition": 7139,
+    "publication_date": "2025-12-16",
+    "pdf_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_15122025182852.pdf",
+    "pdf_total_pages": 203,
+    "resolution_page_span": [168, 186],
+    "normative_article_span": [1, 34],
+    "annexes_materialized": ["Anexo I - Cronograma do processo de atribuição"],
+    "source_identity_status": "PROVEN_PRIMARY_OFFICIAL_PUBLICATION",
+    "text_recovery_status": "PRIMARY_TEXT_RECOVERED_PAGE_BY_PAGE_FROM_INDEXED_OFFICIAL_PDF",
+    "binary_custody_status": "NOT_CUSTODIED_NO_BYTE_HASH",
+    "binary_custody_reason": "Direct non-portal retrieval returned access blocking; exact official PDF URL and indexed page text are proven, but no binary hash is claimed.",
+    "authority_role": "PRIMARY_NORMATIVE_OFFICIAL_PUBLICATION",
+    "effective_rule": {
+      "article": "Art. 34",
+      "effective_on_publication": true,
+      "retroactive_effect_date": "2025-12-06",
+      "revokes_conflicting_provisions": true
+    }
+  },
+  "authority_precedence": [
+    "PRIMARY_NORMATIVE_OFFICIAL_PUBLICATION_EXACT_ARTICLE_TEXT",
+    "PRIMARY_NORMATIVE_OFFICIAL_CONSOLIDATED_OR_MODIFIER",
+    "OFFICIAL_OPERATIONAL_PAGE_CURRENT_WORKFLOW",
+    "DERIVED_SME_LEGAL_COVERAGE_MAP"
+  ],
+  "article_index": [
+    {"article":1,"pages":[168],"topic":"School and SME authorities must execute and monitor the assignment process."},
+    {"article":2,"pages":[168],"topic":"SME designates the commission that coordinates, executes and evaluates assignment."},
+    {"article":3,"pages":[168,169],"topic":"Director/Vice-Director and designated commission assign classes/turmas respecting classification; includes state teachers, EJA, effective substitutes and PSS 04/2025 under Annex I chronology."},
+    {"article":4,"pages":[169,170],"topic":"Defines available weekly teaching workloads, AEE operation, Art/Physical Education specialist workload composition, Linguagens e Tecnologias/oficinas complement and PSS 04/2025 maximum 48 h/a contract."},
+    {"article":5,"pages":[170,171],"topic":"Preferential qualification/experience criteria for 1st-3rd year literacy classes and EJA, with residual assignment allowed if no preferred candidate remains."},
+    {"article":6,"pages":[171],"topic":"Titular teachers away/designated elsewhere still participate to compose workload and assume assigned classes after the leave/designation ends."},
+    {"article":7,"pages":[171,172],"topic":"Defines excess teachers, return/relocation rights, adido status and no pay/advantage loss from adido declaration."},
+    {"article":8,"pages":[172],"topic":"Readapted titular teachers are classified but do not participate in assignment; cessation during year triggers free-class assumption or adido treatment."},
+    {"article":9,"pages":[172],"topic":"Teacher unable to attend workload composition must use an adult proxy with specific authority who is not a public employee; otherwise assignment is compulsory at session end."},
+    {"article":10,"pages":[172],"topic":"Defines operating duties of effective substitute EI/EF teachers, pedagogical intervention when not substituting, coverage of specialist/LT absences and prohibition on assigning free classes to effective substitutes."},
+    {"article":11,"pages":[172,173,174,175,176],"topic":"Defines the sequential initial assignment process, phases, times, workload composition, specialist/LT/oficina proof requirements and PSS 04/2025 portal assignment on 15-16 Jan 2026."},
+    {"article":12,"pages":[176],"topic":"Teacher is responsible for legality/compatibility when accumulating two teaching posts/jobs/functions, especially municipal HTPC rules."},
+    {"article":13,"pages":[176,177,178],"topic":"Defines sequential order for assignments during school year 2026 at school and SME levels, including adidos, stable CLT, effective substitutes, supplemental workload, event substitutions and PSS 04/2025."},
+    {"article":14,"pages":[178],"topic":"After initial assignment, school directors register titular teachers from other schools for substitution; external-unit supplemental workload may not exceed 66 h/a weekly total with the post."},
+    {"article":15,"pages":[178,179],"topic":"Defines EJA substitution/new-class order: titular EJA workload, titular supplemental workload, PSS 04/2025, then exceptional item 15.20 candidates."},
+    {"article":16,"pages":[179],"topic":"Special Projects require a habilitation process based on SME-defined criteria without changing list classification; short substitutions may exceptionally bypass habilitation."},
+    {"article":17,"pages":[179],"topic":"Creche sectors B1/B2/M1 may be assigned as supplemental workload or to PSS 04/2025/item 15.20 candidates, prioritizing morning service; SME defines necessary staffing quantity."},
+    {"article":18,"pages":[179,180],"topic":"Integral Education 2026 assignments occur in phase I; creche B1/B2 and APC supplemental/PSS assignments occur in Feb 2026 with counter-shift service starting Mar 2026."},
+    {"article":19,"pages":[180],"topic":"Guarantees assignment possibility for continuity of support to students with disabilities in Special Projects, respecting classification and school-direction evaluation in articulation with SME."},
+    {"article":20,"pages":[180],"topic":"Titular teachers may choose supplemental workload at home school or initial SME phase II; HTPC and schedule compatibility must be considered and documented."},
+    {"article":21,"pages":[180],"topic":"When titular leave is extended, current substitute may continue without new assignment at administration/school discretion; director informs SME by internal communication/iDoc."},
+    {"article":22,"pages":[180],"topic":"Titular teacher on supplemental workload is disconnected from substitution after 30 absence days, consecutive or interpolated, subject to enumerated exceptions; short-assignment absences accumulate."},
+    {"article":23,"pages":[181],"topic":"PSS 04/2025 teacher reaches contract termination at 30 consecutive/interpolated absence days; short assignments accumulate; voluntary withdrawal allows new indication in another approved modality only after 45 days; lesson absences count toward unjustified absent day."},
+    {"article":24,"pages":[181],"topic":"CLT temporary teacher in Special Projects/substitution/transitory vacancy is evaluated quarterly on student learning commitment, professional responsibility and personal performance attributes."},
+    {"article":25,"pages":[182],"topic":"School direction and pedagogical coordinator perform the evaluation; persistent gaps after documented guidance lead to loss of assignment, exclusion from new project/oficina/substitution classes that year and temporary-contract termination."},
+    {"article":26,"pages":[182],"topic":"PSS 01/2024 substitutes with provisional stability at contract end keep a 2026 substitution workload until stability ends, corresponding to 2025 assigned classes/turmas/periods at the same workplace."},
+    {"article":27,"pages":[182],"topic":"Defines assignment-session conduct, including entry preference for teacher/legal representative, blue pen, photo ID, no food and no mobile-phone use at the assignment desk."},
+    {"article":28,"pages":[182],"topic":"Teacher entering service during school year receives assignment at exercise time; simultaneous entrants are ordered by public-exam ranking."},
+    {"article":29,"pages":[182],"topic":"All effective and CLT teachers, including creche/oficina/APC/Special Project assignments, are subject to SME rules for school documentation, reports and planning."},
+    {"article":30,"pages":[183],"topic":"Bars new assignments for titular teachers who withdraw/are disconnected under Art.22 and, in same contract, PSS 04/2025 teachers who withdraw, are disconnected under Art.23, fail timely presentation after contract documentation or fail to complete contract documents; lists exceptions."},
+    {"article":31,"pages":[183],"topic":"Bars effective or CLT teacher assignment where spouse/partner or relative up to third degree would be the teacher's supervisor."},
+    {"article":32,"pages":[183],"topic":"Assignment appeals have no suspensive or retroactive effect and must be filed with SME within two business days after the motivating event."},
+    {"article":33,"pages":[183],"topic":"Omitted cases go to the assignment coordination/execution/evaluation commission for school year 2026."},
+    {"article":34,"pages":[183],"topic":"Resolution takes effect on publication, retroactive to 6 Dec 2025, revoking conflicting provisions."}
+  ],
+  "annex_i": {
+    "pages": [184,185,186],
+    "title": "Cronograma do Processo de Atribuição de Classes e/ou Aulas",
+    "selected_schedule": [
+      {"date":"2025-12-15","phase":"Day 1","events":"School and SME phases for workload composition, EJA, excess teachers, adidos/stable CLT/effective substitutes."},
+      {"date":"2025-12-16","phase":"Day 2","events":"School/SME supplemental workload assignment for Art, Physical Education, classes, LT and extracurricular workshops."},
+      {"date":"2025-12-17","phase":"Day 3","events":"SME single phase for remaining EI/EF/EE/Art/Physical Education/LT/workshop balances as supplemental workload."},
+      {"date_range":["2026-01-15","2026-01-16"],"phase":"PSS 04/2025 portal phase","events":"Portal indication of available substitution classes/turmas, with result stated for 26 Jan 2026 and 48 h/a weekly ceiling."}
+    ]
+  },
+  "primary_selected_rules": {
+    "specialist_workload_and_lt": {
+      "article":"Art. 4 §4",
+      "pages":[170],
+      "rules":[
+        "Art/Physical Education specialists compose workload at their school/extensions with minimum class counts by workload.",
+        "Remaining workload may use Linguagens e Tecnologias and/or extracurricular workshops under stated qualification rules.",
+        "Titular teacher LT formation is exceptionally allowed to be proven by the first school day of 2026."
+      ]
+    },
+    "pss_48_hour_ceiling": {"article":"Art. 4 §5","pages":[170],"rule":"PSS 04/2025 contract may reach at most 48 h/a weekly across listed workloads/projects."},
+    "initial_portal_assignment": {"article":"Art. 11 §5","pages":[175,176],"rule":"PSS 04/2025 portal indication occurs 15-16 Jan 2026; result is stated for 26 Jan 2026; proof upload is required for LT/workshop qualification and missing proof annuls indication."},
+    "during_year_order": {"article":"Art. 13","pages":[176,177,178],"rule":"Defines school/SME sequence for 2026 during-year assignments and substitutions."},
+    "cross_school_supplemental_ceiling": {"article":"Art. 14 parágrafo único","pages":[178],"rule":"Titular teacher registered at another school may receive only supplemental workload there and total post + supplemental workload may not exceed 66 h/a weekly."},
+    "disability_continuity": {"article":"Art. 19","pages":[180],"rule":"Continuity assignment for students with disabilities in Special Projects is preserved subject to classification and school-direction evaluation with SME."},
+    "titular_absence_30_days": {"article":"Art. 22","pages":[180],"rule":"Thirty absent days on supplemental workload disconnect the titular teacher from substitution subject to expressly listed exceptions."},
+    "pss_absence_and_withdrawal": {"article":"Art. 23","pages":[181],"rule":"Thirty consecutive/interpolated absence days end the PSS contract; voluntary withdrawal allows another approved modality only after 45 days."},
+    "temporary_teacher_evaluation": {"article":"Arts. 24-25","pages":[181,182],"rule":"Quarterly evaluation applies to CLT temporary teachers in Special Projects/substitution/transitory vacancy; persistent documented gaps can terminate assignment and temporary contract."},
+    "new_assignment_bar": {"article":"Art. 30","pages":[183],"rule":"Defines when titular and PSS 04/2025 teachers are barred from new assignments and enumerates exceptions."},
+    "appeals": {"article":"Art. 32","pages":[183],"rule":"Two-business-day appeal window; no suspensive or retroactive effect."}
+  },
+  "task234_cross_check": {
+    "primary_confirms": [
+      "SMEOP-R06: Art. 23 30-day PSS contract termination and cumulative short-assignment absences",
+      "SMEOP-R07: Art. 23 §2 45-day wait after voluntary withdrawal before indication in another approved modality",
+      "SMEOP-R02 core consequence: Art. 30 same-contract bar after PSS withdrawal/Art.23 disconnection, while the operational page supplies the lack-of-requirement workflow trigger"
+    ],
+    "remains_operational_only_unless_separately_traced": [
+      "SMEOP-R03 modality execution order on current web page",
+      "SMEOP-R04 current-phase no-decline workflow",
+      "SMEOP-R05 declined-modality operational restriction",
+      "SMEOP-R08 EI lesson counts",
+      "SMEOP-R09 EF lesson counts"
+    ],
+    "divergence": {
+      "id":"LT_FORMATION_TIMING_DIVERGENCE",
+      "primary_publication":"Art. 11 §5(b), pp.175-176: PSS 04/2025 LT/workshop proof is part of indication/upload and absence of proof annuls indication.",
+      "current_operational_page":"Current SME page says LT formation may be presented to the school director during the first semester of 2026, citing Art. 11 §5(b).",
+      "interpretation":"UNRESOLVED_POSSIBLE_LATER_OPERATIONAL_OR_NORMATIVE_CHANGE",
+      "guard":"DO_NOT_TREAT_OPERATIONAL_PAGE_AS_AMENDMENT_WITHOUT_OFFICIAL_MODIFIER_TRACE"
+    }
+  },
+  "global_guards": [
+    "PRIMARY_PUBLICATION_TEXT_RECOVERED_NE_BINARY_CUSTODY",
+    "RETIFICACAO_LABEL_MUST_BE_PRESERVED",
+    "ARTICLE_PAGE_PROVENANCE_REQUIRED",
+    "NO_UNSEEN_TEXT_RECONSTRUCTION",
+    "PRIMARY_EXACT_ARTICLE_GT_OPERATIONAL_PAGE_FOR_NORMATIVE_WORDING",
+    "OPERATIONAL_PAGE_MAY_PROVE_CURRENT_WORKFLOW_WITHOUT_AMENDING_NORM",
+    "DO_NOT_TREAT_OPERATIONAL_PAGE_AS_AMENDMENT_WITHOUT_OFFICIAL_MODIFIER_TRACE",
+    "TASK234_HISTORICAL_PLACEHOLDER_MUST_NOT_BE_SILENTLY_REWRITTEN",
+    "BINARY_HASH_MUST_NOT_BE_INVENTED",
+    "NO_PERSONAL_LOGIN_DATA_MATERIALIZATION",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "summary": {
+    "articles_indexed": 34,
+    "resolution_pages": 19,
+    "annex_pages": 3,
+    "primary_publication_identity_proven": true,
+    "primary_text_recovered": true,
+    "binary_hash_available": false,
+    "task234_resolution_placeholder_superseded_by_overlay": true,
+    "lt_timing_divergence_open": true,
+    "contextual_coverage": "38/38_UNCHANGED"
+  },
+  "remote_effects": {
+    "source_network_read_only": true,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

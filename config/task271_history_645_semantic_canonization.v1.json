@@ -1,0 +1,40 @@
+{
+  "schema": "TASK271_HISTORY_645_SEMANTIC_CANONIZATION_V1",
+  "task": "TASK_271",
+  "issue": 877,
+  "base_main_sha": "63ccaacdd5acfb032058b5016552f4ca02a3b07a",
+  "source_task270": {
+    "implementation_sha": "63ccaacdd5acfb032058b5016552f4ca02a3b07a",
+    "run_id": 35398805436,
+    "job_id": 105773699099,
+    "runtime_head_sha": "8206e60d9e796c5f2941d3f471c457c7f432324e",
+    "artifact_id": 10570096946,
+    "artifact_zip_sha256": "320bde193cd4c583ab99f61934086c86e4fe994a271576a54cf8174bc53bc112",
+    "artifact_file_sha256": "55ab269019eb299824771d9fd4b9dec81f7dde41401aad138f7524da63ed7886",
+    "result_sha256": "ce45bf981a4b4a0e991f73d89c2508318778cfd6bd57fd0e250b0e1209a660b1",
+    "body_sha256": "51e24d09e284ef40f316dd39b64a08f09e3291d0e65c7205a076dac0008d11bc",
+    "safe_projection_sha256": "88b9ba6344f76d84efc4e8c99e8ecd9bc2d20da51bba0907f75b33dd11b84873",
+    "http_code": 200,
+    "event_count": 3
+  },
+  "control": "45132495000140-1-000645/2026",
+  "fixture": "docs/evidence/fixtures/task271/TASK_271_HISTORY_645_SAFE_EVENTS.jsonl",
+  "expected": {
+    "event_count": 3,
+    "procurement_inclusion": 1,
+    "contract_document_inclusion": 2,
+    "result_reference_nonnull_count": 0,
+    "item_reference_nonnull_count": 0
+  },
+  "boundaries": {
+    "network": false,
+    "document_traversal": false,
+    "result_absence_permanent_inference": false,
+    "no_result_procurement_inference": false,
+    "pncp_to_tce_proven": false,
+    "payment_proven": false,
+    "execution_proven": false,
+    "persist_usuario_nome": false
+  },
+  "status": "PNCP_HISTORY_645_3_EVENTS_CANONIZED_PROCUREMENT_PLUS_2_DOCUMENT_INCLUSIONS"
+}

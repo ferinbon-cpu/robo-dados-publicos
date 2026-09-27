@@ -1,0 +1,112 @@
+{
+  "version": 1,
+  "schema": "LIMEIRA_BUDGET_FISCAL_SOURCE_ACQUISITION_MAP_V1",
+  "task": "TASK_171_OBSERVATORY_QUESTION_ONTOLOGY_BUDGET_MAP_JOM_SEMANTICS",
+  "jurisdiction": "Limeira/SP",
+  "objective": "Map planning, budget authorization, accounting execution, procurement and payment evidence to official source families while prioritizing DIRECT_JSON_FIRST.",
+  "acquisition_order": ["DIRECT_OFFICIAL_JSON_API_GET", "DIRECT_AUTHORIZED_MACHINE_READABLE_GET", "DOCUMENTED_API_OR_DECLARED_DOWNLOAD_ROUTE", "STRUCTURED_OFFICIAL_TABLE", "TEXTUAL_PDF", "COMPLEX_PDF", "OCR", "HTML_DOM_JS_INTERNAL_PATH_REVERSE_ENGINEERING_FALLBACK_ONLY"],
+  "stages": ["PLANNING", "BUDGET_AUTHORIZATION", "COMMITMENT", "LIQUIDATION", "PAYMENT", "PROCUREMENT", "CONTROL_RECONCILIATION"],
+  "sources": [
+    {
+      "id": "SIOPE_OLINDA",
+      "authority": "FNDE",
+      "roles": ["BUDGET_PRIMARY", "ACCOUNTING_AGGREGATE_EDUCATION"],
+      "stages": ["BUDGET_AUTHORIZATION", "COMMITMENT", "LIQUIDATION", "PAYMENT"],
+      "machine_readable_status": "PROVEN_EXECUTION_READY_BOUNDED",
+      "official_base_url": "https://www.fnde.gov.br/olinda-ide/servico/DADOS_ABERTOS_SIOPE/versao/v1/odata",
+      "transport": "ODATA_JSON",
+      "granularity_limit": "EDUCATION_FISCAL_AGGREGATES_NOT_GENERAL_MUNICIPAL_TRANSACTION_IDENTITY"
+    },
+    {
+      "id": "PNCP_CONSULTA",
+      "authority": "PNCP",
+      "roles": ["ADMINISTRATIVE_PRIMARY_PROCUREMENT"],
+      "stages": ["PROCUREMENT"],
+      "machine_readable_status": "PROVEN_EXECUTION_READY_BOUNDED",
+      "official_base_url": "https://pncp.gov.br/api/consulta/v1",
+      "transport": "JSON",
+      "granularity_limit": "PROCUREMENT_AND_CONTRACT_PUBLICATION_NE_PAYMENT"
+    },
+    {
+      "id": "TDA_LIMEIRA",
+      "authority": "Prefeitura Municipal de Limeira",
+      "roles": ["ACCOUNTING_EXECUTION_PRIMARY"],
+      "stages": ["BUDGET_AUTHORIZATION", "COMMITMENT", "LIQUIDATION", "PAYMENT"],
+      "machine_readable_status": "MISSING_DECLARED_PUBLIC_JSON_ROUTE",
+      "official_known_surface": "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+      "transport": "UNKNOWN_PENDING_DECLARED_ROUTE_DISCOVERY",
+      "next_discovery": "TASK170_SELECTED_BOUNDED_DECLARED_ROUTE_DISCOVERY"
+    },
+    {
+      "id": "TCE_SP_DESPESAS",
+      "authority": "Tribunal de Contas do Estado de Sao Paulo",
+      "roles": ["CONTROL_PRIMARY", "ACCOUNTING_EXECUTION_CORROBORATION"],
+      "stages": ["COMMITMENT", "LIQUIDATION", "PAYMENT", "CONTROL_RECONCILIATION"],
+      "machine_readable_status": "PARTIAL_TEMPORAL_CONTRACT",
+      "official_known_surface": "https://transparencia.tce.sp.gov.br/municipio/limeira",
+      "transport": "DOCUMENTED_JSON_FOR_2014_2019_PLUS_CURRENT_BULK_OR_SEPARATELY_VALIDATED_SURFACE",
+      "caution": "Do not extrapolate the documented 2014-2019 API contract to later years."
+    },
+    {
+      "id": "SICONFI_STN",
+      "authority": "Tesouro Nacional",
+      "roles": ["FISCAL_STATEMENT_PRIMARY", "CROSS_MUNICIPAL_COMPARABILITY"],
+      "stages": ["BUDGET_AUTHORIZATION", "COMMITMENT", "LIQUIDATION", "PAYMENT", "CONTROL_RECONCILIATION"],
+      "machine_readable_status": "CANDIDATE_REQUIRES_EXACT_OFFICIAL_JSON_ROUTE_PINNING",
+      "transport": "OFFICIAL_API_OR_DOWNLOAD_EXPECTED_NOT_YET_VERSIONED",
+      "target_families": ["RREO", "RGF", "DCA_OR_FINBRA_WHEN_RELEVANT"]
+    },
+    {
+      "id": "JORNAL_OFICIAL_LIMEIRA",
+      "authority": "Prefeitura Municipal de Limeira",
+      "roles": ["NORMATIVE_PRIMARY", "ADMINISTRATIVE_PRIMARY", "BUDGET_PUBLICATION_PRIMARY"],
+      "stages": ["PLANNING", "BUDGET_AUTHORIZATION", "PROCUREMENT"],
+      "machine_readable_status": "PDF_SOURCE_PROVEN_DERIVED_JSON_INTERNAL",
+      "official_known_surface": "https://www.limeira.sp.gov.br/jornaloficial",
+      "transport": "OFFICIAL_PDF_TO_BRONZE_SILVER_GOLD_RAG",
+      "granularity_limit": "JOURNAL_EVENT_OR_PUBLICATION_DOES_NOT_AUTOMATICALLY_PROVE_ACCOUNTING_EXECUTION"
+    },
+    {
+      "id": "PPA_LDO_LOA_LIMEIRA",
+      "authority": "Prefeitura Municipal de Limeira",
+      "roles": ["PLANNING_PRIMARY", "BUDGET_PRIMARY"],
+      "stages": ["PLANNING", "BUDGET_AUTHORIZATION"],
+      "machine_readable_status": "SUPERVISED_DOCUMENT_EXTRACTION_PROVEN_PARTIALLY",
+      "transport": "OFFICIAL_DOCUMENT_OR_JOURNAL_PDF",
+      "granularity_limit": "PLANNING_AND_AUTHORIZATION_NE_EXECUTION"
+    },
+    {
+      "id": "FUNDEB",
+      "authority": "Official federal and municipal fiscal sources",
+      "roles": ["EDUCATION_FINANCING_PRIMARY"],
+      "stages": ["BUDGET_AUTHORIZATION", "CONTROL_RECONCILIATION"],
+      "machine_readable_status": "SUPERVISED_CUSTODY_PARTIAL",
+      "transport": "SOURCE_SPECIFIC_DOCUMENT_OR_DATASET",
+      "next_discovery": "PIN_EXACT_RECURRING_MACHINE_READABLE_SOURCE_WHEN_AVAILABLE"
+    },
+    {
+      "id": "RREO_RGF_MDE",
+      "authority": "Municipal/Tesouro official fiscal statements",
+      "roles": ["FISCAL_STATEMENT_PRIMARY"],
+      "stages": ["BUDGET_AUTHORIZATION", "COMMITMENT", "LIQUIDATION", "PAYMENT"],
+      "machine_readable_status": "SUPERVISED_CUSTODY_NEEDS_DIRECT_JSON_ROUTE_MAPPING",
+      "transport": "DOCUMENT_OR_API",
+      "next_discovery": "PREFER_SICONFI_OR_DECLARED_MUNICIPAL_JSON_BEFORE_PDF"
+    }
+  ],
+  "autodifferentiation": {
+    "planning_fields": ["ppa", "program", "action", "objective", "physical_target"],
+    "budget_authorization_fields": ["loa", "appropriation", "dotacao", "credito_adicional"],
+    "accounting_execution_fields": ["empenho", "liquidacao", "pagamento", "restos_a_pagar"],
+    "procurement_fields": ["process", "contract", "supplier", "pncp_control_id"],
+    "identity_rule": "A shared theme, amount or chronology never substitutes for an explicit stable key."
+  },
+  "missing_json_route_priority_after_task171": [
+    "TDA_LIMEIRA",
+    "SICONFI_STN_RREO_RGF",
+    "CURRENT_TCE_SP_MACHINE_READABLE_2020_PLUS",
+    "RECURRING_FUNDEB_MACHINE_READABLE_SOURCE",
+    "OTHER_MUNICIPAL_FISCAL_EXPORTS"
+  ],
+  "remote_effects": {"network": false, "drive_read": false, "drive_write": false, "publication": false}
+}

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "gate_id": "M7_SIOPE_ANTONIETA_DOWNLOAD_ROUTE_DISCOVERY_GATE_0_8_0",
+  "software_version": "0.8.0",
+  "release_status": "CANDIDATE",
+  "active_validated_version": "0.7.0",
+  "mode": "PASSIVE_DOWNLOAD_ROUTE_DISCOVERY_ONLY",
+  "network": "READ_ONLY_GET_PAGE_AND_DECLARED_SCRIPTS",
+  "remote_writes": "PROHIBITED",
+  "artifact_download": "PROHIBITED",
+  "head_request": "PROHIBITED",
+  "form_submission": "PROHIBITED",
+  "captcha_bypass": "PROHIBITED",
+  "source_collection": "PROHIBITED",
+  "source_processing": "PROHIBITED",
+  "recurrence": "PROHIBITED",
+  "schedule": "DISABLED",
+  "page_url": "https://www.fnde.gov.br/plataforma-antonieta-de-barros/dados/produtos-de-dados/visualizar/20",
+  "allowed_hosts": [
+    "www.fnde.gov.br"
+  ],
+  "required_product_name": "Dados Gerais - SIOPE",
+  "required_artifact_path": "exports/SIOPE/SIOPE_DADOS_GERAIS_SIOPE.txt.gz",
+  "max_page_bytes": 2097152,
+  "max_script_bytes": 1048576,
+  "max_scripts": 8,
+  "max_total_script_bytes": 6291456,
+  "candidate_keywords": [
+    "download",
+    "export",
+    "artefato",
+    "artifact"
+  ],
+  "next_gate": "M7_SIOPE_ANTONIETA_ARTIFACT_VERIFICATION_GATE_0_8_0"
+}

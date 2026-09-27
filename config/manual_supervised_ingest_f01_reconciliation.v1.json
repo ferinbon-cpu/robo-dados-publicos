@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "task": "TASK_026_F01_STAGING_RECONCILIATION",
+  "mode": "T0_OFFLINE_RECONCILIATION",
+  "source_task": "TASK_025_MANUAL_SUPERVISED_INGEST_F01",
+  "batch": "F01_PPA_LDO_LOA_2026",
+  "required_source_facts": {
+    "PPA": {"sha256": "3e5deb53448c2e5eea56217a4e5d7f20f7fc3859eff7fcb93a7de7eb17011c1a", "pages": 105},
+    "LDO": {"sha256": "6f28017bb61fe6dbd7db44e2306bd1a48f813d8d40411d87c130fba78fca2406", "pages": 37},
+    "LOA": {"sha256": "bc4c8bf4b2b1e8f59e880318c37ec7f7fbd4357a85a8b46c97750444dbf01d4b", "pages": 466}
+  },
+  "expected_derived_hashes": {
+    "LDO_2026_STRUCTURAL_MARKERS_V01.csv": "19b6ddccf214430db1309072235ebbc34830684d221584a5e6bc650d3aee905c",
+    "LOA_2026_PRIOR_BRIDGE_EVIDENCE_V01.csv": "2194173aed0b48c0d99e778f2533947151819dc8ab526f3c713f2ea8be949e13",
+    "PPA_PROGRAM_2001_ACTIONS_SELECTED_V01.csv": "835cebd29afcea77e3054a16682a1d7fa150951113d1085abf92eb32f7a8b429",
+    "PPA_PROGRAM_2001_INDICATORS_V01.csv": "3cb93e42f4211fc39d82896d7147f6a9404fe3016deb3342779c3ad1c739e0c0",
+    "QA_F01_STRUCTURED_PARSE_V01.json": "9bdfb15caaef457070bcf9338f4f915712f28b8ad74f0273fd9ea3a09f72c178",
+    "STAGING_F01_STRUCTURED_PARSE_V01.json": "dd33eccfc3b10822812f3edc2cee76c264ae018e60fc987292257e8c78d019d5"
+  },
+  "required_ppa_targets": [52, 53, 55, 57, 59, 59],
+  "required_ldo_markers": ["METAS_FISCAIS", "RISCOS_FISCAIS", "RESERVA_CONTINGENCIA", "PESSOAL", "EDUCACAO"],
+  "loa_boundary": {
+    "current_pdf_text_layer": "ABSENT",
+    "full_structured_parse_status_prefix": "BLOCKED_",
+    "prior_bridge_current_raw_reparse": "NOT_PERFORMED",
+    "prior_bridge_status": "DERIVED_PRIOR_EVIDENCE_ONLY"
+  },
+  "allowed_promotion_status": "NOT_SILVER",
+  "required_financial_identity_status": "EVIDENCIA_INSUFICIENTE",
+  "remote_effects_authorized": false,
+  "silver_promotion_authorized": false,
+  "gold_promotion_authorized": false,
+  "serving_promotion_authorized": false,
+  "publication_authorized": false
+}

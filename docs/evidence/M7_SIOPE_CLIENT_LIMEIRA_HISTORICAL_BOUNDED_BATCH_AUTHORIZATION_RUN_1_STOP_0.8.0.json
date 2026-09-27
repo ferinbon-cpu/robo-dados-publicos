@@ -1,0 +1,10 @@
+{
+  "artifact_digest": "sha256:5b12dc9983fa56b70bae0c79f6a4e49f0227dccf17c4133b8ca034f2305204af",
+  "artifact_id": 9668705255,
+  "error": "STOP_M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_BOUNDED_BATCH_AUTHORIZATION_SOURCE_RECORD_COUNT",
+  "head_sha": "279281f010a89dbe750859860b886dba4cd9ea32",
+  "job_id": 98706978404,
+  "run_id": 33126863037,
+  "status": "STOP_M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_BOUNDED_BATCH_AUTHORIZATION",
+  "writes_proven_zero_by_control_flow": true
+}

@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "schema": "UNIFIED_OBSERVATORY_QUERY_ROUTER_V1",
+  "task": "TASK_175_UNIFIED_OBSERVATORY_QUERY_LAYER",
+  "scope": "GENERAL_MUNICIPAL_PUBLIC_DATA_OBSERVATORY",
+  "mode": "T0_OFFLINE_QUERY_PLANNING",
+  "ontology_path": "config/observatory_question_ontology.v1.json",
+  "maturity_registry_path": "config/source_family_maturity_registry.v1.json",
+  "source_role_policy_path": "config/source_role_evidence_semantics.v1.json",
+  "budget_source_map_path": "config/budget_fiscal_source_acquisition_map.v1.json",
+  "answer_contract": [
+    "NUMBER_OR_FACT",
+    "TIME_REFERENCE",
+    "COMPARISON_OR_TREND",
+    "PLAIN_LANGUAGE_EXPLANATION",
+    "SOURCE_AND_PROVENANCE",
+    "CAUTION_OR_LIMIT"
+  ],
+  "route_modes": ["NUMERIC", "DOCUMENT", "HYBRID"],
+  "domain_routes": {
+    "NETWORK_ENROLLMENT": {"mode":"NUMERIC","primary":["CENSO_ESCOLAR"],"fallback":["MUNICIPAL_REPORTS"]},
+    "SCHOOLS_INFRASTRUCTURE": {"mode":"HYBRID","primary":["CENSO_ESCOLAR","JORNAL_OFICIAL"],"fallback":["PROCUREMENT","MUNICIPAL_CONTRACTS","TCE_SP_EXPENSES"]},
+    "LEARNING_FLOW": {"mode":"NUMERIC","primary":["IDEB","SAEB","SARESP","CENSO_ESCOLAR"],"fallback":[]},
+    "EQUITY_INCLUSION": {"mode":"NUMERIC","primary":["CENSO_ESCOLAR","SAEB"],"fallback":["IDEB","MUNICIPAL_REPORTS"]},
+    "TEACHERS_WORKFORCE": {"mode":"HYBRID","primary":["CENSO_ESCOLAR","JORNAL_OFICIAL"],"fallback":["PERSONNEL_TRANSPARENCY","RGF","SICONFI_STN"]},
+    "FINANCING": {"mode":"NUMERIC","primary":["TCE_SP_EXPENSES","SIOPE","SICONFI_STN","FUNDEB"],"fallback":["RREO","MDE","TDA_LIMEIRA"]},
+    "PLANNING_BUDGET": {"mode":"HYBRID","primary":["PPA","LDO","LOA","JORNAL_OFICIAL"],"fallback":["SICONFI_STN","TCE_SP_EXPENSES"]},
+    "ACCOUNTING_EXECUTION": {"mode":"NUMERIC","primary":["TCE_SP_EXPENSES","SIOPE"],"fallback":["SICONFI_STN","TDA_LIMEIRA","BUDGET_EXECUTION"]},
+    "PROCUREMENT_CONTRACTS": {"mode":"HYBRID","primary":["JORNAL_OFICIAL","PROCUREMENT","MUNICIPAL_CONTRACTS","PNCP"],"fallback":["TCE_SP_EXPENSES"]},
+    "PERSONNEL_MANAGEMENT": {"mode":"HYBRID","primary":["JORNAL_OFICIAL","CENSO_ESCOLAR"],"fallback":["PERSONNEL_TRANSPARENCY","RGF","SICONFI_STN"]},
+    "NORMS_SCHOOL_FUNCTIONING": {"mode":"DOCUMENT","primary":["JORNAL_OFICIAL","CME","MUNICIPAL_LEGISLATION"],"fallback":["SIAVE_LIMEIRA"]},
+    "PUBLIC_POLICIES": {"mode":"HYBRID","primary":["JORNAL_OFICIAL","MUNICIPAL_LEGISLATION","CME","PPA"],"fallback":["LDO","LOA","TCE_SP_EXPENSES"]},
+    "JOURNAL_EVENT_RADAR": {"mode":"DOCUMENT","primary":["JORNAL_OFICIAL"],"fallback":["MUNICIPAL_LEGISLATION","CME","SIAVE_LIMEIRA"]},
+    "TERRITORY_CONTEXT": {"mode":"NUMERIC","primary":["IBGE","OTHER_OFFICIAL_STATISTICS"],"fallback":[]},
+    "TRANSPARENCY_CONTROL": {"mode":"HYBRID","primary":["TCE_SP_EXPENSES","JORNAL_OFICIAL"],"fallback":["TDA_LIMEIRA","PNCP","SICONFI_STN"]}
+  },
+  "source_modes": {
+    "CENSO_ESCOLAR":"NUMERIC","IDEB":"NUMERIC","SAEB":"NUMERIC","SARESP":"NUMERIC",
+    "SIOPE":"NUMERIC","FUNDEB":"NUMERIC","RREO":"NUMERIC","RGF":"NUMERIC","MDE":"NUMERIC",
+    "TDA_LIMEIRA":"NUMERIC","TCE_SP_EXPENSES":"NUMERIC","SICONFI_STN":"NUMERIC",
+    "IBGE":"NUMERIC","OTHER_OFFICIAL_STATISTICS":"NUMERIC","BUDGET_EXECUTION":"NUMERIC",
+    "JORNAL_OFICIAL":"DOCUMENT","PPA":"DOCUMENT","LDO":"DOCUMENT","LOA":"DOCUMENT",
+    "MUNICIPAL_CONTRACTS":"BOTH","PROCUREMENT":"BOTH","PNCP":"BOTH",
+    "MUNICIPAL_LEGISLATION":"DOCUMENT","CME":"DOCUMENT","SIAVE_LIMEIRA":"DOCUMENT",
+    "MUNICIPAL_REPORTS":"BOTH","PERSONNEL_TRANSPARENCY":"BOTH"
+  },
+  "exact_capability_overrides": {
+    "TCE_SP_EXPENSES":{"status":"EXACT_ROUTE_SCHEMA_PROVEN_CURRENT_2026","score":3,"evidence":"TASK_172"},
+    "SICONFI_STN":{"status":"EXACT_ROUTE_SCHEMA_PROVEN_2025_RREO_RGF","score":3,"evidence":"TASK_172"},
+    "FUNDEB":{"status":"EXACT_DECLARED_MACHINE_READABLE_2026_SET_PROVEN","score":3,"evidence":"TASK_172"},
+    "PNCP":{"status":"EXACT_BOUNDED_API_SCOPES_PROVEN","score":3,"evidence":"TASK_166_TASK_168"},
+    "JORNAL_OFICIAL":{"status":"EXECUTION_READY_BOUNDED","score":3,"evidence":"TASK_071_TASK_174"},
+    "SIOPE":{"status":"EXECUTION_READY_BOUNDED","score":3,"evidence":"M8_SIOPE_PROOFS"}
+  },
+  "maturity_scores": {
+    "EXECUTION_READY_BOUNDED": 3,
+    "ROUTING_ONLY_SUPERVISED_EXECUTION": 2,
+    "BLOCKED_PENDING_CONTRACT": 0,
+    "UNREGISTERED_REVIEW": 1
+  },
+  "scenario_expansions": [
+    {
+      "id":"SCHOOL_REFORM",
+      "markers":["REFORMA","OBRA","MANUTENCAO PREDIAL","AMPLIACAO"],
+      "add_sources":["JORNAL_OFICIAL","PROCUREMENT","MUNICIPAL_CONTRACTS","TCE_SP_EXPENSES","CENSO_ESCOLAR"],
+      "mode":"HYBRID",
+      "required_join_rule":"EXPLICIT_ADMINISTRATIVE_OR_ACCOUNTING_KEY_PREFERRED"
+    },
+    {
+      "id":"SCHOOL_TRANSPORT",
+      "markers":["TRANSPORTE ESCOLAR"],
+      "add_sources":["JORNAL_OFICIAL","PROCUREMENT","PNCP","TCE_SP_EXPENSES","SIOPE","CENSO_ESCOLAR"],
+      "mode":"HYBRID",
+      "required_join_rule":"EXACT_PROCESS_CONTRACT_EMPENHO_OR_SEPARATELY_PROVEN_CROSSWALK"
+    },
+    {
+      "id":"SCHOOL_MEALS",
+      "markers":["ALIMENTACAO ESCOLAR","MERENDA"],
+      "add_sources":["JORNAL_OFICIAL","PROCUREMENT","PNCP","TCE_SP_EXPENSES","SIOPE","CENSO_ESCOLAR"],
+      "mode":"HYBRID",
+      "required_join_rule":"EXACT_PROCESS_CONTRACT_EMPENHO_OR_SEPARATELY_PROVEN_CROSSWALK"
+    },
+    {
+      "id":"POLICY_OR_NORM_CHANGE",
+      "markers":["NORMA","LEI","DECRETO","PORTARIA","RESOLUCAO","POLITICA PUBLICA","REGULAMENTA"],
+      "add_sources":["JORNAL_OFICIAL","CME","MUNICIPAL_LEGISLATION","PPA","LDO","LOA"],
+      "mode":"HYBRID",
+      "required_join_rule":"NORMATIVE_SOURCE_PROVES_RULE_NOT_EXECUTION"
+    },
+    {
+      "id":"PERSONNEL",
+      "markers":["PROFESSOR","DIRETOR","SERVIDOR","CONCURSO","NOMEACAO","EXONERACAO"],
+      "add_sources":["JORNAL_OFICIAL","CENSO_ESCOLAR","RGF","SICONFI_STN","PERSONNEL_TRANSPARENCY"],
+      "mode":"HYBRID",
+      "required_join_rule":"PERSON_OR_POSITION_IDENTITY_REQUIRES_EXPLICIT_SOURCE_FIELDS"
+    }
+  ],
+  "join_strengths": {
+    "STRONG":["EXACT_EMPENHO","EXACT_SOURCE_EXPENSE_IDENTIFIER","EXACT_CONTRACT_OR_PROCESS_ID","EXACT_PNCP_CONTROL_ID","EXACT_CNPJ_WHEN_SOURCE_FIELD_EXISTS"],
+    "CONTEXTUAL":["FISCAL_YEAR","PROGRAM","ACTION","FUNDING_SOURCE","APPLICATION_CODE","SCHOOL_OR_UNIT"],
+    "WEAK":["AMOUNT","DATE_PROXIMITY","OBJECT_TEXT","HISTORY_TEXT","SEMANTIC_SIMILARITY"]
+  },
+  "hard_guards": [
+    "QUESTION_TEXT_NE_NUMERIC_TRUTH_SOURCE",
+    "LLM_NE_FINAL_NUMERIC_TRUTH_ENGINE",
+    "SOURCE_ROLE_LIMITS_PROOF",
+    "JOM_PUBLICATION_NE_ACCOUNTING_EXECUTION",
+    "PROGRAMMATIC_OR_SEMANTIC_SIMILARITY_NE_IDENTITY",
+    "STATISTICAL_ASSOCIATION_NE_CAUSAL_EFFECT",
+    "RANKING_WITHOUT_CONTEXT_REQUIRES_CAUTION",
+    "BLOCKED_OR_PARTIAL_SOURCE_CREATES_GAP_NOT_INVENTED_ANSWER"
+  ],
+  "remote_effects": {"network":false,"drive_read":false,"drive_write":false,"serving":false,"publication":false,"schedule":false,"recurrence":false}
+}

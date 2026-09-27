@@ -1,0 +1,52 @@
+{
+  "task": "TASK_231",
+  "issue": 778,
+  "status": "MATERIALIZED_PROVENANCE_FINGERPRINT_NO_NUMERIC_PROMOTION",
+  "base_main_sha": "2a72e996db45d4e7ab423c7578e50fd38bd77da9",
+  "post_task230_main_ci": {"run_number":1786,"run_id":34593255967,"conclusion":"success"},
+  "corpus": {
+    "document_count": 50,
+    "a_family_count": 21,
+    "fundeb25a_family_count": 29,
+    "doc_id_ranges": ["DOC-020..DOC-040","DOC-068..DOC-096"],
+    "manifest_status": "ALL_DIRECT_TEXT_OK_IN_MD_01_3B"
+  },
+  "direct_source_findings": [
+    {"doc_id":"DOC-020","family":"a","printed_date":"2025-09-01","position_date":"2025-07-31","finding":"FUNDEB portal snapshot"},
+    {"doc_id":"DOC-021","family":"a","printed_date":"2025-10-14","position_date":"2025-08-31","finding":"FUNDEB portal snapshot"},
+    {"doc_id":"DOC-026","family":"a","printed_date":"2026-02-13","position_date":"2025-10-31","finding":"same filename token family can carry historical position"},
+    {"doc_id":"DOC-032","family":"a","printed_date":"2026-02-13","position_date":"2025-11-30","finding":"same 14-digit token as DOC-026 but different selectors/position"},
+    {"doc_id":"DOC-036","family":"a","printed_date":"2026-02-13","position_date":"2025-12-31","finding":"same 14-digit token as DOC-026/DOC-032 but third fiscal position"},
+    {"doc_id":"DOC-071","family":"fundeb25a","printed_date":"2026-06-23","position_date":"2026-05-31","finding":"25-percent portal snapshot corroborates F02 local monitoring"},
+    {"doc_id":"DOC-074","family":"fundeb25a","filename_timestamp_token":"13022026173134","printed_date":"2025-10-21","position_date":"2025-09-30","finding":"decisive counterexample: filename token is not a proven report date"}
+  ],
+  "family_titles": {
+    "a": "APLICACAO COM RECURSOS DO FUNDEB",
+    "fundeb25a": "APLICACAO DOS RECURSOS PROPRIOS EM ENSINO - POR DATA"
+  },
+  "temporal_contract": {
+    "filename_timestamp_token": "OPAQUE_UNPROVEN",
+    "report_printed_date": "ONLY_FROM_REPORT_BODY",
+    "position_date": "ONLY_FROM_REPORT_BODY",
+    "selectors": "OPAQUE_UNPROVEN",
+    "counterexample_doc_id": "DOC-074"
+  },
+  "overlap_assessment": {
+    "F02": "May-2026 portal snapshots corroborate already validated local-monitoring-only layer; no second count",
+    "TASK_190": "official RREO Annex 8 Jan-Apr remains higher authority for official MDE/FUNDEB claims",
+    "TASK_230": "official RREO B1/B2 series remains distinct from portal snapshots",
+    "numeric_facts_promoted": 0,
+    "contextual_coverage_change": false
+  },
+  "source_identity_guard": "MD_01.3B doc-id/filename mapping plus direct title/body samples; byte-hash identity to every original PDF not asserted",
+  "guards": [
+    "FILENAME_TIMESTAMP_TOKEN_NE_REPORT_PRINTED_DATE",
+    "FILENAME_TIMESTAMP_TOKEN_NE_FISCAL_POSITION_DATE",
+    "OPAQUE_SELECTOR_NE_SEMANTIC_DIMENSION",
+    "PORTAL_SNAPSHOT_NE_NEW_FACT",
+    "CONFERENCE_MONITORING_REPORT_NE_OFFICIAL_PUBLISHED_COMPLIANCE_STATEMENT",
+    "NO_DOUBLE_COUNT_WITH_F02_TASK190_TASK230",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "remote_effects": false
+}

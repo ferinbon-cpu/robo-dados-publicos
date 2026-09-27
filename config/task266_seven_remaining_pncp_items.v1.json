@@ -1,0 +1,76 @@
+{
+  "schema": "TASK266_SEVEN_REMAINING_PNCP_ITEMS_V1",
+  "task": "TASK_266",
+  "issue": 865,
+  "base_main_sha": "9fb188732a0012f112cdd3d700375bcaf3c9fa07",
+  "source_task265": {
+    "run_id": 35355223863,
+    "job_id": 105632816755,
+    "artifact_id": 10551441646,
+    "artifact_zip_sha256": "a6ac363c9cc3bd9ee31e8aebb643a8564f3e73520f34eba73593278d7a436dd0",
+    "artifact_file_sha256": "06a5e8f51e8403362c29a8fa32daeed9715d2b744688b67a3b02ea1fcf9b7705",
+    "result_sha256": "c1eb566c0903513714e38423dadb77fc5ca557f56308c84d03f55c27faf64980",
+    "control": "45132495000140-1-000645/2026",
+    "http_code": 200,
+    "item_count": 1
+  },
+  "targets": [
+    {
+      "control": "45132495000140-1-000646/2026",
+      "sequencial": 646,
+      "url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/646/itens"
+    },
+    {
+      "control": "45132495000140-1-000639/2026",
+      "sequencial": 639,
+      "url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/639/itens"
+    },
+    {
+      "control": "45132495000140-1-000648/2026",
+      "sequencial": 648,
+      "url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/648/itens"
+    },
+    {
+      "control": "45132495000140-1-000655/2026",
+      "sequencial": 655,
+      "url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/655/itens"
+    },
+    {
+      "control": "45132495000140-1-000653/2026",
+      "sequencial": 653,
+      "url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/653/itens"
+    },
+    {
+      "control": "45132495000140-1-000654/2026",
+      "sequencial": 654,
+      "url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/654/itens"
+    },
+    {
+      "control": "45132495000140-1-000069/2026",
+      "sequencial": 69,
+      "url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/69/itens"
+    }
+  ],
+  "probe": {
+    "max_remote_get_count": 7,
+    "max_body_bytes_per_target": 1048576,
+    "connect_timeout_seconds": 15,
+    "max_time_seconds_per_target": 75,
+    "retry": false,
+    "follow_redirects": false,
+    "alternate_url_discovery": false,
+    "raw_body_persistence": false
+  },
+  "runtime": {
+    "branch": "task-266-pncp-seven-items-runtime",
+    "authorization_file": "runtime/task266_owner_authorization.json",
+    "trigger_file": "runtime_triggers/task266_pncp_seven_items.run",
+    "artifact_name": "task-266-pncp-seven-items-sanitized"
+  },
+  "authorization": {
+    "authorization_token_index": 10,
+    "authorization_token_budget": 10,
+    "attempt_count": 1
+  },
+  "next_gate": "OWNER_AUTHORIZED_TOKEN_10_EXACT_SEVEN_REMAINING_PNCP_ITEMS_SNAPSHOT_ON_MERGED_TASK266_SHA"
+}

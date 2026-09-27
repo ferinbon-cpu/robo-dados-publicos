@@ -1,0 +1,38 @@
+name: TASK 263 PNCP paired health 645 vs 648
+on:
+ push:
+  branches: [task-263-pncp-paired-health-runtime]
+  paths: ['runtime_triggers/task263_pncp_paired_health.run']
+permissions: {contents: read}
+jobs:
+ observe:
+  runs-on: ubuntu-24.04
+  timeout-minutes: 10
+  steps:
+   - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+     with: {persist-credentials: false, fetch-depth: 0}
+   - name: Validate token-8 delta
+     run: |
+      set -euo pipefail;test "${GITHUB_RUN_ATTEMPT}" = "1"
+      IMPL="$(python -c 'import json;print(json.load(open("runtime/task263_owner_authorization.json"))["implementation_sha"])')"
+      git cat-file -e "$IMPL^{commit}";git merge-base --is-ancestor "$IMPL" HEAD
+      test -z "$(git diff --name-only "$IMPL"..HEAD | grep -Ev '^(runtime/task263_owner_authorization.json|runtime_triggers/task263_pncp_paired_health.run)$' || true)"
+      echo "TASK263_IMPLEMENTATION_SHA=$IMPL" >> "$GITHUB_ENV"
+   - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+     with: {python-version: '3.12'}
+   - name: Execute token-8 paired observation
+     run: |
+      set -euo pipefail;mkdir -p runtime_out
+      python - <<'PY'
+      import hashlib,json,os
+      from pathlib import Path
+      from robo_dados_publicos.research.task263_paired_health_645_vs_648 import *
+      c=load_config();e=load_evidence();a=json.loads(Path("runtime/task263_owner_authorization.json").read_text())
+      r=execute(c,e,authorization=a,expected_implementation_sha=os.environ["TASK263_IMPLEMENTATION_SHA"])
+      z=json.dumps(r,sort_keys=True,separators=(",",":")).encode();r["result_sha256"]=hashlib.sha256(z).hexdigest()
+      Path("runtime_out/task263_sanitized_result.json").write_text(json.dumps(r,indent=2,ensure_ascii=False,sort_keys=True)+"\n")
+      print("TASK263_STATUS="+str(r.get("status")));print("TASK263_OUTCOME="+str(r.get("outcome")));print("TASK263_HEALTH="+str(r.get("health_control_exact")));print("TASK263_TARGET="+str(r.get("target_648_exact")))
+      for o in r.get("observations",[]):print("TASK263_OBS="+o["role"]+"|"+o["control"]+"|"+str(o.get("http_code"))+"|"+str(o.get("diagnostic_scalars")))
+      PY
+   - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+     with: {name: task-263-pncp-paired-health-sanitized, path: runtime_out/task263_sanitized_result.json, retention-days: 1, if-no-files-found: error}

@@ -1,0 +1,53 @@
+{
+  "schema": "TASK199A_IBGE_TERRITORIAL_FOUNDATION_EVIDENCE_V1",
+  "software_candidate": "0.8.0",
+  "task": "TASK_199A_IBGE_TERRITORIAL_FOUNDATION",
+  "issue": 626,
+  "base_main_sha": "21dc0f1fad9f891ed2218105459e12dd65d2ed92",
+  "status": "PASS_SOURCE_DISCOVERY_AND_CONTRACT_READY_RAW_BINARY_PENDING",
+  "drive_registry": {
+    "folder_id": "1z_etKHPE1fZ3hZI4EGzXtAWH_kwyW_-B",
+    "file_id": "10Jgd0OPFYNQniaYzB4QvCee7zUvOZisM",
+    "bytes": 5951,
+    "sha256": "37877195c9dfda5536073aa74963f2f78e7337a0b5e467252c0739a6d83386e3",
+    "readback_verified": true
+  },
+  "official_identity": {
+    "municipality": "Limeira",
+    "uf": "SP",
+    "ibge_code_7": "3526902"
+  },
+  "municipal_context_observed": {
+    "population_census_2022": 291869,
+    "population_density_hab_km2_2022": "502.61",
+    "area_km2_2025": "580.577",
+    "population_estimate_2025": 301292,
+    "pib_per_capita_brl_2023": "71528.46",
+    "promotion": "NO_NUMERIC_PRODUCT_PROMOTION_IN_TASK199A"
+  },
+  "official_binary_sources_discovered": 4,
+  "first_binary_target": "IBGE_CNEFE_LIMEIRA_2022",
+  "planned_product": "TERRITORY_PROFILE",
+  "school_to_sector_join": "OFFICIAL_COORDINATE_POINT_IN_POLYGON_PRIMARY_CNEFE_ADDRESS_MATCH_FALLBACK",
+  "answerability": {
+    "current_canonical_counts_unchanged": true,
+    "territory_recipe_problem_identified": "MATCH_ANY_TOO_PERMISSIVE",
+    "stricter_overlay_designed": true,
+    "overlay_applied": false
+  },
+  "decision": "MERGE_FOUNDATION_NOW_ACQUIRE_AND_HASH_BINARY_SOURCES_NEXT",
+  "guards": [
+    "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
+    "MUNICIPAL_CONTEXT_NE_SCHOOL_LEVEL_CONTEXT",
+    "PIB_PER_CAPITA_NE_INCOME",
+    "ESTIMATE_NE_CENSUS_COUNT",
+    "NO_SYNTHETIC_VULNERABILITY_INDEX_WITHOUT_EXPLICIT_METHOD",
+    "MISSING_GEOGRAPHY_NE_ZERO"
+  ],
+  "remote_effects": {
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  }
+}

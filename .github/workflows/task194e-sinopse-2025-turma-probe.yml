@@ -1,0 +1,78 @@
+name: TASK 194E Sinopse 2025 turma aggregate probe
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: read
+
+concurrency:
+  group: task194e-sinopse-2025-turma
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    if: github.event.issue.number == 607 && github.actor == 'ferinbon-cpu' && startsWith(github.event.comment.body, 'TASK194E_SINOPSE_2025_TURMAS_AUTHORIZED ')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONPATH: ${{ github.workspace }}
+      TASK194E_AUTH_COMMENT: ${{ github.event.comment.body }}
+      TASK194E_ISSUE_NUMBER: ${{ github.event.issue.number }}
+    steps:
+      - name: Checkout exact main authorization target
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.12"
+
+      - name: Verify exact authorization
+        shell: bash
+        run: |
+          set -euo pipefail
+          HEAD_SHA="$(git rev-parse HEAD)"
+          test "$HEAD_SHA" = "$GITHUB_SHA"
+          EXPECTED="TASK194E_SINOPSE_2025_TURMAS_AUTHORIZED main=$GITHUB_SHA issue=607 max_http_attempts=3 raw_persist=0"
+          test "$TASK194E_AUTH_COMMENT" = "$EXPECTED"
+
+      - name: Offline preflight
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m compileall -q scripts tests
+          python -m unittest tests.test_task_194e_sinopse_2025_turma_probe -v
+
+      - name: Execute bounded official Sinopse probe
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime/task194e
+          TASK194E_CHECKED_OUT_SHA="$(git rev-parse HEAD)" \
+            python scripts/task194e_sinopse_2025_turma_probe.py \
+            --output runtime/task194e/sanitized_candidates.json
+
+      - name: Assert sanitized output only
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -d runtime/task194e ]; then
+            find runtime/task194e -maxdepth 1 -type f -printf '%f\n' | grep -vx 'sanitized_candidates.json' && exit 1 || true
+          fi
+
+      - name: Upload sanitized candidate evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task194e-sinopse-2025-turma-candidates
+          path: runtime/task194e/sanitized_candidates.json
+          if-no-files-found: warn
+          retention-days: 30

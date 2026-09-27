@@ -1,0 +1,16 @@
+{
+  "task":"TASK_072_JOURNAL_NATIVE_TEXT_PROCESSABILITY",
+  "software_version":"0.8.0",
+  "base_main_sha":"d2ae7b6db0add0c90af1d0df31f44ff7928440b8",
+  "authorization":{"token_index":2,"token_count":7,"scope":"EXACT_THREE_TASK071_BRONZE_NATIVE_TEXT_PROBE_NO_DRIVE_WRITES"},
+  "processor_contract":"robo_dados_publicos/journal/processing.py::JournalPdfProcessor",
+  "thresholds":{"min_total_chars":120,"min_page_chars":20,"sparse_page_ratio_stop":0.8},
+  "items":[
+    {"edition":7127,"bronze_id":"1PXnqz8iMmU1O1Rm2Qu4PgpfCU0qhu_QS","source_sha256":"37ea54d85cc5428622b296881a279a17e1aeefd7574576e7a3414443bbee64c4","pages":631,"total_extracted_chars":1360576,"sparse_pages":0,"sparse_page_ratio":0.0,"min_page_chars_observed":135,"median_page_chars":2418,"max_page_chars":6431,"page_extract_errors":0,"status":"PASS_TEXT_EXTRACTION"},
+    {"edition":7119,"bronze_id":"1uOeraxmRTKHFNmolG7RN7esUPLod0aqB","source_sha256":"cb65f29c772eb7133c902e827884a4ed19d8c09f64586b8de9d6483023d9133a","pages":107,"total_extracted_chars":233484,"sparse_pages":0,"sparse_page_ratio":0.0,"min_page_chars_observed":353,"median_page_chars":2031,"max_page_chars":5338,"page_extract_errors":0,"status":"PASS_TEXT_EXTRACTION"},
+    {"edition":7024,"bronze_id":"1JTpCPj4_rL08RubO5wOVvBHjuwqKWfQ8","source_sha256":"44d92a6ac948bbf43dcb3302733faac1a4ed5e592702f66c07f0c6ede4ecb73c","pages":79,"total_extracted_chars":152751,"sparse_pages":0,"sparse_page_ratio":0.0,"min_page_chars_observed":203,"median_page_chars":1972,"max_page_chars":4514,"page_extract_errors":0,"status":"PASS_TEXT_EXTRACTION"}
+  ],
+  "summary":{"items":3,"pass_text_extraction":3,"stop_ocr_required":0,"page_extract_errors":0,"total_pages":817,"total_extracted_chars":1746811},
+  "hard_boundaries":{"ocr_runs":0,"semantic_persistence":0,"drive_writes":0,"silver_writes":0,"gold_writes":0,"rag_writes":0,"serving_writes":0,"publications":0},
+  "result":"PASS_TASK072_3_OF_3_NATIVE_TEXT_PROCESSABLE_NO_OCR_REQUIRED"
+}

@@ -1,0 +1,115 @@
+name: TASK 249 JOM bounded PDF acquisition
+run-name: "TASK 249 JOM bounded PDF acquisition by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-249-jom-bounded-pdf-acquisition-runtime
+    paths:
+      - 'runtime_triggers/task249_jom_bounded_pdf_acquisition.run'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-249-jom-bounded-pdf-acquisition
+  cancel-in-progress: false
+
+jobs:
+  acquire-exact-four:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact runtime head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Validate authorization-only runtime delta
+        shell: bash
+        run: |
+          set -euo pipefail
+          AUTH=runtime/task249_owner_authorization.json
+          test -f "$AUTH"
+          IMPL="$(python - <<'PY'
+          import json
+          print(json.load(open("runtime/task249_owner_authorization.json", encoding="utf-8"))["implementation_sha"])
+          PY
+          )"
+          test "$(printf '%s' "$IMPL" | grep -E '^[0-9a-f]{40}$')" = "$IMPL"
+          git cat-file -e "$IMPL^{commit}"
+          git merge-base --is-ancestor "$IMPL" HEAD
+          UNEXPECTED="$(git diff --name-only "$IMPL"..HEAD | grep -Ev '^(runtime/task249_owner_authorization.json|runtime_triggers/task249_jom_bounded_pdf_acquisition.run)$' || true)"
+          test -z "$UNEXPECTED"
+          echo "TASK249_IMPLEMENTATION_SHA=$IMPL" >> "$GITHUB_ENV"
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        shell: bash
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Execute exact authorized four-PDF acquisition
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime_out
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          from robo_dados_publicos.research.task249_jom_bounded_pdf_acquisition import (
+              LiveExactPdfSource,
+              execute,
+              load_config,
+              load_queue,
+          )
+
+          cfg = load_config()
+          queue = load_queue()
+          auth = json.loads(Path("runtime/task249_owner_authorization.json").read_text(encoding="utf-8"))
+          result = execute(
+              cfg,
+              queue,
+              source=LiveExactPdfSource(),
+              authorization=auth,
+              expected_implementation_sha=os.environ["TASK249_IMPLEMENTATION_SHA"],
+              offline_test_mode=False,
+          )
+          canonical = json.dumps(result, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+          result["result_sha256"] = hashlib.sha256(canonical).hexdigest()
+          target = Path("runtime_out/task249_sanitized_pdf_acquisition_result.json")
+          target.write_text(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          print("TASK249_STATUS=" + str(result.get("status")))
+          print("TASK249_SOURCE_GETS=" + str(result.get("source_gets")))
+          print("TASK249_DOCUMENT_DOWNLOADS=" + str(result.get("document_download_count")))
+          print("TASK249_DRIVE_WRITES=" + str(result.get("drive_write_count")))
+          print("TASK249_RAW_PDF_PERSISTED=" + str(result.get("raw_pdf_persisted")))
+          if result.get("status") != "PASS_TASK249_BOUNDED_PDF_ACQUISITION":
+              raise SystemExit(2)
+          PY
+
+      - name: Verify sanitized-only persistence
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f runtime_out/task249_sanitized_pdf_acquisition_result.json
+          test "$(find runtime_out -type f | wc -l)" -eq 1
+          test -z "$(find runtime_out -type f -name '*.pdf' -print)"
+
+      - name: Upload sanitized acquisition result only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-249-jom-bounded-pdf-acquisition-sanitized
+          path: runtime_out/task249_sanitized_pdf_acquisition_result.json
+          if-no-files-found: error
+          retention-days: 1

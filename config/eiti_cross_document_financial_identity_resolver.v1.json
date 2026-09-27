@@ -1,0 +1,135 @@
+{
+  "version": 1,
+  "schema": "EITI_CROSS_DOCUMENT_FINANCIAL_IDENTITY_RESOLVER_V1",
+  "mode": "T0_OFFLINE_CROSS_DOCUMENT_IDENTITY_RESOLUTION",
+  "inputs": {
+    "ppa_adapter": {
+      "path": "config/ppa_research_digest_adapter.v1.json",
+      "git_blob_sha": "7d8e3cdb767a611ca7b7dfc84e8be62f21becaf6"
+    },
+    "loa_adapter": {
+      "path": "config/loa_research_digest_adapter.v1.json",
+      "git_blob_sha": "445dd8a6244891408c175d2df4adb01f93a5a608"
+    },
+    "siope_adapter": {
+      "path": "config/siope_fundeb_research_digest_adapter.v1.json",
+      "git_blob_sha": "a245f331cd0b2d9d3b2bfb5ead17fa21814c3e00"
+    },
+    "task051_guard": {
+      "path": "docs/evidence/TASK_051_F01_EITI_GRANULAR_EXECUTION_SOURCE_SELECTION_0.8.0.json",
+      "git_blob_sha": "a72ac8dd33dd6c91563564fe71a18a6ee0e4dbd5"
+    },
+    "task049_guard": {
+      "path": "docs/evidence/TASK_049_F01_EITI_ACTION_LINKAGE_CLOSURE_REVIEW_0.8.0.json",
+      "git_blob_sha": "0994d78c992ac459b4fac7e0717bfdc12cbd2d0d"
+    }
+  },
+  "join_rules": {
+    "compare_only_same_key_type_and_value": true,
+    "same_value_different_key_type_is_match": false,
+    "shared_key_automatically_policy_specific": false,
+    "program_2001_sufficient": false,
+    "generic_action_2690_sufficient": false,
+    "generic_action_2720_sufficient": false,
+    "text_similarity_allowed": false,
+    "amount_equality_allowed": false,
+    "reporting_bucket_is_transaction_identity": false,
+    "cross_document_candidate_requires": [
+      "QUALIFIED_POLICY_SIGNAL",
+      "POLICY_SPECIFIC_STABLE_ACCOUNTING_KEY",
+      "FINANCIAL_OR_EXECUTION_OBSERVATION",
+      "SOURCE_PROVENANCE"
+    ],
+    "transaction_candidate_requires": [
+      "POLICY_SPECIFIC_STABLE_ACCOUNTING_KEY",
+      "EXECUTION_DOCUMENT_OR_EVENT_ID",
+      "AMOUNT",
+      "DATE_OR_PERIOD",
+      "EXECUTION_STAGE",
+      "SOURCE_PROVENANCE"
+    ]
+  },
+  "legacy_clues": {
+    "2607004": {
+      "status": "HYPOTHESIS_ONLY_NOT_ADMISSIBLE_AS_PROVEN_KEY",
+      "can_create_policy_identity": false,
+      "can_create_transaction_identity": false,
+      "reason": "Legacy repository references include revenue/application-code contexts and explicitly preserve distinct composite identities; primary granular evidence must bind the code to FOMENTO ETI and an execution event."
+    }
+  },
+  "expected_current_resolution": {
+    "ppa_loa_same_dimension_shared_keys": [
+      {
+        "key_type": "program",
+        "value": "2001"
+      }
+    ],
+    "rejected_shared_keys": [
+      {
+        "key_type": "program",
+        "value": "2001",
+        "reason": "GENERIC_PROGRAM_NOT_EITI_SPECIFIC"
+      }
+    ],
+    "ppa_siope_same_dimension_shared_keys": [],
+    "loa_siope_same_dimension_shared_keys": [],
+    "cross_document_financial_identity_candidates": 0,
+    "transaction_identity": "UNKNOWN",
+    "resolution_status": "STOP_NO_STABLE_POLICY_TO_ACCOUNTING_EXECUTION_KEY"
+  },
+  "acquisition_packet": {
+    "priority_order": [
+      "EXPLICIT_EITI_COST_CENTER_SUBACTION_OR_EXECUTION_TAG",
+      "DETAILED_EDUCATION_BUDGET_EXECUTION_OR_BALANCETE_EDUCACAO",
+      "EMPENHO_LIQUIDACAO_PAGAMENTO_DETAIL"
+    ],
+    "immediate_unlock_requirements": [
+      "EXPLICIT_EITI_OR_EQUIVALENT_POLICY_MARKER",
+      "STABLE_ACCOUNTING_IDENTIFIER",
+      "SOURCE_PROVENANCE"
+    ],
+    "transaction_chain_requirements": [
+      "EXECUTION_DOCUMENT_OR_EVENT_ID",
+      "AMOUNT",
+      "DATE_OR_PERIOD",
+      "EXECUTION_STAGE"
+    ],
+    "desirable_identity_dimensions": [
+      "BUDGET_UNIT_OR_COST_CENTER",
+      "PROGRAM_ACTION_OR_SUBACTION",
+      "EXPENSE_NATURE_OR_ITEM",
+      "FUNDING_SOURCE_OR_DESTINATION"
+    ],
+    "accepted_policy_markers": [
+      "FOMENTO ETI",
+      "EITI",
+      "ETI",
+      "EDUCACAO INTEGRAL",
+      "EDUCACAO EM TEMPO INTEGRAL",
+      "TEMPO INTEGRAL"
+    ]
+  },
+  "promotion": {
+    "current_financial_identity": false,
+    "current_transaction_identity": false,
+    "automatic_promotion": false,
+    "causal_inference": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "ocr": false,
+    "bronze_write": false,
+    "silver_write": false,
+    "gold_write": false,
+    "rag_write": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}

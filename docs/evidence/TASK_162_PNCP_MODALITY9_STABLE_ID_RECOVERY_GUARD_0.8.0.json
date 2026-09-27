@@ -1,0 +1,37 @@
+{
+  "task": "TASK_162_PNCP_MODALITY9_STABLE_ID_RECOVERY_GUARD",
+  "issue": 536,
+  "base_sha": "736dbaef5ebab100a2f4b270670fc7cb76f0fabe",
+  "observations": {
+    "i00084": {
+      "processo": "I00084",
+      "object": "CURSO DE CAPACITACAO",
+      "publication_date": "2026-08-19",
+      "estimated_value_brl": 12400.0,
+      "modality": "Inexigibilidade",
+      "sequence_593": "UNCONFIRMED_CHRONOLOGICAL_CANDIDATE"
+    },
+    "school_pass": {
+      "object": "AQUISICAO DE PASSE ESCOLAR",
+      "estimated_value_brl": 3816720.0,
+      "classification": "EDUCATION_RELEVANT",
+      "stable_pncp_purchase_id": null,
+      "eiti_proven": false
+    },
+    "latest_pncp_direct_attempt": {
+      "result": "DNS_RESOLUTION_FAILURE_PRE_SOURCE",
+      "source_reached": false,
+      "classification": "SOURCE_TRANSPORT_UNAVAILABLE"
+    }
+  },
+  "epistemic_closure": {
+    "sequence_593_promoted_to_numeroControlePNCP": false,
+    "contract_linkage_created": false,
+    "supplier_linkage_created": false,
+    "financial_identity_created": false,
+    "transaction_identity_created": false,
+    "eiti_promotion_created": false,
+    "pncp_no_match_created": false
+  },
+  "next_action": "WAIT_FOR_SOURCE_REACH_OR_EXACT_CROSS_SOURCE_IDENTITY_AND_RETRY_STABLE_ID_RECOVERY"
+}

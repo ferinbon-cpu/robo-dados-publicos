@@ -1,0 +1,17 @@
+{
+  "task": "TASK_112",
+  "run_id": 33920196346,
+  "job_id": 101176520616,
+  "execution_head_sha": "def4bd7f7c2bca3d8e5a6aa446078e6c9ecf554e",
+  "result_canonical_sha256": "89d5c2063002a21321d63ffe8e96c3426e845506a478303b211d6e14cf79e79c",
+  "artifact": {
+    "id": 9954834931,
+    "name": "task-112-real-ppa-ocr-result",
+    "zip_sha256": "039b7cea3e763734f790ec006ed1c4bbf85b4d72f914aeec5878e398fd5cc792",
+    "size_in_bytes": 1272,
+    "retention_days": 1
+  },
+  "result": "NO_MATCH_EXACT_DECLARED_ALIAS_WITH_LAW_IDENTITY_PROVEN",
+  "interpretation": "SCOPED_LEXICAL_NEGATIVE_ONLY_NOT_PROOF_OF_ABSENCE_OF_TIME_INTEGRAL_PLANNING",
+  "future_execution_authorized": false
+}

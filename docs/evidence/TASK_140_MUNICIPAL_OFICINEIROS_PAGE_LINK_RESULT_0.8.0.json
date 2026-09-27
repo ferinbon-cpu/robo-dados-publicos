@@ -1,0 +1,37 @@
+{
+  "task": "TASK_140_MUNICIPAL_OFICINEIROS_PAGE_LINK",
+  "mode": "T1_BOUNDED_MUNICIPAL_PRIMARY_PAGE_AND_ONE_LINK",
+  "task140_merge_sha": "36ce46e6a9a69af93b61eb1fe154e985d2465048",
+  "result": "PASS_PRIMARY_PAGE_OBJECT_CONFIRMED_NO_IDENTIFIER_LINK_403",
+  "execution": {
+    "search_invocations": 1,
+    "open_invocations": 1,
+    "click_invocations": 1,
+    "retry": 0,
+    "search_returned_exact_known_primary_page": true,
+    "primary_page_opened": true,
+    "clicked_link_label": "Licitações e Editais",
+    "clicked_url": "https://www.limeira.sp.gov.br/licitacoes",
+    "click_http_status": 403
+  },
+  "primary_page_observations": {
+    "publication_date": "2026-01-26",
+    "programa_educacao_integral": true,
+    "edital_continuo": true,
+    "credenciamento_pj_including_mei": true,
+    "oficinas_for_students_age_5_to_11": true,
+    "documents_via_protocolo_geral": true,
+    "evaluation_commission": true,
+    "results_in_jornal_oficial": true,
+    "remuneration_brl_per_hour": 30,
+    "payment_monthly": true,
+    "stable_administrative_identifier_explicit": false
+  },
+  "epistemic_state": {
+    "policy_procurement_object_primary_confirmed": true,
+    "administrative_identifier_found": false,
+    "negative_exhaustive_conclusion_created": false,
+    "financial_identity_created": false,
+    "transaction_identity_created": false
+  }
+}

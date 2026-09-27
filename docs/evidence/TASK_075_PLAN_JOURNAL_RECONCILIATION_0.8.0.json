@@ -1,0 +1,132 @@
+{
+  "task": "TASK_075_PLAN_JOURNAL_RECONCILIATION",
+  "software_version": "0.8.0",
+  "base_main_sha": "0b650c43b7561f2b9c94e81399634bd18093a1fb",
+  "authorization": {
+    "token_index": 5,
+    "token_count": 7,
+    "scope": "PLAN_RECONCILIATION_FROM_EXACT_TASK074_GOLD_INPUTS_NO_REMOTE_RESOLUTION_NO_PERSISTENCE"
+  },
+  "planner": {
+    "path": "robo_dados_publicos/reconciliation/planner.py",
+    "blob_sha": "8f18d0586e548ee62b68644dc19dd77af73ab77c",
+    "planning_semantics": "SEARCH_TASKS_ONLY_NOT_IDENTITY_ASSERTIONS",
+    "stable_order": "-priority,origin_event_id,target_source,task_id",
+    "dedupe_key": "task_id"
+  },
+  "gold_inputs": [
+    {
+      "edition": 7024,
+      "source_id": "LIMEIRA_JO_07024",
+      "drive_id": "1uNa1CBDBRABpR1rWaaB_Rl63IY7-Yp-I",
+      "name": "LIMEIRA_JO_07024__events_gold__4e869604c7a8.jsonl",
+      "bytes": 26731,
+      "sha256": "4e869604c7a870fb0e296e47682a6c821e6f0037a74d2726e3af3afd1ab79118",
+      "events": 15
+    },
+    {
+      "edition": 7119,
+      "source_id": "LIMEIRA_JO_07119",
+      "drive_id": "1Ecun5H8lmZSl_j46NOsOU6FaM1D9MP1l",
+      "name": "LIMEIRA_JO_07119__events_gold__fbbaea5329ea.jsonl",
+      "bytes": 19024,
+      "sha256": "fbbaea5329eafcca4a2fca9ce1e363a7a65cef8aa4bc5230eaee8e696bab67ff",
+      "events": 10
+    },
+    {
+      "edition": 7127,
+      "source_id": "LIMEIRA_JO_07127",
+      "drive_id": "1psCzKkCfz2_oHEoJUVlgDmSfmCRCyTdI",
+      "name": "LIMEIRA_JO_07127__events_gold__883eb8066734.jsonl",
+      "bytes": 52158,
+      "sha256": "883eb8066734dbc05992a021b402aece3697de7d1caa542bd598ab9707860b32",
+      "events": 27
+    }
+  ],
+  "input_aggregate": {
+    "gold_files": 3,
+    "gold_events": 52,
+    "bytes": 97913
+  },
+  "plan": {
+    "generated_tasks": 65,
+    "unique_tasks": 65,
+    "duplicate_task_ids": 0,
+    "canonical_jsonl_bytes": 52843,
+    "canonical_jsonl_sha256": "faf27576b5b2c3b3c542ae41eeac90c415da1d2f50b6ae8021e1c04bf246d7bc",
+    "status_counts": {
+      "READY_SEARCH": 60,
+      "BLOCKED_CONNECTOR_DISCOVERY": 5
+    },
+    "target_counts": {
+      "LIMEIRA_CONTRATOS": 5,
+      "TCE_SP_DESPESAS": 4,
+      "TDA_LIMEIRA": 5,
+      "LIMEIRA_LICITACOES": 14,
+      "SIAVE_LIMEIRA": 37
+    },
+    "task_type_counts": {
+      "FIND_CONTRACT_RECORD": 5,
+      "FIND_EXPENSE_EVENTS_FOR_SUPPLIER": 4,
+      "FIND_MUNICIPAL_FINANCIAL_EXECUTION": 5,
+      "FIND_PROCUREMENT_DOCUMENTS": 14,
+      "FIND_LEGISLATIVE_OR_NORMATIVE_RECORD": 37
+    },
+    "minimum_link_confidence_counts": {
+      "A": 14,
+      "B": 51
+    },
+    "origin_source_task_counts": {
+      "LIMEIRA_JO_07024": 21,
+      "LIMEIRA_JO_07119": 10,
+      "LIMEIRA_JO_07127": 34
+    },
+    "origin_source_target_counts": {
+      "LIMEIRA_JO_07024": {
+        "LIMEIRA_CONTRATOS": 2,
+        "TCE_SP_DESPESAS": 2,
+        "TDA_LIMEIRA": 2,
+        "LIMEIRA_LICITACOES": 8,
+        "SIAVE_LIMEIRA": 7
+      },
+      "LIMEIRA_JO_07119": {
+        "LIMEIRA_CONTRATOS": 0,
+        "TCE_SP_DESPESAS": 0,
+        "TDA_LIMEIRA": 0,
+        "LIMEIRA_LICITACOES": 4,
+        "SIAVE_LIMEIRA": 6
+      },
+      "LIMEIRA_JO_07127": {
+        "LIMEIRA_CONTRATOS": 3,
+        "TCE_SP_DESPESAS": 2,
+        "TDA_LIMEIRA": 3,
+        "LIMEIRA_LICITACOES": 2,
+        "SIAVE_LIMEIRA": 24
+      }
+    }
+  },
+  "semantic_audit": {
+    "allowed_statuses": [
+      "READY_SEARCH",
+      "BLOCKED_CONNECTOR_DISCOVERY"
+    ],
+    "tda_tasks_blocked": 5,
+    "match_candidate_promotions": 0,
+    "financial_identity_assertions": 0,
+    "serving_promotions": 0,
+    "publication_promotions": 0,
+    "identity_rule_required_per_task": true,
+    "supplier_or_value_alone_is_identity": false
+  },
+  "hard_boundaries": {
+    "drive_writes": 0,
+    "reconciliation_queue_writes": 0,
+    "state_registry_writes": 0,
+    "remote_resolver_requests": 0,
+    "serving_writes": 0,
+    "publications": 0,
+    "source_moves": 0,
+    "source_deletes": 0
+  },
+  "result": "PASS_TASK075_52_GOLD_EVENTS_65_UNIQUE_RECONCILIATION_TASKS_PLANNED_NO_IDENTITY_PROMOTION"
+}

@@ -1,0 +1,84 @@
+{
+  "schema": "TASK227_ANNUAL_MUNICIPAL_ACCOUNTING_2025_EVIDENCE_V1",
+  "task": "TASK_227",
+  "issue": 767,
+  "status": "CANDIDATE_2025_ANNUAL_ACCOUNTING_TRIAD_MATERIALIZED",
+  "source_basis": [
+    {
+      "doc_id": "DOC-017",
+      "statement": "Anexo 14 - Balanco Patrimonial",
+      "period": "JAN-DEZ/2025",
+      "pages": 28,
+      "selected_page": 1,
+      "identity": "TITLE_AND_CONTENT_MATCH_MANIFEST;BYTE_HASH_NOT_PROVEN"
+    },
+    {
+      "doc_id": "DOC-010",
+      "statement": "Anexo 13 - Balanco Financeiro",
+      "period": "JAN-DEZ/2025",
+      "pages": 2,
+      "selected_page": 1,
+      "identity": "TITLE_AND_CONTENT_MATCH_MANIFEST;BYTE_HASH_NOT_PROVEN"
+    },
+    {
+      "doc_id": "DOC-006",
+      "statement": "Anexo 12 - Balanco Orcamentario",
+      "period": "JAN-DEZ/2025",
+      "pages": 5,
+      "selected_pages": [1,2,3],
+      "identity": "TITLE_AND_CONTENT_MATCH_MANIFEST;BYTE_HASH_NOT_PROVEN"
+    }
+  ],
+  "direct_source_checks_cents": {
+    "patrimonial": {
+      "total_assets": 303751023453,
+      "total_liabilities": 173772024309,
+      "net_equity": 129978999144,
+      "cash_and_cash_equivalents": 28687982427,
+      "result_of_year": -45338084748
+    },
+    "financial": {
+      "education_linked_budget_revenue": 53033325975,
+      "education_linked_budget_expense": 44571653248,
+      "total_budget_revenue": 122704460870,
+      "total_budget_expense": 139623117492,
+      "prior_year_cash_balance": 107115280616,
+      "next_year_cash_balance": 123661270045
+    },
+    "budget": {
+      "revenue_subtotal_realized": 207064446593,
+      "expense_total_with_refinancing_committed": 198881918058,
+      "expense_total_with_refinancing_liquidated": 186945017286,
+      "expense_total_with_refinancing_paid": 177693306563,
+      "expense_total_with_refinancing_appropriation_balance": 41618201485
+    }
+  },
+  "qa": {
+    "patrimonial_internal_identities": "PASS_CENT_FOR_CENT",
+    "budget_revenue_internal_identities": "PASS_CENT_FOR_CENT",
+    "budget_expense_internal_identities": "PASS_CENT_FOR_CENT",
+    "cross_statement_identity_assumed": false,
+    "derived_education_surplus_created": false
+  },
+  "semantic_separation": {
+    "PATRIMONIAL_POSITION": "stock/position concepts",
+    "FINANCIAL_FLOWS": "cash/financial and budget-linked flow statement concepts as source-labelled",
+    "BUDGET_EXECUTION": "forecast/appropriation and budget execution stages",
+    "flattened_into_one_generic_money_metric": false
+  },
+  "non_claims": [
+    "NO_CLAIM_ASSET_IS_CASH",
+    "NO_CLAIM_LIABILITY_IS_EXPENDITURE",
+    "NO_CLAIM_NET_EQUITY_IS_AVAILABLE_CASH",
+    "NO_CLAIM_PATRIMONIAL_RESULT_IS_BUDGET_RESULT",
+    "NO_CLAIM_BUDGET_REVENUE_IS_CASH_RECEIPT",
+    "NO_CLAIM_BUDGET_EXPENSE_IS_PAID_EXPENSE",
+    "NO_CLAIM_EDUCACAO_LABEL_EQUALS_MDE_FUNDEB_OR_EITI",
+    "NO_CLAIM_EDUCATION_REVENUE_MINUS_EXPENSE_IS_FREE_SURPLUS",
+    "NO_CLAIM_CONSOLIDATED_MUNICIPAL_STATEMENT_IS_EDUCATION_ONLY_LEDGER",
+    "NO_FULL_28_PAGE_PATRIMONIAL_PARSE_CLAIM",
+    "NO_BYTE_HASH_IDENTITY_CLAIM"
+  ],
+  "canonical_contextual_coverage": "38/38_UNCHANGED",
+  "remote_effects": false
+}

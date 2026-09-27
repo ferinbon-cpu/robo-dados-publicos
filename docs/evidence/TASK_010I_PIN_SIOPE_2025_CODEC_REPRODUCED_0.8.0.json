@@ -1,0 +1,54 @@
+{
+  "schema": "TASK_010I_PIN_SIOPE_2025_CODEC_REPRODUCED_V1",
+  "task": "TASK_010I_PIN",
+  "issue": 237,
+  "evidence_class": "SANITIZED_LOCAL_STATIC_AND_REPRODUCTION_EVIDENCE",
+  "official_bytes_committed": false,
+  "execution": {
+    "installer_executed": false,
+    "exe_executed": false,
+    "dll_loaded": false,
+    "cml_executed": false,
+    "czip_executed": false,
+    "network_used_for_artifact_processing": false
+  },
+  "outer_package": {
+    "name": "Metadados_Mun_2025.zip",
+    "size_bytes": 6586598,
+    "sha256": "41511c141e1af025ae2b565085583d6a3ab7b4577862f8ebdc308605101c1e5b",
+    "container_count": 146
+  },
+  "installer_candidate": {
+    "name_as_received": "Siope_2025_Anual-25.0.5.6.exe.exe",
+    "size_bytes": 29772070,
+    "sha256": "3c85dd4195a31e67131b8e550509dc2d014ead3279bda26656192feeaac86bc2",
+    "format": "PE32_INNO_SETUP",
+    "identity_string": "SIOPE Ano Base 2025 (Anual)"
+  },
+  "derived_constants": {
+    "hash_input_hex": "42006b006a0024",
+    "sha1_hex": "1ef164301c8949207c0066d3270407cae797b7c6",
+    "blowfish_key_hex": "1ef164301c8949207c0066d3270407cae797b7c6ffffffffffffffffffffffff",
+    "initial_iv_hex": "69fbe9f873a4758b",
+    "expected_header_hex": "442d68fb56d3e72adb7e95e0f7b003795a1d3ae15f98ca334c7a557c58277593"
+  },
+  "validation": {
+    "headers_checked": 146,
+    "headers_exact_match": 146,
+    "containers_decoded": 146,
+    "decoded_zip_valid": 146,
+    "decoded_zip_crc_pass": 146,
+    "failure_count": 0,
+    "metadados_inner_name": "Metadados.xml",
+    "dados_municipio_inner_name": "Dados_Municipio.xml"
+  },
+  "interpretation_limits": {
+    "codec_reproducible": true,
+    "num_popu_semantics_promoted": false,
+    "financial_alias_bridge_promoted": false,
+    "annual_closure_promoted": false,
+    "gold_2025_computed": false,
+    "year_2026_accessed_for_promotion": false
+  },
+  "result": "IDENTIFIED_REPRODUCIBLE_CODEC_CONTRACT_READY_FOR_IMPLEMENTATION"
+}

@@ -1,0 +1,60 @@
+{
+  "task": "TASK_171_OBSERVATORY_QUESTION_ONTOLOGY_BUDGET_MAP_JOM_SEMANTICS",
+  "issue": 554,
+  "mode": "T0_OFFLINE_OBSERVATORY_ARCHITECTURE_AND_JOM_SEMANTIC_EXTENSION",
+  "base_main_sha": "ea38444e17cb12a1a0146a5f628f2b98a5e6a204",
+  "scope": {
+    "system": "GENERAL_MUNICIPAL_PUBLIC_DATA_OBSERVATORY",
+    "education_siope": "MODULE_NOT_SYSTEM_LIMIT",
+    "eiti": "ANALYTIC_USE_CASE_NOT_GLOBAL_FILTER",
+    "priority": "BUDGET_FISCAL_SOURCE_MAPPING_PLUS_BROAD_JOM_EVENT_INTELLIGENCE"
+  },
+  "artifacts": [
+    "config/observatory_question_ontology.v1.json",
+    "config/budget_fiscal_source_acquisition_map.v1.json",
+    "config/jornal_semantic_layers.v1.json",
+    "robo_dados_publicos/journal/semantic_layers.py",
+    "robo_dados_publicos/journal/processing.py",
+    "tests/test_task_171_observatory_ontology_jom_semantics.py"
+  ],
+  "observatory_domains": 15,
+  "jom_semantics": {
+    "dimensions_independent": ["EVENT_TYPE", "POLICY_DOMAIN", "EVIDENCE_LAYER", "FINANCIAL_STAGE", "EDUCATION_TOPIC"],
+    "multi_label": true,
+    "new_sidecar": "event_semantics_gold.jsonl",
+    "existing_event_parser_relaxed": false,
+    "semantic_classification_proves_policy_identity": false,
+    "semantic_classification_proves_financial_identity": false,
+    "semantic_classification_proves_payment": false,
+    "explicit_accounting_payment_wording": "PAYMENT_EVIDENCE_CANDIDATE_ONLY"
+  },
+  "budget_source_map": {
+    "direct_json_first": true,
+    "proven_machine_readable": ["SIOPE_OLINDA", "PNCP_CONSULTA"],
+    "missing_route_priority": [
+      "TDA_LIMEIRA",
+      "SICONFI_STN_RREO_RGF",
+      "CURRENT_TCE_SP_MACHINE_READABLE_2020_PLUS",
+      "RECURRING_FUNDEB_MACHINE_READABLE_SOURCE",
+      "OTHER_MUNICIPAL_FISCAL_EXPORTS"
+    ]
+  },
+  "hard_guards": [
+    "TYPE_OF_DOCUMENT_NE_SUBJECT_NE_EVIDENCE_LAYER_NE_FINANCIAL_STAGE",
+    "PPA_NE_EXECUTION",
+    "LOA_AUTHORIZATION_NE_COMMITMENT_NE_LIQUIDATION_NE_PAYMENT",
+    "PROCUREMENT_NE_PAYMENT",
+    "SEMANTIC_SIMILARITY_NE_POLICY_OR_FINANCIAL_IDENTITY",
+    "JOM_PAYMENT_SIGNAL_NE_ACCOUNTING_PAYMENT_PROOF"
+  ],
+  "remote_effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "serving_write": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  },
+  "next": "TASK_172_BOUNDED_OFFICIAL_MACHINE_READABLE_SOURCE_DISCOVERY_ACQUISITION"
+}

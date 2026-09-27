@@ -1,0 +1,21 @@
+{
+  "ppa_text": "PLANO PLURIANUAL 2026-2029 - LEI No. 07213 DE 12/11/2025\nPrograma : 2001 EDUCACAO QUE INCLUI E TRANSFORMA VIDAS\nObjetivo : Orgao Resposavel Principal : 10.00.00 SECRETARIA DE EDUCACAO\nIndicador / Unidade de Medida indice Recente indice 2026 indice 2027 indice 2028 indice 2029 indice Final PPA\nÍNDICE DE ALUNOS EM EDUCACAO INTEGRAL / PERCENTUAL 52 53 55 57 59 59\n2690 TRANSPORTE ESCOLAR ENSINO MEDIO ALUNOS TRANSPORTADOS 12 362 R$ 16,020 15.520 15.521 IS.522 62.563",
+  "ppa_target_drift_text": "Programa : 2001 EDUCACAO QUE INCLUI E TRANSFORMA VIDAS\nOrgao Responsavel Principal : 10.00.00 SECRETARIA DE EDUCACAO\nINDICE DE ALUNOS EM EDUCACAO INTEGRAL / PERCENTUAL 52 54 55 57 59 59",
+  "ldo_text": "LEI N. 7.141 DE 02 DE JULHO DE 2025. DAS METAS FISCAIS. DOS RISCOS FISCAIS. DA RESERVA DE CONTINGENCIA. Fica autorizado o aumento da despesa com pessoal. Prioridade social nas areas de educacao, saude e assistencia social.",
+  "financial_program_only": {
+    "indicator_or_target": "ÍNDICE DE ALUNOS EM EDUCACAO INTEGRAL",
+    "program": "2001"
+  },
+  "financial_full_chain": {
+    "indicator_or_target": "EITI",
+    "program": "2001",
+    "explicit_action_or_subaction": "ACTION-X",
+    "budget_unit": "10.00.00",
+    "funding_source_or_destination": "TESOURO",
+    "expense_nature": "3.3.90",
+    "appropriation": 100,
+    "committed": 90,
+    "liquidated": 80,
+    "paid": 70
+  }
+}

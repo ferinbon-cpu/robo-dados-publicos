@@ -1,0 +1,150 @@
+{
+  "schema": "TASK276_LINKED_CONTRACT_PAGE1_V1",
+  "task": "TASK_276",
+  "issue": 887,
+  "base_main_sha": "dcc78ee2fe2698ed4ba146d435ae1339c339853d",
+  "source_task275": {
+    "implementation_sha": "dcc78ee2fe2698ed4ba146d435ae1339c339853d",
+    "run_id": 35409758593,
+    "job_id": 105806844055,
+    "runtime_head_sha": "90a77893eb7a521e1c408121004848af4cc40f63",
+    "artifact_id": 10573770673,
+    "artifact_zip_sha256": "e9fabcc44f452226741d238f3a81f89a0a8a4101168b184e615b75fb0c98db16",
+    "artifact_file_sha256": "64b5c9c1b5a318ea52e2039df049ded92d2a9c873e92d90413790f0fa1818124",
+    "result_sha256": "f3d8a6b31a2054c6d01107fdfb0838443a6c0c8bb5c30ea74b6cb8866bf23e4e",
+    "body_sha256": "4db0a272d3c19e91b4e2e9146b7a774be7545fe01918b682ca243b4567a2c087",
+    "diagnostic_sha256": "0114081df12a0e0b9af3c876da4d8eb133fa5fe1b9def945156b72665908cce3",
+    "diagnostic_message": "Required request parameter 'pagina' for method parameter type Integer is not present"
+  },
+  "openapi_contract_evidence": {
+    "repository": "SHJordan/api-pncp-php",
+    "archived_on": "2026-06-17",
+    "operation": "consultarContratosContratacao",
+    "pagina_required": true,
+    "pagina_min": 1,
+    "tamanhoPagina_required": false,
+    "tamanhoPagina_min": 10,
+    "tamanhoPagina_max": 50,
+    "return_type": "PaginaRetornoRecuperarContratoDTO",
+    "response_fields": [
+      "data",
+      "totalRegistros",
+      "totalPaginas",
+      "numeroPagina",
+      "paginasRestantes",
+      "empty"
+    ]
+  },
+  "target": {
+    "purchase_control": "45132495000140-1-000645/2026",
+    "cnpj": "45132495000140",
+    "anoContratacao": 2026,
+    "sequencialContratacao": 645,
+    "pagina": 1,
+    "tamanhoPagina": 50,
+    "url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/contratos/contratacao/2026/645?pagina=1&tamanhoPagina=50"
+  },
+  "projection": {
+    "scalar_fields": [
+      "anoContrato",
+      "dataAssinatura",
+      "dataAtualizacao",
+      "dataPublicacaoPncp",
+      "dataVigenciaFim",
+      "dataVigenciaInicio",
+      "emendaParlamentar",
+      "frutoAdesao",
+      "identificadorCipi",
+      "numeroContratoEmpenho",
+      "numeroControlePNCP",
+      "numeroControlePNCPCompra",
+      "numeroControlePncpAta",
+      "numeroParcelas",
+      "numeroRetificacao",
+      "objetoContrato",
+      "processo",
+      "receita",
+      "sequencialContrato",
+      "temRemanejamento",
+      "urlCipi",
+      "valorAcumulado",
+      "valorGlobal",
+      "valorInicial",
+      "valorParcela"
+    ],
+    "nested_fields": {
+      "tipoContrato": [
+        "id",
+        "nome"
+      ],
+      "categoriaProcesso": [
+        "id",
+        "nome"
+      ],
+      "orgaoEntidade": [
+        "cnpj",
+        "razaoSocial",
+        "poderId",
+        "esferaId"
+      ],
+      "unidadeOrgao": [
+        "codigoUnidade",
+        "nomeUnidade",
+        "municipioId",
+        "municipioNome",
+        "ufSigla",
+        "ufNome"
+      ]
+    },
+    "excluded_fields": [
+      "usuarioNome",
+      "tipoPessoa",
+      "niFornecedor",
+      "nomeRazaoSocialFornecedor",
+      "tipoPessoaSubContratada",
+      "niFornecedorSubContratado",
+      "nomeFornecedorSubContratado",
+      "informacaoComplementar"
+    ]
+  },
+  "page_fields": [
+    "data",
+    "totalRegistros",
+    "totalPaginas",
+    "numeroPagina",
+    "paginasRestantes",
+    "empty"
+  ],
+  "probe": {
+    "max_remote_get_count": 1,
+    "connect_timeout_seconds": 15,
+    "max_time_seconds": 75,
+    "max_body_bytes": 1048576,
+    "retry": false,
+    "follow_redirects": false,
+    "alternate_url_discovery": false,
+    "automatic_pagination": false,
+    "raw_body_persistence": false,
+    "traverse_returned_contracts": false,
+    "accept_header": "*/*"
+  },
+  "runtime": {
+    "branch": "task-276-linked-contract-page1-runtime",
+    "authorization_file": "runtime/task276_owner_authorization.json",
+    "trigger_file": "runtime_triggers/task276_linked_contract_page1.run",
+    "artifact_name": "task-276-linked-contract-page1-sanitized"
+  },
+  "authorization": {
+    "required_operation": "EXACT_1_PNCP_LINKED_CONTRACT_PAGE1_645",
+    "exact_implementation_sha_required": true,
+    "source_network_authorized_by_default": false,
+    "prior_authorization_reuse_allowed": false
+  },
+  "states": [
+    "LINKED_CONTRACT_PAGE1_COMPLETE_ZERO_ROWS",
+    "LINKED_CONTRACT_PAGE1_COMPLETE_WITH_ROWS",
+    "LINKED_CONTRACT_PAGE1_PARTIAL_MORE_PAGES",
+    "LINKED_CONTRACT_PAGE1_UNRESOLVED"
+  ],
+  "next_gate": "CANONIZE_PAGE1_RESULT_AND_ONLY_IF_NEEDED_PREPARE_SEPARATE_PAGE2_GATE"
+}

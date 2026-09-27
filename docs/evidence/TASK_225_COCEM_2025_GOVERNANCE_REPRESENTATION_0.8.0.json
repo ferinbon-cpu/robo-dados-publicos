@@ -1,0 +1,44 @@
+{
+  "schema": "TASK225_COCEM_2025_GOVERNANCE_REPRESENTATION_EVIDENCE_V1",
+  "task": "TASK_225",
+  "issue": 761,
+  "status": "CANDIDATE_PRIMARY_INSTITUTIONAL_GOVERNANCE_MAP_MATERIALIZED",
+  "source": {
+    "md_01_3_id": "DOC-105",
+    "title": "XIII COCEM 2025- REGIMENTO FINALIZADO.pdf",
+    "pages": 11,
+    "identity_strength": "TITLE_AND_CONTENT_MATCH_WITH_MD_01_3_MANIFEST_BYTE_HASH_NOT_PROVEN",
+    "rules_pages": [1,2,3,4,5,6],
+    "annex_ii_pages": [9,10]
+  },
+  "direct_source_facts": {
+    "conference_dates": ["2025-10-24", "2025-10-25"],
+    "preconference_period": ["2025-09-11", "2025-10-03"],
+    "theme": "Carreira do Magistério e o Processo de Indução de Resultados Educacionais",
+    "axes": ["Carreira do Magistério", "Financiamento e Indução de Resultados na Educação"],
+    "teacher_representation_rule": "1 professor representante para cada 10 classes, Berçário I ao 5º ano e EJA",
+    "proposal_decision_rule": "maioria simples",
+    "organization_budget_rule": "dotações orçamentárias consignadas à Secretaria Municipal de Educação"
+  },
+  "derived_annex_ii_checks": {
+    "unit_rows": 69,
+    "teacher_delegate_slots_sum": 111,
+    "school_type_rows": {"CEIEF": 7, "CI": 25, "EMEI": 4, "EMEIEF": 33},
+    "rafael_affonso_leite_slots": 3,
+    "derivation_only_from_source_rows": true
+  },
+  "privacy": {
+    "blank_annex_contains_cpf_field": true,
+    "personal_names_or_cpf_values_materialized": false,
+    "school_names_are_institutional_rows_from_annex_ii": true
+  },
+  "non_claims": [
+    "NO_ACTUAL_ATTENDANCE_CLAIM_FROM_PLANNED_SLOTS",
+    "NO_FINAL_DECISION_CLAIM_FROM_REGIMENT_ALONE",
+    "NO_APPROVAL_CLAIM_FOR_MERE_PROPOSAL_PRESENTATION",
+    "NO_EXPENDITURE_AMOUNT_CLAIM_FROM_ARTICLE_14",
+    "NO_GENERALIZATION_TO_OTHER_COCEM_EDITIONS"
+  ],
+  "canonical_contextual_coverage": "38/38_UNCHANGED",
+  "remote_effects": false
+}

@@ -1,0 +1,13 @@
+{
+  "state_db": "runtime/robot_state.sqlite",
+  "supported_extensions": [
+    ".csv",
+    ".xlsx",
+    ".json",
+    ".pdf",
+    ".zip"
+  ],
+  "bronze_immutable": true,
+  "unknown_schema_action": "STOP_QUARANTINE",
+  "llm_numeric_truth_engine": false
+}

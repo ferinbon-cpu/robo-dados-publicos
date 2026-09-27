@@ -1,0 +1,49 @@
+{
+  "schema": "TASK_010B_SIOPE_2025_METADATA_ACQUISITION_STOP_V1",
+  "task": "TASK_010B",
+  "release": "0.8.0 CANDIDATE",
+  "base_main": "dabd7b06cc33dfb3f76e422bd21ab1e120bcad5a",
+  "authorization": {
+    "human_explicit": true,
+    "one_shot": true,
+    "consumed": true,
+    "issue": 227
+  },
+  "target": {
+    "publisher": "FNDE",
+    "surface": "SIOPE Downloads",
+    "artifact_label": "Metadados de 2025 — Municipal",
+    "target_host": "fnde.sharepoint.com"
+  },
+  "transport": {
+    "attempted": true,
+    "retry_count": 0,
+    "artifact_acquired": false,
+    "official_bytes_present": false,
+    "local_artifact_created": false,
+    "outcome": "STOP_METADATA_FETCH_CACHE_MISS"
+  },
+  "remote_effects": {
+    "drive_read_count": 0,
+    "drive_write_count": 0,
+    "financial_value_queries": 0,
+    "bronze": false,
+    "silver": false,
+    "gold": false,
+    "publication": false,
+    "year_2026_accessed": false,
+    "schedule_or_recurrence_enabled": false
+  },
+  "canonical_state": {
+    "year_2025": "PROVEN_STRUCTURAL_RECENT",
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_metrics_status": "UNKNOWN/BLOCKED",
+    "closed_annual_series": "2016-2024",
+    "year_2026": "UNPROVEN_CURRENT_YEAR"
+  },
+  "phase_010c_executed": false,
+  "next_action": "NEW_EXPLICIT_AUTHORIZATION_REQUIRED_BEFORE_ANY_NEW_REMOTE_ATTEMPT"
+}

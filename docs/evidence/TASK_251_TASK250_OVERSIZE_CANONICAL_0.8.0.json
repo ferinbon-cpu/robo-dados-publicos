@@ -1,0 +1,87 @@
+{
+  "adjudication": {
+    "cause": "OVER_MAX_BYTES",
+    "corrective_precedent": "TASK217G_250_MIB_PER_DOCUMENT",
+    "edition": 7323,
+    "empty_file": false,
+    "observed_bytes": 126648737,
+    "old_cap_bytes": 100000000,
+    "transport_counter_mismatch": false,
+    "transport_stat_match": true
+  },
+  "artifact": {
+    "id": 10502829335,
+    "name": "task-250-jom-7323-bytecount-diagnostic-sanitized",
+    "zip_sha256": "013e44c8711f444d884dd157639bd02d5839fc7337b1713c002f7ce45ad2ea8a"
+  },
+  "effects": {
+    "drive_write_count": 0,
+    "publication_count": 0,
+    "raw_pdf_persisted": false,
+    "redirect_followed": false,
+    "retry_performed": false,
+    "serving_write_count": 0,
+    "source_gets": 1
+  },
+  "implementation_sha": "40ce45d28ed18af0a2ce24d6bd2d651b87a5a2c5",
+  "issue": 835,
+  "next_gate": "SEPARATELY_AUTHORIZED_TASK251_EXACT_2_DOCUMENT_OVERSIZED_RECOVERY",
+  "run": {
+    "attempt": 1,
+    "conclusion": "success",
+    "id": 35236892194
+  },
+  "runtime_head": "563f5cfe2d381b2a2d3359603836dae1ea0bbf07",
+  "sanitized_result": {
+    "alternate_url_discovery_performed": false,
+    "diagnostic": {
+      "byte_count_outcome": "OVER_MAX_BYTES",
+      "configured_max_bytes": 100000000,
+      "content_type": "application/pdf",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_10092026192416.pdf",
+      "edition": 7323,
+      "http_status": 200,
+      "logical_key": "limeira/jornal_oficial/edicao/7323",
+      "source_id": "LIMEIRA_JO_07323",
+      "temporary_stat_bytes": 126648737,
+      "transport_bytes": 126648737
+    },
+    "drive_write_count": 0,
+    "next_gate": "ADJUDICATE_TASK249_FAILURE_BEFORE_ANY_CORRECTIVE_FULL_ATTEMPT",
+    "publication_count": 0,
+    "raw_pdf_persisted": false,
+    "redirect_followed": false,
+    "result_sha256": "70e0de78992bc555cac65a6e5fec0096aa20d98364d06a4c30e1f59c0e560065",
+    "retry_performed": false,
+    "serving_write_count": 0,
+    "source_gets": 1,
+    "status": "PASS_TASK250_7323_BYTECOUNT_DIAGNOSTIC"
+  },
+  "schema": "TASK251_TASK250_OVERSIZE_CANONICAL_V1",
+  "source_task": "TASK_250",
+  "status": "PASS_TASK250_OVERSIZE_RESULT_CANONIZED",
+  "task": "TASK_251",
+  "task249_context": {
+    "blocked_edition": 7323,
+    "proven_documents": [
+      {
+        "bytes": 4307520,
+        "edition": 7321,
+        "pages": 11,
+        "sha256": "099732bf08ed922c5547daba32c18eaba87b6e3384709a46872604ce9926dc89"
+      },
+      {
+        "bytes": 83485292,
+        "edition": 7322,
+        "pages": 109,
+        "sha256": "30ce94f2de2c8b1fe37b7f0bafbafc3ac7ab5f3d243752f965b63ad53e0b4993"
+      }
+    ],
+    "run_id": 35174078683,
+    "status": "STOP_TASK249_SOURCE_BYTE_COUNT_INVALID",
+    "unattempted_editions": [
+      7324
+    ]
+  },
+  "version": 1
+}

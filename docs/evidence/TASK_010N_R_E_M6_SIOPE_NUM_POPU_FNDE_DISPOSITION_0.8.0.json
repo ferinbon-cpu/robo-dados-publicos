@@ -1,0 +1,85 @@
+{
+  "evidence_schema": "TASK_010N_R_E_M6_SIOPE_NUM_POPU_FNDE_DISPOSITION_V1",
+  "software_version": "0.8.0",
+  "task": "TASK_010N-R-E-M6",
+  "issue": 748,
+  "canonical_date": "2026-09-10",
+  "base_main_sha": "f53deb08789384a2f64f1ec856714a3189595882",
+  "tier": "T0_OFFLINE_OPERATOR_PROVIDED_PRIMARY_FNDE_RESPONSE",
+  "scope": {
+    "field": "NUM_POPU",
+    "structure": "Dados_Municipio",
+    "system": "SIOPE",
+    "target_exercise": 2025,
+    "municipality": "Limeira",
+    "uf": "SP"
+  },
+  "primary_document": {
+    "authority": "FNDE",
+    "unit": "SEOPS",
+    "document_type": "FORMULARIO_RESPOSTA_AO_CIDADAO",
+    "fala_br_nup": "23546.111503/2026-95",
+    "sei_document_number": "5787039",
+    "filename": "SEI_5787039_Formulario_de_Resposta_ao_Cidadao.pdf",
+    "sha256": "9efac0ca3167ac9b7fab01b05b9f2f31822b069d75d9c41c3242458740e04183",
+    "bytes": 68996,
+    "raw_pdf_committed": false,
+    "operator_provided": true,
+    "response_signatures_observed": [
+      {"role": "Chefe do SEOPS", "date": "2026-09-03"},
+      {"role": "Coordenador da COSIC", "date": "2026-09-03"},
+      {"role": "Coordenador-Geral da CGFSE", "date": "2026-09-08"}
+    ]
+  },
+  "source_statements": {
+    "field_classification": "LEGACY_FIELD",
+    "replication_rule": "CONTENT_HAS_BEEN_REPLICATED_FROM_PRIOR_SIOPE_EXERCISES",
+    "original_load_reference": "IBGE_DATA",
+    "used_in_siope_calculations": false,
+    "used_in_siope_reports_general": false,
+    "display_exception": "MUNICIPIOS_TRANSMITIDOS_POR_UF",
+    "2025_value_matches_2025_population_estimate_assurable": false,
+    "2025_value_matches_census_assurable": false,
+    "2025_value_matches_any_specific_temporal_cut_assurable": false,
+    "recommended_population_source": "OFFICIAL_IBGE_BASES_DIRECTLY",
+    "recommended_treatment_of_num_popu_for_population_analysis": "DISREGARD"
+  },
+  "canonical_disposition": {
+    "S1_NUM_POPU": "PROVEN_LEGACY_NON_ANALYTIC_FIELD_DO_NOT_USE_FOR_POPULATION_ANALYSIS",
+    "semantic_definition_as_current_population_measure": "NOT_PROVEN_AND_NOT_REQUIRED_FOR_ANALYTICAL_USE",
+    "original_source_reference": "PROVEN_IBGE_REFERENCE_AT_ORIGINAL_LOAD",
+    "exact_2025_source_vintage": "UNDETERMINED",
+    "exact_2025_reference_date_or_year": "UNDETERMINED",
+    "value_reconciliation_against_ibge_2025": "FORBIDDEN_BY_SOURCE_DISPOSITION",
+    "population_analysis_route": "USE_OFFICIAL_IBGE_SOURCE_AND_EXPLICIT_REFERENCE_PERIOD",
+    "old_open_question_definition_source_vintage": "CLOSED_BY_AUTHORITY_DISPOSITION_WITH_VINTAGE_REMAINING_UNDETERMINED"
+  },
+  "effect_on_previous_m5": {
+    "previous_decision": "KEEP_S1_NUM_POPU_NOT_PROVEN_DEFINITION_SOURCE_VINTAGE_MISSING",
+    "previous_evidence_remains_historical": true,
+    "new_primary_response_supersedes_practical_disposition": true,
+    "exact_2025_vintage_now_proven": false,
+    "reason": "FNDE explicitly states that the field is legacy, non-analytic, temporally indeterminate for 2025, and should be disregarded for population analysis."
+  },
+  "release_gate_effect": {
+    "B1_old_state": "NOT_PROVEN_DEFINITION_SOURCE_VINTAGE_MISSING",
+    "B1_new_state": "RESOLVED_BY_EXCLUSION_FROM_ANALYTICAL_POPULATION_SEMANTICS",
+    "B1_does_not_authorize_gold_2025_by_itself": true,
+    "B2_financial_alias_bridge_unchanged": true,
+    "B3_annual_finality_unchanged": true,
+    "comparability_unchanged": true,
+    "automatic_release_promotion": false
+  },
+  "guards": {
+    "ibge_reference_inferred_as_2025_vintage": false,
+    "num_popu_treated_as_2025_population": false,
+    "num_popu_used_as_population_denominator": false,
+    "legacy_field_removed_from_raw_transport": false,
+    "historical_values_rewritten": false,
+    "gold_2025_computed": false,
+    "release_promoted": false,
+    "remote_writes": 0,
+    "source_acquisition_by_robot": false
+  },
+  "decision": "RESOLVE_S1_NUM_POPU_AS_LEGACY_NON_ANALYTIC_DO_NOT_USE_USE_IBGE_DIRECTLY"
+}

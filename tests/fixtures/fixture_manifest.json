@@ -1,0 +1,62 @@
+[
+  {
+    "file": "architecture_qa_v11.csv",
+    "bytes": 1415,
+    "sha256": "6c8fde2a59387a2f989333d2e23fc0273106259bdb26db56ef56975ae1f64d73"
+  },
+  {
+    "file": "edges_v08.csv",
+    "bytes": 2615,
+    "sha256": "cdd9dbdaf736f1f438c3c6b7a65302c40d2c5d66ccf4548d553ad076549ed64d"
+  },
+  {
+    "file": "end_to_end_v09.csv",
+    "bytes": 1412,
+    "sha256": "53ed586cede8977b3defcf85dc39506256691ab0792d48189b5b8f8bd0522bb9"
+  },
+  {
+    "file": "finance_bridge_qa_v10.csv",
+    "bytes": 701,
+    "sha256": "99e1db16c7164365322724b7b933f730f48d8fdde409b1b5c49bd442e805ea83"
+  },
+  {
+    "file": "fti_installments_v16.csv",
+    "bytes": 222,
+    "sha256": "63a396f22b502581e4b6282882c2d88c7162020c65fa81d61df4452006696308"
+  },
+  {
+    "file": "fundeb_mensal_v15.csv",
+    "bytes": 1435,
+    "sha256": "7e820ccd6844d6a5a310ce4fa10b6d30defcd45e451399e2b60ff608db797250"
+  },
+  {
+    "file": "graph_qa_v08.csv",
+    "bytes": 723,
+    "sha256": "385a6aacbb83b18053ae24e57938d1f550c272bc9b4c06c25148bf16edf0b922"
+  },
+  {
+    "file": "hybrid_gold_v07.csv",
+    "bytes": 1036,
+    "sha256": "7ac674917bd6ecc591a93e207b470331fe46e6b920a16cdc42422bbf17a57d01"
+  },
+  {
+    "file": "reconciliation_v17.csv",
+    "bytes": 1184,
+    "sha256": "46ef94fa9a2c8ac8ef03a6ebb4c945518f00a7b41d3de30d826c365f1a5ea922"
+  },
+  {
+    "file": "siope_2010.csv",
+    "bytes": 11950,
+    "sha256": "fd5a16a836373e14b58aa582c0741cca1646f02349a07b32ca396472b3c36bae"
+  },
+  {
+    "file": "siope_2010_duplicate.csv",
+    "bytes": 11950,
+    "sha256": "fd5a16a836373e14b58aa582c0741cca1646f02349a07b32ca396472b3c36bae"
+  },
+  {
+    "file": "siope_silver_v04.csv",
+    "bytes": 123435,
+    "sha256": "f0d5031c90298b206b2b7143fee86393bcef88a016e0593b7fc3db49aacc159a"
+  }
+]

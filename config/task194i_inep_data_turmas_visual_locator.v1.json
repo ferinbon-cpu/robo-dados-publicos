@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "schema": "TASK194I_INEP_DATA_TURMAS_VISUAL_LOCATOR_V1",
+  "task": "TASK_194I_INEP_DATA_TURMAS_VISUAL_LOCATOR",
+  "mode": "T1_BOUNDED_READ_ONLY_OFFICIAL_PUBLIC_PANEL_TURMAS_SCHEMA",
+  "base_main_sha": "5f261b3450f75c7a2d5135f160236ea60ee6806e",
+  "authorization_issue": 617,
+  "source": {
+    "official_inep_page": "https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/inep-data/estatisticas-censo-escolar",
+    "report_url": "https://app.powerbi.com/view?r=eyJrIjoiN2ViNDBjNDEtMTM0OC00ZmFhLWIyZWYtZjI1YjU0NzQzMTJhIiwidCI6IjI2ZjczODk3LWM4YWMtNGIxZS05NzhmLWVhNGMwNzc0MzRiZiJ9",
+    "report_host": "app.powerbi.com",
+    "expected_resource_key": "7eb40c41-1348-4faa-b2ef-f25b5474312a",
+    "expected_tenant_id": "26f73897-c8ac-4b1e-978f-ea4c077434bf",
+    "max_http_requests": 2,
+    "querydata_calls": 0
+  },
+  "match_token": "turm",
+  "identifier_keys": [
+    "Entity",
+    "Property",
+    "Measure",
+    "Column",
+    "Table",
+    "Field",
+    "queryRef",
+    "nativeQueryRef",
+    "displayName",
+    "visualType",
+    "objectName",
+    "groupName",
+    "Name"
+  ],
+  "allowed_context_tokens": [
+    "turm",
+    "ano",
+    "munic",
+    "depend",
+    "rede",
+    "escola"
+  ],
+  "limits": {
+    "max_visuals": 120,
+    "max_matches_per_visual": 40,
+    "max_identifiers_per_visual": 160,
+    "max_text_chars": 180
+  },
+  "output": {
+    "sanitized_json_only": true,
+    "raw_models_persisted": false,
+    "raw_exploration_document_persisted": false,
+    "querydata_calls": 0,
+    "class_count_materialized": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "guards": [
+    "OFFICIAL_INEP_LINKED_REPORT_ONLY",
+    "RESOURCE_KEY_AND_TENANT_PINNED",
+    "EXACTLY_TWO_HTTP_GETS_MAX",
+    "ZERO_QUERYDATA_CALLS",
+    "TURM_TOKEN_MATCH_ONLY",
+    "NO_RESULT_ROWS_OR_CACHED_VALUES",
+    "NO_CLASS_COUNT_MATERIALIZATION_IN_TASK194I"
+  ]
+}

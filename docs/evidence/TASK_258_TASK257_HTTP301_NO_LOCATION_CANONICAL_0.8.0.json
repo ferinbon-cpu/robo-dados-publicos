@@ -1,0 +1,14 @@
+{
+ "schema":"TASK258_TASK257_HTTP301_NO_LOCATION_CANONICAL_V1","task":"TASK_258","issue":849,
+ "status":"CANONICAL_TASK257_HTTP301_WITH_ZERO_LOCATION_HEADERS",
+ "task257":{"run_id":35299533659,"job_id":105459070681,"artifact_id":10529033553,
+ "artifact_zip_sha256":"404f47ff1d181956d48d0a93ffedacd335000f19b93d26326c607ee1359a992d",
+ "artifact_file_sha256":"05d86b98dec186d2ba46ea25a67a631ee65861ec082ab33a068caca51e145471",
+ "result_sha256":"a1159acb837690bfb1f0320f6575b36c08b175b4d766846455478c915d55b394",
+ "http_code":301,"location_header_count":0,"raw_headers_persisted":false,"source_get_count":1},
+ "task256_context":{"content_type":"application/json","size_download":273},
+ "adjudication":{"http_301_proven":true,"location_absent_in_task257_response":true,
+ "redirect_destination_proven":false,"json_body_semantics_unobserved":true,"pncp_record_absence_proven":false},
+ "untouched_target_count":7,
+ "next_gate":"OWNER_AUTHORIZED_TOKEN_3_SINGLE_PNCP_BOUNDED_JSON_301_BODY_INSPECTION_ON_MERGED_TASK258_SHA"
+}

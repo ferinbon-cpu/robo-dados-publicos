@@ -1,0 +1,94 @@
+{
+  "schema": "TASK282_MINIMIZED_ACCOUNTING_FIXTURE_V4",
+  "provenance": {
+    "authority": "Tribunal de Contas do Estado de Sao Paulo (TCE-SP)",
+    "source_contract": "config/task187_tcesp_rich_expenses_2026.v1.json",
+    "corroborating_existing_evidence": "docs/evidence/TASK_219H_TCESP_CONTRACT45_BRIDGE_CANONIZATION_0.8.0.json",
+    "source_csv_sha256": "87b640aa9d854832bdd66b452d8532043e9f27bc12ec638ee77dcb5d8001f152",
+    "source_is_public_government_data": true,
+    "raw_source_redistributed_here": false,
+    "license_status": "NOT_ASSERTED_BY_TASK282",
+    "redistribution_scope": "MINIMIZED_STRUCTURAL_DERIVATIVE_ONLY"
+  },
+  "selection": "MINIMUM_STRUCTURAL_ACCOUNTING_FIXTURE_WITH_SYNTHETIC_RECORD_AND_SUPPLIER_IDS",
+  "privacy": {
+    "raw_supplier_identifier_persisted": false,
+    "synthetic_supplier_identifiers_only": true,
+    "official_detail_ids_synthetic": true,
+    "amount_persisted": false,
+    "expense_description_persisted": false,
+    "history_text_persisted": false
+  },
+  "records": [
+    {
+      "source_anchor": "TASK187_ORDINAL_2658",
+      "row": {
+        "id_despesa_detalhe": "900000001",
+        "ano_exercicio": "2026",
+        "ds_municipio": "Limeira",
+        "ds_orgao": "PREFEITURA MUNICIPAL DE LIMEIRA",
+        "mes_referencia": "1",
+        "tp_despesa": "Empenhado",
+        "nr_empenho": " 1-2026",
+        "identificador_despesa": "FIXTURE_SUPPLIER_A",
+        "historico_despesa": ""
+      }
+    },
+    {
+      "source_anchor": "TASK187_ORDINAL_2753",
+      "row": {
+        "id_despesa_detalhe": "900000002",
+        "ano_exercicio": "2026",
+        "ds_municipio": "Limeira",
+        "ds_orgao": "INSTITUTO DE PREVIDÊNCIA MUNICIPAL DE LIMEIRA",
+        "mes_referencia": "1",
+        "tp_despesa": "Empenhado",
+        "nr_empenho": " 1-2026",
+        "identificador_despesa": "FIXTURE_SUPPLIER_B",
+        "historico_despesa": ""
+      }
+    },
+    {
+      "source_anchor": "TASK219H_TCESP_3286_2026_COMMITMENT",
+      "row": {
+        "id_despesa_detalhe": "900003286",
+        "ano_exercicio": "2026",
+        "ds_municipio": "Limeira",
+        "ds_orgao": "PREFEITURA MUNICIPAL DE LIMEIRA",
+        "mes_referencia": "3",
+        "tp_despesa": "Empenhado",
+        "nr_empenho": " 3286-2026",
+        "identificador_despesa": "FIXTURE_SUPPLIER_C",
+        "historico_despesa": ""
+      }
+    },
+    {
+      "source_anchor": "TASK219H_TCESP_3286_2026_LIQUIDATION",
+      "row": {
+        "id_despesa_detalhe": "900003287",
+        "ano_exercicio": "2026",
+        "ds_municipio": "Limeira",
+        "ds_orgao": "PREFEITURA MUNICIPAL DE LIMEIRA",
+        "mes_referencia": "7",
+        "tp_despesa": "Valor Liquidado",
+        "nr_empenho": " 3286-2026",
+        "identificador_despesa": "FIXTURE_SUPPLIER_C",
+        "historico_despesa": ""
+      }
+    },
+    {
+      "source_anchor": "TASK219H_TCESP_3286_2026_PAYMENT",
+      "row": {
+        "id_despesa_detalhe": "900003288",
+        "ano_exercicio": "2026",
+        "ds_municipio": "Limeira",
+        "ds_orgao": "PREFEITURA MUNICIPAL DE LIMEIRA",
+        "mes_referencia": "7",
+        "tp_despesa": "Valor Pago",
+        "nr_empenho": " 3286-2026",
+        "identificador_despesa": "FIXTURE_SUPPLIER_C",
+        "historico_despesa": ""
+      }
+    }
+  ]
+}

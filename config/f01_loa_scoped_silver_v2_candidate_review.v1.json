@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "task": "TASK_048_F01_LOA_SCOPED_SILVER_V2_CANDIDATE_REVIEW",
+  "mode": "T0_OFFLINE_CANDIDATE_REVIEW",
+  "base_sha": "2f21e4b90244ead35503638941a9a6c596374cd0",
+  "candidate_sha256": "9f04a7202d03a58687d5382565777f15887b056ba28c65d9c01e226af7d3ef25",
+  "future_persistence": {
+    "authorization_required": true,
+    "target_folder_id": "1_wl3Y90-RYKSBXUg53My5K6lxCUnIBNo",
+    "target_name": "F01_LOA_JOM_2026_SCOPED_VALIDATED_STRUCTURE__9f04a7202d03__silver_v2.json",
+    "create_only": true,
+    "readback_required": true,
+    "overwrite": false,
+    "gold": false,
+    "serving": false,
+    "publication": false
+  }
+}

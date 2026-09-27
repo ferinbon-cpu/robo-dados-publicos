@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "schema": "TASK215_PROVEN_CROSS_PRODUCT_CROSSWALK_V1",
+  "task": "TASK_215",
+  "issue": 674,
+  "base_main_sha": "85f221125591cd686e5384851e31e511bd1f114c",
+  "mode": "T0_OFFLINE_AUTHORITATIVE_STRUCTURED_CROSSWALK_EXECUTION",
+  "upstream_executor": "TASK214_CUSTODY_LEDGER_PROJECTION_EXECUTION_V1",
+  "output_schema": "OBSERVATORY_CONTEXTUAL_ANSWER_V1",
+  "promoted_questions": [
+    "PLAN_Q3"
+  ],
+  "retained_semantic_blockers": {
+    "CTRL_Q2": "NO_PROVEN_CROSS_SOURCE_EVENT_OR_TRANSACTION_IDENTITY",
+    "INFRA_Q2": "NO_STRUCTURED_SCHOOL_IDENTITY_IN_JOM_OR_ACCOUNTING_CROSSWALK",
+    "PROC_Q1": "NO_PROVEN_JOM_TO_TCE_PROCUREMENT_EVENT_IDENTITY",
+    "PROC_Q2": "NO_PROVEN_JOM_TO_TCE_PROCUREMENT_EVENT_IDENTITY",
+    "PROC_Q3": "NO_PROVEN_JOM_TO_TCE_PROCUREMENT_EVENT_IDENTITY"
+  },
+  "planning_source": {
+    "task": "TASK_189",
+    "logical_document_id": "LOA_2026_LEI_7223_2025",
+    "primary_jom_sha256": "37ea54d85cc5428622b296881a279a17e1aeefd7574576e7a3414443bbee64c4",
+    "silver_v2_sha256": "9f04a7202d03a58687d5382565777f15887b056ba28c65d9c01e226af7d3ef25",
+    "period": "2026",
+    "evidence_role": "PRIMARY_SUBSTANTIVE",
+    "validated_segment_count": 2
+  },
+  "accounting_source": {
+    "task": "TASK_188",
+    "drive_id": "1hDWwZj3lvbPlZWNvOY_aNE6hthrpxnDt",
+    "snapshot_id": "64503339d8352a2f61e1ee85",
+    "content_sha256": "64503339d8352a2f61e1ee8596e9a7ab4dcd6237d1d84010682b4203992b4cb8",
+    "gzip_sha256": "5447581813677855ac8edcc70e6a90164ef1caa7799df544cc0a08d62ada25b0",
+    "row_count": 39783,
+    "tce_source_rows": 39779,
+    "observed_through_month": 7
+  },
+  "official_functional_classification": {
+    "authority": "Tesouro Nacional / Portaria MOG 42/1999",
+    "source_url": "https://conteudo.tesouro.gov.br/manuais/index.php?option=com_content&view=article&id=3087",
+    "mapping": [
+      {
+        "function_code": "12",
+        "function_label": "EDUCAÇÃO"
+      },
+      {
+        "subfunction_code": "306",
+        "subfunction_label": "ALIMENTAÇÃO E NUTRIÇÃO"
+      },
+      {
+        "subfunction_code": "362",
+        "subfunction_label": "ENSINO MÉDIO"
+      }
+    ],
+    "runtime_network_dependency": false
+  },
+  "crosswalk_fixture": "docs/evidence/fixtures/task215/TASK_215_PLANNING_ACCOUNTING_CROSSWALK.json",
+  "audit_fixture": "docs/evidence/fixtures/task215/TASK_215_REMAINING_IDENTITY_AUDIT.json",
+  "plan_q3": {
+    "supported_year": 2026,
+    "period_semantics": "LOA_2026_AUTHORIZATION_VS_TCE_JAN_JUL_2026_OBSERVED_EXECUTION",
+    "school_context_supported": false,
+    "supported_facets": {
+      "ALIMENTACAO": "LOA2026_ACTION_12.306.2001.2720",
+      "TRANSPORTE": "LOA2026_ACTION_12.362.2001.2690"
+    },
+    "no_facet_behavior": "RETURN_BOTH_VALIDATED_SCOPED_SEGMENTS",
+    "unsupported_facet_behavior": "EXPLICIT_CONTEXT_GAP",
+    "whole_plan_coherence_claim": false,
+    "whole_loa_coverage_claim": false,
+    "ppa_ldo_whole_execution_alignment_claim": false,
+    "causal_claim": false,
+    "normative_coherence_judgment": false
+  },
+  "join_strength": {
+    "PLAN_Q3": "AUTHORITATIVE_STRUCTURED_DIMENSIONAL_CROSSWALK",
+    "transaction_identity_claim": false,
+    "fuzzy_text_match_used": false,
+    "amount_match_used": false,
+    "date_proximity_match_used": false
+  },
+  "runtime_remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "llm": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}

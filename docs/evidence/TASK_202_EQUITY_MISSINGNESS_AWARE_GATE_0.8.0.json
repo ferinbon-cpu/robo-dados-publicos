@@ -1,0 +1,62 @@
+{
+  "schema": "TASK202_EQUITY_MISSINGNESS_AWARE_GATE_EVIDENCE_V1",
+  "software_candidate": "0.8.0",
+  "task": "TASK_202",
+  "issue": 644,
+  "base_main_sha": "23e76bf07fa9dd3b1b6b4b22433139e231211245",
+  "status": "CANDIDATE_PENDING_CI",
+  "semantic_correction": {
+    "question_id": "EQUITY_Q1",
+    "question": "Existem desigualdades por contexto social, raca/cor, deficiencia ou territorio?",
+    "prior_requirement": "SCHOOL_TO_SECTOR_LINK_FULL_NETWORK",
+    "candidate_requirement": "SCHOOL_TO_SECTOR_LINK_SUBSTANTIAL_COVERAGE_WITH_EXPLICIT_MISSINGNESS",
+    "reason": "THE_PRIOR_69_OF_69_GATE_WAS_STRICTER_THAN_THE_DISJUNCTIVE_RESEARCH_QUESTION_AND_CREATED_AN_INCENTIVE_TO_FORCE_WEAK_GEOGRAPHIC_MATCHES"
+  },
+  "equity_evidence": {
+    "required_metrics": ["PPI_SHARE", "INSE", "SPECIAL_EDUCATION_ENROLLMENT"],
+    "metric_match": "ALL",
+    "required_territory_capabilities": [
+      "CENSUS_SECTOR_CONTEXT",
+      "SCHOOL_TO_SECTOR_LINK_SUBSTANTIAL_COVERAGE_WITH_EXPLICIT_MISSINGNESS"
+    ]
+  },
+  "territory": {
+    "active_school_denominator": 69,
+    "strong_school_sector_links": 64,
+    "coverage_rate": 0.927536,
+    "held": 5,
+    "unresolved_promoted": 0,
+    "full_network": false,
+    "full_network_capability": false,
+    "territory_profile_rows": 267,
+    "held_roster_source_evidence": "docs/evidence/TASK_199G_OFFICIAL_SPATIAL_TRIANGULATION_0.8.0.json",
+    "held_roster_source_blob_sha": "3699e5e12c185c7b108f123dd20cab2584d1cc1f",
+    "held_codes": ["35208437", "35286229", "35004773", "35099569", "35241885"]
+  },
+  "held_semantics": {
+    "all_remain_held": true,
+    "weak_match_promotion": false,
+    "remaining_reasons_include_boundary_or_anchor_ambiguity": true,
+    "missing_geography_is_zero": false
+  },
+  "claim_boundaries": {
+    "school_location_sector_equals_student_profile": false,
+    "complete_network_territorial_ranking": false,
+    "all_69_schools_geolocated": false,
+    "material_equity_evidence_available": true
+  },
+  "answerability_intent": {
+    "before": {"MATERIALIZED_ANSWERABLE": 37, "MATERIALIZED_PARTIAL": 1},
+    "desired_after": {"MATERIALIZED_ANSWERABLE": 38, "MATERIALIZED_PARTIAL": 0},
+    "only_changed_question": "EQUITY_Q1"
+  },
+  "guards": [
+    "NO_WEAK_GEOGRAPHIC_PROMOTIONS",
+    "64_OF_69_NE_FULL_NETWORK",
+    "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
+    "NO_COMPLETE_NETWORK_TERRITORIAL_RANKING_CLAIM",
+    "MISSING_GEOGRAPHY_NE_ZERO",
+    "HELD_5_PRESERVED",
+    "V1_V2_V3_ANSWERABILITY_PRESERVED"
+  ]
+}

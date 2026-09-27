@@ -1,0 +1,128 @@
+{
+  "task": "TASK_219H_TCESP_CONTRACT45_BRIDGE_CANONIZATION",
+  "issue": 705,
+  "parent_issue": 691,
+  "canonical_date": "2026-09-09",
+  "base_main_sha": "afc2f5bd3243d6ff72a7b47192808d69fd88a74f",
+  "authorization": {
+    "path": "docs/evidence/TASK_219H_OWNER_AUTHORIZATION_0.8.0.json",
+    "owner_instruction": "Autorizacaoparw o próximo grande salto completo",
+    "scope_completed_by_this_task": true,
+    "future_network_authorized": false
+  },
+  "runtime": {
+    "run_id": 34390323471,
+    "job_id": 102596770947,
+    "execution_head_sha": "752c80d592ce1cf3f5f9e1630d71fb4feb3fee7d",
+    "artifact_id": 10119357131,
+    "artifact_name": "task-219h-tcesp-contract45-bridge-evidence",
+    "artifact_zip_sha256": "8d5e6755439ab4ff26233b0bdf7c0524a7632c305f8e6a183c51e17889fc1ac4",
+    "artifact_member": "task219h_result.json",
+    "artifact_member_sha256": "10bcdc27a4c1ed5fbed1fbd398d7c58ac2c9f139ea63a38551b6995e614a747a",
+    "normalized_payload_path": "docs/evidence/TASK_219H_LIVE_ARTIFACT_PAYLOAD_0.8.0.json",
+    "workflow_path_at_execution": ".github/workflows/task-219h-tcesp-contract45-bridge-live-once.yml",
+    "executed_workflow_blob_sha": "2e3391c15d52a91a9d790722a679cc03f44bf2b1",
+    "historical_workflow_path": "docs/evidence/TASK_219H_HISTORICAL_LIVE_WORKFLOW_SOURCE_0.8.0.txt",
+    "historical_workflow_blob_sha": "2e3391c15d52a91a9d790722a679cc03f44bf2b1",
+    "historical_source_exact_blob_match": true,
+    "workflow_removed_after_run": true,
+    "workflow_removal_commit": "f5462e02df8c38829ab8c2acae4e806d689589a7"
+  },
+  "source": {
+    "authority": "Tribunal de Contas do Estado de Sao Paulo",
+    "panel_url": "https://transparencia.tce.sp.gov.br/municipio/limeira/2026",
+    "resource_url": "https://transparencia.tce.sp.gov.br/sites/default/files/csv/despesas-limeira-2026.zip",
+    "request_count": 2,
+    "request_statuses": [200, 200],
+    "retry": 0,
+    "zip_sha256": "e696c40b1af0e68efca01e8f819cd26c62a3f62881692e0da33d867604d4d11b",
+    "csv_sha256": "87b640aa9d854832bdd66b452d8532043e9f27bc12ec638ee77dcb5d8001f152",
+    "zip_bytes": 2132655,
+    "csv_bytes": 17226548,
+    "row_count": 39779,
+    "months": [1,2,3,4,5,6,7],
+    "same_hash_as_task187_snapshot": true,
+    "current_snapshot_adds_new_months_vs_task187": false,
+    "transport_or_edge_failure": false
+  },
+  "jom_seed": {
+    "event_id": "JOEV_083e522d4145e4d27580",
+    "contract_number": "45/2026",
+    "process_number": "902.281/2025",
+    "bidding_modality": "PREGÃO ELETRÔNICO",
+    "bidding_number": "10/2026",
+    "supplier_cnpj": "37457979000131",
+    "supplier_name": "Med Doctor Acessórios Ltda",
+    "published_value_brl": "210000.00",
+    "object_text": "Contratação de empresa especializada em locação de sistema de endoscopia"
+  },
+  "tcesp_exact_supplier_chain": {
+    "supplier_cnpj": "37457979000131",
+    "supplier_name": "MED DOCTOR ACESSORIOS LTDA",
+    "unique_commitments": ["3286-2026"],
+    "candidate_row_count": 3,
+    "all_rows_same_commitment": true,
+    "all_rows_health_function": true,
+    "all_rows_procurement_modality": "PREGÃO ELETRÔNICO",
+    "all_rows_history_text": "LOCACAO DE SISTEMA DE ENDOSCOPIA",
+    "rows": [
+      {
+        "official_detail_id": "667130190",
+        "stage": "Empenhado",
+        "date": "06/03/2026",
+        "amount_brl": "174999.99",
+        "commitment": "3286-2026"
+      },
+      {
+        "official_detail_id": "678095929",
+        "stage": "Valor Liquidado",
+        "date": "06/07/2026",
+        "amount_brl": "17500.00",
+        "commitment": "3286-2026"
+      },
+      {
+        "official_detail_id": "678117536",
+        "stage": "Valor Pago",
+        "date": "27/07/2026",
+        "amount_brl": "17500.00",
+        "commitment": "3286-2026"
+      }
+    ],
+    "observed_stage_amounts_brl": {
+      "EMPENHADO": "174999.99",
+      "LIQUIDADO": "17500.00",
+      "PAGO": "17500.00"
+    },
+    "balance_or_contract_execution_fraction_inferred": false
+  },
+  "strong_identity_adjudication": {
+    "exact_supplier_cnpj_match": true,
+    "supplier_accounting_candidate_proven": true,
+    "single_commitment_candidate_proven": true,
+    "exact_object_wording_correspondence_observed": true,
+    "exact_procurement_modality_correspondence_observed": true,
+    "typed_contract_45_2026_found_in_tcesp": false,
+    "typed_process_902281_2025_found_in_tcesp": false,
+    "typed_bidding_10_2026_found_in_tcesp": false,
+    "strong_document_identifier_hit_count": 0,
+    "jom_to_tcesp_procurement_identity_proven": false,
+    "reason": "CNPJ, supplier, object wording and procurement modality form a high-value candidate chain but cannot substitute an explicit typed cross-source documentary identifier under the canonical fail-closed policy.",
+    "amount_mismatch_is_identity_disproof": false,
+    "amount_similarity_or_difference_is_identity": false
+  },
+  "scientific_state": {
+    "new_accounting_identifier": "3286-2026",
+    "new_primary_control_evidence": true,
+    "question_promotion_performed": false,
+    "contextual_paths_before": 34,
+    "contextual_paths_after": 34,
+    "canonical_questions_total": 38,
+    "remaining_blockers": ["CTRL_Q2", "PROC_Q1", "PROC_Q2", "PROC_Q3"]
+  },
+  "authorization_consumption": {
+    "task219h_scope_complete": true,
+    "authorization_exhausted_for_future_network": true,
+    "new_authorization_required_for_any_additional_live_source_or_query": true
+  },
+  "next_action": "USE_COMMITMENT_3286_2026_AS_NEW_STRONG_ACCOUNTING_SEED_IN_A_SEPARATE_FUTURE_BRIDGE; DO_NOT PROMOTE PROCUREMENT IDENTITY YET"
+}

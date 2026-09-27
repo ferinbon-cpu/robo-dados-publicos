@@ -1,0 +1,20 @@
+{
+  "version":1,
+  "task":"TASK_065_HASH_DEDUPE_MANIFEST",
+  "hash_algorithm":"sha256",
+  "content_identity_key":"sha256",
+  "required_fields":["file_id","original_title","source_family","sha256","byte_size","provenance_ref","observed_at"],
+  "rules": {
+    "same_title_is_duplicate":false,
+    "same_size_is_duplicate":false,
+    "same_sha256_is_content_duplicate":true,
+    "bronze_write_mode":"CREATE_ONLY",
+    "same_sha256_behavior":"REUSE_EXISTING_CONTENT_IDENTITY_APPEND_PROVENANCE_ONLY",
+    "different_sha_same_title_behavior":"KEEP_DISTINCT_CONTENT_IDENTITIES",
+    "hash_conflict_behavior":"STOP_FAIL_CLOSED"
+  },
+  "hash_only_read_scope": {
+    "allowed_effects":["READ_BYTES","COMPUTE_SHA256","COMPUTE_BYTE_SIZE"],
+    "forbidden_effects":["PARSE_SEMANTICS","SILVER_PROMOTION","GOLD_PROMOTION","PUBLICATION"]
+  }
+}

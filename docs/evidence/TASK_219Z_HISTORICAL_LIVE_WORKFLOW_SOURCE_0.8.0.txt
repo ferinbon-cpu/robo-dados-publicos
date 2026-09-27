@@ -1,0 +1,49 @@
+name: TASK 219Z gated detail Empenho 3286 query once
+run-name: "TASK 219Z detail Empenho 3286 by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-219z-query-detail-empenho-3286
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-219z-detail-empenho-3286-once
+  cancel-in-progress: false
+
+jobs:
+  gated-detail-query:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          check-latest: false
+      - name: Install Selenium
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check --no-input "selenium==4.35.0"
+      - name: Prove exact submit binding and query once if gate passes
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PYTHONPATH="$GITHUB_WORKSPACE"
+          export TASK219Z_OUTPUT="$GITHUB_WORKSPACE/runtime/task219z_result.json"
+          python -m robo_dados_publicos.research.task219z_query_detail_empenho_3286
+      - name: Upload sanitized bounded evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-219z-detail-empenho-3286-evidence
+          path: runtime/task219z_result.json
+          if-no-files-found: error
+          retention-days: 1

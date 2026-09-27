@@ -1,0 +1,47 @@
+{
+  "gate_id": "M7_SIOPE_WS_PUBLIC_DISCOVERY_DESIGN_0_8_0",
+  "run_id": 32857423794,
+  "run_number": 1,
+  "head_sha": "8a37947c31a4716aa0768177b143e262f72689aa",
+  "artifact_id": 9566740062,
+  "artifact_digest": "sha256:5aac26b5d73067b44ea3e9c248f067a6cf91c15bcc933d452cd3c3d1a06c7203",
+  "workflow_conclusion": "success",
+  "reported_status": "PASS_M7_SIOPE_WS_PUBLIC_DISCOVERY_GATE",
+  "qa": {
+    "unit_tests": 380,
+    "historical_regressions": 109
+  },
+  "live_observation": {
+    "fetched_page_count": 2,
+    "total_fetched_bytes": 48372,
+    "declared_signal_link_count": 42,
+    "reported_explicit_candidate_count": 41,
+    "followed_documentation_count": 0,
+    "fetch_failure_count": 0,
+    "candidate_sample_size_persisted": 12,
+    "candidate_sample_anchor_text": "Instalador do Sistema",
+    "candidate_sample_path_prefix": "/webservices/castor/",
+    "candidate_sample_host": "www.fnde.gov.br"
+  },
+  "review": {
+    "semantic_verdict": "FALSE_POSITIVE_CLASSIFICATION",
+    "reason": "The persisted 12-of-41 candidate sample consists of SIOPE installer delivery links under FNDE generic /webservices/castor/ infrastructure. The generic path token webservices is not sufficient evidence of a WS-SIOPE API endpoint.",
+    "route_contract_promoted": false,
+    "endpoint_verification_authorized": false,
+    "required_hardening": "Exclude generic CASTOR/file-delivery routes and installer anchors; require WS-SIOPE-specific host/markers or unequivocal official documentation before PASS."
+  },
+  "safety": {
+    "endpoint_candidate_network_sent": false,
+    "authentication_performed": false,
+    "credentials_captured": false,
+    "cookies_captured": false,
+    "captcha_bypass": false,
+    "form_submission": false,
+    "artifact_downloaded": false,
+    "remote_writes": "NONE",
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false
+  }
+}

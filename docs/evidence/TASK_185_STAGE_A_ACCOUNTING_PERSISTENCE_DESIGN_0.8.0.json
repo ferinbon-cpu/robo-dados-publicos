@@ -1,0 +1,70 @@
+{
+  "task": "TASK_185_PERSIST_REAL_TCE_2026_EXPENSE_ROWS_AND_MATERIALIZE_ACCOUNTING_LEDGER",
+  "issue": 581,
+  "stage": "A",
+  "mode": "T0_OFFLINE_DESIGN_ONLY",
+  "base_main_sha": "542282af46c53173c3d86cd35691ad3bfa3742ab",
+  "branch": "task-185-stage-a-tce-accounting-persistence",
+  "objective": "PIN_EXACT_REAL_ROW_PERSISTENCE_AND_ACCOUNTING_MATERIALIZATION_CONTRACT_WITHOUT_LIVE_EFFECTS",
+  "source": {
+    "source_id": "TCESP_LIMEIRA_2026_DESPESAS",
+    "exact_url": "https://transparencia.tce.sp.gov.br/sites/default/files/csv/despesas-limeira-2026.zip",
+    "expected_member": "despesas-limeira-2026.csv",
+    "task172_historical_rows_observed": 39780,
+    "historical_count_required_in_future": false
+  },
+  "custody": {
+    "verified_existing_drive_layer": "01_BRONZE",
+    "verified_existing_folder": "CONTABILIDADE_LIMEIRA_2025_2026",
+    "folder_id": "1cgG2YiVm14DYEqAJGFpB7GOKaRloIqUC",
+    "stage_a_write": false,
+    "future_policy": "CREATE_ONLY_HASH_ADDRESSED_COLLISION_STOP"
+  },
+  "upstream_contracts": {
+    "task172": "config/task172_observatory_fiscal_machine_readable_batch.v1.json",
+    "task173_adapter": "config/tcesp_current_expense_adapter.v1.json",
+    "task173_observation": "config/municipal_accounting_observation.v1.json",
+    "task176_products": "config/observatory_query_products.v1.json",
+    "task184": "docs/evidence/TASK_184_LOCAL_JOM_PLANNING_BUNDLE_0.8.0.json"
+  },
+  "implementation": {
+    "contract": "config/task185_real_tce_accounting_persistence.v1.json",
+    "offline_validator": "robo_dados_publicos/accounting/task185_persistence.py",
+    "tests": "tests/test_task_185_accounting_persistence.py",
+    "documentation": "docs/tasks/CODEX_TASK_185_REAL_TCE_ACCOUNTING_PERSISTENCE.md",
+    "network_client_implemented": false,
+    "drive_writer_implemented": false
+  },
+  "authorization": {
+    "stage_b_fresh_owner_authorization_required": true,
+    "prior_task172_authorization_reusable": false,
+    "issue_581_itself_is_authorization": false,
+    "exact_url_binding_required": true,
+    "exact_implementation_sha_binding_required": true,
+    "exact_drive_folder_binding_required": true,
+    "max_requests": 1
+  },
+  "stage_c": {
+    "normalize_with_task173": true,
+    "build_accounting_ledger_with_task176": true,
+    "preserve_stage_separation": true,
+    "recompute_38_question_matrix": true,
+    "report_accounting_gain_separately": true
+  },
+  "hard_guards": [
+    "TASK172_39780_NE_REQUIRED_FUTURE_ROW_COUNT",
+    "CONTROL_RECORD_NE_MUNICIPAL_PRIMARY_POLICY_IDENTITY",
+    "COMMITMENT_NE_LIQUIDATION_NE_PAYMENT",
+    "AMOUNT_DATE_TEXT_NE_IDENTITY",
+    "PROGRAM_ACTION_SOURCE_NE_SPECIFIC_POLICY_IDENTITY",
+    "SYNTHETIC_FIXTURE_NE_REAL_ACCOUNTING_LEDGER"
+  ],
+  "remote_effects": {
+    "source_network": 0,
+    "drive_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  }
+}

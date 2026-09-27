@@ -1,0 +1,61 @@
+{
+  "gate_id": "M7_SIOPE_OFFICIAL_OLINDA_API_APPLICATION_RUNTIME_ROUTE_DIAGNOSTICS_0_8_0",
+  "software_version": "0.8.0",
+  "run_id": 32900849533,
+  "run_number": 1,
+  "event": "workflow_dispatch",
+  "branch": "main",
+  "head_sha": "d7deace8644b23dcb6e7aa31bc67d40c3ca1b172",
+  "job_id": 97974113961,
+  "workflow_conclusion": "failure",
+  "live_gate_outcome": "failure_fail_closed_stop",
+  "artifact": {
+    "id": 9583003909,
+    "name": "siope-official-olinda-application-route-diagnostics-32900849533",
+    "size_in_bytes": 637,
+    "digest": "sha256:5d1ee51f69cc324a5062b790bc79eb845189f4d775ba6befb0071f798641453d"
+  },
+  "qa": {
+    "unit_tests": 594,
+    "unit_failures": 0,
+    "historical_regressions": 109,
+    "historical_regression_failures": 0
+  },
+  "status": "STOP_M7_SIOPE_OFFICIAL_OLINDA_API_APPLICATION_RUNTIME_ROUTE_DIAGNOSTICS",
+  "error_code": "STOP_M7_SIOPE_OFFICIAL_OLINDA_API_APPLICATION_RUNTIME_ROUTE_DIAGNOSTICS_APPLICATION_SURFACE_NOT_VERIFIED",
+  "blocked_shapes": [
+    {
+      "candidate_dynamic_request": false,
+      "host": "www.fnde.gov.br",
+      "intercepted_before_network": true,
+      "method": "GET",
+      "network_sent": false,
+      "occurrences": 1,
+      "official_host": true,
+      "query_keys": [],
+      "query_present": false,
+      "resource_type": "Other",
+      "route_without_query": "https://www.fnde.gov.br/favicon.ico",
+      "scheme": "https"
+    }
+  ],
+  "candidate_shapes": [],
+  "safety": {
+    "dynamic_candidate_network_sent": false,
+    "pilot_limeira_values_sent": false,
+    "resource_data_request_performed": false,
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false,
+    "authentication_performed": false,
+    "captcha_bypass": false,
+    "artifact_downloaded": false,
+    "query_values_persisted": false,
+    "request_body_persisted": false,
+    "response_body_persisted": false,
+    "remote_writes": "NONE"
+  },
+  "interpretation": "The official application runtime stopped fail-closed because the application surface verification predicate was not satisfied. No dynamic candidate route was observed or sent. The only blocked shape was the official favicon request, aborted before network. This evidence does not authorize any resource GET, parameterized Olinda call, POST, Limeira pilot request, data collection, processing, recurrence, or schedule.",
+  "next_review": "M7_SIOPE_OFFICIAL_OLINDA_API_APPLICATION_RUNTIME_ROUTE_DIAGNOSTICS_REVIEW_0_8_0"
+}

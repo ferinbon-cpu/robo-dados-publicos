@@ -1,0 +1,15 @@
+{
+  "task": "TASK_143_INDEXED_CHAMAMENTO_ROUTE_SEARCH_ATTEMPT",
+  "mode": "T1_BOUNDED_INDEXED_CHAMAMENTO_ROUTE_SEARCH",
+  "task143_merge_sha": "cd96cbab508f099b5c4fcb2750085c79922ddd7d",
+  "result": "STOP_INDEXED_CHAMAMENTO_NO_QUALIFIED_ROUTE_RESULT",
+  "authorization_unit_index": 8,
+  "search_invocations": 1,
+  "open_invocations": 0,
+  "returned_result_count_observed": 1,
+  "returned_result_under_chamamento_route": false,
+  "returned_result_strong_eiti_procurement_marker": false,
+  "administrative_identifier_found": false,
+  "negative_exhaustive_conclusion_created": false,
+  "retry_performed": false
+}

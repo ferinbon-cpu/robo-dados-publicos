@@ -1,0 +1,65 @@
+{
+  "task": "TASK_098_EITI_HISTORICAL_PLANNING_CROSSWALK",
+  "mode": "T0_OFFLINE_VERSIONED_REPOSITORY_EVIDENCE_ONLY",
+  "base_sha": "220377d49ae6e3839a54053a9bf597765777484a",
+  "repository_only": true,
+  "period_status": {
+    "2018-2021": {
+      "repository_signal": "escolas com programas em tempo integral",
+      "signal_status": "CANDIDATE",
+      "policy_link_status": "UNKNOWN",
+      "primary_evidence_packet_versioned": false
+    },
+    "2022-2025": {
+      "repository_signal": "indice de alunos em Educacao Integral",
+      "signal_status": "CANDIDATE",
+      "policy_link_status": "UNKNOWN",
+      "primary_evidence_packet_versioned": false
+    },
+    "2026-2029": {
+      "repository_signal": "INDICE DE ALUNOS EM EDUCACAO INTEGRAL",
+      "signal_status": "PROVEN",
+      "policy_link_status": "CORROBORATED",
+      "primary_evidence_packet_versioned": true,
+      "preferred_primary_locator": "JOURNAL_EDITION_PDF_PAGE:15"
+    }
+  },
+  "longitudinal_assessment": {
+    "three_ppa_period_policy_continuity": "CANDIDATE",
+    "three_ppa_period_budgetary_persistence": "UNKNOWN",
+    "task096_normative_planning_persistence": "CORROBORATED",
+    "task096_finding_preserved_without_reinterpretation": true
+  },
+  "required_missing_primary_evidence": {
+    "2018-2021": [
+      "PRIMARY_PPA_DOCUMENT_IDENTITY",
+      "STABLE_SOURCE_HASH_OR_EQUIVALENT_IDENTITY",
+      "TYPED_LOCATOR_FOR_THE_RELEVANT_PLANNING_SIGNAL",
+      "DIRECT_TEXT_OR_VISUAL_EVIDENCE"
+    ],
+    "2022-2025": [
+      "PRIMARY_PPA_DOCUMENT_IDENTITY",
+      "STABLE_SOURCE_HASH_OR_EQUIVALENT_IDENTITY",
+      "TYPED_LOCATOR_FOR_THE_RELEVANT_PLANNING_SIGNAL",
+      "DIRECT_TEXT_OR_VISUAL_EVIDENCE"
+    ]
+  },
+  "effects": {
+    "source_network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "source_acquisition": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "state_registry_write": 0,
+    "queue_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "retry": 0,
+    "recurrence": 0,
+    "schedule": 0
+  },
+  "result": "READY_FOR_CI_REVIEW_NO_REMOTE_EFFECT"
+}

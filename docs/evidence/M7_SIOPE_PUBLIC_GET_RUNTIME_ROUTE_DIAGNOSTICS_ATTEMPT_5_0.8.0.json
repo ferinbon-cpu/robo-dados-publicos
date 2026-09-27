@@ -1,0 +1,98 @@
+{
+  "gate_id": "M7_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS_0_8_0",
+  "software_version": "0.8.0",
+  "release_status": "CANDIDATE",
+  "run": {
+    "id": 32874848478,
+    "number": 5,
+    "event": "workflow_dispatch",
+    "status": "completed",
+    "conclusion": "success",
+    "head_branch": "main",
+    "head_sha": "1fbddb4dacad6f66c831c20b72e54b0388ef803c",
+    "job_id": 97890220411
+  },
+  "qa": {
+    "unit_tests": 430,
+    "unit_failures": 0,
+    "historical_regressions": 109,
+    "historical_regression_failures": 0
+  },
+  "artifact": {
+    "id": 9573491988,
+    "name": "siope-public-get-runtime-route-diagnostics-32874848478",
+    "size_bytes": 999,
+    "digest": "sha256:dde2847d12aeb3a2def4869f70c681792a4f86bfab81e846d67d043d1990bebe"
+  },
+  "result": {
+    "status": "PASS_M7_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS",
+    "runtime_status": "PUBLIC_INDEXED_GET_LOADED_DYNAMIC_REQUESTS_INTERCEPTED_BEFORE_NETWORK",
+    "page_surface_verified": true,
+    "initial_document_continued_count": 1,
+    "initial_document_network_sent": true,
+    "static_assets_continued_count": 3,
+    "local_requests_continued_count": 0,
+    "blocked_request_event_count": 2,
+    "blocked_shape_count": 2,
+    "candidate_shape_count": 0,
+    "candidate_shapes": [],
+    "blocked_shapes": [
+      {
+        "method": "GET",
+        "resource_type": "Other",
+        "scheme": "https",
+        "host": "www.fnde.gov.br",
+        "route_without_query": "https://www.fnde.gov.br/siope/favicon.ico",
+        "query_present": false,
+        "query_keys": [],
+        "occurrences": 1,
+        "official_host": true,
+        "candidate_dynamic_data_request": false,
+        "network_sent": false,
+        "intercepted_before_network": true
+      },
+      {
+        "method": "GET",
+        "resource_type": "Script",
+        "scheme": "https",
+        "host": "www.google.com",
+        "route_without_query": "https://www.google.com/recaptcha/api.js",
+        "query_present": false,
+        "query_keys": [],
+        "occurrences": 1,
+        "official_host": false,
+        "candidate_dynamic_data_request": false,
+        "network_sent": false,
+        "intercepted_before_network": true
+      }
+    ],
+    "dynamic_candidate_network_sent": false,
+    "browser_download_denied": true,
+    "human_challenge_active": false,
+    "pilot_limeira_values_sent": false,
+    "form_submission": false,
+    "captcha_bypass": false,
+    "authentication_performed": false,
+    "credentials_captured": false,
+    "cookies_captured": false,
+    "request_body_persisted": false,
+    "response_body_persisted": false,
+    "query_values_persisted": false,
+    "head_request_performed": false,
+    "artifact_downloaded": false,
+    "remote_writes": "NONE",
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false,
+    "next_gate": "M7_SIOPE_PUBLIC_RUNTIME_ROUTE_CONTRACT_REVIEW_0_8_0"
+  },
+  "interpretation": {
+    "public_indexed_get_contract_verified_at_runtime": true,
+    "dynamic_data_route_proven": false,
+    "reason_dynamic_route_unproven": "ZERO_SAME_HOST_XHR_OR_FETCH_CANDIDATE_SHAPES_OBSERVED",
+    "automatic_route_promotion": "PROHIBITED",
+    "route_synthesis_or_guessing": "PROHIBITED",
+    "review_requirement": "CONTRACT_REVIEW_MUST_PRESERVE_ZERO_CANDIDATE_RESULT_AND_MUST_NOT_CALL_OR_INFER_A_DYNAMIC_ROUTE"
+  }
+}

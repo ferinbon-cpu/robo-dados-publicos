@@ -1,0 +1,34 @@
+{
+  "task": "TASK_132_PROCUREMENT_PUBLICATION_SURFACE_SELECTION",
+  "mode": "T0_OFFLINE_PUBLIC_DOCUMENTATION_SELECTION_ONLY",
+  "issue": 465,
+  "base_sha": "7edcfa51686ae25d1489db72baa3b494cb4cd04e",
+  "selected_surface": "PNCP_PUBLIC_CONTRATACOES_BY_PUBLICATION",
+  "selected_endpoint": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao",
+  "modality": {
+    "id": 12,
+    "name": "Credenciamento"
+  },
+  "exact_target_cnpj": "45132495000140",
+  "next_probe": {
+    "data_inicial": "20251128",
+    "data_final": "20260904",
+    "pagina": 1,
+    "tamanho_pagina": 500,
+    "requests_max": 1,
+    "authorized_now": false
+  },
+  "rationale": [
+    "TASK128_TO_130_CONTRACT_SURFACE_EXHAUSTED_WITH_ZERO_STRONG_POLICY_CANDIDATES",
+    "TASK127_RAW_JOM_PDF_TRANSPORT_CONSUMED_ZERO_BYTES",
+    "TASK131_WEB_INDEX_FOUND_NO_STABLE_ADMINISTRATIVE_IDENTIFIER",
+    "PNCP_PUBLIC_PROCUREMENT_SURFACE_CAN_RETURN_STABLE_CONTRATACAO_IDENTIFIER",
+    "MODALITY_12_IS_CREDENCIAMENTO"
+  ],
+  "candidate_only": true,
+  "primary_municipal_verification_required": true,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "remote_effects": 0,
+  "result": "PASS_TASK132_PNCP_PROCUREMENT_PUBLICATION_SURFACE_SELECTED_NO_LIVE_REQUEST"
+}

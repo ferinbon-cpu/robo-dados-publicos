@@ -1,0 +1,123 @@
+{
+  "schema": "TASK_018_JORNAL_COMPLETED_CANONICAL_CHECKPOINT_V1",
+  "source_id": "LIMEIRA_JORNAL_OFICIAL",
+  "checkpoint_status": "COMPLETE",
+  "origin_task": "TASK_018",
+  "origin_run_id": 33392616951,
+  "origin_batch_id": "BATCH-CBBF70ADCA619C9C",
+  "origin_execution_head_sha": "81db1a28c4532bd299d5b21cf38e295f4c49eeec",
+  "item_count": 12,
+  "items": [
+    {
+      "edition": 7304,
+      "publication_date": "2026-08-14",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_13082026164759.pdf",
+      "source_id": "LIMEIRA_JO_07304",
+      "logical_key": "limeira/jornal_oficial/edicao/7304"
+    },
+    {
+      "edition": 7305,
+      "publication_date": "2026-08-15",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_14082026170504.pdf",
+      "source_id": "LIMEIRA_JO_07305",
+      "logical_key": "limeira/jornal_oficial/edicao/7305"
+    },
+    {
+      "edition": 7306,
+      "publication_date": "2026-08-18",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_17082026182800.pdf",
+      "source_id": "LIMEIRA_JO_07306",
+      "logical_key": "limeira/jornal_oficial/edicao/7306"
+    },
+    {
+      "edition": 7307,
+      "publication_date": "2026-08-19",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_18082026204239.pdf",
+      "source_id": "LIMEIRA_JO_07307",
+      "logical_key": "limeira/jornal_oficial/edicao/7307"
+    },
+    {
+      "edition": 7308,
+      "publication_date": "2026-08-20",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_19082026164910.pdf",
+      "source_id": "LIMEIRA_JO_07308",
+      "logical_key": "limeira/jornal_oficial/edicao/7308"
+    },
+    {
+      "edition": 7309,
+      "publication_date": "2026-08-21",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_20082026164100.pdf",
+      "source_id": "LIMEIRA_JO_07309",
+      "logical_key": "limeira/jornal_oficial/edicao/7309"
+    },
+    {
+      "edition": 7310,
+      "publication_date": "2026-08-22",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_21082026170515.pdf",
+      "source_id": "LIMEIRA_JO_07310",
+      "logical_key": "limeira/jornal_oficial/edicao/7310"
+    },
+    {
+      "edition": 7311,
+      "publication_date": "2026-08-25",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_24082026174701.pdf",
+      "source_id": "LIMEIRA_JO_07311",
+      "logical_key": "limeira/jornal_oficial/edicao/7311"
+    },
+    {
+      "edition": 7312,
+      "publication_date": "2026-08-26",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_25082026165923.pdf",
+      "source_id": "LIMEIRA_JO_07312",
+      "logical_key": "limeira/jornal_oficial/edicao/7312"
+    },
+    {
+      "edition": 7313,
+      "publication_date": "2026-08-27",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_26082026163754.pdf",
+      "source_id": "LIMEIRA_JO_07313",
+      "logical_key": "limeira/jornal_oficial/edicao/7313"
+    },
+    {
+      "edition": 7314,
+      "publication_date": "2026-08-28",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_27082026164036.pdf",
+      "source_id": "LIMEIRA_JO_07314",
+      "logical_key": "limeira/jornal_oficial/edicao/7314"
+    },
+    {
+      "edition": 7315,
+      "publication_date": "2026-08-29",
+      "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_28082026164151.pdf",
+      "source_id": "LIMEIRA_JO_07315",
+      "logical_key": "limeira/jornal_oficial/edicao/7315"
+    }
+  ],
+  "provenance": {
+    "authority": "TASK_018_HISTORICAL_SANITIZED_ARTIFACT",
+    "artifact_name": "task-018-sanitized-operational-evidence",
+    "artifact_id": 9758450652,
+    "artifact_digest": "sha256:f4eacabeed66e3b2ca0801140efa3a495e5a9e294cfaa61953cb2dc27e6628cd",
+    "artifact_origin_run_id": 33392616951,
+    "artifact_origin_head_sha": "81db1a28c4532bd299d5b21cf38e295f4c49eeec",
+    "artifact_member": "operational_result.json",
+    "artifact_member_sha256": "aad99f2644b6580b1734ab75e02c969095c24c95c3e393f1f3f096a72e19a5bd",
+    "identities_observed_directly": true,
+    "normalization": {
+      "document_url": "copied verbatim from operational_result.items[].url and renamed to canonical field document_url",
+      "edition": "copied verbatim",
+      "publication_date": "copied verbatim",
+      "source_id": "copied verbatim",
+      "logical_key": "copied verbatim"
+    },
+    "sequence_assumed": false,
+    "synthetic_fixture": false,
+    "source_network_used_for_task_022": false,
+    "drive_used_for_task_022": false
+  },
+  "integrity": {
+    "item_count": 12,
+    "canonical_payload_bytes": 2797,
+    "canonical_payload_sha256": "64e78c27a2c233468d76bc94c5719a35ed68ff7455cfac36d958d922c4ece5db"
+  }
+}

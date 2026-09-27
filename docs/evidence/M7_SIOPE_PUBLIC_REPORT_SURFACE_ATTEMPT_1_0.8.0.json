@@ -1,0 +1,61 @@
+{
+  "gate_id": "M7_SIOPE_PUBLIC_REPORT_SURFACE_GATE_0_8_0",
+  "run_id": 32859272412,
+  "run_number": 1,
+  "head_sha": "da5e8d7f3f0a4da5882c823e507b51261c40f8f7",
+  "artifact_id": 9567469043,
+  "artifact_digest": "sha256:5aefa1f60a8fdcdca70f32ce510e403d75a3027604b327f30223dfd544fe1f73",
+  "workflow_conclusion": "success",
+  "qa": {
+    "unit_tests": 391,
+    "historical_regressions": 109
+  },
+  "observation": {
+    "surface_status": "PUBLIC_REPORT_FORM_CONTRACT_OBSERVED",
+    "index_status": 200,
+    "data_page_status": 200,
+    "fetched_page_count": 2,
+    "declared_data_link_anchor": "Dados Informados pelos Municípios",
+    "declared_data_link_host": "webservice.fnde.gov.br",
+    "declared_data_link_path": "/siope/dadosInformadosMunicipio.do",
+    "form_count": 1,
+    "usable_form_contract_count": 1,
+    "form_method": "POST",
+    "form_action_host": "webservice.fnde.gov.br",
+    "form_action_path": "/siope/dadosInformadosMunicipio.do",
+    "field_names": [
+      "acao",
+      "formato",
+      "pag",
+      "tp_relatorio",
+      "num_ano",
+      "num_peri",
+      "cod_uf",
+      "cod_muni",
+      "admin"
+    ],
+    "captcha_present": true
+  },
+  "decision": {
+    "verdict": "PUBLIC_FORM_CONTRACT_PROVEN_HUMAN_CHALLENGE_PRESENT",
+    "unattended_post_submission_authorized": false,
+    "captcha_bypass_authorized": false,
+    "credential_or_cookie_capture_authorized": false,
+    "form_field_values_persisted": false,
+    "next_safe_route": "M7_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_GATE_0_8_0"
+  },
+  "safety": {
+    "form_submission": false,
+    "form_action_network_sent": false,
+    "authentication_performed": false,
+    "credentials_captured": false,
+    "cookies_captured": false,
+    "field_values_captured": false,
+    "artifact_downloaded": false,
+    "remote_writes": "NONE",
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false
+  }
+}

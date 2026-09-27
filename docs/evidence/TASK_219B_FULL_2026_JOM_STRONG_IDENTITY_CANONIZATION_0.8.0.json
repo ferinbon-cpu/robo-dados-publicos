@@ -1,0 +1,117 @@
+{
+  "general_event_runtime_counts": {
+    "contract_anchor_count": 103,
+    "failure_count": 0,
+    "new_event_count": 2408,
+    "process_anchor_count": 292,
+    "procurement_shaped_event_count": 940,
+    "procurement_shaped_event_with_cnpj_count": 343,
+    "semantic_row_count": 2408,
+    "strong_anchor_count": 395,
+    "strong_anchor_event_count": 330
+  },
+  "issue": 691,
+  "outputs": {
+    "combined_identity_index": "docs/evidence/fixtures/task219/TASK_219B_FULL_99_EDITION_STRONG_IDENTITY_INDEX.json",
+    "combined_identity_index_sha256": "d8430eef6a0b0c96eb9eb42fcb4bdf0d45d3dbec68ab35fda938bb9676038ad7",
+    "new_anchor_fixture": "docs/evidence/fixtures/task219/TASK_219B_NEW_87_STRONG_IDENTITY_ANCHORS.jsonl",
+    "new_anchor_fixture_sha256": "20300dcdf25dae5834ca4069e99fc6a25d2bfa6f1c8e7489921df7cb9a48a0bf"
+  },
+  "remote_effects": {
+    "drive_write": false,
+    "pncp_network": false,
+    "promotion": false,
+    "public_source_network": false,
+    "publication": false,
+    "serving": false,
+    "tce_network": false
+  },
+  "scientific_adjudication": {
+    "canonical_questions_total": 38,
+    "contextual_paths_after": 34,
+    "contextual_paths_before": 34,
+    "contract_multi_supplier_conflict_count": 0,
+    "end_to_end_jom_pncp_tce_chain_proven": false,
+    "next_step": "FRESH_BOUNDED_PNCP_EXACT_IDENTIFIER_BRIDGE_AGAINST_303_UNIQUE_JOM_IDENTITIES",
+    "process_multi_supplier_is_expected_for_multi_lot_or_registry_events": true,
+    "question_promotion_performed": false,
+    "remaining_blockers": [
+      "CTRL_Q2",
+      "PROC_Q1",
+      "PROC_Q2",
+      "PROC_Q3"
+    ],
+    "weak_match_promotion_forbidden": true
+  },
+  "source_runtime": {
+    "anchors_sha256": "20300dcdf25dae5834ca4069e99fc6a25d2bfa6f1c8e7489921df7cb9a48a0bf",
+    "artifact_id": 10105583802,
+    "artifact_zip_sha256": "599c9329f40de5b040b331ada17224614d197a332c12844f523e4a0d9d1aa35d",
+    "bundle_sha256": "f5fbe029c1d2f3709bebc46687bb3987ada69561df8b40ab2f4fd91aba5d6cb4",
+    "complete_87_of_87": true,
+    "events_sha256": "5ca4bf1411f6b8bfa6ad2b8fdede9937f495458963439fa579d40caa7d988c5b",
+    "failure_count": 0,
+    "manifest_sha256": "90f4bcb6b711c4d0845f7a30ce04b8f88519868c62afce2bccb46764e44fd430",
+    "run_id": 34354027245,
+    "semantics_sha256": "7a1e191e944f66bbf129ad96b912c4cbb3b074ac0ae3ddd61b68ac5390dfb8b6"
+  },
+  "strong_identity_canonization": {
+    "combined_anchor_rows": 449,
+    "combined_unique_contract_identities": 108,
+    "combined_unique_identities": 303,
+    "combined_unique_process_identities": 195,
+    "contract_identities_with_multiple_suppliers": 0,
+    "cross_corpus_overlap": [
+      {
+        "anchor_type": "CONTRACT_IDENTITY",
+        "anchor_value": "46/2026"
+      },
+      {
+        "anchor_type": "PROCESS_IDENTITY",
+        "anchor_value": "13.983/2026"
+      },
+      {
+        "anchor_type": "PROCESS_IDENTITY",
+        "anchor_value": "55.088/2023"
+      },
+      {
+        "anchor_type": "PROCESS_IDENTITY",
+        "anchor_value": "900.195/2026"
+      },
+      {
+        "anchor_type": "PROCESS_IDENTITY",
+        "anchor_value": "903.360/2025"
+      },
+      {
+        "anchor_type": "PROCESS_IDENTITY",
+        "anchor_value": "903.705/2025"
+      },
+      {
+        "anchor_type": "PROCESS_IDENTITY",
+        "anchor_value": "904.107/2025"
+      },
+      {
+        "anchor_type": "PROCESS_IDENTITY",
+        "anchor_value": "904.597/2025"
+      },
+      {
+        "anchor_type": "PROCESS_IDENTITY",
+        "anchor_value": "904.868/2025"
+      }
+    ],
+    "legacy_anchor_events": 48,
+    "legacy_anchor_rows": 54,
+    "legacy_unique_identities": 42,
+    "new_anchor_events": 330,
+    "new_anchor_rows": 395,
+    "new_contract_identities": 96,
+    "new_process_identities": 165,
+    "new_unique_identities": 261,
+    "overlapping_unique_identities": 9,
+    "process_identities_with_multiple_suppliers": 28,
+    "unique_contract_identities": 97,
+    "unique_identities": 270,
+    "unique_process_identities": 173
+  },
+  "task": "TASK_219B_FULL_2026_JOM_STRONG_IDENTITY_CANONIZATION"
+}

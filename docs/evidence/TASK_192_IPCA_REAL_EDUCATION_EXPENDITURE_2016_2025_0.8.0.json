@@ -1,0 +1,145 @@
+{
+  "schema": "TASK192_IPCA_REAL_EDUCATION_EXPENDITURE_EVIDENCE_V1",
+  "software_candidate": "0.8.0",
+  "task": "TASK_192_IPCA_REAL_EDUCATION_EXPENDITURE_2016_2025",
+  "base_main_sha": "b8d24533651b46593af7d2fcf789f4bb8d690154",
+  "status": "PASS_CANONICAL_CI_RUNTIME_SNAPSHOTS_PINNED",
+  "period": "2016-2025",
+  "base_price_period": "2025-12",
+  "nominal_series": {
+    "metric_id": "EDUCATION_EXPENDITURE",
+    "stage": "COMMITTED_ANNUAL",
+    "years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "source_family_2016_2024": "SIOPE",
+    "source_family_2025": "RREO",
+    "values_brl": {
+      "2016": "215348241.40",
+      "2017": "223837389.67",
+      "2018": "222452947.74",
+      "2019": "247138233.41",
+      "2020": "239780107.99",
+      "2021": "249487132.42",
+      "2022": "347826196.02",
+      "2023": "414827473.94",
+      "2024": "458206043.38",
+      "2025": "463766660.32"
+    }
+  },
+  "deflator": {
+    "authority": "IBGE",
+    "index": "IPCA",
+    "source_document": "Indicadores IBGE - IPCA e INPC - Dezembro de 2025",
+    "locator": "page:23:SÉRIE_HISTÓRICA_DOS_ACUMULADOS_NO_ANO_IPCA",
+    "normalized_observation_sha256": "a3d8ef329c9c3a6de30d9944803ee4bd83646dca4a3469698e350835ebcc865e",
+    "annual_rates_pct": {
+      "2016": "6.29",
+      "2017": "2.95",
+      "2018": "3.75",
+      "2019": "4.31",
+      "2020": "4.52",
+      "2021": "10.06",
+      "2022": "5.79",
+      "2023": "4.62",
+      "2024": "4.83",
+      "2025": "4.26"
+    }
+  },
+  "real_series": {
+    "metric_id": "REAL_EDUCATION_EXPENDITURE",
+    "unit": "BRL_DEC_2025_EQUIVALENT",
+    "stage": "COMMITTED_ANNUAL_DEFLATED_YEAR_END_EQUIVALENT",
+    "values_brl": {
+      "2016": "333866834.92",
+      "2017": "337084072.38",
+      "2018": "322890791.17",
+      "2019": "343899454.29",
+      "2020": "319231176.99",
+      "2021": "301794131.51",
+      "2022": "397722636.08",
+      "2023": "453388832.03",
+      "2024": "477725620.83",
+      "2025": "463766660.32"
+    }
+  },
+  "trend": {
+    "nominal_2016_to_2025_pct": "115.36",
+    "real_2016_to_2025_pct": "38.91",
+    "nominal_2024_to_2025_pct": "1.21",
+    "real_2024_to_2025_pct": "-2.92"
+  },
+  "methodology": {
+    "price_semantic": "YEAR_END_EQUIVALENT_CONSTANT_DEC_2025_BRL",
+    "formula": "REAL_Y_DEC2025 = NOMINAL_Y * PRODUCT(1 + IPCA_RATE_t/100), t=Y+1..2025",
+    "monthly_weighted": false,
+    "annualized_2026": false,
+    "compliance_claim": false,
+    "individual_student_cost_claim": false,
+    "caveat": "Annual committed fiscal aggregates are converted to a year-end-equivalent December-2025 price basis; this is not a monthly-weighted deflation of intrayear expenditure flows."
+  },
+  "expected_products": {
+    "school_indicator_series_row_count": 1018,
+    "fiscal_series_row_count": 61,
+    "rows_added_to_fiscal_series": 19,
+    "nominal_history_rows_added": 9,
+    "real_rows_added": 10,
+    "runtime_snapshot_status": "PINNED_FROM_PASSING_CI",
+    "school_indicator_series_snapshot_id": "68b82bf24a9347d591bdc2da",
+    "school_indicator_series_content_sha256": "68b82bf24a9347d591bdc2da6da8bf660dd0518b6743bf2274c7b15eb71abb69",
+    "fiscal_series_snapshot_id": "78f71327acc6c5de2267943b",
+    "fiscal_series_content_sha256": "78f71327acc6c5de2267943bdfc95c85a4000e696acb0ddacca0dae3745d39bd"
+  },
+  "answerability": {
+    "before_status_counts": {
+      "EXPLICIT_GAP": 2,
+      "MATERIALIZED_ANSWERABLE": 26,
+      "MATERIALIZED_PARTIAL": 10
+    },
+    "expected_after_status_counts": {
+      "EXPLICIT_GAP": 2,
+      "MATERIALIZED_ANSWERABLE": 27,
+      "MATERIALIZED_PARTIAL": 9
+    },
+    "fin_q4": "MATERIALIZED_ANSWERABLE",
+    "expected_change_only": {
+      "FIN_Q4": "MATERIALIZED_PARTIAL_TO_MATERIALIZED_ANSWERABLE"
+    }
+  },
+  "global_fiscal_status_must_remain": "READY_PARTIAL_ONLY",
+  "guards": [
+    "NOMINAL_NE_REAL",
+    "YEAR_END_IPCA_DEFLATION_NE_MONTHLY_FLOW_DEFLATION",
+    "IPCA_BASE_PERIOD_MUST_BE_EXPLICIT",
+    "SIOPE_2016_2024_NE_RREO_2025_SOURCE_FAMILY",
+    "COMMITTED_ANNUAL_NE_PAID_ANNUAL",
+    "2026_PARTIAL_NE_ANNUALIZED",
+    "TASK192_MUST_PRESERVE_2026_LIQUIDATED_TO_DATE",
+    "REAL_EDUCATION_EXPENDITURE_NE_COMPLIANCE_CLAIM"
+  ],
+  "remote_effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  },
+  "canonical_ci": {
+    "run_id": 34058338658,
+    "job_id": 101554258239,
+    "head_sha": "3d5d953e49a16ef07682ed91ff7118922ed2c32d",
+    "checks": "5_OF_5_SUCCESS",
+    "unit_tests": "3213_OF_3213_PASS"
+  }
+}

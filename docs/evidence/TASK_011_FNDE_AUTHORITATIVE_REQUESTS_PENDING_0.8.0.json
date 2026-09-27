@@ -1,0 +1,15 @@
+{
+  "schema": "TASK_011_FNDE_AUTHORITATIVE_REQUESTS_PENDING_V1",
+  "task": "TASK_011",
+  "tier": "T0_OFFLINE",
+  "request_date": "2026-08-30",
+  "authority": "FNDE",
+  "deadline": "2026-09-21",
+  "requests": [
+    {"blocker_id": "B3_EFFECTIVE_DECLARATION", "protocol": "23546.111502/2026-41", "target_propositions": ["later retifying declaration/receipt supersession rule", "currently valid/current/effective declaration selection rule", "whether Recibos de Transmissão can show a superseded receipt", "exact official documentation or system rule"], "current_blocker_state": "NOT_PROVEN_EFFECTIVE_SELECTION_RULE_MISSING", "response_status": "PENDING", "promotion_effect": "NONE_WHILE_PENDING", "source_class": "AUTHORITATIVE_INFORMATION_REQUEST_PENDING"},
+    {"blocker_id": "B1_NUM_POPU", "protocol": "23546.111503/2026-95", "target_propositions": ["exact NUM_POPU semantic definition", "authoritative source and whether it is IBGE", "exact reference date/year/version and census/estimate rule", "official dictionary/layout/import/backend rule"], "current_blocker_state": "NOT_PROVEN_DEFINITION_SOURCE_VINTAGE_MISSING", "response_status": "PENDING", "promotion_effect": "NONE_WHILE_PENDING", "source_class": "AUTHORITATIVE_INFORMATION_REQUEST_PENDING"},
+    {"blocker_id": "B2_DOTACAO_EDU", "protocol": "23546.111504/2026-30", "target_propositions": ["exact VL_DESP_DOTA_ATUA_EDU definition and accounting source", "aggregation formula and included/excluded categories", "relation to RREO/MDE updated appropriation", "treatment of 3.2.00.00.00 and 3.2.91.00.00", "official SQL/view/backend/layout/dictionary/report rule"], "current_blocker_state": "NOT_PROVEN_DOTACAO_EDU_SOURCE_DEFINED_BRIDGE_MISSING", "response_status": "PENDING", "promotion_effect": "NONE_WHILE_PENDING", "source_class": "AUTHORITATIVE_INFORMATION_REQUEST_PENDING"}
+  ],
+  "canonical_state": {"release_0_7_0": "ACTIVE", "release_0_8_0": "CANDIDATE", "year_2025": "PROVEN_STRUCTURAL_RECENT", "S1_NUM_POPU": "NOT_PROVEN", "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN", "financial_aliases_proven_exact_operational": "9/10", "annual_closure_status": "UNKNOWN", "VALID_ANNUAL_SUBMISSION": "PROVEN", "CURRENTLY_EFFECTIVE_DECLARATION": "NOT_PROVEN_EFFECTIVE_SELECTION_RULE_MISSING", "semantic_comparability_status": "UNKNOWN", "closed_annual_series": "2016-2024", "gold_2025": "UNKNOWN/BLOCKED", "year_2026": "UNPROVEN_CURRENT_YEAR"},
+  "decision": "KEEP_B1_B2_B3_PENDING_NO_PROMOTION"
+}

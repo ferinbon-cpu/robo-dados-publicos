@@ -1,0 +1,57 @@
+{
+  "schema": "F02_FUNDEB_MONTHLY_CASH_SOURCE_CUSTODY_V1",
+  "batch_id": "F02_FUNDEB_MONTHLY_CASH_2026_JAN_MAR",
+  "source_role": "SOURCE_PRIMARY",
+  "sources": [
+    {
+      "month": "2026-01",
+      "drive_file_id": "1zRG-7fXYMTOMjsbWWJzoaSF7kQ54kJMe",
+      "file_name": "FUNDEB_LIMEIRA_2026_01.pdf",
+      "sha256": "ec503cbecf5f657ac6443bf11d723c330ef5875a3995709d6a9f5e2c3c4ba0ea",
+      "bytes": 548538,
+      "pages": 1,
+      "source_id": "FUNDEB_MONTHLY_2026-01",
+      "snapshot_path": "runtime/f02_fundeb_monthly/FUNDEB_LIMEIRA_2026_01.pdf"
+    },
+    {
+      "month": "2026-02",
+      "drive_file_id": "1xmAFcp2pYYeua3vHQQoY4_tfFZzr21-I",
+      "file_name": "FUNDEB_LIMEIRA_2026_02.pdf",
+      "sha256": "99539e62a2e4b3d0aa1b38e31ac637a5387f43864aa006efa7166a00b5fbb2be",
+      "bytes": 577648,
+      "pages": 2,
+      "source_id": "FUNDEB_MONTHLY_2026-02",
+      "snapshot_path": "runtime/f02_fundeb_monthly/FUNDEB_LIMEIRA_2026_02.pdf"
+    },
+    {
+      "month": "2026-03",
+      "drive_file_id": "1m1mg8LX-7VOn81Rl4t-zgDoP23JPCTRd",
+      "file_name": "FUNDEB_LIMEIRA_2026_03.pdf",
+      "sha256": "c42665845a0f12720554bc0adafd4eb04f85e15021878132ac764b2203438a30",
+      "bytes": 231760,
+      "pages": 2,
+      "source_id": "FUNDEB_MONTHLY_2026-03",
+      "snapshot_path": "runtime/f02_fundeb_monthly/FUNDEB_LIMEIRA_2026_03.pdf"
+    }
+  ],
+  "mode": "MANUAL_SUPERVISED_INGEST",
+  "family": "FUNDEB_MONTHLY_CASH_LOCAL",
+  "remote_effects_authorized": {
+    "bronze_write": false,
+    "silver_write": false,
+    "gold_write": false,
+    "serving": false,
+    "publication": false,
+    "site": false,
+    "overwrite": false,
+    "delete": false,
+    "move": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "evidence_boundary": {
+    "primary_source_manifest_only": true,
+    "legacy_derived_artifacts_not_used_for_validation": true,
+    "legacy_reconciliation_observed_outside_manifest": true
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "task": "TASK_099_RESEARCH_QUERY_LAYER",
+  "mode": "T0_OFFLINE_DETERMINISTIC_RESEARCH_QUERY",
+  "base_sha": "f1314d2a9ebc4d75c4a7a4e4d77d92c9e44d9cdc",
+  "query_types": [
+    "CLAIM_AUDIT",
+    "INSTITUTIONALIZATION_MATRIX",
+    "EVIDENCE_GAPS",
+    "POLICY_STATUS_PACKET"
+  ],
+  "first_integration_subject": "POLICY:EITI_LIMEIRA",
+  "first_integration_inputs": [
+    "config/eiti_limeira_research_crosswalk.v1.json",
+    "config/eiti_historical_planning_crosswalk.v1.json"
+  ],
+  "invariants": [
+    "CLAIM_TEXT_PRESERVED",
+    "ASSERTION_STATUS_PRESERVED",
+    "EVIDENCE_DOCUMENT_IDENTITY_AND_LOCATOR_PRESERVED",
+    "UNKNOWN_CANDIDATE_CONFLICTED_RETURNED_AS_GAPS",
+    "STATUS_PROMOTIONS_PERFORMED_ZERO",
+    "FINANCIAL_IDENTITY_CREATED_FALSE",
+    "CAUSAL_EFFECT_CREATED_FALSE",
+    "NATURAL_LANGUAGE_GENERATION_FALSE"
+  ],
+  "expected_eiti_guardrails": {
+    "financial_identity_claim_status": "UNKNOWN",
+    "historical_primary_evidence_gaps": 2,
+    "budgetary_policy_identity_must_remain_gap": true,
+    "transaction_execution_identity_must_remain_gap": true,
+    "outcome_effect_must_remain_gap": true
+  },
+  "effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "source_acquisition": 0,
+    "ocr": 0,
+    "state_registry_write": 0,
+    "queue_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "retry": 0,
+    "recurrence": 0,
+    "schedule": 0
+  },
+  "next_task": "TASK_100_OFFLINE_RESEARCH_ANSWER_RENDERER",
+  "result": "READY_FOR_CI_REVIEW_NO_REMOTE_EFFECT"
+}

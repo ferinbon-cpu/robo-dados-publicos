@@ -1,0 +1,1139 @@
+{
+  "version": 1,
+  "schema": "EITI_LIMEIRA_RESEARCH_CROSSWALK_V1",
+  "mode": "T0_OFFLINE_EXISTING_REPOSITORY_EVIDENCE_ONLY",
+  "base_sha": "8d5490edb1a0e1e704b16c046eae4ae31dd5184d",
+  "provenance_scope": {
+    "repository_only": true,
+    "new_drive_reads": 0,
+    "new_public_network_reads": 0,
+    "new_source_acquisition": 0,
+    "upstream_repository_evidence": [
+      "tests/fixtures/edges_v08.csv",
+      "docs/evidence/TASK_041_F01_JOM_NATIVE_PPA_LDO_READINESS_REVIEW_0.8.0.json",
+      "docs/evidence/TASK_043_F01_BUDGET_LAWS_SCOPED_RECONCILIATION_0.8.0.json",
+      "docs/evidence/TASK_046_F01_PPA_SCOPED_SILVER_V2_CANDIDATE_REVIEW_0.8.0.json",
+      "docs/evidence/TASK_048_F01_LOA_SCOPED_SILVER_V2_CANDIDATE_REVIEW_0.8.0.json",
+      "docs/evidence/TASK_049_F01_EITI_ACTION_LINKAGE_CLOSURE_REVIEW_0.8.0.json",
+      "docs/evidence/TASK_051_F01_EITI_GRANULAR_EXECUTION_SOURCE_SELECTION_0.8.0.json",
+      "docs/evidence/TASK_055A_F01_EITI_TERMINOLOGY_ONTOLOGY_0.8.0.json",
+      "docs/evidence/TASK_056_F01_SECONDARY_EDUCATION_SOURCE_BOUNDED_CONTENT_READ_0.8.0.json"
+    ]
+  },
+  "research_bundle": {
+    "schema": "RESEARCH_BUNDLE_V1",
+    "entities": [
+      {
+        "id": "POLICY:EITI_LIMEIRA",
+        "type": "POLICY",
+        "label": "Política Municipal de Educação Integral em Tempo Integral de Limeira",
+        "aliases": [
+          "EITI-Limeira",
+          "EITI"
+        ],
+        "attributes": {}
+      },
+      {
+        "id": "DOC:CME_IND_02_2021",
+        "type": "DOCUMENT",
+        "label": "Indicação CME Limeira nº 02/2021",
+        "aliases": [],
+        "attributes": {
+          "source_role": "NORMATIVE_PRIMARY"
+        }
+      },
+      {
+        "id": "DOC:DECRETO_118_2024",
+        "type": "DOCUMENT",
+        "label": "Decreto Municipal nº 118/2024",
+        "aliases": [],
+        "attributes": {
+          "source_role": "NORMATIVE_PRIMARY"
+        }
+      },
+      {
+        "id": "DOC:LEI_7366_2026",
+        "type": "DOCUMENT",
+        "label": "Lei Municipal nº 7.366/2026",
+        "aliases": [],
+        "attributes": {
+          "source_role": "NORMATIVE_PRIMARY"
+        }
+      },
+      {
+        "id": "DOC:PL_94_2026",
+        "type": "DOCUMENT",
+        "label": "Projeto de Lei nº 94/2026",
+        "aliases": [],
+        "attributes": {
+          "source_role": "NORMATIVE_PRIMARY"
+        }
+      },
+      {
+        "id": "DOC:PPA_7213_2025",
+        "type": "DOCUMENT",
+        "label": "Lei nº 7.213/2025 — PPA 2026–2029",
+        "aliases": [],
+        "attributes": {
+          "source_role": "PLANNING_PRIMARY"
+        }
+      },
+      {
+        "id": "DOC:LOA_7223_2025",
+        "type": "DOCUMENT",
+        "label": "Lei nº 7.223/2025 — LOA 2026",
+        "aliases": [],
+        "attributes": {
+          "source_role": "BUDGET_PRIMARY"
+        }
+      },
+      {
+        "id": "DOC:SIOPE_MAVS_2026_B1",
+        "type": "DOCUMENT",
+        "label": "SIOPE-MAVS — Demonstrativo FUNDEB — 1º bimestre/2026",
+        "aliases": [],
+        "attributes": {
+          "source_role": "ACCOUNTING_EXECUTION_PRIMARY"
+        }
+      },
+      {
+        "id": "PLAN:PME_META6",
+        "type": "PLAN",
+        "label": "Meta 6 do PME de Limeira",
+        "aliases": [
+          "Meta 6"
+        ],
+        "attributes": {}
+      },
+      {
+        "id": "PROGRAM:PPA_2001",
+        "type": "PROGRAM",
+        "label": "Educação que Inclui e Transforma Vidas",
+        "aliases": [
+          "Programa 2001"
+        ],
+        "attributes": {
+          "program_code": "2001"
+        }
+      },
+      {
+        "id": "INDICATOR:EITI_PCT",
+        "type": "INDICATOR",
+        "label": "Índice de Alunos em Educação Integral",
+        "aliases": [],
+        "attributes": {
+          "unit": "PERCENTUAL",
+          "recent": 52,
+          "targets": {
+            "2026": 53,
+            "2027": 55,
+            "2028": 57,
+            "2029": 59
+          },
+          "final_ppa": 59
+        }
+      },
+      {
+        "id": "ORG:SME_LIMEIRA",
+        "type": "ORGANIZATION",
+        "label": "Secretaria de Educação de Limeira",
+        "aliases": [],
+        "attributes": {
+          "unit_code": "10.00.00"
+        }
+      },
+      {
+        "id": "ORG:COMITE_EI",
+        "type": "ORGANIZATION",
+        "label": "Comitê Municipal de Educação Integral",
+        "aliases": [],
+        "attributes": {}
+      },
+      {
+        "id": "ACTION:PPA_2720_12_306",
+        "type": "ACTION",
+        "label": "Alimentação Escolar",
+        "aliases": [],
+        "attributes": {
+          "action_code": "2720",
+          "function": "12",
+          "subfunction": "306",
+          "eiti_specific": false
+        }
+      },
+      {
+        "id": "ACTION:PPA_2690_12_362",
+        "type": "ACTION",
+        "label": "Transporte Escolar — Ensino Médio e Superior",
+        "aliases": [],
+        "attributes": {
+          "action_code": "2690",
+          "function": "12",
+          "subfunction": "362",
+          "eiti_specific": false
+        }
+      },
+      {
+        "id": "EXPENSE:LOA2026_2720_12_306",
+        "type": "EXPENSE",
+        "label": "LOA 2026 — 12.306.2001.2720",
+        "aliases": [],
+        "attributes": {
+          "appropriation_brl": "28000000.00",
+          "eiti_specific": false,
+          "execution_stage": "NOT_APPLICABLE_TO_LOA_ENACTMENT_READ"
+        }
+      },
+      {
+        "id": "EXPENSE:LOA2026_2690_12_362",
+        "type": "EXPENSE",
+        "label": "LOA 2026 — 12.362.2001.2690",
+        "aliases": [],
+        "attributes": {
+          "appropriation_brl": "6152000.00",
+          "eiti_specific": false,
+          "execution_stage": "NOT_APPLICABLE_TO_LOA_ENACTMENT_READ"
+        }
+      },
+      {
+        "id": "EXPENSE:FOMENTO_ETI_FUNDEB_2026_B1",
+        "type": "EXPENSE",
+        "label": "FUNDEB — Fomento ETI (4%) — 1º bimestre/2026",
+        "aliases": [
+          "FOMENTO ETI"
+        ],
+        "attributes": {
+          "aggregation_level": "REPORTING_BUCKET",
+          "required_amount_brl": "1315673.39",
+          "applied_amount_brl": "0.00",
+          "transaction_identity_proven": false
+        }
+      }
+    ],
+    "evidence": [
+      {
+        "evidence_id": "EVIDENCE:CME_META6",
+        "source_entity_id": "DOC:CME_IND_02_2021",
+        "locator": {
+          "legacy_edge_id": "E01",
+          "page": 7
+        },
+        "content_sha256": null,
+        "note": "Diretrizes de implementação contínua e gradual em direção à Meta 6; não prova cumprimento."
+      },
+      {
+        "evidence_id": "EVIDENCE:DECREE_POLICY",
+        "source_entity_id": "DOC:DECRETO_118_2024",
+        "locator": {
+          "legacy_edge_id": "E05",
+          "page": 1
+        },
+        "content_sha256": null,
+        "note": "Art. 1º institui a política nas escolas da rede municipal."
+      },
+      {
+        "evidence_id": "EVIDENCE:DECREE_CME",
+        "source_entity_id": "DOC:DECRETO_118_2024",
+        "locator": {
+          "legacy_edge_id": "E04",
+          "page": 1
+        },
+        "content_sha256": null,
+        "note": "Ato declara consonância com CME 02/2021; não implica identidade integral de conteúdo."
+      },
+      {
+        "evidence_id": "EVIDENCE:LAW_POLICY",
+        "source_entity_id": "DOC:LEI_7366_2026",
+        "locator": {
+          "legacy_edge_id": "E06",
+          "surface": "official_ementa_metadata"
+        },
+        "content_sha256": null,
+        "note": "Texto integral não estava indexado na versão legada; alcance limitado à ementa oficial."
+      },
+      {
+        "evidence_id": "EVIDENCE:LAW_PL",
+        "source_entity_id": "DOC:LEI_7366_2026",
+        "locator": {
+          "legacy_edge_id": "E07",
+          "surface": "official_portal_relation"
+        },
+        "content_sha256": null,
+        "note": "Portal oficial relaciona a lei ao PL 94/2026; não descreve alterações de tramitação."
+      },
+      {
+        "evidence_id": "EVIDENCE:PPA_PROGRAM",
+        "source_entity_id": "DOC:PPA_7213_2025",
+        "locator": {
+          "legacy_graph_page": 18,
+          "task041_jom_page": 15,
+          "page_numbering_reconciled": false
+        },
+        "content_sha256": null,
+        "note": "A numeração legada e a numeração JOM diferem; TASK096 preserva ambas sem inferir equivalência."
+      },
+      {
+        "evidence_id": "EVIDENCE:PPA_INDICATOR",
+        "source_entity_id": "DOC:PPA_7213_2025",
+        "locator": {
+          "task041_jom_page": 15,
+          "legacy_graph_page": 18,
+          "page_numbering_reconciled": false
+        },
+        "content_sha256": null,
+        "note": "Indicador e metas 2026–2029 validados no escopo do PPA."
+      },
+      {
+        "evidence_id": "EVIDENCE:PPA_POLICY_LINK",
+        "source_entity_id": "DOC:PPA_7213_2025",
+        "locator": {
+          "task049_pages": [
+            15,
+            16
+          ],
+          "legacy_edge_ids": [
+            "E11",
+            "E12"
+          ]
+        },
+        "content_sha256": null,
+        "note": "Correspondência temática/operacional; não prova que todo Programa 2001 seja EITI."
+      },
+      {
+        "evidence_id": "EVIDENCE:PPA_ACTION_LABEL_SEARCH",
+        "source_entity_id": "DOC:PPA_7213_2025",
+        "locator": {
+          "task": "TASK_049",
+          "pages": [
+            15,
+            16
+          ],
+          "action_rows_checked": 27
+        },
+        "content_sha256": null,
+        "note": "Nenhum rótulo de ação explicitamente EITI/ETI/tempo integral foi encontrado no escopo."
+      },
+      {
+        "evidence_id": "EVIDENCE:PPA_ACTION_2720",
+        "source_entity_id": "DOC:PPA_7213_2025",
+        "locator": {
+          "task": "TASK_046",
+          "page": 16
+        },
+        "content_sha256": null,
+        "note": "Ação 2720 validada; eiti_specific=false."
+      },
+      {
+        "evidence_id": "EVIDENCE:PPA_ACTION_2690_362",
+        "source_entity_id": "DOC:PPA_7213_2025",
+        "locator": {
+          "task": "TASK_046",
+          "page": 15
+        },
+        "content_sha256": null,
+        "note": "Ação 2690/12.362 validada; eiti_specific=false."
+      },
+      {
+        "evidence_id": "EVIDENCE:LOA_2720",
+        "source_entity_id": "DOC:LOA_7223_2025",
+        "locator": {
+          "task": "TASK_048",
+          "pages": [
+            173,
+            174
+          ]
+        },
+        "content_sha256": null,
+        "note": "Apropriação visual validada em R$ 28.000.000; divergência textual preservada."
+      },
+      {
+        "evidence_id": "EVIDENCE:LOA_2690_362",
+        "source_entity_id": "DOC:LOA_7223_2025",
+        "locator": {
+          "task": "TASK_048",
+          "pages": [
+            170,
+            171
+          ]
+        },
+        "content_sha256": null,
+        "note": "Apropriação validada em R$ 6.152.000."
+      },
+      {
+        "evidence_id": "EVIDENCE:SIOPE_FOMENTO",
+        "source_entity_id": "DOC:SIOPE_MAVS_2026_B1",
+        "locator": {
+          "task": "TASK_056",
+          "report_lines": [
+            "10.1",
+            "15",
+            "15.1",
+            "15.2"
+          ]
+        },
+        "content_sha256": null,
+        "note": "Bucket dedicado FOMENTO ETI (4%), primeiro bimestre de 2026."
+      },
+      {
+        "evidence_id": "EVIDENCE:SIOPE_TRANSACTION_KEY_SEARCH",
+        "source_entity_id": "DOC:SIOPE_MAVS_2026_B1",
+        "locator": {
+          "task": "TASK_056",
+          "fields_checked": [
+            "program_action_subaction",
+            "ficha",
+            "centro_de_custo",
+            "transaction_level_stable_key"
+          ]
+        },
+        "content_sha256": null,
+        "note": "Nenhuma chave transacional estável foi encontrada neste relatório."
+      }
+    ],
+    "relations": [
+      {
+        "relation_id": "REL:CME_PLANS_META6",
+        "source_id": "DOC:CME_IND_02_2021",
+        "target_id": "PLAN:PME_META6",
+        "relation_type": "PLANS",
+        "status": "PROVEN",
+        "evidence_ids": [
+          "EVIDENCE:CME_META6"
+        ],
+        "attributes": {
+          "legacy_edge_id": "E01"
+        }
+      },
+      {
+        "relation_id": "REL:DECREE_ESTABLISHES_POLICY",
+        "source_id": "DOC:DECRETO_118_2024",
+        "target_id": "POLICY:EITI_LIMEIRA",
+        "relation_type": "ESTABLISHES",
+        "status": "PROVEN",
+        "evidence_ids": [
+          "EVIDENCE:DECREE_POLICY"
+        ],
+        "attributes": {
+          "legacy_edge_id": "E05"
+        }
+      },
+      {
+        "relation_id": "REL:DECREE_DERIVED_FROM_CME",
+        "source_id": "DOC:DECRETO_118_2024",
+        "target_id": "DOC:CME_IND_02_2021",
+        "relation_type": "DERIVED_FROM",
+        "status": "PROVEN",
+        "evidence_ids": [
+          "EVIDENCE:DECREE_CME"
+        ],
+        "attributes": {
+          "legacy_relation": "explicitly_in_consonance_with"
+        }
+      },
+      {
+        "relation_id": "REL:LAW_ESTABLISHES_POLICY",
+        "source_id": "DOC:LEI_7366_2026",
+        "target_id": "POLICY:EITI_LIMEIRA",
+        "relation_type": "ESTABLISHES",
+        "status": "PROVEN",
+        "evidence_ids": [
+          "EVIDENCE:LAW_POLICY"
+        ],
+        "attributes": {
+          "legacy_edge_id": "E06",
+          "scope": "OFFICIAL_EMENTA_METADATA"
+        }
+      },
+      {
+        "relation_id": "REL:LAW_DERIVED_FROM_PL",
+        "source_id": "DOC:LEI_7366_2026",
+        "target_id": "DOC:PL_94_2026",
+        "relation_type": "DERIVED_FROM",
+        "status": "PROVEN",
+        "evidence_ids": [
+          "EVIDENCE:LAW_PL"
+        ],
+        "attributes": {
+          "legacy_edge_id": "E07"
+        }
+      },
+      {
+        "relation_id": "REL:PPA_CONTAINS_PROGRAM",
+        "source_id": "DOC:PPA_7213_2025",
+        "target_id": "PROGRAM:PPA_2001",
+        "relation_type": "CONTAINS",
+        "status": "PROVEN",
+        "evidence_ids": [
+          "EVIDENCE:PPA_PROGRAM"
+        ],
+        "attributes": {}
+      },
+      {
+        "relation_id": "REL:SME_RESPONSIBLE_PROGRAM",
+        "source_id": "ORG:SME_LIMEIRA",
+        "target_id": "PROGRAM:PPA_2001",
+        "relation_type": "RESPONSIBLE_FOR",
+        "status": "PROVEN",
+        "evidence_ids": [
+          "EVIDENCE:PPA_PROGRAM"
+        ],
+        "attributes": {}
+      },
+      {
+        "relation_id": "REL:PROGRAM_CONTAINS_INDICATOR",
+        "source_id": "PROGRAM:PPA_2001",
+        "target_id": "INDICATOR:EITI_PCT",
+        "relation_type": "CONTAINS",
+        "status": "PROVEN",
+        "evidence_ids": [
+          "EVIDENCE:PPA_INDICATOR"
+        ],
+        "attributes": {}
+      },
+      {
+        "relation_id": "REL:POLICY_PROGRAM_OVERLAP",
+        "source_id": "POLICY:EITI_LIMEIRA",
+        "target_id": "PROGRAM:PPA_2001",
+        "relation_type": "OVERLAPS_WITH",
+        "status": "CORROBORATED",
+        "evidence_ids": [
+          "EVIDENCE:PPA_POLICY_LINK"
+        ],
+        "attributes": {
+          "financial_identity": false
+        }
+      },
+      {
+        "relation_id": "REL:INDICATOR_MEASURES_POLICY",
+        "source_id": "INDICATOR:EITI_PCT",
+        "target_id": "POLICY:EITI_LIMEIRA",
+        "relation_type": "MEASURES",
+        "status": "CORROBORATED",
+        "evidence_ids": [
+          "EVIDENCE:PPA_POLICY_LINK"
+        ],
+        "attributes": {
+          "legal_identity": false
+        }
+      },
+      {
+        "relation_id": "REL:PROGRAM_CONTAINS_ACTION_2720",
+        "source_id": "PROGRAM:PPA_2001",
+        "target_id": "ACTION:PPA_2720_12_306",
+        "relation_type": "CONTAINS",
+        "status": "PROVEN",
+        "evidence_ids": [
+          "EVIDENCE:PPA_ACTION_2720"
+        ],
+        "attributes": {}
+      },
+      {
+        "relation_id": "REL:PROGRAM_CONTAINS_ACTION_2690_362",
+        "source_id": "PROGRAM:PPA_2001",
+        "target_id": "ACTION:PPA_2690_12_362",
+        "relation_type": "CONTAINS",
+        "status": "PROVEN",
+        "evidence_ids": [
+          "EVIDENCE:PPA_ACTION_2690_362"
+        ],
+        "attributes": {}
+      },
+      {
+        "relation_id": "REL:LOA_AUTHORIZES_2720",
+        "source_id": "DOC:LOA_7223_2025",
+        "target_id": "EXPENSE:LOA2026_2720_12_306",
+        "relation_type": "AUTHORIZES",
+        "status": "PROVEN",
+        "evidence_ids": [
+          "EVIDENCE:LOA_2720"
+        ],
+        "attributes": {}
+      },
+      {
+        "relation_id": "REL:LOA_AUTHORIZES_2690_362",
+        "source_id": "DOC:LOA_7223_2025",
+        "target_id": "EXPENSE:LOA2026_2690_12_362",
+        "relation_type": "AUTHORIZES",
+        "status": "PROVEN",
+        "evidence_ids": [
+          "EVIDENCE:LOA_2690_362"
+        ],
+        "attributes": {}
+      },
+      {
+        "relation_id": "REL:SIOPE_CONTAINS_FOMENTO_ETI_BUCKET",
+        "source_id": "DOC:SIOPE_MAVS_2026_B1",
+        "target_id": "EXPENSE:FOMENTO_ETI_FUNDEB_2026_B1",
+        "relation_type": "CONTAINS",
+        "status": "PROVEN",
+        "evidence_ids": [
+          "EVIDENCE:SIOPE_FOMENTO"
+        ],
+        "attributes": {
+          "reporting_identity": true,
+          "transaction_identity": false
+        }
+      }
+    ],
+    "claims": [
+      {
+        "claim_id": "CLAIM:EITI_DECREE_INSTITUTION",
+        "text": "O Decreto Municipal nº 118/2024 institui a política EITI no escopo registrado pelo grafo legado.",
+        "subject_ids": [
+          "POLICY:EITI_LIMEIRA",
+          "DOC:DECRETO_118_2024"
+        ],
+        "status": "PROVEN",
+        "evidence_ids": [
+          "EVIDENCE:DECREE_POLICY"
+        ],
+        "supporting_evidence_ids": [
+          "EVIDENCE:DECREE_POLICY"
+        ],
+        "contradicting_evidence_ids": [],
+        "attributes": {
+          "claim_domain": "LEGAL_NORM"
+        }
+      },
+      {
+        "claim_id": "CLAIM:EITI_LAW_INSTITUTION",
+        "text": "A ementa oficial da Lei Municipal nº 7.366/2026 institui a Política Municipal de EITI no âmbito registrado pela evidência existente.",
+        "subject_ids": [
+          "POLICY:EITI_LIMEIRA",
+          "DOC:LEI_7366_2026"
+        ],
+        "status": "PROVEN",
+        "evidence_ids": [
+          "EVIDENCE:LAW_POLICY"
+        ],
+        "supporting_evidence_ids": [
+          "EVIDENCE:LAW_POLICY"
+        ],
+        "contradicting_evidence_ids": [],
+        "attributes": {
+          "claim_domain": "LEGAL_NORM",
+          "text_full_not_indexed": true
+        }
+      },
+      {
+        "claim_id": "CLAIM:EITI_PPA_INDICATOR",
+        "text": "O Programa 2001 do PPA 2026–2029 contém o indicador Índice de Alunos em Educação Integral com metas de 53%, 55%, 57% e 59% para 2026–2029.",
+        "subject_ids": [
+          "PROGRAM:PPA_2001",
+          "INDICATOR:EITI_PCT"
+        ],
+        "status": "PROVEN",
+        "evidence_ids": [
+          "EVIDENCE:PPA_INDICATOR"
+        ],
+        "supporting_evidence_ids": [
+          "EVIDENCE:PPA_INDICATOR"
+        ],
+        "contradicting_evidence_ids": [],
+        "attributes": {
+          "claim_domain": "PLANNING_INTENT"
+        }
+      },
+      {
+        "claim_id": "CLAIM:EITI_PPA_PROGRAM_CORRESPONDENCE",
+        "text": "A correspondência entre EITI-Limeira e o Programa 2001 é temática e de planejamento; ela não constitui identidade financeira.",
+        "subject_ids": [
+          "POLICY:EITI_LIMEIRA",
+          "PROGRAM:PPA_2001"
+        ],
+        "status": "CORROBORATED",
+        "evidence_ids": [
+          "EVIDENCE:PPA_POLICY_LINK"
+        ],
+        "supporting_evidence_ids": [
+          "EVIDENCE:PPA_POLICY_LINK"
+        ],
+        "contradicting_evidence_ids": [],
+        "attributes": {
+          "claim_domain": "POLICY_LINKAGE",
+          "financial_identity": false
+        }
+      },
+      {
+        "claim_id": "CLAIM:PPA_NO_EXPLICIT_EITI_ACTION_LABEL",
+        "text": "No escopo revisado das 27 ações do Programa 2001 nas páginas 15–16, não foi encontrado rótulo explícito EITI, ETI, Educação Integral ou Tempo Integral.",
+        "subject_ids": [
+          "PROGRAM:PPA_2001"
+        ],
+        "status": "PROVEN",
+        "evidence_ids": [
+          "EVIDENCE:PPA_ACTION_LABEL_SEARCH"
+        ],
+        "supporting_evidence_ids": [
+          "EVIDENCE:PPA_ACTION_LABEL_SEARCH"
+        ],
+        "contradicting_evidence_ids": [],
+        "attributes": {
+          "claim_domain": "SEARCH_RESULT",
+          "proves_no_eiti_spending": false
+        }
+      },
+      {
+        "claim_id": "CLAIM:EITI_FINANCIAL_IDENTITY",
+        "text": "A evidência versionada atualmente não prova identidade financeira transacional entre EITI-Limeira e o Programa 2001, suas ações genéricas ou as apropriações LOA selecionadas.",
+        "subject_ids": [
+          "POLICY:EITI_LIMEIRA",
+          "PROGRAM:PPA_2001",
+          "EXPENSE:LOA2026_2720_12_306",
+          "EXPENSE:LOA2026_2690_12_362"
+        ],
+        "status": "UNKNOWN",
+        "evidence_ids": [
+          "EVIDENCE:PPA_ACTION_LABEL_SEARCH",
+          "EVIDENCE:LOA_2720",
+          "EVIDENCE:LOA_2690_362",
+          "EVIDENCE:SIOPE_TRANSACTION_KEY_SEARCH"
+        ],
+        "supporting_evidence_ids": [
+          "EVIDENCE:PPA_ACTION_LABEL_SEARCH",
+          "EVIDENCE:SIOPE_TRANSACTION_KEY_SEARCH"
+        ],
+        "contradicting_evidence_ids": [],
+        "attributes": {
+          "claim_domain": "POLICY_LINKAGE",
+          "upstream_status": "EVIDENCIA_INSUFICIENTE"
+        }
+      },
+      {
+        "claim_id": "CLAIM:FOMENTO_ETI_REPORTING_BUCKET",
+        "text": "O demonstrativo SIOPE/FUNDEB do 1º bimestre de 2026 contém bucket dedicado FOMENTO ETI (4%), com valor requerido de R$ 1.315.673,39 e valor aplicado reportado de R$ 0,00.",
+        "subject_ids": [
+          "EXPENSE:FOMENTO_ETI_FUNDEB_2026_B1"
+        ],
+        "status": "PROVEN",
+        "evidence_ids": [
+          "EVIDENCE:SIOPE_FOMENTO"
+        ],
+        "supporting_evidence_ids": [
+          "EVIDENCE:SIOPE_FOMENTO"
+        ],
+        "contradicting_evidence_ids": [],
+        "attributes": {
+          "claim_domain": "ACCOUNTING_EXECUTION",
+          "period_scope": "FIRST_BIMESTER_2026_ONLY",
+          "funding_scope": "FUNDEB_ONLY"
+        }
+      },
+      {
+        "claim_id": "CLAIM:FOMENTO_ETI_TRANSACTION_IDENTITY",
+        "text": "O relatório SIOPE/FUNDEB analisado não fornece chave estável suficiente para provar a cadeia transacional individual de empenho, liquidação e pagamento da EITI.",
+        "subject_ids": [
+          "EXPENSE:FOMENTO_ETI_FUNDEB_2026_B1",
+          "POLICY:EITI_LIMEIRA"
+        ],
+        "status": "UNKNOWN",
+        "evidence_ids": [
+          "EVIDENCE:SIOPE_TRANSACTION_KEY_SEARCH"
+        ],
+        "supporting_evidence_ids": [
+          "EVIDENCE:SIOPE_TRANSACTION_KEY_SEARCH"
+        ],
+        "contradicting_evidence_ids": [],
+        "attributes": {
+          "claim_domain": "POLICY_LINKAGE",
+          "reporting_identity_is_not_transaction_identity": true
+        }
+      }
+    ]
+  },
+  "semantic_evidence": [
+    {
+      "evidence_id": "EVIDENCE:CME_META6",
+      "source_document_id": "DOC:CME_IND_02_2021",
+      "source_role": "NORMATIVE_PRIMARY",
+      "claim_domain": "LEGAL_NORM",
+      "evidence_kind": "DIRECT_EXPLICIT",
+      "locator": {
+        "page": 7
+      },
+      "requested_status": "PROVEN",
+      "input_evidence_ids": [],
+      "reproducible": false,
+      "negative_search_id": null,
+      "note": "Normative direction toward Meta 6."
+    },
+    {
+      "evidence_id": "EVIDENCE:DECREE_POLICY",
+      "source_document_id": "DOC:DECRETO_118_2024",
+      "source_role": "NORMATIVE_PRIMARY",
+      "claim_domain": "LEGAL_NORM",
+      "evidence_kind": "DIRECT_EXPLICIT",
+      "locator": {
+        "page": 1
+      },
+      "requested_status": "PROVEN",
+      "input_evidence_ids": [],
+      "reproducible": false,
+      "negative_search_id": null,
+      "note": "Institutes policy."
+    },
+    {
+      "evidence_id": "EVIDENCE:DECREE_CME",
+      "source_document_id": "DOC:DECRETO_118_2024",
+      "source_role": "NORMATIVE_PRIMARY",
+      "claim_domain": "LEGAL_NORM",
+      "evidence_kind": "DIRECT_EXPLICIT",
+      "locator": {
+        "page": 1
+      },
+      "requested_status": "PROVEN",
+      "input_evidence_ids": [],
+      "reproducible": false,
+      "negative_search_id": null,
+      "note": "Explicit consonance with CME act."
+    },
+    {
+      "evidence_id": "EVIDENCE:LAW_POLICY",
+      "source_document_id": "DOC:LEI_7366_2026",
+      "source_role": "NORMATIVE_PRIMARY",
+      "claim_domain": "LEGAL_NORM",
+      "evidence_kind": "DIRECT_EXPLICIT",
+      "locator": {
+        "surface": "official_ementa_metadata"
+      },
+      "requested_status": "PROVEN",
+      "input_evidence_ids": [],
+      "reproducible": false,
+      "negative_search_id": null,
+      "note": "Ementa-level proof only."
+    },
+    {
+      "evidence_id": "EVIDENCE:LAW_PL",
+      "source_document_id": "DOC:LEI_7366_2026",
+      "source_role": "NORMATIVE_PRIMARY",
+      "claim_domain": "LEGAL_NORM",
+      "evidence_kind": "DIRECT_EXPLICIT",
+      "locator": {
+        "surface": "official_portal_relation"
+      },
+      "requested_status": "PROVEN",
+      "input_evidence_ids": [],
+      "reproducible": false,
+      "negative_search_id": null,
+      "note": "Law-project relation."
+    },
+    {
+      "evidence_id": "EVIDENCE:PPA_PROGRAM",
+      "source_document_id": "DOC:PPA_7213_2025",
+      "source_role": "PLANNING_PRIMARY",
+      "claim_domain": "PLANNING_INTENT",
+      "evidence_kind": "DIRECT_EXPLICIT",
+      "locator": {
+        "task041_jom_page": 15
+      },
+      "requested_status": "PROVEN",
+      "input_evidence_ids": [],
+      "reproducible": false,
+      "negative_search_id": null,
+      "note": "Program and responsible unit."
+    },
+    {
+      "evidence_id": "EVIDENCE:PPA_INDICATOR",
+      "source_document_id": "DOC:PPA_7213_2025",
+      "source_role": "PLANNING_PRIMARY",
+      "claim_domain": "PLANNING_INTENT",
+      "evidence_kind": "DIRECT_EXPLICIT",
+      "locator": {
+        "task041_jom_page": 15
+      },
+      "requested_status": "PROVEN",
+      "input_evidence_ids": [],
+      "reproducible": false,
+      "negative_search_id": null,
+      "note": "Indicator and targets."
+    },
+    {
+      "evidence_id": "EVIDENCE:PPA_POLICY_LINK",
+      "source_document_id": "DOC:PPA_7213_2025",
+      "source_role": "PLANNING_PRIMARY",
+      "claim_domain": "POLICY_LINKAGE",
+      "evidence_kind": "DIRECT_EXPLICIT",
+      "locator": {
+        "pages": [
+          15,
+          16
+        ]
+      },
+      "requested_status": "CORROBORATED",
+      "input_evidence_ids": [],
+      "reproducible": false,
+      "negative_search_id": null,
+      "note": "Thematic/operational policy correspondence only."
+    },
+    {
+      "evidence_id": "EVIDENCE:PPA_ACTION_LABEL_SEARCH",
+      "source_document_id": "DOC:PPA_7213_2025",
+      "source_role": "PLANNING_PRIMARY",
+      "claim_domain": "SEARCH_RESULT",
+      "evidence_kind": "NEGATIVE_SEARCH_OBSERVATION",
+      "locator": {
+        "pages": [
+          15,
+          16
+        ]
+      },
+      "requested_status": "PROVEN",
+      "input_evidence_ids": [],
+      "reproducible": false,
+      "negative_search_id": "SEARCH:PPA2001_EITI_ACTION_LABELS",
+      "note": "Scoped no-match only."
+    },
+    {
+      "evidence_id": "EVIDENCE:PPA_ACTION_2720",
+      "source_document_id": "DOC:PPA_7213_2025",
+      "source_role": "PLANNING_PRIMARY",
+      "claim_domain": "PLANNING_INTENT",
+      "evidence_kind": "DIRECT_EXPLICIT",
+      "locator": {
+        "page": 16
+      },
+      "requested_status": "PROVEN",
+      "input_evidence_ids": [],
+      "reproducible": false,
+      "negative_search_id": null,
+      "note": "Generic action; not EITI-specific."
+    },
+    {
+      "evidence_id": "EVIDENCE:PPA_ACTION_2690_362",
+      "source_document_id": "DOC:PPA_7213_2025",
+      "source_role": "PLANNING_PRIMARY",
+      "claim_domain": "PLANNING_INTENT",
+      "evidence_kind": "DIRECT_EXPLICIT",
+      "locator": {
+        "page": 15
+      },
+      "requested_status": "PROVEN",
+      "input_evidence_ids": [],
+      "reproducible": false,
+      "negative_search_id": null,
+      "note": "Generic action; not EITI-specific."
+    },
+    {
+      "evidence_id": "EVIDENCE:LOA_2720",
+      "source_document_id": "DOC:LOA_7223_2025",
+      "source_role": "BUDGET_PRIMARY",
+      "claim_domain": "BUDGET_AUTHORIZATION",
+      "evidence_kind": "DIRECT_EXPLICIT",
+      "locator": {
+        "pages": [
+          173,
+          174
+        ]
+      },
+      "requested_status": "PROVEN",
+      "input_evidence_ids": [],
+      "reproducible": false,
+      "negative_search_id": null,
+      "note": "Authorization only, not execution."
+    },
+    {
+      "evidence_id": "EVIDENCE:LOA_2690_362",
+      "source_document_id": "DOC:LOA_7223_2025",
+      "source_role": "BUDGET_PRIMARY",
+      "claim_domain": "BUDGET_AUTHORIZATION",
+      "evidence_kind": "DIRECT_EXPLICIT",
+      "locator": {
+        "pages": [
+          170,
+          171
+        ]
+      },
+      "requested_status": "PROVEN",
+      "input_evidence_ids": [],
+      "reproducible": false,
+      "negative_search_id": null,
+      "note": "Authorization only, not execution."
+    },
+    {
+      "evidence_id": "EVIDENCE:SIOPE_FOMENTO",
+      "source_document_id": "DOC:SIOPE_MAVS_2026_B1",
+      "source_role": "ACCOUNTING_EXECUTION_PRIMARY",
+      "claim_domain": "ACCOUNTING_EXECUTION",
+      "evidence_kind": "DIRECT_EXPLICIT",
+      "locator": {
+        "task": "TASK_056"
+      },
+      "requested_status": "PROVEN",
+      "input_evidence_ids": [],
+      "reproducible": false,
+      "negative_search_id": null,
+      "note": "Scoped reporting bucket."
+    },
+    {
+      "evidence_id": "EVIDENCE:SIOPE_TRANSACTION_KEY_SEARCH",
+      "source_document_id": "DOC:SIOPE_MAVS_2026_B1",
+      "source_role": "ACCOUNTING_EXECUTION_PRIMARY",
+      "claim_domain": "SEARCH_RESULT",
+      "evidence_kind": "NEGATIVE_SEARCH_OBSERVATION",
+      "locator": {
+        "task": "TASK_056"
+      },
+      "requested_status": "PROVEN",
+      "input_evidence_ids": [],
+      "reproducible": false,
+      "negative_search_id": "SEARCH:SIOPE_FOMENTO_TRANSACTION_KEY",
+      "note": "No stable transaction key observed in this report."
+    }
+  ],
+  "negative_evidence": [
+    {
+      "search_id": "SEARCH:PPA2001_EITI_ACTION_LABELS",
+      "target": "explicit EITI/ETI/Educação Integral/Tempo Integral action label",
+      "scope": {
+        "document": "PPA 2026–2029 Program 2001",
+        "pages": [
+          15,
+          16
+        ]
+      },
+      "method": {
+        "task": "TASK_049",
+        "action_rows_checked": 27,
+        "terms": [
+          "EDUCACAO INTEGRAL",
+          "TEMPO INTEGRAL",
+          "INTEGRAL",
+          "EITI",
+          "ETI"
+        ]
+      },
+      "coverage": {
+        "action_table_rows_in_scope": 27
+      },
+      "result": "NO_MATCH",
+      "exhaustive": true
+    },
+    {
+      "search_id": "SEARCH:SIOPE_FOMENTO_TRANSACTION_KEY",
+      "target": "stable transaction-level EITI accounting linkage key",
+      "scope": {
+        "document": "SIOPE-MAVS FUNDEB 1º bimestre/2026"
+      },
+      "method": {
+        "task": "TASK_056",
+        "fields": [
+          "program/action/subaction",
+          "ficha",
+          "centro de custo",
+          "transaction stable key"
+        ]
+      },
+      "coverage": {
+        "single_bounded_report": true
+      },
+      "result": "NO_MATCH",
+      "exhaustive": true
+    }
+  ],
+  "institutionalization_matrix": {
+    "normative": {
+      "status": "PROVEN",
+      "basis_claims": [
+        "CLAIM:EITI_DECREE_INSTITUTION",
+        "CLAIM:EITI_LAW_INSTITUTION"
+      ],
+      "boundary": "Proves normative institution in the recorded acts; does not prove implementation."
+    },
+    "planning": {
+      "status": "CORROBORATED",
+      "basis_claims": [
+        "CLAIM:EITI_PPA_INDICATOR",
+        "CLAIM:EITI_PPA_PROGRAM_CORRESPONDENCE"
+      ],
+      "boundary": "PPA planning signal is explicit, but policy-to-whole-program identity is not."
+    },
+    "budgetary_policy_identity": {
+      "status": "UNKNOWN",
+      "basis_claims": [
+        "CLAIM:EITI_FINANCIAL_IDENTITY"
+      ],
+      "boundary": "Validated appropriations are generic and eiti_specific=false."
+    },
+    "financial_reporting": {
+      "status": "PROVEN",
+      "basis_claims": [
+        "CLAIM:FOMENTO_ETI_REPORTING_BUCKET"
+      ],
+      "boundary": "FUNDEB-only, first-bimester-2026 reporting bucket."
+    },
+    "transaction_execution_identity": {
+      "status": "UNKNOWN",
+      "basis_claims": [
+        "CLAIM:FOMENTO_ETI_TRANSACTION_IDENTITY"
+      ],
+      "boundary": "No stable transaction-level accounting bridge in current evidence."
+    },
+    "organizational": {
+      "status": "CANDIDATE",
+      "basis_relations": [
+        "REL:SME_RESPONSIBLE_PROGRAM"
+      ],
+      "boundary": "SME responsibility for Program 2001 is proven, but policy-specific organizational responsibility is not separately proven here."
+    },
+    "material_delivery": {
+      "status": "UNKNOWN",
+      "basis_claims": [],
+      "boundary": "No existing repository evidence in TASK096 proves policy-specific delivery chain."
+    },
+    "outcome_effect": {
+      "status": "UNKNOWN",
+      "basis_claims": [],
+      "boundary": "Planning indicator targets are not observed outcomes and no causal inference is authorized."
+    },
+    "normative_planning_persistence": {
+      "status": "CORROBORATED",
+      "signals": [
+        "2021_CME",
+        "2024_DECREE",
+        "2025_PPA_FOR_2026_2029",
+        "2026_LAW"
+      ],
+      "boundary": "Temporal continuity signal only; not budgetary persistence."
+    },
+    "budgetary_persistence": {
+      "status": "UNKNOWN",
+      "basis_claims": [
+        "CLAIM:EITI_FINANCIAL_IDENTITY"
+      ],
+      "boundary": "No multi-year policy-specific budget identity has been proven."
+    }
+  },
+  "page_numbering_issue": {
+    "observed": true,
+    "source": "PPA_7213_2025",
+    "legacy_graph_page": 18,
+    "scoped_jom_page": 15,
+    "reconciled": false,
+    "interpretation": "TASK096 preserves both locators and does not silently normalize them."
+  },
+  "forbidden_promotions": [
+    "PROGRAM_2001_TOTAL_TO_EITI",
+    "ACTION_2690_TO_EITI",
+    "ACTION_2720_TO_EITI",
+    "LOA_AMOUNT_ALIGNMENT_TO_FINANCIAL_IDENTITY",
+    "FOMENTO_ETI_REPORTING_BUCKET_TO_TRANSACTION_IDENTITY",
+    "ZERO_FUNDEB_FOMENTO_ETI_TO_ZERO_TOTAL_EITI_SPENDING",
+    "PLANNING_TARGET_TO_OBSERVED_OUTCOME",
+    "STATISTICAL_ASSOCIATION_TO_CAUSAL_EFFECT"
+  ],
+  "effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "state_registry_write": 0,
+    "queue_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "retry": 0,
+    "recurrence": 0,
+    "schedule": 0
+  }
+}

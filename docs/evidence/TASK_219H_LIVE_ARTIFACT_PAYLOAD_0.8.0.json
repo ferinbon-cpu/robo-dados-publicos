@@ -1,0 +1,105 @@
+{
+  "base_main_sha": "afc2f5bd3243d6ff72a7b47192808d69fd88a74f",
+  "candidate_count": 3,
+  "candidate_rows": [
+    {
+      "commitment": "3286-2026",
+      "date": "06/03/2026",
+      "function": "SAÚDE",
+      "history_text": "LOCACAO DE SISTEMA DE ENDOSCOPIA",
+      "month": 3,
+      "official_detail_id": "667130190",
+      "organ": "PREFEITURA MUNICIPAL DE LIMEIRA",
+      "procurement_modality": "PREGÃO ELETRÔNICO",
+      "stage": "Empenhado",
+      "strong_identifier_hits": [],
+      "subfunction": "ASSISTÊNCIA HOSPITALAR E AMBULATORIAL",
+      "supplier_id": "CNPJ - PESSOA JURÍDICA - 37457979000131",
+      "supplier_name": "MED DOCTOR ACESSORIOS LTDA",
+      "value": "174999,99"
+    },
+    {
+      "commitment": "3286-2026",
+      "date": "06/07/2026",
+      "function": "SAÚDE",
+      "history_text": "LOCACAO DE SISTEMA DE ENDOSCOPIA",
+      "month": 7,
+      "official_detail_id": "678095929",
+      "organ": "PREFEITURA MUNICIPAL DE LIMEIRA",
+      "procurement_modality": "PREGÃO ELETRÔNICO",
+      "stage": "Valor Liquidado",
+      "strong_identifier_hits": [],
+      "subfunction": "ASSISTÊNCIA HOSPITALAR E AMBULATORIAL",
+      "supplier_id": "CNPJ - PESSOA JURÍDICA - 37457979000131",
+      "supplier_name": "MED DOCTOR ACESSORIOS LTDA",
+      "value": "17500,00"
+    },
+    {
+      "commitment": "3286-2026",
+      "date": "27/07/2026",
+      "function": "SAÚDE",
+      "history_text": "LOCACAO DE SISTEMA DE ENDOSCOPIA",
+      "month": 7,
+      "official_detail_id": "678117536",
+      "organ": "PREFEITURA MUNICIPAL DE LIMEIRA",
+      "procurement_modality": "PREGÃO ELETRÔNICO",
+      "stage": "Valor Pago",
+      "strong_identifier_hits": [],
+      "subfunction": "ASSISTÊNCIA HOSPITALAR E AMBULATORIAL",
+      "supplier_id": "CNPJ - PESSOA JURÍDICA - 37457979000131",
+      "supplier_name": "MED DOCTOR ACESSORIOS LTDA",
+      "value": "17500,00"
+    }
+  ],
+  "execution_head_sha": "752c80d592ce1cf3f5f9e1630d71fb4feb3fee7d",
+  "hard_boundaries": {
+    "drive": 0,
+    "municipal_contract_portal": 0,
+    "pncp": 0,
+    "promotion": 0,
+    "writes": 0
+  },
+  "issue": 705,
+  "max_gets": 2,
+  "request_count": 2,
+  "requests": [
+    {
+      "bytes_received": 26184,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://transparencia.tce.sp.gov.br/municipio/limeira/2026",
+      "host": "transparencia.tce.sp.gov.br",
+      "http_status": 200,
+      "ordinal": 1,
+      "path": "/municipio/limeira/2026",
+      "url": "https://transparencia.tce.sp.gov.br/municipio/limeira/2026"
+    },
+    {
+      "bytes_received": 2132655,
+      "content_type": "application/zip",
+      "final_url": "https://transparencia.tce.sp.gov.br/sites/default/files/csv/despesas-limeira-2026.zip",
+      "host": "transparencia.tce.sp.gov.br",
+      "http_status": 200,
+      "ordinal": 2,
+      "path": "/sites/default/files/csv/despesas-limeira-2026.zip",
+      "url": "https://transparencia.tce.sp.gov.br/sites/default/files/csv/despesas-limeira-2026.zip"
+    }
+  ],
+  "resource": {
+    "csv_bytes": 17226548,
+    "csv_member": "despesas-limeira-2026.csv",
+    "csv_sha256": "87b640aa9d854832bdd66b452d8532043e9f27bc12ec638ee77dcb5d8001f152",
+    "encoding": "cp1252",
+    "header_count": 23,
+    "months": [1,2,3,4,5,6,7],
+    "row_count": 39779,
+    "url": "https://transparencia.tce.sp.gov.br/sites/default/files/csv/despesas-limeira-2026.zip",
+    "zip_bytes": 2132655,
+    "zip_sha256": "e696c40b1af0e68efca01e8f819cd26c62a3f62881692e0da33d867604d4d11b"
+  },
+  "retry": 0,
+  "status": "PASS_DATASET_MATCHES_FOUND",
+  "strong_hit_count": 0,
+  "strong_identifier_hits": [],
+  "target_cnpj": "37457979000131",
+  "task": "TASK_219H_TCESP_CONTRACT45_BRIDGE"
+}

@@ -1,0 +1,74 @@
+{
+  "schema": "TASK199H_FULL_NETWORK_OFFICIAL_POINT_IN_POLYGON_EVIDENCE_V1",
+  "task": "TASK_199H",
+  "issue": 628,
+  "base_main_sha": "f0ab72b6a001e9c2e074c473066977da5f6ed995",
+  "status": "PASS_FULL_NETWORK_69_OF_69_WITH_EXPLICIT_INCOME_MISSINGNESS",
+  "discovery_runtime": {
+    "branch": "task199h-limeira-geo-public-probe",
+    "public_layer_run": 34657846719,
+    "public_layer_artifact": 10286022415,
+    "point_in_polygon_run": 34658013353,
+    "point_in_polygon_artifact": 10286108922,
+    "tinyfish_used_in_successful_runtime": false,
+    "regular_login_attempted": false,
+    "registration_attempted": false,
+    "token_persisted": false,
+    "drive_write": false
+  },
+  "geometry_source": {
+    "authority": "IBGE_CENSO_2022",
+    "url": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/malha_com_atributos/setores/gpkg/UF/SP/SP_setores_CD2022.gpkg",
+    "bytes": 182128640,
+    "sha256": "07affc966f82292d6f9a359adccc49e69ed55d2075936ef6d1e9c346b29a04bc",
+    "limeira_sector_rows": 735,
+    "raw_persisted": false
+  },
+  "before": {
+    "strong_school_links": 64,
+    "held": 5,
+    "full_network": false,
+    "territory_profile_rows": 267
+  },
+  "promotions": [
+    {"codigo_inep":"35208437","school":"EMEIEF Ismael Pereira Lago, Pastor","geoportal_gid":49,"sector_id":"352690205000447","sector_match_count":1,"on_boundary":false},
+    {"codigo_inep":"35286229","school":"EMEIEF Maurício Sebastião Ferreira, Padre","geoportal_gid":67,"sector_id":"352690205000913","sector_match_count":1,"on_boundary":false,"income_status":"SOURCE_EXPLICIT_X"},
+    {"codigo_inep":"35004773","school":"EMEIEF Raquel Aparecida Gonçalves Franceschi, Profa.","geoportal_gid":76,"sector_id":"352690205000850","sector_match_count":1,"on_boundary":false},
+    {"codigo_inep":"35099569","school":"CI Neusa Francisco Correa da Silva","geoportal_gid":26,"sector_id":"352690205000593","sector_match_count":1,"on_boundary":false,"address_conflict_preserved":true},
+    {"codigo_inep":"35241885","school":"EMEI Theresa Veronesi D Andrea","geoportal_gid":80,"sector_id":"352690205000232","sector_match_count":1,"on_boundary":false,"extension_gid_38_excluded":true}
+  ],
+  "after": {
+    "strong_school_links": 69,
+    "held": 0,
+    "coverage_rate": 1.0,
+    "full_network": true,
+    "territory_profile_rows": 284,
+    "schools_with_numeric_income_context": 68,
+    "schools_with_explicit_sector_income_missingness": 1
+  },
+  "income_missingness": {
+    "codigo_inep": "35286229",
+    "sector_id": "352690205000913",
+    "V06001": "X",
+    "V06002": "X",
+    "V06003": "X",
+    "V06004": "X",
+    "V06005": "X",
+    "V06006": "X",
+    "rule": "X_NE_ZERO_AND_NO_NUMERIC_INCOME_ROWS_MATERIALIZED"
+  },
+  "answerability": {
+    "question_coverage_before": "38_OF_38_COMPLETE_VIA_TASK202_MISSINGNESS_AWARE_GATE",
+    "question_coverage_after": "38_OF_38_COMPLETE",
+    "status_change_count": 0,
+    "note": "TASK199H closes geographic crosswalk completeness; it does not create a new answerability claim or a synthetic vulnerability index."
+  },
+  "guards": [
+    "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
+    "SECTOR_INCOME_NE_STUDENT_OR_ENROLLED_HOUSEHOLD_INCOME",
+    "SOURCE_X_NE_ZERO",
+    "GEOGRAPHIC_FULL_NETWORK_NE_INCOME_COMPLETE_FOR_EVERY_SECTOR",
+    "NO_THIRD_PARTY_GEOCODER_CANONICAL_PROMOTION",
+    "NO_RAW_GPKG_PERSISTENCE"
+  ]
+}

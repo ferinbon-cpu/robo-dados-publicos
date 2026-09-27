@@ -1,0 +1,52 @@
+{
+  "task": "TASK_182_V08_CENSO_AGGREGATES_AND_PANEL_CONTRACT",
+  "issue": 575,
+  "mode": "T0_OFFLINE_AGGREGATE_MATERIALIZATION_PLUS_FULL_PANEL_IMPORT_CONTRACT",
+  "base_main_sha": "29fd007b59a621758f3fb72d31d0a75c632cb395",
+  "source": {
+    "xlsx_sha256": "0516868e06685aebe8254b11ca6488ef26b03dea61f927ff637840cf2a21e865",
+    "sqlite_sha256": "7365bae889e866c5547089eac52a611c7b3e4a989d9f5bb601fff90eca54955b",
+    "panel_csv_sha256": "b8edac61a559b0e745d09cdd9e66f8ffee0090552526386dd2bc77987fc293e4"
+  },
+  "aggregate": {
+    "sheet": "88 Dashboard V08",
+    "years": 8,
+    "metrics": 6,
+    "rows": 48,
+    "product": "SCHOOL_INDICATOR_SERIES"
+  },
+  "full_panel": {
+    "sheet": "81 Censo 69 2018-25",
+    "rows_expected": 552,
+    "columns_expected": 25,
+    "long_metrics": 18,
+    "potential_long_rows_if_all_cells_present": 9936,
+    "units_2025": 69,
+    "ai_2025": 40,
+    "ei_2025": 29,
+    "reconciliation_2025": {
+      "comparisons": 240,
+      "divergences": 0
+    },
+    "imputations": 0,
+    "runtime_row_transfer_complete": false,
+    "materialized": false,
+    "partial_snippet_reconstruction_forbidden": true
+  },
+  "guards": [
+    "MISSING_NE_ZERO",
+    "CADASTRAL_PRESENCE_NE_QUALITY",
+    "SOURCE_STATUS_PRESERVED",
+    "PRE_FIRST_YEAR_STATE_PRESERVED",
+    "PARTIAL_FILE_SEARCH_SNIPPETS_NE_FULL_PANEL"
+  ],
+  "remote_effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  }
+}

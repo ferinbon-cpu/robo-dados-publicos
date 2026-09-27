@@ -1,0 +1,17 @@
+{
+  "software_version": "0.4.0",
+  "method_version": "V17",
+  "historical_regression": {"tests": 109, "passes": 109, "failures": 0, "status": "PASS"},
+  "unit_tests": {"tests": 14, "status": "PASS"},
+  "compileall": "PASS",
+  "m4c_runtime": {
+    "single_command": "python3 main.py run --auth oauth-env",
+    "remote_state": "06_BANCOS/ROBOT_STATE.sqlite",
+    "durable_logs": "07_LOGS/ROBO_RUN_*.json",
+    "repository_preflight": true,
+    "cloud_run_job_files": true,
+    "cloud_scheduler_files": true,
+    "permanent_scheduler_deployed": false
+  },
+  "analytical_blocker": "FOMENTO_ETI_EXECUTION = STOP_DATA_DEPENDENCY"
+}

@@ -1,0 +1,80 @@
+{
+  "task": "TASK_230",
+  "issue": 775,
+  "status": "MATERIALIZED_INCREMENTAL_RREO_B1_B2_WITHOUT_DOUBLE_COUNT",
+  "base_main_sha": "821be175fbc0a461b681be4612683ede010d0d56",
+  "audit": {
+    "document_count": 18,
+    "document_ids": ["DOC-041","DOC-043","DOC-044","DOC-045","DOC-046","DOC-047","DOC-048","DOC-050","DOC-052","DOC-053","DOC-055","DOC-056","DOC-059","DOC-060","DOC-061","DOC-062","DOC-063","DOC-064"],
+    "already_fully_canonical": ["DOC-061","DOC-062","DOC-063"],
+    "partially_canonical": ["DOC-048"],
+    "summary_series_promoted": ["DOC-046","DOC-047"],
+    "new_detailed_period_promoted": ["DOC-064"],
+    "selected_detail_confirmation": ["DOC-060"],
+    "detail_support_without_duplicate_promotion": ["DOC-041","DOC-043","DOC-044","DOC-045","DOC-052","DOC-053","DOC-055","DOC-056","DOC-059"],
+    "bounded_future_candidate_not_promoted": ["DOC-050"]
+  },
+  "source_authority": {
+    "primary_system": "CN-SIFPM / CONAM / Municipio de Limeira",
+    "annex14_b1": "direct primary file-library recheck",
+    "annex14_b2": "direct primary file-library recheck",
+    "annex8_b1": "direct primary file-library recheck",
+    "annex6_b1": "direct primary file-library recheck",
+    "byte_hash_identity_for_md013_docs": "NOT_PROVEN; title/content and corpus mapping only"
+  },
+  "incremental_value": {
+    "new_b1_cross_domain_position": true,
+    "new_b1_mde_fundeb_detail": true,
+    "new_b1_primary_nominal_detail": true,
+    "b2_summary_is_authority_and_cross_source_reconciliation": true,
+    "contextual_question_coverage_change": false
+  },
+  "verified_exact_matches": [
+    "DOC047 primary result = DOC060 primary result = 14,364,454.90 BRL",
+    "DOC047 nominal result below line = DOC060 = 176,072,728.66 BRL",
+    "DOC047 FUNDEB professionals value = DOC064 liquidated professionals = 25,321,920.60 BRL",
+    "DOC046 RCL triple = TASK229 RGF canonical RCL triple",
+    "DOC047 executive processed RP balance = TASK188 processed aggregate balance for Feb = 26,670,251.53 BRL",
+    "DOC046 executive processed RP balance = TASK188 processed aggregate balance for Apr = 16,476,433.49 BRL"
+  ],
+  "verified_non_equivalences": [
+    "DOC047 total RP balance 90,384,838.06 BRL != TASK188 municipal aggregate total balance 85,839,786.43 BRL",
+    "DOC046 total RP balance 54,719,098.91 BRL != TASK188 municipal aggregate total balance 51,053,179.39 BRL",
+    "RREO Annex8 MDE scope != RREO Annex2 function Education scope",
+    "partial bimonthly constitutional percentage != annual compliance conclusion"
+  ],
+  "selected_b1_values": {
+    "annex14": {
+      "revenue_realized_brl": "327506251.17",
+      "expense_committed_brl": "1516052251.33",
+      "expense_liquidated_brl": "203682944.13",
+      "expense_paid_brl": "127293751.80",
+      "rcl_brl": "1769061034.37",
+      "primary_result_without_rpps_brl": "14364454.90",
+      "nominal_result_below_line_brl": "176072728.66",
+      "mde_applied_pct": "24.31",
+      "fundeb_professionals_pct": "77.03",
+      "health_asps_pct": "13.44"
+    },
+    "annex8": {
+      "fundeb_received_brl": "32882184.33",
+      "fundeb_available_brl": "33929705.41",
+      "fundeb_committed_brl": "119853098.56",
+      "fundeb_liquidated_brl": "25321920.60",
+      "fundeb_paid_brl": "12364203.27",
+      "vaar_principal_realized_brl": "0.00",
+      "vaar_financial_income_realized_brl": "9011.80"
+    }
+  },
+  "guards": [
+    "NO_DOUBLE_COUNT",
+    "SAME_FACT_DIFFERENT_ANNEX_NE_NEW_FACT",
+    "CUMULATIVE_BIMESTER_NE_MONTHLY_FLOW",
+    "ANEXO14_RESTS_SCOPE_NE_ANEXO7_SCOPE",
+    "PARTIAL_COMPONENT_MATCH_NE_FULL_STATEMENT_EQUALITY",
+    "CONSTITUTIONAL_PERCENT_PARTIAL_PERIOD_NE_ANNUAL_COMPLIANCE",
+    "NOMINAL_RESULT_NE_BUDGET_SURPLUS",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "remote_effects": false
+}

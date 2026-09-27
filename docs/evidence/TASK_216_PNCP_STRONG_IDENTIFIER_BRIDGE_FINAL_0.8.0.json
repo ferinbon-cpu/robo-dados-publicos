@@ -1,0 +1,128 @@
+{
+  "task": "TASK_216_PNCP_STRONG_IDENTIFIER_BRIDGE_FINAL",
+  "issue": 676,
+  "canonical_date": "2026-09-08",
+  "repository": "ferinbon-cpu/robo-dados-publicos",
+  "design": {
+    "pr": 677,
+    "approved_head_sha": "1a282c7e9a74f1daaecdc758e825bc0d912355a9",
+    "merge_sha": "2d9364315d6f1ff256a968d61885e34cb32b9fae",
+    "ci": "5/5_SUCCESS"
+  },
+  "partition_fallback": {
+    "pr": 678,
+    "approved_head_sha": "c6d92fd7b03b7624e8de8df112730b9f0e8020e5",
+    "merge_sha": "d6b9f8c356fd23871715103a58a02da3bd688918",
+    "ci": "5/5_SUCCESS"
+  },
+  "runtime_attempt_1": {
+    "branch": "task-216-pncp-identity-runtime",
+    "head_sha": "7c5cddee5149cb34319e922e975df184225947bb",
+    "run_id": 34272133316,
+    "job_id": 102216071916,
+    "artifact_id": 10074321138,
+    "artifact_zip_digest": "sha256:0e75be128bc0c65615742e744c63f66f019967a6ac46eff458844aae73e1f796",
+    "sanitized_result_sha256": "543f449b3947c71c251db4aaa488c8d06b5765890387d51955fcc9ef0a125c11",
+    "result": "STOP_SOURCE_TRANSPORT_OR_HTTP_OR_JSON_UNAVAILABLE",
+    "failed_page": 4,
+    "page_statuses": [
+      200,
+      200,
+      200,
+      502
+    ],
+    "complete_pagination": false,
+    "scientific_effect": "NONE"
+  },
+  "runtime_attempt_2": {
+    "branch": "task-216b-pncp-partitioned-runtime",
+    "head_sha": "ae41ecda31990dcc7bbc28d3898676e457e8e7d3",
+    "run_id": 34273403423,
+    "job_id": 102220418548,
+    "artifact_id": 10074741092,
+    "artifact_zip_digest": "sha256:fb34f250b3f7394932bade99b1e616d09304bc45f1f00adb936784f64c8a7739",
+    "sanitized_result_sha256": "7d7a6553daa2b4494d2ae38d302c4396ed90110caf78312baf7f59d94058b9d1",
+    "result": "EXHAUSTIVE_COMPLETE_NO_END_TO_END_STRONG_CHAIN",
+    "complete_all_partitions": true,
+    "overall_scope": {
+      "endpoint": "https://pncp.gov.br/api/consulta/v1/contratos",
+      "cnpjOrgao": "45132495000140",
+      "dataInicial": "20260101",
+      "dataFinal": "20260908",
+      "partition_count": 9
+    },
+    "partition_counts": {
+      "2026-01": 216,
+      "2026-02": 61,
+      "2026-03": 520,
+      "2026-04": 187,
+      "2026-05": 162,
+      "2026-06": 183,
+      "2026-07": 204,
+      "2026-08": 307,
+      "2026-09-01_08": 93
+    },
+    "partition_pages": {
+      "2026-01": 1,
+      "2026-02": 1,
+      "2026-03": 2,
+      "2026-04": 1,
+      "2026-05": 1,
+      "2026-06": 1,
+      "2026-07": 1,
+      "2026-08": 1,
+      "2026-09-01_08": 1
+    },
+    "total_records": 1933,
+    "jom_strong_anchor_count": 54,
+    "accepted_jom_pncp_anchor_count": 0,
+    "matched_purchase_id_count": 0,
+    "sanitized_sibling_count": 0,
+    "end_to_end_identity_chain_count": 0,
+    "raw_payload_persisted": false,
+    "weak_identity_fields_used": false
+  },
+  "strong_identity_model": {
+    "required_chain": [
+      "JOM_EXACT_PROCESS_OR_COMPLETE_TYPED_CONTRACT",
+      "PNCP_EXACT_PURCHASE_CONTROL_ID",
+      "PNCP_TYPED_EMPENHO",
+      "PNCP_NUMERO_CONTRATO_EMPENHO",
+      "TCE_EXACT_COMMITMENT_NUMBER_PLUS_SUPPLIER_CNPJ"
+    ],
+    "forbidden_identity_inputs": [
+      "CNPJ_ALONE",
+      "AMOUNT_SIMILARITY",
+      "DATE_PROXIMITY",
+      "OBJECT_TEXT",
+      "HISTORY_TEXT",
+      "SEMANTIC_SIMILARITY",
+      "INCOMPLETE_ADMINISTRATIVE_IDENTIFIER"
+    ]
+  },
+  "adjudication": {
+    "scoped_meaning": "Within the current JOM_EVENT_INDEX corpus and the exact PNCP Limeira contract/empenho publication scope 2026-01-01 through 2026-09-08, none of the 54 complete strong JOM administrative anchors matched a PNCP record by the authorized exact identifier rules.",
+    "global_pncp_absence": false,
+    "procurement_absence": false,
+    "supplier_absence": false,
+    "contract_absence": false,
+    "tce_transaction_absence": false,
+    "weak_match_promotion_forbidden": true,
+    "contextual_paths_before": 33,
+    "contextual_paths_after": 33,
+    "canonical_questions_total": 38
+  },
+  "retained_blockers": {
+    "CTRL_Q2": "NO_PROVEN_CROSS_SOURCE_EVENT_OR_TRANSACTION_IDENTITY",
+    "INFRA_Q2": "NO_STRUCTURED_SCHOOL_IDENTITY_IN_JOM_OR_ACCOUNTING_CROSSWALK",
+    "PROC_Q1": "NO_PROVEN_JOM_TO_TCE_PROCUREMENT_EVENT_IDENTITY",
+    "PROC_Q2": "NO_PROVEN_JOM_TO_TCE_PROCUREMENT_EVENT_IDENTITY",
+    "PROC_Q3": "NO_PROVEN_JOM_TO_TCE_PROCUREMENT_EVENT_IDENTITY"
+  },
+  "next_major_leap": {
+    "task": "TASK_217",
+    "title": "STRUCTURED SCHOOL IDENTITY BRIDGE FOR JOM EVENTS",
+    "objective": "Target INFRA_Q2 by resolving named school/unit references in JOM events against the pinned municipal school roster and exact INEP identities, preserving ambiguous/generic school references as unresolved.",
+    "non_goal": "Do not reopen procurement identity through fuzzy amount/date/text joins."
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "task": "TASK_217G_JOM_4_OVERSIZED_RECOVERY_CARRIER",
+  "issue": 680,
+  "base_main_sha": "2c45c0923e5903a295f1935e2518cd1c7f04b59b",
+  "tier": "T0_IMPLEMENTED_LIVE_DISABLED",
+  "target_editions": [7243,7253,7270,7287],
+  "network_boundary": {
+    "rediscovery": false,
+    "max_gets": 4,
+    "max_bytes_per_document": 262144000,
+    "max_aggregate_bytes": 1073741824,
+    "automatic_retry": false,
+    "worst_case_four_documents_below_aggregate_cap": true
+  },
+  "processing": {
+    "context_hardened_school_identity": true,
+    "abstract_infrastructure_phrase_guard": true,
+    "specific_stop_code_preserved": true,
+    "raw_pdf_persisted": false,
+    "raw_page_text_persisted": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "promotion": false
+  },
+  "authorization": {
+    "live_authorized": false,
+    "separate_owner_authorization_required": true,
+    "task217f_authorization_reuse_forbidden": true,
+    "task217d_authorization_reuse_forbidden": true,
+    "task018_authorization_reuse_forbidden": true
+  },
+  "answerability": {
+    "INFRA_Q2": "BLOCKED_UNTIL_4_DOCUMENT_RECOVERY_AND_CANONIZATION",
+    "coverage": "33/38"
+  }
+}

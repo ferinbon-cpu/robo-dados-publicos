@@ -1,0 +1,35 @@
+{
+  "gate_id": "M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2021_P6_BRONZE_SINGLE_RECORD_CAPTURE_0_8_0",
+  "source_id": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
+  "software_version": "0.8.0",
+  "mode": "ONE_REQUEST_ONE_HISTORICAL_RECORD_IMMUTABLE_BRONZE_CAPTURE",
+  "manual_confirmation_required": true,
+  "query": {
+    "ano": 2021,
+    "periodo": 6,
+    "uf": "SP",
+    "municipality_code": 352690
+  },
+  "policy": {
+    "timeout_seconds": 60,
+    "max_response_bytes": 262144,
+    "max_attempts": 1,
+    "follow_redirects": false,
+    "follow_nextlink": false
+  },
+  "capture": {
+    "expected_record_count": 1,
+    "expected_schema_key_count": 52,
+    "canonical_json": true,
+    "raw_public_record_persistence_authorized": true,
+    "persist_response_envelope": false,
+    "persist_nextlink_url": false
+  },
+  "single_historical_record_capture_authorized": true,
+  "historical_collection_authorized": false,
+  "drive_persistence_authorized": false,
+  "processing_authorized": false,
+  "recurrence_authorized": false,
+  "schedule_enabled": false,
+  "next_gate": "M7_SIOPE_CLIENT_LIMEIRA_HISTORICAL_2021_P6_BRONZE_SINGLE_RECORD_CAPTURE_REVIEW_0_8_0"
+}

@@ -1,0 +1,66 @@
+{
+  "task": "TASK_235",
+  "issue": 786,
+  "evidence_type": "PRIMARY_NORMATIVE_PUBLICATION_RECOVERY",
+  "verified_at": "2026-09-11",
+  "source": {
+    "act": "Resolução SME nº 08, de 09/12/2025",
+    "publication_label": "RETIFICAÇÃO",
+    "journal": "Jornal Oficial do Município de Limeira",
+    "edition": 7139,
+    "publication_date": "2025-12-16",
+    "official_pdf_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_15122025182852.pdf",
+    "resolution_pages": "168-186/203"
+  },
+  "recovery": {
+    "portal_navigation_confirmed_edition": true,
+    "official_pdf_identity_confirmed": true,
+    "indexed_pdf_text_recovered_page_by_page": true,
+    "direct_binary_download_into_repo": false,
+    "binary_hash_available": false,
+    "claim": "Primary publication identity and article text are established; binary custody is not claimed."
+  },
+  "page_proofs": [
+    {"page":168,"content":"Retificação header, act identity/title, legal basis, arts. 1-3 begin."},
+    {"page":169,"content":"Art. 3 continuation and Art. 4 workload definitions."},
+    {"page":170,"content":"Art. 4 specialist workload/LT rules, PSS 48 h/a ceiling, Art. 5 begins."},
+    {"page":171,"content":"Arts. 5-7: literacy/EJA preference, afastados/designados, excedentes."},
+    {"page":172,"content":"Arts. 7-11: adido conclusion, readapted, proxy, effective substitutes, initial sequence begins."},
+    {"page":173,"content":"Art. 11 initial Day 1 phases and times."},
+    {"page":174,"content":"Art. 11 Day 1/Day 2 phases and qualification proof."},
+    {"page":175,"content":"Art. 11 Day 3 and PSS 04/2025 portal phase begins."},
+    {"page":176,"content":"Art. 11 portal dates/result; Arts. 12-13 begin."},
+    {"page":177,"content":"Art. 13 school-level during-year sequence."},
+    {"page":178,"content":"Art. 13 SME sequence; Arts. 14-15 begin."},
+    {"page":179,"content":"Arts. 15-18: EJA order, Special Projects, creche sectors, Integral Education."},
+    {"page":180,"content":"Arts. 18-22: Integral Education timing, disability continuity, HTPC compatibility, substitution extension, titular 30-day rule."},
+    {"page":181,"content":"Arts. 23-24: PSS 30-day/45-day rules and quarterly evaluation criteria."},
+    {"page":182,"content":"Arts. 25-29: evaluation consequence, provisional stability, session conduct, entrants, documentation duties."},
+    {"page":183,"content":"Arts. 30-34: new-assignment bars, nepotism, appeals, omitted cases, effect/retroactivity."},
+    {"page":184,"content":"Annex I schedule Day 1."},
+    {"page":185,"content":"Annex I Day 1/Day 2 continuation."},
+    {"page":186,"content":"Annex I Day 3 and PSS 04/2025 portal phase."}
+  ],
+  "cross_checks": {
+    "task234_art23_30_day_rule": "PRIMARY_CONFIRMED",
+    "task234_art23_45_day_rule": "PRIMARY_CONFIRMED",
+    "task234_art30_same_contract_bar": "PRIMARY_CONFIRMED_CORE_WITH_OPERATIONAL_TRIGGER_DETAIL",
+    "lt_formation_timing": "OPEN_DIVERGENCE_PRIMARY_PUBLICATION_VS_CURRENT_OPERATIONAL_PAGE",
+    "lesson_counts_ei_ef": "REMAIN_OPERATIONAL_PAGE_ONLY_IN_THIS_TASK",
+    "current_modality_execution_order": "REMAIN_OPERATIONAL_PAGE_ONLY_IN_THIS_TASK"
+  },
+  "important_divergence": {
+    "topic": "Linguagens e Tecnologias formation timing for PSS 04/2025",
+    "primary_publication": "Art. 11 §5(b), pp. 175-176 ties proof to indication/upload and states that missing proof annuls indication.",
+    "current_sme_page": "States that formation may be presented to the school director during the first semester of 2026 while citing Art. 11 §5(b).",
+    "decision": "Do not reconcile or treat the operational page as a normative amendment without locating an official modifying act."
+  },
+  "guards": [
+    "PRIMARY_PUBLICATION_TEXT_RECOVERED_NE_BINARY_CUSTODY",
+    "RETIFICACAO_LABEL_MUST_BE_PRESERVED",
+    "NO_UNSEEN_TEXT_RECONSTRUCTION",
+    "DO_NOT_TREAT_OPERATIONAL_PAGE_AS_AMENDMENT_WITHOUT_OFFICIAL_MODIFIER_TRACE",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "contextual_coverage": "38/38_UNCHANGED"
+}

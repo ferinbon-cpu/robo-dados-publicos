@@ -1,0 +1,181 @@
+{
+  "version": 1,
+  "schema": "TASK219E_PNCP_TRANSPORT_INCIDENT_CANONIZATION_V1",
+  "task": "TASK_219E",
+  "issue": 699,
+  "parent_issue": 691,
+  "base_main_sha": "89afe7f7e3e95bca106fa537829e716bed52682e",
+  "canonical_date": "2026-09-09",
+  "source_family": {
+    "host": "pncp.gov.br",
+    "consulta_contracts_endpoint": "https://pncp.gov.br/api/consulta/v1/contratos",
+    "consulta_publications_endpoint": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao",
+    "org_cnpj": "45132495000140"
+  },
+  "upstream_evidence": {
+    "task168b": {
+      "path": "docs/evidence/TASK_168B_PNCP_CONSULTA_CONTRACTS_FALLBACK_0.8.0.json",
+      "git_blob_sha": "e7d00dfe22c93a776d42fc496d05c19ce016ca4c",
+      "expected": {
+        "http_statuses": [200, 200],
+        "total_records": 759,
+        "complete": true
+      }
+    },
+    "task216": {
+      "path": "docs/evidence/TASK_216_PNCP_STRONG_IDENTIFIER_BRIDGE_FINAL_0.8.0.json",
+      "git_blob_sha": "b551b56582d7c3bb16fb8bf11ca78e9264162314",
+      "expected": {
+        "attempt1_page_statuses": [200, 200, 200, 502],
+        "attempt1_complete": false,
+        "attempt1_scientific_effect": "NONE",
+        "attempt2_total_records": 1933,
+        "attempt2_total_gets": 10,
+        "attempt2_complete": true
+      }
+    },
+    "task219c": {
+      "path": "docs/evidence/TASK_219C_PNCP_EXACT_IDENTITY_CARRIER_0.8.0.json",
+      "git_blob_sha": "aef3265424255c3690595951a5b996684e018a50",
+      "expected": {
+        "prior_complete_run_id": 34273403423,
+        "prior_complete_total_records": 1933,
+        "contextual_paths": 34
+      }
+    },
+    "task219c2": {
+      "path": "docs/evidence/TASK_219C2_PNCP_HALFMONTH_FALLBACK_CARRIER_0.8.0.json",
+      "git_blob_sha": "b903dd9c1ffc46dbb36c07f52118488cbc0902ca",
+      "expected": {
+        "failed_run_id": 34364890448,
+        "request_count": 1,
+        "bytes_received": 0,
+        "status": "STOP_PARTITION_SOURCE_TRANSPORT_OR_HTTP_OR_JSON_UNAVAILABLE",
+        "scientific_effect": "NONE",
+        "absence_inference": false
+      }
+    },
+    "task219d": {
+      "path": "docs/evidence/TASK_219D_JOM_BIDDING_IDENTITY_CANONIZATION_0.8.0.json",
+      "expected": {
+        "combined_unique_identities": 143,
+        "combined_edital_identity_keys": 49,
+        "combined_daily_search_seed_count": 35,
+        "contextual_paths": 34
+      }
+    }
+  },
+  "classification": {
+    "valid_json_status": 200,
+    "confirmed_empty_statuses": [204],
+    "transport_or_edge_statuses": [408, 429, 500, 502, 503, 504],
+    "transport_or_edge_errors": [
+      "TimeoutError",
+      "ConnectionError",
+      "ConnectionResetError",
+      "ECONNABORTED",
+      "ETIMEDOUT"
+    ],
+    "states": [
+      "VALID_JSON_RESPONSE",
+      "CONFIRMED_EMPTY_RESPONSE",
+      "TRANSPORT_OR_EDGE_UNAVAILABLE",
+      "INVALID_OR_INSUFFICIENT_RESPONSE"
+    ]
+  },
+  "absence_semantics": {
+    "no_match_requires_complete_exact_scope": true,
+    "no_match_requires_all_required_responses_successful": true,
+    "timeout_can_prove_no_match": false,
+    "zero_bytes_can_prove_no_match": false,
+    "http_502_can_prove_no_match": false,
+    "http_503_can_prove_no_match": false,
+    "http_504_can_prove_no_match": false,
+    "incomplete_pagination_can_prove_no_match": false,
+    "portal_visibility_can_replace_api_primary_proof": false,
+    "secondary_evidence_can_create_procurement_identity": false
+  },
+  "supporting_operator_observations": [
+    {
+      "date": "2026-09-09",
+      "surface": "narrow_daily_publication_lookup",
+      "observed_status_family": [503, 504],
+      "raw_artifact_persisted": false,
+      "evidence_role": "SUPPORTING_ONLY_NOT_CANONICAL_TRANSPORT_PROOF"
+    },
+    {
+      "date": "2026-09-09",
+      "surface": "unit_lookup_following_pncp_redirect",
+      "observed_status_family": [504],
+      "raw_artifact_persisted": false,
+      "evidence_role": "SUPPORTING_ONLY_NOT_CANONICAL_TRANSPORT_PROOF"
+    }
+  ],
+  "external_diagnostic_leads": [
+    {
+      "kind": "OFFICIAL_DOCUMENTATION",
+      "url": "https://pncp.gov.br/manual/pt-br/latest/",
+      "fact": "PNCP integration manual v2.6 is current and dated 2026-08-31",
+      "role": "DIAGNOSTIC_CONTEXT_NOT_RUNTIME_TRUTH"
+    },
+    {
+      "kind": "OFFICIAL_MAINTENANCE_NOTICE",
+      "url": "https://www.gov.br/pncp/pt-br/central-de-conteudo/copy_of_2026/no-8-26-indisponibilidade-programada-nos-ambientes-de-producao-e-treinamento-do-pncp-dia-31-8-26",
+      "fact": "Production and training deployment was scheduled for 2026-08-31",
+      "role": "TEMPORAL_CONTEXT_NOT_CAUSAL_PROOF"
+    },
+    {
+      "kind": "GOVERNMENT_PUBLIC_REPORT",
+      "url": "https://dados.gov.br/dados/conjuntos-dados/compras-publicas-do-governo-federal",
+      "fact": "Public discussion reports intermittent 504 Gateway Timeout and ECONNABORTED on PNCP Consulta publication endpoint even with page size 10",
+      "role": "INDEPENDENT_HISTORICAL_SIGNAL_NOT_CURRENT_INCIDENT_PROOF"
+    },
+    {
+      "kind": "COMMUNITY_GITHUB_REPORT",
+      "url": "https://github.com/Mcp-Brasil/mcp-brasil/issues/23",
+      "fact": "Independent 2026 report of failures across PNCP publication, contracts and PCA consulta endpoints",
+      "role": "COMMUNITY_DIAGNOSTIC_LEAD_ONLY"
+    }
+  ],
+  "future_controlled_probe": {
+    "implemented": false,
+    "executed": false,
+    "fresh_owner_authorization_required": true,
+    "authorization_reuse_allowed": false,
+    "same_resource_required_across_origins": true,
+    "candidate_origins": [
+      "GITHUB_ACTIONS",
+      "SEPARATELY_CONTROLLED_NON_CLOUD_OR_BRAZILIAN_EGRESS"
+    ],
+    "measurements": [
+      "dns_resolution",
+      "tcp_connect",
+      "tls_handshake",
+      "time_to_first_byte",
+      "http_status",
+      "bytes_received",
+      "content_type"
+    ],
+    "proxy_or_mirror_may_be_primary_evidence": false
+  },
+  "scientific_state": {
+    "canonical_transport_label": "PNCP_TRANSPORT_OR_EDGE_UNAVAILABLE_FOR_CURRENT_ATTEMPT_NOT_DATA_ABSENCE",
+    "current_contextual_paths": 34,
+    "canonical_questions_total": 38,
+    "remaining_blockers": ["CTRL_Q2", "PROC_Q1", "PROC_Q2", "PROC_Q3"],
+    "promotion_allowed": false
+  },
+  "outputs": {
+    "evidence": "docs/evidence/TASK_219E_PNCP_TRANSPORT_INCIDENT_CANONIZATION_0.8.0.json"
+  },
+  "remote_effects": {
+    "pncp_network": false,
+    "tce_network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "promotion": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

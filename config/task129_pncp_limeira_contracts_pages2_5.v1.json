@@ -1,0 +1,132 @@
+{
+  "version": 1,
+  "schema": "TASK129_PNCP_LIMEIRA_CONTRACTS_PAGES_2_5_SCAN_V1",
+  "mode": "T1_SINGLE_USE_OFFICIAL_REGISTRY_PAGES_2_5_SCAN",
+  "base_sha": "35042a338c4db6799bb3cb0466406bc5adab6cf0",
+  "issue": 459,
+  "upstream": {
+    "task128_evidence_path": "docs/evidence/TASK_128_PNCP_LIMEIRA_CONTRACTS_PAGE1_SCAN_0.8.0.json",
+    "task128_evidence_git_blob_sha": "996ca2b3aa66be5f8264d1dead0d18b82a696c8e",
+    "task128_module_path": "robo_dados_publicos/research/task128_pncp_limeira_contracts_scan.py",
+    "task128_module_git_blob_sha": "76d1d8b5e444977b66ed10dafb6b65d386b318b1",
+    "total_registros": 2023,
+    "total_paginas": 5,
+    "page1_candidate_count": 0
+  },
+  "source": {
+    "registry": "PNCP",
+    "base_url": "https://pncp.gov.br/api/consulta",
+    "source_role": "SECONDARY_AGGREGATOR",
+    "official_registry_surface": true,
+    "cnpj_orgao": "45132495000140",
+    "data_inicial": "20251128",
+    "data_final": "20260904",
+    "pages": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "tamanho_pagina": 500,
+    "max_bytes_per_page": 20971520,
+    "exact_urls": [
+      "https://pncp.gov.br/api/consulta/v1/contratos?dataInicial=20251128&dataFinal=20260904&cnpjOrgao=45132495000140&pagina=2&tamanhoPagina=500",
+      "https://pncp.gov.br/api/consulta/v1/contratos?dataInicial=20251128&dataFinal=20260904&cnpjOrgao=45132495000140&pagina=3&tamanhoPagina=500",
+      "https://pncp.gov.br/api/consulta/v1/contratos?dataInicial=20251128&dataFinal=20260904&cnpjOrgao=45132495000140&pagina=4&tamanhoPagina=500",
+      "https://pncp.gov.br/api/consulta/v1/contratos?dataInicial=20251128&dataFinal=20260904&cnpjOrgao=45132495000140&pagina=5&tamanhoPagina=500"
+    ]
+  },
+  "transport": {
+    "method": "GET",
+    "get_requests_max": 4,
+    "redirects_max": 0,
+    "retry": 0,
+    "timeout_seconds": 30,
+    "accept": "application/json",
+    "exact_urls_only": true,
+    "stop_after_first_failure": true
+  },
+  "snapshot_consistency": {
+    "required_total_registros": 2023,
+    "required_total_paginas": 5,
+    "require_requested_page_number": true,
+    "metadata_drift_status": "STOP_SNAPSHOT_METADATA_DRIFT_NO_EXHAUSTIVE_CONCLUSION"
+  },
+  "matching": {
+    "normalized_strong_policy_markers": [
+      "PROGRAMA DE EDUCACAO INTEGRAL",
+      "PROGRAMA ESCOLA EM TEMPO INTEGRAL",
+      "ESCOLA EM TEMPO INTEGRAL",
+      "EDUCACAO EM TEMPO INTEGRAL",
+      "EDUCACAO INTEGRAL",
+      "FOMENTO ETI"
+    ],
+    "weak_support_terms": [
+      "OFICINA",
+      "OFICINEIRO",
+      "EXTRACURRICULAR",
+      "TEMPO INTEGRAL"
+    ],
+    "weak_terms_qualify_alone": false,
+    "fields_to_search": [
+      "objetoContrato",
+      "informacaoComplementar"
+    ],
+    "max_candidates_total": 100
+  },
+  "candidate_fields": [
+    "numeroControlePNCP",
+    "numeroControlePncpCompra",
+    "numeroContratoEmpenho",
+    "anoContrato",
+    "tipoContratoId",
+    "tipoContratoNome",
+    "processo",
+    "codigoUnidade",
+    "niFornecedor",
+    "nomeRazaoSocialFornecedor",
+    "objetoContrato",
+    "informacaoComplementar",
+    "valorInicial",
+    "valorGlobal",
+    "valorAcumulado",
+    "numeroParcelas",
+    "valorParcela",
+    "dataAssinatura",
+    "dataVigenciaInicio",
+    "dataVigenciaFim"
+  ],
+  "status_rules": {
+    "transport_failure": "STOP_TRANSPORT_NO_DATA_CONCLUSION",
+    "invalid_json": "STOP_INVALID_JSON_NO_DATA_CONCLUSION",
+    "malformed_response": "STOP_MALFORMED_RESPONSE_NO_DATA_CONCLUSION",
+    "snapshot_metadata_drift": "STOP_SNAPSHOT_METADATA_DRIFT_NO_EXHAUSTIVE_CONCLUSION",
+    "exhaustive_no_candidate": "NO_MATCH_WITHIN_PNCP_CNPJ_DATE_SCOPE_ONLY",
+    "exhaustive_candidate": "CANDIDATE_MATCH_WITHIN_PNCP_CNPJ_DATE_SCOPE"
+  },
+  "epistemic_semantics": {
+    "source_role": "SECONDARY_AGGREGATOR",
+    "accounting_execution_max_status": "CORROBORATED",
+    "administrative_event_max_status": "CORROBORATED",
+    "policy_linkage_max_status": "CORROBORATED",
+    "automatic_financial_identity": false,
+    "automatic_transaction_identity": false,
+    "municipal_primary_verification_required": true,
+    "weak_join_forbidden": true
+  },
+  "persistence": {
+    "raw_json_git": false,
+    "raw_json_drive": false,
+    "sanitized_candidate_evidence_git": true,
+    "bronze": false,
+    "silver": false,
+    "gold": false,
+    "rag": false,
+    "state_registry": false,
+    "queue": false,
+    "serving": false,
+    "publication": false
+  },
+  "future_retry_authorized": false,
+  "future_scope_widening_authorized": false
+}

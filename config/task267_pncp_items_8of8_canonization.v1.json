@@ -1,0 +1,57 @@
+{
+  "schema": "TASK267_PNCP_ITEMS_8OF8_CANONIZATION_V1",
+  "task": "TASK_267",
+  "issue": 869,
+  "base_main_sha": "845ba1fddba37fb2f1cc5ca98a05bc6a63b21d87",
+  "source_task264": {
+    "evidence": "docs/evidence/TASK_264_JOM_PNCP_8OF8_CANONICAL_0.8.0.json",
+    "required_status": "8_OF_8_EXPLICIT_JOM_PNCP_IDS_CURRENTLY_RESOLVED_EXACTLY"
+  },
+  "source_task265": {
+    "run_id": 35355223863,
+    "job_id": 105632816755,
+    "artifact_id": 10551441646,
+    "artifact_zip_sha256": "a6ac363c9cc3bd9ee31e8aebb643a8564f3e73520f34eba73593278d7a436dd0",
+    "artifact_file_sha256": "06a5e8f51e8403362c29a8fa32daeed9715d2b744688b67a3b02ea1fcf9b7705",
+    "result_sha256": "c1eb566c0903513714e38423dadb77fc5ca557f56308c84d03f55c27faf64980"
+  },
+  "source_task266": {
+    "run_id": 35356083180,
+    "job_id": 105635651468,
+    "artifact_id": 10551603283,
+    "artifact_zip_sha256": "d8ecbe5a046e8c16e635b409bfb9ec71343b381d0832cfa8b3c58655824379b8",
+    "artifact_file_sha256": "2337b6c473164ed4a23fe3570c921ecbfd364e56811d6e175e2f757626dcc06c",
+    "result_sha256": "440d693a02f26147ca5e4d951343469348a97a534d11c09879e7354a76bfe887"
+  },
+  "fixture": "docs/evidence/fixtures/task267/TASK_267_PNCP_ITEMS_8OF8_SUMMARY.jsonl",
+  "expected": {
+    "controls": 8,
+    "item_rows": 40,
+    "material_rows": 28,
+    "service_rows": 12,
+    "all_items_status": "Em andamento"
+  },
+  "financial_semantics": {
+    "selected_valor_total_sum_is_descriptive_only": true,
+    "payment_proven": false,
+    "execution_proven": false,
+    "homologation_proven": false,
+    "budget_execution_proven": false,
+    "tce_identity_proven": false,
+    "accounting_reconciliation_proven": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive": false,
+    "bronze": false,
+    "silver": false,
+    "gold": false,
+    "serving": false,
+    "publication": false,
+    "tce": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "status": "8_OF_8_PNCP_ITEMS_RESOLVED_40_SANITIZED_ITEM_ROWS",
+  "next_gate": "DOCUMENTED_PNCP_HISTORY_GATE_REQUIRES_SEPARATE_POST_MERGE_OWNER_AUTHORIZATION"
+}

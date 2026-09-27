@@ -1,0 +1,84 @@
+{
+  "schema": "TASK_022_JORNAL_REAL_CHECKPOINT_PINNING_REVIEW_V1",
+  "task": "TASK_022",
+  "tier": "T0_OFFLINE",
+  "status": "PASS_REAL_CHECKPOINT_PINNED_OFFLINE",
+  "real_checkpoint_status": "COMPLETE_PINNED",
+  "item_count": 12,
+  "known_task_018_item_count": 12,
+  "checkpoint_path": "docs/evidence/TASK_018_JORNAL_COMPLETED_CANONICAL_CHECKPOINT_0.8.0.json",
+  "canonical_payload_sha256": "64e78c27a2c233468d76bc94c5719a35ed68ff7455cfac36d958d922c4ece5db",
+  "live_proof_authorized": false,
+  "audit": {
+    "versioned_sources_reviewed": [
+      "docs/evidence/TASK_018_FULL_OPERATIONAL_BOOTSTRAP_CLOSURE_0.8.0.json",
+      "docs/evidence/TASK_019_POST_BOOTSTRAP_OPERATIONAL_REVIEW_0.8.0.json",
+      "docs/evidence/TASK_020_JORNAL_INCREMENTAL_RECURRENCE_READINESS_DESIGN_0.8.0.json",
+      "docs/evidence/TASK_021_JORNAL_INCREMENTAL_LIVE_PROOF_GATE_DESIGN_0.8.0.json",
+      "docs/tasks/CODEX_TASK_018_FULL_OPERATIONAL_BOOTSTRAP.md",
+      "docs/tasks/CODEX_TASK_019_POST_BOOTSTRAP_OPERATIONAL_REVIEW.md",
+      "docs/tasks/CODEX_TASK_020_JORNAL_INCREMENTAL_RECURRENCE_READINESS_DESIGN.md",
+      "docs/tasks/CODEX_TASK_021_JORNAL_INCREMENTAL_LIVE_PROOF_GATE_DESIGN.md"
+    ],
+    "historical_artifact": {
+      "name": "task-018-sanitized-operational-evidence",
+      "artifact_id": 9758450652,
+      "origin_run_id": 33392616951,
+      "artifact_digest": "sha256:f4eacabeed66e3b2ca0801140efa3a495e5a9e294cfaa61953cb2dc27e6628cd",
+      "artifact_read_attempted": true,
+      "artifact_read_completed": true,
+      "outcome": "READ_ONLY_AUDIT_COMPLETE",
+      "artifact_member": "operational_result.json",
+      "artifact_member_sha256": "aad99f2644b6580b1734ab75e02c969095c24c95c3e393f1f3f096a72e19a5bd",
+      "fallback_to_source_or_drive_performed": false
+    },
+    "historical_github_artifact_reads": 1,
+    "properties_available_for_each_item": [
+      "edition",
+      "publication_date",
+      "document_url",
+      "source_id",
+      "logical_key"
+    ],
+    "properties_missing_for_each_item": [],
+    "reconstruction_by_assumed_sequence_performed": false,
+    "synthetic_fixture_used_as_operational_authority": false,
+    "normalization_performed": "operational_result.items[].url renamed to document_url without changing the URL; the other four canonical fields were copied verbatim",
+    "minimum_future_action": "Separate owner authorization and implementation-SHA pinning are still required before any bounded live incremental proof; TASK 022 authorizes no live execution."
+  },
+  "task_018_reconciliation": {
+    "run_id": 33392616951,
+    "batch_id": "BATCH-CBBF70ADCA619C9C",
+    "execution_head_sha": "81db1a28c4532bd299d5b21cf38e295f4c49eeec",
+    "closure_status": "CLOSED_SUCCESS_AUTHORIZATION_CONSUMED",
+    "batch_status": "COMPLETE",
+    "discovered": 12,
+    "processed": 12,
+    "checkpoint_remaining": 0,
+    "item_local_failures": 0,
+    "authorization_consumed": true,
+    "task_018_rerun_authorized": false
+  },
+  "effects": {
+    "source_network": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "source_document_downloads": 0,
+    "processing": 0,
+    "publication": 0,
+    "workflow_dispatch": 0,
+    "schedule_changes": 0,
+    "recurrence_changes": 0,
+    "future_batch_execution": 0,
+    "release_promotion": 0,
+    "semantic_promotion_2025": 0
+  },
+  "release_boundary": {
+    "active": "0.7.0",
+    "candidate": "0.8.0",
+    "B1": "PENDING",
+    "B2": "PENDING",
+    "B3": "PENDING",
+    "gold_2025": "UNKNOWN/BLOCKED"
+  }
+}

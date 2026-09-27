@@ -1,0 +1,130 @@
+name: TASK 128 PNCP Limeira page1 single use
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [ synchronize ]
+
+permissions:
+  contents: read
+
+jobs:
+  task128-pncp-page1:
+    if: github.event.pull_request.head.ref == 'task-128-pncp-limeira-contracts-page1'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+
+      - name: Execute one exact PNCP GET and sanitized local scan
+        shell: bash
+        env:
+          TASK128_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from __future__ import annotations
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+          import urllib.error
+          import urllib.request
+
+          from robo_dados_publicos.research.task128_pncp_limeira_contracts_scan import (
+              Task128Stop,
+              load_task128_contract,
+              scan_pncp_payload,
+          )
+
+          ROOT = Path(".")
+          contract = load_task128_contract(ROOT / "config/task128_pncp_limeira_contracts_page1.v1.json")
+          url = contract["source"]["exact_url"]
+          max_bytes = contract["source"]["max_bytes"]
+
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, req, fp, code, msg, headers, newurl):
+                  return None
+
+          opener = urllib.request.build_opener(NoRedirect)
+          request = urllib.request.Request(
+              url,
+              method="GET",
+              headers={
+                  "Accept": "application/json",
+                  "User-Agent": "robo-dados-publicos-task128/0.8.0",
+              },
+          )
+          raw = b""
+          http_status = None
+          transport_error = None
+          scan = None
+          json_valid = False
+
+          try:
+              with opener.open(request, timeout=contract["transport"]["timeout_seconds"]) as response:
+                  http_status = int(response.status)
+                  raw = response.read(max_bytes + 1)
+                  if len(raw) > max_bytes:
+                      raise RuntimeError("TASK128_RESPONSE_TOO_LARGE")
+          except urllib.error.HTTPError as exc:
+              http_status = int(exc.code)
+              transport_error = f"HTTP_ERROR_{exc.code}"
+          except urllib.error.URLError as exc:
+              transport_error = f"URL_ERROR:{type(exc.reason).__name__}"
+          except Exception as exc:
+              transport_error = f"TRANSPORT_OR_SIZE_ERROR:{type(exc).__name__}:{str(exc)[:160]}"
+
+          source_sha256 = hashlib.sha256(raw).hexdigest() if raw else None
+          if raw and http_status == 200:
+              try:
+                  payload = json.loads(raw.decode("utf-8"))
+                  json_valid = True
+                  scan = scan_pncp_payload(payload, contract)
+              except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+                  scan = {
+                      "status": "STOP_INVALID_JSON_NO_DATA_CONCLUSION",
+                      "error_class": type(exc).__name__,
+                  }
+              except Task128Stop as exc:
+                  scan = {
+                      "status": "STOP_MALFORMED_RESPONSE_NO_DATA_CONCLUSION",
+                      "error_code": str(exc),
+                  }
+
+          if scan is None:
+              scan = {"status": "STOP_TRANSPORT_NO_DATA_CONCLUSION"}
+
+          result = {
+              "schema": "TASK128_PNCP_LIVE_RESULT_V1",
+              "execution_head_sha": os.environ["TASK128_HEAD_SHA"],
+              "request": {
+                  "exact_url": url,
+                  "get_attempts": 1,
+                  "redirects_followed": 0,
+                  "retry_performed": False,
+              },
+              "response": {
+                  "http_status": http_status,
+                  "bytes_received": len(raw),
+                  "source_sha256": source_sha256,
+                  "json_valid": json_valid,
+                  "transport_error": transport_error,
+              },
+              "scan": scan,
+              "raw_payload_persisted": False,
+              "automatic_financial_identity": False,
+              "automatic_transaction_identity": False,
+              "municipal_primary_verification_required": True,
+          }
+          canonical = json.dumps(result, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+          result["result_sha256"] = hashlib.sha256(canonical).hexdigest()
+
+          print("TASK128_RESULT_BEGIN")
+          print(json.dumps(result, ensure_ascii=False, sort_keys=True))
+          print("TASK128_RESULT_END")
+          PY

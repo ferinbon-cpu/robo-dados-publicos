@@ -1,0 +1,82 @@
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from robo_dados_publicos.sources.siope_official_olinda_api_application_fragment_tolerant_route_diagnostics import (  # noqa: E402
+    SiopeOfficialOlindaApiApplicationFragmentTolerantRouteDiagnosticsError,
+    dry_run,
+    load_json,
+    run_fragment_tolerant_route_diagnostics,
+)
+from robo_dados_publicos.sources.siope_official_olinda_api_application_surface_boolean_diagnostics_review import (  # noqa: E402
+    review_surface_boolean_diagnostics,
+)
+
+CONFIG = ROOT / "config" / "source_expansion.siope_official_olinda_api_application_fragment_tolerant_route_diagnostics.json"
+
+
+def _write(path: str | None, result: dict) -> None:
+    if not path:
+        return
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(json.dumps(result, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def _review_result(config: dict) -> dict:
+    review_config = load_json(ROOT / config["review_config_path"])
+    evidence = load_json(ROOT / review_config["evidence_path"])
+    return review_surface_boolean_diagnostics(review_config, evidence)
+
+
+def run_gate(*, dry: bool = False) -> dict:
+    config = load_json(CONFIG)
+    review_result = _review_result(config)
+    return dry_run(config, review_result) if dry else run_fragment_tolerant_route_diagnostics(config, review_result)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--output")
+    args = parser.parse_args()
+    try:
+        result = run_gate(dry=args.dry_run)
+        exit_code = 0
+    except SiopeOfficialOlindaApiApplicationFragmentTolerantRouteDiagnosticsError as exc:
+        result = {
+            "status": "STOP_M7_SIOPE_OFFICIAL_OLINDA_API_APPLICATION_FRAGMENT_TOLERANT_ROUTE_DIAGNOSTICS",
+            "error_code": str(exc),
+            **exc.diagnostics,
+            "dynamic_candidate_network_sent": False,
+            "fragment_value_returned": False,
+            "pilot_limeira_values_sent": False,
+            "resource_data_request_performed": False,
+            "resource_get_authorized": False,
+            "response_body_persisted": False,
+            "request_body_persisted": False,
+            "query_values_persisted": False,
+            "authentication_performed": False,
+            "captcha_bypass": False,
+            "artifact_downloaded": False,
+            "remote_writes": "NONE",
+            "collection_authorized": False,
+            "processing_authorized": False,
+            "recurrence_authorized": False,
+            "schedule_enabled": False,
+        }
+        exit_code = 1
+    _write(args.output, result)
+    print(json.dumps(result, indent=2, sort_keys=True, ensure_ascii=False))
+    return exit_code
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

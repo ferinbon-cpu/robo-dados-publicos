@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "schema": "TASK219Z_QUERY_DETAIL_EMPENHO_3286_V1",
+  "task": "TASK_219Z",
+  "issue": 742,
+  "parent_issue": 691,
+  "derived_from_task219y_head": "6b456b74833e8da796fd647eb58fcc75da218a54",
+  "canonical_task219y_merge_sha": "462cdb2a1e2241f7d77888f93684b2a864bdb5c7",
+  "authorization_sequence": "LEAP_3_OF_3_CURRENT_AUTHORIZATION",
+  "live_authorization_consumed": true,
+  "target": {
+    "AreaName": "Detalhe do Empenho",
+    "AreaOrigin": "2_92_guestuser_200_8_DSL0_VIS706",
+    "filter_pattern": "AREAFILTER_<CURRENT_SESSION_AreaId>",
+    "number_control": "Nro Empenho",
+    "year_label": "Exercício",
+    "year_option_label": "2026",
+    "commitment_number": "3286"
+  },
+  "submit_proof": {
+    "document_wide_exact_filter_argument_required": true,
+    "accepted_function": "submmitApply",
+    "unique_public_binding_required": true,
+    "binding_argument_template": "AREAFILTER_<CURRENT_SESSION_AreaId>"
+  },
+  "strong_identity": {
+    "sufficient_exact_literals_any": ["45/2026", "902.281/2025"],
+    "corroboration_only": ["10/2026", "37457979000131", "Med Doctor", "endoscopia", "amount", "date"]
+  },
+  "boundary": {
+    "browser_sessions": 1,
+    "initial_navigation": 1,
+    "top_level_doLink_invocations": 1,
+    "query_field_assignments_max": 2,
+    "target_filter_invocations_max": 1,
+    "same_record_drilldowns_max": 1,
+    "manual_fetch_xhr": 0,
+    "direct_endpoint_calls": 0,
+    "layerinfo_replay": 0,
+    "retries": 0
+  },
+  "persistence": {
+    "control_values": false,
+    "hidden_values": false,
+    "cookies_tokens": false,
+    "raw_page_source": false,
+    "raw_har": false,
+    "full_html": false,
+    "full_scripts": false,
+    "bounded_visible_result_only": true
+  },
+  "coverage_before": 34
+}

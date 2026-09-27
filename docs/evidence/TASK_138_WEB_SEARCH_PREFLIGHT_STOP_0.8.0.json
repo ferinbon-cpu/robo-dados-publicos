@@ -1,0 +1,17 @@
+{
+  "task": "TASK_138_PNCP_WEB_SEARCH_PREFLIGHT_ATTEMPT",
+  "mode": "T1_WEB_SEARCH_PREFLIGHT_BOUNDED",
+  "task138_merge_sha": "1e211b7f7a483e8eb057ab354c7652b9480cd538",
+  "result": "STOP_SEARCH_PREFLIGHT_EXACT_API_URL_NOT_RETURNED",
+  "search_invocations": 1,
+  "open_invocations": 0,
+  "search_domain": "pncp.gov.br",
+  "official_pncp_results_returned": true,
+  "exact_pinned_api_url_returned": false,
+  "pncp_api_content_observed": false,
+  "administrative_identifier_found": false,
+  "negative_conclusion_created": false,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "retry_performed": false
+}

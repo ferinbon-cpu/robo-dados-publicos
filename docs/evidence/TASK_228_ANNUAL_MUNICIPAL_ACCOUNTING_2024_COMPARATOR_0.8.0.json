@@ -1,0 +1,72 @@
+{
+  "schema": "TASK228_ANNUAL_MUNICIPAL_ACCOUNTING_2024_COMPARATOR_EVIDENCE_V1",
+  "task": "TASK_228",
+  "issue": 769,
+  "status": "CANDIDATE_2024_SOURCE_LAYER_AND_2024_2025_SEMANTIC_COMPARATOR_MATERIALIZED",
+  "primary_sources": ["DOC-016", "DOC-009", "DOC-005", "DOC-013"],
+  "source_verification": {
+    "DOC-016": "DIRECT_PRIMARY_PDF_RECHECKED",
+    "DOC-009": "DIRECT_PRIMARY_PDF_RECHECKED",
+    "DOC-005": "DIRECT_PRIMARY_PDF_RECHECKED",
+    "DOC-013": "DIRECT_PRIMARY_PDF_RECHECKED",
+    "manifest_mapping": "MD_01_3B_CONFIRMS_DOC_ID_TO_FILENAME"
+  },
+  "headline_2024_cents": {
+    "education_linked_budget_revenue": 49368786227,
+    "education_linked_budget_expense": 44614787066,
+    "total_budget_revenue_financial_statement": 120167035138,
+    "total_budget_expense_financial_statement": 146508669303,
+    "next_year_cash_balance": 111074598490,
+    "budget_revenue_subtotal_realized": 196534570650,
+    "budget_expense_total_with_refinancing_committed": 202108052547,
+    "budget_expense_total_with_refinancing_liquidated": 192628258358,
+    "budget_expense_total_with_refinancing_paid": 177885669567,
+    "dvp_patrimonial_result": -3072699187
+  },
+  "source_anomalies_preserved": [
+    {
+      "id": "BP_2024_DISPLAY_TOTAL_MISMATCH",
+      "asset_side_total_cents": 349513202659,
+      "passive_plus_net_equity_side_printed_total_cents": 354795573184,
+      "difference_cents": 5282370525,
+      "resolution": "NO_AUTOMATIC_RECONCILIATION"
+    },
+    {
+      "id": "DVP_VS_BP_RESULT_ROW_DIFFERENCE",
+      "dvp_result_cents": -3072699187,
+      "bp_result_row_cents": -2875573146,
+      "difference_cents": 197126041,
+      "resolution": "STATEMENT_SPECIFIC_VALUES_PRESERVED"
+    },
+    {
+      "id": "FINANCIAL_2024_INGRESS_OUTFLOW_PRINTED_TOTALS_DIFFER",
+      "ingress_total_cents": 356643119136,
+      "outflow_total_cents": 358176856881,
+      "resolution": "NO_FORCED_BALANCE"
+    }
+  ],
+  "comparison": {
+    "price_basis": "NOMINAL_NOT_DEFLATED",
+    "baseline": 2024,
+    "comparison": 2025,
+    "rows": 17,
+    "rule": "SAME_SEMANTIC_DOMAIN_METRIC_AND_STAGE_ONLY",
+    "percent_precision": "6_DECIMAL_PLACES_2024_BASE",
+    "representative_deltas": {
+      "education_linked_budget_revenue_pct": "7.422787",
+      "education_linked_budget_expense_pct": "-0.096681",
+      "next_year_cash_balance_pct": "11.331728",
+      "paid_expense_total_with_refinancing_pct": "-0.108139"
+    }
+  },
+  "non_claims": [
+    "NO_REAL_TERMS_CHANGE_WITHOUT_DEFLATOR",
+    "NO_AUTOMATIC_RECONCILIATION_OF_2024_BALANCE_DISPLAY",
+    "NO_FORCED_EQUALITY_BETWEEN_DVP_AND_BP_RESULT_ROWS",
+    "NO_EDUCACAO_TO_MDE_FUNDEB_EITI_RELABELLING",
+    "NO_CROSS_STATEMENT_ARITHMETIC_TO_INVENT_COMPARABLE_FACT",
+    "NO_DVP_2025_INFERENCE",
+    "NO_38_38_COVERAGE_CHANGE"
+  ],
+  "remote_effects": false
+}

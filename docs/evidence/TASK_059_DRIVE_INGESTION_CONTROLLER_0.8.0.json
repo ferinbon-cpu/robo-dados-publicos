@@ -1,0 +1,47 @@
+{
+  "task": "TASK_059_DRIVE_INGESTION_CONTROLLER",
+  "version": "0.8.0",
+  "base_sha": "e5c6658b1e05fc2d824e5d9cbcc116b0e9f40a5c",
+  "mode": "T0_OFFLINE_ROUTING_CONTROLLER",
+  "authorization": {
+    "owner_message": "Prossiga",
+    "scope": "IMPLEMENT_DRIVE_INGESTION_CONTROLLER_OFFLINE_NO_REAL_DRIVE_CONTENT_INGESTION",
+    "authorization_consumed": true,
+    "future_blanket_authorizations_accepted": false
+  },
+  "architecture": {
+    "position": "BEFORE_EXISTING_MANUAL_SUPERVISED_INGEST_AND_RECONCILIATION",
+    "routes": ["AUTO_INGEST", "REVIEW", "QUARANTINE"],
+    "auto_ingest_semantics": "ROUTING_ELIGIBILITY_ONLY_NOT_CONTENT_READ_OR_WRITE",
+    "dedupe_metadata_key": "file_id",
+    "dedupe_content_key_after_authorized_read": "sha256",
+    "reuse_existing_manual_integrity_rules": true,
+    "bronze_create_only_when_future_execution_is_authorized": true,
+    "unknown_schema_stops_before_silver": true
+  },
+  "known_families": ["PPA", "LDO", "LOA", "SIOPE", "FUNDEB", "RREO", "RGF", "MDE", "BUDGET_EXECUTION", "SAEB", "SARESP", "CENSO_ESCOLAR", "IDEB"],
+  "hard_boundaries": {
+    "drive_metadata_read": 0,
+    "drive_content_read": 0,
+    "drive_write": 0,
+    "public_network": 0,
+    "ocr": 0,
+    "bronze_write": 0,
+    "silver_write": 0,
+    "gold_write": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "task058_status": "DEFERRED_NOT_EXECUTED",
+  "f01_status": "SILVER_SCOPED_PARTIAL_VALIDATED",
+  "eiti_financial_reporting_identity": "PARTIALLY_PROVEN_DEDICATED_FUNDEB_FOMENTO_ETI_BUCKET",
+  "eiti_transaction_level_financial_identity": "EVIDENCIA_INSUFICIENTE",
+  "next_gate": {
+    "name": "TASK_060_DRIVE_INGESTION_CONTROLLER_METADATA_PILOT",
+    "purpose": "Run the controller against a bounded authorized Drive folder using metadata-only inventory and produce routing counts without content reads.",
+    "requires_explicit_folder_scope": true,
+    "content_read_allowed": false,
+    "drive_write_allowed": false
+  },
+  "result": "PASS_TASK059_DRIVE_INGESTION_CONTROLLER_OFFLINE_READY_FOR_METADATA_PILOT"
+}

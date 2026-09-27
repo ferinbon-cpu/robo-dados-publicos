@@ -1,0 +1,19 @@
+{
+  "task": "TASK_137_PNCP_WEB_EXACT_URL_DISCOVERY_DESIGN",
+  "issue": 476,
+  "mode": "T0_OFFLINE_WEB_DISCOVERY_TRANSPORT_DESIGN_ONLY",
+  "base_sha": "6c3f0e6591366b9696d214ad240d06458995f945",
+  "authorization_unit_index": 2,
+  "owner_authorization_units_granted": 10,
+  "future_web_open_invocations_max": 1,
+  "future_search_queries": 0,
+  "candidate_discovery_allowed": true,
+  "negative_exhaustive_conclusion_allowed": false,
+  "pncp_no_match_allowed": false,
+  "source_role": "SECONDARY_AGGREGATOR",
+  "primary_municipal_verification_required": true,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false,
+  "remote_effects": 0,
+  "result": "PASS_TASK137_WEB_EXACT_URL_DISCOVERY_DESIGNED_NOT_EXECUTED"
+}

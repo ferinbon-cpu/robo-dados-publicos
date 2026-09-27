@@ -1,0 +1,53 @@
+{
+  "version":1,
+  "schema":"TASK219I_TDA_PASSIVE_BROWSER_INSPECTION_V1",
+  "task":"TASK_219I",
+  "issue":707,
+  "parent_issue":691,
+  "base_main_sha":"36927b31ce455c1479b380edc90ef429c51b55db",
+  "source":{
+    "source_id":"LIMEIRA_TDA_PORTAL",
+    "authority":"Prefeitura Municipal de Limeira",
+    "start_url":"https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+    "primary_host":"transparencia.limeira.sp.gov.br"
+  },
+  "upstream_seed":{
+    "commitment":"3286-2026",
+    "supplier_cnpj":"37457979000131",
+    "supplier_name":"Med Doctor Acessórios Ltda",
+    "querying_seed_in_this_task":false
+  },
+  "browser_policy":{
+    "sessions":1,
+    "initial_navigation_count":1,
+    "wait_seconds_after_load":8,
+    "retry":0,
+    "clicks":0,
+    "typing":0,
+    "form_submissions":0,
+    "manual_fetch_xhr":0,
+    "cookie_injection":0,
+    "storage_injection":0,
+    "authentication":false,
+    "captcha_bypass":false,
+    "endpoint_guessing":false,
+    "path_bruteforce":false,
+    "response_body_capture":false,
+    "raw_har_persistence":false,
+    "query_values_persisted":false
+  },
+  "candidate_route_policy":{
+    "allowed_methods":["GET"],
+    "resource_types":["XHR","Fetch","Document"],
+    "json_mime_is_signal":true,
+    "path_markers":["api","json","data","dados","consulta","config","service","servico"],
+    "static_resources_are_candidate":false,
+    "candidate_route_is_direct_query_authorization":false,
+    "candidate_route_proves_accounting_identity":false
+  },
+  "scientific_state":{
+    "coverage_before":34,
+    "canonical_questions_total":38,
+    "blocked":["CTRL_Q2","PROC_Q1","PROC_Q2","PROC_Q3"]
+  }
+}

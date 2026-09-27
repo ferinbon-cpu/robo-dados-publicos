@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "schema": "TASK193_NETWORK_SCHOOL_COUNT_TURMA_RECOVERY_V1",
+  "task": "TASK_193_NETWORK_SCHOOL_COUNT_TURMA_RECOVERY",
+  "mode": "T0_OFFLINE_EXISTING_CUSTODY_FAIL_CLOSED",
+  "base_main_sha": "c7eee31c2158d593341660b221a65954d857b36b",
+  "jurisdiction": "Limeira/SP",
+  "entity": {
+    "entity_id": "3526902",
+    "name": "LIMEIRA"
+  },
+  "network_scope": {
+    "period": "2025",
+    "scope_level": "NETWORK",
+    "scope_id": "3526902:MUNICIPAL:CURRENT_69_UNITS",
+    "enrollment_already_materialized": 22788
+  },
+  "school_count_source": {
+    "metric_id": "SCHOOL_COUNT",
+    "value": 69,
+    "unit": "COUNT",
+    "source_family": "CENSO_ESCOLAR",
+    "source_title": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08.xlsx",
+    "source_sheet": "81 Censo 69 2018-25",
+    "xlsx_sha256": "0516868e06685aebe8254b11ca6488ef26b03dea61f927ff637840cf2a21e865",
+    "active_municipal_establishments_2025": 69,
+    "early_years_units": 40,
+    "early_childhood_only_units": 29,
+    "reconciliation": "69_EQUALS_40_PLUS_29",
+    "quality_status": "VALIDATED"
+  },
+  "class_count_recovery": {
+    "metric_id": "CLASS_COUNT",
+    "canonical_materialization_authorized": false,
+    "official_source_file": "Tabela_Turma_2025_v2.csv",
+    "official_md5": "438A3A3FC37F28E7E50E57D7CD8B9DAC",
+    "raw_transport_status": "BLOCKED_RAW_NOT_IN_ACTIVE_CUSTODY",
+    "direct_validated_subgroup": {
+      "scope": "29_EARLY_CHILDHOOD_ONLY_UNITS",
+      "units": 29,
+      "units_found_in_tabela_turma": 29,
+      "class_count": 294,
+      "source_title": "AUDITORIA_29_UNIDADES_FORA_40_V06_V01.xlsx",
+      "evidence_semantic": "DIRECT_COUNT_FROM_TABELA_TURMA_2025_V2"
+    },
+    "remaining_required_subgroup": {
+      "scope": "40_UNITS_WITH_EARLY_YEARS",
+      "units": 40,
+      "class_count": null,
+      "status": "PRIMARY_RAW_RECOVERY_REQUIRED"
+    },
+    "secondary_web_mirror_status": "DIAGNOSTIC_ONLY_NOT_CANONICAL",
+    "network_class_count": null,
+    "proxy_forbidden": true
+  },
+  "expected_semantic_transition": {
+    "network_q1_status_before": "MATERIALIZED_PARTIAL",
+    "network_q1_status_after": "MATERIALIZED_PARTIAL",
+    "missing_before": [
+      "CLASS_COUNT",
+      "SCHOOL_COUNT"
+    ],
+    "missing_after": [
+      "CLASS_COUNT"
+    ],
+    "school_indicator_rows_before": 1018,
+    "school_indicator_rows_after": 1019,
+    "fiscal_rows_must_remain": 61
+  },
+  "next_action": "RECOVER_OFFICIAL_TABELA_TURMA_2025_V2_BYTES_VERIFY_MD5_438A3A3FC37F28E7E50E57D7CD8B9DAC_FILTER_LIMEIRA_MUNICIPAL_ACTIVE_69_COUNT_UNIQUE_TURMAS_RECONCILE_EI29_294_THEN_MATERIALIZE_CLASS_COUNT",
+  "guards": [
+    "SCHOOL_COUNT_ACTIVE_ESTABLISHMENTS_NE_BUILDINGS",
+    "SCHOOL_COUNT_69_EQUALS_40_PLUS_29",
+    "CLASS_COUNT_NE_ATU_DERIVATION",
+    "CLASS_COUNT_NE_ENROLLMENT_DIVIDED_BY_ATU",
+    "SECONDARY_WEB_MIRROR_NE_PRIMARY_RAW_CUSTODY",
+    "EI29_CLASS_COUNT_294_NE_FULL_NETWORK_CLASS_COUNT",
+    "OFFICIAL_TABELA_TURMA_MD5_REQUIRED_BEFORE_NETWORK_CLASS_COUNT",
+    "MISSING_CLASS_COUNT_NE_ZERO",
+    "TASK193_MUST_NOT_CHANGE_FISCAL_SERIES"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

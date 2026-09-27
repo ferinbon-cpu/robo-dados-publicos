@@ -1,0 +1,47 @@
+{
+  "task": "TASK_102",
+  "version": "0.8.0",
+  "mode": "T0_OFFLINE_GENERIC_RESEARCH_QUERY_SPEC",
+  "result": "PENDING_REVIEW",
+  "issue": 400,
+  "branch": "task-102-generic-research-query-spec",
+  "objective": "Generalize deterministic research answering through reviewed dataset registry and bounded versioned query specs without free-form generation or source acquisition.",
+  "entrypoint": "scripts/render_research_answer_offline.py",
+  "default_spec": "config/research_queries/eiti_limeira_policy_status.v1.json",
+  "registry": "config/research_dataset_registry.v1.json",
+  "guards": [
+    "QUERY_SPEC_FILENAME_ONLY",
+    "NO_ARBITRARY_SPEC_PATH",
+    "NO_SOURCE_PATH_IN_QUERY_SPEC",
+    "NO_SOURCE_URL_IN_QUERY_SPEC",
+    "NO_FREE_FORM_PROMPT_OR_QUESTION",
+    "REGISTERED_SOURCE_PATHS_BOUNDED_TO_CONFIG",
+    "REGISTERED_INPUT_BYTES_SHA256_PINNED",
+    "DATASET_SUBJECT_IDENTITY_MATCH_REQUIRED",
+    "TASK099_QUERY_ENGINE_REUSED",
+    "TASK100_SHA_VERIFIED_RENDERER_REUSED"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "llm": false,
+    "repository_write_at_runtime": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  },
+  "blocked": [
+    "FREE_FORM_ACADEMIC_INTERPRETATION",
+    "FINANCIAL_IDENTITY_PROMOTION",
+    "CAUSAL_EFFECT_INFERENCE",
+    "LIVE_SOURCE_ACQUISITION",
+    "PPA_PRIMARY_EVIDENCE_PROMOTION_WITHOUT_SOURCE"
+  ]
+}

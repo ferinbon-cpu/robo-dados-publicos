@@ -1,0 +1,69 @@
+{
+  "task": "TASK_126_PRIMARY_PROCUREMENT_SURFACE_SELECTION",
+  "mode": "T0_PUBLIC_WEB_DISCOVERY_SELECTION_ONLY",
+  "base_sha": "ebbf09dd99f08d9a710295881aefb29a0fafa018",
+  "issue": 451,
+  "current_identity_status": "UNKNOWN",
+  "web_discovery": [
+    {
+      "source": "PREFEITURA_DE_LIMEIRA",
+      "type": "MUNICIPAL_PRIMARY_PUBLIC_INFORMATION",
+      "url": "https://limeira.sp.gov.br/imprensa/noticias/geral/programa-de-educacao-integral-esta-com-inscricoes-abertas-para-oficineiros",
+      "observed": [
+        "PROGRAMA_EDUCACAO_INTEGRAL",
+        "OFICINEIROS_PJ_MEI",
+        "R30_HOUR",
+        "MONTHLY_PAYMENT"
+      ],
+      "accounting_bridge": false
+    },
+    {
+      "source": "JORNAL_OFICIAL_LIMEIRA_EDICAO_7126",
+      "type": "MUNICIPAL_PRIMARY_NORMATIVE_PROCUREMENT",
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_27112025163143.pdf",
+      "observed": [
+        "EDITAL_ESCOLA_EM_TEMPO_INTEGRAL_2026",
+        "PROGRAMA_EDUCACAO_INTEGRAL",
+        "LEI_14133_2021",
+        "PME_META_6"
+      ],
+      "accounting_bridge": "NOT_YET_READ"
+    },
+    {
+      "source": "TCESP_HTML",
+      "type": "SECONDARY_AGGREGATOR",
+      "url_pattern": "https://transparencia.tce.sp.gov.br/municipio/limeira/2026/despesas/detalhe/<id>",
+      "observed_fields": [
+        "EMPENHO",
+        "EVENT",
+        "SUPPLIER",
+        "VALUE",
+        "PROGRAM",
+        "ACTION",
+        "FUNDING_SOURCE",
+        "APPLICATION_CODE",
+        "SUBITEM",
+        "HISTORY"
+      ],
+      "accounting_bridge": "POTENTIAL_CANDIDATE_ONLY"
+    }
+  ],
+  "selected_next": "JOM_7126_2025_EITI_CREDENCIAMENTO",
+  "selection_reason": "PRIMARY_MUNICIPAL_POLICY_PROCUREMENT_MARKER_BEFORE_SECONDARY_EXECUTION_JOIN",
+  "next_terms": [
+    "DOTACAO",
+    "FICHA",
+    "PROGRAMA",
+    "ACAO",
+    "SUBACAO",
+    "UNIDADE ORCAMENTARIA",
+    "FONTE",
+    "DESTINACAO",
+    "PROCESSO ADMINISTRATIVO",
+    "EMPENHO"
+  ],
+  "source_reads_this_task": 0,
+  "automatic_promotion": false,
+  "next": "TASK_127_ONE_SHOT_JOM_7126_PROCUREMENT_ACCOUNTING_FIELD_SCAN",
+  "result": "PASS_TASK126_PRIMARY_PROCUREMENT_SURFACE_SELECTED_NO_SOURCE_READ"
+}

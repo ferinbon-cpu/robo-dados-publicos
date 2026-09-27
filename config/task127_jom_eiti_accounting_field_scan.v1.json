@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "schema": "TASK127_JOM_EITI_ACCOUNTING_FIELD_SCAN_V1",
+  "mode": "T1_SINGLE_USE_EXACT_PDF_ACCOUNTING_SCAN",
+  "base_sha": "b2e50ce71b41d6f00a4bb470af89b7dfae2e8632",
+  "issue": 453,
+  "source": {
+    "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_27112025163143.pdf",
+    "source_role": "MUNICIPAL_PRIMARY_NORMATIVE_PROCUREMENT",
+    "max_bytes": 20971520,
+    "expected_markers": [
+      "EDITAL DE CREDENCIAMENTO",
+      "ESCOLA EM TEMPO INTEGRAL 2026",
+      "PROGRAMA DE EDUCACAO INTEGRAL"
+    ]
+  },
+  "transport": {
+    "get_requests_max": 1,
+    "redirects_max": 0,
+    "retry": 0,
+    "exact_url_only": true
+  },
+  "processing": {
+    "pdf_magic_required": true,
+    "sha256": true,
+    "pypdf_only": true,
+    "ocr": false,
+    "normalized_terms": [
+      "DOTACAO",
+      "FICHA",
+      "PROGRAMA",
+      "ACAO",
+      "SUBACAO",
+      "UNIDADE ORCAMENTARIA",
+      "FONTE",
+      "DESTINACAO",
+      "PROCESSO ADMINISTRATIVO",
+      "EMPENHO"
+    ],
+    "max_excerpt_chars_per_hit": 400,
+    "max_hits_per_term": 20
+  },
+  "semantics": {
+    "candidate_bridge_requires": [
+      "EXPLICIT_POLICY_MARKER",
+      "STABLE_ACCOUNTING_OR_BUDGET_IDENTIFIER"
+    ],
+    "candidate_status": "CANDIDATE",
+    "execution_event_still_required_for_transaction_identity": true,
+    "r30_hour_is_execution_event": false,
+    "monthly_payment_wording_is_execution_event": false,
+    "contract_template_is_transaction_identity": false,
+    "pme_link_is_accounting_identity": false,
+    "program_2001_similarity_is_identity": false,
+    "amount_equality_is_identity": false,
+    "automatic_promotion": false
+  },
+  "persistence": {
+    "raw_pdf_git": false,
+    "raw_pdf_drive": false,
+    "bronze": false,
+    "silver": false,
+    "gold": false,
+    "rag": false,
+    "state_registry": false,
+    "queue": false,
+    "serving": false,
+    "publication": false
+  },
+  "future_retry_authorized": false
+}

@@ -1,0 +1,10 @@
+{
+  "task":"TASK_064_QUARANTINE_LIFECYCLE",
+  "base_main_sha":"4a78b8154b6a9a340f8a9e6f2ca50c6285b22ade",
+  "authorization":{"token_index":4,"scope":"OFFLINE_QUARANTINE_LIFECYCLE"},
+  "purpose":"Give quarantined records a deterministic metadata-first lifecycle without turning quarantine into content authorization.",
+  "content_read_from_quarantine_authorized":false,
+  "release_requires":["CAUSE_RESOLVED","RULE_VERSION","PROVENANCE_RECORDED","AUTHORIZED_SCOPE_CONFIRMED"],
+  "hard_boundaries":{"source_content_reads":0,"public_network_requests":0,"drive_writes":0,"layer_writes":0,"publications":0},
+  "result":"PASS_TASK064_QUARANTINE_LIFECYCLE_OFFLINE_READY"
+}

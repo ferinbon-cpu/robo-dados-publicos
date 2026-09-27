@@ -1,0 +1,62 @@
+{
+  "task": "TASK_026_F01_STAGING_RECONCILIATION",
+  "version": "0.8.0",
+  "base_sha": "b80230782d2743c5e04527421016c92013a7f803",
+  "mode": "T0_OFFLINE_RECONCILIATION",
+  "source_task": "TASK_025_MANUAL_SUPERVISED_INGEST_F01",
+  "batch": "F01_PPA_LDO_LOA_2026",
+  "result": "PASS_F01_STAGING_RECONCILIATION_DESIGN_OFFLINE",
+  "reconciled_source_facts": {
+    "PPA": {"law": "7.213/2025", "sha256": "3e5deb53448c2e5eea56217a4e5d7f20f7fc3859eff7fcb93a7de7eb17011c1a", "pages": 105},
+    "LDO": {"law": "7.141/2025", "sha256": "6f28017bb61fe6dbd7db44e2306bd1a48f813d8d40411d87c130fba78fca2406", "pages": 37},
+    "LOA": {"law": "7.223/2025", "sha256": "bc4c8bf4b2b1e8f59e880318c37ec7f7fbd4357a85a8b46c97750444dbf01d4b", "pages": 466}
+  },
+  "derived_bundle": {
+    "output_count": 6,
+    "hash_closure_required": true,
+    "qa_pass_count": 10,
+    "qa_fail_count": 0,
+    "qa_result": "PASS_STAGING_ONLY",
+    "promotion_decision": "DO_NOT_PROMOTE_LOA_FULL_PARSE_INCOMPLETE"
+  },
+  "semantic_guards": {
+    "ppa_targets": [52, 53, 55, 57, 59, 59],
+    "ppa_review_required_row_promoted": false,
+    "ppa_selected_actions_eiti_specific": false,
+    "ldo_required_markers_all_present": true,
+    "loa_current_text_layer": "ABSENT",
+    "loa_full_parse": "BLOCKED",
+    "loa_prior_bridge_is_derived_only": true,
+    "loa_prior_bridge_current_raw_reparse": "NOT_PERFORMED",
+    "program_bridge_is_financial_identity": false,
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE"
+  },
+  "effects": {
+    "source_network": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "bronze_writes": 0,
+    "silver_writes": 0,
+    "gold_writes": 0,
+    "serving_writes": 0,
+    "site_writes": 0,
+    "publication": 0,
+    "schedule": false,
+    "recurrence": false
+  },
+  "authorization": {
+    "offline_reconciliation": true,
+    "source_recollection": false,
+    "ocr_execution": false,
+    "silver_promotion": false,
+    "gold_promotion": false,
+    "serving_promotion": false,
+    "publication": false
+  },
+  "release_boundary": {
+    "0.7.0": "ACTIVE",
+    "0.8.0": "CANDIDATE",
+    "unchanged": true
+  },
+  "next_gate": "RESOLVE_LOA_REPRODUCIBLE_TEXT_EXTRACTION_BEFORE_ANY_SILVER_PROMOTION"
+}

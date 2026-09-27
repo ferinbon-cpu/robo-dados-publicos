@@ -1,0 +1,72 @@
+{
+  "schema": "SIOPE_2025_METADATA_HTTP_401_OFFLINE_ASSESSMENT_V1",
+  "task": "TASK_009C_R",
+  "tier": "T0_OFFLINE",
+  "starting_main_sha": "0e70495e5ae8ccdf45aff7e2c76fd302d1294b0c",
+  "network_authorized": false,
+  "authorization_state": "CONSUMED_AFTER_ONE_SOURCE_GET",
+  "pinned_evidence": "docs/evidence/TASK_009C_SIOPE_2025_RESOLVED_PATH_PROBE_RUN_1_HTTP_401_0.8.0.json",
+  "route_assessment": [
+    {
+      "route_kind": "OFFICIAL_FNDE_DOWNLOADS_PAGE",
+      "route": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/downloads",
+      "basis": "docs/tasks/TASK_007_SIOPE_2025_OFFICIAL_DOCUMENTARY_PROOF.md",
+      "classification": "PUBLIC_ROUTE_CANDIDATE",
+      "package_access_status": "UNPROVEN_CANDIDATE",
+      "note": "Official public landing page already pinned locally; it does not prove a currently public binary delivery route."
+    },
+    {
+      "route_kind": "OBSERVED_SHAREPOINT_SHARE_URL",
+      "route": "https://fnde.sharepoint.com/:u:/s/SIOPE/EeP0ArdsxWJLuWyg3LQHt2IBKEWEhLDvDk2_7k1vbAx0tQ?download=1&e=UiD081",
+      "basis": "docs/evidence/TASK_009B_SIOPE_2025_METADATA_ROUTE_PROBE_RUN_2_REDIRECT_0.8.0.json",
+      "classification": "PUBLIC_ROUTE_CANDIDATE",
+      "package_access_status": "UNPROVEN_CANDIDATE",
+      "note": "The already observed route redirected; its consumed observation does not prove public ZIP delivery."
+    },
+    {
+      "route_kind": "OBSERVED_RELATIVE_REDIRECT",
+      "route": "/sites/SIOPE/Documentos%20Compartilhados/Metadados_Mun_2025.zip",
+      "basis": "docs/evidence/TASK_009B_SIOPE_2025_METADATA_ROUTE_PROBE_RUN_2_REDIRECT_0.8.0.json",
+      "classification": "UNKNOWN",
+      "package_access_status": "UNPROVEN_CANDIDATE",
+      "note": "Relative reference only; it is not an independently proven public route."
+    },
+    {
+      "route_kind": "RESOLVED_DIRECT_SHAREPOINT_PATH",
+      "route": "https://fnde.sharepoint.com/sites/SIOPE/Documentos%20Compartilhados/Metadados_Mun_2025.zip",
+      "basis": "docs/evidence/TASK_009C_SIOPE_2025_RESOLVED_PATH_PROBE_RUN_1_HTTP_401_0.8.0.json",
+      "classification": "REQUIRES_AUTHENTICATION",
+      "package_access_status": "HTTP_401_OBSERVED",
+      "note": "401 characterizes only the observed request and authorizes no login, credentials, cookies, bypass or exploration."
+    }
+  ],
+  "next_public_package_route": "UNKNOWN",
+  "missing_official_evidence": "A locally pinned official FNDE href or official documentation identifying a distinct unauthenticated public delivery route for the same 2025 municipal metadata package.",
+  "task_009d": {
+    "decision": "KEEP_BLOCKED",
+    "authorized": false,
+    "execution_tier_if_later_authorized": "T1_REMOTE_READONLY",
+    "network_requests_authorized_now": 0,
+    "prerequisite": "New official route evidence plus separate explicit human authorization and a separately reviewed bounded contract.",
+    "forbidden_inference": [
+      "APPENDING_DOWNLOAD_QUERY_PARAMETER",
+      "ASSUMING_SHAREPOINT_DOWNLOAD_ASPX_IS_PUBLIC",
+      "DERIVING_OR_INVENTING_AN_UNOBSERVED_URL"
+    ]
+  },
+  "effects": {
+    "source_get_count": 0,
+    "drive_read_count": 0,
+    "drive_write_count": 0,
+    "persistence": false,
+    "publication": false
+  },
+  "semantic_guards": {
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_metrics_status": "UNKNOWN",
+    "closed_annual_series_first_year": 2016,
+    "closed_annual_series_last_year": 2024,
+    "include_2026_authorized": false
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "schema": "SIOPE_2025_REGIME_PROMOTION_ASSESSMENT_V1",
+  "task": "TASK_005",
+  "tier": "T0_OFFLINE",
+  "software_version": "0.8.0",
+  "source_get_count": 0,
+  "drive_read_count": 0,
+  "drive_write_count": 0,
+  "persistence": false,
+  "publication": false,
+  "new_authorization_created": false,
+  "evidence_refs": [
+    "docs/evidence/TASK_004C_SIOPE_2025_SECOND_LIVE_SUCCESS_NORMALIZED_0.8.0.json",
+    "docs/evidence/TASK_004C_SIOPE_2025_SECOND_LIVE_SUCCESS_0.8.0.json",
+    "config/siope_historical_regimes.v1.json",
+    "config/siope_historical_evidence_matrix.v1.json"
+  ],
+  "input_live_evidence": {
+    "run_id": 33204578436,
+    "job_id": 98962254951,
+    "source_get_count": 7,
+    "observed_periods": [1, 2, 3, 4, 5, 6],
+    "p6_schema_exact": true,
+    "observed_field_count": 52,
+    "observed_fields_sha256": "cd601ba7ee604df2e157028a2a18eefa226659fcbe0f2288937d3342d00e12a6",
+    "all_required_gold_inputs_present": true,
+    "required_gold_input_count": 11,
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "any_metric_proven": false,
+    "promote_2025_to_proven": false
+  },
+  "classification_matrix": {
+    "resource_family_2025": {
+      "status": "PROVEN",
+      "value": "Dados_Gerais_Siope",
+      "basis": "P1-P6 exact-identity responses from the same pinned official Olinda resource"
+    },
+    "periods_1_to_6_available": {
+      "status": "PROVEN",
+      "value": [1, 2, 3, 4, 5, 6],
+      "basis": "each period returned HTTP 200/application-json/cardinality 1 with exact target identity"
+    },
+    "p6_availability": {
+      "status": "PROVEN",
+      "value": 6,
+      "basis": "P6 exact identity was observed before the conditional schema request"
+    },
+    "p6_annual_role": {
+      "status": "OBSERVED_SUPPORTED_CANDIDATE",
+      "value": "P6_STRUCTURAL_CANDIDATE_CLOSURE_UNKNOWN",
+      "basis": "P6 exists and matches the 2017-2024 structural boundary, but the 2025 observation did not prove annual closure"
+    },
+    "p6_schema": {
+      "status": "PROVEN",
+      "value": "DADOS_GERAIS_SIOPE_52_FIELDS",
+      "scope": "2025_P6_OBSERVATION_ONLY",
+      "observed_field_count": 52,
+      "observed_fields_sha256": "cd601ba7ee604df2e157028a2a18eefa226659fcbe0f2288937d3342d00e12a6"
+    },
+    "gold_input_fields": {
+      "status": "PROVEN_PRESENT",
+      "scope": "2025_P6_OBSERVATION_ONLY",
+      "count": 11,
+      "fields": [
+        "VAL_RECE_REAL",
+        "VAL_RECE_PREV_ATUA",
+        "VAL_DESP_PAGA",
+        "VAL_DESP_DOTA_ATUA",
+        "VL_DESP_PAGA_EDU",
+        "VL_DESP_DOTA_ATUA_EDU",
+        "VL_DESP_EMPE_EDU",
+        "VAL_DESP_EMPE",
+        "VL_DESP_LIQU_EDU",
+        "VAL_DESP_LIQU",
+        "NUM_POPU"
+      ]
+    },
+    "annual_closure": {
+      "status": "UNKNOWN",
+      "required_next_evidence": [
+        "an explicit source/state indicator or independently pinned official evidence that P6 is the closed/final 2025 annual submission",
+        "a gate that distinguishes available P6 from closed/final P6"
+      ]
+    },
+    "semantic_comparability_2017_2024": {
+      "status": "UNKNOWN",
+      "required_next_evidence": [
+        "field-definition/meaning reconciliation for all 11 inputs",
+        "deterministic comparison of the 8 metric formulas and denominator/numerator semantics against the proven 2017-2024 contract",
+        "explicit handling of any 2025 field-definition or reporting-rule change"
+      ]
+    },
+    "closed_series_eligibility": {
+      "status": "UNKNOWN",
+      "value": false,
+      "basis": "closed annual series remains 2016-2024 until annual closure and semantic comparability are separately proven"
+    },
+    "gold_metrics": {
+      "status": "UNKNOWN",
+      "metric_ids": [
+        "receita_realizada_sobre_previsao_atualizada_pct",
+        "despesa_paga_sobre_dotacao_atualizada_pct",
+        "despesa_educacao_paga_sobre_dotacao_atualizada_educacao_pct",
+        "participacao_educacao_na_despesa_empenhada_pct",
+        "participacao_educacao_na_despesa_liquidada_pct",
+        "participacao_educacao_na_despesa_paga_pct",
+        "despesa_total_paga_por_habitante",
+        "despesa_educacao_paga_por_habitante"
+      ],
+      "computed": false
+    },
+    "compliance_mde_fundeb": {
+      "status": "NOT_PROVEN_OUT_OF_SCOPE"
+    },
+    "causality": {
+      "status": "NOT_PROVEN_OUT_OF_SCOPE"
+    },
+    "year_2026": {
+      "status": "UNPROVEN_CURRENT_YEAR",
+      "period": {"value": null, "status": "UNKNOWN"},
+      "in_scope": false
+    }
+  },
+  "approved_narrow_promotion": {
+    "year_2025_status": "PROVEN_STRUCTURAL_RECENT",
+    "period": {"value": 6, "status": "PROVEN_AVAILABLE_CLOSURE_UNKNOWN"},
+    "resource_family": "Dados_Gerais_Siope",
+    "schema": {"status": "PROVEN_2025_P6_SCHEMA", "name": "DADOS_GERAIS_SIOPE_52_FIELDS"},
+    "required_gold_inputs_status": "PROVEN_PRESENT_2025_P6",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "closed_series_eligible": false,
+    "gold_metrics_status": "UNKNOWN"
+  },
+  "guards": {
+    "future_batch_execution_authorized": false,
+    "live_discovery_authorized": false,
+    "retry_authorized": false,
+    "pagination_authorized": false,
+    "redirect_authorized": false,
+    "year_2026_promotion_authorized": false,
+    "gold_computation_authorized": false,
+    "compliance_authorized": false,
+    "causal_inference_authorized": false
+  },
+  "next_gate": "SEPARATE_OFFLINE_CLOSURE_AND_SEMANTIC_COMPARABILITY_PROOF_REQUIRED_BEFORE_CLOSED_SERIES_OR_GOLD_PROMOTION"
+}

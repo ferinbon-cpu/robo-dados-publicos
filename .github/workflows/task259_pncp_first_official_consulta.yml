@@ -1,0 +1,37 @@
+name: TASK 259 PNCP first official consulta route
+on:
+ push:
+  branches: [task-259-pncp-first-official-consulta-runtime]
+  paths: ['runtime_triggers/task259_pncp_first_official_consulta.run']
+permissions: {contents: read}
+jobs:
+ resolve:
+  runs-on: ubuntu-24.04
+  timeout-minutes: 10
+  steps:
+   - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+     with: {persist-credentials: false, fetch-depth: 0}
+   - name: Validate token-4 delta
+     run: |
+      set -euo pipefail; test "${GITHUB_RUN_ATTEMPT}" = "1"
+      IMPL="$(python -c 'import json;print(json.load(open("runtime/task259_owner_authorization.json"))["implementation_sha"])')"
+      git cat-file -e "$IMPL^{commit}";git merge-base --is-ancestor "$IMPL" HEAD
+      test -z "$(git diff --name-only "$IMPL"..HEAD | grep -Ev '^(runtime/task259_owner_authorization.json|runtime_triggers/task259_pncp_first_official_consulta.run)$' || true)"
+      echo "TASK259_IMPLEMENTATION_SHA=$IMPL" >> "$GITHUB_ENV"
+   - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+     with: {python-version: '3.12'}
+   - name: Execute token-4 first official route resolution
+     run: |
+      set -euo pipefail;mkdir -p runtime_out
+      python - <<'PY'
+      import hashlib,json,os
+      from pathlib import Path
+      from robo_dados_publicos.research.task259_first_official_consulta_route import *
+      c=load_config();e=load_evidence();a=json.loads(Path("runtime/task259_owner_authorization.json").read_text())
+      r=execute(c,e,transport=Curl(),authorization=a,expected_implementation_sha=os.environ["TASK259_IMPLEMENTATION_SHA"])
+      z=json.dumps(r,sort_keys=True,separators=(",",":")).encode();r["result_sha256"]=hashlib.sha256(z).hexdigest()
+      Path("runtime_out/task259_sanitized_result.json").write_text(json.dumps(r,indent=2,ensure_ascii=False,sort_keys=True)+"\n")
+      print("TASK259_STATUS="+str(r.get("status")));print("TASK259_OUTCOME="+str(r.get("outcome")));print("TASK259_HTTP="+str(r.get("http_code")));print("TASK259_SELECTED="+json.dumps(r.get("selected"),ensure_ascii=False))
+      PY
+   - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+     with: {name: task-259-pncp-first-official-consulta-sanitized, path: runtime_out/task259_sanitized_result.json, retention-days: 1, if-no-files-found: error}

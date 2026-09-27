@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "schema": "IBGE_LIMEIRA_TERRITORIAL_FOUNDATION_V1",
+  "task": "TASK_199A_IBGE_TERRITORIAL_FOUNDATION",
+  "issue": 626,
+  "base_main_sha": "21dc0f1fad9f891ed2218105459e12dd65d2ed92",
+  "scope": {
+    "municipality": "Limeira",
+    "uf": "SP",
+    "ibge_code_7": "3526902"
+  },
+  "drive_registry": {
+    "folder_id": "1z_etKHPE1fZ3hZI4EGzXtAWH_kwyW_-B",
+    "file_id": "10Jgd0OPFYNQniaYzB4QvCee7zUvOZisM",
+    "filename": "TASK_199A_IBGE_TERRITORIAL_SOURCE_REGISTRY.json",
+    "bytes": 5951,
+    "sha256": "37877195c9dfda5536073aa74963f2f78e7337a0b5e467252c0739a6d83386e3"
+  },
+  "official_source_registry": [
+    {
+      "id": "IBGE_CIDADES_LIMEIRA",
+      "authority": "IBGE",
+      "url": "https://www.ibge.gov.br/cidades-e-estados/sp/limeira.html",
+      "status": "OFFICIAL_WEB_OBSERVED_RAW_BYTES_NOT_CAPTURED",
+      "observed_values": {
+        "population_census_2022": 291869,
+        "population_density_hab_km2_2022": "502.61",
+        "area_km2_2025": "580.577",
+        "population_estimate_2025": 301292,
+        "pib_per_capita_brl_2023": "71528.46"
+      }
+    },
+    {
+      "id": "IBGE_CENSO2022_SECTOR_BASIC_BR_20260520",
+      "authority": "IBGE",
+      "url": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Setor_csv/Agregados_por_setores_basico_BR_20260520.zip",
+      "status": "OFFICIAL_BINARY_URL_DISCOVERED_BYTES_NOT_INGESTED",
+      "observed_size": "15M",
+      "last_modified": "2026-05-20 10:37"
+    },
+    {
+      "id": "IBGE_CENSO2022_SECTOR_INCOME_RESP_BR_20260508",
+      "authority": "IBGE",
+      "url": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios_Rendimento_do_Responsavel/Agregados_por_setores_renda_responsavel_BR_20260508_csv.zip",
+      "status": "OFFICIAL_BINARY_URL_DISCOVERED_BYTES_NOT_INGESTED",
+      "observed_size": "8.9M",
+      "last_modified": "2026-05-08 17:30"
+    },
+    {
+      "id": "IBGE_CENSO2022_SP_SECTOR_GPKG",
+      "authority": "IBGE",
+      "url": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/malha_com_atributos/setores/gpkg/UF/SP/SP_setores_CD2022.gpkg",
+      "status": "OFFICIAL_BINARY_URL_DISCOVERED_BYTES_NOT_INGESTED",
+      "observed_size": "174M",
+      "last_modified": "2024-11-13 15:23"
+    },
+    {
+      "id": "IBGE_CNEFE_LIMEIRA_2022",
+      "authority": "IBGE",
+      "url": "https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2022/Arquivos_CNEFE/CSV/Municipio/35_SP/3526902_LIMEIRA.zip",
+      "status": "OFFICIAL_BINARY_URL_DISCOVERED_BYTES_NOT_INGESTED",
+      "observed_size": "3.3M",
+      "last_modified": "2024-05-20 19:53"
+    }
+  ],
+  "product_contract": {
+    "product_name": "TERRITORY_PROFILE",
+    "role": "DERIVED_QUERY_PRODUCT_NOT_SOURCE_OF_TRUTH",
+    "grain": "one_geographic_unit_x_period_x_metric",
+    "planned_source_families": [
+      "IBGE_CIDADES",
+      "IBGE_CENSO_2022",
+      "IBGE_CNEFE",
+      "IBGE_MALHAS",
+      "IBGE_SIDRA"
+    ],
+    "planned_capabilities": [
+      "MUNICIPAL_IDENTITY",
+      "MUNICIPAL_DEMOGRAPHY",
+      "MUNICIPAL_ECONOMY",
+      "CENSUS_SECTOR_CONTEXT",
+      "SCHOOL_TO_SECTOR_LINK"
+    ]
+  },
+  "school_to_sector_join_contract": {
+    "preferred": "PROVEN_SCHOOL_COORDINATE_POINT_IN_POLYGON_2022_SECTOR",
+    "fallback": "PROVEN_OFFICIAL_SCHOOL_ADDRESS_MATCHED_TO_CNEFE_WITH_AUDITABLE_MATCH_SCORE",
+    "canonical_identity_requires": [
+      "OFFICIAL_SCHOOL_ID",
+      "PROVEN_COORDINATE_OR_ADDRESS",
+      "IBGE_SECTOR_ID"
+    ]
+  },
+  "answerability_hardening": {
+    "current_territory_recipe_problem": "MATCH_ANY_CAN_BECOME_FULL_FROM_SINGLE_METRIC",
+    "target_minimum_for_municipal_context": [
+      "DEMOGRAPHIC_CONTEXT",
+      "ECONOMIC_OR_INCOME_CONTEXT"
+    ],
+    "school_level_claim_requires": "SCHOOL_TO_SECTOR_LINK",
+    "apply_to_canonical_matrix_in_this_task": false
+  },
+  "binary_acquisition_order": [
+    "IBGE_CNEFE_LIMEIRA_2022",
+    "IBGE_CENSO2022_SECTOR_BASIC_BR_20260520",
+    "IBGE_CENSO2022_SECTOR_INCOME_RESP_BR_20260508",
+    "IBGE_CENSO2022_SP_SECTOR_GPKG"
+  ],
+  "guards": [
+    "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
+    "MUNICIPAL_CONTEXT_NE_SCHOOL_LEVEL_CONTEXT",
+    "PIB_PER_CAPITA_NE_INCOME",
+    "ESTIMATE_NE_CENSUS_COUNT",
+    "GEOCODE_MATCH_REQUIRES_PROVEN_ADDRESS_OR_COORDINATE",
+    "NO_THIRD_PARTY_GEOCODER_AS_CANONICAL_IDENTITY",
+    "NO_SYNTHETIC_VULNERABILITY_INDEX_WITHOUT_EXPLICIT_METHOD",
+    "MISSING_GEOGRAPHY_NE_ZERO"
+  ],
+  "current_state": {
+    "source_discovery": "COMPLETE_FOR_FOUNDATION",
+    "raw_binary_ingestion": "PENDING",
+    "school_to_sector_join": "PENDING",
+    "territory_profile_materialized": false,
+    "canonical_answerability_change": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

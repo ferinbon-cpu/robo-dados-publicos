@@ -1,0 +1,19 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.5.7",
+  "status": "CANDIDATE",
+  "compileall": "PASS",
+  "unit_tests": "67/67 PASS",
+  "historical_regressions": "109/109 PASS",
+  "m4e6_release_hardening": {
+    "reconciliation_evidence_table": "IMPLEMENTED",
+    "evidence_idempotence": "PASS",
+    "financial_identity_auto_promotion": "PROHIBITED",
+    "resolver_evidence_persistence": "IMPLEMENTED",
+    "canonical_runtime_version": "IMPLEMENTED",
+    "release_metadata_consistency": "PASS",
+    "clean_distribution_package": "REQUIRED"
+  },
+  "promotion": "DO_NOT_PROMOTE_BEFORE_LIVE_VALIDATION",
+  "secret_scan": "PASS"
+}

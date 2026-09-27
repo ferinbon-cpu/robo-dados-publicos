@@ -1,0 +1,36 @@
+{
+  "schema": "TASK275_PRELIVE_LINKED_CONTRACT_DIAGNOSTIC_645_V1",
+  "task": "TASK_275",
+  "issue": 885,
+  "prior_observation": {
+    "http_code": 400,
+    "json_shape": "OBJECT",
+    "body_bytes": 252,
+    "body_sha256": "820b74d556395b9a255ae2323dfeda660ac57153f1605ca0b7d3aefcd5f6d52c",
+    "outcome": "LINKED_CONTRACT_ROUTE_UNRESOLVED_OBSERVATION"
+  },
+  "adjudication": {
+    "route_documented": true,
+    "parameters_match_manual": true,
+    "http400_is_absence": false,
+    "http400_cause_known": false
+  },
+  "diagnostic_projection": {
+    "allowed_scalar_fields": [
+      "detail",
+      "error",
+      "instance",
+      "message",
+      "path",
+      "requestId",
+      "status",
+      "timestamp",
+      "title"
+    ],
+    "max_string_chars": 500,
+    "unknown_scalar_values_persisted": false,
+    "key_inventory_persisted": true
+  },
+  "live_state": "NOT_EXECUTED",
+  "next_gate": "RUN_EXACT_MANUAL_HEADER_DIAGNOSTIC_AFTER_MERGED_TASK275_SHA"
+}

@@ -1,0 +1,49 @@
+name: TASK 219X exact Empenho 3286 query once
+run-name: "TASK 219X Empenho 3286 by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-219x-query-empenho-3286-2026-exact-controls
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-219x-query-empenho-3286-once
+  cancel-in-progress: false
+
+jobs:
+  exact-empenho-query:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          check-latest: false
+      - name: Install Selenium
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check --no-input "selenium==4.35.0"
+      - name: Execute exact official Empenho 3286 query
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PYTHONPATH="$GITHUB_WORKSPACE"
+          export TASK219X_OUTPUT="$GITHUB_WORKSPACE/runtime/task219x_result.json"
+          python -m robo_dados_publicos.research.task219x_query_empenho_3286_exact_controls
+      - name: Upload sanitized exact-query evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-219x-empenho-3286-evidence
+          path: runtime/task219x_result.json
+          if-no-files-found: error
+          retention-days: 1

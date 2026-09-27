@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "schema": "TASK257_TASK256_RAW_LOCATION_HEADER_V1",
+  "task": "TASK_257",
+  "issue": 847,
+  "base_main_sha": "43a7325883597b19a2988d9a62f9cf4f97dfd287",
+  "mode": "T1_READONLY_IMPLEMENTED_LIVE_DISABLED_UNTIL_EXACT_OWNER_AUTHORIZATION_TOKEN_2",
+  "source_task256": {
+    "implementation_sha": "43a7325883597b19a2988d9a62f9cf4f97dfd287",
+    "runtime_head_sha": "e409b257153462c69033f93c90abd0bf71d468ea",
+    "consumed_runtime_head_sha": "839259f4b15693682c5fc83bd73f88d78ec67faa",
+    "run_id": 35298949213,
+    "job_id": 105457283125,
+    "artifact_id": 10528693183,
+    "artifact_zip_sha256": "ecfef3022fbf9673665b044ceb308afd2a7f3d9d7bd34f20b417c36640199fa6",
+    "artifact_file_sha256": "0d3ded727ceecf60f85d3335b8d7f866a6f3fe26327b127d0033e762c23c1050",
+    "result_sha256": "4687efcfa59911f3b77a916901842a31315b279aa2040c592f1dc3e9fb4c394e",
+    "status": "PASS_TASK256_SINGLE_CURL_NOFOLLOW_DIAGNOSTIC_OBSERVED",
+    "outcome": "REDIRECT_STATUS_WITHOUT_LOCATION",
+    "http_code": 301,
+    "curl_exit_code": 0,
+    "redirect_url": null,
+    "remote_ip": "189.9.176.245",
+    "source_get_count": 1,
+    "authorization_token_index": 1,
+    "authorization_consumed": true
+  },
+  "probe": {
+    "control": "45132495000140-1-000646/2026",
+    "requested_url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/646",
+    "method": "GET",
+    "tool": "curl",
+    "connect_timeout_seconds": 15,
+    "max_time_seconds": 75,
+    "max_remote_get_count": 1,
+    "retry": false,
+    "follow_redirects": false,
+    "alternate_url_discovery": false,
+    "response_body_persistence": false,
+    "raw_header_persistence": false,
+    "capture_location_case_insensitive": true,
+    "require_effective_url_exact": true
+  },
+  "runtime": {
+    "branch": "task-257-pncp-raw-location-header-runtime",
+    "authorization_file": "runtime/task257_owner_authorization.json",
+    "trigger_file": "runtime_triggers/task257_pncp_raw_location_header.run",
+    "artifact_name": "task-257-pncp-raw-location-header-sanitized",
+    "artifact_retention_days": 1
+  },
+  "authorization": {
+    "required_task": "TASK_257_LIVE_AUTHORIZATION",
+    "required_operation": "EXACT_1_TASK256_FIRST_TARGET_NOFOLLOW_RAW_LOCATION_HEADER_CAPTURE",
+    "authorization_token_index": 2,
+    "authorization_token_budget": 10,
+    "attempt_count": 1,
+    "prior_authorization_reuse_allowed": false
+  },
+  "next_gate": "OWNER_AUTHORIZED_TOKEN_2_SINGLE_PNCP_NOFOLLOW_RAW_LOCATION_HEADER_CAPTURE_ON_MERGED_TASK257_SHA"
+}

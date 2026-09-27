@@ -1,0 +1,44 @@
+{
+  "gate_id": "M7_SIOPE_WS_PUBLIC_DISCOVERY_DESIGN_0_8_0",
+  "run_id": 32858233061,
+  "run_number": 2,
+  "head_sha": "d0036dd24ee3adc2184617c85eac12d592b2a98d",
+  "artifact_id": 9567055959,
+  "artifact_digest": "sha256:8588bfae050cf1e09100a0f80968b262286282970714428dcdbf1983799566f5",
+  "workflow_conclusion": "failure",
+  "reported_status": "STOP_M7_SIOPE_WS_PUBLIC_DISCOVERY_GATE",
+  "stop_reason": "STOP_SIOPE_WS_PUBLIC_DISCOVERY_NO_EXPLICIT_ENDPOINT_OR_DOCUMENTATION",
+  "qa": {
+    "unit_tests": 383,
+    "historical_regressions": 109
+  },
+  "live_observation": {
+    "fetched_page_count": 2,
+    "total_fetched_bytes": 48372,
+    "declared_signal_link_count": 42,
+    "excluded_generic_file_delivery_count": 42,
+    "explicit_candidate_count": 0,
+    "followed_documentation_count": 0,
+    "fetch_failure_count": 0
+  },
+  "interpretation": {
+    "verdict": "EXPECTED_FAIL_CLOSED_STOP",
+    "meaning": "After semantic hardening, every signal link on the original FNDE pages was correctly classified as generic CASTOR/file-delivery infrastructure. No explicit WS-SIOPE endpoint or documentation remained on those two surfaces.",
+    "does_not_prove": "The absence of a public SIOPE report surface elsewhere on the official webservice.fnde.gov.br host.",
+    "next_action": "Verify the indexed official public report surface on webservice.fnde.gov.br without submitting any form."
+  },
+  "safety": {
+    "endpoint_candidate_network_sent": false,
+    "form_submission": false,
+    "authentication_performed": false,
+    "credentials_captured": false,
+    "cookies_captured": false,
+    "captcha_bypass": false,
+    "artifact_downloaded": false,
+    "remote_writes": "NONE",
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false
+  }
+}

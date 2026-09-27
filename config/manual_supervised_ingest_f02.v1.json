@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "contract": "F02_MDE_FUNDEB_2026_PILOT",
+  "mode": "MANUAL_SUPERVISED_INGEST",
+  "jurisdiction": "Limeira/SP",
+  "batch": "F02_MDE_FUNDEB_2026_PILOT",
+  "reference_period": "2026-01_to_2026-04",
+  "source_precedence": {
+    "mde_official_claim": "RREO_MDE",
+    "fundeb_local_report": "LOCAL_MONITORING_PERIOD_MATCH_REQUIRED",
+    "mde_25_local_report": "AUXILIARY_MONITORING_NOT_SUBSTITUTE_FOR_RREO"
+  },
+  "sources": [
+    {
+      "source_id": "F02_RREO_MDE_2026_JAN_ABR",
+      "family": "RREO_MDE",
+      "role": "OFFICIAL_PRIMARY_FOR_MDE_CLAIMS",
+      "drive_file_id": "133MXfFVUUELPmYUb59oViU_vVbAEjukQ",
+      "source_type": "SOURCE",
+      "ingestion_method": "MANUAL_SUPERVISED",
+      "expected_sha256": "539144ae70edbcb3ca4662b9460c869ad4b21a6e6b027f3f3c332a0372e08361",
+      "expected_bytes": 33147,
+      "expected_pages": 7
+    },
+    {
+      "source_id": "F02_FUNDEB_LOCAL_2026_POS_30_04",
+      "family": "FUNDEB_LOCAL",
+      "role": "LOCAL_FUNDEB_MONITORING",
+      "drive_file_id": "1MwN-1lVFrhAUU7OUczWT8URZFzc953-G",
+      "source_type": "SOURCE",
+      "ingestion_method": "MANUAL_SUPERVISED",
+      "expected_sha256": "d7f1e986c765a6e726d74fc83360601bdc223c5fb3c76accc4a7b910c621f178",
+      "expected_bytes": 20195,
+      "expected_pages": 2
+    },
+    {
+      "source_id": "F02_MDE_25_LOCAL_2026_POS_30_04",
+      "family": "MDE_25_LOCAL",
+      "role": "AUXILIARY_MDE_25_PERCENT_MONITORING",
+      "drive_file_id": "1jZFegmlVnVdsQNcDf4D8hlu7DjwgydYI",
+      "source_type": "SOURCE",
+      "ingestion_method": "MANUAL_SUPERVISED",
+      "expected_sha256": "abfa856939c617a40b51d26cbfff8bb2453de3acd0f1a00c13900f39631e3b2d",
+      "expected_bytes": 18956,
+      "expected_pages": 1
+    }
+  ],
+  "classification_policy": {
+    "exactly_one_family_required": true,
+    "unknown_is_stop": true,
+    "ambiguous_is_stop": true
+  },
+  "reconciliation_policy": {
+    "same_period_required": true,
+    "rreo_is_authoritative_for_official_mde_claim": true,
+    "local_reports_are_not_substitutes_for_rreo": true,
+    "different_methodologies_may_produce_different_percentages": true
+  },
+  "promotion": {
+    "bronze_mutation_authorized_by_this_contract": false,
+    "silver_authorized_by_this_contract": false,
+    "gold_authorized": false,
+    "serving_authorized": false,
+    "site_mutation_authorized": false
+  }
+}

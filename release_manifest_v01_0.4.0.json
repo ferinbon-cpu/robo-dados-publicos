@@ -1,0 +1,12 @@
+{
+  "name": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.4.0",
+  "release_date": "2026-08-21",
+  "milestone": "M4C_RUNTIME_READY",
+  "python": ">=3.11",
+  "historical_regressions": "109/109 PASS",
+  "unit_tests": "14/14 PASS",
+  "compileall": "PASS",
+  "live_m4b_inherited": "Python-Drive round-trip PASS on 0.3.0",
+  "next_action": "M4C_LIVE_RUN_THEN_PERSISTENT_OAUTH_AND_SCHEDULER"
+}

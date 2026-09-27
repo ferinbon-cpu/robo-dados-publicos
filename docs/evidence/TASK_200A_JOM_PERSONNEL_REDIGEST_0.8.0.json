@@ -1,0 +1,59 @@
+{
+  "schema": "TASK200A_JOM_PERSONNEL_REDIGEST_EVIDENCE_V1",
+  "software_candidate": "0.8.0",
+  "task": "TASK_200A",
+  "issue": 636,
+  "base_main_sha": "fc89f34215d4cd9188ec98a4ee05a73a74bc5266",
+  "status": "PASS_NATIVE_PDF_PERSONNEL_REDIGEST_EXPECTED_TO_CLOSE_TWO_PARTIALS",
+  "drive": {
+    "full_events_id": "1C7U-c3xurZxrL7zKBEc6fyELYq1V5NUU",
+    "full_events_bytes": 12757,
+    "full_events_sha256": "edcea1e9ae251ffd05d1396f3ec117ee55292848f27825d4d3519e1579363bda",
+    "evidence_id": "1qlMBXpfUWvL2ZTsOrLmPaLNqQOTdl9zS",
+    "evidence_bytes": 2820,
+    "evidence_sha256": "11e0d2f26280b22f3fda53238538fc038eed861b6d15388cb9ff0d8070154ce7",
+    "readback_verified": true
+  },
+  "redigest": {
+    "event_count": 10,
+    "event_identity_rewritten": false,
+    "native_pdf_text": true,
+    "ocr_used": false,
+    "principal_subject": "EDUCATION_PERSONNEL",
+    "clear_actions": [
+      "effective appointment from public competition",
+      "rectification of effective appointment",
+      "requested exoneration",
+      "ex officio exoneration",
+      "revocation of effective appointment"
+    ],
+    "roles_observed": [
+      "Professor Especialista de Educação Infantil e Ensino Fundamental - Artes",
+      "Professor de Educação Infantil",
+      "Monitor",
+      "Secretário de Escola",
+      "Auxiliar de Serviços Gerais lotado na Secretaria Municipal de Educação"
+    ]
+  },
+  "semantic_hardening": {
+    "personnel_events_requires_education_domain": true,
+    "generic_personnel_portaria_cannot_satisfy_school_norms_without_non_workforce_education_topic": true,
+    "incidental_education_title_mention_is_not_a_personnel_promotion": true
+  },
+  "answerability_expected": {
+    "before": "32_ANSWERABLE_6_PARTIAL_0_EXPLICIT_GAP",
+    "after": "34_ANSWERABLE_4_PARTIAL_0_EXPLICIT_GAP",
+    "changed_questions": ["PERS_Q1", "PERS_Q2"],
+    "NORMS_Q1": "MATERIALIZED_PARTIAL",
+    "NORMS_Q2": "MATERIALIZED_PARTIAL"
+  },
+  "guards": [
+    "NO_EVENT_ID_REWRITE",
+    "CURRENT_OBJECT_TEXT_MUST_BE_BLANK",
+    "NATIVE_TEXT_ONLY_NO_OCR",
+    "OBJECT_TEXT_IS_PRIMARY_OPERATIVE_CLAUSE_NOT_SUMMARY",
+    "PERSONNEL_RECIPE_REQUIRES_EDUCATION_DOMAIN",
+    "SCHOOL_NORMS_NE_GENERIC_PERSONNEL_PORTARIA",
+    "PUBLICATION_NE_IMPLEMENTATION"
+  ]
+}

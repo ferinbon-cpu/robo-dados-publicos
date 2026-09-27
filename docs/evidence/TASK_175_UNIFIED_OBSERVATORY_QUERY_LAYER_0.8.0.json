@@ -1,0 +1,62 @@
+{
+  "task": "TASK_175_UNIFIED_OBSERVATORY_QUERY_LAYER",
+  "issue": 562,
+  "mode": "T0_OFFLINE_QUESTION_TO_EVIDENCE_PLANNING",
+  "base_main_sha": "f9378e21893be67a9f8c183ff75917670a982775",
+  "inputs": [
+    "config/observatory_question_ontology.v1.json",
+    "config/source_family_maturity_registry.v1.json",
+    "config/source_role_evidence_semantics.v1.json",
+    "config/budget_fiscal_source_acquisition_map.v1.json"
+  ],
+  "output_schema": "UNIFIED_OBSERVATORY_QUERY_PLAN_V1",
+  "route_modes": [
+    "NUMERIC",
+    "DOCUMENT",
+    "HYBRID"
+  ],
+  "domain_count": 15,
+  "scenario_expansions": [
+    "SCHOOL_REFORM",
+    "SCHOOL_TRANSPORT",
+    "SCHOOL_MEALS",
+    "POLICY_OR_NORM_CHANGE",
+    "PERSONNEL"
+  ],
+  "exact_capability_overrides": [
+    "TCE_SP_EXPENSES",
+    "SICONFI_STN",
+    "FUNDEB",
+    "PNCP",
+    "JORNAL_OFICIAL",
+    "SIOPE"
+  ],
+  "answer_contract": [
+    "NUMBER_OR_FACT",
+    "TIME_REFERENCE",
+    "COMPARISON_OR_TREND",
+    "PLAIN_LANGUAGE_EXPLANATION",
+    "SOURCE_AND_PROVENANCE",
+    "CAUTION_OR_LIMIT"
+  ],
+  "guards": [
+    "QUESTION_TEXT_NE_NUMERIC_TRUTH_SOURCE",
+    "LLM_NE_FINAL_NUMERIC_TRUTH_ENGINE",
+    "SOURCE_ROLE_LIMITS_PROOF",
+    "JOM_PUBLICATION_NE_ACCOUNTING_EXECUTION",
+    "PROGRAMMATIC_OR_SEMANTIC_SIMILARITY_NE_IDENTITY",
+    "STATISTICAL_ASSOCIATION_NE_CAUSAL_EFFECT",
+    "RANKING_WITHOUT_CONTEXT_REQUIRES_CAUTION",
+    "BLOCKED_OR_PARTIAL_SOURCE_CREATES_GAP_NOT_INVENTED_ANSWER"
+  ],
+  "remote_effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  },
+  "next": "MATERIALIZE_QUERY_PRODUCTS_OVER_EXISTING_CUSTODY_WITHOUT_NEW_SOURCE_ASSUMPTIONS"
+}

@@ -1,0 +1,23 @@
+{
+  "task":"TASK_219J_OWNER_AUTHORIZATION",
+  "issue":709,
+  "authorized_main_sha":"ee84959bc7b3889d7b2cf635214120450707d464",
+  "owner_instruction":"Prossiga, autorizado até completar",
+  "scope":"COMPLETE_TASK219J_SANITIZED_AUTOMATIC_POST_CONTRACT_CAPTURE",
+  "browser_sessions":1,
+  "manual_navigations":1,
+  "clicks":0,
+  "typing":0,
+  "form_submissions":0,
+  "manual_fetch_xhr":0,
+  "direct_endpoint_calls":0,
+  "retry":0,
+  "allowed_devtools_reads":[
+    "Network.getRequestPostData for already-sent automatic /awsgetcontentareas.aspx requests",
+    "Network.getResponseBody for already-received automatic /awsgetcontentareas.aspx responses"
+  ],
+  "raw_values_persisted":false,
+  "response_text_persisted":false,
+  "includes":["design","one_passive_browser_session","sanitized_request_structure","sanitized_response_structure","offline_adjudication","workflow_removal","ci_merge","closure"],
+  "excludes":["commitment_lookup","pncp","tcesp","drive","municipal_contract_portal","authentication","endpoint_guessing","recurrence","second_browser_session"]
+}

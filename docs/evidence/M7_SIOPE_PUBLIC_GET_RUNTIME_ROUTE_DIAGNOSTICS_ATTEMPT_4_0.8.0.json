@@ -1,0 +1,90 @@
+{
+  "attempt": 4,
+  "gate_id": "M7_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS_0_8_0",
+  "workflow_run_id": 32872362328,
+  "workflow_run_number": 4,
+  "workflow_head_sha": "0590e50b96e8c47d53d118a58724e949b23bcddc",
+  "workflow_conclusion": "failure",
+  "job_id": 97882201735,
+  "artifact": {
+    "id": 9572557584,
+    "name": "siope-public-get-runtime-route-diagnostics-32872362328",
+    "digest": "sha256:e979f6b1a485803abbdb5de771b8370472a81357984618f1c5d7cc10a43aa516"
+  },
+  "status": "STOP_M7_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS",
+  "stop_reason": "STOP_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS_PUBLIC_SURFACE_NOT_VERIFIED",
+  "diagnostics": {
+    "initial_document_continued_count": 1,
+    "initial_document_contract_exactly_once": true,
+    "initial_document_network_sent": true,
+    "page_ready_state": "complete",
+    "navigation_error_present": false,
+    "final_surface": {
+      "scheme": "https",
+      "host": "www.fnde.gov.br",
+      "path": "/siope/dadosInformadosMunicipio.do",
+      "query_present": true,
+      "query_keys": ["acao", "admin", "cod_muni", "cod_uf", "num_ano", "num_peri", "pag", "tp_relatorio"],
+      "official_host": true
+    },
+    "loading_marker_a_present": false,
+    "loading_marker_b_present": false,
+    "human_challenge_active_dom": false,
+    "static_assets_continued_count": 3,
+    "blocked_request_event_count": 2,
+    "blocked_shape_count": 2,
+    "candidate_shape_count": 0,
+    "blocked_shapes": [
+      {
+        "method": "GET",
+        "resource_type": "Other",
+        "scheme": "https",
+        "host": "www.fnde.gov.br",
+        "route_without_query": "https://www.fnde.gov.br/siope/favicon.ico",
+        "query_present": false,
+        "query_keys": [],
+        "official_host": true,
+        "candidate_dynamic_data_request": false,
+        "network_sent": false,
+        "intercepted_before_network": true,
+        "occurrences": 1
+      },
+      {
+        "method": "GET",
+        "resource_type": "Script",
+        "scheme": "https",
+        "host": "www.google.com",
+        "route_without_query": "https://www.google.com/recaptcha/api.js",
+        "query_present": false,
+        "query_keys": [],
+        "official_host": false,
+        "candidate_dynamic_data_request": false,
+        "network_sent": false,
+        "intercepted_before_network": true,
+        "occurrences": 1
+      }
+    ],
+    "candidate_shapes": [],
+    "dynamic_candidate_network_sent": false,
+    "browser_download_denied": true,
+    "query_values_persisted": false,
+    "request_body_persisted": false,
+    "response_body_persisted": false
+  },
+  "safety": {
+    "pilot_limeira_values_sent": false,
+    "form_submission": false,
+    "captcha_bypass": false,
+    "authentication_performed": false,
+    "credentials_captured": false,
+    "cookies_captured": false,
+    "head_request_performed": false,
+    "artifact_downloaded": false,
+    "remote_writes": "NONE",
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false
+  },
+  "interpretation": "The exact public indexed GET reached the official SIOPE page once and the fail-closed interceptor blocked non-allowlisted requests before network. The STOP was caused by transient loading text no longer being present in the final DOM; no dynamic SIOPE candidate request was observed."
+}

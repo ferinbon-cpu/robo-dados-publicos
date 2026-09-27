@@ -1,0 +1,78 @@
+name: TASK 194I Inep Turmas visual locator
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: read
+
+concurrency:
+  group: task194i-inep-turmas-visual
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    if: github.event.issue.number == 617 && github.actor == 'ferinbon-cpu' && startsWith(github.event.comment.body, 'TASK194I_TURMAS_VISUAL_AUTHORIZED ')
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONPATH: ${{ github.workspace }}
+      TASK194I_AUTH_COMMENT: ${{ github.event.comment.body }}
+      TASK194I_ISSUE_NUMBER: ${{ github.event.issue.number }}
+    steps:
+      - name: Checkout exact main authorization target
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.12"
+
+      - name: Verify exact authorization
+        shell: bash
+        run: |
+          set -euo pipefail
+          HEAD_SHA="$(git rev-parse HEAD)"
+          test "$HEAD_SHA" = "$GITHUB_SHA"
+          EXPECTED="TASK194I_TURMAS_VISUAL_AUTHORIZED main=$GITHUB_SHA issue=617 max_http_requests=2 querydata=0"
+          test "$TASK194I_AUTH_COMMENT" = "$EXPECTED"
+
+      - name: Offline preflight
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m compileall -q scripts tests
+          python -m unittest tests.test_task_194i_inep_data_turmas_visual_locator -v
+
+      - name: Execute official Turmas visual locator
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime/task194i
+          TASK194I_CHECKED_OUT_SHA="$(git rev-parse HEAD)" \
+            python scripts/task194i_inep_data_turmas_visual_locator.py \
+            --output runtime/task194i/sanitized_turmas_visuals.json
+
+      - name: Assert sanitized output only
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -d runtime/task194i ]; then
+            find runtime/task194i -maxdepth 1 -type f -printf '%f\n' | grep -vx 'sanitized_turmas_visuals.json' && exit 1 || true
+          fi
+
+      - name: Upload sanitized Turmas metadata
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task194i-inep-turmas-visuals
+          path: runtime/task194i/sanitized_turmas_visuals.json
+          if-no-files-found: warn
+          retention-days: 30

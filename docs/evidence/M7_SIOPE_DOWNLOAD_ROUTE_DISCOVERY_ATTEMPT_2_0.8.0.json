@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "gate_id": "M7_SIOPE_ANTONIETA_DOWNLOAD_ROUTE_DISCOVERY_GATE_0_8_0",
+  "github_run": 32794666678,
+  "github_job": 97643357905,
+  "head_commit": "f8d7c4aeae86b449d4a24c875655943c95fb363f",
+  "artifact_id": 9544387746,
+  "artifact_name": "siope-download-route-discovery-32794666678",
+  "artifact_size_bytes": 567,
+  "artifact_digest": "sha256:a0f918fb85249689d021bdbf794b8958ae22670d2d2384316e43137361007701",
+  "status": "STOP_M7_SIOPE_DOWNLOAD_ROUTE_DISCOVERY_GATE",
+  "reason": "STOP_SIOPE_DOWNLOAD_ROUTE_NOT_EXPLICITLY_DISCOVERED",
+  "qa": {
+    "preflight": "PASS",
+    "dry_run": "PASS_M7_SIOPE_DOWNLOAD_ROUTE_DISCOVERY_DRY_RUN",
+    "compileall": "PASS",
+    "unit_tests": "217/217 PASS",
+    "historical_regressions": "109/109 PASS"
+  },
+  "diagnostics": {
+    "page_verified": true,
+    "artifact_declared": true,
+    "page_bytes": 304841,
+    "declared_script_count": 1,
+    "fetched_script_count": 1,
+    "script_failure_count": 0,
+    "total_fetched_script_bytes": 814209,
+    "route_candidate_count": 0,
+    "export_label_present": true,
+    "data_attribute_count": 45,
+    "data_attribute_export_marker_count": 1,
+    "inline_script_count": 3,
+    "inline_script_export_marker_count": 1,
+    "inline_event_attribute_count": 1,
+    "inline_event_export_marker_count": 0,
+    "href_action_count": 23,
+    "href_action_export_marker_count": 0
+  },
+  "safety": {
+    "artifact_downloaded": false,
+    "head_request_performed": false,
+    "form_submission": false,
+    "captcha_bypass": false,
+    "remote_writes": "NONE",
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false
+  },
+  "interpretation": "The Antonieta product page exposes an export control through at least one export-related data attribute and one inline script marker, while no export href/action, inline event, or explicit static route was observed. The single declared external script was fetched without failure. This supports a dynamic export-control contract hypothesis and does not justify guessing or fetching a download URL.",
+  "next_step": "PASSIVE_EXPORT_CONTROL_CONTRACT_DISCOVERY_WITHOUT_CLICK_OR_ARTIFACT_REQUEST"
+}

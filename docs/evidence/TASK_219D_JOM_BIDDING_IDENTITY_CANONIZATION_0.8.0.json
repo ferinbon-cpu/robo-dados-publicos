@@ -1,0 +1,122 @@
+{
+  "counts": {
+    "combined_daily_search_seed_count": 35,
+    "combined_edital_identity_keys": 49,
+    "combined_unique_by_modality": {
+      "6": 126,
+      "8": 13,
+      "9": 4
+    },
+    "combined_unique_identities": 143,
+    "legacy": {
+      "anchor_rows": 28,
+      "edital_identity_keys": 5,
+      "edital_rows": 5,
+      "search_seed_count": 3,
+      "unique_by_modality": {
+        "6": 17,
+        "8": 3,
+        "9": 1
+      },
+      "unique_identities": 21
+    },
+    "new": {
+      "anchor_rows": 246,
+      "edital_identity_keys": 44,
+      "edital_rows": 48,
+      "search_seed_count": 32,
+      "unique_by_modality": {
+        "6": 117,
+        "8": 10,
+        "9": 3
+      },
+      "unique_identities": 130
+    },
+    "new_only_unique_identities": 122,
+    "overlap_unique_identities": 8
+  },
+  "issue": 691,
+  "outputs": {
+    "combined_index": "docs/evidence/fixtures/task219/TASK_219D_FULL_99_EDITION_BIDDING_IDENTITY_INDEX.json",
+    "combined_index_sha256": "e19f65a1238cd260e062a07bd52150f1b5d1d07b7f4fc0e32270f27115759486",
+    "new_anchor_fixture": "docs/evidence/fixtures/task219/TASK_219D_NEW_87_BIDDING_IDENTITY_ANCHORS.jsonl",
+    "new_anchor_fixture_sha256": "60772b103da934dcfa7c204f24ffd4676b3f227934edebdab31c3d48bdb323ed",
+    "search_seeds": "docs/evidence/fixtures/task219/TASK_219D_EDITAL_PNCP_DAILY_SEARCH_SEEDS.json",
+    "search_seeds_sha256": "ede77b34c875689364917d97c5c40a85260954020ef687d9378a09fdf9f2611b"
+  },
+  "overlap": [
+    {
+      "bidding_number": 19,
+      "bidding_year": 2026,
+      "modality_id": 6
+    },
+    {
+      "bidding_number": 42,
+      "bidding_year": 2026,
+      "modality_id": 6
+    },
+    {
+      "bidding_number": 49,
+      "bidding_year": 2026,
+      "modality_id": 6
+    },
+    {
+      "bidding_number": 50,
+      "bidding_year": 2025,
+      "modality_id": 6
+    },
+    {
+      "bidding_number": 56,
+      "bidding_year": 2026,
+      "modality_id": 6
+    },
+    {
+      "bidding_number": 66,
+      "bidding_year": 2026,
+      "modality_id": 6
+    },
+    {
+      "bidding_number": 69,
+      "bidding_year": 2026,
+      "modality_id": 6
+    },
+    {
+      "bidding_number": 71,
+      "bidding_year": 2026,
+      "modality_id": 6
+    }
+  ],
+  "remote_effects": {
+    "drive_write": false,
+    "pncp_network": false,
+    "promotion": false,
+    "public_source_network": false,
+    "publication": false,
+    "serving": false,
+    "tce_network": false
+  },
+  "scientific_adjudication": {
+    "contextual_paths_after": 34,
+    "contextual_paths_before": 34,
+    "end_to_end_jom_pncp_tce_chain_proven": false,
+    "identity_grain": [
+      "modality_id",
+      "bidding_number",
+      "bidding_year"
+    ],
+    "next_step": "BOUNDED_DAILY_PNCP_PUBLICATION_LOOKUP_FOR_35_MODALITY_DATE_SEEDS",
+    "pncp_match_proven_by_this_task": false,
+    "publication_date_role": "SEARCH_SCOPE_ONLY_NOT_IDENTITY",
+    "question_promotion_performed": false,
+    "supplier_is_identity": false,
+    "weak_match_allowed": false
+  },
+  "source": {
+    "events_sha256": "5ca4bf1411f6b8bfa6ad2b8fdede9937f495458963439fa579d40caa7d988c5b",
+    "legacy_fixture": "docs/evidence/fixtures/TASK_184_JOM_303_VALIDATED_EVENTS.jsonl",
+    "legacy_fixture_sha256": "1afd82853402d2ea6db7ad28fb6564de4a4ab28570c16ea9c7e4e0366cb5c733",
+    "task219a_artifact_id": 10105583802,
+    "task219a_run_id": 34354027245
+  },
+  "task": "TASK_219D_JOM_BIDDING_IDENTITY_CANONIZATION"
+}

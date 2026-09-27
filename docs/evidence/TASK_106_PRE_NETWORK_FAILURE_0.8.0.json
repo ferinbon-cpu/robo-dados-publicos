@@ -1,0 +1,51 @@
+{
+  "task": "TASK_106",
+  "version": "0.8.0",
+  "mode": "T1_SINGLE_USE_HISTORICAL_PPA_PRIMARY_EVIDENCE_PYPDF",
+  "result": "STOP_PRE_NETWORK_RUNNER_IMPORT_BOOTSTRAP",
+  "issue": 409,
+  "pr": 410,
+  "live_run": {
+    "run_id": 33914326253,
+    "job_id": 101157867281,
+    "execution_head_sha": "fc301acb3d33f6499a64c10e4ba9c127157f3817",
+    "conclusion": "failure"
+  },
+  "preflight": {
+    "pypdf_install_success": true,
+    "pypdf_version": "6.10.0",
+    "synthetic_marker_recovered": true,
+    "source_client_invoked": false
+  },
+  "failure": {
+    "step": "Execute exactly one bounded read-only historical PPA acquisition",
+    "error_type": "ModuleNotFoundError",
+    "error": "No module named 'robo_dados_publicos'",
+    "root_cause": "Runner executed from scripts/ without repository root inserted into sys.path.",
+    "runtime_result_created": false,
+    "artifact_created": false
+  },
+  "source_effects": {
+    "official_source_http_requests_emitted": 0,
+    "primary_source_bytes_read": 0,
+    "ppa_2018_2021_read": false,
+    "ppa_2022_2025_read": false,
+    "source_read_scope_consumed": false
+  },
+  "workflow_state": {
+    "single_use_trigger_consumed": true,
+    "workflow_path": ".github/workflows/task-106-historical-ppa-live-once.yml",
+    "executed_workflow_blob_sha": "e1be74ac1b737c59138d443f948ffd0ba4251c67",
+    "preserved_inert_source": "docs/evidence/TASK_106_HISTORICAL_LIVE_WORKFLOW_SOURCE_FAILED_PRE_NETWORK_0.8.0.txt",
+    "must_be_removed_before_merge": true,
+    "rerun_authorized": false
+  },
+  "epistemic_state": {
+    "historical_ppa_primary_gap_closed": false,
+    "financial_identity_created": false,
+    "transaction_execution_identity_created": false,
+    "implementation_proven": false,
+    "causal_effect_created": false
+  },
+  "next_boundary": "TASK_107_NEW_SINGLE_USE_WORKFLOW_WITH_RUNNER_IMPORT_BOOTSTRAP_FIXED_NO_RERUN_OF_TASK106"
+}

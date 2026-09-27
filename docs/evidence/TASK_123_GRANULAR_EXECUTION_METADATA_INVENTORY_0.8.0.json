@@ -1,0 +1,110 @@
+{
+  "task": "TASK_123_GRANULAR_EXECUTION_METADATA_INVENTORY",
+  "mode": "T1_BOUNDED_DRIVE_METADATA_ONLY_FILENAME_INVENTORY",
+  "base_sha": "b64d2e46d26f8ec4098fbd4661de6277ab4d9a64",
+  "issue": 443,
+  "owner_instruction": "Prossiga",
+  "authorization_consumed": true,
+  "probe_count": 8,
+  "probes": [
+    {
+      "term": "fomento",
+      "results": 0,
+      "next_page_token": false
+    },
+    {
+      "term": "2607004",
+      "results": 0,
+      "next_page_token": false
+    },
+    {
+      "term": "empenho",
+      "results": 0,
+      "next_page_token": false
+    },
+    {
+      "term": "liquidacao",
+      "results": 0,
+      "next_page_token": false
+    },
+    {
+      "term": "pagamento",
+      "results": 0,
+      "next_page_token": false
+    },
+    {
+      "term": "balancete",
+      "results": 0,
+      "next_page_token": false
+    },
+    {
+      "term": "ficha",
+      "results": 3,
+      "next_page_token": false
+    },
+    {
+      "term": "despesa",
+      "results": 1,
+      "next_page_token": false
+    }
+  ],
+  "observed_metadata": [
+    {
+      "probe": "ficha",
+      "id": "134ZxnXvF6P360i7Pe-EHUtXsug8MI4hIQDW9UEI1euQ",
+      "title": "PDM_FICHA_CANONICA_FERNANDO_V01",
+      "mime_type": "application/vnd.google-apps.document",
+      "classification": "IRRELEVANT_OTHER_PROJECT_METADATA_ONLY"
+    },
+    {
+      "probe": "ficha",
+      "id": "10uhvptRpp4ipHqILnJlqbPB1wJO8MnqPOx_frkeFimg",
+      "title": "PDM_FICHA_CANONICA_ALINE_V01",
+      "mime_type": "application/vnd.google-apps.document",
+      "classification": "IRRELEVANT_OTHER_PROJECT_METADATA_ONLY"
+    },
+    {
+      "probe": "ficha",
+      "id": "1RtqaoS9b4Wy_-HetPMAbhHVYASy3XMdJiIUg2ZxDU9Q",
+      "title": "00_FICHA_CANONICA_PUDIM_V01",
+      "mime_type": "application/vnd.google-apps.document",
+      "classification": "IRRELEVANT_OTHER_PROJECT_METADATA_ONLY"
+    },
+    {
+      "probe": "despesa",
+      "id": "1PTAnH-LL_8fvS7TsVuHSci5dBDKFLQTS",
+      "title": "05 - Maio_despesa.pdf",
+      "mime_type": "application/pdf",
+      "classification": "KNOWN_INSUFFICIENT_TASK055_AGGREGATE_ECONOMIC_ELEMENT_REPORT"
+    }
+  ],
+  "candidate_inventory": [],
+  "recommended_next_content_read": null,
+  "interpretation": {
+    "metadata_only_inventory_exhausted_within_declared_probes": true,
+    "proves_no_granular_source_exists_in_drive": false,
+    "proves_no_eiti_execution_exists": false,
+    "no_probative_candidate_found": true,
+    "do_not_reopen_known_aggregate_source": true
+  },
+  "request_counts": {
+    "drive_metadata_searches": 8,
+    "drive_content_reads": 0,
+    "drive_raw_downloads": 0,
+    "drive_writes": 0,
+    "ocr": 0,
+    "retry": 0,
+    "pagination": 0
+  },
+  "next_action": {
+    "status": "ESCALATE_TO_PUBLIC_SOURCE_DISCOVERY",
+    "objective": "FIND_PRIMARY_GRANULAR_ACCOUNTING_EXECUTION_SURFACE_WITH_POLICY_MARKER_AND_STABLE_KEY",
+    "preferred_targets": [
+      "LIMEIRA_TRANSPARENCY_EXPENSE_DETAIL_OR_EMPENHO_DETAIL",
+      "ACCOUNTING_APPLICATION_CODE_OR_FICHA_SEARCH_SURFACE",
+      "EDUCATION_COST_CENTER_OR_SUBACTION_EXECUTION_REPORT"
+    ],
+    "content_read_authorized": false
+  },
+  "result": "PASS_TASK123_METADATA_ONLY_NO_NEW_GRANULAR_CANDIDATE_FOUND"
+}

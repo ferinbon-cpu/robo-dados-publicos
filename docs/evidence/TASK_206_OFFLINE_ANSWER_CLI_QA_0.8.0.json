@@ -1,0 +1,74 @@
+{
+  "schema": "TASK206_OFFLINE_ANSWER_CLI_QA_EVIDENCE_V1",
+  "task": "TASK_206",
+  "issue": 656,
+  "base_main_sha": "5256b47df47bb22c43be771eed2ef8d6cb2ffd66",
+  "status": "CANDIDATE_PENDING_CI",
+  "cli": {
+    "script": "scripts/render_observatory_answer_offline.py",
+    "modes": [
+      "ONE_QUESTION",
+      "ALL_38",
+      "LIST_QUESTIONS"
+    ],
+    "output": "STDOUT_ONLY",
+    "deterministic_runtime": {
+      "generated_at": "2026-09-08T02:05:00+00:00",
+      "software_version": "0.8.0"
+    }
+  },
+  "representative_qa": {
+    "case_count": 6,
+    "questions": [
+      "ACC_Q1",
+      "FIN_Q3",
+      "PLAN_Q1",
+      "NORMS_Q1",
+      "TEACH_Q2",
+      "EQUITY_Q1"
+    ],
+    "fixture_answers_rewritten": false,
+    "real_renderer_output_required": true
+  },
+  "presentation_repairs": {
+    "teacher_bond_context_visible": true,
+    "expected_teacher_values": {
+      "staff_count_2025": 1280,
+      "effective_stable": 681,
+      "temporary": 291,
+      "outsourced": 0,
+      "clt": 400
+    },
+    "equity_territory_missingness_visible": true,
+    "territory": {
+      "strong_links": 64,
+      "denominator": 69,
+      "held": 5,
+      "full_network": false
+    }
+  },
+  "guards": [
+    "COMMITMENT_NE_LIQUIDATION_NE_PAYMENT",
+    "REVENUE_NE_EXPENDITURE",
+    "PLANNING_NE_EXECUTION",
+    "NORM_NE_IMPLEMENTATION",
+    "PERSONNEL_EVENT_FLOW_NE_WORKFORCE_STOCK",
+    "TERRITORY_COVERAGE_64_OF_69_5_HELD_NE_FULL_NETWORK",
+    "NO_LLM_CALL",
+    "NO_NUMERIC_INVENTION",
+    "NO_SERVING_PUBLICATION"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "llm": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}

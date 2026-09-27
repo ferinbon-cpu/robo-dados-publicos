@@ -1,0 +1,81 @@
+{
+  "task": "TASK_035_LOA_JOM_PAGE_AWARE_PARSER_PREVIEW",
+  "version": "0.8.0",
+  "base_sha": "a4632269eb598152610617aef0c7fdf8c840b0cb",
+  "mode": "T0_OFFLINE_PARSER_IMPLEMENTATION_AND_PINNED_PREVIEW",
+  "source": {
+    "edition": 7127,
+    "law_number": "7.223/2025",
+    "drive_file_id": "1bRpmMxacX16P1tJBvam-55OOPTYuQnIA",
+    "sha256": "37ea54d85cc5428622b296881a279a17e1aeefd7574576e7a3414443bbee64c4",
+    "law_pages": "15-481"
+  },
+  "parser_policy": {
+    "text_layer_kind": "OCR_DERIVED_TEXT_LAYER",
+    "text_layer_used_for": ["navigation", "structural_candidates", "exact_digit_action_codes_when_present"],
+    "critical_numeric_truth_from_text_layer": false,
+    "silent_character_repair": false,
+    "llm_numeric_reconstruction": false,
+    "visual_or_independent_validation_required": true,
+    "blank_pages": [375, 386, 413, 415, 421, 426],
+    "targeted_review_pages": [475, 476, 477, 478, 479, 480, 481]
+  },
+  "source_review": {
+    "page_15": {
+      "status": "TEXT_VISUAL_CLEAN_FOR_NORMATIVE_HEADER",
+      "law_header_proven": true,
+      "article_2_total_brl": "2303934000.00",
+      "article_2_fiscal_brl": "1793668816.00",
+      "article_2_social_security_brl": "510265184.00"
+    },
+    "page_17": {
+      "status": "TEXT_VISUAL_CLEAN_FOR_NORMATIVE_HEADER",
+      "article_4_total_expense_brl": "2303934000.00",
+      "article_4_fiscal_brl": "1485118800.00",
+      "article_4_social_security_brl": "818815200.00"
+    },
+    "page_171": {
+      "status": "VISUAL_VERIFIED_TEXT_AGREEMENT",
+      "internal_loa_page": 124,
+      "action_code": "12.362.2001.2690",
+      "action_label": "TRANSPORTE ESCOLAR",
+      "action_amount_brl": "6152000.00",
+      "eiti_specific": false
+    },
+    "page_173": {
+      "status": "MATERIAL_OCR_NUMERIC_DRIFT_PROVEN",
+      "unit": "10.05.00 ALIMENTACAO ESCOLAR",
+      "visual_total_brl": "28000000.00",
+      "ocr_text_total_brl": "29000000.00"
+    },
+    "page_174": {
+      "status": "MATERIAL_OCR_CODE_AND_NUMERIC_DRIFT_PROVEN",
+      "internal_loa_page": 127,
+      "visual_action_code": "12.306.2001.2720",
+      "ocr_action_code_raw": "12. 30 6 . 2001. 2 ~20",
+      "action_label": "ALIMENTACAO ESCOLAR",
+      "visual_action_amount_brl": "28000000.00",
+      "ocr_text_action_amount_brl": "29000000.00",
+      "eiti_specific": false
+    }
+  },
+  "interpretation": {
+    "prior_bridge_transport_row_now_directly_source_verified": true,
+    "prior_bridge_food_row_now_directly_source_verified_by_visual_page_review": true,
+    "program_2001_financial_identity": false,
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+    "ocr_text_numeric_auto_promotion_forbidden": true
+  },
+  "effects": {
+    "source_get": 0,
+    "drive_write": 0,
+    "ocr_execution": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "f01_status": "NOT_SILVER",
+  "next_boundary": "Run deterministic candidate parser over OCR-derived text only as a navigation/indexing layer; require visual or independent validation for critical numeric promotion and keep pages 475-481 targeted-review only."
+}

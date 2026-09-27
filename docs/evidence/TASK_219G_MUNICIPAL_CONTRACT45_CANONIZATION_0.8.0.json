@@ -1,0 +1,90 @@
+{
+  "task": "TASK_219G_MUNICIPAL_CONTRACT45_CANONIZATION",
+  "issue": 703,
+  "parent_issue": 691,
+  "canonical_date": "2026-09-09",
+  "base_main_sha": "aa86c2c60640cbb99d54b873c456662fc6ed8b98",
+  "authorization": {
+    "path": "docs/evidence/TASK_219G_OWNER_AUTHORIZATION_0.8.0.json",
+    "owner_instruction": "Autorizado. A autorização vale até completar",
+    "scope_completed_by_this_task": true,
+    "future_network_authorized": false
+  },
+  "runtime": {
+    "run_id": 34385352503,
+    "job_id": 102580114582,
+    "execution_head_sha": "dda80fb817f5293e5c01b80545eb545dda9938f1",
+    "artifact_id": 10117483856,
+    "artifact_name": "task-219g-contract45-municipal-evidence",
+    "artifact_zip_sha256": "c998cf93eb2e2db0b3ac10c245dd725c9d813c539780059d7dcc6d40f6882a6c",
+    "artifact_member": "task219g_result.json",
+    "artifact_member_sha256": "d3a48ed22a6ec81ac89af72e52f31c6778445258fb6c5685d9c1e00257fc8431",
+    "artifact_payload_path": "docs/evidence/TASK_219G_LIVE_ARTIFACT_PAYLOAD_0.8.0.json",
+    "workflow_path_at_execution": ".github/workflows/task-219g-contract45-municipal-live-once.yml",
+    "executed_workflow_blob_sha": "8032fe6cdec503219c8f37af7999269ba5ee207e",
+    "historical_workflow_path": "docs/evidence/TASK_219G_HISTORICAL_LIVE_WORKFLOW_SOURCE_0.8.0.txt",
+    "historical_workflow_blob_sha": "8032fe6cdec503219c8f37af7999269ba5ee207e",
+    "historical_source_exact_blob_match": true,
+    "workflow_removed_after_run": true,
+    "workflow_removal_commit": "12bd4c2c29c30af2ad59c243e7e6b71bae9cb2ad"
+  },
+  "query_identity": {
+    "year": 2026,
+    "contract_number": "45/2026",
+    "cnpj": "37457979000131",
+    "contractor": "Med Doctor Acessórios Ltda",
+    "origin_event_id": "JOEV_083e522d4145e4d27580",
+    "process_number_context_only": "902.281/2025",
+    "bidding_number_context_only": "10/2026",
+    "value_brl_context_only": "210000.00"
+  },
+  "transport": {
+    "request_count": 3,
+    "max_http_requests": 3,
+    "retry": 0,
+    "same_origin_only": true,
+    "all_requests_https": true,
+    "all_response_statuses": [200, 200, 200],
+    "bytes_received": [39470, 1075, 72634],
+    "transport_or_edge_failure": false
+  },
+  "resolver": {
+    "form_discovery": "PASS_FORM_DISCOVERY",
+    "autosubmit_relay": "PASS_PROVEN_AUTOSUBMIT_RELAY",
+    "relay_table_rows": 17,
+    "status": "NO_MATCH",
+    "candidate_count": 0,
+    "candidate_required_signals": [
+      "CONTRACT_NUMBER_YEAR_NORMALIZED",
+      "CNPJ",
+      "SUPPLIER_NAME"
+    ]
+  },
+  "adjudication": {
+    "bounded_municipal_query_completed": true,
+    "bounded_municipal_no_match_valid": true,
+    "meaning": "No row returned by the exact bounded municipal search satisfied contract 45/2026 plus exact CNPJ 37457979000131 plus supplier agreement.",
+    "universal_contract_absence_proven": false,
+    "jom_contract_45_2026_seed_remains_primary_evidence": true,
+    "municipal_contract_identity_bridge_proven": false,
+    "pncp_identity_proven": false,
+    "tce_commitment_identity_proven": false,
+    "payment_or_execution_identity_proven": false,
+    "question_promotion_performed": false,
+    "contextual_paths_before": 34,
+    "contextual_paths_after": 34,
+    "canonical_questions_total": 38,
+    "remaining_blockers": [
+      "CTRL_Q2",
+      "PROC_Q1",
+      "PROC_Q2",
+      "PROC_Q3"
+    ]
+  },
+  "authorization_consumption": {
+    "task219g_scope_complete": true,
+    "authorization_exhausted_for_future_network": true,
+    "new_authorization_required_for_any_additional_source_or_query": true
+  },
+  "next_action": "CLOSE_TASK219G_KEEP_PARENT691_OPEN_SELECT_NEW_PRIMARY_IDENTITY_ROUTE_SEPARATELY"
+}

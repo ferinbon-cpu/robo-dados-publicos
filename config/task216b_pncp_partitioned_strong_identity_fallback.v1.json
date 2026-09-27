@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "schema": "TASK216B_PNCP_PARTITIONED_STRONG_IDENTITY_FALLBACK_V1",
+  "task": "TASK_216B",
+  "parent_task": "TASK_216",
+  "issue": 676,
+  "base_main_sha": "2d9364315d6f1ff256a968d61885e34cb32b9fae",
+  "authorization": {
+    "source_record": "config/task161_pncp_manual_publication_sweep_evidence_guards.v1.json",
+    "scope": "PNCP_LIVE_READ_DISCOVERY_ONLY",
+    "standing_authorization_reused": true,
+    "mutations_allowed": false
+  },
+  "parent_contract": "config/task216_pncp_strong_identity_bridge.v1.json",
+  "source": {
+    "endpoint": "https://pncp.gov.br/api/consulta/v1/contratos",
+    "cnpjOrgao": "45132495000140",
+    "tamanhoPagina": 500,
+    "maxPaginasPerPartition": 5,
+    "timeoutSeconds": 60,
+    "maxBytesPerPage": 20000000,
+    "retryMax": 0,
+    "redirectsMax": 0
+  },
+  "partitions": [
+    {
+      "id": "2026-01",
+      "dataInicial": "20260101",
+      "dataFinal": "20260131"
+    },
+    {
+      "id": "2026-02",
+      "dataInicial": "20260201",
+      "dataFinal": "20260228"
+    },
+    {
+      "id": "2026-03",
+      "dataInicial": "20260301",
+      "dataFinal": "20260331"
+    },
+    {
+      "id": "2026-04",
+      "dataInicial": "20260401",
+      "dataFinal": "20260430"
+    },
+    {
+      "id": "2026-05",
+      "dataInicial": "20260501",
+      "dataFinal": "20260531"
+    },
+    {
+      "id": "2026-06",
+      "dataInicial": "20260601",
+      "dataFinal": "20260630"
+    },
+    {
+      "id": "2026-07",
+      "dataInicial": "20260701",
+      "dataFinal": "20260731"
+    },
+    {
+      "id": "2026-08",
+      "dataInicial": "20260801",
+      "dataFinal": "20260831"
+    },
+    {
+      "id": "2026-09-01_08",
+      "dataInicial": "20260901",
+      "dataFinal": "20260908"
+    }
+  ],
+  "completeness": {
+    "all_partitions_required": true,
+    "page_count_stability_required": true,
+    "record_count_reconciliation_required": true,
+    "any_partition_transport_failure_stops_global_adjudication": true,
+    "overlapping_partitions_forbidden": true,
+    "exact_overall_scope": [
+      "20260101",
+      "20260908"
+    ]
+  },
+  "persistence": {
+    "rawPayloadGit": false,
+    "rawPayloadDrive": false,
+    "rawPayloadWorkflowArtifact": false,
+    "sanitizedResultWorkflowArtifact": true,
+    "artifactRetentionDays": 1
+  },
+  "promotion_policy": {
+    "runtime_auto_promotion": false,
+    "offline_adjudication_required": true,
+    "require_end_to_end_chain": true
+  },
+  "runtime_branch": "task-216b-pncp-partitioned-runtime",
+  "trigger_path": "runtime_triggers/task216b_pncp_partitioned_identity.run"
+}

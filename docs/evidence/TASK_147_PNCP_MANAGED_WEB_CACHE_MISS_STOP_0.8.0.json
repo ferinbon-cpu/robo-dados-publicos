@@ -1,0 +1,37 @@
+{
+  "task": "TASK_147_PNCP_MANAGED_WEB_CACHE_MISS_STOP",
+  "issue": 504,
+  "mode": "T1_SINGLE_AUTHORIZED_MANAGED_WEB_OPEN",
+  "base_sha": "4a1ca307bc90be6d482b0be32f6e223b1cd9dd8d",
+  "task146_merge_sha": "4a1ca307bc90be6d482b0be32f6e223b1cd9dd8d",
+  "exact_url": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao?dataInicial=20251128&dataFinal=20260904&codigoModalidadeContratacao=12&cnpj=45132495000140&pagina=1&tamanhoPagina=50",
+  "result": "STOP_MANAGED_WEB_CACHE_MISS_NO_PNCP_CONTENT",
+  "execution": {
+    "managed_web_open_invocations": 1,
+    "retry_performed": false,
+    "search_queries": 0,
+    "clicks": 0,
+    "followup_opens": 0,
+    "tool_failure_class": "FETCH_CACHE_MISS",
+    "tool_failure_summary": "Failed to fetch exact user-supplied PNCP URL: Cache miss",
+    "pncp_content_returned": false,
+    "pncp_http_status_established": false,
+    "source_data_observed": false,
+    "raw_payload_persisted": false
+  },
+  "authorization_state": {
+    "fresh_task146_exact_url_authorization_consumed": true,
+    "second_open_authorized": false,
+    "retry_authorized": false
+  },
+  "epistemic_state": {
+    "administrative_identifier_candidate_found": false,
+    "pncp_no_match_conclusion_created": false,
+    "negative_exhaustive_conclusion_created": false,
+    "financial_identity_created": false,
+    "transaction_identity_created": false,
+    "supplier_linkage_created": false
+  },
+  "followup_endpoints_executed": false,
+  "next_boundary": "NEW_EXPLICIT_OWNER_AUTHORIZATION_AND_NEW_GATE_REQUIRED_BEFORE_ANY_FURTHER_PNCP_OR_ALTERNATIVE_LIVE_SOURCE_OPERATION"
+}

@@ -1,0 +1,93 @@
+{
+  "task": "TASK_027_LOA_REPRODUCIBLE_EXTRACTION_READINESS",
+  "version": "0.8.0",
+  "base_sha": "93129206723acbb3f986c88080d2abaec4eab5f8",
+  "mode": "T0_OFFLINE_DESIGN",
+  "source_task": "TASK_026_F01_STAGING_RECONCILIATION",
+  "result": "PASS_LOA_REPRODUCIBLE_EXTRACTION_READINESS_DESIGN_OFFLINE",
+  "canonical_loa": {
+    "law": "7.223/2025",
+    "exercise": 2026,
+    "sha256": "bc4c8bf4b2b1e8f59e880318c37ec7f7fbd4357a85a8b46c97750444dbf01d4b",
+    "bytes": 24203962,
+    "pages": 466,
+    "text_layer": "ABSENT",
+    "authority_class": "SOURCE"
+  },
+  "read_only_public_discovery_outside_repository_runtime": {
+    "status": "OFFICIAL_MACHINE_READABLE_EQUIVALENT_NOT_PROVEN",
+    "absence_claimed": false,
+    "findings": [
+      {
+        "surface": "PREFEITURA_ORCAMENTOS",
+        "url": "https://www.limeira.sp.gov.br/orcamentos",
+        "finding": "Official municipal budget page lists Lei Municipal 7.223/25 and LOA 2026 annexes; discovery did not prove a machine-readable equivalent."
+      },
+      {
+        "surface": "CAMARA_LEGISLACAO_DIGITAL",
+        "url": "https://legislacao.limeira.sp.leg.br/",
+        "finding": "Official legislation surface confirms Lei Ordinaria 7.223/2025, date 28/11/2025 and LOA 2026 legal identity; a structurally equivalent machine-readable annex was not proven."
+      },
+      {
+        "surface": "PREFEITURA_PORTAL_TRANSPARENCIA",
+        "url": "https://limeira.sp.gov.br/cidadao/portal-da-transparencia",
+        "finding": "The official transparency surface exposes budget/financial execution information, but this T0 discovery did not prove it as a complete structural equivalent of the enacted 466-page LOA annex."
+      }
+    ],
+    "decision": "DO_NOT_INFER_NONEXISTENCE; KEEP_OFFICIAL_ROUTE_FIRST"
+  },
+  "route_policy": {
+    "priority": [
+      "OFFICIAL_MACHINE_READABLE_EQUIVALENT",
+      "OFFICIAL_COMPLETE_TEXT_EQUIVALENT",
+      "DETERMINISTIC_AUDITED_OCR_OF_CANONICAL_SOURCE"
+    ],
+    "ocr_is_fallback": true,
+    "ocr_is_derived_not_source": true,
+    "llm_numeric_reconstruction_forbidden": true,
+    "silent_text_correction_forbidden": true
+  },
+  "ocr_acceptance_design": {
+    "exact_pages": 466,
+    "one_manifest_row_per_page": true,
+    "page_image_hash_required": true,
+    "ocr_text_hash_required": true,
+    "engine_version_pinned": true,
+    "engine_config_pinned": true,
+    "renderer_version_pinned": true,
+    "dpi_pinned": true,
+    "mixed_engine_configs_forbidden": true,
+    "mixed_render_configs_forbidden": true,
+    "critical_numeric_values_require_source_page": true,
+    "critical_numeric_values_require_independent_or_visual_validation": true,
+    "automatic_numeric_promotion": false
+  },
+  "effects": {
+    "repository_source_network": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "ocr_execution": 0,
+    "bronze_writes": 0,
+    "silver_writes": 0,
+    "gold_writes": 0,
+    "serving_writes": 0,
+    "publication": 0,
+    "schedule": false,
+    "recurrence": false
+  },
+  "authorization": {
+    "offline_design": true,
+    "official_source_live_probe": false,
+    "ocr_execution": false,
+    "silver_promotion": false,
+    "gold_promotion": false,
+    "serving_promotion": false,
+    "publication": false
+  },
+  "release_boundary": {
+    "0.7.0": "ACTIVE",
+    "0.8.0": "CANDIDATE",
+    "unchanged": true
+  },
+  "next_gate": "OWNER_CHOOSES_SEPARATE_BOUNDED_OFFICIAL_EQUIVALENCE_PROBE_OR_DETERMINISTIC_OCR_PROOF"
+}

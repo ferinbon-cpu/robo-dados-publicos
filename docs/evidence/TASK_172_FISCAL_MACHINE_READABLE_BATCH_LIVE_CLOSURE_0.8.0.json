@@ -1,0 +1,222 @@
+{
+  "task": "TASK_172_BOUNDED_OBSERVATORY_FISCAL_MACHINE_READABLE_ACQUISITION",
+  "issue": 556,
+  "live_run": {
+    "run_id": 34004438029,
+    "job_id": 101408976391,
+    "head_sha": "0ccdb3fe28d4b8f16d98c93bb3144d580e8c4325",
+    "conclusion": "success",
+    "request_count": 12,
+    "request_budget": 13,
+    "optional_tda_followup_used": false
+  },
+  "artifact": {
+    "id": 9980495169,
+    "name": "task172-sanitized-result",
+    "artifact_digest": "sha256:9f2d21d663b6d62a3e1f3427f19e03007a59f5b44eb08ea40fddf3bc710ee761",
+    "json_bytes": 135467,
+    "json_file_sha256": "06c951bed8f6c39d1a0b3e18ed3b17a6942cefcb7e80f4c5ab733828e4d768b3",
+    "canonical_result_sha256": "829eb06a8cf849e09198651582f7a8f05fb3b7be9fc76c7e35c4612977b285d7",
+    "raw_source_payload_persisted": false
+  },
+  "source_results": [
+    {
+      "source_id": "SICONFI_RREO_2025_ANEXO_01",
+      "http_status": 200,
+      "content_type": "application/json",
+      "bytes": 187916,
+      "record_count": 517,
+      "status": "PROVEN_MACHINE_READABLE_JSON"
+    },
+    {
+      "source_id": "SICONFI_RREO_2025_ANEXO_02",
+      "http_status": 200,
+      "content_type": "application/json",
+      "bytes": 497828,
+      "record_count": 1276,
+      "status": "PROVEN_MACHINE_READABLE_JSON",
+      "observed_budget_examples": [
+        {
+          "account": "Educação",
+          "column": "DOTAÇÃO INICIAL",
+          "value_brl": 465355000,
+          "meaning": "BUDGET_AUTHORIZATION_NOT_EXECUTION"
+        },
+        {
+          "account": "Educação Infantil",
+          "column": "DOTAÇÃO INICIAL",
+          "value_brl": 162455000,
+          "meaning": "BUDGET_AUTHORIZATION_NOT_EXECUTION"
+        },
+        {
+          "account": "Educação de Jovens e Adultos",
+          "column": "DOTAÇÃO INICIAL",
+          "value_brl": 512000,
+          "meaning": "BUDGET_AUTHORIZATION_NOT_EXECUTION"
+        },
+        {
+          "account": "Educação Especial",
+          "column": "DOTAÇÃO INICIAL",
+          "value_brl": 19072000,
+          "meaning": "BUDGET_AUTHORIZATION_NOT_EXECUTION"
+        }
+      ]
+    },
+    {
+      "source_id": "SICONFI_RREO_2025_ANEXO_08",
+      "http_status": 200,
+      "content_type": "application/json",
+      "bytes": 645,
+      "record_count": 0,
+      "status": "EMPTY_WITHIN_EXACT_QUERY_NOT_GLOBAL_ABSENCE"
+    },
+    {
+      "source_id": "SICONFI_RGF_2025_ANEXO_01",
+      "http_status": 200,
+      "content_type": "application/json",
+      "bytes": 76521,
+      "record_count": 198,
+      "status": "PROVEN_MACHINE_READABLE_JSON"
+    },
+    {
+      "source_id": "FNDE_FUNDEB_2026_RECEITA_TOTAL",
+      "http_status": 200,
+      "content_type": "text/csv",
+      "record_count": 5598,
+      "status": "PROVEN_OFFICIAL_MACHINE_READABLE_CSV",
+      "exact_limeira_ibge_3526902_observed": true
+    },
+    {
+      "source_id": "FNDE_FUNDEB_2026_VAAR_PREVISTA",
+      "http_status": 200,
+      "content_type": "text/csv",
+      "record_count": 3042,
+      "status": "PROVEN_OFFICIAL_MACHINE_READABLE_CSV",
+      "exact_limeira_ibge_3526902_observed": false,
+      "adjudication": "NOT_LISTED_IN_THIS_EXACT_BENEFICIARY_TABLE_NOT_GLOBAL_VAAR_CONCLUSION"
+    },
+    {
+      "source_id": "FNDE_FUNDEB_2026_VAAR_INDICADORES",
+      "http_status": 200,
+      "content_type": "text/csv",
+      "record_count": 5597,
+      "status": "PROVEN_OFFICIAL_MACHINE_READABLE_CSV",
+      "exact_limeira_row": {
+        "uf": "SP",
+        "municipality": "LIMEIRA",
+        "ibge": "3526902",
+        "evoluiu_atendimento": "Sim",
+        "indicador_atendimento": "0,997629",
+        "evoluiu_aprendizagem": "Não",
+        "indicador_aprendizagem": "3,07"
+      }
+    },
+    {
+      "source_id": "FNDE_FUNDEB_2026_VAAT_HABILITACAO",
+      "http_status": 200,
+      "content_type": "text/csv",
+      "record_count": 5598,
+      "status": "PROVEN_OFFICIAL_MACHINE_READABLE_CSV",
+      "exact_limeira_ibge_3526902_observed": true,
+      "limeira_status": "Habilitado para o cálculo do VAAT."
+    },
+    {
+      "source_id": "TCESP_LIMEIRA_2026_RECEITAS",
+      "http_status": 200,
+      "content_type": "application/zip",
+      "record_count": 2287,
+      "status": "PROVEN_CURRENT_MACHINE_READABLE_ZIP_CSV",
+      "member": "receitas-limeira-2026.csv",
+      "key_fields": [
+        "ano_exercicio",
+        "ds_municipio",
+        "ds_orgao",
+        "mes_referencia",
+        "ds_fonte_recurso",
+        "ds_cd_aplicacao_fixo",
+        "ds_cd_aplicacao_variavel",
+        "ds_categoria",
+        "vl_arrecadacao"
+      ]
+    },
+    {
+      "source_id": "TCESP_LIMEIRA_2026_DESPESAS",
+      "http_status": 200,
+      "content_type": "application/zip",
+      "record_count": 39780,
+      "status": "PROVEN_CURRENT_MACHINE_READABLE_ZIP_CSV",
+      "member": "despesas-limeira-2026.csv",
+      "key_fields": [
+        "tp_despesa",
+        "nr_empenho",
+        "dt_emissao_despesa",
+        "vl_despesa",
+        "ds_funcao_governo",
+        "ds_subfuncao_governo",
+        "cd_programa",
+        "ds_programa",
+        "cd_acao",
+        "ds_acao",
+        "ds_fonte_recurso",
+        "ds_cd_aplicacao_fixo",
+        "ds_modalidade_lic",
+        "ds_elemento",
+        "historico_despesa"
+      ],
+      "observed_stage_example": "Empenhado",
+      "observatory_value": "HIGH_GRANULARITY_ACCOUNTING_AND_POLICY_AUTODIFFERENTIATION_SOURCE"
+    },
+    {
+      "source_id": "TCESP_LIMEIRA_2026_RESTOS",
+      "http_status": 200,
+      "content_type": "application/zip",
+      "record_count": 7425,
+      "status": "PROVEN_CURRENT_MACHINE_READABLE_ZIP_CSV",
+      "member": "limeira-2026.zip.csv",
+      "key_fields": [
+        "Função de Governo",
+        "Subfunção de Governo",
+        "Programa",
+        "Ação",
+        "Fonte de Recurso",
+        "Cód. Aplicação - Fixo",
+        "Nr. Empenho",
+        "Ano Empenho",
+        "Vl. Liquidado - RP Não Proc",
+        "Vl. Pago - RP Não Proc"
+      ]
+    },
+    {
+      "source_id": "TDA_LIMEIRA_DECLARED_ROUTE_DISCOVERY",
+      "http_status": 301,
+      "status": "SOURCE_ACCESS_SURFACE_BLOCKED",
+      "redirect_location": "logout.aspx",
+      "declared_machine_routes": [],
+      "no_data_conclusion": false
+    }
+  ],
+  "scientific_and_product_state": {
+    "general_observatory_scope": true,
+    "eiti_global_filter": false,
+    "budget_fiscal_map_materially_expanded": true,
+    "current_tcesp_2026_accounting_schema_proven": true,
+    "jom_cross_layer_autodifferentiation_can_now_route_to_tcesp_accounting_dimensions": true,
+    "policy_identity_promoted": false,
+    "financial_identity_promoted": false,
+    "payment_promoted": false,
+    "exact_route_contract_maturity_proven": [
+      "SICONFI_RREO_2025_ANEXO_01",
+      "SICONFI_RREO_2025_ANEXO_02",
+      "SICONFI_RGF_2025_ANEXO_01",
+      "FNDE_FUNDEB_2026_DECLARED_CSV_SET",
+      "TCESP_LIMEIRA_2026_DECLARED_ZIP_SET"
+    ],
+    "family_wide_auto_ingest_maturity_promoted": false,
+    "family_registry_reason": "EXACT_URL_SCHEMA_PROOF_DOES_NOT_GENERALIZE_TO_ARBITRARY_FAMILY_FILES_OR_RECURRENCE"
+  },
+  "authorization": {
+    "task172_live_authorization_consumed": true,
+    "future_live_execution_authorized": false
+  },
+  "next": "TASK_173_T0_BUILD_CURRENT_TCESP_ACCOUNTING_ADAPTER_AND_JOM_TO_ACCOUNTING_ROUTER_WITHOUT_NEW_NETWORK"
+}

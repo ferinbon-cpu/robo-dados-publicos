@@ -1,0 +1,63 @@
+name: TASK 009C - SIOPE 2025 resolved metadata ZIP path probe
+run-name: "TASK 009C bounded resolved path probe authorization=${{ inputs.authorization_id }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      authorization_id:
+        description: Exact separately merged one-shot authorization ID
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: siope-2025-metadata-resolved-path-probe
+  cancel-in-progress: false
+
+jobs:
+  bounded-resolved-path-probe:
+    name: One bounded resolved metadata path probe
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+    steps:
+      - name: Checkout exact main state
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Install repository dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Policy preflight
+        run: |
+          python scripts/github_preflight.py
+          python scripts/github_automation_policy_gate.py
+          python scripts/github_codex_engineer_policy_gate.py
+
+      - name: Require separately merged one-shot authorization artifact
+        run: |
+          test -f config/siope_2025_metadata_resolved_path_probe_authorization.v1.json || {
+            echo 'STOP_METADATA_RESOLVED_PATH_PROBE_NOT_AUTHORIZED: authorization artifact absent';
+            exit 13;
+          }
+
+      - name: Execute exactly one bounded resolved path probe
+        run: >-
+          python scripts/run_siope_2025_metadata_resolved_path_probe.py
+          --mode live
+          --authorization-id "${{ inputs.authorization_id }}"
+          --workflow-run-number "${{ github.run_number }}"
+          --workflow-run-attempt "${{ github.run_attempt }}"
+          --workflow-ref "${{ github.ref }}"

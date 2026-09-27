@@ -1,0 +1,41 @@
+{
+  "task": "TASK_217C_JOM_2026_DISCOVERY_CARRIER",
+  "issue": 680,
+  "base_main_sha": "ea16982dfe0333870fde23531848520c0263b492",
+  "tier": "T0_IMPLEMENTED_LIVE_DISABLED",
+  "purpose": "Materialize a discovery-only runtime carrier so owner authorization can be pinned to a stable implementation SHA.",
+  "live_scope_after_authorization": {
+    "source": "LIMEIRA_JORNAL_OFICIAL",
+    "operation": "BOUNDED_2026_JOM_MONTHLY_DISCOVERY_READ_ONLY",
+    "start_date": "2026-01-01",
+    "end_date": "2026-09-08",
+    "month_partitions": 9,
+    "max_pages_per_month": 5,
+    "max_total_index_pages": 45,
+    "max_remote_get_count": 90,
+    "document_downloads": 0
+  },
+  "runtime_branch": "task-217c-jom-2026-discovery-runtime",
+  "trigger": "runtime_triggers/task217c_jom_2026_discovery.run",
+  "authorization_file": "runtime/task217c_owner_authorization.json",
+  "runtime_delta_guard": "ONLY_AUTHORIZATION_FILE_AND_TRIGGER_MAY_DIFFER_FROM_AUTHORIZED_IMPLEMENTATION_SHA",
+  "guards": [
+    "TASK018_AUTHORIZATION_REUSE_FORBIDDEN",
+    "EXACT_IMPLEMENTATION_SHA_REQUIRED",
+    "INCOMPLETE_MONTH_STOPS",
+    "NO_DOCUMENT_DOWNLOAD",
+    "NO_DRIVE_WRITE",
+    "NO_SERVING_WRITE",
+    "NO_PUBLICATION",
+    "NO_ANSWERABILITY_PROMOTION",
+    "ZERO_OR_PARTIAL_DISCOVERY_NE_ABSENCE"
+  ],
+  "pre_authorization_effects": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

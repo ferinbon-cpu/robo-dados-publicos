@@ -1,0 +1,42 @@
+{
+  "schema": "TASK215_REMAINING_IDENTITY_AUDIT_V1",
+  "jom": {
+    "source_row_count": 303,
+    "publication_min": "2026-08-14",
+    "publication_max": "2026-08-29",
+    "procurement_shaped_event_count": 138,
+    "procurement_with_structured_cnpj": 46,
+    "structured_cnpj_overlap_with_tce_supplier_identity_count": 31,
+    "overlap_semantic": "SUPPLIER_IDENTITY_ONLY",
+    "event_level_procurement_identity_proven": false,
+    "tce_structured_contract_number_available": false,
+    "tce_structured_process_number_available": false,
+    "tce_structured_pncp_control_id_available": false
+  },
+  "procurement": {
+    "PROC_Q1": "BLOCKED_NO_EVENT_LEVEL_IDENTITY",
+    "PROC_Q2": "BLOCKED_NO_EVENT_LEVEL_IDENTITY",
+    "PROC_Q3": "BLOCKED_NO_EVENT_LEVEL_IDENTITY",
+    "cnpj_alone_can_join_specific_contract": false,
+    "history_text_contract_number_can_create_identity": false
+  },
+  "control": {
+    "CTRL_Q2": "BLOCKED_NO_EVENT_OR_TRANSACTION_IDENTITY",
+    "exact_shared_cnpj_proves_supplier_identity_only": true,
+    "supplier_identity_equals_event_corroboration": false
+  },
+  "infrastructure": {
+    "INFRA_Q2": "BLOCKED_NO_STRUCTURED_SCHOOL_IDENTITY",
+    "jom_event_index_has_school_code_field": false,
+    "broadly_school_or_education_object_text_count": 2,
+    "exact_named_school_identity_proven_count": 0,
+    "generic_unidades_escolares_may_be_assigned_to_school": false
+  },
+  "guards": [
+    "EXACT_CNPJ_NE_CONTRACT_IDENTITY",
+    "OBJECT_TEXT_NE_SCHOOL_CODE",
+    "HISTORY_TEXT_NE_STRUCTURED_CONTRACT_ID",
+    "SUPPLIER_IDENTITY_NE_EVENT_IDENTITY",
+    "NO_FUZZY_TEXT_AMOUNT_DATE_JOIN"
+  ]
+}

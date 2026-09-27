@@ -1,0 +1,62 @@
+{
+  "schema": "TASK268_PNCP_HISTORY_PROBE_645_V1",
+  "task": "TASK_268",
+  "issue": 871,
+  "base_main_sha": "fb6cf5500ced82b6f1865d99def2ce6b8628ecde",
+  "source_task267": {
+    "evidence": "docs/evidence/TASK_267_PNCP_ITEMS_8OF8_CANONICAL_0.8.0.json",
+    "required_status": "8_OF_8_PNCP_ITEMS_RESOLVED_40_SANITIZED_ITEM_ROWS"
+  },
+  "documentation": {
+    "manual": "Manual de Integração do PNCP",
+    "manual_version": "2.6",
+    "version_date": "2026-08-31",
+    "source_url": "https://pncp.gov.br/manual/pt-br/latest/singlehtml/",
+    "service_name": "Consultar Histórico da Contratação",
+    "production_base_url": "https://pncp.gov.br/api/pncp",
+    "endpoint": "/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}/historico",
+    "method": "GET",
+    "documented_scope": "eventos da contratação, Itens, Resultados e documentos/arquivos"
+  },
+  "target": {
+    "control": "45132495000140-1-000645/2026",
+    "cnpj": "45132495000140",
+    "ano": 2026,
+    "sequencial": 645,
+    "requested_url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/645/historico"
+  },
+  "probe": {
+    "max_remote_get_count": 1,
+    "connect_timeout_seconds": 15,
+    "max_time_seconds": 75,
+    "max_body_bytes": 1048576,
+    "retry": false,
+    "follow_redirects": false,
+    "alternate_url_discovery": false,
+    "raw_body_persistence": false,
+    "traverse_exposed_links": false
+  },
+  "history_allow": [
+    "dataHoraEvento",
+    "dataPublicacaoPncp",
+    "justificativa",
+    "sequencialHistorico",
+    "situacaoCompraId",
+    "situacaoCompraNome"
+  ],
+  "runtime": {
+    "branch": "task-268-pncp-history-probe-645-runtime",
+    "authorization_file": "runtime/task268_owner_authorization.json",
+    "trigger_file": "runtime_triggers/task268_pncp_history_probe_645.run",
+    "artifact_name": "task-268-pncp-history-probe-645-sanitized"
+  },
+  "authorization": {
+    "required_task": "TASK_268_LIVE_AUTHORIZATION",
+    "required_operation": "EXACT_1_DOCUMENTED_PNCP_HISTORY_ROUTE_PROBE_645",
+    "exact_implementation_sha_required": true,
+    "prior_authorization_reuse_allowed": false,
+    "attempt_count": 1,
+    "source_network_authorized_by_default": false
+  },
+  "next_gate": "OWNER_AUTHORIZED_SINGLE_DOCUMENTED_PNCP_HISTORY_PROBE_645_ON_MERGED_TASK268_SHA"
+}

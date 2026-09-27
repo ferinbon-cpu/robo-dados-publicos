@@ -1,0 +1,78 @@
+{
+  "pdf_only_observations": [
+    {
+      "url": "https://www.limeira.sp.gov.br/orcamentos",
+      "surface": "PREFEITURA_ORCAMENTOS",
+      "title": "Orçamentos",
+      "text": "LOA Lei Municipal 7.223/25 Período 2026",
+      "links": [
+        {
+          "url": "https://www.limeira.sp.gov.br/documentos/loa-7223-2026.pdf",
+          "text": "Lei Municipal 7.223/25 e Anexos - LOA - Período 2026",
+          "content_type_hint": "application/pdf"
+        }
+      ]
+    }
+  ],
+  "machine_candidate_observations": [
+    {
+      "url": "https://www.limeira.sp.gov.br/orcamentos",
+      "surface": "PREFEITURA_ORCAMENTOS",
+      "title": "Orçamentos",
+      "text": "LOA Lei Municipal 7.223/25 Período 2026",
+      "links": [
+        {
+          "url": "https://www.limeira.sp.gov.br/documentos/loa-7223-2026.csv",
+          "text": "LOA 2026 Lei 7.223 dados",
+          "content_type_hint": "text/csv"
+        }
+      ]
+    }
+  ],
+  "generic_execution_observations": [
+    {
+      "url": "https://limeira.sp.gov.br/cidadao/portal-da-transparencia",
+      "surface": "TRANSPARENCIA_EXECUCAO",
+      "title": "Portal da Transparência",
+      "text": "Execução orçamentária e financeira",
+      "links": [
+        {
+          "url": "https://limeira.sp.gov.br/cidadao/despesas",
+          "text": "Despesas 2026",
+          "content_type_hint": "text/html"
+        }
+      ]
+    }
+  ],
+  "off_host_observations": [
+    {
+      "url": "https://www.limeira.sp.gov.br/orcamentos",
+      "surface": "PREFEITURA_ORCAMENTOS",
+      "title": "Orçamentos",
+      "text": "LOA 7.223 2026",
+      "links": [
+        {
+          "url": "https://example.com/loa-7223-2026.csv",
+          "text": "LOA 2026 7.223",
+          "content_type_hint": "text/csv"
+        }
+      ]
+    }
+  ],
+  "proofs_incomplete": {
+    "OFFICIAL_ORIGIN_PROVEN": true,
+    "EXERCISE_2026_PROVEN": true,
+    "LEGAL_IDENTITY_7_223_2025_PROVEN": true,
+    "ANNEX_COMPLETENESS_PROVEN": false,
+    "STRUCTURAL_EQUIVALENCE_TO_CANONICAL_SOURCE_PROVEN": false,
+    "IMMUTABLE_HASH_AND_SIZE_RECORDED": true
+  },
+  "proofs_complete_synthetic": {
+    "OFFICIAL_ORIGIN_PROVEN": true,
+    "EXERCISE_2026_PROVEN": true,
+    "LEGAL_IDENTITY_7_223_2025_PROVEN": true,
+    "ANNEX_COMPLETENESS_PROVEN": true,
+    "STRUCTURAL_EQUIVALENCE_TO_CANONICAL_SOURCE_PROVEN": true,
+    "IMMUTABLE_HASH_AND_SIZE_RECORDED": true
+  }
+}

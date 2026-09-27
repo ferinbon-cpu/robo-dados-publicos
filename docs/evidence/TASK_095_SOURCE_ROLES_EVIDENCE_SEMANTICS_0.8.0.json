@@ -1,0 +1,46 @@
+{
+  "task": "TASK_095_SOURCE_ROLES_EVIDENCE_SEMANTICS",
+  "mode": "T0_OFFLINE_EPISTEMIC_SOURCE_POLICY",
+  "source_roles": [
+    "DOCTRINAL_SOURCE",
+    "ACADEMIC_RESEARCH",
+    "NORMATIVE_PRIMARY",
+    "PLANNING_PRIMARY",
+    "BUDGET_PRIMARY",
+    "ACCOUNTING_EXECUTION_PRIMARY",
+    "ADMINISTRATIVE_PRIMARY",
+    "STATISTICAL_PRIMARY",
+    "SECONDARY_AGGREGATOR"
+  ],
+  "core_invariants": [
+    "SOURCE_ROLE_LIMITS_DIRECT_PROOF_CAPABILITY",
+    "BUDGET_AUTHORIZATION_IS_NOT_ACCOUNTING_EXECUTION",
+    "PLANNING_INTENT_IS_NOT_IMPLEMENTATION",
+    "STATISTICAL_OBSERVATION_IS_NOT_CAUSAL_EFFECT",
+    "ANALYTICAL_INFERENCE_MAX_CANDIDATE",
+    "NEGATIVE_SEARCH_OBSERVATION_PROVES_ONLY_SEARCH_RESULT",
+    "NO_MATCH_IS_NOT_NONEXISTENCE",
+    "CAUSAL_EFFECT_REQUIRES_SEPARATE_RESEARCH_DESIGN",
+    "POLICY_LINKAGE_REQUIRES_EXPLICIT_OR_SEPARATELY_PROVEN_BRIDGE"
+  ],
+  "negative_evidence": {
+    "no_match_can_prove_search_result": true,
+    "no_match_can_prove_nonexistence": false,
+    "scope_method_coverage_required": true
+  },
+  "effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "state_registry_write": 0,
+    "queue_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "retry": 0,
+    "recurrence": 0,
+    "schedule": 0
+  },
+  "next_task": "TASK_096_EITI_LIMEIRA_OFFLINE_CROSSWALK",
+  "result": "READY_FOR_CI_REVIEW_NO_REMOTE_EFFECT",
+  "base_sha": "2b59e34a520c5a5bb38a167cb746a1a75bbabcc1"
+}

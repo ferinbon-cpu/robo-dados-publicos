@@ -1,0 +1,46 @@
+{
+  "schema": "TASK114_PPA2018_ONTOLOGY_OCR_CANDIDATES_V1",
+  "task": "TASK_114_ONTOLOGY_AWARE_PPA2018_OCR",
+  "status": "NO_CANDIDATES_FOUND",
+  "candidate_count": 0,
+  "candidate_page_count": 0,
+  "candidate_pages": [],
+  "candidates": [],
+  "document": {
+    "document_identity_evidence": "docs/evidence/TASK_112_REAL_PPA_OCR_RESULT_0.8.0.json",
+    "law_number": "5.947",
+    "page_count": 80,
+    "period": "2018-2021"
+  },
+  "source": {
+    "content_type": "application/pdf",
+    "final_url": "https://www.limeira.sp.gov.br/sitenovo/downloads/0fa1a5cc5c9a1823fbf5436def00f01f.pdf",
+    "request_count": 1,
+    "requests": [
+      {
+        "host": "www.limeira.sp.gov.br",
+        "kind": "INITIAL",
+        "method": "GET",
+        "ordinal": 1,
+        "path": "/sitenovo/downloads/0fa1a5cc5c9a1823fbf5436def00f01f.pdf"
+      }
+    ],
+    "source_bytes": 3252087,
+    "source_sha256": "685a621a2f5fa8859e4b7f8518627c1523a2fbc5f3402ff48d4aa7573300113d",
+    "url": "https://www.limeira.sp.gov.br/sitenovo/downloads/0fa1a5cc5c9a1823fbf5436def00f01f.pdf"
+  },
+  "search_contract": "config/task113_ppa2018_ontology_lexical.v1.json",
+  "promotion": {
+    "causal_effect_created": false,
+    "financial_identity_created": false,
+    "implementation_proven": false,
+    "policy_identity_created": false,
+    "primary_planning_status_changed": false,
+    "transaction_execution_identity_created": false
+  },
+  "retry_performed": false,
+  "recurrence": false,
+  "schedule": false,
+  "future_execution_authorized": false,
+  "result_canonical_sha256": "ab663f4f5f8a192e4cf9cf64c8e8ee3da2731f61d32041b7486244290f485c81"
+}

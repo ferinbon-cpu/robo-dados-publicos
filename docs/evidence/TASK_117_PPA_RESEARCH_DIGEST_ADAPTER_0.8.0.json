@@ -1,0 +1,43 @@
+{
+  "task": "TASK_117_PPA_RESEARCH_DIGEST_ADAPTER",
+  "mode": "T0_OFFLINE_VERSIONED_PPA_EVIDENCE_ADAPTER",
+  "base_sha": "f2d01888dce99dc96fab0c6ed0fa94f9d33604cb",
+  "issue": 431,
+  "inputs": [
+    "TASK_107",
+    "TASK_041",
+    "TASK_049"
+  ],
+  "packet_periods": [
+    "2022-2025",
+    "2026-2029"
+  ],
+  "packet_count": 2,
+  "source_role": "PLANNING_PRIMARY",
+  "planned_values_emitted_as_execution_amounts": false,
+  "expected_financial_identity_candidates": 0,
+  "bounded_negative_action_search": {
+    "rows": 27,
+    "result": "NO_MATCH",
+    "proves_no_eiti_spending": false
+  },
+  "automatic_promotion": false,
+  "remote_effects": {
+    "network": 0,
+    "drive": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "rag": 0,
+    "state_registry": 0,
+    "queue": 0,
+    "serving": 0,
+    "publication": 0,
+    "retry": 0,
+    "recurrence": 0,
+    "schedule": 0
+  },
+  "next": "TASK_118_LOA_REPOSITORY_EVIDENCE_ADAPTER",
+  "result": "PENDING_CI_REVIEW"
+}

@@ -1,0 +1,78 @@
+name: TASK 194H Inep explorationDocument schema probe
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: read
+
+concurrency:
+  group: task194h-inep-exploration-document
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    if: github.event.issue.number == 615 && github.actor == 'ferinbon-cpu' && startsWith(github.event.comment.body, 'TASK194H_EXPLORATION_DOCUMENT_AUTHORIZED ')
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONPATH: ${{ github.workspace }}
+      TASK194H_AUTH_COMMENT: ${{ github.event.comment.body }}
+      TASK194H_ISSUE_NUMBER: ${{ github.event.issue.number }}
+    steps:
+      - name: Checkout exact main authorization target
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.12"
+
+      - name: Verify exact authorization
+        shell: bash
+        run: |
+          set -euo pipefail
+          HEAD_SHA="$(git rev-parse HEAD)"
+          test "$HEAD_SHA" = "$GITHUB_SHA"
+          EXPECTED="TASK194H_EXPLORATION_DOCUMENT_AUTHORIZED main=$GITHUB_SHA issue=615 max_http_requests=2 querydata=0"
+          test "$TASK194H_AUTH_COMMENT" = "$EXPECTED"
+
+      - name: Offline preflight
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m compileall -q scripts tests
+          python -m unittest tests.test_task_194h_inep_data_exploration_document_schema -v
+
+      - name: Execute official explorationDocument schema probe
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime/task194h
+          TASK194H_CHECKED_OUT_SHA="$(git rev-parse HEAD)" \
+            python scripts/task194h_inep_data_exploration_document_schema.py \
+            --output runtime/task194h/sanitized_exploration_document_schema.json
+
+      - name: Assert sanitized output only
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -d runtime/task194h ]; then
+            find runtime/task194h -maxdepth 1 -type f -printf '%f\n' | grep -vx 'sanitized_exploration_document_schema.json' && exit 1 || true
+          fi
+
+      - name: Upload sanitized document schema
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task194h-inep-exploration-document-schema
+          path: runtime/task194h/sanitized_exploration_document_schema.json
+          if-no-files-found: warn
+          retention-days: 30

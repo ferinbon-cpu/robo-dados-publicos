@@ -1,0 +1,424 @@
+{
+  "version": 1,
+  "schema": "PUBLIC_BUDGET_METHODOLOGY_V1",
+  "task": "TASK_163_PUBLIC_BUDGET_METHODOLOGY_JSON_BRAIN",
+  "issue": 538,
+  "base_sha": "3c381d07bdb06a98f57a1c006bbfb7137b75163b",
+  "mode": "T0_OFFLINE_METHOD_KNOWLEDGE_ONLY",
+  "purpose": "Give the robot a machine-readable grammar for interpreting public-budget data without confusing planning, authorization, procurement, accounting execution, or policy outcomes.",
+  "methodological_reference": {
+    "author": "James Giacomoni",
+    "title": "Orcamento publico",
+    "edition": 18,
+    "publication_year": 2021,
+    "observed_reprint_year": 2022,
+    "publisher": "Atlas",
+    "source_role": "ACADEMIC_METHOD_REFERENCE",
+    "use": [
+      "budget_as_planning_programming_management_and_control_instrument",
+      "budget_program_logic",
+      "planning_and_budget_system",
+      "PPA_LDO_LOA_distinctions",
+      "classification_of_public_expenditure",
+      "budget_and_financial_execution_stages",
+      "control_and_evaluation"
+    ],
+    "copyright_boundary": {
+      "full_text_persistence": false,
+      "long_quotes_persistence": false,
+      "paraphrased_concept_digest_only": true
+    },
+    "freshness_boundary": "Methodological reference does not prove current law, current classifications, current thresholds, or empirical municipal facts. Current official normative and empirical sources must be checked separately."
+  },
+  "knowledge_layers": [
+    {
+      "id": "METHODOLOGICAL_ACADEMIC",
+      "role": "Explains how to conceptualize and interpret public budgeting.",
+      "can_prove": [
+        "analytical_concept",
+        "methodological_distinction",
+        "interpretive_caution"
+      ],
+      "cannot_prove": [
+        "current_legal_rule",
+        "current_threshold",
+        "municipal_empirical_fact",
+        "transaction_identity",
+        "amount_execution"
+      ]
+    },
+    {
+      "id": "NORMATIVE_OFFICIAL",
+      "role": "Defines the applicable legal and regulatory framework at a validated date.",
+      "can_prove": [
+        "legal_definition",
+        "legal_requirement",
+        "current_rule_when_freshness_validated"
+      ],
+      "cannot_prove": [
+        "actual_execution_without_empirical_record",
+        "policy_effect"
+      ]
+    },
+    {
+      "id": "EMPIRICAL_PRIMARY",
+      "role": "Provides observed planning, authorization, procurement, accounting, contract, or payment facts.",
+      "can_prove": [
+        "fact_within_source_scope",
+        "amount_with_declared_semantic",
+        "administrative_identity_when_stable_key_present"
+      ],
+      "cannot_prove": [
+        "causal_policy_effect_without_separate_design",
+        "facts_outside_source_scope"
+      ]
+    }
+  ],
+  "core_concepts": [
+    {
+      "id": "PUBLIC_BUDGET",
+      "definition": "Political, legal, administrative and financial instrument through which government plans, authorizes, manages and controls public action.",
+      "interpretation": "Budget data are not merely accounting numbers; they must be read together with objectives, programs, classifications, authorization and execution stages."
+    },
+    {
+      "id": "BUDGET_PROGRAM",
+      "definition": "Programming logic that relates public objectives to programs, actions, resources, products and expected results.",
+      "interpretation": "Programmatic linkage can support planning correspondence but does not by itself prove that all program resources belong to a specific policy."
+    },
+    {
+      "id": "PPA",
+      "definition": "Pluriannual planning instrument that organizes medium-term directions, objectives, programs, indicators and targets.",
+      "evidence_stage": "PLANNING_INTENT",
+      "does_not_prove": [
+        "annual_budget_authorization",
+        "commitment",
+        "liquidation",
+        "payment"
+      ]
+    },
+    {
+      "id": "LDO",
+      "definition": "Annual planning-budget bridge that establishes priorities, guidelines and rules for preparation and execution of the annual budget.",
+      "evidence_stage": "ANNUAL_BUDGET_GUIDANCE",
+      "does_not_prove": [
+        "specific_expenditure_execution",
+        "payment"
+      ]
+    },
+    {
+      "id": "LOA",
+      "definition": "Annual budget law that estimates revenues and fixes/authorizes expenditures for the fiscal year.",
+      "evidence_stage": "BUDGET_AUTHORIZATION",
+      "does_not_prove": [
+        "commitment",
+        "liquidation",
+        "payment"
+      ]
+    }
+  ],
+  "classification_dimensions": [
+    {
+      "id": "INSTITUTIONAL",
+      "question": "Who is responsible?",
+      "typical_fields": [
+        "orgao",
+        "unidade_orcamentaria",
+        "unidade_executora"
+      ]
+    },
+    {
+      "id": "FUNCTIONAL",
+      "question": "In what government function/subfunction is the spending classified?",
+      "typical_fields": [
+        "funcao",
+        "subfuncao"
+      ]
+    },
+    {
+      "id": "PROGRAMMATIC",
+      "question": "For what objective/program/action is the resource planned or executed?",
+      "typical_fields": [
+        "programa",
+        "acao",
+        "subacao",
+        "produto",
+        "meta"
+      ]
+    },
+    {
+      "id": "ECONOMIC_NATURE",
+      "question": "What economic kind of expenditure or revenue is it?",
+      "typical_fields": [
+        "categoria_economica",
+        "grupo_natureza_despesa",
+        "modalidade_aplicacao",
+        "elemento_despesa",
+        "natureza_receita"
+      ]
+    },
+    {
+      "id": "FUNDING",
+      "question": "What source/destination finances the spending?",
+      "typical_fields": [
+        "fonte",
+        "destinacao",
+        "vinculacao"
+      ]
+    }
+  ],
+  "evidence_stages": [
+    {
+      "id": "PLANNING_INTENT",
+      "typical_sources": [
+        "PPA"
+      ]
+    },
+    {
+      "id": "ANNUAL_BUDGET_GUIDANCE",
+      "typical_sources": [
+        "LDO"
+      ]
+    },
+    {
+      "id": "BUDGET_AUTHORIZATION_INITIAL",
+      "typical_sources": [
+        "LOA"
+      ]
+    },
+    {
+      "id": "BUDGET_AUTHORIZATION_UPDATED",
+      "typical_sources": [
+        "budget_execution_portal",
+        "accounting_report"
+      ],
+      "note": "Includes credits or changes when explicitly observed."
+    },
+    {
+      "id": "PROCUREMENT",
+      "typical_sources": [
+        "PNCP",
+        "procurement_notice",
+        "direct_contracting_act"
+      ]
+    },
+    {
+      "id": "CONTRACT",
+      "typical_sources": [
+        "PNCP_contract",
+        "official_contract",
+        "official_gazette"
+      ]
+    },
+    {
+      "id": "COMMITMENT",
+      "typical_sources": [
+        "empenho_record"
+      ]
+    },
+    {
+      "id": "LIQUIDATION",
+      "typical_sources": [
+        "liquidation_record"
+      ]
+    },
+    {
+      "id": "PAYMENT",
+      "typical_sources": [
+        "payment_record"
+      ]
+    },
+    {
+      "id": "RESTOS_A_PAGAR",
+      "typical_sources": [
+        "restos_a_pagar_report"
+      ]
+    },
+    {
+      "id": "AGGREGATED_REPORTING",
+      "typical_sources": [
+        "SIOPE",
+        "RREO",
+        "RGF",
+        "FUNDEB_report"
+      ],
+      "note": "Can prove reporting totals/buckets within scope but not necessarily individual transaction identity."
+    }
+  ],
+  "amount_semantics": [
+    "PPA_PLANNED_VALUE",
+    "REVENUE_FORECAST",
+    "REVENUE_REALIZED",
+    "LOA_INITIAL_APPROPRIATION",
+    "UPDATED_APPROPRIATION",
+    "PROCUREMENT_ESTIMATED_VALUE",
+    "PROCUREMENT_HOMOLOGATED_VALUE",
+    "CONTRACT_VALUE",
+    "COMMITTED_VALUE",
+    "LIQUIDATED_VALUE",
+    "PAID_VALUE",
+    "RESTOS_A_PAGAR_VALUE",
+    "AGGREGATED_REPORTED_VALUE"
+  ],
+  "interpretation_rules": [
+    {
+      "id": "R01_PLANNING_NE_EXECUTION",
+      "rule": "PPA planned values are planning intent and must not be relabelled as authorization or execution."
+    },
+    {
+      "id": "R02_LOA_NE_EXECUTION",
+      "rule": "LOA appropriation is authorization, not proof of commitment, liquidation or payment."
+    },
+    {
+      "id": "R03_PROCUREMENT_NE_PAYMENT",
+      "rule": "PNCP procurement, homologation or contract evidence does not prove commitment, liquidation or payment."
+    },
+    {
+      "id": "R04_EXECUTION_STAGES_DISTINCT",
+      "rule": "Commitment, liquidation and payment are distinct evidence stages and cannot be substituted for one another."
+    },
+    {
+      "id": "R05_PROGRAM_NE_POLICY_IDENTITY",
+      "rule": "A broad program can contain a policy without making the entire program budget policy-specific."
+    },
+    {
+      "id": "R06_SAME_CODE_NE_FINANCIAL_IDENTITY",
+      "rule": "Matching program/action codes across planning and budget documents prove continuity only when source semantics are compatible; they do not alone prove policy-specific financial identity."
+    },
+    {
+      "id": "R07_SAME_AMOUNT_NE_IDENTITY",
+      "rule": "Equal or similar amounts across records are insufficient to prove that records are the same transaction or procurement."
+    },
+    {
+      "id": "R08_NOMINAL_NE_REAL_CHANGE",
+      "rule": "Multi-year monetary comparison must be labelled nominal unless a documented deflator/base-date transformation is applied."
+    },
+    {
+      "id": "R09_CLASSIFICATION_DRIFT_GUARD",
+      "rule": "Codes or labels from different years are not assumed comparable until classification semantics are reconciled."
+    },
+    {
+      "id": "R10_ZERO_SCOPE",
+      "rule": "A zero in one bucket, source or period proves only that scoped observation; it cannot be generalized to total policy spending."
+    },
+    {
+      "id": "R11_PRIORITY_CAUTION",
+      "rule": "Planning, authorization or spending can indicate institutional materiality or priority signals but does not by itself prove quality, implementation success or policy effects."
+    },
+    {
+      "id": "R12_CURRENT_LAW_FRESHNESS",
+      "rule": "Academic methodological references never override current official legal or source definitions; legal semantics require dated official authority."
+    },
+    {
+      "id": "R13_STABLE_JOIN_KEYS",
+      "rule": "Cross-source identity promotion requires stable administrative keys or an exact evidence bundle; thematic similarity, chronology and search snippets are insufficient."
+    },
+    {
+      "id": "R14_UPDATED_DENOMINATOR",
+      "rule": "Execution-rate calculations should prefer updated appropriation over initial appropriation when budget modifications are known and semantically compatible."
+    },
+    {
+      "id": "R15_RESTOS_TIMING",
+      "rule": "Cash/payment comparisons across years must account for restos a pagar when relevant; fiscal authorization/commitment timing and cash timing are not equivalent."
+    }
+  ],
+  "calculation_recipes": [
+    {
+      "id": "EXECUTION_COMMITMENT_RATE",
+      "formula": "COMMITTED_VALUE / UPDATED_APPROPRIATION",
+      "requirements": [
+        "same_scope",
+        "same_period",
+        "compatible_classification",
+        "updated_appropriation_known"
+      ],
+      "fallback": "EVIDENCIA_INSUFICIENTE"
+    },
+    {
+      "id": "EXECUTION_LIQUIDATION_RATE",
+      "formula": "LIQUIDATED_VALUE / UPDATED_APPROPRIATION",
+      "requirements": [
+        "same_scope",
+        "same_period",
+        "compatible_classification",
+        "updated_appropriation_known"
+      ],
+      "fallback": "EVIDENCIA_INSUFICIENTE"
+    },
+    {
+      "id": "EXECUTION_PAYMENT_RATE",
+      "formula": "PAID_VALUE / UPDATED_APPROPRIATION",
+      "requirements": [
+        "same_scope",
+        "same_period",
+        "compatible_classification",
+        "updated_appropriation_known"
+      ],
+      "fallback": "EVIDENCIA_INSUFICIENTE"
+    },
+    {
+      "id": "COMPOSITION_SHARE",
+      "formula": "TARGET_AMOUNT / EXPLICIT_DENOMINATOR_AMOUNT",
+      "requirements": [
+        "denominator_named",
+        "same_scope",
+        "same_stage",
+        "same_period"
+      ],
+      "fallback": "EVIDENCIA_INSUFICIENTE"
+    },
+    {
+      "id": "MULTIYEAR_REAL_CHANGE",
+      "formula": "(REAL_VALUE_T2 / REAL_VALUE_T1) - 1",
+      "requirements": [
+        "deflator_id",
+        "base_date",
+        "classification_crosswalk",
+        "same_amount_semantic"
+      ],
+      "fallback": "REPORT_NOMINAL_ONLY"
+    }
+  ],
+  "policy_financial_identity_chain": [
+    "policy_or_indicator",
+    "program",
+    "action_or_subaction",
+    "institutional_unit",
+    "funding_source",
+    "economic_nature",
+    "appropriation",
+    "procurement_or_contract_when_applicable",
+    "commitment",
+    "liquidation",
+    "payment"
+  ],
+  "policy_linkage_statuses": [
+    "UNRELATED",
+    "THEMATIC_CANDIDATE",
+    "SECTOR_RELEVANT",
+    "POLICY_CANDIDATE",
+    "POLICY_CORROBORATED",
+    "POLICY_FINANCIAL_IDENTITY_PROVEN"
+  ],
+  "forbidden_promotions": [
+    "PPA_VALUE_TO_EXECUTION",
+    "LOA_APPROPRIATION_TO_PAYMENT",
+    "PNCP_PROCUREMENT_TO_PAYMENT",
+    "PROGRAM_TOTAL_TO_SPECIFIC_POLICY",
+    "SAME_AMOUNT_TO_TRANSACTION_IDENTITY",
+    "CHRONOLOGY_TO_STABLE_ID",
+    "ACADEMIC_REFERENCE_TO_CURRENT_LAW",
+    "ONE_PERIOD_ZERO_TO_TOTAL_POLICY_ZERO",
+    "NOMINAL_GROWTH_TO_REAL_GROWTH",
+    "SPENDING_GROWTH_TO_POLICY_EFFECT",
+    "AGGREGATE_REPORT_TO_INDIVIDUAL_TRANSACTION_WITHOUT_KEY"
+  ],
+  "output_semantics": {
+    "default_uncertain_status": "EVIDENCIA_INSUFICIENTE",
+    "unknown_not_inferred": "UNKNOWN_NOT_INFERRED",
+    "must_show_amount_semantic": true,
+    "must_show_period": true,
+    "must_show_source_role": true,
+    "must_show_policy_linkage_status": true,
+    "must_separate_observed_fact_from_interpretation": true
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "schema": "TASK268_PRELIVE_PNCP_HISTORY_645_V1",
+  "task": "TASK_268",
+  "issue": 871,
+  "source_task267_status": "8_OF_8_PNCP_ITEMS_RESOLVED_40_SANITIZED_ITEM_ROWS",
+  "manual_version": "2.6",
+  "manual_version_date": "2026-08-31",
+  "documented_endpoint": "https://pncp.gov.br/api/pncp/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}/historico",
+  "target_control": "45132495000140-1-000645/2026",
+  "live_state": "NOT_AUTHORIZED_NOT_EXECUTED",
+  "adjudication": {
+    "history_route_operational_state": "UNPROVEN_FOR_645",
+    "history_content_absence_proven": false,
+    "item_results_traversal_authorized": false,
+    "document_traversal_authorized": false,
+    "linked_contract_traversal_authorized": false,
+    "tce_bridge_authorized": false
+  },
+  "next_gate": "OWNER_AUTHORIZED_SINGLE_DOCUMENTED_PNCP_HISTORY_PROBE_645_ON_MERGED_TASK268_SHA"
+}

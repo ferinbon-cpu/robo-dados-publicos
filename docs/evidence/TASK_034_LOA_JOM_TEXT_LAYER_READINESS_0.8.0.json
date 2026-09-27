@@ -1,0 +1,52 @@
+{
+  "task": "TASK_034_LOA_JOM_TEXT_LAYER_READINESS",
+  "version": "0.8.0",
+  "mode": "T1_EXISTING_CUSTODY_READ_ONLY_ANALYSIS",
+  "source": {
+    "drive_file_id": "1bRpmMxacX16P1tJBvam-55OOPTYuQnIA",
+    "filename": "SOURCE_JOM_7127_2025-11-29_LOA_7223_2025.pdf",
+    "bytes": 66119594,
+    "sha256": "37ea54d85cc5428622b296881a279a17e1aeefd7574576e7a3414443bbee64c4",
+    "edition": 7127,
+    "publication_date": "2025-11-29",
+    "total_pdf_pages": 631,
+    "law_number": "7.223/2025"
+  },
+  "law_boundary": {
+    "start_page": 15,
+    "end_page": 481,
+    "pages_inclusive": 467,
+    "start_marker": "LEI N.º 7.223 DE 28 DE NOVEMBRO DE 2025",
+    "end_page_visual_status": "LOA_ANNEX_CONTENT",
+    "next_page": 482,
+    "next_page_marker": "PORTARIA Nº 2.084, DE 13 DE NOVEMBRO DE 2025",
+    "boundary_status": "PROVEN_BY_TEXT_AND_VISUAL_REVIEW"
+  },
+  "text_layer": {
+    "producer": "Adobe Acrobat Pro (64-bit) 22 Paper Capture Plug-in",
+    "all_pdf_pages_have_some_extracted_text": true,
+    "law_pages_with_native_content_text": 454,
+    "visually_blank_law_pages": [375, 386, 413, 415, 421, 426],
+    "image_content_without_body_text_pages": [475, 476, 477, 478, 479, 480, 481],
+    "targeted_ocr_or_visual_extraction_required_pages": [475, 476, 477, 478, 479, 480, 481],
+    "full_466_page_ocr_required": false,
+    "full_467_page_journal_law_ocr_required": false,
+    "page_stats_sha256": "a4fcb30aacb132609d7952c1c41f7a8d0804dad4a5ace2f47159dd83cbad476f"
+  },
+  "review": {
+    "page_15_render_verified": true,
+    "pages_472_485_render_verified": true,
+    "low_text_pages_render_verified": true,
+    "page_481_is_loa_content": true,
+    "page_482_is_not_loa": true,
+    "no_ocr_executed": true,
+    "no_parser_executed": true,
+    "no_drive_write_performed": true,
+    "no_bronze_silver_gold_serving_publication": true
+  },
+  "promotion": {
+    "f01_status": "NOT_SILVER",
+    "native_text_parser_can_start_on_pages": "15-474 excluding visually blank pages; 475-481 remain REVIEW_REQUIRED until targeted extraction",
+    "next_boundary": "Implement deterministic page-aware LOA parser using native text; keep pages 475-481 fail-closed REVIEW_REQUIRED and handle them separately without full-document OCR."
+  }
+}

@@ -1,0 +1,84 @@
+name: DeepSeek PR review bootstrap
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "Existing PR number to review"
+        required: true
+        type: number
+      model:
+        description: "DeepSeek model"
+        required: true
+        default: "deepseek-v4-flash"
+        type: choice
+        options:
+          - deepseek-v4-flash
+          - deepseek-v4-pro
+      live_review:
+        description: "Make one bounded DeepSeek API call"
+        required: true
+        default: false
+        type: boolean
+      confirmation:
+        description: "For live mode type LIVE_DEEPSEEK_REVIEW"
+        required: false
+        default: ""
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          check-latest: false
+
+      - name: Validate bootstrap policy offline
+        run: |
+          python -m compileall -q robo_dados_publicos scripts tests
+          python -m unittest tests.test_deepseek_review_bootstrap -v
+
+      - name: Build review or run one explicitly confirmed live review
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: |
+          set -euo pipefail
+          args=(
+            --repository "${GITHUB_REPOSITORY}"
+            --pr-number "${{ inputs.pr_number }}"
+            --model "${{ inputs.model }}"
+            --output runtime/deepseek_review.md
+            --summary-json runtime/deepseek_review_summary.json
+          )
+          if [[ "${{ inputs.live_review }}" == "true" ]]; then
+            args+=(--live --confirmation "${{ inputs.confirmation }}")
+          fi
+          python scripts/deepseek_pr_review.py "${args[@]}"
+
+      - name: Publish local result to job summary
+        if: always()
+        run: |
+          if [[ -f runtime/deepseek_review.md ]]; then
+            cat runtime/deepseek_review.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [[ -f runtime/deepseek_review_summary.json ]]; then
+            printf '\n```json\n' >> "$GITHUB_STEP_SUMMARY"
+            cat runtime/deepseek_review_summary.json >> "$GITHUB_STEP_SUMMARY"
+            printf '\n```\n' >> "$GITHUB_STEP_SUMMARY"
+          fi

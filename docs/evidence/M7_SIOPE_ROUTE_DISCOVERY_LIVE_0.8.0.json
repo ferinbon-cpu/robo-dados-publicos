@@ -1,0 +1,35 @@
+{
+  "gate_id": "M7_SIOPE_LIMEIRA_ROUTE_DISCOVERY_GATE_0_8_0",
+  "software_version": "0.8.0",
+  "release_status": "CANDIDATE",
+  "github_run": 32791989543,
+  "run_number": 2,
+  "head_commit": "0e3ef17f9613dd0f249a4caeff0a17de9f7c80f8",
+  "artifact_id": 9543436448,
+  "artifact_name": "siope-route-discovery-32791989543",
+  "artifact_zip_sha256": "ef3e23cad30d604308163c7c9311105fe31a37812d732a9b017b4514def01158",
+  "status": "PASS_M7_SIOPE_ROUTE_DISCOVERY_GATE",
+  "repository_unit_tests": "199/199 PASS",
+  "historical_regressions": "109/109 PASS",
+  "classic_query": {
+    "status": "OBSERVED",
+    "captcha_detected": true,
+    "form_submitted": false,
+    "acquisition_decision": "BLOCK_AUTOMATED_ACQUISITION_HUMAN_CHALLENGE"
+  },
+  "antonieta_product": {
+    "status": "OBSERVED",
+    "product_name_verified": true,
+    "artifact_path_declared": "exports/SIOPE/SIOPE_DADOS_GERAIS_SIOPE.txt.gz",
+    "explicit_download_url_count": 0,
+    "artifact_downloaded": false,
+    "acquisition_decision": "CANDIDATE_REQUIRES_ARTIFACT_VERIFICATION_GATE"
+  },
+  "acquisition_route_status": "CANDIDATE_IDENTIFIED_ARTIFACT_NOT_VERIFIED",
+  "remote_writes": "NONE",
+  "collection_authorized": false,
+  "processing_authorized": false,
+  "recurrence_authorized": false,
+  "schedule_enabled": false,
+  "next_subgate": "M7_SIOPE_ANTONIETA_DOWNLOAD_ROUTE_DISCOVERY_GATE_0_8_0"
+}

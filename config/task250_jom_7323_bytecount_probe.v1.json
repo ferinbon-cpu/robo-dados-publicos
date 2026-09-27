@@ -1,0 +1,71 @@
+{
+  "task": "TASK_250",
+  "schema": "TASK250_JOM_7323_BYTECOUNT_PROBE_V1",
+  "version": 1,
+  "issue": 833,
+  "base_main_sha": "0d2edb5e75bdd2cea1214e57905ad470e7dcb282",
+  "mode": "T1_READONLY_DIAGNOSTIC_IMPLEMENTED_LIVE_DISABLED_UNTIL_EXACT_OWNER_AUTHORIZATION",
+  "source": {
+    "family": "LIMEIRA_JORNAL_OFICIAL",
+    "allowed_document_hosts": ["ecrie.com.br"]
+  },
+  "scope": {
+    "edition": 7323,
+    "source_id": "LIMEIRA_JO_07323",
+    "logical_key": "limeira/jornal_oficial/edicao/7323",
+    "publication_date": "2026-09-11",
+    "document_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_10092026192416.pdf"
+  },
+  "limits": {
+    "max_source_gets": 1,
+    "max_pdf_bytes": 100000000,
+    "automatic_retry": false,
+    "redirects": false,
+    "alternate_url_discovery": false
+  },
+  "prior_attempt": {
+    "task": "TASK_249",
+    "run_id": 35174078683,
+    "artifact_id": 10477847366,
+    "status": "STOP_TASK249_SOURCE_BYTE_COUNT_INVALID",
+    "source_gets": 3,
+    "failed_edition_inferred_from_order": 7323,
+    "inference_scope": "TASK249_EXACT_QUEUE_ORDER_ONLY"
+  },
+  "diagnostic_outcomes": [
+    "EMPTY_FILE",
+    "OVER_MAX_BYTES",
+    "TRANSPORT_COUNTER_MISMATCH",
+    "BYTE_COUNT_VALID"
+  ],
+  "authorization": {
+    "required_task": "TASK_250_LIVE_AUTHORIZATION",
+    "required_operation": "EXACT_1_JOM_7323_BYTECOUNT_DIAGNOSTIC_GET",
+    "owner_authorized": true,
+    "attempt_count": 1,
+    "drive_write_authorized": false,
+    "bronze_authorized": false,
+    "silver_authorized": false,
+    "gold_authorized": false,
+    "ocr_authorized": false,
+    "semantic_parser_authorized": false,
+    "serving_authorized": false,
+    "publication_authorized": false,
+    "promotion_authorized": false,
+    "schedule_authorized": false,
+    "recurrence_authorized": false
+  },
+  "implementation_branch": "main",
+  "runtime_branch": "task-250-jom-7323-bytecount-probe-runtime",
+  "authorization_file": "runtime/task250_owner_authorization.json",
+  "trigger_file": "runtime_triggers/task250_jom_7323_bytecount_probe.run",
+  "persistence": {
+    "raw_pdf_artifact": false,
+    "raw_pdf_repository": false,
+    "drive_write": false,
+    "serving_write": false,
+    "publication": false,
+    "sanitized_result_artifact": true,
+    "artifact_retention_days": 1
+  }
+}

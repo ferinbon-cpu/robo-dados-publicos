@@ -1,0 +1,64 @@
+{
+  "task": "TASK_177_OBSERVATORY_QUERY_PRODUCT_SERVING",
+  "issue": 566,
+  "mode": "T0_OFFLINE_IMPLEMENTATION_REVIEW",
+  "base_main_sha": "539c9e89337f50d41a1ef89cc1f1459d41f6b30c",
+  "architecture": "OPTION_3_CREATE_ONLY_SNAPSHOTS_PLUS_STABLE_SERVING_SHEET",
+  "parent": "13_BI/02_SERVING",
+  "tabs": [
+    "DATA",
+    "META"
+  ],
+  "historical_bi_serving_allowlist_mutated": false,
+  "product_mapping": {
+    "SCHOOL_INDICATOR_SERIES": "OBS_SCHOOL_INDICATOR_SERIES__SERVING",
+    "JOM_EVENT_INDEX": "OBS_JOM_EVENT_INDEX__SERVING",
+    "ACCOUNTING_LEDGER": "OBS_ACCOUNTING_LEDGER__SERVING",
+    "FISCAL_SERIES": "OBS_FISCAL_SERIES__SERVING",
+    "PLANNING_DOCUMENT_INDEX": "OBS_PLANNING_DOCUMENT_INDEX__SERVING",
+    "QUERY_PRODUCT_CATALOG": "OBS_QUERY_PRODUCT_CATALOG__SERVING"
+  },
+  "plan_states": [
+    "CREATE_INITIAL_SERVING",
+    "NO_CHANGE_IDEMPOTENT",
+    "REPLACE_SERVING_FROM_NEW_SNAPSHOT"
+  ],
+  "snapshot_validation": [
+    "CONTENT_SHA256_RECOMPUTED",
+    "SNAPSHOT_ID_MATCHES_CONTENT_PREFIX",
+    "ROW_COUNT_MATCHES",
+    "PRODUCT_SCHEMA_MATCHES_TASK176"
+  ],
+  "existing_state_guards": [
+    "TABS_EXACT",
+    "NO_FORMULAS",
+    "NO_EXTRA_CELLS",
+    "CONTENT_HASH_RECOMPUTED",
+    "SNAPSHOT_ID_RECOMPUTED",
+    "SCHEMA_FINGERPRINT_RECOMPUTED",
+    "SOURCE_FAMILIES_META_RECOMPUTED",
+    "CAUTIONS_META_RECOMPUTED",
+    "GENERATED_AT_META_RECOMPUTED",
+    "SOFTWARE_VERSION_META_RECOMPUTED"
+  ],
+  "authorization": {
+    "tier": "T3_MUTATING_OR_PUBLICATION",
+    "task": "TASK_177_OBSERVATORY_QUERY_PRODUCT_SERVING_MATERIALIZATION",
+    "scope": "SINGLE_PINNED_QUERY_PRODUCT_SNAPSHOT_TO_STABLE_SERVING",
+    "exact_snapshot_required": true,
+    "implementation_sha_required": true,
+    "prior_bi_authorization_reuse": false,
+    "looker_publication": false
+  },
+  "remote_effects": {
+    "source_network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "sheets_write": 0,
+    "looker": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  },
+  "next": "SEPARATELY_AUTHORIZED_BOUNDED_QUERY_PRODUCT_SERVING_EXECUTION"
+}

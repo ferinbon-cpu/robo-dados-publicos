@@ -1,0 +1,13 @@
+{
+  "schema": "TASK279_PRELIVE_PAIRED_PNCP_HEALTH_645_V1",
+  "task": "TASK_279",
+  "issue": 893,
+  "health_url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/compras/2026/645/itens",
+  "target_url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/contratos/contratacao/2026/645?pagina=1&tamanhoPagina=50",
+  "max_remote_get_count": 2,
+  "raw_body_persistence": false,
+  "item_content_persisted": false,
+  "supplier_identity_persisted": false,
+  "live_state": "NOT_EXECUTED",
+  "next_gate": "RUN_ONLY_AFTER_TASK279_MERGED_SHA_BOUND"
+}

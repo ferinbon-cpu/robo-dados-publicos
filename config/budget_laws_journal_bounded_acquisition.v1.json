@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "task": "TASK_032_BUDGET_JOURNAL_BOUNDED_ACQUISITION",
+  "mode": "T0_OFFLINE_IMPLEMENTATION_LIVE_DISABLED_BY_DEFAULT",
+  "repository": "ferinbon-cpu/robo-dados-publicos",
+  "branch": "main",
+  "source": "LIMEIRA_JORNAL_OFICIAL",
+  "target": {
+    "logical_path": "10_INBOX/PENDENTES/F01_PPA_LDO_LOA_2026",
+    "folder_id": "1CdL4T1CVIPqNph3f5xHbiU8KgxgPpkl5",
+    "write_mode": "CREATE_ONLY"
+  },
+  "limits": {
+    "source_gets": 3,
+    "drive_inventory_requests": 1,
+    "drive_creates": 3,
+    "drive_readbacks": 3,
+    "automatic_retry": false,
+    "pagination_expansion": false,
+    "alternate_url_discovery": false,
+    "max_pdf_bytes_each": 100000000
+  },
+  "documents": [
+    {
+      "family": "LDO",
+      "law_number": "7.141/2025",
+      "edition": 7024,
+      "publication_date": "2025-07-08",
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_07072025191855.pdf",
+      "expected_pages": 79,
+      "target_filename": "SOURCE_JOM_7024_2025-07-08_LDO_7141_2025.pdf"
+    },
+    {
+      "family": "PPA",
+      "law_number": "7.213/2025",
+      "edition": 7119,
+      "publication_date": "2025-11-15",
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_14112025171148.pdf",
+      "expected_pages": 107,
+      "target_filename": "SOURCE_JOM_7119_2025-11-15_PPA_7213_2025.pdf"
+    },
+    {
+      "family": "LOA",
+      "law_number": "7.223/2025",
+      "edition": 7127,
+      "publication_date": "2025-11-29",
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_28112025211140.pdf",
+      "expected_pages": 631,
+      "target_filename": "SOURCE_JOM_7127_2025-11-29_LOA_7223_2025.pdf"
+    }
+  ],
+  "source_validation": {
+    "require_http_200": true,
+    "require_exact_url": true,
+    "require_content_type": "application/pdf",
+    "require_pdf_signature": "%PDF-",
+    "require_exact_page_count": true,
+    "compute_sha256": true
+  },
+  "prewrite": {
+    "all_three_sources_must_validate_before_inventory": true,
+    "all_three_target_names_must_be_absent_before_first_write": true,
+    "inventory_must_be_single_page": true
+  },
+  "readback": {
+    "required_for_each_create": true,
+    "require_exact_bytes": true,
+    "require_exact_sha256": true,
+    "require_exact_page_count": true
+  },
+  "prohibited": {
+    "overwrite": true,
+    "replace": true,
+    "delete": true,
+    "cleanup": true,
+    "retry": true,
+    "ocr": true,
+    "parser": true,
+    "bronze": true,
+    "silver": true,
+    "gold": true,
+    "serving": true,
+    "publication": true,
+    "schedule": true,
+    "recurrence": true
+  },
+  "authorization": {
+    "embedded_live_authorization": false,
+    "owner_authorization_required": true,
+    "implementation_sha_must_match": true,
+    "authorization_consumed_after_first_live_attempt": true
+  }
+}

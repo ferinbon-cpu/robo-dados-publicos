@@ -1,0 +1,42 @@
+{
+  "gate_id": "M7_SIOPE_OFFICIAL_OLINDA_LIMEIRA_PILOT_READONLY_GET_REVIEW_0_8_0",
+  "source_id": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
+  "software_version": "0.8.0",
+  "mode": "OFFLINE_PINNED_LIMEIRA_PILOT_READONLY_GET_REVIEW",
+  "network_called": false,
+  "pinned_run_id": 33011469147,
+  "pinned_run_number": 2,
+  "pinned_job_id": 98318551596,
+  "pinned_head_sha": "99a2fba53529da31c19a54e35fc74910cc614c1a",
+  "pinned_artifact_id": 9622695666,
+  "pinned_artifact_digest": "sha256:056dfebf034205579241e01dbd88c35cb8ecdb694fa04c28e0be324495874449",
+  "pinned_unit_tests": 843,
+  "pinned_historical_regressions": 109,
+  "pinned_response_sha256": "9c71bcb25ac1439fa5d505f10df3d0e9b6e1dc1ff965dc7202f0c2e9527c9ed4",
+  "pinned_response_byte_count": 264,
+  "pinned_value_count": 1,
+  "pinned_schema_key_count": 5,
+  "pinned_evidence_path": "docs/evidence/M7_SIOPE_OFFICIAL_OLINDA_LIMEIRA_PILOT_READONLY_GET_RUN_2_0.8.0.json",
+  "pinned_evidence_blob_sha": "2fca23a8c2e6e69dddeb755b304dd25d9d451e26",
+  "pilot_contract_status": "PROVEN_ON_PINNED_MANUAL_LIMEIRA_RUN",
+  "proven_query_features": [
+    "parameter_aliases",
+    "server_side_filter",
+    "server_side_select",
+    "format_json",
+    "percent20_filter_encoding"
+  ],
+  "proven_identity_fields": [
+    "COD_MUNI",
+    "NOM_MUNI",
+    "NUM_ANO",
+    "NUM_PERI",
+    "SIG_UF"
+  ],
+  "ongoing_resource_get_authorized": false,
+  "collection_authorized": false,
+  "processing_authorized": false,
+  "recurrence_authorized": false,
+  "schedule_enabled": false,
+  "next_gate": "M7_SIOPE_CLIENT_FOUNDATION_DESIGN_0_8_0"
+}

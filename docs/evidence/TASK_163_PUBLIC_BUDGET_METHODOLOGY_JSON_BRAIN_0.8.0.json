@@ -1,0 +1,72 @@
+{
+  "task": "TASK_163_PUBLIC_BUDGET_METHODOLOGY_JSON_BRAIN",
+  "issue": 538,
+  "base_sha": "3c381d07bdb06a98f57a1c006bbfb7137b75163b",
+  "scope": "T0_OFFLINE_METHOD_KNOWLEDGE_ONLY",
+  "inputs": [
+    {
+      "role": "ACADEMIC_METHOD_REFERENCE",
+      "author": "James Giacomoni",
+      "title": "Orcamento publico",
+      "edition": 18,
+      "publication_year": 2021,
+      "observed_reprint_year": 2022,
+      "copyrighted_full_text_persisted": false
+    },
+    {
+      "role": "EXISTING_PROJECT_RESEARCH_NOTE",
+      "title": "REFERENCIAL_BASE_PROJETO_V02",
+      "use": "Eixo planejamento, orcamento publico e financiamento da educacao"
+    },
+    {
+      "role": "EXISTING_REPOSITORY_SEMANTICS",
+      "paths": [
+        "docs/tasks/CODEX_TASK_025_MANUAL_SUPERVISED_INGEST_F01.md",
+        "docs/tasks/CODEX_TASK_044_F01_NEXT_EVIDENCE_READONLY_GATE_DESIGN.md",
+        "docs/tasks/CODEX_TASK_096_EITI_LIMEIRA_OFFLINE_CROSSWALK.md",
+        "config/ppa_research_digest_adapter.v1.json",
+        "tests/fixtures/finance_bridge_qa_v10.csv"
+      ]
+    }
+  ],
+  "artifacts": [
+    "config/public_budget_methodology.v1.json",
+    "config/public_budget_observation_contract.v1.json",
+    "config/public_budget_question_router.v1.json"
+  ],
+  "absorbed_methodological_domains": [
+    "budget_as_government_instrument",
+    "budget_program",
+    "PPA_LDO_LOA_system",
+    "classification_dimensions",
+    "authorization_vs_execution",
+    "commitment_liquidation_payment",
+    "restos_a_pagar",
+    "source_capability_routing",
+    "calculation_semantics",
+    "interpretive_cautions",
+    "policy_financial_identity"
+  ],
+  "hard_boundaries": {
+    "academic_reference_proves_current_law": false,
+    "academic_reference_proves_municipal_amount": false,
+    "PPA_is_execution": false,
+    "LOA_is_payment": false,
+    "PNCP_is_payment": false,
+    "program_total_is_policy_specific": false,
+    "nominal_growth_is_real_growth": false,
+    "spending_proves_policy_effect": false
+  },
+  "remote_effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "source_acquisition": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "next_integration": "Use the observation contract and question router as the semantic front-end for budget digests, PNCP-to-accounting bridges, and EITI finance queries."
+}

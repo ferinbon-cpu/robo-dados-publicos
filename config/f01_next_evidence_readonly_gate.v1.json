@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "task": "TASK_044_F01_NEXT_EVIDENCE_READONLY_GATE_DESIGN",
+  "mode": "T0_OFFLINE_DESIGN_ONLY",
+  "base_sha": "eaeabe210f72e60eeb497702b6a1fe69500759bb",
+  "future_gate": {
+    "mode": "T1_EXISTING_CUSTODY_READONLY",
+    "owner_authorization_required": true,
+    "authorized_now": false,
+    "source_network": false,
+    "drive_write": false,
+    "ocr_default": false,
+    "max_drive_files": 2,
+    "max_selected_pages": 12,
+    "targets": [
+      {
+        "family": "PPA",
+        "drive_file_id": "1ez1B_mJ428IxTIUht1AHM9-I5SCotKXj",
+        "sha256": "cb65f29c772eb7133c902e827884a4ed19d8c09f64586b8de9d6483023d9133a",
+        "pages": [15,16],
+        "purpose": "RESOLVE_ACTION_2690_ENSINO_MEDIO_SUPERIOR_ROW_ONLY"
+      },
+      {
+        "family": "LOA",
+        "drive_file_id": "1bRpmMxacX16P1tJBvam-55OOPTYuQnIA",
+        "sha256": "37ea54d85cc5428622b296881a279a17e1aeefd7574576e7a3414443bbee64c4",
+        "pages": [153,154,155,156,170,171,172,173,174,175],
+        "purpose": "BOUND_ACTION_2690_2720_CONTEXT_AND_EXPLICIT_BUDGET_FIELDS"
+      }
+    ]
+  },
+  "allowed_target_fields": [
+    "action_code",
+    "label",
+    "education_level",
+    "function",
+    "subfunction",
+    "program_code",
+    "budget_unit_code",
+    "budget_unit_name",
+    "funding_source_or_destination",
+    "expense_nature",
+    "appropriation",
+    "ppa_year_values",
+    "ppa_total"
+  ],
+  "forbidden_inferences": [
+    "INFER_MISSING_FIELD",
+    "SILENT_OCR_REPAIR",
+    "PROGRAM_TOTAL_TO_EITI",
+    "FINANCIAL_IDENTITY_FROM_CODE_OR_AMOUNT",
+    "EXECUTION_STAGE_FROM_LOA",
+    "MDE_FUNDEB_COMPLIANCE",
+    "CAUSAL_INFERENCE"
+  ],
+  "stop_conditions": [
+    "SOURCE_HASH_MISMATCH",
+    "PAGE_OUTSIDE_AUTHORIZED_SET",
+    "PPA_2690_ROW_STILL_AMBIGUOUS",
+    "LOA_FIELD_NOT_EXPLICIT_ON_SELECTED_PAGES",
+    "TEXT_VISUAL_MATERIAL_DIVERGENCE",
+    "UNAUTHORIZED_OCR_REQUIRED",
+    "FINANCIAL_IDENTITY_CHAIN_STILL_INCOMPLETE"
+  ]
+}

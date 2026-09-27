@@ -1,0 +1,336 @@
+{
+  "schema": "EDUCATION_ASSIGNMENT_2026_AUTHORITY_V1",
+  "task": "TASK_234",
+  "issue": 784,
+  "base_main_sha": "4eb147a448c5d390fa0675f5dbad7a28a7301315",
+  "verified_at": "2026-09-11",
+  "snapshot_bound": true,
+  "target": {
+    "sme_legal_id": "SMELEGAL-018",
+    "sme_legal_group": "Regulamentações Municipais",
+    "sme_legal_item": "Atribuição de Aula",
+    "prior_coverage_status": "PENDENTE_CORPUS_INTEGRAL",
+    "materialization_status": "OFFICIAL_AUTHORITY_PARTIAL_WITH_OPERATIONAL_RESOLUTION_TRACE",
+    "school_year_scope": 2026,
+    "coverage_note": "This task does not rewrite TASK 222 coverage taxonomy and does not claim full custody of every assignment act."
+  },
+  "authority_precedence": [
+    "PRIMARY_NORMATIVE_OFFICIAL_CONSOLIDATED",
+    "PRIMARY_NORMATIVE_MODIFIER",
+    "OFFICIAL_OPERATIONAL_PAGE_WITH_EXACT_ACT_CITATIONS",
+    "DERIVED_SME_LEGAL_COVERAGE_MAP"
+  ],
+  "sources": {
+    "decree_259_2025": {
+      "authority_role": "PRIMARY_NORMATIVE_OFFICIAL_CONSOLIDATED",
+      "act": "Decreto Municipal nº 259/2025",
+      "date": "2025-09-30",
+      "official_status_text": "Em vigor",
+      "official_status_snapshot": "IN_FORCE_OFFICIAL_INDEX_SNAPSHOT",
+      "official_pdf_url": "https://legislacao.limeira.sp.leg.br/Limeira-SP/DecretosMunicipais/259-2025?Export=Pdf",
+      "official_system": "Legislação Digital - Município de Limeira",
+      "administrative_process": "34.939/2025",
+      "declared_legal_basis": [
+        "LC 461/2009 art. 31",
+        "LC 461/2009 art. 32",
+        "LC 461/2009 art. 33",
+        "LC 461/2009 art. 34"
+      ],
+      "official_text_note": "The exported text is consolidated/annotated and marks provisions included by Decreto Municipal nº 289/2025; the source itself warns that the text does not replace the official publication.",
+      "school_year_scope": 2026,
+      "registration_window": {
+        "start": "2025-10-07",
+        "end": "2025-10-13"
+      },
+      "fields_of_assignment": [
+        "Educação Infantil",
+        "Ensino Fundamental",
+        "Educação Especial",
+        "Arte",
+        "Educação Física"
+      ]
+    },
+    "decree_289_2025": {
+      "authority_role": "PRIMARY_NORMATIVE_MODIFIER",
+      "act": "Decreto Municipal nº 289/2025",
+      "date": "2025-11-04",
+      "official_status_text": "Em vigor",
+      "official_status_snapshot": "IN_FORCE_OFFICIAL_INDEX_SNAPSHOT",
+      "official_pdf_url": "https://legislacao.limeira.sp.leg.br/Limeira-SP/DecretosMunicipais/289-2025?Export=Pdf",
+      "official_system": "Legislação Digital - Município de Limeira",
+      "modifies": "Decreto Municipal nº 259/2025",
+      "effect_proven": "Creates a new period for confirmation or alteration of workload for Art and Physical Education specialist teachers for school year 2026.",
+      "consolidated_trace_in_decree259": [
+        "Art. 1 §4",
+        "Art. 1 §5",
+        "Art. 1 §6",
+        "Art. 1 §7"
+      ]
+    },
+    "sme_operational_page": {
+      "authority_role": "OFFICIAL_OPERATIONAL_PAGE_WITH_EXACT_ACT_CITATIONS",
+      "title": "Indicação de classes e/ou turmas para Professores Contratados para Substituição",
+      "url": "https://sme.limeira.sp.gov.br/indicacao_atribuicao_ps0.php",
+      "official_system": "Secretaria Municipal de Educação de Limeira",
+      "observed_scope": "INDICAÇÕES PARA CLASSES E/OU TURMAS EM SUBSTITUIÇÃO PARA O ANO LETIVO DE 2026",
+      "uses_personal_login_fields": true,
+      "personal_login_fields_not_materialized": [
+        "CPF",
+        "data de nascimento",
+        "geolocalização/residência do usuário"
+      ],
+      "resolution_citation": {
+        "act": "Resolução SME nº 08",
+        "date": "2025-12-09",
+        "publication_stated_by_sme": "Jornal Oficial de Limeira em 16/12/2025",
+        "full_original_custody": "NOT_ACQUIRED",
+        "current_operational_use_evidence": "CURRENT_SME_PAGE_WITH_EXACT_ACT_AND_PUBLICATION_CITATION",
+        "formal_vigency_claim": "NOT_INFERRED_FROM_OPERATIONAL_PAGE_ALONE"
+      }
+    }
+  },
+  "decree_259_rules": [
+    {
+      "rule_id": "D259-R01",
+      "article": "Art. 1 caput",
+      "rule": "Registrations for assignment of classes/turmas and substitute work periods are open from 7 to 13 October 2025 for the 2026 school year.",
+      "source": "decree_259_2025",
+      "scope": "2026"
+    },
+    {
+      "rule_id": "D259-R02",
+      "article": "Art. 1 §1",
+      "rule": "If a titular or substitute teacher does not register as required, the school director automatically registers the teacher at the unit where the post is allocated.",
+      "source": "decree_259_2025",
+      "scope": "2026"
+    },
+    {
+      "rule_id": "D259-R03",
+      "article": "Art. 1 §2",
+      "rule": "During registration, the teacher opts for supplemental workload and Art/Physical Education specialists confirm or change workload for 2026.",
+      "source": "decree_259_2025",
+      "scope": "2026"
+    },
+    {
+      "rule_id": "D259-R04",
+      "article": "Art. 1 §§4-7",
+      "rule": "Decree 289/2025 adds an exceptional 6-7 November 2025 window for Art/Physical Education specialists to confirm/change workload, with school-direction processing and delivery of the signed list on 10 November 2025.",
+      "source": "decree_259_2025+decree_289_2025",
+      "scope": "2026"
+    },
+    {
+      "rule_id": "D259-R05",
+      "article": "Art. 2",
+      "rule": "School direction performs registrations through the municipal portal, including teachers exercising other functions or absent under any title.",
+      "source": "decree_259_2025",
+      "scope": "2026"
+    },
+    {
+      "rule_id": "D259-R06",
+      "article": "Art. 3",
+      "rule": "Assignment fields are Educação Infantil, Ensino Fundamental, Educação Especial, Arte and Educação Física.",
+      "source": "decree_259_2025",
+      "scope": "2026"
+    },
+    {
+      "rule_id": "D259-R07",
+      "article": "Art. 4",
+      "rule": "Teachers accumulating posts make distinct registrations at each school where the respective post is allocated.",
+      "source": "decree_259_2025",
+      "scope": "2026"
+    },
+    {
+      "rule_id": "D259-R08",
+      "article": "Art. 5",
+      "rule": "Teachers who take office in 2026 register on the first day of exercise and are included in the initial classification.",
+      "source": "decree_259_2025",
+      "scope": "2026"
+    },
+    {
+      "rule_id": "D259-R09",
+      "article": "Art. 6",
+      "rule": "School direction must convene teachers and record convocations and related decisions in the school minutes book for control and administrative transparency.",
+      "source": "decree_259_2025",
+      "scope": "2026"
+    },
+    {
+      "rule_id": "D259-R10",
+      "article": "Art. 7",
+      "rule": "Service time is counted through 30 June 2025 and is treated as a title under LC 461/2009 art. 33.",
+      "source": "decree_259_2025",
+      "scope": "classification_2026"
+    },
+    {
+      "rule_id": "D259-R11",
+      "article": "Art. 8",
+      "rule": "For classification, absence days are deducted except maternity, adoption, paternity, legally mandatory services, organ donation, blood donation, falta abonada, licença-prêmio, nojo, gala and health leave.",
+      "source": "decree_259_2025",
+      "scope": "classification_2026"
+    },
+    {
+      "rule_id": "D259-R12",
+      "article": "Arts. 9-10",
+      "rule": "Service time and titles use the exact point schedule materialized in scoring.",
+      "source": "decree_259_2025",
+      "scope": "classification_2026"
+    },
+    {
+      "rule_id": "D259-R13",
+      "article": "Arts. 11-12",
+      "rule": "Titular and substitute teachers are classified in descending score order within their respective field of work.",
+      "source": "decree_259_2025",
+      "scope": "classification_2026"
+    },
+    {
+      "rule_id": "D259-R14",
+      "article": "Arts. 14-15",
+      "rule": "School-unit classification is posted by 14 October 2025, unit appeal is 16 October, post-appeal result is 17 October, delivery is 20 October by 16:00; general classification is published 22 October and general appeal is 24 October through Limeira Digital RH protocol.",
+      "source": "decree_259_2025",
+      "scope": "classification_2026"
+    },
+    {
+      "rule_id": "D259-R15",
+      "article": "Arts. 16-19",
+      "rule": "Appeals have no suspensive or retroactive effect; no late document attachment is allowed; stable CLT teachers register at their frequency-control units; the decree is effective upon publication.",
+      "source": "decree_259_2025",
+      "scope": "2026"
+    }
+  ],
+  "scoring": {
+    "service_time": [
+      {
+        "basis": "Art. 9(a)",
+        "points_per_day": 0.002,
+        "description": "Effective municipal-network teacher in the school/field relevant to the assignment."
+      },
+      {
+        "basis": "Art. 9(b)",
+        "points_per_day": 0.001,
+        "description": "Teaching post/function in official public education in Educação Infantil or Ensino Fundamental Ciclo I."
+      }
+    ],
+    "titles": [
+      {"basis":"Art. 10(b)","title":"Concurso Público de Provas e Títulos","points":1,"limit":"NO_LIMIT_PER_ELIGIBLE_CERTIFICATE"},
+      {"basis":"Art. 10(c)","title":"Doutorado em Educação","points":15,"limit":"ONE"},
+      {"basis":"Art. 10(d)","title":"Mestrado em Educação","points":10,"limit":"ONE"},
+      {"basis":"Art. 10(e)","title":"Pós-graduação lato sensu em Educação","points":1,"limit_points":3},
+      {"basis":"Art. 10(f)","title":"Licenciatura adicional","points":2,"limit_points":10},
+      {"basis":"Art. 10(g)","title":"Habilitação Específica em nível médio - Modalidade Normal","points":2,"limit":"ONE"},
+      {"basis":"Art. 10(h)","title":"Certidão de Frequência Docente 01/07/2024-30/06/2025","points":4,"limit":"ONE"}
+    ],
+    "tie_breakers": [
+      "Maior idade",
+      "Maior tempo de serviço no Magistério Público Oficial",
+      "Maior número de filhos dependentes"
+    ]
+  },
+  "sme_operational_rules": [
+    {
+      "rule_id": "SMEOP-R01",
+      "source_article_citation": "operational instruction",
+      "rule": "Teachers indicate available classes/turmas in exact preference order.",
+      "scope": "contracted/substitute assignment 2026"
+    },
+    {
+      "rule_id": "SMEOP-R02",
+      "source_article_citation": "Resolução SME 08/2025 art. 30 as quoted/cited by SME page",
+      "rule": "A teacher without the necessary requirements for the assigned class must give it up and may not receive a new assignment in the same employment contract.",
+      "scope": "contracted/substitute assignment 2026"
+    },
+    {
+      "rule_id": "SMEOP-R03",
+      "source_article_citation": "operational instruction",
+      "rule": "Operational modality order is Educação Especial, Arte, Educação Física, Ensino Fundamental, Educação Infantil.",
+      "scope": "contracted/substitute assignment 2026"
+    },
+    {
+      "rule_id": "SMEOP-R04",
+      "source_article_citation": "operational instruction",
+      "rule": "In the current assignment phase, a teacher assigned in a modality cannot decline that class in favor of another class in the same modality.",
+      "scope": "contracted/substitute assignment 2026"
+    },
+    {
+      "rule_id": "SMEOP-R05",
+      "source_article_citation": "operational instruction",
+      "rule": "During the school year, a teacher who declines an assigned class cannot participate again in assignments in the declined modality.",
+      "scope": "contracted/substitute assignment 2026"
+    },
+    {
+      "rule_id": "SMEOP-R06",
+      "source_article_citation": "Resolução SME 08/2025 art. 23 caput and §1 as quoted/cited by SME page",
+      "rule": "Thirty consecutive or interpolated absence days terminate the contract and bar a new assignment in the same contract; absences during multiple short assignments accumulate toward 30 days.",
+      "scope": "contracted/substitute assignment 2026"
+    },
+    {
+      "rule_id": "SMEOP-R07",
+      "source_article_citation": "Resolução SME 08/2025 art. 23 §2 as quoted/cited by SME page",
+      "rule": "A PSS 04/2025 teacher who voluntarily gives up an assigned class/aula may indicate a new class/aula in another modality for which the teacher was approved only after 45 days from the withdrawal date.",
+      "scope": "contracted/substitute assignment 2026"
+    },
+    {
+      "rule_id": "SMEOP-R08",
+      "source_article_citation": "operational instruction",
+      "rule": "Each Educação Infantil class has 2 Arte lessons, 2 Educação Física lessons and 1 Linguagens e Tecnologias lesson.",
+      "scope": "2026 operational page"
+    },
+    {
+      "rule_id": "SMEOP-R09",
+      "source_article_citation": "operational instruction",
+      "rule": "Each Ensino Fundamental class has 2 Arte lessons, 2 Educação Física lessons and 2 Linguagens e Tecnologias lessons.",
+      "scope": "2026 operational page"
+    },
+    {
+      "rule_id": "SMEOP-R10",
+      "source_article_citation": "Resolução SME 08/2025 art. 11 §5(b) as quoted/cited by SME page",
+      "rule": "Linguagens e Tecnologias indication requires training presented to the school director; the page states that this training may be presented during the first semester of 2026.",
+      "scope": "2026 operational page"
+    },
+    {
+      "rule_id": "SMEOP-R11",
+      "source_article_citation": "operational instruction",
+      "rule": "For extracurricular workshops, training and/or experience must be proven with documents presented to the school director.",
+      "scope": "2026 operational page"
+    }
+  ],
+  "source_limitations": {
+    "resolution_08_full_original_acquired": false,
+    "resolution_08_unseen_articles_materialized": false,
+    "operational_page_is_full_norm_text": false,
+    "decree259_export_replaces_official_publication": false,
+    "formal_resolution_vigency_inferred_from_page": false,
+    "other_school_years_authorized": false
+  },
+  "privacy": {
+    "personal_data_materialized": false,
+    "login_credentials_or_identifiers_materialized": false,
+    "geolocation_materialized": false
+  },
+  "global_guards": [
+    "CURRENT_SME_OPERATIONAL_PAGE_NE_FULL_RESOLUTION_TEXT",
+    "DECREE259_CURRENT_STATUS_EM_VIGOR",
+    "DECREE289_MODIFIES_DECREE259",
+    "OPERATIONAL_PAGE_EXACT_ACT_CITATION_NE_BINARY_CUSTODY",
+    "NO_INFERENCE_BEYOND_VISIBLE_ARTICLES",
+    "NO_APPLY_2026_RULE_TO_OTHER_SCHOOL_YEARS",
+    "NO_PERSONAL_DATA_MATERIALIZATION",
+    "OLD_2025_ATTRIBUTION_NE_2026_RULE",
+    "OFFICIAL_PRIMARY_GT_DERIVED_SME_LEGAL_FOR_CURRENT_RULE",
+    "CONSOLIDATED_EXPORT_NE_OFFICIAL_GAZETTE_REPLACEMENT",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "summary": {
+    "decree_259_rules_materialized": 15,
+    "sme_operational_rules_materialized": 11,
+    "official_primary_norms_with_status_snapshot": 2,
+    "resolution_08_full_original_custody": "NOT_ACQUIRED",
+    "contextual_coverage": "38/38_UNCHANGED"
+  },
+  "remote_effects": {
+    "source_network_read_only": true,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

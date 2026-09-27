@@ -1,0 +1,121 @@
+{
+  "version": 1,
+  "schema": "TASK199D_TERRITORY_PROFILE_PRODUCT_V1",
+  "task": "TASK_199D",
+  "issue": 628,
+  "base_main_sha": "747feb9233ce488344f428c72bc500963322429f",
+  "mode": "T0_OFFLINE_USER_MEDIATED_OFFICIAL_IBGE_TERRITORY_PRODUCT",
+  "scope": {
+    "municipality": "Limeira",
+    "uf": "SP",
+    "ibge_code": "3526902",
+    "reference_period": "2022"
+  },
+  "sources": {
+    "basic_zip": {
+      "drive_id": "1JOlsO7LbD5pyJyE_okAQ4JNV8JaETYZZ",
+      "bytes": 15418417,
+      "sha256": "ec04624286233d699ebe69c7b9625744a1cfdfc8352126f30245bdef5e9bdc63"
+    },
+    "income_zip": {
+      "drive_id": "1npC0qd6X-zQHV4_DkPEDwXhMxC_COFuA",
+      "bytes": 9370011,
+      "sha256": "141c83e7635674e7e2c941e55f98811e538fcbf2e1e1125b0aa7892c260f4a23"
+    },
+    "cnefe_zip": {
+      "sha256": "ab73250df889effcb01ddc2d060bddd3252e995468e97ef93b048564763626a7"
+    },
+    "income_dictionary": {
+      "drive_id": "1DVZE_sIha4wYZcsxhEAVgS0qzUOu1j42",
+      "bytes": 10197,
+      "sha256": "fea6e2b2439eeb167c6fa9c136ed7cb13ebcb06f4c875d634e3e2578c668a48d",
+      "sheet": "Dicionário Renda Responsável",
+      "semantics": {
+        "V06001": "Pessoas responsáveis em domicílios particulares permanentes ocupados",
+        "V06002": "Moradores em domicílios particulares permanentes ocupados",
+        "V06003": "Variância do número de moradores em domicílios particulares permanentes ocupados",
+        "V06004": "Valor do rendimento nominal médio mensal das pessoas responsáveis com rendimentos por domicílios particulares permanentes ocupados",
+        "V06005": "Variância do rendimento nominal mensal das pessoas responsáveis com rendimentos por domicílios particulares permanentes ocupados",
+        "V06006": "Valor do rendimento nominal mediano mensal das pessoas responsáveis com rendimentos por domicílios particulares permanentes ocupados"
+      }
+    },
+    "basic_semantics": {
+      "official_methodological_note": "https://biblioteca.ibge.gov.br/visualizacao/livros/liv102136.pdf",
+      "V0001": "Total de pessoas",
+      "V0002": "Total de Domicílios",
+      "V0003": "Total de Domicílios Particulares",
+      "V0004": "Total de Domicílios Coletivos",
+      "V0005": "Média de moradores em Domicílios Particulares Ocupados",
+      "V0007": "Total de Domicílios Particulares Ocupados"
+    }
+  },
+  "materialized_summary": {
+    "population_2022": 291869,
+    "population_reconciliation_difference": 0,
+    "basic_sector_rows": 735,
+    "urban_sector_rows": 685,
+    "rural_sector_rows": 50,
+    "income_sector_rows": 728,
+    "income_nonmissing_v06004_rows": 718,
+    "v06004_unweighted_sector_distribution": {
+      "min": 1170.39,
+      "q1": 2261.95,
+      "median": 2812.69,
+      "q3": 3613.36,
+      "max": 32129.70
+    }
+  },
+  "school_context": {
+    "fixture": "docs/evidence/fixtures/TASK_199D_TERRITORY_PROFILE_14_COMPACT.csv",
+    "fixture_rows": 14,
+    "fixture_sha256": "fb17db3b5bed2b2cfc15e95cfdd99da2140b5fc54ff605093c1a94fc8805b8e3",
+    "full_profile_drive_id": "16g9B00UBiQ1b6khBYRddE2tw8PneJ_Pt",
+    "full_profile_sha256": "44c3dfffc75fce36afdecb658e3d88f9e815e48d4b98fefdf67b5acba111cf16",
+    "proven_school_links": 14,
+    "network_denominator": 69,
+    "full_network_link": false
+  },
+  "summary_drive": {
+    "id": "1nb6xee-XCDLs2AHyyIDh5s95u3cTBfKk",
+    "bytes": 2991,
+    "sha256": "1bad29fa90658eb1690194c15c087bc1dc479bb1e04936fd4183870bd9f8fb03"
+  },
+  "expected_product": {
+    "product_name": "TERRITORY_PROFILE",
+    "row_count": 67,
+    "capabilities": [
+      "CENSUS_SECTOR_CONTEXT",
+      "MUNICIPAL_DEMOGRAPHY",
+      "OFFICIAL_INCOME_DICTIONARY",
+      "SCHOOL_TO_SECTOR_LINK_PARTIAL",
+      "SECTOR_INCOME_CONTEXT"
+    ]
+  },
+  "expected_answerability": {
+    "after": {
+      "EXPLICIT_GAP": 0,
+      "MATERIALIZED_ANSWERABLE": 32,
+      "MATERIALIZED_PARTIAL": 6
+    },
+    "territory_q1": "MATERIALIZED_ANSWERABLE",
+    "territory_q2": "MATERIALIZED_ANSWERABLE",
+    "equity_q1": "MATERIALIZED_PARTIAL",
+    "equity_remaining_gap": "TERRITORY_PROFILE::CAPABILITY:SCHOOL_TO_SECTOR_LINK_FULL_NETWORK"
+  },
+  "guards": [
+    "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
+    "SECTOR_INCOME_NE_STUDENT_OR_ENROLLED_HOUSEHOLD_INCOME",
+    "UNWEIGHTED_SECTOR_DISTRIBUTION_NE_PERSON_WEIGHTED_MUNICIPAL_INCOME",
+    "PARTIAL_14_OF_69_NE_FULL_NETWORK_SCHOOL_TERRITORY_COVERAGE",
+    "NO_VULNERABILITY_INDEX_WITHOUT_EXPLICIT_METHOD",
+    "MISSING_NE_ZERO"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

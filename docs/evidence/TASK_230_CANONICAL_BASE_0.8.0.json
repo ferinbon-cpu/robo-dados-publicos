@@ -1,0 +1,8 @@
+{
+  "task": "TASK_230",
+  "canonical_base_sha": "821be175fbc0a461b681be4612683ede010d0d56",
+  "canonical_base_task": "TASK_229",
+  "post_merge_ci_run": 1784,
+  "post_merge_ci_conclusion": "success",
+  "purpose": "Pin the stable post-TASK229 main used to build the clean TASK230 branch."
+}

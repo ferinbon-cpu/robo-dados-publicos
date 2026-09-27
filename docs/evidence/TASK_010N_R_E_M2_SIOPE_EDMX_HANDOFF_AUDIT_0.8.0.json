@@ -1,0 +1,72 @@
+{
+  "schema": "TASK_010N_R_E_M2_EDMX_HANDOFF_AUDIT_V1",
+  "task": "TASK_010N_R_E_M2",
+  "issue": 258,
+  "software_version": "0.8.0",
+  "base_sha": "806c34e46161e9c14c98ceb3f709b43b0ec145b2",
+  "source": {
+    "provenance_class": "USER_MEDIATED_DIRECT_OFFICIAL_URL_EDMX_CANDIDATE",
+    "url": "https://www.fnde.gov.br/olinda-ide/servico/DADOS_ABERTOS_SIOPE/versao/v1/odata/$metadata",
+    "raw_handoff_bytes": 15965,
+    "raw_handoff_sha256": "e4970d18e593b0edc88dac23c711f2d9e1df6d9c79ae76d9fc67f869f310b307",
+    "xml_payload_bytes": 15586,
+    "xml_payload_sha256": "6bf6a37ef190389db9420a6e6cd26f2ec7967c8920bcf61799252a017cdb30ca"
+  },
+  "edmx": {
+    "version": "4.0",
+    "namespace": "br.gov.bcb.olinda.servico.DADOS_ABERTOS_SIOPE",
+    "annotations_count": 0,
+    "descriptions_count": 0
+  },
+  "dados_gerais_siope": {
+    "property_count": 52,
+    "all_11_gold_inputs_present": true,
+    "gold_inputs": {
+      "NUM_POPU": "Edm.Int32",
+      "VAL_RECE_PREV_ATUA": "Edm.String",
+      "VAL_RECE_REAL": "Edm.String",
+      "VAL_DESP_DOTA_ATUA": "Edm.String",
+      "VAL_DESP_EMPE": "Edm.String",
+      "VAL_DESP_LIQU": "Edm.String",
+      "VAL_DESP_PAGA": "Edm.String",
+      "VL_DESP_DOTA_ATUA_EDU": "Edm.Decimal",
+      "VL_DESP_EMPE_EDU": "Edm.Decimal",
+      "VL_DESP_LIQU_EDU": "Edm.Decimal",
+      "VL_DESP_PAGA_EDU": "Edm.Decimal"
+    }
+  },
+  "function_contract": {
+    "name": "Dados_Gerais_Siope",
+    "parameters": [
+      "Ano_Consulta:Edm.Int32",
+      "Num_Peri:Edm.Int32",
+      "Sig_UF:Edm.String"
+    ],
+    "return_type": "Collection(br.gov.bcb.olinda.servico.DADOS_ABERTOS_SIOPE.Dados_Gerais_Siope)"
+  },
+  "auxiliary_resources": {
+    "Receita_Siope": ["COD_EXIB_FORMATADO", "NOM_ITEM", "IDN_CLAS", "NOM_COLU", "NUM_NIVE", "NUM_ORDE", "VAL_DECL"],
+    "Despesas_Siope": ["NOM_PAST", "TIP_PASTA", "COD_EXIB", "COD_EXIB_FORMATADO", "COD_FONTE", "NOM_ITEM", "IDN_CLAS", "NOM_COLU", "NUM_NIVE", "NUM_ORDE", "VAL_DECL"],
+    "Despesas_Funcao_Educacao_Siope": ["DES_SUBF", "VAL_DESP_EMPE", "VAL_DESP_LIQU", "VAL_DESP_PAGA"]
+  },
+  "classification": "EDMX_OBTAINED_STRUCTURAL_CONTRACT_CONFIRMED_SEMANTIC_ANNOTATIONS_ABSENT",
+  "semantic_effect": {
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "public_contract_evidence_status": "PRIMARY_OFFICIAL_STRUCTURE_USER_MEDIATED__SEMANTICS_PARTIAL",
+    "promotion_performed": false
+  },
+  "next_gate": {
+    "recommended": "OFFICIAL_AUXILIARY_RESOURCE_LABEL_TO_ALIAS_OPERATIONAL_BRIDGE",
+    "reason": "EDMX exposes Receita_Siope and Despesas_Siope with official label/value fields NOM_COLU/NOM_ITEM/VAL_DECL and Despesas_Funcao_Educacao_Siope; a bounded read can test official labels and exact operational correspondence without internal reverse engineering."
+  },
+  "guards": {
+    "network_called": false,
+    "drive_called": false,
+    "gold_2025_authorized": false,
+    "semantic_promotion_authorized": false,
+    "annual_series_expansion_authorized": false,
+    "release_promotion_authorized": false,
+    "current_year_2026_authorized": false
+  }
+}

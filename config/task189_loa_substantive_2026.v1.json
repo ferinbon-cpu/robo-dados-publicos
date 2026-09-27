@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "schema": "TASK189_LOA_SUBSTANTIVE_OVERLAY_2026_V1",
+  "task": "TASK_189_LOA_SUBSTANTIVE_PLANNING_OVERLAY",
+  "mode": "T0_OFFLINE_EXISTING_CUSTODY_SUBSTANTIVE_OVERLAY",
+  "source": {
+    "logical_document_id": "LOA_2026_LEI_7223_2025",
+    "document_type": "LOA",
+    "period": "2026",
+    "law_number": "7.223/2025",
+    "primary_jom_drive_id": "1bRpmMxacX16P1tJBvam-55OOPTYuQnIA",
+    "primary_jom_filename": "SOURCE_JOM_7127_2025-11-29_LOA_7223_2025.pdf",
+    "primary_jom_sha256": "37ea54d85cc5428622b296881a279a17e1aeefd7574576e7a3414443bbee64c4",
+    "primary_jom_bytes": 66119594,
+    "jom_edition": 7127,
+    "silver_v2_drive_id": "1sY2ysOroWzj-aNCXz2jU8EZQnbiDijPK",
+    "silver_v2_filename": "F01_LOA_JOM_2026_SCOPED_VALIDATED_STRUCTURE__9f04a7202d03__silver_v2.json",
+    "silver_v2_sha256": "9f04a7202d03a58687d5382565777f15887b056ba28c65d9c01e226af7d3ef25",
+    "silver_v2_bytes": 3866,
+    "task050_evidence": "docs/evidence/TASK_050_F01_LOA_SCOPED_SILVER_V2_CREATE_ONLY_READBACK_0.8.0.json"
+  },
+  "substantive_segments": [
+    {
+      "segment_id": "LOA2026_ACTION_12.362.2001.2690",
+      "locator": "JOM:edition:7127:law-page:170-171#action:12.362.2001.2690",
+      "label": "TRANSPORTE ESCOLAR",
+      "action_code": "12.362.2001.2690",
+      "function": "12",
+      "subfunction": "362",
+      "program_code": "2001",
+      "organ_code": "10.00.00",
+      "organ_name": "SECRETARIA DE EDUCACAO",
+      "unit_code": "10.04.00",
+      "unit_name": "ENSINO MEDIO E SUPERIOR",
+      "appropriation_brl": "6152000.00",
+      "expense_group_breakdown_brl": {
+        "INVESTIMENTOS": "10000.00",
+        "OUTRAS_DESPESAS_CORRENTES": "6142000.00"
+      },
+      "funding_sources_brl": {
+        "01_TESOURO": "943000.00",
+        "02_TRANSFERENCIAS_E_CONVENIOS_ESTADUAIS_VINCULADOS": "5209000.00"
+      },
+      "validation": "DIRECT_PRIMARY_JOM_VISUAL_SOURCE_TASK045",
+      "eiti_specific": false
+    },
+    {
+      "segment_id": "LOA2026_ACTION_12.306.2001.2720",
+      "locator": "JOM:edition:7127:law-page:173-174#action:12.306.2001.2720",
+      "label": "ALIMENTACAO ESCOLAR",
+      "action_code": "12.306.2001.2720",
+      "function": "12",
+      "subfunction": "306",
+      "program_code": "2001",
+      "organ_code": "10.00.00",
+      "organ_name": "SECRETARIA DE EDUCACAO",
+      "unit_code": "10.05.00",
+      "unit_name": "ALIMENTACAO ESCOLAR",
+      "appropriation_brl": "28000000.00",
+      "expense_group_breakdown_brl": {
+        "INVESTIMENTOS": "1000.00",
+        "OUTRAS_DESPESAS_CORRENTES": "27999000.00"
+      },
+      "funding_sources_brl": {
+        "01_TESOURO": "8680000.00",
+        "05_TRANSFERENCIAS_E_CONVENIOS_FEDERAIS_VINCULADOS": "19320000.00"
+      },
+      "validation": "DIRECT_PRIMARY_JOM_VISUAL_SOURCE_TASK045_TEXT_LAYER_MISMATCH_PRESERVED",
+      "text_layer_amount_brl": "29000000.00",
+      "visual_source_amount_brl": "28000000.00",
+      "eiti_specific": false
+    }
+  ],
+  "additional_validated_tables": {
+    "page_480": {
+      "title": "DEMONSTRATIVO DAS TRANSFERENCIAS FINANCEIRAS",
+      "row_count": 10,
+      "total_brl": "128600000.00",
+      "row_sum_matches_printed_total": true
+    },
+    "page_481": {
+      "title": "DEMONSTRATIVO DA COMPATIBILIDADE DA PROGRAMACAO DO ORCAMENTO COM AS METAS DE RESULTADOS FISCAIS",
+      "row_count": 11,
+      "rcl_pair_consistency_within_rounding_tolerance": true
+    }
+  },
+  "promotion": {
+    "evidence_role": "PRIMARY_SUBSTANTIVE",
+    "scope": "TWO_VALIDATED_BUDGET_AUTHORIZATION_SEGMENTS_ONLY",
+    "complete_loa_parse_claim": false,
+    "whole_loa_substantive_coverage_claim": false,
+    "accounting_execution_proven": false,
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+    "generic_action_attribution_to_eiti": false,
+    "program_2001_total_attribution_to_eiti": false,
+    "gold_authorized": false
+  },
+  "guards": [
+    "LOA_SUBSTANTIVE_SEGMENT_NE_COMPLETE_LOA_PARSE",
+    "LOA_AUTHORIZATION_NE_ACCOUNTING_EXECUTION",
+    "PROGRAM_2001_NE_EITI_IDENTITY",
+    "SECRETARIA_EDUCACAO_NE_EITI_IDENTITY",
+    "GENERIC_ACTION_NE_SPECIFIC_POLICY_IDENTITY",
+    "VISUAL_VALIDATION_MISMATCH_MUST_BE_PRESERVED",
+    "NO_SILENT_CHARACTER_OR_AMOUNT_REPAIR",
+    "NO_LLM_NUMERIC_RECONSTRUCTION"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

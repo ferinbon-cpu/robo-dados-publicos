@@ -1,0 +1,53 @@
+name: M8 SIOPE HISTORICAL GOLD PRODUCT OUTPUT READONLY AUTO T1
+run-name: "M8 SIOPE historical Gold product output readonly AUTO T1 0.8.0 @ ${{ github.sha }}"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/evidence/M8_T1_NO_CLICK_ACTIVATION_0.8.0.json"
+      - "docs/evidence/M7_SIOPE_*.json"
+      - "robo_dados_publicos/product/siope_historical.py"
+      - "robo_dados_publicos/product/siope_historical_drive_readonly.py"
+      - "scripts/build_siope_historical_product_output.py"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: m8-siope-historical-gold-product-output-readonly-auto-t1
+  cancel-in-progress: false
+
+jobs:
+  trust-boundary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      M8_GITHUB_REF_PROTECTED: ${{ github.ref_protected }}
+      M8_GITHUB_REPOSITORY_PRIVATE: ${{ github.event.repository.private }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          check-latest: false
+      - name: Validar policy-as-code antes de qualquer secret
+        run: python scripts/github_automation_policy_gate.py
+      - name: Provar boundary público/protegido T1
+        run: python scripts/github_m8_t1_no_click_trust_boundary_gate.py
+
+  call-readonly-worker:
+    needs: trust-boundary
+    uses: ./.github/workflows/m8-siope-historical-gold-product-output-readonly-reusable.yml
+    with:
+      confirm_m8_siope_historical_gold_product_output_readonly: true
+    secrets:
+      GOOGLE_DRIVE_READONLY_CLIENT_ID: ${{ secrets.GOOGLE_DRIVE_READONLY_CLIENT_ID }}
+      GOOGLE_DRIVE_READONLY_CLIENT_SECRET: ${{ secrets.GOOGLE_DRIVE_READONLY_CLIENT_SECRET }}
+      GOOGLE_DRIVE_READONLY_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_READONLY_REFRESH_TOKEN }}

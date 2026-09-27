@@ -1,0 +1,78 @@
+name: TASK 194F Inep Data embedded visual-data probe
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: read
+
+concurrency:
+  group: task194f-inep-data-embedded
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    if: github.event.issue.number == 609 && github.actor == 'ferinbon-cpu' && startsWith(github.event.comment.body, 'TASK194F_INEP_DATA_EMBEDDED_AUTHORIZED ')
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONPATH: ${{ github.workspace }}
+      TASK194F_AUTH_COMMENT: ${{ github.event.comment.body }}
+      TASK194F_ISSUE_NUMBER: ${{ github.event.issue.number }}
+    steps:
+      - name: Checkout exact main authorization target
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.12"
+
+      - name: Verify exact authorization
+        shell: bash
+        run: |
+          set -euo pipefail
+          HEAD_SHA="$(git rev-parse HEAD)"
+          test "$HEAD_SHA" = "$GITHUB_SHA"
+          EXPECTED="TASK194F_INEP_DATA_EMBEDDED_AUTHORIZED main=$GITHUB_SHA issue=609 max_http_requests=2 querydata=0"
+          test "$TASK194F_AUTH_COMMENT" = "$EXPECTED"
+
+      - name: Offline preflight
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m compileall -q scripts tests
+          python -m unittest tests.test_task_194f_inep_data_embedded_visual_probe -v
+
+      - name: Execute official embedded-data probe
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime/task194f
+          TASK194F_CHECKED_OUT_SHA="$(git rev-parse HEAD)" \
+            python scripts/task194f_inep_data_embedded_visual_probe.py \
+            --output runtime/task194f/sanitized_embedded_probe.json
+
+      - name: Assert sanitized output only
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -d runtime/task194f ]; then
+            find runtime/task194f -maxdepth 1 -type f -printf '%f\n' | grep -vx 'sanitized_embedded_probe.json' && exit 1 || true
+          fi
+
+      - name: Upload sanitized embedded probe
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task194f-inep-data-embedded-probe
+          path: runtime/task194f/sanitized_embedded_probe.json
+          if-no-files-found: warn
+          retention-days: 30

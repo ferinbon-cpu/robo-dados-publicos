@@ -1,0 +1,117 @@
+{
+  "schema": "M8_SIOPE_HISTORICAL_PRODUCT_OUTPUT_PUBLICATION_RUN_V1",
+  "status": "PUBLICATION_EXECUTED_WITH_SHEET_STRUCTURE_DEFECT",
+  "gate_status": "PASS_M8_SIOPE_HISTORICAL_PRODUCT_OUTPUT_PUBLICATION_GATE",
+  "post_publication_audit_status": "STOP_CORRECTIVE_REPUBLICATION_REQUIRED",
+  "run": {
+    "id": 33171163738,
+    "job_id": 98848411366,
+    "event": "workflow_dispatch",
+    "head_sha": "ac80cff2672b91ded2838d18ddd4d4fdcf15b075",
+    "conclusion": "success"
+  },
+  "qa": {
+    "unit_tests": {
+      "passed": 1278,
+      "total": 1278
+    },
+    "historical_regression": {
+      "passed": 109,
+      "total": 109
+    },
+    "compileall": "PASS"
+  },
+  "evidence_artifact": {
+    "id": 9685670191,
+    "name": "m8-siope-historical-publication-33171163738",
+    "zip_size_bytes": 625,
+    "digest": "sha256:7876f9606acfaa357e006c6983dc99172d730206dc40aceffb455d0d389e1c95"
+  },
+  "source_artifact": {
+    "id": 9684264254,
+    "zip_sha256": "213693b37e8a2123d1d4df4b4dec0495a5ca9536cb51b23f0549e94da72d080e",
+    "table_csv": {
+      "bytes": 23115,
+      "sha256": "749b8dd8f56b4ced755f634e08c9b4f8d7cd6f75c448e4c55bbfe77f6d7f8a8e",
+      "logical_rows": 9,
+      "logical_columns": 7
+    },
+    "report_pdf": {
+      "bytes": 21854,
+      "sha256": "f0e75f41bf1fef333e929b698a2e1e6b404b10f8d0ea2d4916c29063ede3a87b"
+    }
+  },
+  "publication_result": {
+    "drive_target": "08_OUTPUTS",
+    "created_count": 3,
+    "remote_names": [
+      "SIOPE_LIMEIRA_HISTORICAL_2016_2024_V0_8_0_TABELA",
+      "SIOPE_LIMEIRA_HISTORICAL_2016_2024_V0_8_0.pdf",
+      "SIOPE_LIMEIRA_HISTORICAL_2016_2024_V0_8_0_publication_manifest.json"
+    ],
+    "completion_manifest_written_last": true,
+    "overwrite_performed": false,
+    "source_collection_performed": false,
+    "processing_rerun_performed": false,
+    "reconciliation_rerun_performed": false,
+    "retry_authorized": false,
+    "pagination_authorized": false,
+    "schedule_enabled": false,
+    "future_batch_execution_authorized": false,
+    "remote_identifiers_exposed": false,
+    "secret_values_exposed": false,
+    "report_status": "READY_WITH_CAUTION"
+  },
+  "independent_drive_readback": {
+    "exact_remote_name_count": 3,
+    "remote_identifiers_recorded": false,
+    "google_sheet": {
+      "name": "SIOPE_LIMEIRA_HISTORICAL_2016_2024_V0_8_0_TABELA",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "drive_size_bytes": 3057,
+      "expected_logical_rows": 9,
+      "expected_logical_columns": 7,
+      "observed_header_cell_count": 1,
+      "content_structure_match": false,
+      "diagnosis": "CSV_DELIMITER_LOCALE_MISMATCH_ON_GOOGLE_SHEETS_IMPORT"
+    },
+    "pdf": {
+      "name": "SIOPE_LIMEIRA_HISTORICAL_2016_2024_V0_8_0.pdf",
+      "mime_type": "application/pdf",
+      "bytes": 21854,
+      "sha256": "f0e75f41bf1fef333e929b698a2e1e6b404b10f8d0ea2d4916c29063ede3a87b",
+      "matches_pinned_source": true
+    },
+    "completion_manifest": {
+      "name": "SIOPE_LIMEIRA_HISTORICAL_2016_2024_V0_8_0_publication_manifest.json",
+      "mime_type": "application/json",
+      "bytes": 1036,
+      "sha256": "2245a441d2f28a79d662d967ee8e01e58b8129a781c98276c45e00ec90bde50a",
+      "completion_marker_written_last": true,
+      "remote_identifiers_recorded": false,
+      "overwrite_allowed": false,
+      "report_status": "READY_WITH_CAUTION"
+    }
+  },
+  "audit_finding": {
+    "severity": "PUBLICATION_CONTENT_DEFECT",
+    "affected_object": "GOOGLE_SHEET_ONLY",
+    "pdf_validated": true,
+    "completion_manifest_validated": true,
+    "root_cause": "The canonical comma-delimited CSV was converted to a Google Sheet under a pt_BR spreadsheet locale, where the import interpreted semicolons as separators. Metadata-only verification did not detect the malformed cell matrix.",
+    "required_fix": "Future publication must use a locale-independent tabular import path and must perform semantic Sheet readback against the canonical 9x7 matrix before creating the PDF and completion manifest."
+  },
+  "governance": {
+    "existing_v0_8_0_objects_are_immutable": true,
+    "rerun_v0_8_0_authorized": false,
+    "overwrite_allowed": false,
+    "delete_allowed": false,
+    "replace_allowed": false,
+    "corrective_publication_requires_new_remote_names": true,
+    "corrective_publication_requires_new_explicit_owner_authorization": true,
+    "t3_automation_authorized": false,
+    "future_batch_execution_authorized": false,
+    "years_2015_or_earlier_authorized": false,
+    "automatic_compliance_claims_authorized": false
+  }
+}

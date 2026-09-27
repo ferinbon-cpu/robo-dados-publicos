@@ -1,0 +1,33 @@
+{
+  "task": "TASK_110",
+  "version": "0.8.0",
+  "mode": "T0_OFFLINE_OCR_DEPENDENCY_ROUTE_DESIGN",
+  "issue": 417,
+  "decision": "CANONICAL_ROUTE_POPPLER_TESSERACT_POR_TSV",
+  "contract_path": "config/ppa_2018_2021_ocr_dependency_route.v1.json",
+  "canonical_packages": {
+    "poppler-utils": "24.02.0-1ubuntu9.9",
+    "tesseract-ocr": "5.3.4-1build5",
+    "tesseract-ocr-por": "1:4.1.0-2"
+  },
+  "task111_install_authorized": false,
+  "real_source_read_authorized": false,
+  "real_source_ocr_authorized": false,
+  "remaining_gap": "PPA_2018_2021_PRIMARY_PLANNING_EVIDENCE_ONLY",
+  "next_boundary": "TASK_111_SYNTHETIC_EXACT_DEPENDENCY_PROOF_SEPARATE_GATE",
+  "remote_effects": {
+    "package_network": false,
+    "source_network": false,
+    "source_read": false,
+    "real_source_ocr": false,
+    "drive_read": false,
+    "drive_write": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}

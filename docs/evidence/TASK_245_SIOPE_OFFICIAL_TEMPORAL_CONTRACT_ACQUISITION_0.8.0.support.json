@@ -1,0 +1,363 @@
+{
+  "schema": "TASK245_REVIEWED_OFFICIAL_SUPPORT_V1",
+  "sources": [
+    {
+      "id": "DICTIONARY_2019",
+      "authority": "FNDE",
+      "official_url": "https://www.fnde.gov.br/phocadownload/sistemas/siope/Manuais/DICIONARIO%20DE%20DADOS%20SIOPE%202019.pdf",
+      "title": "Dicionário de Dados SIOPE 2019",
+      "source_version_or_date": "2019 (filename); publication date not stated in PDF",
+      "retrieved_at": "2026-09-15T14:01:57.976440+00:00",
+      "raw_file": "dictionary2019.pdf",
+      "raw_sha256": "6a892024113182107749a1203e36578c160860f50c245533db9e8ad2c06909c8",
+      "bytes": 216783
+    },
+    {
+      "id": "ANALYTICAL_CATALOG",
+      "authority": "FNDE",
+      "official_url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/arquivos-dados-analiticos",
+      "title": "Arquivos - Dados Analíticos",
+      "source_version_or_date": "dataset update stated: 2020-03-01",
+      "retrieved_at": "2026-09-15T14:04:46.990368+00:00",
+      "raw_file": "analytical_index.html",
+      "raw_sha256": "42eff621d68621eb365b4b5a8ac0f4c4f21c6f786b69bb31c3f267ee670da652",
+      "bytes": 199983
+    },
+    {
+      "id": "OLINDA_V1",
+      "authority": "FNDE",
+      "official_url": "https://www.fnde.gov.br/olinda-ide/servico/DADOS_ABERTOS_SIOPE/versao/v1/documentacao",
+      "title": "DADOS_ABERTOS_SIOPE / v1 / documentação",
+      "source_version_or_date": "v1; no effective-year range or revision date for financial properties",
+      "retrieved_at": "2026-09-15T14:03:56.437768+00:00",
+      "raw_file": "olinda_documentation.html",
+      "raw_sha256": "79b2fce7430d3ff584fd8e554cf49a3c8ded4ec707f9e02e46023b2e9d7c4b13",
+      "bytes": 45399
+    },
+    {
+      "id": "TUTORIAL_2024",
+      "authority": "FNDE",
+      "official_url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/media/Tutorial_Bsico_Siope_2024_v2.pdf",
+      "title": "Tutorial Básico Siope 2024 v2",
+      "source_version_or_date": "exercise 2024; tutorial v2",
+      "retrieved_at": "2026-09-15T14:05:42.145013+00:00",
+      "raw_file": "tutorial2024.pdf",
+      "raw_sha256": "5bb3889853ceb51c306f677e8b023aab06dfbc3efa12fa1407b567656f1dff76",
+      "bytes": 3720477
+    },
+    {
+      "id": "METADATA_CATALOG",
+      "authority": "FNDE",
+      "official_url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/downloads",
+      "title": "Downloads / metadados por exercício",
+      "source_version_or_date": "page updated 2026-08-17",
+      "retrieved_at": "2026-09-15T14:02:11.727978+00:00",
+      "raw_file": "downloads.html",
+      "raw_sha256": "429e1f63224519477c04b117749c1b11d6d90af7e3b6065144282afe1f3a4cef",
+      "bytes": 189394
+    },
+    {
+      "id": "INSTALLER_CATALOG",
+      "authority": "FNDE",
+      "official_url": "https://www.fnde.gov.br/siope/download.do",
+      "title": "Downloads SIOPE / Anos Anteriores / Municipal",
+      "source_version_or_date": "observed 2026-09-15; exercise and software publication date are separate",
+      "retrieved_at": "2026-09-15T14:03:01.829288+00:00",
+      "raw_file": "installer_index.html",
+      "raw_sha256": "48e44d1faeb03919fc95a3e6f4430a9f52057ce8dba90504f177e3b780615d55",
+      "bytes": 25788
+    },
+    {
+      "id": "MANUAL_CATALOG",
+      "authority": "FNDE",
+      "official_url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/manuais-do-siope",
+      "title": "Manuais do Siope",
+      "source_version_or_date": "manuals explicitly indexed by exercise",
+      "retrieved_at": "2026-09-15T14:04:46.989797+00:00",
+      "raw_file": "manuals_index.html",
+      "raw_sha256": "734eef78444b5f40bd75c43e8f2ee896cc8c2f76b855e5f9177d02447126f5e0",
+      "bytes": 183299
+    },
+    {
+      "id": "NOTES_2017",
+      "authority": "FNDE",
+      "official_url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/notas-tecnicas",
+      "title": "Notas Técnicas / Nota Técnica Conjunta STN/MEC/FNDE 01/2017",
+      "source_version_or_date": "2016/2017 operational treatment; cited note dated 2017-06-27",
+      "retrieved_at": "2026-09-15T14:04:46.991366+00:00",
+      "raw_file": "notes_index.html",
+      "raw_sha256": "bca9de8825f570ca258d443f25591a76658bb0846a23abd1f130f4041119321e",
+      "bytes": 183086
+    }
+  ],
+  "dictionary": {
+    "source_id": "DICTIONARY_2019",
+    "location": "PDF page 2, Dados Consolidados table",
+    "literal_columns": [
+      "VL_RECEITA_PREVISAO_ATUALIZADA",
+      "VL_RECEITA_REALIZADA",
+      "VL_DESPESA_DOTACAO_ATUALIZADA",
+      "VL_DESPESA_EMPENHADA",
+      "VL_DESPESA_LIQUIDADA",
+      "VL_DESPESA_PAGA",
+      "VL_DOTACAO_ATUALIZADA EDUCACAO",
+      "VL_DESPESA_EMPENHADA EDUCACAO",
+      "VL_DESPESA_ LIQUIDADA_EDUCACAO",
+      "VL_DESPESA_PAGA_EDUCACAO"
+    ],
+    "period_rule": {
+      "annual_p1_through": 2016,
+      "annual_p6_from": 2017
+    },
+    "period_rule_scope": "NU_PERIODO explicitly defines annual declaration for 2008–2016 and annual consolidation from 2017",
+    "unit_explicit": false,
+    "exact_odata_alias_crosswalk_explicit": false,
+    "education_function12_explicit_in_dictionary": false,
+    "visual_table_checked": true
+  },
+  "analytical_catalog": {
+    "source_id": "ANALYTICAL_CATALOG",
+    "location": "content-core, Dicionário de Dados and Dados consolidados links",
+    "data_updated_through": "2020-03-01",
+    "archives": [
+      "ftp://ftp2.fnde.gov.br/dadosabertos/SIOPE/DADOS_CONSOLIDADOS_2019.CSV",
+      "ftp://ftp2.fnde.gov.br/dadosabertos/SIOPE/DADOS_CONSOLIDADOS_2018.CSV",
+      "ftp://ftp2.fnde.gov.br/dadosabertos/SIOPE/DADOS_CONSOLIDADOS_2017.CSV",
+      "ftp://ftp2.fnde.gov.br/dadosabertos/SIOPE/DADOS_CONSOLIDADOS_2008_2016.CSV"
+    ],
+    "exercise_ranges": [
+      [
+        2008,
+        2016
+      ],
+      [
+        2017,
+        2017
+      ],
+      [
+        2018,
+        2018
+      ],
+      [
+        2019,
+        2019
+      ]
+    ],
+    "finding": "One official dictionary accompanies these four named consolidated archives. This associates an official vocabulary with the archive family; it does not establish its crosswalk to OData aliases.",
+    "archive_bytes_or_headers_acquired": false
+  },
+  "olinda": {
+    "source_id": "OLINDA_V1",
+    "location": "$scope.especificacao.recursos[Dados_Gerais_Siope].tipo.propriedades",
+    "service": "DADOS_ABERTOS_SIOPE",
+    "version": "v1",
+    "access": "ANONIMO",
+    "properties": [
+      {
+        "localizacao": {
+          "nome": "VAL_RECE_PREV_ATUA",
+          "titulo": "",
+          "descricao": ""
+        },
+        "tipo": "texto"
+      },
+      {
+        "localizacao": {
+          "nome": "VAL_RECE_REAL",
+          "titulo": "",
+          "descricao": ""
+        },
+        "tipo": "texto"
+      },
+      {
+        "localizacao": {
+          "nome": "VAL_DESP_DOTA_ATUA",
+          "titulo": "",
+          "descricao": ""
+        },
+        "tipo": "texto"
+      },
+      {
+        "localizacao": {
+          "nome": "VAL_DESP_EMPE",
+          "titulo": "",
+          "descricao": ""
+        },
+        "tipo": "texto"
+      },
+      {
+        "localizacao": {
+          "nome": "VAL_DESP_LIQU",
+          "titulo": "",
+          "descricao": ""
+        },
+        "tipo": "texto"
+      },
+      {
+        "localizacao": {
+          "nome": "VAL_DESP_PAGA",
+          "titulo": "",
+          "descricao": ""
+        },
+        "tipo": "texto"
+      },
+      {
+        "localizacao": {
+          "nome": "VL_DESP_DOTA_ATUA_EDU",
+          "titulo": "",
+          "descricao": ""
+        },
+        "tipo": "decimal"
+      },
+      {
+        "localizacao": {
+          "nome": "VL_DESP_EMPE_EDU",
+          "titulo": "",
+          "descricao": ""
+        },
+        "tipo": "decimal"
+      },
+      {
+        "localizacao": {
+          "nome": "VL_DESP_LIQU_EDU",
+          "titulo": "",
+          "descricao": ""
+        },
+        "tipo": "decimal"
+      },
+      {
+        "localizacao": {
+          "nome": "VL_DESP_PAGA_EDU",
+          "titulo": "",
+          "descricao": ""
+        },
+        "tipo": "decimal"
+      }
+    ],
+    "effective_year_range_stated": false,
+    "semantic_change_history_stated": false,
+    "version_v1_is_semantic_continuity_proof": false
+  },
+  "tutorial": {
+    "source_id": "TUTORIAL_2024",
+    "exercise": 2024,
+    "page21": [
+      "Receita total do Município",
+      "Despesa total do Município",
+      "Despesas com Educação (Função 12)"
+    ],
+    "page22": [
+      "Previsão Atualizada",
+      "Receitas Realizadas",
+      "Deduções FUNDEB",
+      "Outras Deduções",
+      "IntraOrçamentárias"
+    ],
+    "page23": "MDE is a separate guide (not the definition of the Função 12 input)",
+    "visual_pages_checked": [
+      21,
+      22
+    ],
+    "finding": "The revenue screen distinguishes deductions and intra-budgetary values. It does not state which are included in the ten OData aggregates across historical exercises.",
+    "complete_historical_aggregation_rule": false
+  },
+  "metadata_catalog": {
+    "source_id": "METADATA_CATALOG",
+    "municipal_exercises_indexed": [
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "exercise_applicability_of_linked_packages": "EXPLICIT_BY_INDEX_LABEL",
+    "package_contents_proven_by_listing": false,
+    "2017_acquisition_outcome": "HTTP_401_NO_PACKAGE_ACQUIRED_STOP_NO_AUTHENTICATION",
+    "other_historical_packages_probed": false
+  },
+  "installer_catalog": {
+    "source_id": "INSTALLER_CATALOG",
+    "location": "Anos Anteriores / Municipal rows",
+    "rows": [
+      {
+        "exercise": 2016,
+        "version": "16.0.0.31",
+        "published_date": "2023-10-18"
+      },
+      {
+        "exercise": 2017,
+        "version": "17.0.1.2",
+        "published_date": "2026-05-29"
+      },
+      {
+        "exercise": 2018,
+        "version": "18.2.0.1",
+        "published_date": "2025-05-16"
+      },
+      {
+        "exercise": 2019,
+        "version": "19.1.0.0",
+        "published_date": "2025-07-25"
+      },
+      {
+        "exercise": 2020,
+        "version": "20.12.0.2",
+        "published_date": "2025-06-02"
+      },
+      {
+        "exercise": 2021,
+        "version": "21.28.0.9",
+        "published_date": "2025-06-16"
+      },
+      {
+        "exercise": 2022,
+        "version": "22.9.4.7",
+        "published_date": "2025-06-27"
+      },
+      {
+        "exercise": 2023,
+        "version": "23.9.9.9",
+        "published_date": "2025-06-10"
+      },
+      {
+        "exercise": 2024,
+        "version": "24.5.4.9",
+        "published_date": "2026-08-05"
+      },
+      {
+        "exercise": 2025,
+        "version": "25.0.5.6",
+        "published_date": "2026-07-24"
+      }
+    ],
+    "finding": "Currently downloadable historical-year releases were republished later than their exercises. Exercise, publication vintage and acquisition date must remain distinct.",
+    "complete_semantic_changelog": false,
+    "installers_downloaded_or_executed": false
+  },
+  "change_screening": {
+    "source_ids": [
+      "NOTES_2017",
+      "METADATA_CATALOG"
+    ],
+    "observed_changes": [
+      {
+        "id": "REPATRIACAO_2016_2017",
+        "scope": "MDE/Fundeb statutory indicator compensation",
+        "location": "Notas Técnicas, numbered items 1 and 2",
+        "target_alias_break_proven": false
+      },
+      {
+        "id": "FUNDEF_PRECATORIOS_FROM_2017",
+        "scope": "earmarked receipt/expenditure classification and exclusion from art. 212 indicator",
+        "location": "Downloads, SIOPE a partir de 2017 / FUNDEF precatórios",
+        "target_alias_break_proven": false
+      }
+    ],
+    "finding": "A change to a legal indicator or detailed source classification is not by itself a demonstrated break in these ten total/Function-12 aggregates.",
+    "negative_search_scope": "Eight acquired artifacts only; no claim that all official history was searched"
+  }
+}

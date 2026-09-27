@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "F02_KNOWN_FAMILY_BATCH_MANIFEST_V1",
+  "title": "F02 known-family batch runtime manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "mode",
+    "batch_id",
+    "batch_kind",
+    "reference_period",
+    "sources",
+    "remote_effects_authorized"
+  ],
+  "properties": {
+    "schema": {
+      "const": "F02_KNOWN_FAMILY_BATCH_MANIFEST_V1"
+    },
+    "mode": {
+      "const": "MANUAL_SUPERVISED_INGEST"
+    },
+    "batch_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "batch_kind": {
+      "enum": [
+        "RREO_ALIGNED",
+        "LOCAL_ONLY"
+      ]
+    },
+    "reference_period": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "start",
+        "end"
+      ],
+      "properties": {
+        "start": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "end": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_id",
+          "family",
+          "role",
+          "drive_file_id",
+          "expected_sha256",
+          "expected_bytes",
+          "expected_pages",
+          "snapshot_path"
+        ],
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "family": {
+            "enum": [
+              "RREO_MDE",
+              "FUNDEB_LOCAL",
+              "MDE_25_LOCAL"
+            ]
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1
+          },
+          "drive_file_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expected_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "expected_bytes": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "expected_pages": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "snapshot_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_type": {
+            "const": "SOURCE"
+          },
+          "ingestion_method": {
+            "const": "MANUAL_SUPERVISED"
+          }
+        }
+      }
+    },
+    "remote_effects_authorized": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bronze_write",
+        "silver_write",
+        "gold_write",
+        "serving",
+        "publication",
+        "site",
+        "overwrite",
+        "delete",
+        "move",
+        "schedule",
+        "recurrence"
+      ],
+      "properties": {
+        "bronze_write": {
+          "const": false
+        },
+        "silver_write": {
+          "const": false
+        },
+        "gold_write": {
+          "const": false
+        },
+        "serving": {
+          "const": false
+        },
+        "publication": {
+          "const": false
+        },
+        "site": {
+          "const": false
+        },
+        "overwrite": {
+          "const": false
+        },
+        "delete": {
+          "const": false
+        },
+        "move": {
+          "const": false
+        },
+        "schedule": {
+          "const": false
+        },
+        "recurrence": {
+          "const": false
+        }
+      }
+    }
+  }
+}

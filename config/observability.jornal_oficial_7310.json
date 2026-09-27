@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "source_card": {
+    "source_id": "LIMEIRA_JORNAL_OFICIAL_EDICAO_7310",
+    "institution": "Prefeitura Municipal de Limeira",
+    "source_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_21082026170515.pdf",
+    "formats": [
+      "application/pdf"
+    ],
+    "periodicity": "one_time_manual_gate",
+    "scope": "Edição 7310 do Jornal Oficial de Limeira preservada pelo primeiro gate de coleta M4E.",
+    "expected_update_interval_hours": null,
+    "fields": [
+      "edition",
+      "publication_date",
+      "document_content"
+    ],
+    "license": "NOT_DECLARED_IN_GATE_CONTRACT",
+    "risks": [
+      "SCHEMA_CHANGE",
+      "PDF_TEXT_LAYER_VARIATION",
+      "SOURCE_URL_CHANGE"
+    ],
+    "owner": "ROBO_DADOS_PUBLICOS",
+    "notes": "Fonte histórica de uso único. A ausência de limiar de atualização é deliberada e não autoriza coleta recorrente."
+  }
+}

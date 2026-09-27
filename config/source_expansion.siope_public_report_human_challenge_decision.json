@@ -1,0 +1,33 @@
+{
+  "gate_id": "M7_SIOPE_PUBLIC_REPORT_HUMAN_CHALLENGE_DECISION_0_8_0",
+  "source_id": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
+  "evidence_path": "docs/evidence/M7_SIOPE_PUBLIC_REPORT_SURFACE_ATTEMPT_1_0.8.0.json",
+  "input_gate": "M7_SIOPE_PUBLIC_REPORT_SURFACE_GATE_0_8_0",
+  "human_challenge_status": "PROVEN_PRESENT",
+  "decision": "BLOCK_UNATTENDED_FORM_SUBMISSION",
+  "policy": {
+    "submit_post_form": false,
+    "bypass_captcha": false,
+    "solve_captcha_automatically": false,
+    "capture_captcha_material": false,
+    "capture_credentials": false,
+    "capture_cookies": false,
+    "reuse_personal_session": false,
+    "authenticate": false,
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false
+  },
+  "allowed_next_actions": [
+    "VERIFY_EXACT_PUBLICLY_INDEXED_GET_CONTRACT",
+    "DESIGN_MANUAL_ASSISTED_INGESTION_WITHOUT_SESSION_CAPTURE"
+  ],
+  "prohibited_next_actions": [
+    "SUBMIT_CAPTCHA_PROTECTED_POST",
+    "AUTOMATE_CAPTCHA",
+    "REPLAY_PERSONAL_SESSION",
+    "CAPTURE_AUTHENTICATION_STATE"
+  ],
+  "next_gate": "M7_SIOPE_PUBLIC_INDEXED_GET_CONTRACT_GATE_0_8_0"
+}

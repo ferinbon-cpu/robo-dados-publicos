@@ -1,0 +1,19 @@
+{
+  "schema": "TASK_020_SYNTHETIC_SCENARIOS_V1",
+  "synthetic": true,
+  "contains_live_source_values": false,
+  "contains_financial_values": false,
+  "purpose": "Human-readable index of the synthetic decision cases exercised by the TASK 020 planner tests and gate.",
+  "scenarios": [
+    {"id": "S1", "condition": "complete checkpoint equals complete discovery", "expected": "NO_CHANGE_IDEMPOTENT"},
+    {"id": "S2", "condition": "complete discovery adds strictly higher editions within bound", "expected": "NEW_ITEMS_APPEND_ONLY"},
+    {"id": "S3", "condition": "partial discovery", "expected": "STOP_DISCOVERY_NOT_COMPLETE"},
+    {"id": "S4", "condition": "known edition missing", "expected": "STOP_KNOWN_ITEM_MISSING"},
+    {"id": "S5", "condition": "known edition immutable metadata drift", "expected": "STOP_KNOWN_ITEM_DRIFT"},
+    {"id": "S6", "condition": "duplicate edition", "expected": "STOP_DUPLICATE_EDITION"},
+    {"id": "S7", "condition": "new edition not above checkpoint maximum", "expected": "STOP_NON_MONOTONIC_NEW_ITEM"},
+    {"id": "S8", "condition": "append-only delta exceeds max_new_items_per_cycle", "expected": "STOP_NEW_ITEM_BOUND_EXCEEDED"},
+    {"id": "S9", "condition": "canonical source_id/logical_key malformed", "expected": "STOP_BAD_ITEM_CONTRACT"}
+  ],
+  "remote_effects": 0
+}

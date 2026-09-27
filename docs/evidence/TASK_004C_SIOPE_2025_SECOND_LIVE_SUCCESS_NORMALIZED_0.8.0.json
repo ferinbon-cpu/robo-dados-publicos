@@ -1,0 +1,136 @@
+{
+  "evidence_schema": "SIOPE_2025_T1_SECOND_LIVE_SUCCESS_EVIDENCE_NORMALIZED_V1",
+  "normalization_task": "TASK_005",
+  "software_version": "0.8.0",
+  "source_evidence_path": "docs/evidence/TASK_004C_SIOPE_2025_SECOND_LIVE_SUCCESS_0.8.0.json",
+  "source_evidence_note": "The source evidence is preserved byte-for-byte. It contains two JSON keys named schema; this normalized derivative separates the evidence discriminator from the observed resource schema without adding source observations.",
+  "additional_source_get_count": 0,
+  "run": {
+    "run_id": 33204578436,
+    "job_id": 98962254951,
+    "workflow_id": 344879409,
+    "workflow_event": "workflow_dispatch",
+    "workflow_name": "TASK 004C second bounded SIOPE 2025 observation",
+    "workflow_head_branch": "main",
+    "head_sha": "c16ecb6f6c2ac88aeae3433df7d58ee4bcd0d85b",
+    "run_number": 1,
+    "run_attempt": 1,
+    "run_started_at_utc": "2026-08-28T19:36:00Z",
+    "run_completed_at_utc": "2026-08-28T19:36:33Z",
+    "workflow_conclusion": "success"
+  },
+  "authorization": {
+    "authorization_id": "SIOPE2025-T1-LIMEIRA-20260828-02",
+    "accepted": true,
+    "one_shot_consumed": true
+  },
+  "runner": {
+    "status": "PASS_SIOPE_2025_T1_FIRST_LIVE_BOUNDED",
+    "outcome": "2025_P6_SCHEMA_EXACT_SEMANTICS_AND_CLOSURE_UNKNOWN",
+    "source_get_count": 7
+  },
+  "target": {
+    "year": 2025,
+    "state": "SP",
+    "municipality_code": 352690,
+    "municipality_name": "Limeira"
+  },
+  "observed_periods": [1, 2, 3, 4, 5, 6],
+  "period_states": {
+    "1": "PERIOD_OBSERVED_IDENTITY_ONLY",
+    "2": "PERIOD_OBSERVED_IDENTITY_ONLY",
+    "3": "PERIOD_OBSERVED_IDENTITY_ONLY",
+    "4": "PERIOD_OBSERVED_IDENTITY_ONLY",
+    "5": "PERIOD_OBSERVED_IDENTITY_ONLY",
+    "6": "PERIOD_OBSERVED_IDENTITY_ONLY"
+  },
+  "transport": [
+    {"ordinal": 1, "phase": "PERIOD_AVAILABILITY", "period": 1, "response_status": 200, "content_type": "application/json", "response_byte_count": 264, "cardinality": 1, "retry_performed": false, "redirect_followed": false, "nextlink_present": false},
+    {"ordinal": 2, "phase": "PERIOD_AVAILABILITY", "period": 2, "response_status": 200, "content_type": "application/json", "response_byte_count": 264, "cardinality": 1, "retry_performed": false, "redirect_followed": false, "nextlink_present": false},
+    {"ordinal": 3, "phase": "PERIOD_AVAILABILITY", "period": 3, "response_status": 200, "content_type": "application/json", "response_byte_count": 264, "cardinality": 1, "retry_performed": false, "redirect_followed": false, "nextlink_present": false},
+    {"ordinal": 4, "phase": "PERIOD_AVAILABILITY", "period": 4, "response_status": 200, "content_type": "application/json", "response_byte_count": 264, "cardinality": 1, "retry_performed": false, "redirect_followed": false, "nextlink_present": false},
+    {"ordinal": 5, "phase": "PERIOD_AVAILABILITY", "period": 5, "response_status": 200, "content_type": "application/json", "response_byte_count": 264, "cardinality": 1, "retry_performed": false, "redirect_followed": false, "nextlink_present": false},
+    {"ordinal": 6, "phase": "PERIOD_AVAILABILITY", "period": 6, "response_status": 200, "content_type": "application/json", "response_byte_count": 264, "cardinality": 1, "retry_performed": false, "redirect_followed": false, "nextlink_present": false},
+    {"ordinal": 7, "phase": "CONDITIONAL_SCHEMA", "period": 6, "response_status": 200, "content_type": "application/json", "response_byte_count": 2600, "cardinality": 1, "retry_performed": false, "redirect_followed": false, "nextlink_present": false}
+  ],
+  "request_plan_evidence": {
+    "request_shape_count": 7,
+    "request_shapes_sha256": "e51686f783d892dba03a1c85bf3b2fda029daf3ce2552d59c4387fa1815d4bc2",
+    "query_values_persisted": false,
+    "response_values_persisted": false,
+    "method": "GET",
+    "host": "www.fnde.gov.br",
+    "path": "/olinda-ide/servico/DADOS_ABERTOS_SIOPE/versao/v1/odata/Dados_Gerais_Siope(Ano_Consulta=@Ano_Consulta,Num_Peri=@Num_Peri,Sig_UF=@Sig_UF)",
+    "timeout_seconds": 60,
+    "max_response_bytes": 262144,
+    "max_attempts": 1,
+    "retry_authorized": false,
+    "follow_redirects": false,
+    "pagination_authorized": false,
+    "follow_nextlink": false
+  },
+  "observed_resource_schema": {
+    "performed": true,
+    "schema_exact": true,
+    "observed_field_count": 52,
+    "observed_fields_sha256": "cd601ba7ee604df2e157028a2a18eefa226659fcbe0f2288937d3342d00e12a6",
+    "observed_fields": [
+      "COD_DIGIT", "COD_MUNI", "COD_UF", "COD_VERIFIC", "DAT_DECL", "DES_DIFE_METO_CALC", "DES_JUST_PROB_BALA", "DS_JUST_RETIFICACAO", "DS_NOTA_RODAPE_FUNDEB", "DS_NOTA_RODAPE_RREO", "IDN_ASSU_RESP_MTDO_APUR", "IDN_DECL_RETI", "IDN_METO_LIMI_CONS", "IDN_METO_SIOPE_IGUA_TC", "IDN_POSS_CERT_TC", "IDN_POSS_DECI_JUDI", "IDN_TIPO_DECL", "NOM_MUNI", "NUM_ANO", "NUM_CIDE", "NUM_CP_FUNDEF", "NUM_FPE", "NUM_FPM", "NUM_FUNDEF", "NUM_ICMS", "NUM_IPI_EXPO", "NUM_IPVA_FUNDEB", "NUM_ITCMD_FUNDEB", "NUM_ITR", "NUM_LC", "NUM_PERI", "NUM_POPU", "NUM_RECI", "NUM_SOLI", "SIG_UF", "TIPO", "VAL_DESP_DOTA_ATUA", "VAL_DESP_EMPE", "VAL_DESP_LIQU", "VAL_DESP_ORCA", "VAL_DESP_PAGA", "VAL_PIB", "VAL_PIB_PERCAPTO", "VAL_RECE_ORCA", "VAL_RECE_PREV_ATUA", "VAL_RECE_REAL", "VAL_TRANSMISSAO", "VL_DESP_DOTA_ATUA_EDU", "VL_DESP_EMPE_EDU", "VL_DESP_LIQU_EDU", "VL_DESP_ORCA_EDU", "VL_DESP_PAGA_EDU"
+    ],
+    "all_required_gold_inputs_present": true,
+    "missing_required_gold_input_fields": [],
+    "required_gold_input_status": {
+      "NUM_POPU": "PRESENT",
+      "VAL_DESP_DOTA_ATUA": "PRESENT",
+      "VAL_DESP_EMPE": "PRESENT",
+      "VAL_DESP_LIQU": "PRESENT",
+      "VAL_DESP_PAGA": "PRESENT",
+      "VAL_RECE_PREV_ATUA": "PRESENT",
+      "VAL_RECE_REAL": "PRESENT",
+      "VL_DESP_DOTA_ATUA_EDU": "PRESENT",
+      "VL_DESP_EMPE_EDU": "PRESENT",
+      "VL_DESP_LIQU_EDU": "PRESENT",
+      "VL_DESP_PAGA_EDU": "PRESENT"
+    }
+  },
+  "effects": {
+    "drive_read_count": 0,
+    "drive_write_count": 0,
+    "response_body_persisted": false,
+    "record_values_persisted": false,
+    "cookies_persisted": false,
+    "tokens_persisted": false,
+    "sensitive_headers_persisted": false,
+    "bronze_silver_gold_creation": false,
+    "publication": false
+  },
+  "semantic_boundary_at_observation": {
+    "year_2025_status": "UNPROVEN_RECENT",
+    "period_6_status": "CANDIDATE_NOT_PROVEN",
+    "period_6_identity_observed": true,
+    "period_6_schema_exact_observed": true,
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "closed_series_eligibility": "UNKNOWN",
+    "promote_2025_to_proven": false,
+    "any_metric_proven": false,
+    "metric_statuses": {
+      "receita_realizada_sobre_previsao_atualizada_pct": "UNKNOWN",
+      "despesa_paga_sobre_dotacao_atualizada_pct": "UNKNOWN",
+      "despesa_educacao_paga_sobre_dotacao_atualizada_educacao_pct": "UNKNOWN",
+      "participacao_educacao_na_despesa_empenhada_pct": "UNKNOWN",
+      "participacao_educacao_na_despesa_liquidada_pct": "UNKNOWN",
+      "participacao_educacao_na_despesa_paga_pct": "UNKNOWN",
+      "despesa_total_paga_por_habitante": "UNKNOWN",
+      "despesa_educacao_paga_por_habitante": "UNKNOWN"
+    }
+  },
+  "normalization_guards": {
+    "source_evidence_mutated": false,
+    "new_live_observation_added": false,
+    "financial_values_added": false,
+    "metric_computation_added": false,
+    "annual_closure_promoted": false,
+    "semantic_comparability_promoted": false
+  }
+}

@@ -1,0 +1,88 @@
+name: TASK 167 PNCP stable-ID direct JSON traversal
+run-name: "TASK 167 PNCP stable-ID JSON by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-167-pncp-stable-id-direct-json
+    paths:
+      - 'runtime_triggers/task167_pncp_stable_id.run'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-167-pncp-stable-id-direct-json
+  cancel-in-progress: false
+
+jobs:
+  task167-direct-json:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Traverse documented PNCP JSON routes
+        shell: bash
+        env:
+          TASK167_HEAD_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p runtime
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          from robo_dados_publicos.research.task167_pncp_stable_id_direct_json import execute, load_config
+
+          config = load_config("config/task167_pncp_stable_id_direct_json_traversal.v1.json")
+          result = execute(config)
+          result["execution_head_sha"] = os.environ["TASK167_HEAD_SHA"]
+          canonical = json.dumps(
+              result,
+              ensure_ascii=False,
+              sort_keys=True,
+              separators=(",", ":"),
+          ).encode("utf-8")
+          result["result_sha256"] = hashlib.sha256(canonical).hexdigest()
+          Path("runtime/task167_sanitized_result.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+
+          for target in result["targets"]:
+              print("TASK167_TARGET", target["target_id"], "detail_identity", target["detail_identity_validated"])
+              for route in target["routes"]:
+                  print(
+                      "TASK167_ROUTE",
+                      target["target_id"],
+                      route["route"],
+                      route["status"],
+                      route.get("http_status"),
+                      route.get("bytes_received"),
+                  )
+          print("TASK167_CANDIDATE_SIGNAL_GROUPS", len(result["candidate_accounting_signals"]))
+          print("TASK167_RAW_PERSISTED", result["raw_payload_persisted"])
+          PY
+
+      - name: Verify no raw payload files exist
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -e runtime/raw.json
+          test ! -e runtime/response.json
+          test -f runtime/task167_sanitized_result.json
+
+      - name: Upload sanitized result only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-167-pncp-stable-id-sanitized-result
+          path: runtime/task167_sanitized_result.json
+          if-no-files-found: error
+          retention-days: 1

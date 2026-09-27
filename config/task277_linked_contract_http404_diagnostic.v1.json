@@ -1,0 +1,161 @@
+{
+  "schema": "TASK277_LINKED_CONTRACT_HTTP404_DIAGNOSTIC_V1",
+  "task": "TASK_277",
+  "issue": 889,
+  "base_main_sha": "f725d7d84c8a7ac4f3611653d7235ab17979fb28",
+  "source_task276": {
+    "implementation_sha": "f725d7d84c8a7ac4f3611653d7235ab17979fb28",
+    "run_id": 35410277332,
+    "job_id": 105808366823,
+    "runtime_head_sha": "3e9aec66366f6dc8270562f33a91b035cd954385",
+    "artifact_id": 10574326201,
+    "artifact_zip_sha256": "17ba313a8994802ca08ec8714639efe80de43563c70972b2cb5e776b32385616",
+    "artifact_file_sha256": "6890c190e6e116b4d7f408a6efd6d7e38b1f296dd8e7861a3987b4c24031bd3a",
+    "result_sha256": "902e778722d02e99a294030ac5aabee385548b6e135ee7ba2cb345353aeb81ab",
+    "body_sha256": "6474bab4622fa89d7deda4420a07cbe655ab687af641711bd0280432f774bf45",
+    "http_code": 404,
+    "json_shape": "OBJECT",
+    "body_bytes": 232,
+    "response_keys": [
+      "error",
+      "message",
+      "path",
+      "status",
+      "timestamp"
+    ],
+    "outcome": "LINKED_CONTRACT_PAGE1_UNRESOLVED"
+  },
+  "target": {
+    "purchase_control": "45132495000140-1-000645/2026",
+    "cnpj": "45132495000140",
+    "anoContratacao": 2026,
+    "sequencialContratacao": 645,
+    "pagina": 1,
+    "tamanhoPagina": 50,
+    "url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/contratos/contratacao/2026/645?pagina=1&tamanhoPagina=50"
+  },
+  "page_contract": {
+    "data_field": "data",
+    "metadata_fields": [
+      "totalRegistros",
+      "totalPaginas",
+      "numeroPagina",
+      "paginasRestantes",
+      "empty"
+    ]
+  },
+  "contract_projection": {
+    "scalar_fields": [
+      "anoContrato",
+      "dataAssinatura",
+      "dataAtualizacao",
+      "dataPublicacaoPncp",
+      "dataVigenciaFim",
+      "dataVigenciaInicio",
+      "emendaParlamentar",
+      "frutoAdesao",
+      "identificadorCipi",
+      "numeroContratoEmpenho",
+      "numeroControlePNCP",
+      "numeroControlePNCPCompra",
+      "numeroControlePncpAta",
+      "numeroParcelas",
+      "numeroRetificacao",
+      "objetoContrato",
+      "processo",
+      "receita",
+      "sequencialContrato",
+      "temRemanejamento",
+      "urlCipi",
+      "valorAcumulado",
+      "valorGlobal",
+      "valorInicial",
+      "valorParcela"
+    ],
+    "nested_fields": {
+      "tipoContrato": [
+        "id",
+        "nome"
+      ],
+      "categoriaProcesso": [
+        "id",
+        "nome"
+      ],
+      "orgaoEntidade": [
+        "cnpj",
+        "razaoSocial",
+        "poderId",
+        "esferaId"
+      ],
+      "unidadeOrgao": [
+        "codigoUnidade",
+        "nomeUnidade",
+        "municipioId",
+        "municipioNome",
+        "ufSigla",
+        "ufNome"
+      ]
+    },
+    "excluded_fields": [
+      "usuarioNome",
+      "tipoPessoa",
+      "niFornecedor",
+      "nomeRazaoSocialFornecedor",
+      "tipoPessoaSubContratada",
+      "niFornecedorSubContratado",
+      "nomeFornecedorSubContratado",
+      "informacaoComplementar",
+      "trace",
+      "stackTrace"
+    ]
+  },
+  "diagnostic_projection": {
+    "allowed_scalar_fields": [
+      "detail",
+      "error",
+      "instance",
+      "message",
+      "path",
+      "requestId",
+      "status",
+      "timestamp",
+      "title"
+    ],
+    "max_string_chars": 500,
+    "unknown_scalar_values_persisted": false,
+    "key_inventory_persisted": true
+  },
+  "probe": {
+    "max_remote_get_count": 1,
+    "connect_timeout_seconds": 15,
+    "max_time_seconds": 75,
+    "max_body_bytes": 1048576,
+    "retry": false,
+    "follow_redirects": false,
+    "alternate_url_discovery": false,
+    "automatic_pagination": false,
+    "raw_body_persistence": false,
+    "traverse_returned_contracts": false,
+    "accept_header": "*/*"
+  },
+  "runtime": {
+    "branch": "task-277-linked-contract-http404-diagnostic-runtime",
+    "authorization_file": "runtime/task277_owner_authorization.json",
+    "trigger_file": "runtime_triggers/task277_linked_contract_http404_diagnostic.run",
+    "artifact_name": "task-277-linked-contract-http404-diagnostic-sanitized"
+  },
+  "authorization": {
+    "required_operation": "EXACT_1_PNCP_LINKED_CONTRACT_HTTP404_DIAGNOSTIC_645",
+    "exact_implementation_sha_required": true,
+    "source_network_authorized_by_default": false,
+    "prior_authorization_reuse_allowed": false
+  },
+  "states": [
+    "LINKED_CONTRACT_PAGE1_HTTP404_SAFE_DIAGNOSTIC_CAPTURED",
+    "LINKED_CONTRACT_PAGE1_COMPLETE_ZERO_ROWS",
+    "LINKED_CONTRACT_PAGE1_COMPLETE_WITH_ROWS",
+    "LINKED_CONTRACT_PAGE1_PARTIAL_MORE_PAGES",
+    "LINKED_CONTRACT_PAGE1_UNRESOLVED"
+  ],
+  "next_gate": "CANONIZE_404_MEANING_OR_HTTP200_PAGE_RESULT"
+}

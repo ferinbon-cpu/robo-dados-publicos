@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "schema": "TASK194G_INEP_DATA_STRUCTURE_MAP_V1",
+  "task": "TASK_194G_INEP_DATA_STRUCTURE_MAP",
+  "mode": "T1_BOUNDED_READ_ONLY_OFFICIAL_PUBLIC_PANEL_STRUCTURE",
+  "base_main_sha": "1fdd571e0cb64a9ad9d415b9044b6adb6bfeec8b",
+  "authorization_issue": 611,
+  "source": {
+    "official_inep_page": "https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/inep-data/estatisticas-censo-escolar",
+    "report_url": "https://app.powerbi.com/view?r=eyJrIjoiN2ViNDBjNDEtMTM0OC00ZmFhLWIyZWYtZjI1YjU0NzQzMTJhIiwidCI6IjI2ZjczODk3LWM4YWMtNGIxZS05NzhmLWVhNGMwNzc0MzRiZiJ9",
+    "report_host": "app.powerbi.com",
+    "expected_resource_key": "7eb40c41-1348-4faa-b2ef-f25b5474312a",
+    "expected_tenant_id": "26f73897-c8ac-4b1e-978f-ea4c077434bf",
+    "max_http_requests": 2,
+    "querydata_calls": 0
+  },
+  "interesting_key_tokens": [
+    "config",
+    "query",
+    "data",
+    "resource",
+    "visual",
+    "object",
+    "schema",
+    "package",
+    "layout",
+    "pod",
+    "concept"
+  ],
+  "limits": {
+    "max_interesting_paths": 500,
+    "max_objectname_crossrefs": 300,
+    "max_depth": 8
+  },
+  "output": {
+    "sanitized_json_only": true,
+    "raw_models_persisted": false,
+    "querydata_calls": 0,
+    "class_count_materialized": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "guards": [
+    "OFFICIAL_INEP_LINKED_REPORT_ONLY",
+    "RESOURCE_KEY_AND_TENANT_PINNED",
+    "EXACTLY_TWO_HTTP_GETS_MAX",
+    "ZERO_QUERYDATA_CALLS",
+    "STRUCTURE_ONLY_NO_RAW_VALUES",
+    "OBJECTNAME_IDENTIFIERS_ONLY",
+    "NO_CLASS_COUNT_MATERIALIZATION_IN_TASK194G"
+  ]
+}

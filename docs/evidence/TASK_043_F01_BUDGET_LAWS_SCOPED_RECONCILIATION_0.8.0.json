@@ -1,0 +1,145 @@
+{
+  "task": "TASK_043_F01_BUDGET_LAWS_SCOPED_RECONCILIATION",
+  "mode": "T0_OFFLINE_SCOPED_RECONCILIATION_DESIGN_AND_REVIEW",
+  "base_sha": "013ed0fcd92051adfc1b67a0e85fc0792f51eb88",
+  "input_scope": {
+    "loa": {
+      "contract": "F01_LOA_JOM_2026_SCOPED_VALIDATED_STRUCTURE_SILVER_V1",
+      "candidate_sha256": "3894ede7c67e60d3e12795dec3964d78baf24ff350355d98f3825dd5f81caf4c",
+      "status": "SILVER_SCOPED_PARTIAL_VALIDATED"
+    },
+    "ppa": {
+      "contract": "F01_PPA_JOM_2026_2029_SCOPED_VALIDATED_PROGRAM_2001_SILVER_V1",
+      "candidate_sha256": "0cba09dade1c09224e549e817a859c63edb12a6fb0a5223c5ddb8aa5fe6dc730",
+      "status": "SILVER_SCOPED_PARTIAL_VALIDATED"
+    },
+    "ldo": {
+      "contract": "F01_LDO_JOM_2026_SCOPED_STRUCTURAL_MARKERS_SILVER_V1",
+      "candidate_sha256": "4719631a3dd476efe8c760f2b9ce07eba15d678c85b56e95345af70237f02182",
+      "status": "SILVER_SCOPED_PARTIAL_VALIDATED"
+    }
+  },
+  "reconciliation_ledger": [
+    {
+      "relation_id": "F01_LDO_FRAMEWORK_CONTEXT_2026",
+      "from": "LDO_2026_SCOPED_MARKERS",
+      "to": "PPA_LOA_SCOPED_CHAIN",
+      "classification": "FRAMEWORK_CONTEXT_ONLY_NO_ITEM_LEVEL_LINK",
+      "reason": "The scoped LDO Silver contains legal identity, corrected JOM boundary and fiscal/education/personnel structural markers only. It contains no promoted action-level field that can establish an item-level PPA or LOA financial link.",
+      "financial_identity": false,
+      "promoted": true
+    },
+    {
+      "relation_id": "F01_PPA_LOA_PROGRAM2001_ACTION2720_12_306",
+      "from": {
+        "program_code": "2001",
+        "action_code": "2720",
+        "label": "ALIMENTACAO ESCOLAR",
+        "function": "12",
+        "subfunction": "306",
+        "ppa_2026_value": 28000,
+        "ppa_units": "R$ milhares medios/2025"
+      },
+      "to": {
+        "loa_key": "12.306.2001.2720",
+        "label": "ALIMENTACAO ESCOLAR",
+        "loa_amount_brl": "28000000.00"
+      },
+      "classification": "PROGRAM_ACTION_KEY_CONTINUITY_PROVEN_AMOUNT_SCALE_ALIGNMENT_OBSERVED_NO_FINANCIAL_IDENTITY",
+      "key_alignment": {
+        "program": true,
+        "action": true,
+        "function": true,
+        "subfunction": true,
+        "label": true
+      },
+      "amount_diagnostic": {
+        "ppa_value_times_1000_brl": "28000000.00",
+        "matches_loa_amount_numerically": true,
+        "identity_inference_allowed": false,
+        "reason": "PPA values are expressed in R$ milhares medios/2025 while the LOA record is a nominal BRL appropriation. Numeric scale alignment is corroboration only, not proof of financial identity."
+      },
+      "eiti_specific_in_ppa": false,
+      "eiti_specific_in_loa": false,
+      "financial_identity": false,
+      "promoted": true
+    },
+    {
+      "relation_id": "F01_PPA_LOA_PROGRAM2001_ACTION2690_12_362",
+      "from": {
+        "action_code": "2690",
+        "relevant_ppa_row": "ENSINO MEDIO_E_SUPERIOR",
+        "ppa_row_status": "PARSER_REVIEW_REQUIRED",
+        "ppa_row_promoted": false
+      },
+      "to": {
+        "loa_key": "12.362.2001.2690",
+        "label": "TRANSPORTE ESCOLAR",
+        "loa_amount_brl": "6152000.00"
+      },
+      "classification": "REVIEW_REQUIRED_BLOCKED_RELEVANT_PPA_ROW_UNPROMOTED",
+      "reason": "The promoted PPA subset contains 2690 rows only for subfunctions 365 and 361. The potentially relevant Ensino Medio/Superior row remains unpromoted and does not supply a validated 12/362 PPA key in the scoped candidate.",
+      "financial_identity": false,
+      "promoted": false
+    },
+    {
+      "relation_id": "F01_EITI_FINANCIAL_IDENTITY",
+      "from": "PPA_PROGRAM_2001_EITI_INDICATOR_AND_TARGETS",
+      "to": "LOA_APPROPRIATION_EXECUTION_CHAIN",
+      "classification": "EVIDENCIA_INSUFICIENTE",
+      "reason": "The EITI indicator and targets prove programmatic planning context, but the validated PPA/LOA action records are eiti_specific=false and no explicit action/subaction-to-source/nature/appropriation/execution chain has been proven.",
+      "required_chain": [
+        "indicator_or_target",
+        "program",
+        "explicit_action_or_subaction",
+        "budget_unit",
+        "funding_source_or_destination",
+        "expense_nature",
+        "appropriation",
+        "committed",
+        "liquidated",
+        "paid"
+      ],
+      "financial_identity": false,
+      "promoted": true
+    }
+  ],
+  "global_loa_tables": {
+    "pages": [480, 481],
+    "validated": true,
+    "role": "GLOBAL_FISCAL_CONTEXT_ONLY",
+    "eiti_attribution_allowed": false
+  },
+  "guardrails": {
+    "program_2001_total_attribution_to_eiti": false,
+    "same_action_code_as_financial_identity": false,
+    "same_or_scaled_amount_as_financial_identity": false,
+    "review_required_row_promotion": false,
+    "mde_fundeb_compliance_conclusion": false,
+    "fiscal_compliance_conclusion": false,
+    "causal_inference": false,
+    "gold_authorized": false,
+    "serving_authorized": false,
+    "publication_authorized": false
+  },
+  "effects": {
+    "source_network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "silver_write": 0,
+    "gold": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "promotion": {
+    "f01_status": "SILVER_SCOPED_PARTIAL_VALIDATED",
+    "new_silver": false,
+    "gold": false,
+    "serving": false,
+    "publication": false,
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE"
+  },
+  "result": "PASS_TASK043_SCOPED_BUDGET_LAW_RECONCILIATION_NO_FINANCIAL_IDENTITY_PROMOTION"
+}

@@ -1,0 +1,223 @@
+{
+  "version": 1,
+  "schema": "TASK113_PPA2018_ONTOLOGY_LEXICAL_CONTRACT_V1",
+  "mode": "T0_OFFLINE_ONTOLOGY_A_B_C_ONLY",
+  "source_identity": {
+    "url": "https://www.limeira.sp.gov.br/sitenovo/downloads/0fa1a5cc5c9a1823fbf5436def00f01f.pdf",
+    "sha256": "685a621a2f5fa8859e4b7f8518627c1523a2fbc5f3402ff48d4aa7573300113d",
+    "page_count": 80,
+    "evidence": "docs/evidence/TASK_112_REAL_PPA_OCR_RESULT_0.8.0.json"
+  },
+  "normalization": [
+    "UNICODE_NFKD",
+    "REMOVE_COMBINING_MARKS",
+    "UPPERCASE",
+    "NONALNUM_TO_SPACE",
+    "COLLAPSE_WHITESPACE"
+  ],
+  "families": {
+    "A_CANONICAL_POLICY_IDENTIFIERS": [
+      {
+        "term": "Politica Municipal de Educacao Integral em Tempo Integral",
+        "strength": "STRONG",
+        "requires_companion": false
+      },
+      {
+        "term": "Politica de Educacao Integral em Tempo Integral na Rede Municipal de Ensino de Limeira",
+        "strength": "STRONG",
+        "requires_companion": false
+      },
+      {
+        "term": "Educacao Integral em Tempo Integral",
+        "strength": "STRONG",
+        "requires_companion": false
+      },
+      {
+        "term": "EITI",
+        "strength": "WEAK_SHORT_FORM",
+        "requires_companion": true
+      },
+      {
+        "term": "EITI-Limeira",
+        "strength": "WEAK_SHORT_FORM",
+        "requires_companion": true
+      },
+      {
+        "term": "Programa Escola em Tempo Integral",
+        "strength": "STRONG",
+        "requires_companion": false
+      },
+      {
+        "term": "Programa ETI",
+        "strength": "CONTEXTUAL",
+        "requires_companion": true
+      },
+      {
+        "term": "Educacao em Tempo Integral",
+        "strength": "STRONG",
+        "requires_companion": false
+      }
+    ],
+    "B_LOCAL_PLANNING_AND_NORMATIVE_ALIASES": [
+      {
+        "term": "escolas com programas em tempo integral",
+        "strength": "CONTEXTUAL",
+        "requires_companion": false
+      },
+      {
+        "term": "indice de alunos em Educacao Integral",
+        "strength": "CONTEXTUAL",
+        "requires_companion": false
+      },
+      {
+        "term": "Politica Publica de Educacao Integral",
+        "strength": "STRONG",
+        "requires_companion": false
+      },
+      {
+        "term": "Comite Municipal de Educacao Integral",
+        "strength": "STRONG",
+        "requires_companion": false
+      },
+      {
+        "term": "Meta 6",
+        "strength": "WEAK",
+        "requires_companion": true
+      },
+      {
+        "term": "Plano de Expansao",
+        "strength": "WEAK",
+        "requires_companion": true
+      }
+    ],
+    "C_OPERATIONAL_OFFER_AND_JOURNEY_SIGNALS": [
+      {
+        "term": "matriculas em tempo integral",
+        "strength": "CONTEXTUAL",
+        "requires_companion": false
+      },
+      {
+        "term": "novas matriculas em tempo integral",
+        "strength": "CONTEXTUAL",
+        "requires_companion": false
+      },
+      {
+        "term": "jornada escolar em tempo integral",
+        "strength": "STRONG_OPERATIONAL",
+        "requires_companion": false
+      },
+      {
+        "term": "jornada em tempo integral",
+        "strength": "STRONG_OPERATIONAL",
+        "requires_companion": false
+      },
+      {
+        "term": "jornada integral",
+        "strength": "CONTEXTUAL",
+        "requires_companion": false
+      },
+      {
+        "term": "jornada ampliada",
+        "strength": "CONTEXTUAL",
+        "requires_companion": false
+      },
+      {
+        "term": "jornada expandida",
+        "strength": "CONTEXTUAL",
+        "requires_companion": false
+      },
+      {
+        "term": "ampliacao da jornada escolar",
+        "strength": "CONTEXTUAL",
+        "requires_companion": false
+      },
+      {
+        "term": "conversao de jornada parcial para jornada integral",
+        "strength": "STRONG_OPERATIONAL",
+        "requires_companion": false
+      },
+      {
+        "term": "sete horas",
+        "strength": "WEAK_NUMERIC",
+        "requires_companion": true
+      },
+      {
+        "term": "7 horas",
+        "strength": "WEAK_NUMERIC",
+        "requires_companion": true
+      },
+      {
+        "term": "trinta e cinco horas",
+        "strength": "WEAK_NUMERIC",
+        "requires_companion": true
+      },
+      {
+        "term": "35 horas",
+        "strength": "WEAK_NUMERIC",
+        "requires_companion": true
+      },
+      {
+        "term": "turno unico",
+        "strength": "CONTEXTUAL",
+        "requires_companion": true
+      },
+      {
+        "term": "tempo de permanencia",
+        "strength": "CONTEXTUAL",
+        "requires_companion": true
+      }
+    ]
+  },
+  "companion_context_terms": [
+    "escola",
+    "escolar",
+    "aluno",
+    "alunos",
+    "matricula",
+    "matriculas",
+    "jornada",
+    "educacao",
+    "ensino",
+    "rede municipal",
+    "tempo integral"
+  ],
+  "forbidden_families": [
+    "D_FINANCING_AND_INDUCTION_SIGNALS",
+    "E_ACCOUNTING_AND_PLANNING_LINKAGE_KEYS"
+  ],
+  "candidate_policy_rule": "A_STRONG_OR_B_STRONG_OR_CONTEXTUAL_B_OR_STRONG_C_WITH_DECLARED_CONTEXT",
+  "weak_rule": "WEAK_SHORT_FORM_WEAK_NUMERIC_META6_PLANO_EXPANSAO_TURNO_UNICO_TEMPO_PERMANENCIA_REQUIRE_SAME_PAGE_COMPANION_CONTEXT",
+  "exact_normalized_match_only": true,
+  "fuzzy_edit_distance": false,
+  "promotion": {
+    "automatic_primary_planning_proof": false,
+    "automatic_policy_identity": false,
+    "financial_identity": false,
+    "transaction_execution_identity": false,
+    "implementation": false,
+    "causal_effect": false
+  },
+  "future_live_gate": {
+    "authorized_now": false,
+    "exact_source_sha_required": true,
+    "max_http_requests_total": 1,
+    "pages_to_ocr": 80,
+    "collect_all_candidate_pages": true,
+    "max_candidates_per_page": 20,
+    "output_bounded_excerpt_chars": 500
+  },
+  "remote_effects": {
+    "source_network": false,
+    "source_read": false,
+    "ocr": false,
+    "drive_read": false,
+    "drive_write": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}

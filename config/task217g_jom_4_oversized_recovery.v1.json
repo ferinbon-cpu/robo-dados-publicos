@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "schema": "TASK217G_JOM_4_OVERSIZED_RECOVERY_V1",
+  "task": "TASK_217G",
+  "issue": 680,
+  "base_main_sha": "2c45c0923e5903a295f1935e2518cd1c7f04b59b",
+  "mode": "T0_IMPLEMENTED_LIVE_DISABLED_UNTIL_SEPARATE_OWNER_AUTHORIZATION",
+  "source": {
+    "authority": "TASK217F2_CANONIZED_FOUR_OVERSIZED_EDITIONS",
+    "task217f_embedded_result_sha256": "64ee897c321d45cd9ef7aa780320c57526af09e9cb81fd2800168cef6ae282f8",
+    "task217f2_config": "config/task217f2_recovery_canonization.v1.json"
+  },
+  "targets": [
+    {"edition":7243,"publication_date":"2026-05-16","source_id":"LIMEIRA_JO_07243","url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_15052026170037.pdf"},
+    {"edition":7253,"publication_date":"2026-05-30","source_id":"LIMEIRA_JO_07253","url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_29052026170754.pdf"},
+    {"edition":7270,"publication_date":"2026-06-25","source_id":"LIMEIRA_JO_07270","url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_24062026170131.pdf"},
+    {"edition":7287,"publication_date":"2026-07-22","source_id":"LIMEIRA_JO_07287","url":"https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_21072026165841.pdf"}
+  ],
+  "network": {
+    "allowed_document_host": "ecrie.com.br",
+    "max_document_get_attempt_count": 4,
+    "max_total_remote_get_count": 4,
+    "max_bytes_per_document": 262144000,
+    "max_aggregate_document_bytes": 1073741824,
+    "automatic_retry": false,
+    "rediscovery_authorized": false,
+    "redirect_identity_must_end_on_allowed_host": true
+  },
+  "processing": {
+    "processor": "JournalPdfProcessor",
+    "school_identity_bridge": "TASK217F2_CONTEXT_AND_ABSTRACT_GUARDS",
+    "stage_bronze": false,
+    "plan_reconciliation": false,
+    "emit_semantic_facets": false,
+    "continue_after_document_failure": true,
+    "preserve_specific_stop_code_in_sanitized_result": true,
+    "raw_pdf_persisted": false,
+    "raw_page_text_persisted": false,
+    "candidate_excerpt_max_chars": 600
+  },
+  "runtime": {
+    "branch": "task-217g-jom-4-recovery-runtime",
+    "authorization_file": "runtime/task217g_owner_authorization.json",
+    "trigger_file": "runtime_triggers/task217g_jom_4_recovery.run",
+    "artifact_name": "task-217g-jom-4-recovery-sanitized",
+    "artifact_retention_days": 1,
+    "timeout_minutes": 60
+  },
+  "authorization": {
+    "live_authorized": false,
+    "required_task": "TASK_217G_LIVE_AUTHORIZATION",
+    "required_operation": "BOUNDED_4_OVERSIZED_DOCUMENT_JOM_RECOVERY_FOR_SCHOOL_INFRASTRUCTURE",
+    "exact_implementation_sha_required": true,
+    "task217f_authorization_reuse_allowed": false,
+    "task217d_authorization_reuse_allowed": false,
+    "task018_authorization_reuse_allowed": false,
+    "document_downloads_authorized_by_default": false,
+    "rediscovery_authorized": false,
+    "drive_write_authorized": false,
+    "serving_authorized": false,
+    "publication_authorized": false,
+    "promotion_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_authorized": false
+  },
+  "promotion": {
+    "candidate_question": "INFRA_Q2",
+    "runtime_may_promote": false,
+    "canonization_required": true,
+    "complete_4_document_recovery_required_for_full_scope": true,
+    "partial_recovery_ne_absence": true
+  },
+  "pre_authorization_remote_effects": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

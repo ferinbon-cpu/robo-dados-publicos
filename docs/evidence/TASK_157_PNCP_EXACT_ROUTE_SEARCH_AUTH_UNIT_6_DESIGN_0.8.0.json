@@ -1,0 +1,16 @@
+{
+  "task":"TASK_157_PNCP_EXACT_ROUTE_SEARCH_AUTH_UNIT_6",
+  "issue":526,
+  "base_sha":"ce1368d0ec5287e8fde2f59cc16b8ff6f25d795f",
+  "authorization_unit_index":6,
+  "remaining_units_before_execution":5,
+  "future_search_invocations_max":1,
+  "future_query":"contratacoes/publicacao",
+  "domain_restriction":["pncp.gov.br"],
+  "future_result_opens":0,
+  "future_retry":0,
+  "future_direct_download_invocations":0,
+  "pncp_no_match_allowed":false,
+  "remaining_units_after_invocation":4,
+  "result":"PASS_TASK157_EXACT_ROUTE_SEARCH_DESIGNED_NOT_EXECUTED"
+}

@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "schema": "TASK219B_JOM_STRONG_IDENTITY_CANONIZATION_V1",
+  "task": "TASK_219B",
+  "issue": 691,
+  "base_main_sha": "ec433bd1014f3d027bd0e6d699a0d7f3b43a2f68",
+  "mode": "OFFLINE_CANONIZATION_OF_PINNED_TASK219A_RUNTIME_ARTIFACT",
+  "source_runtime": {
+    "run_id": 34354027245,
+    "artifact_id": 10105583802,
+    "artifact_name": "task-219a-jom-general-events-sanitized",
+    "artifact_zip_sha256": "599c9329f40de5b040b331ada17224614d197a332c12844f523e4a0d9d1aa35d",
+    "bundle_sha256": "f5fbe029c1d2f3709bebc46687bb3987ada69561df8b40ab2f4fd91aba5d6cb4",
+    "files": {
+      "task219a_manifest.json": "90f4bcb6b711c4d0845f7a30ce04b8f88519868c62afce2bccb46764e44fd430",
+      "task219a_events_gold_sanitized.jsonl": "5ca4bf1411f6b8bfa6ad2b8fdede9937f495458963439fa579d40caa7d988c5b",
+      "task219a_event_semantics_sanitized.jsonl": "7a1e191e944f66bbf129ad96b912c4cbb3b074ac0ae3ddd61b68ac5390dfb8b6",
+      "task219a_strong_identity_anchors.jsonl": "20300dcdf25dae5834ca4069e99fc6a25d2bfa6f1c8e7489921df7cb9a48a0bf"
+    }
+  },
+  "legacy_corpus": {
+    "fixture": "docs/evidence/fixtures/TASK_184_JOM_303_VALIDATED_EVENTS.jsonl",
+    "row_count": 303,
+    "task216_anchor_rows": 54,
+    "task216_anchor_events": 48,
+    "task216_unique_identities": 42
+  },
+  "expected_new_runtime_counts": {
+    "documents": 87,
+    "events": 2408,
+    "procurement_events": 940,
+    "anchor_rows": 395,
+    "anchor_events": 330,
+    "unique_identities": 270,
+    "unique_process_identities": 173,
+    "unique_contract_identities": 97
+  },
+  "expected_cross_corpus_counts": {
+    "overlapping_unique_identities": 9,
+    "new_unique_identities": 261,
+    "new_process_identities": 165,
+    "new_contract_identities": 96,
+    "combined_anchor_rows": 449,
+    "combined_unique_identities": 303,
+    "combined_unique_process_identities": 195,
+    "combined_unique_contract_identities": 108
+  },
+  "outputs": {
+    "new_anchor_fixture": "docs/evidence/fixtures/task219/TASK_219B_NEW_87_STRONG_IDENTITY_ANCHORS.jsonl",
+    "combined_identity_index": "docs/evidence/fixtures/task219/TASK_219B_FULL_99_EDITION_STRONG_IDENTITY_INDEX.json",
+    "evidence": "docs/evidence/TASK_219B_FULL_2026_JOM_STRONG_IDENTITY_CANONIZATION_0.8.0.json"
+  },
+  "identity_guards": {
+    "cnpj_alone_is_identity": false,
+    "amount_similarity_is_identity": false,
+    "date_proximity_is_identity": false,
+    "object_text_is_identity": false,
+    "semantic_similarity_is_identity": false,
+    "process_identity_may_have_multiple_suppliers": true,
+    "contract_supplier_conflict_blocks_promotion": true,
+    "end_to_end_chain_proven_by_this_task": false
+  },
+  "remote_effects": {
+    "public_source_network": false,
+    "pncp_network": false,
+    "tce_network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "promotion": false
+  }
+}

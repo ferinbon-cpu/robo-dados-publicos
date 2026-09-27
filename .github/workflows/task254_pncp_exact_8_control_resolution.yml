@@ -1,0 +1,146 @@
+name: TASK 254 PNCP exact 8-control detail resolution
+run-name: "TASK 254 exact 8 PNCP controls by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-254-pncp-exact-8-control-resolution-runtime
+    paths:
+      - 'runtime_triggers/task254_pncp_exact_8_control_resolution.run'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-254-pncp-exact-8-control-resolution
+  cancel-in-progress: false
+
+jobs:
+  resolve:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+
+    steps:
+      - name: Checkout exact runtime head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Validate exact one-shot authorization delta
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_RUN_ATTEMPT}" = "1"
+          AUTH=runtime/task254_owner_authorization.json
+          test -f "$AUTH"
+          IMPL="$(python - <<'PY'
+          import json
+          print(json.load(open("runtime/task254_owner_authorization.json", encoding="utf-8"))["implementation_sha"])
+          PY
+          )"
+          test "$(printf '%s' "$IMPL" | grep -E '^[0-9a-f]{40}$')" = "$IMPL"
+          git cat-file -e "$IMPL^{commit}"
+          git merge-base --is-ancestor "$IMPL" HEAD
+          UNEXPECTED="$(git diff --name-only "$IMPL"..HEAD | grep -Ev '^(runtime/task254_owner_authorization.json|runtime_triggers/task254_pncp_exact_8_control_resolution.run)$' || true)"
+          test -z "$UNEXPECTED"
+          echo "TASK254_IMPLEMENTATION_SHA=$IMPL" >> "$GITHUB_ENV"
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        shell: bash
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Execute exact authorized 8-control PNCP detail observation
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf runtime_out
+          mkdir -p runtime_out
+          set +e
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          from robo_dados_publicos.research.task254_pncp_exact_8_control_resolution import (
+              LivePncpDetailSource,
+              execute_exact_resolution,
+              load_config,
+          )
+
+          cfg = load_config()
+          auth = json.loads(
+              Path("runtime/task254_owner_authorization.json").read_text(encoding="utf-8")
+          )
+          result = execute_exact_resolution(
+              cfg,
+              source=LivePncpDetailSource(),
+              authorization=auth,
+              expected_implementation_sha=os.environ["TASK254_IMPLEMENTATION_SHA"],
+              offline_test_mode=False,
+          )
+          canonical = json.dumps(
+              result,
+              ensure_ascii=False,
+              sort_keys=True,
+              separators=(",", ":"),
+          ).encode("utf-8")
+          result["result_sha256"] = hashlib.sha256(canonical).hexdigest()
+          out = Path("runtime_out/task254_sanitized_result.json")
+          out.write_text(
+              json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+
+          print("TASK254_STATUS=" + str(result.get("status")))
+          print("TASK254_SOURCE_GETS=" + str(result.get("source_get_count")))
+          print("TASK254_RESOLVED=" + str(result.get("resolved_count")))
+          print("TASK254_UNRESOLVED=" + str(result.get("unresolved_count")))
+          print("TASK254_AGGREGATE_BYTES=" + str(result.get("aggregate_response_bytes")))
+          print("TASK254_RAW_PERSISTED=" + str(result.get("raw_payload_persisted")))
+          print("TASK254_DRIVE_WRITES=" + str(result.get("drive_write_count")))
+          print("TASK254_ABSENCE_INFERENCE=" + str(result.get("absence_inference_allowed")))
+
+          ok = result.get("status") == "PASS_BOUNDED_EXACT_8_PNCP_DETAIL_OBSERVATION"
+          raise SystemExit(0 if ok else 2)
+          PY
+          RC=$?
+          echo "TASK254_EXEC_RC=$RC" >> "$GITHUB_ENV"
+          exit 0
+
+      - name: Verify sanitized-only persistence
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -d runtime_out
+          EXPECTED="task254_sanitized_result.json"
+          ACTUAL="$(find runtime_out -maxdepth 1 -type f -printf '%f\n' | sort)"
+          test "$ACTUAL" = "$EXPECTED"
+          test -z "$(find runtime_out -type f \( -name '*.pdf' -o -name '*raw*' -o -name '*response*' -o -name '*payload*' \) -print)"
+
+      - name: Upload sanitized result only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-254-pncp-exact-8-control-resolution-sanitized
+          path: runtime_out/task254_sanitized_result.json
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Enforce fail-closed completion after artifact upload
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${TASK254_EXEC_RC:-2}" = "0"

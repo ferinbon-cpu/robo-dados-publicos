@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "schema": "TASK199B_SCHOOL_TO_CNEFE_SECTOR_STRONG_SEED_V1",
+  "task": "TASK_199B_SCHOOL_TO_CNEFE_SECTOR_STRONG_SEED",
+  "issue": 628,
+  "base_main_sha": "96a4f374799f293626e590ca799f46ed5ec42430",
+  "mode": "T0_OFFLINE_CROSS_SOURCE_EXACT_ADDRESS_SEED",
+  "scope": {
+    "municipality": "Limeira",
+    "ibge_code_7": "3526902",
+    "network": "MUNICIPAL",
+    "roster_scope": "40_CURRENT_ANOS_INICIAIS_SCHOOLS"
+  },
+  "sources": {
+    "school_roster": {
+      "asset": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08.xlsx",
+      "sha256": "0516868e06685aebe8254b11ca6488ef26b03dea61f927ff637840cf2a21e865",
+      "identity_key": "codigo_inep",
+      "role": "PINNED_USER_LIBRARY_MEDIATED_INEP_ROSTER"
+    },
+    "current_sme_address": {
+      "authority": "SECRETARIA_MUNICIPAL_EDUCACAO_LIMEIRA",
+      "url": "https://sme.limeira.sp.gov.br/consulta_ue_2.php",
+      "retrieved_date": "2026-09-07",
+      "raw_page_bytes_preserved": false,
+      "role": "CURRENT_OFFICIAL_WEB_ADDRESS_EVIDENCE"
+    },
+    "cnefe": {
+      "authority": "IBGE_CNEFE_CENSO_2022",
+      "archive_sha256": "ab73250df889effcb01ddc2d060bddd3252e995468e97ef93b048564763626a7",
+      "csv_sha256": "8adb17d18a8c0a4de9e6d48b31ed63f74e0bfde27f11f63154c17456d35218b3",
+      "rows": 150450,
+      "sector_count": 724
+    }
+  },
+  "seed_fixture": {
+    "path": "docs/evidence/fixtures/TASK_199B_SCHOOL_TO_CNEFE_SECTOR_STRONG_SEED.csv",
+    "rows": 14,
+    "unique_inep_codes": 14,
+    "unique_sector_codes": 14,
+    "sha256": "ca36374daa6c8a4ac23e039251d892b35355f007d8c71e48bb57ec3689d21e95",
+    "drive_id": "1txR-fFTCKkbKxSXCiuHa76621FwS6WLH",
+    "drive_readback_bytes": 3907
+  },
+  "promotion_rule": {
+    "required": [
+      "INEP_CODE_FROM_PINNED_ROSTER",
+      "CURRENT_OFFICIAL_SME_STREET_AND_NUMBER",
+      "EXACT_NORMALIZED_CNEFE_STREET_AND_NUMBER",
+      "COMPATIBLE_NAMED_SCHOOL_ESTABLISHMENT_AT_MATCHED_CNEFE_ADDRESS",
+      "ONE_RESULTING_CENSUS_SECTOR"
+    ],
+    "forbidden": [
+      "NAME_ONLY",
+      "FUZZY_ONLY",
+      "NEAREST_COORDINATE_WITHOUT_IDENTITY",
+      "SAME_STREET_DIFFERENT_NUMBER"
+    ]
+  },
+  "adjudication": {
+    "strong_seed_materialized": true,
+    "strong_seed_rows": 14,
+    "crosswalk_scope": "PARTIAL_14_OF_40_AI_SCHOOLS",
+    "full_69_school_crosswalk_materialized": false,
+    "territory_profile_materialized": false,
+    "canonical_answerability_change": false
+  },
+  "explicit_nonpromotions": [
+    {"school": "CEIEF Rafael Affonso Leite", "reason": "CNEFE name candidate address differs from current SME address"},
+    {"school": "CEIEF Flora de Castro Rodrigues, Profa.", "reason": "CNEFE name candidate address differs from current SME address"},
+    {"school": "EMEIEF Evangelina Mauro, Profa.", "reason": "CNEFE name candidate address differs from current SME address"},
+    {"school": "EMEIEF Marcia Aparecida Della Coletta Sillmann, Profa.", "reason": "exact address row has generic CRECHE description"},
+    {"school": "EMEIEF Maria Aparecida Machado Julianelli", "reason": "exact address row has INCUBADORA TECNOLOGICA description"}
+  ],
+  "guards": [
+    "NAME_ONLY_NE_IDENTITY",
+    "FUZZY_MATCH_NE_CANONICAL_IDENTITY",
+    "CURRENT_SCHOOL_ADDRESS_MUST_MATCH_CNEFE_ADDRESS",
+    "CNEFE_ESTABLISHMENT_DESCRIPTION_MUST_BE_COMPATIBLE_FOR_AUTOMATIC_STRONG_SEED",
+    "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
+    "PARTIAL_CROSSWALK_NE_FULL_NETWORK_COVERAGE",
+    "NO_TERRITORY_PROFILE_PROMOTION_YET"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

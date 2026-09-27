@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "schema": "TASK219C_PNCP_EXACT_IDENTITY_BRIDGE_V1",
+  "task": "TASK_219C",
+  "issue": 691,
+  "base_main_sha": "1ddf27f9d46054ce9f9dc50494db62e2851b2717",
+  "mode": "BOUNDED_PNCP_EXACT_IDENTIFIER_DISCOVERY_WITHOUT_TCE_PROMOTION",
+  "inputs": {
+    "combined_identity_index": "docs/evidence/fixtures/task219/TASK_219B_FULL_99_EDITION_STRONG_IDENTITY_INDEX.json",
+    "combined_identity_index_sha256": "d8430eef6a0b0c96eb9eb42fcb4bdf0d45d3dbec68ab35fda938bb9676038ad7",
+    "new_anchor_fixture": "docs/evidence/fixtures/task219/TASK_219B_NEW_87_STRONG_IDENTITY_ANCHORS.jsonl",
+    "new_anchor_fixture_sha256": "20300dcdf25dae5834ca4069e99fc6a25d2bfa6f1c8e7489921df7cb9a48a0bf",
+    "legacy_event_fixture": "docs/evidence/fixtures/TASK_184_JOM_303_VALIDATED_EVENTS.jsonl",
+    "legacy_event_fixture_sha256": "1afd82853402d2ea6db7ad28fb6564de4a4ab28570c16ea9c7e4e0366cb5c733",
+    "expected_anchor_rows": 449,
+    "expected_unique_identities": 303,
+    "expected_unique_process_identities": 195,
+    "expected_unique_contract_identities": 108
+  },
+  "source": {
+    "endpoint": "https://pncp.gov.br/api/consulta/v1/contratos",
+    "cnpjOrgao": "45132495000140",
+    "tamanhoPagina": 500,
+    "maxPaginasPerPartition": 2,
+    "maxTotalRemoteGets": 18,
+    "timeoutSeconds": 60,
+    "maxBytesPerPage": 20000000,
+    "retryMax": 0,
+    "redirectsMax": 0,
+    "prior_complete_run_id": 34273403423,
+    "prior_total_records": 1933,
+    "prior_total_gets": 10
+  },
+  "partitions": [
+    {"id": "2026-01", "dataInicial": "20260101", "dataFinal": "20260131"},
+    {"id": "2026-02", "dataInicial": "20260201", "dataFinal": "20260228"},
+    {"id": "2026-03", "dataInicial": "20260301", "dataFinal": "20260331"},
+    {"id": "2026-04", "dataInicial": "20260401", "dataFinal": "20260430"},
+    {"id": "2026-05", "dataInicial": "20260501", "dataFinal": "20260531"},
+    {"id": "2026-06", "dataInicial": "20260601", "dataFinal": "20260630"},
+    {"id": "2026-07", "dataInicial": "20260701", "dataFinal": "20260731"},
+    {"id": "2026-08", "dataInicial": "20260801", "dataFinal": "20260831"},
+    {"id": "2026-09-01_08", "dataInicial": "20260901", "dataFinal": "20260908"}
+  ],
+  "identity_rules": {
+    "process_field": "processo",
+    "contract_field": "numeroContratoEmpenho",
+    "purchase_control_field": "numeroControlePNCPCompra",
+    "record_control_field": "numeroControlePNCP",
+    "type_field": "tipoContratoNome",
+    "exact_process_to_single_purchase_control_required": true,
+    "exact_contract_requires_typed_contract": true,
+    "exact_contract_to_single_purchase_control_required": true,
+    "process_supplier_conflict_blocks_identity": false,
+    "contract_supplier_conflict_blocks_identity": true,
+    "cnpj_alone_is_identity": false,
+    "amount_similarity_is_identity": false,
+    "date_proximity_is_identity": false,
+    "object_text_is_identity": false,
+    "semantic_similarity_is_identity": false,
+    "incomplete_identifier_is_identity": false,
+    "typed_empenho_sibling_is_tce_candidate_only": true
+  },
+  "persistence": {
+    "rawPayloadGit": false,
+    "rawPayloadDrive": false,
+    "rawPayloadWorkflowArtifact": false,
+    "sanitizedResultWorkflowArtifact": true,
+    "artifactRetentionDays": 1
+  },
+  "promotion_policy": {
+    "runtime_auto_promotion": false,
+    "end_to_end_chain_claim_allowed": false,
+    "contextual_paths_before": 34,
+    "contextual_paths_after_runtime": 34,
+    "remaining_blockers": ["CTRL_Q2", "PROC_Q1", "PROC_Q2", "PROC_Q3"]
+  },
+  "runtime": {
+    "branch": "task-219c-pncp-303-identity-runtime",
+    "authorization_path": "runtime/task219c_owner_authorization.json",
+    "trigger_path": "runtime_triggers/task219c_pncp_exact_identity.run",
+    "artifact_name": "task-219c-pncp-exact-identity-sanitized"
+  },
+  "remote_effects": {
+    "pncp_read_only": true,
+    "tce_network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "promotion": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

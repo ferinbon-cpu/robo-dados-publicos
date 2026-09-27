@@ -1,0 +1,27 @@
+{
+  "task":"TASK_219M_OWNER_AUTHORIZATION",
+  "issue":715,
+  "authorized_main_sha":"715c2a5369452c1a79e8db4235d1b747e1638f00",
+  "owner_instruction":"prosseguir",
+  "scope":"COMPLETE_TASK219M_PUBLIC_TDA_JS_STATIC_MINING",
+  "known_public_get_paths":[
+    "/aportalclientjs.aspx",
+    "/tdaportalclient.js",
+    "/mp_tda.js",
+    "/gxcfg.js",
+    "/gxgral.js",
+    "/gxtimezone.js"
+  ],
+  "max_get_requests":6,
+  "retries":0,
+  "redirect_following":false,
+  "posts":0,
+  "browser_sessions":0,
+  "clicks":0,
+  "typing":0,
+  "form_submissions":0,
+  "direct_awsgetcontentareas_calls":0,
+  "commitment_lookup":0,
+  "includes":["six_known_script_gets","ephemeral_raw_script_artifact","offline_static_mining","canonization","workflow_removal","ci_merge","closure"],
+  "excludes":["endpoint_guessing","other_hosts","layerinfo_replay","interactive_query","pncp","tcesp","drive","municipal_contract_portal","authentication"]
+}

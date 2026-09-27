@@ -1,0 +1,15 @@
+{
+  "task": "TASK_142_CHAMAMENTO_PUBLICO_OPEN_ATTEMPT",
+  "mode": "T1_SINGLE_CLICK_MUNICIPAL_PRIMARY_DISCOVERY",
+  "task142_merge_sha": "7f48b5f631e1d26910cbe8fffac54be5ee8c8847",
+  "result": "STOP_CHAMAMENTO_PUBLICO_HTTP_403_NO_CONTENT",
+  "click_invocations": 1,
+  "target_url": "https://www.limeira.sp.gov.br/chamamento-publico",
+  "http_status": 403,
+  "content_returned": false,
+  "retry_performed": false,
+  "administrative_identifier_found": false,
+  "negative_exhaustive_conclusion_created": false,
+  "automatic_financial_identity": false,
+  "automatic_transaction_identity": false
+}

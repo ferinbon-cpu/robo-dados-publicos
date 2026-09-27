@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "task": "TASK_028_LOA_OFFICIAL_EQUIVALENCE_PROBE_DESIGN",
+  "mode": "T0_OFFLINE_IMPLEMENTATION_BOUNDARY",
+  "source_task": "TASK_027_LOA_REPRODUCIBLE_EXTRACTION_READINESS",
+  "target": {
+    "law": "7.223/2025",
+    "exercise": 2026,
+    "canonical_sha256": "bc4c8bf4b2b1e8f59e880318c37ec7f7fbd4357a85a8b46c97750444dbf01d4b",
+    "canonical_pages": 466
+  },
+  "future_probe": {
+    "initial_urls": [
+      "https://www.limeira.sp.gov.br/orcamentos",
+      "https://legislacao.limeira.sp.leg.br/",
+      "https://limeira.sp.gov.br/cidadao/portal-da-transparencia"
+    ],
+    "allowed_hosts": [
+      "www.limeira.sp.gov.br",
+      "limeira.sp.gov.br",
+      "legislacao.limeira.sp.leg.br"
+    ],
+    "max_requests": 6,
+    "max_initial_urls": 3,
+    "max_candidate_links": 8,
+    "max_candidate_followups": 3,
+    "automatic_retry": false,
+    "pagination": false,
+    "document_downloads": 0,
+    "drive_effects": 0
+  },
+  "candidate_formats": {
+    "machine_readable": ["csv", "xlsx", "xls", "ods", "json", "xml"],
+    "archive_review": ["zip"],
+    "document_only": ["pdf"],
+    "text_review": ["txt", "html", "htm"]
+  },
+  "required_identity_signals": ["7.223", "7223", "2026", "LOA"],
+  "classification": {
+    "machine_candidate": "OFFICIAL_MACHINE_READABLE_CANDIDATE_NOT_EQUIVALENCE_PROVEN",
+    "text_candidate": "OFFICIAL_TEXT_CANDIDATE_NOT_COMPLETENESS_PROVEN",
+    "pdf_candidate": "OFFICIAL_DOCUMENT_CANDIDATE_NOT_MACHINE_READABLE",
+    "archive_candidate": "OFFICIAL_ARCHIVE_CANDIDATE_REVIEW_REQUIRED",
+    "generic_execution": "EXECUTION_DATA_NOT_ENACTED_LOA_EQUIVALENCE",
+    "none_observed": "NO_MACHINE_READABLE_EQUIVALENT_CANDIDATE_OBSERVED_BOUNDED_PROBE"
+  },
+  "equivalence_proof_required": [
+    "OFFICIAL_ORIGIN_PROVEN",
+    "EXERCISE_2026_PROVEN",
+    "LEGAL_IDENTITY_7_223_2025_PROVEN",
+    "ANNEX_COMPLETENESS_PROVEN",
+    "STRUCTURAL_EQUIVALENCE_TO_CANONICAL_SOURCE_PROVEN",
+    "IMMUTABLE_HASH_AND_SIZE_RECORDED"
+  ],
+  "authorization": {
+    "live_probe": false,
+    "candidate_followup": false,
+    "download": false,
+    "ocr": false,
+    "drive": false,
+    "silver": false,
+    "gold": false,
+    "serving": false,
+    "publication": false
+  }
+}

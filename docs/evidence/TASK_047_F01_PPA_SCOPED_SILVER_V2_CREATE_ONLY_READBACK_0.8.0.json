@@ -1,0 +1,61 @@
+{
+  "task": "TASK_047_F01_PPA_SCOPED_SILVER_V2_CREATE_ONLY_READBACK",
+  "mode": "T2_CREATE_ONLY_ONE_SCOPED_SILVER_V2_WITH_READBACK",
+  "base_implementation_sha": "f28ba1153d2567f46723493dc6704ee7b4a7184e",
+  "authorization": {
+    "owner_authorized": true,
+    "owner_message": "PROSSIGA E ATUALIZE O DRIVE",
+    "scope": "PERSIST_PPA_SCOPED_SILVER_V2_CREATE_ONLY_AND_UPDATE_CONTINUITY_RECORDS",
+    "authorization_consumed_for_silver_write": true
+  },
+  "execution": {
+    "channel": "CHAT_FILES_LIBRARY_GOOGLE_DRIVE_CREATE_ONLY",
+    "target_folder_id": "1_wl3Y90-RYKSBXUg53My5K6lxCUnIBNo",
+    "preflight_inventory_performed": true,
+    "target_name_collision_observed": false
+  },
+  "ppa": {
+    "file_name": "F01_PPA_JOM_2026_2029_SCOPED_VALIDATED_PROGRAM_2001__1326c17b53b1__silver_v2.json",
+    "remote_file_id": "168w7l2k7IQilO6tgpFndnneDdWID8eB4",
+    "contract": "F01_PPA_JOM_2026_2029_SCOPED_VALIDATED_PROGRAM_2001_SILVER_V2",
+    "scope": "SCOPED_PROGRAM_2001_AND_SELECTED_ACTIONS_V2_NOT_COMPLETE_PPA_PARSE",
+    "bytes": 3726,
+    "sha256": "1326c17b53b12064a04cc84123b0414ea77a3e80a8f62fe7cea0dc13eafdd280",
+    "readback": {
+      "verified": true,
+      "byte_identity": true,
+      "bytes": 3726,
+      "sha256": "1326c17b53b12064a04cc84123b0414ea77a3e80a8f62fe7cea0dc13eafdd280"
+    },
+    "v1_preserved": true,
+    "v1_sha256": "0cba09dade1c09224e549e817a859c63edb12a6fb0a5223c5ddb8aa5fe6dc730"
+  },
+  "effects": {
+    "public_source_get": 0,
+    "drive_inventory_requests": 1,
+    "drive_creates": 1,
+    "drive_readbacks": 1,
+    "overwrite": 0,
+    "replace": 0,
+    "delete": 0,
+    "cleanup": 0,
+    "retry": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "gold": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "promotion": {
+    "ppa_silver_v2": true,
+    "ppa_silver_v1_preserved": true,
+    "ldo_silver_v1_existing": true,
+    "loa_silver_v1_existing": true,
+    "f01_status": "SILVER_SCOPED_PARTIAL_VALIDATED",
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+    "gold": false,
+    "serving": false,
+    "publication": false
+  },
+  "result": "PASS_TASK047_PPA_SCOPED_SILVER_V2_CREATE_ONLY_READBACK_VERIFIED"
+}

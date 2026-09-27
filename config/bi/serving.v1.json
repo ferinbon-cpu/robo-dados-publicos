@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "task": "BI_003",
+  "tier": "T0_OFFLINE_IMPLEMENTATION_REVIEW",
+  "status": "PASS_BI_003_STABLE_SERVING_LAYER_IMPLEMENTATION_OFFLINE",
+  "architecture": "OPTION_3_CREATE_ONLY_SNAPSHOTS_PLUS_STABLE_SERVING_SHEET",
+  "parent_path": "13_BI/02_SERVING",
+  "tabs": ["DATA", "META"],
+  "strategy": "FULL_REPLACE_DERIVED_SERVING_VIEW_FROM_IMMUTABLE_SNAPSHOT",
+  "serving_tier": "T3_MUTATING_OR_PUBLICATION",
+  "dataset_allowlist": ["BI_SIOPE_SERIES", "BI_JORNAL_EVENTOS", "BI_RECONCILIACAO", "BI_FONTES_STATUS", "BI_EXECUCOES_ROBO", "BI_DICIONARIO"],
+  "serving_names": ["BI_SIOPE_SERIES__SERVING", "BI_JORNAL_EVENTOS__SERVING", "BI_RECONCILIACAO__SERVING", "BI_FONTES_STATUS__SERVING", "BI_EXECUCOES_ROBO__SERVING", "BI_DICIONARIO__SERVING"],
+  "google_sheets_mime": "application/vnd.google-apps.spreadsheet",
+  "active_authorization": null,
+  "looker_is_separate": true,
+  "remote_execution_authorized": false
+}

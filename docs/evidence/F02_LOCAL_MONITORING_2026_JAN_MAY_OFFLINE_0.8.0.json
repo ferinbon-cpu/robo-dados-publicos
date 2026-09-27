@@ -1,0 +1,81 @@
+{
+  "schema": "F02_LOCAL_MONITORING_2026_JAN_MAY_OFFLINE_EVIDENCE_V1",
+  "batch": "F02_LOCAL_MONITORING_2026_JAN_MAY",
+  "base_main_sha": "64c39f31660a2f25149400fae4eb852db3f4cb26",
+  "authorization": {
+    "owner_instruction": "Mais 6 toke s prossiga",
+    "gate": 3,
+    "scope": "OFFLINE_REAL_SOURCE_VALIDATION_AND_RECONCILIATION",
+    "bronze_authorized_by_this_evidence": false,
+    "silver_authorized_by_this_evidence": false,
+    "gold_authorized": false,
+    "serving_authorized": false,
+    "publication_authorized": false,
+    "site_mutation_authorized": false
+  },
+  "reference_period": {
+    "start": "2026-01-01",
+    "end": "2026-05-31",
+    "closing_status": "PARTIAL_LOCAL_MONITORING"
+  },
+  "official_period_context": {
+    "rreo_mde_same_period_available": false,
+    "reason": "NO_RREO_BIMONTHLY_MAY_PERIOD",
+    "official_mde_claim_authorized": false,
+    "annual_compliance_claim_authorized": false
+  },
+  "inbox_sources": [
+    {
+      "source_id": "F02_FUNDEB_LOCAL_2026_JAN_MAY",
+      "family": "FUNDEB_LOCAL",
+      "drive_file_id": "1vtXPMSg94m2j9Bbss0bHLhAyJo_LWVxK",
+      "bytes": 21579,
+      "pages": 3,
+      "sha256": "751704be95e98a908dea23468edd16948cdffc5e5453f31baff0edc71fb3f93f",
+      "readback_byte_identity": true
+    },
+    {
+      "source_id": "F02_MDE25_LOCAL_2026_JAN_MAY",
+      "family": "MDE_25_LOCAL",
+      "drive_file_id": "1_rUUrjo19x9NlYueu3VyRcYN95sqbJpG",
+      "bytes": 18954,
+      "pages": 1,
+      "sha256": "1fe6539f146469fb5f2b98168e68c80290f62f47b6f531eb525e767aa26211b0",
+      "readback_byte_identity": true
+    }
+  ],
+  "reconciliation": {
+    "status": "PASS_F02_LOCAL_MONITORING_RECONCILIATION_NO_RREO_PERIOD_MATCH",
+    "exact_checks": {
+      "fundeb_retained_local_reports": true
+    },
+    "fundeb_retained_both_sources": "69018540.87",
+    "observed_local_metrics": {
+      "fundeb_total_received": "85705568.77",
+      "fundeb_professionals_liquidated": "83128026.70",
+      "fundeb_professionals_liquidated_percent_local": "96.99",
+      "mde_tax_revenue_realized": "586706702.84",
+      "mde_education_expense_liquidated": "138465313.16",
+      "mde_education_expense_liquidated_percent_local": "23.60"
+    },
+    "interpretation": "LOCAL_MONITORING_ONLY_NOT_OFFICIAL_MDE_SUBSTITUTION"
+  },
+  "offline_candidate": {
+    "schema": "F02_LOCAL_MONITORING_SILVER_CANDIDATE_V1",
+    "logical_content_sha256": "c70b7a90c62823ca2a5e2a515308c4fb0227931c425a3c48d068c5241273a681",
+    "rendered_bytes": 5158,
+    "rendered_sha256": "eb7469904355e128b90cdfe0d057ed3d6469552825966c038c80d7a050509677",
+    "status": "PASS_F02_LOCAL_MONITORING_OFFLINE_SILVER_CANDIDATE_NOT_PROMOTED"
+  },
+  "effects_this_gate": {
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "bronze_writes": 0,
+    "silver_writes": 0,
+    "gold_writes": 0,
+    "serving_writes": 0,
+    "publication_writes": 0,
+    "site_writes": 0
+  },
+  "result": "PASS_F02_LOCAL_MONITORING_REAL_SOURCES_OFFLINE_VALIDATED_NOT_PROMOTED"
+}

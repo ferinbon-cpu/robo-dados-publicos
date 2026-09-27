@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "schema": "TASK139_MUNICIPAL_PRIMARY_PROCUREMENT_SEARCH_DESIGN_V1",
+  "mode": "T0_OFFLINE_MUNICIPAL_PRIMARY_SEARCH_DESIGN_ONLY",
+  "base_sha": "1e211b7f7a483e8eb057ab354c7652b9480cd538",
+  "issue": 484,
+  "authorization": {
+    "owner_authorization_units_granted": 10,
+    "authorization_unit_index": 4,
+    "search_invocations_max": 1,
+    "open_invocations_max": 1,
+    "does_not_broaden_task133": true
+  },
+  "search": {
+    "query": "\"EDITAL DE CREDENCIAMENTO ESCOLA EM TEMPO INTEGRAL 2026\" \"PROGRAMA DE EDUCAÇÃO INTEGRAL\" oficineiros",
+    "official_domains": ["limeira.sp.gov.br", "serv42.limeira.sp.gov.br"],
+    "search_invocations_max": 1,
+    "retry": 0
+  },
+  "conditional_open": {
+    "open_only_official_municipal_result": true,
+    "strong_policy_marker_required": true,
+    "administrative_identifier_signal_preferred": true,
+    "open_invocations_max": 1,
+    "followup_clicks": 0,
+    "followup_searches": 0,
+    "retry": 0
+  },
+  "epistemic_semantics": {
+    "search_snippet_max_status": "CORROBORATED",
+    "opened_primary_page_can_prove_administrative_identifier_if_explicitly_bound_to_object": true,
+    "negative_exhaustive_conclusion_allowed": false,
+    "automatic_financial_identity": false,
+    "automatic_transaction_identity": false,
+    "automatic_supplier_linkage": false
+  },
+  "remote_effects_in_task139_design": {
+    "network": false,
+    "drive": false,
+    "publication": false
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "task": "TASK_031_BUDGET_LAWS_JOURNAL_SOURCE_FIRST",
+  "observation_date": "2026-09-02",
+  "method": "PUBLIC_WEB_INDEX_READ_ONLY",
+  "claims": [
+    {
+      "edition": 7024,
+      "claim": "Official Jornal PDF URL is publicly indexed; edition identity, 79 total pages and Lei 7.141/2025 beginning at page 5 are observable."
+    },
+    {
+      "edition": 7119,
+      "claim": "Official Jornal PDF URL is publicly indexed; edition identity and 107 total pages are observable; PPA law identity is separately corroborated by official municipal legislative/orcamento surfaces."
+    },
+    {
+      "edition": 7127,
+      "claim": "Official Jornal PDF URL is publicly indexed; edition identity and searchable LOA 7.223/2025 text/tables are observable."
+    }
+  ],
+  "limitations": {
+    "web_index_text_not_source_of_record": true,
+    "raw_pdf_bytes_not_obtained_in_this_task": true,
+    "hashes_not_computed": true,
+    "drive_custody_not_claimed": true
+  }
+}

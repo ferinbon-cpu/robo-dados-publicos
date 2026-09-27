@@ -1,0 +1,126 @@
+{
+  "accounting_ledger": {
+    "amount_sum_caution": "Independent event-stage sums only; do not interpret as net expenditure or policy-specific spending.",
+    "capabilities": [
+      "COMMITMENT_AMOUNTS",
+      "COMMITMENT_NUMBER",
+      "EVENT_MONTH",
+      "EXPENSE_ISSUE_DATE",
+      "LIQUIDATION_AMOUNTS",
+      "PAYMENT_AMOUNTS",
+      "REVERSAL_EVENTS",
+      "SUPPLIER_AMOUNT"
+    ],
+    "content_sha256": "8c898422c61137c6a51755ec5fe14a0861eb335ceb26797bcf4bef49123652c8",
+    "derived_layer": "13_BI/01_SNAPSHOTS",
+    "gzip_sha256": "630373dd4fdeb8e50c6bb9f66c2c3d6336d155319b5843f23f1ebffb73011de0",
+    "manifest_drive_id": "1-GOrqKerkHKWD5YfezDVo05flzJsGnwe",
+    "manifest_sha256": "1e9e75ad7115e610c7f4121a07f55a79d04d22bf66f24a4a772d65b1e19fa94f",
+    "missing_capabilities": [
+      "EDUCATION_CLASSIFICATION",
+      "EVENT_DATE",
+      "EXPENSE_ELEMENT",
+      "FUNDING_SOURCE_APPLICATION",
+      "PROGRAMMATIC_CLASSIFICATION",
+      "RESTS_PAYABLE"
+    ],
+    "row_count": 39779,
+    "serving_written": false,
+    "snapshot_drive_id": "1JtrV2pVtPKNXbDLpzuOvhJaO1KXlSRWg",
+    "snapshot_id": "8c898422c61137c6a51755ec",
+    "stage_amount_sums_brl": {
+      "COMMITMENT": "1805896473.27",
+      "LIQUIDATION": "1024476679.69",
+      "PAYMENT": "921567699.04",
+      "REVERSAL": "65259446.13"
+    },
+    "stage_counts": {
+      "COMMITMENT": 7713,
+      "LIQUIDATION": 16460,
+      "PAYMENT": 14922,
+      "REVERSAL": 684
+    }
+  },
+  "answerability": {
+    "after_status_counts": {
+      "EXPLICIT_GAP": 5,
+      "MATERIALIZED_ANSWERABLE": 17,
+      "MATERIALIZED_PARTIAL": 16
+    },
+    "before_status_counts": {
+      "EXPLICIT_GAP": 5,
+      "MATERIALIZED_ANSWERABLE": 12,
+      "MATERIALIZED_PARTIAL": 17,
+      "ROUTE_READY_PRODUCT_NOT_BUNDLED": 4
+    },
+    "changed_question_count": 8,
+    "changes": [
+      {"after": "MATERIALIZED_ANSWERABLE", "before": "ROUTE_READY_PRODUCT_NOT_BUNDLED", "question_id": "ACC_Q1"},
+      {"after": "MATERIALIZED_PARTIAL", "before": "ROUTE_READY_PRODUCT_NOT_BUNDLED", "question_id": "ACC_Q2"},
+      {"after": "MATERIALIZED_PARTIAL", "before": "ROUTE_READY_PRODUCT_NOT_BUNDLED", "question_id": "ACC_Q3"},
+      {"after": "MATERIALIZED_ANSWERABLE", "before": "MATERIALIZED_PARTIAL", "question_id": "CTRL_Q2"},
+      {"after": "MATERIALIZED_PARTIAL", "before": "ROUTE_READY_PRODUCT_NOT_BUNDLED", "question_id": "FIN_Q1"},
+      {"after": "MATERIALIZED_ANSWERABLE", "before": "MATERIALIZED_PARTIAL", "question_id": "PROC_Q1"},
+      {"after": "MATERIALIZED_ANSWERABLE", "before": "MATERIALIZED_PARTIAL", "question_id": "PROC_Q2"},
+      {"after": "MATERIALIZED_ANSWERABLE", "before": "MATERIALIZED_PARTIAL", "question_id": "PROC_Q3"}
+    ],
+    "evidence_drive_id": "14lnZan8rEZJhD6D_uuYNc8rSgWpVHgmS",
+    "evidence_sha256": "51dd63dddf8ff5066fb53d6260ad44c3898b6b70df71721b146264fc84e65715",
+    "method": "TASK184 final products + exact ACCOUNTING_LEDGER capability summary evaluated by current observatory_semantic_answerability.v1.json",
+    "question_count": 38,
+    "unchanged_due_to_missing_capability": ["INFRA_Q2", "PLAN_Q3"]
+  },
+  "base_main_sha": "e86b53788cb0ae69b9f3d401518e90ff07eeb498",
+  "guards": [
+    "AUGUST_OWNER_REPORT_NE_CRYPTOGRAPHIC_EMPTY_PROOF",
+    "EXPENSE_ISSUE_DATE_NE_EVENT_DATE",
+    "JSON_LEDGER_NE_PROGRAMMATIC_ACCOUNTING_LEDGER",
+    "PROGRAMMATIC_CLASSIFICATION_NE_POLICY_IDENTITY",
+    "COMMITMENT_NE_LIQUIDATION_NE_PAYMENT",
+    "STAGE_SUMS_NE_NET_EXPENDITURE",
+    "NO_SYNTHETIC_SUBSTITUTE_FOR_REAL_LEDGER",
+    "PRODUCT_PRESENCE_NE_QUESTION_ANSWERABILITY"
+  ],
+  "issue": 581,
+  "remote_effects": {
+    "bronze_drive_creates": 8,
+    "derived_drive_creates": 3,
+    "drive_deletes": 0,
+    "drive_overwrites": 0,
+    "publication": 0,
+    "recurrence": 0,
+    "schedule": 0,
+    "serving": 0,
+    "source_network_gets_for_manual_intake": 0
+  },
+  "schema": "TASK185_MANUAL_JSON_LEDGER_MATERIALIZATION_V1",
+  "source": {
+    "august": {"cryptographically_proven_empty": false, "status": "OWNER_REPORTS_NO_RECORDS_BODY_NOT_CUSTODIED"},
+    "authority": "Tribunal de Contas do Estado de Sao Paulo",
+    "bronze_folder_id": "1cgG2YiVm14DYEqAJGFpB7GOKaRloIqUC",
+    "bronze_manifest": {"drive_id": "11obGDXXyMcjWQZHe3g9vL5dHX3sacYQ5", "sha256": "fdbff4a5a48d11f762482e1a31b04d5d49bf7e206d360f35c774f34e6a48bbc0"},
+    "intake": "OWNER_CHAT_UPLOAD",
+    "month_files": {
+      "1": {"bytes": 1326399, "drive_id": "15D9YSrCuZrLEjhg4x_WSlTPdhC_aYIW0", "rows": 4860, "sha256": "363883def8553c36fd21965838ee95b32f50f808b208aa416e25f76c12cf7ae5"},
+      "2": {"bytes": 1297114, "drive_id": "1N7g4u0o5M4FpqUtIW7gQMIEjoWUIZOdF", "rows": 4680, "sha256": "ce13a7fad3c8d9e819c6137bd7c214df67076da4d8d9ee7c2f1ec600d1c96dd3"},
+      "3": {"bytes": 1563457, "drive_id": "1cZJs-_fmmoEGcYDe4POvOGgUweppbaT9", "rows": 5630, "sha256": "468e5c60f3ddea454361a141d32e586582137d8b81f914a0082ec096a8a0cbcc"},
+      "4": {"bytes": 1654219, "drive_id": "1w-x4HEFfEt2-IAtkmGeumN4tpAvK23jy", "rows": 6065, "sha256": "9907ab1f76c048e871045a445b9d48ca26ef6314b9ede1954ede6f3a2b180cac"},
+      "5": {"bytes": 1660369, "drive_id": "1Iew9cPvhHzWbjVHUKUEJXUteT8uY-irL", "rows": 6152, "sha256": "c858501ca4247c3fc02466065d5a53e06bd8a9d143730568c41b1396b7cccc3b"},
+      "6": {"bytes": 1665786, "drive_id": "1TTCvvwoIrbF024JQpIakXTcV_x7GBbZT", "rows": 6122, "sha256": "b97e55bfa12fc85caf506b9f116cf06963d0f4308ea889feb9c706624b1427f9"},
+      "7": {"bytes": 1713883, "drive_id": "165Ai_keK1XSXopf-We21qr8Fam_5ubC3", "rows": 6270, "sha256": "7879dd4921c24d646ec3890da0e2798502d8ccdadd5177f5b8cfa6298b3f68f0"}
+    },
+    "months_validated": [1,2,3,4,5,6,7],
+    "network_gets_by_robot_for_this_intake": 0,
+    "route_template": "https://transparencia.tce.sp.gov.br/api/json/despesas/limeira/2026/{month}",
+    "validated_total_bytes": 10881227,
+    "validated_total_rows": 39779
+  },
+  "status": "PASS_REAL_JAN_JUL_LEDGER_MATERIALIZED",
+  "task": "TASK_185_PERSIST_REAL_TCE_2026_EXPENSE_ROWS_AND_MATERIALIZE_ACCOUNTING_LEDGER",
+  "validated_content": {
+    "cross_month_expense_issue_date_rows_feb_jul": 350,
+    "events": {"Anulação": 684, "Empenhado": 6956, "Reforço": 757, "Valor Liquidado": 16460, "Valor Pago": 14922},
+    "organs": {"CÂMARA MUNICIPAL DE LIMEIRA": 2582, "INSTITUTO DE PREVIDÊNCIA MUNICIPAL DE LIMEIRA": 791, "PREFEITURA MUNICIPAL DE LIMEIRA": 36406},
+    "semantic_correction": "dt_emissao_despesa is expense issue date; source field mes is event period; exact event date is not provided"
+  }
+}

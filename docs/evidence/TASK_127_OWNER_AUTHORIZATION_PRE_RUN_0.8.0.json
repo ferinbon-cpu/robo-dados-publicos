@@ -1,0 +1,26 @@
+{
+  "schema": "TASK127_OWNER_AUTHORIZATION_PRE_RUN_V1",
+  "task": "TASK_127_JOM_EITI_ACCOUNTING_FIELD_SCAN",
+  "status": "CONSUMED_SINGLE_USE_TRANSPORT_STOP",
+  "owner_instruction": "Prossiga",
+  "exact_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_27112025163143.pdf",
+  "get_requests_max": 1,
+  "redirects_max": 0,
+  "retry": 0,
+  "processing": "SHA256_PYPDF_NATIVE_TEXT_NORMALIZED_ACCOUNTING_TERM_SCAN_ONLY",
+  "no_ocr": true,
+  "no_drive": true,
+  "no_persistence": true,
+  "future_retry_authorized": false,
+  "consumed_by": {
+    "get_attempts": 1,
+    "bytes_received": 0,
+    "source_sha256": null,
+    "pdf_magic_verified": false,
+    "pypdf_opened": false,
+    "pages_scanned": 0,
+    "accounting_term_hits": 0,
+    "retry_performed": false,
+    "data_conclusion": false
+  }
+}

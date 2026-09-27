@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "schema": "TASK208_CONTEXTUAL_SLOT_BINDER_V1",
+  "task": "TASK_208",
+  "issue": 660,
+  "base_main_sha": "d103687a0d6506d0431744ccc691302488dad634",
+  "mode": "T0_OFFLINE_DETERMINISTIC_CONTEXT_BINDING",
+  "upstream_router": "TASK207_NATURAL_LANGUAGE_ROUTER_V1",
+  "school_identity": {
+    "source_contract": "config/school_indicator_library_seed.v1.json",
+    "source_fixture": "docs/evidence/fixtures/TASK_180_CAMADA_V08_ESCOLAS40_2025_SANITIZED.csv",
+    "identity_key": "codigo_inep",
+    "expected_school_count": 40,
+    "exact_code_only": true,
+    "name_resolution": "CANONICAL_OR_BOUNDED_ALIAS_EXACT_PHRASE_ONLY",
+    "fuzzy_matching_creates_identity": false,
+    "personal_school_reference_requires_explicit_context": true
+  },
+  "relative_time": {
+    "implicit_clock_allowed": false,
+    "reference_date_required_for_relative_year": true,
+    "relative_year_markers": ["deste ano", "desse ano", "neste ano", "esse ano", "ano atual"]
+  },
+  "months": {
+    "janeiro": 1,
+    "fevereiro": 2,
+    "marco": 3,
+    "abril": 4,
+    "maio": 5,
+    "junho": 6,
+    "julho": 7,
+    "agosto": 8,
+    "setembro": 9,
+    "outubro": 10,
+    "novembro": 11,
+    "dezembro": 12
+  },
+  "policy_service_facets": {
+    "MATRICULA": ["matricula", "matriculas"],
+    "CALENDARIO": ["calendario", "calendarios"],
+    "JORNADA": ["jornada", "carga horaria"],
+    "AEE": ["aee", "educacao especial", "sala de recursos"],
+    "TRANSPORTE": ["transporte escolar", "passe escolar"],
+    "ALIMENTACAO": ["alimentacao", "merenda"],
+    "TEMPO_INTEGRAL": ["tempo integral", "educacao integral", "eiti", "eti"],
+    "DOCENTES": ["professor", "professores", "docente", "docentes"],
+    "INFRAESTRUTURA": ["infraestrutura", "obra", "obras", "reforma", "reformas", "equipamento", "equipamentos"],
+    "FINANCIAMENTO_FUNDEB": ["fundeb", "financiamento", "recursos da educacao"]
+  },
+  "contextual_route_bridges": {
+    "FIN_Q1": {
+      "required_all": ["quanto", "educacao"],
+      "required_any": ["gasto", "gastou", "gasta", "despesa"]
+    },
+    "NORMS_Q2": {
+      "required_any": ["norma", "normas", "regra", "regras"],
+      "required_facets": ["MATRICULA"]
+    },
+    "NETWORK_Q3": {
+      "requires_resolved_school": true,
+      "requires_comparison_marker": true,
+      "requires_network_marker": true
+    }
+  },
+  "broad_school_profile": {
+    "phrases": ["como esta", "como vai", "situacao da escola", "situacao do"],
+    "default_question_id": "NETWORK_Q3",
+    "default_granularity": "SCHOOL_VS_NETWORK",
+    "requires_resolved_school": true
+  },
+  "personal_school_markers": ["minha escola", "minha unidade", "meu colegio"],
+  "school_type_markers": ["ceief", "emeief", "emei", "escola municipal"],
+  "comparison_markers": ["compare", "comparar", "comparacao", "versus", "vs"],
+  "network_markers": ["rede", "rede municipal"],
+  "states": [
+    "CONTEXT_BOUND",
+    "NEEDS_SCHOOL_CONTEXT",
+    "SCHOOL_UNRESOLVED",
+    "SCHOOL_AMBIGUOUS",
+    "PERIOD_AMBIGUOUS",
+    "PERIOD_REFERENCE_REQUIRED",
+    "ROUTE_STOP_PROPAGATED",
+    "CONTEXT_UNSUPPORTED_FOR_RENDER"
+  ],
+  "render_guard": {
+    "task207_renderer_can_consume_school_filter": false,
+    "task207_renderer_can_consume_period_filter": false,
+    "never_silently_drop_context": true
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

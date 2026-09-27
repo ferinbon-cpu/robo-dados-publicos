@@ -1,0 +1,61 @@
+{
+  "schema": "TASK199B_CNEFE_LIMEIRA_INGESTION_EVIDENCE_V1",
+  "software_candidate": "0.8.0",
+  "task": "TASK_199B_CNEFE_LIMEIRA_INGESTION",
+  "issue": 628,
+  "base_main_sha": "86a106d1ec09a40aa6db71f5326a74fbb66e3371",
+  "status": "PASS_RAW_ARCHIVE_AND_CSV_MEMBER_PRESERVED_AND_PARSED",
+  "provenance": "USER_MEDIATED_DIRECT_OFFICIAL_IBGE_BINARY_HANDOFF",
+  "archive": {
+    "filename": "3526902_LIMEIRA.zip",
+    "bytes": 3486586,
+    "sha256": "ab73250df889effcb01ddc2d060bddd3252e995468e97ef93b048564763626a7",
+    "drive_id": "1EfrJkwj6bcu9WiokX6zz59_4-Wt8Caiy"
+  },
+  "csv_member": {
+    "filename": "3526902_LIMEIRA.csv",
+    "bytes": 26082570,
+    "sha256": "8adb17d18a8c0a4de9e6d48b31ed63f74e0bfde27f11f63154c17456d35218b3",
+    "drive_id": "1pqAYHvs9RTfHAymDJaR9QgVvIe8RBT2h",
+    "rows": 150450,
+    "columns": 34,
+    "delimiter": ";"
+  },
+  "identity": {
+    "COD_UF_unique": ["35"],
+    "COD_MUNICIPIO_unique": ["3526902"],
+    "municipality_identity_exact": true
+  },
+  "geography": {
+    "unique_sector_codes": 724,
+    "unique_ceps": 2471,
+    "rows_with_coordinates": 150450,
+    "coordinate_coverage_rate": 1.0
+  },
+  "establishment_text": {
+    "rows_with_description": 20163,
+    "unique_descriptions": 13528,
+    "clear_municipal_school_name_candidate_rows": 41,
+    "candidate_file_drive_id": "1EPggDnjOECybG5wGP0PrQ6Ur3JgUzlhs",
+    "candidate_file_sha256": "a52c8b01ffe475858efb0e5fd17c3af8d77b55f46120fb3622a4923beb685b12"
+  },
+  "candidate_example": {
+    "description": "CEIEF RAFAEL AFONSO LEITE",
+    "sector": "352690205000136P",
+    "latitude": "-22.574023",
+    "longitude": "-47.377727",
+    "status": "CANDIDATE_ONLY"
+  },
+  "decision": "CNEFE_CUSTODY_PROVEN_KEEP_SCHOOL_SECTOR_JOIN_PENDING_OFFICIAL_ROSTER_RECONCILIATION",
+  "answerability": {
+    "territory_profile_materialized": false,
+    "TERR_Q1_Q2_promoted": false,
+    "canonical_counts_unchanged": "28_ANSWERABLE_8_PARTIAL_2_EXPLICIT_GAP"
+  },
+  "next": [
+    "INGEST_CENSO2022_SECTOR_BASIC",
+    "INGEST_CENSO2022_SECTOR_INCOME",
+    "ACQUIRE_SP_SECTOR_GEOMETRY",
+    "RECONCILE_69_SCHOOL_ROSTER_WITH_INEP_AND_ADDRESS_OR_COORDINATES"
+  ]
+}

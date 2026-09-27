@@ -1,0 +1,73 @@
+name: Codex engineering task
+description: Tarefa de engenharia para o ROBO_CODEX sob política fail-closed.
+title: "[CODEX] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Esta issue descreve trabalho de engenharia. Ela não autoriza coleta live, persistência, publicação, secrets ou mudança de tier.
+
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objetivo
+      description: Descreva o resultado de engenharia esperado.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: risk_tier
+    attributes:
+      label: Tier máximo autorizado nesta tarefa
+      options:
+        - T0_OFFLINE
+        - T1_REMOTE_READONLY_DESIGN_ONLY
+    validations:
+      required: true
+
+  - type: textarea
+    id: allowed
+    attributes:
+      label: Ações permitidas
+      description: Ex.: código offline, testes, documentação, fixtures, diagnóstico de CI.
+    validations:
+      required: true
+
+  - type: textarea
+    id: blocked
+    attributes:
+      label: Ações explicitamente bloqueadas
+      value: |
+        - live source GET
+        - Drive read/write com credenciais operacionais
+        - publicação
+        - overwrite/replace/delete
+        - schedule/recurrence
+        - secrets
+        - self-merge
+        - mudança de branch protection/ruleset
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Critérios de aceite
+      description: Liste testes, gates e evidências necessárias.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: governance
+    attributes:
+      label: Governança
+      options:
+        - label: Li e preservarei AGENTS.md.
+          required: true
+        - label: Li e preservarei config/automation_policy.v1.json.
+          required: true
+        - label: Li e preservarei config/codex_engineer_policy.v1.json.
+          required: true
+        - label: A tarefa não autoriza T2/T3 nem publicação.
+          required: true

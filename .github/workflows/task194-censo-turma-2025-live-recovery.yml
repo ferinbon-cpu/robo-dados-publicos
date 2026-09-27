@@ -1,0 +1,81 @@
+name: TASK 194 Censo turma 2025 one-shot live recovery
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: read
+
+concurrency:
+  group: task194-censo-turma-2025-live
+  cancel-in-progress: false
+
+jobs:
+  live:
+    if: github.event.issue.number == 598 && github.actor == 'ferinbon-cpu' && startsWith(github.event.comment.body, 'TASK194_CENSO_TURMA_2025_LIVE_AUTHORIZED ')
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONPATH: ${{ github.workspace }}
+      TASK194_AUTH_COMMENT: ${{ github.event.comment.body }}
+      TASK194_ISSUE_NUMBER: ${{ github.event.issue.number }}
+    steps:
+      - name: Checkout exact default-branch authorization target
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.12"
+
+      - name: Verify exact authorization comment and main SHA
+        shell: bash
+        run: |
+          set -euo pipefail
+          HEAD_SHA="$(git rev-parse HEAD)"
+          test "$HEAD_SHA" = "$GITHUB_SHA"
+          EXPECTED="TASK194_CENSO_TURMA_2025_LIVE_AUTHORIZED main=$GITHUB_SHA issue=598 max_http_attempts=3 raw_persist=0"
+          test "$TASK194_AUTH_COMMENT" = "$EXPECTED"
+
+      - name: Offline preflight
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m compileall -q scripts robo_dados_publicos tests
+          python -m unittest tests.test_task_194_censo_turma_live_gate -v
+
+      - name: Execute bounded official INEP recovery
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime/task194
+          TASK194_CHECKED_OUT_SHA="$(git rev-parse HEAD)" \
+            python scripts/task194_censo_turma_live_gate.py \
+            --output runtime/task194/sanitized_result.json
+
+      - name: Assert no raw payload persisted in workspace
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -e microdados_censo_escolar_2025_.zip
+          test ! -e Tabela_Turma_2025_V2.csv
+          test ! -e Tabela_Escola_2025_V2.csv
+          if [ -d runtime/task194 ]; then
+            find runtime/task194 -maxdepth 1 -type f -printf '%f\n' | grep -vx 'sanitized_result.json' && exit 1 || true
+          fi
+
+      - name: Upload sanitized aggregate only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task194-censo-turma-2025-sanitized-result
+          path: runtime/task194/sanitized_result.json
+          if-no-files-found: warn
+          retention-days: 30

@@ -1,0 +1,102 @@
+{
+  "schema": "TASK271_HISTORY_645_SEMANTIC_CANONICAL_RESULT_V1",
+  "task": "TASK_271",
+  "issue": 877,
+  "status": "PNCP_HISTORY_645_3_EVENTS_CANONIZED_PROCUREMENT_PLUS_2_DOCUMENT_INCLUSIONS",
+  "control": "45132495000140-1-000645/2026",
+  "counts": {
+    "event_count": 3,
+    "procurement_inclusion": 1,
+    "contract_document_inclusion": 2,
+    "result_reference_nonnull_count": 0,
+    "item_reference_nonnull_count": 0
+  },
+  "events": [
+    {
+      "categoriaLogManutencao": 1,
+      "categoriaLogManutencaoNome": "Contratação",
+      "compraAno": 2026,
+      "compraOrgaoCnpj": "45132495000140",
+      "compraSequencial": 645,
+      "documentoSequencial": null,
+      "documentoTipo": null,
+      "documentoTitulo": null,
+      "itemNumero": null,
+      "itemResultadoNumero": null,
+      "itemResultadoSequencial": null,
+      "justificativa": null,
+      "logManutencaoDataInclusao": "2026-09-08T15:42:32",
+      "tipoLogManutencao": 0,
+      "tipoLogManutencaoNome": "Inclusão"
+    },
+    {
+      "categoriaLogManutencao": 6,
+      "categoriaLogManutencaoNome": "Documento de Contratação",
+      "compraAno": 2026,
+      "compraOrgaoCnpj": "45132495000140",
+      "compraSequencial": 645,
+      "documentoSequencial": 1,
+      "documentoTipo": "Edital",
+      "documentoTitulo": "\"edital202-26pre147-26reservatorio.pdf\"",
+      "itemNumero": null,
+      "itemResultadoNumero": null,
+      "itemResultadoSequencial": null,
+      "justificativa": null,
+      "logManutencaoDataInclusao": "2026-09-08T15:42:32",
+      "tipoLogManutencao": 0,
+      "tipoLogManutencaoNome": "Inclusão"
+    },
+    {
+      "categoriaLogManutencao": 6,
+      "categoriaLogManutencaoNome": "Documento de Contratação",
+      "compraAno": 2026,
+      "compraOrgaoCnpj": "45132495000140",
+      "compraSequencial": 645,
+      "documentoSequencial": 2,
+      "documentoTipo": "Edital",
+      "documentoTitulo": "edital202-26anexo1.pdf",
+      "itemNumero": null,
+      "itemResultadoNumero": null,
+      "itemResultadoSequencial": null,
+      "justificativa": null,
+      "logManutencaoDataInclusao": "2026-09-08T15:43:16",
+      "tipoLogManutencao": 0,
+      "tipoLogManutencaoNome": "Inclusão"
+    }
+  ],
+  "provenance": {
+    "implementation_sha": "63ccaacdd5acfb032058b5016552f4ca02a3b07a",
+    "run_id": 35398805436,
+    "job_id": 105773699099,
+    "runtime_head_sha": "8206e60d9e796c5f2941d3f471c457c7f432324e",
+    "artifact_id": 10570096946,
+    "artifact_zip_sha256": "320bde193cd4c583ab99f61934086c86e4fe994a271576a54cf8174bc53bc112",
+    "artifact_file_sha256": "55ab269019eb299824771d9fd4b9dec81f7dde41401aad138f7524da63ed7886",
+    "result_sha256": "ce45bf981a4b4a0e991f73d89c2508318778cfd6bd57fd0e250b0e1209a660b1",
+    "body_sha256": "51e24d09e284ef40f316dd39b64a08f09e3291d0e65c7205a076dac0008d11bc",
+    "safe_projection_sha256": "88b9ba6344f76d84efc4e8c99e8ecd9bc2d20da51bba0907f75b33dd11b84873",
+    "http_code": 200,
+    "event_count": 3
+  },
+  "adjudication": {
+    "observed_event_categories": [
+      "Contratação",
+      "Documento de Contratação"
+    ],
+    "observed_event_types": [
+      "Inclusão"
+    ],
+    "observed_document_type": [
+      "Edital"
+    ],
+    "result_event_observed": false,
+    "result_absence_is_permanent_claim": false,
+    "contract_event_observed": false,
+    "payment_or_execution_proven": false,
+    "pncp_to_tce_chain_proven": false
+  },
+  "privacy": {
+    "usuarioNome_persisted": false
+  },
+  "next_gate": "BOUNDED_HISTORY_7_REMAINING_CONTROLS_CARRIER"
+}

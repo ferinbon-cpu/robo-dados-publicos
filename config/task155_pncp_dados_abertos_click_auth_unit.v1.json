@@ -1,0 +1,44 @@
+{
+  "version":1,
+  "schema":"TASK155_PNCP_DADOS_ABERTOS_CLICK_AUTH_UNIT_V1",
+  "mode":"T0_OFFLINE_OFFICIAL_LINK_CLICK_GATE_ONLY",
+  "base_sha":"2ca4cfddaa33245e39268c4ca35d9d4d7697bcb0",
+  "issue":522,
+  "prior_task":{"task":154,"result":"STOP_DIRECT_DOWNLOAD_URL_NOT_SUCCESSFULLY_VIEWED_PRE_SOURCE"},
+  "authorization":{
+    "owner_instruction":"10 tokens de autorização concedidos",
+    "owner_authorization_units_granted":10,
+    "authorization_unit_index":4,
+    "remaining_units_before_execution":7,
+    "consume_on_single_click_invocation":true,
+    "remaining_units_after_execution":6
+  },
+  "source":{
+    "previous_successful_page":"https://pncp.gov.br/",
+    "previous_web_ref":"turn141163view0",
+    "visible_link_id":12,
+    "visible_link_label":"Dados Abertos",
+    "official_navigation_only":true
+  },
+  "execution":{
+    "click_invocations_max":1,
+    "search_queries":0,
+    "web_open_invocations":0,
+    "retry":0,
+    "followup_clicks":0,
+    "parameterized_api_opens":0,
+    "direct_download_invocations":0,
+    "raw_payload_persistence":false,
+    "execute_only_after_merge":true
+  },
+  "epistemic_semantics":{
+    "tool_failure_is_source_response":false,
+    "positive_candidate_discovery_allowed":true,
+    "administrative_identifier_candidate_max_status":"CORROBORATED",
+    "negative_exhaustive_conclusion_allowed":false,
+    "pncp_no_match_allowed":false,
+    "automatic_financial_identity":false,
+    "automatic_transaction_identity":false,
+    "automatic_supplier_linkage":false
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "contract_path": "config/eiti_historical_ppa_primary_acquisition.v1.json",
+  "future_execution_authorized": false,
+  "hard_boundaries": {
+    "bronze_writes": 0,
+    "causal_effect_assertions": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "financial_identity_assertions": 0,
+    "gold_writes": 0,
+    "publications": 0,
+    "queue_writes": 0,
+    "serving_writes": 0,
+    "silver_writes": 0,
+    "state_registry_writes": 0
+  },
+  "overall_status": "PARTIAL_TASK107_ONE_PRIMARY_PPA_MATCH",
+  "owner_authorization_path": "docs/evidence/TASK_107_OWNER_AUTHORIZATION_PRE_RUN_0.8.0.json",
+  "parser": {
+    "name": "pypdf",
+    "offline_capability_proof_task": "TASK_105",
+    "runner_bootstrap_proof_task": "TASK_107",
+    "version_contract": "pypdf==6.10.0"
+  },
+  "period_results": [
+    {
+      "causal_effect_created": false,
+      "error": "TASK106_PDF_TEXT_EMPTY",
+      "error_type": "LocalPdfCapabilityStop",
+      "financial_identity_created": false,
+      "implementation_proven": false,
+      "period": "2018-2021",
+      "status": "STOP_REMOTE_ACQUISITION"
+    },
+    {
+      "causal_effect_created": false,
+      "content_type": "application/pdf",
+      "direct_evidence_excerpt": "|  ÍNDICE DE APRENDIZADO NA EDUCACAO INFANTIL / PERCENTUAL 1 88 | 88 89 1 90 1 91 |  91 |\n|  FLUXO DE APROVEITAMENTO / PERCENTUAL 1 0 1 95 95 96 1 98 |  98 |\n|  ÍNDICE DE ALUNOS EM EDUCACAO INTEGRAL / PERCENTUAL 1 0 | 40 45 50 1 50 |  50 |\nValores expressos em RS milhares médios / 2021 |\ni j 1 1 Finance:ro / F:s i c",
+      "discovery_anchor_text": null,
+      "expected_signal": "ÍNDICE DE ALUNOS EM EDUCACAO INTEGRAL",
+      "final_url": "https://www.limeira.sp.gov.br/sitenovo/downloads/9d8dd63f39cc3b51ef032a4c96210a07.pdf",
+      "financial_identity_created": false,
+      "implementation_proven": false,
+      "law_number": "6.659",
+      "locator": {
+        "coordinate_system": "SOURCE_PDF_PAGE_1_BASED",
+        "match_signal": "ÍNDICE DE ALUNOS EM EDUCACAO INTEGRAL",
+        "page": 23,
+        "page_text_sha256": "6c8294fb4a511fc7fbc86d69dda780085cdc5bbbea363b8482d06c22eba57883"
+      },
+      "period": "2022-2025",
+      "planning_signal_found": true,
+      "primary_document_identity_found_in_pdf_text": true,
+      "source_bytes": 3273513,
+      "source_sha256": "8e10123b07d83e9a9928fd2444318f595a7560eac2bc06c920761ca7893778f7",
+      "source_url": "https://www.limeira.sp.gov.br/sitenovo/downloads/9d8dd63f39cc3b51ef032a4c96210a07.pdf",
+      "status": "PRIMARY_MATCH"
+    }
+  ],
+  "preflight": {
+    "marker_recovered": true,
+    "repository_root": "/home/runner/work/robo-dados-publicos/robo-dados-publicos",
+    "source_requests": 0,
+    "status": "PASS_TASK107_RUNNER_BOOTSTRAP_AND_PYPDF_PREFLIGHT"
+  },
+  "primary_match_count": 1,
+  "recurrence": false,
+  "request_count": 3,
+  "requests": [
+    {
+      "host": "www.limeira.sp.gov.br",
+      "kind": "INITIAL",
+      "method": "GET",
+      "ordinal": 1,
+      "path": "/orcamentos",
+      "period": "2018-2021",
+      "period_ordinal": 1
+    },
+    {
+      "host": "www.limeira.sp.gov.br",
+      "kind": "INITIAL",
+      "method": "GET",
+      "ordinal": 2,
+      "path": "/sitenovo/downloads/0fa1a5cc5c9a1823fbf5436def00f01f.pdf",
+      "period": "2018-2021",
+      "period_ordinal": 2
+    },
+    {
+      "host": "www.limeira.sp.gov.br",
+      "kind": "INITIAL",
+      "method": "GET",
+      "ordinal": 3,
+      "path": "/sitenovo/downloads/9d8dd63f39cc3b51ef032a4c96210a07.pdf",
+      "period": "2022-2025",
+      "period_ordinal": 1
+    }
+  ],
+  "result_canonical_sha256": "f69259e73b6ce79618ecdea9ef10617fcc3ab123b7fcd7153ae5d379f037252a",
+  "retry_performed": false,
+  "schedule": false,
+  "schema": "TASK_107_HISTORICAL_PPA_LIVE_RESULT_V1",
+  "task": "TASK_107_SINGLE_USE_HISTORICAL_PPA_PRIMARY_EVIDENCE_PYPDF"
+}

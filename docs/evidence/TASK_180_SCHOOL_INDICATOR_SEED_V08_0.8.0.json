@@ -1,0 +1,67 @@
+{
+  "task": "TASK_180_SCHOOL_INDICATOR_SEED_V08",
+  "issue": 571,
+  "mode": "T0_OFFLINE_USER_LIBRARY_MEDIATED_SANITIZED_SEED",
+  "base_main_sha": "f653e136d3d5388e40c3566237a9fbe3e54fcd26",
+  "custody_correction": {
+    "base_mestra_v05": {
+      "status": "DISCOVERED_AND_READABLE_IN_USER_LIBRARY",
+      "sha256": "4d352dc55537240a4c1ffb3c37337e9c029577ab611f851f2ec925d0178b9eda",
+      "role": "CANONICAL_STRUCTURED_SCHOOL_INDICATOR_BASE"
+    },
+    "camada_v08": {
+      "status": "DISCOVERED_AND_READABLE_IN_USER_LIBRARY",
+      "xlsx_sha256": "0516868e06685aebe8254b11ca6488ef26b03dea61f927ff637840cf2a21e865",
+      "sqlite_sha256": "7365bae889e866c5547089eac52a611c7b3e4a989d9f5bb601fff90eca54955b",
+      "role": "AUDITABLE_OPERATIONAL_EXTENSION"
+    }
+  },
+  "v08_qa": {
+    "censo_panel_rows_2018_2025": 552,
+    "units_2025": 69,
+    "primary_years_2025": 40,
+    "early_childhood_2025": 29,
+    "reconciliation_comparisons_2025": 240,
+    "divergences_2025": 0,
+    "imputations": 0
+  },
+  "seed": {
+    "source_sheet": "01 Escolas 40",
+    "school_count": 40,
+    "metric_count": 20,
+    "potential_cells": 800,
+    "non_null_long_rows": 798,
+    "missing_count": 2,
+    "missing": [
+      {
+        "codigo_inep": "35276224",
+        "source_column": "Ideb_2025"
+      },
+      {
+        "codigo_inep": "35217864",
+        "source_column": "Ideb_2025"
+      }
+    ],
+    "quality_status": "READY_WITH_CAUTION",
+    "binary_import_complete": false,
+    "missing_is_zero": false
+  },
+  "task176_product": "SCHOOL_INDICATOR_SERIES",
+  "school_identity": "INEP_CODE",
+  "provenance_source_sha256": "0516868e06685aebe8254b11ca6488ef26b03dea61f927ff637840cf2a21e865",
+  "next": [
+    "BASE_V05_NETWORK_SERIES",
+    "V08_CENSO_69X2018_2025_PANEL",
+    "V08_REMAINING_LONG_HISTORY_SHEETS"
+  ],
+  "task178_remote_serving_should_wait": true,
+  "remote_effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "gate_id": "M7_SIOPE_ARTIFACT_DOWNLOAD_DOM_INTENT_DIAGNOSTICS_0_8_0",
+  "run_id": 32855472741,
+  "run_number": 2,
+  "head_sha": "ac1497293955c9a290aba6cdf7a0e0b197eb810f",
+  "artifact_id": 9565997881,
+  "artifact_digest": "sha256:18208d1bef15532b0851edf49a493ca927f011baa8bdaac8c6b752f20157bad4",
+  "status": "PASS_M7_SIOPE_ARTIFACT_DOWNLOAD_DOM_INTENT_DIAGNOSTICS_GATE",
+  "diagnostic_status": "DOM_INTENT_CHANGE_OBSERVED",
+  "qa": {
+    "unit_tests": 365,
+    "historical_regressions": 109
+  },
+  "verified_metadata_network_sent": true,
+  "verified_metadata_request_count": 1,
+  "blocked_request_count": 1,
+  "dom_change": {
+    "before_control_count": 14,
+    "after_control_count": 16,
+    "before_dialog_count": 0,
+    "after_dialog_count": 0,
+    "new_control_count": 3,
+    "new_dialog_count": 0,
+    "new_controls": [
+      {
+        "tag": "a",
+        "text": "Entrar com gov.br",
+        "href": {
+          "scheme": "https",
+          "host": "www.fnde.gov.br",
+          "path": "/plataforma-antonieta-de-barros/login",
+          "query_keys": ["returnUrl"]
+        }
+      },
+      {
+        "tag": "a",
+        "text": "Close",
+        "href": null
+      },
+      {
+        "tag": "button",
+        "text": "Voltar para o topo da página",
+        "href": null
+      }
+    ]
+  },
+  "interpretation": "O clique anônimo em Exportar artefato expõe uma fronteira de autenticação gov.br antes de qualquer rota de download observada. A página do produto e a metadata permanecem públicas; o acesso ao artefato não foi provado como público/anônimo.",
+  "candidate_route_network_sent": false,
+  "browser_download_denied": true,
+  "artifact_downloaded": false,
+  "credentials_captured": false,
+  "cookies_captured": false,
+  "request_headers_captured": false,
+  "request_body_captured": false,
+  "response_body_captured": false,
+  "second_click_executed": false,
+  "collection_authorized": false,
+  "processing_authorized": false,
+  "recurrence_authorized": false,
+  "schedule_enabled": false
+}

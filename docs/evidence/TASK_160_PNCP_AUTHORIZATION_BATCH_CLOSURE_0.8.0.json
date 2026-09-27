@@ -1,0 +1,30 @@
+{
+  "task": "TASK_160_CLOSE_PNCP_AUTHORIZATION_BATCH",
+  "issue": 532,
+  "base_sha": "32f8340cdbf48b96f668bcde0ca6344bc9443962",
+  "owner_grant": "10 tokens de autorização concedidos",
+  "units_granted": 10,
+  "units_consumed": 10,
+  "units_remaining": 0,
+  "ledger": [
+    {"unit":1,"task":152,"outcome":"PNCP_ORIGIN_REACHED"},
+    {"unit":2,"task":153,"outcome":"WEB_URL_SAFETY_STOP_PRE_SOURCE"},
+    {"unit":3,"task":154,"outcome":"DIRECT_DOWNLOAD_PREVIEW_GUARD_STOP_PRE_SOURCE"},
+    {"unit":4,"task":155,"outcome":"OFFICIAL_DADOS_ABERTOS_REACHED"},
+    {"unit":5,"task":156,"outcome":"OFFICIAL_ROUTE_SEARCH_COMPLETED"},
+    {"unit":6,"task":157,"outcome":"OFFICIAL_APP_INDEX_SURFACES_FOUND"},
+    {"unit":7,"task":158,"outcome":"NO_RELEVANT_LIMEIRA_CANDIDATE_SURFACED"},
+    {"unit":8,"task":158,"outcome":"NO_RELEVANT_LIMEIRA_CANDIDATE_SURFACED"},
+    {"unit":9,"task":158,"outcome":"NO_RELEVANT_LIMEIRA_CANDIDATE_SURFACED"},
+    {"unit":10,"task":159,"outcome":"EXACT_CNPJ_INDEX_SEARCH_NO_RELEVANT_LIMEIRA_RECORD_SURFACED"}
+  ],
+  "epistemic_state": {
+    "pncp_no_match_created": false,
+    "negative_exhaustive_conclusion_created": false,
+    "administrative_identifier_candidate_created": false,
+    "financial_identity_created": false,
+    "transaction_identity_created": false,
+    "supplier_linkage_created": false
+  },
+  "next_boundary": "FRESH_EXPLICIT_OWNER_AUTHORIZATION_REQUIRED_BEFORE_ANY_FURTHER_LIVE_SOURCE_OPERATION"
+}

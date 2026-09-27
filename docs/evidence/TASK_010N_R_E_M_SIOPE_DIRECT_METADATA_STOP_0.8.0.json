@@ -1,0 +1,67 @@
+{
+  "schema": "TASK_010N_R_E_M_SIOPE_DIRECT_METADATA_STOP_V1",
+  "task": "TASK_010N_R_E_M",
+  "issue": 256,
+  "software_version": "0.8.0",
+  "base_sha": "0b98994184474a9df4901b04b3c606a757f3184f",
+  "authorization_id": "SIOPE2025-DIRECT-METADATA-20260829-02",
+  "authorization_one_shot": true,
+  "authorization_consumed": true,
+  "target_url": "https://www.fnde.gov.br/olinda-ide/servico/DADOS_ABERTOS_SIOPE/versao/v1/odata/$metadata",
+  "classification": "STOP_DIRECT_METADATA_ACCESS_NO_EDMX",
+  "execution": {
+    "direct_attempt_count": 1,
+    "retry_count": 0,
+    "search_workaround_count": 0,
+    "redirect_follow_count": 0,
+    "municipality_queries": 0,
+    "year_or_period_queries": 0,
+    "financial_value_queries": 0,
+    "authentication_attempts": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "gold_computations": 0,
+    "reverse_engineering_actions": 0
+  },
+  "observed_result": {
+    "fetch_status": "CACHE_MISS",
+    "network_io_observed": "UNKNOWN",
+    "http_response_observed": false,
+    "http_status": null,
+    "response_body_obtained": false,
+    "edmx_obtained": false,
+    "semantic_metadata_obtained": false
+  },
+  "interpretation": {
+    "endpoint_nonexistent_proven": false,
+    "endpoint_unavailable_proven": false,
+    "semantic_alias_bridge_proven": false,
+    "num_popu_semantics_proven": false,
+    "absence_of_edmx_is_not_semantic_evidence": true
+  },
+  "semantic_effect": {
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "public_contract_evidence_status": "PARTIAL_OFFLINE_UNCHANGED",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_metrics_status": "UNKNOWN/BLOCKED",
+    "promotion_performed": false
+  },
+  "canonical_state": {
+    "release_0_7_0": "ACTIVE",
+    "release_0_8_0": "CANDIDATE",
+    "year_2025": "PROVEN_STRUCTURAL_RECENT",
+    "closed_annual_series": "2016-2024",
+    "year_2026": "UNPROVEN_CURRENT_YEAR"
+  },
+  "guards": {
+    "semantic_promotion_authorized": false,
+    "gold_2025_authorized": false,
+    "annual_series_expansion_authorized": false,
+    "release_promotion_authorized": false,
+    "current_year_2026_authorized": false,
+    "rerun_authorized": false
+  },
+  "next_gate": "SEPARATE_OWNER_AUTHORIZATION_REQUIRED_FOR_ANY_RETRY_OR_NEW_REMOTE_EVIDENCE_CLASS"
+}

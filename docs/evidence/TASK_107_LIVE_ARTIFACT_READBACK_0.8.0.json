@@ -1,0 +1,17 @@
+{
+  "task": "TASK_107",
+  "run_id": 33914777365,
+  "job_id": 101159304607,
+  "execution_head_sha": "d400368c970f3b42161250b35b3821f812155487",
+  "result_file": "runtime/task107_result.json",
+  "result_canonical_sha256": "f69259e73b6ce79618ecdea9ef10617fcc3ab123b7fcd7153ae5d379f037252a",
+  "artifact": {
+    "id": 9952715143,
+    "name": "task-107-historical-ppa-primary-evidence",
+    "zip_sha256": "d8080de70b05453722b1c32f6f9c374c3da9a49408bbc959ed459ebcb5815bb7",
+    "size_in_bytes": 1697,
+    "retention_days": 1
+  },
+  "observed_result": "PARTIAL_TASK107_ONE_PRIMARY_PPA_MATCH",
+  "future_execution_authorized": false
+}

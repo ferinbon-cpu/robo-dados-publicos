@@ -1,0 +1,55 @@
+{
+  "schema": "DEEPSEEK_V4_PRO_OWNER_AUTHORIZATION_V2",
+  "software_candidate": "0.8.0",
+  "owner_instruction_verbatim": "Faça até onde sua ação permitir, pode ligar o modo mais forte do deepseek o q nao é  o fleah. Se precisar de minha autorização tome y tokens de autorização",
+  "owner_intent_normalized": {
+    "action": "ENABLE_STRONGEST_ALREADY_ALLOWLISTED_NON_FLASH_DEEPSEEK_MODEL",
+    "repository_allowed_models": [
+      "deepseek-v4-flash",
+      "deepseek-v4-pro"
+    ],
+    "non_flash_candidates": [
+      "deepseek-v4-pro"
+    ],
+    "resolved_target": "deepseek-v4-pro",
+    "resolution_rule": "SELECT_THE_ONLY_ALREADY_ALLOWLISTED_MODEL_THAT_IS_NOT_DEEPSEEK_V4_FLASH"
+  },
+  "bounded_scope": {
+    "files_authorized_for_model_promotion": [
+      "config/deepseek_agent_policy.v1.json",
+      "config/deepseek_auto_review_policy.v1.json",
+      ".github/workflows/deepseek-pr-review-auto.yml",
+      "tests/test_deepseek_review_bootstrap.py",
+      "tests/test_deepseek_v4_pro_promotion.py",
+      "docs/evidence/DEEPSEEK_V4_PRO_OWNER_AUTHORIZATION_0.8.0.json",
+      "tests/test_deepseek_v4_pro_owner_authorization.py"
+    ],
+    "effects_authorized": [
+      "GITHUB_BRANCH_WRITE",
+      "GITHUB_PR_CREATE_OR_UPDATE",
+      "CI_EXECUTION",
+      "READONLY_DEEPSEEK_API_REVIEW",
+      "PINNED_MERGE_AFTER_GREEN_CI_AND_REVIEW"
+    ],
+    "effects_not_authorized": [
+      "DIRECT_MAIN_WRITE",
+      "SELF_MERGE",
+      "DRIVE_WRITE_FOR_MODEL_PROMOTION",
+      "SERVING_WRITE",
+      "PUBLICATION",
+      "SITE_MUTATION",
+      "SCHEDULE",
+      "RECURRENCE",
+      "SECRET_READBACK",
+      "SECRET_EXPOSURE"
+    ]
+  },
+  "evidence_semantics": {
+    "prospective_current_owner_instruction": true,
+    "verbatim_typo_does_not_define_target_model": true,
+    "normalized_intent_is_resolved_only_against_existing_repository_allowlist": true,
+    "not_a_retroactive_signature": true,
+    "not_a_blanket_future_authorization": true
+  },
+  "status": "OWNER_AUTHORIZATION_EXPLICITLY_RESOLVED_TO_DEEPSEEK_V4_PRO"
+}

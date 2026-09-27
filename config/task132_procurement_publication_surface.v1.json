@@ -1,0 +1,133 @@
+{
+  "version": 1,
+  "schema": "TASK132_PROCUREMENT_PUBLICATION_SURFACE_SELECTION_V1",
+  "mode": "T0_OFFLINE_PUBLIC_DOCUMENTATION_SELECTION_ONLY",
+  "base_sha": "7edcfa51686ae25d1489db72baa3b494cb4cd04e",
+  "issue": 465,
+  "target": {
+    "cnpj_orgao": "45132495000140",
+    "municipality": "Limeira/SP",
+    "publication_referent": "JOM 7126 - 28/11/2025",
+    "procurement_title": "EDITAL DE CREDENCIAMENTO ESCOLA EM TEMPO INTEGRAL 2026",
+    "policy_program": "PROGRAMA DE EDUCACAO INTEGRAL",
+    "procurement_mode": "CREDENCIAMENTO",
+    "procurement_mode_code": 12
+  },
+  "selected_surface": {
+    "name": "PNCP_PUBLIC_CONTRATACOES_BY_PUBLICATION",
+    "registry": "PNCP",
+    "source_role": "SECONDARY_AGGREGATOR",
+    "endpoint_template": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao",
+    "method": "GET",
+    "official_documentation_basis": [
+      {
+        "source": "PNCP_API_CONSULTATION_MANUAL_OFFICIAL",
+        "url": "https://www.gov.br/pncp/pt-br/pncp/manuais/versoes-anteriores/ManualPNCPAPIConsultasVerso1.0.pdf/@@download/file",
+        "observed": "Endpoint /v1/contratacoes/publicacao accepts dataInicial, dataFinal, codigoModalidadeContratacao, cnpj and pagina; page size may be up to 500."
+      },
+      {
+        "source": "PNCP_CURRENT_PUBLIC_APP",
+        "url": "https://pncp.gov.br/app/editais",
+        "observed": "Current public app exposes Editais/Avisos and modality filter; modalidade 12 renders Credenciamento."
+      },
+      {
+        "source": "PNCP_CURRENT_INTEGRATION_MANUAL_V2_6",
+        "url": "https://pncp.gov.br/manual/pt-br/latest/singlehtml/index.html",
+        "observed": "Current integration model exposes stable contratação identifiers and detail resources under /v1/orgaos/{cnpj}/compras/{ano}/{sequencial}."
+      }
+    ]
+  },
+  "initial_live_probe": {
+    "authorized_now": false,
+    "data_inicial": "20251128",
+    "data_final": "20260904",
+    "codigo_modalidade_contratacao": 12,
+    "cnpj": "45132495000140",
+    "pagina": 1,
+    "tamanho_pagina": 500,
+    "get_requests_max": 1,
+    "redirects_max": 0,
+    "retry": 0,
+    "timeout_seconds": 60,
+    "exact_url": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao?dataInicial=20251128&dataFinal=20260904&codigoModalidadeContratacao=12&cnpj=45132495000140&pagina=1&tamanhoPagina=500"
+  },
+  "desired_candidate_fields": [
+    "numeroControlePNCP",
+    "anoCompra",
+    "sequencialCompra",
+    "numeroCompra",
+    "processo",
+    "objetoCompra",
+    "informacaoComplementar",
+    "modalidadeId",
+    "modalidadeNome",
+    "tipoInstrumentoConvocatorioNome",
+    "dataPublicacaoPncp",
+    "dataAberturaProposta",
+    "dataEncerramentoProposta",
+    "orgaoEntidade",
+    "unidadeOrgao"
+  ],
+  "candidate_matching": {
+    "strong_markers": [
+      "PROGRAMA DE EDUCACAO INTEGRAL",
+      "PROGRAMA ESCOLA EM TEMPO INTEGRAL",
+      "ESCOLA EM TEMPO INTEGRAL",
+      "EDUCACAO EM TEMPO INTEGRAL",
+      "EDUCACAO INTEGRAL"
+    ],
+    "title_context_markers": [
+      "CREDENCIAMENTO",
+      "OFICINEIRO",
+      "OFICINEIROS",
+      "OFICINAS EXTRACURRICULARES"
+    ],
+    "strong_policy_marker_required": true,
+    "weak_context_alone_qualifies": false,
+    "fields_to_search": [
+      "objetoCompra",
+      "informacaoComplementar"
+    ]
+  },
+  "followup_if_candidate": {
+    "exact_current_detail_endpoint": "https://pncp.gov.br/api/pncp/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}",
+    "items_endpoint": "https://pncp.gov.br/api/pncp/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}/itens",
+    "history_endpoint": "https://pncp.gov.br/api/pncp/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}/historico",
+    "budget_sources_endpoint": "https://pncp.gov.br/api/pncp/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}/fonte-orcamentaria",
+    "contracts_endpoint": "https://pncp.gov.br/api/pncp/v1/orgaos/{cnpj}/contratos/contratacao/{ano}/{sequencial}",
+    "each_followup_requires_separate_gate": true
+  },
+  "epistemic_semantics": {
+    "source_role": "SECONDARY_AGGREGATOR",
+    "procurement_identifier_candidate_max_status": "CORROBORATED",
+    "primary_municipal_verification_required": true,
+    "automatic_financial_identity": false,
+    "automatic_transaction_identity": false,
+    "automatic_supplier_linkage": false,
+    "weak_join_forbidden": true
+  },
+  "rejected_surfaces": [
+    {
+      "surface": "PNCP_CONTRACTS_STRONG_MARKER_SCAN",
+      "reason": "EXHAUSTED_TASK128_TO_TASK130_2023_OF_2023_ZERO_STRONG_CANDIDATES"
+    },
+    {
+      "surface": "JOM_7126_RAW_PDF",
+      "reason": "TASK127_SINGLE_USE_TRANSPORT_CONSUMED_ZERO_BYTES"
+    },
+    {
+      "surface": "WEB_INDEX_ONLY_IDENTIFIER_SEARCH",
+      "reason": "TASK131_16_QUERIES_ZERO_STABLE_IDENTIFIER"
+    }
+  ],
+  "remote_effects": {
+    "network": false,
+    "pncp_request": false,
+    "drive_read": false,
+    "drive_write": false,
+    "persistence": false,
+    "publication": false,
+    "retry": false,
+    "schedule": false
+  }
+}

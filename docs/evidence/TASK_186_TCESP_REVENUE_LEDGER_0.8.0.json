@@ -1,0 +1,122 @@
+{
+  "schema": "TASK186_TCESP_REVENUE_LEDGER_EVIDENCE_V1",
+  "task": "TASK_186_TCESP_REVENUE_LEDGER_2026",
+  "pr": 590,
+  "base_main_sha": "3ca35262df7eef66eb96877bfd28dd87c6ad7e69",
+  "status": "PASS_REAL_TCESP_REVENUE_LEDGER_MATERIALIZED",
+  "source": {
+    "acquisition": "OWNER_SUPPLIED_OFFICIAL_ZIP",
+    "source_url": "https://transparencia.tce.sp.gov.br/sites/default/files/csv/receitas-limeira-2026.zip",
+    "zip_sha256": "d138522776b1a10bf9b512741c442bfee04a0d3e03e04a1c20a38f44b84f7fc5",
+    "zip_bytes": 81921,
+    "csv_member": "receitas-limeira-2026.csv",
+    "csv_sha256": "725f605a68f1eea8aa76686b1025490ab08e1c5f2fb586f7a762c27d4831e34f",
+    "csv_bytes": 1303231,
+    "row_count": 2286,
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "august_present_in_snapshot": false,
+    "unique_official_record_ids": 2286,
+    "negative_adjustment_rows": 267,
+    "invalid_amounts": 0,
+    "required_field_gaps": 0,
+    "bronze": {
+      "zip_drive_id": "1vVQYxNoRtWdQjOYYKGlZTUVdbLtpJo7V",
+      "csv_drive_id": "1aYYX4Qiim4aL2kBwo_PD7FLfmuzOaCCz",
+      "manifest_drive_id": "1YQsVe-Ima9CiP2nEqFNl1EZAYo6mH_pW",
+      "manifest_sha256": "7b55bbe4f26dade7c855599c6f99d3705893127080bb378b603fd4daf9f7e3ff"
+    }
+  },
+  "revenue_ledger": {
+    "product_name": "REVENUE_LEDGER",
+    "product_schema": "REVENUE_LEDGER_V1",
+    "row_count": 2286,
+    "snapshot_id": "fd110fa5c0c2a2583c475a19",
+    "content_sha256": "fd110fa5c0c2a2583c475a191fef23669c9453a2dbf015a92036247c03d3b8e6",
+    "json_file_sha256": "5d9d0386836097fe37082bc291345ea39e9a42bfb7e76779d2de7c337b9a06a1",
+    "gzip_sha256": "02c644bfaf35a70a981967afdc15e0d0e548ed7df30a6da54e21435b17564847",
+    "gzip_bytes": 246707,
+    "drive_id": "1Qwcucw5eUd18kJmg0wLqAT-EN6CuB04i",
+    "manifest_drive_id": "1__JJeS5zJlynY2_VwVFhyUaLsxbdJ-14",
+    "manifest_sha256": "50f99957b6db91ba333f035691aba5b0c3247c6be7d92706dd4a5e798ac7c5f9",
+    "capabilities": [
+      "APPLICATION_FIXED",
+      "APPLICATION_VARIABLE",
+      "EDUCATION_REVENUE_CLASSIFICATION",
+      "ETI_REVENUE_CLASSIFICATION",
+      "EVENT_MONTH",
+      "FUNDEB_REVENUE_CLASSIFICATION",
+      "FUNDING_SOURCE",
+      "OFFICIAL_RECORD_ID",
+      "REVENUE_AMOUNT",
+      "REVENUE_NATURE_HIERARCHY"
+    ]
+  },
+  "observed_financial_signals": {
+    "all_organs_net_revenue_jan_jul_brl": "1297518731.15",
+    "prefeitura_net_revenue_jan_jul_brl": "1117414208.00",
+    "ipml_net_revenue_jan_jul_brl": "180104523.15",
+    "broad_education_application_net_brl": "241960964.18",
+    "fundeb_linked_net_brl": "118066203.65",
+    "salario_educacao_linked_net_brl": "9081653.07",
+    "pnae_linked_net_brl": "3897285.01",
+    "pnate_linked_net_brl": "142163.23"
+  },
+  "eti": {
+    "direct_transfer_rows": 2,
+    "direct_transfer_net_brl": "3606418.18",
+    "financial_remuneration_rows": 5,
+    "financial_remuneration_net_brl": "85724.69",
+    "all_linked_rows": 7,
+    "all_linked_net_brl": "3692142.87",
+    "semantic_guard": "ETI_DIRECT_TRANSFER_NE_ETI_FINANCIAL_REMUNERATION_AND_REVENUE_NE_EXPENDITURE"
+  },
+  "answerability": {
+    "question_count": 38,
+    "changed_question_count": 1,
+    "change": {
+      "question_id": "FIN_Q3",
+      "question": "Quanto vem de FUNDEB, recursos proprios e transferencias?",
+      "before": "MATERIALIZED_PARTIAL",
+      "after": "MATERIALIZED_ANSWERABLE"
+    },
+    "before_status_counts": {
+      "MATERIALIZED_ANSWERABLE": 17,
+      "MATERIALIZED_PARTIAL": 16,
+      "EXPLICIT_GAP": 5
+    },
+    "after_status_counts": {
+      "MATERIALIZED_ANSWERABLE": 18,
+      "MATERIALIZED_PARTIAL": 15,
+      "EXPLICIT_GAP": 5
+    }
+  },
+  "serving": {
+    "mapping_reserved": "OBS_REVENUE_LEDGER__SERVING",
+    "write_performed": false,
+    "publication_performed": false
+  },
+  "guards": [
+    "REVENUE_NE_EXPENDITURE",
+    "REVENUE_CLASSIFICATION_NE_EXPENDITURE_DESTINATION",
+    "NEGATIVE_REVENUE_ROW_NE_INVALID_ROW",
+    "OFFICIAL_RECORD_ID_PRESERVED",
+    "ETI_DIRECT_TRANSFER_NE_ETI_FINANCIAL_REMUNERATION",
+    "AUGUST_NOT_PRESENT_IN_SNAPSHOT_NE_GLOBAL_NO_REVENUE",
+    "REVENUE_LEDGER_NE_ACCOUNTING_LEDGER"
+  ],
+  "remote_effects": {
+    "source_network_gets": 0,
+    "serving_writes": 0,
+    "publication_writes": 0,
+    "schedule": 0,
+    "recurrence": 0
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "schema": "MD_01_3_INCREMENTAL_VALUE_AUDIT_V1",
+  "task": "TASK_226",
+  "issue": 764,
+  "audit_started_from_main_sha": "ae818d8e5d7b5d75d64068b0dd9752b211126278",
+  "scope": {
+    "source": "MD_01.3 / MD_01.3B manifest",
+    "safe_high_value_slice_before_subtraction": 101,
+    "already_materialized_by_new_depth_tasks": ["DOC-066", "DOC-105"],
+    "remaining_documents": 99,
+    "contextual_coverage": "38/38_UNCHANGED"
+  },
+  "classification_enum": [
+    "NOVEL_SUBSTANTIVE",
+    "CORROBORATION_ONLY",
+    "SUPERSEDED_BY_STRONGER_CANONICAL_SOURCE",
+    "INDEX_ONLY",
+    "BLOCKED_NO_TEXT"
+  ],
+  "classification_counts": {
+    "NOVEL_SUBSTANTIVE": 7,
+    "CORROBORATION_ONLY": 24,
+    "SUPERSEDED_BY_STRONGER_CANONICAL_SOURCE": 15,
+    "INDEX_ONLY": 52,
+    "BLOCKED_NO_TEXT": 1
+  },
+  "classes": {
+    "NOVEL_SUBSTANTIVE": {
+      "count": 7,
+      "ids": ["DOC-005", "DOC-006", "DOC-009", "DOC-010", "DOC-013", "DOC-016", "DOC-017"],
+      "reason": "Annual accounting statements add year-end budget, financial, patrimonial and variation dimensions not currently materialized as canonical robot products.",
+      "repo_novelty_probe": "NO_EXACT_HIT_FOR_2025_PATRIMONIAL_TOTAL_OR_2025_EDUCATION_FINANCIAL_BALANCE_VALUES"
+    },
+    "CORROBORATION_ONLY": {
+      "count": 24,
+      "subsets": {
+        "RREO_LRF": {
+          "count": 18,
+          "ids": ["DOC-041", "DOC-043", "DOC-044", "DOC-045", "DOC-046", "DOC-047", "DOC-048", "DOC-050", "DOC-052", "DOC-053", "DOC-055", "DOC-056", "DOC-059", "DOC-060", "DOC-061", "DOC-062", "DOC-063", "DOC-064"],
+          "known_canonical_overlap": ["TASK_188_RREO_RESTS_PAYABLE_MATERIALIZATION", "TASK_190_RREO_EDUCATION_SPENDING_MATERIALIZATION", "MD_01_2_DERIVED_FISCAL_DOSSIER"],
+          "policy": "USE_FOR_INDEPENDENT_CHECK_OR_PRIMARY_SOURCE_UPGRADE_ONLY;DO_NOT_DOUBLE_COUNT"
+        },
+        "RGF_LRF": {
+          "count": 6,
+          "ids": ["DOC-042", "DOC-049", "DOC-051", "DOC-054", "DOC-057", "DOC-058"],
+          "known_existing_layer": "MD_01_2_DERIVED_RGF_SYNTHESIS",
+          "primary_source_upgrade_candidate": true,
+          "policy": "FACTS_ALREADY_PRESENT_IN_DERIVED_DOSSIER;EXACT_RGF_MAY_STRENGTHEN_AUTHORITY_WITHOUT_BEING_COUNTED_AS_NEW FACT"
+        }
+      }
+    },
+    "SUPERSEDED_BY_STRONGER_CANONICAL_SOURCE": {
+      "count": 15,
+      "subsets": {
+        "MONTHLY_REVENUE_EXPENSE": {
+          "count": 10,
+          "ids": ["DOC-003", "DOC-004", "DOC-007", "DOC-008", "DOC-011", "DOC-012", "DOC-014", "DOC-015", "DOC-018", "DOC-019"],
+          "stronger_layers": ["TASK_186_TCESP_REVENUE_LEDGER_2026", "TASK_187_TCESP_RICH_ACCOUNTING_LEDGER_2026", "F02_LOCAL_MONITORING_2026_JAN_MAY"],
+          "registry_guard": "F02_LOCAL_MONITORING_2026_JAN_MAY_ALREADY_PROCESSED_DO_NOT_REINGEST_BY_FOLDER_NAME"
+        },
+        "PLANNING_2026": {
+          "count": 5,
+          "ids": ["DOC-097", "DOC-098", "DOC-099", "DOC-100", "DOC-101"],
+          "stronger_layers": ["F01_PPA_LDO_LOA_2026", "TASK_184_LOCAL_JOM_PLANNING_BUNDLE", "TASK_189_LOA_SUBSTANTIVE_PLANNING_OVERLAY"],
+          "doc100_historical_status": "SEM_TEXTO_IN_MD_01_3;OK_OCR_IN_MD_01_3B;OPERATIONAL_CONTENT_ALREADY_CANONICAL_ELSEWHERE"
+        }
+      }
+    },
+    "INDEX_ONLY": {
+      "count": 52,
+      "subsets": {
+        "FUNDEB_25_EDUCACAO_PORTAL_REPORTS": {
+          "count": 50,
+          "id_ranges": ["DOC-020..DOC-040", "DOC-068..DOC-096"],
+          "reason": "Opaque/repetitive portal report slices span multiple timestamps and periods; semantic fingerprint and deduplication are required before any fact promotion.",
+          "next_action": "FINGERPRINT_HEADERS_PERIODS_AND_LOGICAL_REPORT_ID_BEFORE_CONTENT_INGEST"
+        },
+        "ANNUAL_ACCOUNTABILITY_RECEIPTS": {
+          "count": 2,
+          "ids": ["DOC-103", "DOC-104"],
+          "reason": "TCE annual-account submission receipts prove delivery/provenance, not the substantive accounting statements themselves."
+        }
+      }
+    },
+    "BLOCKED_NO_TEXT": {
+      "count": 1,
+      "ids": ["DOC-065"],
+      "historical_status": "SEM_TEXTO_IN_MD_01_3",
+      "ocr_status": "OK_OCR_IN_MD_01_3B",
+      "policy": "OCR_MAY_SUPPORT_LOCATOR_OR_REVIEW_BUT_NOT_NUMERIC_TRUTH_WITHOUT_PRIMARY_VALIDATION"
+    }
+  },
+  "priority_queue": [
+    {"priority": 1, "bundle": "ANNUAL_ACCOUNTING_2025", "ids": ["DOC-017", "DOC-010", "DOC-006"], "why": "Highest novelty: patrimonial position, financial flows including linked Education, and annual budget closure."},
+    {"priority": 2, "bundle": "ANNUAL_ACCOUNTING_2024_COMPARATOR", "ids": ["DOC-016", "DOC-009", "DOC-005", "DOC-013"], "why": "Creates comparable prior-year baseline and adds 2024 patrimonial-variation statement."},
+    {"priority": 3, "bundle": "RGF_PRIMARY_AUTHORITY_UPGRADE", "ids": ["DOC-057", "DOC-042", "DOC-049", "DOC-051", "DOC-054", "DOC-058"], "why": "Exact primary RGF can replace reliance on derived MD_01.2 synthesis while preserving the same semantics."},
+    {"priority": 4, "bundle": "RREO_CORROBORATION_GAPS", "ids": ["DOC-041", "DOC-043", "DOC-044", "DOC-045", "DOC-046", "DOC-047", "DOC-048", "DOC-050", "DOC-052", "DOC-053", "DOC-055", "DOC-056", "DOC-059", "DOC-060", "DOC-061", "DOC-062", "DOC-063", "DOC-064"], "why": "Only ingest exact annexes that add granularity not already covered by TASK 188/190 or structured fiscal layers."},
+    {"priority": 5, "bundle": "FUNDEB_PORTAL_FINGERPRINT", "ids": ["DOC-020..DOC-040", "DOC-068..DOC-096"], "why": "Deduplicate and identify periods/logical reports before deciding whether any of the 50 PDFs add facts."}
+  ],
+  "direct_source_observations_supporting_priority": {
+    "DOC-017": "2025 Balanço Patrimonial exposes assets, liabilities, patrimonial balance and source-level financial surplus/deficit, including Education/FUNDEB rows.",
+    "DOC-010": "2025 Balanço Financeiro exposes annual linked Education budget revenue and expense plus cash opening/closing positions.",
+    "DOC-006": "2025 Balanço Orçamentário exposes consolidated year-end initial/updated forecast, realized revenue, expenditure and annual result semantics.",
+    "DOC-104": "Prestação de contas 2025 is a TCE receipt proving annual submission, not a substantive accounting statement."
+  },
+  "guards": [
+    "PDF_NE_NOVELTY",
+    "SAME_FACT_DIFFERENT_FILE_NE_NEW_FACT",
+    "STRUCTURED_OFFICIAL_SOURCE_PRECEDENCE",
+    "NO_DOUBLE_COUNTING",
+    "CORROBORATION_NE_CANONICAL_OVERRIDE",
+    "SEM_TEXTO_NE_ZERO",
+    "OCR_NE_NUMERIC_TRUTH",
+    "RECEIPT_NE_SUBSTANTIVE_ACCOUNTING_STATEMENT",
+    "PRIMARY_SOURCE_UPGRADE_NE_NEW_FACT_IF_SEMANTICS_ALREADY_PRESENT",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "remote_effects": {"new_source_network": false, "drive_write": false, "serving": false, "publication": false, "schedule": false, "recurrence": false}
+}

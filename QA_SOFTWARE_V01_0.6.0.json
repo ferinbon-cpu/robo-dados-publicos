@@ -1,0 +1,15 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.6.0",
+  "status": "CANDIDATE",
+  "compileall": "PASS",
+  "unit_tests": "92/92 PASS",
+  "historical_regressions": "109/109 PASS",
+  "release_identity": "PASS_ACTIVE_0.5.9_CANDIDATE_0.6.0",
+  "source_inventory": "PASS_EXACTLY_ONE_ENABLED_SOURCE",
+  "immutable_source_contract": "PASS_CONTENT_TYPE_SHA256_BYTES",
+  "source_dry_run": "PASS_NETWORK_NOT_CALLED_WRITES_NONE",
+  "github_source_live_gate": "PENDING",
+  "workflow_schedule": "DISABLED",
+  "secret_scan": "PASS"
+}

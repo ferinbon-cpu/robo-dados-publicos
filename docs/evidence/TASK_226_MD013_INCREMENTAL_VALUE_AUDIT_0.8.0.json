@@ -1,0 +1,47 @@
+{
+  "schema": "TASK226_MD013_INCREMENTAL_VALUE_AUDIT_EVIDENCE_V1",
+  "task": "TASK_226",
+  "issue": 764,
+  "status": "CANDIDATE_99_DOCUMENT_INCREMENTAL_VALUE_PARTITION_MATERIALIZED",
+  "universe": {
+    "safe_slice": 101,
+    "already_digested": ["DOC-066", "DOC-105"],
+    "remaining": 99
+  },
+  "result": {
+    "novel_substantive": 7,
+    "corroboration_only": 24,
+    "superseded_by_stronger_canonical_source": 15,
+    "index_only": 52,
+    "blocked_no_text": 1
+  },
+  "novelty_proof": {
+    "repo_search_2025_patrimonial_total": "NO_HIT",
+    "repo_search_2025_education_financial_values": "NO_HIT",
+    "direct_file_observations": [
+      "DOC-017 Balanço Patrimonial 2025 contains asset/passive/patrimonial and financial-source surplus-deficit dimensions including Education/FUNDEB rows.",
+      "DOC-010 Balanço Financeiro 2025 contains linked Education budget revenue and expense and opening/closing cash positions.",
+      "DOC-006 Balanço Orçamentário 2025 contains annual consolidated year-end budget execution semantics.",
+      "DOC-104 Prestação de contas 2025 is a TCE annual submission receipt rather than the substantive statements."
+    ]
+  },
+  "canonical_overlap_proof": {
+    "monthly_2026": ["TASK_186_TCESP_REVENUE_LEDGER_2026", "TASK_187_TCESP_RICH_ACCOUNTING_LEDGER_2026", "F02_LOCAL_MONITORING_2026_JAN_MAY"],
+    "rreo": ["TASK_188_RREO_RESTS_PAYABLE_MATERIALIZATION", "TASK_190_RREO_EDUCATION_SPENDING_MATERIALIZATION"],
+    "planning": ["F01_PPA_LDO_LOA_2026", "TASK_184_LOCAL_JOM_PLANNING_BUNDLE", "TASK_189_LOA_SUBSTANTIVE_PLANNING_OVERLAY"],
+    "rgf_existing_secondary_layer": "MD_01_2_DERIVED_RGF_SYNTHESIS"
+  },
+  "next": {
+    "bundle": "ANNUAL_ACCOUNTING_2025",
+    "ids": ["DOC-017", "DOC-010", "DOC-006"],
+    "rule": "MATERIALIZE_DIRECT_SOURCE_SEMANTICS_WITHOUT_COLLAPSING_PATRIMONIAL_FINANCIAL_AND_BUDGET_CONCEPTS"
+  },
+  "non_claims": [
+    "NO_CLAIM_THAT_EVERY_FUNDEB_PORTAL_PDF_IS_DUPLICATE",
+    "NO_CLAIM_THAT_CORROBORATION_ONLY_FILES_ARE_USELESS",
+    "NO_NUMERIC_PROMOTION_FROM_AUDIT_ALONE",
+    "NO_REINGESTION_OF_ALREADY_CANONICAL_F01_F02_TCE_RREO_FACTS",
+    "NO_38_38_COVERAGE_CHANGE"
+  ],
+  "remote_effects": false
+}

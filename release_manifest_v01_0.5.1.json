@@ -1,0 +1,20 @@
+{
+  "name": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.5.1",
+  "status": "CANDIDATE",
+  "release_date": "2026-08-21",
+  "milestone": "M4E1_TDA_LIMEIRA_PASSIVE_DISCOVERY",
+  "python": ">=3.11",
+  "github_runner_python": "3.12",
+  "historical_regressions": "109/109 PASS",
+  "unit_tests": "26/26 PASS",
+  "compileall": "PASS",
+  "portal_probe_contract": "PASS_LOCAL_FIXTURE",
+  "robots_disallow_guard": "PASS_LOCAL_FIXTURE",
+  "human_challenge_stop_guard": "PASS_LOCAL_FIXTURE",
+  "sensitive_query_redaction": "PASS_LOCAL_FIXTURE",
+  "live_tda_probe": "PENDING_EXTERNAL_RUNTIME",
+  "live_github_actions": "PENDING",
+  "production_tda_collection": "DISABLED_UNTIL_ENDPOINT_CONTRACT_PROVEN",
+  "next_action": "M4E1_RUN_TDA_LIMEIRA_PASSIVE_PROBE"
+}

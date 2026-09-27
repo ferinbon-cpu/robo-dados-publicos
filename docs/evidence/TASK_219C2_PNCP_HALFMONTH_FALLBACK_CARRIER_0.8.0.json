@@ -1,0 +1,87 @@
+{
+  "task": "TASK_219C2_PNCP_HALFMONTH_FALLBACK_CARRIER",
+  "issue": 691,
+  "repository": "ferinbon-cpu/robo-dados-publicos",
+  "parent_implementation_sha": "f08b55d7044fa00bac80537bd647c934b1d60bf8",
+  "failed_runtime": {
+    "run_id": 34364890448,
+    "head_sha": "3dc1721e34379f050b23849a1d68a3ff06c0e65d",
+    "artifact_id": 10109452715,
+    "artifact_zip_sha256": "c7065330f8cd970f0bf5dc02463f3b865e38dcfa69bcf62a8c0370fdf984bad2",
+    "sanitized_result_sha256": "4dcced3a9f00cb3f558f640c406f0964b8c7bd2bdd2d768d3113178be6e9f3a4",
+    "status": "STOP_PARTITION_SOURCE_TRANSPORT_OR_HTTP_OR_JSON_UNAVAILABLE",
+    "failed_partition": "2026-01",
+    "failed_page": 1,
+    "request_count": 1,
+    "bytes_received": 0,
+    "transport_error": "TRANSPORT_ERROR:TimeoutError:The read operation timed out",
+    "scientific_effect": "NONE",
+    "absence_inference": false,
+    "token_consumed": 4
+  },
+  "historical_reference": {
+    "prior_complete_run_id": 34273403423,
+    "same_endpoint": true,
+    "prior_complete_total_records": 1933,
+    "prior_request_count": 10,
+    "january_record_count": 216,
+    "january_response_bytes": 330879,
+    "march_record_count": 520,
+    "march_max_single_response_bytes": 767680
+  },
+  "fallback": {
+    "partition_count": 18,
+    "partition_grain": "HALF_MONTH_OR_SMALLER_FINAL_SEPTEMBER_WINDOW",
+    "tamanhoPagina": 250,
+    "max_pages_per_partition": 3,
+    "max_total_remote_gets": 54,
+    "timeout_seconds": 120,
+    "retry_max": 0,
+    "redirects_max": 0,
+    "exact_scope": [
+      "20260101",
+      "20260908"
+    ],
+    "gap_free": true,
+    "overlap_free": true
+  },
+  "identity_model": {
+    "input_anchor_rows": 449,
+    "unique_identities": 303,
+    "exact_process_identities": 195,
+    "exact_contract_identities": 108,
+    "process_supplier_conflict_blocks_identity": false,
+    "contract_supplier_conflict_blocks_identity": true,
+    "cnpj_alone_is_identity": false,
+    "amount_similarity_is_identity": false,
+    "date_proximity_is_identity": false,
+    "object_text_is_identity": false,
+    "semantic_similarity_is_identity": false
+  },
+  "authorization": {
+    "fresh_token_required": true,
+    "failed_runtime_authorization_reuse_allowed": false,
+    "intended_next_token_index": 5,
+    "intended_remaining_after_runtime": 5
+  },
+  "forbidden_effects": {
+    "tce_network": true,
+    "drive_write": true,
+    "serving": true,
+    "publication": true,
+    "promotion": true,
+    "schedule": true,
+    "recurrence": true
+  },
+  "scientific_state": {
+    "contextual_paths_before": 34,
+    "contextual_paths_after_carrier": 34,
+    "end_to_end_jom_pncp_tce_chain_proven": false,
+    "remaining_blockers": [
+      "CTRL_Q2",
+      "PROC_Q1",
+      "PROC_Q2",
+      "PROC_Q3"
+    ]
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "schema": "RESEARCH_LOCATOR_PROVENANCE_V1",
+  "mode": "T0_OFFLINE_PROVENANCE_NORMALIZATION",
+  "coordinate_systems": [
+    "JOURNAL_EDITION_PDF_PAGE",
+    "STANDALONE_PDF_PAGE",
+    "DOCUMENT_INTERNAL_PRINTED_PAGE",
+    "REPORT_LINE",
+    "LEGACY_UNTYPED_PAGE"
+  ],
+  "equivalence_requirements": [
+    "SAME_COORDINATE_SYSTEM_AND_SAME_SOURCE_IDENTITY",
+    "OR_EXPLICIT_PROVEN_OFFSET_WITH_SOURCE_BASIS"
+  ],
+  "invariants": [
+    "RAW_PAGE_NUMBERS_FROM_DIFFERENT_OR_UNTYPED_COORDINATE_SYSTEMS_MUST_NOT_BE_EQUATED",
+    "LEGACY_UNTYPED_PAGE_CANNOT_BE_SILENTLY_RELABELED",
+    "SOURCE_SHA256_OR_EQUIVALENT_STABLE_SOURCE_IDENTITY_REQUIRED_FOR_DIRECT_PAGE_EQUIVALENCE",
+    "ARITHMETIC_OFFSET_ALONE_DOES_NOT_PROVE_PAGE_EQUIVALENCE",
+    "UNRESOLVED_LOCATOR_CONFLICT_PRESERVES_ALL_OBSERVED_LOCATORS",
+    "PROVEN_PRIMARY_LOCATOR_MAY_BE_PREFERRED_FOR_NEW_CITATION_WITHOUT_REWRITING_LEGACY_HISTORY"
+  ],
+  "task097_case": {
+    "document": "PPA 2026-2029 / Lei 7.213/2025",
+    "legacy_locator": {
+      "page": 18,
+      "coordinate_system": "LEGACY_UNTYPED_PAGE",
+      "source_key": "ppa_7213_2025",
+      "source_sha256": null
+    },
+    "primary_journal_locator": {
+      "page": 15,
+      "coordinate_system": "JOURNAL_EDITION_PDF_PAGE",
+      "source_key": "SOURCE_JOM_7119_2025-11-15_PPA_7213_2025.pdf",
+      "source_sha256": "cb65f29c772eb7133c902e827884a4ed19d8c09f64586b8de9d6483023d9133a",
+      "page_text_sha256": "b6d44ee39efeed3b1acc3dccabbf56c73fb6914ef8ce15003d144c44a59e5eb4"
+    },
+    "equivalence_status": "UNRESOLVED_LEGACY_COORDINATE_SYSTEM",
+    "preferred_new_citation_locator": "PRIMARY_JOURNAL_PAGE_15",
+    "legacy_locator_preserved": true
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}

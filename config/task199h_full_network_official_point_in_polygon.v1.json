@@ -1,0 +1,154 @@
+{
+  "version": 1,
+  "schema": "TASK199H_FULL_NETWORK_OFFICIAL_POINT_IN_POLYGON_V1",
+  "task": "TASK_199H",
+  "issue": 628,
+  "base_main_sha": "f0ab72b6a001e9c2e074c473066977da5f6ed995",
+  "mode": "T0_CANONICALIZE_PROVEN_PUBLIC_MUNICIPAL_POINTS_PLUS_OFFICIAL_IBGE_GEOMETRY",
+  "scope": {
+    "municipality": "Limeira",
+    "ibge_code": "3526902",
+    "network": "MUNICIPAL",
+    "active_school_denominator_2025": 69,
+    "before_strong_links": 64,
+    "after_strong_links": 69,
+    "full_network": true
+  },
+  "sources": {
+    "municipal_geoportal": {
+      "authority": "PREFEITURA_MUNICIPAL_LIMEIRA",
+      "public_frontend": "https://limeira.geopixel.com.br/geopixelcidades3/",
+      "public_backend": "https://limeira.geopixel.com.br/geopixelcidades3_server",
+      "theme_id": 1234,
+      "theme_name": "Escola Municipal",
+      "layer": "limeira:escola_municipal_limeira",
+      "srid": 3857,
+      "access": "PUBLIC_ANONYMOUS_SESSION",
+      "regular_login": false,
+      "registration": false,
+      "token_persisted": false
+    },
+    "ibge_sector_geometry": {
+      "authority": "IBGE_CENSO_2022",
+      "url": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/malha_com_atributos/setores/gpkg/UF/SP/SP_setores_CD2022.gpkg",
+      "bytes": 182128640,
+      "sha256": "07affc966f82292d6f9a359adccc49e69ed55d2075936ef6d1e9c346b29a04bc",
+      "limeira_sector_rows": 735,
+      "raw_persisted": false
+    },
+    "basic_sector_zip_sha256": "ec04624286233d699ebe69c7b9625744a1cfdfc8352126f30245bdef5e9bdc63",
+    "income_sector_zip_sha256": "141c83e7635674e7e2c941e55f98811e538fcbf2e1e1125b0aa7892c260f4a23",
+    "income_dictionary_sha256": "fea6e2b2439eeb167c6fa9c136ed7cb13ebcb06f4c875d634e3e2578c668a48d"
+  },
+  "promotions": [
+    {
+      "codigo_inep": "35208437",
+      "school": "EMEIEF Ismael Pereira Lago, Pastor",
+      "geoportal_gid": 49,
+      "geoportal_address": "Av Luis Vaz De Camoes 330 Jd Caieira",
+      "lon": -47.44221918395775,
+      "lat": -22.56221889274754,
+      "sector_id": "352690205000447",
+      "sector_population_2022": 481,
+      "responsible_income_mean_nominal_monthly_brl": 2701.31,
+      "responsible_income_median_nominal_monthly_brl": 2000,
+      "V06004_sector_percentile_unweighted": 45.5
+    },
+    {
+      "codigo_inep": "35286229",
+      "school": "EMEIEF Maurício Sebastião Ferreira, Padre",
+      "geoportal_gid": 67,
+      "geoportal_address": "R: João Pompeu Filho, 571 Jardim Do Lago",
+      "lon": -47.42359146537795,
+      "lat": -22.607998943052685,
+      "sector_id": "352690205000913",
+      "sector_population_2022": 4,
+      "income_status": "SOURCE_EXPLICIT_X",
+      "income_rows_materialized": 0
+    },
+    {
+      "codigo_inep": "35004773",
+      "school": "EMEIEF Raquel Aparecida Gonçalves Franceschi, Profa.",
+      "geoportal_gid": 76,
+      "geoportal_address": "Rua Sebastião Teixeira, 200, Residencial Rubi",
+      "lon": -47.42800455870972,
+      "lat": -22.61613584039013,
+      "sector_id": "352690205000850",
+      "sector_population_2022": 569,
+      "responsible_income_mean_nominal_monthly_brl": 1292.38,
+      "responsible_income_median_nominal_monthly_brl": 1280,
+      "V06004_sector_percentile_unweighted": 0.6
+    },
+    {
+      "codigo_inep": "35099569",
+      "school": "CI Neusa Francisco Correa da Silva",
+      "geoportal_gid": 26,
+      "geoportal_address": "Rua Olivia Sacco Iaquinta, S/N - Vila Labak",
+      "address_conflict_preserved": "OTHER_CURRENT_SME_SOURCE_MARIO_ALVES_FERRAZ_185",
+      "lon": -47.375594422497144,
+      "lat": -22.56150560013331,
+      "sector_id": "352690205000593",
+      "sector_population_2022": 559,
+      "responsible_income_mean_nominal_monthly_brl": 2058.32,
+      "responsible_income_median_nominal_monthly_brl": 1500,
+      "V06004_sector_percentile_unweighted": 15.3
+    },
+    {
+      "codigo_inep": "35241885",
+      "school": "EMEI Theresa Veronesi D Andrea",
+      "geoportal_gid": 80,
+      "geoportal_address": "Rua Manoel Rato, 25, Jardim Parque Novo Mundo",
+      "extension_excluded": {
+        "geoportal_gid": 38,
+        "name": "EMEI - Theresa Veronesi D'Andrea (Extensão)",
+        "address": "Rua Senador Vergueiro, 1309, Centro"
+      },
+      "lon": -47.39943489231738,
+      "lat": -22.598737108288702,
+      "sector_id": "352690205000232",
+      "sector_population_2022": 565,
+      "responsible_income_mean_nominal_monthly_brl": 2743.13,
+      "responsible_income_median_nominal_monthly_brl": 2450,
+      "V06004_sector_percentile_unweighted": 47.2
+    }
+  ],
+  "point_in_polygon": {
+    "status": "PASS_FIVE_UNIQUE_INTERIOR_SECTOR_MATCHES",
+    "all_unique": true,
+    "all_interior_not_boundary": true
+  },
+  "expected_product": {
+    "product_name": "TERRITORY_PROFILE",
+    "row_count": 284,
+    "school_links": 69,
+    "full_network_school_link": true,
+    "schools_with_numeric_income_context": 68,
+    "schools_with_explicit_sector_income_missingness": 1,
+    "capabilities": [
+      "CENSUS_SECTOR_CONTEXT",
+      "MUNICIPAL_DEMOGRAPHY",
+      "OFFICIAL_INCOME_DICTIONARY",
+      "SCHOOL_TO_SECTOR_LINK_FULL_NETWORK",
+      "SCHOOL_TO_SECTOR_LINK_COVERAGE_69_OF_69",
+      "SECTOR_INCOME_CONTEXT",
+      "SECTOR_INCOME_MISSINGNESS_EXPLICIT"
+    ]
+  },
+  "guards": [
+    "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
+    "SECTOR_INCOME_NE_STUDENT_OR_ENROLLED_HOUSEHOLD_INCOME",
+    "SOURCE_X_NE_ZERO",
+    "FULL_NETWORK_GEOGRAPHY_NE_COMPLETE_INCOME_FOR_EVERY_SECTOR",
+    "NEUSA_ADDRESS_CONFLICT_PRESERVED",
+    "THERESA_EXTENSION_NE_MAIN_UNIT",
+    "NO_THIRD_PARTY_GEOCODER_CANONICAL_PROMOTION"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "task": "TASK_238_CANONICAL_BASE_AFTER_TASK237",
+  "issue": 794,
+  "base_main_sha": "d678e521a6a3290ea1b51163a9433954e815fa07",
+  "upstream_task": "TASK_237",
+  "upstream_pr": 793,
+  "upstream_state": "MERGED_POST_MERGE_GREEN",
+  "post_merge_checks": {
+    "ci_offline_run_number": 1804,
+    "ci_offline": "success",
+    "hash_routing": "success",
+    "loaded_script_signatures": "success",
+    "fragment_target_structure": "success"
+  },
+  "contextual_coverage": "38/38_UNCHANGED"
+}

@@ -1,0 +1,48 @@
+{
+  "task": "TASK_119_LOA_RESEARCH_DIGEST_ADAPTER",
+  "mode": "T0_OFFLINE_VERSIONED_LOA_EVIDENCE_ADAPTER",
+  "base_sha": "ed8c6a8698f04ab26bbc9bc9debdca1c1e7062ba",
+  "issue": 435,
+  "input": "TASK_048",
+  "source_role": "BUDGET_PRIMARY",
+  "source_family": "LOA",
+  "source_sha256": "37ea54d85cc5428622b296881a279a17e1aeefd7574576e7a3414443bbee64c4",
+  "observations": {
+    "action_totals": 2,
+    "expense_groups": 4,
+    "funding_sources": 4,
+    "total": 10
+  },
+  "monetary_stage": "AUTHORIZATION_ONLY",
+  "expected_policy_signal": false,
+  "expected_financial_identity_candidates": 0,
+  "divergence": {
+    "pages": [
+      173,
+      174
+    ],
+    "text_layer_brl": 29000000,
+    "visual_brl": 28000000,
+    "selected_brl": 28000000
+  },
+  "generic_attribution": "FORBIDDEN",
+  "automatic_promotion": false,
+  "remote_effects": {
+    "network": 0,
+    "drive": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "rag": 0,
+    "state_registry": 0,
+    "queue": 0,
+    "serving": 0,
+    "publication": 0,
+    "retry": 0,
+    "recurrence": 0,
+    "schedule": 0
+  },
+  "next": "TASK_120_SIOPE_FUNDEB_REPOSITORY_EVIDENCE_ADAPTER",
+  "result": "PENDING_CI_REVIEW"
+}

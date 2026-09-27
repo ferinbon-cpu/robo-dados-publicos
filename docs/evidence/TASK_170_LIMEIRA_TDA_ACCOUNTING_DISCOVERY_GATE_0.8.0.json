@@ -1,0 +1,48 @@
+{
+  "schema": "TASK170_EVIDENCE_V1",
+  "task": 170,
+  "issue": 552,
+  "base_main_sha": "547bcff812763677ac99b576d32efe6e57bd3c80",
+  "mode": "T0_OFFLINE_SOURCE_SELECTION_ONLY",
+  "inputs_reviewed": [
+    "config/eiti_accounting_execution_source_router.v1.json",
+    "config/limeira_sources_discovery.json",
+    "versioned M4E evidence summarized in source registry"
+  ],
+  "selected_source": "LIMEIRA_TDA_PORTAL",
+  "selected_route": "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+  "selection_basis": [
+    "municipal primary authority",
+    "declared despesas capability",
+    "declared empenho/liquidacao/pagamento capability",
+    "TASK 169 ranks municipal transparency expense detail first",
+    "no stronger already-versioned municipal primary policy-to-accounting surface identified"
+  ],
+  "historical_surface_state": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN",
+  "historical_observation": "Exact ?418 route redirected to logout/root and exposed no API/download hint during prior bounded passive probe.",
+  "future_gate_policy": {
+    "direct_json_first": true,
+    "declared_machine_readable_route_only": true,
+    "endpoint_guessing": false,
+    "javascript_execution": false,
+    "authentication": false,
+    "captcha_bypass": false,
+    "form_submission": false,
+    "retry": 0,
+    "redirect_follow": 0,
+    "access_barrier_result": "SOURCE_ACCESS_SURFACE_BLOCKED_NOT_NO_DATA"
+  },
+  "authorization": {
+    "task170_live_authorized": false,
+    "task170_network_requests": 0,
+    "fresh_owner_authorization_required_before_limeira_tda_live_scope": true
+  },
+  "scientific_state": {
+    "eiti_financial_identity": "UNKNOWN",
+    "eiti_transaction_identity": "UNKNOWN",
+    "commitment": "NOT_PROVEN",
+    "liquidation": "NOT_PROVEN",
+    "payment": "NOT_PROVEN"
+  },
+  "result": "PASS_TASK170_LIMEIRA_TDA_SELECTED_FOR_FUTURE_BOUNDED_DISCOVERY_NO_LIVE_REQUEST"
+}

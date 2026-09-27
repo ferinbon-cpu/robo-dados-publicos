@@ -1,0 +1,85 @@
+{
+  "task": "TASK_053_METADATA_SAFE_CANDIDATE_INVENTORY_REDESIGN",
+  "mode": "T0_OFFLINE_METADATA_SAFE_INVENTORY_REDESIGN",
+  "base_sha": "ca9356000a2d0312283c17b2769009eb6935a26e",
+  "authorization": {
+    "owner_authorized": true,
+    "owner_message": "Prossiga",
+    "scope": "TASK_053_OFFLINE_REDESIGN_ONLY_NO_DRIVE_SOURCE_READ_NO_NETWORK_NO_REMOTE_DATA_WRITE",
+    "authorization_consumed": true,
+    "future_blanket_authorizations_accepted": false
+  },
+  "upstream": {
+    "task": "TASK_052_EXISTING_CUSTODY_GRANULAR_SOURCE_INVENTORY",
+    "result": "STOP_TASK052_SOURCE_CONTENT_READ_BOUNDARY_BREACHED_NO_PROMOTION",
+    "candidate_seed_drive_file_id": "1PTAnH-LL_8fvS7TsVuHSci5dBDKFLQTS",
+    "candidate_seed_title": "05 - Maio_despesa.pdf",
+    "candidate_seed_basis": "METADATA_TITLE_ONLY",
+    "hydrated_content_reuse_allowed": false
+  },
+  "redesigned_inventory_contract": {
+    "purpose": "ALLOW_FUTURE_EXISTING_CUSTODY_CANDIDATE_INVENTORY_WITHOUT_SOURCE_CONTENT_HYDRATION",
+    "max_candidate_records": 25,
+    "allowed_surfaces": [
+      "DRIVE_SEARCH_METADATA_ONLY",
+      "DRIVE_LIST_METADATA_ONLY"
+    ],
+    "forbidden_operations": [
+      "DRIVE_FETCH",
+      "DRIVE_CONTENT_READ",
+      "DRIVE_FILE_DOWNLOAD",
+      "OCR",
+      "PUBLIC_SOURCE_NETWORK",
+      "DRIVE_WRITE",
+      "BRONZE_WRITE",
+      "SILVER_WRITE",
+      "GOLD_WRITE",
+      "SERVING",
+      "PUBLICATION"
+    ],
+    "candidate_fields_allowed": [
+      "rank",
+      "drive_file_id",
+      "title",
+      "mime_type_if_returned_by_metadata_surface",
+      "modified_time_if_returned_by_metadata_surface",
+      "candidate_family",
+      "basis"
+    ],
+    "candidate_basis_required": "METADATA_ONLY",
+    "source_content_must_not_influence_classification": true,
+    "stop_on_any_content_hydration": true,
+    "promotion_allowed": false
+  },
+  "execution_plan": {
+    "future_gate": "TASK_054_METADATA_SAFE_EXISTING_CUSTODY_INVENTORY_EXECUTION",
+    "preferred_first_family": "DETAILED_EDUCATION_BUDGET_EXECUTION_OR_BALANCETE_EDUCACAO",
+    "seed_candidate_may_be_reobserved_by_metadata_only": true,
+    "source_content_read_authorized": false,
+    "fresh_owner_authorization_required_before_any_source_content_read": true,
+    "future_content_read_gate_name": "UNASSIGNED_AFTER_TASK054_SELECTION"
+  },
+  "effects": {
+    "drive_metadata_or_index_searches": 0,
+    "drive_list_calls": 0,
+    "source_content_reads": 0,
+    "public_source_network": 0,
+    "drive_write": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "promotion": {
+    "metadata_safe_inventory_contract_ready": true,
+    "candidate_inventory_executed": false,
+    "f01_status": "SILVER_SCOPED_PARTIAL_VALIDATED",
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+    "gold": false,
+    "serving": false,
+    "publication": false
+  },
+  "result": "PASS_TASK053_METADATA_SAFE_INVENTORY_REDESIGN_NO_SOURCE_READ"
+}

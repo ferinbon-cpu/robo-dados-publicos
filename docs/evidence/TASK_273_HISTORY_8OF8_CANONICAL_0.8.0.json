@@ -1,0 +1,308 @@
+{
+  "schema": "TASK273_HISTORY_8OF8_CANONICAL_RESULT_V1",
+  "task": "TASK_273",
+  "issue": 881,
+  "status": "PNCP_HISTORY_8OF8_RESOLVED_49_EVENTS_CANONIZED_NO_RESULT_REFERENCES_OBSERVED",
+  "counts": {
+    "controls": 8,
+    "events": 49,
+    "categories": {
+      "Documento de Contratação": 31,
+      "Contratação": 9,
+      "Item de Contratação": 9
+    },
+    "types": {
+      "Inclusão": 39,
+      "Retificação": 10
+    },
+    "document_types": {
+      "Outros Documentos": 20,
+      "Edital": 10,
+      "Projeto Básico": 1
+    },
+    "item_reference_events": 9,
+    "result_reference_events": 0
+  },
+  "per_control": [
+    {
+      "control": "45132495000140-1-000645/2026",
+      "event_count": 3,
+      "first_event": "2026-09-08T15:42:32",
+      "last_event": "2026-09-08T15:43:16",
+      "categories": {
+        "Documento de Contratação": 2,
+        "Contratação": 1
+      },
+      "types": {
+        "Inclusão": 3
+      },
+      "document_types": {
+        "Edital": 2
+      },
+      "document_titles": [
+        "edital202-26anexo1.pdf",
+        "\"edital202-26pre147-26reservatorio.pdf\""
+      ],
+      "item_numbers": [],
+      "result_reference_count": 0,
+      "justifications": [],
+      "body_sha256": "51e24d09e284ef40f316dd39b64a08f09e3291d0e65c7205a076dac0008d11bc",
+      "safe_projection_sha256": "88b9ba6344f76d84efc4e8c99e8ecd9bc2d20da51bba0907f75b33dd11b84873"
+    },
+    {
+      "control": "45132495000140-1-000646/2026",
+      "event_count": 2,
+      "first_event": "2026-09-08T15:50:14",
+      "last_event": "2026-09-08T15:50:15",
+      "categories": {
+        "Contratação": 1,
+        "Documento de Contratação": 1
+      },
+      "types": {
+        "Inclusão": 2
+      },
+      "document_types": {
+        "Edital": 1
+      },
+      "document_titles": [
+        "\"edital205-26pre149-26estacaodetrabalho.pdf\""
+      ],
+      "item_numbers": [],
+      "result_reference_count": 0,
+      "justifications": [],
+      "body_sha256": "649209511afba50d5b1781034851b3ceb5abd5d3a411b4f804cd8afca4efcf77",
+      "safe_projection_sha256": "ded2b143491737eef42f9ffbf97b7e419b3fb908106fce1e4b6adbf5192519fe"
+    },
+    {
+      "control": "45132495000140-1-000639/2026",
+      "event_count": 17,
+      "first_event": "2026-09-08T12:02:04",
+      "last_event": "2026-09-08T15:49:20",
+      "categories": {
+        "Contratação": 1,
+        "Documento de Contratação": 16
+      },
+      "types": {
+        "Inclusão": 17
+      },
+      "document_types": {
+        "Edital": 1,
+        "Outros Documentos": 14,
+        "Projeto Básico": 1
+      },
+      "document_titles": [
+        "\"playground.pdf.pdf\"",
+        "n17.composicoes.pdf",
+        "n17.medicao.pdf",
+        "n17.f3.pdf",
+        "n17.memorialdescritivo.pdf",
+        "n17.planilhaorc.pdf",
+        "n17.arquet.pdf",
+        "n17.cronograma.pdf",
+        "n17.memorial.pdf",
+        "n17.arque.pdf",
+        "n17.f1.pdf",
+        "n17.f2.pdf",
+        "n17.desc.pdf",
+        "n17.arqu.pdf",
+        "n17.f4.pdf",
+        "n17.estrutarq.pdf"
+      ],
+      "item_numbers": [],
+      "result_reference_count": 0,
+      "justifications": [],
+      "body_sha256": "14194a796f557421bce298d949f17b8514dbc2958851dc7e34748b659fe1d713",
+      "safe_projection_sha256": "a809e02793458904c2a786cd2cf1bb1362ae293efeac332cb779d58aacb340f1"
+    },
+    {
+      "control": "45132495000140-1-000648/2026",
+      "event_count": 2,
+      "first_event": "2026-09-09T10:37:47",
+      "last_event": "2026-09-09T10:37:48",
+      "categories": {
+        "Contratação": 1,
+        "Documento de Contratação": 1
+      },
+      "types": {
+        "Inclusão": 2
+      },
+      "document_types": {
+        "Edital": 1
+      },
+      "document_titles": [
+        "\"edital.206-26-pre.150-26-manutencao.ar.cond.pdf\""
+      ],
+      "item_numbers": [],
+      "result_reference_count": 0,
+      "justifications": [],
+      "body_sha256": "b6bdc15b29684b071e116c1f895cfac16bd6d404b7a0df9732a3669170617a58",
+      "safe_projection_sha256": "1b4893a9a6f2049559b5359aec36dffdac73439ba95eca4416bce10f9041e7b3"
+    },
+    {
+      "control": "45132495000140-1-000655/2026",
+      "event_count": 2,
+      "first_event": "2026-09-11T15:08:23",
+      "last_event": "2026-09-11T15:08:23",
+      "categories": {
+        "Contratação": 1,
+        "Documento de Contratação": 1
+      },
+      "types": {
+        "Inclusão": 2
+      },
+      "document_types": {
+        "Edital": 1
+      },
+      "document_titles": [
+        "\"edital.214-26-pre.154-26-mobiliario.pdf\""
+      ],
+      "item_numbers": [],
+      "result_reference_count": 0,
+      "justifications": [],
+      "body_sha256": "8f6c42b6cde1c941c85d33c5e415dbcdb510c29ccccf84f9833a3d52997d5d41",
+      "safe_projection_sha256": "2d5b342422418abb1cc1b7f6da6b16f34cb15ee123b19825ecd5acc118601de2"
+    },
+    {
+      "control": "45132495000140-1-000653/2026",
+      "event_count": 2,
+      "first_event": "2026-09-11T14:29:05",
+      "last_event": "2026-09-11T14:29:06",
+      "categories": {
+        "Contratação": 1,
+        "Documento de Contratação": 1
+      },
+      "types": {
+        "Inclusão": 2
+      },
+      "document_types": {
+        "Edital": 1
+      },
+      "document_titles": [
+        "\"edital212-26pre152-26livros.pdf\""
+      ],
+      "item_numbers": [],
+      "result_reference_count": 0,
+      "justifications": [],
+      "body_sha256": "ece1b81370bc35d02a10db0aba3a6fd73e4610c10fa6b0121dfbefbb8ea6745c",
+      "safe_projection_sha256": "f327b1de83d5a455971f40c6ac81e6256f561e312d057f3c533aaf564d1af399"
+    },
+    {
+      "control": "45132495000140-1-000654/2026",
+      "event_count": 2,
+      "first_event": "2026-09-11T14:53:35",
+      "last_event": "2026-09-11T14:53:35",
+      "categories": {
+        "Contratação": 1,
+        "Documento de Contratação": 1
+      },
+      "types": {
+        "Inclusão": 2
+      },
+      "document_types": {
+        "Edital": 1
+      },
+      "document_titles": [
+        "\"edital.211-26-pre.151-26-paes.hot.dog.pdf\""
+      ],
+      "item_numbers": [],
+      "result_reference_count": 0,
+      "justifications": [],
+      "body_sha256": "3343814d98cb413fdf5fba87e2dccff6519730775a86619c3146535b6783726b",
+      "safe_projection_sha256": "4f13ade71128730e3afde79ccd8f8e73f8192ae13811bf906adfe3c5674d2129"
+    },
+    {
+      "control": "45132495000140-1-000069/2026",
+      "event_count": 19,
+      "first_event": "2026-02-27T14:21:24",
+      "last_event": "2026-09-11T14:49:17",
+      "categories": {
+        "Documento de Contratação": 8,
+        "Contratação": 2,
+        "Item de Contratação": 9
+      },
+      "types": {
+        "Inclusão": 9,
+        "Retificação": 10
+      },
+      "document_types": {
+        "Outros Documentos": 6,
+        "Edital": 2
+      },
+      "document_titles": [
+        "\"anexo2modulofuniconalidades.pdf\"",
+        "\"anexo2termoreferenciasistema.pdf\"",
+        "\"edital.25-26-pre.23-26.ti-saude.pdf\"",
+        "\"anexo3poc.pdf\"",
+        "edital.25-26-pre.23-26-software.saude.pdf",
+        "modulosefuncionalidades1.pdf",
+        "termo_de_referencia_sistema_v5.pdf",
+        "poc.reestruturada1.pdf"
+      ],
+      "item_numbers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "result_reference_count": 0,
+      "justifications": [
+        "1 alteracao",
+        "Conforme processo interno"
+      ],
+      "body_sha256": "2af8edbbc147b12d17bd486bea39edd896a3d7f1b62b09a2914e3736c27b86be",
+      "safe_projection_sha256": "cbd21669252f89af7d4f8db4c1e5528a489fb5cbc1de3da9c92fc8ef63e746c1"
+    }
+  ],
+  "provenance": {
+    "task271": {
+      "evidence": "docs/evidence/TASK_271_HISTORY_645_SEMANTIC_CANONICAL_0.8.0.json",
+      "status": "PNCP_HISTORY_645_3_EVENTS_CANONIZED_PROCUREMENT_PLUS_2_DOCUMENT_INCLUSIONS"
+    },
+    "task272": {
+      "implementation_sha": "4e3895a8ad82fd1630d3b45fa623c10c94f61006",
+      "run_id": 35399947848,
+      "job_id": 105777303559,
+      "runtime_head_sha": "d6acc480da43b7fbd59667de5ddeed70421a2e35",
+      "artifact_id": 10569138974,
+      "artifact_zip_sha256": "782c2871edb927c99bf0c98ea546e6bdad475deedda5c15008819748f48bd39a",
+      "artifact_file_sha256": "a82528721175049c93d321313f52a255afffa39396d372dc6432136ab78508ed",
+      "result_sha256": "890749299670a07c71f17590843da4d54733e13f946081003b25e5d259967332",
+      "resolved_count": 7,
+      "unresolved_count": 0,
+      "event_count": 46
+    }
+  },
+  "observations": {
+    "all_controls_http200_history": true,
+    "retifications_all_on_control_069": true,
+    "control_069_item_numbers_retified": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "control_639_document_event_count": 16,
+    "result_reference_events_observed": 0
+  },
+  "adjudication": {
+    "result_reference_zero_is_permanent_absence_claim": false,
+    "no_result_procurement_inference": false,
+    "contract_or_award_event_observed": false,
+    "payment_or_execution_proven": false,
+    "pncp_to_tce_chain_proven": false
+  },
+  "privacy": {
+    "usuarioNome_persisted": false
+  },
+  "next_frontier": "SEPARATE_BOUNDED_PNCP_LINKED_CONTRACT_ROUTE_DISCOVERY_OR_PROBE"
+}

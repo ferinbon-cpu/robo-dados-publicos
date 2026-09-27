@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "schema": "TASK219Y_MAP_AREAFILTER_QUERY_CONTRACTS_V1",
+  "task": "TASK_219Y",
+  "issue": 740,
+  "parent_issue": 691,
+  "derived_from_task219x_head": "9aacd04ecc58d0b6d8b5f31cf9612c6c753420e8",
+  "authorization_sequence": "LEAP_2_OF_3_CURRENT_AUTHORIZATION",
+  "target_controls": ["Nro Empenho", "Exercício", "submmitApply"],
+  "roots_per_area": ["<AreaId>", "AREAFILTER_<AreaId>"],
+  "proof": {
+    "same_current_session_AreaId_required": true,
+    "exactly_one_Nro_Empenho_control": true,
+    "exactly_one_Exercicio_select_with_2026_label": true,
+    "exactly_one_submmitApply_same_AreaId_binding": true,
+    "multiple_valid_area_contracts_must_all_be_preserved": true,
+    "no_ordinal_or_suffix_selection": true
+  },
+  "boundary": {
+    "browser_sessions": 1,
+    "initial_navigation": 1,
+    "top_level_doLink_invocations": 1,
+    "query_field_assignments": 0,
+    "filter_invocations": 0,
+    "result_clicks": 0,
+    "manual_fetch_xhr": 0,
+    "direct_endpoint_calls": 0,
+    "layerinfo_replay": 0,
+    "retries": 0,
+    "empenho_3286_lookup": 0
+  },
+  "persistence": {
+    "control_values": false,
+    "hidden_values": false,
+    "cookies_tokens": false,
+    "raw_page_source": false,
+    "raw_har": false,
+    "full_html": false,
+    "full_scripts": false,
+    "bounded_snippets_only": true
+  },
+  "coverage_before": 34
+}

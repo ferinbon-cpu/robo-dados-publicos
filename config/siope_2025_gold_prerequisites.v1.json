@@ -1,0 +1,16 @@
+{
+  "schema": "SIOPE_2025_GOLD_PREREQUISITES_V1",
+  "tier": "T0_OFFLINE",
+  "scope": {"year": 2025, "period": 6, "period_label": "Annual", "uf": "SP", "municipality": "Limeira", "municipality_code": 352690},
+  "prerequisites": {
+    "B1_NUM_POPU": "NOT_PROVEN_DEFINITION_SOURCE_VINTAGE_MISSING",
+    "B2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN_DOTACAO_EDU_SOURCE_DEFINED_BRIDGE_MISSING",
+    "B3_EFFECTIVE_ANNUAL_DECLARATION": "NOT_PROVEN_EFFECTIVE_SELECTION_RULE_MISSING",
+    "SEMANTIC_COMPARABILITY": "UNKNOWN"
+  },
+  "required_state": {"B1_NUM_POPU": "PROVEN", "B2_FINANCIAL_ALIAS_BRIDGE": "PROVEN", "B3_EFFECTIVE_ANNUAL_DECLARATION": "PROVEN", "SEMANTIC_COMPARABILITY": "PROVEN"},
+  "context_only": {"year_2025": "PROVEN_STRUCTURAL_RECENT", "VALID_ANNUAL_SUBMISSION": "PROVEN", "financial_aliases_proven_exact_operational": "9/10", "VL_DESP_DOTA_ATUA_EDU": "PARTIAL_CURRENT_EXACT_1000_VARIANCE_NO_SOURCE_DEFINED_INCLUSION_RULE"},
+  "decision": "STOP_GOLD_2025_PREREQUISITES_NOT_PROVEN",
+  "gold_2025_calculated": false,
+  "effects": {"network_calls": 0, "drive_calls": 0, "writes": 0, "gold_arithmetic": 0}
+}

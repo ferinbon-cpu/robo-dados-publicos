@@ -1,0 +1,170 @@
+from __future__ import annotations
+
+import hashlib
+import json
+import unicodedata
+from pathlib import Path
+
+from robo_dados_publicos.sources.siope_client import PROVEN_DADOS_GERAIS_FIELDS
+
+ERROR = "STOP_M7_SIOPE_CLIENT_LIMEIRA_SILVER_SINGLE_RECORD_TRANSFORM_PREVIEW"
+PASS = "PASS_M7_SIOPE_CLIENT_LIMEIRA_SILVER_SINGLE_RECORD_TRANSFORM_PREVIEW"
+
+
+class SilverTransformPreviewError(RuntimeError):
+    pass
+
+
+def load_json(path: str | Path) -> dict:
+    payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise SilverTransformPreviewError(f"{ERROR}_OBJECT_REQUIRED")
+    return payload
+
+
+def _require(actual, expected, code: str) -> None:
+    if actual != expected:
+        raise SilverTransformPreviewError(f"{ERROR}_{code}")
+
+
+def _normalize_name(value) -> str:  # noqa: ANN001
+    text = unicodedata.normalize("NFKD", str(value).strip())
+    return "".join(ch for ch in text if not unicodedata.combining(ch)).upper()
+
+
+def _canonical_bytes(payload: dict) -> bytes:
+    return json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+
+
+def validate_config(config: dict) -> dict:
+    _require(config.get("gate_id"), "M7_SIOPE_CLIENT_LIMEIRA_SILVER_SINGLE_RECORD_TRANSFORM_PREVIEW_0_8_0", "GATE")
+    _require(config.get("source_id"), "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA", "SOURCE")
+    _require(config.get("software_version"), "0.8.0", "VERSION")
+    _require(config.get("mode"), "OFFLINE_PINNED_BRONZE_SINGLE_RECORD_SILVER_LOSSLESS_PREVIEW", "MODE")
+    _require(config.get("manual_confirmation_required"), True, "MANUAL")
+    _require(config.get("readback_review_gate"), "M7_SIOPE_CLIENT_LIMEIRA_BRONZE_DRIVE_READBACK_REVIEW_0_8_0", "REVIEW_GATE")
+    _require(config.get("record_embedding"), "EXACT_LOSSLESS", "EMBEDDING")
+    _require(config.get("canonical_json"), True, "CANONICAL")
+    _require(config.get("expected_record_count"), 1, "RECORD_COUNT")
+    _require(config.get("expected_schema_key_count"), 52, "SCHEMA_COUNT")
+    _require(
+        config.get("expected_identity"),
+        {
+            "municipality_code": 352690,
+            "municipality_name": "Limeira",
+            "period": 6,
+            "resource": "Dados_Gerais_Siope",
+            "state": "SP",
+            "year": 2024,
+        },
+        "IDENTITY_CONFIG",
+    )
+    _require(config.get("record_sha256"), "20dd61298f9d4603fc7d5e20a373f331137d5bc37f59be687370bd0f289b97c6", "RECORD_SHA")
+    _require(config.get("source_bundle_sha256"), "eb30b820c34a702a5850b1e246d7d29a8d86c0e84064b79b14c0308060950dbf", "BUNDLE_SHA")
+    _require(config.get("silver_contract"), "SIOPE_DADOS_GERAIS_LIMEIRA_VALIDATED_RECORD_SILVER_V1", "SILVER_CONTRACT")
+    _require(config.get("source_network_authorized"), False, "SOURCE_NETWORK")
+    _require(config.get("drive_network_authorized"), False, "DRIVE_NETWORK")
+    _require(config.get("drive_write_count"), 0, "DRIVE_WRITE")
+    _require(config.get("silver_payload_persistence_authorized"), False, "SILVER_PERSISTENCE")
+    _require(config.get("silver_remote_write_authorized"), False, "SILVER_REMOTE_WRITE")
+    _require(config.get("processing_authorized"), False, "PROCESSING")
+    _require(config.get("gold_authorized"), False, "GOLD")
+    _require(config.get("recurrence_authorized"), False, "RECURRENCE")
+    _require(config.get("schedule_enabled"), False, "SCHEDULE")
+    _require(config.get("next_gate"), "M7_SIOPE_CLIENT_LIMEIRA_SILVER_SINGLE_RECORD_TRANSFORM_REVIEW_0_8_0", "NEXT")
+    _require(len(PROVEN_DADOS_GERAIS_FIELDS), 52, "ALLOWLIST_COUNT")
+    return {
+        "drive_network_called": False,
+        "drive_write_count": 0,
+        "gold_authorized": False,
+        "network_called": False,
+        "processing_authorized": False,
+        "recurrence_authorized": False,
+        "schedule_enabled": False,
+        "silver_payload_persisted": False,
+        "silver_remote_write_authorized": False,
+        "source_network_called": False,
+        "status": f"{PASS}_DESIGN",
+    }
+
+
+def preview(config: dict, *, root: str | Path) -> dict:
+    validate_config(config)
+    root_path = Path(root)
+    record = load_json(root_path / config["record_payload_path"])
+    manifest = load_json(root_path / config["manifest_payload_path"])
+
+    _require(set(record), set(PROVEN_DADOS_GERAIS_FIELDS), "SCHEMA")
+    _require(len(record), 52, "SCHEMA_COUNT_RUNTIME")
+    record_bytes = _canonical_bytes(record)
+    record_sha256 = hashlib.sha256(record_bytes).hexdigest()
+    _require(record_sha256, config["record_sha256"], "RECORD_HASH")
+
+    identity = config["expected_identity"]
+    _require(record.get("COD_MUNI"), identity["municipality_code"], "MUNICIPALITY_CODE")
+    _require(_normalize_name(record.get("NOM_MUNI")), _normalize_name(identity["municipality_name"]), "MUNICIPALITY_NAME")
+    _require(record.get("NUM_ANO"), identity["year"], "YEAR")
+    _require(record.get("NUM_PERI"), identity["period"], "PERIOD")
+    _require(str(record.get("SIG_UF", "")).strip().upper(), identity["state"], "STATE")
+
+    _require(manifest.get("bronze_contract"), "SIOPE_DADOS_GERAIS_LIMEIRA_SINGLE_RECORD_V1", "BRONZE_CONTRACT")
+    _require(manifest.get("source_id"), config["source_id"], "MANIFEST_SOURCE")
+    _require(manifest.get("resource"), identity["resource"], "MANIFEST_RESOURCE")
+    _require(manifest.get("municipality_code"), identity["municipality_code"], "MANIFEST_MUNICIPALITY")
+    _require(manifest.get("year"), identity["year"], "MANIFEST_YEAR")
+    _require(manifest.get("period"), identity["period"], "MANIFEST_PERIOD")
+    _require(manifest.get("state"), identity["state"], "MANIFEST_STATE")
+    _require(manifest.get("record_count"), 1, "MANIFEST_RECORD_COUNT")
+    _require(manifest.get("schema_key_count"), 52, "MANIFEST_SCHEMA_COUNT")
+    _require(manifest.get("record_sha256"), record_sha256, "MANIFEST_RECORD_HASH")
+    _require(manifest.get("processing_authorized"), False, "MANIFEST_PROCESSING")
+    _require(manifest.get("recurrence_authorized"), False, "MANIFEST_RECURRENCE")
+
+    silver_payload = {
+        "data": record,
+        "identity": {
+            "municipality_code": identity["municipality_code"],
+            "municipality_name": identity["municipality_name"],
+            "period": identity["period"],
+            "resource": identity["resource"],
+            "state": identity["state"],
+            "year": identity["year"],
+        },
+        "provenance": {
+            "bronze_contract": manifest["bronze_contract"],
+            "record_sha256": record_sha256,
+            "source_bundle_sha256": config["source_bundle_sha256"],
+            "source_id": config["source_id"],
+        },
+        "schema_key_count": 52,
+        "silver_contract": config["silver_contract"],
+        "software_version": config["software_version"],
+    }
+    silver_bytes = _canonical_bytes(silver_payload)
+    silver_sha256 = hashlib.sha256(silver_bytes).hexdigest()
+    embedded_record = silver_payload["data"]
+    _require(_canonical_bytes(embedded_record), record_bytes, "LOSSLESS_EMBEDDING")
+
+    return {
+        "drive_network_called": False,
+        "drive_write_count": 0,
+        "gate_id": config["gate_id"],
+        "gold_authorized": False,
+        "identity_verified": True,
+        "lossless_record_embedding_verified": True,
+        "network_called": False,
+        "next_gate": config["next_gate"],
+        "processing_authorized": False,
+        "record_count": 1,
+        "record_sha256": record_sha256,
+        "recurrence_authorized": False,
+        "schedule_enabled": False,
+        "schema_key_count": 52,
+        "silver_contract": config["silver_contract"],
+        "silver_payload_bytes": len(silver_bytes),
+        "silver_payload_persisted": False,
+        "silver_payload_sha256": silver_sha256,
+        "silver_remote_write_authorized": False,
+        "source_network_called": False,
+        "status": PASS,
+    }

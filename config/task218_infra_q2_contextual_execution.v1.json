@@ -1,0 +1,123 @@
+{
+  "version": 1,
+  "schema": "TASK218_INFRA_Q2_CONTEXTUAL_EXECUTION_V1",
+  "task": "TASK_218",
+  "issue": 680,
+  "base_main_sha": "aac5abef7e72233a4667ff570ec9af5ae8c41287",
+  "mode": "T0_OFFLINE_CANONICAL_JOM_SCHOOL_INFRASTRUCTURE_CONTEXT_EXECUTION",
+  "upstream_executor": "TASK215_CONTEXTUAL_EXECUTION_V6",
+  "output_schema": "OBSERVATORY_CONTEXTUAL_ANSWER_V1",
+  "promoted_questions": [
+    "INFRA_Q2"
+  ],
+  "contextual_coverage": {
+    "canonical_questions_total": 38,
+    "before": 33,
+    "after": 34
+  },
+  "retained_semantic_blockers": {
+    "CTRL_Q2": "NO_PROVEN_CROSS_SOURCE_EVENT_OR_TRANSACTION_IDENTITY",
+    "PROC_Q1": "NO_PROVEN_JOM_TO_TCE_PROCUREMENT_EVENT_IDENTITY",
+    "PROC_Q2": "NO_PROVEN_JOM_TO_TCE_PROCUREMENT_EVENT_IDENTITY",
+    "PROC_Q3": "NO_PROVEN_JOM_TO_TCE_PROCUREMENT_EVENT_IDENTITY"
+  },
+  "bounded_jom_scope": {
+    "municipality": "Limeira",
+    "start_date": "2026-01-01",
+    "observed_through_date": "2026-09-08",
+    "official_discovered_document_count": 99,
+    "previously_materialized_august_documents": 12,
+    "new_document_scope": 87,
+    "task217d_clean_document_count": 75,
+    "task217d_uncovered_document_count": 12,
+    "task217f_recovered_document_count": 8,
+    "task217g_recovered_document_count": 4,
+    "remaining_uncovered_document_count": 0,
+    "content_scope_complete": true,
+    "full_calendar_year_claim": false
+  },
+  "runtime_proofs": {
+    "task217c_discovery_result_sha256": "7c31c9791793c889a8c76e27bcf0d6b6b26f23a3b6bec07fbd95d8c1fba29510",
+    "task217e_config": "config/task217e_partial_redigest_adjudication.v1.json",
+    "task217f2_config": "config/task217f2_recovery_canonization.v1.json",
+    "task217g_canonical_result": "docs/evidence/TASK_217G_RECOVERY_CANONICAL_RESULT_0.8.0.json"
+  },
+  "proven_named_school_events": [
+    {
+      "event_id": "JOEV_fab1a3c79f589f7ccc18",
+      "edition": 7208,
+      "publication_date": "2026-03-25",
+      "page_number": 42,
+      "source_sha256": "8690426e585284dc7f072a6069735abcde9d4dcc89994290f8ef79fdb59369d0",
+      "school_code": "35295061",
+      "school_name": "CEIEF Arlindo de Salvo, Prof.",
+      "event_type": "CONTRATO",
+      "contract_number": "42/2026",
+      "process_number": "22.687/2024",
+      "published_value_brl": "71000.00",
+      "evidence": "Contratação de empresa especializada para manutenção do reservatório de água do CEIEF Prof. Arlindo de Salvo; valor publicado R$ 71.000,00.",
+      "claim_semantics": "NAMED_SCHOOL_IS_EXACT_OBJECT_OF_OFFICIAL_MAINTENANCE_CONTRACT_NE_PHYSICAL_COMPLETION"
+    }
+  ],
+  "rejected_false_positive_counts": {
+    "non_school_homonyms": 6,
+    "abstract_infrastructure_phrases": 3
+  },
+  "execution": {
+    "supported_year": 2026,
+    "year_semantics": "BOUNDED_YEAR_TO_OBSERVED_DATE_2026_09_08",
+    "school_filter_supported": true,
+    "other_periods_nearest_substitution": false,
+    "policy_service_facets_supported": [
+      "INFRAESTRUTURA"
+    ],
+    "municipality_list_returns_only_proven_named_school_events": true,
+    "school_zero_match_is_scoped_jom_gap_not_real_world_absence": true,
+    "school_scoped_route_bridge": {
+      "requires_resolved_school": true,
+      "only_when_upstream_has_no_selected_question": true,
+      "required_event_any": [
+        "recebeu",
+        "receberam",
+        "teve",
+        "tiveram",
+        "ganhou",
+        "ganharam",
+        "contrato",
+        "contratacao",
+        "contratação"
+      ],
+      "required_infrastructure_any": [
+        "obra",
+        "obras",
+        "reforma",
+        "reformas",
+        "equipamento",
+        "equipamentos",
+        "manutencao",
+        "manutenção"
+      ]
+    }
+  },
+  "claim_boundaries": {
+    "jom_publication_equals_physical_completion": false,
+    "contract_equals_completed_work": false,
+    "no_named_event_equals_no_real_world_work": false,
+    "bounded_jom_scope_equals_full_calendar_year": false,
+    "generic_network_event_assigns_school": false,
+    "fuzzy_school_identity_allowed": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "llm": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}

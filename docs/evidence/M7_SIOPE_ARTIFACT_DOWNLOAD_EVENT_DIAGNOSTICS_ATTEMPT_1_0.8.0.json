@@ -1,0 +1,35 @@
+{
+  "run_id": 32849853619,
+  "job_id": 97807973008,
+  "artifact_id": 9563820490,
+  "artifact_digest": "sha256:c127d8e9bae768961438f4b38d6d393b03ca394520f4cfcf1dd854cb2ee0d5d0",
+  "head_sha": "e01046fe4b240e5707138f249e66e2c4a962d61d",
+  "workflow": "M7 SIOPE ARTIFACT DOWNLOAD EVENT DIAGNOSTICS GATE",
+  "run_number": 1,
+  "conclusion": "failure",
+  "live_status": "STOP_M7_SIOPE_ARTIFACT_DOWNLOAD_EVENT_DIAGNOSTICS_GATE",
+  "stop_reason": "STOP_SIOPE_ARTIFACT_DOWNLOAD_EVENT_DIAGNOSTICS_DEBUG_ENDPOINT",
+  "qa": {
+    "unit_tests": 349,
+    "historical_regressions": 109,
+    "unit_tests_passed": true,
+    "historical_regressions_passed": true
+  },
+  "interpretation": "The live diagnostic stopped during local Chrome CDP bootstrap before any FNDE page or metadata request was reached. This is an implementation/bootstrap failure, not evidence that no browser download event exists.",
+  "safety": {
+    "browser_download_denied": true,
+    "candidate_route_network_sent": false,
+    "artifact_downloaded": false,
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false,
+    "remote_writes": "NONE",
+    "request_body_captured": false,
+    "request_headers_captured": false,
+    "response_body_captured": false,
+    "cookies_captured": false,
+    "head_request_performed": false
+  },
+  "remediation": "Replace preselected debug port plus /json/version bootstrap with Chrome-assigned --remote-debugging-port=0 and local ephemeral DevToolsActivePort discovery."
+}

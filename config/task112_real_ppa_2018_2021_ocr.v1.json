@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "schema": "TASK112_REAL_PPA_OCR_CONTRACT_V1",
+  "mode": "T1_SINGLE_USE_EXACT_SOURCE_OCR",
+  "task": "TASK_112_REAL_PPA_2018_2021_OCR",
+  "source": {
+    "url": "https://www.limeira.sp.gov.br/sitenovo/downloads/0fa1a5cc5c9a1823fbf5436def00f01f.pdf",
+    "allowed_host": "www.limeira.sp.gov.br",
+    "method": "GET",
+    "max_http_requests_total": 2,
+    "same_host_redirects_only": true,
+    "retry": false,
+    "discovery_search": false
+  },
+  "document": {
+    "period": "2018-2021",
+    "law_number": "5.947",
+    "expected_signal": "escolas com programas em tempo integral",
+    "max_pdf_pages": 250,
+    "coordinate_system": "SOURCE_PDF_PAGE_1_BASED"
+  },
+  "ocr": {
+    "renderer": [
+      "pdftoppm",
+      "-f",
+      "{page}",
+      "-l",
+      "{page}",
+      "-singlefile",
+      "-r",
+      "300",
+      "-gray",
+      "-png",
+      "{source_pdf}",
+      "{output_prefix}"
+    ],
+    "tesseract": [
+      "tesseract",
+      "{page_png}",
+      "stdout",
+      "-l",
+      "por",
+      "--oem",
+      "1",
+      "--psm",
+      "3",
+      "tsv"
+    ],
+    "packages": {
+      "poppler-utils": "24.02.0-1ubuntu9.9",
+      "tesseract-ocr": "5.3.4-1build5",
+      "tesseract-ocr-por": "1:4.1.0-2",
+      "pypdf": "6.10.0"
+    }
+  },
+  "evidence_threshold": {
+    "require_source_sha256": true,
+    "require_source_bytes": true,
+    "require_page_count": true,
+    "require_law_identity": true,
+    "require_planning_signal": true,
+    "require_source_page_locator": true,
+    "require_rendered_page_sha256": true,
+    "require_ocr_tsv_sha256": true,
+    "require_bounded_excerpt": true,
+    "require_confidence_metadata": true
+  },
+  "hard_boundaries": {
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "bronze_writes": 0,
+    "silver_writes": 0,
+    "gold_writes": 0,
+    "state_registry_writes": 0,
+    "queue_writes": 0,
+    "serving_writes": 0,
+    "publications": 0,
+    "financial_identity_assertions": 0,
+    "transaction_execution_identity_assertions": 0,
+    "implementation_assertions": 0,
+    "causal_effect_assertions": 0
+  },
+  "recurrence": false,
+  "schedule": false,
+  "future_execution_authorized": false
+}

@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "task": "TASK_070_ACTIVE_10_INBOX_JORNAL_AUTHORIZATION",
+  "authorization_id": "AUTH_10_INBOX_JORNAL_OFICIAL_V1",
+  "enabled": true,
+  "scope": {
+    "folder_ids": ["16lvKYsbW96JLoLbRGuTUohjyzndrR9r8"],
+    "include_descendants": true,
+    "families": ["JORNAL_OFICIAL"],
+    "surfaces": ["DRIVE_EXISTING_CUSTODY"]
+  },
+  "allowed_effects": ["METADATA_READ", "CONTENT_READ", "SHA256_HASH", "BRONZE_CREATE_ONLY"],
+  "forbidden_effects": ["SILVER_PROMOTION", "GOLD_PROMOTION", "SERVING_WRITE", "PUBLICATION", "BRONZE_OVERWRITE", "FINANCIAL_IDENTITY_AUTO_PROMOTION", "SOURCE_DELETE", "SOURCE_MOVE"],
+  "control": {
+    "revocable": true,
+    "revoked": false,
+    "rule_version": "v1",
+    "owner_authorization_ref": "2026-09-02 owner message granting 10 authorization tokens and explicit consent to advance maximum bounded tasks",
+    "token_index": 10,
+    "not_before": "2026-09-02T21:00:00-03:00",
+    "not_after": null
+  },
+  "requirements": ["EXACT_ROOT_FOLDER_OR_DESCENDANT", "EXACT_FAMILY", "EXECUTION_READY_MATURITY", "ALLOWED_EFFECT_EXPLICIT", "NOT_REVOKED", "ENABLED", "STABLE_FILE_ID", "NO_UNRESOLVED_DUPLICATE"],
+  "unknown_child_behavior": "FAIL_CLOSED",
+  "execution_semantics": "This manifest authorizes only the listed effects after controller, maturity, dedupe and policy gates pass. It never authorizes Silver/Gold/serving/publication or financial-identity promotion."
+}

@@ -1,0 +1,32 @@
+{
+  "task": "TASK_153_PNCP_API_OPEN_AUTH_UNIT_2",
+  "authorization_unit_index": 2,
+  "task153_merge_sha": "8acedc9301f772c78cccfda2780d5b79583b4025",
+  "requested_url": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao?dataInicial=20251128&dataFinal=20260904&codigoModalidadeContratacao=12&cnpj=45132495000140&pagina=1&tamanhoPagina=50",
+  "tool_emitted_normalized_url": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao?cnpj=45132495000140&codigoModalidadeContratacao=12&dataFinal=20260904&dataInicial=20251128&pagina=1&tamanhoPagina=50",
+  "result": "STOP_WEB_URL_SAFETY_PRECONDITION_PRE_SOURCE_AFTER_ORIGIN_PREFLIGHT",
+  "execution": {
+    "web_open_invocations": 1,
+    "retry_performed": false,
+    "search_queries": 0,
+    "clicks": 0,
+    "followup_opens": 0,
+    "direct_download_invocations": 0,
+    "pncp_source_reach_established": false,
+    "pncp_http_status_established": false,
+    "source_data_observed": false,
+    "raw_payload_persisted": false
+  },
+  "authorization_state": {
+    "unit_2_consumed": true,
+    "remaining_units": 8
+  },
+  "epistemic_state": {
+    "candidate_created": false,
+    "pncp_no_match_created": false,
+    "negative_exhaustive_conclusion_created": false,
+    "financial_identity_created": false,
+    "transaction_identity_created": false,
+    "supplier_linkage_created": false
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "gate_id": "M7_SIOPE_OFFICIAL_OLINDA_API_SERVICE_DISCOVERY_0_8_0",
+  "attempt": 1,
+  "workflow_run_id": 32896802313,
+  "workflow_run_number": 1,
+  "workflow_event": "workflow_dispatch",
+  "workflow_branch": "main",
+  "head_sha": "57f521a222f5f2051cf1a43c364121b8ca8f1c07",
+  "job_id": 97961261207,
+  "workflow_conclusion": "failure",
+  "qa": {
+    "unit_tests": 559,
+    "unit_failures": 0,
+    "historical_regressions": 109,
+    "historical_regression_failures": 0
+  },
+  "artifact": {
+    "id": 9581521897,
+    "name": "siope-official-olinda-api-service-discovery-32896802313",
+    "size_bytes": 668,
+    "digest": "sha256:7a488dca4414c0528c98398676c7df9683dd29be5da7ea2a72b4ec10228e0635"
+  },
+  "result": {
+    "status": "STOP_M7_SIOPE_OFFICIAL_OLINDA_API_SERVICE_DISCOVERY",
+    "error_code": "STOP_M7_SIOPE_OFFICIAL_OLINDA_API_SERVICE_DISCOVERY_CANDIDATE_ABSENT",
+    "network_scope": "EXACT_ONE_GET_OFFICIAL_SERVICE_ROOT_ONLY",
+    "http_status": 200,
+    "content_type": "application/xml",
+    "service_document_parseable": true,
+    "collection_name_count": 8,
+    "collection_names": [
+      "_Receita_Siope",
+      "_Indicadores_Siope",
+      "_Despesas_Siope",
+      "_Despesas_Funcao_Educacao_Siope",
+      "_Dados_Gerais_Siope_Dados_Responsaveis",
+      "_Informacoes_Complementares_Siope",
+      "_Dados_Gerais_Siope",
+      "_Remuneracao_Siope"
+    ],
+    "original_reference_candidate": "Dados_Gerais_Siope",
+    "original_reference_candidate_present": false,
+    "observed_similar_collection": "_Dados_Gerais_Siope"
+  },
+  "safety": {
+    "pilot_limeira_values_sent": false,
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false,
+    "request_body_sent": false,
+    "redirect_followed": false,
+    "service_link_followed": false,
+    "authentication_performed": false,
+    "captcha_bypass": false,
+    "artifact_downloaded": false,
+    "query_values_persisted": false,
+    "raw_response_persisted": false,
+    "remote_writes": "NONE"
+  },
+  "interpretation": {
+    "service_root_reachable": true,
+    "service_document_contract_observed": true,
+    "reference_candidate_name_correct": false,
+    "observed_collection_name_may_be_promoted_without_review": false,
+    "collection_request_authorized": false,
+    "next_action": "OFFLINE_REVIEW_EXACT_OBSERVED_COLLECTION_NAMES"
+  }
+}

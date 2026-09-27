@@ -1,0 +1,865 @@
+{
+  "schema_version": 1,
+  "task": "BI_001",
+  "tier": "T0_OFFLINE",
+  "status": "PASS_BI_ANALYTICS_OUTPUT_ARCHITECTURE_OFFLINE",
+  "role": "DERIVED_ANALYTICAL_PROJECTION_NOT_SOURCE_OF_TRUTH",
+  "future_drive_location_recommendation": "13_BI",
+  "canonical_drive_layers_reserved": [
+    "00_DOCUMENTACAO",
+    "01_BRONZE",
+    "02_SILVER",
+    "03_GOLD",
+    "04_DOCUMENTOS",
+    "05_RAG",
+    "06_BANCOS",
+    "07_LOGS",
+    "08_OUTPUTS",
+    "09_SCRIPTS",
+    "10_INBOX",
+    "11_QUARENTENA",
+    "12_SOFTWARE"
+  ],
+  "recommended_architecture": "OPTION_3_CREATE_ONLY_SNAPSHOTS_PLUS_STABLE_SERVING_SHEET",
+  "governance_decision": "GOVERNANCE_DECISION_REQUIRED_BEFORE_SERVING_SHEET_MUTATION",
+  "common_quality_enum": [
+    "PROVEN",
+    "VALIDATED",
+    "READY_WITH_CAUTION",
+    "PARTIAL",
+    "CANDIDATE",
+    "BLOCKED",
+    "UNKNOWN",
+    "STOP",
+    "NOT_APPLICABLE"
+  ],
+  "remote_effects": {
+    "source_network": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "looker_api_calls": 0,
+    "publication": 0
+  },
+  "datasets": [
+    {
+      "dataset_id": "BI_SIOPE_SERIES",
+      "grain": "one year x municipality x metric",
+      "primary_key": [
+        "municipality_code",
+        "year",
+        "metric_id"
+      ],
+      "source_layers": [
+        "GOLD"
+      ],
+      "provenance": {
+        "required": true,
+        "join_key": "provenance_id",
+        "minimum_trace": "source -> derived layer -> run/batch -> sha256 -> BI transformation"
+      },
+      "update_strategy": "FULL_REBUILD_TO_CREATE_ONLY_SNAPSHOT",
+      "looker_ready": true,
+      "privacy_class": "PUBLIC_MINIMIZED",
+      "semantic_constraints": [
+        "LONG_FORMAT",
+        "CLOSED_SERIES_2016_2024_ONLY",
+        "2016_P1_2017_2024_P6",
+        "NO_2025_GOLD"
+      ],
+      "fields": [
+        {
+          "name": "municipality_code",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "municipality_name",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "uf",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "year",
+          "data_type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "annual_period",
+          "data_type": "text",
+          "nullable": false,
+          "enum": [
+            "P1",
+            "P6"
+          ]
+        },
+        {
+          "name": "metric_id",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "metric_name",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "metric_value",
+          "data_type": "number",
+          "nullable": false
+        },
+        {
+          "name": "metric_unit",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "source_contract",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "source_layer",
+          "data_type": "text",
+          "nullable": false,
+          "enum": [
+            "GOLD"
+          ]
+        },
+        {
+          "name": "gold_status",
+          "data_type": "text",
+          "nullable": false,
+          "enum": [
+            "VALIDATED"
+          ]
+        },
+        {
+          "name": "series_status",
+          "data_type": "text",
+          "nullable": false,
+          "enum": [
+            "VALIDATED",
+            "READY_WITH_CAUTION"
+          ]
+        },
+        {
+          "name": "semantic_caution",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "provenance_id",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "source_sha256",
+          "data_type": "text",
+          "nullable": false,
+          "format": "sha256"
+        },
+        {
+          "name": "generated_at",
+          "data_type": "datetime",
+          "nullable": false
+        },
+        {
+          "name": "software_version",
+          "data_type": "text",
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "dataset_id": "BI_JORNAL_EVENTOS",
+      "grain": "one identified documentary event",
+      "primary_key": [
+        "event_id"
+      ],
+      "source_layers": [
+        "BRONZE",
+        "SILVER",
+        "GOLD"
+      ],
+      "provenance": {
+        "required": true,
+        "join_key": "provenance_id",
+        "minimum_trace": "source -> derived layer -> run/batch -> sha256 -> BI transformation"
+      },
+      "update_strategy": "APPEND_TO_CREATE_ONLY_SNAPSHOT",
+      "looker_ready": true,
+      "privacy_class": "PUBLIC_MINIMIZED",
+      "semantic_constraints": [
+        "NULL_MEANS_ABSENT_OR_NOT_EXTRACTED_AS_DOCUMENTED",
+        "DO_NOT_INVENT_PARSER_FIELDS"
+      ],
+      "fields": [
+        {
+          "name": "event_id",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "edition",
+          "data_type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "publication_date",
+          "data_type": "date",
+          "nullable": false
+        },
+        {
+          "name": "page",
+          "data_type": "integer",
+          "nullable": true
+        },
+        {
+          "name": "event_type",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "document_type",
+          "data_type": "text",
+          "nullable": true
+        },
+        {
+          "name": "process_number",
+          "data_type": "text",
+          "nullable": true
+        },
+        {
+          "name": "contract_number",
+          "data_type": "text",
+          "nullable": true
+        },
+        {
+          "name": "bidding_number",
+          "data_type": "text",
+          "nullable": true
+        },
+        {
+          "name": "modality",
+          "data_type": "text",
+          "nullable": true
+        },
+        {
+          "name": "supplier_name",
+          "data_type": "text",
+          "nullable": true
+        },
+        {
+          "name": "supplier_cnpj",
+          "data_type": "text",
+          "nullable": true
+        },
+        {
+          "name": "object_text",
+          "data_type": "text",
+          "nullable": true
+        },
+        {
+          "name": "value",
+          "data_type": "currency",
+          "nullable": true
+        },
+        {
+          "name": "signature_date",
+          "data_type": "date",
+          "nullable": true
+        },
+        {
+          "name": "source_id",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "logical_key",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "document_url",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "bronze_sha256",
+          "data_type": "text",
+          "nullable": false,
+          "format": "sha256"
+        },
+        {
+          "name": "silver_id",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "gold_id",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "provenance_id",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "extraction_status",
+          "data_type": "text",
+          "nullable": false,
+          "enum": [
+            "VALIDATED",
+            "PARTIAL",
+            "BLOCKED",
+            "STOP"
+          ]
+        },
+        {
+          "name": "confidence_class",
+          "data_type": "text",
+          "nullable": false,
+          "enum": [
+            "PROVEN",
+            "VALIDATED",
+            "READY_WITH_CAUTION",
+            "PARTIAL",
+            "UNKNOWN"
+          ]
+        }
+      ]
+    },
+    {
+      "dataset_id": "BI_RECONCILIACAO",
+      "grain": "one reconciliation relation or candidate",
+      "primary_key": [
+        "reconciliation_id"
+      ],
+      "source_layers": [
+        "RECONCILIATION"
+      ],
+      "provenance": {
+        "required": true,
+        "join_key": "provenance_id",
+        "minimum_trace": "source -> derived layer -> run/batch -> sha256 -> BI transformation"
+      },
+      "update_strategy": "APPEND_HISTORY_REBUILD_CURRENT_VIEW",
+      "looker_ready": true,
+      "privacy_class": "PUBLIC_MINIMIZED",
+      "semantic_constraints": [
+        "MATCH_CANDIDATE_IS_NOT_FINANCIAL_IDENTITY",
+        "PROVEN_ONLY_IF_SOURCE_STATE_EXISTS"
+      ],
+      "fields": [
+        {
+          "name": "reconciliation_id",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "source_event_id",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "target_source",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "target_record_id",
+          "data_type": "text",
+          "nullable": true
+        },
+        {
+          "name": "relation_type",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "data_type": "text",
+          "nullable": false,
+          "enum": [
+            "MATCH_CANDIDATE",
+            "NO_MATCH",
+            "BLOCKED",
+            "STOP",
+            "MISSING_KEY",
+            "UNKNOWN",
+            "PROVEN"
+          ]
+        },
+        {
+          "name": "confidence_class",
+          "data_type": "text",
+          "nullable": false,
+          "enum": [
+            "PROVEN",
+            "VALIDATED",
+            "READY_WITH_CAUTION",
+            "PARTIAL",
+            "CANDIDATE",
+            "BLOCKED",
+            "UNKNOWN",
+            "STOP",
+            "NOT_APPLICABLE"
+          ]
+        },
+        {
+          "name": "supplier_name",
+          "data_type": "text",
+          "nullable": true
+        },
+        {
+          "name": "cnpj",
+          "data_type": "text",
+          "nullable": true
+        },
+        {
+          "name": "contract_number",
+          "data_type": "text",
+          "nullable": true
+        },
+        {
+          "name": "process_number",
+          "data_type": "text",
+          "nullable": true
+        },
+        {
+          "name": "candidate_value",
+          "data_type": "currency",
+          "nullable": true
+        },
+        {
+          "name": "evidence_count",
+          "data_type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "identity_status",
+          "data_type": "text",
+          "nullable": false,
+          "enum": [
+            "CANDIDATE",
+            "BLOCKED",
+            "UNKNOWN",
+            "STOP",
+            "NOT_APPLICABLE",
+            "PROVEN"
+          ]
+        },
+        {
+          "name": "financial_identity_proven",
+          "data_type": "boolean",
+          "nullable": false
+        },
+        {
+          "name": "reason",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "data_type": "datetime",
+          "nullable": false
+        },
+        {
+          "name": "provenance_id",
+          "data_type": "text",
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "dataset_id": "BI_FONTES_STATUS",
+      "grain": "one source or module",
+      "primary_key": [
+        "source_id"
+      ],
+      "source_layers": [
+        "STATE",
+        "PROVENANCE"
+      ],
+      "provenance": {
+        "required": true,
+        "join_key": "provenance_reference",
+        "minimum_trace": "source -> derived layer -> run/batch -> sha256 -> BI transformation"
+      },
+      "update_strategy": "FULL_REBUILD_TO_CREATE_ONLY_SNAPSHOT",
+      "looker_ready": true,
+      "privacy_class": "PUBLIC_MINIMIZED",
+      "semantic_constraints": [
+        "NO_STATUS_PROMOTION"
+      ],
+      "fields": [
+        {
+          "name": "source_id",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "source_name",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "domain",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "capability",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "validation_status",
+          "data_type": "text",
+          "nullable": false,
+          "enum": [
+            "PROVEN",
+            "VALIDATED",
+            "READY_WITH_CAUTION",
+            "PARTIAL",
+            "CANDIDATE",
+            "BLOCKED",
+            "UNKNOWN",
+            "STOP",
+            "NOT_APPLICABLE"
+          ]
+        },
+        {
+          "name": "collection_status",
+          "data_type": "text",
+          "nullable": false,
+          "enum": [
+            "PROVEN",
+            "VALIDATED",
+            "READY_WITH_CAUTION",
+            "PARTIAL",
+            "CANDIDATE",
+            "BLOCKED",
+            "UNKNOWN",
+            "STOP",
+            "NOT_APPLICABLE"
+          ]
+        },
+        {
+          "name": "latest_observation",
+          "data_type": "datetime",
+          "nullable": true
+        },
+        {
+          "name": "latest_successful_run",
+          "data_type": "datetime",
+          "nullable": true
+        },
+        {
+          "name": "latest_checkpoint",
+          "data_type": "text",
+          "nullable": true
+        },
+        {
+          "name": "item_count",
+          "data_type": "integer",
+          "nullable": true
+        },
+        {
+          "name": "freshness_status",
+          "data_type": "text",
+          "nullable": false,
+          "enum": [
+            "PROVEN",
+            "VALIDATED",
+            "READY_WITH_CAUTION",
+            "PARTIAL",
+            "CANDIDATE",
+            "BLOCKED",
+            "UNKNOWN",
+            "STOP",
+            "NOT_APPLICABLE"
+          ]
+        },
+        {
+          "name": "blocker",
+          "data_type": "text",
+          "nullable": true
+        },
+        {
+          "name": "next_action",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "release_relevance",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "provenance_reference",
+          "data_type": "text",
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "dataset_id": "BI_EXECUCOES_ROBO",
+      "grain": "one run or batch",
+      "primary_key": [
+        "run_id",
+        "batch_id"
+      ],
+      "source_layers": [
+        "STATE",
+        "LOGS",
+        "PROVENANCE"
+      ],
+      "provenance": {
+        "required": true,
+        "join_key": "provenance_id",
+        "minimum_trace": "source -> derived layer -> run/batch -> sha256 -> BI transformation"
+      },
+      "update_strategy": "APPEND_TO_CREATE_ONLY_SNAPSHOT",
+      "looker_ready": true,
+      "privacy_class": "PUBLIC_MINIMIZED",
+      "semantic_constraints": [
+        "NO_SECRETS_OR_SENSITIVE_REMOTE_IDS"
+      ],
+      "fields": [
+        {
+          "name": "run_id",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "batch_id",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "task",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "started_at",
+          "data_type": "datetime",
+          "nullable": false
+        },
+        {
+          "name": "completed_at",
+          "data_type": "datetime",
+          "nullable": false
+        },
+        {
+          "name": "duration",
+          "data_type": "number",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "data_type": "text",
+          "nullable": false,
+          "enum": [
+            "PROVEN",
+            "VALIDATED",
+            "PARTIAL",
+            "BLOCKED",
+            "STOP"
+          ]
+        },
+        {
+          "name": "source_requests",
+          "data_type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "drive_reads",
+          "data_type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "drive_writes",
+          "data_type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "bronze_created",
+          "data_type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "silver_created",
+          "data_type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "gold_created",
+          "data_type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "rag_created",
+          "data_type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "documents_created",
+          "data_type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "reconciliation_tasks",
+          "data_type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "reconciliation_matches_candidate",
+          "data_type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "stop_count",
+          "data_type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "warning_count",
+          "data_type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "final_readback_verified",
+          "data_type": "boolean",
+          "nullable": false
+        },
+        {
+          "name": "software_version",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "git_sha",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "authorization_id",
+          "data_type": "text",
+          "nullable": true
+        },
+        {
+          "name": "execution_tier",
+          "data_type": "text",
+          "nullable": false,
+          "enum": [
+            "T0_OFFLINE",
+            "T1_REMOTE_READONLY",
+            "T2_CREATE_ONLY",
+            "T3_MUTATING_OR_PUBLICATION"
+          ]
+        },
+        {
+          "name": "provenance_id",
+          "data_type": "text",
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "dataset_id": "BI_DICIONARIO",
+      "grain": "one field of one BI dataset",
+      "primary_key": [
+        "dataset",
+        "field"
+      ],
+      "source_layers": [
+        "BI_CONTRACT"
+      ],
+      "provenance": {
+        "required": true,
+        "join_key": "provenance_id",
+        "minimum_trace": "source -> derived layer -> run/batch -> sha256 -> BI transformation"
+      },
+      "update_strategy": "FULL_REBUILD_TO_CREATE_ONLY_SNAPSHOT",
+      "looker_ready": true,
+      "privacy_class": "PUBLIC_MINIMIZED",
+      "semantic_constraints": [
+        "MACHINE_AND_HUMAN_READABLE"
+      ],
+      "fields": [
+        {
+          "name": "dataset",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "field",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "label_ptbr",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "definition",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "data_type",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "unit",
+          "data_type": "text",
+          "nullable": true
+        },
+        {
+          "name": "nullable",
+          "data_type": "boolean",
+          "nullable": false
+        },
+        {
+          "name": "semantic_class",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "source",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "transformation",
+          "data_type": "text",
+          "nullable": false
+        },
+        {
+          "name": "caution",
+          "data_type": "text",
+          "nullable": true
+        },
+        {
+          "name": "example_sanitized",
+          "data_type": "text",
+          "nullable": true
+        },
+        {
+          "name": "provenance_id",
+          "data_type": "text",
+          "nullable": false
+        }
+      ]
+    }
+  ]
+}

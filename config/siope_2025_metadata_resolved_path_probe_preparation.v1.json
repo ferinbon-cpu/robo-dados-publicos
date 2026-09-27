@@ -1,0 +1,82 @@
+{
+  "schema": "SIOPE_2025_METADATA_RESOLVED_PATH_PROBE_PREPARATION_V1",
+  "task": "TASK_009C",
+  "task_phase": "OFFLINE_PREPARATION_ONLY",
+  "software_version": "0.8.0",
+  "current_task_execution_tier": "T0_OFFLINE",
+  "tier_design_target": "T1_REMOTE_READONLY",
+  "starting_main_sha": "a0647dde4b3e963cbdcba1aabc5eb93aa6dfdc77",
+  "live_execution_authorized_by_task_009c": false,
+  "source_get_authorized_by_task_009c": false,
+  "future_batch_execution_authorized": false,
+  "evidence_basis": {
+    "pinned_evidence_path": "docs/evidence/TASK_009B_SIOPE_2025_METADATA_ROUTE_PROBE_RUN_2_REDIRECT_0.8.0.json",
+    "observed_http_status": 302,
+    "observed_relative_location": "/sites/SIOPE/Documentos%20Compartilhados/Metadados_Mun_2025.zip",
+    "resolution_kind": "OFFLINE_RELATIVE_URI_RESOLUTION_ONLY"
+  },
+  "source_identity": {
+    "provider": "FNDE",
+    "year": 2025,
+    "scope": "MUNICIPAL_METADATA_RESOLVED_PATH",
+    "host": "fnde.sharepoint.com",
+    "resolved_package_url": "https://fnde.sharepoint.com/sites/SIOPE/Documentos%20Compartilhados/Metadados_Mun_2025.zip"
+  },
+  "authorization": {
+    "fixed_artifact_path": "config/siope_2025_metadata_resolved_path_probe_authorization.v1.json",
+    "artifact_must_be_absent_in_task_009c": true,
+    "one_shot_required": true,
+    "max_live_runs": 1
+  },
+  "probe_contract": {
+    "method": "GET",
+    "range_header": "bytes=0-4095",
+    "maximum_source_get_count": 1,
+    "maximum_response_bytes": 4096,
+    "timeout_seconds": 60,
+    "max_attempts": 1,
+    "retry_authorized": false,
+    "follow_redirects": false,
+    "allowed_redirect_hosts": [],
+    "persist_raw_body": false,
+    "emit_raw_body": false,
+    "purpose": "RESOLVED_PATH_RESPONSE_SIZE_AND_ZIP_MAGIC_DISCOVERY_ONLY"
+  },
+  "effects_task_009c": {
+    "source_get_count": 0,
+    "operational_receipt_status_query_count": 0,
+    "siope_fiscal_odata_get_count": 0,
+    "drive_read_count": 0,
+    "drive_write_count": 0,
+    "response_persistence": false,
+    "archive_persistence": false,
+    "bronze_silver_gold_creation": false,
+    "publication": false
+  },
+  "semantic_guards": {
+    "year_2025_status": "PROVEN_STRUCTURAL_RECENT",
+    "p6_documentary_role": "P6_ANNUAL_CONSOLIDATION_PROVEN_FINALITY_UNKNOWN",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "gold_metrics_status": "UNKNOWN",
+    "closed_annual_series_last_year": 2024,
+    "include_2026_authorized": false,
+    "compliance_claims_authorized": false
+  },
+  "success_scope": {
+    "may_prove": [
+      "RESOLVED_PATH_RESPONSE_CLASS",
+      "SANITIZED_FURTHER_REDIRECT_IF_ANY",
+      "CONTENT_LENGTH_OR_CONTENT_RANGE_TOTAL_IF_EXPOSED",
+      "ZIP_MAGIC_IN_FIRST_4096_BYTES_IF_DIRECT_PARTIAL_CONTENT"
+    ],
+    "cannot_prove": [
+      "FULL_PACKAGE_INTEGRITY",
+      "ANY_ALIAS_SEMANTICS",
+      "NUM_POPU_DEFINITION_OR_VINTAGE",
+      "ANNUAL_FINALITY_OR_CLOSURE",
+      "GOLD_2025",
+      "MDE_OR_FUNDEB_COMPLIANCE"
+    ]
+  }
+}

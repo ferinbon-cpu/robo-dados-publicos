@@ -1,0 +1,16 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.5.8",
+  "status": "ACTIVE",
+  "promotion_review": "PASS_USER_AUTHORIZED",
+  "compileall": "PASS",
+  "unit_tests": "78/78 PASS",
+  "historical_regressions": "109/109 PASS",
+  "release_identity": "PASS_ACTIVE_0.5.8_NO_CURRENT_CANDIDATE",
+  "candidate_evidence_preserved": "PASS",
+  "financial_identity_auto_promotion": "PROHIBITED",
+  "tda_connector": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN",
+  "github_live_gate": "PENDING",
+  "secret_scan": "PASS",
+  "clean_reextraction": "PASS"
+}

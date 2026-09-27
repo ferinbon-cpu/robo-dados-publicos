@@ -1,0 +1,83 @@
+name: TASK 018 full bounded operational bootstrap
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-018-full-operational-bootstrap
+  cancel-in-progress: false
+
+jobs:
+  full_bounded_bootstrap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+
+      - name: Install pinned runtime
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Offline policy preflight
+        run: |
+          python scripts/github_preflight.py
+          python scripts/github_automation_policy_gate.py
+          python scripts/github_codex_engineer_policy_gate.py
+          python scripts/github_task_018_full_operational_bootstrap_design_gate.py
+
+      - name: Validate existing Drive credentials without printing values
+        env:
+          GOOGLE_DRIVE_CLIENT_ID: ${{ secrets.GOOGLE_DRIVE_CLIENT_ID }}
+          GOOGLE_DRIVE_CLIENT_SECRET: ${{ secrets.GOOGLE_DRIVE_CLIENT_SECRET }}
+          GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_REFRESH_TOKEN }}
+        run: |
+          test -n "$GOOGLE_DRIVE_CLIENT_ID"
+          test -n "$GOOGLE_DRIVE_CLIENT_SECRET"
+          test -n "$GOOGLE_DRIVE_REFRESH_TOKEN"
+
+      # This create-only reservation is the durable one-shot guard. It occurs
+      # before any Jornal Oficial request, so a repeated dispatch cannot repeat T1.
+      - name: T2_RESERVE_ONE_SHOT
+        env:
+          GOOGLE_DRIVE_CLIENT_ID: ${{ secrets.GOOGLE_DRIVE_CLIENT_ID }}
+          GOOGLE_DRIVE_CLIENT_SECRET: ${{ secrets.GOOGLE_DRIVE_CLIENT_SECRET }}
+          GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_REFRESH_TOKEN }}
+        run: python scripts/github_task_018_full_operational_bootstrap.py --stage T2_RESERVE_ONE_SHOT --workspace task-018-workspace
+
+      - name: T1_DISCOVER_AND_COLLECT
+        env:
+          GOOGLE_DRIVE_CLIENT_ID: ${{ secrets.GOOGLE_DRIVE_CLIENT_ID }}
+          GOOGLE_DRIVE_CLIENT_SECRET: ${{ secrets.GOOGLE_DRIVE_CLIENT_SECRET }}
+          GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_REFRESH_TOKEN }}
+        run: python scripts/github_task_018_full_operational_bootstrap.py --stage T1_DISCOVER_AND_COLLECT --workspace task-018-workspace
+
+      - name: T2_CREATE_ONLY_PERSIST_AND_PROCESS
+        env:
+          GOOGLE_DRIVE_CLIENT_ID: ${{ secrets.GOOGLE_DRIVE_CLIENT_ID }}
+          GOOGLE_DRIVE_CLIENT_SECRET: ${{ secrets.GOOGLE_DRIVE_CLIENT_SECRET }}
+          GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_REFRESH_TOKEN }}
+        run: python scripts/github_task_018_full_operational_bootstrap.py --stage T2_CREATE_ONLY_PERSIST_AND_PROCESS --workspace task-018-workspace
+
+      - name: T3_CREATE_ONLY_PRODUCT_PUBLICATION
+        env:
+          GOOGLE_DRIVE_CLIENT_ID: ${{ secrets.GOOGLE_DRIVE_CLIENT_ID }}
+          GOOGLE_DRIVE_CLIENT_SECRET: ${{ secrets.GOOGLE_DRIVE_CLIENT_SECRET }}
+          GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_REFRESH_TOKEN }}
+        run: python scripts/github_task_018_full_operational_bootstrap.py --stage T3_CREATE_ONLY_PRODUCT_PUBLICATION --workspace task-018-workspace
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with:
+          name: task-018-sanitized-operational-evidence
+          path: task-018-workspace/task-018-audit/
+          if-no-files-found: error
+          retention-days: 30

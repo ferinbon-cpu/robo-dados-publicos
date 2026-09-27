@@ -1,0 +1,172 @@
+{
+  "schema": "TASK195C_SIOPE_FUNCAO12_ALIAS_BRIDGE_V1",
+  "task": "TASK_195C",
+  "issue": 623,
+  "base_main_sha": "dc7dbc94979bdad2b02eebd449a801cdcebe5f67",
+  "scope": {
+    "system": "SIOPE",
+    "year": 2025,
+    "period": 6,
+    "period_label": "Annual",
+    "uf": "SP",
+    "municipality": "Limeira",
+    "municipality_code": 352690,
+    "target_alias": "VL_DESP_DOTA_ATUA_EDU",
+    "target_family": "DADOS_GERAIS_DESPESA_COM_EDUCACAO_FUNCAO_12"
+  },
+  "official_documentary_chain": {
+    "dictionary_2019": {
+      "authority": "FNDE",
+      "url": "https://www.fnde.gov.br/phocadownload/sistemas/siope/Manuais/DICIONARIO%20DE%20DADOS%20SIOPE%202019.pdf",
+      "section": "Dados Consolidados",
+      "binary_custody": false,
+      "fields": [
+        {"historical_field": "VL_RECEITA_PREVISAO_ATUALIZADA", "meaning": "Valor de receita prevista atualizada", "current_alias": "VAL_RECE_PREV_ATUA"},
+        {"historical_field": "VL_RECEITA_REALIZADA", "meaning": "Valor de receita realizada", "current_alias": "VAL_RECE_REAL"},
+        {"historical_field": "VL_DESPESA_DOTACAO_ATUALIZADA", "meaning": "Valor de despesa dotada atualizada", "current_alias": "VAL_DESP_DOTA_ATUA"},
+        {"historical_field": "VL_DESPESA_EMPENHADA", "meaning": "Valor de despesa empenhada", "current_alias": "VAL_DESP_EMPE"},
+        {"historical_field": "VL_DESPESA_LIQUIDADA", "meaning": "Valor de despesa liquidada", "current_alias": "VAL_DESP_LIQU"},
+        {"historical_field": "VL_DESPESA_PAGA", "meaning": "Valor de despesa paga", "current_alias": "VAL_DESP_PAGA"},
+        {"historical_field": "VL_DOTACAO_ATUALIZADA_EDUCACAO", "meaning": "Valor de despesa dotada atualizada com educação", "current_alias": "VL_DESP_DOTA_ATUA_EDU"},
+        {"historical_field": "VL_DESPESA_EMPENHADA_EDUCACAO", "meaning": "Valor de despesa empenhada com educação", "current_alias": "VL_DESP_EMPE_EDU"},
+        {"historical_field": "VL_DESPESA_LIQUIDADA_EDUCACAO", "meaning": "Valor de despesa liquidada com educação", "current_alias": "VL_DESP_LIQU_EDU"},
+        {"historical_field": "VL_DESPESA_PAGA_EDUCACAO", "meaning": "Valor de despesa paga com educação", "current_alias": "VL_DESP_PAGA_EDU"}
+      ]
+    },
+    "tutorial_2024": {
+      "authority": "FNDE",
+      "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/media/Tutorial_Bsico_Siope_2024_v2.pdf",
+      "binary_custody": false,
+      "dados_gerais_page": 21,
+      "dados_gerais_tabs_observed": [
+        "Receita total do Município",
+        "Despesa total do Município",
+        "Despesa com Educação (Função 12)"
+      ],
+      "demonstrativo_funcao_educacao_page": 25,
+      "demonstrativo_is_separate_screen": true,
+      "mde_page": 23,
+      "mde_is_separate_guide": true
+    },
+    "metadata_2025": {
+      "artifact": "Metadados_Mun_2025.zip",
+      "sha256": "41511c141e1af025ae2b565085583d6a3ab7b4577862f8ebdc308605101c1e5b",
+      "classification": "USER_MEDIATED_OFFICIAL_DOWNLOAD_CANDIDATE",
+      "software_version": "25.0.5.6",
+      "metadata_version": 333,
+      "education_root": {"name": "Despesas com Educação", "COD_PAST": 27},
+      "education_hierarchy_folder_count": 715,
+      "operational_folders_with_standard_stages": 561,
+      "standard_stages": {
+        "DA": "Dotação Atualizada",
+        "DE": "Desp. Empenhadas",
+        "DL": "Desp. Liquidadas",
+        "DP": "Desp. Pagas"
+      },
+      "mde_separate_structure": true
+    },
+    "odata_2025": {
+      "resource": "Dados_Gerais_Siope",
+      "schema_field_count": 52,
+      "education_alias_block": [
+        "VL_DESP_DOTA_ATUA_EDU",
+        "VL_DESP_EMPE_EDU",
+        "VL_DESP_LIQU_EDU",
+        "VL_DESP_ORCA_EDU",
+        "VL_DESP_PAGA_EDU"
+      ],
+      "ten_financial_aliases_in_scope": [
+        "VAL_RECE_PREV_ATUA",
+        "VAL_RECE_REAL",
+        "VAL_DESP_DOTA_ATUA",
+        "VAL_DESP_EMPE",
+        "VAL_DESP_LIQU",
+        "VAL_DESP_PAGA",
+        "VL_DESP_DOTA_ATUA_EDU",
+        "VL_DESP_EMPE_EDU",
+        "VL_DESP_LIQU_EDU",
+        "VL_DESP_PAGA_EDU"
+      ]
+    }
+  },
+  "operational_evidence": {
+    "prior_exact_aliases": 9,
+    "prior_partial_aliases": 1,
+    "target_alias_observed_value": "520399255.47",
+    "rreo_anexo_8_line_33_da": "520398255.47",
+    "rreo_variance": "1000.00",
+    "budget_only_candidate_account": {
+      "code": "3.2.00.00.00",
+      "label": "Juros e Encargos da Dívida",
+      "DA": "1000.00",
+      "execution": "0.00",
+      "role": "CANDIDATE_EXPLANATION_ONLY_NOT_REQUIRED_FOR_ALIAS_SEMANTICS"
+    },
+    "three_education_execution_siblings": [
+      {"alias": "VL_DESP_EMPE_EDU", "status": "PROVEN_EXACT_OPERATIONAL", "value": "463766660.32"},
+      {"alias": "VL_DESP_LIQU_EDU", "status": "PROVEN_EXACT_OPERATIONAL", "value": "455867723.30"},
+      {"alias": "VL_DESP_PAGA_EDU", "status": "PROVEN_EXACT_OPERATIONAL", "value": "420264584.22"}
+    ]
+  },
+  "semantic_decision": {
+    "VL_DESP_DOTA_ATUA_EDU": "PROVEN_ALIAS_TO_EDUCATION_EXPENSE_UPDATED_BUDGET_CONCEPT",
+    "education_scope": "DESPESA_COM_EDUCACAO_FUNCAO_12",
+    "rreo_line_33_identity_required": false,
+    "rreo_line_33": "INDEPENDENT_CORROBORATION_SURFACE_NOT_CANONICAL_ALIAS_DEFINITION",
+    "backend_account_inclusion_formula": "NOT_PROVEN_NOT_REQUIRED_FOR_ALIAS_TO_CONCEPT_IDENTITY",
+    "source_defined_1000_inclusion_rule": "NOT_CLAIMED",
+    "EDU_equals_MDE": false,
+    "B2_FINANCIAL_ALIAS_BRIDGE": "PROVEN_10_OF_10_ALIAS_TO_CONCEPT",
+    "proof_basis": [
+      "OFFICIAL_2019_DADOS_CONSOLIDADOS_TEN_FIELD_CONCEPT_FAMILY",
+      "OFFICIAL_2024_DADOS_GERAIS_THREE_TAB_UI_WITH_EDUCATION_FUNCTION_12",
+      "CURRENT_2025_METADATA_EDUCATION_ROOT_AND_DA_DE_DL_DP_STAGES",
+      "CURRENT_2025_ODATA_DADOS_GERAIS_TEN_ALIAS_FAMILY",
+      "NINE_OF_TEN_PRIOR_EXACT_OPERATIONAL_RECONCILIATIONS",
+      "THREE_OF_FOUR_EDUCATION_EXECUTION_SIBLINGS_EXACTLY_RECONCILED"
+    ],
+    "proof_is_not": [
+      "ALIAS_NAME_SIMILARITY_ONLY",
+      "RREO_LINE_33_NUMERIC_IDENTITY",
+      "BACKEND_FORMULA_RECONSTRUCTION",
+      "ASSUMED_1000_ACCOUNT_INCLUSION"
+    ]
+  },
+  "bounded_remote_probe": {
+    "report_root_run": 34669116999,
+    "report_root_result": "HTTP_200_PUBLIC_FORM",
+    "inline_control_flow_run": 34669189456,
+    "inline_control_flow_result": "POST_ATUALIZAR_AND_POST_PESQUISAR_WITH_RECAPTCHA_BOUNDARY",
+    "form_submission_performed": false,
+    "captcha_bypass_attempted": false,
+    "odata_da_runs": [
+      {"run_id": 34669276182, "result": "TRANSPORT_TIMEOUT", "semantic_result": false},
+      {"run_id": 34669352736, "result": "TRANSPORT_TIMEOUT", "semantic_result": false},
+      {"run_id": 34669441335, "result": "TRANSPORT_TIMEOUT_EXACT_TASK195_PROVEN_FILTER", "semantic_result": false}
+    ],
+    "timeout_is_not_zero_rows": true,
+    "tinyfish_used": false
+  },
+  "release_effect": {
+    "B1_NUM_POPU": "RESOLVED_BY_EXCLUSION_FROM_ANALYTICAL_POPULATION_SEMANTICS",
+    "B2_FINANCIAL_ALIAS_BRIDGE": "PROVEN_10_OF_10_ALIAS_TO_CONCEPT",
+    "B3_EFFECTIVE_ANNUAL_DECLARATION": "NOT_PROVEN_EFFECTIVE_SELECTION_RULE_MISSING",
+    "semantic_comparability": "NOT_GLOBALLY_PROMOTED_IN_THIS_TASK",
+    "gold_2025_calculated": false,
+    "release_0_8_0": "CANDIDATE",
+    "closed_annual_series": "2016-2024"
+  },
+  "guards": [
+    "DADOS_GERAIS_FUNCAO12_NE_RREO_LINE33_IDENTITY",
+    "EDU_NE_MDE",
+    "ALIAS_CONCEPT_PROOF_NE_BACKEND_AGGREGATION_FORMULA",
+    "THOUSAND_REAL_VARIANCE_NE_INCLUSION_RULE_PROOF",
+    "TRANSPORT_TIMEOUT_NE_ZERO_ROWS",
+    "CAPTCHA_NOT_BYPASSED",
+    "B3_UNCHANGED",
+    "NO_GOLD_2025_CALCULATION",
+    "NO_RELEASE_PROMOTION",
+    "HISTORICAL_M3_M4_EVIDENCE_REMAINS_HISTORICAL"
+  ],
+  "decision": "PROVE_B2_10_OF_10_ALIAS_TO_CONCEPT_PRESERVE_B3_AND_GOLD_BLOCK"
+}

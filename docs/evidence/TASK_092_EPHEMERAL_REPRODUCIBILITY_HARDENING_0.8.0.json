@@ -1,0 +1,42 @@
+{
+  "task": "TASK_092_EPHEMERAL_REPRODUCIBILITY_HARDENING",
+  "mode": "T0_OFFLINE_REPRODUCIBILITY_DESIGN",
+  "base_sha": "98866ebb1f91f1284f4787f1844a50208275a1e0",
+  "authorization": {
+    "owner_authorized": true,
+    "owner_message": "autorizado",
+    "scope": "STRUCTURAL_REDESIGN_TASK092_OFFLINE_ONLY",
+    "remote_execution_authorized": false
+  },
+  "invariants": [
+    "CAPTURE_OBSERVED_COUNTS_BEFORE_HISTORICAL_COMPARISON",
+    "CAPTURE_CANDIDATE_HASHES_BEFORE_HISTORICAL_COMPARISON",
+    "CAPTURE_RUNTIME_FINGERPRINT_BEFORE_HISTORICAL_COMPARISON",
+    "DIGEST_PASS_IS_INDEPENDENT_FROM_HISTORICAL_REPRODUCTION_STATUS",
+    "LOCAL_OBSERVATION_WRITE_IS_CREATE_ONLY",
+    "HISTORICAL_DRIFT_IS_NOT_A_DIGEST_FAILURE"
+  ],
+  "statuses": {
+    "digest_pass": "PASS_EPHEMERAL_RUNTIME_DIGEST_NOT_PERSISTED",
+    "historical_match": "HISTORICAL_REPRODUCTION_MATCH",
+    "historical_drift": "HISTORICAL_REPRODUCTION_DRIFT"
+  },
+  "effects": {
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "bronze_write": 0,
+    "silver_write": 0,
+    "gold_write": 0,
+    "rag_write": 0,
+    "state_registry_write": 0,
+    "queue_write": 0,
+    "serving": 0,
+    "publication": 0,
+    "retry": 0,
+    "recurrence": 0,
+    "schedule": 0
+  },
+  "next_task": "TASK_093_RESEARCH_ONTOLOGY_SCHEMA_T0",
+  "result": "READY_FOR_CI_REVIEW_NO_REMOTE_EFFECT"
+}

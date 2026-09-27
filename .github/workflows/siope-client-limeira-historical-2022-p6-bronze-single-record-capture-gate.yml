@@ -1,0 +1,66 @@
+name: M7 SIOPE CLIENT LIMEIRA HISTORICAL 2022 P6 BRONZE SINGLE RECORD CAPTURE GATE
+run-name: "M7 SIOPE client Limeira historical 2022 P6 bronze single record capture 0.8.0 by @${{ github.actor }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_siope_client_limeira_historical_2022_p6_bronze_single_record_capture:
+        description: "Confirmar exatamente um GET público de Limeira 2022/P6 e capturar exatamente um registro de 52 campos como Bronze local imutável; sem Drive, retry, paginação, lote ou recorrência"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: siope-client-limeira-historical-2022-p6-bronze-single-record-capture
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: ${{ inputs.confirm_siope_client_limeira_historical_2022_p6_bronze_single_record_capture == true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          check-latest: false
+      - name: Instalar dependências
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - name: Preflight offline
+        run: python scripts/github_preflight.py
+      - name: Revisar validação histórica 2022 P6 pinada
+        run: python scripts/github_siope_client_limeira_historical_2022_p6_full_schema_readonly_validation_review_gate.py
+      - name: Validar desenho da captura Bronze histórica sem rede
+        run: python scripts/github_siope_client_limeira_historical_2022_p6_bronze_single_record_capture_gate.py --dry-run
+      - name: Compilar
+        run: python -m compileall -q .
+      - name: Testes unitários
+        run: python -m unittest discover -s tests -v
+      - name: Regressão histórica
+        run: python main.py selftest
+      - name: Capturar exatamente um registro Bronze de Limeira 2022 P6
+        id: live
+        continue-on-error: true
+        run: python scripts/github_siope_client_limeira_historical_2022_p6_bronze_single_record_capture_gate.py
+      - name: Publicar Bronze local + manifesto + resultado
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: siope-client-limeira-historical-2022-p6-bronze-single-record-capture-${{ github.run_id }}
+          path: siope-client-limeira-historical-2022-p6-bronze-single-record-capture-evidence/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Propagar STOP do gate
+        if: ${{ steps.live.outcome == 'failure' }}
+        run: exit 1

@@ -1,0 +1,45 @@
+{
+  "evidence_schema": "TASK_244_POST_TASK242_TASK243_ACQUISITION_READY_STATE_V1",
+  "software_version": "0.8.0",
+  "task": "TASK_244",
+  "issue": 816,
+  "canonical_date": "2026-09-14",
+  "base_main_sha": "094595b1ba8dd9d82596b918b621a2ae939aa204",
+  "entry_state": {
+    "task242": "COMPLETE_STOP_PRIMARY_TEMPORAL_PUBLIC_CONTRACT_EVIDENCE_REQUIRED",
+    "task243": "COMPLETE_STOP_IBGE_REBASE_SOURCE_CONTRACT_NOT_PINNED",
+    "post_task243_main_ci": "GREEN_UNIT_AND_HISTORICAL_REGRESSION",
+    "semantic_comparability": "PARTIAL",
+    "financial_inputs": "10_OF_10_PARTIAL",
+    "financial_metrics_1_to_6": "6_OF_6_PARTIAL",
+    "per_capita_metrics_7_to_8": "2_OF_2_NON_COMPARABLE_UNDER_NUM_POPU",
+    "gold_2025": "BLOCKED_NOT_CALCULATED",
+    "closed_annual_series": "2016-2024",
+    "release_0_8_0": "CANDIDATE"
+  },
+  "current_routing": {
+    "financial_1_to_6": {
+      "gate": "BOUNDED_OFFICIAL_PUBLIC_CONTRACT_TEMPORAL_EVIDENCE_ACQUISITION_REQUIRES_EXPLICIT_AUTHORIZATION",
+      "authority": "FNDE_SIOPE",
+      "purpose": "PROVE_OR_REJECT_TEMPORAL_ALIAS_TO_CONCEPT_CONTINUITY_2016_2024",
+      "status_at_reconciliation": "AUTHORIZED_FOR_BOUNDED_READ_ONLY_ACQUISITION_BY_USER_ON_2026_09_14"
+    },
+    "per_capita_7_to_8": {
+      "gate": "BOUNDED_OFFICIAL_IBGE_POPULATION_SOURCE_CONTRACT_AND_SERIES_ACQUISITION_REQUIRES_EXPLICIT_AUTHORIZATION",
+      "authority": "IBGE",
+      "purpose": "PIN_POPULATION_PRODUCT_CONTRACT_AND_2016_2025_SERIES_WITH_EXPLICIT_REGIMES",
+      "status_at_reconciliation": "AUTHORIZED_FOR_BOUNDED_READ_ONLY_ACQUISITION_BY_USER_ON_2026_09_14"
+    }
+  },
+  "decision": "CURRENT_STATE_RECONCILED_ACQUISITION_READY_NO_GOLD",
+  "guards": {
+    "historical_evidence_rewritten": false,
+    "task242_completion_treated_as_financial_comparability_proven": false,
+    "task243_completion_treated_as_ibge_contract_proven": false,
+    "gold_2025_computed": false,
+    "series_2025_included": false,
+    "release_promoted": false,
+    "drive_write": false,
+    "schedule_or_recurrence": false
+  }
+}

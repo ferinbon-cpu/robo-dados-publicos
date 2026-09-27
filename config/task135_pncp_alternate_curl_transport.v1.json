@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "schema": "TASK135_PNCP_ALTERNATE_CURL_TRANSPORT_DESIGN_V1",
+  "mode": "T0_OFFLINE_ALTERNATE_TRANSPORT_DESIGN_ONLY",
+  "base_sha": "cc6b6cf41f360d0c0d8414aa3ff04f036363d2f0",
+  "issue": 472,
+  "authorization_source": {
+    "artifact": "docs/evidence/TASK_134_OWNER_AUTHORIZATION_PRE_RUN_0.8.0.json",
+    "must_remain_unconsumed_before_execution": true,
+    "does_not_create_new_scope": true
+  },
+  "source": {
+    "exact_url": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao?dataInicial=20251128&dataFinal=20260904&codigoModalidadeContratacao=12&cnpj=45132495000140&pagina=1&tamanhoPagina=500",
+    "host": "pncp.gov.br",
+    "https_only": true,
+    "source_role": "SECONDARY_AGGREGATOR"
+  },
+  "curl": {
+    "binary": "curl",
+    "method": "GET",
+    "max_requests": 1,
+    "follow_redirects": false,
+    "retry": 0,
+    "max_time_seconds": 60,
+    "connect_timeout_seconds": 15,
+    "max_response_bytes": 20971520,
+    "accept": "application/json",
+    "user_agent": "robo-dados-publicos-task135/0.8.0"
+  },
+  "local_handling": {
+    "temporary_raw_file_only": true,
+    "raw_git_persistence": false,
+    "raw_drive_persistence": false,
+    "delete_raw_after_hash_and_parse": true,
+    "sanitized_evidence_only": true
+  },
+  "interpretation": {
+    "parser_contract": "TASK133_PNCP_PROCUREMENT_PUBLICATION_LIVE_GATE_DESIGN_V1",
+    "strong_policy_marker_required": true,
+    "weak_context_alone_qualifies": false,
+    "primary_municipal_verification_required": true,
+    "automatic_financial_identity": false,
+    "automatic_transaction_identity": false,
+    "automatic_supplier_linkage": false
+  },
+  "followup_endpoints_authorized": false,
+  "remote_effects_in_task135_design": {
+    "network": false,
+    "drive": false,
+    "publication": false
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "schema": "RESEARCH_QUERY_SPEC_V1",
+  "spec_id": "SPEC:EITI_LIMEIRA_POLICY_STATUS_V1",
+  "dataset_id": "DATASET:EITI_LIMEIRA_V1",
+  "query_id": "Q:EITI_GENERIC_POLICY_STATUS",
+  "query_type": "POLICY_STATUS_PACKET",
+  "subject_id": "POLICY:EITI_LIMEIRA",
+  "include_evidence": true,
+  "include_unknown_gaps": true,
+  "output_format": "MARKDOWN",
+  "output_channel": "STDOUT"
+}

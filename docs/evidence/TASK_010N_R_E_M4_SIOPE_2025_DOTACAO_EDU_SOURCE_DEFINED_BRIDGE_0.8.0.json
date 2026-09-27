@@ -1,0 +1,111 @@
+{
+  "evidence_schema": "TASK_010N_R_E_M4_DOTACAO_EDU_SOURCE_DEFINED_BRIDGE_V1",
+  "software_version": "0.8.0",
+  "task": "TASK_010N-R-E-M4",
+  "base_main_sha": "158dcae15fab2f4809434d16556ace03c55dc08f",
+  "tier": "T0_OFFLINE_INVENTORY_ONLY",
+  "search_terms": [
+    "VL_DESP_DOTA_ATUA_EDU",
+    "DOTA_ATUA_EDU",
+    "DOTACAO_ATUALIZADA EDUCACAO",
+    "dotação educação",
+    "TOTAL GERAL DAS DESPESAS COM EDUCAÇÃO",
+    "3.2.00.00.00",
+    "3.2.91.00.00",
+    "520399255.47",
+    "520398255.47"
+  ],
+  "inventory": [
+    {
+      "path": "docs/evidence/TASK_010N_R_E_M3_SIOPE_2025_OPERATIONAL_FINANCIAL_ALIAS_BRIDGE_0.8.0.json",
+      "sha256": "df84296b8fa4a04d09431329395e4fa6d44d669799dc4041c7f35695e955774e",
+      "finding": "Pins the current alias, RREO line 33, the exact 1000.00 variance and the candidate accounts, but explicitly records that the source-defined inclusion rule is absent."
+    },
+    {
+      "path": "tests/fixtures/siope_2025_operational_financial_alias_bridge/official_observations.json",
+      "sha256": "a190bf8ac3f11e5d0e84f2dba56d286e128f577c0d9b426f82a852ca3a4f2a30",
+      "finding": "Pins sanitized current observations and hierarchy roles; it is observed data, not a backend aggregation specification."
+    },
+    {
+      "path": "docs/evidence/TASK_010N_R_E_M2_SIOPE_EDMX_HANDOFF_AUDIT_0.8.0.json",
+      "sha256": "72d2dbdddb74b7a24c648ccdf10583080ffae9c6b4a0c5c53ba9cd950fcbd91f",
+      "finding": "The official current EDMX proves the field and Edm.Decimal type but contains zero annotations and zero descriptions."
+    },
+    {
+      "path": "docs/evidence/TASK_010L_SIOPE_2025_ODATA_ALIAS_STATIC_BRIDGE_0.8.0.json",
+      "sha256": "09aa8edef521a47090c219c649d8cbeaeb5673b0dafc6f5f72557505e36e1f7d",
+      "finding": "Static inspection found no serializer, view or export routine mapping the education dotacao alias."
+    },
+    {
+      "path": "docs/evidence/TASK_010K_SIOPE_2025_OFFLINE_SEMANTIC_REVIEW_0.8.0.json",
+      "sha256": "6861167287d0c7a7415fd4b214977590730b95b757ef2200aa1c81017463c6a1",
+      "finding": "The summarized 2025 package scan found none of the ten alias literals in 156 decoded members; it proves DA and the education hierarchy exist but not the aggregate mapping."
+    },
+    {
+      "path": "docs/evidence/TASK_010N_R_E_D_SIOPE_OFFICIAL_DOC_ALIAS_CONCEPT_SEARCH_0.8.0.json",
+      "sha256": "b8e6d0d91ede314551ee257579886d179ebcecbc9855e8d35df911f1e79c3446",
+      "finding": "The prior official-document search found no current explicit definition for VL_DESP_DOTA_ATUA_EDU."
+    }
+  ],
+  "candidate_assessment": [
+    {
+      "candidate": "RREO_LINE_33_PLUS_1000_ACCOUNT",
+      "observations": {"alias": "520399255.47", "rreo_line_33_DA": "520398255.47", "variance": "1000.00", "account_parent_DA": "1000.00", "account_child_DA": "1000.00"},
+      "classification": "CANDIDATE_ONLY",
+      "insufficiency": "Exact arithmetic coincidence does not define whether or why the backend includes the parent, child, both, or another source component."
+    },
+    {
+      "candidate": "CURRENT_EDMX_FIELD_AND_TYPE",
+      "classification": "STRUCTURAL_ONLY",
+      "insufficiency": "The field name and Edm.Decimal type have no semantic annotation, formula, source relation or inclusion/exclusion rule."
+    },
+    {
+      "candidate": "CURRENT_2025_METADATA_PACKAGE",
+      "classification": "CONCEPT_ONLY",
+      "insufficiency": "DA and Despesas com Educacao are present, but the package scan found no alias literal or deterministic alias-to-aggregate mapping."
+    },
+    {
+      "candidate": "STATIC_CLIENT_ARTIFACTS",
+      "classification": "NOT_FOUND",
+      "insufficiency": "No official serializer, SQL, view or backend construction for this alias was observed."
+    },
+    {
+      "candidate": "HISTORICAL_DOCUMENTATION_OR_ALIAS_SIMILARITY",
+      "classification": "INAPPLICABLE_FOR_PROMOTION",
+      "insufficiency": "Historical meaning and lexical similarity do not prove the current 2025 backend mapping; EDU is not treated as MDE."
+    }
+  ],
+  "field_result": {
+    "alias": "VL_DESP_DOTA_ATUA_EDU",
+    "status": "PARTIAL_CURRENT_EXACT_1000_VARIANCE_NO_SOURCE_DEFINED_INCLUSION_RULE",
+    "source_defined_current_rule": "NOT_FOUND",
+    "promotion_performed": false
+  },
+  "smallest_next_evidence_acquisition": {
+    "required_artifact": "One current official FNDE/SIOPE artifact that explicitly defines the construction of VL_DESP_DOTA_ATUA_EDU, such as the backend SQL/view/serializer mapping or a current report/dictionary rule with exact included and excluded categories.",
+    "acceptance_condition": "The artifact must identify the current alias and deterministically explain the 2025 aggregate, including treatment of 3.2.00.00.00 and 3.2.91.00.00, without relying on the observed 1000.00 equality.",
+    "acquisition_boundary": "Separate explicitly authorized, bounded acquisition or user-mediated handoff; no source-network request is authorized by this T0 task."
+  },
+  "canonical_state": {
+    "release_0_7_0": "ACTIVE",
+    "release_0_8_0": "CANDIDATE",
+    "year_2025": "PROVEN_STRUCTURAL_RECENT",
+    "S1_NUM_POPU": "NOT_PROVEN",
+    "S2_FINANCIAL_ALIAS_BRIDGE": "NOT_PROVEN",
+    "financial_aliases_proven_exact_operational": "9/10",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "closed_annual_series": "2016-2024",
+    "gold_2025": "UNKNOWN/BLOCKED",
+    "year_2026": "UNPROVEN_CURRENT_YEAR"
+  },
+  "guards": {
+    "EDU_equals_MDE": false,
+    "network_requests": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "publication": false,
+    "gold_computation": false
+  },
+  "decision": "KEEP_S2_NOT_PROVEN_DOTACAO_EDU_SOURCE_DEFINED_BRIDGE_MISSING"
+}

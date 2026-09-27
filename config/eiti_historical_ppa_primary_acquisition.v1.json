@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "schema": "EITI_HISTORICAL_PPA_PRIMARY_ACQUISITION_V1",
+  "mode": "T0_OFFLINE_ACQUISITION_CONTRACT_DESIGN",
+  "policy_id": "POLICY:EITI_LIMEIRA",
+  "design_issue": 402,
+  "execution_tier": "T1_REMOTE_READONLY_SEPARATE",
+  "periods": [
+    {
+      "period": "2018-2021",
+      "law_identity": "LEI_MUNICIPAL_5947_2017",
+      "planning_document": "PPA_2018_2021",
+      "expected_signal": "escolas com programas em tempo integral",
+      "official_anchors": [
+        {
+          "role": "PREFEITURA_BUDGET_INDEX",
+          "url": "https://www.limeira.sp.gov.br/orcamentos"
+        },
+        {
+          "role": "CAMARA_PROJECT_RECORD",
+          "url": "https://consulta.limeira.sp.leg.br/Documentos/Pesquisa/79?Classificacao=1985&Modulo=8&Pagina=121&Pesquisa=Avancada"
+        }
+      ],
+      "primary_pdf_candidate_url": null,
+      "primary_pdf_resolution_required": true
+    },
+    {
+      "period": "2022-2025",
+      "law_identity": "LEI_MUNICIPAL_6659_2021",
+      "planning_document": "PPA_2022_2025",
+      "expected_signal": "ÍNDICE DE ALUNOS EM EDUCACAO INTEGRAL",
+      "official_anchors": [
+        {
+          "role": "PREFEITURA_BUDGET_INDEX",
+          "url": "https://www.limeira.sp.gov.br/orcamentos"
+        }
+      ],
+      "primary_pdf_candidate_url": "https://www.limeira.sp.gov.br/sitenovo/downloads/9d8dd63f39cc3b51ef032a4c96210a07.pdf",
+      "primary_pdf_resolution_required": false
+    }
+  ],
+  "required_before_promotion": [
+    "PRIMARY_PPA_DOCUMENT_IDENTITY",
+    "STABLE_SOURCE_HASH_OR_EQUIVALENT_IDENTITY",
+    "TYPED_LOCATOR_FOR_THE_RELEVANT_PLANNING_SIGNAL",
+    "DIRECT_TEXT_OR_VISUAL_EVIDENCE"
+  ],
+  "live_contract": {
+    "allowed_hosts": [
+      "www.limeira.sp.gov.br",
+      "limeira.sp.gov.br",
+      "consulta.limeira.sp.leg.br"
+    ],
+    "allowed_methods": [
+      "GET"
+    ],
+    "maximum_http_requests_total": 6,
+    "maximum_http_requests_per_period": 3,
+    "pagination_allowed": false,
+    "retry_allowed": false,
+    "redirects_must_remain_on_allowlisted_host": true,
+    "source_bytes_sha256_required": true,
+    "locator_coordinate_system_required": true,
+    "allowed_result_statuses": [
+      "PRIMARY_MATCH",
+      "CANDIDATE_MATCH",
+      "NO_MATCH",
+      "STOP_SOURCE_IDENTITY",
+      "STOP_SOURCE_HOST",
+      "STOP_REQUEST_BUDGET",
+      "STOP_DOCUMENT_MISMATCH",
+      "STOP_SIGNAL_NOT_FOUND",
+      "STOP_LOCATOR",
+      "STOP_HASH"
+    ]
+  },
+  "semantic_guards": [
+    "NO_MATCH_IS_SCOPED_TO_BOUNDED_SEARCH",
+    "PLANNING_SIGNAL_DOES_NOT_CREATE_FINANCIAL_IDENTITY",
+    "INDICATOR_SIMILARITY_DOES_NOT_CREATE_ACCOUNTING_IDENTITY",
+    "PLANNING_TARGET_DOES_NOT_PROVE_IMPLEMENTATION",
+    "PLANNING_TARGET_DOES_NOT_PROVE_CAUSAL_OUTCOME",
+    "TWO_HISTORICAL_PPA_MATCHES_DO_NOT_AUTOMATICALLY_PROVE_THREE_PPA_POLICY_CONTINUITY"
+  ],
+  "design_remote_effects": {
+    "source_network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "bronze_write": false,
+    "silver_write": false,
+    "gold_write": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  },
+  "future_execution_authorized_by_design": false
+}

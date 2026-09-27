@@ -1,0 +1,203 @@
+name: TASK 130 PNCP Limeira pages3-5 single use
+run-name: "TASK 130 PNCP pages 3-5 by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-130-pncp-limeira-contracts-pages3-5
+    paths:
+      - '.github/workflows/task-130-pncp-pages3-5-once.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-130-pncp-pages3-5-once
+  cancel-in-progress: false
+
+jobs:
+  task130-pncp-pages3-5:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Execute three exact PNCP GETs and sanitized scan
+        shell: bash
+        env:
+          TASK130_HEAD_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p runtime
+          python - <<'PY'
+          from __future__ import annotations
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+          import urllib.error
+          import urllib.request
+
+          from robo_dados_publicos.research.task129_pncp_limeira_contracts_scan import (
+              Task129Stop,
+              load_task129_contract,
+              scan_pncp_page,
+          )
+          from robo_dados_publicos.research.task130_pncp_limeira_contracts_scan import (
+              combine_remaining_pages,
+              load_task130_contract,
+          )
+
+          ROOT=Path(".")
+          contract=load_task130_contract(
+              ROOT/"config/task130_pncp_limeira_contracts_pages3_5.v1.json",
+              root=ROOT,
+          )
+          c129=load_task129_contract(
+              ROOT/contract["upstream"]["task129_contract_path"],
+              root=ROOT,
+          )
+
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, req, fp, code, msg, headers, newurl):
+                  return None
+
+          opener=urllib.request.build_opener(NoRedirect)
+          page_results=[]
+          request_records=[]
+          stop_reason=None
+
+          for page,url in zip(contract["source"]["pages"],contract["source"]["exact_urls"]):
+              if stop_reason is not None:
+                  break
+              req=urllib.request.Request(
+                  url,
+                  method="GET",
+                  headers={
+                      "Accept":"application/json",
+                      "User-Agent":"robo-dados-publicos-task130/0.8.0",
+                  },
+              )
+              raw=b""
+              http_status=None
+              transport_error=None
+              scan=None
+              record=None
+              try:
+                  with opener.open(req,timeout=contract["transport"]["timeout_seconds"]) as response:
+                      http_status=int(response.status)
+                      raw=response.read(contract["source"]["max_bytes_per_page"]+1)
+                      if len(raw)>contract["source"]["max_bytes_per_page"]:
+                          raise RuntimeError("TASK130_RESPONSE_TOO_LARGE")
+              except urllib.error.HTTPError as exc:
+                  http_status=int(exc.code)
+                  transport_error=f"HTTP_ERROR_{exc.code}"
+              except urllib.error.URLError as exc:
+                  transport_error=f"URL_ERROR:{type(exc.reason).__name__}"
+              except Exception as exc:
+                  transport_error=f"TRANSPORT_OR_SIZE_ERROR:{type(exc).__name__}:{str(exc)[:160]}"
+
+              record={
+                  "page":page,
+                  "url":url,
+                  "http_status":http_status,
+                  "bytes_received":len(raw),
+                  "source_sha256":hashlib.sha256(raw).hexdigest() if raw else None,
+                  "json_valid":False,
+                  "transport_error":transport_error,
+              }
+
+              if not raw or http_status!=200:
+                  stop_reason="STOP_TRANSPORT_NO_DATA_CONCLUSION"
+                  request_records.append(record)
+                  break
+
+              try:
+                  payload=json.loads(raw.decode("utf-8"))
+                  record["json_valid"]=True
+                  scan=scan_pncp_page(payload,c129,requested_page=page)
+              except (UnicodeDecodeError,json.JSONDecodeError) as exc:
+                  stop_reason="STOP_INVALID_JSON_NO_DATA_CONCLUSION"
+                  record["parse_error"]=type(exc).__name__
+              except Task129Stop as exc:
+                  stop_reason="STOP_MALFORMED_RESPONSE_NO_DATA_CONCLUSION"
+                  record["validation_error"]=str(exc)
+
+              request_records.append(record)
+              if scan is not None:
+                  page_results.append(scan)
+                  if scan["status"]!="PAGE_SCANNED":
+                      stop_reason=scan["status"]
+
+          if stop_reason is None and len(page_results)==3:
+              combined=combine_remaining_pages(page_results,contract)
+              status=combined["status"]
+          else:
+              combined={
+                  "status":stop_reason or "STOP_INCOMPLETE_PAGING_NO_DATA_CONCLUSION",
+                  "coverage":{
+                      "confirmed_prior_rows":1000,
+                      "new_rows":sum(
+                          x.get("rows_on_page",0)
+                          for x in page_results
+                          if x.get("status")=="PAGE_SCANNED"
+                      ),
+                      "exhaustive_within_query_scope":False,
+                  },
+                  "candidate_count":0,
+                  "candidates":[],
+                  "financial_identity_promoted":False,
+                  "transaction_identity_promoted":False,
+                  "municipal_primary_verification_required":True,
+              }
+              status=combined["status"]
+
+          result={
+              "schema":"TASK130_PNCP_LIVE_RESULT_V1",
+              "execution_head_sha":os.environ["TASK130_HEAD_SHA"],
+              "query":{
+                  "cnpj_orgao":contract["source"]["cnpj_orgao"],
+                  "data_inicial":contract["source"]["data_inicial"],
+                  "data_final":contract["source"]["data_final"],
+                  "pages":contract["source"]["pages"],
+                  "tamanho_pagina":contract["source"]["tamanho_pagina"],
+              },
+              "requests":{
+                  "attempted":len(request_records),
+                  "max":3,
+                  "timeout_seconds":60,
+                  "redirects_followed":0,
+                  "retry_performed":False,
+                  "records":request_records,
+              },
+              "page_results":page_results,
+              "combined_with_task128_129":combined,
+              "status":status,
+              "raw_payload_persisted":False,
+              "automatic_financial_identity":False,
+              "automatic_transaction_identity":False,
+              "municipal_primary_verification_required":True,
+              "future_retry_authorized":False,
+              "future_scope_widening_authorized":False,
+          }
+          canonical=json.dumps(result,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode("utf-8")
+          result["result_sha256"]=hashlib.sha256(canonical).hexdigest()
+          Path("runtime/task130_result.json").write_text(
+              json.dumps(result,ensure_ascii=False,indent=2,sort_keys=True)+"\n",
+              encoding="utf-8",
+          )
+          print("TASK130_RESULT_BEGIN")
+          print(json.dumps(result,ensure_ascii=False,sort_keys=True))
+          print("TASK130_RESULT_END")
+          PY
+
+      - name: Upload sanitized TASK 130 result
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-130-pncp-pages3-5-result
+          path: runtime/task130_result.json
+          if-no-files-found: error
+          retention-days: 1

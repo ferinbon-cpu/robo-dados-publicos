@@ -1,0 +1,65 @@
+{
+  "schema": "M8_T1_NO_CLICK_ACTIVATION_EVIDENCE_V1",
+  "software_candidate": "0.8.0",
+  "status": "READY_TO_ACTIVATE_AFTER_PROTECTED_PR_MERGE",
+  "human_authorization": "OWNER_COMPLETED_PUBLIC_REPO_AND_ACTIVE_MAIN_RULESET_FOR_T1_NO_CLICK",
+  "repository": {
+    "full_name": "ferinbon-cpu/robo-dados-publicos",
+    "visibility": "public",
+    "default_branch": "main",
+    "main_protected": true
+  },
+  "ruleset": {
+    "id": 21728151,
+    "name": "main-protection-v1",
+    "target": "branch",
+    "enforcement": "active",
+    "condition": "~DEFAULT_BRANCH",
+    "bypass_actors": [],
+    "current_user_can_bypass": "never",
+    "require_pull_request": true,
+    "required_approvals": 0,
+    "require_conversation_resolution": true,
+    "strict_required_status_checks": true,
+    "required_status_checks": [
+      {
+        "context": "Audit full Git history safely",
+        "integration": "GitHub Actions"
+      },
+      {
+        "context": "Validar sem Drive",
+        "integration": "GitHub Actions"
+      }
+    ],
+    "block_force_pushes": true,
+    "block_deletions": true
+  },
+  "m8_prerequisite_live_proof": {
+    "run_id": 33136736495,
+    "job_id": 98738273929,
+    "artifact_id": 9672319372,
+    "artifact_digest": "sha256:a3afeed9c1449ab4806127024d044d177e76e8097894786b0e68bbbfffc60b51",
+    "oauth_scope": "https://www.googleapis.com/auth/drive.readonly",
+    "scope_exact": true,
+    "drive_lookup_count": 9,
+    "drive_download_count": 9,
+    "drive_write_count": 0,
+    "source_get_count": 0,
+    "publication": false
+  },
+  "automatic_boundary": {
+    "tier": "T1_REMOTE_READONLY",
+    "trigger": "push to protected main on bounded paths",
+    "secrets": "dedicated read-only only",
+    "secrets_inherit": false,
+    "runtime_ref_protected_required": true,
+    "runtime_repository_public_required": true,
+    "runtime_exact_oauth_scope_proof_before_drive_read": true,
+    "drive_write_count": 0,
+    "publication_authorized": false,
+    "future_batch_execution_authorized": false
+  },
+  "manual_backstop_preserved": true,
+  "t2_create_only_auto_authorized": false,
+  "t3_publication_auto_authorized": false
+}

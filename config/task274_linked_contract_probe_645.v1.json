@@ -1,0 +1,113 @@
+{
+  "schema": "TASK274_LINKED_CONTRACT_PROBE_645_V1",
+  "task": "TASK_274",
+  "issue": 883,
+  "base_main_sha": "58e741856faacbd7762aa367a9acfcf5b39700d8",
+  "source_task273": {
+    "evidence": "docs/evidence/TASK_273_HISTORY_8OF8_CANONICAL_0.8.0.json",
+    "required_status": "PNCP_HISTORY_8OF8_RESOLVED_49_EVENTS_CANONIZED_NO_RESULT_REFERENCES_OBSERVED"
+  },
+  "documentation": {
+    "manual_version": "2.6",
+    "service": "Consultar Contratos/Empenhos de uma Contratação",
+    "endpoint": "/v1/orgaos/{cnpj}/contratos/contratacao/{anoContratacao}/{sequencialContratacao}",
+    "method": "GET",
+    "source_url": "https://pncp.gov.br/manual/pt-br/latest/contrato_empenho/consultar_contratos_ou_empenhos_de_uma_contratacao.html"
+  },
+  "target": {
+    "purchase_control": "45132495000140-1-000645/2026",
+    "cnpj": "45132495000140",
+    "anoContratacao": 2026,
+    "sequencialContratacao": 645,
+    "url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/contratos/contratacao/2026/645"
+  },
+  "projection": {
+    "scalar_fields": [
+      "anoContrato",
+      "dataAssinatura",
+      "dataAtualizacao",
+      "dataPublicacaoPncp",
+      "dataVigenciaFim",
+      "dataVigenciaInicio",
+      "emendaParlamentar",
+      "frutoAdesao",
+      "identificadorCipi",
+      "numeroContratoEmpenho",
+      "numeroControlePNCP",
+      "numeroControlePNCPCompra",
+      "numeroControlePncpAta",
+      "numeroParcelas",
+      "numeroRetificacao",
+      "objetoContrato",
+      "processo",
+      "receita",
+      "sequencialContrato",
+      "temRemanejamento",
+      "urlCipi",
+      "valorAcumulado",
+      "valorGlobal",
+      "valorInicial",
+      "valorParcela"
+    ],
+    "nested_fields": {
+      "tipoContrato": [
+        "id",
+        "nome"
+      ],
+      "categoriaProcesso": [
+        "id",
+        "nome"
+      ],
+      "orgaoEntidade": [
+        "cnpj",
+        "razaoSocial",
+        "poderId",
+        "esferaId"
+      ],
+      "unidadeOrgao": [
+        "codigoUnidade",
+        "nomeUnidade",
+        "municipioId",
+        "municipioNome",
+        "ufSigla",
+        "ufNome"
+      ]
+    },
+    "excluded_fields": [
+      "usuarioNome",
+      "tipoPessoa",
+      "niFornecedor",
+      "nomeRazaoSocialFornecedor",
+      "tipoPessoaSubContratada",
+      "niFornecedorSubContratado",
+      "nomeFornecedorSubContratado",
+      "informacaoComplementar"
+    ]
+  },
+  "probe": {
+    "max_remote_get_count": 1,
+    "connect_timeout_seconds": 15,
+    "max_time_seconds": 75,
+    "max_body_bytes": 1048576,
+    "retry": false,
+    "follow_redirects": false,
+    "alternate_url_discovery": false,
+    "pagination": false,
+    "raw_body_persistence": false,
+    "traverse_returned_contracts": false
+  },
+  "runtime": {
+    "branch": "task-274-linked-contract-probe-645-runtime",
+    "authorization_file": "runtime/task274_owner_authorization.json",
+    "trigger_file": "runtime_triggers/task274_linked_contract_probe_645.run",
+    "artifact_name": "task-274-linked-contract-probe-645-sanitized"
+  },
+  "authorization": {
+    "mode": "BOUNDED_STANDING_OWNER_LINKED_CONTRACT_PROBE_645_FRONTIER",
+    "owner_phrase": "Prossiga autorizado até compltar tudo",
+    "required_operation": "EXACT_1_PNCP_LINKED_CONTRACT_ROUTE_PROBE_645",
+    "exact_implementation_sha_required": true,
+    "source_network_authorized_by_default": false
+  },
+  "next_gate": "CANONIZE_ROUTE_RESULT_THEN_DECIDE_8OF8_EXPANSION"
+}

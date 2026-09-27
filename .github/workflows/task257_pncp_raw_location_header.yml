@@ -1,0 +1,62 @@
+name: TASK 257 PNCP raw Location header capture
+run-name: "TASK 257 PNCP raw Location header by @${{ github.actor }}"
+on:
+  push:
+    branches: [task-257-pncp-raw-location-header-runtime]
+    paths: ['runtime_triggers/task257_pncp_raw_location_header.run']
+permissions:
+  contents: read
+concurrency:
+  group: task-257-pncp-raw-location-header
+  cancel-in-progress: false
+jobs:
+  capture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with: {persist-credentials: false, fetch-depth: 0}
+      - name: Validate exact token-2 authorization delta
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_RUN_ATTEMPT}" = "1"
+          IMPL="$(python -c 'import json; print(json.load(open("runtime/task257_owner_authorization.json"))["implementation_sha"])')"
+          git cat-file -e "$IMPL^{commit}"
+          git merge-base --is-ancestor "$IMPL" HEAD
+          test -z "$(git diff --name-only "$IMPL"..HEAD | grep -Ev '^(runtime/task257_owner_authorization.json|runtime_triggers/task257_pncp_raw_location_header.run)$' || true)"
+          echo "TASK257_IMPLEMENTATION_SHA=$IMPL" >> "$GITHUB_ENV"
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with: {python-version: '3.12'}
+      - name: Execute authorized header capture
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime_out
+          python - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          from robo_dados_publicos.research.task257_task256_raw_location_header import *
+          c=load_config(); e=load_evidence()
+          a=json.loads(Path("runtime/task257_owner_authorization.json").read_text())
+          r=execute_probe(c,e,transport=CurlHeaderTransport(),authorization=a,expected_implementation_sha=os.environ["TASK257_IMPLEMENTATION_SHA"])
+          canonical=json.dumps(r,sort_keys=True,separators=(",",":")).encode()
+          r["result_sha256"]=hashlib.sha256(canonical).hexdigest()
+          Path("runtime_out/task257_sanitized_result.json").write_text(json.dumps(r,indent=2,sort_keys=True)+"\n")
+          print("TASK257_STATUS="+str(r.get("status")))
+          print("TASK257_OUTCOME="+str(r.get("outcome")))
+          print("TASK257_HTTP="+str(r.get("http_code")))
+          print("TASK257_LOCATION="+str(r.get("location")))
+          print("TASK257_LOCATION_COUNT="+str(r.get("location_header_count")))
+          PY
+      - name: Verify sanitized-only persistence
+        run: |
+          set -euo pipefail
+          test "$(find runtime_out -maxdepth 1 -type f -printf '%f\n')" = "task257_sanitized_result.json"
+          test -z "$(find . -maxdepth 2 -type f -name '*.headers' -print)"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-257-pncp-raw-location-header-sanitized
+          path: runtime_out/task257_sanitized_result.json
+          retention-days: 1
+          if-no-files-found: error

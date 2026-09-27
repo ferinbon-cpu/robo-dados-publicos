@@ -1,0 +1,71 @@
+{
+  "schema": "TASK_106_OWNER_AUTHORIZATION_RECORD_V1",
+  "task": "TASK_106_SINGLE_USE_HISTORICAL_PPA_PRIMARY_EVIDENCE_PYPDF",
+  "software_version": "0.8.0",
+  "status": "WORKFLOW_ATTEMPT_CONSUMED_PRE_NETWORK_SOURCE_READ_SCOPE_UNCONSUMED",
+  "authorization_source": {
+    "kind": "OWNER_CHAT_INSTRUCTION_2026-09-04",
+    "instruction": "atorizado pra todoase essas etapas prossiga",
+    "followup": "prossiga",
+    "issued_before_execution": true,
+    "interpretation": "AUTHORIZE_PREVIOUSLY_DESCRIBED_STAGED_SEQUENCE_WITH_EXISTING_FAIL_CLOSED_GATES_PRESERVED"
+  },
+  "preconditions": {
+    "task104_source_requests": 0,
+    "task104_primary_source_bytes": 0,
+    "task104_source_read_scope_consumed": false,
+    "task105_parser_proof": "PYPDF_SYNTHETIC_TEXT_MARKER_RECOVERED_IN_CI",
+    "task105_merge_main": "c8ec0f968fb947899d5ee29c9b3e973cd95f2f95"
+  },
+  "scope": {
+    "issue": 409,
+    "periods": [
+      "2018-2021",
+      "2022-2025"
+    ],
+    "purpose": "PRIMARY_PPA_EVIDENCE_ACQUISITION_ONLY",
+    "maximum_http_requests_total": 6,
+    "maximum_http_requests_per_period": 3,
+    "allowed_methods": [
+      "GET"
+    ],
+    "single_execution": true,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "bronze_writes": 0,
+    "silver_writes": 0,
+    "gold_writes": 0,
+    "state_registry_writes": 0,
+    "queue_writes": 0,
+    "serving_writes": 0,
+    "publications": 0
+  },
+  "exclusions": {
+    "retry": false,
+    "future_execution": false,
+    "overwrite": false,
+    "delete": false,
+    "move": false,
+    "schedule": false,
+    "recurrence": false,
+    "financial_identity_promotion": false,
+    "transaction_execution_promotion": false,
+    "implementation_promotion": false,
+    "causal_effect_promotion": false
+  },
+  "consumed_by": {
+    "run_id": 33914326253,
+    "job_id": 101157867281,
+    "execution_head_sha": "fc301acb3d33f6499a64c10e4ba9c127157f3817",
+    "conclusion": "failure",
+    "failed_step": "Execute exactly one bounded read-only historical PPA acquisition",
+    "failure_code": "PYTHON_MODULE_IMPORT_ROOT_NOT_BOOTSTRAPPED",
+    "error": "ModuleNotFoundError: No module named 'robo_dados_publicos'",
+    "parser_preflight_passed": true,
+    "live_runner_import_completed": false,
+    "source_http_requests_emitted": 0,
+    "primary_source_bytes_read": 0,
+    "source_read_scope_consumed": false,
+    "workflow_single_use_consumed": true
+  }
+}

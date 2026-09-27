@@ -1,0 +1,123 @@
+{
+  "schema": "ANNUAL_MUNICIPAL_ACCOUNTING_2024_V1",
+  "task": "TASK_228",
+  "issue": 769,
+  "scope": {
+    "municipality": "Limeira/SP",
+    "entity_scope": "MUNICIPIO_DE_LIMEIRA_CONSOLIDADO",
+    "period": "2024-01-01/2024-12-31",
+    "currency": "BRL",
+    "money_representation": "INTEGER_CENTS",
+    "selected_high_value_rows_only": true,
+    "price_basis": "NOMINAL_NOT_DEFLATED",
+    "canonical_contextual_coverage": "38/38_UNCHANGED"
+  },
+  "sources": [
+    {"source_doc_id":"DOC-016","title":"04-Balanço Patrimonial do Exercício de 2024.pdf","statement":"Anexo 14 - Balanco Patrimonial","selected_pages":[1,2],"source_system":"CN-SIFPM / CONAM","identity":"TITLE_AND_CONTENT_MATCH_MD_01_3_DOC_016;BYTE_HASH_NOT_PROVEN"},
+    {"source_doc_id":"DOC-009","title":"02-Balanço Financeiro do Exercício de 2024.pdf","statement":"Anexo 13 - Balanco Financeiro","selected_pages":[1],"source_system":"CN-SIFPM / CONAM","identity":"TITLE_AND_CONTENT_MATCH_MD_01_3_DOC_009;BYTE_HASH_NOT_PROVEN"},
+    {"source_doc_id":"DOC-005","title":"01-Balanço Orçamentário do Exercício de 2024.pdf","statement":"Anexo 12 - Balanco Orcamentario","selected_pages":[1,2,3],"source_system":"CN-SIFPM / CONAM","identity":"TITLE_AND_CONTENT_MATCH_MD_01_3_DOC_005;BYTE_HASH_NOT_PROVEN"},
+    {"source_doc_id":"DOC-013","title":"03-Demonstrativo das Variações Patrimoniais do Exercício de 2024.pdf","statement":"Anexo 15 - Demonstrativo das Variacoes Patrimoniais","selected_pages":[1],"source_system":"CN-SIFPM / CONAM","identity":"TITLE_AND_CONTENT_MATCH_MD_01_3_DOC_013;BYTE_HASH_NOT_PROVEN"}
+  ],
+  "semantic_domains": {
+    "PATRIMONIAL_POSITION": {
+      "source_doc_id": "DOC-016",
+      "rows": [
+        {"metric_id":"CURRENT_ASSETS","value_cents":113096495002,"page":1},
+        {"metric_id":"CASH_AND_CASH_EQUIVALENTS","value_cents":21621814324,"page":1},
+        {"metric_id":"SHORT_TERM_INVESTMENTS","value_cents":85493466292,"page":1},
+        {"metric_id":"NONCURRENT_ASSETS","value_cents":236416707657,"page":1},
+        {"metric_id":"TOTAL_ASSETS","value_cents":349513202659,"page":1},
+        {"metric_id":"CURRENT_LIABILITIES","value_cents":28624170829,"page":1},
+        {"metric_id":"NONCURRENT_LIABILITIES","value_cents":145571947938,"page":1},
+        {"metric_id":"LONG_TERM_PROVISIONS","value_cents":88214046066,"page":1},
+        {"metric_id":"TOTAL_LIABILITIES","value_cents":174196118767,"page":1},
+        {"metric_id":"NET_EQUITY","value_cents":180599454417,"page":1},
+        {"metric_id":"RESULT_OF_YEAR_BP_ROW","value_cents":-2875573146,"page":2},
+        {"metric_id":"FINANCIAL_ASSETS","value_cents":106941215640,"page":1},
+        {"metric_id":"FINANCIAL_LIABILITIES","value_cents":25317742409,"page":1},
+        {"metric_id":"PATRIMONIAL_BALANCE","value_cents":165797642734,"page":1},
+        {"metric_id":"PASSIVE_PLUS_NET_EQUITY_SIDE_PRINTED_TOTAL","value_cents":354795573184,"page":1}
+      ],
+      "safe_qa_identities": [
+        "CURRENT_ASSETS + NONCURRENT_ASSETS = TOTAL_ASSETS",
+        "CURRENT_LIABILITIES + NONCURRENT_LIABILITIES = TOTAL_LIABILITIES"
+      ],
+      "explicitly_unavailable_qa_identity": "TOTAL_LIABILITIES + NET_EQUITY = TOTAL_ASSETS",
+      "display_total_discrepancy_cents": 5282370525
+    },
+    "FINANCIAL_FLOWS": {
+      "source_doc_id": "DOC-009",
+      "rows": [
+        {"metric_id":"ORDINARY_BUDGET_REVENUE","value_cents":76367535512,"page":1},
+        {"metric_id":"EDUCATION_LINKED_BUDGET_REVENUE","value_cents":49368786227,"page":1},
+        {"metric_id":"TOTAL_BUDGET_REVENUE","value_cents":120167035138,"page":1},
+        {"metric_id":"ORDINARY_BUDGET_EXPENSE","value_cents":55599383244,"page":1},
+        {"metric_id":"EDUCATION_LINKED_BUDGET_EXPENSE","value_cents":44614787066,"page":1},
+        {"metric_id":"TOTAL_BUDGET_EXPENSE","value_cents":146508669303,"page":1},
+        {"metric_id":"FINANCIAL_TRANSFERS_RECEIVED","value_cents":10187455319,"page":1},
+        {"metric_id":"FINANCIAL_TRANSFERS_GRANTED","value_cents":10159760530,"page":1},
+        {"metric_id":"RESTOS_A_PAGAR_INSCRIBED_IN_PERIOD","value_cents":24222382980,"page":1},
+        {"metric_id":"RESTOS_A_PAGAR_LIQUIDATED_IN_PERIOD","value_cents":16387434103,"page":1},
+        {"metric_id":"DEPOSITS_RECEIVED","value_cents":4291218854,"page":1},
+        {"metric_id":"DEPOSITS_RETURNED","value_cents":4500168393,"page":1},
+        {"metric_id":"OTHER_EXTRA_BUDGETARY_RECEIPTS","value_cents":15792337266,"page":1},
+        {"metric_id":"OTHER_EXTRA_BUDGETARY_PAYMENTS","value_cents":13946842818,"page":1},
+        {"metric_id":"PRIOR_YEAR_CASH_BALANCE","value_cents":105615154067,"page":1},
+        {"metric_id":"NEXT_YEAR_CASH_BALANCE","value_cents":111074598490,"page":1},
+        {"metric_id":"INGRESS_SIDE_PRINTED_TOTAL","value_cents":356643119136,"page":1},
+        {"metric_id":"OUTFLOW_SIDE_PRINTED_TOTAL","value_cents":358176856881,"page":1}
+      ],
+      "semantic_caution": "Educacao is preserved as the source label. Ingress and outflow printed totals are preserved independently and are not forced equal."
+    },
+    "BUDGET_EXECUTION": {
+      "source_doc_id": "DOC-005",
+      "revenue_rows": [
+        {"metric_id":"CURRENT_REVENUES","initial_forecast_cents":189933400000,"updated_forecast_cents":183458604133,"realized_cents":184653936636,"balance_cents":1195332503,"page":1},
+        {"metric_id":"CAPITAL_REVENUES","initial_forecast_cents":12416600000,"updated_forecast_cents":11880634014,"realized_cents":11880634014,"balance_cents":0,"page":1},
+        {"metric_id":"REVENUE_SUBTOTAL","initial_forecast_cents":202350000000,"updated_forecast_cents":195339238147,"realized_cents":196534570650,"balance_cents":1195332503,"page":1}
+      ],
+      "other_revenue_rows": [
+        {"metric_id":"PRIOR_YEAR_FINANCIAL_SURPLUS_USED_FOR_ADDITIONAL_CREDITS","value_cents":7782765004,"page":2}
+      ],
+      "expense_rows": [
+        {"metric_id":"CURRENT_EXPENSES","initial_appropriation_cents":176325118200,"updated_appropriation_cents":193316956772,"committed_cents":182437576416,"liquidated_cents":176409589613,"paid_cents":162111933905,"appropriation_balance_cents":10879380356,"page":3},
+        {"metric_id":"CAPITAL_EXPENSES","initial_appropriation_cents":16173600000,"updated_appropriation_cents":25125602083,"committed_cents":14773234374,"liquidated_cents":11321426988,"paid_cents":10876493905,"appropriation_balance_cents":10352367709,"page":3},
+        {"metric_id":"EXPENSE_SUBTOTAL","initial_appropriation_cents":196112900000,"updated_appropriation_cents":220912040655,"committed_cents":197210810790,"liquidated_cents":187731016601,"paid_cents":172988427810,"appropriation_balance_cents":23701229865,"page":3},
+        {"metric_id":"DEBT_AMORTIZATION_REFINANCING","initial_appropriation_cents":6237100000,"updated_appropriation_cents":5768600000,"committed_cents":4897241757,"liquidated_cents":4897241757,"paid_cents":4897241757,"appropriation_balance_cents":871358243,"page":3},
+        {"metric_id":"EXPENSE_TOTAL_WITH_REFINANCING","initial_appropriation_cents":202350000000,"updated_appropriation_cents":226680640655,"committed_cents":202108052547,"liquidated_cents":192628258358,"paid_cents":177885669567,"appropriation_balance_cents":24572588108,"page":3}
+      ]
+    },
+    "PATRIMONIAL_VARIATIONS": {
+      "source_doc_id": "DOC-013",
+      "rows": [
+        {"metric_id":"TOTAL_AUGMENTATIVE_PATRIMONIAL_VARIATIONS","value_cents":679150668804,"page":1},
+        {"metric_id":"TOTAL_DIMINUTIVE_PATRIMONIAL_VARIATIONS","value_cents":682223367991,"page":1},
+        {"metric_id":"DVP_PATRIMONIAL_RESULT","value_cents":-3072699187,"page":1}
+      ],
+      "qualitative_rows": [
+        {"metric_id":"QUALITATIVE_ASSET_INCORPORATIONS","value_cents":12956990957,"page":1},
+        {"metric_id":"QUALITATIVE_LIABILITY_INCORPORATIONS","value_cents":10574945112,"page":1},
+        {"metric_id":"QUALITATIVE_LIABILITY_DESINCORPORATIONS","value_cents":4897241757,"page":1},
+        {"metric_id":"QUALITATIVE_ASSET_DESINCORPORATIONS","value_cents":279971903,"page":1}
+      ],
+      "safe_qa_identity": "TOTAL_AUGMENTATIVE_PATRIMONIAL_VARIATIONS - TOTAL_DIMINUTIVE_PATRIMONIAL_VARIATIONS = DVP_PATRIMONIAL_RESULT"
+    }
+  },
+  "statement_specific_anomalies": [
+    {"id":"BP_2024_DISPLAY_TOTAL_MISMATCH","left":"TOTAL_ASSETS","left_cents":349513202659,"right":"PASSIVE_PLUS_NET_EQUITY_SIDE_PRINTED_TOTAL","right_cents":354795573184,"difference_cents":5282370525,"policy":"PRESERVE_SOURCE_DO_NOT_FORCE_RECONCILIATION"},
+    {"id":"DVP_VS_BP_RESULT_ROW_DIFFERENCE","dvp_result_cents":-3072699187,"bp_result_row_cents":-2875573146,"difference_cents":197126041,"policy":"PRESERVE_STATEMENT_SPECIFIC_ROWS_DO_NOT_FORCE_EQUALITY"}
+  ],
+  "guards": [
+    "PATRIMONIAL_2024_DISPLAY_TOTALS_REQUIRE_SOURCE_PRESERVATION",
+    "TOTAL_LIABILITIES_PLUS_NET_EQUITY_NE_ASSERTED_AS_TOTAL_ASSETS_2024",
+    "DVP_PATRIMONIAL_RESULT_NE_BALANCO_PATRIMONIAL_RESULT_ROW_WITHOUT_RECONCILIATION",
+    "DVP_QUALITATIVE_MOVEMENTS_NE_QUANTITATIVE_RESULT",
+    "FINANCIAL_INGRESS_TOTAL_NE_FORCED_EQUAL_OUTFLOW_TOTAL",
+    "EDUCACAO_LABEL_IN_BALANCO_FINANCEIRO_NE_MDE_NE_FUNDEB_NE_EITI",
+    "COMMITTED_NE_LIQUIDATED_NE_PAID",
+    "NOMINAL_CHANGE_NE_REAL_CHANGE_WITHOUT_DEFLATOR",
+    "BYTE_HASH_NOT_PROVEN_NE_HASHED_SOURCE_IDENTITY",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "remote_effects": {"new_source_network":false,"drive_write":false,"serving":false,"publication":false,"schedule":false,"recurrence":false}
+}

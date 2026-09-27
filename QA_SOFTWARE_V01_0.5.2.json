@@ -1,0 +1,30 @@
+{
+  "software_version": "0.5.2",
+  "status": "PASS_LOCAL_CANDIDATE",
+  "compileall": "PASS",
+  "unit_tests": {
+    "tests": 33,
+    "passes": 33,
+    "failures": 0
+  },
+  "historical_regression": {
+    "tests": 109,
+    "passes": 109,
+    "failures": 0,
+    "status": "PASS"
+  },
+  "new_contracts": {
+    "journal_modern_index_parser": "PASS",
+    "journal_legacy_archive_parser": "PASS",
+    "journal_overlap_dedupe": "PASS",
+    "journal_disabled_inventory": "PASS",
+    "journal_robots_policy": "PASS",
+    "journal_pagination_completeness_guard": "PASS"
+  },
+  "live_gates": {
+    "journal_index": "PENDING_EXTERNAL_RUNTIME",
+    "journal_document_route_content_type": "PENDING_EXTERNAL_RUNTIME",
+    "tda_portal_probe": "PENDING_EXTERNAL_RUNTIME",
+    "github_actions": "PENDING"
+  }
+}

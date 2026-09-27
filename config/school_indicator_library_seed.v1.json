@@ -1,0 +1,200 @@
+{
+  "version": 1,
+  "schema": "TASK180_SCHOOL_INDICATOR_LIBRARY_SEED_V1",
+  "task": "TASK_180_SCHOOL_INDICATOR_SEED_V08",
+  "mode": "T0_OFFLINE_USER_LIBRARY_MEDIATED_SANITIZED_SEED",
+  "source": {
+    "asset_id": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08",
+    "filename": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08.xlsx",
+    "sha256": "0516868e06685aebe8254b11ca6488ef26b03dea61f927ff637840cf2a21e865",
+    "sheet": "01 Escolas 40",
+    "extraction_mode": "USER_LIBRARY_MEDIATED_SANITIZED_SEED_NOT_BINARY_IMPORT",
+    "binary_import_complete": false,
+    "library_readable": true,
+    "base_canonical_asset": "BASE_MESTRA_LIMEIRA_V05",
+    "base_canonical_sha256": "4d352dc55537240a4c1ffb3c37337e9c029577ab611f851f2ec925d0178b9eda"
+  },
+  "fixture": {
+    "path": "docs/evidence/fixtures/TASK_180_CAMADA_V08_ESCOLAS40_2025_SANITIZED.csv",
+    "expected_school_rows": 40,
+    "identity_column": "codigo_inep",
+    "name_column": "unidade",
+    "expected_metric_columns": 20,
+    "expected_non_null_long_rows": 798,
+    "expected_missing_values": 2,
+    "expected_missing": [
+      {
+        "codigo_inep": "35276224",
+        "source_column": "Ideb_2025"
+      },
+      {
+        "codigo_inep": "35217864",
+        "source_column": "Ideb_2025"
+      }
+    ]
+  },
+  "quality": {
+    "derived_row_quality_status": "READY_WITH_CAUTION",
+    "caution": "USER_LIBRARY_MEDIATED_EXTRACTION_FROM_PINNED_V08_SHEET;VERIFY_AGAINST_BINARY_ON_AUTOMATED_IMPORT",
+    "source_binary_copied_to_repo": false,
+    "missing_is_zero": false,
+    "not_applicable_is_missing": false
+  },
+  "metric_map": {
+    "INSE_2023": {
+      "indicator_id": "INSE",
+      "indicator_name": "Indicador de Nível Socioeconômico",
+      "period": "2023",
+      "unit": "INDEX",
+      "source_family": "SAEB"
+    },
+    "PPI_2023": {
+      "indicator_id": "PPI_SHARE",
+      "indicator_name": "Percentual PPI entre declarações válidas",
+      "period": "2023",
+      "unit": "PERCENT",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "PPI_2025": {
+      "indicator_id": "PPI_SHARE",
+      "indicator_name": "Percentual PPI entre declarações válidas",
+      "period": "2025",
+      "unit": "PERCENT",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "nao_decl_2025": {
+      "indicator_id": "RACE_COLOR_NON_DECLARATION_SHARE",
+      "indicator_name": "Não declaração de raça/cor",
+      "period": "2025",
+      "unit": "PERCENT",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "AFD_2025": {
+      "indicator_id": "AFD",
+      "indicator_name": "Adequação da Formação Docente",
+      "period": "2025",
+      "unit": "PERCENT",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "IED_N5_6_2025": {
+      "indicator_id": "IED_LEVEL_5_6_SHARE",
+      "indicator_name": "Esforço docente níveis 5 e 6",
+      "period": "2025",
+      "unit": "PERCENT",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "IRD_2025": {
+      "indicator_id": "IRD",
+      "indicator_name": "Indicador de Regularidade Docente",
+      "period": "2025",
+      "unit": "INDEX",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "ICG_2025": {
+      "indicator_id": "ICG",
+      "indicator_name": "Indicador de Complexidade de Gestão",
+      "period": "2025",
+      "unit": "LEVEL",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "ATU_2025": {
+      "indicator_id": "ATU",
+      "indicator_name": "Média de alunos por turma",
+      "period": "2025",
+      "unit": "STUDENTS_PER_CLASS",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "HAD_5ano_2025": {
+      "indicator_id": "HAD_5TH_GRADE",
+      "indicator_name": "Horas-aula diárias do 5º ano",
+      "period": "2025",
+      "unit": "HOURS_PER_DAY",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "TDI_2025": {
+      "indicator_id": "TDI",
+      "indicator_name": "Taxa de distorção idade-série",
+      "period": "2025",
+      "unit": "PERCENT",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "aprov_2025": {
+      "indicator_id": "APPROVAL_RATE",
+      "indicator_name": "Taxa de aprovação",
+      "period": "2025",
+      "unit": "PERCENT",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "TI_2025": {
+      "indicator_id": "FULL_TIME_SHARE",
+      "indicator_name": "Matrículas em tempo integral",
+      "period": "2025",
+      "unit": "PERCENT",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "infra_0_8": {
+      "indicator_id": "INFRASTRUCTURE_SCORE_0_8",
+      "indicator_name": "Índice sintético de infraestrutura 0–8",
+      "period": "2025",
+      "unit": "SCORE",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "acess_0_8": {
+      "indicator_id": "ACCESSIBILITY_SCORE_0_8",
+      "indicator_name": "Índice sintético de acessibilidade 0–8",
+      "period": "2025",
+      "unit": "SCORE",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "dispositivos": {
+      "indicator_id": "DEVICE_COUNT",
+      "indicator_name": "Dispositivos cadastrados",
+      "period": "2025",
+      "unit": "COUNT",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "matriculas_EE_2025": {
+      "indicator_id": "SPECIAL_EDUCATION_ENROLLMENT",
+      "indicator_name": "Matrículas da Educação Especial",
+      "period": "2025",
+      "unit": "COUNT",
+      "source_family": "CENSO_ESCOLAR"
+    },
+    "Ideb_2025": {
+      "indicator_id": "IDEB",
+      "indicator_name": "Ideb",
+      "period": "2025",
+      "unit": "INDEX",
+      "source_family": "IDEB"
+    },
+    "IEE_2025": {
+      "indicator_id": "IEE",
+      "indicator_name": "Indicador estadual de desempenho educacional",
+      "period": "2025",
+      "unit": "INDEX",
+      "source_family": "SARESP"
+    },
+    "part_SARESP_2025": {
+      "indicator_id": "SARESP_PARTICIPATION_RATE",
+      "indicator_name": "Participação no SARESP",
+      "period": "2025",
+      "unit": "PERCENT",
+      "source_family": "SARESP"
+    }
+  },
+  "provenance": {
+    "locator_template": "FILE_LIBRARY:CAMADA_ANALITICA_V06_40_ESCOLAS_V08.xlsx#01 Escolas 40:{codigo_inep}:{source_column}",
+    "scope_id_rule": "INEP_CODE_AS_SCOPE_ID",
+    "network": "MUNICIPAL",
+    "context": "CAMADA_ANALITICA_V06_40_ESCOLAS_V08 / sheet 01 Escolas 40; operational materialization derived from official Inep/Censo/Seduc-SP sources."
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

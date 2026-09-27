@@ -1,0 +1,95 @@
+{
+  "schema": "TASK_234_EDUCATION_ASSIGNMENT_2026_EVIDENCE_0_8_0",
+  "task": "TASK_234",
+  "issue": 784,
+  "verified_at": "2026-09-11",
+  "base_main_sha": "4eb147a448c5d390fa0675f5dbad7a28a7301315",
+  "claim": "Materialize a bounded official-authority snapshot for Limeira 2026 class/lesson assignment without claiming full custody of Resolução SME nº 08/2025.",
+  "canonical_target": {
+    "id": "SMELEGAL-018",
+    "item": "Atribuição de Aula",
+    "task222_status": "PENDENTE_CORPUS_INTEGRAL"
+  },
+  "official_sources": [
+    {
+      "id": "DECREE259",
+      "type": "PRIMARY_NORMATIVE_OFFICIAL_CONSOLIDATED",
+      "act": "Decreto Municipal nº 259/2025",
+      "date": "2025-09-30",
+      "status_snapshot": "Em vigor",
+      "url": "https://legislacao.limeira.sp.leg.br/Limeira-SP/DecretosMunicipais/259-2025?Export=Pdf",
+      "facts_proven": [
+        "school year 2026 assignment registration/classification framework",
+        "registration window 2025-10-07 through 2025-10-13",
+        "PA 34.939/2025",
+        "declared basis LC 461/2009 arts. 31-34",
+        "five assignment fields",
+        "classification scoring and appeals calendar",
+        "consolidated trace of §§4-7 inserted by Decree 289/2025"
+      ],
+      "limitation": "Exported consolidated text explicitly states it does not replace official publication."
+    },
+    {
+      "id": "DECREE289",
+      "type": "PRIMARY_NORMATIVE_MODIFIER",
+      "act": "Decreto Municipal nº 289/2025",
+      "date": "2025-11-04",
+      "status_snapshot": "Em vigor",
+      "url": "https://legislacao.limeira.sp.leg.br/Limeira-SP/DecretosMunicipais/289-2025?Export=Pdf",
+      "facts_proven": [
+        "modifies Decree 259/2025",
+        "creates new confirmation/change period for Art and Physical Education specialist workload for 2026",
+        "effect is visible in consolidated Decree 259 §§4-7"
+      ]
+    },
+    {
+      "id": "SME_OPERATIONAL_PAGE",
+      "type": "OFFICIAL_OPERATIONAL_PAGE_WITH_EXACT_ACT_CITATIONS",
+      "title": "Indicação de classes e/ou turmas para Professores Contratados para Substituição",
+      "url": "https://sme.limeira.sp.gov.br/indicacao_atribuicao_ps0.php",
+      "facts_proven": [
+        "page is explicitly for school year 2026",
+        "page cites Resolução SME nº 08 de 09/12/2025",
+        "page states Jornal Oficial publication on 16/12/2025",
+        "page exposes bounded operational rules and cites arts. 30, 23, 23 §2 and 11 §5(b)"
+      ],
+      "limitations": [
+        "full original Resolution 08 not acquired",
+        "page does not prove unseen articles",
+        "page alone is not used as formal vigency-status index for the Resolution",
+        "personal login fields are not materialized"
+      ]
+    }
+  ],
+  "materialized_counts": {
+    "decree_259_rules": 15,
+    "sme_operational_rules": 11,
+    "official_norms_with_in_force_status_snapshot": 2
+  },
+  "resolution_08": {
+    "identity": "Resolução SME nº 08, de 09 de dezembro de 2025",
+    "publication_as_stated_by_sme": "Jornal Oficial de Limeira em 16 de dezembro de 2025",
+    "full_original_custody": "NOT_ACQUIRED",
+    "next_exact_source_task": "LOCATE_AND_ACQUIRE_ORIGINATING_JORNAL_OFICIAL_PUBLICATION_IF_AVAILABLE",
+    "no_reconstruction_from_snippets": true
+  },
+  "authority_decision": {
+    "current_registration_classification_framework": "DECREE259_PLUS_DECREE289",
+    "contracted_substitute_operational_rules": "SME_OPERATIONAL_PAGE_BOUNDED_VISIBLE_CONTENT",
+    "derived_sme_legal_role": "LOCATOR_AND_COVERAGE_MAP_ONLY"
+  },
+  "privacy": {
+    "cpf_ingested": false,
+    "birth_date_ingested": false,
+    "user_geolocation_ingested": false
+  },
+  "coverage": "38/38_UNCHANGED",
+  "remote_effects": {
+    "source_network_read_only": true,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

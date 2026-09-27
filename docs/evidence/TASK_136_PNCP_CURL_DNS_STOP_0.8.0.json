@@ -1,0 +1,34 @@
+{
+  "task": "TASK_136_PNCP_CURL_DNS_STOP",
+  "issue": 474,
+  "mode": "T1_ALT_TRANSPORT_ATTEMPT_PRE_HTTP_STOP",
+  "base_sha": "9d51dcc751175502bf06c1a092291e6be93fef86",
+  "task135_transport_merge_sha": "9d51dcc751175502bf06c1a092291e6be93fef86",
+  "result": "STOP_PRE_HTTP_DNS_RESOLUTION_FAILED",
+  "execution": {
+    "transport": "LOCAL_CURL",
+    "attempts": 1,
+    "curl_exit_code": 6,
+    "error": "Could not resolve host: pncp.gov.br",
+    "http_status": 0,
+    "http_get_emitted": false,
+    "bytes_received": 0,
+    "raw_file_created": false,
+    "temporary_files_removed": true,
+    "retry_performed": false,
+    "redirects_followed": 0
+  },
+  "authorization_state": {
+    "task134_execution_attempt_consumed": true,
+    "source_read_scope_consumed": false,
+    "authorization_consumed": false
+  },
+  "epistemic_state": {
+    "pncp_data_observed": false,
+    "administrative_identifier_found": false,
+    "no_match_conclusion_created": false,
+    "financial_identity_created": false,
+    "transaction_identity_created": false
+  },
+  "next_boundary": "NEW_GATE_REQUIRED_FOR_ANY_NEW_TRANSPORT_ATTEMPT_NO_RETRY_OF_TASK135"
+}

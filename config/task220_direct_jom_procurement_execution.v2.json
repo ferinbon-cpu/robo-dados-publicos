@@ -1,0 +1,86 @@
+{
+  "version": 2,
+  "schema": "TASK220_DIRECT_JOM_PROCUREMENT_EXECUTION_V2",
+  "task": "TASK_220",
+  "issue": 697,
+  "base_main_sha": "f53deb08789384a2f64f1ec856714a3189595882",
+  "mode": "T0_OFFLINE_CANONICAL_DIRECT_JOM_PROCUREMENT_CONTEXT_EXECUTION",
+  "upstream_executor": "TASK219AA_CONTEXTUAL_EXECUTION_V8",
+  "output_schema": "OBSERVATORY_CONTEXTUAL_ANSWER_V1",
+  "promoted_questions": ["PROC_Q1", "PROC_Q2", "PROC_Q3"],
+  "contextual_coverage": {
+    "canonical_questions_total": 38,
+    "before": 35,
+    "after": 38,
+    "remaining_semantic_blockers": []
+  },
+  "bounded_jom_scope": {
+    "municipality": "Limeira",
+    "start_date": "2026-01-01",
+    "observed_through_date": "2026-09-08",
+    "official_document_count": 99,
+    "legacy_document_count": 12,
+    "new_document_count": 87,
+    "content_processing_scope_complete": true,
+    "full_calendar_year_claim": false,
+    "exhaustive_purchase_inventory_claim": false
+  },
+  "corpus_counts": {
+    "legacy_validated_event_rows": 303,
+    "new_sanitized_event_rows": 2408,
+    "combined_parsed_event_rows": 2711,
+    "legacy_procurement_shaped_rows": 138,
+    "new_procurement_shaped_rows": 940,
+    "combined_procurement_shaped_rows": 1078,
+    "row_count_semantics": "PUBLICATION_EVENT_ROWS_NE_UNIQUE_PURCHASES_OR_CONTRACTS"
+  },
+  "source_evidence": {
+    "task184_legacy_events": "docs/evidence/fixtures/TASK_184_JOM_303_VALIDATED_EVENTS.jsonl",
+    "task184_bundle": "docs/evidence/TASK_184_LOCAL_JOM_PLANNING_BUNDLE_0.8.0.json",
+    "task215_identity_audit": "docs/evidence/fixtures/task215/TASK_215_REMAINING_IDENTITY_AUDIT.json",
+    "task218_named_school_contract": "config/task218_infra_q2_contextual_execution.v1.json",
+    "task219b_full_scope": "docs/evidence/TASK_219B_FULL_2026_JOM_STRONG_IDENTITY_CANONIZATION_0.8.0.json",
+    "task219f_contract45_jom": "docs/evidence/TASK_219F_JOM_CONTRACT_45_2026_RECOVERY_0.8.0.json",
+    "task219aa_operator_contract_bridge": "docs/evidence/TASK_219AA_TDA_STRONG_PROCUREMENT_BRIDGE_CANONIZATION_0.8.0.json",
+    "canonical_fixture": "docs/evidence/TASK_220_DIRECT_JOM_PROCUREMENT_EXECUTION_0.8.0.json"
+  },
+  "answer_semantics": {
+    "PROC_Q1": "DIRECT_JOM_OBJECT_EXAMPLES_WITH_FULL_SCOPE_EVENT_COUNT_CONTEXT_NOT_EXHAUSTIVE_INVENTORY",
+    "PROC_Q2": "SAME_JOM_PUBLICATION_SUPPLIER_VALUE_TERM_ONLY",
+    "PROC_Q3": "DIRECT_JOM_CHANGE_OR_NEW_TENDER_PUBLICATION_WITH_NO_INFERRED_EVENT_RELATIONSHIP_OR_ABSENCE"
+  },
+  "context_policy": {
+    "supported_year": 2026,
+    "year_means_observed_scope_through_2026_09_08": true,
+    "other_year_nearest_substitution": false,
+    "school_scope_supported": false,
+    "arbitrary_policy_service_facet_supported": false,
+    "municipal_granularity_supported": true
+  },
+  "hard_boundaries": {
+    "jom_publication_equals_payment": false,
+    "jom_contract_equals_accounting_execution": false,
+    "published_value_equals_paid_value": false,
+    "procurement_shaped_row_equals_unique_purchase": false,
+    "bounded_scope_equals_full_calendar_year": false,
+    "sample_examples_equal_exhaustive_inventory": false,
+    "supplier_cnpj_amount_date_object_create_cross_source_identity": false,
+    "missing_apostilamento_detail_proves_absence": false,
+    "change_event_relationship_inferred_without_explicit_reference": false,
+    "current_tda_values_used_in_proc_q_answers": false,
+    "tcesp_values_used_in_proc_q_answers": false
+  },
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "llm": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}

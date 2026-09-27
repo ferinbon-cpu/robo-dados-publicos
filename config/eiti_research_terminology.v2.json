@@ -1,0 +1,70 @@
+{
+  "version": 2,
+  "schema": "EITI_RESEARCH_TERMINOLOGY_REGISTRY_V2",
+  "mode": "T0_OFFLINE_VERSIONED_TERMINOLOGY_REGISTRY",
+  "policy_profile": "EITI_LIMEIRA",
+  "policy_id": "POLICY:EITI_LIMEIRA",
+  "base_ontology": {
+    "path": "docs/evidence/TASK_055A_F01_EITI_TERMINOLOGY_ONTOLOGY_0.8.0.json",
+    "git_blob_sha": "01301a176231543da2fe6c1ed31744eb69aeade6",
+    "family_counts": {
+      "A_CANONICAL_POLICY_IDENTIFIERS": 8,
+      "B_LOCAL_PLANNING_AND_NORMATIVE_ALIASES": 6,
+      "C_OPERATIONAL_OFFER_AND_JOURNEY_SIGNALS": 15,
+      "D_FINANCING_AND_INDUCTION_SIGNALS": 13,
+      "E_ACCOUNTING_AND_PLANNING_LINKAGE_KEYS": 21
+    },
+    "distinct_term_count": 63,
+    "immutable_historical_evidence": true
+  },
+  "discovered_aliases": [
+    {
+      "alias_id": "ALIAS:FOMENTO_ETI",
+      "term": "FOMENTO ETI",
+      "classification": "STRONG_POLICY_FINANCE_REPORTING_ALIAS",
+      "semantic_roles": [
+        "POLICY_SIGNAL",
+        "FINANCING_SIGNAL",
+        "REPORTING_BUCKET_ALIAS"
+      ],
+      "requires_companion": false,
+      "policy_signal_scope": "FINANCIAL_REPORTING_ONLY",
+      "source_role_scope": "ACCOUNTING_EXECUTION_PRIMARY",
+      "transaction_identity": false,
+      "generic_policy_financial_identity": false,
+      "amount_alone_sufficient": false,
+      "stable_accounting_key_still_required_for_transaction_bridge": true,
+      "provenance": {
+        "task": "TASK_056_F01_SECONDARY_EDUCATION_SOURCE_BOUNDED_CONTENT_READ",
+        "path": "docs/evidence/TASK_056_F01_SECONDARY_EDUCATION_SOURCE_BOUNDED_CONTENT_READ_0.8.0.json",
+        "git_blob_sha": "780908d581b68857b182ab0c84d74adfbfe34de2",
+        "evidence_field": "ontology_scan.new_alias_discovered",
+        "must_be_added_to_future_matching": true
+      }
+    }
+  ],
+  "discovered_alias_count": 1,
+  "active_distinct_term_count": 64,
+  "invariants": [
+    "BASE_TASK055A_REMAINS_IMMUTABLE",
+    "DISCOVERED_ALIAS_REQUIRES_VERSIONED_PROVENANCE",
+    "FOMENTO_ETI_CAN_SIGNAL_POLICY_AND_FINANCING_REPORTING_CONTEXT",
+    "FOMENTO_ETI_DOES_NOT_PROVE_TRANSACTION_IDENTITY",
+    "FOMENTO_ETI_AMOUNT_DOES_NOT_PROVE_TRANSACTION_IDENTITY",
+    "STABLE_ACCOUNTING_KEY_REMAINS_REQUIRED_FOR_TRANSACTION_BRIDGE",
+    "DISCOVERED_ALIAS_DOES_NOT_RECLASSIFY_GENERIC_PROGRAM_OR_ACTION_AS_EITI"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "ocr": false,
+    "state_registry_write": false,
+    "queue_write": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}

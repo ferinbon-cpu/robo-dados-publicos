@@ -1,0 +1,23 @@
+{
+  "version":1,
+  "task":"TASK_063_REVIEW_QUEUE_CONTRACT",
+  "states":["OPEN","READY_FOR_RULE","READY_FOR_SCOPED_READ","RESOLVED_TO_AUTO","RESOLVED_TO_QUARANTINE","CLOSED_NO_ACTION"],
+  "reason_actions": {
+    "MULTIPLE_FAMILY_MATCHES":{"priority":20,"action":"RESOLVE_PRIMARY_DOCUMENT_ROLE","content_read_default":false},
+    "KNOWN_FAMILY_REQUIRES_SUPERVISED_REVIEW":{"priority":40,"action":"SELECT_VERSIONED_ADAPTER_OR_CONTRACT","content_read_default":false},
+    "KNOWN_FAMILY_UNSUPPORTED_MIME":{"priority":10,"action":"DEFINE_OR_REJECT_MIME_POLICY","content_read_default":false},
+    "MISSING_STABLE_FILE_ID":{"priority":5,"action":"REPAIR_METADATA_IDENTITY","content_read_default":false},
+    "POSSIBLE_DUPLICATE_WITHOUT_HASH":{"priority":15,"action":"AUTHORIZE_HASH_ONLY_COMPARISON_OR_KEEP_SEPARATE","content_read_default":false},
+    "DUPLICATE_METADATA_FILE_ID":{"priority":5,"action":"REPAIR_METADATA_IDENTITY","content_read_default":false},
+    "MATURITY_NOT_EXECUTION_READY":{"priority":30,"action":"PROVE_CONTRACT_FIXTURE_TEST_PROVENANCE","content_read_default":false},
+    "SCHEMA_DRIFT":{"priority":1,"action":"STOP_AND_VERSION_NEW_SCHEMA","content_read_default":false}
+  },
+  "ordering":"ASCENDING_PRIORITY_THEN_TITLE_THEN_FILE_ID",
+  "invariants":[
+    "REVIEW_IS_NOT_CONTENT_AUTHORIZATION",
+    "REVIEW_IS_NOT_QUARANTINE",
+    "NO_ITEM_CAN_RESOLVE_TO_AUTO_WITHOUT_KNOWN_FAMILY_AND_MATURITY_GATE",
+    "SCHEMA_DRIFT_HAS_HIGHEST_REVIEW_PRIORITY",
+    "DECISION_MUST_RECORD_RULE_VERSION_AND_PROVENANCE"
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "schema": "TASK185_STAGE_B_AUTHORIZED_TRANSPORT_STOP_V1",
+  "task": "TASK_185_PERSIST_REAL_TCE_2026_EXPENSE_ROWS_AND_MATERIALIZE_ACCOUNTING_LEDGER",
+  "issue": 581,
+  "base_main_sha": "7ba18c22cafea826d4cd4332871ab44634264479",
+  "owner_authorization": {
+    "text": "Esta etapa esta autorizada integralmente",
+    "authorization_artifact_commit": "25797e7961b49d758c5a7d677213db318c8cc8b9",
+    "implementation_sha": "f78f4662125078c6c7a3904568bc32ecc56566fa",
+    "single_use": true,
+    "consumed": true
+  },
+  "exact_source": {
+    "source_id": "TCESP_LIMEIRA_2026_DESPESAS",
+    "url": "https://transparencia.tce.sp.gov.br/sites/default/files/csv/despesas-limeira-2026.zip",
+    "expected_member": "despesas-limeira-2026.csv",
+    "request_budget": 1,
+    "retry": 0
+  },
+  "attempts": [
+    {
+      "transport": "LOCAL_CONTAINER_CURL",
+      "result": "DNS_RESOLUTION_FAILED",
+      "detail": "Could not resolve host transparencia.tce.sp.gov.br",
+      "http_request_reached_source": false,
+      "counted_source_get": 0
+    },
+    {
+      "transport": "PLATFORM_WEB_FETCH",
+      "result": "STOP_UNSUPPORTED_BINARY_CONTENT_TYPE",
+      "detail": "Exact URL reached and returned application/zip, but the platform did not expose the binary body.",
+      "http_request_reached_source": true,
+      "counted_source_get": 1
+    }
+  ],
+  "adjudication": {
+    "source_get_count": 1,
+    "retry_count": 0,
+    "second_get_attempted": false,
+    "source_payload_available": false,
+    "source_payload_persisted": false,
+    "zip_sha256": null,
+    "csv_sha256": null,
+    "observed_record_count": null,
+    "drive_create_count": 0,
+    "drive_readback_count": 0,
+    "accounting_ledger_materialized": false,
+    "stage_c_executed": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false,
+    "result": "STOP_SOURCE_BINARY_BODY_NOT_AVAILABLE_AFTER_AUTHORIZED_SINGLE_GET"
+  },
+  "temporary_live_branch": {
+    "branch": "task-185-stage-b-live-one-shot",
+    "workflow_triggered": false,
+    "workflow_disabled_by_deletion_commit": "1b7001deafaec3d6b7908e90d1185695754a6450",
+    "late_execution_possible": false
+  },
+  "guards_preserved": [
+    "NO_SECOND_SOURCE_GET_AFTER_SINGLE_USE_BUDGET_CONSUMED",
+    "NO_DRIVE_WRITE_WITHOUT_EXACT_SOURCE_BYTES",
+    "NO_SYNTHETIC_ACCOUNTING_LEDGER",
+    "NO_39780_ASSUMPTION",
+    "NO_SERVING_OR_PUBLICATION"
+  ],
+  "next_action": "PREPARE_A_NEW_BINARY_CAPABLE_ONE_SHOT_TRANSPORT_OFFLINE; REQUIRE_FRESH_EXPLICIT_OWNER_AUTHORIZATION_BEFORE_ANY_NEW_SOURCE_GET"
+}

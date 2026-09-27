@@ -1,0 +1,52 @@
+{
+  "software": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.6.0",
+  "status": "ACTIVE",
+  "milestone": "M4E_FIRST_SOURCE_COLLECTION_LIVE_GATE_PROMOTED",
+  "promoted_from_candidate": "0.6.0",
+  "candidate_manifest": "release_manifest_v01_0.6.0.json",
+  "promotion_review": "PASS_SOURCE_LIVE_GATE_USER_AUTHORIZED",
+  "live_gate": {
+    "status": "PASS_GITHUB_SOURCE_COLLECTION_GATE",
+    "workflow_run_number": 3,
+    "workflow_name": "M4E source gate 0.6.0 by @ferinbon-cpu",
+    "source_commit": "9b7da0c07f5aaa981d751246508871dd182e6546",
+    "total_duration": "26s",
+    "job_duration": "20s",
+    "source_gate_checks": "16/16 PASS",
+    "unit_tests": "92/92 PASS",
+    "historical_regressions": "109/109 PASS",
+    "preflight": "PASS_18_CHECKS",
+    "state_source": "REMOTE_EXISTING",
+    "state_remote": "REPLACED",
+    "append_only_log": "CREATED"
+  },
+  "source_evidence": {
+    "source_id": "LIMEIRA_JORNAL_OFICIAL_EDICAO_7310",
+    "status": "DOWNLOADED_NEW",
+    "http_status": 200,
+    "content_type": "application/pdf",
+    "bytes": 16952899,
+    "sha256": "78a23262023f6233cb59fdc78f1fadc196d0a7bbd52c418bbdd9244229f46680",
+    "bronze_creation": "PASS_IDENTIFIERS_RETAINED_IN_PRIVATE_AUDIT"
+  },
+  "drive_evidence": {
+    "state_replacement": "PASS",
+    "append_only_log": "PASS",
+    "identifiers": "RETAINED_IN_PRIVATE_DRIVE_AUDIT_ONLY"
+  },
+  "safety": {
+    "financial_identity_auto_promotion": "PROHIBITED",
+    "reconciliation_matches": "CANDIDATE_ONLY",
+    "unknown_schema": "STOP_OR_QUARANTINE",
+    "source_collection_rerun": "DISABLED_IN_WORKFLOW",
+    "recurring_collection": "DISABLED",
+    "workflow_schedule": "DISABLED"
+  },
+  "open_gates": {
+    "tda_limeira": "BLOCKED_NO_PUBLIC_ENDPOINT_PROVEN",
+    "source_processing": "PENDING_FIRST_CONTROLLED_PROCESSING_GATE",
+    "recurring_source_inventory": "NOT_CONFIGURED"
+  },
+  "next_action": "M4E_FIRST_SOURCE_PROCESSING_GATE"
+}

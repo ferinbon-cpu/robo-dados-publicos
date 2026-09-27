@@ -1,0 +1,143 @@
+{
+  "classification": "SYNTHETIC_SANITIZED_TEST_ONLY",
+  "operational_evidence": false,
+  "datasets": {
+    "BI_SIOPE_SERIES": [
+      {
+        "municipality_code": "352690",
+        "municipality_name": "Limeira",
+        "uf": "SP",
+        "year": 2016,
+        "annual_period": "P1",
+        "metric_id": "despesa_total_paga_por_habitante",
+        "metric_name": "Despesa total paga por habitante",
+        "metric_value": 1234.56,
+        "metric_unit": "BRL_PER_CAPITA",
+        "source_contract": "SIOPE_DADOS_GERAIS_LIMEIRA_ARITHMETIC_SUMMARY_GOLD_V1",
+        "source_layer": "GOLD",
+        "gold_status": "VALIDATED",
+        "series_status": "READY_WITH_CAUTION",
+        "semantic_caution": "Descritivo; sem conclusão fiscal, MDE/Fundeb ou causal.",
+        "provenance_id": "PROV-SIOPE-2016",
+        "source_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "generated_at": "2026-08-31T00:00:00Z",
+        "software_version": "0.8.0"
+      }
+    ],
+    "BI_JORNAL_EVENTOS": [
+      {
+        "event_id": "JOEV_0123456789abcdef0123",
+        "edition": 7315,
+        "publication_date": "2026-08-31",
+        "page": 1,
+        "event_type": "CONTRACT_NOTICE",
+        "document_type": "EXTRATO",
+        "process_number": "001/2026",
+        "contract_number": "042/2026",
+        "bidding_number": null,
+        "modality": null,
+        "supplier_name": null,
+        "supplier_cnpj": null,
+        "object_text": "Exemplo sanitizado",
+        "value": 1250.75,
+        "signature_date": null,
+        "source_id": "LIMEIRA_JO_07315",
+        "logical_key": "limeira/jornal_oficial/edicao/7315",
+        "document_url": "https://ecrie.com.br/exemplo-sanitizado.pdf",
+        "bronze_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "silver_id": "SILVER-7315",
+        "gold_id": "GOLD-7315-1",
+        "provenance_id": "PROV-JO-7315",
+        "extraction_status": "VALIDATED",
+        "confidence_class": "VALIDATED"
+      }
+    ],
+    "BI_RECONCILIACAO": [
+      {
+        "reconciliation_id": "REC-001",
+        "source_event_id": "JOEV_0123456789abcdef0123",
+        "target_source": "LIMEIRA_CONTRACTS",
+        "target_record_id": "SANITIZED-1",
+        "relation_type": "supplier_expense_candidate",
+        "status": "MATCH_CANDIDATE",
+        "confidence_class": "CANDIDATE",
+        "supplier_name": null,
+        "cnpj": null,
+        "contract_number": "042/2026",
+        "process_number": "001/2026",
+        "candidate_value": 1250.75,
+        "evidence_count": 1,
+        "identity_status": "CANDIDATE",
+        "financial_identity_proven": false,
+        "reason": "Correspondência documental candidata; identidade financeira não provada.",
+        "created_at": "2026-08-31T00:00:00Z",
+        "provenance_id": "PROV-REC-001"
+      }
+    ],
+    "BI_FONTES_STATUS": [
+      {
+        "source_id": "LIMEIRA_JORNAL_OFICIAL",
+        "source_name": "Jornal Oficial de Limeira",
+        "domain": "DOCUMENTAL",
+        "capability": "BOUNDED_COLLECTION",
+        "validation_status": "VALIDATED",
+        "collection_status": "READY_WITH_CAUTION",
+        "latest_observation": "2026-08-31T00:00:00Z",
+        "latest_successful_run": "2026-08-31T00:00:00Z",
+        "latest_checkpoint": "7315",
+        "item_count": 12,
+        "freshness_status": "UNKNOWN",
+        "blocker": "RECURRENCE_NOT_AUTHORIZED",
+        "next_action": "TASK_024_REMAINS_SEPARATE",
+        "release_relevance": "NONE",
+        "provenance_reference": "TASK_018_CLOSURE"
+      }
+    ],
+    "BI_EXECUCOES_ROBO": [
+      {
+        "run_id": "SANITIZED-RUN",
+        "batch_id": "SANITIZED-BATCH",
+        "task": "TASK_018",
+        "started_at": "2026-08-31T00:00:00Z",
+        "completed_at": "2026-08-31T00:10:00Z",
+        "duration": 600.0,
+        "status": "PROVEN",
+        "source_requests": 12,
+        "drive_reads": 1,
+        "drive_writes": 74,
+        "bronze_created": 12,
+        "silver_created": 12,
+        "gold_created": 24,
+        "rag_created": 12,
+        "documents_created": 12,
+        "reconciliation_tasks": 1,
+        "reconciliation_matches_candidate": 0,
+        "stop_count": 0,
+        "warning_count": 0,
+        "final_readback_verified": true,
+        "software_version": "0.8.0",
+        "git_sha": "0000000000000000000000000000000000000000",
+        "authorization_id": null,
+        "execution_tier": "T3_MUTATING_OR_PUBLICATION",
+        "provenance_id": "PROV-RUN-SANITIZED"
+      }
+    ],
+    "BI_DICIONARIO": [
+      {
+        "dataset": "BI_SIOPE_SERIES",
+        "field": "metric_value",
+        "label_ptbr": "Valor da métrica",
+        "definition": "Valor numérico determinístico da métrica.",
+        "data_type": "number",
+        "unit": "Conforme metric_unit",
+        "nullable": false,
+        "semantic_class": "MEASURE",
+        "source": "GOLD",
+        "transformation": "Projeção LONG sem imputação.",
+        "caution": "Não constitui conclusão fiscal.",
+        "example_sanitized": "1234.56",
+        "provenance_id": "PROV-CONTRACT-V1"
+      }
+    ]
+  }
+}

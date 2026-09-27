@@ -1,0 +1,36 @@
+{
+  "task": "TASK_149_PNCP_DIRECT_DOWNLOAD_PREVIEW_GUARD_STOP",
+  "issue": 508,
+  "mode": "T1_SINGLE_AUTHORIZED_DIRECT_DOWNLOAD_INVOCATION",
+  "base_sha": "23fc2e2c8a5d92d9ab627e3c19e309bc7e05053f",
+  "task148_merge_sha": "23fc2e2c8a5d92d9ab627e3c19e309bc7e05053f",
+  "exact_url": "https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao?dataInicial=20251128&dataFinal=20260904&codigoModalidadeContratacao=12&cnpj=45132495000140&pagina=1&tamanhoPagina=50",
+  "result": "STOP_DIRECT_DOWNLOAD_URL_NOT_PREVIEWED_PRE_SOURCE",
+  "execution": {
+    "direct_download_invocations": 1,
+    "retry_performed": false,
+    "tool_failure_class": "URL_NOT_VIEWED_IN_CONVERSATION_PRECONDITION",
+    "tool_failure_summary": "download failed because url not viewed in conversation before. open the file or url using web.run first.",
+    "pncp_source_reach_established": false,
+    "pncp_http_status_established": false,
+    "source_data_observed": false,
+    "temporary_payload_created": false,
+    "local_postcheck": "NO_FILE_CREATED",
+    "raw_payload_persisted": false
+  },
+  "authorization_state": {
+    "task148_single_direct_download_authorization_consumed": true,
+    "second_direct_download_authorized": false,
+    "web_preview_authorized": false,
+    "retry_authorized": false
+  },
+  "epistemic_state": {
+    "administrative_identifier_candidate_found": false,
+    "pncp_no_match_conclusion_created": false,
+    "negative_exhaustive_conclusion_created": false,
+    "financial_identity_created": false,
+    "transaction_identity_created": false,
+    "supplier_linkage_created": false
+  },
+  "next_boundary": "NEW_EXPLICIT_OWNER_AUTHORIZATION_AND_NEW_GATE_REQUIRED_BEFORE_ANY_WEB_PREVIEW_OR_FURTHER_LIVE_SOURCE_OPERATION"
+}

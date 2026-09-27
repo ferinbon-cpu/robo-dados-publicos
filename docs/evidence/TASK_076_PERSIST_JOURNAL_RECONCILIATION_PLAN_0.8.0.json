@@ -1,0 +1,60 @@
+{
+  "task": "TASK_076_PERSIST_JOURNAL_RECONCILIATION_PLAN",
+  "software_version": "0.8.0",
+  "base_main_sha": "9c8c01c77176a8cbf90a680b9aec381cfae963b2",
+  "authorization": {
+    "token_index": 6,
+    "token_count": 7,
+    "scope": "PERSIST_EXACT_TASK075_RECONCILIATION_PLAN_AS_CREATE_ONLY_GOLD_WITH_FULL_READBACK"
+  },
+  "source_plan": {
+    "task075_result": "PASS_TASK075_52_GOLD_EVENTS_65_UNIQUE_RECONCILIATION_TASKS_PLANNED_NO_IDENTITY_PROMOTION",
+    "tasks": 65,
+    "bytes": 52843,
+    "sha256": "faf27576b5b2c3b3c542ae41eeac90c415da1d2f50b6ae8021e1c04bf246d7bc"
+  },
+  "persistence": {
+    "drive_root_id": "1az60t-LXDAj4XDcrUh0c5dWiZ3xUfZZj",
+    "gold_folder_id": "1hAmQNBnY6MNBtyr14ACfVfRkmWhsoRq4",
+    "drive_id": "11Yb8zIF5g4sTgAp1yhraWFixVFrLcBXs",
+    "name": "LIMEIRA_JO_07024_07119_07127__reconciliation_tasks__faf27576b5b2.jsonl",
+    "path": "/Google Drive/ROBO_DADOS_PUBLICOS/03_GOLD/LIMEIRA_JO_07024_07119_07127__reconciliation_tasks__faf27576b5b2.jsonl",
+    "create_only": true,
+    "overwrite": false,
+    "bytes": 52843,
+    "sha256": "faf27576b5b2c3b3c542ae41eeac90c415da1d2f50b6ae8021e1c04bf246d7bc",
+    "readback_bytes": 52843,
+    "readback_sha256": "faf27576b5b2c3b3c542ae41eeac90c415da1d2f50b6ae8021e1c04bf246d7bc",
+    "readback_match": true,
+    "byte_for_byte_match": true
+  },
+  "readback_semantics": {
+    "tasks": 65,
+    "unique_task_ids": 65,
+    "status_counts": {
+      "READY_SEARCH": 60,
+      "BLOCKED_CONNECTOR_DISCOVERY": 5
+    },
+    "target_counts": {
+      "LIMEIRA_CONTRATOS": 5,
+      "TCE_SP_DESPESAS": 4,
+      "TDA_LIMEIRA": 5,
+      "LIMEIRA_LICITACOES": 14,
+      "SIAVE_LIMEIRA": 37
+    },
+    "identity_rule_present_on_all_tasks": true
+  },
+  "hard_boundaries": {
+    "drive_writes": 1,
+    "drive_overwrites": 0,
+    "resolver_requests": 0,
+    "state_registry_writes": 0,
+    "serving_writes": 0,
+    "financial_identity_assertions": 0,
+    "match_candidate_promotions": 0,
+    "publications": 0,
+    "source_moves": 0,
+    "source_deletes": 0
+  },
+  "result": "PASS_TASK076_RECONCILIATION_PLAN_GOLD_CREATE_ONLY_SHA256_READBACK_VERIFIED"
+}

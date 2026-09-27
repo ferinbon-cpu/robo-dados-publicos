@@ -1,0 +1,85 @@
+{
+  "schema": "SIOPE_2025_CLOSURE_SEMANTIC_AUDIT_V1",
+  "task": "TASK_006",
+  "tier": "T0_OFFLINE",
+  "software_version": "0.8.0",
+  "source_get_count": 0,
+  "drive_read_count": 0,
+  "drive_write_count": 0,
+  "persistence": false,
+  "publication": false,
+  "new_authorization_created": false,
+  "gold_computation_performed": false,
+  "starting_main_sha": "ef48a62e0c047e9765905e16ee967d64dd0daba9",
+  "evidence_inventory": [
+    {
+      "path": "docs/evidence/TASK_004C_SIOPE_2025_SECOND_LIVE_SUCCESS_NORMALIZED_0.8.0.json",
+      "proves": ["P1_TO_P6_AVAILABILITY", "P6_AVAILABILITY", "P6_52_FIELD_SCHEMA", "P6_11_GOLD_INPUT_FIELD_PRESENCE"],
+      "does_not_prove": ["ANNUAL_CLOSURE", "SEMANTIC_COMPARABILITY", "GOLD_METRICS"]
+    },
+    {
+      "path": "docs/evidence/M7_SIOPE_POST_GENERALIZATION_OFFLINE_REVIEW_0.8.0.json",
+      "proves": ["CLOSED_HISTORICAL_SERIES_2016_2024", "2016_P1", "2017_2024_P6"],
+      "does_not_prove": ["2025_CLOSURE", "2025_SEMANTIC_COMPARABILITY"]
+    },
+    {
+      "path": "docs/references/M7_SIOPE_LIMEIRA_GOLD_ARITHMETIC_SCOPE_0.8.0.md",
+      "proves": ["EIGHT_ARITHMETIC_FORMULAS_FOR_2024_CONTRACT"],
+      "does_not_prove": ["2025_FIELD_MEANING_CONTINUITY", "2025_CLOSURE", "COMPLIANCE"]
+    },
+    {
+      "path": "docs/research/SIOPE_HISTORICAL_REGIME_EVIDENCE_V1.md",
+      "proves": ["REPOSITORY_EVIDENCE_HIERARCHY", "P6_HISTORICAL_RULE_IS_AN_ENGINEERING_FACT_TO_VERIFY_PIN"],
+      "does_not_prove": ["2025_FINAL_CLOSED_STATE", "SEMANTIC_EQUIVALENCE_FROM_MATCHING_NAMES"]
+    },
+    {
+      "path": "config/siope_2025_regime_promotion_assessment.v1.json",
+      "proves": ["2025_STRUCTURAL_PROMOTION_ONLY"],
+      "does_not_prove": ["ANNUAL_CLOSURE", "SEMANTIC_COMPARABILITY", "CLOSED_SERIES_ELIGIBILITY", "GOLD_METRICS"]
+    }
+  ],
+  "gate_a_annual_closure": {
+    "status": "NOT_PROVEN",
+    "canonical_state_remains": "UNKNOWN",
+    "reason": "P6 availability and historical P6 convention do not independently prove that the observed 2025 P6 record is final or closed for the exercise.",
+    "missing_proof": [
+      "PINNED_OFFICIAL_2025_APPLICABLE_RULE_OR_STATE_INDICATOR_DEFINING_P6_AS_FINAL_CLOSED",
+      "DETERMINISTIC_RULE_DISTINGUISHING_P6_AVAILABLE_FROM_P6_FINAL_CLOSED",
+      "IF_STATE_CAN_CHANGE_OR_BE_RECTIFIED_PROOF_OF_THE_RELEVANT_FINALITY_CONDITION"
+    ],
+    "promotion_authorized": false
+  },
+  "gate_b_semantic_comparability": {
+    "status": "NOT_PROVEN",
+    "canonical_state_remains": "UNKNOWN",
+    "reason": "The 11 field names and the 2024 arithmetic formulas are present, but repository evidence does not pin 2025 definitions/rules proving unchanged accounting/reporting meaning relative to 2017-2024.",
+    "missing_proof": [
+      "PINNED_2025_APPLICABLE_DEFINITIONS_FOR_ALL_11_INPUT_FIELDS",
+      "FIELD_BY_FIELD_RECONCILIATION_AGAINST_PROVEN_2017_2024_MEANINGS",
+      "EIGHT_FORMULA_NUMERATOR_DENOMINATOR_SEMANTIC_RECONCILIATION",
+      "RETIFICATION_AND_REPORTING_RULE_CONTINUITY_ASSESSMENT",
+      "POPULATION_DENOMINATOR_DEFINITION_CONTINUITY_FOR_PER_CAPITA_METRICS"
+    ],
+    "promotion_authorized": false
+  },
+  "resulting_state": {
+    "year_2025_status": "PROVEN_STRUCTURAL_RECENT",
+    "p6_status": "PROVEN_AVAILABLE_CLOSURE_UNKNOWN",
+    "annual_closure_status": "UNKNOWN",
+    "semantic_comparability_status": "UNKNOWN",
+    "closed_series_eligible": false,
+    "closed_annual_series_last_year": 2024,
+    "gold_metrics_status": "UNKNOWN",
+    "year_2026_status": "UNPROVEN_CURRENT_YEAR"
+  },
+  "guards": {
+    "closed_series_expansion_authorized": false,
+    "gold_computation_authorized": false,
+    "live_discovery_authorized": false,
+    "future_batch_execution_authorized": false,
+    "year_2026_promotion_authorized": false,
+    "compliance_inference_authorized": false,
+    "causal_inference_authorized": false
+  },
+  "next_gate": "PIN_REQUIRED_OFFICIAL_CLOSURE_AND_FIELD_DEFINITION_EVIDENCE_BEFORE_ANY_FURTHER_2025_PROMOTION"
+}

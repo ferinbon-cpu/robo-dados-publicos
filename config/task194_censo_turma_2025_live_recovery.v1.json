@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "schema": "TASK194_CENSO_TURMA_2025_LIVE_RECOVERY_V1",
+  "task": "TASK_194_CENSO_TURMA_2025_LIVE_RECOVERY",
+  "mode": "T1_BOUNDED_READ_ONLY_PRIMARY_SOURCE_RECOVERY",
+  "base_main_sha": "07439dad57e018e8143801b5fe58551ae894d8b7",
+  "authorization_issue": 598,
+  "source": {
+    "official_page": "https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/censo-escolar",
+    "url": "https://download.inep.gov.br/dados_abertos/microdados_censo_escolar_2025_.zip",
+    "allowed_host": "download.inep.gov.br",
+    "max_http_attempts": 3,
+    "expected_turma_basename": "Tabela_Turma_2025_V2.csv",
+    "expected_escola_basename": "Tabela_Escola_2025_V2.csv",
+    "expected_md5_manifest_basename": "md5_microdados_ed_basica_2025.txt",
+    "expected_turma_md5": "438A3A3FC37F28E7E50E57D7CD8B9DAC"
+  },
+  "limeira_filter": {
+    "co_municipio": "3526902",
+    "tp_dependencia_municipal": 3,
+    "tp_situacao_funcionamento_active": 1,
+    "expected_active_school_count": 69
+  },
+  "ai40_seed": {
+    "path": "docs/evidence/fixtures/TASK_180_CAMADA_V08_ESCOLAS40_2025_SANITIZED.csv",
+    "expected_count": 40
+  },
+  "reconciliation": {
+    "expected_ei_only_count": 29,
+    "expected_ei_only_qt_tur_bas_sum": 294,
+    "required_turma_rows_for_active_schools": 69,
+    "class_metric_source_column": "QT_TUR_BAS",
+    "class_metric_semantic": "SUM_OF_PRECOMPUTED_BASIC_EDUCATION_CLASS_COUNTS_BY_ACTIVE_SCHOOL"
+  },
+  "output": {
+    "sanitized_json_only": true,
+    "raw_zip_persisted": false,
+    "raw_csv_persisted": false,
+    "raw_artifact_uploaded": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  },
+  "guards": [
+    "OFFICIAL_URL_ONLY",
+    "CROSS_HOST_REDIRECT_FORBIDDEN",
+    "MAX_THREE_HTTP_ATTEMPTS_SAME_URL",
+    "TURMA_MEMBER_MD5_MUST_MATCH_OFFICIAL_EXPECTED",
+    "ACTIVE_MUNICIPAL_LIMEIRA_SCHOOL_COUNT_MUST_EQUAL_69",
+    "AI40_CODES_MUST_EQUAL_40_AND_BE_SUBSET_OF_ACTIVE_69",
+    "EI29_COMPLEMENT_MUST_EQUAL_29",
+    "ALL_ACTIVE_69_MUST_HAVE_EXACTLY_ONE_TURMA_AGGREGATE_ROW",
+    "EI29_QT_TUR_BAS_SUM_MUST_EQUAL_294",
+    "CLASS_COUNT_IS_SUM_QT_TUR_BAS_NOT_ROW_COUNT",
+    "RAW_BYTES_EPHEMERAL_ONLY",
+    "NO_DRIVE_WRITE_NO_SERVING_NO_PUBLICATION_NO_RECURRENCE"
+  ]
+}

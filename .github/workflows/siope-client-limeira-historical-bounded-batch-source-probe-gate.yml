@@ -1,0 +1,64 @@
+name: M7 SIOPE CLIENT LIMEIRA HISTORICAL BOUNDED BATCH SOURCE PROBE GATE
+run-name: "M7 SIOPE bounded historical source probe 2020-2016 0.8.0 by @${{ github.actor }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_siope_client_limeira_historical_bounded_batch_source_probe:
+        description: "Confirmar sonda read-only dos 5 anos (2020-2016): no máximo 5 GETs públicos; zero Drive, zero persistência, sem retry/paginação/recorrência/schedule"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: siope-client-limeira-historical-bounded-batch-source-probe
+  cancel-in-progress: false
+
+jobs:
+  source-probe:
+    if: ${{ inputs.confirm_siope_client_limeira_historical_bounded_batch_source_probe == true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          check-latest: false
+      - name: Instalar dependências
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - name: Preflight offline
+        run: python scripts/github_preflight.py
+      - name: Revisar desenho da sonda sem rede
+        run: python scripts/github_siope_client_limeira_historical_bounded_batch_source_probe_gate.py --dry-run
+      - name: Compilar
+        run: python -m compileall -q .
+      - name: Testes unitários
+        run: python -m unittest discover -s tests -v
+      - name: Regressão histórica
+        run: python main.py selftest
+      - name: Executar sonda read-only 2020-2016
+        id: live
+        continue-on-error: true
+        run: python scripts/github_siope_client_limeira_historical_bounded_batch_source_probe_gate.py --output siope-client-limeira-historical-bounded-batch-source-probe-evidence/result.json
+      - name: Publicar diagnóstico sanitizado da sonda
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: siope-client-limeira-historical-bounded-batch-source-probe-${{ github.run_id }}
+          path: siope-client-limeira-historical-bounded-batch-source-probe-evidence/result.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Propagar STOP da sonda
+        if: ${{ steps.live.outcome == 'failure' }}
+        run: exit 1

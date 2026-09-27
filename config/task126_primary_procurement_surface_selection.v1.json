@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "schema": "TASK126_PRIMARY_PROCUREMENT_SURFACE_SELECTION_V1",
+  "mode": "T0_PUBLIC_WEB_DISCOVERY_SELECTION_ONLY",
+  "base_sha": "ebbf09dd99f08d9a710295881aefb29a0fafa018",
+  "issue": 451,
+  "upstream": {
+    "resolver_task": "TASK_122",
+    "drive_inventory_task": "TASK_123",
+    "tcesp_zip_attempts": [
+      "TASK_124",
+      "TASK_125"
+    ],
+    "current_identity_status": "UNKNOWN",
+    "required_bridge": [
+      "EXPLICIT_POLICY_MARKER",
+      "STABLE_ACCOUNTING_IDENTIFIER",
+      "EXECUTION_EVENT"
+    ]
+  },
+  "candidates": [
+    {
+      "id": "PREFEITURA_NEWS_OFICINEIROS_2026",
+      "url": "https://limeira.sp.gov.br/imprensa/noticias/geral/programa-de-educacao-integral-esta-com-inscricoes-abertas-para-oficineiros",
+      "source_role": "MUNICIPAL_PRIMARY_PUBLIC_INFORMATION",
+      "observed": [
+        "PROGRAMA_DE_EDUCACAO_INTEGRAL",
+        "CREDENCIAMENTO_PJ_MEI",
+        "R30_PER_HOUR",
+        "MONTHLY_PAYMENT",
+        "2026_EXECUTION_CONTEXT"
+      ],
+      "stable_accounting_identifier_observed": false,
+      "execution_event_id_observed": false,
+      "selected_for_next_read": false
+    },
+    {
+      "id": "JOM_7126_2025_EITI_CREDENCIAMENTO",
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_27112025163143.pdf",
+      "source_role": "MUNICIPAL_PRIMARY_NORMATIVE_PROCUREMENT",
+      "observed": [
+        "EDITAL_CREDENCIAMENTO_ESCOLA_EM_TEMPO_INTEGRAL_2026",
+        "PROGRAMA_DE_EDUCACAO_INTEGRAL",
+        "LEI_14133_2021",
+        "PME_META_6_LINK"
+      ],
+      "stable_accounting_identifier_observed": false,
+      "execution_event_id_observed": false,
+      "selected_for_next_read": true
+    },
+    {
+      "id": "TCESP_HTML_EXPENSE_DETAIL",
+      "url_pattern": "https://transparencia.tce.sp.gov.br/municipio/limeira/2026/despesas/detalhe/<id>",
+      "source_role": "SECONDARY_AGGREGATOR",
+      "observed": [
+        "EMPENHO",
+        "EVENT",
+        "SUPPLIER",
+        "VALUE",
+        "PROGRAM",
+        "ACTION",
+        "FUNDING_SOURCE",
+        "APPLICATION_CODE",
+        "SUBITEM",
+        "HISTORY"
+      ],
+      "stable_accounting_identifier_observed": "POSSIBLE_PER_DETAIL_PAGE",
+      "execution_event_id_observed": "POSSIBLE_PER_DETAIL_PAGE",
+      "selected_for_next_read": false,
+      "municipal_primary_verification_required": true
+    }
+  ],
+  "selection": {
+    "selected_candidate_id": "JOM_7126_2025_EITI_CREDENCIAMENTO",
+    "rationale": "Strongest municipal-primary surface already carrying explicit policy/procurement identity; next read should test whether the same instrument exposes a stable budget/accounting locator.",
+    "next_read_exact_url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_27112025163143.pdf",
+    "terms": [
+      "DOTACAO",
+      "FICHA",
+      "PROGRAMA",
+      "ACAO",
+      "SUBACAO",
+      "UNIDADE ORCAMENTARIA",
+      "FONTE",
+      "DESTINACAO",
+      "PROCESSO ADMINISTRATIVO",
+      "EMPENHO"
+    ],
+    "max_source_gets": 1,
+    "retry": false,
+    "redirects_max": 0,
+    "page_scope": "ENTIRE_99_PAGE_EDITION_LOCAL_SEARCH_AFTER_SINGLE_DOWNLOAD"
+  },
+  "guards": {
+    "r30_per_hour_creates_financial_identity": false,
+    "monthly_payment_wording_creates_execution_event": false,
+    "contract_template_creates_transaction_identity": false,
+    "pme_link_creates_accounting_identity": false,
+    "program_2001_similarity_creates_identity": false,
+    "amount_equality_creates_identity": false,
+    "automatic_promotion": false
+  },
+  "effects": {
+    "source_gets": 0,
+    "network": 0,
+    "drive_read": 0,
+    "drive_write": 0,
+    "ocr": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "rag": 0,
+    "state_registry": 0,
+    "queue": 0,
+    "serving": 0,
+    "publication": 0,
+    "retry": 0,
+    "recurrence": 0,
+    "schedule": 0
+  },
+  "future_source_read_authorized": false
+}

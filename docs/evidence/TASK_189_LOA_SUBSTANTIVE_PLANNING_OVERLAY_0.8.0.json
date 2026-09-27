@@ -1,0 +1,133 @@
+{
+  "schema": "TASK189_LOA_SUBSTANTIVE_PLANNING_OVERLAY_V1",
+  "task": "TASK_189_LOA_SUBSTANTIVE_PLANNING_OVERLAY",
+  "base_main_sha": "1a1009c47f7b1371e91c92ed658b4110ca9f5d8c",
+  "status": "PASS_SCOPED_SUBSTANTIVE_LOA_OVERLAY_MATERIALIZED",
+  "source": {
+    "logical_document_id": "LOA_2026_LEI_7223_2025",
+    "law_number": "7.223/2025",
+    "primary_jom_drive_id": "1bRpmMxacX16P1tJBvam-55OOPTYuQnIA",
+    "primary_jom_sha256": "37ea54d85cc5428622b296881a279a17e1aeefd7574576e7a3414443bbee64c4",
+    "primary_jom_bytes": 66119594,
+    "jom_edition": 7127,
+    "silver_v2_drive_id": "1sY2ysOroWzj-aNCXz2jU8EZQnbiDijPK",
+    "silver_v2_sha256": "9f04a7202d03a58687d5382565777f15887b056ba28c65d9c01e226af7d3ef25",
+    "silver_v2_bytes": 3866,
+    "task050_readback_verified": true
+  },
+  "substantive_segments": [
+    {
+      "action_code": "12.362.2001.2690",
+      "label": "TRANSPORTE ESCOLAR",
+      "locator": "JOM:edition:7127:law-page:170-171#action:12.362.2001.2690",
+      "program_code": "2001",
+      "organ_name": "SECRETARIA DE EDUCACAO",
+      "unit_name": "ENSINO MEDIO E SUPERIOR",
+      "appropriation_brl": "6152000.00",
+      "funding_sources_brl": {
+        "01_TESOURO": "943000.00",
+        "02_TRANSFERENCIAS_E_CONVENIOS_ESTADUAIS_VINCULADOS": "5209000.00"
+      },
+      "eiti_specific": false
+    },
+    {
+      "action_code": "12.306.2001.2720",
+      "label": "ALIMENTACAO ESCOLAR",
+      "locator": "JOM:edition:7127:law-page:173-174#action:12.306.2001.2720",
+      "program_code": "2001",
+      "organ_name": "SECRETARIA DE EDUCACAO",
+      "unit_name": "ALIMENTACAO ESCOLAR",
+      "appropriation_brl": "28000000.00",
+      "funding_sources_brl": {
+        "01_TESOURO": "8680000.00",
+        "05_TRANSFERENCIAS_E_CONVENIOS_FEDERAIS_VINCULADOS": "19320000.00"
+      },
+      "text_layer_amount_brl": "29000000.00",
+      "visual_source_amount_brl": "28000000.00",
+      "mismatch_preserved": true,
+      "eiti_specific": false
+    }
+  ],
+  "planning_document_index": {
+    "base_task184_rows": 7,
+    "task189_rows_added": 2,
+    "row_count": 9,
+    "logical_document_count": 5,
+    "primary_substantive_document_types": [
+      "LDO",
+      "LOA",
+      "PPA"
+    ],
+    "snapshot_id": "62e88978304b6abfe6eb029d",
+    "content_sha256": "62e88978304b6abfe6eb029d8a6a1a7fbe60f1556e0078af8b9c04ce39b55f84",
+    "json_sha256": "ffc3a5e9bf47a97f79fa76cda46a92f5f00f7c57dc2a72b07205718ca25c9a2e",
+    "json_bytes": 10392,
+    "gzip_sha256": "243981e6c4b93dc219df0ca612c5ef0cc30fb00012a19b097aa97d870ab86970",
+    "gzip_bytes": 2788,
+    "snapshot_drive_id": "1d8K02zE36QkgVNm7p-uyG8oOcS-Wz2vS",
+    "manifest_drive_id": "1Ou3yj_BvU_ODcqOtr3UJU6pvQ46E1AKD",
+    "generated_at": "2026-09-06T15:12:00+00:00"
+  },
+  "promotion": {
+    "loa_evidence_role": "PRIMARY_SUBSTANTIVE",
+    "scope": "TWO_VALIDATED_ACTION_SEGMENTS_ONLY",
+    "complete_loa_parse_claim": false,
+    "whole_loa_substantive_coverage_claim": false,
+    "accounting_execution_proven_by_loa": false,
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+    "generic_action_attribution_to_eiti": false,
+    "program_2001_total_attribution_to_eiti": false
+  },
+  "answerability": {
+    "before_status_counts": {
+      "EXPLICIT_GAP": 5,
+      "MATERIALIZED_ANSWERABLE": 21,
+      "MATERIALIZED_PARTIAL": 12
+    },
+    "after_status_counts": {
+      "EXPLICIT_GAP": 5,
+      "MATERIALIZED_ANSWERABLE": 24,
+      "MATERIALIZED_PARTIAL": 9
+    },
+    "changed_question_count": 3,
+    "changes": [
+      {
+        "question_id": "PLAN_Q1",
+        "before": "MATERIALIZED_PARTIAL",
+        "after": "MATERIALIZED_ANSWERABLE"
+      },
+      {
+        "question_id": "PLAN_Q2",
+        "before": "MATERIALIZED_PARTIAL",
+        "after": "MATERIALIZED_ANSWERABLE"
+      },
+      {
+        "question_id": "PLAN_Q3",
+        "before": "MATERIALIZED_PARTIAL",
+        "after": "MATERIALIZED_ANSWERABLE"
+      }
+    ],
+    "preserved_partial": [
+      "FIN_Q1"
+    ]
+  },
+  "guards": [
+    "LOA_SUBSTANTIVE_SEGMENT_NE_COMPLETE_LOA_PARSE",
+    "LOA_AUTHORIZATION_NE_ACCOUNTING_EXECUTION",
+    "PROGRAM_2001_NE_EITI_IDENTITY",
+    "SECRETARIA_EDUCACAO_NE_EITI_IDENTITY",
+    "GENERIC_ACTION_NE_SPECIFIC_POLICY_IDENTITY",
+    "VISUAL_VALIDATION_MISMATCH_MUST_BE_PRESERVED",
+    "NO_SILENT_CHARACTER_OR_AMOUNT_REPAIR",
+    "NO_LLM_NUMERIC_RECONSTRUCTION"
+  ],
+  "remote_effects": {
+    "network": 0,
+    "drive_creates": 2,
+    "drive_overwrites": 0,
+    "serving": 0,
+    "publication": 0,
+    "schedule": 0,
+    "recurrence": 0
+  }
+}

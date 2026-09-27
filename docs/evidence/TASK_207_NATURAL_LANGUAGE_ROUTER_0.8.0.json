@@ -1,0 +1,61 @@
+{
+  "schema": "TASK207_NATURAL_LANGUAGE_ROUTER_EVIDENCE_V1",
+  "task": "TASK_207",
+  "issue": 658,
+  "base_main_sha": "143c11cb22cf38c801ab4595e112d02f972aa306",
+  "status": "CANDIDATE_PENDING_CI",
+  "architecture": "TEXT_NORMALIZE_SCORE_GATE_CANONICAL_ID_TASK206_RENDERER",
+  "canonical_question_count": 38,
+  "methods": {
+    "exact_canonical_self_route": true,
+    "weighted_phrases": true,
+    "weighted_terms": true,
+    "negative_markers": true,
+    "embeddings": false,
+    "llm": false
+  },
+  "route_states": [
+    "ROUTED",
+    "AMBIGUOUS",
+    "LOW_CONFIDENCE_STOP"
+  ],
+  "representative_alias_count": 12,
+  "compound_case": {
+    "input": "quanto gastou com educação e quanto veio do Fundeb",
+    "expected": [
+      "FIN_Q1",
+      "FIN_Q3"
+    ]
+  },
+  "ambiguous_case": {
+    "input": "como estão os professores",
+    "expected_state": "AMBIGUOUS",
+    "selection": []
+  },
+  "low_confidence_case": {
+    "input": "me conta alguma coisa",
+    "expected_state": "LOW_CONFIDENCE_STOP",
+    "selection": []
+  },
+  "guards": [
+    "TEXT_ROUTE_NE_TRUTH_SOURCE",
+    "ROUTING_SCORE_NE_NUMERIC_EVIDENCE",
+    "AMBIGUITY_MUST_REMAIN_VISIBLE",
+    "LOW_CONFIDENCE_MUST_STOP",
+    "NO_NUMERIC_TRUTH_CREATED_BY_ROUTER",
+    "NO_LLM_OR_EMBEDDING_REQUIRED"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "source_acquisition": false,
+    "ocr": false,
+    "llm": false,
+    "serving": false,
+    "publication": false,
+    "retry": false,
+    "recurrence": false,
+    "schedule": false
+  }
+}

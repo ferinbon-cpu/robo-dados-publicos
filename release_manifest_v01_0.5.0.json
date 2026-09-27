@@ -1,0 +1,19 @@
+{
+  "name": "ROBO_DADOS_PUBLICOS_SOFTWARE_V01",
+  "version": "0.5.0",
+  "status": "CANDIDATE",
+  "release_date": "2026-08-21",
+  "milestone": "M4E_DETERMINISTIC_SOURCE_COLLECTION",
+  "python": ">=3.11",
+  "github_runner_python": "3.12",
+  "historical_regressions": "109/109 PASS",
+  "unit_tests": "21/21 PASS",
+  "compileall": "PASS",
+  "source_inventory_contract": "PASS",
+  "conditional_http": "PASS_LOCAL_FIXTURE",
+  "bronze_immutability": "PASS_LOCAL_FIXTURE",
+  "quarantine_contract": "PASS_LOCAL_FIXTURE",
+  "live_github_actions": "PENDING",
+  "live_official_source": "PENDING",
+  "next_action": "M4E_VALIDATE_FIRST_OFFICIAL_SOURCE_CONNECTOR"
+}

@@ -1,0 +1,69 @@
+{
+  "staging": {
+    "promotion_status": "NOT_SILVER",
+    "sources": {
+      "PPA": {"sha256": "3e5deb53448c2e5eea56217a4e5d7f20f7fc3859eff7fcb93a7de7eb17011c1a", "page_count": 105},
+      "LDO": {"sha256": "6f28017bb61fe6dbd7db44e2306bd1a48f813d8d40411d87c130fba78fca2406", "page_count": 37},
+      "LOA": {"sha256": "bc4c8bf4b2b1e8f59e880318c37ec7f7fbd4357a85a8b46c97750444dbf01d4b", "page_count": 466}
+    },
+    "ppa": {
+      "program_code": "2001",
+      "responsible_unit_code": "10.00.00",
+      "indicator_eiti": {"indicator_name": "ÍNDICE DE ALUNOS EM EDUCACAO INTEGRAL", "unit": "PERCENTUAL", "recent": 52, "2026": 53, "2027": 55, "2028": 57, "2029": 59, "final_ppa": 59},
+      "selected_actions": [
+        {"action_code": "2690", "eiti_specific": false, "parse_status": "VERIFIED_TEXT_ROW"},
+        {"action_code": "2690", "eiti_specific": false, "parse_status": "VERIFIED_TEXT_ROW"},
+        {"action_code": "2720", "eiti_specific": false, "parse_status": "VERIFIED_TEXT_ROW"}
+      ],
+      "review_required_rows": [{"status": "PARSER_REVIEW_REQUIRED", "promoted": false}]
+    },
+    "ldo": {
+      "structural_markers": [
+        {"section_key": "METAS_FISCAIS", "found": true},
+        {"section_key": "RISCOS_FISCAIS", "found": true},
+        {"section_key": "RESERVA_CONTINGENCIA", "found": true},
+        {"section_key": "PESSOAL", "found": true},
+        {"section_key": "EDUCACAO", "found": true}
+      ]
+    },
+    "loa": {
+      "header": {"current_pdf_text_layer": "ABSENT", "full_structured_parse_status": "BLOCKED_PENDING_DETERMINISTIC_OCR_OR_MACHINE_READABLE_SOURCE"},
+      "program_bridge_from_v10": {"program_code": "2001", "relation": "same_official_program_code", "confidence": "A", "financial_attribution_to_eiti": "NOT_VALIDATED"},
+      "prior_action_evidence": [
+        {"action_code": "2690", "eiti_specific": false, "current_raw_reparse": "NOT_PERFORMED", "status": "DERIVED_PRIOR_EVIDENCE_ONLY"},
+        {"action_code": "2720", "eiti_specific": false, "current_raw_reparse": "NOT_PERFORMED", "status": "DERIVED_PRIOR_EVIDENCE_ONLY"}
+      ]
+    },
+    "financial_identity": {
+      "eiti_specific_status": "EVIDENCIA_INSUFICIENTE",
+      "required_chain": ["indicator_or_target", "program", "explicit_action_or_subaction", "budget_unit", "funding_source_or_destination", "expense_nature", "appropriation", "committed", "liquidated", "paid"],
+      "program_2001_total_attribution_forbidden": true
+    }
+  },
+  "qa": {
+    "checks": [
+      {"check": "PPA_PROGRAM_2001", "result": "PASS"},
+      {"check": "PPA_EITI_INDICATOR_NAME", "result": "PASS"},
+      {"check": "PPA_EITI_TARGETS", "result": "PASS"},
+      {"check": "PPA_RESPONSIBLE_UNIT", "result": "PASS"},
+      {"check": "LDO_ALL_STRUCTURAL_MARKERS", "result": "PASS"},
+      {"check": "LOA_HEADER_TOTAL", "result": "PASS"},
+      {"check": "LOA_FULL_PARSE_BLOCKED_NOT_GUESSED", "result": "PASS"},
+      {"check": "V10_PROGRAM_BRIDGE_NOT_FINANCIAL_IDENTITY", "result": "PASS"},
+      {"check": "EITI_IDENTITY_INSUFFICIENT", "result": "PASS"},
+      {"check": "NO_SILVER_PROMOTION", "result": "PASS"}
+    ],
+    "pass_count": 10,
+    "fail_count": 0,
+    "result": "PASS_STAGING_ONLY",
+    "promotion_decision": "DO_NOT_PROMOTE_LOA_FULL_PARSE_INCOMPLETE"
+  },
+  "derived_hashes": {
+    "LDO_2026_STRUCTURAL_MARKERS_V01.csv": "19b6ddccf214430db1309072235ebbc34830684d221584a5e6bc650d3aee905c",
+    "LOA_2026_PRIOR_BRIDGE_EVIDENCE_V01.csv": "2194173aed0b48c0d99e778f2533947151819dc8ab526f3c713f2ea8be949e13",
+    "PPA_PROGRAM_2001_ACTIONS_SELECTED_V01.csv": "835cebd29afcea77e3054a16682a1d7fa150951113d1085abf92eb32f7a8b429",
+    "PPA_PROGRAM_2001_INDICATORS_V01.csv": "3cb93e42f4211fc39d82896d7147f6a9404fe3016deb3342779c3ad1c739e0c0",
+    "QA_F01_STRUCTURED_PARSE_V01.json": "9bdfb15caaef457070bcf9338f4f915712f28b8ad74f0273fd9ea3a09f72c178",
+    "STAGING_F01_STRUCTURED_PARSE_V01.json": "dd33eccfc3b10822812f3edc2cee76c264ae018e60fc987292257e8c78d019d5"
+  }
+}

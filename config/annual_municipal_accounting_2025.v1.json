@@ -1,0 +1,139 @@
+{
+  "schema": "ANNUAL_MUNICIPAL_ACCOUNTING_2025_V1",
+  "task": "TASK_227",
+  "issue": 767,
+  "scope": {
+    "municipality": "Limeira/SP",
+    "entity_scope": "MUNICIPIO_DE_LIMEIRA_CONSOLIDADO",
+    "period": "2025-01-01/2025-12-31",
+    "currency": "BRL",
+    "money_representation": "INTEGER_CENTS",
+    "selected_high_value_rows_only": true,
+    "full_document_row_parse_claimed": false,
+    "canonical_contextual_coverage": "38/38_UNCHANGED"
+  },
+  "sources": [
+    {
+      "source_doc_id": "DOC-017",
+      "title": "04-Balanço Patrimonial do Exercício de 2025.pdf",
+      "statement": "Anexo 14 - Balanco Patrimonial",
+      "pages": 28,
+      "selected_pages": [1],
+      "generated_at_source": "2026-04-06 11:59",
+      "source_system": "CN-SIFPM / CONAM",
+      "identity": "TITLE_AND_CONTENT_MATCH_MD_01_3_DOC_017;BYTE_HASH_NOT_PROVEN"
+    },
+    {
+      "source_doc_id": "DOC-010",
+      "title": "02-Balanço Financeiro do Exercício de 2025.pdf",
+      "statement": "Anexo 13 - Balanco Financeiro",
+      "pages": 2,
+      "selected_pages": [1],
+      "generated_at_source": "2026-04-06 11:49",
+      "source_system": "CN-SIFPM / CONAM",
+      "identity": "TITLE_AND_CONTENT_MATCH_MD_01_3_DOC_010;BYTE_HASH_NOT_PROVEN"
+    },
+    {
+      "source_doc_id": "DOC-006",
+      "title": "01-Balanço Orçamentário do Exercício de 2025.pdf",
+      "statement": "Anexo 12 - Balanco Orcamentario",
+      "pages": 5,
+      "selected_pages": [1, 2, 3],
+      "generated_at_source": "2026-04-06 12:50",
+      "source_system": "CN-SIFPM / CONAM",
+      "identity": "TITLE_AND_CONTENT_MATCH_MD_01_3_DOC_006;BYTE_HASH_NOT_PROVEN"
+    }
+  ],
+  "semantic_domains": {
+    "PATRIMONIAL_POSITION": {
+      "source_doc_id": "DOC-017",
+      "rows": [
+        {"metric_id":"CURRENT_ASSETS","source_label":"ATIVO CIRCULANTE","value_cents":139652082238,"page":1},
+        {"metric_id":"CASH_AND_CASH_EQUIVALENTS","source_label":"caixa e equivalentes de caixa","value_cents":28687982427,"page":1},
+        {"metric_id":"SHORT_TERM_INVESTMENTS","source_label":"investimentos e aplicacoes temporarias a curto prazo","value_cents":94973287618,"page":1},
+        {"metric_id":"NONCURRENT_ASSETS","source_label":"ATIVO NAO-CIRCULANTE","value_cents":164098941215,"page":1},
+        {"metric_id":"TOTAL_ASSETS","source_label":"TOTAL","value_cents":303751023453,"page":1},
+        {"metric_id":"CURRENT_LIABILITIES","source_label":"PASSIVO CIRCULANTE","value_cents":26177847920,"page":1},
+        {"metric_id":"NONCURRENT_LIABILITIES","source_label":"PASSIVO NAO-CIRCULANTE","value_cents":147594176389,"page":1},
+        {"metric_id":"LONG_TERM_PROVISIONS","source_label":"provisoes a longo prazo","value_cents":95775161955,"page":1},
+        {"metric_id":"TOTAL_LIABILITIES","source_label":"TOTAL DO PASSIVO","value_cents":173772024309,"page":1},
+        {"metric_id":"NET_EQUITY","source_label":"TOTAL DO PATRIMONIO LIQUIDO","value_cents":129978999144,"page":1},
+        {"metric_id":"RESULT_OF_YEAR","source_label":"Resultado do Exercicio","value_cents":-45338084748,"page":1},
+        {"metric_id":"FINANCIAL_ASSETS","source_label":"ATIVO FINANCEIRO","value_cents":125768836619,"page":1},
+        {"metric_id":"FINANCIAL_LIABILITIES","source_label":"PASSIVO FINANCEIRO","value_cents":27013990393,"page":1},
+        {"metric_id":"PATRIMONIAL_BALANCE","source_label":"SALDO PATRIMONIAL","value_cents":117997359705,"page":1}
+      ],
+      "safe_qa_identities": [
+        "CURRENT_ASSETS + NONCURRENT_ASSETS = TOTAL_ASSETS",
+        "CURRENT_LIABILITIES + NONCURRENT_LIABILITIES = TOTAL_LIABILITIES",
+        "TOTAL_LIABILITIES + NET_EQUITY = TOTAL_ASSETS"
+      ]
+    },
+    "FINANCIAL_FLOWS": {
+      "source_doc_id": "DOC-010",
+      "rows": [
+        {"metric_id":"ORDINARY_BUDGET_REVENUE","source_label":"Receita Orcamentaria - Ordinaria","value_cents":84359985723,"page":1},
+        {"metric_id":"EDUCATION_LINKED_BUDGET_REVENUE","source_label":"Receita Orcamentaria - Vinculada - Educacao","value_cents":53033325975,"page":1},
+        {"metric_id":"TOTAL_BUDGET_REVENUE","source_label":"Receita Orcamentaria - Total impresso","value_cents":122704460870,"page":1},
+        {"metric_id":"ORDINARY_BUDGET_EXPENSE","source_label":"Despesa Orcamentaria - Ordinaria","value_cents":59258800566,"page":1},
+        {"metric_id":"EDUCATION_LINKED_BUDGET_EXPENSE","source_label":"Despesa Orcamentaria - Vinculada - Educacao","value_cents":44571653248,"page":1},
+        {"metric_id":"TOTAL_BUDGET_EXPENSE","source_label":"Despesa Orcamentaria - Total impresso","value_cents":139623117492,"page":1},
+        {"metric_id":"FINANCIAL_TRANSFERS_RECEIVED","source_label":"TRANSFERENCIAS FINANCEIRAS RECEBIDAS","value_cents":12645146622,"page":1},
+        {"metric_id":"FINANCIAL_TRANSFERS_GRANTED","source_label":"TRANSFERENCIAS FINANCEIRAS CONCEDIDAS","value_cents":12646469654,"page":1},
+        {"metric_id":"RESTOS_A_PAGAR_INSCRIBED_IN_PERIOD","source_label":"RESTOS A PAGAR - Inscritos no Periodo","value_cents":21188611495,"page":1},
+        {"metric_id":"RESTOS_A_PAGAR_LIQUIDATED_IN_PERIOD","source_label":"RESTOS A PAGAR - Liquidados no Periodo","value_cents":14946186833,"page":1},
+        {"metric_id":"DEPOSITS_RECEIVED","source_label":"DEPOSITOS - Recebidos no Periodo","value_cents":9366055824,"page":1},
+        {"metric_id":"DEPOSITS_RETURNED","source_label":"DEPOSITOS - Restituicoes no Periodo","value_cents":8913247664,"page":1},
+        {"metric_id":"OTHER_EXTRA_BUDGETARY_RECEIPTS","source_label":"OUTRAS MOVIMENTACOES EXTRAORCAMENTARIAS - Recebidos no Periodo - Conforme Anexo 13-A","value_cents":254604159499,"page":1},
+        {"metric_id":"OTHER_EXTRA_BUDGETARY_PAYMENTS","source_label":"OUTRAS MOVIMENTACOES EXTRAORCAMENTARIAS - Restituicoes no Periodo - Conforme Anexo 13-A","value_cents":252934608395,"page":1},
+        {"metric_id":"PRIOR_YEAR_CASH_BALANCE","source_label":"SALDO EM ESPECIE DO EXERCICIO ANTERIOR","value_cents":107115280616,"page":1},
+        {"metric_id":"NEXT_YEAR_CASH_BALANCE","source_label":"SALDO EM ESPECIE PARA O EXERCICIO SEGUINTE","value_cents":123661270045,"page":1},
+        {"metric_id":"FINANCIAL_STATEMENT_TOTAL","source_label":"TOTAL","value_cents":611983700649,"page":1}
+      ],
+      "semantic_caution": "The source category Educacao is preserved as printed and is not silently redefined as MDE, FUNDEB, EITI, paid expenditure or free cash."
+    },
+    "BUDGET_EXECUTION": {
+      "source_doc_id": "DOC-006",
+      "revenue_rows": [
+        {"metric_id":"CURRENT_REVENUES","source_label":"RECEITAS CORRENTES","page":1,"initial_forecast_cents":214691820000,"updated_forecast_cents":205630844965,"realized_cents":203913541137,"balance_cents":-1717303828},
+        {"metric_id":"CAPITAL_REVENUES","source_label":"RECEITAS DE CAPITAL","page":1,"initial_forecast_cents":8741400000,"updated_forecast_cents":3483105330,"realized_cents":3150905456,"balance_cents":-332199874},
+        {"metric_id":"REVENUE_SUBTOTAL","source_label":"Subtotal das Receitas (I)","page":1,"initial_forecast_cents":223433220000,"updated_forecast_cents":209113950295,"realized_cents":207064446593,"balance_cents":-2049503702}
+      ],
+      "other_revenue_rows": [
+        {"metric_id":"PRIOR_YEAR_FINANCIAL_SURPLUS_USED_FOR_ADDITIONAL_CREDITS","source_label":"SALDOS DE EXERCICIOS ANTERIOES (UTILIZADOS PARA CREDITOS ADICIONAIS) - superativ financeiro","page":2,"value_cents":5454214235}
+      ],
+      "expense_rows": [
+        {"metric_id":"CURRENT_EXPENSES","source_label":"DESPESAS CORRENTES","page":3,"initial_appropriation_cents":200617050000,"updated_appropriation_cents":206674887133,"committed_cents":183382822483,"liquidated_cents":173448851136,"paid_cents":164278639327,"appropriation_balance_cents":23292064650},
+        {"metric_id":"CAPITAL_EXPENSES","source_label":"DESPESAS DE CAPITAL","page":3,"initial_appropriation_cents":13624800000,"updated_appropriation_cents":20180711684,"committed_cents":8733897508,"liquidated_cents":7351293260,"paid_cents":7269794346,"appropriation_balance_cents":11446814176},
+        {"metric_id":"EXPENSE_SUBTOTAL","source_label":"Subtotal das Despesas (VI)","page":3,"initial_appropriation_cents":221411800000,"updated_appropriation_cents":233685548817,"committed_cents":192116719991,"liquidated_cents":180800144396,"paid_cents":171548433673,"appropriation_balance_cents":41568828826},
+        {"metric_id":"DEBT_AMORTIZATION_REFINANCING","source_label":"AMORTIZACAO DA DIVIDA / REFINANCIAMENTO (VII)","page":3,"initial_appropriation_cents":6988200000,"updated_appropriation_cents":6814570726,"committed_cents":6765198067,"liquidated_cents":6144872890,"paid_cents":6144872890,"appropriation_balance_cents":49372659},
+        {"metric_id":"EXPENSE_TOTAL_WITH_REFINANCING","source_label":"Subtotal com Refinanciamento (VIII) = (VI + VII)","page":3,"initial_appropriation_cents":228400000000,"updated_appropriation_cents":240500119543,"committed_cents":198881918058,"liquidated_cents":186945017286,"paid_cents":177693306563,"appropriation_balance_cents":41618201485}
+      ],
+      "safe_qa_identities": [
+        "For each revenue row: realized - updated forecast = balance",
+        "CURRENT_REVENUES + CAPITAL_REVENUES = REVENUE_SUBTOTAL for initial, updated, realized and balance",
+        "For each expense row: committed + appropriation balance = updated appropriation",
+        "EXPENSE_SUBTOTAL + DEBT_AMORTIZATION_REFINANCING = EXPENSE_TOTAL_WITH_REFINANCING for all six stages",
+        "For each expense row: paid <= liquidated <= committed"
+      ]
+    }
+  },
+  "guards": [
+    "ASSET_NE_CASH",
+    "LIABILITY_NE_EXPENDITURE",
+    "NET_EQUITY_NE_AVAILABLE_CASH",
+    "PATRIMONIAL_RESULT_NE_BUDGET_RESULT",
+    "BUDGET_REVENUE_NE_CASH_RECEIPT",
+    "BUDGET_EXPENSE_NE_PAID_EXPENSE",
+    "COMMITTED_NE_LIQUIDATED_NE_PAID",
+    "EDUCACAO_LABEL_IN_BALANCO_FINANCEIRO_NE_MDE_NE_FUNDEB_NE_EITI",
+    "EDUCATION_REVENUE_MINUS_EXPENSE_NE_FREE_SURPLUS",
+    "ANNUAL_CONSOLIDATED_MUNICIPAL_STATEMENT_NE_EDUCATION_ONLY_LEDGER",
+    "SOURCE_BALANCE_NE_FREE_CASH",
+    "NO_CROSS_STATEMENT_ARITHMETIC_WITHOUT_EXPLICIT_ACCOUNTING_IDENTITY",
+    "SELECTED_ROWS_NE_FULL_DOCUMENT_PARSE",
+    "BYTE_HASH_NOT_PROVEN_NE_HASHED_SOURCE_IDENTITY",
+    "NO_CONTEXTUAL_COVERAGE_CHANGE"
+  ],
+  "remote_effects": {"new_source_network":false,"drive_write":false,"serving":false,"publication":false,"schedule":false,"recurrence":false}
+}

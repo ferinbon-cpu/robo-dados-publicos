@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "schema": "TASK202_EQUITY_MISSINGNESS_AWARE_GATE_V1",
+  "task": "TASK_202",
+  "issue": 644,
+  "base_main_sha": "23e76bf07fa9dd3b1b6b4b22433139e231211245",
+  "mode": "T0_OFFLINE_SEMANTIC_ADEQUACY_CORRECTION",
+  "coverage": {
+    "active_school_denominator": 69,
+    "strong_links": 64,
+    "held": 5,
+    "rate": 0.927536,
+    "minimum_rate": 0.92,
+    "full_network": false
+  },
+  "held_roster": {
+    "source_evidence_path": "docs/evidence/TASK_199G_OFFICIAL_SPATIAL_TRIANGULATION_0.8.0.json",
+    "source_evidence_blob_sha": "3699e5e12c185c7b108f123dd20cab2584d1cc1f",
+    "codes": [
+      "35208437",
+      "35286229",
+      "35004773",
+      "35099569",
+      "35241885"
+    ]
+  },
+  "capability": {
+    "id": "SCHOOL_TO_SECTOR_LINK_SUBSTANTIAL_COVERAGE_WITH_EXPLICIT_MISSINGNESS",
+    "requires": [
+      "DENOMINATOR_69_PINNED",
+      "STRONG_LINKS_AT_LEAST_64",
+      "COVERAGE_AT_LEAST_0_92",
+      "HELD_COUNT_EXACTLY_5",
+      "HELD_ROSTER_REPOSITORY_EVIDENCE_PINNED",
+      "LINKED_AND_HELD_DISJOINT",
+      "NO_HELD_PROMOTION",
+      "FULL_NETWORK_CAPABILITY_ABSENT"
+    ]
+  },
+  "answerability": {
+    "prior_current_config": "config/observatory_semantic_answerability.v3.json",
+    "current_overlay": "config/observatory_semantic_answerability.v4.overlay.json",
+    "before": {"MATERIALIZED_ANSWERABLE": 37, "MATERIALIZED_PARTIAL": 1},
+    "desired_after": {"MATERIALIZED_ANSWERABLE": 38, "MATERIALIZED_PARTIAL": 0},
+    "changed_questions": ["EQUITY_Q1"]
+  },
+  "guards": [
+    "NO_WEAK_GEOGRAPHIC_PROMOTIONS",
+    "64_OF_69_NE_FULL_NETWORK",
+    "SCHOOL_LOCATION_CONTEXT_NE_STUDENT_SOCIOECONOMIC_PROFILE",
+    "NO_COMPLETE_NETWORK_TERRITORIAL_RANKING_CLAIM",
+    "MISSING_GEOGRAPHY_NE_ZERO",
+    "V1_V2_V3_ANSWERABILITY_PRESERVED",
+    "FULL_NETWORK_CAPABILITY_MUST_REMAIN_ABSENT"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_read": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "gate_id": "M7_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS_0_8_0",
+  "software_version": "0.8.0",
+  "run_id": 32869500596,
+  "run_number": 1,
+  "head_sha": "62b0a242b235397dd7074baa00fe3196425aec6b",
+  "artifact_id": 9571467548,
+  "artifact_name": "siope-public-get-runtime-route-diagnostics-32869500596",
+  "artifact_sha256": "ae3f552ca15e9d2480904bbf01c373d26f6372e6846b6a89f4568792615ddd2f",
+  "status": "STOP_M7_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS",
+  "stop_reason": "STOP_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS_BROWSER_RUNTIME",
+  "diagnostics": {
+    "runtime_stop": "STOP_SIOPE_RUNTIME_ROUTE_PROBE_WEBSOCKET_DEPENDENCY"
+  },
+  "observed_root_cause": "WEBSOCKET_CLIENT_RUNTIME_DEPENDENCY_USED_BY_CDP_SESSION_BUT_NOT_DECLARED_IN_REQUIREMENTS_OR_PYPROJECT",
+  "network": {
+    "initial_document_network_sent": false,
+    "dynamic_candidate_network_sent": false,
+    "pilot_limeira_values_sent": false
+  },
+  "safety": {
+    "form_submission": false,
+    "captcha_bypass": false,
+    "authentication_performed": false,
+    "credentials_captured": false,
+    "cookies_captured": false,
+    "request_body_persisted": false,
+    "response_body_persisted": false,
+    "query_values_persisted": false,
+    "artifact_downloaded": false,
+    "head_request_performed": false,
+    "remote_writes": "NONE",
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false
+  },
+  "hotfix_strategy": "PIN_WEBSOCKET_CLIENT_RUNTIME_DEPENDENCY_IN_REQUIREMENTS_AND_PYPROJECT_AND_ADD_RUNTIME_DEPENDENCY_PREFLIGHT; KEEP_RUNTIME_NETWORK_POLICY_UNCHANGED"
+}

@@ -1,0 +1,60 @@
+name: Public readiness audit
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: public-readiness-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    name: Audit full Git history safely
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Test public-readiness gates
+        run: |
+          python -m unittest -q tests/test_public_readiness_audit.py
+          python -m unittest -q tests/test_public_surface_audit.py
+          python -m unittest -q tests/test_public_hosted_baseline_gate.py
+
+      - name: Scan reachable Git history and current workflows
+        id: readiness
+        continue-on-error: true
+        run: python scripts/github_public_readiness_gate.py --output runtime/public_readiness/repository.json
+
+      - name: Validate exhaustive hosted baseline and post-baseline closure
+        id: hosted
+        continue-on-error: true
+        run: python scripts/github_public_hosted_baseline_gate.py | tee runtime/public_readiness/hosted-baseline.txt
+
+      - name: Upload redacted audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-readiness-audit-report
+          path: runtime/public_readiness/*
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Enforce fail-closed readiness result
+        if: steps.readiness.outcome != 'success' || steps.hosted.outcome != 'success'
+        run: |
+          echo "STOP_PUBLIC_READINESS: review the redacted artifact; no visibility change is authorized."
+          exit 42

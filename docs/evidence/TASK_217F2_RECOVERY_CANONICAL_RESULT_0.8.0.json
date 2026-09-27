@@ -1,0 +1,18 @@
+{
+  "task": "TASK_217F2_RECOVERY_CANONICAL_RESULT",
+  "issue": 680,
+  "status": "PASS_PARTIAL_RECOVERY_CANONIZED_NO_PROMOTION",
+  "run_id": 34299660362,
+  "artifact_id": 10084545954,
+  "artifact_zip_sha256": "e3a3506697e25e02b80955c0a8fe68c245fbc0d0d0fc3fcaf0df6ef0dfc166ba",
+  "embedded_result_sha256": "64ee897c321d45cd9ef7aa780320c57526af09e9cb81fd2800168cef6ae282f8",
+  "recovered": 8,
+  "remaining": 4,
+  "remaining_editions": [7243,7253,7270,7287],
+  "remaining_stop_code": "TASK217F_DOCUMENT_BYTES",
+  "new_exact_school_events": 0,
+  "abstract_generic_events_rejected": 3,
+  "known_true_school_event": "JOEV_fab1a3c79f589f7ccc18",
+  "INFRA_Q2": "BLOCKED_FOUR_OVERSIZED_DOCUMENTS_UNCOVERED",
+  "coverage": "33/38"
+}

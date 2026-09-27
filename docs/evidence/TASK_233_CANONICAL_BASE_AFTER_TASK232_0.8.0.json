@@ -1,0 +1,18 @@
+{
+  "schema": "TASK_233_CANONICAL_BASE_PIN_V1",
+  "task": "TASK_233",
+  "issue": 782,
+  "canonical_base": {
+    "branch": "main",
+    "sha": "95332a476e0a4cf8bd9b6cb638fcbbfb71e5c81e",
+    "source_merge": "PR #781 / TASK 232",
+    "post_merge_ci": {
+      "run_number": 1790,
+      "run_id": 34596659411,
+      "conclusion": "success"
+    }
+  },
+  "branch_rule": "TASK_233_CREATED_DIRECTLY_FROM_THIS_VERIFIED_MAIN_SHA",
+  "verified_at": "2026-09-11",
+  "contextual_coverage": "38/38_UNCHANGED"
+}

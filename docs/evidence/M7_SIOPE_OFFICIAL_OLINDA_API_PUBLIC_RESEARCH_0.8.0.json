@@ -1,0 +1,61 @@
+{
+  "gate_context": "M7_SIOPE_OFFICIAL_OLINDA_API_DISCOVERY_DESIGN_0_8_0",
+  "software_version": "0.8.0",
+  "release_status": "CANDIDATE",
+  "observed_on": "2026-08-25",
+  "source_id": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
+  "finding": "EXPLICIT_OFFICIAL_FNDE_OLINDA_ODATA_SURFACE_FOUND_AS_ALTERNATIVE_ACQUISITION_TRACK",
+  "official_application_url": "https://www.fnde.gov.br/olinda-ide/servico/DADOS_ABERTOS_SIOPE/versao/v1/aplicacao",
+  "official_odata_service_root": "https://www.fnde.gov.br/olinda-ide/servico/DADOS_ABERTOS_SIOPE/versao/v1/odata/",
+  "public_references": [
+    {
+      "kind": "OFFICIAL_FNDE_APPLICATION_SURFACE",
+      "url": "https://www.fnde.gov.br/olinda-ide/servico/DADOS_ABERTOS_SIOPE/versao/v1/aplicacao",
+      "disposition": "OFFICIAL_SURFACE_OBSERVED"
+    },
+    {
+      "kind": "RECENT_TECHNICAL_CORROBORATION",
+      "url": "https://strategicprojects.github.io/tesouror/articles/siope.html",
+      "disposition": "CORROBORATES_FNDE_ODATA_ROOT_RESOURCE_PATTERN_AND_PARAMETERS_NOT_YET_REPO_RUNTIME_PROOF"
+    },
+    {
+      "kind": "INDEPENDENT_ACADEMIC_REFERENCE",
+      "url": "https://www.repositorio.unb.br/bitstream/10482/48708/1/2023_AndressaMariaRodriguesKlosovski_DISSERT.pdf",
+      "disposition": "EXPLICITLY_REFERENCES_FNDE_DADOS_ABERTOS_SIOPE_V1_AND_DADOS_GERAIS_SIOPE_RESOURCE"
+    }
+  ],
+  "public_reference_candidate_resource": "Dados_Gerais_Siope",
+  "recent_technical_resource_candidates": [
+    "Dados_Gerais_Siope",
+    "Dados_Gerais_Siope_Dados_Responsaveis",
+    "Despesas_Siope",
+    "Despesas_Funcao_Educacao_Siope",
+    "Indicadores_Siope",
+    "Informacoes_Complementares_Siope",
+    "Receita_Siope",
+    "Remuneracao_Siope"
+  ],
+  "recent_technical_required_parameter_pattern": {
+    "common": ["Ano_Consulta", "Num_Peri", "Sig_UF"],
+    "remuneracao_exception": ["Ano_Declaracao", "Num_Peri", "Mes_Exercicio", "Sig_UF"]
+  },
+  "repo_interpretation": {
+    "html_indexed_get_track": "PRESERVED_AND_BLOCKED_PENDING_EXPLICIT_SECOND_PUBLIC_EXAMPLE",
+    "olinda_api_track": "ALTERNATIVE_OFFICIAL_TRACK_REQUIRING_OWN_DISCOVERY_DESIGN_AND_LIVE_SERVICE_DOCUMENT_PROOF",
+    "resource_names_proven_by_repo_runtime": false,
+    "parameter_semantics_proven_by_repo_runtime": false,
+    "limeira_api_request_authorized": false,
+    "collection_authorized": false,
+    "processing_authorized": false,
+    "recurrence_authorized": false,
+    "schedule_enabled": false
+  },
+  "safety": {
+    "no_pilot_request_was_constructed": true,
+    "no_limeira_values_were_sent": true,
+    "no_authentication": true,
+    "no_captcha_bypass": true,
+    "no_artifact_download": true,
+    "no_remote_write_outside_repository_evidence": true
+  }
+}

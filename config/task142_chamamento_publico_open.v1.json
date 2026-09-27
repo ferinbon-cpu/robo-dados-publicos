@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "schema": "TASK142_CHAMAMENTO_PUBLICO_OPEN_DESIGN_V1",
+  "mode": "T0_OFFLINE_CHAMAMENTO_PUBLICO_OPEN_DESIGN_ONLY",
+  "base_sha": "d6d9dffe2c6badd15ea7bedee6b275e380d1e4ba",
+  "issue": 492,
+  "authorization": {
+    "owner_authorization_units_granted": 10,
+    "authorization_unit_index": 7,
+    "click_invocations_max": 1,
+    "does_not_broaden_task133": true
+  },
+  "source_context": {
+    "known_primary_page": "https://limeira.sp.gov.br/imprensa/noticias/geral/programa-de-educacao-integral-esta-com-inscricoes-abertas-para-oficineiros",
+    "link_label": "Chamamento Público",
+    "link_is_explicit_on_known_primary_page": true
+  },
+  "execution": {
+    "click_known_chamamento_link_once": true,
+    "search_invocations": 0,
+    "additional_opens": 0,
+    "additional_clicks": 0,
+    "retry": 0
+  },
+  "epistemic_semantics": {
+    "surface_role": "MUNICIPAL_PRIMARY_DISCOVERY_SURFACE",
+    "may_discover_explicit_eiti_listing_or_link": true,
+    "negative_exhaustive_conclusion_allowed": false,
+    "automatic_financial_identity": false,
+    "automatic_transaction_identity": false,
+    "automatic_supplier_linkage": false
+  },
+  "remote_effects_in_task142_design": {
+    "network": false,
+    "drive": false,
+    "publication": false
+  }
+}

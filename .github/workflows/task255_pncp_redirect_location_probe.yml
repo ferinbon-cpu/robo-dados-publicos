@@ -1,0 +1,90 @@
+name: TASK 255 PNCP no-follow redirect Location probe
+run-name: "TASK 255 PNCP redirect Location probe by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-255-pncp-redirect-location-probe-runtime
+    paths:
+      - 'runtime_triggers/task255_pncp_redirect_location_probe.run'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-255-pncp-redirect-location-probe
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact runtime head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Validate exact one-shot authorization delta
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_RUN_ATTEMPT}" = "1"
+          test -f runtime/task255_owner_authorization.json
+          IMPL="$(python - <<'PY'
+          import json
+          print(json.load(open("runtime/task255_owner_authorization.json", encoding="utf-8"))["implementation_sha"])
+          PY
+          )"
+          test "$(printf '%s' "$IMPL" | grep -E '^[0-9a-f]{40}$')" = "$IMPL"
+          git cat-file -e "$IMPL^{commit}"
+          git merge-base --is-ancestor "$IMPL" HEAD
+          UNEXPECTED="$(git diff --name-only "$IMPL"..HEAD | grep -Ev '^(runtime/task255_owner_authorization.json|runtime_triggers/task255_pncp_redirect_location_probe.run)$' || true)"
+          test -z "$UNEXPECTED"
+          echo "TASK255_IMPLEMENTATION_SHA=$IMPL" >> "$GITHUB_ENV"
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+
+      - name: Execute authorized no-follow probe
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf runtime_out
+          mkdir -p runtime_out
+          python - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          from robo_dados_publicos.research.task255_task254_redirect_location_probe import (
+              LiveNoFollowTransport, execute_probe, load_config, load_evidence
+          )
+          cfg=load_config(); ev=load_evidence()
+          auth=json.loads(Path("runtime/task255_owner_authorization.json").read_text(encoding="utf-8"))
+          result=execute_probe(cfg,ev,transport=LiveNoFollowTransport(),authorization=auth,expected_implementation_sha=os.environ["TASK255_IMPLEMENTATION_SHA"],offline_test_mode=False)
+          canonical=json.dumps(result,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode("utf-8")
+          result["result_sha256"]=hashlib.sha256(canonical).hexdigest()
+          Path("runtime_out/task255_sanitized_result.json").write_text(json.dumps(result,ensure_ascii=False,indent=2,sort_keys=True)+"\n",encoding="utf-8")
+          print("TASK255_STATUS="+str(result.get("status")))
+          print("TASK255_OUTCOME="+str(result.get("outcome")))
+          print("TASK255_HTTP_STATUS="+str(result.get("http_status")))
+          print("TASK255_LOCATION="+str(result.get("location")))
+          print("TASK255_SOURCE_GETS="+str(result.get("source_get_count")))
+          PY
+
+      - name: Verify sanitized-only persistence
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(find runtime_out -maxdepth 1 -type f -printf '%f\n')" = "task255_sanitized_result.json"
+          test -z "$(find runtime_out -type f \( -name '*raw*' -o -name '*payload*' -o -name '*.pdf' \) -print)"
+
+      - name: Upload sanitized result only
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-255-pncp-redirect-location-probe-sanitized
+          path: runtime_out/task255_sanitized_result.json
+          if-no-files-found: error
+          retention-days: 1

@@ -1,0 +1,50 @@
+{
+  "schema": "TASK280_PAIRED_PNCP_DUAL503_CANONIZATION_V1",
+  "task": "TASK_280",
+  "issue": 896,
+  "base_main_sha": "3d052fd07b8ba915613a2a92fd0dc35b9cd08390",
+  "control": "45132495000140-1-000645/2026",
+  "source_task279": {
+    "implementation_sha": "3d052fd07b8ba915613a2a92fd0dc35b9cd08390",
+    "run_id": 35476247399,
+    "job_id": 105985880814,
+    "runtime_head_sha": "5eae9e22d48fab6e472af1819581603c9ec9479c",
+    "artifact_id": 10593584157,
+    "artifact_zip_sha256": "bb737de4c0563794295796e5e15e88549ae56e1172235ee73c3681fdcf7a23f2",
+    "artifact_file_sha256": "703037574e3d0d4c2acb8d3ac336790289816f48d8ee16c168bbabb506b6068b",
+    "result_sha256": "2e5e43a6d280cc45693b66e7cf17bcf1a242c2cfc41b15fa7b6efbc5426e8818"
+  },
+  "health": {
+    "route": "ITEMS_645",
+    "http_code": 503,
+    "content_type": "text/html",
+    "body_bytes": 107,
+    "body_sha256": "839488ebc08446a096a893996ed23eac321ac166724cd8c5d9092057834d2d79"
+  },
+  "target": {
+    "route": "LINKED_CONTRACT_645_PAGE1",
+    "http_code": 503,
+    "content_type": "text/html",
+    "body_bytes": 107,
+    "body_sha256": "839488ebc08446a096a893996ed23eac321ac166724cd8c5d9092057834d2d79"
+  },
+  "status": "PNCP_PAIRED_HEALTH_645_DUAL_HTTP503_COMMON_BACKEND_UNAVAILABLE_LINKED_CONTRACT_UNRESOLVED",
+  "adjudication": {
+    "same_run": true,
+    "identical_error_body_hash": true,
+    "linked_route_isolated_failure_proven": false,
+    "broader_tested_source_unavailability_observed": true,
+    "global_pncp_outage_proven": false,
+    "linked_contract_resolved": false,
+    "permanent_absence_inference": false
+  },
+  "boundaries": {
+    "network": false,
+    "retry_now": false,
+    "contract_proven": false,
+    "payment_proven": false,
+    "execution_proven": false,
+    "pncp_to_tce_proven": false
+  },
+  "next_gate": "ONE_SHOT_ITEMS_645_RECOVERY_HEALTH_PROBE"
+}

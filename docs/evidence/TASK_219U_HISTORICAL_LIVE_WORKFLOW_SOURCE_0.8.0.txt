@@ -1,0 +1,53 @@
+name: TASK 219U current-session live Despesa DOM once
+run-name: "TASK 219U live Despesa DOM by @${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - task-219u-current-session-live-despesa-dom
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task-219u-current-session-live-despesa-dom-once
+  cancel-in-progress: false
+
+jobs:
+  passive-live-dom:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Install Selenium
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check --no-input "selenium==4.35.0"
+
+      - name: Inspect current-session live Despesa DOM
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PYTHONPATH="$GITHUB_WORKSPACE"
+          export TASK219U_OUTPUT="$GITHUB_WORKSPACE/runtime/task219u_result.json"
+          python -m robo_dados_publicos.research.task219u_current_session_live_despesa_dom
+
+      - name: Upload sanitized live DOM evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: task-219u-current-session-live-dom-evidence
+          path: runtime/task219u_result.json
+          if-no-files-found: error
+          retention-days: 1

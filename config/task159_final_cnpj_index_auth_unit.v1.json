@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "schema": "TASK159_FINAL_CNPJ_INDEX_AUTH_UNIT_V1",
+  "base_sha": "51c78392e8dbd572f5e4cf2c60ea91860bcc4ec7",
+  "issue": 530,
+  "authorization": {
+    "owner_authorization_units_granted": 10,
+    "authorization_unit_index": 10,
+    "remaining_units_before_execution": 1,
+    "remaining_units_after_execution": 0
+  },
+  "search": {
+    "query": "45132495000140",
+    "domain": "pncp.gov.br",
+    "search_invocations_max": 1,
+    "result_open_invocations": 0,
+    "retry": 0
+  },
+  "semantics": {
+    "bounded_discovery_only": true,
+    "negative_exhaustive_conclusion_allowed": false,
+    "pncp_no_match_allowed": false
+  }
+}

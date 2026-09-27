@@ -1,0 +1,35 @@
+name: CI M7 OLINDA HASH ROUTING CONTRACT ASSOCIATION
+
+on:
+  pull_request:
+    paths:
+      - 'docs/evidence/M7_SIOPE_OFFICIAL_OLINDA_API_APPLICATION_HASH_ROUTING_FAMILY_INTERSECTION_DIAGNOSTICS_RUN_1_0.8.0.json'
+      - 'config/source_expansion.siope_official_olinda_api_application_hash_routing_family_intersection_diagnostics_review.json'
+      - 'config/source_expansion.siope_official_olinda_api_application_hash_routing_contract_association_diagnostics*.json'
+      - 'robo_dados_publicos/sources/siope_official_olinda_api_application_hash_routing_family_intersection_diagnostics_review.py'
+      - 'robo_dados_publicos/sources/siope_official_olinda_api_application_hash_routing_contract_association_diagnostics*.py'
+      - 'scripts/github_siope_official_olinda_api_application_hash_routing_family_intersection_diagnostics_review_gate.py'
+      - 'scripts/github_siope_official_olinda_api_application_hash_routing_contract_association_diagnostics*.py'
+      - 'tests/test_m7_siope_official_olinda_api_application_hash_routing_contract_association_diagnostics.py'
+      - '.github/workflows/siope-official-olinda-api-application-hash-routing-contract-association-diagnostics-gate.yml'
+      - '.github/workflows/ci-m7-olinda-hash-routing-contract-association.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+          check-latest: false
+      - run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - run: python scripts/github_siope_official_olinda_api_application_hash_routing_family_intersection_diagnostics_review_gate.py
+      - run: python scripts/github_siope_official_olinda_api_application_hash_routing_contract_association_diagnostics_design_gate.py
+      - run: python scripts/github_siope_official_olinda_api_application_hash_routing_contract_association_diagnostics_gate.py --dry-run
+      - run: python -m unittest tests.test_m7_siope_official_olinda_api_application_hash_routing_contract_association_diagnostics -v

@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "schema": "TASK200B_SCHOOL_NORMS_PRIMARY_EVIDENCE_V1",
+  "task": "TASK_200B",
+  "parent_issue": 636,
+  "base_main_sha": "78e070f7bdd6bc03da037532ec3d0445c92c7e14",
+  "mode": "EXISTING_CUSTODY_PRIMARY_NORMATIVE_AUTHORITY_GATE",
+  "answerability": {
+    "historical_config": "config/observatory_semantic_answerability.v1.json",
+    "current_config": "config/observatory_semantic_answerability.v2.json",
+    "before": {
+      "MATERIALIZED_ANSWERABLE": 34,
+      "MATERIALIZED_PARTIAL": 4
+    },
+    "after": {
+      "MATERIALIZED_ANSWERABLE": 36,
+      "MATERIALIZED_PARTIAL": 2
+    },
+    "changed_questions": [
+      "NORMS_Q1",
+      "NORMS_Q2"
+    ],
+    "remaining_partial": [
+      "EQUITY_Q1",
+      "TEACH_Q2"
+    ]
+  },
+  "primary_sources": [
+    {
+      "document_id": "CME_02_2021_EDUCACAO_TEMPO_INTEGRAL",
+      "source_family": "CME",
+      "drive_id": "1H5XVqisjFvXJcL7uVrJxadiufLBk0d8X",
+      "source_sha256": "5d01a883bd5ec721b9a9a8b0a0f2c985eea8958da23de8d475d7c73d3109c07c",
+      "evidence_role": "PRIMARY_NORMATIVE",
+      "quality_status": "VALIDATED",
+      "observed_rules": [
+        "MINIMUM_7_HOURS_DAILY_OR_35_WEEKLY",
+        "INTEGRATED_DAILY_JOURNEY_WITH_DISCIPLINES_AND_COMPLEMENTARY_ACTIVITIES",
+        "FULL_TIME_ATTENDANCE_MANDATORY_WHERE_100_PERCENT_OF_STUDENTS_ARE_FULL_TIME",
+        "AEE_GUARANTEE",
+        "CME_MONITORING_AND_MUNICIPAL_GOVERNANCE"
+      ]
+    },
+    {
+      "document_id": "DECRETO_118_2024_EITI_LIMEIRA",
+      "source_family": "MUNICIPAL_LEGISLATION",
+      "drive_id": "1zJ-D42f4pBtzEQAUfsTigIROgqkW3Kzt",
+      "source_sha256": "a534b99711652d437e1672dbaf39b9f56fe8f35c042f3648ae8483187c909b60",
+      "evidence_role": "PRIMARY_NORMATIVE",
+      "quality_status": "VALIDATED",
+      "observed_rules": [
+        "INSTITUTES_MUNICIPAL_FULL_TIME_INTEGRAL_EDUCATION_POLICY_IN_NETWORK_SCHOOLS",
+        "EXPRESSLY_LINKS_POLICY_TO_CME_02_2021",
+        "OFFICIAL_PUBLICATION_JOM_6718_2024_04_20"
+      ]
+    }
+  ],
+  "recent_jom_audit": {
+    "editions": [
+      7304,
+      7305,
+      7306,
+      7307,
+      7308,
+      7309,
+      7310,
+      7311,
+      7312,
+      7313,
+      7314,
+      7315
+    ],
+    "conclusion": "NO_TWO_STRONG_SCHOOL_OPERATION_NORM_ROWS_FOUND",
+    "excluded_as_norm_proof": [
+      "PERSONNEL_PORTARIAS",
+      "PROCUREMENT_AND_CONTRACTS",
+      "BUDGET_CREDIT_DECREES"
+    ]
+  },
+  "gate": {
+    "required_product": "PLANNING_DOCUMENT_INDEX",
+    "min_matching_rows": 2,
+    "required_source_families": [
+      "CME",
+      "MUNICIPAL_LEGISLATION"
+    ],
+    "required_evidence_role": "PRIMARY_NORMATIVE",
+    "required_policy_domain": "EDUCATION",
+    "required_quality_status": "VALIDATED"
+  },
+  "guards": [
+    "PRIMARY_NORMATIVE_AUTHORITY_GT_ARBITRARY_RECENT_JOM_COVERAGE",
+    "CONTRACT_NE_SCHOOL_NORM",
+    "PERSONNEL_ACT_NE_SCHOOL_NORM",
+    "BUDGET_DECREE_NE_SCHOOL_OPERATION_NORM",
+    "NORMATIVE_ACT_NE_IMPLEMENTATION_RESULT",
+    "PUBLICATION_NE_IMPLEMENTATION",
+    "NO_FABRICATED_EVIDENCE",
+    "HISTORICAL_ANSWERABILITY_V1_IMMUTABLE"
+  ],
+  "remote_effects": {
+    "network": false,
+    "drive_write": false,
+    "serving": false,
+    "publication": false,
+    "schedule": false,
+    "recurrence": false
+  }
+}

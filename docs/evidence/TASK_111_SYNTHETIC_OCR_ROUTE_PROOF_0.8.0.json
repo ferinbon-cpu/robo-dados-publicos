@@ -1,0 +1,63 @@
+{
+  "task": "TASK_111",
+  "version": "0.8.0",
+  "mode": "T1_DEPENDENCY_NETWORK_SYNTHETIC_ONLY",
+  "issue": 419,
+  "owner_instruction": "PROSSIGA_AND_DOWNLOAD_WHAT_IS_MISSING",
+  "canonical_route": "POPPLER_TESSERACT_POR_TSV",
+  "dependency_install_allowlist": [
+    "poppler-utils=24.02.0-1ubuntu9.9",
+    "tesseract-ocr=5.3.4-1build5",
+    "tesseract-ocr-por=1:4.1.0-2",
+    "pypdf==6.10.0"
+  ],
+  "first_attempt": {
+    "run_id": 33919509155,
+    "job_id": 101174340312,
+    "head_sha": "db59ad45cdd60b5363d1a812ca51cd5221ab32c0",
+    "conclusion": "failure",
+    "dependency_install": "PASS",
+    "version_verification": "PASS",
+    "proof_failure": "TASK111_SYNTHETIC_PDF_NOT_IMAGE_ONLY",
+    "diagnosis": "CHROME_PDF_HEADER_FOOTER_CREATED_TEXT_LAYER_IN_SYNTHETIC_FIXTURE_ONLY",
+    "real_ppa_reads": 0,
+    "real_ppa_ocr": false
+  },
+  "successful_attempt": {
+    "run_id": 33919583422,
+    "job_id": 101174577341,
+    "head_sha": "67f6b6f05ee444990cb0767fc4b0f05a826d1223",
+    "conclusion": "success",
+    "installed_packages": {
+      "poppler-utils": "24.02.0-1ubuntu9.9",
+      "tesseract-ocr": "5.3.4-1build5",
+      "tesseract-ocr-por": "1:4.1.0-2",
+      "pypdf": "6.10.0"
+    },
+    "pdf_page_count": 1,
+    "pdf_text_empty": true,
+    "normalized_ocr_text": "TASK111 MARCADOR OCR 73159 EDUCACAO INTEGRAL LIMEIRA",
+    "marker_recovered": true,
+    "portuguese_phrase_recovered": true,
+    "word_confidence_count": 7,
+    "word_confidence_min": 91.055252,
+    "word_confidence_max": 96.537155,
+    "sha256": {
+      "synthetic_pdf": "c3b8a549e64b6a933a4e762a70e26ffd2d2633e3c9f140dbc709954905485272",
+      "rendered_page_1": "28c86fe1035e100f1a3049375cc14ec78382c4567e7bf0dfdad8b8e97451c7fd",
+      "ocr_tsv": "ce34e5ad0e8e7f53ed0a550e12765b97613b21c8a5a41c907e205f7a15ae25d3"
+    },
+    "official_source_http_requests": 0,
+    "real_ppa_reads": 0,
+    "real_ppa_ocr": false,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "publication": false
+  },
+  "decision": "PASS_SYNTHETIC_OCR_ROUTE_PROVEN",
+  "real_source_read_authorized": false,
+  "real_source_ocr_authorized": false,
+  "next_boundary": "SEPARATE_REAL_SOURCE_OCR_GATE_REQUIRED",
+  "executable_workflow_cleanup_required": true,
+  "preserved_workflow_source": "docs/evidence/TASK_111_EXECUTED_SYNTHETIC_OCR_WORKFLOW_SOURCE_0.8.0.txt"
+}

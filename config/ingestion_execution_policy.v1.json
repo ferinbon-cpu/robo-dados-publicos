@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "task": "TASK_061_DURABLE_INGESTION_EXECUTION_POLICY",
+  "mode": "FAIL_CLOSED_EXECUTION_POLICY",
+  "jurisdiction": "Limeira/SP",
+  "controller_contract": "config/drive_ingestion_controller.v2.json",
+  "execution_prerequisites": [
+    "AUTHORIZED_FOLDER_SCOPE",
+    "ROUTE_AUTO_INGEST",
+    "KNOWN_FAMILY",
+    "STABLE_FILE_ID",
+    "SUPPORTED_MIME",
+    "NO_CONTENT_HYDRATION_DURING_METADATA_PHASE",
+    "NO_UNRESOLVED_DUPLICATE_SIGNAL"
+  ],
+  "authorized_effects_after_all_prerequisites": [
+    "CONTENT_READ_FOR_HASH_AND_INGEST",
+    "SHA256_COMPUTE",
+    "CREATE_ONLY_BRONZE_WRITE",
+    "MANIFEST_WRITE"
+  ],
+  "forbidden_automatic_effects": [
+    "SILVER_PROMOTION_WITHOUT_SCHEMA_VALIDATION",
+    "GOLD_PROMOTION_WITHOUT_QA_AND_RECONCILIATION",
+    "SERVING_PUBLICATION_FROM_ROUTING_ONLY",
+    "OVERWRITE_EXISTING_BRONZE",
+    "FINANCIAL_IDENTITY_INFERENCE_FROM_DOCUMENT_MATCH"
+  ],
+  "review_behavior": "NO_CONTENT_READ_UNLESS_A_SEPARATE_REVIEW_EXECUTION_SCOPE_AUTHORIZES_THE_ITEM_OR_FAMILY",
+  "quarantine_behavior": "NO_CONTENT_READ_NO_PROMOTION",
+  "schema_drift_behavior": "STOP_BEFORE_SILVER_AND_ROUTE_TO_REVIEW_OR_QUARANTINE",
+  "duplicate_behavior": {
+    "metadata_duplicate_is_not_content_duplicate": true,
+    "sha256_required_for_content_duplicate_claim": true,
+    "same_hash_reuses_existing_provenance_without_overwrite": true
+  },
+  "authorization_model": {
+    "durable_scope_is_folder_plus_family_plus_allowed_effects": true,
+    "new_unknown_family_requires_new_rule": true,
+    "new_schema_requires_review": true,
+    "authorization_never_implies_silver_gold_or_publication": true
+  },
+  "current_status": "POLICY_ONLY_NO_REAL_CONTENT_EXECUTION_AUTHORIZED_BY_TASK_061"
+}

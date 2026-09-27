@@ -1,0 +1,96 @@
+{
+  "gate_id": "M7_SIOPE_PUBLIC_GET_RUNTIME_ROUTE_DIAGNOSTICS_0_8_0",
+  "source_id": "FNDE_SIOPE_DADOS_INFORMADOS_MUNICIPIOS_LIMEIRA",
+  "software_version": "0.8.0",
+  "release_status": "CANDIDATE",
+  "mode": "PUBLIC_INDEXED_GET_RUNTIME_REQUEST_INTERCEPT",
+  "browser_backend": "SYSTEM_CHROME_CDP",
+  "browser_download_or_install": "PROHIBITED",
+  "browser_profile": "EPHEMERAL_TEMP_ONLY",
+  "public_indexed_example_url": "https://www.fnde.gov.br/siope/dadosInformadosMunicipio.do?acao=atualizar&admin=3&cod_muni=292430&cod_uf=29&num_ano=2024&num_peri=6&pag=result&tp_relatorio=R",
+  "allowed_hosts": [
+    "www.fnde.gov.br"
+  ],
+  "expected_path": "/siope/dadosInformadosMunicipio.do",
+  "expected_query_keys": [
+    "acao",
+    "admin",
+    "cod_muni",
+    "cod_uf",
+    "num_ano",
+    "num_peri",
+    "pag",
+    "tp_relatorio"
+  ],
+  "expected_loading_markers": [
+    "Buscando planilhas",
+    "Buscando dados"
+  ],
+  "human_challenge_required_markers": [
+    "validar o captcha"
+  ],
+  "browser_binary_candidates": [
+    "google-chrome",
+    "google-chrome-stable",
+    "chromium",
+    "chromium-browser"
+  ],
+  "static_asset_methods": [
+    "GET"
+  ],
+  "static_asset_resource_types": [
+    "Script",
+    "Stylesheet",
+    "Image",
+    "Font"
+  ],
+  "static_asset_extensions": [
+    ".js",
+    ".css",
+    ".png",
+    ".gif",
+    ".jpg",
+    ".jpeg",
+    ".svg",
+    ".ico",
+    ".woff",
+    ".woff2",
+    ".ttf"
+  ],
+  "candidate_methods": [
+    "GET",
+    "POST"
+  ],
+  "candidate_resource_types": [
+    "XHR",
+    "Fetch"
+  ],
+  "page_load_timeout_ms": 15000,
+  "capture_window_ms": 5000,
+  "cdp_command_timeout_ms": 5000,
+  "max_blocked_shapes": 64,
+  "network_policy": "CONTINUE_EXACT_INDEXED_DOCUMENT_AND_OFFICIAL_STATIC_ASSETS_ABORT_ALL_OTHER_BEFORE_NETWORK",
+  "initial_document_send": "EXACT_PUBLIC_INDEXED_EXAMPLE_ONLY",
+  "pilot_limeira_values_send": "PROHIBITED",
+  "dynamic_candidate_network_send": "PROHIBITED",
+  "form_submission": "PROHIBITED",
+  "captcha_bypass": "PROHIBITED",
+  "authentication": "PROHIBITED",
+  "credential_capture": "PROHIBITED",
+  "cookie_capture": "PROHIBITED",
+  "request_body_capture": "PROHIBITED",
+  "response_body_capture": "PROHIBITED",
+  "query_value_persistence": "PROHIBITED",
+  "head_request": "PROHIBITED",
+  "artifact_download": "PROHIBITED",
+  "remote_writes": "PROHIBITED",
+  "source_collection": "PROHIBITED",
+  "source_processing": "PROHIBITED",
+  "recurrence": "PROHIBITED",
+  "schedule": "DISABLED",
+  "next_gate_after_review": "M7_SIOPE_PUBLIC_RUNTIME_ROUTE_CONTRACT_REVIEW_0_8_0",
+  "collection_authorized": false,
+  "processing_authorized": false,
+  "recurrence_authorized": false,
+  "schedule_enabled": false
+}

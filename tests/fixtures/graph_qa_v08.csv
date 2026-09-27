@@ -1,0 +1,11 @@
+﻿qid,source,target,relation,expected_exists,actual_exists,ok
+G01,decreto_118_2024,cme_ind_02_2021,explicitly_in_consonance_with,1,1,1
+G02,decreto_118_2024,policy_eiti_limeira,institutes,1,1,1
+G03,lei_7366_2026,policy_eiti_limeira,institutes,1,1,1
+G04,lei_7366_2026,pl_94_2026,originated_from_project,1,1,1
+G05,ppa_program_2001,ppa_indicator_eiti,contains_indicator,1,1,1
+G06,ppa_program_2001,sme_limeira,responsible_agency,1,1,1
+G07,policy_eiti_limeira,ppa_program_2001,thematic_planning_correspondence,1,1,1
+G08,policy_eiti_limeira,ppa_indicator_eiti,indicator_correspondence,1,1,1
+G09,lei_7366_2026,decreto_118_2024,revokes_or_replaces,0,0,1
+G10,policy_eiti_limeira,ppa_program_2001,financial_identity,0,0,1

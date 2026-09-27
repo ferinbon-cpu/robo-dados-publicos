@@ -1,0 +1,74 @@
+{
+  "task": "TASK_049_F01_EITI_ACTION_LINKAGE_CLOSURE_REVIEW",
+  "mode": "T0_OFFLINE_LINKAGE_CLOSURE_REVIEW",
+  "base_sha": "b4d7d9bc1a4ded4d60fcf8e70bdf19c66c82559e",
+  "scope": {
+    "source_sha256": "cb65f29c772eb7133c902e827884a4ed19d8c09f64586b8de9d6483023d9133a",
+    "journal_edition": 7119,
+    "program_code": "2001",
+    "program_name": "EDUCACAO QUE INCLUI E TRANSFORMA VIDAS",
+    "pages": [15, 16],
+    "page_15_render_sha256": "5875d51e0acf2b2e9750f75f441ccbbde22c4f35e1d0c1d5594ba39a16b68ab1",
+    "page_16_render_sha256": "456f5ca66ea75216616099634c053cbb31a2e57a192ae5ed5cece4368f6e4932",
+    "claim_boundary": "PROGRAM_2001_ACTION_LABELS_ONLY_NOT_ALL_MUNICIPAL_DOCUMENTS"
+  },
+  "explicit_program_signals": {
+    "objective_mentions_educacao_integral": true,
+    "indicator_name": "INDICE DE ALUNOS EM EDUCACAO INTEGRAL",
+    "indicator_unit": "PERCENTUAL",
+    "indicator_targets": {"recent": 52, "2026": 53, "2027": 55, "2028": 57, "2029": 59, "final_ppa": 59}
+  },
+  "terms_checked_in_action_labels": ["EDUCACAO INTEGRAL", "TEMPO INTEGRAL", "INTEGRAL", "EITI", "ETI"],
+  "action_rows": [
+    {"action_code":"2010","label":"REMUNERACAO DE PESSOAL E OBRIGACOES PATRONAIS","context":"GESTAO DA EDUCACAO"},
+    {"action_code":"2019","label":"FOMENTO AO ESTAGIO EDUCACIONAL","context":"GESTAO DA EDUCACAO"},
+    {"action_code":"2020","label":"GESTAO ADMINISTRATIVA E OPERACIONAL","context":"GESTAO DA EDUCACAO"},
+    {"action_code":"2030","label":"DESPESAS SOB REGIME DE ADIANTAMENTO","context":"GESTAO DA EDUCACAO"},
+    {"action_code":"2070","label":"BENEFICIOS E AUXILIOS AOS AGENTES PUBLICOS","context":"GESTAO DA EDUCACAO"},
+    {"action_code":"2080","label":"ENERGIA ELETRICA / AGUA / TELEFONE","context":"GESTAO DA EDUCACAO"},
+    {"action_code":"2100","label":"GESTAO, MANUTENCAO E OPERACAO DA FROTA","context":"GESTAO DA EDUCACAO"},
+    {"action_code":"2816","label":"APOIO AOS CONSELHOS MUNICIPAIS","context":"GESTAO DA EDUCACAO"},
+    {"action_code":"1020","label":"CONSTRUCAO, AMPLIACAO E REFORMA DE EDIFICACOES PUBLICAS","context":"EDUCACAO INFANTIL"},
+    {"action_code":"2010","label":"REMUNERACAO DE PESSOAL E OBRIGACOES PATRONAIS","context":"EDUCACAO INFANTIL"},
+    {"action_code":"2090","label":"LIMPEZA E CONSERVACAO DE BENS PUBLICOS","context":"EDUCACAO INFANTIL"},
+    {"action_code":"2660","label":"FUNCIONAMENTO DA EDUCACAO INFANTIL","context":"EDUCACAO INFANTIL"},
+    {"action_code":"2670","label":"BOLSA CRECHE","context":"EDUCACAO INFANTIL"},
+    {"action_code":"2690","label":"TRANSPORTE ESCOLAR","context":"EDUCACAO INFANTIL"},
+    {"action_code":"1020","label":"CONSTRUCAO, AMPLIACAO E REFORMA DE EDIFICACOES PUBLICAS","context":"ENSINO FUNDAMENTAL"},
+    {"action_code":"2010","label":"REMUNERACAO DE PESSOAL E OBRIGACOES PATRONAIS","context":"ENSINO FUNDAMENTAL"},
+    {"action_code":"2090","label":"LIMPEZA E CONSERVACAO DE BENS PUBLICOS","context":"ENSINO FUNDAMENTAL"},
+    {"action_code":"2680","label":"FUNCIONAMENTO DO ENSINO FUNDAMENTAL","context":"ENSINO FUNDAMENTAL"},
+    {"action_code":"2690","label":"TRANSPORTE ESCOLAR","context":"ENSINO FUNDAMENTAL"},
+    {"action_code":"2690","label":"TRANSPORTE ESCOLAR","context":"ENSINO MEDIO E SUPERIOR"},
+    {"action_code":"2700","label":"CURSINHO PRE-VESTIBULAR","context":"ENSINO MEDIO E SUPERIOR"},
+    {"action_code":"2710","label":"APOIO E INCENTIVO AO ENSINO MEDIO","context":"ENSINO MEDIO E SUPERIOR"},
+    {"action_code":"2720","label":"ALIMENTACAO ESCOLAR","context":"ALIMENTACAO ESCOLAR"},
+    {"action_code":"2011","label":"REMUNERACAO DE PESSOAL E OBRIGACOES PATRONAIS (FUNDEB INFANTIL)","context":"FUNDEB"},
+    {"action_code":"2012","label":"REMUNERACAO DE PESSOAL E OBRIGACOES PATRONAIS (FUNDEB FUNDAMENTAL)","context":"FUNDEB"},
+    {"action_code":"2013","label":"REMUNERACAO DE PESSOAL E OBRIGACOES PATRONAIS (FUNDEB EJA)","context":"FUNDEB"},
+    {"action_code":"2014","label":"REMUNERACAO DE PESSOAL E OBRIGACOES PATRONAIS (FUNDEB EDUCACAO ESPECIAL)","context":"FUNDEB"}
+  ],
+  "explicit_eiti_action_label_matches": [],
+  "conclusion": {
+    "indicator_to_program_linkage": "PROVEN",
+    "program_to_explicit_eiti_action_linkage": "NOT_PROVEN",
+    "program_or_generic_action_financial_attribution_to_eiti": "FORBIDDEN",
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+    "f01_action_label_search_status": "CLOSED_NO_EXPLICIT_EITI_ACTION_LABEL_IN_PROGRAM_2001_TABLE"
+  },
+  "interpretation_boundary": {
+    "does_not_prove_no_eiti_spending_exists": true,
+    "does_not_prove_absence_of_more_granular_subaction_cost_center_or_execution_tag": true,
+    "does_not_authorize_using_program_2001_total_as_eiti_spending": true,
+    "does_not_authorize_using_2690_or_2720_as_eiti_spending": true
+  },
+  "next_evidence_boundary": {
+    "do_not_expand_ppa_action_label_search": true,
+    "requires_more_granular_execution_or_accounting_source_if_pursued": true,
+    "candidate_source_families": ["DETAILED_EDUCATION_BUDGET_EXECUTION", "BALANCETE_EDUCACAO", "EMPENHO_LIQUIDACAO_PAGAMENTO_DETAIL", "EXPLICIT_EITI_COST_CENTER_OR_SUBACTION"],
+    "automatic_next_live_read_authorized": false
+  },
+  "effects": {"source_network":0,"drive_read":0,"drive_write":0,"ocr":0,"bronze":0,"silver":0,"gold":0,"serving":0,"publication":0},
+  "promotion": {"f01_status":"SILVER_SCOPED_PARTIAL_VALIDATED","eiti_financial_identity":"EVIDENCIA_INSUFICIENTE","gold":false,"serving":false,"publication":false},
+  "result": "PASS_TASK049_EITI_ACTION_LINKAGE_CLOSURE_NO_EXPLICIT_ACTION_LABEL"
+}

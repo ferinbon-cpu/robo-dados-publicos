@@ -1,0 +1,3521 @@
+{
+  "guards": {
+    "date_is_identity": false,
+    "object_text_is_identity": false,
+    "semantic_similarity_is_identity": false,
+    "supplier_is_identity": false
+  },
+  "identities": [
+    {
+      "bidding_number": 1,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_c9755fa9021dc5c6f452"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-02-14"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "46245398000127"
+      ]
+    },
+    {
+      "bidding_number": 3,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_c9927109d6bebb8128d9"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-28"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 4,
+      "bidding_year": 2026,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_0d94a28280d1d521c3ef",
+        "JOEV_542b0074100b18c866ed"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-03-19",
+        "2026-03-20"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "37078644000102",
+        "49087735000193"
+      ]
+    },
+    {
+      "bidding_number": 5,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_1d0e462f43e5c3b234f5"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-21"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "19451535000298"
+      ]
+    },
+    {
+      "bidding_number": 6,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_8d38622bb14ad37f72b0"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-04-18"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "06170994000170"
+      ]
+    },
+    {
+      "bidding_number": 7,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_2782a7ef2f8f2d6d9cb2"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-19"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "33412137000102"
+      ]
+    },
+    {
+      "bidding_number": 8,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_aee0b67b58b22b551b94"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-31"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 9,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_3d9c11a8f9e4fb6ad631"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-25"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 10,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_fab1a3c79f589f7ccc18"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-25"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "45492077000164"
+      ]
+    },
+    {
+      "bidding_number": 10,
+      "bidding_year": 2026,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_083e522d4145e4d27580",
+        "JOEV_7e769ec0c5f073738fa7"
+      ],
+      "event_types": [
+        "CONTRATO",
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-01-24",
+        "2026-03-27"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "37457979000131"
+      ]
+    },
+    {
+      "bidding_number": 11,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_5b67dd9ffb11e25b4cea"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-07-24"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "51066745000194"
+      ]
+    },
+    {
+      "bidding_number": 12,
+      "bidding_year": 2026,
+      "event_count": 5,
+      "event_ids": [
+        "JOEV_42e68d73447cac328af4",
+        "JOEV_6c86609335cb15267ff9",
+        "JOEV_aefcb9fba1773ec6f2cb",
+        "JOEV_bbef75caa21fe61d3f9d",
+        "JOEV_e9f92cb47fd7342eb6e2"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 5,
+      "publication_dates": [
+        "2026-05-16"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "26234900000197",
+        "32593430000150",
+        "58011241000116",
+        "59269654000168"
+      ]
+    },
+    {
+      "bidding_number": 13,
+      "bidding_year": 2026,
+      "event_count": 4,
+      "event_ids": [
+        "JOEV_1e1f866680ada8504250",
+        "JOEV_4049cc29753c43026652",
+        "JOEV_b1b62fa28f0038faab79",
+        "JOEV_d6d36cb492c4a9e7ad09"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 4,
+      "publication_dates": [
+        "2026-03-19",
+        "2026-03-20",
+        "2026-03-27"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "02514617000150",
+        "02573131000193",
+        "38240496000143"
+      ]
+    },
+    {
+      "bidding_number": 14,
+      "bidding_year": 2022,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_5ee8b200624f80eb59e6"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-02-11"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "00331788001603"
+      ]
+    },
+    {
+      "bidding_number": 14,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_1f27994f95cbb14207b0"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-02-12"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 16,
+      "bidding_year": 2026,
+      "event_count": 10,
+      "event_ids": [
+        "JOEV_07fe14892a78828dd345",
+        "JOEV_3ab3f2ad57a5d7fe9b41",
+        "JOEV_46d5c77e3bcdf279300d",
+        "JOEV_51622c04486851fa555a",
+        "JOEV_5c05ee82ecb7640591a1",
+        "JOEV_babdad29fdf227799833",
+        "JOEV_c3861aaa42ea1a4eb4a9",
+        "JOEV_dde1c5f75f3f9918acd2",
+        "JOEV_fc697708b019221262cf",
+        "JOEV_fdb89fb2d6f8e3c40a54"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 10,
+      "publication_dates": [
+        "2026-04-18",
+        "2026-04-24",
+        "2026-04-28"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "01854654000145",
+        "07707978000137",
+        "07752236000476",
+        "12889035000293",
+        "24826631000122",
+        "51740794000160",
+        "55902597000151",
+        "59084310000184",
+        "61148037000156"
+      ]
+    },
+    {
+      "bidding_number": 17,
+      "bidding_year": 2026,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_5c722ea5a4966df40bf0",
+        "JOEV_aa387bf0784ff3b22641"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-02-14",
+        "2026-02-28"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 18,
+      "bidding_year": 2026,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_4e2b9573bb7c4ec999e8",
+        "JOEV_e108ce1d54da1e821a33"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS",
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-02-14",
+        "2026-05-20"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "15195640000171"
+      ]
+    },
+    {
+      "bidding_number": 19,
+      "bidding_year": 2026,
+      "event_count": 4,
+      "event_ids": [
+        "JOEV_4425f2e5c59215d937e0",
+        "JOEV_5ed052dd7cae40c61e1a",
+        "JOEV_9bab029165a6a61122e6",
+        "JOEV_a023a2a38f3429c60dd9"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS",
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 4,
+      "publication_dates": [
+        "2026-02-24",
+        "2026-08-14",
+        "2026-08-20"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS",
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "13851726000180",
+        "26729755000115",
+        "51740794000160"
+      ]
+    },
+    {
+      "bidding_number": 20,
+      "bidding_year": 2024,
+      "event_count": 4,
+      "event_ids": [
+        "JOEV_7c18ce6498776baef988",
+        "JOEV_85674818b827a4ac3348",
+        "JOEV_ebb430b52732bba1f543",
+        "JOEV_f8f7ad9fbaaaf4758065"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 4,
+      "publication_dates": [
+        "2026-01-17",
+        "2026-03-20",
+        "2026-06-23"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "12222819000182",
+        "24950579000111"
+      ]
+    },
+    {
+      "bidding_number": 20,
+      "bidding_year": 2026,
+      "event_count": 9,
+      "event_ids": [
+        "JOEV_028127f4abd68f97d615",
+        "JOEV_0b24be2d7ecf8abad9b7",
+        "JOEV_75bd9191c61749f1b6dc",
+        "JOEV_8e3153ee169069b6cfd7",
+        "JOEV_9d69a49c07c26a7d85d8",
+        "JOEV_b56e3639f6b583e55539",
+        "JOEV_c354b4de2b111fd27eca",
+        "JOEV_c4022e4df7552a2fed14",
+        "JOEV_eaac7bac48c3bbd939d7"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 9,
+      "publication_dates": [
+        "2026-05-19",
+        "2026-05-21",
+        "2026-06-17",
+        "2026-06-20",
+        "2026-06-23"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "05782733000220",
+        "07569029000138",
+        "14271474000182",
+        "20918668000120",
+        "25279552000101",
+        "26918586000161"
+      ]
+    },
+    {
+      "bidding_number": 21,
+      "bidding_year": 2025,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_6c120536b64b394b2fef",
+        "JOEV_7c7032e44948aa53f593"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-01-27",
+        "2026-06-27"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "60716040000247"
+      ]
+    },
+    {
+      "bidding_number": 22,
+      "bidding_year": 2026,
+      "event_count": 3,
+      "event_ids": [
+        "JOEV_0f79253437e6e05c4adb",
+        "JOEV_1c61b217949f483953b7",
+        "JOEV_6529a9e8c02382f565c7"
+      ],
+      "event_types": [
+        "CONTRATO",
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 3,
+      "publication_dates": [
+        "2026-02-27",
+        "2026-05-30"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08909289000178",
+        "26420698000198",
+        "51926481000100"
+      ]
+    },
+    {
+      "bidding_number": 23,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_2b8e95226f1c41f34975"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-02-28"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 28,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_9f92db75b4a227f0e937"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-01-28"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "43252758000120"
+      ]
+    },
+    {
+      "bidding_number": 30,
+      "bidding_year": 2026,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_035cf58e620f0207630d",
+        "JOEV_138265a4a908897862d6"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-05-20"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "22525517000137",
+        "51740794000160"
+      ]
+    },
+    {
+      "bidding_number": 31,
+      "bidding_year": 2026,
+      "event_count": 7,
+      "event_ids": [
+        "JOEV_04ae4b58bca1400c3da2",
+        "JOEV_393eb9330e13abcf1a23",
+        "JOEV_63207da4fb5097172ac7",
+        "JOEV_858f5e9c79c9f3999b12",
+        "JOEV_8ee3ce07dbc5ff238aa7",
+        "JOEV_ac70bd4096f1b88e683a",
+        "JOEV_f3e2fbaa9e7d77634037"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 7,
+      "publication_dates": [
+        "2026-06-23",
+        "2026-06-25",
+        "2026-06-27"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "05782733000220",
+        "14271474000182",
+        "20202872000220",
+        "25279552000101",
+        "27455068000111",
+        "27817504000155",
+        "36325157000134"
+      ]
+    },
+    {
+      "bidding_number": 34,
+      "bidding_year": 2024,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_4b6f25c77d3ad2b59019"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-02-21"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "20974205000185"
+      ]
+    },
+    {
+      "bidding_number": 34,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_f796d28de5ef64606283"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-04-28"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08659758000148"
+      ]
+    },
+    {
+      "bidding_number": 35,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_824d011fb9df645eeb3b"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-05-30"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "46245398000127"
+      ]
+    },
+    {
+      "bidding_number": 36,
+      "bidding_year": 2024,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_8c7b0b4eb480c65a26a4",
+        "JOEV_fd1c3be1e5df716185e4"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-03-17",
+        "2026-03-25"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "03230806000164",
+        "06124501000166"
+      ]
+    },
+    {
+      "bidding_number": 36,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_b786b446802ee00eafec"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-17"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 37,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_9ed807d2c6b14897b241"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-07-24"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "74261652000116"
+      ]
+    },
+    {
+      "bidding_number": 37,
+      "bidding_year": 2026,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_9606dcbdef0447ec609c",
+        "JOEV_ef0925503401ab70b88b"
+      ],
+      "event_types": [
+        "CONTRATO",
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-03-17",
+        "2026-06-27"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "27595780000116"
+      ]
+    },
+    {
+      "bidding_number": 38,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_f813314599d000678928"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-20"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 39,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_53120560411a2dcf9716"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-20"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 40,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_b79775deae5ad4a641ef"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-21"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 41,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_7742a4856a7a2f24de42"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-24"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 42,
+      "bidding_year": 2026,
+      "event_count": 5,
+      "event_ids": [
+        "JOEV_4a9da40eab7ca7e3e6b5",
+        "JOEV_740d312de2ecea30cdc6",
+        "JOEV_7f018dd178c23ca77151",
+        "JOEV_8f4da2145c3b2d7a9bbe",
+        "JOEV_a4b3165c70f4b1014081"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS",
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 5,
+      "publication_dates": [
+        "2026-03-26",
+        "2026-06-27",
+        "2026-08-14"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS",
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "07707978000137",
+        "19517578000148",
+        "60599605000172",
+        "67729178000491"
+      ]
+    },
+    {
+      "bidding_number": 43,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_26543e045b4b383e03d6"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-08-22"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "45438114000156"
+      ]
+    },
+    {
+      "bidding_number": 43,
+      "bidding_year": 2026,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_b82681f0c6467fe9c476",
+        "JOEV_ec9624cd397fe843e932"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-03-26",
+        "2026-04-18"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 44,
+      "bidding_year": 2026,
+      "event_count": 5,
+      "event_ids": [
+        "JOEV_0839589f7417ec8e24e5",
+        "JOEV_1f98bab29f6cf5bc3c05",
+        "JOEV_497c2b32840f1c19cdf2",
+        "JOEV_51d786ecd618e3cdf2e0",
+        "JOEV_c30cc2611d47628938b4"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 5,
+      "publication_dates": [
+        "2026-09-03",
+        "2026-09-04"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "01107391001263",
+        "03649725000101",
+        "26234900000197",
+        "26918586000161",
+        "69299360000132"
+      ]
+    },
+    {
+      "bidding_number": 45,
+      "bidding_year": 2026,
+      "event_count": 16,
+      "event_ids": [
+        "JOEV_1337176d7cf47e5145f7",
+        "JOEV_1aac65fc30717d8f3b56",
+        "JOEV_1cd25ad501809196e001",
+        "JOEV_25a74a11cbfe4c668e94",
+        "JOEV_37115e366a934254ce7d",
+        "JOEV_493137cdbf958187e299",
+        "JOEV_527e56fc22d222301cc3",
+        "JOEV_55a3e112370dedb78238",
+        "JOEV_7202cec2581b3915575d",
+        "JOEV_74af0a694dee8856da56",
+        "JOEV_85abf32d634af947b5ec",
+        "JOEV_b5bf371beaa2c67a6743",
+        "JOEV_c3228d4b40a04bc21c3f",
+        "JOEV_c355797827eead8d409b",
+        "JOEV_c4d7e8f4ce93398bd5fd",
+        "JOEV_d96ce38429cb598358ce"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 16,
+      "publication_dates": [
+        "2026-06-17",
+        "2026-06-20",
+        "2026-06-23",
+        "2026-06-24",
+        "2026-06-25"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "04274988000138",
+        "04307650001298",
+        "04307650002502",
+        "05782733000220",
+        "08231734000193",
+        "10586940000168",
+        "11195057000100",
+        "14271474000182",
+        "20918668000120",
+        "27817504000155",
+        "28903792000123",
+        "30754325000120",
+        "47312805000134",
+        "65817900000171",
+        "67729178000491",
+        "82873068000816"
+      ]
+    },
+    {
+      "bidding_number": 46,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_83b350b762707429a189"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-02-14"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "33824478000195"
+      ]
+    },
+    {
+      "bidding_number": 47,
+      "bidding_year": 2025,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_072b28bec7833d8305b9",
+        "JOEV_ea27bf9b27d4226d9954"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-03-19"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "03652030000685",
+        "21681325000157"
+      ]
+    },
+    {
+      "bidding_number": 48,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_a2bf986814b95f30dcf1"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-04-16"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 49,
+      "bidding_year": 2026,
+      "event_count": 5,
+      "event_ids": [
+        "JOEV_019179608e26b6ca746a",
+        "JOEV_72a25db0976de45dc51a",
+        "JOEV_7c0d7cc2bfdc58c56963",
+        "JOEV_8593a625f81a255bae48",
+        "JOEV_e4459d068fcf2a0f7cb1"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS",
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 5,
+      "publication_dates": [
+        "2026-04-16",
+        "2026-07-31",
+        "2026-08-20"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS",
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "23638517000106",
+        "32227833000186",
+        "53438403000183"
+      ]
+    },
+    {
+      "bidding_number": 50,
+      "bidding_year": 2025,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_66f97f9ba392fa2c7b95",
+        "JOEV_dda8e5b625cb256d1171"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-03-28",
+        "2026-08-28"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS",
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "31039820000110"
+      ]
+    },
+    {
+      "bidding_number": 51,
+      "bidding_year": 2025,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_911759d89bcffaba3f72",
+        "JOEV_e9604221f75a0969853c"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-01-30",
+        "2026-05-16"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "13900798000170"
+      ]
+    },
+    {
+      "bidding_number": 51,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_9c9f4bf3165e1dab93b9"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-04-24"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 52,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_0689d3db80e97dbcd812"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-04-29"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 53,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_23080d84736b1173f119"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-05-26"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 54,
+      "bidding_year": 2025,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_522175159d519a43fb0a",
+        "JOEV_d42ad5635e69a5bc85a4"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-02-13"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "13290293000130",
+        "48873648000107"
+      ]
+    },
+    {
+      "bidding_number": 55,
+      "bidding_year": 2025,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_98d1cf1849b3fdcec68c",
+        "JOEV_c6832163a3050e62b932"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-02-20"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "24155164000156",
+        "34365450000108"
+      ]
+    },
+    {
+      "bidding_number": 56,
+      "bidding_year": 2026,
+      "event_count": 3,
+      "event_ids": [
+        "JOEV_1aba54e2c984ee31e8b2",
+        "JOEV_5bf67db7a92656597848",
+        "JOEV_a2bcf53bcc60844c7da6"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 3,
+      "publication_dates": [
+        "2026-07-25",
+        "2026-08-14",
+        "2026-08-15"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS",
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "25341162000114",
+        "41774511000148",
+        "46884097000143"
+      ]
+    },
+    {
+      "bidding_number": 59,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_e4819a8cbe1b13a2baf9"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-06-17"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 61,
+      "bidding_year": 2025,
+      "event_count": 9,
+      "event_ids": [
+        "JOEV_3871352f758fc9827b28",
+        "JOEV_5b8199156cd54e42d2fa",
+        "JOEV_664d519322520ce42c59",
+        "JOEV_67af5f17e283448208e6",
+        "JOEV_9edaa44f7ecfeb52e0d3",
+        "JOEV_d9ede73d168258984b42",
+        "JOEV_de4ca33538b371395d0c",
+        "JOEV_e560c7bdf474dbe267bd",
+        "JOEV_febe0aa01c7ecb0fe23a"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 9,
+      "publication_dates": [
+        "2026-02-14",
+        "2026-02-20"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "02573131000193",
+        "20531237000106",
+        "26729148000155",
+        "27931585000110",
+        "54179907000199",
+        "54483581000199",
+        "61384201000124",
+        "66029133000107"
+      ]
+    },
+    {
+      "bidding_number": 64,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_c88926bcf94d42f6fffa"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-05-21"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 65,
+      "bidding_year": 2025,
+      "event_count": 3,
+      "event_ids": [
+        "JOEV_77c40ddcc23432d7ca65",
+        "JOEV_b63885b664f2c52a48d1",
+        "JOEV_f3fad1a850be3a8d29be"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 3,
+      "publication_dates": [
+        "2026-04-18"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "10566711000181",
+        "29404097000180",
+        "55309074000104"
+      ]
+    },
+    {
+      "bidding_number": 65,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_5e24d228a1943318cac0"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-05-20"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 66,
+      "bidding_year": 2026,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_b30dba371e40c0be46c8",
+        "JOEV_d02acd78a3491428fc29"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS",
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-05-20",
+        "2026-08-28"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS",
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "05111611000120"
+      ]
+    },
+    {
+      "bidding_number": 67,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_2d913318534a24499714"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-05-20"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 68,
+      "bidding_year": 2026,
+      "event_count": 7,
+      "event_ids": [
+        "JOEV_4b29bd53e7f858229efe",
+        "JOEV_889df76571fc712b84e8",
+        "JOEV_8c38193878a17b17592b",
+        "JOEV_aec6d339e054b7b3e862",
+        "JOEV_c32b0021c8d408aae632",
+        "JOEV_ca1c64e608d3b507421b",
+        "JOEV_e6d69d468b866332979a"
+      ],
+      "event_types": [
+        "CONTRATO",
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 7,
+      "publication_dates": [
+        "2026-05-28",
+        "2026-09-04",
+        "2026-09-05"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "04063331000121",
+        "11195057000100",
+        "46339373000192",
+        "47028448000187",
+        "55902597000151"
+      ]
+    },
+    {
+      "bidding_number": 69,
+      "bidding_year": 2026,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_a0aef8830b53e911d095",
+        "JOEV_e3617bd0cb9062c9179b"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS",
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-05-23",
+        "2026-08-14"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS",
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 70,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_7e98b22f8efb50325044"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-05-27"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 71,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_8ef95b86b58f5ce49953"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-14"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "01693838000170"
+      ]
+    },
+    {
+      "bidding_number": 71,
+      "bidding_year": 2026,
+      "event_count": 16,
+      "event_ids": [
+        "JOEV_06f58d924edd5e1c9c2d",
+        "JOEV_0ede7205bce32468d09b",
+        "JOEV_3821eb08ca9263a4c0ce",
+        "JOEV_3dd65ae52938c6107b36",
+        "JOEV_60d934a860c04753b160",
+        "JOEV_7521eea1093eb2c38197",
+        "JOEV_7d6ca2312b7077a96d53",
+        "JOEV_7e3bc29179cfcf883d19",
+        "JOEV_8a9086581a33eb0c62ef",
+        "JOEV_8adb6aef09e9693b5aa7",
+        "JOEV_908bcf00f629a2e2e206",
+        "JOEV_928f987830cdd0d4799d",
+        "JOEV_94e9ec3670d695f76d43",
+        "JOEV_988c72d482f15ad85811",
+        "JOEV_ab521ae175f80eadf722",
+        "JOEV_f1fb607ed963204de2e9"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS",
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 16,
+      "publication_dates": [
+        "2026-05-27",
+        "2026-08-28",
+        "2026-08-29",
+        "2026-09-02",
+        "2026-09-03",
+        "2026-09-04",
+        "2026-09-05"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS",
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "03652030000685",
+        "04307650001298",
+        "05005873000100",
+        "05782733000220",
+        "08231734000193",
+        "09944371000368",
+        "14271474000182",
+        "20202872000220",
+        "20918668000120",
+        "27817504000155",
+        "30526342000100",
+        "34771531000108",
+        "41365113000178",
+        "65817900000171",
+        "81706251000198"
+      ]
+    },
+    {
+      "bidding_number": 72,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_0b1bf28012b796bbe70f"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-05-27"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 73,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_813426e3ab12f1556feb"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-01-27"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "45020855000112"
+      ]
+    },
+    {
+      "bidding_number": 74,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_6598986aeaaae097db6e"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-02-13"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "21613975000165"
+      ]
+    },
+    {
+      "bidding_number": 75,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_2dd98f877d7d0084d8e2"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-21"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "20918668000120"
+      ]
+    },
+    {
+      "bidding_number": 75,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_e128613c8667ea94c408"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-05-30"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 76,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_34211feafb2fbe59837c"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-01-29"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "17915708000175"
+      ]
+    },
+    {
+      "bidding_number": 76,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_fa756c678003a91b9248"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-05-30"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 79,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_0f84494b751c9d9a33c3"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-20"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "17426885000198"
+      ]
+    },
+    {
+      "bidding_number": 80,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_6094d501d4c0f0f4867f"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-02-13"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "35459466000134"
+      ]
+    },
+    {
+      "bidding_number": 81,
+      "bidding_year": 2025,
+      "event_count": 5,
+      "event_ids": [
+        "JOEV_29c66d3028f3c75a73d4",
+        "JOEV_4308a7e7728b5cf2147e",
+        "JOEV_6214c79e23405b6998bf",
+        "JOEV_91ea30c91ee0b95430e6",
+        "JOEV_ae0da74ab3f16202a8f5"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 5,
+      "publication_dates": [
+        "2026-01-27",
+        "2026-01-28",
+        "2026-01-29"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "02573131000193",
+        "18112610000142",
+        "49042895000116",
+        "53796457000110",
+        "57069019000101"
+      ]
+    },
+    {
+      "bidding_number": 82,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_f5bd7fd919e68f091507"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-21"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "22933544000149"
+      ]
+    },
+    {
+      "bidding_number": 82,
+      "bidding_year": 2026,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_5db645e9e7b8f2a12c60",
+        "JOEV_bae7d00a869988b73118"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-08-26",
+        "2026-08-29"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "05005873000100",
+        "05847630000110"
+      ]
+    },
+    {
+      "bidding_number": 84,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_06a5fbbc6d31c8ff7a4d"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-14"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "11206099000141"
+      ]
+    },
+    {
+      "bidding_number": 84,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_b5eca73ba1537159496b"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-21"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "07569029000138"
+      ]
+    },
+    {
+      "bidding_number": 86,
+      "bidding_year": 2026,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_793cb4d71a54a2029055",
+        "JOEV_829795cc79e0769ad349"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-08-18",
+        "2026-08-20"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "09115886000193",
+        "41283670000140"
+      ]
+    },
+    {
+      "bidding_number": 87,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_43ecd7b178cb8fc2a944"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-06-19"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 88,
+      "bidding_year": 2025,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_2b0cfd22283e03e2ec48",
+        "JOEV_d26122bd331ab481219b"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-06-17",
+        "2026-06-24"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "20657155000102",
+        "48097911000105"
+      ]
+    },
+    {
+      "bidding_number": 89,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_565a168cd52a83f16916"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-08-29"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "06276996000149"
+      ]
+    },
+    {
+      "bidding_number": 90,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_d55f0494cbfe0c0342d1"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-06-27"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 93,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_3148d6e7aed2cef74ba0"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-21"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "59269654000168"
+      ]
+    },
+    {
+      "bidding_number": 93,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_2ce0063a499bc78c12c3"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-06-26"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 94,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_cec67d365812dbea0a48"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-05-16"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "00331788001603"
+      ]
+    },
+    {
+      "bidding_number": 95,
+      "bidding_year": 2023,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_2d7c55ce275679ee5bd4"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-01-28"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "51473692000126"
+      ]
+    },
+    {
+      "bidding_number": 95,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_d2163173940335ec635b"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-06-27"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 99,
+      "bidding_year": 2024,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_fcd946a7701fe700349f"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-02-20"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "51066745000194"
+      ]
+    },
+    {
+      "bidding_number": 103,
+      "bidding_year": 2022,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_7802077749e6e34b5cb4"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-09-04"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08212332000141"
+      ]
+    },
+    {
+      "bidding_number": 105,
+      "bidding_year": 2024,
+      "event_count": 3,
+      "event_ids": [
+        "JOEV_7208c180b2065dad7438",
+        "JOEV_be9c6d01b11328c32bb2",
+        "JOEV_c3e6af4cb0a8638eec21"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS",
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 3,
+      "publication_dates": [
+        "2026-03-27",
+        "2026-06-24"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "23399227000157"
+      ]
+    },
+    {
+      "bidding_number": 107,
+      "bidding_year": 2024,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_0c9cc54803896641e60d"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-06-17"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "36490358000197"
+      ]
+    },
+    {
+      "bidding_number": 110,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_8457322d2f9d20f529d1"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-07-17"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 112,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_0e65d69f1862d4bf83c4"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-07-24"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 114,
+      "bidding_year": 2024,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_9eadc94a055bb7988a08"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-01-17"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "36602037000137"
+      ]
+    },
+    {
+      "bidding_number": 115,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_f066be813b5a0bcb2849"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-07-25"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 116,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_bb7478e3ffaa4c529243"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-07-29"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 122,
+      "bidding_year": 2020,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_97b97d2ceb0dbb83dd2d"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-07-28"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08170849000115"
+      ]
+    },
+    {
+      "bidding_number": 125,
+      "bidding_year": 2024,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_3b5108c84477f3c4d056",
+        "JOEV_dd56e4b3a7636d774c28"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-03-17",
+        "2026-09-04"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "00331788001603",
+        "29402150000103"
+      ]
+    },
+    {
+      "bidding_number": 131,
+      "bidding_year": 2023,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_863319d1bc6781311e87"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-02-11"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "04531017000126"
+      ]
+    },
+    {
+      "bidding_number": 132,
+      "bidding_year": 2024,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_9f48a060dbd863f43b0d"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-28"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "73856593000166"
+      ]
+    },
+    {
+      "bidding_number": 134,
+      "bidding_year": 2023,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_aec07a00457ca22506cd"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-01-27"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "23399227000157"
+      ]
+    },
+    {
+      "bidding_number": 134,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_93d29deb99068a968b5c"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-08-22"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 135,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_9323f52429303510ff51"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-08-22"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 136,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_18bd02faa97e4f491f9c"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-08-25"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 138,
+      "bidding_year": 2024,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_5659ae26e2e5b6381585",
+        "JOEV_f9d970b069a41843dafc"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-02-13"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "06137748000117",
+        "48135786000180"
+      ]
+    },
+    {
+      "bidding_number": 138,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_60d1a5a0eed86ed445d0"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-08-25"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 141,
+      "bidding_year": 2024,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_24a630d3861e784fa33a"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-17"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "54017108000116"
+      ]
+    },
+    {
+      "bidding_number": 143,
+      "bidding_year": 2024,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_473275acebdce24d65dc"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-01-17"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "02514617000150"
+      ]
+    },
+    {
+      "bidding_number": 145,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_b6bf5b0235e7c1de45d1"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-09-05"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 146,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_8615e79f0c5cf4ac3567"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-09-05"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 160,
+      "bidding_year": 2024,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_f556c4be5fd3bf313406"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-17"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "49324221000104"
+      ]
+    },
+    {
+      "bidding_number": 166,
+      "bidding_year": 2023,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_d0d2965c8b806bf849d3"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-05-16"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "24950579000111"
+      ]
+    },
+    {
+      "bidding_number": 166,
+      "bidding_year": 2024,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_2bbf18d941a978ebd41e",
+        "JOEV_865e29c478d4e82f98b9"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-03-19",
+        "2026-04-15"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "07014538000102"
+      ]
+    },
+    {
+      "bidding_number": 172,
+      "bidding_year": 2024,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_a9c90a03ea7f4f5e5873",
+        "JOEV_b11446d6bcb4ddd634ea"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-01-17"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "05847630000110",
+        "28123417000160"
+      ]
+    },
+    {
+      "bidding_number": 178,
+      "bidding_year": 2022,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_a0005a07972a2648165f"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-20"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "61418141000113"
+      ]
+    },
+    {
+      "bidding_number": 184,
+      "bidding_year": 2024,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_5b8321b937200569bc11"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-08-14"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "64871825000164"
+      ]
+    },
+    {
+      "bidding_number": 188,
+      "bidding_year": 2024,
+      "event_count": 3,
+      "event_ids": [
+        "JOEV_2e4608cc40c66992a802",
+        "JOEV_6b2ce4268e4f4d0fbdd1",
+        "JOEV_bfa8c56fd00e4e7b1f7e"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 6,
+      "occurrence_count": 3,
+      "publication_dates": [
+        "2026-02-28",
+        "2026-09-05"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 192,
+      "bidding_year": 2024,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_623e5e983e0b0ec8372f"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-04-24"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "51212348000183"
+      ]
+    },
+    {
+      "bidding_number": 199,
+      "bidding_year": 2023,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_09b671893efe6cfde707"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-06-20"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "14009370000102"
+      ]
+    },
+    {
+      "bidding_number": 238,
+      "bidding_year": 2021,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_bc26a1eea4ae4bd3a46d"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-03-28"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "09242167000133"
+      ]
+    },
+    {
+      "bidding_number": 9001,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_b2d87dfe78b991ea503f"
+      ],
+      "event_types": [
+        "ATA_REGISTRO_PRECOS"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-02-13"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "21405081000180"
+      ]
+    },
+    {
+      "bidding_number": 900111,
+      "bidding_year": 2024,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_7d235a0247825fbfd529"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 6,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-05-23"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "02811333000126"
+      ]
+    },
+    {
+      "bidding_number": 24,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_312a62ade0ecaa18a189"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 8,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-05-30"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "28852086000108"
+      ]
+    },
+    {
+      "bidding_number": 74,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_6173cf905e7f5b0eb127"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 8,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-05-16"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "45980316000125"
+      ]
+    },
+    {
+      "bidding_number": 122,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_766b21e1d0d3c0a8e76d"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 8,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-09-03"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08170849000115"
+      ]
+    },
+    {
+      "bidding_number": 131,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_a17934d67a72c908f508"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 8,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-06-16"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "42569802000167"
+      ]
+    },
+    {
+      "bidding_number": 209,
+      "bidding_year": 2026,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_4ef7ea0276bb4024d5fa",
+        "JOEV_89ebd95613b10c7f07b6"
+      ],
+      "event_types": [
+        "CONTRATO",
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 8,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-06-20",
+        "2026-06-27"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "25178236000143"
+      ]
+    },
+    {
+      "bidding_number": 222,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_d70093740833190ff980"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 8,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-08-20"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08407726000155"
+      ]
+    },
+    {
+      "bidding_number": 326,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_07357f03181c3f43831c"
+      ],
+      "event_types": [
+        "EDITAL"
+      ],
+      "has_edital_seed": true,
+      "modality_id": 8,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-08-27"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 403,
+      "bidding_year": 2022,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_d0e65255ac09ba08eb22"
+      ],
+      "event_types": [
+        "TERMO_ADITIVO_CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 8,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-08-20"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 405,
+      "bidding_year": 2021,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_15ac771b97e5aebe7c04"
+      ],
+      "event_types": [
+        "TERMO_ADITIVO_CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 8,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-04-28"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 415,
+      "bidding_year": 2025,
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_042c9c285a8640444aee",
+        "JOEV_6a65975b2009140feab9"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 8,
+      "occurrence_count": 2,
+      "publication_dates": [
+        "2026-02-27"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "53819810000130",
+        "60083695000144"
+      ]
+    },
+    {
+      "bidding_number": 461,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_58a2815469d876a19165"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 8,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-05-16"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "15287270000100"
+      ]
+    },
+    {
+      "bidding_number": 529,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_700b9a1a0a7397fc214f"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 8,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-07-22"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "42919977000157"
+      ]
+    },
+    {
+      "bidding_number": 531,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_aa050410fef2cf942f70"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 8,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-01-28"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 31,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_80ead1a8df14ae99af03"
+      ],
+      "event_types": [
+        "TERMO_ADITIVO_CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 9,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-07-30"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 42,
+      "bidding_year": 2025,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_40338726e5c060207ea7"
+      ],
+      "event_types": [
+        "TERMO_ADITIVO_CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 9,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-08-25"
+      ],
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": []
+    },
+    {
+      "bidding_number": 46,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_55537b07f9c5b76da653"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 9,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-09-05"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "30092431000196"
+      ]
+    },
+    {
+      "bidding_number": 53,
+      "bidding_year": 2026,
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_a17cc24a2d9ecf05bf12"
+      ],
+      "event_types": [
+        "CONTRATO"
+      ],
+      "has_edital_seed": false,
+      "modality_id": 9,
+      "occurrence_count": 1,
+      "publication_dates": [
+        "2026-06-25"
+      ],
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "01645409000390"
+      ]
+    }
+  ],
+  "identity_grain": [
+    "modality_id",
+    "bidding_number",
+    "bidding_year"
+  ],
+  "schema": "TASK219D_FULL_99_EDITION_BIDDING_IDENTITY_INDEX_V1"
+}

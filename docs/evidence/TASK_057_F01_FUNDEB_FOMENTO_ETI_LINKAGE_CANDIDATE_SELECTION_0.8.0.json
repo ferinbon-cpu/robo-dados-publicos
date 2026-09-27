@@ -1,0 +1,115 @@
+{
+  "task": "TASK_057_F01_FUNDEB_FOMENTO_ETI_LINKAGE_CANDIDATE_SELECTION",
+  "mode": "T0_EXISTING_CUSTODY_METADATA_ONLY_CANDIDATE_SELECTION",
+  "base_sha": "0550879110581d4b491e6fcb6d5b812bc36e6ae9",
+  "authorization": {
+    "owner_authorized": true,
+    "owner_message": "Prossiga autorizado",
+    "scope": "METADATA_ONLY_SELECTION_AMONG_THREE_FUNDEB_EXISTING_CUSTODY_CANDIDATES_NO_SOURCE_CONTENT_READ_NO_NETWORK_NO_DRIVE_WRITE_NO_PROMOTION",
+    "authorization_consumed": true,
+    "future_blanket_authorizations_accepted": false
+  },
+  "upstream": {
+    "task": "TASK_056_F01_SECONDARY_EDUCATION_SOURCE_BOUNDED_CONTENT_READ",
+    "result": "PASS_TASK056_MAVS_FOMENTO_ETI_REPORTING_IDENTITY_PARTIAL_NO_TRANSACTION_LINKAGE_NO_PROMOTION",
+    "discovered_alias": "FOMENTO ETI",
+    "reporting_identity": "PARTIALLY_PROVEN_DEDICATED_FUNDEB_FOMENTO_ETI_BUCKET",
+    "transaction_identity": "EVIDENCIA_INSUFICIENTE"
+  },
+  "metadata_contract": {
+    "allowed_drive_search_surface": "DRIVE_SEARCH_METADATA_ONLY_WITH_ITEM_TYPE_DOCUMENT",
+    "best_effort_fetch": false,
+    "source_content_read_allowed": false,
+    "drive_fetch_allowed": false,
+    "ocr_allowed": false,
+    "public_source_network_allowed": false,
+    "drive_write_allowed": false,
+    "promotion_allowed": false,
+    "candidate_set_must_remain_exact": true
+  },
+  "candidate_set": [
+    {
+      "rank_seed": 1,
+      "drive_file_id": "1zRG-7fXYMTOMjsbWWJzoaSF7kQ54kJMe",
+      "title": "FUNDEB_LIMEIRA_2026_01.pdf",
+      "metadata_observed": ["title", "drive_file_id", "drive_url"],
+      "content_hydrated": false
+    },
+    {
+      "rank_seed": 2,
+      "drive_file_id": "1xmAFcp2pYYeua3vHQQoY4_tfFZzr21-I",
+      "title": "FUNDEB_LIMEIRA_2026_02.pdf",
+      "metadata_observed": ["title", "drive_file_id", "drive_url"],
+      "content_hydrated": false
+    },
+    {
+      "rank_seed": 3,
+      "drive_file_id": "1m1mg8LX-7VOn81Rl4t-zgDoP23JPCTRd",
+      "title": "FUNDEB_LIMEIRA_2026_03.pdf",
+      "metadata_observed": ["title", "drive_file_id", "drive_url"],
+      "content_hydrated": false
+    }
+  ],
+  "metadata_searches": {
+    "count": 3,
+    "all_item_type_document": true,
+    "all_best_effort_fetch_false": true,
+    "all_results_match_expected_ids_and_titles": true,
+    "source_content_reads": 0
+  },
+  "selection_analysis": {
+    "metadata_can_distinguish_probative_granularity": false,
+    "metadata_can_prove_program_action_ficha_or_transaction_key": false,
+    "candidate_titles_are_probatively_equivalent": true,
+    "suffix_01_02_03_must_not_be_treated_as_evidence_of_superior_granularity": true,
+    "best_candidate_evidentially_resolved": false,
+    "selection_status": "METADATA_TIE_NO_EVIDENTIARY_BEST_CANDIDATE",
+    "forced_best_candidate_forbidden": true
+  },
+  "deterministic_next_probe": {
+    "enabled": true,
+    "purpose": "Progress through tied candidates without claiming metadata-based superiority.",
+    "selection_basis": "STABLE_SEED_ORDER_ONLY_NOT_PROBATIVE_RANKING",
+    "selected_drive_file_id": "1zRG-7fXYMTOMjsbWWJzoaSF7kQ54kJMe",
+    "selected_title": "FUNDEB_LIMEIRA_2026_01.pdf",
+    "selected_is_claimed_best": false,
+    "fresh_owner_authorization_required_before_content_read": true,
+    "max_source_content_reads_if_later_authorized": 1,
+    "other_source_reads_forbidden": true
+  },
+  "effects": {
+    "drive_metadata_searches": 3,
+    "source_content_reads": 0,
+    "drive_fetch": 0,
+    "ocr": 0,
+    "public_source_network": 0,
+    "drive_write": 0,
+    "bronze": 0,
+    "silver": 0,
+    "gold": 0,
+    "serving": 0,
+    "publication": 0
+  },
+  "promotion": {
+    "f01_status": "SILVER_SCOPED_PARTIAL_VALIDATED",
+    "eiti_financial_reporting_identity": "PARTIALLY_PROVEN_DEDICATED_FUNDEB_FOMENTO_ETI_BUCKET",
+    "eiti_transaction_level_financial_identity": "EVIDENCIA_INSUFICIENTE",
+    "eiti_financial_identity": "EVIDENCIA_INSUFICIENTE",
+    "gold": false,
+    "serving": false,
+    "publication": false
+  },
+  "next_bounded_gate": {
+    "name": "TASK_058_F01_FUNDEB_TIED_CANDIDATE_01_BOUNDED_CONTENT_READ",
+    "selected_drive_file_id": "1zRG-7fXYMTOMjsbWWJzoaSF7kQ54kJMe",
+    "selected_title": "FUNDEB_LIMEIRA_2026_01.pdf",
+    "selection_basis": "STABLE_SEED_ORDER_ONLY_NOT_PROBATIVE_RANKING",
+    "fresh_owner_authorization_required": true,
+    "max_source_content_reads": 1,
+    "no_other_source_read": true,
+    "no_public_network": true,
+    "no_drive_write": true,
+    "no_promotion": true
+  },
+  "result": "PASS_TASK057_METADATA_ONLY_TIE_NO_EVIDENTIARY_BEST_CANDIDATE_NEXT_PROBE_SELECTED_BY_STABLE_ORDER_NO_PROMOTION"
+}

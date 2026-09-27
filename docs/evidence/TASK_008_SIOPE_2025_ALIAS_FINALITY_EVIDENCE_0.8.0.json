@@ -1,0 +1,81 @@
+{
+  "evidence_schema": "TASK_008_SIOPE_2025_ALIAS_FINALITY_EVIDENCE_V1",
+  "software_version": "0.8.0",
+  "captured_on": "2026-08-28",
+  "evidence_kind": "NORMALIZED_OFFICIAL_DOCUMENTARY_RESEARCH",
+  "source_data_get_count": 0,
+  "operational_receipt_status_query_count": 0,
+  "financial_values_persisted": false,
+  "response_records_persisted": false,
+  "documents": [
+    {
+      "id": "FNDE_SIOPE_DOWNLOADS_CURRENT",
+      "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/downloads",
+      "authority": "FNDE",
+      "normalized_claims": [
+        "The FNDE SIOPE Downloads page publishes a Municipal Metadados de 2025 package.",
+        "The FNDE instructions say metadata packages are extracted into the exercise-specific Metadados_Mun_20xx directory."
+      ],
+      "package_link_host": "fnde.sharepoint.com",
+      "package_payload_inspection": "NOT_COMPLETED_CURRENT_CONNECTOR_COULD_NOT_FETCH_BINARY",
+      "limitations": [
+        "The package contents were not inspected in TASK 008.",
+        "Existence of the package does not establish semantics for any OData alias."
+      ]
+    },
+    {
+      "id": "FNDE_SIOPE_MAVS_CURRENT",
+      "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/sobre-o-mavs",
+      "authority": "FNDE",
+      "normalized_claims": [
+        "For transmissions from the 2018 exercise onward, SIOPE data are processed and published only after the documented MAVS confirmations.",
+        "MAVS is a validation process for declared education revenue and expenditure information."
+      ],
+      "limitations": [
+        "The page does not define processed or published as immutable or non-rectifiable finality.",
+        "It does not establish the operational state of Limeira's observed 2025 annual declaration."
+      ]
+    },
+    {
+      "id": "FNDE_SIOPE_TUTORIAL_2024_V2",
+      "url": "https://www.gov.br/fnde/pt-br/assuntos/sistemas/siope/media/Tutorial_Bsico_Siope_2024_v2.pdf",
+      "authority": "FNDE",
+      "normalized_claims": [
+        "The current-regime tutorial includes a rectifying-declaration path.",
+        "A rectifying declaration for the sixth bimester requires authorization from the SIOPE technical team."
+      ],
+      "limitations": [
+        "The tutorial does not provide a finality flag proving the observed 2025 annual declaration can no longer be rectified.",
+        "It does not map the 2025 OData aliases to metadata definitions."
+      ]
+    }
+  ],
+  "alias_metadata_summary": {
+    "official_2025_metadata_package_exists": true,
+    "official_2025_metadata_package_content_inspected": false,
+    "required_alias_count": 11,
+    "alias_identity_proven_count": 0,
+    "num_popu_definition_proven": false,
+    "num_popu_source_vintage_rule_proven": false,
+    "semantic_comparability_status": "UNKNOWN"
+  },
+  "finality_summary": {
+    "p6_annual_consolidation_role": "PROVEN_INHERITED_TASK_007",
+    "mavs_validation_before_processing_publication": "PROVEN_OFFICIAL_CURRENT_DOCUMENTATION",
+    "sixth_bimester_rectification_path": "PROVEN_OFFICIAL_CURRENT_REGIME",
+    "processed_or_published_means_non_rectifiable_final": "NOT_PROVEN",
+    "observed_2025_limeira_finality_state": "NOT_QUERIED_IN_T0",
+    "annual_closure_status": "UNKNOWN"
+  },
+  "effects": {
+    "drive_read_count": 0,
+    "drive_write_count": 0,
+    "gold_computation": false,
+    "bronze_silver_gold_creation": false,
+    "persistence": false,
+    "publication": false,
+    "closed_series_expansion": false,
+    "year_2026_promotion": false
+  },
+  "decision": "KEEP_UNKNOWN"
+}

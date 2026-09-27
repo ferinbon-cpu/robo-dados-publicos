@@ -1,0 +1,110 @@
+{
+  "adjudication": {
+    "canonical_questions_total": 38,
+    "contextual_paths_after": 34,
+    "contextual_paths_before": 34,
+    "exact_contract_identity_recovered_from_primary_jom": true,
+    "generic_parser_changed": false,
+    "historical_event_id_changed": false,
+    "municipal_contract_match_proven": false,
+    "pncp_match_proven": false,
+    "question_promotion_performed": false,
+    "remaining_blockers": [
+      "CTRL_Q2",
+      "PROC_Q1",
+      "PROC_Q2",
+      "PROC_Q3"
+    ],
+    "tce_commitment_identity_proven": false
+  },
+  "canonical_date": "2026-09-09",
+  "issue": 701,
+  "municipal_primary_bridge": {
+    "authority": "Prefeitura Municipal de Limeira",
+    "candidate_policy_proof": {
+      "identity_proven_by_synthetic_row": false,
+      "observed_signals": [
+        "CONTRACT_FULL",
+        "CONTRACT_NUMBER_YEAR_NORMALIZED",
+        "CNPJ",
+        "SUPPLIER_NAME"
+      ],
+      "purpose": "PROVE_EXISTING_FAIL_CLOSED_CANDIDATE_POLICY_BEFORE_ANY_LIVE_QUERY",
+      "required_signals": [
+        "CONTRACT_NUMBER_YEAR_NORMALIZED",
+        "CNPJ",
+        "SUPPLIER_NAME"
+      ],
+      "synthetic_only": true
+    },
+    "live_execution_authorized": false,
+    "live_execution_implemented": false,
+    "max_http_requests_future": 3,
+    "query": {
+      "identity_rule": "Exact normalized contract 45/2026 plus exact CNPJ and supplier agreement are required for a municipal MATCH_CANDIDATE. Process, bidding, object and amount are corroborating only.",
+      "match_keys": {
+        "cnpj": "37457979000131",
+        "contract_number": "45/2026",
+        "contractor": "Med Doctor Acessórios Ltda",
+        "year": 2026
+      },
+      "origin_event_id": "JOEV_083e522d4145e4d27580",
+      "search_hints": {
+        "bidding_number": "10/2026",
+        "object_text": "Contratação de empresa especializada em locação de sistema de endoscopia",
+        "process_number": "902.281/2025",
+        "value_brl": "210000.00"
+      },
+      "target_source": "LIMEIRA_CONTRATOS",
+      "task_id": "RECTASK_TASK219F_CONTRACT45_2026",
+      "task_type": "FIND_CONTRACT_RECORD"
+    },
+    "resolver": "robo_dados_publicos.reconciliation.resolvers.LimeiraContractsResolver",
+    "same_origin_only_future": true,
+    "search_url": "https://serv42.limeira.sp.gov.br/ncweb/cns_contratos_web_mestre/",
+    "source_id": "LIMEIRA_CONTRATOS",
+    "status": "READY_FOR_SINGLE_USE_LIVE_QUERY_AFTER_FRESH_AUTHORIZATION"
+  },
+  "next_action": "ONE_BOUNDED_LIMEIRA_CONTRATOS_QUERY_FOR_EXACT_CONTRACT_45_2026_AFTER_FRESH_OWNER_AUTHORIZATION",
+  "parent_issue": 691,
+  "recovered_primary_jom_seed": {
+    "bidding_modality": "PREGÃO ELETRÔNICO",
+    "bidding_number": "10/2026",
+    "cnpj": "37457979000131",
+    "contractor": "Med Doctor Acessórios Ltda",
+    "edition": 7210,
+    "event_id": "JOEV_083e522d4145e4d27580",
+    "event_type": "CONTRATO",
+    "historical_event_id_preserved": true,
+    "object_text": "Contratação de empresa especializada em locação de sistema de endoscopia",
+    "page_number": 4,
+    "process_number": "902.281/2025",
+    "publication_date": "2026-03-27",
+    "recovered_contract_number": "45/2026",
+    "recovery_basis": "EXACT_LABEL_SCOPED_SANITIZED_JOM_EXCERPT_PLUS_STRUCTURED_PREFIX_AGREEMENT",
+    "source_id": "LIMEIRA_JO_07210",
+    "source_sha256": "6d0f093f8851c71f477b3eb08439be22222fe9d3f09be32f1d5dd72b27211cb1",
+    "structured_contract_number_original": "45/",
+    "value_brl": "210000.00"
+  },
+  "remote_effects": {
+    "drive_read": false,
+    "drive_write": false,
+    "municipal_contract_network": false,
+    "pncp_network": false,
+    "promotion": false,
+    "publication": false,
+    "recurrence": false,
+    "schedule": false,
+    "serving": false,
+    "tce_network": false
+  },
+  "source_artifact": {
+    "artifact_id": 10105583802,
+    "artifact_name": "task-219a-jom-general-events-sanitized",
+    "artifact_zip_sha256": "599c9329f40de5b040b331ada17224614d197a332c12844f523e4a0d9d1aa35d",
+    "events_sha256": "5ca4bf1411f6b8bfa6ad2b8fdede9937f495458963439fa579d40caa7d988c5b",
+    "run_id": 34354027245
+  },
+  "task": "TASK_219F_JOM_CONTRACT_45_2026_RECOVERY"
+}

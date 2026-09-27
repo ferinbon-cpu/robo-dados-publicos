@@ -1,0 +1,112 @@
+[
+  {
+    "event_id": "JOEV_496b778becb09b7f12c0",
+    "edition": 7305,
+    "page_number": 34,
+    "source_sha256": "fd779de75c109b656234ed66d70fe127d89eacb1c84ec424e2a4c87baae7450e",
+    "page_native_text_sha256": "957e822ac92a405a8069dce4e8d02c265240d81c1ef6ca7bff71fb1fc96e4224",
+    "principal_subject": "EDUCATION_PERSONNEL",
+    "principal_action": "EXONERATION_REQUESTED",
+    "role": "Professor Especialista de Educação Infantil e Ensino Fundamental 125h - Artes",
+    "object_text_native": "Exonerar, a pedido, a servidora Pamela Aline Mural\"i Garcia, do cargo efetivo de Professor Especialista de Educação Infantil e Ensino Fundamental 125h - Artes, Padrão III-B, que equivale a R$ 4.166,73 (quatro mil, cento e sessenta e seis reais e setenta e três centavos), lotada na Secretaria Municipal de Educação."
+  },
+  {
+    "event_id": "JOEV_a84996271419e6de46e1",
+    "edition": 7305,
+    "page_number": 35,
+    "source_sha256": "fd779de75c109b656234ed66d70fe127d89eacb1c84ec424e2a4c87baae7450e",
+    "page_native_text_sha256": "6901106703e83518dd2ae9a1351ad6bb3c29c50880036a1a22d3c12206110899",
+    "principal_subject": "EDUCATION_PERSONNEL",
+    "principal_action": "EXONERATION_REQUESTED",
+    "role": "Professor de Educação Infantil",
+    "object_text_native": "Exonerar, a pedido, a servidora Flavia Lima dos Santos Fischer, do cargo efetivo de Professor de Educação Infantil, Padrão III-B, que equivale a R $ 5.000,09 (cinco mil e nove centavos), lotada na Secretaria Municipal de Educação."
+  },
+  {
+    "event_id": "JOEV_72bd21dde7fed8664807",
+    "edition": 7305,
+    "page_number": 36,
+    "source_sha256": "fd779de75c109b656234ed66d70fe127d89eacb1c84ec424e2a4c87baae7450e",
+    "page_native_text_sha256": "e7cfa1ed00310ba9ab2474c6828c8aff2dc255a3a01519d421407f4d67cb20c2",
+    "principal_subject": "EDUCATION_PERSONNEL",
+    "principal_action": "EXONERATION_OFFICE",
+    "role": "Auxiliar de Serviços Gerais",
+    "object_text_native": "Exonerar, de ofício, o servidor Maycon Fernando Marnbez , do cargo efetivo de Auxiliar de Serviços Gerais, Referência 01 , Grau \"A \", Nível I, que equivale a R $ 2.24 7 ,53 ( dois mil, duzentos e quarenta e sete centavos e cinquenta e três centavos), lotado na Secretaria Municipal de Educação, tendo em vista sua reprovação na Avaliação Especial de Desempenho, durante seu Estágio Probatório, conforme consta no Processo Administrativo n.º 12.138/2023."
+  },
+  {
+    "event_id": "JOEV_da619fba3f0cb3ec54e9",
+    "edition": 7310,
+    "page_number": 23,
+    "source_sha256": "78a23262023f6233cb59fdc78f1fadc196d0a7bbd52c418bbdd9244229f46680",
+    "page_native_text_sha256": "0c207dd5468c757fd15a51e714536fd658e727a08af5f43bf46241b0534c057d",
+    "principal_subject": "EDUCATION_PERSONNEL",
+    "principal_action": "RECTIFY_EFFECTIVE_APPOINTMENT",
+    "role": "Monitor",
+    "object_text_native": "Retificar a letra \"A \" da Portaria nº 765, de 18 de abril de 2024, publicada no Jornal Oficial do Município em 09 de maio de 2024, passando a vigorar com a seguinte redação: \"A) Nomear , em caráter efetivo, Luana Reis para o cargo de Monitor, Referência 12, Grau \"A\" , Nível 1, que equivale a R $ 2.967,51 (dois mil, novecentos e sessenta e sete reais e cinquenta e um centavos), lotada na Secretaria Municipal de Educação.\" (NR)."
+  },
+  {
+    "event_id": "JOEV_523f89f8aeeeeee94351",
+    "edition": 7310,
+    "page_number": 24,
+    "source_sha256": "78a23262023f6233cb59fdc78f1fadc196d0a7bbd52c418bbdd9244229f46680",
+    "page_native_text_sha256": "af1fba1515a778db6fa6e30f509788be2ea0fbbfd889650ac2278e42c61bb0a3",
+    "principal_subject": "EDUCATION_PERSONNEL",
+    "principal_action": "RECTIFY_EFFECTIVE_APPOINTMENT",
+    "role": "Secretário de Escola",
+    "object_text_native": "Retificar a letra \"A \" da Portaria nº 386 de 11 de fevereiro de 2016, publicada no Jornal Oficial do Município em 13 de fevereiro de 2016, passando a vigorar com a seguinte redação: \"A) Nomear , em caráter efetivo, Marcel Luiz Simões para o cargo de Secretário de Escola, Referência 22, Grau \"A \", Nível 1, que equivale a R$ 3.526,05 (três mil, quinhentos e vinte e seis reais e cinco centavos), lotado na Secretaria Municipal de Educação.\" (NR)."
+  },
+  {
+    "event_id": "JOEV_879193f05562423f7edc",
+    "edition": 7310,
+    "page_number": 25,
+    "source_sha256": "78a23262023f6233cb59fdc78f1fadc196d0a7bbd52c418bbdd9244229f46680",
+    "page_native_text_sha256": "5aeaa6e0db34b2c9963c10109895e8b2bd27418dcb4175fc1d9515e35dbf4d48",
+    "principal_subject": "EDUCATION_PERSONNEL",
+    "principal_action": "EXONERATION_REQUESTED",
+    "role": "Auxiliar de Serviços Gerais",
+    "object_text_native": "Exonerar, a pedido, a servidora Gemima Graziela da Silva, do cargo efetivo de Auxiliar de Serviços Gerais, Referência 1, Grau \"C \", Nível I, que equivale a R $ 2.281,37 (dois mil, duzentos e oitenta e um reais e trinta e sete centavos), lotada junto à Secretaria Municipal de Educação."
+  },
+  {
+    "event_id": "JOEV_b1026c2d999563af8b4e",
+    "edition": 7310,
+    "page_number": 26,
+    "source_sha256": "78a23262023f6233cb59fdc78f1fadc196d0a7bbd52c418bbdd9244229f46680",
+    "page_native_text_sha256": "ffa323e60e9009bb33d9d41982070f01bdf7633ddaeeb0e79adef3fe62e650d5",
+    "principal_subject": "EDUCATION_PERSONNEL",
+    "principal_action": "EXONERATION_REQUESTED",
+    "role": "Monitor",
+    "object_text_native": "Exonerar, a pedido, a servidora Muília de Oliveira Silva, do cargo efetivo de Monitor, Referência 12, Grau \"A \", Nível I, que equivale a R $ 2.967,51 (dois mil, novecentos e sessenta e sete reais e cinquenta e um centavos), lotada junto à Secretaria Municipal de Educação."
+  },
+  {
+    "event_id": "JOEV_079623f0f2e22bf41dd6",
+    "edition": 7310,
+    "page_number": 31,
+    "source_sha256": "78a23262023f6233cb59fdc78f1fadc196d0a7bbd52c418bbdd9244229f46680",
+    "page_native_text_sha256": "44f10b52d4a4924dace6406e9030f20fe1376b3523c8476cd5c7f9d9b2cf6fcd",
+    "principal_subject": "EDUCATION_PERSONNEL",
+    "principal_action": "REVOKE_EFFECTIVE_APPOINTMENT",
+    "role": "Monitor",
+    "object_text_native": "Revogar, em todos os seus tennos, a Portaria n.º 1.056, de 24 de junho de 2026, que nomeou , em caráter efetivo, Paula Letícia Basso, para o cargo de Monitor, Referência 12, Grau \"A \", Nível I, na Secretaria Municipal de Educação."
+  },
+  {
+    "event_id": "JOEV_f378479cbe48ab0ebaa9",
+    "edition": 7310,
+    "page_number": 33,
+    "source_sha256": "78a23262023f6233cb59fdc78f1fadc196d0a7bbd52c418bbdd9244229f46680",
+    "page_native_text_sha256": "44720d3852def6738aff9da76a4448fbe726d4c3204ae528e1df16d5607c95f7",
+    "principal_subject": "EDUCATION_PERSONNEL",
+    "principal_action": "EFFECTIVE_APPOINTMENT_FROM_PUBLIC_COMPETITION",
+    "role": "Monitor",
+    "object_text_native": "Nomear , em caráter efetivo, Rosemary Alves de Souza, para o cargo de Monitor, Referência 12, Grau \"A\" , Nível 1, que equivale a R$ 2.967,51 (dois mil, novecentos e sessenta e sete reais e cinquenta e um centavos), junto a Secretaria Municipal de Educação."
+  },
+  {
+    "event_id": "JOEV_8c46d97e556d83a292af",
+    "edition": 7313,
+    "page_number": 11,
+    "source_sha256": "bbe2b559698929210c78908aeb72d10673df1a41235332229fb8676ac6ac83a3",
+    "page_native_text_sha256": "4cb4f44dbca945e6213dcd696f378abc5c743a5fec9edfb46575cfee90a52549",
+    "principal_subject": "EDUCATION_PERSONNEL",
+    "principal_action": "EXONERATION_REQUESTED",
+    "role": "Secretário de Escola",
+    "object_text_native": "Exonerar, a pedido, a servidora Ana Camline de BaITos AIToyo , do cargo efetivo de Secretário de Escola, Referência 22, Grau \"A \", Nível I, que equivale a R $ 3 .881,53 (três mil, oitocentos e oitenta e um reais e cinquenta e três centavos), lotada na Secretaria Municipal de Educação."
+  }
+]

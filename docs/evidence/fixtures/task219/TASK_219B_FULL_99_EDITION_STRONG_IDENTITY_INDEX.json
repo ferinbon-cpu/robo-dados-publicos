@@ -1,0 +1,5564 @@
+{
+  "audit": {
+    "cnpj_alone_is_identity": false,
+    "contract_identities_with_multiple_suppliers": 0,
+    "process_identities_with_multiple_suppliers": 28,
+    "weak_similarity_identity_allowed": false
+  },
+  "counts": {
+    "combined_anchor_rows": 449,
+    "combined_unique_contract_identities": 108,
+    "combined_unique_identities": 303,
+    "combined_unique_process_identities": 195,
+    "legacy_anchor_rows": 54,
+    "new_anchor_rows": 395,
+    "new_contract_identities": 96,
+    "new_process_identities": 165,
+    "new_unique_identities": 261,
+    "overlapping_unique_identities": 9
+  },
+  "identities": [
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "05/2022",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_b40d4b15cd2da918428d"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "54561071000192"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "05/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_fb7d6b263f3ee436d70a"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "61149829000145"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "06/2025",
+      "event_count": 3,
+      "event_ids": [
+        "JOEV_63ade44c7c19a8cbca8e",
+        "JOEV_cc8ecbd1f0370f954792",
+        "JOEV_d8551d4376f647b5fa96"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 3,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "64141708000145"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 3
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "07/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_7c7032e44948aa53f593"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "08/2023",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_b759ec3c70d9906c2974"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "66834557000136"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "08/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_aa050410fef2cf942f70"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "09/2023",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_2e5c0e2ee934961ec4db"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "09/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_730d15a27dc93c8c4dd7"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "103/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_a0954bb3d8755da68516"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "44025861000108"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "104/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_18359ee90de167448ec1"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "51740794000160"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "105/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_812729e6ad44ad319d1b"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "04531017000126"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "105/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_1f25e6f894b7c095e1d5"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "40968252000123"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "109/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_748f3e9ed27e90c96633"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "07166940000102"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "11/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_d3ae679a4a60293bbba1"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "51413185000105"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "114/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_dd56e4b3a7636d774c28"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "00331788001603"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "115/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_8dcd59ea829331b24b3d"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "73193211000161"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "116/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_16991a4bbd4fb3069cce"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "15497430000138"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "117/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_55537b07f9c5b76da653"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "30092431000196"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "119/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_b1e78cf8975d9d6e3063"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "24950579000111"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "12/2023",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_67a6c343a7aae7004d23"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "26801465000135"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "12/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_4b6f25c77d3ad2b59019"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "20974205000185"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "120/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_fcbcb5406e3dd5405435"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "59893086000171"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "121/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_f70cfbbe563dd7f3a5d6"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "37813686000140"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "127/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_47b57708b7471058a828"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "29161710000185"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "129/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_f8e599aeed150f57c80f"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "20773196000164"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "13/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_f1fe997064d19b3d65e5"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "61927148000160"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "131/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_433da5df610bbdce2418"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "23610910000191"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "136/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_565a168cd52a83f16916"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "06276996000149"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "138/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_4b29bd53e7f858229efe"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "46339373000192"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "139/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_863319d1bc6781311e87"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "04531017000126"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "139/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_aec6d339e054b7b3e862"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "11195057000100"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "14/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_5b8321b937200569bc11"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "64871825000164"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "14/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_6a65975b2009140feab9"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "60083695000144"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "140/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_243e1ed917ea058f10af"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "60718874000100"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "141/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_8c38193878a17b17592b"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "04063331000121"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "145/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_aec07a00457ca22506cd"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "23399227000157"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "145/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_889df76571fc712b84e8"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "47028448000187"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "147/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_c32b0021c8d408aae632"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "55902597000151"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "15/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_042c9c285a8640444aee"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "53819810000130"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "151/2023",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_787d433a570349d4714a"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "02558157000162"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "152/2023",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_8df673c35dffef0f889a"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "02558157000162"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "153/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_fcd946a7701fe700349f"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "51066745000194"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "16/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_c456f53da1cdde6a1818"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "31160361000129"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "174/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_0c9cc54803896641e60d"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "36490358000197"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "178/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_d0d2965c8b806bf849d3"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "24950579000111"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "182/2023",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_d39b939c2807798c471f"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "186/2022",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_8cad2b27c24ce11a1ca2"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08743495000150"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "187/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_3e1e6ea4dc043e9edc1e"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08170849000115"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "191/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_9eadc94a055bb7988a08"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "36602037000137"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "195/2023",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_056e75065da5af0ab36b"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "01985366000120"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "20/2023",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_7f1a8695210b94b5e5d9"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "61149829000145"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "237/2022",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_7802077749e6e34b5cb4"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08212332000141"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "238/2020",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_6ac1820dfccd9638adcd"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "285/2021",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_d6794b1e85a43151531b"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "05702124000132"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "29/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_8f09c10910ec2b5de01d"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "59275215000168"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "31/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_2a57230efccece68c256"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08338633000116"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "32/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_d3aaec2bfb594aa1d583"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "35147368000161"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "33/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_01f4b937968551eca94b"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08743495000150"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "33/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_a2c8cb7808313537f7c2"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "54017108000116"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "332/2022",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_a0005a07972a2648165f"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "61418141000113"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "34/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_24a630d3861e784fa33a"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "54017108000116"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "35/2023",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_26d013852687aa709449"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "35/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_3148d6e7aed2cef74ba0"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "59269654000168"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "36/2023",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_5ee8b200624f80eb59e6"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "00331788001603"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "36/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_f7ae962ce7caebc19445"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "19625833000176"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "36/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_2782a7ef2f8f2d6d9cb2"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "33412137000102"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "42/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_7c18ce6498776baef988"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "12222819000182"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "44/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_1d0e462f43e5c3b234f5"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "19451535000298"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "45/2025",
+      "event_count": 3,
+      "event_ids": [
+        "JOEV_2a0991c398786c5f8de8",
+        "JOEV_ada320961ede43dcd93f",
+        "JOEV_c0271f9c17d1a27b3e6e"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 3,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "64141708000145"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 3
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "46/2026",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_66f97f9ba392fa2c7b95",
+        "JOEV_dda8e5b625cb256d1171"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS",
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "31039820000110"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "47/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_aee0b67b58b22b551b94"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "53/2022",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_bc26a1eea4ae4bd3a46d"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "09242167000133"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "53/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_623e5e983e0b0ec8372f"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "51212348000183"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "54/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_f8f829ce5e6bebe15026"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "36974784000104"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "57/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_ebb430b52732bba1f543"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "24950579000111"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "58/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_414220d7d19a853c7bdf"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "00331788002603"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "59/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_5b67dd9ffb11e25b4cea"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "51066745000194"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "62/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_cec67d365812dbea0a48"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "00331788001603"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "64/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_58a2815469d876a19165"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "15287270000100"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "65/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_2d4540513621855966b6"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "04898593000106"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "66/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_72cb06b8fc88867e355a"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "00331788001603"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "66/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_6173cf905e7f5b0eb127"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "45980316000125"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "67/2026",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_0153cbcce5ee6cac8c75",
+        "JOEV_6c120536b64b394b2fef"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 2,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "60716040000247"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "68/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_074eb77bba44285fb2b3"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "14858201000139"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "69/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_5415148c0435c189f622"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "34171651000166"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "72/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_7d235a0247825fbfd529"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "02811333000126"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "79/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_09b671893efe6cfde707"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "14009370000102"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "81/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_3f1f4ae1a583ccedebb5"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "14009370000285"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "84/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_1c9d82486e761fa86c8b"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "85/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_494f20fcc725c3efefbf"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "46245398000127"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "86/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_dfaade7efc93aef44faa"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "26257112000116"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "88/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_f8f7ad9fbaaaf4758065"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "12222819000182"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "89/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_a17cc24a2d9ecf05bf12"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "01645409000390"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "90/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_ef0925503401ab70b88b"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "27595780000116"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "9000000001/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_5f39468952ba8387e5b5"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "9000000002/2021",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_15ac771b97e5aebe7c04"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "9000000002/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_c71fc7dcf8d1346de8fb"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "9000000003/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_40338726e5c060207ea7"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "9000000003/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_24cd412822e223b25388"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "9000000005/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_0a22fe944151d24a4552"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "9000000007/2022",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_d0e65255ac09ba08eb22"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "9000000007/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_9a86650185ecb9b3f7b5"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "91/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_89ebd95613b10c7f07b6"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "25178236000143"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "95/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_75fc0d815fe4a51d06c2"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "79980413000130"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "96/2026",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_11d05abf3a1f09eaa074",
+        "JOEV_766b21e1d0d3c0a8e76d"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 2,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08170849000115"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "97/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_4bdc5277b9aeadc93d80"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "98/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_700b9a1a0a7397fc214f"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "42919977000157"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "CONTRACT_IDENTITY",
+      "anchor_value": "99/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_97172158fa08ab973615"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "43728245001971"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "010/2025",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_995c39f1abd59198d99c",
+        "JOEV_a88c7901a42b151131d4"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 2,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "12.296/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_7aef59e1f8ffc5df8b37"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "10324311000160"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "13.500/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_39d44536ad76905a72a2"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "13.983/2026",
+      "event_count": 3,
+      "event_ids": [
+        "JOEV_38e9e792188ab3dae1f4",
+        "JOEV_b70c05181ea140d8046f",
+        "JOEV_e0e5a597d9c5e98bea34"
+      ],
+      "legacy_occurrence_count": 2,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS",
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 3
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "18.509/2026",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_24e7c72ebf409fab929a",
+        "JOEV_a080f6006917f071861e"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 2,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "19.294/2024",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_5659ae26e2e5b6381585",
+        "JOEV_f9d970b069a41843dafc"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 2,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "06137748000117",
+        "48135786000180"
+      ],
+      "supplier_count": 2,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "20.021/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_9a3547682efa7673abdb"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "22.271/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_0878034e5f5e69123e45"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "22.309/2026",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_3f150e46728a50b1921e",
+        "JOEV_51951e099c8391db6472"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 2,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "22.687/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_fab1a3c79f589f7ccc18"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "45492077000164"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "22.888/2023",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_032db423e446e8cc191a"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "23.897/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_05cb6226377dd6e689ca"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "24.189/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_30628b3038ad29787630"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "26.144/2025",
+      "event_count": 3,
+      "event_ids": [
+        "JOEV_10b50fe94c84b10b0c1a",
+        "JOEV_c8f6c932007cbefef98d",
+        "JOEV_ebeb11bdbc6e67f5ff2b"
+      ],
+      "legacy_occurrence_count": 3,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 3
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "26.328/2025",
+      "event_count": 5,
+      "event_ids": [
+        "JOEV_320c455ee304b14c81d7",
+        "JOEV_5508f8b86680c78f1b0c",
+        "JOEV_a5ac2d9d5caf32a9bded",
+        "JOEV_f5ac523b5150acd638b6",
+        "JOEV_f9f78d0ea83b2eb258fd"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 5,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 5
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "26.536/2026",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_28a3f0b50eb59abe0863",
+        "JOEV_c090e675f34666bb219f"
+      ],
+      "legacy_occurrence_count": 2,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "29.780/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_32779a03f8135f99669d"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "3.537/2016",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_66254b7e4954ed69ed63"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "32.618/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_e03069415d801c7ea608"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "19444651000107"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "33.873/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_701c2534b48a5e9a8436"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "35.310/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_623e5e983e0b0ec8372f"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "51212348000183"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "35.315/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_bfa8c56fd00e4e7b1f7e"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "36.820/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_9f92db75b4a227f0e937"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "43252758000120"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "36.821/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_0f84494b751c9d9a33c3"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "17426885000198"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "36.979/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_4bdc5277b9aeadc93d80"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "37.774/2024",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_83b350b762707429a189"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "33824478000195"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "4.093/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_39496f0d4b0236599c72"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "4.554/2026",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_994ffb5bd3139d1ec6e9",
+        "JOEV_c94e8bc095a4f0a5eba6"
+      ],
+      "legacy_occurrence_count": 2,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "42.703/2021",
+      "event_count": 5,
+      "event_ids": [
+        "JOEV_08ef9066c48c39cbc7c2",
+        "JOEV_2fcbb33e92bbda21f797",
+        "JOEV_4ddc82958819806d0702",
+        "JOEV_69a03955b53afcd6915e",
+        "JOEV_9271c779e7e1cb1ff440"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 5,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 5
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "55.088/2023",
+      "event_count": 7,
+      "event_ids": [
+        "JOEV_7c1c86b2f1ed639e53c1",
+        "JOEV_95676bcf363fdd332884",
+        "JOEV_ab954d578a48ed143b1d",
+        "JOEV_b2e6f647be734c147ce6",
+        "JOEV_c1878e77fc4b7d024162",
+        "JOEV_cb90a677d22481393a1d",
+        "JOEV_f62404d4a066560be01c"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 6,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS",
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 7
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.002/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_5ee8b200624f80eb59e6"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "00331788001603"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.003/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_72cb06b8fc88867e355a"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "00331788001603"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.026/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_cb95eb68e08a44222e68"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "20657155000102"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.034/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_9de6cc1eaa4295c6b974"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "26579777000308"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.067/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_09b671893efe6cfde707"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "14009370000102"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.071/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_01f4b937968551eca94b"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08743495000150"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.072/2026",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_b82681f0c6467fe9c476",
+        "JOEV_ec9624cd397fe843e932"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 2,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.085/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_f796d28de5ef64606283"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08659758000148"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.096/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_def158c404d8972df742"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.119/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_a023a2a38f3429c60dd9"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.123/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_9a86650185ecb9b3f7b5"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.191/2026",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_bc26a1eea4ae4bd3a46d",
+        "JOEV_fd08dda99a94496a9cfa"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 2,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "09242167000133"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.192/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_43ecd7b178cb8fc2a944"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.195/2026",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_1919fb64d253a103709c",
+        "JOEV_4557bce2947f4edcc827"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS",
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "04491116000121",
+        "07014538000102"
+      ],
+      "supplier_count": 2,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.199/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_fd1c3be1e5df716185e4"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "03230806000164"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.209/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_2d913318534a24499714"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.211/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_7948b4bd7797258b3719"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "00331788001603"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.212/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_056e75065da5af0ab36b"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "01985366000120"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.213/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_8c7b0b4eb480c65a26a4"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "06124501000166"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.214/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_9f48a060dbd863f43b0d"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "73856593000166"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.230/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_f7ae962ce7caebc19445"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "19625833000176"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.258/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_e4819a8cbe1b13a2baf9"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.259/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_9c9f4bf3165e1dab93b9"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.266/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_e0c63a7d680ce144b43f"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "64141708000145"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.282/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_d55f0494cbfe0c0342d1"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.302/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_5db645e9e7b8f2a12c60"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "05847630000110"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.303/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_6173cf905e7f5b0eb127"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "45980316000125"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.306/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_865e29c478d4e82f98b9"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "07014538000102"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.327/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_0b1bf28012b796bbe70f"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.337/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_cca30e65d21eeabf5a47"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.339/2026",
+      "event_count": 7,
+      "event_ids": [
+        "JOEV_243e1ed917ea058f10af",
+        "JOEV_4b29bd53e7f858229efe",
+        "JOEV_889df76571fc712b84e8",
+        "JOEV_8c38193878a17b17592b",
+        "JOEV_aec6d339e054b7b3e862",
+        "JOEV_c32b0021c8d408aae632",
+        "JOEV_ca1c64e608d3b507421b"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 7,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "04063331000121",
+        "11195057000100",
+        "46339373000192",
+        "47028448000187",
+        "55902597000151",
+        "60718874000100"
+      ],
+      "supplier_count": 6,
+      "total_occurrence_count": 7
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.347/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_5b8321b937200569bc11"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "64871825000164"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.351/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_b79775deae5ad4a641ef"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.377/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_a2bf986814b95f30dcf1"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.410/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_a6a23dda0337ce5042c6"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08743495000150"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.411/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_55537b07f9c5b76da653"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "30092431000196"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.416/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_c0271f9c17d1a27b3e6e"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "64141708000145"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.433/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_2178029f7a825500c290"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "52386933000162"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.463/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_11d05abf3a1f09eaa074"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08170849000115"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.464/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_7e98b22f8efb50325044"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.515/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_d0d2965c8b806bf849d3"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "24950579000111"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.519/2026",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_63ade44c7c19a8cbca8e",
+        "JOEV_ada320961ede43dcd93f"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 2,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "64141708000145"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.564/2026",
+      "event_count": 3,
+      "event_ids": [
+        "JOEV_645e252123ccc1393fd8",
+        "JOEV_793cb4d71a54a2029055",
+        "JOEV_829795cc79e0769ad349"
+      ],
+      "legacy_occurrence_count": 3,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "09115886000193",
+        "09556970000142",
+        "41283670000140"
+      ],
+      "supplier_count": 3,
+      "total_occurrence_count": 3
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.594/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_f8e599aeed150f57c80f"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "20773196000164"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.598/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_0689d3db80e97dbcd812"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.655/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_7d235a0247825fbfd529"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "02811333000126"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.659/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_4d9dfcbc660a2ed535e7"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.666/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_b6bf5b0235e7c1de45d1"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.667/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_2a57230efccece68c256"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08338633000116"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.687/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_911759d89bcffaba3f72"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "13900798000170"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.693/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_47b57708b7471058a828"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "29161710000185"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.694/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_4f8ba3aac83a10ac9659"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "61405134000187"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.728/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_93d29deb99068a968b5c"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.750/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_bb7478e3ffaa4c529243"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.753/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_f8f829ce5e6bebe15026"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "36974784000104"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.781/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_fa756c678003a91b9248"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.782/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_e128613c8667ea94c408"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.802/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_0c9cc54803896641e60d"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "36490358000197"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.818/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_5b67dd9ffb11e25b4cea"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "51066745000194"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.837/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_89ebd95613b10c7f07b6"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "25178236000143"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.876/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_9ed807d2c6b14897b241"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "74261652000116"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.890/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_f066be813b5a0bcb2849"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.939/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_40338726e5c060207ea7"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "900.993/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_8615e79f0c5cf4ac3567"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "901.004/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_d0e65255ac09ba08eb22"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "901.006/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_66f97f9ba392fa2c7b95"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "31039820000110"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "901.028/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_9323f52429303510ff51"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "901.036/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_dd56e4b3a7636d774c28"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "00331788001603"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "901.061/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_766b21e1d0d3c0a8e76d"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08170849000115"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "901.077/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_6b2ce4268e4f4d0fbdd1"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "901.171/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_a2c8cb7808313537f7c2"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "54017108000116"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "901.175/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_7802077749e6e34b5cb4"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08212332000141"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "901.747/2025",
+      "event_count": 4,
+      "event_ids": [
+        "JOEV_1adb83346be09bd74bd9",
+        "JOEV_77c40ddcc23432d7ca65",
+        "JOEV_b63885b664f2c52a48d1",
+        "JOEV_f3fad1a850be3a8d29be"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 4,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "10566711000181",
+        "17472278000164",
+        "29404097000180",
+        "55309074000104"
+      ],
+      "supplier_count": 4,
+      "total_occurrence_count": 4
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "901.797/2025",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_98d1cf1849b3fdcec68c",
+        "JOEV_c6832163a3050e62b932"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 2,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "24155164000156",
+        "34365450000108"
+      ],
+      "supplier_count": 2,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "901.798/2025",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_6bb89cf239f57f1c7f46",
+        "JOEV_d42ad5635e69a5bc85a4"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 2,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "13290293000130",
+        "33273511000136"
+      ],
+      "supplier_count": 2,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "901.799/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_6598986aeaaae097db6e"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "21613975000165"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "901.849/2025",
+      "event_count": 10,
+      "event_ids": [
+        "JOEV_3871352f758fc9827b28",
+        "JOEV_5b8199156cd54e42d2fa",
+        "JOEV_664d519322520ce42c59",
+        "JOEV_67af5f17e283448208e6",
+        "JOEV_9edaa44f7ecfeb52e0d3",
+        "JOEV_d9ede73d168258984b42",
+        "JOEV_de4ca33538b371395d0c",
+        "JOEV_e560c7bdf474dbe267bd",
+        "JOEV_efec37f241b0b29206b6",
+        "JOEV_febe0aa01c7ecb0fe23a"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 10,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "02573131000193",
+        "13331317000152",
+        "20531237000106",
+        "26729148000155",
+        "27931585000110",
+        "54179907000199",
+        "54483581000199",
+        "61384201000124",
+        "66029133000107"
+      ],
+      "supplier_count": 9,
+      "total_occurrence_count": 10
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "901.912/2025",
+      "event_count": 12,
+      "event_ids": [
+        "JOEV_1ca145ce5736c19721e0",
+        "JOEV_24312c2700da0669e6ab",
+        "JOEV_29c66d3028f3c75a73d4",
+        "JOEV_4308a7e7728b5cf2147e",
+        "JOEV_6214c79e23405b6998bf",
+        "JOEV_709440e9bdf8efe917c7",
+        "JOEV_715830f07ef021c14016",
+        "JOEV_76b0f6aa7e41b2ffd8e3",
+        "JOEV_91ea30c91ee0b95430e6",
+        "JOEV_935aab81c6746b8cbf11",
+        "JOEV_a500664f3d6fdac5a124",
+        "JOEV_ae0da74ab3f16202a8f5"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 12,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "02514617000150",
+        "02573131000193",
+        "08198623000203",
+        "18112610000142",
+        "20482920000109",
+        "27340262000151",
+        "49042895000116",
+        "53796457000110",
+        "57069019000101",
+        "62350851000111",
+        "66029133000107"
+      ],
+      "supplier_count": 11,
+      "total_occurrence_count": 12
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "902.275/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_53120560411a2dcf9716"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "902.281/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_083e522d4145e4d27580"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "37457979000131"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "902.622/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_26543e045b4b383e03d6"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "45438114000156"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "903.335/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_408398ac09d76e240e39"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "04063331000121"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "903.338/2025",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_2b0cfd22283e03e2ec48",
+        "JOEV_d26122bd331ab481219b"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 2,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "20657155000102",
+        "48097911000105"
+      ],
+      "supplier_count": 2,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "903.360/2025",
+      "event_count": 3,
+      "event_ids": [
+        "JOEV_740d312de2ecea30cdc6",
+        "JOEV_7f018dd178c23ca77151",
+        "JOEV_a4b3165c70f4b1014081"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 2,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS",
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "07707978000137",
+        "19517578000148"
+      ],
+      "supplier_count": 2,
+      "total_occurrence_count": 3
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "903.361/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_b5eca73ba1537159496b"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "07569029000138"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "903.457/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_ba1cc9372ea994fb1168"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "903.459/2026",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_c88926bcf94d42f6fffa"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "903.466/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_813426e3ab12f1556feb"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "45020855000112"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "903.523/2025",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_072b28bec7833d8305b9",
+        "JOEV_ea27bf9b27d4226d9954"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 2,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "03652030000685",
+        "21681325000157"
+      ],
+      "supplier_count": 2,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "903.589/2025",
+      "event_count": 10,
+      "event_ids": [
+        "JOEV_07fe14892a78828dd345",
+        "JOEV_3ab3f2ad57a5d7fe9b41",
+        "JOEV_46d5c77e3bcdf279300d",
+        "JOEV_51622c04486851fa555a",
+        "JOEV_5c05ee82ecb7640591a1",
+        "JOEV_babdad29fdf227799833",
+        "JOEV_c3861aaa42ea1a4eb4a9",
+        "JOEV_dde1c5f75f3f9918acd2",
+        "JOEV_fc697708b019221262cf",
+        "JOEV_fdb89fb2d6f8e3c40a54"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 10,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "01854654000145",
+        "07707978000137",
+        "07752236000476",
+        "12889035000293",
+        "24826631000122",
+        "51740794000160",
+        "55902597000151",
+        "59084310000184",
+        "61148037000156"
+      ],
+      "supplier_count": 9,
+      "total_occurrence_count": 10
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "903.590/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_f5bd7fd919e68f091507"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "22933544000149"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "903.641/2025",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_0f79253437e6e05c4adb",
+        "JOEV_6529a9e8c02382f565c7"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 2,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "26420698000198",
+        "51926481000100"
+      ],
+      "supplier_count": 2,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "903.705/2025",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_a0aef8830b53e911d095",
+        "JOEV_e3617bd0cb9062c9179b"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS",
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "903.706/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_e9604221f75a0969853c"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "13900798000170"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "903.709/2025",
+      "event_count": 3,
+      "event_ids": [
+        "JOEV_4425f2e5c59215d937e0",
+        "JOEV_5ed052dd7cae40c61e1a",
+        "JOEV_9bab029165a6a61122e6"
+      ],
+      "legacy_occurrence_count": 3,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "13851726000180",
+        "26729755000115",
+        "51740794000160"
+      ],
+      "supplier_count": 3,
+      "total_occurrence_count": 3
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "903.744/2025",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_042c9c285a8640444aee",
+        "JOEV_6a65975b2009140feab9"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 2,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "53819810000130",
+        "60083695000144"
+      ],
+      "supplier_count": 2,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "903.819/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_2dd98f877d7d0084d8e2"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "20918668000120"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "903.884/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_c71fc7dcf8d1346de8fb"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "903.886/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_5f39468952ba8387e5b5"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.078/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_c9927109d6bebb8128d9"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.101/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_1de46231555c9ef4f587"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "11195057000100"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.104/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_34211feafb2fbe59837c"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "17915708000175"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.107/2025",
+      "event_count": 15,
+      "event_ids": [
+        "JOEV_06f58d924edd5e1c9c2d",
+        "JOEV_0ede7205bce32468d09b",
+        "JOEV_3821eb08ca9263a4c0ce",
+        "JOEV_3dd65ae52938c6107b36",
+        "JOEV_60d934a860c04753b160",
+        "JOEV_7521eea1093eb2c38197",
+        "JOEV_7e3bc29179cfcf883d19",
+        "JOEV_8a9086581a33eb0c62ef",
+        "JOEV_8adb6aef09e9693b5aa7",
+        "JOEV_908bcf00f629a2e2e206",
+        "JOEV_928f987830cdd0d4799d",
+        "JOEV_94e9ec3670d695f76d43",
+        "JOEV_988c72d482f15ad85811",
+        "JOEV_ab521ae175f80eadf722",
+        "JOEV_f1fb607ed963204de2e9"
+      ],
+      "legacy_occurrence_count": 3,
+      "new_87_occurrence_count": 12,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS",
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "03652030000685",
+        "04307650001298",
+        "05005873000100",
+        "05782733000220",
+        "08231734000193",
+        "09944371000368",
+        "20202872000220",
+        "20918668000120",
+        "27817504000155",
+        "30526342000100",
+        "34771531000108",
+        "41365113000178",
+        "65817900000171",
+        "81706251000198"
+      ],
+      "supplier_count": 14,
+      "total_occurrence_count": 15
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.172/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_aee0b67b58b22b551b94"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.226/2025",
+      "event_count": 4,
+      "event_ids": [
+        "JOEV_18359ee90de167448ec1",
+        "JOEV_1f25e6f894b7c095e1d5",
+        "JOEV_5e24d228a1943318cac0",
+        "JOEV_a0954bb3d8755da68516"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 4,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "40968252000123",
+        "44025861000108",
+        "51740794000160"
+      ],
+      "supplier_count": 3,
+      "total_occurrence_count": 4
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.364/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_1d0e462f43e5c3b234f5"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "19451535000298"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.380/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_bff23bb4712d783a0954"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "24478981000145"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.446/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_67d27490b1fbeb86e7d1"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "14009370000102"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.452/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_24cd412822e223b25388"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.597/2025",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_b30dba371e40c0be46c8",
+        "JOEV_d02acd78a3491428fc29"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS",
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "05111611000120"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.607/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_312a62ade0ecaa18a189"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "28852086000108"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.621/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_6094d501d4c0f0f4867f"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "35459466000134"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.658/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_4f1bb42088271c81fc2b"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "24826631000122"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.690/2025",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_0d94a28280d1d521c3ef",
+        "JOEV_542b0074100b18c866ed"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 2,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "37078644000102",
+        "49087735000193"
+      ],
+      "supplier_count": 2,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.692/2025",
+      "event_count": 14,
+      "event_ids": [
+        "JOEV_1337176d7cf47e5145f7",
+        "JOEV_1aac65fc30717d8f3b56",
+        "JOEV_25a74a11cbfe4c668e94",
+        "JOEV_37115e366a934254ce7d",
+        "JOEV_493137cdbf958187e299",
+        "JOEV_527e56fc22d222301cc3",
+        "JOEV_55a3e112370dedb78238",
+        "JOEV_7202cec2581b3915575d",
+        "JOEV_74af0a694dee8856da56",
+        "JOEV_85abf32d634af947b5ec",
+        "JOEV_c3228d4b40a04bc21c3f",
+        "JOEV_c355797827eead8d409b",
+        "JOEV_c4d7e8f4ce93398bd5fd",
+        "JOEV_d96ce38429cb598358ce"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 14,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "04274988000138",
+        "04307650001298",
+        "04307650002502",
+        "05782733000220",
+        "08231734000193",
+        "10586940000168",
+        "11195057000100",
+        "14271474000182",
+        "20918668000120",
+        "27817504000155",
+        "28903792000123",
+        "30754325000120",
+        "65817900000171",
+        "82873068000816"
+      ],
+      "supplier_count": 14,
+      "total_occurrence_count": 14
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.726/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_9eadc94a055bb7988a08"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "36602037000137"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.774/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_3148d6e7aed2cef74ba0"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "59269654000168"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.803/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_f813314599d000678928"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.830/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_2782a7ef2f8f2d6d9cb2"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "33412137000102"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.868/2025",
+      "event_count": 5,
+      "event_ids": [
+        "JOEV_019179608e26b6ca746a",
+        "JOEV_72a25db0976de45dc51a",
+        "JOEV_7c0d7cc2bfdc58c56963",
+        "JOEV_8593a625f81a255bae48",
+        "JOEV_e4459d068fcf2a0f7cb1"
+      ],
+      "legacy_occurrence_count": 1,
+      "new_87_occurrence_count": 4,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS",
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "23638517000106",
+        "32227833000186",
+        "53438403000183"
+      ],
+      "supplier_count": 3,
+      "total_occurrence_count": 5
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.927/2025",
+      "event_count": 7,
+      "event_ids": [
+        "JOEV_028127f4abd68f97d615",
+        "JOEV_75bd9191c61749f1b6dc",
+        "JOEV_8e3153ee169069b6cfd7",
+        "JOEV_9d69a49c07c26a7d85d8",
+        "JOEV_c354b4de2b111fd27eca",
+        "JOEV_c4022e4df7552a2fed14",
+        "JOEV_eaac7bac48c3bbd939d7"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 7,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "07569029000138",
+        "14271474000182",
+        "20918668000120",
+        "25279552000101",
+        "26918586000161"
+      ],
+      "supplier_count": 5,
+      "total_occurrence_count": 7
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.944/2025",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_1aba54e2c984ee31e8b2",
+        "JOEV_76c9d596f7ea3dbdaa42"
+      ],
+      "legacy_occurrence_count": 2,
+      "new_87_occurrence_count": 0,
+      "source_corpora": [
+        "LEGACY_12_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "41774511000148",
+        "61485900001132"
+      ],
+      "supplier_count": 2,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.975/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_c9755fa9021dc5c6f452"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "46245398000127"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "904.981/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_d2163173940335ec635b"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.026/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_58a2815469d876a19165"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "15287270000100"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.038/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_fb7d6b263f3ee436d70a"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "61149829000145"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.039/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_7f1a8695210b94b5e5d9"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "61149829000145"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.098/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_8881ee7604400eab1808"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "67729178000491"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.100/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_3d9c11a8f9e4fb6ad631"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.121/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_aa050410fef2cf942f70"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.154/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_3e1e6ea4dc043e9edc1e"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "08170849000115"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.167/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_85674818b827a4ac3348"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "24950579000111"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.174/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_a0005a07972a2648165f"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "61418141000113"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.187/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_c3e6af4cb0a8638eec21"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.199/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_1066de9f9ae23974a6e6"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.211/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_2b8e95226f1c41f34975"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.231/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_b6c7f1dfea59a92fde1e"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "54017108000116"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.234/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_b786b446802ee00eafec"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.235/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_dd53e0aa5c55fbbcf0d8"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "20202872000220"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.236/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_b11446d6bcb4ddd634ea"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "05847630000110"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.237/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_a9c90a03ea7f4f5e5873"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "28123417000160"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.241/2025",
+      "event_count": 6,
+      "event_ids": [
+        "JOEV_0839589f7417ec8e24e5",
+        "JOEV_1f98bab29f6cf5bc3c05",
+        "JOEV_497c2b32840f1c19cdf2",
+        "JOEV_51d786ecd618e3cdf2e0",
+        "JOEV_c30cc2611d47628938b4",
+        "JOEV_f17de2ac78785d73b715"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 6,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "01107391001263",
+        "03649725000101",
+        "07569029000138",
+        "26234900000197",
+        "26918586000161",
+        "69299360000132"
+      ],
+      "supplier_count": 6,
+      "total_occurrence_count": 6
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.274/2025",
+      "event_count": 3,
+      "event_ids": [
+        "JOEV_9606dcbdef0447ec609c",
+        "JOEV_dfaade7efc93aef44faa",
+        "JOEV_ef0925503401ab70b88b"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 3,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "26257112000116",
+        "27595780000116"
+      ],
+      "supplier_count": 2,
+      "total_occurrence_count": 3
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.284/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_24a630d3861e784fa33a"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "54017108000116"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.297/2025",
+      "event_count": 4,
+      "event_ids": [
+        "JOEV_1e1f866680ada8504250",
+        "JOEV_4049cc29753c43026652",
+        "JOEV_b1b62fa28f0038faab79",
+        "JOEV_d6d36cb492c4a9e7ad09"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 4,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "02514617000150",
+        "02573131000193",
+        "38240496000143"
+      ],
+      "supplier_count": 3,
+      "total_occurrence_count": 4
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.349/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_15ac771b97e5aebe7c04"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.361/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_67a6c343a7aae7004d23"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "26801465000135"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.429/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_b759ec3c70d9906c2974"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "66834557000136"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.430/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_2e5c0e2ee934961ec4db"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.451/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_473275acebdce24d65dc"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "02514617000150"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.453/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_0a4ab5db5c536f28773e"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "60184905000190"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.462/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_ebb430b52732bba1f543"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "24950579000111"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.481/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_7c18ce6498776baef988"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "12222819000182"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.484/2025",
+      "event_count": 2,
+      "event_ids": [
+        "JOEV_035cf58e620f0207630d",
+        "JOEV_138265a4a908897862d6"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 2,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "22525517000137",
+        "51740794000160"
+      ],
+      "supplier_count": 2,
+      "total_occurrence_count": 2
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.488/2025",
+      "event_count": 7,
+      "event_ids": [
+        "JOEV_393eb9330e13abcf1a23",
+        "JOEV_63207da4fb5097172ac7",
+        "JOEV_6bb9b5b012782d8e29af",
+        "JOEV_858f5e9c79c9f3999b12",
+        "JOEV_8ee3ce07dbc5ff238aa7",
+        "JOEV_c22a9a7ea355a5ee2902",
+        "JOEV_f3e2fbaa9e7d77634037"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 7,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "05782733000220",
+        "14271474000182",
+        "20202872000220",
+        "27455068000111",
+        "36325157000134",
+        "65817900000171",
+        "81706251000198"
+      ],
+      "supplier_count": 7,
+      "total_occurrence_count": 7
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.493/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_bceb2220c5bfe80f7ad7"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "44734671002286"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.494/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_aec07a00457ca22506cd"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "23399227000157"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.522/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_f556c4be5fd3bf313406"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "49324221000104"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.528/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_2d7c55ce275679ee5bd4"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "51473692000126"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.540/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_d6794b1e85a43151531b"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "05702124000132"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.571/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_3b5108c84477f3c4d056"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "29402150000103"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.575/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_fae1109f67b2afd58315"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "64141708000145"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.577/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_863319d1bc6781311e87"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "04531017000126"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.580/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_824d011fb9df645eeb3b"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [
+        "46245398000127"
+      ],
+      "supplier_count": 1,
+      "total_occurrence_count": 1
+    },
+    {
+      "anchor_type": "PROCESS_IDENTITY",
+      "anchor_value": "905.581/2025",
+      "event_count": 1,
+      "event_ids": [
+        "JOEV_0a22fe944151d24a4552"
+      ],
+      "legacy_occurrence_count": 0,
+      "new_87_occurrence_count": 1,
+      "source_corpora": [
+        "NEW_87_EDITIONS"
+      ],
+      "supplier_cnpjs": [],
+      "supplier_count": 0,
+      "total_occurrence_count": 1
+    }
+  ],
+  "identity_grain": "one exact administrative identifier type plus normalized value",
+  "schema": "TASK219B_FULL_99_EDITION_STRONG_IDENTITY_INDEX_V1",
+  "source": {
+    "legacy_fixture": "docs/evidence/fixtures/TASK_184_JOM_303_VALIDATED_EVENTS.jsonl",
+    "legacy_fixture_sha256": "1afd82853402d2ea6db7ad28fb6564de4a4ab28570c16ea9c7e4e0366cb5c733",
+    "task219a_anchor_sha256": "20300dcdf25dae5834ca4069e99fc6a25d2bfa6f1c8e7489921df7cb9a48a0bf",
+    "task219a_artifact_id": 10105583802,
+    "task219a_run_id": 34354027245
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schema": "TASK112_REAL_PPA_2018_2021_OCR_RESULT_V1",
+  "task": "TASK_112_REAL_PPA_2018_2021_OCR",
+  "status": "NO_MATCH_TASK112_EXPECTED_PLANNING_SIGNAL_NOT_FOUND",
+  "document": {
+    "law_number": "5.947",
+    "page_count": 80,
+    "pages_ocr_scanned": 80,
+    "period": "2018-2021",
+    "pypdf_extracted_text_chars": 0
+  },
+  "law_identity": {
+    "confidence_count": 353,
+    "confidence_max": 97.015907,
+    "confidence_mean": 94.20056408498583,
+    "confidence_min": 0,
+    "coordinate_system": "SOURCE_PDF_PAGE_1_BASED",
+    "excerpt": "MUNICIP LEI N O 5 947 DE 12 DE DEZEMBRO DE 2017 PS AL OG PROJETO DE LEI NO 240 17 DO PREFEITO MUNICIPAL MARIO CELSO BOTION ESTABELECE O PLANO PLURIANUAL DO MUNICIPIO PARA O PERIODO DE 2018 2021 E DEFINE AS METAS E PRIORIDADES DA ADMINISTRACA",
+    "ocr_tsv_sha256": "ae8fdb489de7783326ea9fe6d3f1ab0a72cb6ea084ce846e658b9b2208836bb0",
+    "page": 1,
+    "rendered_page_sha256": "76479c5b3d9bec19aa23c173ab1396813710140cbe0314506af8a8b1af666ed0"
+  },
+  "planning_signal": null,
+  "source": {
+    "content_type": "application/pdf",
+    "final_url": "https://www.limeira.sp.gov.br/sitenovo/downloads/0fa1a5cc5c9a1823fbf5436def00f01f.pdf",
+    "request_count": 1,
+    "requested_url": "https://www.limeira.sp.gov.br/sitenovo/downloads/0fa1a5cc5c9a1823fbf5436def00f01f.pdf",
+    "requests": [
+      {
+        "host": "www.limeira.sp.gov.br",
+        "kind": "INITIAL",
+        "method": "GET",
+        "ordinal": 1,
+        "path": "/sitenovo/downloads/0fa1a5cc5c9a1823fbf5436def00f01f.pdf"
+      }
+    ],
+    "source_bytes": 3252087,
+    "source_sha256": "685a621a2f5fa8859e4b7f8518627c1523a2fbc5f3402ff48d4aa7573300113d"
+  },
+  "hard_boundaries": {
+    "bronze_writes": 0,
+    "causal_effect_assertions": 0,
+    "drive_reads": 0,
+    "drive_writes": 0,
+    "financial_identity_assertions": 0,
+    "gold_writes": 0,
+    "implementation_assertions": 0,
+    "publications": 0,
+    "queue_writes": 0,
+    "serving_writes": 0,
+    "silver_writes": 0,
+    "state_registry_writes": 0,
+    "transaction_execution_identity_assertions": 0
+  },
+  "retry_performed": false,
+  "recurrence": false,
+  "schedule": false,
+  "future_execution_authorized": false,
+  "result_canonical_sha256": "89d5c2063002a21321d63ffe8e96c3426e845506a478303b211d6e14cf79e79c"
+}

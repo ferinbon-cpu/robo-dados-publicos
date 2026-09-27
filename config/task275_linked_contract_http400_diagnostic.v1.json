@@ -1,0 +1,142 @@
+{
+  "schema": "TASK275_LINKED_CONTRACT_HTTP400_DIAGNOSTIC_V1",
+  "task": "TASK_275",
+  "issue": 885,
+  "base_main_sha": "a070989d599b49a896ddbd2ce90fb948e4a80b71",
+  "source_task274": {
+    "implementation_sha": "a070989d599b49a896ddbd2ce90fb948e4a80b71",
+    "run_id": 35401545695,
+    "job_id": 105782310295,
+    "runtime_head_sha": "8a7d9dcb359fb32cf19377e3f0f632bc6783f8f9",
+    "artifact_id": 10571510614,
+    "artifact_zip_sha256": "95390629a55ad2703fdd475068a9faab1adf56e3558abe81a6fa0a0ccbb53166",
+    "body_sha256": "820b74d556395b9a255ae2323dfeda660ac57153f1605ca0b7d3aefcd5f6d52c",
+    "http_code": 400,
+    "json_shape": "OBJECT",
+    "body_bytes": 252,
+    "outcome": "LINKED_CONTRACT_ROUTE_UNRESOLVED_OBSERVATION"
+  },
+  "documentation": {
+    "manual_version": "2.6",
+    "service": "Consultar Contratos/Empenhos de uma Contratação",
+    "endpoint": "/v1/orgaos/{cnpj}/contratos/contratacao/{anoContratacao}/{sequencialContratacao}",
+    "method": "GET",
+    "example_accept_header": "*/*",
+    "source_url": "https://pncp.gov.br/manual/pt-br/latest/contrato_empenho/consultar_contratos_ou_empenhos_de_uma_contratacao.html"
+  },
+  "target": {
+    "purchase_control": "45132495000140-1-000645/2026",
+    "cnpj": "45132495000140",
+    "anoContratacao": 2026,
+    "sequencialContratacao": 645,
+    "url": "https://pncp.gov.br/api/pncp/v1/orgaos/45132495000140/contratos/contratacao/2026/645"
+  },
+  "contract_projection": {
+    "scalar_fields": [
+      "anoContrato",
+      "dataAssinatura",
+      "dataAtualizacao",
+      "dataPublicacaoPncp",
+      "dataVigenciaFim",
+      "dataVigenciaInicio",
+      "emendaParlamentar",
+      "frutoAdesao",
+      "identificadorCipi",
+      "numeroContratoEmpenho",
+      "numeroControlePNCP",
+      "numeroControlePNCPCompra",
+      "numeroControlePncpAta",
+      "numeroParcelas",
+      "numeroRetificacao",
+      "objetoContrato",
+      "processo",
+      "receita",
+      "sequencialContrato",
+      "temRemanejamento",
+      "urlCipi",
+      "valorAcumulado",
+      "valorGlobal",
+      "valorInicial",
+      "valorParcela"
+    ],
+    "nested_fields": {
+      "tipoContrato": [
+        "id",
+        "nome"
+      ],
+      "categoriaProcesso": [
+        "id",
+        "nome"
+      ],
+      "orgaoEntidade": [
+        "cnpj",
+        "razaoSocial",
+        "poderId",
+        "esferaId"
+      ],
+      "unidadeOrgao": [
+        "codigoUnidade",
+        "nomeUnidade",
+        "municipioId",
+        "municipioNome",
+        "ufSigla",
+        "ufNome"
+      ]
+    },
+    "excluded_fields": [
+      "usuarioNome",
+      "tipoPessoa",
+      "niFornecedor",
+      "nomeRazaoSocialFornecedor",
+      "tipoPessoaSubContratada",
+      "niFornecedorSubContratado",
+      "nomeFornecedorSubContratado",
+      "informacaoComplementar",
+      "trace",
+      "stackTrace"
+    ]
+  },
+  "diagnostic_projection": {
+    "allowed_scalar_fields": [
+      "detail",
+      "error",
+      "instance",
+      "message",
+      "path",
+      "requestId",
+      "status",
+      "timestamp",
+      "title"
+    ],
+    "max_string_chars": 500,
+    "unknown_scalar_values_persisted": false,
+    "key_inventory_persisted": true
+  },
+  "probe": {
+    "max_remote_get_count": 1,
+    "connect_timeout_seconds": 15,
+    "max_time_seconds": 75,
+    "max_body_bytes": 1048576,
+    "retry": false,
+    "follow_redirects": false,
+    "alternate_url_discovery": false,
+    "pagination": false,
+    "raw_body_persistence": false,
+    "traverse_returned_contracts": false,
+    "accept_header": "*/*"
+  },
+  "runtime": {
+    "branch": "task-275-linked-contract-http400-diagnostic-runtime",
+    "authorization_file": "runtime/task275_owner_authorization.json",
+    "trigger_file": "runtime_triggers/task275_linked_contract_http400_diagnostic.run",
+    "artifact_name": "task-275-linked-contract-http400-diagnostic-sanitized"
+  },
+  "authorization": {
+    "required_operation": "EXACT_1_PNCP_LINKED_CONTRACT_HTTP400_DIAGNOSTIC_645",
+    "exact_implementation_sha_required": true,
+    "source_network_authorized_by_default": false,
+    "prior_authorization_reuse_allowed": false
+  },
+  "canonical_prior_state": "LINKED_CONTRACT_645_HTTP400_UNRESOLVED_NO_ABSENCE_INFERENCE",
+  "next_gate": "RUN_EXACT_MANUAL_HEADER_DIAGNOSTIC_AFTER_MERGED_TASK275_SHA"
+}
