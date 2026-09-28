@@ -132,13 +132,10 @@ python -m unittest discover -s tests -p 'test_task_283*' -v
 
 A saída corrente deve permanecer `UNRESOLVED_MISSING_OFFICIAL_NAMESPACE_WITNESS` enquanto nenhum testemunho positivo for materializado.
 
-## Próximo gate se continuar UNRESOLVED
+## Próximo passo fora do escopo desta PR
 
-Uma aquisição live posterior deve ser uma operação separada, bounded e materializada antes da execução. Prioridades:
+A TASK283 termina no estado `UNRESOLVED_MISSING_OFFICIAL_NAMESPACE_WITNESS` e não contém implementação de aquisição remota.
 
-1. TASK284 / issue #907: a sessão autorizada terminou em `STOP_AREA_IDENTITY_NOT_PROVEN_BEFORE_TOP_ACTION`, com uma navegação e nenhuma consulta. A autorização foi consumida; consultar a evidência própria, sem repetir a sessão;
-2. obter Nota de Empenho original ou extrato de integração do sistema municipal que vincule `03286-01`, número contábil 3286, exercício original 2026 e Prefeitura de Limeira; a mera resposta a um filtro numérico não basta;
-3. alternativamente, obter documentação oficial da convenção aplicável à versão municipal, explicando zeros e `-01`;
-4. rota AUDESP: remessa `Empenho de Contrato` desse par número/ano, remessa `Ajuste` que ligue `codigoContrato` ao Contrato 45/2026, identificação oficial dos códigos município/entidade e crosswalk de origem preservando `03286-01`. Não presumir que `45/2026` seja o `codigoContrato`.
+A investigação operacional posterior é rastreada separadamente na issue #907 / TASK284. Seu contrato, evidência, política e testes não fazem parte desta PR T0. O resultado histórico já observado foi um STOP antes de qualquer consulta ao empenho; isso não altera a adjudicação da TASK283 nem constitui evidência negativa.
 
-A task não deve voltar ao PNCP nem repetir descoberta de fornecedor/contrato.
+O próximo testemunho útil continua sendo um artefato oficial que ligue `03286-01` ao número contábil 3286, exercício original 2026 e Prefeitura de Limeira, ou uma convenção oficial aplicável que explique deterministicamente zeros e o sufixo `-01`. A task não deve voltar ao PNCP nem promover pagamentos.
