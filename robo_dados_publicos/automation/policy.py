@@ -125,6 +125,30 @@ def validate_policy(policy: dict[str, Any]) -> dict[str, Any]:
                 and all(isinstance(item, str) and bool(item) for item in validation_triggers),
                 f"STOP_VALIDATION_ONLY_TRIGGERS_INVALID_{gate_id}",
             )
+            script = gate.get("script")
+            _require(
+                isinstance(script, str) and bool(script.strip()),
+                f"STOP_VALIDATION_ONLY_SCRIPT_MISSING_{gate_id}",
+            )
+            contract = gate.get("contract")
+            _require(
+                isinstance(contract, str) and bool(contract.strip()),
+                f"STOP_VALIDATION_ONLY_CONTRACT_MISSING_{gate_id}",
+            )
+            _require(
+                gate.get("credential_capability") == "NONE",
+                f"STOP_VALIDATION_ONLY_CREDENTIAL_CAPABILITY_{gate_id}",
+            )
+            _require(
+                gate.get("remote_materialization_authorized") is False,
+                f"STOP_VALIDATION_ONLY_REMOTE_MATERIALIZATION_{gate_id}",
+            )
+            blockers = gate.get("blockers")
+            _require(
+                isinstance(blockers, list) and bool(blockers)
+                and all(isinstance(item, str) and bool(item) for item in blockers),
+                f"STOP_VALIDATION_ONLY_BLOCKERS_INVALID_{gate_id}",
+            )
 
         if auto_allowed:
             _require(tier in AUTO_ALLOWED_TIERS, f"STOP_AUTO_TIER_NOT_ELIGIBLE_{gate_id}")

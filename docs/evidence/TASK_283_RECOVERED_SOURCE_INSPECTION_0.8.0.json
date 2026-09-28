@@ -1,0 +1,133 @@
+{
+  "schema": "TASK283_RECOVERED_SOURCE_INSPECTION_V1",
+  "observed_date": "2026-09-26",
+  "status": "UNRESOLVED_MISSING_OFFICIAL_NAMESPACE_WITNESS",
+  "source_origin": "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+  "recovery_method": "OWNER_ARCHIVE_OFFLINE_BYTES_MATCH_TASK219AA_SHA256",
+  "source_http_requests_for_recovery": 0,
+  "xlsx_inspections": [
+    {
+      "bytes": 7329,
+      "core_creation_or_modification_timestamp_present": false,
+      "defined_names": 0,
+      "dimensions": null,
+      "exact_cell_3286_2026_present": false,
+      "exact_cell_3286_present": false,
+      "external_relationships": 0,
+      "formulas": 0,
+      "hidden_columns": 0,
+      "hidden_rows": 0,
+      "kind": "empenhado",
+      "namespace_witness_proven": false,
+      "selected_cells": {
+        "A19": "Nro Empenho",
+        "A20": "03286-01",
+        "B19": "Nro Processo",
+        "B2": "Dados produzidos por:",
+        "B20": "E00010/2026",
+        "B3": "Data Inicial",
+        "B4": "Data Final",
+        "C2": "Limeira - Prefeitura",
+        "C3": "2026/01/01",
+        "C4": "2026/09/30"
+      },
+      "sha256": "08c10cb019f93ec408b4b8d30afa5474594a13a36d030e988a1503007c175735",
+      "sheet": "Plan1",
+      "sheet_state": "visible",
+      "zip_members": [
+        "[Content_Types].xml",
+        "_rels/.rels",
+        "docProps/app.xml",
+        "docProps/core.xml",
+        "xl/_rels/workbook.xml.rels",
+        "xl/sharedStrings.xml",
+        "xl/styles.xml",
+        "xl/theme/theme1.xml",
+        "xl/workbook.xml",
+        "xl/worksheets/_rels/sheet1.xml.rels",
+        "xl/worksheets/sheet1.xml"
+      ]
+    },
+    {
+      "bytes": 6712,
+      "core_creation_or_modification_timestamp_present": false,
+      "defined_names": 0,
+      "dimensions": null,
+      "exact_cell_3286_2026_present": false,
+      "exact_cell_3286_present": false,
+      "external_relationships": 0,
+      "formulas": 0,
+      "hidden_columns": 0,
+      "hidden_rows": 0,
+      "kind": "detail",
+      "namespace_witness_proven": false,
+      "selected_cells": {
+        "A5": "Nro Empenho",
+        "A6": "03286-01",
+        "B2": "Exercício",
+        "B3": "Nro Empenho",
+        "C2": "2026",
+        "C3": "03286-01"
+      },
+      "sha256": "1ed530c19958cc27b19ed5b418e4482cdd1c53fcdf7b8689029ba2ac62c1d2f3",
+      "sheet": "Plan1",
+      "sheet_state": "visible",
+      "zip_members": [
+        "[Content_Types].xml",
+        "_rels/.rels",
+        "docProps/app.xml",
+        "docProps/core.xml",
+        "xl/_rels/workbook.xml.rels",
+        "xl/sharedStrings.xml",
+        "xl/styles.xml",
+        "xl/theme/theme1.xml",
+        "xl/workbook.xml",
+        "xl/worksheets/_rels/sheet1.xml.rels",
+        "xl/worksheets/sheet1.xml"
+      ]
+    }
+  ],
+  "contract_pdf": {
+    "original_filename": "00000-=contrato_45_2026.pdf",
+    "bytes": 11912627,
+    "sha256": "1c202a188bd3a2a6dc0babc0d29e8c56594462f80b1e64df2c551b5b3be7f5a3",
+    "identity_role": "ALREADY_CANONIZED_CONTRACT_TO_PROCUREMENT",
+    "inspection": "21 pages; extracted text contains neither 03286-01 nor 3286-2026; clause 5.5 mentions supplementary/rectification commitment notes, without a numbering convention. No new namespace proof."
+  },
+  "findings": {
+    "empenhado_identity_cells": "Plan1!A20=03286-01; B20=E00010/2026",
+    "entity_context": "Plan1!B2=Dados produzidos por:; C2=Limeira - Prefeitura",
+    "detail_filter": "Plan1!B2=Exercício; C2=2026; B3=Nro Empenho; C3=03286-01",
+    "detail_result": "Plan1!A5=Nro Empenho; A6=03286-01",
+    "accounting_number_field_3286_present": false,
+    "suffix_semantics_present": false,
+    "hidden_crosswalk_found": false,
+    "generation_times_in_visible_A1": "Empenhado 10/09/26 18:24; Detalhe 10/09/26 18:30",
+    "ooxml_core_timestamps_absent": true,
+    "do_not_use_library_download_time_or_parser_default_as_source_timestamp": true
+  },
+  "audesp_route": {
+    "source_url": "https://www.tce.sp.gov.br/sites/default/files/audesp-documentacao/Novo%20Modelo%20da%20Fase%20IV_2026_v02_externo.xlsx",
+    "sha256": "3dbd2061d14c0f3eb70adbf87b23d9725014c5e583d69175b7d0598141ee4e5d",
+    "localizers": [
+      "Empenho de Contrato!B4:H9",
+      "Ajuste!C12:I14"
+    ],
+    "required_relation": [
+      "municipio",
+      "entidade",
+      "codigoContrato",
+      "numeroEmpenho",
+      "anoEmpenho"
+    ],
+    "scope": "Layout defines keyed contract-commitment relation, not a record of this case. G8:G9 specify an indicative check against entity balancete account 5.2.2.9.2.01.01 for municipal bodies. Original TDA identifier/convention and numeric entity mapping remain required.",
+    "json_schema_url": "https://www.tce.sp.gov.br/sites/default/files/audesp-documentacao/empenho-JSONSchemaeExemplo_1.zip",
+    "json_zip_sha256": "4ec9b98b319a004299154b81abd9f9deecd9ef546add754502218ef7aea10b44",
+    "json_localizer": "empenho_schema.json#/properties/descritor/properties/numeroEmpenho",
+    "json_number_pattern": "^[1-9][0-9]{0,34}$",
+    "interpretation": "Destination grammar excludes 03286-01. It does not specify any source transformation, and cannot authorize stripping zeroes/suffix."
+  },
+  "missing_proposition": "Official relation between TDA 03286-01 and accounting number 3286, original year 2026, Prefeitura Municipal de Limeira; or official numbering convention applicable to this source/version explaining both zero padding and suffix -01.",
+  "payment_attribution_authorized": false,
+  "raw_binaries_added_to_public_repository": false
+}
