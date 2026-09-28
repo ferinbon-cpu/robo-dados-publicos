@@ -456,6 +456,35 @@
       "no_workflow_trigger": true,
       "manual_execution_required": true,
       "task_runtime_auto_execution": false
+    },
+    {
+      "id": "TASK284_TDA_NAMESPACE_ACQUISITION",
+      "tier": "T1_REMOTE_READONLY",
+      "auto_allowed": false,
+      "credential_capability": "NONE",
+      "credential_capability_detail": "MANUAL_PUBLIC_BROWSER_NO_AUTH_NO_AUTOMATIC_ELIGIBILITY",
+      "effects": {
+        "source_network": true,
+        "drive_reads": false,
+        "drive_writes": false,
+        "publication": false
+      },
+      "current_triggers": [],
+      "workflow_added": false,
+      "no_workflow_trigger": true,
+      "manual_execution_required": true,
+      "owner_authorization_required": true,
+      "task_runtime_auto_execution": false,
+      "contract": "config/task284_tda_namespace_acquisition.v1.json",
+      "historical_result": "docs/evidence/TASK_284_TDA_NAMESPACE_ACQUISITION_0.8.0.json",
+      "authorization_consumed": true,
+      "new_session_or_retry_authorized": false,
+      "blockers": [
+        "AUTOMATIC_EXECUTION_NOT_AUTHORIZED",
+        "READ_ONLY_CREDENTIAL_NOT_PROVEN",
+        "AUTHORIZATION_CONSUMED",
+        "NO_RETRY_OR_NEW_SESSION_AUTHORIZED"
+      ]
     }
   ],
   "agentic_work": {
