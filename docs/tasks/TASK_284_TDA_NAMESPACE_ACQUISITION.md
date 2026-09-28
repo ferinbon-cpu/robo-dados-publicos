@@ -26,3 +26,11 @@ Alternativamente, custodiar as remessas reais `Empenho de Contrato` e `Ajuste`, 
 ## Resultado da sessão autorizada
 
 `STOP_AREA_IDENTITY_NOT_PROVEN_BEFORE_TOP_ACTION`. A página oficial carregou e os quatro bindings inline da área Despesa reproduziram o mesmo destino. A identidade AreaOrigin não pôde ser comprovada na superfície DOM disponível. Por isso houve 1 navegação, 0 aberturas de área, 0 consultas, 0 retries e 0 PNCP. Não é consulta negativa nem ausência de empenho. A contagem HTTP total de subrecursos não é exposta pelo navegador. Evidência sanitizada: `docs/evidence/TASK_284_TDA_NAMESPACE_ACQUISITION_0.8.0.json`. Autorização desta sessão consumida; nenhum executor reutilizável ou retry foi habilitado.
+
+## Governança e resposta ao review
+
+O DeepSeek run 36316780069, tentativa 2, revisou o head `8276ac4a96095af7b9a766f7848fa11cece173e1` e retornou CHANGES_REQUESTED (review SHA-256 `544126ca0ed2c9379e90153fdc1dac03a0a667d007683dd9100a2f7a70fa8859`). O parecer afirmou ausência de credential_capability/blockers e habilitação automática. Esses campos já estavam presentes: `PUBLIC_BROWSER_NO_AUTH`, `auto_allowed=false`, blockers explícitos e ausência de workflow/trigger. Não se alega credencial read-only comprovada nem elegibilidade automática.
+
+AGENTS.md §§5 e 7 condiciona **perder o clique humano**, não a classificação de leitura manual pública, à credencial read-only comprovada. A autorização operacional veio do prompt explícito do proprietário (registrada no contrato e na issue #907); não do agente ou do tier. O próprio `evaluate_gate()` retorna `BLOCK/POLICY_AUTO_ALLOWED_FALSE`. Testes agora exercitam o validador central e a mutação `auto_allowed=true`, que para em `STOP_AUTO_READONLY_CREDENTIAL_NOT_PROVEN`. Não se reclassifica leitura para T2/T3 nem se remove o gate para obter aprovação.
+
+Mudanças de política continuam exigindo revisão explícita antes de merge, e o autor não pode fazer self-merge (AGENTS.md §12). A #905 é a PR real, empilhada; a #906 existe apenas para executar os workflows de main sobre o mesmo head e deve ser fechada, nunca mesclada. O review anterior não foi sobrescrito nem declarado PASS; o novo head requer nova revisão. O teste de contexto também mantém um limite fixo separado que rejeita políticas obrigatórias maiores que o orçamento, sem alterar a política de produção.

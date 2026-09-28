@@ -4,11 +4,39 @@ from pathlib import Path
 import unittest
 from unittest.mock import patch
 from copy import deepcopy
+from robo_dados_publicos.automation.policy import (
+    AutomationPolicyError, evaluate_gate, load_policy, validate_policy,
+)
 from robo_dados_publicos.research.task283_tda_tce_namespace_dossier import Task283Stop
 from robo_dados_publicos.research.task284_tda_binding_gate import load_contract, validate_binding
 
 
 class Task284BindingTests(unittest.TestCase):
+    def test_central_policy_blocks_task284_automatic_execution(self):
+        policy = load_policy(Path(__file__).resolve().parents[1])
+        self.assertEqual(validate_policy(policy)["status"], "PASS_AUTOMATION_POLICY_STRUCTURE")
+        gate = next(g for g in policy["gates"] if g["id"] == "TASK284_TDA_NAMESPACE_ACQUISITION")
+        self.assertEqual(gate["tier"], "T1_REMOTE_READONLY")
+        self.assertEqual(gate["credential_capability"], "PUBLIC_BROWSER_NO_AUTH")
+        self.assertFalse(gate["auto_allowed"])
+        self.assertFalse(gate["task_runtime_auto_execution"])
+        self.assertTrue(gate["manual_execution_required"])
+        self.assertTrue(gate["owner_authorization_required"])
+        self.assertEqual(gate["current_triggers"], [])
+        self.assertFalse(gate["workflow_added"])
+        self.assertNotIn("workflow", gate)
+        self.assertIn("AUTOMATIC_EXECUTION_NOT_AUTHORIZED", gate["blockers"])
+        decision = evaluate_gate(policy, gate["id"])
+        self.assertEqual(decision["decision"], "BLOCK")
+        self.assertEqual(decision["reason"], "POLICY_AUTO_ALLOWED_FALSE")
+
+    def test_enabling_automatic_execution_without_proven_capability_stops(self):
+        policy = load_policy(Path(__file__).resolve().parents[1])
+        gate = next(g for g in policy["gates"] if g["id"] == "TASK284_TDA_NAMESPACE_ACQUISITION")
+        gate["auto_allowed"] = True
+        with self.assertRaisesRegex(AutomationPolicyError, "STOP_AUTO_READONLY_CREDENTIAL_NOT_PROVEN"):
+            evaluate_gate(policy, gate["id"])
+
     def test_consumed_gate_records_no_query_and_does_not_infer_absence(self):
         root = Path(__file__).resolve().parents[1]
         evidence = json.loads((root / "docs/evidence/TASK_284_TDA_NAMESPACE_ACQUISITION_0.8.0.json").read_text())

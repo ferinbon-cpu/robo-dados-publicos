@@ -111,6 +111,16 @@ class TestDeepSeekReviewBootstrap(unittest.TestCase):
         self.assertIn("DIFF_TRUNCATED_BY_CONTEXT_BUILDER", pack.text)
         self.assertLessEqual(pack.chars, budget)
 
+    def test_fixed_budget_rejects_oversized_trusted_context(self):
+        policy = json.loads(json.dumps(self.policy))
+        policy["api"]["max_context_chars"] = 10000
+        with patch(
+            "robo_dados_publicos.automation.deepseek_review._read_required",
+            return_value="mandatory_policy" * 1000,
+        ):
+            with self.assertRaisesRegex(DeepSeekReviewError, "TRUSTED_CONTEXT_TOO_LARGE"):
+                build_context_pack(pr_title="x", pr_body="y", pr_diff="", policy=policy)
+
     def test_payload_is_json_and_model_allowlisted(self):
         context = ContextPack("ctx", "a" * 64, 3, False)
         payload = build_review_payload(context, policy=self.policy)
