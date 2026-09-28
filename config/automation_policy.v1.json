@@ -455,7 +455,16 @@
       "validation_only": true,
       "no_workflow_trigger": true,
       "manual_execution_required": true,
-      "task_runtime_auto_execution": false
+      "task_runtime_auto_execution": false,
+      "script": "robo_dados_publicos/research/task283_tda_tce_namespace_dossier.py",
+      "contract": "config/task283_tda_tce_namespace_dossier.v1.json",
+      "credential_capability": "NONE",
+      "remote_materialization_authorized": false,
+      "blockers": [
+        "NO_AUTOMATIC_EXECUTION_SURFACE",
+        "NO_REMOTE_EFFECTS_AUTHORIZED",
+        "FUTURE_AUTOMATION_REQUIRES_SEPARATE_POLICY_REVIEW"
+      ]
     }
   ],
   "agentic_work": {
