@@ -387,6 +387,35 @@ class Task282OfflineIdentityTests(unittest.TestCase):
         ):
             validate_policy(policy)
 
+        required_cases = [
+            ("script", None, "STOP_VALIDATION_ONLY_SCRIPT_MISSING"),
+            ("contract", "", "STOP_VALIDATION_ONLY_CONTRACT_MISSING"),
+            (
+                "credential_capability",
+                "READ_ONLY_PROVEN",
+                "STOP_VALIDATION_ONLY_CREDENTIAL_CAPABILITY",
+            ),
+            (
+                "remote_materialization_authorized",
+                True,
+                "STOP_VALIDATION_ONLY_REMOTE_MATERIALIZATION",
+            ),
+            ("blockers", [], "STOP_VALIDATION_ONLY_BLOCKERS_INVALID"),
+        ]
+        for field, value, code in required_cases:
+            with self.subTest(required_field=field):
+                policy = deepcopy(base)
+                gate = next(
+                    row for row in policy["gates"]
+                    if row["id"] == "TASK282_PNCP_TCE_OFFLINE_IDENTITY"
+                )
+                if value is None:
+                    gate.pop(field, None)
+                else:
+                    gate[field] = value
+                with self.assertRaisesRegex(AutomationPolicyError, code):
+                    validate_policy(policy)
+
     def test_supplier_conflict_exception_does_not_leak_raw_or_fingerprint(self):
         rows = [deepcopy(r) for r in self.rows if row_key(r) == self.key]
         marker = "FIXTURE_SUPPLIER_CONFLICT_MARKER"
