@@ -1,0 +1,32 @@
+{
+  "schema": "TASK284_TDA_NAMESPACE_ACQUISITION_V1",
+  "task": "TASK_284",
+  "issue": 907,
+  "tier": "T1_REMOTE_READONLY",
+  "owner_authorization": "EXPLICIT_OWNER_PROMPT_2026_09_26",
+  "execution": "MANUAL_BROWSER_ONLY_AFTER_PREFLIGHT",
+  "automatic_execution_allowed": false,
+  "start_url": "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+  "top_area": {"name": "Despesa", "origin": "2_92_guestuser_207_6_DSL0_VIS1343"},
+  "detail_area": {"name": "Detalhe do Empenho", "origin": "2_92_guestuser_200_8_DSL0_VIS706"},
+  "query": {"year": "2026", "number": "3286"},
+  "limits": {"browser_sessions": 1, "initial_navigations": 1, "top_area_actions": 1, "target_queries": 1, "retries": 0, "lateral_actions": 0, "pncp_requests": 0, "pagination": 0, "batch": 0, "direct_endpoint_requests": 0, "source_writes": 0},
+  "binding": {
+    "same_session_area_identity_required": true,
+    "filter_id": "AREAFILTER_<fresh_AreaId>",
+    "number_id": "FILTEREDIT_<fresh_AreaId>_epn",
+    "year_id": "FILTERCOMBO_<fresh_AreaId>_exe",
+    "number_label": "Nro Empenho",
+    "year_label": "Exercício",
+    "unique_visible_submit_control_required": true,
+    "submit_argument": "AREAFILTER_<fresh_AreaId>",
+    "alternate_argument_requires_official_function_body_proof": true,
+    "no_ordinal_selection": true
+  },
+  "capture": {"raw_html": false, "har": false, "cookies": false, "tokens": false, "hidden_values": false, "control_values": false, "only_sanitized_observations_and_hashes": true},
+  "stop_on": ["NETWORK_OR_ACCESS_ERROR", "AUTHENTICATION_REQUIRED", "AREA_IDENTITY_NOT_UNIQUE", "FORM_BINDING_NOT_UNIQUE", "QUERY_SYNTAX_NOT_EXPLICITLY_SUPPORTED", "UNEXPECTED_SCHEMA", "LIMIT_REACHED"],
+  "positive_witness_automatic_promotion": false,
+  "query_result_is_namespace_proof": false,
+  "payment_attribution_authorized": false,
+  "task281_consumed": false
+}
