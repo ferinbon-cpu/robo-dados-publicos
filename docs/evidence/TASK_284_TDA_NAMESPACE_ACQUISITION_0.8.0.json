@@ -1,0 +1,61 @@
+{
+  "schema": "TASK284_TDA_NAMESPACE_ACQUISITION_RESULT_V1",
+  "task": "TASK_284",
+  "issue": 907,
+  "observed_date": "2026-09-26",
+  "pre_acquisition_commit": "01cef9f757ed9680273249577f2b4363136fc32f",
+  "contract_sha256": "be2f1f97e8a14b2567cadaf18877f208ea43c9455d432f9ffe59e98a342acfc9",
+  "source_url": "https://transparencia.limeira.sp.gov.br/tdaportalclient.aspx?418",
+  "execution_surface": "MANUAL_PUBLIC_BROWSER_DOM_READONLY",
+  "status": "STOP_AREA_IDENTITY_NOT_PROVEN_BEFORE_TOP_ACTION",
+  "sanitized_observation": {
+    "official_page_rendered": true,
+    "portal_version": "418",
+    "visible_area_name": "Despesa",
+    "fresh_area_root_present": true,
+    "official_inline_click_binding_count": 4,
+    "same_dolink_target_for_four_widgets": true,
+    "area_origin_observable_match_count": 0,
+    "fresh_area_origin_proven": false,
+    "detail_area_opened": false,
+    "number_control_inspected": false,
+    "year_control_inspected": false,
+    "submit_binding_validated": false
+  },
+  "sanitized_observation_sha256": "f232a4327afdd8809541206f09b13d75516181c73fc1ea837230353c27287c14",
+  "hash_serialization": "UTF-8 JSON; ensure_ascii=false; sort_keys=true; separators comma/colon; no final newline",
+  "counts": {
+    "browser_sessions": 1,
+    "initial_navigations": 1,
+    "top_area_actions": 0,
+    "target_queries": 0,
+    "query_field_assignments": 0,
+    "retries": 0,
+    "lateral_actions": 0,
+    "pncp_requests": 0,
+    "tce_live_requests": 0,
+    "direct_tda_endpoint_requests": 0,
+    "source_writes": 0
+  },
+  "browser_http_resource_request_count": null,
+  "browser_http_resource_request_count_reason": "The browser surface does not expose a complete network log. One explicit top-level navigation is observed; subresource GETs/POSTs must not be invented. No raw HAR was captured.",
+  "stopped_because": "Visible Despesa root and four official same-target click bindings reproduced, but AreaOrigin could not be established from the available DOM metadata. The contract requires current-session origin identity before the top-area action. No action or target lookup was executed.",
+  "interpretation": {
+    "commitment_existence_tested": false,
+    "query_negative_result": false,
+    "absence_of_area_origin_in_system_claimed": false,
+    "namespace_identity": "UNRESOLVED_MISSING_OFFICIAL_NAMESPACE_WITNESS",
+    "payment_attribution_authorized": false,
+    "task281_consumed": false
+  },
+  "persistence": {
+    "cookies_tokens": false,
+    "raw_html": false,
+    "hidden_values": false,
+    "full_page_text": false,
+    "session_area_id": false
+  },
+  "authorization_consumed": true,
+  "new_session_or_retry_authorized_by_this_record": false,
+  "next_document": "Official municipal commitment note/integration crosswalk explicitly relating 03286-01, accounting 3286, original exercise 2026 and Prefeitura Municipal de Limeira; or an applicable numbering convention. Repeating the same browser probe is not the next task."
+}
