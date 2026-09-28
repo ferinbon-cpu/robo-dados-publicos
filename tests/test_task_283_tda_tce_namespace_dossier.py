@@ -214,6 +214,18 @@ class Task283NamespaceDossierTests(unittest.TestCase):
         self.assertTrue(gate["manual_execution_required"])
         self.assertFalse(gate["task_runtime_auto_execution"])
         self.assertEqual(
+            gate["script"],
+            "robo_dados_publicos/research/task283_tda_tce_namespace_dossier.py",
+        )
+        self.assertEqual(
+            gate["contract"],
+            "config/task283_tda_tce_namespace_dossier.v1.json",
+        )
+        self.assertEqual(gate["credential_capability"], "NONE")
+        self.assertFalse(gate["remote_materialization_authorized"])
+        self.assertIn("NO_AUTOMATIC_EXECUTION_SURFACE", gate["blockers"])
+        self.assertIn("NO_REMOTE_EFFECTS_AUTHORIZED", gate["blockers"])
+        self.assertEqual(
             evaluate_gate(policy, "TASK283_TDA_TCE_NAMESPACE_DOSSIER")["decision"],
             "BLOCK",
         )
