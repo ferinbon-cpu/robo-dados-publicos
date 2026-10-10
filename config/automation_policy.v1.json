@@ -439,6 +439,51 @@
         "MANUAL_OWNER_CONFIRMATION_REQUIRED_AT_RUNTIME",
         "WORKFLOW_MUST_BE_REVIEWED_MERGED_TO_PROTECTED_MAIN"
       ]
+    },
+    {
+      "id": "JOM_2026_81_ORIGINALS_MANUAL_BATCH_ARCHIVE",
+      "workflow": ".github/workflows/jom-2026-81-originals-manual-batches.yml",
+      "script": "scripts/download_jom_2026_archive_batch.py",
+      "tier": "T2_CREATE_ONLY",
+      "auto_allowed": false,
+      "human_confirmation_required": true,
+      "human_confirmation": "WORKFLOW_DISPATCH_BATCH_AND_BOOLEAN_OWNER_CONFIRM",
+      "credential_capability": "NONE_REQUIRED_PUBLIC_SOURCE",
+      "effects": {
+        "source_get_count_max": 9,
+        "index_get_count_max": 0,
+        "source_network": true,
+        "github_artifact_create_count_max": 1,
+        "drive_reads": 0,
+        "drive_writes": 0,
+        "publication": false
+      },
+      "pinned_source_fixture": "docs/evidence/fixtures/task219/TASK_219A_CANONICAL_87_DOCUMENT_TARGETS.csv",
+      "expected_original_fixture_count": 87,
+      "explicit_prior_preserved_editions": [
+        7208,
+        7209,
+        7210,
+        7211,
+        7212,
+        7294
+      ],
+      "remaining_editions_count": 81,
+      "number_of_manual_batches": 9,
+      "batch_size": 9,
+      "max_bytes_per_document": 209715200,
+      "max_aggregate_document_bytes": 524288000,
+      "artifact_retention_days": 7,
+      "no_retry": true,
+      "one_shot_per_dispatch": true,
+      "no_schedule": true,
+      "main_only": true,
+      "future_batch_execution_authorized": false,
+      "blockers": [
+        "EXPLICIT_OWNER_MANUAL_CONFIRMATION_REQUIRED_PER_BATCH",
+        "PR_MERGE_TO_PROTECTED_MAIN_REQUIRED_BEFORE_LIVE_RUN",
+        "SME_PDF_CUSTODY_IS_A_SEPARATE_CREATE_ONLY_OPERATION"
+      ]
     }
   ],
   "agentic_work": {
