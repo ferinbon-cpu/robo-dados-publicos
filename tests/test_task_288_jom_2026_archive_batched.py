@@ -149,11 +149,14 @@ class Task288Tests(unittest.TestCase):
         txt = path.read_text(encoding="utf-8")
         for required in (
             "workflow_dispatch:", "autorizar_lote:", "contents: read",
+            "JOM_2026_OWNER_CONFIRM: ${{ inputs.autorizar_lote }}",
+            'test "${JOM_2026_OWNER_CONFIRM}" = "true"',
             "persist-credentials: false", "retention-days: 7",
             "download_jom_2026_archive_batch.py", "Exigir completude 9 de 9",
             "if-no-files-found: warn",
         ):
             self.assertIn(required, txt)
+        self.assertNotIn("JOM_2026_${{ inputs.", txt)
         for forbidden in ("schedule:", "workflow_run:", "pull_request:",
                           "repository_dispatch:", "secrets: inherit", "push:"):
             self.assertNotIn(forbidden, txt)
