@@ -39,7 +39,7 @@ jobs:
       PYTHONDONTWRITEBYTECODE: '1'
       PIP_DISABLE_PIP_VERSION_CHECK: '1'
       JOM_2026_BATCH: ${{ inputs.lote }}
-      JOM_2026_${{ inputs.autorizar_lote }}: ${{ inputs.autorizar_lote }}
+      JOM_2026_OWNER_CONFIRM: ${{ inputs.autorizar_lote }}
     steps:
       - name: Confirmar lote, autorização e main protegida
         shell: bash
