@@ -48,7 +48,7 @@ jobs:
           check-latest: false
 
       - name: Instalar leitor PDF fixado
-        run: python -m pip install --disable-pip-version-check 'pypdf==6.10.0'
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
 
       - name: Preflight e política do projeto antes de qualquer GET
         shell: bash
