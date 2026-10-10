@@ -1,0 +1,320 @@
+name: JOM B08 — reempacotar originais validados da run anterior
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmar_b08:
+        description: "Confirmo ler APENAS o artifact B08 #38076191781 e criar partes de até 90 MiB; sem nova coleta ou Drive"
+        type: boolean
+        required: true
+        default: false
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: task290-b08-existing-run-one-shot
+  cancel-in-progress: false
+
+jobs:
+  repack:
+    name: Conferir nove originais e emitir segmentos menores que 100 MiB
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      B08_OWNER_CONFIRM: ${{ inputs.confirmar_b08 }}
+      B08_SOURCE_RUN: '38076191781'
+    steps:
+      - name: Owner confirmou, main, tentativa inicial
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_EVENT_NAME}" = "workflow_dispatch"
+          test "${GITHUB_REF}" = "refs/heads/main"
+          test "${GITHUB_RUN_ATTEMPT}" = "1"
+          test "${B08_OWNER_CONFIRM}" = "true"
+          test "${B08_SOURCE_RUN}" = "38076191781"
+
+      - name: Checkout imutável sem credenciais persistidas
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+
+      - name: Configurar Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Dependências e gates offline
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check -r requirements.txt
+          python scripts/github_preflight.py
+          python scripts/github_automation_policy_gate.py
+          python scripts/github_codex_engineer_policy_gate.py
+          python -m unittest tests.test_task_290_jom_b08_split -v
+
+      - name: Recuperar apenas artefato B08 autorizado, sem GET oficial
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          test "${GITHUB_REPOSITORY}" = "ferinbon-cpu/robo-dados-publicos"
+          gh run download 38076191781 --repo ferinbon-cpu/robo-dados-publicos --name jom2026-originais-B08-manifesto --dir b08_source
+          test -f b08_source/manifest.json
+
+      - name: Auditar nove originais antes de gerar qualquer arquivo
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/repackage_existing_jom_b08_artifact.py --source b08_source --out b08_split
+
+      - name: Guardar JOM 7270, segmento 01
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7270-part01
+          path: b08_split/7270/part01/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7270, segmento 02
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7270-part02
+          path: b08_split/7270/part02/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7270, segmento 03
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7270-part03
+          path: b08_split/7270/part03/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7271, segmento 01
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7271-part01
+          path: b08_split/7271/part01/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7271, segmento 02
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7271-part02
+          path: b08_split/7271/part02/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7271, segmento 03
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7271-part03
+          path: b08_split/7271/part03/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7272, segmento 01
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7272-part01
+          path: b08_split/7272/part01/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7272, segmento 02
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7272-part02
+          path: b08_split/7272/part02/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7272, segmento 03
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7272-part03
+          path: b08_split/7272/part03/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7273, segmento 01
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7273-part01
+          path: b08_split/7273/part01/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7273, segmento 02
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7273-part02
+          path: b08_split/7273/part02/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7273, segmento 03
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7273-part03
+          path: b08_split/7273/part03/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7283, segmento 01
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7283-part01
+          path: b08_split/7283/part01/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7283, segmento 02
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7283-part02
+          path: b08_split/7283/part02/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7283, segmento 03
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7283-part03
+          path: b08_split/7283/part03/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7284, segmento 01
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7284-part01
+          path: b08_split/7284/part01/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7284, segmento 02
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7284-part02
+          path: b08_split/7284/part02/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7284, segmento 03
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7284-part03
+          path: b08_split/7284/part03/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7287, segmento 01
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7287-part01
+          path: b08_split/7287/part01/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7287, segmento 02
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7287-part02
+          path: b08_split/7287/part02/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7287, segmento 03
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7287-part03
+          path: b08_split/7287/part03/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7288, segmento 01
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7288-part01
+          path: b08_split/7288/part01/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7288, segmento 02
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7288-part02
+          path: b08_split/7288/part02/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7288, segmento 03
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7288-part03
+          path: b08_split/7288/part03/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7289, segmento 01
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7289-part01
+          path: b08_split/7289/part01/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7289, segmento 02
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7289-part02
+          path: b08_split/7289/part02/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7289, segmento 03
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task290-b08-original-7289-part03
+          path: b08_split/7289/part03/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
