@@ -96,7 +96,14 @@ class TestDeepSeekReviewBootstrap(unittest.TestCase):
 
     def test_context_truncates_only_untrusted_diff(self):
         policy = json.loads(json.dumps(self.policy))
-        policy["api"]["max_context_chars"] = 30000
+        # Trusted repository policies grow as new bounded gates are added.
+        # Reserve enough space for trusted content while still forcing the
+        # much larger untrusted diff to be truncated. Runtime policy is unchanged.
+        trusted_bytes = sum(
+            len((ROOT / rel).read_text(encoding="utf-8"))
+            for rel in policy["trusted_instruction_sources"]
+        )
+        policy["api"]["max_context_chars"] = max(30000, trusted_bytes + 2048)
         pack = build_context_pack(
             pr_title="x",
             pr_body="y",
@@ -105,7 +112,7 @@ class TestDeepSeekReviewBootstrap(unittest.TestCase):
         )
         self.assertTrue(pack.truncated)
         self.assertIn("DIFF_TRUNCATED_BY_CONTEXT_BUILDER", pack.text)
-        self.assertLessEqual(pack.chars, 30000)
+        self.assertLessEqual(pack.chars, policy["api"]["max_context_chars"])
 
     def test_payload_is_json_and_model_allowlisted(self):
         context = ContextPack("ctx", "a" * 64, 3, False)
