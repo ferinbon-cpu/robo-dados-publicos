@@ -484,6 +484,48 @@
         "PR_MERGE_TO_PROTECTED_MAIN_REQUIRED_BEFORE_LIVE_RUN",
         "SME_PDF_CUSTODY_IS_A_SEPARATE_CREATE_ONLY_OPERATION"
       ]
+    },
+    {
+      "id": "JOM_B06_EXISTING_RUN_REPACKAGE_FOR_SME_MANUAL",
+      "workflow": ".github/workflows/jom-b06-repackage-existing-artifact-manual.yml",
+      "script": "scripts/repackage_existing_jom_b06_artifact.py",
+      "tier": "T2_CREATE_ONLY",
+      "auto_allowed": false,
+      "human_confirmation_required": true,
+      "human_confirmation": "WORKFLOW_DISPATCH_BOOLEAN_OWNER_CONFIRM",
+      "credential_capability": "GITHUB_ACTIONS_READ_ONLY_PER_RUN",
+      "effects": {
+        "public_source_get_count": 0,
+        "github_existing_artifact_download_count_max": 1,
+        "github_artifact_create_count_max": 9,
+        "drive_reads": 0,
+        "drive_writes": 0,
+        "publication": false
+      },
+      "source_run_id": 38067488083,
+      "source_artifact": "jom2026-originais-B06-manifesto",
+      "exact_edition_ids": [
+        7244,
+        7245,
+        7246,
+        7247,
+        7248,
+        7249,
+        7250,
+        7251,
+        7252
+      ],
+      "max_single_artifact_bytes": 104857600,
+      "artifact_retention_days": 7,
+      "source_site_gets": 0,
+      "no_retry": true,
+      "no_schedule": true,
+      "main_only": true,
+      "future_batch_execution_authorized": false,
+      "blockers": [
+        "OWNER_ONE_CLICK_MANUAL_CONFIRMATION_REQUIRED",
+        "NO_PERSISTENT_SME_CUSTODY_UNTIL_SEPARATE_DRIVE_QA"
+      ]
     }
   ],
   "agentic_work": {
