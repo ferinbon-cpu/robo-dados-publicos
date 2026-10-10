@@ -10,11 +10,17 @@ import hashlib
 import json
 import os
 import re
+import sys
 from pathlib import Path
 from urllib.parse import urlparse
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from pypdf import PdfReader
+
+# GitHub Actions invokes 'python scripts/...'; make repository imports explicit.
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from robo_dados_publicos.research.task219a_jom_general_event_redigest import (
     load_pinned_targets,
