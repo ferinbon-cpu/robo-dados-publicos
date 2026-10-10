@@ -1,0 +1,160 @@
+name: JOM B06 — reempacotar artefato anterior para custódia SME
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmar_reempacotamento_b06:
+        description: "Autorizo ler SOMENTE o artefato da run 38067488083 e criar 9 artifacts individuais, sem GET ao ecrie/Drive"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: task289-b06-single-immutable-source
+  cancel-in-progress: false
+
+jobs:
+  repack:
+    name: Auditar e dividir os 9 PDFs originais
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      JOM_B06_OWNER_CONFIRM: ${{ inputs.confirmar_reempacotamento_b06 }}
+      JOM_B06_EXISTING_RUN: '38067488083'
+    steps:
+      - name: Confirmar owner, main e primeira tentativa
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_EVENT_NAME}" = "workflow_dispatch"
+          test "${GITHUB_REF}" = "refs/heads/main"
+          test "${GITHUB_RUN_ATTEMPT}" = "1"
+          test "${JOM_B06_OWNER_CONFIRM}" = "true"
+          test "${JOM_B06_EXISTING_RUN}" = "38067488083"
+
+      - name: Checkout sem persistir credenciais
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Dependências pinadas
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Gates de política, contrato e testes offline
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/github_preflight.py
+          python scripts/github_automation_policy_gate.py
+          python scripts/github_codex_engineer_policy_gate.py
+          python -m unittest tests.test_task_289_jom_b06_repackage -v
+
+      - name: Ler uma única fonte GitHub (artifact da run B06 previamente aprovada)
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          test "${GITHUB_REPOSITORY}" = "ferinbon-cpu/robo-dados-publicos"
+          gh run download 38067488083 --repo "ferinbon-cpu/robo-dados-publicos" --name "jom2026-originais-B06-manifesto" --dir source_b06
+          test -f source_b06/manifest.json
+
+      - name: SHA-256/PDF/capa/manifesto de todos antes de criar artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/repackage_existing_jom_b06_artifact.py --source source_b06 --out split_b06
+
+      - name: Upload original JOM 7244, sem recompressão
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task289-b06-original-7244
+          path: split_b06/7244/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Upload original JOM 7245, sem recompressão
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task289-b06-original-7245
+          path: split_b06/7245/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Upload original JOM 7246, sem recompressão
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task289-b06-original-7246
+          path: split_b06/7246/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Upload original JOM 7247, sem recompressão
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task289-b06-original-7247
+          path: split_b06/7247/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Upload original JOM 7248, sem recompressão
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task289-b06-original-7248
+          path: split_b06/7248/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Upload original JOM 7249, sem recompressão
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task289-b06-original-7249
+          path: split_b06/7249/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Upload original JOM 7250, sem recompressão
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task289-b06-original-7250
+          path: split_b06/7250/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Upload original JOM 7251, sem recompressão
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task289-b06-original-7251
+          path: split_b06/7251/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Upload original JOM 7252, sem recompressão
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task289-b06-original-7252
+          path: split_b06/7252/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
