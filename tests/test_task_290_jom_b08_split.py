@@ -142,7 +142,7 @@ class TestB08ExistingRepack(unittest.TestCase):
         for edition in target.EDITIONS:
             self.assertIn(f"task290-b08-original-{edition}-part01", workflow)
         policy = json.loads((ROOT / "config/automation_policy.v1.json").read_text())
-        contract = next(x for x in policy["workflows"] if x["id"] == "JOM_B08_EXISTING_GITHUB_ARTIFACT_SPLIT_MANUAL")
+        contract = next(x for x in policy["gates"] if x["id"] == "JOM_B08_EXISTING_GITHUB_ARTIFACT_SPLIT_MANUAL")
         self.assertEqual(contract["tier"], "T2_CREATE_ONLY")
         self.assertFalse(contract["auto_allowed"])
         self.assertTrue(contract["human_confirmation_required"])
