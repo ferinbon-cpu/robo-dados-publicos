@@ -15,7 +15,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT)
+    sys.path.insert(0, str(ROOT))
 
 from scripts.download_jom_2026_archive_batch import batch_map
 from scripts.download_jom_loa2027_pilot import inspect_pdf
