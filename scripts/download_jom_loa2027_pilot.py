@@ -158,6 +158,12 @@ def collect_pilot(out: Path, *, transport=None) -> dict:
                         sha.update(chunk)
                         dst.write(chunk)
             if received < 100:
+                # Classify invalid signature before the small-file size guard:
+                # a short non-PDF body must report STOP_NOT_PDF, not a PDF
+                # truncation error. Neither case is ever persisted.
+                with partial.open("rb") as body:
+                    if body.read(5) != b"%PDF-":
+                        raise PilotStop("STOP_NOT_PDF")
                 raise PilotStop("STOP_TOO_FEW_BYTES")
             pages = inspect_pdf(partial, edition)
             partial.rename(target)
