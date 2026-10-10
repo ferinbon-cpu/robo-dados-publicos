@@ -484,6 +484,49 @@
         "PR_MERGE_TO_PROTECTED_MAIN_REQUIRED_BEFORE_LIVE_RUN",
         "SME_PDF_CUSTODY_IS_A_SEPARATE_CREATE_ONLY_OPERATION"
       ]
+    },
+    {
+      "id": "JOM_B08_EXISTING_GITHUB_ARTIFACT_SPLIT_MANUAL",
+      "workflow": ".github/workflows/jom-b08-existing-artifact-split-manual.yml",
+      "script": "scripts/repackage_existing_jom_b08_artifact.py",
+      "tier": "T2_CREATE_ONLY",
+      "auto_allowed": false,
+      "human_confirmation_required": true,
+      "human_confirmation": "WORKFLOW_DISPATCH_BOOLEAN_OWNER_CONFIRM",
+      "credential_capability": "GITHUB_ACTIONS_READ_ONLY_PER_RUN",
+      "effects": {
+        "source_get_count_max": 0,
+        "github_existing_artifact_download_count_max": 1,
+        "github_artifact_create_count_max": 27,
+        "drive_reads": 0,
+        "drive_writes": 0,
+        "publication": false
+      },
+      "source_run_id": 38076191781,
+      "source_artifact": "jom2026-originais-B08-manifesto",
+      "exact_edition_ids": [
+        7270,
+        7271,
+        7272,
+        7273,
+        7283,
+        7284,
+        7287,
+        7288,
+        7289
+      ],
+      "max_original_bytes": 209715200,
+      "max_chunk_bytes": 94371840,
+      "source_site_gets": 0,
+      "artifact_retention_days": 7,
+      "no_retry": true,
+      "no_schedule": true,
+      "main_only": true,
+      "foreign_drive_credentials": false,
+      "blockers": [
+        "ONE_SHOT_HUMAN_CONFIRMATION_REQUIRED_ON_PROTECTED_MAIN",
+        "NO_SME_CUSTODY_UNTIL_SEPARATE_DRIVE_TRANSFER_AND_SHA_READBACK"
+      ]
     }
   ],
   "agentic_work": {
