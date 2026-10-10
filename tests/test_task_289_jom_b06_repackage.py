@@ -80,7 +80,10 @@ class TestRepackage(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
             arrange(root/"source")
-            (root/"source"/"originals"/"JOM_7246_2026_ORIGINAL.pdf").write_bytes(b"tampered")
+            path = root/"source"/"originals"/"JOM_7246_2026_ORIGINAL.pdf"
+            raw = bytearray(path.read_bytes())
+            raw[42] ^= 1  # Same length; the SHA-256 gate must detect this.
+            path.write_bytes(raw)
             with self.assertRaisesRegex(target.RepackStop,"STOP_B06_ORIGINAL_HASH"):
                 target.stage_existing_archive(root/"source",root/"out")
             self.assertFalse((root/"out").exists())
