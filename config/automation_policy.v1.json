@@ -400,6 +400,45 @@
       "implementation_pr_merged": 376,
       "implementation_merge_sha": "48c2f7624dba3f46b61f09659f15d798b836c0ef",
       "policy_finalization_evidence": "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json"
+    },
+    {
+      "id": "JOM_LOA2027_ORIGINAL_PDF_ARTIFACT_MANUAL",
+      "workflow": ".github/workflows/jom-loa2027-five-original-pdfs-manual.yml",
+      "script": "scripts/download_jom_loa2027_pilot.py",
+      "tier": "T2_CREATE_ONLY",
+      "auto_allowed": false,
+      "human_confirmation_required": true,
+      "human_confirmation": "WORKFLOW_DISPATCH_BOOLEAN_OWNER_CONFIRM",
+      "credential_capability": "NONE_REQUIRED_PUBLIC_SOURCE",
+      "effects": {
+        "source_get_count_max": 5,
+        "index_get_count_max": 0,
+        "source_network": true,
+        "github_artifact_create_count_max": 1,
+        "drive_reads": 0,
+        "drive_writes": 0,
+        "publication": false
+      },
+      "persist_raw_public_pdfs_only_as_expiring_actions_artifact": true,
+      "pinned_source_fixture": "docs/evidence/fixtures/task219/TASK_219A_CANONICAL_87_DOCUMENT_TARGETS.csv",
+      "artifact_retention_days": 7,
+      "max_bytes_per_document": 209715200,
+      "max_aggregate_document_bytes": 524288000,
+      "exact_editions": [
+        7211,
+        7208,
+        7209,
+        7210,
+        7212
+      ],
+      "no_retry": true,
+      "one_shot_manual_dispatch": true,
+      "no_schedule": true,
+      "main_only": true,
+      "blockers": [
+        "MANUAL_OWNER_CONFIRMATION_REQUIRED_AT_RUNTIME",
+        "WORKFLOW_MUST_BE_REVIEWED_MERGED_TO_PROTECTED_MAIN"
+      ]
     }
   ],
   "agentic_work": {
