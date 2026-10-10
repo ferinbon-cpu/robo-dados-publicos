@@ -1,0 +1,93 @@
+name: JOM LOA 2027 — baixar 5 PDFs originais
+
+on:
+  workflow_dispatch:
+    inputs:
+      autorizar_5_arquivos:
+        description: "Autorizo uma tentativa para cada JOM 7208-7212 (5 GET), sem Google Drive"
+        type: boolean
+        required: true
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: jom-loa2027-five-original-pdfs
+  cancel-in-progress: false
+
+jobs:
+  baixar:
+    name: Baixar PDFs e criar artefato
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+      JOM_OWNER_CONFIRM: ${{ inputs.autorizar_5_arquivos }}
+    steps:
+      - name: Conferir autorização manual no main
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_EVENT_NAME}" = "workflow_dispatch"
+          test "${GITHUB_REF}" = "refs/heads/main"
+          test "${GITHUB_RUN_ATTEMPT}" = "1"
+          test "${JOM_OWNER_CONFIRM}" = "true"
+
+      - name: Checkout exato sem credenciais persistidas
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Instalar leitor PDF fixado
+        run: python -m pip install --disable-pip-version-check 'pypdf==6.10.0'
+
+      - name: Preflight e política do projeto antes de qualquer GET
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/github_preflight.py
+          python scripts/github_automation_policy_gate.py
+          python scripts/github_codex_engineer_policy_gate.py
+
+      - name: Baixar 5 originais da lista pinada, sem retry
+        shell: bash
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python scripts/download_jom_loa2027_pilot.py --out artifacts_jom
+
+      - name: Anexar PDFs originais e manifesto ao run
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: loa2027-jom-7208-7212-originais-e-manifesto
+          path: artifacts_jom/
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 0
+
+      - name: Exigir completude 5 de 5 antes de PASS
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path("artifacts_jom/manifest.json")
+          if not path.is_file():
+              raise SystemExit("STOP_NO_MANIFEST")
+          d = json.loads(path.read_text(encoding="utf-8"))
+          if d["validated_count"] != 5 or d["failed_count"] != 0:
+              raise SystemExit("STOP_PARTIAL_DOWNLOAD_SEE_ARTIFACT")
+          print("PASS_JOM_ORIGINAL_PDFS_5_OF_5")
+          PY
