@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import io
 import unittest
+from unittest.mock import patch
 
 from pypdf import PdfWriter
 
@@ -108,8 +109,9 @@ class TestTask286Pilot(unittest.TestCase):
             execute_pilot(FakeSource(content_type="text/html"), offline_test_mode=True)
 
     def test_no_oversized_payload(self):
-        with self.assertRaisesRegex(Task286Stop, "STOP_PDF_BYTES_LIMIT"):
-            execute_pilot(FakeSource(payload=b"%PDF-" + b"x" * 5 + b"a" * (200 * 1024 * 1024)), offline_test_mode=True)
+        with patch("robo_dados_publicos.research.task286_jom_budget_five_source_proof.MAX_PER_PDF", 30):
+            with self.assertRaisesRegex(Task286Stop, "STOP_PDF_BYTES_LIMIT"):
+                execute_pilot(FakeSource(payload=make_pdf()), offline_test_mode=True)
 
 
 if __name__ == "__main__":
