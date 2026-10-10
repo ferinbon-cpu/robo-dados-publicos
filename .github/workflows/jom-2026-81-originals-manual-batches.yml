@@ -1,0 +1,112 @@
+name: JOM 2026 — recuperar 81 originais por lotes de 9
+
+on:
+  workflow_dispatch:
+    inputs:
+      lote:
+        description: "Selecione UM lote de 9 originais ainda não preservados no SME (B01–B09)"
+        type: choice
+        required: true
+        options:
+          - B01
+          - B02
+          - B03
+          - B04
+          - B05
+          - B06
+          - B07
+          - B08
+          - B09
+      autorizar_lote:
+        description: "Confirmo somente este lote, máximo 9 GET oficiais, sem gravação no Drive"
+        type: boolean
+        default: false
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: jom-2026-81-batches-${{ inputs.lote }}
+  cancel-in-progress: false
+
+jobs:
+  baixar:
+    name: Baixar e validar um lote (9 originais)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PIP_DISABLE_PIP_VERSION_CHECK: '1'
+      JOM_2026_BATCH: ${{ inputs.lote }}
+      JOM_2026_${{ inputs.autorizar_lote }}: ${{ inputs.autorizar_lote }}
+    steps:
+      - name: Confirmar lote, autorização e main protegida
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_EVENT_NAME}" = "workflow_dispatch"
+          test "${GITHUB_REF}" = "refs/heads/main"
+          test "${GITHUB_RUN_ATTEMPT}" = "1"
+          test "${JOM_2026_OWNER_CONFIRM}" = "true"
+          case "${JOM_2026_BATCH}" in
+            B01|B02|B03|B04|B05|B06|B07|B08|B09) ;;
+            *) exit 1 ;;
+          esac
+
+      - name: Checkout sem credenciais persistidas
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Instalar dependências pinadas
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Gates de política antes da rede
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/github_preflight.py
+          python scripts/github_automation_policy_gate.py
+          python scripts/github_codex_engineer_policy_gate.py
+
+      - name: Obter no máximo 9 originais por URLs oficiais pinadas
+        shell: bash
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python scripts/download_jom_2026_archive_batch.py --batch "${JOM_2026_BATCH}" --out artifacts_jom_2026
+
+      - name: Anexar originais e manifesto mesmo se parcial
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: jom2026-originais-${{ inputs.lote }}-manifesto
+          path: artifacts_jom_2026/
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 0
+
+      - name: Exigir completude 9 de 9
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('artifacts_jom_2026/manifest.json')
+          if not p.is_file():
+              raise SystemExit('STOP_NO_MANIFEST')
+          m = json.loads(p.read_text(encoding='utf-8'))
+          if m['validated_count'] != 9 or m['failed_count'] != 0:
+              raise SystemExit('STOP_PARTIAL_BATCH_SEE_ARTIFACT')
+          print('PASS_JOM_2026_BATCH_9_OF_9:', m['batch'])
+          PY
