@@ -1,0 +1,94 @@
+name: TASK291 — JOM 2026 índice Janeiro e Setembro somente (piloto manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmar_indice_291:
+        description: "Autorizo até 3 GETs: robots.txt + índices oficiais Jan/Set 2026, SEM PDFs, retries ou Drive"
+        type: boolean
+        required: true
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task291-jom-2026-index-pilot-single
+  cancel-in-progress: false
+
+jobs:
+  index_pilot:
+    name: Gate T1 — somente índices oficiais, sem originais PDF
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PIP_DISABLE_PIP_VERSION_CHECK: '1'
+      JOM291_OWNER_CONFIRM: ${{ inputs.confirmar_indice_291 }}
+    steps:
+      - name: Autorizar owner, main, primeira tentativa
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_EVENT_NAME}" = "workflow_dispatch"
+          test "${GITHUB_REF}" = "refs/heads/main"
+          test "${GITHUB_RUN_ATTEMPT}" = "1"
+          test "${JOM291_OWNER_CONFIRM}" = "true"
+
+      - name: Checkout sem credenciais persistidas
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Pré-voo, política e testes offline ANTES da rede
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check -r requirements.txt
+          python scripts/github_preflight.py
+          python scripts/github_automation_policy_gate.py
+          python scripts/github_codex_engineer_policy_gate.py
+          python -m unittest tests.test_task_291_jom_2026_index_pilot -v
+
+      - name: Ler no máximo dois índices oficiais, sem baixar PDFs
+        shell: bash
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python scripts/task291_jom_2026_index_pilot.py --out task291_artifact/pilot_manifest.json
+
+      - name: Preservar manifesto PASS ou STOP mesmo em 403
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task291-jom-2026-jan-sep-index-pilot-manifest
+          path: task291_artifact/pilot_manifest.json
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 0
+
+      - name: Não aprovar descoberta incompleta ou bloqueada
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("task291_artifact/pilot_manifest.json")
+          if not p.is_file():
+              raise SystemExit("STOP_291_NO_PILOT_MANIFEST")
+          m = json.loads(p.read_text("utf-8"))
+          if m["status"] != "PASS_291_INDEX_PILOT_TWO_MONTHS":
+              raise SystemExit("STOP_291_PILOT_NOT_PASSED:" + m["status"])
+          if m["network_get_attempts"] > 3 or m["pdf_get_attempts"] != 0:
+              raise SystemExit("STOP_291_NETWORK_OR_PDF_BUDGET")
+          print("PASS_291_INDEX_ONLY_PILOT_TWO_MONTHS")
+          PY
