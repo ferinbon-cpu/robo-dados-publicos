@@ -568,6 +568,56 @@
         "NO_PDF_FETCH_OR_DRIVE_WRITE",
         "INDEX_ONLY_NOT_CUSTODY_OR_COMPLIANCE"
       ]
+    },
+    {
+      "id": "JOM_2026_TASK292A_FIVE_HISTORICALLY_PROVEN_PDFS_MANUAL",
+      "workflow": ".github/workflows/task292a-jom-2026-five-proven-originals-manual.yml",
+      "script": "scripts/task292a_jom_2026_five_historical_pdf_acquisition.py",
+      "tier": "T2_CREATE_ONLY",
+      "auto_allowed": false,
+      "human_confirmation_required": true,
+      "human_confirmation": "WORKFLOW_DISPATCH_BOOLEAN_OWNER_CONFIRM",
+      "credential_capability": "NONE_REQUIRED_PUBLIC_OFFICIAL_PDF_ONLY",
+      "effects": {
+        "source_network": true,
+        "source_get_count_max": 5,
+        "index_get_count_max": 0,
+        "robots_get_count_max": 0,
+        "retry_count_max": 0,
+        "github_artifact_create_count_max": 16,
+        "pdf_bytes_max_per_document": 209715200,
+        "pdf_bytes_max_total": 524288000,
+        "part_bytes_max": 94371840,
+        "drive_reads": 0,
+        "drive_writes": 0,
+        "publication": false
+      },
+      "fixed_editions": [
+        7151,
+        7321,
+        7322,
+        7323,
+        7324
+      ],
+      "pinned_source_paths": [
+        "docs/evidence/TASK_238_JOM_PRIMARY_CONTENT_CLOSURE_0.8.0.json",
+        "docs/evidence/TASK_248_JOM_LIVE_DELTA_CANONICAL_0.8.0.json"
+      ],
+      "no_source_discovery": true,
+      "no_schedule": true,
+      "no_redirect": true,
+      "no_retry": true,
+      "main_only": true,
+      "artifact_retention_days": 7,
+      "future_batch_execution_authorized": false,
+      "blockers": [
+        "EXPLICIT_OWNER_CONFIRMATION_FOR_NEW_LIVE_GET",
+        "STOP_IF_HISTORICAL_7151_SHA_SIZE_PAGES_DRIFT",
+        "STOP_IF_COVER_EDITION_OR_PDF_PARSE_DRIFT",
+        "STOP_IF_MORE_THAN_FIVE_OR_UNPINNED_PDFS",
+        "ARTIFACT_NOT_PERMANENT_SME_CUSTODY",
+        "T2_DRIVE_CUSTODY_SEPARATE_HUMAN_APPROVAL_AND_READBACK"
+      ]
     }
   ],
   "agentic_work": {

@@ -1,0 +1,247 @@
+name: TASK292A — JOM 2026 cinco URLs históricas oficiais (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmar_cinco_joms_292a:
+        description: "Autorizo somente 5 GETs diretos aos PDFs oficiais 7151,7321-7324; 0 índices, 0 Drive"
+        type: boolean
+        required: true
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task292a-jom-2026-five-historical-pdfs-single
+  cancel-in-progress: false
+
+jobs:
+  recuperar:
+    name: Validar 5 originais e gerar fragmentos reversíveis
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PIP_DISABLE_PIP_VERSION_CHECK: '1'
+      JOM292A_OWNER_CONFIRM: ${{ inputs.confirmar_cinco_joms_292a }}
+    steps:
+      - name: Provar autorização manual na main protegida
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_EVENT_NAME}" = "workflow_dispatch"
+          test "${GITHUB_REF}" = "refs/heads/main"
+          test "${GITHUB_RUN_ATTEMPT}" = "1"
+          test "${JOM292A_OWNER_CONFIRM}" = "true"
+
+      - name: Checkout sem credenciais persistidas
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          check-latest: false
+
+      - name: Dependências pinadas
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Gates e testes offline antes de qualquer GET
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/github_preflight.py
+          python scripts/github_automation_policy_gate.py
+          python scripts/github_codex_engineer_policy_gate.py
+          python -m unittest tests.test_task_292a_jom_five_historical_acquisition -v
+
+      - name: GETs diretos oficiais no máximo cinco, sem descoberta ou retry
+        shell: bash
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python scripts/task292a_jom_2026_five_historical_pdf_acquisition.py --out task292a_files
+
+      - name: Guardar manifesto de validação completo ou parcial
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task292a-five-official-jom-2026-manifest
+          path: task292a_files/manifest.json
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7151 parte 01
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task292a-jom-7151-part01
+          path: task292a_files/pieces/7151/part01/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7151 parte 02
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task292a-jom-7151-part02
+          path: task292a_files/pieces/7151/part02/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7151 parte 03
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task292a-jom-7151-part03
+          path: task292a_files/pieces/7151/part03/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7321 parte 01
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task292a-jom-7321-part01
+          path: task292a_files/pieces/7321/part01/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7321 parte 02
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task292a-jom-7321-part02
+          path: task292a_files/pieces/7321/part02/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7321 parte 03
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task292a-jom-7321-part03
+          path: task292a_files/pieces/7321/part03/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7322 parte 01
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task292a-jom-7322-part01
+          path: task292a_files/pieces/7322/part01/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7322 parte 02
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task292a-jom-7322-part02
+          path: task292a_files/pieces/7322/part02/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7322 parte 03
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task292a-jom-7322-part03
+          path: task292a_files/pieces/7322/part03/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7323 parte 01
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task292a-jom-7323-part01
+          path: task292a_files/pieces/7323/part01/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7323 parte 02
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task292a-jom-7323-part02
+          path: task292a_files/pieces/7323/part02/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7323 parte 03
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task292a-jom-7323-part03
+          path: task292a_files/pieces/7323/part03/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7324 parte 01
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task292a-jom-7324-part01
+          path: task292a_files/pieces/7324/part01/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7324 parte 02
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task292a-jom-7324-part02
+          path: task292a_files/pieces/7324/part02/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Guardar JOM 7324 parte 03
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task292a-jom-7324-part03
+          path: task292a_files/pieces/7324/part03/
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+
+      - name: Rejeitar lote parcial e confirmar política de zero Drive
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("task292a_files/manifest.json")
+          if not p.is_file():
+              raise SystemExit("STOP_292A_NO_MANIFEST")
+          d=json.loads(p.read_text("utf-8"))
+          if (d.get("status") != "PASS_5_VALIDATED" or d.get("validated_count") != 5
+                  or d.get("failed_count") != 0 or d.get("source_get_attempts") != 5
+                  or d.get("retry_count") != 0 or d.get("index_get_count") != 0
+                  or d.get("drive_write_count") != 0):
+              raise SystemExit("STOP_292A_PARTIAL_REVIEW_ARTIFACTS")
+          print("PASS_TASK292A_5_CANONICAL_PDF_ORIGINALS")
+          PY
