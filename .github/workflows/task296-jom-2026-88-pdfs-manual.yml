@@ -77,7 +77,7 @@ jobs:
           python scripts/github_preflight.py
           python scripts/github_automation_policy_gate.py
           python scripts/github_codex_engineer_policy_gate.py
-          python -m unittest tests.test_jom_2026_pending_manual -v
+          python -m unittest discover -s tests -p 'test_jom_2026_pending_manual.py' -v
 
       - name: "Apenas GET de PDFs das URLs congeladas neste lote"
         shell: bash
