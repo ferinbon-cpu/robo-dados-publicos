@@ -219,8 +219,11 @@ def collect(out: Path, *, transport=None) -> dict:
                         dst.write(chunk)
             if declared is not None and declared != received:
                 raise PilotStop("STOP_292A_TRUNCATED")
-            if received < 100 or tmp.open("rb").read(5) != b"%PDF-":
-                raise PilotStop("STOP_292A_NOT_PDF")
+            if received < 100:
+                raise PilotStop("STOP_292A_TOO_FEW_BYTES")
+            with tmp.open("rb") as pdf_header:
+                if pdf_header.read(5) != b"%PDF-":
+                    raise PilotStop("STOP_292A_NOT_PDF")
             pages = inspect_pdf(tmp, ed)
             digest = sha.hexdigest()
             if row["historical_sha256"] and (
