@@ -527,6 +527,47 @@
         "ONE_SHOT_HUMAN_CONFIRMATION_REQUIRED_ON_PROTECTED_MAIN",
         "NO_SME_CUSTODY_UNTIL_SEPARATE_DRIVE_TRANSFER_AND_SHA_READBACK"
       ]
+    },
+    {
+      "id": "JOM_2026_INDEX_PILOT_TASK291_MANUAL",
+      "workflow": ".github/workflows/task291-jom-2026-index-pilot-manual.yml",
+      "script": "scripts/task291_jom_2026_index_pilot.py",
+      "tier": "T1_REMOTE_READONLY",
+      "auto_allowed": false,
+      "human_confirmation_required": true,
+      "human_confirmation": "WORKFLOW_DISPATCH_BOOLEAN_OWNER_CONFIRM",
+      "credential_capability": "NONE_REQUIRED_PUBLIC_HTML_ONLY",
+      "effects": {
+        "source_network": true,
+        "robots_get_count_max": 1,
+        "index_get_count_max": 2,
+        "network_get_count_max": 3,
+        "pdf_get_count_max": 0,
+        "github_artifact_create_count_max": 1,
+        "drive_reads": 0,
+        "drive_writes": 0,
+        "publication": false
+      },
+      "fixed_index_months": [
+        "2026-01",
+        "2026-09"
+      ],
+      "max_bytes_per_index": 1280000,
+      "max_bytes_robots": 262144,
+      "no_redirect": true,
+      "no_retry": true,
+      "no_pagination_get": true,
+      "no_schedule": true,
+      "main_only": true,
+      "artifact_retention_days": 7,
+      "future_batch_execution_authorized": false,
+      "blockers": [
+        "EXPLICIT_OWNER_MANUAL_CONFIRMATION_BEFORE_LIVE_READ",
+        "STOP_ROBOTS_403_OR_RESTRICTED",
+        "NO_AUTOMATED_MONTH_EXPANSION",
+        "NO_PDF_FETCH_OR_DRIVE_WRITE",
+        "INDEX_ONLY_NOT_CUSTODY_OR_COMPLIANCE"
+      ]
     }
   ],
   "agentic_work": {
