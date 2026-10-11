@@ -119,6 +119,9 @@ class JournalIndexParser(HTMLParser):
         self.editions: list[JournalEdition] = []
         self.links: list[str] = []
         self.total_items: int | None = None
+        # HTMLParser splits text at markup boundaries. Keep a bounded text tail
+        # so "Total de itens encontrados:" and its number can span tags.
+        self._total_text_tail = ""
 
     def handle_starttag(self, tag, attrs):
         if tag.lower() != "a":
@@ -164,7 +167,8 @@ class JournalIndexParser(HTMLParser):
             return
         if self._anchor_href is not None:
             self._anchor_text.append(text)
-        tm = _TOTAL_RE.search(text)
+        self._total_text_tail = (self._total_text_tail + " " + text)[-512:]
+        tm = _TOTAL_RE.search(self._total_text_tail)
         if tm:
             self.total_items = int(tm.group(1))
         em = _EDITION_RE.search(text)
@@ -322,6 +326,7 @@ class JornalOficialLimeira:
         seen = set()
         groups: list[list[JournalEdition]] = []
         reported_total = None
+        observed_totals: set[int] = set()
         page_reports = []
         while queue and len(seen) < max_pages:
             url = queue.pop(0)
@@ -330,8 +335,10 @@ class JornalOficialLimeira:
             seen.add(url)
             html, final_url = self._fetch_html(url)
             editions, parser = self._parse_html_details(html, final_url, archive_class="modern")
-            if reported_total is None and parser.total_items is not None:
-                reported_total = parser.total_items
+            if parser.total_items is not None:
+                observed_totals.add(parser.total_items)
+                if reported_total is None:
+                    reported_total = parser.total_items
             # The page also shows a recent-editions block. Month discovery keeps only target-month items.
             month_items = [e for e in editions if e.publication_date and e.publication_date.startswith(f"{year:04d}-{month:02d}-")]
             groups.append(month_items)
@@ -345,7 +352,14 @@ class JornalOficialLimeira:
                 if candidate not in seen and candidate not in queue:
                     queue.append(candidate)
         merged = self.merge_editions(*groups)
-        if reported_total is not None and len(merged) < reported_total:
+        # An apparently complete page is not a complete month unless the
+        # source itself supplies a reconciled total. Unknown/conflicting totals
+        # must not be converted into positive absence claims downstream.
+        if not observed_totals:
+            status = "PARTIAL_DISCOVERY_TOTAL_UNOBSERVABLE"
+        elif len(observed_totals) != 1:
+            status = "PARTIAL_DISCOVERY_TOTAL_CONFLICT"
+        elif reported_total is not None and len(merged) != reported_total:
             status = "PARTIAL_DISCOVERY_PAGINATION_UNRESOLVED"
         elif queue:
             status = "PARTIAL_DISCOVERY_MAX_PAGES"
@@ -358,6 +372,7 @@ class JornalOficialLimeira:
             "requested_url": start,
             "pages_fetched": len(seen),
             "reported_total_items": reported_total,
+            "reported_total_conflict": len(observed_totals) > 1,
             "count": len(merged),
             "editions": [e.to_dict() for e in merged],
             "page_reports": page_reports,
