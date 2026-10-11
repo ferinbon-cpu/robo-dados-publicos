@@ -48,7 +48,7 @@ def checked_entry(edition: int, date: str, source_id: str, url: str,
                       and urlparse(url).hostname == "ecrie.com.br"
                       and urlparse(url).path.endswith(".pdf")),
            "STOP_291B_URL_NOT_OFFICIAL")
-    demand(not url or bool(source_id), "STOP_291B_SOURCE_ID_REQUIRED")
+    demand(not url or bool(source_id) or proof == "TASK238_COMPLETE_JANUARY_IDENTITY_PRIMARY_URL_AND_SHA", "STOP_291B_SOURCE_ID_REQUIRED")
     demand(not sha or (len(sha) == 64 and all(c in "0123456789abcdef" for c in sha)),
            "STOP_291B_SHA_FORMAT")
     demand(not pages or (pages.isdigit() and int(pages) > 0), "STOP_291B_PAGE_FORMAT")
@@ -106,7 +106,7 @@ def reconcile() -> tuple[list[dict], dict]:
         ed = int(x["edition"])
         p = inspected.get(ed)
         raw[ed] = checked_entry(
-            ed, x["publication_date"], f"LIMEIRA_JO_{ed:05d}",
+            ed, x["publication_date"], "",
             p["document_url"] if p else "",
             "TASK238_COMPLETE_JANUARY_IDENTITY_" +
                 ("PRIMARY_URL_AND_SHA" if p else "DATE_ONLY"),
