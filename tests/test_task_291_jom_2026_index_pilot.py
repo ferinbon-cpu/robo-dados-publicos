@@ -3,6 +3,9 @@ from __future__ import annotations
 
 import io
 import json
+import os
+import subprocess
+import sys
 from pathlib import Path
 import unittest
 from unittest.mock import patch
@@ -138,6 +141,27 @@ class TestTask291(unittest.TestCase):
         raw = html(1, 7172, 31, 22).replace("ecrie.com.br", "example.com")
         with self.assertRaisesRegex(target.PilotStop, "HOST_UNRECOGNIZED"):
             target.analyze_index(raw, target.INDEX_URLS[0], 1)
+
+    def test_direct_cli_entrypoint_imports_repo_without_network(self):
+        """Reproduce the actual GitHub invocation, not just unittest module import."""
+        env = os.environ.copy()
+        env.update({
+            "GITHUB_EVENT_NAME": "workflow_dispatch",
+            "GITHUB_REF": "refs/heads/main",
+            "GITHUB_RUN_ATTEMPT": "1",
+            "JOM291_OWNER_CONFIRM": "false",  # STOP before any network GET
+            "GITHUB_SHA": "a" * 40,
+        })
+        outcome = subprocess.run(
+            [sys.executable, "scripts/task291_jom_2026_index_pilot.py",
+             "--out", "should-never-create-task291.json"],
+            cwd=ROOT, env=env, text=True, capture_output=True,
+            timeout=15, check=False,
+        )
+        self.assertNotEqual(outcome.returncode, 0)
+        self.assertIn("STOP_291_MANUAL_MAIN_OWNER_CONTEXT", outcome.stderr)
+        self.assertNotIn("ModuleNotFoundError", outcome.stderr)
+        self.assertFalse((ROOT / "should-never-create-task291.json").exists())
 
     def test_policy_and_manual_workflow(self):
         p = json.loads((ROOT / "config/automation_policy.v1.json").read_text())
