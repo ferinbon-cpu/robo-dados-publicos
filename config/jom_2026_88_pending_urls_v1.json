@@ -1,0 +1,633 @@
+{
+  "schema": "TASK296_JOM_2026_PENDING_88_OFFICIAL_URLS_V1",
+  "created_date": "2026-10-11",
+  "repository_base_main_sha": "f06df9e1266161a2d7d06fbb0025a9e0c1d40236",
+  "source_spreadsheet": "https://docs.google.com/spreadsheets/d/1yoFzRzGSRdaN525LQMH8fXjye8h_hOM8ELM25ffW0H8/edit",
+  "source_sheets": [
+    "INVENTARIO_113",
+    "URLS_PENDENTES_FEV_OUT_V58"
+  ],
+  "selection_scope": "ONLY_88_NOT_YET_CUSTODIED_CANDIDATE_EDITION_POSITIONS",
+  "row_count": 88,
+  "unique_source_urls": 88,
+  "persistence": "GITHUB_ACTIONS_ARTIFACT_ONLY_EXPIRING_7_DAYS; NO_DRIVE_WRITES",
+  "warning": "Some September numeric editions may reflect portal anomaly 7237/7238; PDF cover is authoritative. No edition promoted without cover validation.",
+  "sources": [
+    {
+      "edition": 7152,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_06012026163902.pdf",
+      "identity_status": "NUMBER_AND_DATE_INDEXED_PENDING_PDF_COVER",
+      "expected_date": "2026-01-07",
+      "source_provenance": "SME_INVENTARIO_113_USUARIO_PORTAL"
+    },
+    {
+      "edition": 7153,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_07012026205232.pdf",
+      "identity_status": "NUMBER_AND_DATE_INDEXED_PENDING_PDF_COVER",
+      "expected_date": "2026-01-08",
+      "source_provenance": "SME_INVENTARIO_113_USUARIO_PORTAL"
+    },
+    {
+      "edition": 7154,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_08012026174631.pdf",
+      "identity_status": "NUMBER_AND_DATE_INDEXED_PENDING_PDF_COVER",
+      "expected_date": "2026-01-09",
+      "source_provenance": "SME_INVENTARIO_113_USUARIO_PORTAL"
+    },
+    {
+      "edition": 7155,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_09012026165912.pdf",
+      "identity_status": "NUMBER_AND_DATE_INDEXED_PENDING_PDF_COVER",
+      "expected_date": "2026-01-10",
+      "source_provenance": "SME_INVENTARIO_113_USUARIO_PORTAL"
+    },
+    {
+      "edition": 7156,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_12012026160645.pdf",
+      "identity_status": "NUMBER_AND_DATE_INDEXED_PENDING_PDF_COVER",
+      "expected_date": "2026-01-12",
+      "source_provenance": "SME_INVENTARIO_113_USUARIO_PORTAL"
+    },
+    {
+      "edition": 7157,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_12012026164849.pdf",
+      "identity_status": "NUMBER_AND_DATE_INDEXED_PENDING_PDF_COVER",
+      "expected_date": "2026-01-13",
+      "source_provenance": "SME_INVENTARIO_113_USUARIO_PORTAL"
+    },
+    {
+      "edition": 7158,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_13012026163834.pdf",
+      "identity_status": "NUMBER_AND_DATE_INDEXED_PENDING_PDF_COVER",
+      "expected_date": "2026-01-14",
+      "source_provenance": "SME_INVENTARIO_113_USUARIO_PORTAL"
+    },
+    {
+      "edition": 7159,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_14012026170937.pdf",
+      "identity_status": "NUMBER_AND_DATE_INDEXED_PENDING_PDF_COVER",
+      "expected_date": "2026-01-15",
+      "source_provenance": "SME_INVENTARIO_113_USUARIO_PORTAL"
+    },
+    {
+      "edition": 7160,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_15012026171611.pdf",
+      "identity_status": "NUMBER_AND_DATE_INDEXED_PENDING_PDF_COVER",
+      "expected_date": "2026-01-16",
+      "source_provenance": "SME_INVENTARIO_113_USUARIO_PORTAL"
+    },
+    {
+      "edition": 7173,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_02022026164335.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7174,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_03022026182849.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7175,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_04022026163039.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7176,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_05022026163732.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7177,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_06022026194213.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7178,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_09022026164517.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7191,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_02032026205858.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7192,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_03032026165010.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7193,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_04032026165320.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7194,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_05032026180110.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7195,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_06032026154914.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7196,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_06032026165549.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7197,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_09032026182052.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7198,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_10032026210324.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7199,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_11032026180134.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7200,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_12032026204314.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7213,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_31032026170651.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7214,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_01042026211502.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7215,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_02042026170112.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7216,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_06042026163558.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7217,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_07042026170014.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7218,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_08042026165736.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7219,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_09042026165419.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7220,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_10042026204359.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7233,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_30042026170953.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7234,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_04052026211903.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7235,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_05052026212218.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7236,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_06052026170623.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7237,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_07052026183121.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7238,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_08052026170009.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7239,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_11052026170559.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7240,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_13052026143121.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7241,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_13052026165819.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7254,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_01062026164557.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7255,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_02062026165340.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7256,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_03062026165507.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7257,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_08062026190533.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7258,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_09062026165559.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7259,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_10062026165524.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7260,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_11062026165456.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7261,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_12062026114147.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7274,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_30062026202026.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7275,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_01072026164856.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7276,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_02072026173123.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7277,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_06072026093443.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7278,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_06072026165548.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7279,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_08072026082603.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7280,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_08072026205409.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7281,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_13072026190716.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7282,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_14072026212245.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7285,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_17072026194231.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7286,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_20072026170512.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7295,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_31072026162617.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7296,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_03082026163501.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7297,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_04082026163738.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7298,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_05082026200557.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7299,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_06082026165235.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7300,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_07082026163628.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7301,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_10082026165439.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7302,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_11082026164435.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7303,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_12082026164612.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7325,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_16092026174126.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7326,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_17092026175540.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7327,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_23092026101612.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7328,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_23092026102221.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7329,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_23092026102959.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7330,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_23092026174559.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7331,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_24092026182125.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7332,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_25092026174434.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7333,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_28092026173844.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7334,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_29092026170350.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7335,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_30092026171034.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7336,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_01102026182546.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7337,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_02102026173138.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7338,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_05102026165551.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7339,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_06102026175806.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7340,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_07102026180217.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7341,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_08102026171026.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    },
+    {
+      "edition": 7342,
+      "url": "https://ecrie.com.br/Sistema/Conteudos/DiarioOficial/upload/u_137_09102026172437.pdf",
+      "identity_status": "NUMERICAL_CANDIDATE_PENDING_PDF_COVER",
+      "expected_date": null,
+      "source_provenance": "SME_URLS_PENDENTES_FEV_OUT_V58"
+    }
+  ]
+}
