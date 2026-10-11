@@ -400,6 +400,224 @@
       "implementation_pr_merged": 376,
       "implementation_merge_sha": "48c2f7624dba3f46b61f09659f15d798b836c0ef",
       "policy_finalization_evidence": "docs/evidence/F02_FUNDEB_MONTHLY_CASH_POLICY_FINALIZATION_0.8.0.json"
+    },
+    {
+      "id": "JOM_LOA2027_ORIGINAL_PDF_ARTIFACT_MANUAL",
+      "workflow": ".github/workflows/jom-loa2027-five-original-pdfs-manual.yml",
+      "script": "scripts/download_jom_loa2027_pilot.py",
+      "tier": "T2_CREATE_ONLY",
+      "auto_allowed": false,
+      "human_confirmation_required": true,
+      "human_confirmation": "WORKFLOW_DISPATCH_BOOLEAN_OWNER_CONFIRM",
+      "credential_capability": "NONE_REQUIRED_PUBLIC_SOURCE",
+      "effects": {
+        "source_get_count_max": 5,
+        "index_get_count_max": 0,
+        "source_network": true,
+        "github_artifact_create_count_max": 1,
+        "drive_reads": 0,
+        "drive_writes": 0,
+        "publication": false
+      },
+      "persist_raw_public_pdfs_only_as_expiring_actions_artifact": true,
+      "pinned_source_fixture": "docs/evidence/fixtures/task219/TASK_219A_CANONICAL_87_DOCUMENT_TARGETS.csv",
+      "artifact_retention_days": 7,
+      "max_bytes_per_document": 209715200,
+      "max_aggregate_document_bytes": 524288000,
+      "exact_editions": [
+        7211,
+        7208,
+        7209,
+        7210,
+        7212
+      ],
+      "no_retry": true,
+      "one_shot_manual_dispatch": true,
+      "no_schedule": true,
+      "main_only": true,
+      "blockers": [
+        "MANUAL_OWNER_CONFIRMATION_REQUIRED_AT_RUNTIME",
+        "WORKFLOW_MUST_BE_REVIEWED_MERGED_TO_PROTECTED_MAIN"
+      ]
+    },
+    {
+      "id": "JOM_2026_81_ORIGINALS_MANUAL_BATCH_ARCHIVE",
+      "workflow": ".github/workflows/jom-2026-81-originals-manual-batches.yml",
+      "script": "scripts/download_jom_2026_archive_batch.py",
+      "tier": "T2_CREATE_ONLY",
+      "auto_allowed": false,
+      "human_confirmation_required": true,
+      "human_confirmation": "WORKFLOW_DISPATCH_BATCH_AND_BOOLEAN_OWNER_CONFIRM",
+      "credential_capability": "NONE_REQUIRED_PUBLIC_SOURCE",
+      "effects": {
+        "source_get_count_max": 9,
+        "index_get_count_max": 0,
+        "source_network": true,
+        "github_artifact_create_count_max": 1,
+        "drive_reads": 0,
+        "drive_writes": 0,
+        "publication": false
+      },
+      "pinned_source_fixture": "docs/evidence/fixtures/task219/TASK_219A_CANONICAL_87_DOCUMENT_TARGETS.csv",
+      "expected_original_fixture_count": 87,
+      "explicit_prior_preserved_editions": [
+        7208,
+        7209,
+        7210,
+        7211,
+        7212,
+        7294
+      ],
+      "remaining_editions_count": 81,
+      "number_of_manual_batches": 9,
+      "batch_size": 9,
+      "max_bytes_per_document": 209715200,
+      "max_aggregate_document_bytes": 524288000,
+      "artifact_retention_days": 7,
+      "no_retry": true,
+      "one_shot_per_dispatch": true,
+      "no_schedule": true,
+      "main_only": true,
+      "future_batch_execution_authorized": false,
+      "blockers": [
+        "EXPLICIT_OWNER_MANUAL_CONFIRMATION_REQUIRED_PER_BATCH",
+        "PR_MERGE_TO_PROTECTED_MAIN_REQUIRED_BEFORE_LIVE_RUN",
+        "SME_PDF_CUSTODY_IS_A_SEPARATE_CREATE_ONLY_OPERATION"
+      ]
+    },
+    {
+      "id": "JOM_B08_EXISTING_GITHUB_ARTIFACT_SPLIT_MANUAL",
+      "workflow": ".github/workflows/jom-b08-existing-artifact-split-manual.yml",
+      "script": "scripts/repackage_existing_jom_b08_artifact.py",
+      "tier": "T2_CREATE_ONLY",
+      "auto_allowed": false,
+      "human_confirmation_required": true,
+      "human_confirmation": "WORKFLOW_DISPATCH_BOOLEAN_OWNER_CONFIRM",
+      "credential_capability": "GITHUB_ACTIONS_READ_ONLY_PER_RUN",
+      "effects": {
+        "source_get_count_max": 0,
+        "github_existing_artifact_download_count_max": 1,
+        "github_artifact_create_count_max": 27,
+        "drive_reads": 0,
+        "drive_writes": 0,
+        "publication": false
+      },
+      "source_run_id": 38076191781,
+      "source_artifact": "jom2026-originais-B08-manifesto",
+      "exact_edition_ids": [
+        7270,
+        7271,
+        7272,
+        7273,
+        7283,
+        7284,
+        7287,
+        7288,
+        7289
+      ],
+      "max_original_bytes": 209715200,
+      "max_chunk_bytes": 94371840,
+      "source_site_gets": 0,
+      "artifact_retention_days": 7,
+      "no_retry": true,
+      "no_schedule": true,
+      "main_only": true,
+      "foreign_drive_credentials": false,
+      "blockers": [
+        "ONE_SHOT_HUMAN_CONFIRMATION_REQUIRED_ON_PROTECTED_MAIN",
+        "NO_SME_CUSTODY_UNTIL_SEPARATE_DRIVE_TRANSFER_AND_SHA_READBACK"
+      ]
+    },
+    {
+      "id": "JOM_2026_INDEX_PILOT_TASK291_MANUAL",
+      "workflow": ".github/workflows/task291-jom-2026-index-pilot-manual.yml",
+      "script": "scripts/task291_jom_2026_index_pilot.py",
+      "tier": "T1_REMOTE_READONLY",
+      "auto_allowed": false,
+      "human_confirmation_required": true,
+      "human_confirmation": "WORKFLOW_DISPATCH_BOOLEAN_OWNER_CONFIRM",
+      "credential_capability": "NONE_REQUIRED_PUBLIC_HTML_ONLY",
+      "effects": {
+        "source_network": true,
+        "robots_get_count_max": 1,
+        "index_get_count_max": 2,
+        "network_get_count_max": 3,
+        "pdf_get_count_max": 0,
+        "github_artifact_create_count_max": 1,
+        "drive_reads": 0,
+        "drive_writes": 0,
+        "publication": false
+      },
+      "fixed_index_months": [
+        "2026-01",
+        "2026-09"
+      ],
+      "max_bytes_per_index": 1280000,
+      "max_bytes_robots": 262144,
+      "no_redirect": true,
+      "no_retry": true,
+      "no_pagination_get": true,
+      "no_schedule": true,
+      "main_only": true,
+      "artifact_retention_days": 7,
+      "future_batch_execution_authorized": false,
+      "blockers": [
+        "EXPLICIT_OWNER_MANUAL_CONFIRMATION_BEFORE_LIVE_READ",
+        "STOP_ROBOTS_403_OR_RESTRICTED",
+        "NO_AUTOMATED_MONTH_EXPANSION",
+        "NO_PDF_FETCH_OR_DRIVE_WRITE",
+        "INDEX_ONLY_NOT_CUSTODY_OR_COMPLIANCE"
+      ]
+    },
+    {
+      "id": "JOM_2026_TASK292A_FIVE_HISTORICALLY_PROVEN_PDFS_MANUAL",
+      "workflow": ".github/workflows/task292a-jom-2026-five-proven-originals-manual.yml",
+      "script": "scripts/task292a_jom_2026_five_historical_pdf_acquisition.py",
+      "tier": "T2_CREATE_ONLY",
+      "auto_allowed": false,
+      "human_confirmation_required": true,
+      "human_confirmation": "WORKFLOW_DISPATCH_BOOLEAN_OWNER_CONFIRM",
+      "credential_capability": "NONE_REQUIRED_PUBLIC_OFFICIAL_PDF_ONLY",
+      "effects": {
+        "source_network": true,
+        "source_get_count_max": 5,
+        "index_get_count_max": 0,
+        "robots_get_count_max": 0,
+        "retry_count_max": 0,
+        "github_artifact_create_count_max": 16,
+        "pdf_bytes_max_per_document": 209715200,
+        "pdf_bytes_max_total": 524288000,
+        "part_bytes_max": 94371840,
+        "drive_reads": 0,
+        "drive_writes": 0,
+        "publication": false
+      },
+      "fixed_editions": [
+        7151,
+        7321,
+        7322,
+        7323,
+        7324
+      ],
+      "pinned_source_paths": [
+        "docs/evidence/TASK_238_JOM_PRIMARY_CONTENT_CLOSURE_0.8.0.json",
+        "docs/evidence/TASK_248_JOM_LIVE_DELTA_CANONICAL_0.8.0.json"
+      ],
+      "no_source_discovery": true,
+      "no_schedule": true,
+      "no_redirect": true,
+      "no_retry": true,
+      "main_only": true,
+      "artifact_retention_days": 7,
+      "future_batch_execution_authorized": false,
+      "blockers": [
+        "EXPLICIT_OWNER_CONFIRMATION_FOR_NEW_LIVE_GET",
+        "STOP_IF_HISTORICAL_7151_SHA_SIZE_PAGES_DRIFT",
+        "STOP_IF_COVER_EDITION_OR_PDF_PARSE_DRIFT",
+        "STOP_IF_MORE_THAN_FIVE_OR_UNPINNED_PDFS",
+        "ARTIFACT_NOT_PERMANENT_SME_CUSTODY",
+        "T2_DRIVE_CUSTODY_SEPARATE_HUMAN_APPROVAL_AND_READBACK"
+      ]
     }
   ],
   "agentic_work": {
