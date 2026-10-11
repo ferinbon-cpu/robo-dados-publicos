@@ -34,6 +34,40 @@
   },
   "gates": [
     {
+      "id": "TASK297_JOM_P01_EXISTING_ARTIFACT_REPACK_MANUAL",
+      "workflow": ".github/workflows/task297-p01-existing-artifact-repack.yml",
+      "script": "scripts/repackage_task297_jom_p01.py",
+      "tier": "T2_CREATE_ONLY",
+      "auto_allowed": false,
+      "human_confirmation_required": true,
+      "human_confirmation": "WORKFLOW_DISPATCH_EXPLICIT_BOOLEAN",
+      "source_run_id": 38184075627,
+      "source_artifact_name": "task296-jom-P01-originais-manifesto",
+      "source_head_sha": "5869fbdfb803e06737696e4f487b814cea663bc3",
+      "effects": {
+        "source_get_count_max": 0,
+        "github_actions_existing_artifact_download_count_max": 1,
+        "github_artifact_create_count_max": 4,
+        "drive_reads": 0,
+        "drive_writes": 0,
+        "publication": false
+      },
+      "pdfs_verified_before_repack": 9,
+      "zip_archives_count": 3,
+      "max_individual_archive_bytes": 99614720,
+      "artifact_retention_days": 7,
+      "manual_execution_required": true,
+      "main_only": true,
+      "no_retry": true,
+      "no_schedule": true,
+      "future_batch_execution_authorized": false,
+      "blockers": [
+        "OWNER_CONFIRM_REQUIRED_ON_THIS_REPACK",
+        "PR_REVIEW_MERGE_REQUIRED",
+        "DRIVE_CUSTODY_NOT_AUTHORIZED_BY_THIS_GATE"
+      ]
+    },
+    {
       "id": "TASK296_JOM_2026_88_PENDING_PDFS_MANUAL",
       "workflow": ".github/workflows/task296-jom-2026-88-pdfs-manual.yml",
       "script": "scripts/download_jom_2026_pending_manual.py",
