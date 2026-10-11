@@ -1,0 +1,115 @@
+name: "TASK296 JOM 2026 — 88 originais pendentes em 10 lotes manuais"
+
+on:
+  workflow_dispatch:
+    inputs:
+      lote:
+        description: "Um único lote de originais pendentes: P01 (jan 7152–7160) ... P10 (7 PDFs)"
+        type: choice
+        required: true
+        options:
+          - P01
+          - P02
+          - P03
+          - P04
+          - P05
+          - P06
+          - P07
+          - P08
+          - P09
+          - P10
+      autorizar_lote:
+        description: "Autorizo explicitamente este lote, sem Drive; 9 GET oficiais no máximo"
+        type: boolean
+        default: false
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: task296-jom-${{ inputs.lote }}
+  cancel-in-progress: false
+
+jobs:
+  coletar:
+    name: "Coletar PDFs originais públicos com prova de capa"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+      JOM296_BATCH: ${{ inputs.lote }}
+      JOM296_OWNER_CONFIRM: ${{ inputs.autorizar_lote }}
+    steps:
+      - name: "Autorizar manualmente apenas lote indicado em main"
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_EVENT_NAME}" = "workflow_dispatch"
+          test "${GITHUB_REF}" = "refs/heads/main"
+          test "${GITHUB_RUN_ATTEMPT}" = "1"
+          test "${JOM296_OWNER_CONFIRM}" = "true"
+          case "${JOM296_BATCH}" in
+            P01|P02|P03|P04|P05|P06|P07|P08|P09|P10) ;;
+            *) exit 1 ;;
+          esac
+
+      - name: "Checkout sem credenciais persistentes"
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+
+      - name: "Python 3.12"
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          check-latest: false
+
+      - name: "Dependências pinadas"
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: "Preflight offline antes da primeira rede"
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/github_preflight.py
+          python scripts/github_automation_policy_gate.py
+          python scripts/github_codex_engineer_policy_gate.py
+          python -m unittest tests.test_jom_2026_pending_manual -v
+
+      - name: "Apenas GET de PDFs das URLs congeladas neste lote"
+        shell: bash
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python scripts/download_jom_2026_pending_manual.py --batch "${JOM296_BATCH}" --out artifacts_task296
+
+      - name: "Preservar manifesto e originais no artifact temporário (mesmo se parcial)"
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task296-jom-${{ inputs.lote }}-originais-manifesto
+          path: artifacts_task296/
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 0
+
+      - name: "Fail closed se algum PDF estiver ausente ou inválido"
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("artifacts_task296/manifest.json")
+          if not p.is_file():
+              raise SystemExit("STOP_TASK296_MANIFEST_MISSING")
+          d = json.loads(p.read_text(encoding="utf-8"))
+          exp = 7 if d.get("batch") == "P10" else 9
+          if d.get("validated_count") != exp or d.get("failed_count") != 0 or d.get("requested_count") != exp:
+              raise SystemExit("STOP_TASK296_PARTIAL_BATCH_REVIEW_ARTIFACT")
+          print("PASS_TASK296_TEMPORARY_ARTIFACT_ONLY", d["batch"], exp)
+          PY
