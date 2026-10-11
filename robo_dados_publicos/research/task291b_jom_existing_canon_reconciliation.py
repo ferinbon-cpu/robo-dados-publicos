@@ -74,7 +74,7 @@ def reconcile() -> tuple[list[dict], dict]:
             edition, item["publication_date"], item["source_id"],
             item["document_url"], "TASK219A_PINNED_87",
             "docs/evidence/fixtures/task219/TASK_219A_CANONICAL_87_DOCUMENT_TARGETS.csv",
-            "CUSTODIADO_SME_MANIFESTO_B01_B09",
+            "CUSTODIADO_SME_TASK219A_87",
         )
     for item in old["items"]:
         ed = item["edition"]
