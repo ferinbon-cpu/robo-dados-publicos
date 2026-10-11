@@ -13,10 +13,18 @@ import json
 import os
 from pathlib import Path
 import re
+import sys
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 from urllib import robotparser
+
+# The GitHub Action invokes this file as `python scripts/...`; in that mode
+# sys.path[0] is scripts/, not the repository root. Make the package importable
+# before importing any project modules (mirrors existing archive pilots).
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from robo_dados_publicos.journal.official import JornalOficialLimeira
 from robo_dados_publicos.research.task291_jom_2026_gap_ledger import derive
