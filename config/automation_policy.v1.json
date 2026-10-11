@@ -34,6 +34,44 @@
   },
   "gates": [
     {
+      "id": "TASK296_JOM_2026_88_PENDING_PDFS_MANUAL",
+      "workflow": ".github/workflows/task296-jom-2026-88-pdfs-manual.yml",
+      "script": "scripts/download_jom_2026_pending_manual.py",
+      "source_fixture": "config/jom_2026_88_pending_urls_v1.json",
+      "tier": "T2_CREATE_ONLY",
+      "auto_allowed": false,
+      "human_confirmation_required": true,
+      "human_confirmation": "WORKFLOW_DISPATCH_BATCH_AND_EXPLICIT_BOOLEAN",
+      "credential_capability": "PUBLIC_READ_ONLY_NO_OAUTH",
+      "effects": {
+        "source_get_count_max": 9,
+        "source_index_get_count_max": 0,
+        "github_artifact_create_count_max": 1,
+        "drive_reads": 0,
+        "drive_writes": 0,
+        "publication": false
+      },
+      "source_universe_count": 88,
+      "number_of_manual_batches": 10,
+      "batch_sizes": "P01-P09_9_EACH_P10_7",
+      "max_bytes_per_document": 209715200,
+      "max_bytes_per_batch": 524288000,
+      "artifact_retention_days": 7,
+      "github_artifact_not_sme_bronze_custody": true,
+      "workflow_dispatch_only": true,
+      "main_only": true,
+      "retry": false,
+      "schedule": false,
+      "recurrence": false,
+      "future_batch_execution_authorized": false,
+      "blockers": [
+        "OWNER_CONFIRM_REQUIRED_EVERY_BATCH",
+        "PR_REVIEW_AND_MERGE_TO_PROTECTED_MAIN_REQUIRED",
+        "SME_BRONZE_CUSTODY_SEPARATE_CREATE_ONLY_GATE",
+        "IDENTITY_ANOMALY_MUST_BE_RESOLVED_BY_PRIMARY_PDF_COVER"
+      ]
+    },
+    {
       "id": "CI_OFFLINE",
       "workflow": ".github/workflows/ci-offline.yml",
       "tier": "T0_OFFLINE",
