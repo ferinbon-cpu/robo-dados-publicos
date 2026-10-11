@@ -21,7 +21,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def pdf_for(edition: int) -> bytes:
     b = io.BytesIO()
-    doc = Canvas(b)
+    # invariant=1 stabilizes CreationDate/document ID so two independent
+    # renderings of the same synthetic PDF have identical bytes and SHA256.
+    doc = Canvas(b, invariant=1)
     doc.drawString(20, 770, f"JORNAL OFICIAL MUNICIPIO LIMEIRA EDICAO {edition}")
     doc.showPage()
     doc.save()
