@@ -1,0 +1,130 @@
+name: "TASK297 — reempacotar P01 em três partes compatíveis com Drive"
+
+on:
+  workflow_dispatch:
+    inputs:
+      autorizar_reempacotamento:
+        type: boolean
+        required: true
+        default: false
+        description: "Confirmo reusar somente o artifact TASK296/P01 da run 38184075627, sem rede na Prefeitura ou Drive"
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: task297-p01-existing-artifact-one-shot
+  cancel-in-progress: false
+
+jobs:
+  reempacotar:
+    name: "Validar 9 PDFs e criar exatamente 3 ZIPs abaixo de 95 MiB"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+      TASK297_SOURCE_RUN: "38184075627"
+      TASK297_OWNER_CONFIRM: ${{ inputs.autorizar_reempacotamento }}
+    steps:
+      - name: "Gate manual, main e primeira tentativa"
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_EVENT_NAME}" = "workflow_dispatch"
+          test "${GITHUB_REF}" = "refs/heads/main"
+          test "${GITHUB_RUN_ATTEMPT}" = "1"
+          test "${TASK297_SOURCE_RUN}" = "38184075627"
+          test "${TASK297_OWNER_CONFIRM}" = "true"
+
+      - name: "Checkout imutável sem credenciais persistidas"
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+
+      - name: "Python 3.12"
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          check-latest: false
+
+      - name: "Dependências pinadas e gates offline"
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check -r requirements.txt
+          python scripts/github_preflight.py
+          python scripts/github_automation_policy_gate.py
+          python scripts/github_codex_engineer_policy_gate.py
+          python -m unittest discover -s tests -p 'test_task297_jom_p01_repack.py' -v
+
+      - name: "Baixar exclusivamente artefato GitHub P01 existente"
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          test "${GITHUB_REPOSITORY}" = "ferinbon-cpu/robo-dados-publicos"
+          gh run download 38184075627 --repo ferinbon-cpu/robo-dados-publicos --name task296-jom-P01-originais-manifesto --dir task297_source
+          test -f task297_source/manifest.json
+          test -d task297_source/originals
+
+      - name: "Conferir bytes, SHA-256, capa e criar partes reconstituíveis"
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/repackage_task297_jom_p01.py --source task297_source --out task297_output
+
+      - name: "Arquivar oito originais em ZIP reversível"
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task297-p01-oito-originais
+          path: task297_output/TASK297_P01_EIGHT_ORIGINALS.zip
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: "Arquivar JOM 7159 parte 01"
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task297-p01-jom7159-part01
+          path: task297_output/TASK297_P01_JOM7159_PART01.zip
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: "Arquivar JOM 7159 parte 02"
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task297-p01-jom7159-part02
+          path: task297_output/TASK297_P01_JOM7159_PART02.zip
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: "Arquivar relatório de integridade (sem originais)"
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task297-p01-qa-manifest
+          path: task297_output/QA_TASK297_MANIFEST.json
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: "STOP se arquivo reempacotado exceder limite"
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          manifest = json.loads(Path("task297_output/QA_TASK297_MANIFEST.json").read_text(encoding="utf-8"))
+          assert manifest["status"] == "PASS_REPACK_ONLY"
+          assert manifest["pdfs_checked"] == 9
+          assert manifest["source_gets"] == 0
+          assert manifest["drive_writes"] == 0
+          assert len(manifest["packages"]) == 3
+          assert all(x["bytes"] < 95*1024*1024 for x in manifest["packages"])
+          print("PASS_TASK297_THREE_PACKAGES_DRIVE_SAFE")
+          PY
