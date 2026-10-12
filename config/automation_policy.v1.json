@@ -73,6 +73,45 @@
       ]
     },
     {
+      "id": "TASK300_P07_EXISTING_ARTIFACT_SIX_LOSSLESS_PARTS_MANUAL",
+      "workflow": ".github/workflows/task300-p07-existing-artifact-6parts-manual.yml",
+      "script": "scripts/repackage_task300_p07_existing_artifact.py",
+      "tier": "T2_CREATE_ONLY",
+      "auto_allowed": false,
+      "human_confirmation_required": true,
+      "human_confirmation": "WORKFLOW_DISPATCH_BOOLEAN_OWNER_CONFIRM",
+      "credential_capability": "GH_ACTIONS_TOKEN_ACTIONS_READ_ONLY",
+      "effects": {
+        "source_get_count_max": 0,
+        "github_actions_existing_artifact_download_count_max": 1,
+        "github_artifact_create_count_max": 7,
+        "drive_reads": 0,
+        "drive_writes": 0,
+        "publication": false
+      },
+      "source_run_id": 38275577819,
+      "source_artifact_name": "task296-jom-P07-originais-manifesto",
+      "source_head_sha": "41993a2b1fb2ab41f13b455650ad898ea3678f2d",
+      "expected_original_pdf_count": 9,
+      "exact_package_count": 6,
+      "max_package_bytes": 99614720,
+      "artifact_retention_days": 7,
+      "workflow_dispatch_only": true,
+      "main_only": true,
+      "retry": false,
+      "schedule": false,
+      "recurrence": false,
+      "future_batch_execution_authorized": false,
+      "blockers": [
+        "OWNER_EXPLICIT_MANUAL_CONFIRMATION",
+        "PR_REVIEW_BEFORE_MERGE",
+        "ZERO_NEW_ECRIE_GETS",
+        "ONLY_EXISTING_GITHUB_ARTIFACT",
+        "PACKAGES_TEMPORARY_NOT_SME_CUSTODY",
+        "DRIVE_CREATE_ONLY_AND_SHA256_READBACK_SEPARATE"
+      ]
+    },
+    {
       "id": "TASK296_JOM_2026_88_PENDING_PDFS_MANUAL",
       "workflow": ".github/workflows/task296-jom-2026-88-pdfs-manual.yml",
       "script": "scripts/download_jom_2026_pending_manual.py",
