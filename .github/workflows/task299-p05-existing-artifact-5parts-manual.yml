@@ -1,0 +1,147 @@
+name: "TASK299 — P05: separar artifact validado em 5 partes sem nova coleta"
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmar_reempacotamento:
+        description: "Autorizo usar SOMENTE o artifact P05 da run 38256908207, sem novos GET eCrie, sem Drive"
+        type: boolean
+        required: true
+        default: false
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: task299-p05-existing-artifact-repack
+  cancel-in-progress: false
+
+jobs:
+  repack:
+    name: "Verificar nove PDFs e separar pacote em 5 ZIPs de 70 MiB"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+      TASK299_OWNER_CONFIRM: ${{ inputs.confirmar_reempacotamento }}
+      TASK299_SOURCE_RUN: "38256908207"
+    steps:
+      - name: "Gate humano, main, tentativa única e repo fixo"
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_EVENT_NAME}" = "workflow_dispatch"
+          test "${GITHUB_REF}" = "refs/heads/main"
+          test "${GITHUB_RUN_ATTEMPT}" = "1"
+          test "${GITHUB_REPOSITORY}" = "ferinbon-cpu/robo-dados-publicos"
+          test "${TASK299_OWNER_CONFIRM}" = "true"
+          test "${TASK299_SOURCE_RUN}" = "38256908207"
+
+      - name: "Checkout imutável sem credenciais persistidas"
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+
+      - name: "Python 3.12"
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          check-latest: false
+
+      - name: "Gates e testes offline"
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check -r requirements.txt
+          python scripts/github_preflight.py
+          python scripts/github_automation_policy_gate.py
+          python scripts/github_codex_engineer_policy_gate.py
+          python -m unittest discover -s tests -p 'test_task299_p05_*.py' -v
+
+      - name: "Recuperar somente o artifact pré-existente da TASK296 P05"
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh run download 38256908207 --repo ferinbon-cpu/robo-dados-publicos --name task296-jom-P05-originais-manifesto --dir task299_source
+          test -s task299_source/manifest.json
+          test -d task299_source/originals
+
+      - name: "QA das 9 fontes e reempacotamento exato sem rede da Prefeitura"
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/repackage_task299_p05_existing_artifact.py --source task299_source --out task299_out
+
+      - name: "Parte 01, menos de 95 MiB"
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task299-p05-part01
+          path: task299_out/parts/TASK299_P05_PART_01.zip
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: "Parte 02, menos de 95 MiB"
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task299-p05-part02
+          path: task299_out/parts/TASK299_P05_PART_02.zip
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: "Parte 03, menos de 95 MiB"
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task299-p05-part03
+          path: task299_out/parts/TASK299_P05_PART_03.zip
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: "Parte 04, menos de 95 MiB"
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task299-p05-part04
+          path: task299_out/parts/TASK299_P05_PART_04.zip
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: "Parte 05, menos de 95 MiB"
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task299-p05-part05
+          path: task299_out/parts/TASK299_P05_PART_05.zip
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: "Manifesto de QA, hashes de partes e hashes dos originais"
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: task299-p05-manifest
+          path: task299_out/QA_TASK299_P05.json
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: "Verificação de completude, zero fontes oficiais"
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("task299_out/QA_TASK299_P05.json")
+          d = json.loads(p.read_text(encoding="utf-8"))
+          assert d["status"] == "PASS_P05_9_ORIGINALS_IN_FIVE_LOSSLESS_PARTS"
+          assert len(d["parts"]) == 5 and d["verified_pdfs"] == 9
+          assert d["public_site_gets"] == 0 and d["drive_writes"] == 0
+          assert all(x["bytes"] < 95*1024*1024 for x in d["parts"])
+          print("PASS_TASK299_FIVE_PACKAGES_TEMPORARY_ONLY")
+          PY
