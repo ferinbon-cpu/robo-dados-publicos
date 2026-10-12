@@ -8,6 +8,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
+from urllib.error import HTTPError
 
 from scripts import download_jom_2026_pending_manual as mod
 
@@ -25,16 +26,19 @@ class FakeResponse(io.BytesIO):
 
 
 class FakeTransport:
-    def __init__(self, *, bad_at=-1, mime_bad=False, redirect_bad=False):
+    def __init__(self, *, bad_at=-1, mime_bad=False, redirect_bad=False, http_status=None):
         self.calls = []
         self.bad_at = bad_at
         self.mime_bad = mime_bad
         self.redirect_bad = redirect_bad
+        self.http_status = http_status
         self.data = b"%PDF-" + b"x" * 200
 
     def open(self, request, timeout):
         self.calls.append(request.full_url)
         idx = len(self.calls) - 1
+        if idx == self.bad_at and self.http_status is not None:
+            raise HTTPError(request.full_url, self.http_status, "TEST_SIMULATED", {}, None)
         return FakeResponse(
             self.data,
             request.full_url + "/redirect" if idx == self.bad_at and self.redirect_bad else request.full_url,
@@ -140,6 +144,52 @@ class TestTask296(unittest.TestCase):
             result = mod.collect_batch(Path(tmp) / "result", "P10", transport=fake)
             self.assertEqual(result["validated_count"], 6)
             self.assertEqual(result["documents"][0]["code"], "STOP_FINAL_URL_DRIFT")
+
+
+    @patch.object(mod, "inspect_pdf", return_value=2)
+    def test_http_403_stops_after_one_get_without_retry(self, _inspect):
+        fake = FakeTransport(bad_at=0, http_status=403)
+        with tempfile.TemporaryDirectory() as tmp:
+            result = mod.collect_batch(Path(tmp) / "result", "P03", transport=fake)
+            self.assertEqual(result["requested_count"], 9)
+            self.assertEqual(result["validated_count"], 0)
+            self.assertEqual(result["failed_count"], 9)
+            self.assertEqual(result["get_attempts"], 1)
+            self.assertEqual(result["retry_count"], 0)
+            self.assertEqual(result["source_http_circuit_breaker_status"], 403)
+            self.assertEqual(result["not_attempted_due_to_http_circuit_breaker"], 8)
+            self.assertEqual(result["documents"][0]["code"], "HTTP_403")
+            self.assertEqual(result["documents"][0]["http_status"], 403)
+            self.assertTrue(all(
+                r["request_attempts"] == 0 and
+                r["status"] == "NOT_ATTEMPTED_SOURCE_HTTP_CIRCUIT_BREAKER"
+                for r in result["documents"][1:]
+            ))
+            self.assertEqual(fake.calls, [mod.batch_map()["P03"][0]["url"]])
+
+    @patch.object(mod, "inspect_pdf", return_value=2)
+    def test_http_429_and_502_activate_circuit_breaker(self, _inspect):
+        for code in (429, 502):
+            with self.subTest(code=code), tempfile.TemporaryDirectory() as tmp:
+                fake = FakeTransport(bad_at=0, http_status=code)
+                result = mod.collect_batch(Path(tmp) / "result", "P10", transport=fake)
+                self.assertEqual(len(fake.calls), 1)
+                self.assertEqual(result["source_http_circuit_breaker_status"], code)
+                self.assertEqual(result["not_attempted_due_to_http_circuit_breaker"], 6)
+                self.assertEqual(result["documents"][0]["code"], f"HTTP_{code}")
+
+    @patch.object(mod, "inspect_pdf", return_value=2)
+    def test_http_404_does_not_infer_global_blockage(self, _inspect):
+        fake = FakeTransport(bad_at=0, http_status=404)
+        with tempfile.TemporaryDirectory() as tmp:
+            result = mod.collect_batch(Path(tmp) / "result", "P10", transport=fake)
+            self.assertEqual(result["validated_count"], 6)
+            self.assertEqual(result["failed_count"], 1)
+            self.assertEqual(result["get_attempts"], 7)
+            self.assertEqual(result["not_attempted_due_to_http_circuit_breaker"], 0)
+            self.assertIsNone(result["source_http_circuit_breaker_status"])
+            self.assertEqual(result["documents"][0]["code"], "HTTP_404")
+            self.assertEqual(len(fake.calls), 7)
 
     def test_no_network_for_invalid_batch(self):
         with tempfile.TemporaryDirectory() as tmp:
