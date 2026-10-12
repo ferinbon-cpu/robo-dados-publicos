@@ -59,7 +59,7 @@ jobs:
           python scripts/github_preflight.py
           python scripts/github_automation_policy_gate.py
           python scripts/github_codex_engineer_policy_gate.py
-          python -m unittest discover -s tests -p 'test_task299_p05_repack.py' -v
+          python -m unittest discover -s tests -p 'test_task299_p05_*.py' -v
 
       - name: "Recuperar somente o artifact pré-existente da TASK296 P05"
         env:
