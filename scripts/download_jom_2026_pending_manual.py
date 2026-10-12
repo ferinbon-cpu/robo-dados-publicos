@@ -13,6 +13,7 @@ import os
 import re
 import sys
 from pathlib import Path
+from urllib.error import HTTPError
 from urllib.parse import urlparse
 from urllib.request import Request, build_opener
 
@@ -123,6 +124,7 @@ def collect_batch(out: Path, batch: str, *, transport=None, fixture: Path = FIXT
     consumed = 0
     archived = 0
     attempts = 0
+    blocked_by_status: int | None = None
 
     for row in sources:
         ed = row["edition"]
@@ -135,6 +137,14 @@ def collect_batch(out: Path, batch: str, *, transport=None, fixture: Path = FIXT
             "identity_status_prior_to_pdf": row["identity_status"],
             "request_attempts": 0,
         }
+        if blocked_by_status is not None:
+            item.update({
+                "status": "NOT_ATTEMPTED_SOURCE_HTTP_CIRCUIT_BREAKER",
+                "code": f"STOP_SOURCE_HTTP_CIRCUIT_{blocked_by_status}",
+                "no_absence_inference": True,
+            })
+            statuses.append(item)
+            continue
         try:
             if consumed >= MAX_TOTAL:
                 raise PilotStop("STOP_AGGREGATE_BUDGET_BEFORE_GET")
@@ -173,7 +183,9 @@ def collect_batch(out: Path, batch: str, *, transport=None, fixture: Path = FIXT
                         dest.write(piece)
             if declared is not None and received != declared:
                 raise PilotStop("STOP_TRUNCATED_PDF")
-            if received < 100 or partial.open("rb").read(5) != b"%PDF-":
+            with partial.open("rb") as probe:
+                signature = probe.read(5)
+            if received < 100 or signature != b"%PDF-":
                 raise PilotStop("STOP_NOT_PDF_OR_TOO_SMALL")
             pages = inspect_pdf(partial, ed)  # number on first two pages, not URL name
             partial.rename(final)
@@ -186,6 +198,19 @@ def collect_batch(out: Path, batch: str, *, transport=None, fixture: Path = FIXT
                 "custodied_in_sme": False,
                 "publication_date_verified": False,  # needs separate cover/date QA
             })
+        except HTTPError as exc:
+            partial.unlink(missing_ok=True)
+            http_status = exc.code if type(exc.code) is int and 100 <= exc.code <= 599 else None
+            item.update({
+                "status": "SOURCE_OR_VALIDATION_FAILED",
+                "code": f"HTTP_{http_status}" if http_status is not None else "HTTPError",
+                "http_status": http_status,
+                "no_absence_inference": True,
+            })
+            # Avoid repeated requests when the source appears to block access
+            # or reports transient server failures. This does not prove absence.
+            if http_status in (403, 429, 500, 502, 503, 504):
+                blocked_by_status = http_status
         except Exception as exc:
             partial.unlink(missing_ok=True)
             item.update({
@@ -204,6 +229,10 @@ def collect_batch(out: Path, batch: str, *, transport=None, fixture: Path = FIXT
         "validated_count": good,
         "failed_count": len(sources) - good,
         "get_attempts": attempts, "retry_count": 0,
+        "source_http_circuit_breaker_status": blocked_by_status,
+        "not_attempted_due_to_http_circuit_breaker": sum(
+            x["status"] == "NOT_ATTEMPTED_SOURCE_HTTP_CIRCUIT_BREAKER" for x in statuses
+        ),
         "index_get_count": 0, "drive_read_count": 0,
         "drive_write_count": 0, "publication_count": 0,
         "bytes_transferred_including_failures": consumed,
