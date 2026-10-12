@@ -148,7 +148,7 @@ def create_parts(source_dir: Path, output_dir: Path) -> dict:
         )
     require(bundle.stat().st_size > (PART_COUNT - 1) * PART_BYTES
             and bundle.stat().st_size <= MAX_BUNDLE_BYTES,
-            "STOP_TASK300_EXPECTED_EXACTLY_FIVE_PARTS")
+            "STOP_TASK300_EXPECTED_EXACTLY_SIX_PARTS")
     with zipfile.ZipFile(bundle, "r") as check:
         require(check.testzip() is None and
                 {name for name in check.namelist() if name.endswith(".pdf")}
@@ -187,7 +187,7 @@ def create_parts(source_dir: Path, output_dir: Path) -> dict:
                           "part_sha256": meta["part_sha256"]})
         require(reader.read(1) == b"", "STOP_TASK300_UNREAD_BUNDLE_BYTES")
 
-    qa = {"schema": "TASK300_P07_FIVE_PART_PACKAGES_QA_V1",
+    qa = {"schema": "TASK300_P07_SIX_PART_PACKAGES_QA_V1",
           "status": "PASS_P07_9_ORIGINALS_IN_SIX_LOSSLESS_PARTS",
           "source_run": SOURCE_RUN, "source_artifact": SOURCE_ARTIFACT,
           "source_head": SOURCE_HEAD, "verified_pdfs": 9,
